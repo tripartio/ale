@@ -4,6 +4,6 @@
 ^LICENSE\.md$
 ^inst/WORDLIST$
 ^cran-comments\.md$
-^vignettes/adult_data.csv$
-^vignettes/ALEPlot.Rmd$
-^vignettes/.\.rds$
+^vignettes/adult_data\.csv$
+^vignettes/ALEPlot\.Rmd$
+^vignettes/.*\.rds$

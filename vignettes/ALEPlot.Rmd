@@ -1,0 +1,276 @@
+---
+title: "Comparison between ALEPlot and ale packages"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparison between ALEPlot and ale packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+```{r setup}
+library(dplyr)
+```
+
+This is code that demonstrates the capabilities of the R `ale` package, especially in comparison with [examples from the `ALEPlot` package](https://cran.r-project.org/web/packages/ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) which it extends.
+
+Here are the main changes:
+
+-   Uses ggplot2 instead of base R graphics
+-   saves the plot to a "plot" element of the return value; does not print the plot to the screen
+-   Works with tibble input or any other data format convertible to a dataframe
+-   requires the entire input dataset; automatically identifies and uses the Y target label
+-   Replaces J (index positions of x variable(s) in X) with x_col (character name(s) of x variable(s))
+-   Specifies a generic default predict function. However, if the prediction type is not "response", then predict_type must be specified.
+-   Y is displayed by default on its full absolute scale, not a relative scale (control with relative_y)
+
+## Simulated data with numeric outcomes (ALEPlot Example 2)
+
+### ALEPlot code
+
+Here is the second code example directly from the `ALEPlot` package. (We skip the first example because it is a subset of the second, simply without interactions.)
+
+```{r ALEPlot ex2, fig.width=10, fig.height=8}
+## R code for Example 2
+## Load relevant packages
+library(ALEPlot)
+library(nnet)
+
+## Generate some data and fit a neural network supervised learning model
+n = 5000
+x1 <- runif(n, min = 0, max = 1)
+x2 <- runif(n, min = 0, max = 1)
+x3 <- runif(n, min = 0, max = 1)
+x4 <- runif(n, min = 0, max = 1)
+y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
+13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
+DAT <- data.frame(y, x1, x2, x3, x4)
+nnet.DAT <- nnet(y~., data = DAT, linout = T, skip = F, size = 6,
+decay = 0.1, maxit = 1000, trace = F)
+
+## Define the predictive function
+yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
+type = "raw"))
+
+## Calculate and plot the ALE main effects of x1, x2, x3, and x4
+ALE.1 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 1, K = 500,
+NA.plot = TRUE)
+ALE.2 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 2, K = 500,
+NA.plot = TRUE)
+ALE.3 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 3, K = 500,
+NA.plot = TRUE)
+ALE.4 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 4, K = 500,
+NA.plot = TRUE)
+
+## Calculate and plot the ALE second-order effects of {x1, x2} and {x1, x4}
+ALE.12 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = c(1,2), K = 100,
+NA.plot = TRUE)
+ALE.14 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = c(1,4), K = 100,
+NA.plot = TRUE)
+
+## Manually plot the ALE main effects on the same scale for easier comparison
+## of the relative importance of the four predictor variables
+par(mfrow = c(3,2))
+plot(ALE.1$x.values, ALE.1$f.values, type="l", xlab="x1",
+ylab="ALE_main_x1", xlim = c(0,1), ylim = c(-2,2), main = "(a)")
+plot(ALE.2$x.values, ALE.2$f.values, type="l", xlab="x2",
+ylab="ALE_main_x2", xlim = c(0,1), ylim = c(-2,2), main = "(b)")
+plot(ALE.3$x.values, ALE.3$f.values, type="l", xlab="x3",
+ylab="ALE_main_x3", xlim = c(0,1), ylim = c(-2,2), main = "(c)")
+plot(ALE.4$x.values, ALE.4$f.values, type="l", xlab="x4",
+ylab="ALE_main_x4", xlim = c(0,1), ylim = c(-2,2), main = "(d)")
+## Manually plot the ALE second-order effects of {x1, x2} and {x1, x4}
+image(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, xlab = "x1",
+ylab = "x2", main = "(e)")
+contour(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, add=TRUE,
+drawlabels=TRUE)
+image(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, xlab = "x1",
+ylab = "x4", main = "(f)")
+contour(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, add=TRUE,
+drawlabels=TRUE)
+
+```
+
+### `ale` package equivalent
+
+Here is the analogous code using the `ale` package:
+
+```{r}
+
+library(ale)
+library(nnet)
+
+## Generate some data and fit a neural network supervised learning model
+
+set.seed(0)
+n = 5000
+x1 <- runif(n, min = 0, max = 1)
+x2 <- runif(n, min = 0, max = 1)
+x3 <- runif(n, min = 0, max = 1)
+x4 <- runif(n, min = 0, max = 1)
+y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
+  13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
+dfx <- data.frame(y, x1, x2, x3, x4)
+nnet.dfx <- nnet(y~., data = dfx, linout = T, skip = F, size = 6,
+                 decay = 0.1, maxit = 1000, trace = F)
+
+# Compare both in all cases
+nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw", relative_y = 'zero')
+nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw")
+
+purrr::map(nnet_ale, \(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+
+
+```
+
+```{r}
+# Create and plot interactions
+nnet_ale_ixn <- ale_ixn(dfx, nnet.dfx, predict_type = "raw")
+
+# Skip .common_data when iterating through the data for plotting
+nnet_ale_ixn[setdiff(names(nnet_ale_ixn), '.common_data')] |> 
+  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
+    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
+      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+  })
+
+
+```
+
+
+
+## Real data with binary outcomes (ALEPlot Example 3)
+
+### ALEPlot code 
+
+Here is the original example from the `ALEPlot` package.
+
+```{r ALEPlot ex3}
+## R code for Example 3
+## Load relevant packages
+library(ALEPlot)
+library(gbm)
+
+## Read data and fit a boosted tree supervised learning model
+# You must adust the file path to match your local computer
+# data = read.csv("S:/Dropbox/Travail/Research/ALE/R/adult_data.csv", 
+data = read.csv("adult_data.csv", 
+                header = TRUE, strip.white = TRUE, na.strings = "?",
+                stringsAsFactors = TRUE)  # Required as of R 4.0.0
+data = na.omit(data)
+
+# To generate the code, uncomment the following lines.
+# But it is slow, so this vignette loads a pre-created model object.
+# gbm.data <- gbm(income==">50K" ~ ., data= data[,-c(3,4)], 
+#                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
+#                 interaction.depth=3)
+# saveRDS(gbm.data, 'demo_gbm.data_ALEPlot.rds')
+gbm.data <- readRDS('demo_gbm.data_ALEPlot.rds')
+
+## Define the predictive function; note the additional arguments for the
+## predict function in gbm
+yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
+n.trees = 6000, type="link"))
+
+## Calculate and plot the ALE main and interaction effects for x_1, x_3,
+## x_11, and {x_1, x_11}
+par(mfrow = c(2,2), mar = c(4,4,2,2)+ 0.1)
+ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=500,
+NA.plot = TRUE)
+ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=500,
+NA.plot = TRUE)
+ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=500,
+NA.plot = TRUE)
+ALE.1and11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=c(1,11),
+K=50, NA.plot = FALSE)
+```
+
+### `ale` package equivalent
+
+Here is the analogous code using the `ale` package. We are not a fan of the variable names from the `ALEPlot` examples, but we retain them so that the code can be more easily compared.
+
+```{r}
+## R code for Example 3
+## Load relevant packages
+# library(ALEPlot)
+
+library(ale)
+library(gbm)
+## Read data and fit a boosted tree supervised learning model
+
+data <- readr::read_csv("adult_data.csv", 
+                        na = '?') |>
+  mutate(higher_income = income == '>50K') |>
+  select(higher_income, everything()) |>
+  select(!c(income, fnlwgt, education)) |>
+  mutate(across(where(is.character), factor)) |>
+  na.omit()
+
+# Add random variables for demonstration
+set.seed(0)
+data <- data |>
+  mutate(
+    rand_unif = runif(nrow(data)),
+    rand_norm = rnorm(nrow(data))
+  )
+
+n.trees <- 6000
+# n.trees <- 500  # runs faster, but less accurate results
+
+set.seed(0)
+# To generate the code, uncomment the following lines.
+# But it is slow, so this vignette loads a pre-created model object.
+# gbm.data <- gbm(higher_income ~ ., data= data,
+#                 distribution = "bernoulli", n.trees=n.trees, shrinkage=0.02,
+#                 interaction.depth=3)
+# saveRDS(gbm.data, 'demo_gbm.data_ale.rds')
+gbm.data <- readRDS('demo_gbm.data_ale.rds')
+
+yhat <- function(object, newdata) as.numeric(
+  predict(object, newdata,  n.trees = n.trees,
+          type="response"))  # return predicted probabilities
+# original ALEPlot example returns log odds, I think, which are not as interpretable
+# type="link"))  
+
+xint <- 500
+
+# Generate ALE data for all variables
+
+# To generate the code, uncomment the following lines.
+# But it is slow, so this vignette loads a pre-created model object.
+# gbm_ale <- ale(data, gbm.data, pred_fun = yhat, x_intervals = xint)
+# saveRDS(gbm_ale, 'demo_gbm_ale_100x.rds')
+gbm_ale <- readRDS('demo_gbm_ale_ixn_100x.rds')
+
+# Print all plots
+purrr::map(gbm_ale, \(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+
+```
+
+Now we generate ALE data for all two-way interactions and then plot them.
+
+```{r}
+# To generate the code, uncomment the following lines.
+# But it is slow, so this vignette loads a pre-created model object.
+# gbm_ale_ixn <- ale_ixn(data, gbm.data, pred_fun = yhat, x_intervals = xint)
+# saveRDS(gbm_ale_ixn, 'demo_gbm_ale_ixn_100x.rds')
+gbm_ale_ixn <- readRDS('demo_gbm_ale_ixn_100x.rds')
+
+getwd()
+# Print all plots
+
+# Skip .common_data when iterating through the data for plotting
+gbm_ale_ixn[setdiff(names(gbm_ale_ixn), '.common_data')] |> 
+  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
+    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
+      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+  })
+
+```
