@@ -1,0 +1,142 @@
+---
+title: "Introduction to the `ale` package"
+author: "Chitu Okoli"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the `ale` package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(ggplot2)
+library(ale)
+```
+
+This vignette demonstrates the basic functionality of the `ale` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](small_datasets.Rmd "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".)
+
+## diamonds dataset
+
+For this introduction, we use the `diamonds` dataset, built-in with `ggplot2` (a required package for `ale`): "a dataset containing the prices and other attributes of almost 54,000 diamonds".
+
+```{r diamonds_help}
+help(diamonds)
+```
+
+```{r diamonds_print}
+diamonds
+```
+
+```{r diamonds_str}
+str(diamonds)
+```
+
+For any valid machine learning analysis, We must first split the dataset into training and test samples. The model is developed on the training set and then evaluated on the test set. Although this is well-known to all machine learning scientists, we emphasize it here because it is not obvious to everyone that ALE results are only valid when run on a distinct test set. They are not valid when calculated on the same dataset that was used to train the model. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](small_datasets.Rmd "ale package for small datasets").)
+
+```{r diamonds_split}
+# Split the dataset into training and test sets
+# https://stackoverflow.com/a/54892459/2449926
+set.seed(0)
+train_test_split <- sample(c(TRUE, FALSE), nrow(diamonds), replace = TRUE, prob = c(0.8, 0.2))
+diamonds_train <- diamonds[train_test_split, ]
+diamonds_test <- diamonds[!train_test_split, ]
+```
+
+So, now we split the dataset with an 80-20 split for a training set of `r nrow(diamonds_train)` rows and a test set of `r nrow(diamonds_test)` rows. Now we can build our model.
+
+## Modelling with general additive models (GAM)
+
+ALE is a model-agnostic IML approach, that is, it works with any kind of machine learning model. As such, the `ale` works with any R model with the only condition that it can predict numeric outcomes (such as raw estimates for regression and probabilities or odds ratios for classification). For this demonstration, we will use general additive models (GAM), a relatively fast algorithm that models data more flexibly than ordinary least squares regression. It is beyond our scope here to explain how GAM works (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")), but the examples here will work with any machine learning algorithm.
+
+We train a GAM model to predict diamond price:
+
+```{r train_gam}
+# Create a GAM model with flexible curves to predict diamond price
+# Smooth all numeric variables and include all other variables
+# Build model on training data, not on the full dataset.
+gam_diamonds <- mgcv::gam(
+  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) + 
+    cut + color + clarity,
+  data = diamonds_train
+  )
+summary(gam_diamonds)
+```
+
+## `ale` function for generating ALE data and plots
+
+The core function in the `ale` package is the `ale` function. Consistent with tidyverse conventions, its first argument is a dataset. Its second argument is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates ALE data and plots on all the input variables used for the model. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or the plots only rather than both; or to use a custom, non-standard predict function for the model), see details in the help file for the function.
+
+```{r ale_help}
+# help(ale::ale)
+help(ale)
+```
+
+The `ale` function returns a list with one element per input variable, as well as a `.common_data` element that has some details about the outcome (y) variable. Each variable's element consists of a list with two elements: the ALE data for that variable and a `ggplot` plot object that plots that ALE data.
+
+To iterate the list and plot all the ALE plots, we provide here some demonstration code using the `purrr` package for list iteration and `gridExtra` for arranging multiple plots in a common plot grid.
+
+```{r ale_simple}
+# Simple ALE without bootstrapping
+ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
+
+ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+
+## Bootstrapped ALE
+
+One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was built. Again, we stress that the `ale` function is valid only when analyzed on test data distinct from the training data. When samples are too small for this, we provide a different bootstrapping method, `model_bootstrap`, explained in the vignette for [small datasets](small_datasets.Rmd "ale package for small datasets").
+
+Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies that time by the number of bootstrap iterations. Since this vignette is just a demonstration of package functionality rather than a real analysis, we will demonstrate bootstrapping on a small subset of the test data. This will run much faster as the speed of the ALE algorithm depends on the size of the dataset. So, let us take a random sample of 200 rows of the test set.
+
+```{r diamonds_new}
+# Bootstraping is rather slow, so create a smaller subset of new data for demonstration
+new_rows <- sample(nrow(diamonds_test), 200, replace = FALSE)
+diamonds_new <- diamonds_test[new_rows, ]
+```
+
+Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100.
+
+```{r ale_boot}
+ale_gam_diamonds_boot <- ale(diamonds_new, gam_diamonds, boot_it = 100)
+
+# Bootstrapping produces confidence intervals
+ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+
+```
+
+In this case, the bootstrapped results are mostly similar to simple ALE result, though the results for the ´x´ input variable are rather different. In principle, we should always bootstrap the results and trust only in bootstrapped results.
+
+## ALE interactions
+
+Another advantage of ALE is that it provides data for two-way interactions between variables. This is implemented with the `ale::ale_ixn` function. Like the `ale` function, `ale_ixn` similarly requires an input dataset and a model object. By default, it generates ALE data and plots on all possible pairs of input variables used for the model. However, an ALE interaction requires at least one of the variables to be numeric. So, `ale_ixn` has a notion of x1 and x2 variables; the x1 variable must be numeric whereas the x2 can be of any input datatype. To change the default options (e.g., to calculate interactions for only certain pairs of variables), see details in the help file for the function.
+
+```{r ale_ixn_help}
+help(ale_ixn)
+# help(ale::ale_ixn)
+```
+
+Like the `ale` function, the `ale_ixn` returns a list with one element per input x1 variable, as well as a `.common_data` element with details about the outcome (y) variable. However, in this case, each variable's element consists of a list of all the x2 variables for which the x1 interaction is calculated. Each x2 element then has two elements: the ALE data for that variable and a `ggplot` plot object that plots that ALE data.
+
+Again, to iterate the list and plot all the ALE plots, we provide here some demonstration code. It is different from the plot code given earlier because of the two levels of interacting variables in the output data.
+
+```{r ale_ixn}
+# ALE two-way interactions
+ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
+
+# Skip .common_data when iterating through the data for plotting
+ale_ixn_gam_diamonds[setdiff(names(ale_ixn_gam_diamonds), '.common_data')] |> 
+  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
+    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
+      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+  })
+```

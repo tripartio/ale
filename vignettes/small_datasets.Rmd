@@ -1,0 +1,219 @@
+---
+title: "Analyzing small datasets (<2000 rows) with ALE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyzing small datasets (<2000 rows) with ALE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(ggplot2)
+library(ale)
+```
+
+This vignette demonstrates using the `ale` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
+
+## What is a "small" dataset?
+
+An obvious question is, "How small is 'small'?" This is a very complex question and it is way beyond the scope of this vignette to try to answer it rigorously. But we can simply say that the key issue at stake is that applying the training-test split that is common in machine learning is a crucial technique for increasing the generalizability of data analysis. So, the question becomes focused to, "How small is too small for a training-test split for machine learning analysis?" The rule of thumb I am familiar with is that machine learning requires at least 200 rows of data for each predictor variable. So, for example, if you have five input variables, you would need at least 1000 rows of data. But note that this does not refer to the size of the entire dataset but to the minimum size of the training subset. So, if you carry out an 80-20 split on the full dataset (that is, 80% training set), then you would need at least 1000 rows for the training set and another 250 rows for the test set, for a minimum of 1250 rows. (And if you carry out hyperparameter tuning with cross validation on that training set, then you need even more data.) If you see where this is headed, you might quickly realize **that most datasets of less than 2000 rows are probably "small"**. You can see that even many datasets that are more than 2000 rows are nonetheless "small", and so probably need the techniques mentioned in this vignette.
+
+## attitude dataset
+
+Most analyses use the `attitude` dataset, built-in with R: "From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments." Since we're talking about "small" datasets, we figure that we might as well demonstrate principles with extremely small examples.
+
+```{r attitude_help}
+help(attitude)
+```
+
+### Description
+
+From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments. The numbers give the percent proportion of favourable responses to seven questions in each department.
+
+### Format
+
+A data frame with 30 observations on 7 variables. The first column are the short names from the reference, the second one the variable names in the data frame:
+
+|      | Variable   | Type    | Description                       |
+|------|------------|---------|-----------------------------------|
+| Y    | rating     | numeric | Overall rating                    |
+| X[1] | complaints | numeric | Handling of employee complaints   |
+| X[2] | privileges | numeric | Does not allow special privileges |
+| X[3] | learning   | numeric | Opportunity to learn              |
+| X[4] | raises     | numeric | Raises based on performance       |
+| X[5] | critical   | numeric | Too critical                      |
+| X[6] | advance    | numeric | Advancement                       |
+
+### Source
+
+Chatterjee, S. and Price, B. (1977) *Regression Analysis by Example*. New York: Wiley. (Section 3.7, p.68ff of 2nd ed.(1991).)
+
+```{r attitude_str}
+str(attitude)
+```
+
+```{r attitude_summary}
+summary(attitude)
+```
+
+We first run ALE analysis on this dataset as if it were a valid regular dataset, even though it is too small for a proper training-test split. This is a small-scale demonstration mainly to demonstrate that `ale` package is valid for analyzing even small datasets, not just the large datasets typically used for machine learning.
+
+## ALE for ordinary least squares regression (multiple linear regression)
+
+Ordinary least squares (OLS) regression is the most generic multivariate statistical technique. Thus, we use it as a baseline illustration to help motivate the value of ALE for interpreting the analysis of small data samples.
+
+We train an OLS model to predict average rating:
+
+```{r lm_summary}
+lm_attitude <- lm(rating ~ ., data = attitude)
+
+summary(lm_attitude)
+```
+
+At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (boot_it = 0) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
+
+```{r lm_simple}
+ale_lm_attitude_simple <- ale(attitude, lm_attitude, boot_it = 0)
+
+# Print all plots
+# Skip .common_data when iterating through the data for plotting
+ale_lm_attitude_simple[setdiff(names(ale_lm_attitude_simple), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+
+This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.
+
+What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
+
+We can use `ale_ixn` to visualize the possible existence of any interactions:
+
+```{r lm_ixn}
+ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude, boot_it = 0)
+
+# Skip .common_data when iterating through the data for plotting
+ale_lm_attitude_ixn[setdiff(names(ale_lm_attitude_ixn), '.common_data')] |> 
+  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
+    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
+      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+  })
+```
+
+This is a powerful use-case for the `ale` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not continue exploring them.
+
+## Full model bootstrapping
+
+We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets with clear separation between training and testing samples, `ale` bootstraps the ALE results of the test data. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
+
+The `ale::model_bootstrap` function automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
+
+-   Creates multiple bootstrap samples (default 100; the user can specify any number);
+-   Creates a model on each bootstrap sample;
+-   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
+-   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+
+`model_bootstrap` has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument, `model_call_string` is a character version of the full call expression for the model with everything except for the data argument. Because `model_bootstrap` programmatically modifies the model call and calls the model multiple times, it needs direct access to the expression rather than to the model object, as is more typical in such functions.
+
+For example, the call for the OLS regression earlier was `lm(rating ~ ., data = attitude)`. To convert this to the format required for `model_call_string`, simply remove the data argument (so, it becomes `lm(rating ~ .)`) and then wrap that in a string: `'lm(rating ~ .)'`. So, here is the full call to `model_bootstrap`:
+
+```{r lm_full_call}
+mb_lm <- model_bootstrap(attitude, 'lm(rating ~ .)')
+```
+
+By default, `model_bootstrap` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance`) and bootstrapped model coefficients (provided through `broom::tidy`). Any of the default options for `broom::glance`, `broom::tidy`, and `ale::ale` can be customized, along with defaults for `model_bootstrap`, such as the number of bootstrap iterations. You can consult the help file for these details.
+
+```{r full_help}
+# help(ale::model_bootstrap)
+help(model_bootstrap)
+```
+
+`model_bootstrap` returns a list with the following elements (depending on values requested in the `output` argument: \* model_stats: bootstrapped results from `broom::glance` \* model_coefs: bootstrapped results from `broom::tidy` \* ale_data: bootstrapped ALE data and plots \* boot_data: full bootstrap data (not returned by default)
+
+Here are the bootstrapped overall model statistics:
+
+```{r lm_full_stats}
+mb_lm$model_stats
+```
+
+Here are the bootstrapped model coefficients:
+
+```{r lm_full_coefs}
+mb_lm$model_coefs
+```
+
+Here we can visualize the results of the ALE plots.
+
+```{r lm_full_ale}
+mb_lm$ale_data[setdiff(names(mb_lm$ale_data), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+
+The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
+
+-   Complaints that were handled at below around 68% led to below-average overall ratings; complaints that were handled above around 72% led to above-average overall ratings.
+-   The 95% bootstrapped confidence intervals of every other variable fully overlapped the entire 5% median band. Thus, despite the general trends of some of the data (in particular learning's positive trend and advance's negative trend), the data does not support claims that any other factor had a convincingly meaningful effect on ratings.
+
+Although this is a basic demonstration, it readily shows how crucial proper bootstrapping is to make meaningful inferences from data analysis.
+
+## ALE for general additive models (GAM)
+
+A major limitation of OLS regression is that it models all relationships between the x variables and y as straight lines. But it is unlikely that all relationships are truly linear. OLS cannot accurately capture non-linear relationships.
+
+Because the samples here are relatively small, we will use general additive models (GAM) for the modelling. To grossly oversimplify things, GAM is an extension of statistical regression analysis that lets the model fit flexible patterns in the data instead of being restricted to the best-fitting straight line. It is an [ideal approach for samples that are too small for machine learning](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM; introduction explains why GAM should be used") because it provides flexible curves unlike ordinary least squares regression yet will not overfit excessively as would most machine learning techniques when working with such small samples.
+
+With GAM, the variables that we want to become flexible need to be wrapped in the `s` (smooth) function, e.g., `s(complaints)`. For this example, we will smooth all our numerical input variables:
+
+```{r gam_summary}
+gam_attitude <- mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
+                            s(raises) + s(critical) + s(advance),
+                data = attitude)
+summary(gam_attitude)
+```
+
+By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r.squared"]] |> round(3)`) with that of the GAM model (`r summary(gam_attitude)[["r.sq"]] |> round(3)`), we can readily see that the GAM model provides a superior fit to the data.
+
+To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
+
+```{r gam_simple}
+ale_gam_attitude_simple <- ale(attitude, gam_attitude, boot_it = 0)
+
+ale_gam_attitude_simple[setdiff(names(ale_gam_attitude_simple), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+
+Compared to the OLS results above, the GAM results provide quite a surprise concerning the shape of the effect of employees' perceptions that their department is too critical--it seems that both low criticism and very high criticism negatively affect ratings. However, before trying to interpret these results, we must remember that results that are not bootstrapped are simply not reliable. So, let us see what bootstrapping will give us.
+
+```{r gam_full_stats}
+mb_gam <- model_bootstrap(
+  attitude, 
+  'mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
+                      s(raises) + s(critical) + s(advance))'
+  )
+mb_gam$model_stats
+```
+
+```{r gam_full_coefs}
+mb_gam$model_coefs
+```
+
+```{r gam_full_ale}
+mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |> 
+  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+
+The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
+
+So, what should we conclude? First, it is tempting to retain the OLS results because they tell a more interesting story. But we consider that this would be irresponsible since the GAM model is clearly superior in terms of adjusted R^2^: it is the model that far more reliably tells us what is really going on. And what does it tell us? 
+
+* There seems to be a positive effect of handled complaints on ratings (the higher the percentage of complaints that are handled, the higher the average rating), but the data does not allow us to be sufficiently certain to generalize these results.
+* There is insufficient evidence that any of the other variables has any effect at all.
+
+No doubt, the inconclusive results are because the dataset is so small (only 30 rows). A dataset even double that size might show significant effects at least for complaints, if not for other variables.

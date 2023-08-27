@@ -1,0 +1,164 @@
+---
+title: "ale function handling of various datatypes for x"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ale function handling of various datatypes for x}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ale)
+library(dplyr)
+library(ggplot2)
+```
+
+This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+
+## Modified `mtcars` dataset (Motor Trend Car Road Tests)
+
+For this demonstration, we will modify the built-in `mtcars` dataset so that it has binary (logical), multinomial (factor, that is, non-ordered categories), ordinal (ordered factor), discrete interval (integer), and continuous interval (numeric or double) values. This will let us test all the different basic variations of x variables.
+
+### Original dataset
+
+```{r mtcars, echo=TRUE}
+help(mtcars)
+```
+
+#### Description
+
+The data was extracted from the 1974 *Motor Trend* US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models).
+
+#### Format
+
+A data frame with 32 observations on 11 (numeric) variables.
+
+|       | Variable | Description                              |
+|-------|----------|------------------------------------------|
+| [, 1] | mpg      | Miles/(US) gallon                        |
+| [, 2] | cyl      | Number of cylinders                      |
+| [, 3] | disp     | Displacement (cu.in.)                    |
+| [, 4] | hp       | Gross horsepower                         |
+| [, 5] | drat     | Rear axle ratio                          |
+| [, 6] | wt       | Weight (1000 lbs)                        |
+| [, 7] | qsec     | 1/4 mile time                            |
+| [, 8] | vs       | Engine (0 = V-shaped, 1 = straight)      |
+| [, 9] | am       | Transmission (0 = automatic, 1 = manual) |
+| [,10] | gear     | Number of forward gears                  |
+| [,11] | carb     | Number of carburetors                    |
+
+#### Note
+
+Henderson and Velleman (1981) comment in a footnote to Table 1: 'Hocking [original transcriber]'s noncrucial coding of the Mazda's rotary engine as a straight six-cylinder engine and the Porsche's flat engine as a V engine, as well as the inclusion of the diesel Mercedes 240D, have been retained to enable direct comparisons to be made with previous analyses.'
+
+#### Source
+
+Henderson and Velleman (1981), Building multiple regression models interactively. *Biometrics*, **37**, 391--411.
+
+### Modified version: `cars`
+
+To get the multinomial variable, we will adapt information from the names of the cars which is available in the row names of the `mtcars` cases. However, since each is unique, we will determine the country of the manufacturer of each car; this gives us a factor of just six categories. With such a small dataset of only 32 rows, we cannot work with many more categories than that or else the models would end up with too many dummy variables for such a small dataset.
+
+Our adapted dataset will be called `cars`; it is the same data as `mtcars` but with several variables encoded as more diverse yet appropriate datatypes.
+
+```{r mtcars_to_cars}
+# Create a function to determine the country of origin of a car based on its make
+car_country <- function(make) {
+  american_makes <- c("AMC", "Cadillac", "Camaro", "Chrysler", "Dodge", "Duster", "Ford", "Hornet", "Lincoln", "Pontiac", "Valiant")
+  japanese_makes <- c("Datsun", "Honda", "Mazda", "Toyota")
+  italian_makes <- c("Ferrari", "Fiat", "Maserati")
+  british_makes <- c("Lotus")
+  swedish_makes <- c("Volvo")
+  german_makes <- c("Merc", "Porsche")
+  
+  case_when(
+    make %in% american_makes ~ 'USA',
+    make %in% japanese_makes ~ 'Japan',
+    make %in% italian_makes ~ 'Italy',
+    make %in% british_makes ~ 'UK',
+    make %in% swedish_makes ~ 'Sweden',
+    make %in% german_makes ~ 'Germany',
+  )
+}
+
+cars <- 
+  mtcars |> 
+  as_tibble(rownames = 'make') |> 
+  # retain only first word as the make without the car model
+  mutate(
+    make = stringr::str_extract(make, "^\\S+") |> factor(),
+    country = car_country(make) |> factor()
+    ) |> 
+  select(-make) |> 
+  mutate(across(c(vs, am), as.logical)) |> 
+  mutate(gear = as.ordered(gear)) |> 
+  mutate(across(c(cyl, carb), as.integer))
+
+cars |> 
+  print(n = 50)
+```
+
+```{r cars}
+summary(cars)
+```
+## Modelling with ALE and GAM 
+
+With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
+
+```{r cars_gam}
+cm <- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
+            + vs + am + gear + carb + country,
+          data = cars)
+
+summary(cm)
+```
+
+Now we generate ALE data from the `cars` GAM model and plot it.
+
+```{r cars_ale}
+cars_ale <- ale(cars, cm)
+
+# Print all plots
+# Skip .common_data when iterating through the data for plotting
+cars_ale[setdiff(names(cars_ale), '.common_data')] |> 
+purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```
+We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double).
+
+We can also generate and plot the ALE data for all two-way interactions.
+
+```{r cars_ale_ixn}
+cars_ale_ixn <- ale_ixn(cars, cm)
+
+# Skip .common_data when iterating through the data for plotting
+cars_ale_ixn[setdiff(names(cars_ale_ixn), '.common_data')] |> 
+  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
+    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
+      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+  })
+```
+
+There are no interactions in this dataset.
+
+Finally, as explained in the vignette on modelling with [small datasets](small_datasets.Rmd "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
+
+```{r cars_full}
+mb <- model_bootstrap(
+  cars, 
+  'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
+            + vs + am + gear + carb + country)'
+)
+
+# Skip .common_data when iterating through the data for plotting
+mb$ale_data[setdiff(names(mb$ale_data), '.common_data')] |> 
+purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```

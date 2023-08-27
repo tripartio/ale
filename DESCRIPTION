@@ -1,0 +1,36 @@
+Package: ale
+Title: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)
+Version: 0.1.0
+Authors@R: c(
+    person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-5574-7572")),
+    person("Dan", "Apley", role = "ctb", comment = "The core code for calculating ALE values is rewritten from Dan Apley's ALEPlot package. We are grateful for his open-source contribution.")
+	)
+Description: Accumulated Local Effects (ALE) were initially developed as a model-agnostic approach for global explanations of the results of black-box machine learning algorithms. (Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086 <doi:10.1111/rssb.12377>.) ALE has two primary advantages over other approaches like PDP and SHAP: its values are not affected by the presence of interactions among variables in a mode and its computation is relatively rapid. This package rewrites the original code from the 'ALEPlot' package for calculating ALE data and it completely reimplements the plotting of ALE values. Future versions hope to extend the original ALE concept beyond global explanations with ALE-based measures that can be used for statistical inference as well as an ALE-based approach for local explanations. See NEWS.md for updates on each release.
+License: GPL-2
+Language: en-ca
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    ALEPlot,
+    gbm,
+    gridExtra,
+    knitr,
+    mgcv,
+    nnet,
+    readr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    broom,
+    dplyr,
+    grDevices,
+    purrr,
+    stats,
+    stringr,
+    tidyr,
+    yaImpute
+Depends: 
+    R (>= 3.5.0),
+	ggplot2
