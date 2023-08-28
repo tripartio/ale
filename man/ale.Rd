@@ -91,7 +91,7 @@ Within each list element, the data or plot is returned as requested in
 the \code{output} argument.
 }
 \description{
-Core files for the ale package
+Core functions for the ale package
 
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
@@ -177,6 +177,14 @@ ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |>
 }
 
 
+
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/Tripartio/ale}
+  \item Report bugs at \url{https://github.com/Tripartio/ale/issues}
+}
 
 }
 \author{

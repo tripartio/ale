@@ -2,7 +2,7 @@
 
 ## ale 0.1.0
 
-**August 27, 2023**
+**August 28, 2023**
 
 This is the first CRAN release of the `ale` package. Here is its official description with the initial release:
 
