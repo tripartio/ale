@@ -7,3 +7,4 @@
 ^vignettes/adult_data\.csv$
 ^vignettes/ALEPlot\.Rmd$
 ^vignettes/.*\.rds$
+^CRAN-SUBMISSION$
