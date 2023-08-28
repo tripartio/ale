@@ -511,6 +511,10 @@ ale_core <- function (
     plot_alpha = plot_alpha
   )
 
+  #TODO: restructure output:
+  # ales = list(data, plots, overall)
+  # This would make iterating over plots much simpler
+
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
   return(ales)
