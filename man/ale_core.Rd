@@ -19,6 +19,7 @@ ale_core(
   predict_type = "response",
   x_intervals = 100,
   boot_it = 0,
+  seed = 0,
   boot_alpha = 0.05,
   boot_centre = "median",
   relative_y = "median",
@@ -53,6 +54,8 @@ be ignored.}
 \item{x_intervals}{See documentation for \code{ale}}
 
 \item{boot_it}{See documentation for \code{ale}}
+
+\item{seed}{See documentation for \code{ale}}
 
 \item{boot_alpha}{See documentation for \code{ale}}
 

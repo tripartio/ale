@@ -58,6 +58,8 @@
 #' @param boot_it non-negative integer. Number of bootstrap iterations for the
 #' ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
 #' with no bootstrapping.
+#' @param seed integer. Random seed. Supply this between runs to assure that
+#' identical random ALE data is generated each time
 #' @param boot_alpha numeric from 0 to 1. Alpha for percentile-based confidence
 #' interval range for the bootstrap intervals; the bootstrap confidence intervals
 #' will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example,
@@ -118,7 +120,7 @@
 #' ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 #'
 #'
-#' \dontrun{
+#' \donttest{
 #' # Plot the ALE data
 #' # Skip .common_data when iterating through the data for plotting
 #' ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
@@ -152,6 +154,7 @@ ale <- function (
     predict_type = "response",
     x_intervals = 100,
     boot_it = 0,
+    seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'median',
     relative_y = 'median',
@@ -164,32 +167,10 @@ ale <- function (
     # gg_marginal_custom = NULL,
 ) {
 
-  # stop('Modify example to run faster; use samples of 800 training and 200 testing.
-  # Also, bootstrap max 10 times.
-  #      Also slow down model_bootstrap')
-
-
   # capture all arguments passed into `ale` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
   args$ixn <- FALSE  # when the user calls `ale`, they want no interactions
   do.call(ale_core, args)
-
-  # ale_core(
-  #   test_data = test_data,
-  #   model = model,
-  #   ixn = FALSE,
-  #   x_cols = x_cols,
-  #   output = output,
-  #   pred_fun = pred_fun,
-  #   predict_type = predict_type,
-  #   x_intervals = x_intervals,
-  #   boot_it = boot_it,
-  #   boot_alpha = boot_alpha,
-  #   relative_y = relative_y,
-  #   y_type = y_type,
-  #   plot_alpha = plot_alpha,
-  #   ale_xs = ale_xs
-  # )
 }
 
 
@@ -217,6 +198,7 @@ ale <- function (
 #' @param pred_fun,predict_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
 #' @param boot_it See documentation for `ale`
+#' @param seed See documentation for `ale`
 #' @param boot_alpha See documentation for `ale`
 #' @param boot_centre See documentation for `ale`
 #' @param relative_y See documentation for `ale`
@@ -242,6 +224,7 @@ ale_core <- function (
     predict_type = "response",
     x_intervals = 100,
     boot_it = 0,
+    seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'median',
     relative_y = 'median',
@@ -402,7 +385,7 @@ ale_core <- function (
             data_X, model, x_col,
             # nrow(data_X), ncol(data_X),
             pred_fun, x_intervals,
-            boot_it, boot_alpha, boot_centre,
+            boot_it, seed, boot_alpha, boot_centre,
             ale_x = ale_xs[[x_col]],
             ale_n = ale_ns[[x_col]]
             ) |>
@@ -593,6 +576,7 @@ var_type <- function(var) {
 #' @param pred_fun See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
 #' @param boot_it See documentation for `ale`
+#' @param seed See documentation for `ale`
 #' @param boot_alpha See documentation for `ale`
 #' @param boot_centre See documentation for `ale`
 #' @param ale_x numeric or ordinal vector. Normally generated automatically (if
@@ -606,7 +590,7 @@ calc_ale <- function(
     X, model, x_col,
     # n_row, n_col,
     pred_fun, x_intervals,
-    boot_it, boot_alpha, boot_centre,
+    boot_it, seed, boot_alpha, boot_centre,
     ale_x = NULL,
     ale_n = NULL
 ) {
@@ -627,7 +611,7 @@ calc_ale <- function(
   rm(x_intervals)
 
   # Create bootstrap tbl
-  set.seed(0)
+  set.seed(seed)
   boot_ale <- tibble(
     # it: bootstrap iteration number.
     # Row 0 is the full dataset without bootstrapping

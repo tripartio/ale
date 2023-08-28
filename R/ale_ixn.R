@@ -90,7 +90,7 @@
 #' ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
 #'
 #'
-#' \dontrun{
+#' \donttest{
 #' # Skip .common_data when iterating through the data for plotting
 #' ale_ixn_gam_diamonds[setdiff(names(ale_ixn_gam_diamonds), '.common_data')] |>
 #'   purrr::walk(\(x1) {  # extract list of x1 ALE outputs
@@ -131,27 +131,6 @@ ale_ixn <- function (
   args$ixn <- TRUE  # when the user calls `ale_ixn`, they want interactions
   do.call(ale_core, args)
 
-
-  # ale_core(
-  #   test_data = test_data,
-  #   model = model,
-  #   ixn = TRUE,
-  #   x1_cols = x1_cols,
-  #   x2_cols = x2_cols,
-  #   output = output,
-  #   pred_fun = pred_fun,
-  #   predict_type = predict_type,
-  #   x_intervals = x_intervals,
-  #   boot_it = boot_it,
-  #   boot_alpha = boot_alpha,
-  #   relative_y = relative_y,
-  #   y_type = y_type,
-  #   plot_alpha = plot_alpha,
-  #   ale_xs = ale_xs,
-  #   n_x1_int = n_x1_int,
-  #   n_x2_int = n_x2_int,
-  #   n_y_quant = n_y_quant
-  # )
 }
 
 

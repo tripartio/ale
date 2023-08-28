@@ -79,7 +79,7 @@
 #' mb_gam$model_stats
 #' mb_gam$model_coefs
 #'
-#' \dontrun{
+#' \donttest{
 #' # Plot ALE
 #' mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |>
 #'   purrr::map(\(.x) .x$plot) |>  # extract plots as a list
