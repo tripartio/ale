@@ -18,6 +18,7 @@ ale(
   predict_type = "response",
   x_intervals = 100,
   boot_it = 0,
+  seed = 0,
   boot_alpha = 0.05,
   boot_centre = "median",
   relative_y = "median",
@@ -55,6 +56,9 @@ a given x value do not support that many intervals.}
 \item{boot_it}{non-negative integer. Number of bootstrap iterations for the
 ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
 with no bootstrapping.}
+
+\item{seed}{integer. Random seed. Supply this between runs to assure that
+identical random ALE data is generated each time}
 
 \item{boot_alpha}{numeric from 0 to 1. Alpha for percentile-based confidence
 interval range for the bootstrap intervals; the bootstrap confidence intervals
@@ -156,7 +160,7 @@ summary(gam_diamonds)
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 
 
-\dontrun{
+\donttest{
 # Plot the ALE data
 # Skip .common_data when iterating through the data for plotting
 ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>

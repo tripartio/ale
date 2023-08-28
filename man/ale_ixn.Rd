@@ -134,7 +134,7 @@ summary(gam_diamonds)
 ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
 
 
-\dontrun{
+\donttest{
 # Skip .common_data when iterating through the data for plotting
 ale_ixn_gam_diamonds[setdiff(names(ale_ixn_gam_diamonds), '.common_data')] |>
   purrr::walk(\(x1) {  # extract list of x1 ALE outputs

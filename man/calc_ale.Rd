@@ -11,6 +11,7 @@ calc_ale(
   pred_fun,
   x_intervals,
   boot_it,
+  seed,
   boot_alpha,
   boot_centre,
   ale_x = NULL,
@@ -31,6 +32,8 @@ be calculated.}
 \item{x_intervals}{See documentation for \code{ale}}
 
 \item{boot_it}{See documentation for \code{ale}}
+
+\item{seed}{See documentation for \code{ale}}
 
 \item{boot_alpha}{See documentation for \code{ale}}
 

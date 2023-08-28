@@ -118,7 +118,7 @@
 #' ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 #'
 #'
-#' \dontrun{
+#' \donttest{
 #' # Plot the ALE data
 #' # Skip .common_data when iterating through the data for plotting
 #' ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
@@ -527,6 +527,10 @@ ale_core <- function (
     boot_centre = boot_centre,
     plot_alpha = plot_alpha
   )
+
+  #TODO: restructure output:
+  # ales = list(data, plots, overall)
+  # This would make iterating over plots much simpler
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
