@@ -20,7 +20,8 @@ Suggests:
     mgcv,
     nnet,
     readr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
     broom,
@@ -36,3 +37,4 @@ Depends:
 	ggplot2
 URL: https://github.com/Tripartio/ale
 BugReports: https://github.com/Tripartio/ale/issues
+Config/testthat/edition: 3

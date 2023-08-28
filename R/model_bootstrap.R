@@ -79,7 +79,7 @@
 #' mb_gam$model_stats
 #' mb_gam$model_coefs
 #'
-#' \dontrun{
+#' \donttest{
 #' # Plot ALE
 #' mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |>
 #'   purrr::map(\(.x) .x$plot) |>  # extract plots as a list
@@ -106,6 +106,29 @@ model_bootstrap <- function (
     tidy_options = list(),
     glance_options = list()
 ) {
+  # Validate arguments
+  assert_that(data |> isa('data.frame'))
+  assert_that(
+    is.string(model_call_string) &&
+      # There must be no data argument
+      stringr::str_detect(model_call_string, 'data = ', negate = FALSE) &&
+      stringr::str_detect(model_call_string, 'data=', negate = FALSE) &&
+      # model_call_string must terminate with ')'
+      (stringr::str_sub(model_call_string, -2, -1) == ')')
+  )
+  assert_that(is.integer(boot_it) && is.scalar(boot_it) && boot_it >= 0)
+  if (!is.null(seed)) assert_that(is.integer(seed))
+  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
+  # Assure that output is a subset of c('ale', 'model_stats', 'model_coefs')
+  assert_that(
+    length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
+    msg = 'The value in the output argument must be one or more of
+    "ale", "model_stats", or "model_coefs".'
+  )
+  assert_that(is.list(ale_options))
+  assert_that(is.list(tidy_options))
+  assert_that(is.list(glance_options))
+
 
   n_rows <- nrow(data)
 

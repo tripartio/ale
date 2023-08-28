@@ -138,8 +138,6 @@
 #'   gridExtra::grid.arrange(grobs = _, ncol = 2)
 #' }
 #'
-#'
-#'
 ale <- function (
     test_data,
     model,
@@ -163,11 +161,6 @@ ale <- function (
     # marginal = TRUE,
     # gg_marginal_custom = NULL,
 ) {
-
-  # stop('Modify example to run faster; use samples of 800 training and 200 testing.
-  # Also, bootstrap max 10 times.
-  #      Also slow down model_bootstrap')
-
 
   # capture all arguments passed into `ale` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
@@ -229,6 +222,8 @@ ale <- function (
 #'
 #' @import dplyr
 #' @import purrr
+#' @import assertthat
+#'
 #'
 ale_core <- function (
     test_data, model,
@@ -257,6 +252,59 @@ ale_core <- function (
     n_y_quant = 10  # number of y quantiles for interaction plot
 )
 {
+  # Validate arguments
+  assert_that(test_data |> isa('data.frame'))
+  # Assume that if a custom predict function is supplied, it must be because
+  # model is a valid model, so do not try to validate it further.
+  # But if the default predict function is used, validate that model is valid.
+  if (missing(pred_fun)) {   # default pred_fun used, so don't assume model is valid
+    # A valid model is defined as one that has a predict method
+    assert_that(
+      methods('predict') |>  # list all existing predict methods
+        as.character() |>
+        stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
+        # Search for the name of the class of the model argument in the list of methods
+        # But this assumes that the right class is the first one listed by the model object
+        stringr::str_detect(paste0('^', class(model)[1], '$')) |>
+        any(),
+      msg = 'The value entered in the model argument does not seem to be
+      a model object with a predict method.'
+    )
+  }
+  assert_that(is.flag(ixn))
+  if (!is.null(x_cols)) assert_that(is.character(x_cols))
+  if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
+  if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
+  # Assure that output is a subset of c('plot', 'data')
+  assert_that(
+    length(setdiff(output, c('plot', 'data'))) == 0,
+    msg = 'The value in the output argument must be one or both of "plot" or "data".'
+  )
+  assert_that(is.string(predict_type))
+  assert_that(is.integer(boot_it) && is.scalar(boot_it) && boot_it >= 0)
+  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
+  assert_that(
+    is.string(boot_centre) && (boot_centre %in% c('median', 'mean')),
+    msg = 'boot_centre must be one of "median" or "mean".'
+  )
+  assert_that(
+    is.string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
+    msg = 'relative_y must be one of "median", "mean", or "zero".'
+  )
+  if (!is.null(y_type)) {
+    assert_that(is.string(y_type) &&
+                  (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
+  }
+  assert_that(is.string(predict_type))
+  assert_that(is.number(plot_alpha) && between(plot_alpha, 0, 1))
+  if (!is.null(ale_xs)) assert_that(is.factor(ale_xs) || is.numeric(ale_xs))
+  if (!is.null(ale_ns)) assert_that(is.integer(ale_ns) && (ale_ns >= 0))
+  assert_that(is.count(n_x1_int))
+  assert_that(is.count(n_x2_int))
+  assert_that(is.count(n_y_quant))
+
+
+
   # Internally rename test_data. It is named test_data as an argument as a
   # warning to users to only use a test dataset for ALE, not the full dataset.
   data <- test_data
