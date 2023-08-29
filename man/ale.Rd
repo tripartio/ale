@@ -176,8 +176,6 @@ ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |>
   gridExtra::grid.arrange(grobs = _, ncol = 2)
 }
 
-
-
 }
 \seealso{
 Useful links:

@@ -24,6 +24,7 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
+    assertthat,
     broom,
     dplyr,
     grDevices,

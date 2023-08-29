@@ -253,7 +253,7 @@ ale_core <- function (
 )
 {
   # Validate arguments
-  assert_that(test_data |> isa('data.frame'))
+  assert_that(test_data |> inherits('data.frame'))
   # Assume that if a custom predict function is supplied, it must be because
   # model is a valid model, so do not try to validate it further.
   # But if the default predict function is used, validate that model is valid.
@@ -281,7 +281,13 @@ ale_core <- function (
     msg = 'The value in the output argument must be one or both of "plot" or "data".'
   )
   assert_that(is.string(predict_type))
-  assert_that(is.integer(boot_it) && is.scalar(boot_it) && boot_it >= 0)
+  assert_that(
+    round(boot_it) == boot_it &&  # boot_it is a whole number
+      is.scalar(boot_it) && boot_it >= 0
+  )
+  # if (!is.null(seed)) {
+  #   assert_that(round(seed) == seed)  # seed is a whole number
+  # }
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   assert_that(
     is.string(boot_centre) && (boot_centre %in% c('median', 'mean')),
@@ -297,8 +303,21 @@ ale_core <- function (
   }
   assert_that(is.string(predict_type))
   assert_that(is.number(plot_alpha) && between(plot_alpha, 0, 1))
-  if (!is.null(ale_xs)) assert_that(is.factor(ale_xs) || is.numeric(ale_xs))
-  if (!is.null(ale_ns)) assert_that(is.integer(ale_ns) && (ale_ns >= 0))
+  # if (!is.null(ale_xs)) assert_that(is.factor(ale_xs) || is.numeric(ale_xs))
+  if (!is.null(ale_xs)) {
+    # browser()
+    map(
+      ale_xs,
+      \(.var) assert_that(is.null(.var) || is.factor(.var) || is.numeric(.var))
+    )
+  }
+  # if (!is.null(ale_ns)) assert_that(is.integer(ale_ns) && (ale_ns >= 0))
+  if (!is.null(ale_ns)) {
+    map(
+      ale_ns,
+      \(.var) assert_that(is.null(.var) || is.integer(.var))
+    )
+  }
   assert_that(is.count(n_x1_int))
   assert_that(is.count(n_x2_int))
   assert_that(is.count(n_y_quant))
@@ -695,6 +714,8 @@ calc_ale <- function(
 
 
   x_type <- var_type(X[[x_col]])
+
+  # browser()
 
   if (x_type == 'numeric') {
 

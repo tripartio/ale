@@ -91,6 +91,7 @@
 #'
 #' @import dplyr
 #' @import purrr
+#' @import assertthat
 #' @importFrom stats quantile
 #' @importFrom stats median
 #' @importFrom stats sd
@@ -107,17 +108,22 @@ model_bootstrap <- function (
     glance_options = list()
 ) {
   # Validate arguments
-  assert_that(data |> isa('data.frame'))
+  assert_that(data |> inherits('data.frame'))
   assert_that(
     is.string(model_call_string) &&
       # There must be no data argument
-      stringr::str_detect(model_call_string, 'data = ', negate = FALSE) &&
-      stringr::str_detect(model_call_string, 'data=', negate = FALSE) &&
+      stringr::str_detect(model_call_string, 'data = ', negate = TRUE) &&
+      stringr::str_detect(model_call_string, 'data=', negate = TRUE) &&
       # model_call_string must terminate with ')'
-      (stringr::str_sub(model_call_string, -2, -1) == ')')
+      (stringr::str_sub(model_call_string, start = -1) == ')')
   )
-  assert_that(is.integer(boot_it) && is.scalar(boot_it) && boot_it >= 0)
-  if (!is.null(seed)) assert_that(is.integer(seed))
+  assert_that(
+    round(boot_it) == boot_it &&  # boot_it is a whole number
+      is.scalar(boot_it) && boot_it >= 0
+    )
+  if (!is.null(seed)) {
+    assert_that(round(seed) == seed)  # seed is a whole number
+  }
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   # Assure that output is a subset of c('ale', 'model_stats', 'model_coefs')
   assert_that(
@@ -221,22 +227,32 @@ model_bootstrap <- function (
             }
             else {  # Valid model and ALE requested
               # Calculate ALE. Use do.call so that ale_options can be passed.
-              do.call(ale, list(
-                boot_data, boot_model,
-                boot_it = 0,  # do not bootstrap at this inner level
-                output = 'data',  # do not generate plots
-                ale_xs = if (.it == 0) {
-                  NULL
-                } else {
-                  ale_xs
-                },
-                ale_ns = if (.it == 0) {
-                  NULL
-                } else {
-                  ale_ns
-                },
-                unlist(ale_options)  # pass all other desired options, e.g., specific x_col
-              ))
+
+              # browser()
+
+              do.call(
+                ale,
+                # pass default parameters as a list, modified with user parameters
+                modifyList(
+                  list(
+                    test_data = boot_data,
+                    model = boot_model,
+                    boot_it = 0,  # do not bootstrap at this inner level
+                    output = 'data',  # do not generate plots
+                    ale_xs = if (.it == 0) {
+                      NULL
+                    } else {
+                      ale_xs
+                    },
+                    ale_ns = if (.it == 0) {
+                      NULL
+                    } else {
+                      ale_ns
+                    }
+                  ),
+                  ale_options  # pass user custom options, e.g., specific x_col
+                )
+              )
             }
 
               # From full dataset (.it == 0), calculate common ale_x for all subsequent iterations
@@ -254,15 +270,20 @@ model_bootstrap <- function (
           }  # end:  if ('ale' %in% output)
 
         else {  # 'ale' not requested in output
-          NA
+          boot_ale <- NA
         }
 
 
+        # browser()
 
         return(list(
           model = boot_model,
           ale_data = boot_ale,
           tidy = boot_tidy,
+          # glance = do.call(
+          #   broom::glance,
+          #   modifyList(list(boot_model), glance_options)
+          # )
           glance = do.call(broom::glance, list(boot_model,
                                              unlist(glance_options)))
           # tidy = broom::tidy(boot_model),
@@ -273,6 +294,9 @@ model_bootstrap <- function (
     ) |>
     transpose()
 
+
+  # browser()
+
   # Bind the model and ALE data to the bootstrap tbl
   boot_data <- boot_data |>
     mutate(
@@ -280,9 +304,9 @@ model_bootstrap <- function (
       ale_data = model_and_ale$ale_data,
       tidy = model_and_ale$tidy,
       glance = model_and_ale$glance
-    ) |>
-    # Remove failed bootstraps
-    filter(!is.na(ale_data))
+    ) # |>
+    # # Remove failed bootstraps
+    # filter(!is.na(ale_data))
 
 
   ## Summarize the bootstrapped data
@@ -295,8 +319,16 @@ model_bootstrap <- function (
       # see https://stats.stackexchange.com/a/529506/81392
       invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
+      # browser()
+
       boot_data |>
-        filter(it != 0) |>
+        # filter(it != 0) |>
+        # only summarize rows other than the full dataset analysis (it == 0)
+        filter(it != if_else(
+          boot_it != 0,
+          0,  # if boot_it != 0, remove it == 0
+          -1  # else, remove nothing; analyze the unique row (it is never -1)
+        )) |>
         (`[[`)('glance') |>
         bind_rows() |>
         select(-any_of(invalid_boot_model_stats)) |>
@@ -304,11 +336,11 @@ model_bootstrap <- function (
         select(name, value) |>
         summarize(
           .by = name,
-          conf_lo = quantile(value, boot_alpha / 2),
-          mean = mean(value),
-          median = median(value),
-          conf_hi = quantile(value, 1 - (boot_alpha / 2)),
-          sd = sd(value)
+          conf_lo = quantile(value, boot_alpha / 2, na.rm = TRUE),
+          mean = mean(value, na.rm = TRUE),
+          median = median(value, na.rm = TRUE),
+          conf_hi = quantile(value, 1 - (boot_alpha / 2), na.rm = TRUE),
+          sd = sd(value, na.rm = TRUE)
         )
     } else {
       NULL
@@ -321,7 +353,13 @@ model_bootstrap <- function (
       # Rename some tidy outputs that do not normally report `estimate`
       tidy_boot_data <-
         boot_data |>
-        filter(it != 0) |>
+        # filter(it != 0) |>
+        # only summarize rows other than the full dataset analysis (it == 0)
+        filter(it != if_else(
+          boot_it != 0,
+          0,  # if boot_it != 0, remove it == 0
+          -1  # else, remove nothing; analyze the unique row (it is never -1)
+        )) |>
         (`[[`)('tidy') |>
         bind_rows()
 
@@ -339,11 +377,11 @@ model_bootstrap <- function (
         select(term, estimate) |>
         summarize(
           .by = term,
-          conf_lo = quantile(estimate, boot_alpha / 2),
-          mean = mean(estimate),
-          median = median(estimate),
-          conf_hi = quantile(estimate, 1 - (boot_alpha / 2)),
-          std.error = sd(estimate)
+          conf_lo = quantile(estimate, boot_alpha / 2, na.rm = TRUE),
+          mean = mean(estimate, na.rm = TRUE),
+          median = median(estimate, na.rm = TRUE),
+          conf_hi = quantile(estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
+          std.error = sd(estimate, na.rm = TRUE)
         )
     } else {
       NULL

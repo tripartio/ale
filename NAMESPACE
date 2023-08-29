@@ -3,6 +3,7 @@
 export(ale)
 export(ale_ixn)
 export(model_bootstrap)
+import(assertthat)
 import(dplyr)
 import(ggplot2)
 import(purrr)
