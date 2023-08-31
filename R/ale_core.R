@@ -122,9 +122,7 @@
 #'
 #' \donttest{
 #' # Plot the ALE data
-#' # Skip .common_data when iterating through the data for plotting
-#' ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
-#'   purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+#' ale_gam_diamonds$plots |>
 #'   gridExtra::grid.arrange(grobs = _, ncol = 2)
 #'
 #' # Bootstrapped ALE
@@ -133,10 +131,8 @@
 #' # Create ALE with 100 bootstrap samples
 #' ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
 #'
-#' # Bootstrapping produces confidence intervals
-#' # Skip .common_data when iterating through the data for plotting
-#' ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |>
-#'   purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+#' # Bootstrapped ALEs print with confidence intervals
+#' ale_gam_diamonds_boot$plots |>
 #'   gridExtra::grid.arrange(grobs = _, ncol = 2)
 #' }
 #'
@@ -428,15 +424,18 @@ ale_core <- function (
         return(list(
           data = ale_data,
           # stats = ale_stats,
-          plot = plot
+          plots = plot
+          # plot = plot
         ))
 
       }) |>
-      set_names(x_cols)
+      set_names(x_cols) |>
+      transpose()
   }
   else {  # two-way interactions
 
-    ales <-
+    # ales <-
+    ales_by_var <-
       x1_cols |>
       map(\(x1_col) {
         # Calculate ale_data for two-way interactions
@@ -496,24 +495,48 @@ ale_core <- function (
       # element in a full cross interaction of all variables; the last element
       # has nothing more to interact with, so is empty
       discard(\(.x) length(.x) == 0)
+
+    # Transpose ales_by_var to group data and plots together
+    ales <- list(
+      data = ales_by_var |>
+        map(\(.x1) {
+          map(.x1, \(.x2) .x2$data)
+        }),
+      plots = ales_by_var |>
+        map(\(.x1) {
+          map(.x1, \(.x2) .x2$plot)
+        })
+    )
   }
 
+  # browser()
 
   # Append useful output data that is shared across all variables
-  ales$.common_data <- list(
-    y_col = y_col,
-    y_type = y_type,
-    y_summary = y_summary,
-    relative_y = relative_y,
-    boot_it = boot_it,
-    boot_alpha = boot_alpha,
-    boot_centre = boot_centre,
-    plot_alpha = plot_alpha
-  )
+  ales$y_col <- y_col
+  if (ixn) {
+    ales$x1_cols <- x1_cols
+    ales$x2_cols <- x2_cols
+  } else {
+    ales$x_cols <- x_cols
+  }
+  ales$y_type <- y_type
+  ales$y_summary <- y_summary
+  ales$relative_y <- relative_y
+  ales$boot_it <- boot_it
+  ales$boot_alpha <- boot_alpha
+  ales$boot_centre <- boot_centre
+  ales$plot_alpha <- plot_alpha
 
-  #TODO: restructure output:
-  # ales = list(data, plots, overall)
-  # This would make iterating over plots much simpler
+  # ales$.common_data <- list(
+  #   y_col = y_col,
+  #   y_type = y_type,
+  #   y_summary = y_summary,
+  #   relative_y = relative_y,
+  #   boot_it = boot_it,
+  #   boot_alpha = boot_alpha,
+  #   boot_centre = boot_centre,
+  #   plot_alpha = plot_alpha
+  # )
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
