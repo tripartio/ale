@@ -456,8 +456,7 @@ ale_core <- function (
             boot_it, seed, boot_alpha, boot_centre,
             ale_x = ale_xs[[x_col]],
             ale_n = ale_ns[[x_col]]
-            ) |>
-          as_tibble()
+            )
 
         # ale_stats <- ale_stats(
         #   ale_data$ale_y,
@@ -526,8 +525,7 @@ ale_core <- function (
 
             ale_data <-
               calc_ale_ixn(data_X, model, x1_col, x2_col,
-                           pred_fun, x_intervals) |>
-              as_tibble()
+                           pred_fun, x_intervals)
 
             # Shift ale_y by appropriate relative_y
             ale_data$ale_y <- ale_data$ale_y + case_when(
@@ -1216,8 +1214,6 @@ calc_ale <- function(
       )
     ) |>
     select(ale_y, everything())
-
-  # browser()
 
   return(
     bind_cols(

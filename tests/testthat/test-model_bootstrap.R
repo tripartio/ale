@@ -45,6 +45,7 @@ test_that(
       boot_it = 5,
       seed = 1234,
       boot_alpha = 0.1,
+      boot_centre = 'mean',
       output = 'ale',
       ale_options = list(relative_y = 'zero')
     )
@@ -62,6 +63,7 @@ test_that(
       boot_it = 3,
       seed = 12,
       boot_alpha = 0.01,
+      boot_centre = 'mean',
       output = c('model_stats', 'model_coefs'),
       tidy_options = list(parametric = TRUE),
       glance_options = list(glance.gam_options_are_ignored = TRUE),

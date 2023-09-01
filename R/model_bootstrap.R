@@ -125,7 +125,8 @@ model_bootstrap <- function (
     assert_that(round(seed) == seed)  # seed is a whole number
   }
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  # Assure that output is a subset of c('ale', 'model_stats', 'model_coefs')
+  assert_that(boot_centre == 'median' || boot_centre == 'mean')
+  # Output must be a subset of c('ale', 'model_stats', 'model_coefs')
   assert_that(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
     msg = 'The value in the output argument must be one or more of
@@ -227,8 +228,9 @@ model_bootstrap <- function (
             NA
           }
           else {  # Valid model and ALE requested
+
             # Calculate ALE. Use do.call so that ale_options can be passed.
-            do.call(ale, list(
+            do.call(ale, modifyList(list(
               boot_data, boot_model,
               boot_it = 0,  # do not bootstrap at this inner level
               output = 'data',  # do not generate plots
@@ -241,18 +243,20 @@ model_bootstrap <- function (
                 NULL
               } else {
                 ale_ns
-              },
-              unlist(ale_options)  # pass all other desired options, e.g., specific x_col
-            ))
+              }
+            ), ale_options)  # pass all other desired options, e.g., specific x_col
+            )
           }
 
           # From full dataset (.it == 0), calculate common ale_x for all subsequent iterations
           if (.it == 0) {
-            ale_xs <<-
+            # ale_xs <<-
+            ale_xs <-
               boot_ale$data |>
               map(\(.x) .x$ale_x)
 
-            ale_ns <<-
+            # ale_ns <<-
+            ale_ns <-
               boot_ale$data |>
               map(\(.x) .x$ale_n)
           }
@@ -376,39 +380,67 @@ model_bootstrap <- function (
   # Bootstrapped ALE data with plot
   ale_summary <-
     if ('ale' %in% output) {
+      full_ale_data <- boot_data$ale_data[[1]]
+
       # Extract useful details from full model ALE; will be used for plotting
-      y_col <- boot_data$ale_data[[1]]$y_col
-      y_type <- boot_data$ale_data[[1]]$y_type
-      y_summary <- boot_data$ale_data[[1]]$y_summary
+      y_col <- full_ale_data$y_col
+      y_type <- full_ale_data$y_type
+      y_summary <- full_ale_data$y_summary
 
       # boot_ale: bootstrapped ALE data grouped by variable
       summary_ale_data <-
         boot_data$ale_data[-1] |>  # remove the first row (full data, not bootstrapped)
         map(\(.it) .it$data) |>   # extract data from each iteration
-        transpose() |>  # rearrange list to group all iterations by x_col
-        map(\(.x_col) {
+        transpose() # |>  # rearrange list to group all iterations by x_col
+        # map(\(.x_col) {
 
-          # Extract ale_x and ale_n: it is identical for all bootstrap samples,
-          # so extracting it only from the first element is sufficient.
-          .ale_x <- .x_col[[1]]$ale_x
-          .ale_n <- .x_col[[1]]$ale_n
+      summary_ale_data <-
+        map2(summary_ale_data, names(summary_ale_data), \(.x_col, .x_col_name) {
+
+          # # Extract ale_x and ale_n: it is identical for all bootstrap samples,
+          # # so extracting it only from the first element is sufficient.
+          # .ale_x <- full_ale_data$data[[.x_col_name]]$ale_x
+          # .ale_n <- full_ale_data$data[[.x_col_name]]$ale_n
+
+          # if (.x_col_name == 'country') browser()
+
+          # If ale_x for .x_col is ordinal,
+          # harmonize the levels across bootstrap iterations,
+          # otherwise binding rows will fail
+          if (is.ordered(.x_col[[1]]$ale_x)) {
+            ale_x_levels <- full_ale_data$data[[.x_col_name]]$ale_x
+
+            .x_col <- .x_col |>
+              map(\(.ale_tbl) {
+                .ale_tbl |>
+                  mutate(ale_x = ordered(ale_x, levels = ale_x_levels))
+              })
+          }
 
           .x_col |>
-            map(\(.it) .it |>
-                  # Replace iteration ale_x and ale_n to be unique for each variable
-                  mutate(
-                    ale_x = .ale_x,
-                    ale_n = .ale_n,
-                  )
-            ) |>
+            # map(\(.it) .it |>
+            #       # Replace iteration ale_x and ale_n to be unique for each variable
+            #       mutate(
+            #         ale_x = .ale_x,
+            #         ale_n = .ale_n,
+            #       )
+            # ) |>
             bind_rows() |>
-            group_by(ale_x, ale_n) |>
+            # group_by(ale_x, ale_n) |>
+            group_by(ale_x) |>
             summarize(
               ale_y_lo = quantile(ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
               ale_y_median = median(ale_y, na.rm = TRUE),
               ale_y_mean = mean(ale_y, na.rm = TRUE),
               ale_y_hi = quantile(ale_y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
               ale_y = if_else(boot_centre == 'median', ale_y_median, ale_y_mean),
+            ) |>
+            right_join(
+              tibble(
+                ale_x = full_ale_data$data[[.x_col_name]]$ale_x,
+                ale_n = full_ale_data$data[[.x_col_name]]$ale_n,
+              ),
+              by = 'ale_x'
             ) |>
             select(ale_x, ale_n, ale_y, everything())
         })
