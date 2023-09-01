@@ -255,6 +255,7 @@ model_bootstrap <- function (
             ale_ns <<-
               boot_ale$data |>
               map(\(.x) .x$ale_n)
+          }
 
         }  # end:  if ('ale' %in% output)
 
@@ -262,8 +263,6 @@ model_bootstrap <- function (
           boot_ale <- NA
         }
 
-
-        # browser()
 
         list(
           model = boot_model,
