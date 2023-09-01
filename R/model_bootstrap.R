@@ -36,6 +36,7 @@
 #' @param boot_alpha numeric. The confidence level for the bootstrap confidence intervals is
 #' 1 - boot_alpha. For example, the default 0.05 will give a 95% confidence
 #' interval, that is, from the 2.5% to the 97.5% percentile.
+#' @param boot_centre See documentation for `ale`
 #' @param output character vector. Which types of bootstraps to calculate and return:
 #' * 'ale': Calculate and return bootstrapped ALE data and plot.
 #' * 'model_stats': Calculate and return bootstrapped overall model statistics.
@@ -81,9 +82,7 @@
 #'
 #' \donttest{
 #' # Plot ALE
-#' mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |>
-#'   purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-#'   gridExtra::grid.arrange(grobs = _, ncol = 2)
+#' gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 #' }
 #'
 #'
@@ -101,6 +100,7 @@ model_bootstrap <- function (
     boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
+    boot_centre = 'median',
     output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
     tidy_options = list(),
@@ -185,50 +185,53 @@ model_bootstrap <- function (
           }
 
 
+        if ('ale' %in% output) {
+          boot_ale <-if (is.na(sum(boot_model$coefficients, na.rm = FALSE))) {
+            # One or more coefficients are not defined.
+            # This might be due to collinearity in a bootsrapped sample, which
+            # yields the warning: "Coefficients: (_ not defined because of singularities)".
+            NA
+          }
+          else {  # Valid model and ALE requested
+            # Calculate ALE. Use do.call so that ale_options can be passed.
+            do.call(ale, list(
+              boot_data, boot_model,
+              boot_it = 0,  # do not bootstrap at this inner level
+              output = 'data',  # do not generate plots
+              ale_xs = if (.it == 0) {
+                NULL
+              } else {
+                ale_xs
+              },
+              ale_ns = if (.it == 0) {
+                NULL
+              } else {
+                ale_ns
+              },
+              unlist(ale_options)  # pass all other desired options, e.g., specific x_col
+            ))
+          }
 
-        # message('Running iteration ', .it)
+          # From full dataset (.it == 0), calculate common ale_x for all subsequent iterations
+          if (.it == 0) {
+            ale_xs <<-
+              boot_ale$data |>
+              map(\(.x) .x$ale_x)
 
+            ale_ns <<-
+              boot_ale$data |>
+              map(\(.x) .x$ale_n)
 
-          if ('ale' %in% output) {
-            boot_ale <-if (is.na(sum(boot_model$coefficients, na.rm = FALSE))) {
-              # One or more coefficients are not defined.
-              # This might be due to collinearity in a bootsrapped sample, which
-              # yields the warning: "Coefficients: (_ not defined because of singularities)".
-              NA
-            }
-            else {  # Valid model and ALE requested
-              # Calculate ALE. Use do.call so that ale_options can be passed.
-              do.call(ale, list(
-                boot_data, boot_model,
-                boot_it = 0,  # do not bootstrap at this inner level
-                output = 'data',  # do not generate plots
-                ale_xs = if (.it == 0) {
-                  NULL
-                } else {
-                  ale_xs
-                },
-                ale_ns = if (.it == 0) {
-                  NULL
-                } else {
-                  ale_ns
-                },
-                unlist(ale_options)  # pass all other desired options, e.g., specific x_col
-              ))
-            }
+            # ale_xs <<-
+            #   boot_ale |>
+            #   map(\(.x) .x$data$ale_x)
+            #
+            # ale_ns <<-
+            #   boot_ale |>
+            #   map(\(.x) .x$data$ale_n)
+          }
 
-              # From full dataset (.it == 0), calculate common ale_x for all subsequent iterations
-            if (.it == 0) {
-
-              ale_xs <<-
-                boot_ale |>
-                map(\(.x) .x$data$ale_x)
-
-              ale_ns <<-
-                boot_ale |>
-                map(\(.x) .x$data$ale_n)
-            }
-
-          }  # end:  if ('ale' %in% output)
+        }  # end:  if ('ale' %in% output)
 
         else {  # 'ale' not requested in output
           NA
@@ -236,7 +239,7 @@ model_bootstrap <- function (
 
 
 
-        return(list(
+        list(
           model = boot_model,
           ale_data = boot_ale,
           tidy = boot_tidy,
@@ -244,11 +247,13 @@ model_bootstrap <- function (
                                              unlist(glance_options)))
           # tidy = broom::tidy(boot_model),
           # glance = broom::glance(boot_model)
-        ))
+        )
 
       }
     ) |>
     transpose()
+
+
 
   # Bind the model and ALE data to the bootstrap tbl
   boot_data <- boot_data |>
@@ -326,85 +331,63 @@ model_bootstrap <- function (
       NULL
     }
 
-  # Bootstrapped ALE with plot
+  # Bootstrapped ALE data with plot
   ale_summary <-
     if ('ale' %in% output) {
       # Extract useful details from full model ALE; will be used for plotting
-      full_ale_details <- boot_data$ale_data[[1]]$.common_data
-      y_col <- full_ale_details$y_col
-      y_type <- full_ale_details$y_type
-      y_summary <- full_ale_details$y_summary
+      y_col <- boot_data$ale_data[[1]]$y_col
+      y_type <- boot_data$ale_data[[1]]$y_type
+      y_summary <- boot_data$ale_data[[1]]$y_summary
 
       # boot_ale: bootstrapped ALE data grouped by variable
-      boot_ale <-
+      summary_ale_data <-
         boot_data$ale_data[-1] |>  # remove the first row (full data, not bootstrapped)
-        transpose()
-      # Remove last element: the .common_data
-      boot_ale <- boot_ale[-length(boot_ale)]
+        map(\(.it) .it$data) |>   # extract data from each iteration
+        transpose() |>  # rearrange list to group all iterations by x_col
+        map(\(.x_col) {
 
-      # browser()
-
-      map2(
-        boot_ale, names(boot_ale),
-        \(.x_col_data, .x_col_name) {
           # Extract ale_x and ale_n: it is identical for all bootstrap samples,
           # so extracting it only from the first element is sufficient.
-          ale_x <- .x_col_data[[1]]$data$ale_x
-          ale_n <- .x_col_data[[1]]$data$ale_n
-          length_ale_x <- length(ale_x)
+          .ale_x <- .x_col[[1]]$ale_x
+          .ale_n <- .x_col[[1]]$ale_n
 
-          # Convert bootstrap ALE y values to matrix format
-          boot_mtx <-
-            map(  # extract ale_y
-              .x_col_data,
-              \(.boot_it) {
-                .boot_it$data$ale_y
-                # x # for ALE without bootstrap, all ale_y summary values are identical, so
-                # x # arbitrarily pick one: ale_y_med
-                # .boot_it$data$ale_y_med
-              }
+          .x_col |>
+            map(\(.it) .it |>
+                  # Replace iteration ale_x and ale_n to be unique for each variable
+                  mutate(
+                    ale_x = .ale_x,
+                    ale_n = .ale_n,
+                  )
             ) |>
-            # Convert to matrix where rows are ale_x values and columns are
-            # bootstrap iterations
-            unlist() |>
-            matrix(ncol = nrow(boot_data) - 1)
+            bind_rows() |>
+            group_by(ale_x, ale_n) |>
+            summarize(
+              ale_y_lo = quantile(ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
+              ale_y_median = median(ale_y, na.rm = TRUE),
+              ale_y_mean = mean(ale_y, na.rm = TRUE),
+              ale_y_hi = quantile(ale_y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+              ale_y = if_else(boot_centre == 'median', ale_y_median, ale_y_mean),
+            ) |>
+            select(ale_x, ale_n, ale_y, everything())
+        })
 
-          # Create summary statistics of bootstrap results.
-          boot_summary <- tibble(
-            ale_x = ale_x,
-            ale_n = ale_n,
-            ale_y = as.double(NA),
-            ale_y_lo = as.double(NA),
-            ale_y_median = as.double(NA),
-            ale_y_mean = as.double(NA),
-            ale_y_hi = as.double(NA),
-            # ale_y_lo = rep(as.double(NA), length_ale_x),
-            # ale_y_med = rep(as.double(NA), length_ale_x),
-            # ale_y_mean = rep(as.double(NA), length_ale_x),
-            # ale_y_hi = rep(as.double(NA), length_ale_x),
-          )
-
-          for (i in 1:length_ale_x) {
-            boot_summary$ale_y[i] <- median(boot_mtx[i, ], na.rm = TRUE)
-            boot_summary$ale_y_lo[i] <- quantile(boot_mtx[i, ], na.rm = TRUE,
-                                                 probs = (boot_alpha / 2))
-            boot_summary$ale_y_median[i] <- median(boot_mtx[i, ], na.rm = TRUE)
-            boot_summary$ale_y_mean[i] <- mean(boot_mtx[i, ], na.rm = TRUE)
-            boot_summary$ale_y_hi[i] <- quantile(boot_mtx[i, ], na.rm = TRUE,
-                                                 probs = 1 - (boot_alpha / 2))
+      summary_ale_plots <- if (('output' %in% names(ale_options)) &&
+                               !('plot' %in% ale_options$output)) {
+        # User specifically excluded plots from the output
+        NULL
+      } else {  # User did not exclude plots, so create them
+        map2(
+          summary_ale_data, names(summary_ale_data), \(.x_col_data, .x_col_name) {
+            plot_ale(.x_col_data, .x_col_name, y_col, y_type, y_summary)
           }
+        )
+      }
 
-          plot <- plot_ale(boot_summary, .x_col_name,
-                           y_col, y_type, y_summary)
-
-          return(list(
-            data = boot_summary,
-            plot = plot
-          ))
-        }
+      list(
+        data = summary_ale_data,
+        plots = summary_ale_plots
       )
-
-    } else {
+    } else {  # ALE not requested
       NULL
     }
 
@@ -412,7 +395,7 @@ model_bootstrap <- function (
   return(list(
     model_stats = glance_summary,
     model_coefs = tidy_summary,
-    ale_data = ale_summary,
+    ale = ale_summary,
     boot_data = if ('boot_data' %in% output) {
       boot_data
     } else {
