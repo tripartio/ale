@@ -474,7 +474,11 @@ model_bootstrap <- function (
       boot_data
     } else {
       NULL
-    }
+    },
+    boot_it,
+    seed,
+    boot_alpha,
+    boot_centre
     ))
 
 }
