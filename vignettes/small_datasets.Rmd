@@ -90,7 +90,7 @@ What is unique about ALE compared to other approaches is that it visualizes the 
 We can use `ale_ixn` to visualize the possible existence of any interactions:
 
 ```{r lm_ixn, fig.asp=1.5}
-ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude, boot_it = 0)
+ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude)
 
 # Print plots
 ale_lm_attitude_ixn$plots |>

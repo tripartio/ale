@@ -1181,7 +1181,7 @@
       [1] 0.05
       
 
-# mostly default (boot_it=5) snapshot works with multiple x datatypes
+# mostly default (boot_it=10) snapshot works with multiple x datatypes
 
     Code
       cars_ale

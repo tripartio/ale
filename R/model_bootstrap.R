@@ -230,7 +230,7 @@ model_bootstrap <- function (
           else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
-            do.call(ale, modifyList(list(
+            do.call(ale, utils::modifyList(list(
               boot_data, boot_model,
               boot_it = 0,  # do not bootstrap at this inner level
               output = 'data',  # do not generate plots
@@ -272,14 +272,8 @@ model_bootstrap <- function (
           model = boot_model,
           ale_data = boot_ale,
           tidy = boot_tidy,
-          # glance = do.call(
-          #   broom::glance,
-          #   modifyList(list(boot_model), glance_options)
-          # )
           glance = do.call(broom::glance, list(boot_model,
                                              unlist(glance_options)))
-          # tidy = broom::tidy(boot_model),
-          # glance = broom::glance(boot_model)
         )
 
       }

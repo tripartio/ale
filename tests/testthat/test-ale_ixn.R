@@ -1,4 +1,4 @@
-# test-ale.R
+# test-ale_ixn.R
 
 # # For some reason, this explicit source statement is needed for variables to be recognized
 # test_that('setup.R loads', {
@@ -12,41 +12,35 @@
 # only save the core data from the plot
 test_that(
   'mostly default snapshot works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam)
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    expect_snapshot(cars_ale)
-  }
-)
-
-test_that(
-  'mostly default (boot_it=10) snapshot works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam, boot_it = 10)
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    expect_snapshot(cars_ale)
+    cars_ale_ixn <- ale_ixn(var_cars, cars_gam)
+    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
+      map(\(.x1) ale_plots_to_data(.x1))
+    expect_snapshot(cars_ale_ixn)
   }
 )
 
 test_that(
   'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
 
-    cars_ale <- ale(
+    cars_ale_ixn <- ale_ixn(
       var_cars, cars_gam,
-      x_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
+      x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
+      x2_cols = c('cyl', 'disp', 'hp'),
       output = c('plot'),
       pred_fun = test_predict,  # function defined in setup.R
       predict_type = "link",
       x_intervals = 50,
-      boot_it = 5,
-      seed = 1234,
-      boot_alpha = 0.01,
-      boot_centre = 'mean',
       relative_y = 'zero',
       y_type = 'numeric',
-      plot_alpha = 0.01
+      plot_alpha = 0.01,
+      n_x1_int = 10,
+      n_x2_int = 25,
+      n_y_quant = 5
     )
 
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    expect_snapshot(cars_ale)
+    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
+      map(\(.x1) ale_plots_to_data(.x1))
+    expect_snapshot(cars_ale_ixn)
   }
 )
 

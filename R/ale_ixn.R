@@ -39,9 +39,6 @@
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
-#' @param boot_it See documentation for `ale`
-#' @param boot_alpha See documentation for `ale`
-#' @param boot_centre See documentation for `ale`
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
 #' @param plot_alpha See documentation for `ale`
@@ -110,9 +107,9 @@ ale_ixn <- function (
     },
     predict_type = "response",
     x_intervals = 100,
-    boot_it = 0,
-    boot_alpha = 0.05,
-    boot_centre = 'median',
+    # boot_it = 0,
+    # boot_alpha = 0.05,
+    # boot_centre = 'median',
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,

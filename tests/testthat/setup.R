@@ -1,6 +1,6 @@
 # Prepare common environment for testing
 
-## Create cars dataset with multiple datatypes.
+## Create var_cars dataset with multiple datatypes.
 # This will be used to test various functions
 
 # Create a function to determine the country of origin of a car based on its make
@@ -22,7 +22,7 @@ car_country <- function(make) {
   )
 }
 
-cars <-
+var_cars <<-
   mtcars |>
   as_tibble(rownames = 'make') |>
   # retain only first word as the make without the car model
@@ -37,12 +37,12 @@ cars <-
 
 
 # Train a GAM
-cars_gam <- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
+cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                   + vs + am + gear + carb + country,
-                data = cars)
+                data = var_cars)
 
 # Returns list of ALE plots converted to ggplot data format
-ale_plots_to_data <- function(
+ale_plots_to_data <<- function(
     ale_plots  # list of ALE plots
 ) {
   ale_plots |>
@@ -51,7 +51,7 @@ ale_plots_to_data <- function(
 }
 
 # custom predict function
-test_predict <- function(object, newdata) {
+test_predict <<- function(object, newdata) {
   predict(object, newdata, se.fit = TRUE)$fit
 }
 

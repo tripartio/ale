@@ -61,11 +61,11 @@ Henderson and Velleman (1981) comment in a footnote to Table 1: 'Hocking [origin
 
 Henderson and Velleman (1981), Building multiple regression models interactively. *Biometrics*, **37**, 391--411.
 
-### Modified version: `cars`
+### Modified version: `var_cars`
 
 To get the multinomial variable, we will adapt information from the names of the cars which is available in the row names of the `mtcars` cases. However, since each is unique, we will determine the country of the manufacturer of each car; this gives us a factor of just six categories. With such a small dataset of only 32 rows, we cannot work with many more categories than that or else the models would end up with too many dummy variables for such a small dataset.
 
-Our adapted dataset will be called `cars`; it is the same data as `mtcars` but with several variables encoded as more diverse yet appropriate datatypes.
+Our adapted dataset will be called `var_cars`; it is the same data as `mtcars` but with several variables encoded as more diverse yet appropriate datatypes.
 
 ```{r mtcars_to_cars}
 # Create a function to determine the country of origin of a car based on its make
@@ -87,7 +87,7 @@ car_country <- function(make) {
   )
 }
 
-cars <- 
+var_cars <- 
   mtcars |> 
   as_tibble(rownames = 'make') |> 
   # retain only first word as the make without the car model
@@ -100,29 +100,29 @@ cars <-
   mutate(gear = as.ordered(gear)) |> 
   mutate(across(c(cyl, carb), as.integer))
 
-cars |> 
+var_cars |> 
   print(n = 50)
 ```
 
-```{r cars}
-summary(cars)
+```{r var_cars}
+summary(var_cars)
 ```
 ## Modelling with ALE and GAM 
 
-With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
+With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
 
 ```{r cars_gam}
 cm <- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
             + vs + am + gear + carb + country,
-          data = cars)
+          data = var_cars)
 
 summary(cm)
 ```
 
-Now we generate ALE data from the `cars` GAM model and plot it.
+Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.asp=1.5}
-cars_ale <- ale(cars, cm)
+cars_ale <- ale(var_cars, cm)
 
 # Print all plots
 gridExtra::grid.arrange(grobs = cars_ale$plots, ncol = 2)
@@ -132,7 +132,7 @@ We can see that `ale` has no trouble modelling any of the datatypes in our sampl
 We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r cars_ale_ixn, fig.asp=1.5}
-cars_ale_ixn <- ale_ixn(cars, cm)
+cars_ale_ixn <- ale_ixn(var_cars, cm)
 
 # Print plots
 cars_ale_ixn$plots |>
@@ -147,7 +147,7 @@ Finally, as explained in the vignette on modelling with [small datasets](small_d
 
 ```{r cars_full, fig.asp=1.7}
 mb <- model_bootstrap(
-  cars, 
+  var_cars, 
   'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
             + vs + am + gear + carb + country)'
 )

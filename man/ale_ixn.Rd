@@ -16,9 +16,6 @@ ale_ixn(
  },
   predict_type = "response",
   x_intervals = 100,
-  boot_it = 0,
-  boot_alpha = 0.05,
-  boot_centre = "median",
   relative_y = "median",
   y_type = NULL,
   plot_alpha = 0.05,
@@ -44,12 +41,6 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 \item{pred_fun, predict_type}{See documentation for \code{ale}}
 
 \item{x_intervals}{See documentation for \code{ale}}
-
-\item{boot_it}{See documentation for \code{ale}}
-
-\item{boot_alpha}{See documentation for \code{ale}}
-
-\item{boot_centre}{See documentation for \code{ale}}
 
 \item{relative_y}{See documentation for \code{ale}}
 

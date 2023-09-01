@@ -1,17 +1,12 @@
 # test-model_bootstrap.R
 
 
-# cars_ale <- ale(cars, cm)
-#
-# cars_ale_ixn <- ale_ixn(cars, cm)
-
-
 # Because it is complex to save entire ggplot objects,
 # only save the core data from the plot
 test_that(
   'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
     mb <- model_bootstrap(
-      cars,
+      var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 + vs + am + gear + carb + country)',
       boot_it = 0
@@ -25,7 +20,7 @@ test_that(
 test_that(
   'mostly default (boot_it=5) snapshot works with multiple x datatypes', {
     mb <- model_bootstrap(
-      cars,
+      var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 + vs + am + gear + carb + country)',
       boot_it = 5
@@ -39,7 +34,7 @@ test_that(
 test_that(
   'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
     mb <- model_bootstrap(
-      cars,
+      var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 + vs + am + gear + carb + country)',
       boot_it = 5,
@@ -57,7 +52,7 @@ test_that(
 test_that(
   'snapshot works without ALE, with every parameter set to something, with multiple x datatypes', {
     mb <- model_bootstrap(
-      cars,
+      var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 + vs + am + gear + carb + country)',
       boot_it = 3,

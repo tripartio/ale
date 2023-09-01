@@ -264,7 +264,7 @@ ale_core <- function (
   if (missing(pred_fun)) {   # default pred_fun used, so don't assume model is valid
     # A valid model is defined as one that has a predict method
     assert_that(
-      methods('predict') |>  # list all existing predict methods
+      utils::methods('predict') |>  # list all existing predict methods
         as.character() |>
         stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
         # Search for the name of the class of the model argument in the list of methods
