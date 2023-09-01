@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(ggplot2)
 library(ale)
 ```
 
@@ -81,13 +80,13 @@ The `ale` function returns a list with one element per input variable, as well a
 
 To iterate the list and plot all the ALE plots, we provide here some demonstration code using the `purrr` package for list iteration and `gridExtra` for arranging multiple plots in a common plot grid.
 
-```{r ale_simple}
+```{r ale_simple, fig.asp=1.5}
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 
-ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+# Print plots
+gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+
 ```
 
 ## Bootstrapped ALE
@@ -104,13 +103,11 @@ diamonds_new <- diamonds_test[new_rows, ]
 
 Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100.
 
-```{r ale_boot}
+```{r ale_boot, fig.asp=1.5}
 ale_gam_diamonds_boot <- ale(diamonds_new, gam_diamonds, boot_it = 100)
 
 # Bootstrapping produces confidence intervals
-ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
 
 ```
 
@@ -133,10 +130,9 @@ Again, to iterate the list and plot all the ALE plots, we provide here some demo
 # ALE two-way interactions
 ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
 
-# Skip .common_data when iterating through the data for plotting
-ale_ixn_gam_diamonds[setdiff(names(ale_ixn_gam_diamonds), '.common_data')] |> 
-  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
-    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
-      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+# Print plots
+ale_ixn_gam_diamonds$plots |>
+  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
+    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
   })
 ```

@@ -114,6 +114,11 @@ model_bootstrap <- function (
   # when NSE applies, the NSE variables will be prioritized over these null
   # local variables.
   ale_data <- NULL
+  ale_x <- NULL
+  ale_n <- NULL
+  ale_y <- NULL
+  ale_y_mean <- NULL
+  ale_y_median <- NULL
   it <- NULL
   name <- NULL
   value <- NULL

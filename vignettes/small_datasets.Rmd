@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(ggplot2)
 library(ale)
 ```
 
@@ -75,16 +74,13 @@ lm_attitude <- lm(rating ~ ., data = attitude)
 summary(lm_attitude)
 ```
 
-At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (boot_it = 0) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
+At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple}
-ale_lm_attitude_simple <- ale(attitude, lm_attitude, boot_it = 0)
+ale_lm_attitude_simple <- ale(attitude, lm_attitude)
 
 # Print all plots
-# Skip .common_data when iterating through the data for plotting
-ale_lm_attitude_simple[setdiff(names(ale_lm_attitude_simple), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = ale_lm_attitude_simple$plots, ncol = 2)
 ```
 
 This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.
@@ -93,14 +89,13 @@ What is unique about ALE compared to other approaches is that it visualizes the 
 
 We can use `ale_ixn` to visualize the possible existence of any interactions:
 
-```{r lm_ixn}
+```{r lm_ixn, fig.asp=1.5}
 ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude, boot_it = 0)
 
-# Skip .common_data when iterating through the data for plotting
-ale_lm_attitude_ixn[setdiff(names(ale_lm_attitude_ixn), '.common_data')] |> 
-  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
-    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
-      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+# Print plots
+ale_lm_attitude_ixn$plots |>
+  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
+    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
   })
 ```
 
@@ -148,10 +143,8 @@ mb_lm$model_coefs
 
 Here we can visualize the results of the ALE plots.
 
-```{r lm_full_ale}
-mb_lm$ale_data[setdiff(names(mb_lm$ale_data), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```{r lm_full_ale, fig.asp=1.1}
+gridExtra::grid.arrange(grobs = mb_lm$ale$plots, ncol = 2)
 ```
 
 The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
@@ -183,9 +176,7 @@ To understand which variables were responsible for this relationship, the result
 ```{r gam_simple}
 ale_gam_attitude_simple <- ale(attitude, gam_attitude, boot_it = 0)
 
-ale_gam_attitude_simple[setdiff(names(ale_gam_attitude_simple), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = ale_gam_attitude_simple$plots, ncol = 2)
 ```
 
 Compared to the OLS results above, the GAM results provide quite a surprise concerning the shape of the effect of employees' perceptions that their department is too critical--it seems that both low criticism and very high criticism negatively affect ratings. However, before trying to interpret these results, we must remember that results that are not bootstrapped are simply not reliable. So, let us see what bootstrapping will give us.
@@ -203,10 +194,8 @@ mb_gam$model_stats
 mb_gam$model_coefs
 ```
 
-```{r gam_full_ale}
-mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |> 
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+```{r gam_full_ale, fig.asp=1.1}
+gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 ```
 
 The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.

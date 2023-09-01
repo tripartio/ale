@@ -166,9 +166,7 @@ ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 
 \donttest{
 # Plot the ALE data
-# Skip .common_data when iterating through the data for plotting
-ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+ale_gam_diamonds$plots |>
   gridExtra::grid.arrange(grobs = _, ncol = 2)
 
 # Bootstrapped ALE
@@ -177,10 +175,8 @@ ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
 # Create ALE with 100 bootstrap samples
 ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
 
-# Bootstrapping produces confidence intervals
-# Skip .common_data when iterating through the data for plotting
-ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |>
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+# Bootstrapped ALEs print with confidence intervals
+ale_gam_diamonds_boot$plots |>
   gridExtra::grid.arrange(grobs = _, ncol = 2)
 }
 
