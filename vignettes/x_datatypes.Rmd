@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(ale)
 library(dplyr)
-library(ggplot2)
 ```
 
 This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
@@ -122,27 +121,23 @@ summary(cm)
 
 Now we generate ALE data from the `cars` GAM model and plot it.
 
-```{r cars_ale}
+```{r cars_ale, fig.asp=1.5}
 cars_ale <- ale(cars, cm)
 
 # Print all plots
-# Skip .common_data when iterating through the data for plotting
-cars_ale[setdiff(names(cars_ale), '.common_data')] |> 
-purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = cars_ale$plots, ncol = 2)
 ```
 We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double).
 
 We can also generate and plot the ALE data for all two-way interactions.
 
-```{r cars_ale_ixn}
+```{r cars_ale_ixn, fig.asp=1.5}
 cars_ale_ixn <- ale_ixn(cars, cm)
 
-# Skip .common_data when iterating through the data for plotting
-cars_ale_ixn[setdiff(names(cars_ale_ixn), '.common_data')] |> 
-  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
-    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
-      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+# Print plots
+cars_ale_ixn$plots |>
+  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
+    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
   })
 ```
 
@@ -150,15 +145,12 @@ There are no interactions in this dataset.
 
 Finally, as explained in the vignette on modelling with [small datasets](small_datasets.Rmd "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
-```{r cars_full}
+```{r cars_full, fig.asp=1.7}
 mb <- model_bootstrap(
   cars, 
   'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
             + vs + am + gear + carb + country)'
 )
 
-# Skip .common_data when iterating through the data for plotting
-mb$ale_data[setdiff(names(mb$ale_data), '.common_data')] |> 
-purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = mb$ale$plots, ncol = 2)
 ```
