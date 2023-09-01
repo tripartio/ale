@@ -123,24 +123,19 @@ nnet.dfx <- nnet(y~., data = dfx, linout = T, skip = F, size = 6,
 nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw", relative_y = 'zero')
 nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw")
 
-purrr::map(nnet_ale, \(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
-
-
+# Print plots
+gridExtra::grid.arrange(grobs = nnet_ale$plots, ncol = 2)
 ```
 
-```{r}
+```{r, fig.asp=1.2}
 # Create and plot interactions
 nnet_ale_ixn <- ale_ixn(dfx, nnet.dfx, predict_type = "raw")
 
-# Skip .common_data when iterating through the data for plotting
-nnet_ale_ixn[setdiff(names(nnet_ale_ixn), '.common_data')] |> 
-  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
-    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
-      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+# Print plots
+nnet_ale_ixn$plots |>
+  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
+    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
   })
-
-
 ```
 
 
@@ -248,29 +243,22 @@ xint <- 500
 # saveRDS(gbm_ale, 'demo_gbm_ale_100x.rds')
 gbm_ale <- readRDS('demo_gbm_ale_ixn_100x.rds')
 
-# Print all plots
-purrr::map(gbm_ale, \(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
-
+# Print plots
+gridExtra::grid.arrange(grobs = gbm_ale$plots, ncol = 2)
 ```
 
 Now we generate ALE data for all two-way interactions and then plot them.
 
-```{r}
+```{r, fig.asp=1.2}
 # To generate the code, uncomment the following lines.
 # But it is slow, so this vignette loads a pre-created model object.
 # gbm_ale_ixn <- ale_ixn(data, gbm.data, pred_fun = yhat, x_intervals = xint)
 # saveRDS(gbm_ale_ixn, 'demo_gbm_ale_ixn_100x.rds')
 gbm_ale_ixn <- readRDS('demo_gbm_ale_ixn_100x.rds')
 
-getwd()
-# Print all plots
-
-# Skip .common_data when iterating through the data for plotting
-gbm_ale_ixn[setdiff(names(gbm_ale_ixn), '.common_data')] |> 
-  purrr::walk(\(x1) {  # extract list of x1 ALE outputs
-    purrr::map(x1, \(.x) .x$plot) |>  # for each x1, extract list of x2 ALE outputs
-      gridExtra::grid.arrange(grobs = _, ncol = 2)  # plot all x1 plots
+# Print plots
+gbm_ale_ixn$plots |>
+  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
+    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
   })
-
 ```

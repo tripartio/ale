@@ -18,6 +18,7 @@ ale(
   predict_type = "response",
   x_intervals = 100,
   boot_it = 0,
+  seed = 0,
   boot_alpha = 0.05,
   boot_centre = "median",
   relative_y = "median",
@@ -55,6 +56,9 @@ a given x value do not support that many intervals.}
 \item{boot_it}{non-negative integer. Number of bootstrap iterations for the
 ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
 with no bootstrapping.}
+
+\item{seed}{integer. Random seed. Supply this between runs to assure that
+identical random ALE data is generated each time}
 
 \item{boot_alpha}{numeric from 0 to 1. Alpha for percentile-based confidence
 interval range for the bootstrap intervals; the bootstrap confidence intervals
@@ -95,14 +99,18 @@ Core functions for the ale package
 
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
-algorithms. ALE has two primary advantages over other approaches like PDP
-and SHAP: its values are not affected by the presence of interactions among
-variables in a mode and its computation is relatively rapid. This package
-rewrites the original \code{ALEPlot} code for calculating ALE data and it
-completely reimplements the plotting of ALE values. In addition, future
-versions hope to extend the original ALE concept beyond global explanations
-with ALE-based measures that can be used for statistical inference
-as well as an ALE-based approach for local explanations.
+algorithms. (Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of
+predictor variables in black box supervised learning models." Journal of the
+Royal Statistical Society Series B: Statistical Methodology 82.4
+(2020): 1059-1086 \url{doi:10.1111/rssb.12377}.) ALE has two primary advantages
+over other approaches like partial dependency plots (PDP) and SHapley
+Additive exPlanations (SHAP): its values are not affected by the presence of
+interactions among variables in a model and its computation is relatively
+rapid. This package rewrites the original code from the 'ALEPlot' package for
+calculating ALE data and it completely reimplements the plotting of ALE values.
+Future versions hope to extend the original ALE concept beyond global
+explanations with ALE-based measures that can be used for statistical
+inference as well as an ALE-based approach for local explanations.
 }
 \details{
 Create and return ALE data and plots
@@ -156,11 +164,9 @@ summary(gam_diamonds)
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 
 
-\dontrun{
+\donttest{
 # Plot the ALE data
-# Skip .common_data when iterating through the data for plotting
-ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+ale_gam_diamonds$plots |>
   gridExtra::grid.arrange(grobs = _, ncol = 2)
 
 # Bootstrapped ALE
@@ -169,10 +175,8 @@ ale_gam_diamonds[setdiff(names(ale_gam_diamonds), '.common_data')] |>
 # Create ALE with 100 bootstrap samples
 ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
 
-# Bootstrapping produces confidence intervals
-# Skip .common_data when iterating through the data for plotting
-ale_gam_diamonds_boot[setdiff(names(ale_gam_diamonds_boot), '.common_data')] |>
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
+# Bootstrapped ALEs print with confidence intervals
+ale_gam_diamonds_boot$plots |>
   gridExtra::grid.arrange(grobs = _, ncol = 2)
 }
 

@@ -10,6 +10,7 @@ model_bootstrap(
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
+  boot_centre = "median",
   output = c("ale", "model_stats", "model_coefs"),
   ale_options = list(),
   tidy_options = list(),
@@ -32,6 +33,8 @@ bootstrap samples are generated each time on the same data.}
 \item{boot_alpha}{numeric. The confidence level for the bootstrap confidence intervals is
 1 - boot_alpha. For example, the default 0.05 will give a 95\% confidence
 interval, that is, from the 2.5\% to the 97.5\% percentile.}
+
+\item{boot_centre}{See documentation for \code{ale}}
 
 \item{output}{character vector. Which types of bootstraps to calculate and return:
 \itemize{
@@ -109,9 +112,7 @@ mb_gam$model_coefs
 
 \donttest{
 # Plot ALE
-mb_gam$ale_data[setdiff(names(mb_gam$ale_data), '.common_data')] |>
-  purrr::map(\(.x) .x$plot) |>  # extract plots as a list
-  gridExtra::grid.arrange(grobs = _, ncol = 2)
+gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 }
 
 
