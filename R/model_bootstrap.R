@@ -406,10 +406,10 @@ model_bootstrap <- function (
     } else {
       NULL
     },
-    boot_it,
-    seed,
-    boot_alpha,
-    boot_centre
+    boot_it = boot_it,
+    seed = seed,
+    boot_alpha = boot_alpha,
+    boot_centre = boot_centre
     ))
 
 }
