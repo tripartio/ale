@@ -47,9 +47,10 @@ ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
   ale_plots |>
-    purrr::map(\(.var) list(
-      data = .var$data,
-      plot_data = ggplot_build(.var$plot)$data
-    )) |>
+    purrr::map(\(.plot) ggplot_build(.plot)$data) |>
+    # purrr::map(\(.var) list(
+    #   data = .var$data,
+    #   plot_data = ggplot_build(.var$plot)$data
+    # )) |>
     set_names(names(ale_plots))
 }

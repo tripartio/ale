@@ -16,7 +16,7 @@ test_that(
                 + vs + am + gear + carb + country)',
       boot_it = 0
     )
-    mb$ale_data <- ale_plots_to_data(mb$ale_data)
+    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     expect_snapshot(mb)
   }
 )
@@ -30,7 +30,7 @@ test_that(
                 + vs + am + gear + carb + country)',
       boot_it = 5
     )
-    mb$ale_data <- ale_plots_to_data(mb$ale_data)
+    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     expect_snapshot(mb)
   }
 )
@@ -49,7 +49,7 @@ test_that(
       output = 'ale',
       ale_options = list(relative_y = 'zero')
     )
-    mb$ale_data <- ale_plots_to_data(mb$ale_data)
+    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     expect_snapshot(mb)
   }
 )
