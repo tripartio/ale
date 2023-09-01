@@ -41,16 +41,17 @@ cars_gam <- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                   + vs + am + gear + carb + country,
                 data = cars)
 
-
 # Returns list of ALE plots converted to ggplot data format
 ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
   ale_plots |>
     purrr::map(\(.plot) ggplot_build(.plot)$data) |>
-    # purrr::map(\(.var) list(
-    #   data = .var$data,
-    #   plot_data = ggplot_build(.var$plot)$data
-    # )) |>
     set_names(names(ale_plots))
 }
+
+# custom predict function
+test_predict <- function(object, newdata) {
+  predict(object, newdata, se.fit = TRUE)$fit
+}
+

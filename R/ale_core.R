@@ -17,16 +17,20 @@
 #' `model`. By default, `ale` uses a generic default `predict` function of the form
 #' `predict(model_object, new_data)` with the default prediction type of 'response'.
 #' If, however, the desired prediction values are not generated with that format,
-#' the user must specify what they want. Most of the time, they only need to change
-#' the prediction type to some other value by setting the `predict_type` argument
+#' the user must specify what they want. Most of the time, the only modification needed is
+#' to change the prediction type to some other value by setting the `predict_type` argument
 #' (e.g., to 'prob' to generated classification probabilities). But if the desired
 #' predictions need a different function signature, then the user must create a
-#' custom prediction function and pass it to `pred_fun`. See an example below.
+#' custom prediction function and pass it to `pred_fun`. The requirements for this
+#' custom function are:
 #'
-#' For binary prediction models, be sure to set the predict_type to whatever
-#' type returns probabilities (from 0 to 1)
+#' * It must take two arguments and nothing else: `object` (a model) and `newdata`
+#' (a dataframe or compatible table type). These argument names are according to
+#' the R convention for the generic stats::predict function.
+#' * It must return a vector of numeric values as the prediction.
 #'
-# TODO Give example of custom predict function.
+#' You can see an example below of a custom prediction function.
+#'
 #'
 #' @export
 #'
@@ -122,8 +126,8 @@
 #'
 #' \donttest{
 #' # Plot the ALE data
-#' ale_gam_diamonds$plots |>
-#'   gridExtra::grid.arrange(grobs = _, ncol = 2)
+#' gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+
 #'
 #' # Bootstrapped ALE
 #' # This can be slow, since bootstrapping runs the algorithm boot_it times
@@ -132,8 +136,23 @@
 #' ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
 #'
 #' # Bootstrapped ALEs print with confidence intervals
-#' ale_gam_diamonds_boot$plots |>
-#'   gridExtra::grid.arrange(grobs = _, ncol = 2)
+#' gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
+#'
+#'
+#' # If the predict function you want is non-standard, you may define a
+#' # custom predict function. It must return a single numeric vector.
+#' custom_predict <- function(object, newdata) {
+#'   predict(object, newdata, type = 'link', se.fit = TRUE)$fit
+#' }
+#'
+#' ale_gam_diamonds_custom <- ale(
+#'   diamonds_test, gam_diamonds,
+#'   pred_fun = custom_predict
+#' )
+#'
+#' # Plot the ALE data
+#' gridExtra::grid.arrange(grobs = ale_gam_diamonds_custom$plots, ncol = 2)
+#'
 #' }
 #'
 ale <- function (
@@ -238,6 +257,7 @@ ale_core <- function (
 {
   # Validate arguments
   assert_that(test_data |> inherits('data.frame'))
+
   # Assume that if a custom predict function is supplied, it must be because
   # model is a valid model, so do not try to validate it further.
   # But if the default predict function is used, validate that model is valid.
@@ -255,6 +275,7 @@ ale_core <- function (
       a model object with a predict method.'
     )
   }
+
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
   if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
