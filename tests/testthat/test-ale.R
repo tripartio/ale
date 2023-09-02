@@ -1,12 +1,5 @@
 # test-ale.R
 
-# # For some reason, this explicit source statement is needed for variables to be recognized
-# test_that('setup.R loads', {
-#   source('setup.R')
-#   expect(TRUE, 'Never fails')
-# })
-
-
 
 # Because it is complex to save entire ggplot objects,
 # only save the core data from the plot

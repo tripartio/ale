@@ -10,6 +10,7 @@
 
 -   Added data validation to exported functions. Under the hood, each user-facing function carefully validates that the user has entered valid data using the [`assertthat`](https://github.com/hadley/assertthat "assertthat package") package; if not, the function fails quickly with an appropriate error message.
 -   Created unit tests for exported functions. Under the hood, the [testthat](https://testthat.r-lib.org/ "testthat package") package is now used for testing the outputs of each user-facing function. This should help the code base to be more robust going forward with future developments.
+-   In particular, we added tests that compare results with the original reference ALEPlot package. These tests should ensure that any future code that breaks the accuracy of ALE calculations should be caught quickly.
 
 ## ale 0.1.0
 

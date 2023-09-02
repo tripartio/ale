@@ -258,6 +258,8 @@ ale_core <- function (
   # Validate arguments
   assert_that(test_data |> inherits('data.frame'))
 
+  # browser()
+
   # Assume that if a custom predict function is supplied, it must be because
   # model is a valid model, so do not try to validate it further.
   # But if the default predict function is used, validate that model is valid.
@@ -268,9 +270,12 @@ ale_core <- function (
         as.character() |>
         stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
         # Search for the name of the class of the model argument in the list of methods
-        # But this assumes that the right class is the first one listed by the model object
-        stringr::str_detect(paste0('^', class(model)[1], '$')) |>
-        any(),
+        (`%in%`)(class(model)) |>
+        any(),  # at least one predict method matches one of the classes of model
+        # # Search for the name of the class of the model argument in the list of methods
+        # # But this assumes that the right class is the first one listed by the model object
+        # stringr::str_detect(paste0('^', class(model)[1], '$')) |>
+        # any(),
       msg = 'The value entered in the model argument does not seem to be
       a model object with a predict method.'
     )
