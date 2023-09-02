@@ -1,5 +1,16 @@
 # `ale` Package Release Notes
 
+## Next version
+
+### User-visible changes
+
+-   We changed the output data structure of the ALE data and plots. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
+
+### Under the hood
+
+-   Added data validation to exported functions. Under the hood, each user-facing function carefully validates that the user has entered valid data using the [`assertthat`](https://github.com/hadley/assertthat "assertthat package") package; if not, the function fails quickly with an appropriate error message.
+-   Created unit tests for exported functions. Under the hood, the [testthat](https://testthat.r-lib.org/ "testthat package") package is now used for testing the outputs of each user-facing function. This should help the code base to be more robust going forward with future developments.
+
 ## ale 0.1.0
 
 **August 29, 2023**
