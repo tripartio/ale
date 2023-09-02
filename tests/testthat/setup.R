@@ -22,6 +22,8 @@ car_country <- function(make) {
   )
 }
 
+# Super-assignment <<- used: without it, these variables are not found in many
+# of the subsequent testthat tests.
 var_cars <<-
   mtcars |>
   as_tibble(rownames = 'make') |>
@@ -37,12 +39,14 @@ var_cars <<-
 
 
 # Train a GAM
+# Super-assignment <<- used: without it, these variables are not found in many
+# of the subsequent testthat tests.
 cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                   + vs + am + gear + carb + country,
                 data = var_cars)
 
 # Returns list of ALE plots converted to ggplot data format
-ale_plots_to_data <<- function(
+ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
   ale_plots |>
@@ -51,7 +55,35 @@ ale_plots_to_data <<- function(
 }
 
 # custom predict function
+# Super-assignment <<- used: without it, these variables are not found in many
+# of the subsequent testthat tests.
 test_predict <<- function(object, newdata) {
   predict(object, newdata, se.fit = TRUE)$fit
 }
+
+
+## Gold standard environment: test ALEPlot
+library(nnet)
+library(ALEPlot)
+
+
+set.seed(0)
+n = 5000
+x1 <- runif(n, min = 0, max = 1)
+x2 <- runif(n, min = 0, max = 1)
+x3 <- runif(n, min = 0, max = 1)
+x4 <- runif(n, min = 0, max = 1)
+y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
+  13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
+
+dfx <<- data.frame(y, x1, x2, x3, x4)
+
+set.seed(0)
+nnet.dfx <<- nnet(y~., data = dfx, linout = T, skip = F, size = 6,
+                 decay = 0.1, maxit = 1000, trace = F)
+
+## Define the predictive function
+nnet_pred_fun <<- function(X.model, newdata) as.numeric(predict(X.model, newdata,
+                                                               type = "raw"))
+
 
