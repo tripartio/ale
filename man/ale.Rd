@@ -10,6 +10,7 @@ ale(
   test_data,
   model,
   x_cols = NULL,
+  y_col = NULL,
   output = c("plot", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
@@ -40,6 +41,10 @@ will be automatically calculated.}
 \item{x_cols}{character. Vector of column names from \code{test_dataset} for which
 one-way ALE data is to be calculated (that is, simple ALE without interactions).
 Must be provided if \code{ixn} is FALSE (default).}
+
+\item{y_col}{character length 1. Name of the outcome target label (y) variable.
+If not provided, \code{ale} will try to detect it automatically. For non-standard
+models, \code{y_col} should be provided.}
 
 \item{output}{character in c('plot', 'data'). Vector of types of results to return. 'plot' will return
 an ALE plot; 'data' will return the source ALE data; both together will return both.}

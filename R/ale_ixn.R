@@ -36,6 +36,7 @@
 #'  for each x1 column interacting with each x2 column. x1_cols can be of any standard
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 #'  `ixn` is TRUE, then both values must be provided.
+#' @param y_col See documentation for `ale`
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
@@ -101,6 +102,7 @@
 ale_ixn <- function (
     test_data, model,
     x1_cols = NULL, x2_cols = NULL,
+    y_col = NULL,
     output = c('plot', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)

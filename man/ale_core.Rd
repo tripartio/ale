@@ -11,6 +11,7 @@ ale_core(
   x_cols = NULL,
   x1_cols = NULL,
   x2_cols = NULL,
+  y_col = NULL,
   output = c("plot", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
@@ -46,6 +47,8 @@ be ignored.}
 \item{x_cols}{See documentation for \code{ale}}
 
 \item{x1_cols, x2_cols}{See documentation for \code{ale_ixn}}
+
+\item{y_col}{See documentation for \code{ale}}
 
 \item{output}{See documentation for \code{ale}}
 

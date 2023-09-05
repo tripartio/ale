@@ -44,6 +44,9 @@
 #' @param x_cols character. Vector of column names from `test_dataset` for which
 #'  one-way ALE data is to be calculated (that is, simple ALE without interactions).
 #'  Must be provided if `ixn` is FALSE (default).
+#' @param y_col character length 1. Name of the outcome target label (y) variable.
+#' If not provided, `ale` will try to detect it automatically. For non-standard
+#' models, `y_col` should be provided.
 # @param full_y_range numeric length 3. `full_y_range[1]` is the minimum,
 # `full_y_range[2]` is the mean and
 # `full_y_range[3]` is the maximum value of the outcome (y)
@@ -159,6 +162,7 @@ ale <- function (
     test_data,
     model,
     x_cols = NULL,
+    y_col = NULL,
     # full_y_range = as.numeric(c(NA, NA, NA)),
     output = c('plot', 'data'),
     pred_fun = function(object, newdata) {
@@ -206,6 +210,7 @@ ale <- function (
 #' be ignored.
 #' @param x_cols See documentation for `ale`
 #' @param x1_cols,x2_cols See documentation for `ale_ixn`
+#' @param y_col See documentation for `ale`
 # @param full_y_range See documentation for `ale`
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
@@ -231,6 +236,7 @@ ale_core <- function (
     test_data, model,
     ixn,
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
+    y_col = NULL,
     # full_y_range = as.numeric(c(NA, NA, NA)),
     output = c('plot', 'data'),
     pred_fun = function(object, newdata) {
@@ -285,6 +291,7 @@ ale_core <- function (
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
   if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
   if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
+  if (!is.null(y_col)) assert_that(is.string(y_col))
   # Assure that output is a subset of c('plot', 'data')
   assert_that(
     length(setdiff(output, c('plot', 'data'))) == 0,
@@ -340,13 +347,15 @@ ale_core <- function (
   rm(test_data)
 
   # Identify y column from the Y term of a standard R model call
-  y_col <-
-    model[["terms"]][[2]] |>
-    as.character()
-  if (length(y_col) == 0) {
+  if (is.null(y_col)) {
     y_col <-
-      model[["Terms"]][[2]] |>
+      model[["terms"]][[2]] |>
       as.character()
+    if (length(y_col) == 0) {
+      y_col <-
+        model[["Terms"]][[2]] |>
+        as.character()
+    }
   }
 
   # Determine datatype of y
