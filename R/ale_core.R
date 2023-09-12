@@ -677,12 +677,14 @@ var_type <- function(var) {
 
   return(case_when(
     class_var == 'logical' ~ 'binary',
+    # var consisting only of one of any two values is considered binary
+    (var |> unique() |> length()) == 2 ~ 'binary',
     # numeric var consisting purely of 0 and 1 values is considered binary
-    is.numeric(var) && (var |>
-                          unique() |>
-                          sort() |>
-                          identical(c(0, 1))) ~
-      'binary',
+    # is.numeric(var) && (var |>
+    #                       unique() |>
+    #                       sort() |>
+    #                       identical(c(0, 1))) ~
+    #   'binary',
     class_var == 'factor' ~ 'multinomial',
     class_var == 'ordered' ~ 'ordinal',
     is.numeric(var) ~ 'numeric'
@@ -941,8 +943,14 @@ calc_ale <- function(
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <- c(1L, 2L)
 
+        # browser()
+
         # index of x_col value according to ordered indexes
-        x_ordered_idx <- if_else(X[[x_col]], 2L, 1L)
+        x_ordered_idx <-
+          X[[x_col]] |>
+          as.factor() |>
+          as.integer()  # becomes 2L for TRUE and 1L for FALSE
+        # x_ordered_idx <- if_else(X[[x_col]], 2L, 1L)
 
         # x levels sorted in ALE order
         levels_ale_order <-
@@ -1385,7 +1393,8 @@ plot_ale <- function(
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
       geom_line()
-  } else if (x_type == "ordinal") {
+  } else {
+    # } else if (x_type == "ordinal") {
     plot <- plot +
       geom_col(fill = 'gray') +
       geom_errorbar(aes(ymin = ale_y_lo, ymax = ale_y_hi), width = 0.05)
@@ -1396,8 +1405,8 @@ plot_ale <- function(
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
 
-  } else {
-    stop("Only factors or numerics can be plotted.")
+  # } else {
+  #   stop("Only factors or numerics can be plotted.")
   }
 
   return(plot)
