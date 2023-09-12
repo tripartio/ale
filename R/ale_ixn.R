@@ -43,6 +43,7 @@
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
 #' @param plot_alpha See documentation for `ale`
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #' @param ale_xs See documentation for `ale`
 #' @param n_x1_int,n_x2_int non-negative integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
@@ -103,7 +104,7 @@ ale_ixn <- function (
     test_data, model,
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
-    output = c('plot', 'data'),
+    output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -115,13 +116,15 @@ ale_ixn <- function (
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
     ale_xs = NULL,
     # ggplot_custom = NULL,
     # marginal = TRUE,
     # gg_marginal_custom = NULL,
-    n_x1_int = 20,  # number of x intervals for interaction plot (ignored for factors)
-    n_x2_int = 20,  # number of y quantiles for interaction plot
-    n_y_quant = 10  # number of y quantiles for interaction plot
+    n_x1_int = 20,
+    n_x2_int = 20,
+    n_y_quant = 10
 ) {
 
   # capture all arguments passed into `-ale_ixn` (code thanks to ChatGPT)
@@ -481,7 +484,11 @@ plot_ale_ixn <- function(
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
     plot_alpha = 0.05,
-    n_x1_int = 20, n_x2_int = 20, n_y_quant = 10
+    n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
+    data = NULL,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
+    seed = 0
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:

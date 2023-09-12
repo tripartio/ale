@@ -16,7 +16,11 @@ plot_ale_ixn(
   plot_alpha = 0.05,
   n_x1_int = 20,
   n_x2_int = 20,
-  n_y_quant = 10
+  n_y_quant = 10,
+  data = NULL,
+  rug_sample_size = 500,
+  min_rug_per_interval = 1,
+  seed = 0
 )
 }
 \arguments{

@@ -26,6 +26,8 @@ ale_core(
   relative_y = "median",
   y_type = NULL,
   plot_alpha = 0.05,
+  rug_sample_size = 500,
+  min_rug_per_interval = 1,
   ale_xs = NULL,
   ale_ns = NULL,
   n_x1_int = 20,
@@ -69,6 +71,8 @@ be ignored.}
 \item{y_type}{See documentation for \code{ale}}
 
 \item{plot_alpha}{See documentation for \code{ale}}
+
+\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
 
 \item{ale_xs}{See documentation for \code{ale}}
 

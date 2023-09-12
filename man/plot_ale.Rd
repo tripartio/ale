@@ -11,7 +11,11 @@ plot_ale(
   y_type,
   y_summary,
   relative_y = "median",
-  plot_alpha = 0.05
+  plot_alpha = 0.05,
+  data = NULL,
+  rug_sample_size = 500,
+  min_rug_per_interval = 1,
+  seed = 0
 )
 }
 \arguments{
@@ -31,6 +35,13 @@ for plotting.}
 \item{relative_y}{See documentation for \code{ale}}
 
 \item{plot_alpha}{See documentation for \code{ale}}
+
+\item{data}{dataframe. If provided, used to generate rug plots. Must at least
+contain columns x_col and y_col; any other columns are not used.}
+
+\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
+
+\item{seed}{See documentation for \code{ale}}
 }
 \description{
 This function is not exported. It creates a ggplot object that plots the input

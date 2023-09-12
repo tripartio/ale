@@ -25,7 +25,7 @@ test_that(
     cars_ale <- ale(
       var_cars, cars_gam,
       x_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      output = c('plot'),
+      output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       predict_type = "link",
       x_intervals = 50,

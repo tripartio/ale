@@ -173,6 +173,41 @@
       2 6 19.60826     1    -1       FALSE  black       0.5        1    NA
       3 8 26.14044     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$cyl[[6]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  6 21.0     1    -1  black       0.5        1    NA
+      2  6 21.0     1    -1  black       0.5        1    NA
+      3  4 22.8     1    -1  black       0.5        1    NA
+      4  6 21.4     1    -1  black       0.5        1    NA
+      5  8 18.7     1    -1  black       0.5        1    NA
+      6  6 18.1     1    -1  black       0.5        1    NA
+      7  8 14.3     1    -1  black       0.5        1    NA
+      8  4 24.4     1    -1  black       0.5        1    NA
+      9  4 22.8     1    -1  black       0.5        1    NA
+      10 6 19.2     1    -1  black       0.5        1    NA
+      11 6 17.8     1    -1  black       0.5        1    NA
+      12 8 16.4     1    -1  black       0.5        1    NA
+      13 8 17.3     1    -1  black       0.5        1    NA
+      14 8 15.2     1    -1  black       0.5        1    NA
+      15 8 10.4     1    -1  black       0.5        1    NA
+      16 8 10.4     1    -1  black       0.5        1    NA
+      17 8 14.7     1    -1  black       0.5        1    NA
+      18 4 32.4     1    -1  black       0.5        1    NA
+      19 4 30.4     1    -1  black       0.5        1    NA
+      20 4 33.9     1    -1  black       0.5        1    NA
+      21 4 21.5     1    -1  black       0.5        1    NA
+      22 8 15.5     1    -1  black       0.5        1    NA
+      23 8 15.2     1    -1  black       0.5        1    NA
+      24 8 13.3     1    -1  black       0.5        1    NA
+      25 8 19.2     1    -1  black       0.5        1    NA
+      26 4 27.3     1    -1  black       0.5        1    NA
+      27 4 26.0     1    -1  black       0.5        1    NA
+      28 4 30.4     1    -1  black       0.5        1    NA
+      29 8 15.8     1    -1  black       0.5        1    NA
+      30 6 19.7     1    -1  black       0.5        1    NA
+      31 8 15.0     1    -1  black       0.5        1    NA
+      32 4 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$disp
       $plots$disp[[1]]
@@ -329,6 +364,41 @@
       26 460.0 30.06200     1    -1       FALSE  black       0.5        1    NA
       27 472.0 30.39886     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$disp[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  160.0 21.0     1    -1  black       0.5        1    NA
+      2  160.0 21.0     1    -1  black       0.5        1    NA
+      3  108.0 22.8     1    -1  black       0.5        1    NA
+      4  258.0 21.4     1    -1  black       0.5        1    NA
+      5  360.0 18.7     1    -1  black       0.5        1    NA
+      6  225.0 18.1     1    -1  black       0.5        1    NA
+      7  360.0 14.3     1    -1  black       0.5        1    NA
+      8  146.7 24.4     1    -1  black       0.5        1    NA
+      9  140.8 22.8     1    -1  black       0.5        1    NA
+      10 167.6 19.2     1    -1  black       0.5        1    NA
+      11 167.6 17.8     1    -1  black       0.5        1    NA
+      12 275.8 16.4     1    -1  black       0.5        1    NA
+      13 275.8 17.3     1    -1  black       0.5        1    NA
+      14 275.8 15.2     1    -1  black       0.5        1    NA
+      15 472.0 10.4     1    -1  black       0.5        1    NA
+      16 460.0 10.4     1    -1  black       0.5        1    NA
+      17 440.0 14.7     1    -1  black       0.5        1    NA
+      18  78.7 32.4     1    -1  black       0.5        1    NA
+      19  75.7 30.4     1    -1  black       0.5        1    NA
+      20  71.1 33.9     1    -1  black       0.5        1    NA
+      21 120.1 21.5     1    -1  black       0.5        1    NA
+      22 318.0 15.5     1    -1  black       0.5        1    NA
+      23 304.0 15.2     1    -1  black       0.5        1    NA
+      24 350.0 13.3     1    -1  black       0.5        1    NA
+      25 400.0 19.2     1    -1  black       0.5        1    NA
+      26  79.0 27.3     1    -1  black       0.5        1    NA
+      27 120.3 26.0     1    -1  black       0.5        1    NA
+      28  95.1 30.4     1    -1  black       0.5        1    NA
+      29 351.0 15.8     1    -1  black       0.5        1    NA
+      30 145.0 19.7     1    -1  black       0.5        1    NA
+      31 301.0 15.0     1    -1  black       0.5        1    NA
+      32 121.0 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$hp
       $plots$hp[[1]]
@@ -460,6 +530,41 @@
       21 264 18.95373     1    -1       FALSE  black       0.5        1    NA
       22 335 18.36243     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$hp[[6]]
+           x    y PANEL group colour linewidth linetype alpha
+      1  110 21.0     1    -1  black       0.5        1    NA
+      2  110 21.0     1    -1  black       0.5        1    NA
+      3   93 22.8     1    -1  black       0.5        1    NA
+      4  110 21.4     1    -1  black       0.5        1    NA
+      5  175 18.7     1    -1  black       0.5        1    NA
+      6  105 18.1     1    -1  black       0.5        1    NA
+      7  245 14.3     1    -1  black       0.5        1    NA
+      8   62 24.4     1    -1  black       0.5        1    NA
+      9   95 22.8     1    -1  black       0.5        1    NA
+      10 123 19.2     1    -1  black       0.5        1    NA
+      11 123 17.8     1    -1  black       0.5        1    NA
+      12 180 16.4     1    -1  black       0.5        1    NA
+      13 180 17.3     1    -1  black       0.5        1    NA
+      14 180 15.2     1    -1  black       0.5        1    NA
+      15 205 10.4     1    -1  black       0.5        1    NA
+      16 215 10.4     1    -1  black       0.5        1    NA
+      17 230 14.7     1    -1  black       0.5        1    NA
+      18  66 32.4     1    -1  black       0.5        1    NA
+      19  52 30.4     1    -1  black       0.5        1    NA
+      20  65 33.9     1    -1  black       0.5        1    NA
+      21  97 21.5     1    -1  black       0.5        1    NA
+      22 150 15.5     1    -1  black       0.5        1    NA
+      23 150 15.2     1    -1  black       0.5        1    NA
+      24 245 13.3     1    -1  black       0.5        1    NA
+      25 175 19.2     1    -1  black       0.5        1    NA
+      26  66 27.3     1    -1  black       0.5        1    NA
+      27  91 26.0     1    -1  black       0.5        1    NA
+      28 113 30.4     1    -1  black       0.5        1    NA
+      29 264 15.8     1    -1  black       0.5        1    NA
+      30 175 19.7     1    -1  black       0.5        1    NA
+      31 335 15.0     1    -1  black       0.5        1    NA
+      32 109 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$drat
       $plots$drat[[1]]
@@ -590,6 +695,41 @@
       20 4.22 22.05251     1    -1       FALSE  black       0.5        1    NA
       21 4.43 22.95863     1    -1       FALSE  black       0.5        1    NA
       22 4.93 25.11604     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$drat[[6]]
+            x    y PANEL group colour linewidth linetype alpha
+      1  3.90 21.0     1    -1  black       0.5        1    NA
+      2  3.90 21.0     1    -1  black       0.5        1    NA
+      3  3.85 22.8     1    -1  black       0.5        1    NA
+      4  3.08 21.4     1    -1  black       0.5        1    NA
+      5  3.15 18.7     1    -1  black       0.5        1    NA
+      6  2.76 18.1     1    -1  black       0.5        1    NA
+      7  3.21 14.3     1    -1  black       0.5        1    NA
+      8  3.69 24.4     1    -1  black       0.5        1    NA
+      9  3.92 22.8     1    -1  black       0.5        1    NA
+      10 3.92 19.2     1    -1  black       0.5        1    NA
+      11 3.92 17.8     1    -1  black       0.5        1    NA
+      12 3.07 16.4     1    -1  black       0.5        1    NA
+      13 3.07 17.3     1    -1  black       0.5        1    NA
+      14 3.07 15.2     1    -1  black       0.5        1    NA
+      15 2.93 10.4     1    -1  black       0.5        1    NA
+      16 3.00 10.4     1    -1  black       0.5        1    NA
+      17 3.23 14.7     1    -1  black       0.5        1    NA
+      18 4.08 32.4     1    -1  black       0.5        1    NA
+      19 4.93 30.4     1    -1  black       0.5        1    NA
+      20 4.22 33.9     1    -1  black       0.5        1    NA
+      21 3.70 21.5     1    -1  black       0.5        1    NA
+      22 2.76 15.5     1    -1  black       0.5        1    NA
+      23 3.15 15.2     1    -1  black       0.5        1    NA
+      24 3.73 13.3     1    -1  black       0.5        1    NA
+      25 3.08 19.2     1    -1  black       0.5        1    NA
+      26 4.08 27.3     1    -1  black       0.5        1    NA
+      27 4.43 26.0     1    -1  black       0.5        1    NA
+      28 3.77 30.4     1    -1  black       0.5        1    NA
+      29 4.22 15.8     1    -1  black       0.5        1    NA
+      30 3.62 19.7     1    -1  black       0.5        1    NA
+      31 3.54 15.0     1    -1  black       0.5        1    NA
+      32 4.11 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$wt
@@ -756,6 +896,41 @@
       27 5.250 13.86988     1    -1       FALSE  black       0.5        1    NA
       28 5.345 13.62797     1    -1       FALSE  black       0.5        1    NA
       29 5.424 13.42681     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$wt[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  2.620 21.0     1    -1  black       0.5        1    NA
+      2  2.875 21.0     1    -1  black       0.5        1    NA
+      3  2.320 22.8     1    -1  black       0.5        1    NA
+      4  3.215 21.4     1    -1  black       0.5        1    NA
+      5  3.440 18.7     1    -1  black       0.5        1    NA
+      6  3.460 18.1     1    -1  black       0.5        1    NA
+      7  3.570 14.3     1    -1  black       0.5        1    NA
+      8  3.190 24.4     1    -1  black       0.5        1    NA
+      9  3.150 22.8     1    -1  black       0.5        1    NA
+      10 3.440 19.2     1    -1  black       0.5        1    NA
+      11 3.440 17.8     1    -1  black       0.5        1    NA
+      12 4.070 16.4     1    -1  black       0.5        1    NA
+      13 3.730 17.3     1    -1  black       0.5        1    NA
+      14 3.780 15.2     1    -1  black       0.5        1    NA
+      15 5.250 10.4     1    -1  black       0.5        1    NA
+      16 5.424 10.4     1    -1  black       0.5        1    NA
+      17 5.345 14.7     1    -1  black       0.5        1    NA
+      18 2.200 32.4     1    -1  black       0.5        1    NA
+      19 1.615 30.4     1    -1  black       0.5        1    NA
+      20 1.835 33.9     1    -1  black       0.5        1    NA
+      21 2.465 21.5     1    -1  black       0.5        1    NA
+      22 3.520 15.5     1    -1  black       0.5        1    NA
+      23 3.435 15.2     1    -1  black       0.5        1    NA
+      24 3.840 13.3     1    -1  black       0.5        1    NA
+      25 3.845 19.2     1    -1  black       0.5        1    NA
+      26 1.935 27.3     1    -1  black       0.5        1    NA
+      27 2.140 26.0     1    -1  black       0.5        1    NA
+      28 1.513 30.4     1    -1  black       0.5        1    NA
+      29 3.170 15.8     1    -1  black       0.5        1    NA
+      30 2.770 19.7     1    -1  black       0.5        1    NA
+      31 3.570 15.0     1    -1  black       0.5        1    NA
+      32 2.780 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$qsec
@@ -928,6 +1103,41 @@
       29 20.22 21.733555     1    -1       FALSE  black       0.5        1    NA
       30 22.90 23.371868     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$qsec[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  16.46 21.0     1    -1  black       0.5        1    NA
+      2  17.02 21.0     1    -1  black       0.5        1    NA
+      3  18.61 22.8     1    -1  black       0.5        1    NA
+      4  19.44 21.4     1    -1  black       0.5        1    NA
+      5  17.02 18.7     1    -1  black       0.5        1    NA
+      6  20.22 18.1     1    -1  black       0.5        1    NA
+      7  15.84 14.3     1    -1  black       0.5        1    NA
+      8  20.00 24.4     1    -1  black       0.5        1    NA
+      9  22.90 22.8     1    -1  black       0.5        1    NA
+      10 18.30 19.2     1    -1  black       0.5        1    NA
+      11 18.90 17.8     1    -1  black       0.5        1    NA
+      12 17.40 16.4     1    -1  black       0.5        1    NA
+      13 17.60 17.3     1    -1  black       0.5        1    NA
+      14 18.00 15.2     1    -1  black       0.5        1    NA
+      15 17.98 10.4     1    -1  black       0.5        1    NA
+      16 17.82 10.4     1    -1  black       0.5        1    NA
+      17 17.42 14.7     1    -1  black       0.5        1    NA
+      18 19.47 32.4     1    -1  black       0.5        1    NA
+      19 18.52 30.4     1    -1  black       0.5        1    NA
+      20 19.90 33.9     1    -1  black       0.5        1    NA
+      21 20.01 21.5     1    -1  black       0.5        1    NA
+      22 16.87 15.5     1    -1  black       0.5        1    NA
+      23 17.30 15.2     1    -1  black       0.5        1    NA
+      24 15.41 13.3     1    -1  black       0.5        1    NA
+      25 17.05 19.2     1    -1  black       0.5        1    NA
+      26 18.90 27.3     1    -1  black       0.5        1    NA
+      27 16.70 26.0     1    -1  black       0.5        1    NA
+      28 16.90 30.4     1    -1  black       0.5        1    NA
+      29 14.50 15.8     1    -1  black       0.5        1    NA
+      30 15.50 19.7     1    -1  black       0.5        1    NA
+      31 14.60 15.0     1    -1  black       0.5        1    NA
+      32 18.60 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$vs
       $plots$vs[[1]]
@@ -962,6 +1172,14 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       
+      $plots$vs[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   56% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   44% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      
       
       $plots$am
       $plots$am[[1]]
@@ -995,6 +1213,14 @@
         linewidth linetype width alpha
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
+      
+      $plots$am[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   59% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   41% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
       
       
       $plots$gear
@@ -1035,6 +1261,16 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       3       0.5        1  0.05    NA
+      
+      $plots$gear[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   47% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   38% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   16% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
       
       
       $plots$carb
@@ -1086,6 +1322,41 @@
       4 4 17.06442     1    -1       FALSE  black       0.5        1    NA
       5 6 14.21698     1    -1       FALSE  black       0.5        1    NA
       6 8 11.36954     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$carb[[6]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  4 21.0     1    -1  black       0.5        1    NA
+      2  4 21.0     1    -1  black       0.5        1    NA
+      3  1 22.8     1    -1  black       0.5        1    NA
+      4  1 21.4     1    -1  black       0.5        1    NA
+      5  2 18.7     1    -1  black       0.5        1    NA
+      6  1 18.1     1    -1  black       0.5        1    NA
+      7  4 14.3     1    -1  black       0.5        1    NA
+      8  2 24.4     1    -1  black       0.5        1    NA
+      9  2 22.8     1    -1  black       0.5        1    NA
+      10 4 19.2     1    -1  black       0.5        1    NA
+      11 4 17.8     1    -1  black       0.5        1    NA
+      12 3 16.4     1    -1  black       0.5        1    NA
+      13 3 17.3     1    -1  black       0.5        1    NA
+      14 3 15.2     1    -1  black       0.5        1    NA
+      15 4 10.4     1    -1  black       0.5        1    NA
+      16 4 10.4     1    -1  black       0.5        1    NA
+      17 4 14.7     1    -1  black       0.5        1    NA
+      18 1 32.4     1    -1  black       0.5        1    NA
+      19 2 30.4     1    -1  black       0.5        1    NA
+      20 1 33.9     1    -1  black       0.5        1    NA
+      21 1 21.5     1    -1  black       0.5        1    NA
+      22 2 15.5     1    -1  black       0.5        1    NA
+      23 2 15.2     1    -1  black       0.5        1    NA
+      24 4 13.3     1    -1  black       0.5        1    NA
+      25 2 19.2     1    -1  black       0.5        1    NA
+      26 1 27.3     1    -1  black       0.5        1    NA
+      27 2 26.0     1    -1  black       0.5        1    NA
+      28 2 30.4     1    -1  black       0.5        1    NA
+      29 4 15.8     1    -1  black       0.5        1    NA
+      30 6 19.7     1    -1  black       0.5        1    NA
+      31 8 15.0     1    -1  black       0.5        1    NA
+      32 2 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$country
@@ -1144,6 +1415,22 @@
       4       0.5        1  0.05    NA
       5       0.5        1  0.05    NA
       6       0.5        1  0.05    NA
+      
+      $plots$country[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   25% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   12% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   19% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+      4 10.4    3% 4     1     4  black 3.88     0   0.5   0.5   0.5               1
+      5 10.4    3% 5     1     5  black 3.88     0   0.5   0.5   0.5               1
+      6 10.4   38% 6     1     6  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       
       
@@ -1356,6 +1643,41 @@
       2 6 19.60826     1    -1       FALSE  black       0.5        1    NA
       3 8 26.14044     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$cyl[[6]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  6 21.0     1    -1  black       0.5        1    NA
+      2  6 21.0     1    -1  black       0.5        1    NA
+      3  4 22.8     1    -1  black       0.5        1    NA
+      4  6 21.4     1    -1  black       0.5        1    NA
+      5  8 18.7     1    -1  black       0.5        1    NA
+      6  6 18.1     1    -1  black       0.5        1    NA
+      7  8 14.3     1    -1  black       0.5        1    NA
+      8  4 24.4     1    -1  black       0.5        1    NA
+      9  4 22.8     1    -1  black       0.5        1    NA
+      10 6 19.2     1    -1  black       0.5        1    NA
+      11 6 17.8     1    -1  black       0.5        1    NA
+      12 8 16.4     1    -1  black       0.5        1    NA
+      13 8 17.3     1    -1  black       0.5        1    NA
+      14 8 15.2     1    -1  black       0.5        1    NA
+      15 8 10.4     1    -1  black       0.5        1    NA
+      16 8 10.4     1    -1  black       0.5        1    NA
+      17 8 14.7     1    -1  black       0.5        1    NA
+      18 4 32.4     1    -1  black       0.5        1    NA
+      19 4 30.4     1    -1  black       0.5        1    NA
+      20 4 33.9     1    -1  black       0.5        1    NA
+      21 4 21.5     1    -1  black       0.5        1    NA
+      22 8 15.5     1    -1  black       0.5        1    NA
+      23 8 15.2     1    -1  black       0.5        1    NA
+      24 8 13.3     1    -1  black       0.5        1    NA
+      25 8 19.2     1    -1  black       0.5        1    NA
+      26 4 27.3     1    -1  black       0.5        1    NA
+      27 4 26.0     1    -1  black       0.5        1    NA
+      28 4 30.4     1    -1  black       0.5        1    NA
+      29 8 15.8     1    -1  black       0.5        1    NA
+      30 6 19.7     1    -1  black       0.5        1    NA
+      31 8 15.0     1    -1  black       0.5        1    NA
+      32 4 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$disp
       $plots$disp[[1]]
@@ -1512,6 +1834,41 @@
       26 460.0 25.19954     1    -1       FALSE  black       0.5        1    NA
       27 472.0 23.14353     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$disp[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  160.0 21.0     1    -1  black       0.5        1    NA
+      2  160.0 21.0     1    -1  black       0.5        1    NA
+      3  108.0 22.8     1    -1  black       0.5        1    NA
+      4  258.0 21.4     1    -1  black       0.5        1    NA
+      5  360.0 18.7     1    -1  black       0.5        1    NA
+      6  225.0 18.1     1    -1  black       0.5        1    NA
+      7  360.0 14.3     1    -1  black       0.5        1    NA
+      8  146.7 24.4     1    -1  black       0.5        1    NA
+      9  140.8 22.8     1    -1  black       0.5        1    NA
+      10 167.6 19.2     1    -1  black       0.5        1    NA
+      11 167.6 17.8     1    -1  black       0.5        1    NA
+      12 275.8 16.4     1    -1  black       0.5        1    NA
+      13 275.8 17.3     1    -1  black       0.5        1    NA
+      14 275.8 15.2     1    -1  black       0.5        1    NA
+      15 472.0 10.4     1    -1  black       0.5        1    NA
+      16 460.0 10.4     1    -1  black       0.5        1    NA
+      17 440.0 14.7     1    -1  black       0.5        1    NA
+      18  78.7 32.4     1    -1  black       0.5        1    NA
+      19  75.7 30.4     1    -1  black       0.5        1    NA
+      20  71.1 33.9     1    -1  black       0.5        1    NA
+      21 120.1 21.5     1    -1  black       0.5        1    NA
+      22 318.0 15.5     1    -1  black       0.5        1    NA
+      23 304.0 15.2     1    -1  black       0.5        1    NA
+      24 350.0 13.3     1    -1  black       0.5        1    NA
+      25 400.0 19.2     1    -1  black       0.5        1    NA
+      26  79.0 27.3     1    -1  black       0.5        1    NA
+      27 120.3 26.0     1    -1  black       0.5        1    NA
+      28  95.1 30.4     1    -1  black       0.5        1    NA
+      29 351.0 15.8     1    -1  black       0.5        1    NA
+      30 145.0 19.7     1    -1  black       0.5        1    NA
+      31 301.0 15.0     1    -1  black       0.5        1    NA
+      32 121.0 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$hp
       $plots$hp[[1]]
@@ -1643,6 +2000,41 @@
       21 264 19.74193     1    -1       FALSE  black       0.5        1    NA
       22 335 21.10467     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$hp[[6]]
+           x    y PANEL group colour linewidth linetype alpha
+      1  110 21.0     1    -1  black       0.5        1    NA
+      2  110 21.0     1    -1  black       0.5        1    NA
+      3   93 22.8     1    -1  black       0.5        1    NA
+      4  110 21.4     1    -1  black       0.5        1    NA
+      5  175 18.7     1    -1  black       0.5        1    NA
+      6  105 18.1     1    -1  black       0.5        1    NA
+      7  245 14.3     1    -1  black       0.5        1    NA
+      8   62 24.4     1    -1  black       0.5        1    NA
+      9   95 22.8     1    -1  black       0.5        1    NA
+      10 123 19.2     1    -1  black       0.5        1    NA
+      11 123 17.8     1    -1  black       0.5        1    NA
+      12 180 16.4     1    -1  black       0.5        1    NA
+      13 180 17.3     1    -1  black       0.5        1    NA
+      14 180 15.2     1    -1  black       0.5        1    NA
+      15 205 10.4     1    -1  black       0.5        1    NA
+      16 215 10.4     1    -1  black       0.5        1    NA
+      17 230 14.7     1    -1  black       0.5        1    NA
+      18  66 32.4     1    -1  black       0.5        1    NA
+      19  52 30.4     1    -1  black       0.5        1    NA
+      20  65 33.9     1    -1  black       0.5        1    NA
+      21  97 21.5     1    -1  black       0.5        1    NA
+      22 150 15.5     1    -1  black       0.5        1    NA
+      23 150 15.2     1    -1  black       0.5        1    NA
+      24 245 13.3     1    -1  black       0.5        1    NA
+      25 175 19.2     1    -1  black       0.5        1    NA
+      26  66 27.3     1    -1  black       0.5        1    NA
+      27  91 26.0     1    -1  black       0.5        1    NA
+      28 113 30.4     1    -1  black       0.5        1    NA
+      29 264 15.8     1    -1  black       0.5        1    NA
+      30 175 19.7     1    -1  black       0.5        1    NA
+      31 335 15.0     1    -1  black       0.5        1    NA
+      32 109 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$drat
       $plots$drat[[1]]
@@ -1773,6 +2165,41 @@
       20 4.22 21.01695     1    -1       FALSE  black       0.5        1    NA
       21 4.43 21.87992     1    -1       FALSE  black       0.5        1    NA
       22 4.93 22.48399     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$drat[[6]]
+            x    y PANEL group colour linewidth linetype alpha
+      1  3.90 21.0     1    -1  black       0.5        1    NA
+      2  3.90 21.0     1    -1  black       0.5        1    NA
+      3  3.85 22.8     1    -1  black       0.5        1    NA
+      4  3.08 21.4     1    -1  black       0.5        1    NA
+      5  3.15 18.7     1    -1  black       0.5        1    NA
+      6  2.76 18.1     1    -1  black       0.5        1    NA
+      7  3.21 14.3     1    -1  black       0.5        1    NA
+      8  3.69 24.4     1    -1  black       0.5        1    NA
+      9  3.92 22.8     1    -1  black       0.5        1    NA
+      10 3.92 19.2     1    -1  black       0.5        1    NA
+      11 3.92 17.8     1    -1  black       0.5        1    NA
+      12 3.07 16.4     1    -1  black       0.5        1    NA
+      13 3.07 17.3     1    -1  black       0.5        1    NA
+      14 3.07 15.2     1    -1  black       0.5        1    NA
+      15 2.93 10.4     1    -1  black       0.5        1    NA
+      16 3.00 10.4     1    -1  black       0.5        1    NA
+      17 3.23 14.7     1    -1  black       0.5        1    NA
+      18 4.08 32.4     1    -1  black       0.5        1    NA
+      19 4.93 30.4     1    -1  black       0.5        1    NA
+      20 4.22 33.9     1    -1  black       0.5        1    NA
+      21 3.70 21.5     1    -1  black       0.5        1    NA
+      22 2.76 15.5     1    -1  black       0.5        1    NA
+      23 3.15 15.2     1    -1  black       0.5        1    NA
+      24 3.73 13.3     1    -1  black       0.5        1    NA
+      25 3.08 19.2     1    -1  black       0.5        1    NA
+      26 4.08 27.3     1    -1  black       0.5        1    NA
+      27 4.43 26.0     1    -1  black       0.5        1    NA
+      28 3.77 30.4     1    -1  black       0.5        1    NA
+      29 4.22 15.8     1    -1  black       0.5        1    NA
+      30 3.62 19.7     1    -1  black       0.5        1    NA
+      31 3.54 15.0     1    -1  black       0.5        1    NA
+      32 4.11 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$wt
@@ -1939,6 +2366,41 @@
       27 5.250 16.51813     1    -1       FALSE  black       0.5        1    NA
       28 5.345 18.42029     1    -1       FALSE  black       0.5        1    NA
       29 5.424 18.34389     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$wt[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  2.620 21.0     1    -1  black       0.5        1    NA
+      2  2.875 21.0     1    -1  black       0.5        1    NA
+      3  2.320 22.8     1    -1  black       0.5        1    NA
+      4  3.215 21.4     1    -1  black       0.5        1    NA
+      5  3.440 18.7     1    -1  black       0.5        1    NA
+      6  3.460 18.1     1    -1  black       0.5        1    NA
+      7  3.570 14.3     1    -1  black       0.5        1    NA
+      8  3.190 24.4     1    -1  black       0.5        1    NA
+      9  3.150 22.8     1    -1  black       0.5        1    NA
+      10 3.440 19.2     1    -1  black       0.5        1    NA
+      11 3.440 17.8     1    -1  black       0.5        1    NA
+      12 4.070 16.4     1    -1  black       0.5        1    NA
+      13 3.730 17.3     1    -1  black       0.5        1    NA
+      14 3.780 15.2     1    -1  black       0.5        1    NA
+      15 5.250 10.4     1    -1  black       0.5        1    NA
+      16 5.424 10.4     1    -1  black       0.5        1    NA
+      17 5.345 14.7     1    -1  black       0.5        1    NA
+      18 2.200 32.4     1    -1  black       0.5        1    NA
+      19 1.615 30.4     1    -1  black       0.5        1    NA
+      20 1.835 33.9     1    -1  black       0.5        1    NA
+      21 2.465 21.5     1    -1  black       0.5        1    NA
+      22 3.520 15.5     1    -1  black       0.5        1    NA
+      23 3.435 15.2     1    -1  black       0.5        1    NA
+      24 3.840 13.3     1    -1  black       0.5        1    NA
+      25 3.845 19.2     1    -1  black       0.5        1    NA
+      26 1.935 27.3     1    -1  black       0.5        1    NA
+      27 2.140 26.0     1    -1  black       0.5        1    NA
+      28 1.513 30.4     1    -1  black       0.5        1    NA
+      29 3.170 15.8     1    -1  black       0.5        1    NA
+      30 2.770 19.7     1    -1  black       0.5        1    NA
+      31 3.570 15.0     1    -1  black       0.5        1    NA
+      32 2.780 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$qsec
@@ -2111,6 +2573,41 @@
       29 20.22 17.691627     1    -1       FALSE  black       0.5        1    NA
       30 22.90 19.329940     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$qsec[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  16.46 21.0     1    -1  black       0.5        1    NA
+      2  17.02 21.0     1    -1  black       0.5        1    NA
+      3  18.61 22.8     1    -1  black       0.5        1    NA
+      4  19.44 21.4     1    -1  black       0.5        1    NA
+      5  17.02 18.7     1    -1  black       0.5        1    NA
+      6  20.22 18.1     1    -1  black       0.5        1    NA
+      7  15.84 14.3     1    -1  black       0.5        1    NA
+      8  20.00 24.4     1    -1  black       0.5        1    NA
+      9  22.90 22.8     1    -1  black       0.5        1    NA
+      10 18.30 19.2     1    -1  black       0.5        1    NA
+      11 18.90 17.8     1    -1  black       0.5        1    NA
+      12 17.40 16.4     1    -1  black       0.5        1    NA
+      13 17.60 17.3     1    -1  black       0.5        1    NA
+      14 18.00 15.2     1    -1  black       0.5        1    NA
+      15 17.98 10.4     1    -1  black       0.5        1    NA
+      16 17.82 10.4     1    -1  black       0.5        1    NA
+      17 17.42 14.7     1    -1  black       0.5        1    NA
+      18 19.47 32.4     1    -1  black       0.5        1    NA
+      19 18.52 30.4     1    -1  black       0.5        1    NA
+      20 19.90 33.9     1    -1  black       0.5        1    NA
+      21 20.01 21.5     1    -1  black       0.5        1    NA
+      22 16.87 15.5     1    -1  black       0.5        1    NA
+      23 17.30 15.2     1    -1  black       0.5        1    NA
+      24 15.41 13.3     1    -1  black       0.5        1    NA
+      25 17.05 19.2     1    -1  black       0.5        1    NA
+      26 18.90 27.3     1    -1  black       0.5        1    NA
+      27 16.70 26.0     1    -1  black       0.5        1    NA
+      28 16.90 30.4     1    -1  black       0.5        1    NA
+      29 14.50 15.8     1    -1  black       0.5        1    NA
+      30 15.50 19.7     1    -1  black       0.5        1    NA
+      31 14.60 15.0     1    -1  black       0.5        1    NA
+      32 18.60 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$vs
       $plots$vs[[1]]
@@ -2145,6 +2642,14 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       
+      $plots$vs[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   56% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   44% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      
       
       $plots$am
       $plots$am[[1]]
@@ -2178,6 +2683,14 @@
         linewidth linetype width alpha
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
+      
+      $plots$am[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   59% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   41% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
       
       
       $plots$gear
@@ -2218,6 +2731,16 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       3       0.5        1  0.05    NA
+      
+      $plots$gear[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   47% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   38% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   16% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
       
       
       $plots$carb
@@ -2269,6 +2792,41 @@
       4 4 17.06442     1    -1       FALSE  black       0.5        1    NA
       5 6 14.21698     1    -1       FALSE  black       0.5        1    NA
       6 8 11.36954     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$carb[[6]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  4 21.0     1    -1  black       0.5        1    NA
+      2  4 21.0     1    -1  black       0.5        1    NA
+      3  1 22.8     1    -1  black       0.5        1    NA
+      4  1 21.4     1    -1  black       0.5        1    NA
+      5  2 18.7     1    -1  black       0.5        1    NA
+      6  1 18.1     1    -1  black       0.5        1    NA
+      7  4 14.3     1    -1  black       0.5        1    NA
+      8  2 24.4     1    -1  black       0.5        1    NA
+      9  2 22.8     1    -1  black       0.5        1    NA
+      10 4 19.2     1    -1  black       0.5        1    NA
+      11 4 17.8     1    -1  black       0.5        1    NA
+      12 3 16.4     1    -1  black       0.5        1    NA
+      13 3 17.3     1    -1  black       0.5        1    NA
+      14 3 15.2     1    -1  black       0.5        1    NA
+      15 4 10.4     1    -1  black       0.5        1    NA
+      16 4 10.4     1    -1  black       0.5        1    NA
+      17 4 14.7     1    -1  black       0.5        1    NA
+      18 1 32.4     1    -1  black       0.5        1    NA
+      19 2 30.4     1    -1  black       0.5        1    NA
+      20 1 33.9     1    -1  black       0.5        1    NA
+      21 1 21.5     1    -1  black       0.5        1    NA
+      22 2 15.5     1    -1  black       0.5        1    NA
+      23 2 15.2     1    -1  black       0.5        1    NA
+      24 4 13.3     1    -1  black       0.5        1    NA
+      25 2 19.2     1    -1  black       0.5        1    NA
+      26 1 27.3     1    -1  black       0.5        1    NA
+      27 2 26.0     1    -1  black       0.5        1    NA
+      28 2 30.4     1    -1  black       0.5        1    NA
+      29 4 15.8     1    -1  black       0.5        1    NA
+      30 6 19.7     1    -1  black       0.5        1    NA
+      31 8 15.0     1    -1  black       0.5        1    NA
+      32 2 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$country
@@ -2327,6 +2885,22 @@
       4       0.5        1  0.05    NA
       5       0.5        1  0.05    NA
       6       0.5        1  0.05    NA
+      
+      $plots$country[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   25% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   12% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   19% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+      4 10.4    3% 4     1     4  black 3.88     0   0.5   0.5   0.5               1
+      5 10.4    3% 5     1     5  black 3.88     0   0.5   0.5   0.5               1
+      6 10.4   38% 6     1     6  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       
       
@@ -2421,6 +2995,41 @@
       1 4 -6.1239203     1    -1       FALSE  black       0.5        1    NA
       2 6  0.4082614     1    -1       FALSE  black       0.5        1    NA
       3 8  6.9404430     1    -1       FALSE  black       0.5        1    NA
+      
+      $plots$cyl[[6]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  6 21.0     1    -1  black       0.5        1    NA
+      2  6 21.0     1    -1  black       0.5        1    NA
+      3  4 22.8     1    -1  black       0.5        1    NA
+      4  6 21.4     1    -1  black       0.5        1    NA
+      5  8 18.7     1    -1  black       0.5        1    NA
+      6  6 18.1     1    -1  black       0.5        1    NA
+      7  8 14.3     1    -1  black       0.5        1    NA
+      8  4 24.4     1    -1  black       0.5        1    NA
+      9  4 22.8     1    -1  black       0.5        1    NA
+      10 6 19.2     1    -1  black       0.5        1    NA
+      11 6 17.8     1    -1  black       0.5        1    NA
+      12 8 16.4     1    -1  black       0.5        1    NA
+      13 8 17.3     1    -1  black       0.5        1    NA
+      14 8 15.2     1    -1  black       0.5        1    NA
+      15 8 10.4     1    -1  black       0.5        1    NA
+      16 8 10.4     1    -1  black       0.5        1    NA
+      17 8 14.7     1    -1  black       0.5        1    NA
+      18 4 32.4     1    -1  black       0.5        1    NA
+      19 4 30.4     1    -1  black       0.5        1    NA
+      20 4 33.9     1    -1  black       0.5        1    NA
+      21 4 21.5     1    -1  black       0.5        1    NA
+      22 8 15.5     1    -1  black       0.5        1    NA
+      23 8 15.2     1    -1  black       0.5        1    NA
+      24 8 13.3     1    -1  black       0.5        1    NA
+      25 8 19.2     1    -1  black       0.5        1    NA
+      26 4 27.3     1    -1  black       0.5        1    NA
+      27 4 26.0     1    -1  black       0.5        1    NA
+      28 4 30.4     1    -1  black       0.5        1    NA
+      29 8 15.8     1    -1  black       0.5        1    NA
+      30 6 19.7     1    -1  black       0.5        1    NA
+      31 8 15.0     1    -1  black       0.5        1    NA
+      32 4 21.4     1    -1  black       0.5        1    NA
       
       
       $plots$disp
@@ -2578,6 +3187,41 @@
       26 460.0  6.0780767     1    -1       FALSE  black       0.5        1    NA
       27 472.0  6.0529004     1    -1       FALSE  black       0.5        1    NA
       
+      $plots$disp[[6]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  160.0 21.0     1    -1  black       0.5        1    NA
+      2  160.0 21.0     1    -1  black       0.5        1    NA
+      3  108.0 22.8     1    -1  black       0.5        1    NA
+      4  258.0 21.4     1    -1  black       0.5        1    NA
+      5  360.0 18.7     1    -1  black       0.5        1    NA
+      6  225.0 18.1     1    -1  black       0.5        1    NA
+      7  360.0 14.3     1    -1  black       0.5        1    NA
+      8  146.7 24.4     1    -1  black       0.5        1    NA
+      9  140.8 22.8     1    -1  black       0.5        1    NA
+      10 167.6 19.2     1    -1  black       0.5        1    NA
+      11 167.6 17.8     1    -1  black       0.5        1    NA
+      12 275.8 16.4     1    -1  black       0.5        1    NA
+      13 275.8 17.3     1    -1  black       0.5        1    NA
+      14 275.8 15.2     1    -1  black       0.5        1    NA
+      15 472.0 10.4     1    -1  black       0.5        1    NA
+      16 460.0 10.4     1    -1  black       0.5        1    NA
+      17 440.0 14.7     1    -1  black       0.5        1    NA
+      18  78.7 32.4     1    -1  black       0.5        1    NA
+      19  75.7 30.4     1    -1  black       0.5        1    NA
+      20  71.1 33.9     1    -1  black       0.5        1    NA
+      21 120.1 21.5     1    -1  black       0.5        1    NA
+      22 318.0 15.5     1    -1  black       0.5        1    NA
+      23 304.0 15.2     1    -1  black       0.5        1    NA
+      24 350.0 13.3     1    -1  black       0.5        1    NA
+      25 400.0 19.2     1    -1  black       0.5        1    NA
+      26  79.0 27.3     1    -1  black       0.5        1    NA
+      27 120.3 26.0     1    -1  black       0.5        1    NA
+      28  95.1 30.4     1    -1  black       0.5        1    NA
+      29 351.0 15.8     1    -1  black       0.5        1    NA
+      30 145.0 19.7     1    -1  black       0.5        1    NA
+      31 301.0 15.0     1    -1  black       0.5        1    NA
+      32 121.0 21.4     1    -1  black       0.5        1    NA
+      
       
       $plots$vs
       $plots$vs[[1]]
@@ -2611,6 +3255,14 @@
         colour linewidth linetype width alpha
       1  black       0.5        1  0.05    NA
       2  black       0.5        1  0.05    NA
+      
+      $plots$vs[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 -8.8   56% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 -8.8   44% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
       
       
       $plots$gear
@@ -2651,6 +3303,16 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       3       0.5        1  0.05    NA
+      
+      $plots$gear[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 -8.8   47% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 -8.8   38% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 -8.8   16% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
       
       
       $plots$country
@@ -2709,6 +3371,22 @@
       4       0.5        1  0.05    NA
       5       0.5        1  0.05    NA
       6       0.5        1  0.05    NA
+      
+      $plots$country[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 -8.8   25% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 -8.8   12% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 -8.8   19% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+      4 -8.8    3% 4     1     4  black 3.88     0   0.5   0.5   0.5               1
+      5 -8.8    3% 5     1     5  black 3.88     0   0.5   0.5   0.5               1
+      6 -8.8   38% 6     1     6  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       
       

@@ -26,7 +26,7 @@ test_that(
       var_cars, cars_gam,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
       x2_cols = c('cyl', 'disp', 'hp'),
-      output = c('plot'),
+      output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       predict_type = "link",
       x_intervals = 50,

@@ -1024,6 +1024,14 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       
+      $ale$plots$vs[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   56% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   44% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      
       
       $ale$plots$am
       $ale$plots$am[[1]]
@@ -1057,6 +1065,14 @@
         linewidth linetype width alpha
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
+      
+      $ale$plots$am[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   59% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   41% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
       
       
       $ale$plots$gear
@@ -1097,6 +1113,16 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       3       0.5        1  0.05    NA
+      
+      $ale$plots$gear[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   47% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   38% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   16% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
       
       
       $ale$plots$carb
@@ -1206,6 +1232,22 @@
       4       0.5        1  0.05    NA
       5       0.5        1  0.05    NA
       6       0.5        1  0.05    NA
+      
+      $ale$plots$country[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   25% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   12% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   19% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+      4 10.4    3% 4     1     4  black 3.88     0   0.5   0.5   0.5               1
+      5 10.4    3% 5     1     5  black 3.88     0   0.5   0.5   0.5               1
+      6 10.4   38% 6     1     6  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       
       
@@ -2197,6 +2239,14 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       
+      $ale$plots$vs[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   56% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   44% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      
       
       $ale$plots$am
       $ale$plots$am[[1]]
@@ -2230,6 +2280,14 @@
         linewidth linetype width alpha
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
+      
+      $ale$plots$am[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   59% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   41% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
       
       
       $ale$plots$gear
@@ -2270,6 +2328,16 @@
       1       0.5        1  0.05    NA
       2       0.5        1  0.05    NA
       3       0.5        1  0.05    NA
+      
+      $ale$plots$gear[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   47% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   38% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   16% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
       
       
       $ale$plots$carb
@@ -2379,6 +2447,22 @@
       4       0.5        1  0.05    NA
       5       0.5        1  0.05    NA
       6       0.5        1  0.05    NA
+      
+      $ale$plots$country[[6]]
+           y label x PANEL group colour size angle hjust vjust alpha family fontface
+      1 10.4   25% 1     1     1  black 3.88     0   0.5   0.5   0.5               1
+      2 10.4   12% 2     1     2  black 3.88     0   0.5   0.5   0.5               1
+      3 10.4   19% 3     1     3  black 3.88     0   0.5   0.5   0.5               1
+      4 10.4    3% 4     1     4  black 3.88     0   0.5   0.5   0.5               1
+      5 10.4    3% 5     1     5  black 3.88     0   0.5   0.5   0.5               1
+      6 10.4   38% 6     1     6  black 3.88     0   0.5   0.5   0.5               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       
       
