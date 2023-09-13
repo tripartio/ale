@@ -11,7 +11,7 @@ ale(
   model,
   x_cols = NULL,
   y_col = NULL,
-  output = c("plot", "data"),
+  output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
     newdata, type = predict_type)
@@ -48,7 +48,7 @@ Must be provided if \code{ixn} is FALSE (default).}
 If not provided, \code{ale} will try to detect it automatically. For non-standard
 models, \code{y_col} should be provided.}
 
-\item{output}{character in c('plot', 'data'). Vector of types of results to return. 'plot' will return
+\item{output}{character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 an ALE plot; 'data' will return the source ALE data; both together will return both.}
 
 \item{pred_fun, predict_type}{function,character. \code{pred_fun} is a function that

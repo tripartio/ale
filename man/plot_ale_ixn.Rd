@@ -48,6 +48,12 @@ for plotting.}
 \item{n_x1_int, n_x2_int}{See documentation for \code{ale_ixn}}
 
 \item{n_y_quant}{See documentation for \code{ale_ixn}}
+
+\item{data}{See documentation for \code{plot_ale}}
+
+\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
+
+\item{seed}{See documentation for \code{ale}}
 }
 \description{
 This function is not exported. It creates a ggplot object that plots the input

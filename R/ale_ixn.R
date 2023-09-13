@@ -470,6 +470,9 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
 #' @param plot_alpha See documentation for `ale`
 #' @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 #' @param n_y_quant See documentation for `ale_ixn`
+#' @param data See documentation for `plot_ale`
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+#' @param seed See documentation for `ale`
 #'
 #'
 #' @import dplyr
@@ -501,6 +504,8 @@ plot_ale_ixn <- function(
   x1_quantile <- NULL
   x2_quantile <- NULL
   y_quantile <- NULL
+  rug_x <- NULL
+  rug_y <- NULL
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -610,6 +615,32 @@ plot_ale_ixn <- function(
            y_col, ' interaction\npercentiles')
     )
 
+  # Add rug plot if data is provided
+  if (!is.null(data) && rug_sample_size > 0) {
+    rug_data <- tibble(
+      rug_x = data[[x1_col]],
+      rug_y = data[[x2_col]],
+    )
+
+    # If the data is too big, down-sample for rug plots
+    rug_data <- if (nrow(rug_data) > rug_sample_size) {
+      rug_sample(
+        rug_data,
+        ale_data$ale_x1,
+        rug_sample_size = rug_sample_size,
+        min_rug_per_interval = min_rug_per_interval,
+        seed = seed
+      )
+    } else {
+      rug_data
+    }
+
+    plot <- plot +
+      geom_rug(
+        aes(x = rug_x, y = rug_y),
+        data = rug_data
+      )
+  }
 
   # if (class(ale_data$ale_x1) == 'factor') {
   if (ale_data$ale_x1 |> isa('factor')) {

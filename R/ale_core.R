@@ -276,6 +276,9 @@ ale_core <- function (
   # Validate arguments
   assert_that(test_data |> inherits('data.frame'))
 
+  # If model validation is done more rigorously, also validate that y_col is not
+  # contained in all_x__cols
+
   # Assume that if a custom predict function is supplied, it must be because
   # model is a valid model, so do not try to validate it further.
   # But if the default predict function is used, validate that model is valid.
@@ -301,6 +304,18 @@ ale_core <- function (
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
   if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
   if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
+
+  # If model validation is done more rigorously, also validate that y_col is not
+  # contained in all_x__cols
+  all_x_cols <- c(x_cols, x1_cols, x2_cols)
+  valid_x_cols <- all_x_cols %in% names(test_data)
+  if (!all(valid_x_cols)) {
+    stop(
+      'The following columns were not found in test_data: ',
+      paste0(all_x_cols[!valid_x_cols], collapse = ', ')
+    )
+  }
+
   if (!is.null(y_col)) assert_that(is.string(y_col))
   # Assure that output is a subset of c('plots', 'data')
   assert_that(
@@ -606,7 +621,7 @@ ale_core <- function (
                 # ggplot_custom, marginal, gg_marginal_custom,
                 relative_y,
                 plot_alpha, n_x1_int, n_x2_int, n_y_quant,
-                data = data[, c(x_col, y_col)],
+                data = data[, c(x1_col, x2_col, y_col)],
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
                 seed = seed
@@ -793,7 +808,20 @@ calc_ale <- function(
   )
 
 
-  x_type <- var_type(X[[x_col]])
+  # if (x_col == 'gear') browser()
+
+  # Determine the datatype of x from ale_x unless ale_x is null;
+  # in that case, take it from x_col.
+  # It should be taken from ale_x because intermediary bootstrap runs might
+  # change the x_col values such that their datatype is ambiguous.
+  x_type <- var_type(
+    if (!is.null(ale_x)) {
+      ale_x
+    } else {
+      X[[x_col]]
+    }
+  )
+  # x_type <- var_type(X[[x_col]])
 
   if (x_type == 'numeric') {
 
@@ -1091,6 +1119,9 @@ calc_ale <- function(
 
     length_ale_x <- length(ale_x)
 
+    # if (breakpoint) browser()
+
+
     #Calculate the model predictions with the levels of X[[x_col]] increased and decreased by one
     row_idx_not_hi <- (1:n_row)[x_ordered_idx < xint]  #indices of rows for which X[[x_col]] was not the highest level
     row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
@@ -1130,6 +1161,8 @@ calc_ale <- function(
                 min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
               }
           }
+
+          # if (breakpoint) browser()
 
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
@@ -1346,9 +1379,12 @@ plot_ale <- function(
   # when NSE applies, the NSE variables will be prioritized over these null
   # local variables.
   ale_x <- NULL
+  ale_n <- NULL
   ale_y <- NULL
   ale_y_lo <- NULL
   ale_y_hi <- NULL
+  rug_x <- NULL
+  rug_y <- NULL
 
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
@@ -1416,14 +1452,21 @@ plot_ale <- function(
                    y_summary[['75%']]),
       )
     ) +
+    theme(axis.text.y.right = element_text(size = 6)) +
     labs(x = x_col, y = y_col)
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
+    # browser()
     plot <- plot +
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
-      geom_line()
+      geom_line()  # +
+      # # show points proportional to the frequency of the ale_x
+      # geom_point(
+      #   aes(size = (ale_n / total_n) * 5),
+      #   alpha = 0.2,
+      # )
 
     # Add rug plot if data is provided
     if (!is.null(data) && rug_sample_size > 0) {
@@ -1448,7 +1491,9 @@ plot_ale <- function(
       plot <- plot +
         geom_rug(
           aes(x = rug_x, y = rug_y),
-          data = rug_data
+          data = rug_data,
+          # alpha = 0.5,
+          position = 'jitter'
         )
     }
 
@@ -1466,8 +1511,9 @@ plot_ale <- function(
           label = paste0(round((ale_n / total_n) * 100), '%'),
           y = y_summary[['min']]
         ),
+        size = 3,
         alpha = 0.5,
-        # vjust = -0.5
+        vjust = -0.2
       )
 
     # Rotate categorical labels if they are too long
@@ -1508,6 +1554,13 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  rug_x <- NULL
+  rug_y <- NULL
+  interval <- NULL
 
   # Only sample small datasets
   if (nrow(x_y) <= rug_sample_size) {

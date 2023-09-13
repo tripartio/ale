@@ -12,7 +12,7 @@ ale_core(
   x1_cols = NULL,
   x2_cols = NULL,
   y_col = NULL,
-  output = c("plot", "data"),
+  output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
     newdata, type = predict_type)
