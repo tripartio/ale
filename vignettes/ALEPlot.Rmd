@@ -241,7 +241,7 @@ xint <- 500
 # But it is slow, so this vignette loads a pre-created model object.
 # gbm_ale <- ale(data, gbm.data, pred_fun = yhat, x_intervals = xint)
 # saveRDS(gbm_ale, 'demo_gbm_ale_100x.rds')
-gbm_ale <- readRDS('demo_gbm_ale_ixn_100x.rds')
+gbm_ale <- readRDS('demo_gbm_ale_100x.rds')
 
 # Print plots
 gridExtra::grid.arrange(grobs = gbm_ale$plots, ncol = 2)

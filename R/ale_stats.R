@@ -1,69 +1,70 @@
-##' ale_stats.R
-#'
-#' Calculate statistical measures based on ALE
-#'
+# ale_stats.R
+#
+# Calculate statistical measures based on ALE
+#
 
 
 
-#' Calculate statistics from ALE y values.
-#'
-#' Not exported. The following statistics are calculated based on a vector of ALE y values:
-#'
-#' * ALE deviation (ALED)
-#' * Normalized ALE deviation (ALED)
-#' * ALE range (ALER): range from minimum value of any `ale_y` to the
-#' maximum value of any `ale_y`. This is a very simple indication of the dispersion
-#' in `ale_y` values.
-#' * Normalized ALE range (ALER)
-#'
-#' **`full_y_range`** The normalized versions of these statistics are scaled
-#' relative to the minimum
-#' and maximum values of y in the data being analyzed. Thus, since the test
-#' data on which ALE was calculated probably does not include these extreme values,
-#' They must be provided for these statistics to be meaningful.
-#'
-#' Note that these statistics are sensitive
-#' to outliers in the data. For these statistics to be meaningful, the user must
-#' identify and handle any outliers in the outcome (y) variable.
-#' To "handle" an outlier first requires identifying which values are
-#' so high or so low that they are considered to be "outliers".
-#' Then, for identified outliers, the analyst must decide whether to exclude
-#' the outlier rows (because they do not represent the population to which the
-#' analysis will be generalized) or whether to leave them (because the analysis
-#' hopes to also generalize to such cases). Only the analyst can make these
-#' determinations. The `ale_stats` function will analyze the data as given.
-#'
-#' If the user does not provide values for `full_y_range`, the default value
-#' `as.numeric(c(NA, NA, NA))` will return `NA` for the normalized statistics.
-#'
-#'
-#'
-#' @param ale_y numeric. Vector of ALE y values.
-#' @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
-#' the same length as `ale_y`.
-#' @param full_y_range numeric length 3. `full_y_range[1]` is the minimum,
-#' `full_y_range[2]` is the mean and
-#' `full_y_range[3]` is the maximum value of the outcome (y)
-#' variable in the original dataset, that is, the full analysis dataset even
-#' before splitting into training and test data. Must be provided for normalized
-#' versions of the statistics or else they return `NA`. See details.
-#' @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
-#' If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
-#' but the function will run slightly slower because of this extra calculation.
-#'
-#' @returns Named numeric vector:
-#'
-#' * aled: ALE deviation (ALED)
-#' * naled: Normalized ALE deviation (ALED)
-#' * aler_min: Minimum (lower value) of the ALE range (ALER)
-#' * aler_max: Maximum (upper value) of the ALE range (ALER)
-#' * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
-#' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
-#'
+# Calculate statistics from ALE y values.
+#
+# Not exported. The following statistics are calculated based on a vector of ALE y values:
+#
+# * ALE deviation (ALED)
+# * Normalized ALE deviation (ALED)
+# * ALE range (ALER): range from minimum value of any `ale_y` to the
+# maximum value of any `ale_y`. This is a very simple indication of the dispersion
+# in `ale_y` values.
+# * Normalized ALE range (ALER)
+#
+# **`full_y_range`** The normalized versions of these statistics are scaled
+# relative to the minimum
+# and maximum values of y in the data being analyzed. Thus, since the test
+# data on which ALE was calculated probably does not include these extreme values,
+# They must be provided for these statistics to be meaningful.
+#
+# Note that these statistics are sensitive
+# to outliers in the data. For these statistics to be meaningful, the user must
+# identify and handle any outliers in the outcome (y) variable.
+# To "handle" an outlier first requires identifying which values are
+# so high or so low that they are considered to be "outliers".
+# Then, for identified outliers, the analyst must decide whether to exclude
+# the outlier rows (because they do not represent the population to which the
+# analysis will be generalized) or whether to leave them (because the analysis
+# hopes to also generalize to such cases). Only the analyst can make these
+# determinations. The `ale_stats` function will analyze the data as given.
+#
+# If the user does not provide values for `full_y_range`, the default value
+# `as.numeric(c(NA, NA, NA))` will return `NA` for the normalized statistics.
+#
+#
+#
+# @param ale_y numeric. Vector of ALE y values.
+# @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
+# the same length as `ale_y`.
+# @param ecdf_pos_y ecdf function. ECDF function of the upper half of `full_y_range[1]` is the minimum,
+# `full_y_range[2]` is the mean and
+# `full_y_range[3]` is the maximum value of the outcome (y)
+# variable in the original dataset, that is, the full analysis dataset even
+# before splitting into training and test data. Must be provided for normalized
+# versions of the statistics or else they return `NA`. See details.
+# @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
+# If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
+# but the function will run slightly slower because of this extra calculation.
+#
+# @returns Named numeric vector:
+#
+# * aled: ALE deviation (ALED)
+# * naled: Normalized ALE deviation (ALED)
+# * aler_min: Minimum (lower value) of the ALE range (ALER)
+# * aler_max: Maximum (upper value) of the ALE range (ALER)
+# * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
+# * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
+#
 ale_stats <- function(
     ale_y,
     ale_n,
-    full_y_range = as.numeric(c(NA, NA, NA)),
+    ecdf_pos_y,
+    ecdf_neg_y,
     zeroed_ale = FALSE
 ) {
 
@@ -71,53 +72,47 @@ ale_stats <- function(
     stop('Zeroed ALE required for now.')
   }
 
-  aled <-
-    (ale_y^2 * ale_n) |>
-    # mean() |>
-    sum() |>
-    (`/`)(sum(ale_n)) |>
-    sqrt()
+  # ALED formula. Internal function because it will be reused for both
+  # ALED and NALED
+  aled_score <- function(y, n) {
+    (y * n) |>
+      abs() |>
+      sum() |>
+      (`/`)(sum(n))
+  }
 
+  # Average effect in units of y
+  aled <- aled_score(ale_y, ale_n)
+
+  # Minimum negative and positive effects in units of y
   aler <- c(min(ale_y), max(ale_y))
 
   # Normalized scores
 
-  # Although the ALEs are zeroed, the user-passed y range is not,
-  # so mean-centre them.
-  mean_centred_y_range <- c(
-    full_y_range[1] - full_y_range[2],  # min - mean
-    full_y_range[3] - full_y_range[2]   # max - mean
+  # Assign each ale_y value to its respective ale_y_half_pct (half percentile)
+  ale_y_half_pct <- if_else(
+    ale_y > 0,
+    ecdf_pos_y(ale_y),
+    -ecdf_neg_y(-ale_y)
   )
 
-  # Winsorize ale_y: for normalization, no value should exceed the mean_centred_y_range
-  # Assign the min to values < the min and assign the max to those > the max
-  ale_y[ale_y < mean_centred_y_range[1]] <- mean_centred_y_range[1]
-  ale_y[ale_y > mean_centred_y_range[2]] <- mean_centred_y_range[2]
+  # Scale is 0 to 1, representing equivalent average percentile effect
+  naled <- aled_score(ale_y_half_pct, ale_n)
 
-  naled <-
-    if_else(
-      ale_y < 0,
-      ale_y / mean_centred_y_range[1],
-      ale_y / mean_centred_y_range[2]
-    ) |>
-    (`^`)(2) |>
-    (`*`)(ale_n) |>
-    # mean() |>
-    sum() |>
-    (`/`)(sum(ale_n)) |>
-    sqrt()
-
-  # Base naler off a fresh calculation of aler since we must use the
-  # winsorized version this time, not the original version.
-  naler <- c(min(ale_y), max(ale_y)) / mean_centred_y_range
-  naler[1] <- naler[1] * -1
+  # Scale is 0 to 1, representing lowest and highest percentile effects
+  naler <- c(
+    min(ale_y_half_pct),
+    max(ale_y_half_pct)
+  ) |>
+    (`/`)(2) |>
+    (`+`)(0.5)
 
   return(
     c(
       aled = aled,
-      naled = naled,
       aler_min = aler[1],
       aler_max = aler[2],
+      naled = naled,
       naler_min = naler[1],
       naler_max = naler[2]
     )

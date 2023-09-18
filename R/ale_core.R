@@ -470,6 +470,13 @@ ale_core <- function (
     y_summary <- c(y_summary, max = 1)
   }  # as of now, no treatment and no error for non-numeric y
 
+  # Calculate value to add to y to shift for requested relative_y
+  relative_y_shift <- case_when(
+    relative_y == 'median' ~ y_summary[['50%']],
+    relative_y == 'mean' ~ y_summary[['mean']],
+    relative_y == 'zero' ~ 0,
+  )
+
   # Remove the Y target label; ALE calculation needs the X matrix as input;
   # Y is obtained from the model predictions.
   data_X <-
@@ -533,19 +540,32 @@ ale_core <- function (
             ale_n = ale_ns[[x_col]]
             )
 
-        # ale_stats <- ale_stats(
-        #   ale_data$ale_y,
-        #   ale_data$ale_n,
-        #   full_y_range,
-        #   zeroed_ale = TRUE
-        # )
-
-        # Shift ale_y by appropriate relative_y
-        relative_y_shift <- case_when(
-          relative_y == 'median' ~ y_summary[['50%']],
-          relative_y == 'mean' ~ y_summary[['mean']],
-          relative_y == 'zero' ~ 0,
+        # Calculate the ALE statistics
+        ale_stats <- ale_stats(
+          ale_data$ale_y,
+          ale_data$ale_n,
+          # percentiles of the upper half of the y values (50.00001 to 100%)
+          ecdf_pos_y = stats::ecdf(
+            y_vals[y_vals > y_summary['50%']] -
+              y_summary['50%']  # subtract the median to centre on zero
+              # y_summary['mean']  # subtract the mean to centre on zero
+          ),
+          # percentiles of the lower half of the y values (0 to 50%)
+          # note that the median itself is arbitrarily included in the lower half
+          ecdf_neg_y = stats::ecdf(
+            -1 * (y_vals[y_vals <= y_summary['50%']] -
+              y_summary['50%'])  # subtract the median to centre on zero
+            # y_summary['mean']  # subtract the mean to centre on zero
+          ),
+          zeroed_ale = TRUE
         )
+
+        # # Shift ale_y by appropriate relative_y
+        # relative_y_shift <- case_when(
+        #   relative_y == 'median' ~ y_summary[['50%']],
+        #   relative_y == 'mean' ~ y_summary[['mean']],
+        #   relative_y == 'zero' ~ 0,
+        # )
         ale_data <- ale_data |>
           mutate(across(contains('ale_y'), \(.x) {
             .x + relative_y_shift
@@ -573,9 +593,8 @@ ale_core <- function (
 
         return(list(
           data = ale_data,
-          # stats = ale_stats,
+          stats = ale_stats,
           plots = plot
-          # plot = plot
         ))
 
       }) |>
@@ -605,11 +624,12 @@ ale_core <- function (
                            pred_fun, x_intervals)
 
             # Shift ale_y by appropriate relative_y
-            ale_data$ale_y <- ale_data$ale_y + case_when(
-              relative_y == 'median' ~ y_summary[['50%']],
-              relative_y == 'mean' ~ y_summary[['mean']],
-              relative_y == 'zero' ~ 0,
-            )
+            ale_data$ale_y <- ale_data$ale_y + relative_y_shift
+            # ale_data$ale_y <- ale_data$ale_y + case_when(
+            #   relative_y == 'median' ~ y_summary[['50%']],
+            #   relative_y == 'mean' ~ y_summary[['mean']],
+            #   relative_y == 'zero' ~ 0,
+            # )
 
             # Generate ALE plot
             plot <- NULL  # Start with a NULL plot
@@ -807,8 +827,6 @@ calc_ale <- function(
     ale_y = list(NULL)
   )
 
-
-  # if (x_col == 'gear') browser()
 
   # Determine the datatype of x from ale_x unless ale_x is null;
   # in that case, take it from x_col.
@@ -1119,9 +1137,6 @@ calc_ale <- function(
 
     length_ale_x <- length(ale_x)
 
-    # if (breakpoint) browser()
-
-
     #Calculate the model predictions with the levels of X[[x_col]] increased and decreased by one
     row_idx_not_hi <- (1:n_row)[x_ordered_idx < xint]  #indices of rows for which X[[x_col]] was not the highest level
     row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
@@ -1161,8 +1176,6 @@ calc_ale <- function(
                 min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
               }
           }
-
-          # if (breakpoint) browser()
 
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
@@ -1457,7 +1470,6 @@ plot_ale <- function(
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
-    # browser()
     plot <- plot +
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
