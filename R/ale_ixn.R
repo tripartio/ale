@@ -36,12 +36,14 @@
 #'  for each x1 column interacting with each x2 column. x1_cols can be of any standard
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 #'  `ixn` is TRUE, then both values must be provided.
+#' @param y_col See documentation for `ale`
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
 #' @param plot_alpha See documentation for `ale`
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #' @param ale_xs See documentation for `ale`
 #' @param n_x1_int,n_x2_int non-negative integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
@@ -101,7 +103,8 @@
 ale_ixn <- function (
     test_data, model,
     x1_cols = NULL, x2_cols = NULL,
-    output = c('plot', 'data'),
+    y_col = NULL,
+    output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -113,13 +116,15 @@ ale_ixn <- function (
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
     ale_xs = NULL,
     # ggplot_custom = NULL,
     # marginal = TRUE,
     # gg_marginal_custom = NULL,
-    n_x1_int = 20,  # number of x intervals for interaction plot (ignored for factors)
-    n_x2_int = 20,  # number of y quantiles for interaction plot
-    n_y_quant = 10  # number of y quantiles for interaction plot
+    n_x1_int = 20,
+    n_x2_int = 20,
+    n_y_quant = 10
 ) {
 
   # capture all arguments passed into `-ale_ixn` (code thanks to ChatGPT)
@@ -465,6 +470,9 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
 #' @param plot_alpha See documentation for `ale`
 #' @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 #' @param n_y_quant See documentation for `ale_ixn`
+#' @param data See documentation for `plot_ale`
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+#' @param seed See documentation for `ale`
 #'
 #'
 #' @import dplyr
@@ -479,7 +487,11 @@ plot_ale_ixn <- function(
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
     plot_alpha = 0.05,
-    n_x1_int = 20, n_x2_int = 20, n_y_quant = 10
+    n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
+    data = NULL,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
+    seed = 0
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -492,6 +504,8 @@ plot_ale_ixn <- function(
   x1_quantile <- NULL
   x2_quantile <- NULL
   y_quantile <- NULL
+  rug_x <- NULL
+  rug_y <- NULL
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -601,6 +615,32 @@ plot_ale_ixn <- function(
            y_col, ' interaction\npercentiles')
     )
 
+  # Add rug plot if data is provided
+  if (!is.null(data) && rug_sample_size > 0) {
+    rug_data <- tibble(
+      rug_x = data[[x1_col]],
+      rug_y = data[[x2_col]],
+    )
+
+    # If the data is too big, down-sample for rug plots
+    rug_data <- if (nrow(rug_data) > rug_sample_size) {
+      rug_sample(
+        rug_data,
+        ale_data$ale_x1,
+        rug_sample_size = rug_sample_size,
+        min_rug_per_interval = min_rug_per_interval,
+        seed = seed
+      )
+    } else {
+      rug_data
+    }
+
+    plot <- plot +
+      geom_rug(
+        aes(x = rug_x, y = rug_y),
+        data = rug_data
+      )
+  }
 
   # if (class(ale_data$ale_x1) == 'factor') {
   if (ale_data$ale_x1 |> isa('factor')) {

@@ -11,7 +11,8 @@ ale_core(
   x_cols = NULL,
   x1_cols = NULL,
   x2_cols = NULL,
-  output = c("plot", "data"),
+  y_col = NULL,
+  output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
     newdata, type = predict_type)
@@ -25,6 +26,8 @@ ale_core(
   relative_y = "median",
   y_type = NULL,
   plot_alpha = 0.05,
+  rug_sample_size = 500,
+  min_rug_per_interval = 1,
   ale_xs = NULL,
   ale_ns = NULL,
   n_x1_int = 20,
@@ -47,6 +50,8 @@ be ignored.}
 
 \item{x1_cols, x2_cols}{See documentation for \code{ale_ixn}}
 
+\item{y_col}{See documentation for \code{ale}}
+
 \item{output}{See documentation for \code{ale}}
 
 \item{pred_fun, predict_type}{See documentation for \code{ale}}
@@ -66,6 +71,8 @@ be ignored.}
 \item{y_type}{See documentation for \code{ale}}
 
 \item{plot_alpha}{See documentation for \code{ale}}
+
+\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
 
 \item{ale_xs}{See documentation for \code{ale}}
 

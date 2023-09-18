@@ -10,7 +10,8 @@ ale(
   test_data,
   model,
   x_cols = NULL,
-  output = c("plot", "data"),
+  y_col = NULL,
+  output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
     newdata, type = predict_type)
@@ -24,6 +25,8 @@ ale(
   relative_y = "median",
   y_type = NULL,
   plot_alpha = 0.05,
+  rug_sample_size = 500,
+  min_rug_per_interval = 1,
   ale_xs = NULL,
   ale_ns = NULL
 )
@@ -41,7 +44,11 @@ will be automatically calculated.}
 one-way ALE data is to be calculated (that is, simple ALE without interactions).
 Must be provided if \code{ixn} is FALSE (default).}
 
-\item{output}{character in c('plot', 'data'). Vector of types of results to return. 'plot' will return
+\item{y_col}{character length 1. Name of the outcome target label (y) variable.
+If not provided, \code{ale} will try to detect it automatically. For non-standard
+models, \code{y_col} should be provided.}
+
+\item{output}{character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 an ALE plot; 'data' will return the source ALE data; both together will return both.}
 
 \item{pred_fun, predict_type}{function,character. \code{pred_fun} is a function that
@@ -81,6 +88,14 @@ provided, this will be automatically determined.}
 \item{plot_alpha}{numeric from 0 to 1. Alpha for "confidence interval" range
 for printing bands around the median for single-variable plots.
 The band range will be the median value of y ± \code{plot_alpha}.}
+
+\item{rug_sample_size, min_rug_per_interval}{single non-negative integer.
+Rug plots are normally
+down-sampled otherwise they are too slow. \code{rug_sample_size} specifies the size
+of this sample. To prevent down-sampling, set to \code{Inf}. To suppress rug plots,
+set to 0. When down-sampling, the rug plots maintain representativeness of the
+data by guaranteeing that each of the \code{x_intervals} intervals will retain at least
+\code{min_rug_per_interval} elements; usually set to just 1 or 2.}
 
 \item{ale_xs, ale_ns}{list of ale_x and ale_n vectors. If provided, these vectors will be used to
 set the intervals of the ALE x axis for each variable. By default (NULL), the

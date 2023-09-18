@@ -8,3 +8,5 @@
 ^vignettes/ALEPlot\.Rmd$
 ^vignettes/.*\.rds$
 ^CRAN-SUBMISSION$
+^projects/.*
+^catboost_info$

@@ -529,6 +529,41 @@
       80        1    NA    NA     NA
       81        1    NA    NA     NA
       
+      $plots$cyl$disp[[2]]
+         x     y PANEL group colour linewidth linetype alpha
+      1  6 160.0     1    -1  black       0.5        1    NA
+      2  6 160.0     1    -1  black       0.5        1    NA
+      3  4 108.0     1    -1  black       0.5        1    NA
+      4  6 258.0     1    -1  black       0.5        1    NA
+      5  8 360.0     1    -1  black       0.5        1    NA
+      6  6 225.0     1    -1  black       0.5        1    NA
+      7  8 360.0     1    -1  black       0.5        1    NA
+      8  4 146.7     1    -1  black       0.5        1    NA
+      9  4 140.8     1    -1  black       0.5        1    NA
+      10 6 167.6     1    -1  black       0.5        1    NA
+      11 6 167.6     1    -1  black       0.5        1    NA
+      12 8 275.8     1    -1  black       0.5        1    NA
+      13 8 275.8     1    -1  black       0.5        1    NA
+      14 8 275.8     1    -1  black       0.5        1    NA
+      15 8 472.0     1    -1  black       0.5        1    NA
+      16 8 460.0     1    -1  black       0.5        1    NA
+      17 8 440.0     1    -1  black       0.5        1    NA
+      18 4  78.7     1    -1  black       0.5        1    NA
+      19 4  75.7     1    -1  black       0.5        1    NA
+      20 4  71.1     1    -1  black       0.5        1    NA
+      21 4 120.1     1    -1  black       0.5        1    NA
+      22 8 318.0     1    -1  black       0.5        1    NA
+      23 8 304.0     1    -1  black       0.5        1    NA
+      24 8 350.0     1    -1  black       0.5        1    NA
+      25 8 400.0     1    -1  black       0.5        1    NA
+      26 4  79.0     1    -1  black       0.5        1    NA
+      27 4 120.3     1    -1  black       0.5        1    NA
+      28 4  95.1     1    -1  black       0.5        1    NA
+      29 8 351.0     1    -1  black       0.5        1    NA
+      30 6 145.0     1    -1  black       0.5        1    NA
+      31 8 301.0     1    -1  black       0.5        1    NA
+      32 4 121.0     1    -1  black       0.5        1    NA
+      
       
       $plots$cyl$hp
       $plots$cyl$hp[[1]]
@@ -667,6 +702,41 @@
       65        1    NA    NA     NA
       66        1    NA    NA     NA
       
+      $plots$cyl$hp[[2]]
+         x   y PANEL group colour linewidth linetype alpha
+      1  6 110     1    -1  black       0.5        1    NA
+      2  6 110     1    -1  black       0.5        1    NA
+      3  4  93     1    -1  black       0.5        1    NA
+      4  6 110     1    -1  black       0.5        1    NA
+      5  8 175     1    -1  black       0.5        1    NA
+      6  6 105     1    -1  black       0.5        1    NA
+      7  8 245     1    -1  black       0.5        1    NA
+      8  4  62     1    -1  black       0.5        1    NA
+      9  4  95     1    -1  black       0.5        1    NA
+      10 6 123     1    -1  black       0.5        1    NA
+      11 6 123     1    -1  black       0.5        1    NA
+      12 8 180     1    -1  black       0.5        1    NA
+      13 8 180     1    -1  black       0.5        1    NA
+      14 8 180     1    -1  black       0.5        1    NA
+      15 8 205     1    -1  black       0.5        1    NA
+      16 8 215     1    -1  black       0.5        1    NA
+      17 8 230     1    -1  black       0.5        1    NA
+      18 4  66     1    -1  black       0.5        1    NA
+      19 4  52     1    -1  black       0.5        1    NA
+      20 4  65     1    -1  black       0.5        1    NA
+      21 4  97     1    -1  black       0.5        1    NA
+      22 8 150     1    -1  black       0.5        1    NA
+      23 8 150     1    -1  black       0.5        1    NA
+      24 8 245     1    -1  black       0.5        1    NA
+      25 8 175     1    -1  black       0.5        1    NA
+      26 4  66     1    -1  black       0.5        1    NA
+      27 4  91     1    -1  black       0.5        1    NA
+      28 4 113     1    -1  black       0.5        1    NA
+      29 8 264     1    -1  black       0.5        1    NA
+      30 6 175     1    -1  black       0.5        1    NA
+      31 8 335     1    -1  black       0.5        1    NA
+      32 4 109     1    -1  black       0.5        1    NA
+      
       
       $plots$cyl$drat
       $plots$cyl$drat[[1]]
@@ -804,6 +874,41 @@
       64        1    NA    NA     NA
       65        1    NA    NA     NA
       66        1    NA    NA     NA
+      
+      $plots$cyl$drat[[2]]
+         x    y PANEL group colour linewidth linetype alpha
+      1  6 3.90     1    -1  black       0.5        1    NA
+      2  6 3.90     1    -1  black       0.5        1    NA
+      3  4 3.85     1    -1  black       0.5        1    NA
+      4  6 3.08     1    -1  black       0.5        1    NA
+      5  8 3.15     1    -1  black       0.5        1    NA
+      6  6 2.76     1    -1  black       0.5        1    NA
+      7  8 3.21     1    -1  black       0.5        1    NA
+      8  4 3.69     1    -1  black       0.5        1    NA
+      9  4 3.92     1    -1  black       0.5        1    NA
+      10 6 3.92     1    -1  black       0.5        1    NA
+      11 6 3.92     1    -1  black       0.5        1    NA
+      12 8 3.07     1    -1  black       0.5        1    NA
+      13 8 3.07     1    -1  black       0.5        1    NA
+      14 8 3.07     1    -1  black       0.5        1    NA
+      15 8 2.93     1    -1  black       0.5        1    NA
+      16 8 3.00     1    -1  black       0.5        1    NA
+      17 8 3.23     1    -1  black       0.5        1    NA
+      18 4 4.08     1    -1  black       0.5        1    NA
+      19 4 4.93     1    -1  black       0.5        1    NA
+      20 4 4.22     1    -1  black       0.5        1    NA
+      21 4 3.70     1    -1  black       0.5        1    NA
+      22 8 2.76     1    -1  black       0.5        1    NA
+      23 8 3.15     1    -1  black       0.5        1    NA
+      24 8 3.73     1    -1  black       0.5        1    NA
+      25 8 3.08     1    -1  black       0.5        1    NA
+      26 4 4.08     1    -1  black       0.5        1    NA
+      27 4 4.43     1    -1  black       0.5        1    NA
+      28 4 3.77     1    -1  black       0.5        1    NA
+      29 8 4.22     1    -1  black       0.5        1    NA
+      30 6 3.62     1    -1  black       0.5        1    NA
+      31 8 3.54     1    -1  black       0.5        1    NA
+      32 4 4.11     1    -1  black       0.5        1    NA
       
       
       $plots$cyl$wt
@@ -984,6 +1089,41 @@
       85        1    NA    NA     NA
       86        1    NA    NA     NA
       87        1    NA    NA     NA
+      
+      $plots$cyl$wt[[2]]
+         x     y PANEL group colour linewidth linetype alpha
+      1  6 2.620     1    -1  black       0.5        1    NA
+      2  6 2.875     1    -1  black       0.5        1    NA
+      3  4 2.320     1    -1  black       0.5        1    NA
+      4  6 3.215     1    -1  black       0.5        1    NA
+      5  8 3.440     1    -1  black       0.5        1    NA
+      6  6 3.460     1    -1  black       0.5        1    NA
+      7  8 3.570     1    -1  black       0.5        1    NA
+      8  4 3.190     1    -1  black       0.5        1    NA
+      9  4 3.150     1    -1  black       0.5        1    NA
+      10 6 3.440     1    -1  black       0.5        1    NA
+      11 6 3.440     1    -1  black       0.5        1    NA
+      12 8 4.070     1    -1  black       0.5        1    NA
+      13 8 3.730     1    -1  black       0.5        1    NA
+      14 8 3.780     1    -1  black       0.5        1    NA
+      15 8 5.250     1    -1  black       0.5        1    NA
+      16 8 5.424     1    -1  black       0.5        1    NA
+      17 8 5.345     1    -1  black       0.5        1    NA
+      18 4 2.200     1    -1  black       0.5        1    NA
+      19 4 1.615     1    -1  black       0.5        1    NA
+      20 4 1.835     1    -1  black       0.5        1    NA
+      21 4 2.465     1    -1  black       0.5        1    NA
+      22 8 3.520     1    -1  black       0.5        1    NA
+      23 8 3.435     1    -1  black       0.5        1    NA
+      24 8 3.840     1    -1  black       0.5        1    NA
+      25 8 3.845     1    -1  black       0.5        1    NA
+      26 4 1.935     1    -1  black       0.5        1    NA
+      27 4 2.140     1    -1  black       0.5        1    NA
+      28 4 1.513     1    -1  black       0.5        1    NA
+      29 8 3.170     1    -1  black       0.5        1    NA
+      30 6 2.770     1    -1  black       0.5        1    NA
+      31 8 3.570     1    -1  black       0.5        1    NA
+      32 4 2.780     1    -1  black       0.5        1    NA
       
       
       $plots$cyl$qsec
@@ -1171,6 +1311,41 @@
       89        1    NA    NA     NA
       90        1    NA    NA     NA
       
+      $plots$cyl$qsec[[2]]
+         x     y PANEL group colour linewidth linetype alpha
+      1  6 16.46     1    -1  black       0.5        1    NA
+      2  6 17.02     1    -1  black       0.5        1    NA
+      3  4 18.61     1    -1  black       0.5        1    NA
+      4  6 19.44     1    -1  black       0.5        1    NA
+      5  8 17.02     1    -1  black       0.5        1    NA
+      6  6 20.22     1    -1  black       0.5        1    NA
+      7  8 15.84     1    -1  black       0.5        1    NA
+      8  4 20.00     1    -1  black       0.5        1    NA
+      9  4 22.90     1    -1  black       0.5        1    NA
+      10 6 18.30     1    -1  black       0.5        1    NA
+      11 6 18.90     1    -1  black       0.5        1    NA
+      12 8 17.40     1    -1  black       0.5        1    NA
+      13 8 17.60     1    -1  black       0.5        1    NA
+      14 8 18.00     1    -1  black       0.5        1    NA
+      15 8 17.98     1    -1  black       0.5        1    NA
+      16 8 17.82     1    -1  black       0.5        1    NA
+      17 8 17.42     1    -1  black       0.5        1    NA
+      18 4 19.47     1    -1  black       0.5        1    NA
+      19 4 18.52     1    -1  black       0.5        1    NA
+      20 4 19.90     1    -1  black       0.5        1    NA
+      21 4 20.01     1    -1  black       0.5        1    NA
+      22 8 16.87     1    -1  black       0.5        1    NA
+      23 8 17.30     1    -1  black       0.5        1    NA
+      24 8 15.41     1    -1  black       0.5        1    NA
+      25 8 17.05     1    -1  black       0.5        1    NA
+      26 4 18.90     1    -1  black       0.5        1    NA
+      27 4 16.70     1    -1  black       0.5        1    NA
+      28 4 16.90     1    -1  black       0.5        1    NA
+      29 8 14.50     1    -1  black       0.5        1    NA
+      30 6 15.50     1    -1  black       0.5        1    NA
+      31 8 14.60     1    -1  black       0.5        1    NA
+      32 4 18.60     1    -1  black       0.5        1    NA
+      
       
       $plots$cyl$carb
       $plots$cyl$carb[[1]]
@@ -1212,6 +1387,41 @@
       16    NA    NA     NA
       17    NA    NA     NA
       18    NA    NA     NA
+      
+      $plots$cyl$carb[[2]]
+         x y PANEL group colour linewidth linetype alpha
+      1  6 4     1    -1  black       0.5        1    NA
+      2  6 4     1    -1  black       0.5        1    NA
+      3  4 1     1    -1  black       0.5        1    NA
+      4  6 1     1    -1  black       0.5        1    NA
+      5  8 2     1    -1  black       0.5        1    NA
+      6  6 1     1    -1  black       0.5        1    NA
+      7  8 4     1    -1  black       0.5        1    NA
+      8  4 2     1    -1  black       0.5        1    NA
+      9  4 2     1    -1  black       0.5        1    NA
+      10 6 4     1    -1  black       0.5        1    NA
+      11 6 4     1    -1  black       0.5        1    NA
+      12 8 3     1    -1  black       0.5        1    NA
+      13 8 3     1    -1  black       0.5        1    NA
+      14 8 3     1    -1  black       0.5        1    NA
+      15 8 4     1    -1  black       0.5        1    NA
+      16 8 4     1    -1  black       0.5        1    NA
+      17 8 4     1    -1  black       0.5        1    NA
+      18 4 1     1    -1  black       0.5        1    NA
+      19 4 2     1    -1  black       0.5        1    NA
+      20 4 1     1    -1  black       0.5        1    NA
+      21 4 1     1    -1  black       0.5        1    NA
+      22 8 2     1    -1  black       0.5        1    NA
+      23 8 2     1    -1  black       0.5        1    NA
+      24 8 4     1    -1  black       0.5        1    NA
+      25 8 2     1    -1  black       0.5        1    NA
+      26 4 1     1    -1  black       0.5        1    NA
+      27 4 2     1    -1  black       0.5        1    NA
+      28 4 2     1    -1  black       0.5        1    NA
+      29 8 4     1    -1  black       0.5        1    NA
+      30 6 6     1    -1  black       0.5        1    NA
+      31 8 8     1    -1  black       0.5        1    NA
+      32 4 2     1    -1  black       0.5        1    NA
       
       
       
@@ -2409,6 +2619,41 @@
       593       0.1        1    NA    NA     NA
       594       0.1        1    NA    NA     NA
       
+      $plots$disp$hp[[2]]
+             x   y PANEL group colour linewidth linetype alpha
+      1  160.0 110     1    -1  black       0.5        1    NA
+      2  160.0 110     1    -1  black       0.5        1    NA
+      3  108.0  93     1    -1  black       0.5        1    NA
+      4  258.0 110     1    -1  black       0.5        1    NA
+      5  360.0 175     1    -1  black       0.5        1    NA
+      6  225.0 105     1    -1  black       0.5        1    NA
+      7  360.0 245     1    -1  black       0.5        1    NA
+      8  146.7  62     1    -1  black       0.5        1    NA
+      9  140.8  95     1    -1  black       0.5        1    NA
+      10 167.6 123     1    -1  black       0.5        1    NA
+      11 167.6 123     1    -1  black       0.5        1    NA
+      12 275.8 180     1    -1  black       0.5        1    NA
+      13 275.8 180     1    -1  black       0.5        1    NA
+      14 275.8 180     1    -1  black       0.5        1    NA
+      15 472.0 205     1    -1  black       0.5        1    NA
+      16 460.0 215     1    -1  black       0.5        1    NA
+      17 440.0 230     1    -1  black       0.5        1    NA
+      18  78.7  66     1    -1  black       0.5        1    NA
+      19  75.7  52     1    -1  black       0.5        1    NA
+      20  71.1  65     1    -1  black       0.5        1    NA
+      21 120.1  97     1    -1  black       0.5        1    NA
+      22 318.0 150     1    -1  black       0.5        1    NA
+      23 304.0 150     1    -1  black       0.5        1    NA
+      24 350.0 245     1    -1  black       0.5        1    NA
+      25 400.0 175     1    -1  black       0.5        1    NA
+      26  79.0  66     1    -1  black       0.5        1    NA
+      27 120.3  91     1    -1  black       0.5        1    NA
+      28  95.1 113     1    -1  black       0.5        1    NA
+      29 351.0 264     1    -1  black       0.5        1    NA
+      30 145.0 175     1    -1  black       0.5        1    NA
+      31 301.0 335     1    -1  black       0.5        1    NA
+      32 121.0 109     1    -1  black       0.5        1    NA
+      
       
       $plots$disp$drat
       $plots$disp$drat[[1]]
@@ -3602,6 +3847,41 @@
       592       0.1        1    NA    NA     NA
       593       0.1        1    NA    NA     NA
       594       0.1        1    NA    NA     NA
+      
+      $plots$disp$drat[[2]]
+             x    y PANEL group colour linewidth linetype alpha
+      1  160.0 3.90     1    -1  black       0.5        1    NA
+      2  160.0 3.90     1    -1  black       0.5        1    NA
+      3  108.0 3.85     1    -1  black       0.5        1    NA
+      4  258.0 3.08     1    -1  black       0.5        1    NA
+      5  360.0 3.15     1    -1  black       0.5        1    NA
+      6  225.0 2.76     1    -1  black       0.5        1    NA
+      7  360.0 3.21     1    -1  black       0.5        1    NA
+      8  146.7 3.69     1    -1  black       0.5        1    NA
+      9  140.8 3.92     1    -1  black       0.5        1    NA
+      10 167.6 3.92     1    -1  black       0.5        1    NA
+      11 167.6 3.92     1    -1  black       0.5        1    NA
+      12 275.8 3.07     1    -1  black       0.5        1    NA
+      13 275.8 3.07     1    -1  black       0.5        1    NA
+      14 275.8 3.07     1    -1  black       0.5        1    NA
+      15 472.0 2.93     1    -1  black       0.5        1    NA
+      16 460.0 3.00     1    -1  black       0.5        1    NA
+      17 440.0 3.23     1    -1  black       0.5        1    NA
+      18  78.7 4.08     1    -1  black       0.5        1    NA
+      19  75.7 4.93     1    -1  black       0.5        1    NA
+      20  71.1 4.22     1    -1  black       0.5        1    NA
+      21 120.1 3.70     1    -1  black       0.5        1    NA
+      22 318.0 2.76     1    -1  black       0.5        1    NA
+      23 304.0 3.15     1    -1  black       0.5        1    NA
+      24 350.0 3.73     1    -1  black       0.5        1    NA
+      25 400.0 3.08     1    -1  black       0.5        1    NA
+      26  79.0 4.08     1    -1  black       0.5        1    NA
+      27 120.3 4.43     1    -1  black       0.5        1    NA
+      28  95.1 3.77     1    -1  black       0.5        1    NA
+      29 351.0 4.22     1    -1  black       0.5        1    NA
+      30 145.0 3.62     1    -1  black       0.5        1    NA
+      31 301.0 3.54     1    -1  black       0.5        1    NA
+      32 121.0 4.11     1    -1  black       0.5        1    NA
       
       
       $plots$disp$wt
@@ -5174,6 +5454,41 @@
       781        1    NA    NA     NA
       782        1    NA    NA     NA
       783        1    NA    NA     NA
+      
+      $plots$disp$wt[[2]]
+             x     y PANEL group colour linewidth linetype alpha
+      1  160.0 2.620     1    -1  black       0.5        1    NA
+      2  160.0 2.875     1    -1  black       0.5        1    NA
+      3  108.0 2.320     1    -1  black       0.5        1    NA
+      4  258.0 3.215     1    -1  black       0.5        1    NA
+      5  360.0 3.440     1    -1  black       0.5        1    NA
+      6  225.0 3.460     1    -1  black       0.5        1    NA
+      7  360.0 3.570     1    -1  black       0.5        1    NA
+      8  146.7 3.190     1    -1  black       0.5        1    NA
+      9  140.8 3.150     1    -1  black       0.5        1    NA
+      10 167.6 3.440     1    -1  black       0.5        1    NA
+      11 167.6 3.440     1    -1  black       0.5        1    NA
+      12 275.8 4.070     1    -1  black       0.5        1    NA
+      13 275.8 3.730     1    -1  black       0.5        1    NA
+      14 275.8 3.780     1    -1  black       0.5        1    NA
+      15 472.0 5.250     1    -1  black       0.5        1    NA
+      16 460.0 5.424     1    -1  black       0.5        1    NA
+      17 440.0 5.345     1    -1  black       0.5        1    NA
+      18  78.7 2.200     1    -1  black       0.5        1    NA
+      19  75.7 1.615     1    -1  black       0.5        1    NA
+      20  71.1 1.835     1    -1  black       0.5        1    NA
+      21 120.1 2.465     1    -1  black       0.5        1    NA
+      22 318.0 3.520     1    -1  black       0.5        1    NA
+      23 304.0 3.435     1    -1  black       0.5        1    NA
+      24 350.0 3.840     1    -1  black       0.5        1    NA
+      25 400.0 3.845     1    -1  black       0.5        1    NA
+      26  79.0 1.935     1    -1  black       0.5        1    NA
+      27 120.3 2.140     1    -1  black       0.5        1    NA
+      28  95.1 1.513     1    -1  black       0.5        1    NA
+      29 351.0 3.170     1    -1  black       0.5        1    NA
+      30 145.0 2.770     1    -1  black       0.5        1    NA
+      31 301.0 3.570     1    -1  black       0.5        1    NA
+      32 121.0 2.780     1    -1  black       0.5        1    NA
       
       
       $plots$disp$qsec
@@ -6801,6 +7116,41 @@
       809       0.1        1    NA    NA     NA
       810       0.1        1    NA    NA     NA
       
+      $plots$disp$qsec[[2]]
+             x     y PANEL group colour linewidth linetype alpha
+      1  160.0 16.46     1    -1  black       0.5        1    NA
+      2  160.0 17.02     1    -1  black       0.5        1    NA
+      3  108.0 18.61     1    -1  black       0.5        1    NA
+      4  258.0 19.44     1    -1  black       0.5        1    NA
+      5  360.0 17.02     1    -1  black       0.5        1    NA
+      6  225.0 20.22     1    -1  black       0.5        1    NA
+      7  360.0 15.84     1    -1  black       0.5        1    NA
+      8  146.7 20.00     1    -1  black       0.5        1    NA
+      9  140.8 22.90     1    -1  black       0.5        1    NA
+      10 167.6 18.30     1    -1  black       0.5        1    NA
+      11 167.6 18.90     1    -1  black       0.5        1    NA
+      12 275.8 17.40     1    -1  black       0.5        1    NA
+      13 275.8 17.60     1    -1  black       0.5        1    NA
+      14 275.8 18.00     1    -1  black       0.5        1    NA
+      15 472.0 17.98     1    -1  black       0.5        1    NA
+      16 460.0 17.82     1    -1  black       0.5        1    NA
+      17 440.0 17.42     1    -1  black       0.5        1    NA
+      18  78.7 19.47     1    -1  black       0.5        1    NA
+      19  75.7 18.52     1    -1  black       0.5        1    NA
+      20  71.1 19.90     1    -1  black       0.5        1    NA
+      21 120.1 20.01     1    -1  black       0.5        1    NA
+      22 318.0 16.87     1    -1  black       0.5        1    NA
+      23 304.0 17.30     1    -1  black       0.5        1    NA
+      24 350.0 15.41     1    -1  black       0.5        1    NA
+      25 400.0 17.05     1    -1  black       0.5        1    NA
+      26  79.0 18.90     1    -1  black       0.5        1    NA
+      27 120.3 16.70     1    -1  black       0.5        1    NA
+      28  95.1 16.90     1    -1  black       0.5        1    NA
+      29 351.0 14.50     1    -1  black       0.5        1    NA
+      30 145.0 15.50     1    -1  black       0.5        1    NA
+      31 301.0 14.60     1    -1  black       0.5        1    NA
+      32 121.0 18.60     1    -1  black       0.5        1    NA
+      
       
       $plots$disp$carb
       $plots$disp$carb[[1]]
@@ -7130,6 +7480,41 @@
       160        1    NA    NA     NA
       161        1    NA    NA     NA
       162        1    NA    NA     NA
+      
+      $plots$disp$carb[[2]]
+             x y PANEL group colour linewidth linetype alpha
+      1  160.0 4     1    -1  black       0.5        1    NA
+      2  160.0 4     1    -1  black       0.5        1    NA
+      3  108.0 1     1    -1  black       0.5        1    NA
+      4  258.0 1     1    -1  black       0.5        1    NA
+      5  360.0 2     1    -1  black       0.5        1    NA
+      6  225.0 1     1    -1  black       0.5        1    NA
+      7  360.0 4     1    -1  black       0.5        1    NA
+      8  146.7 2     1    -1  black       0.5        1    NA
+      9  140.8 2     1    -1  black       0.5        1    NA
+      10 167.6 4     1    -1  black       0.5        1    NA
+      11 167.6 4     1    -1  black       0.5        1    NA
+      12 275.8 3     1    -1  black       0.5        1    NA
+      13 275.8 3     1    -1  black       0.5        1    NA
+      14 275.8 3     1    -1  black       0.5        1    NA
+      15 472.0 4     1    -1  black       0.5        1    NA
+      16 460.0 4     1    -1  black       0.5        1    NA
+      17 440.0 4     1    -1  black       0.5        1    NA
+      18  78.7 1     1    -1  black       0.5        1    NA
+      19  75.7 2     1    -1  black       0.5        1    NA
+      20  71.1 1     1    -1  black       0.5        1    NA
+      21 120.1 1     1    -1  black       0.5        1    NA
+      22 318.0 2     1    -1  black       0.5        1    NA
+      23 304.0 2     1    -1  black       0.5        1    NA
+      24 350.0 4     1    -1  black       0.5        1    NA
+      25 400.0 2     1    -1  black       0.5        1    NA
+      26  79.0 1     1    -1  black       0.5        1    NA
+      27 120.3 2     1    -1  black       0.5        1    NA
+      28  95.1 2     1    -1  black       0.5        1    NA
+      29 351.0 4     1    -1  black       0.5        1    NA
+      30 145.0 6     1    -1  black       0.5        1    NA
+      31 301.0 8     1    -1  black       0.5        1    NA
+      32 121.0 2     1    -1  black       0.5        1    NA
       
       
       
@@ -8106,6 +8491,41 @@
       482       0.1        1    NA    NA     NA
       483       0.1        1    NA    NA     NA
       484       0.1        1    NA    NA     NA
+      
+      $plots$hp$drat[[2]]
+           x    y PANEL group colour linewidth linetype alpha
+      1  110 3.90     1    -1  black       0.5        1    NA
+      2  110 3.90     1    -1  black       0.5        1    NA
+      3   93 3.85     1    -1  black       0.5        1    NA
+      4  110 3.08     1    -1  black       0.5        1    NA
+      5  175 3.15     1    -1  black       0.5        1    NA
+      6  105 2.76     1    -1  black       0.5        1    NA
+      7  245 3.21     1    -1  black       0.5        1    NA
+      8   62 3.69     1    -1  black       0.5        1    NA
+      9   95 3.92     1    -1  black       0.5        1    NA
+      10 123 3.92     1    -1  black       0.5        1    NA
+      11 123 3.92     1    -1  black       0.5        1    NA
+      12 180 3.07     1    -1  black       0.5        1    NA
+      13 180 3.07     1    -1  black       0.5        1    NA
+      14 180 3.07     1    -1  black       0.5        1    NA
+      15 205 2.93     1    -1  black       0.5        1    NA
+      16 215 3.00     1    -1  black       0.5        1    NA
+      17 230 3.23     1    -1  black       0.5        1    NA
+      18  66 4.08     1    -1  black       0.5        1    NA
+      19  52 4.93     1    -1  black       0.5        1    NA
+      20  65 4.22     1    -1  black       0.5        1    NA
+      21  97 3.70     1    -1  black       0.5        1    NA
+      22 150 2.76     1    -1  black       0.5        1    NA
+      23 150 3.15     1    -1  black       0.5        1    NA
+      24 245 3.73     1    -1  black       0.5        1    NA
+      25 175 3.08     1    -1  black       0.5        1    NA
+      26  66 4.08     1    -1  black       0.5        1    NA
+      27  91 4.43     1    -1  black       0.5        1    NA
+      28 113 3.77     1    -1  black       0.5        1    NA
+      29 264 4.22     1    -1  black       0.5        1    NA
+      30 175 3.62     1    -1  black       0.5        1    NA
+      31 335 3.54     1    -1  black       0.5        1    NA
+      32 109 4.11     1    -1  black       0.5        1    NA
       
       
       $plots$hp$wt
@@ -9388,6 +9808,41 @@
       636       0.1        1    NA    NA     NA
       637       0.1        1    NA    NA     NA
       638       0.1        1    NA    NA     NA
+      
+      $plots$hp$wt[[2]]
+           x     y PANEL group colour linewidth linetype alpha
+      1  110 2.620     1    -1  black       0.5        1    NA
+      2  110 2.875     1    -1  black       0.5        1    NA
+      3   93 2.320     1    -1  black       0.5        1    NA
+      4  110 3.215     1    -1  black       0.5        1    NA
+      5  175 3.440     1    -1  black       0.5        1    NA
+      6  105 3.460     1    -1  black       0.5        1    NA
+      7  245 3.570     1    -1  black       0.5        1    NA
+      8   62 3.190     1    -1  black       0.5        1    NA
+      9   95 3.150     1    -1  black       0.5        1    NA
+      10 123 3.440     1    -1  black       0.5        1    NA
+      11 123 3.440     1    -1  black       0.5        1    NA
+      12 180 4.070     1    -1  black       0.5        1    NA
+      13 180 3.730     1    -1  black       0.5        1    NA
+      14 180 3.780     1    -1  black       0.5        1    NA
+      15 205 5.250     1    -1  black       0.5        1    NA
+      16 215 5.424     1    -1  black       0.5        1    NA
+      17 230 5.345     1    -1  black       0.5        1    NA
+      18  66 2.200     1    -1  black       0.5        1    NA
+      19  52 1.615     1    -1  black       0.5        1    NA
+      20  65 1.835     1    -1  black       0.5        1    NA
+      21  97 2.465     1    -1  black       0.5        1    NA
+      22 150 3.520     1    -1  black       0.5        1    NA
+      23 150 3.435     1    -1  black       0.5        1    NA
+      24 245 3.840     1    -1  black       0.5        1    NA
+      25 175 3.845     1    -1  black       0.5        1    NA
+      26  66 1.935     1    -1  black       0.5        1    NA
+      27  91 2.140     1    -1  black       0.5        1    NA
+      28 113 1.513     1    -1  black       0.5        1    NA
+      29 264 3.170     1    -1  black       0.5        1    NA
+      30 175 2.770     1    -1  black       0.5        1    NA
+      31 335 3.570     1    -1  black       0.5        1    NA
+      32 109 2.780     1    -1  black       0.5        1    NA
       
       
       $plots$hp$qsec
@@ -10715,6 +11170,41 @@
       659       0.1        1    NA    NA     NA
       660       0.1        1    NA    NA     NA
       
+      $plots$hp$qsec[[2]]
+           x     y PANEL group colour linewidth linetype alpha
+      1  110 16.46     1    -1  black       0.5        1    NA
+      2  110 17.02     1    -1  black       0.5        1    NA
+      3   93 18.61     1    -1  black       0.5        1    NA
+      4  110 19.44     1    -1  black       0.5        1    NA
+      5  175 17.02     1    -1  black       0.5        1    NA
+      6  105 20.22     1    -1  black       0.5        1    NA
+      7  245 15.84     1    -1  black       0.5        1    NA
+      8   62 20.00     1    -1  black       0.5        1    NA
+      9   95 22.90     1    -1  black       0.5        1    NA
+      10 123 18.30     1    -1  black       0.5        1    NA
+      11 123 18.90     1    -1  black       0.5        1    NA
+      12 180 17.40     1    -1  black       0.5        1    NA
+      13 180 17.60     1    -1  black       0.5        1    NA
+      14 180 18.00     1    -1  black       0.5        1    NA
+      15 205 17.98     1    -1  black       0.5        1    NA
+      16 215 17.82     1    -1  black       0.5        1    NA
+      17 230 17.42     1    -1  black       0.5        1    NA
+      18  66 19.47     1    -1  black       0.5        1    NA
+      19  52 18.52     1    -1  black       0.5        1    NA
+      20  65 19.90     1    -1  black       0.5        1    NA
+      21  97 20.01     1    -1  black       0.5        1    NA
+      22 150 16.87     1    -1  black       0.5        1    NA
+      23 150 17.30     1    -1  black       0.5        1    NA
+      24 245 15.41     1    -1  black       0.5        1    NA
+      25 175 17.05     1    -1  black       0.5        1    NA
+      26  66 18.90     1    -1  black       0.5        1    NA
+      27  91 16.70     1    -1  black       0.5        1    NA
+      28 113 16.90     1    -1  black       0.5        1    NA
+      29 264 14.50     1    -1  black       0.5        1    NA
+      30 175 15.50     1    -1  black       0.5        1    NA
+      31 335 14.60     1    -1  black       0.5        1    NA
+      32 109 18.60     1    -1  black       0.5        1    NA
+      
       
       $plots$hp$carb
       $plots$hp$carb[[1]]
@@ -10984,6 +11474,41 @@
       130        1    NA    NA     NA
       131        1    NA    NA     NA
       132        1    NA    NA     NA
+      
+      $plots$hp$carb[[2]]
+           x y PANEL group colour linewidth linetype alpha
+      1  110 4     1    -1  black       0.5        1    NA
+      2  110 4     1    -1  black       0.5        1    NA
+      3   93 1     1    -1  black       0.5        1    NA
+      4  110 1     1    -1  black       0.5        1    NA
+      5  175 2     1    -1  black       0.5        1    NA
+      6  105 1     1    -1  black       0.5        1    NA
+      7  245 4     1    -1  black       0.5        1    NA
+      8   62 2     1    -1  black       0.5        1    NA
+      9   95 2     1    -1  black       0.5        1    NA
+      10 123 4     1    -1  black       0.5        1    NA
+      11 123 4     1    -1  black       0.5        1    NA
+      12 180 3     1    -1  black       0.5        1    NA
+      13 180 3     1    -1  black       0.5        1    NA
+      14 180 3     1    -1  black       0.5        1    NA
+      15 205 4     1    -1  black       0.5        1    NA
+      16 215 4     1    -1  black       0.5        1    NA
+      17 230 4     1    -1  black       0.5        1    NA
+      18  66 1     1    -1  black       0.5        1    NA
+      19  52 2     1    -1  black       0.5        1    NA
+      20  65 1     1    -1  black       0.5        1    NA
+      21  97 1     1    -1  black       0.5        1    NA
+      22 150 2     1    -1  black       0.5        1    NA
+      23 150 2     1    -1  black       0.5        1    NA
+      24 245 4     1    -1  black       0.5        1    NA
+      25 175 2     1    -1  black       0.5        1    NA
+      26  66 1     1    -1  black       0.5        1    NA
+      27  91 2     1    -1  black       0.5        1    NA
+      28 113 2     1    -1  black       0.5        1    NA
+      29 264 4     1    -1  black       0.5        1    NA
+      30 175 6     1    -1  black       0.5        1    NA
+      31 335 8     1    -1  black       0.5        1    NA
+      32 109 2     1    -1  black       0.5        1    NA
       
       
       
@@ -12268,6 +12793,41 @@
       636       0.1        1    NA    NA     NA
       637       0.1        1    NA    NA     NA
       638       0.1        1    NA    NA     NA
+      
+      $plots$drat$wt[[2]]
+            x     y PANEL group colour linewidth linetype alpha
+      1  3.90 2.620     1    -1  black       0.5        1    NA
+      2  3.90 2.875     1    -1  black       0.5        1    NA
+      3  3.85 2.320     1    -1  black       0.5        1    NA
+      4  3.08 3.215     1    -1  black       0.5        1    NA
+      5  3.15 3.440     1    -1  black       0.5        1    NA
+      6  2.76 3.460     1    -1  black       0.5        1    NA
+      7  3.21 3.570     1    -1  black       0.5        1    NA
+      8  3.69 3.190     1    -1  black       0.5        1    NA
+      9  3.92 3.150     1    -1  black       0.5        1    NA
+      10 3.92 3.440     1    -1  black       0.5        1    NA
+      11 3.92 3.440     1    -1  black       0.5        1    NA
+      12 3.07 4.070     1    -1  black       0.5        1    NA
+      13 3.07 3.730     1    -1  black       0.5        1    NA
+      14 3.07 3.780     1    -1  black       0.5        1    NA
+      15 2.93 5.250     1    -1  black       0.5        1    NA
+      16 3.00 5.424     1    -1  black       0.5        1    NA
+      17 3.23 5.345     1    -1  black       0.5        1    NA
+      18 4.08 2.200     1    -1  black       0.5        1    NA
+      19 4.93 1.615     1    -1  black       0.5        1    NA
+      20 4.22 1.835     1    -1  black       0.5        1    NA
+      21 3.70 2.465     1    -1  black       0.5        1    NA
+      22 2.76 3.520     1    -1  black       0.5        1    NA
+      23 3.15 3.435     1    -1  black       0.5        1    NA
+      24 3.73 3.840     1    -1  black       0.5        1    NA
+      25 3.08 3.845     1    -1  black       0.5        1    NA
+      26 4.08 1.935     1    -1  black       0.5        1    NA
+      27 4.43 2.140     1    -1  black       0.5        1    NA
+      28 3.77 1.513     1    -1  black       0.5        1    NA
+      29 4.22 3.170     1    -1  black       0.5        1    NA
+      30 3.62 2.770     1    -1  black       0.5        1    NA
+      31 3.54 3.570     1    -1  black       0.5        1    NA
+      32 4.11 2.780     1    -1  black       0.5        1    NA
       
       
       $plots$drat$qsec
@@ -13595,6 +14155,41 @@
       659       0.1        1    NA    NA     NA
       660       0.1        1    NA    NA     NA
       
+      $plots$drat$qsec[[2]]
+            x     y PANEL group colour linewidth linetype alpha
+      1  3.90 16.46     1    -1  black       0.5        1    NA
+      2  3.90 17.02     1    -1  black       0.5        1    NA
+      3  3.85 18.61     1    -1  black       0.5        1    NA
+      4  3.08 19.44     1    -1  black       0.5        1    NA
+      5  3.15 17.02     1    -1  black       0.5        1    NA
+      6  2.76 20.22     1    -1  black       0.5        1    NA
+      7  3.21 15.84     1    -1  black       0.5        1    NA
+      8  3.69 20.00     1    -1  black       0.5        1    NA
+      9  3.92 22.90     1    -1  black       0.5        1    NA
+      10 3.92 18.30     1    -1  black       0.5        1    NA
+      11 3.92 18.90     1    -1  black       0.5        1    NA
+      12 3.07 17.40     1    -1  black       0.5        1    NA
+      13 3.07 17.60     1    -1  black       0.5        1    NA
+      14 3.07 18.00     1    -1  black       0.5        1    NA
+      15 2.93 17.98     1    -1  black       0.5        1    NA
+      16 3.00 17.82     1    -1  black       0.5        1    NA
+      17 3.23 17.42     1    -1  black       0.5        1    NA
+      18 4.08 19.47     1    -1  black       0.5        1    NA
+      19 4.93 18.52     1    -1  black       0.5        1    NA
+      20 4.22 19.90     1    -1  black       0.5        1    NA
+      21 3.70 20.01     1    -1  black       0.5        1    NA
+      22 2.76 16.87     1    -1  black       0.5        1    NA
+      23 3.15 17.30     1    -1  black       0.5        1    NA
+      24 3.73 15.41     1    -1  black       0.5        1    NA
+      25 3.08 17.05     1    -1  black       0.5        1    NA
+      26 4.08 18.90     1    -1  black       0.5        1    NA
+      27 4.43 16.70     1    -1  black       0.5        1    NA
+      28 3.77 16.90     1    -1  black       0.5        1    NA
+      29 4.22 14.50     1    -1  black       0.5        1    NA
+      30 3.62 15.50     1    -1  black       0.5        1    NA
+      31 3.54 14.60     1    -1  black       0.5        1    NA
+      32 4.11 18.60     1    -1  black       0.5        1    NA
+      
       
       $plots$drat$carb
       $plots$drat$carb[[1]]
@@ -13864,6 +14459,41 @@
       130        1    NA    NA     NA
       131        1    NA    NA     NA
       132        1    NA    NA     NA
+      
+      $plots$drat$carb[[2]]
+            x y PANEL group colour linewidth linetype alpha
+      1  3.90 4     1    -1  black       0.5        1    NA
+      2  3.90 4     1    -1  black       0.5        1    NA
+      3  3.85 1     1    -1  black       0.5        1    NA
+      4  3.08 1     1    -1  black       0.5        1    NA
+      5  3.15 2     1    -1  black       0.5        1    NA
+      6  2.76 1     1    -1  black       0.5        1    NA
+      7  3.21 4     1    -1  black       0.5        1    NA
+      8  3.69 2     1    -1  black       0.5        1    NA
+      9  3.92 2     1    -1  black       0.5        1    NA
+      10 3.92 4     1    -1  black       0.5        1    NA
+      11 3.92 4     1    -1  black       0.5        1    NA
+      12 3.07 3     1    -1  black       0.5        1    NA
+      13 3.07 3     1    -1  black       0.5        1    NA
+      14 3.07 3     1    -1  black       0.5        1    NA
+      15 2.93 4     1    -1  black       0.5        1    NA
+      16 3.00 4     1    -1  black       0.5        1    NA
+      17 3.23 4     1    -1  black       0.5        1    NA
+      18 4.08 1     1    -1  black       0.5        1    NA
+      19 4.93 2     1    -1  black       0.5        1    NA
+      20 4.22 1     1    -1  black       0.5        1    NA
+      21 3.70 1     1    -1  black       0.5        1    NA
+      22 2.76 2     1    -1  black       0.5        1    NA
+      23 3.15 2     1    -1  black       0.5        1    NA
+      24 3.73 4     1    -1  black       0.5        1    NA
+      25 3.08 2     1    -1  black       0.5        1    NA
+      26 4.08 1     1    -1  black       0.5        1    NA
+      27 4.43 2     1    -1  black       0.5        1    NA
+      28 3.77 2     1    -1  black       0.5        1    NA
+      29 4.22 4     1    -1  black       0.5        1    NA
+      30 3.62 6     1    -1  black       0.5        1    NA
+      31 3.54 8     1    -1  black       0.5        1    NA
+      32 4.11 2     1    -1  black       0.5        1    NA
       
       
       
@@ -15613,6 +16243,41 @@
       869       0.1        1    NA    NA     NA
       870       0.1        1    NA    NA     NA
       
+      $plots$wt$qsec[[2]]
+             x     y PANEL group colour linewidth linetype alpha
+      1  2.620 16.46     1    -1  black       0.5        1    NA
+      2  2.875 17.02     1    -1  black       0.5        1    NA
+      3  2.320 18.61     1    -1  black       0.5        1    NA
+      4  3.215 19.44     1    -1  black       0.5        1    NA
+      5  3.440 17.02     1    -1  black       0.5        1    NA
+      6  3.460 20.22     1    -1  black       0.5        1    NA
+      7  3.570 15.84     1    -1  black       0.5        1    NA
+      8  3.190 20.00     1    -1  black       0.5        1    NA
+      9  3.150 22.90     1    -1  black       0.5        1    NA
+      10 3.440 18.30     1    -1  black       0.5        1    NA
+      11 3.440 18.90     1    -1  black       0.5        1    NA
+      12 4.070 17.40     1    -1  black       0.5        1    NA
+      13 3.730 17.60     1    -1  black       0.5        1    NA
+      14 3.780 18.00     1    -1  black       0.5        1    NA
+      15 5.250 17.98     1    -1  black       0.5        1    NA
+      16 5.424 17.82     1    -1  black       0.5        1    NA
+      17 5.345 17.42     1    -1  black       0.5        1    NA
+      18 2.200 19.47     1    -1  black       0.5        1    NA
+      19 1.615 18.52     1    -1  black       0.5        1    NA
+      20 1.835 19.90     1    -1  black       0.5        1    NA
+      21 2.465 20.01     1    -1  black       0.5        1    NA
+      22 3.520 16.87     1    -1  black       0.5        1    NA
+      23 3.435 17.30     1    -1  black       0.5        1    NA
+      24 3.840 15.41     1    -1  black       0.5        1    NA
+      25 3.845 17.05     1    -1  black       0.5        1    NA
+      26 1.935 18.90     1    -1  black       0.5        1    NA
+      27 2.140 16.70     1    -1  black       0.5        1    NA
+      28 1.513 16.90     1    -1  black       0.5        1    NA
+      29 3.170 14.50     1    -1  black       0.5        1    NA
+      30 2.770 15.50     1    -1  black       0.5        1    NA
+      31 3.570 14.60     1    -1  black       0.5        1    NA
+      32 2.780 18.60     1    -1  black       0.5        1    NA
+      
       
       $plots$wt$carb
       $plots$wt$carb[[1]]
@@ -15966,6 +16631,41 @@
       172        1    NA    NA     NA
       173        1    NA    NA     NA
       174        1    NA    NA     NA
+      
+      $plots$wt$carb[[2]]
+             x y PANEL group colour linewidth linetype alpha
+      1  2.620 4     1    -1  black       0.5        1    NA
+      2  2.875 4     1    -1  black       0.5        1    NA
+      3  2.320 1     1    -1  black       0.5        1    NA
+      4  3.215 1     1    -1  black       0.5        1    NA
+      5  3.440 2     1    -1  black       0.5        1    NA
+      6  3.460 1     1    -1  black       0.5        1    NA
+      7  3.570 4     1    -1  black       0.5        1    NA
+      8  3.190 2     1    -1  black       0.5        1    NA
+      9  3.150 2     1    -1  black       0.5        1    NA
+      10 3.440 4     1    -1  black       0.5        1    NA
+      11 3.440 4     1    -1  black       0.5        1    NA
+      12 4.070 3     1    -1  black       0.5        1    NA
+      13 3.730 3     1    -1  black       0.5        1    NA
+      14 3.780 3     1    -1  black       0.5        1    NA
+      15 5.250 4     1    -1  black       0.5        1    NA
+      16 5.424 4     1    -1  black       0.5        1    NA
+      17 5.345 4     1    -1  black       0.5        1    NA
+      18 2.200 1     1    -1  black       0.5        1    NA
+      19 1.615 2     1    -1  black       0.5        1    NA
+      20 1.835 1     1    -1  black       0.5        1    NA
+      21 2.465 1     1    -1  black       0.5        1    NA
+      22 3.520 2     1    -1  black       0.5        1    NA
+      23 3.435 2     1    -1  black       0.5        1    NA
+      24 3.840 4     1    -1  black       0.5        1    NA
+      25 3.845 2     1    -1  black       0.5        1    NA
+      26 1.935 1     1    -1  black       0.5        1    NA
+      27 2.140 2     1    -1  black       0.5        1    NA
+      28 1.513 2     1    -1  black       0.5        1    NA
+      29 3.170 4     1    -1  black       0.5        1    NA
+      30 2.770 6     1    -1  black       0.5        1    NA
+      31 3.570 8     1    -1  black       0.5        1    NA
+      32 2.780 2     1    -1  black       0.5        1    NA
       
       
       
@@ -16335,6 +17035,41 @@
       179        1    NA    NA     NA
       180        1    NA    NA     NA
       
+      $plots$qsec$carb[[2]]
+             x y PANEL group colour linewidth linetype alpha
+      1  16.46 4     1    -1  black       0.5        1    NA
+      2  17.02 4     1    -1  black       0.5        1    NA
+      3  18.61 1     1    -1  black       0.5        1    NA
+      4  19.44 1     1    -1  black       0.5        1    NA
+      5  17.02 2     1    -1  black       0.5        1    NA
+      6  20.22 1     1    -1  black       0.5        1    NA
+      7  15.84 4     1    -1  black       0.5        1    NA
+      8  20.00 2     1    -1  black       0.5        1    NA
+      9  22.90 2     1    -1  black       0.5        1    NA
+      10 18.30 4     1    -1  black       0.5        1    NA
+      11 18.90 4     1    -1  black       0.5        1    NA
+      12 17.40 3     1    -1  black       0.5        1    NA
+      13 17.60 3     1    -1  black       0.5        1    NA
+      14 18.00 3     1    -1  black       0.5        1    NA
+      15 17.98 4     1    -1  black       0.5        1    NA
+      16 17.82 4     1    -1  black       0.5        1    NA
+      17 17.42 4     1    -1  black       0.5        1    NA
+      18 19.47 1     1    -1  black       0.5        1    NA
+      19 18.52 2     1    -1  black       0.5        1    NA
+      20 19.90 1     1    -1  black       0.5        1    NA
+      21 20.01 1     1    -1  black       0.5        1    NA
+      22 16.87 2     1    -1  black       0.5        1    NA
+      23 17.30 2     1    -1  black       0.5        1    NA
+      24 15.41 4     1    -1  black       0.5        1    NA
+      25 17.05 2     1    -1  black       0.5        1    NA
+      26 18.90 1     1    -1  black       0.5        1    NA
+      27 16.70 2     1    -1  black       0.5        1    NA
+      28 16.90 2     1    -1  black       0.5        1    NA
+      29 14.50 4     1    -1  black       0.5        1    NA
+      30 15.50 6     1    -1  black       0.5        1    NA
+      31 14.60 8     1    -1  black       0.5        1    NA
+      32 18.60 2     1    -1  black       0.5        1    NA
+      
       
       
       
@@ -16563,6 +17298,41 @@
       80        1    NA    NA     NA
       81        1    NA    NA     NA
       
+      $plots$cyl$disp[[2]]
+         x     y PANEL group colour linewidth linetype alpha
+      1  6 160.0     1    -1  black       0.5        1    NA
+      2  6 160.0     1    -1  black       0.5        1    NA
+      3  4 108.0     1    -1  black       0.5        1    NA
+      4  6 258.0     1    -1  black       0.5        1    NA
+      5  8 360.0     1    -1  black       0.5        1    NA
+      6  6 225.0     1    -1  black       0.5        1    NA
+      7  8 360.0     1    -1  black       0.5        1    NA
+      8  4 146.7     1    -1  black       0.5        1    NA
+      9  4 140.8     1    -1  black       0.5        1    NA
+      10 6 167.6     1    -1  black       0.5        1    NA
+      11 6 167.6     1    -1  black       0.5        1    NA
+      12 8 275.8     1    -1  black       0.5        1    NA
+      13 8 275.8     1    -1  black       0.5        1    NA
+      14 8 275.8     1    -1  black       0.5        1    NA
+      15 8 472.0     1    -1  black       0.5        1    NA
+      16 8 460.0     1    -1  black       0.5        1    NA
+      17 8 440.0     1    -1  black       0.5        1    NA
+      18 4  78.7     1    -1  black       0.5        1    NA
+      19 4  75.7     1    -1  black       0.5        1    NA
+      20 4  71.1     1    -1  black       0.5        1    NA
+      21 4 120.1     1    -1  black       0.5        1    NA
+      22 8 318.0     1    -1  black       0.5        1    NA
+      23 8 304.0     1    -1  black       0.5        1    NA
+      24 8 350.0     1    -1  black       0.5        1    NA
+      25 8 400.0     1    -1  black       0.5        1    NA
+      26 4  79.0     1    -1  black       0.5        1    NA
+      27 4 120.3     1    -1  black       0.5        1    NA
+      28 4  95.1     1    -1  black       0.5        1    NA
+      29 8 351.0     1    -1  black       0.5        1    NA
+      30 6 145.0     1    -1  black       0.5        1    NA
+      31 8 301.0     1    -1  black       0.5        1    NA
+      32 4 121.0     1    -1  black       0.5        1    NA
+      
       
       $plots$cyl$hp
       $plots$cyl$hp[[1]]
@@ -16700,6 +17470,41 @@
       64        1    NA    NA     NA
       65        1    NA    NA     NA
       66        1    NA    NA     NA
+      
+      $plots$cyl$hp[[2]]
+         x   y PANEL group colour linewidth linetype alpha
+      1  6 110     1    -1  black       0.5        1    NA
+      2  6 110     1    -1  black       0.5        1    NA
+      3  4  93     1    -1  black       0.5        1    NA
+      4  6 110     1    -1  black       0.5        1    NA
+      5  8 175     1    -1  black       0.5        1    NA
+      6  6 105     1    -1  black       0.5        1    NA
+      7  8 245     1    -1  black       0.5        1    NA
+      8  4  62     1    -1  black       0.5        1    NA
+      9  4  95     1    -1  black       0.5        1    NA
+      10 6 123     1    -1  black       0.5        1    NA
+      11 6 123     1    -1  black       0.5        1    NA
+      12 8 180     1    -1  black       0.5        1    NA
+      13 8 180     1    -1  black       0.5        1    NA
+      14 8 180     1    -1  black       0.5        1    NA
+      15 8 205     1    -1  black       0.5        1    NA
+      16 8 215     1    -1  black       0.5        1    NA
+      17 8 230     1    -1  black       0.5        1    NA
+      18 4  66     1    -1  black       0.5        1    NA
+      19 4  52     1    -1  black       0.5        1    NA
+      20 4  65     1    -1  black       0.5        1    NA
+      21 4  97     1    -1  black       0.5        1    NA
+      22 8 150     1    -1  black       0.5        1    NA
+      23 8 150     1    -1  black       0.5        1    NA
+      24 8 245     1    -1  black       0.5        1    NA
+      25 8 175     1    -1  black       0.5        1    NA
+      26 4  66     1    -1  black       0.5        1    NA
+      27 4  91     1    -1  black       0.5        1    NA
+      28 4 113     1    -1  black       0.5        1    NA
+      29 8 264     1    -1  black       0.5        1    NA
+      30 6 175     1    -1  black       0.5        1    NA
+      31 8 335     1    -1  black       0.5        1    NA
+      32 4 109     1    -1  black       0.5        1    NA
       
       
       
@@ -17896,6 +18701,41 @@
       592        1    NA    NA     NA
       593        1    NA    NA     NA
       594        1    NA    NA     NA
+      
+      $plots$disp$hp[[2]]
+             x   y PANEL group colour linewidth linetype alpha
+      1  160.0 110     1    -1  black       0.5        1    NA
+      2  160.0 110     1    -1  black       0.5        1    NA
+      3  108.0  93     1    -1  black       0.5        1    NA
+      4  258.0 110     1    -1  black       0.5        1    NA
+      5  360.0 175     1    -1  black       0.5        1    NA
+      6  225.0 105     1    -1  black       0.5        1    NA
+      7  360.0 245     1    -1  black       0.5        1    NA
+      8  146.7  62     1    -1  black       0.5        1    NA
+      9  140.8  95     1    -1  black       0.5        1    NA
+      10 167.6 123     1    -1  black       0.5        1    NA
+      11 167.6 123     1    -1  black       0.5        1    NA
+      12 275.8 180     1    -1  black       0.5        1    NA
+      13 275.8 180     1    -1  black       0.5        1    NA
+      14 275.8 180     1    -1  black       0.5        1    NA
+      15 472.0 205     1    -1  black       0.5        1    NA
+      16 460.0 215     1    -1  black       0.5        1    NA
+      17 440.0 230     1    -1  black       0.5        1    NA
+      18  78.7  66     1    -1  black       0.5        1    NA
+      19  75.7  52     1    -1  black       0.5        1    NA
+      20  71.1  65     1    -1  black       0.5        1    NA
+      21 120.1  97     1    -1  black       0.5        1    NA
+      22 318.0 150     1    -1  black       0.5        1    NA
+      23 304.0 150     1    -1  black       0.5        1    NA
+      24 350.0 245     1    -1  black       0.5        1    NA
+      25 400.0 175     1    -1  black       0.5        1    NA
+      26  79.0  66     1    -1  black       0.5        1    NA
+      27 120.3  91     1    -1  black       0.5        1    NA
+      28  95.1 113     1    -1  black       0.5        1    NA
+      29 351.0 264     1    -1  black       0.5        1    NA
+      30 145.0 175     1    -1  black       0.5        1    NA
+      31 301.0 335     1    -1  black       0.5        1    NA
+      32 121.0 109     1    -1  black       0.5        1    NA
       
       
       

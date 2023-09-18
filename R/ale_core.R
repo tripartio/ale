@@ -44,13 +44,16 @@
 #' @param x_cols character. Vector of column names from `test_dataset` for which
 #'  one-way ALE data is to be calculated (that is, simple ALE without interactions).
 #'  Must be provided if `ixn` is FALSE (default).
+#' @param y_col character length 1. Name of the outcome target label (y) variable.
+#' If not provided, `ale` will try to detect it automatically. For non-standard
+#' models, `y_col` should be provided.
 # @param full_y_range numeric length 3. `full_y_range[1]` is the minimum,
 # `full_y_range[2]` is the mean and
 # `full_y_range[3]` is the maximum value of the outcome (y)
 # variable in the original dataset, that is, the full analysis dataset even
 # before splitting into training and test data. Must be provided for normalized
 # versions of the statistics or else they return `NA`. See details.
-#' @param output character in c('plot', 'data'). Vector of types of results to return. 'plot' will return
+#' @param output character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 #' an ALE plot; 'data' will return the source ALE data; both together will return both.
 #' @param pred_fun,predict_type function,character. `pred_fun` is a function that
 #' returns a vector of predicted values of type `predict_type` from `model` on `test_data`.
@@ -81,6 +84,13 @@
 #' @param plot_alpha numeric from 0 to 1. Alpha for "confidence interval" range
 #' for printing bands around the median for single-variable plots.
 #'  The band range will be the median value of y ± `plot_alpha`.
+#' @param rug_sample_size,min_rug_per_interval single non-negative integer.
+#' Rug plots are normally
+#' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
+#' of this sample. To prevent down-sampling, set to `Inf`. To suppress rug plots,
+#' set to 0. When down-sampling, the rug plots maintain representativeness of the
+#' data by guaranteeing that each of the `x_intervals` intervals will retain at least
+#' `min_rug_per_interval` elements; usually set to just 1 or 2.
 #' @param ale_xs,ale_ns list of ale_x and ale_n vectors. If provided, these vectors will be used to
 #' set the intervals of the ALE x axis for each variable. By default (NULL), the
 #' function automatically calculates the ale_x intervals. `ale_xs` is normally used
@@ -159,8 +169,9 @@ ale <- function (
     test_data,
     model,
     x_cols = NULL,
+    y_col = NULL,
     # full_y_range = as.numeric(c(NA, NA, NA)),
-    output = c('plot', 'data'),
+    output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -173,6 +184,8 @@ ale <- function (
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL
     # ggplot_custom = NULL,
@@ -206,6 +219,7 @@ ale <- function (
 #' be ignored.
 #' @param x_cols See documentation for `ale`
 #' @param x1_cols,x2_cols See documentation for `ale_ixn`
+#' @param y_col See documentation for `ale`
 # @param full_y_range See documentation for `ale`
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
@@ -217,6 +231,7 @@ ale <- function (
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
 #' @param plot_alpha See documentation for `ale`
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #' @param ale_xs See documentation for `ale`
 #' @param ale_ns See documentation for `ale`
 #' @param n_x1_int,n_x2_int See documentation for `ale_ixn`
@@ -231,8 +246,9 @@ ale_core <- function (
     test_data, model,
     ixn,
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
+    y_col = NULL,
     # full_y_range = as.numeric(c(NA, NA, NA)),
-    output = c('plot', 'data'),
+    output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -245,20 +261,23 @@ ale_core <- function (
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
     # ggplot_custom = NULL,
     # marginal = TRUE,
     # gg_marginal_custom = NULL,
-    n_x1_int = 20,  # number of x intervals for interaction plot (ignored for factors)
-    n_x2_int = 20,  # number of y quantiles for interaction plot
-    n_y_quant = 10  # number of y quantiles for interaction plot
+    n_x1_int = 20,
+    n_x2_int = 20,
+    n_y_quant = 10
 )
 {
   # Validate arguments
   assert_that(test_data |> inherits('data.frame'))
 
-  # browser()
+  # If model validation is done more rigorously, also validate that y_col is not
+  # contained in all_x__cols
 
   # Assume that if a custom predict function is supplied, it must be because
   # model is a valid model, so do not try to validate it further.
@@ -285,16 +304,30 @@ ale_core <- function (
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
   if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
   if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
-  # Assure that output is a subset of c('plot', 'data')
+
+  # If model validation is done more rigorously, also validate that y_col is not
+  # contained in all_x__cols
+  all_x_cols <- c(x_cols, x1_cols, x2_cols)
+  valid_x_cols <- all_x_cols %in% names(test_data)
+  if (!all(valid_x_cols)) {
+    stop(
+      'The following columns were not found in test_data: ',
+      paste0(all_x_cols[!valid_x_cols], collapse = ', ')
+    )
+  }
+
+  if (!is.null(y_col)) assert_that(is.string(y_col))
+  # Assure that output is a subset of c('plots', 'data')
   assert_that(
-    length(setdiff(output, c('plot', 'data'))) == 0,
-    msg = 'The value in the output argument must be one or both of "plot" or "data".'
+    length(setdiff(output, c('plots', 'data'))) == 0,
+    msg = 'The value in the output argument must be one or both of "plots" or "data".'
   )
   assert_that(is.string(predict_type))
-  assert_that(
-    round(boot_it) == boot_it &&  # boot_it is a whole number
-      is.scalar(boot_it) && boot_it >= 0
-  )
+  assert_that(is.count(boot_it) || boot_it == 0) # whole number
+  # assert_that(
+  #   round(boot_it) == boot_it &&  # boot_it is a whole number
+  #     is.scalar(boot_it) && boot_it >= 0
+  # )
   # if (!is.null(seed)) {
   #   assert_that(round(seed) == seed)  # seed is a whole number
   # }
@@ -312,10 +345,8 @@ ale_core <- function (
                   (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
   }
   assert_that(is.string(predict_type))
-  assert_that(is.number(plot_alpha) && between(plot_alpha, 0, 1))
   # if (!is.null(ale_xs)) assert_that(is.factor(ale_xs) || is.numeric(ale_xs))
   if (!is.null(ale_xs)) {
-    # browser()
     map(
       ale_xs,
       \(.var) assert_that(is.null(.var) || is.factor(.var) || is.numeric(.var))
@@ -328,9 +359,25 @@ ale_core <- function (
       \(.var) assert_that(is.null(.var) || is.integer(.var))
     )
   }
-  assert_that(is.count(n_x1_int))
-  assert_that(is.count(n_x2_int))
-  assert_that(is.count(n_y_quant))
+
+  # Validate plot-related arguments.
+  # If plots are not requested, then ignore these arguments.
+  if ('plots' %in% output) {
+    assert_that(is.number(plot_alpha) && between(plot_alpha, 0, 1))
+    assert_that(
+      rug_sample_size == 0 ||  # 0 means no rug plots are desired
+        (is.count(rug_sample_size) &&
+           # rug sample cannot be smaller than number of intervals
+           rug_sample_size > (x_intervals + 1)),
+      msg = 'rug_sample_size must be either 0 or
+    an integer larger than the number of x_intervals.'
+    )
+    assert_that(is.count(min_rug_per_interval) || min_rug_per_interval == 0) # whole number
+    assert_that(is.count(n_x1_int))
+    assert_that(is.count(n_x2_int))
+    assert_that(is.count(n_y_quant))
+
+  }
 
 
 
@@ -340,13 +387,15 @@ ale_core <- function (
   rm(test_data)
 
   # Identify y column from the Y term of a standard R model call
-  y_col <-
-    model[["terms"]][[2]] |>
-    as.character()
-  if (length(y_col) == 0) {
+  if (is.null(y_col)) {
     y_col <-
-      model[["Terms"]][[2]] |>
+      model[["terms"]][[2]] |>
       as.character()
+    if (length(y_col) == 0) {
+      y_col <-
+        model[["Terms"]][[2]] |>
+        as.character()
+    }
   }
 
   # Determine datatype of y
@@ -504,17 +553,21 @@ ale_core <- function (
 
         # Generate ALE plot
         plot <- NULL  # Start with a NULL plot
-        if ('plot' %in% output) {  # user requested the plot
+        if ('plots' %in% output) {  # user requested the plot
           plot <- plot_ale(
             ale_data, x_col, y_col, y_type,
             y_summary, relative_y,
-            plot_alpha
+            plot_alpha,
+            data = data[, c(x_col, y_col)],
+            rug_sample_size = rug_sample_size,
+            min_rug_per_interval = min_rug_per_interval,
+            seed = seed
             # ggplot_custom, marginal, gg_marginal_custom
           )
         }
 
         # Delete data if only plot was requested
-        if (identical(output, 'plot')) {  # No data desired
+        if (identical(output, 'plots')) {  # No data desired
           ale_data <- NULL
         }
 
@@ -536,8 +589,6 @@ ale_core <- function (
       x1_cols |>
       map(\(x1_col) {
         # Calculate ale_data for two-way interactions
-
-        # if (x1_col == ' carb') browser()
 
         # Do not redo interactions that have already been done
         # x2_cols |>
@@ -562,19 +613,23 @@ ale_core <- function (
 
             # Generate ALE plot
             plot <- NULL  # Start with a NULL plot
-            if ('plot' %in% output) {  # user requested the plot
+            if ('plots' %in% output) {  # user requested the plot
               plot <- plot_ale_ixn(
                 ale_data, x1_col, x2_col, y_col, y_type,
                 y_summary,
                 y_vals,
                 # ggplot_custom, marginal, gg_marginal_custom,
                 relative_y,
-                plot_alpha, n_x1_int, n_x2_int, n_y_quant
+                plot_alpha, n_x1_int, n_x2_int, n_y_quant,
+                data = data[, c(x1_col, x2_col, y_col)],
+                rug_sample_size = rug_sample_size,
+                min_rug_per_interval = min_rug_per_interval,
+                seed = seed
               )
             }
 
             # Delete data if only plot was requested
-            if (identical(output, 'plot')) {  # No data desired
+            if (identical(output, 'plots')) {  # No data desired
               ale_data <- NULL
             }
 
@@ -605,8 +660,6 @@ ale_core <- function (
     )
   }
 
-  # browser()
-
   # Append useful output data that is shared across all variables
   ales$y_col <- y_col
   if (ixn) {
@@ -633,10 +686,6 @@ ale_core <- function (
   #   boot_centre = boot_centre,
   #   plot_alpha = plot_alpha
   # )
-
-  #TODO: restructure output:
-  # ales = list(data, plots, overall)
-  # This would make iterating over plots much simpler
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
@@ -668,12 +717,14 @@ var_type <- function(var) {
 
   return(case_when(
     class_var == 'logical' ~ 'binary',
+    # var consisting only of one of any two values is considered binary
+    (var |> unique() |> length()) == 2 ~ 'binary',
     # numeric var consisting purely of 0 and 1 values is considered binary
-    is.numeric(var) && (var |>
-                          unique() |>
-                          sort() |>
-                          identical(c(0, 1))) ~
-      'binary',
+    # is.numeric(var) && (var |>
+    #                       unique() |>
+    #                       sort() |>
+    #                       identical(c(0, 1))) ~
+    #   'binary',
     class_var == 'factor' ~ 'multinomial',
     class_var == 'ordered' ~ 'ordinal',
     is.numeric(var) ~ 'numeric'
@@ -757,9 +808,20 @@ calc_ale <- function(
   )
 
 
-  x_type <- var_type(X[[x_col]])
+  # if (x_col == 'gear') browser()
 
-  # browser()
+  # Determine the datatype of x from ale_x unless ale_x is null;
+  # in that case, take it from x_col.
+  # It should be taken from ale_x because intermediary bootstrap runs might
+  # change the x_col values such that their datatype is ambiguous.
+  x_type <- var_type(
+    if (!is.null(ale_x)) {
+      ale_x
+    } else {
+      X[[x_col]]
+    }
+  )
+  # x_type <- var_type(X[[x_col]])
 
   if (x_type == 'numeric') {
 
@@ -933,7 +995,11 @@ calc_ale <- function(
         idx_ord_orig_level <- c(1L, 2L)
 
         # index of x_col value according to ordered indexes
-        x_ordered_idx <- if_else(X[[x_col]], 2L, 1L)
+        x_ordered_idx <-
+          X[[x_col]] |>
+          as.factor() |>
+          as.integer()  # becomes 2L for TRUE and 1L for FALSE
+        # x_ordered_idx <- if_else(X[[x_col]], 2L, 1L)
 
         # x levels sorted in ALE order
         levels_ale_order <-
@@ -1053,6 +1119,9 @@ calc_ale <- function(
 
     length_ale_x <- length(ale_x)
 
+    # if (breakpoint) browser()
+
+
     #Calculate the model predictions with the levels of X[[x_col]] increased and decreased by one
     row_idx_not_hi <- (1:n_row)[x_ordered_idx < xint]  #indices of rows for which X[[x_col]] was not the highest level
     row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
@@ -1092,6 +1161,8 @@ calc_ale <- function(
                 min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
               }
           }
+
+          # if (breakpoint) browser()
 
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
@@ -1280,6 +1351,10 @@ calc_ale <- function(
 # @param ... arguments passed from `ale`
 #' @param relative_y See documentation for `ale`
 #' @param plot_alpha See documentation for `ale`
+#' @param data dataframe. If provided, used to generate rug plots. Must at least
+#' contain columns x_col and y_col; any other columns are not used.
+#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+#' @param seed See documentation for `ale`
 #'
 #'
 #' @import dplyr
@@ -1292,7 +1367,11 @@ plot_ale <- function(
     # ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
-    plot_alpha = 0.05
+    plot_alpha = 0.05,
+    data = NULL,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
+    seed = 0
     ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -1300,9 +1379,12 @@ plot_ale <- function(
   # when NSE applies, the NSE variables will be prioritized over these null
   # local variables.
   ale_x <- NULL
+  ale_n <- NULL
   ale_y <- NULL
   ale_y_lo <- NULL
   ale_y_hi <- NULL
+  rug_x <- NULL
+  rug_y <- NULL
 
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
@@ -1324,6 +1406,8 @@ plot_ale <- function(
   # Note: all non-numeric ale_x are ordered factors (ordinal)
   x_type <- var_type(ale_data$ale_x)
 
+
+  total_n <- sum(ale_data$ale_n)
 
   plot <-
     ale_data |>
@@ -1368,18 +1452,69 @@ plot_ale <- function(
                    y_summary[['75%']]),
       )
     ) +
+    theme(axis.text.y.right = element_text(size = 6)) +
     labs(x = x_col, y = y_col)
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
+    # browser()
     plot <- plot +
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
-      geom_line()
-  } else if (x_type == "ordinal") {
+      geom_line()  # +
+      # # show points proportional to the frequency of the ale_x
+      # geom_point(
+      #   aes(size = (ale_n / total_n) * 5),
+      #   alpha = 0.2,
+      # )
+
+    # Add rug plot if data is provided
+    if (!is.null(data) && rug_sample_size > 0) {
+      rug_data <- tibble(
+        rug_x = data[[x_col]],
+        rug_y = data[[y_col]],
+      )
+
+      # If the data is too big, down-sample for rug plots
+      rug_data <- if (nrow(rug_data) > rug_sample_size) {
+        rug_sample(
+          rug_data,
+          ale_data$ale_x,
+          rug_sample_size = rug_sample_size,
+          min_rug_per_interval = min_rug_per_interval,
+          seed = seed
+        )
+      } else {
+        rug_data
+      }
+
+      plot <- plot +
+        geom_rug(
+          aes(x = rug_x, y = rug_y),
+          data = rug_data,
+          # alpha = 0.5,
+          position = 'jitter'
+        )
+    }
+
+  } else {  # x_type is not numeric
+    # } else if (x_type == "ordinal") {
+
     plot <- plot +
       geom_col(fill = 'gray') +
-      geom_errorbar(aes(ymin = ale_y_lo, ymax = ale_y_hi), width = 0.05)
+      geom_errorbar(aes(ymin = ale_y_lo, ymax = ale_y_hi), width = 0.05) +
+      # Add labels for percentage of dataset.
+      # This serves the equivalent function of rugs for numeric data.
+      # Varying column width is an idea, but it usually does not work well visually.
+      geom_text(
+        aes(
+          label = paste0(round((ale_n / total_n) * 100), '%'),
+          y = y_summary[['min']]
+        ),
+        size = 3,
+        alpha = 0.5,
+        vjust = -0.2
+      )
 
     # Rotate categorical labels if they are too long
     if ((ale_data$ale_x |> paste(collapse = ' ') |> nchar()) > 50) {
@@ -1387,10 +1522,79 @@ plot_ale <- function(
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
 
-  } else {
-    stop("Only factors or numerics can be plotted.")
+  # } else {
+  #   stop("Only factors or numerics can be plotted.")
   }
+
 
   return(plot)
 }
 
+
+# Downsample x and y rows to match a target sample size while respecting specified
+# intervals in the random sample
+#
+# Not exported. Rug plots are slow with large datasets because each data point
+# must be plotted. `rug_sample` tries to resolve this issue by sampling
+# `rug_sample_size` rows of data maximum (only if the data has more than that
+# number of lines lines). However, to be representative, the sampling must have
+# at least min_rug_per_interval in each ale_x interval.
+#
+# @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
+# @param ale_x numeric vector. ale_x intervals. Rug plots are only valid for
+# numeric x types.
+# @param rug_sample_size See documentation for `ale`
+# @param min_rug_per_interval See documentation for `ale`
+# @param seed See documentation for `ale`
+#
+rug_sample <- function(
+    x_y,
+    ale_x,
+    rug_sample_size = 500,
+    min_rug_per_interval = 1,
+    seed = 0
+) {
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  rug_x <- NULL
+  rug_y <- NULL
+  interval <- NULL
+
+  # Only sample small datasets
+  if (nrow(x_y) <= rug_sample_size) {
+    return(x_y)
+  }
+
+  x_y <- x_y |>
+    mutate(
+      row = row_number(),
+      # Specify ale_x interval for each x value
+      interval = findInterval(rug_x, ale_x)
+    ) |>
+    select(row, rug_x, interval, rug_y)
+
+  # rs_idxs: row indexes of the rug sample
+  # First, ensure there are at least min_rug_per_interval rows selected per interval.
+  set.seed(seed)
+  rs_idxs <-
+    x_y |>
+    summarize(
+      .by = interval,
+      row = sample(row, min_rug_per_interval)
+    ) |>
+    pull(row)
+
+  # Next, add a sample of all the other rows to meet the rug_sample_size target.
+  rs_idxs <- c(
+    rs_idxs,
+    setdiff(x_y$row, rs_idxs) |>  # don't duplicate any rows already selected
+      sample(rug_sample_size - length(rs_idxs))  # only sample enough to match rug_sample_size
+  )
+
+  return(
+    x_y[rs_idxs, ] |>
+      select(rug_x, rug_y)
+  )
+}

@@ -250,13 +250,15 @@ model_bootstrap <- function (
 
           # From full dataset (.it == 0), calculate common ale_x for all subsequent iterations
           if (.it == 0) {
-            # ale_xs <<-
-            ale_xs <-
+            # Super-assignment needed to set ale_xs and ale_ns for all iterations,
+            # not just the current one
+            ale_xs <<-
+            # ale_xs <-
               boot_ale$data |>
               map(\(.x) .x$ale_x)
 
-            # ale_ns <<-
-            ale_ns <-
+            ale_ns <<-
+            # ale_ns <-
               boot_ale$data |>
               map(\(.x) .x$ale_n)
           }
@@ -302,8 +304,6 @@ model_bootstrap <- function (
       # Model statistics for which bootstrapping is not meaningful.
       # see https://stats.stackexchange.com/a/529506/81392
       invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
-
-      # browser()
 
       boot_data |>
         # filter(it != 0) |>
@@ -395,8 +395,6 @@ model_bootstrap <- function (
           # # so extracting it only from the first element is sufficient.
           # .ale_x <- full_ale_data$data[[.x_col_name]]$ale_x
           # .ale_n <- full_ale_data$data[[.x_col_name]]$ale_n
-
-          # if (.x_col_name == 'country') browser()
 
           # If ale_x for .x_col is ordinal,
           # harmonize the levels across bootstrap iterations,
