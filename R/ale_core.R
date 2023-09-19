@@ -7,7 +7,7 @@
 #' @title Create and return ALE data and plots
 #'
 #' @description
-#' This is the central function that manages the creation of ALE data and plots
+#' `ale` is the central function that manages the creation of ALE data and plots
 #' for one-way ALE. For two-way interactions, see `ale_ixn`. This function calls
 #' `ale_core` (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 #'  the introductory vignette for this package or the details and examples below.
@@ -33,9 +33,22 @@
 #' You can see an example below of a custom prediction function.
 #'
 #' **ALE statistics**
+#'
+#' ALE deviation (ALED):
 #' \deqn{
-#' \text{ALED}(y, n) = \frac{\sum_{i=1}^{k} |y_i \times n_i|}{\sum_{i=1}^{k} n_i}
+#'   \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
 #' }
+#'
+#' ALE range (ALER):
+#' \deqn{
+#'   \mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}
+#' }
+#'
+#'
+#'
+#'
+#' **About the `ale` package**
+#'
 #' @export
 #'
 #'
@@ -51,12 +64,8 @@
 #' @param y_col character length 1. Name of the outcome target label (y) variable.
 #' If not provided, `ale` will try to detect it automatically. For non-standard
 #' models, `y_col` should be provided.
-# @param full_y_range numeric length 3. `full_y_range[1]` is the minimum,
-# `full_y_range[2]` is the mean and
-# `full_y_range[3]` is the maximum value of the outcome (y)
-# variable in the original dataset, that is, the full analysis dataset even
-# before splitting into training and test data. Must be provided for normalized
-# versions of the statistics or else they return `NA`. See details.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' Any invalid argument (including typographical errors) will be silently ignored.
 #' @param output character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 #' an ALE plot; 'data' will return the source ALE data; both together will return both.
 #' @param pred_fun,predict_type function,character. `pred_fun` is a function that
@@ -101,7 +110,6 @@
 #' in advanced analyses where the ale_x intervals from a previous analysis are
 #' reused for subsequent analyses (for example, for full model bootstrapping;
 #' see the `model_bootstrap` function).
-#'
 #'
 #' @return list of ALE data tibbles and plots. The list is named by the x variables.
 #' Within each list element, the data or plot is returned as requested in
@@ -174,7 +182,7 @@ ale <- function (
     model,
     x_cols = NULL,
     y_col = NULL,
-    # full_y_range = as.numeric(c(NA, NA, NA)),
+    ...,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
@@ -193,8 +201,6 @@ ale <- function (
     ale_xs = NULL,
     ale_ns = NULL
     # ggplot_custom = NULL,
-    # marginal = TRUE,
-    # gg_marginal_custom = NULL,
 ) {
 
   # capture all arguments passed into `ale` (code thanks to ChatGPT)
@@ -204,54 +210,56 @@ ale <- function (
 }
 
 
-#' Create and return ALE data and plots
-#'
-#' Not exported. This is the central function that manages the creation of ALE data and plots,
-#' both for one-way ALE and two-way interactions. This function does not do the
-#' actual creation of the data or plots. It receives user inputs, preprocesses them,
-#' and then calls the appropriate functions to create the ALE data and plots.
-#' As such, this function is not normally directly called by users. So, the
-#' documentation details for each variable here is specified in the user-facing
-#' function that specifies it.
-#'
-#' @param test_data See documentation for `ale`
-#' @param model See documentation for `ale`
-#' @param ixn logical. If TRUE, `ale_core` will return interaction data between `x1_cols`
-#' and `x2_cols`; both must be provided; `x_cols` will be ignored.
-#' If FALSE (default), only one-way ALE data
-#' of `x_cols` (required in that case) will be created; `x1_cols` and `x2_cols` will
-#' be ignored.
-#' @param x_cols See documentation for `ale`
-#' @param x1_cols,x2_cols See documentation for `ale_ixn`
-#' @param y_col See documentation for `ale`
+
+# Create and return ALE data and plots
+#
+# Not exported. This is the central function that manages the creation of ALE data and plots,
+# both for one-way ALE and two-way interactions. This function does not do the
+# actual creation of the data or plots. It receives user inputs, preprocesses them,
+# and then calls the appropriate functions to create the ALE data and plots.
+# As such, this function is not normally directly called by users. So, the
+# documentation details for each variable here is specified in the user-facing
+# function that specifies it.
+#
+# @param test_data See documentation for `ale`
+# @param model See documentation for `ale`
+# @param ixn logical. If TRUE, `ale_core` will return interaction data between `x1_cols`
+# and `x2_cols`; both must be provided; `x_cols` will be ignored.
+# If FALSE (default), only one-way ALE data
+# of `x_cols` (required in that case) will be created; `x1_cols` and `x2_cols` will
+# be ignored.
+# @param x_cols See documentation for `ale`
+# @param x1_cols,x2_cols See documentation for `ale_ixn`
+# @param y_col See documentation for `ale`
+# @param ... not used See documentation for `ale`
 # @param full_y_range See documentation for `ale`
-#' @param output See documentation for `ale`
-#' @param pred_fun,predict_type See documentation for `ale`
-#' @param x_intervals See documentation for `ale`
-#' @param boot_it See documentation for `ale`
-#' @param seed See documentation for `ale`
-#' @param boot_alpha See documentation for `ale`
-#' @param boot_centre See documentation for `ale`
-#' @param relative_y See documentation for `ale`
-#' @param y_type See documentation for `ale`
-#' @param plot_alpha See documentation for `ale`
-#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-#' @param ale_xs See documentation for `ale`
-#' @param ale_ns See documentation for `ale`
-#' @param n_x1_int,n_x2_int See documentation for `ale_ixn`
-#' @param n_y_quant See documentation for `ale_ixn`
-#'
-#' @import dplyr
-#' @import purrr
-#' @import assertthat
-#'
-#'
+# @param output See documentation for `ale`
+# @param pred_fun,predict_type See documentation for `ale`
+# @param x_intervals See documentation for `ale`
+# @param boot_it See documentation for `ale`
+# @param seed See documentation for `ale`
+# @param boot_alpha See documentation for `ale`
+# @param boot_centre See documentation for `ale`
+# @param relative_y See documentation for `ale`
+# @param y_type See documentation for `ale`
+# @param plot_alpha See documentation for `ale`
+# @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+# @param ale_xs See documentation for `ale`
+# @param ale_ns See documentation for `ale`
+# @param n_x1_int,n_x2_int See documentation for `ale_ixn`
+# @param n_y_quant See documentation for `ale_ixn`
+#
+# @import dplyr
+# @import purrr
+# @import assertthat
+#
+#
 ale_core <- function (
     test_data, model,
     ixn,
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
-    # full_y_range = as.numeric(c(NA, NA, NA)),
+    ...,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
@@ -270,8 +278,6 @@ ale_core <- function (
     ale_xs = NULL,
     ale_ns = NULL,
     # ggplot_custom = NULL,
-    # marginal = TRUE,
-    # gg_marginal_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10
@@ -586,7 +592,7 @@ ale_core <- function (
             rug_sample_size = rug_sample_size,
             min_rug_per_interval = min_rug_per_interval,
             seed = seed
-            # ggplot_custom, marginal, gg_marginal_custom
+            # ggplot_custom
           )
         }
 
@@ -642,7 +648,7 @@ ale_core <- function (
                 ale_data, x1_col, x2_col, y_col, y_type,
                 y_summary,
                 y_vals,
-                # ggplot_custom, marginal, gg_marginal_custom,
+                # ggplot_custom
                 relative_y,
                 plot_alpha, n_x1_int, n_x2_int, n_y_quant,
                 data = data[, c(x1_col, x2_col, y_col)],
@@ -658,7 +664,7 @@ ale_core <- function (
             }
 
             return(list(
-              data = ale_data,  # x, y (for marginal plots only), ale_x, ale_y
+              data = ale_data,
               plot = plot  # + theme_bw()
             ))
           }) |>
@@ -719,19 +725,19 @@ ale_core <- function (
 
 
 
-#' Determine the datatype of a vector
-#'
-#' Not exported. See @returns for details of what it does.
-#'
-#' @param var vector whose datatype is to be determined
-#'
-#' @returns Returns generic datatypes of R basic vectors according to the following mapping:
-#' * `logical` returns 'binary'
-#' * `numeric` values (e.g., `integer` and `double`) return 'numeric'
-#' * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#' * unordered `factor` returns 'multinomial'
-#' * `ordered` `factor` returns 'ordinal'
-#'
+#  Determine the datatype of a vector
+#
+#  Not exported. See @returns for details of what it does.
+#
+#  @param var vector whose datatype is to be determined
+#
+#  @returns Returns generic datatypes of R basic vectors according to the following mapping:
+#  * `logical` returns 'binary'
+#  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
+#  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
+#  * unordered `factor` returns 'multinomial'
+#  * `ordered` `factor` returns 'ordinal'
+#
 var_type <- function(var) {
 
   # If var has more than one class, use only the first (predominant) one.
@@ -756,41 +762,40 @@ var_type <- function(var) {
 
 }
 
-#' Calculate ALE data
-#'
-#' This function is not exported. It is uses tidyverse principles to rewrite
-#' `ALEPlot::ALEPlot`.
-#' This function is not usually called directly by the user. For details about
-#' arguments not documented here, see `ale`.
-#'
-#' @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
-#' @references Apley, Daniel W., and Jingyu Zhu.
-#' "Visualizing the effects of predictor variables in black box supervised learning models."
-#' Journal of the Royal Statistical Society Series B: Statistical Methodology
-#' 82.4 (2020): 1059-1086.
-#' @author Chitu Okoli (rewrote the code while retaining ALE calculation)
-#'
-#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
-#' column is absent.
-#' @param model See documentation for `ale`
-#' @param x_col character length 1. Name of single column in X for which ALE data is to
-#' be calculated.
-#' @param pred_fun See documentation for `ale`
-#' @param x_intervals See documentation for `ale`
-#' @param boot_it See documentation for `ale`
-#' @param seed See documentation for `ale`
-#' @param boot_alpha See documentation for `ale`
-#' @param boot_centre See documentation for `ale`
-#' @param ale_x numeric or ordinal vector. Normally generated automatically (if
-#' NULL), but if provided, the provided value will be used instead.
-#' @param ale_n integer vector. See `ale_x`
-#'
-#' @import dplyr
-#' @import purrr
-#'
+#  Calculate ALE data
+#
+#  This function is not exported. It is uses tidyverse principles to rewrite
+#  `ALEPlot::ALEPlot`.
+#  This function is not usually called directly by the user. For details about
+#  arguments not documented here, see `ale`.
+#
+#  @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
+#  @references Apley, Daniel W., and Jingyu Zhu.
+#  "Visualizing the effects of predictor variables in black box supervised learning models."
+#  Journal of the Royal Statistical Society Series B: Statistical Methodology
+#  82.4 (2020): 1059-1086.
+#  @author Chitu Okoli (rewrote the code while retaining ALE calculation)
+#
+#  @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
+#  column is absent.
+#  @param model See documentation for `ale`
+#  @param x_col character length 1. Name of single column in X for which ALE data is to
+#  be calculated.
+#  @param pred_fun See documentation for `ale`
+#  @param x_intervals See documentation for `ale`
+#  @param boot_it See documentation for `ale`
+#  @param seed See documentation for `ale`
+#  @param boot_alpha See documentation for `ale`
+#  @param boot_centre See documentation for `ale`
+#  @param ale_x numeric or ordinal vector. Normally generated automatically (if
+#  NULL), but if provided, the provided value will be used instead.
+#  @param ale_n integer vector. See `ale_x`
+#
+#  @import dplyr
+#  @import purrr
+#
 calc_ale <- function(
     X, model, x_col,
-    # n_row, n_col,
     pred_fun, x_intervals,
     boot_it, seed, boot_alpha, boot_centre,
     ale_x = NULL,
@@ -1343,47 +1348,47 @@ calc_ale <- function(
 
 
 
-#' Plot ALE data
-#'
-#' This function is not exported. It creates a ggplot object that plots the input
-#' ALE data generated from `calc_ale`.
-#' This function is not usually called directly by the user. For details about
-#' arguments not documented here, see `ale`.
-#'
-#'
+#  Plot ALE data
+#
+#  This function is not exported. It creates a ggplot object that plots the input
+#  ALE data generated from `calc_ale`.
+#  This function is not usually called directly by the user. For details about
+#  arguments not documented here, see `ale`.
+#
+#
 #
 # TODO: add rug plots on the x and y axes.
 # To do this, I would probably need to create a new dataset just for the rug plots.
 # The main problem with geom_rug is that it is too slow. Perhaps I could resolve
 # this by sampling 1000 rows of data maximum (only if the test_data has more than
 # 1000 lines). However, the sampling must be stratified for plot_ale_ixn (see note there).
-#'
-#' @param ale_data tibble. Output data from `calc_ale`.
-#' @param x_col character length 1. Name of single column whose ALE data is to
-#' be plotted.
-#' @param y_col character length 1. Name of y (output) column whose ALE data is to
-#' be plotted.
-#' @param y_type See documentation for `ale`
-#' @param y_summary named double. Named vector of y summary statistics to be used
-#' for plotting.
-# @param ... arguments passed from `ale`
-#' @param relative_y See documentation for `ale`
-#' @param plot_alpha See documentation for `ale`
-#' @param data dataframe. If provided, used to generate rug plots. Must at least
-#' contain columns x_col and y_col; any other columns are not used.
-#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-#' @param seed See documentation for `ale`
-#'
-#'
-#' @import dplyr
-#' @import purrr
-#' @import ggplot2
-#'
+#
+#  @param ale_data tibble. Output data from `calc_ale`.
+#  @param x_col character length 1. Name of single column whose ALE data is to
+#  be plotted.
+#  @param y_col character length 1. Name of y (output) column whose ALE data is to
+#  be plotted.
+#  @param y_type See documentation for `ale`
+#  @param y_summary named double. Named vector of y summary statistics to be used
+#  for plotting.
+#  @param ... not used. Enforces explicit naming of subsequent arguments.
+#  @param relative_y See documentation for `ale`
+#  @param plot_alpha See documentation for `ale`
+#  @param data dataframe. If provided, used to generate rug plots. Must at least
+#  contain columns x_col and y_col; any other columns are not used.
+#  @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+#  @param seed See documentation for `ale`
+#
+#
+#  @import dplyr
+#  @import purrr
+#  @import ggplot2
+#
 plot_ale <- function(
     ale_data, x_col, y_col, y_type,
     y_summary,
-    # ...,
-    # ggplot_custom, marginal, gg_marginal_custom,
+    ...,
+    # ggplot_custom,
     relative_y = 'median',
     plot_alpha = 0.05,
     data = NULL,

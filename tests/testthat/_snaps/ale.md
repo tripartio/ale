@@ -3078,11 +3078,11 @@
       $plots$cyl
       $plots$cyl[[1]]
         yintercept PANEL group colour linewidth linetype alpha
-      1     -3.775     1    -1  black       0.5   dashed    NA
+      1     15.425     1    -1  black       0.5   dashed    NA
       
       $plots$cyl[[2]]
         yintercept PANEL group colour linewidth linetype alpha
-      1        3.6     1    -1  black       0.5   dashed    NA
+      1       22.8     1    -1  black       0.5   dashed    NA
       
       $plots$cyl[[3]]
         x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -3090,9 +3090,9 @@
       2 6  0.4082614     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
       3 8  6.9404430     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
         ymin ymax
-      1    0    0
-      2    0    0
-      3    0    0
+      1 19.2 19.2
+      2 19.2 19.2
+      3 19.2 19.2
       
       $plots$cyl[[4]]
               ymin       ymax x          y PANEL group flipped_aes colour   fill
@@ -3149,11 +3149,11 @@
       $plots$disp
       $plots$disp[[1]]
         yintercept PANEL group colour linewidth linetype alpha
-      1     -3.775     1    -1  black       0.5   dashed    NA
+      1     15.425     1    -1  black       0.5   dashed    NA
       
       $plots$disp[[2]]
         yintercept PANEL group colour linewidth linetype alpha
-      1        3.6     1    -1  black       0.5   dashed    NA
+      1       22.8     1    -1  black       0.5   dashed    NA
       
       $plots$disp[[3]]
              x          y PANEL group colour      fill linewidth linetype alpha xmin
@@ -3185,33 +3185,33 @@
       26 460.0  6.0780767     1    -1     NA lightgray       0.5        1    NA -Inf
       27 472.0  6.0529004     1    -1     NA lightgray       0.5        1    NA -Inf
          xmax ymin ymax
-      1   Inf    0    0
-      2   Inf    0    0
-      3   Inf    0    0
-      4   Inf    0    0
-      5   Inf    0    0
-      6   Inf    0    0
-      7   Inf    0    0
-      8   Inf    0    0
-      9   Inf    0    0
-      10  Inf    0    0
-      11  Inf    0    0
-      12  Inf    0    0
-      13  Inf    0    0
-      14  Inf    0    0
-      15  Inf    0    0
-      16  Inf    0    0
-      17  Inf    0    0
-      18  Inf    0    0
-      19  Inf    0    0
-      20  Inf    0    0
-      21  Inf    0    0
-      22  Inf    0    0
-      23  Inf    0    0
-      24  Inf    0    0
-      25  Inf    0    0
-      26  Inf    0    0
-      27  Inf    0    0
+      1   Inf 19.2 19.2
+      2   Inf 19.2 19.2
+      3   Inf 19.2 19.2
+      4   Inf 19.2 19.2
+      5   Inf 19.2 19.2
+      6   Inf 19.2 19.2
+      7   Inf 19.2 19.2
+      8   Inf 19.2 19.2
+      9   Inf 19.2 19.2
+      10  Inf 19.2 19.2
+      11  Inf 19.2 19.2
+      12  Inf 19.2 19.2
+      13  Inf 19.2 19.2
+      14  Inf 19.2 19.2
+      15  Inf 19.2 19.2
+      16  Inf 19.2 19.2
+      17  Inf 19.2 19.2
+      18  Inf 19.2 19.2
+      19  Inf 19.2 19.2
+      20  Inf 19.2 19.2
+      21  Inf 19.2 19.2
+      22  Inf 19.2 19.2
+      23  Inf 19.2 19.2
+      24  Inf 19.2 19.2
+      25  Inf 19.2 19.2
+      26  Inf 19.2 19.2
+      27  Inf 19.2 19.2
       
       $plots$disp[[4]]
                ymin       ymax     x          y PANEL group flipped_aes colour   fill
@@ -3340,19 +3340,19 @@
       $plots$vs
       $plots$vs[[1]]
         yintercept PANEL group colour linewidth linetype alpha
-      1     -3.775     1    -1  black       0.5   dashed    NA
+      1     15.425     1    -1  black       0.5   dashed    NA
       
       $plots$vs[[2]]
         yintercept PANEL group colour linewidth linetype alpha
-      1        3.6     1    -1  black       0.5   dashed    NA
+      1       22.8     1    -1  black       0.5   dashed    NA
       
       $plots$vs[[3]]
         x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
       1 1 -5.9557410     1     1     NA lightgray       0.5        1    NA -Inf  Inf
       2 2  0.6806561     1     2     NA lightgray       0.5        1    NA -Inf  Inf
         ymin ymax
-      1    0    0
-      2    0    0
+      1 19.2 19.2
+      2 19.2 19.2
       
       $plots$vs[[4]]
         x         y PANEL group flipped_aes      ymin      ymax xmin xmax colour fill
@@ -3372,8 +3372,8 @@
       
       $plots$vs[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   56% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 -8.8   44% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4   56% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   44% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -3382,11 +3382,11 @@
       $plots$gear
       $plots$gear[[1]]
         yintercept PANEL group colour linewidth linetype alpha
-      1     -3.775     1    -1  black       0.5   dashed    NA
+      1     15.425     1    -1  black       0.5   dashed    NA
       
       $plots$gear[[2]]
         yintercept PANEL group colour linewidth linetype alpha
-      1        3.6     1    -1  black       0.5   dashed    NA
+      1       22.8     1    -1  black       0.5   dashed    NA
       
       $plots$gear[[3]]
         x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -3394,9 +3394,9 @@
       2 2 -0.9739289     1     2     NA lightgray       0.5        1    NA -Inf  Inf
       3 3  3.7697040     1     3     NA lightgray       0.5        1    NA -Inf  Inf
         ymin ymax
-      1    0    0
-      2    0    0
-      3    0    0
+      1 19.2 19.2
+      2 19.2 19.2
+      3 19.2 19.2
       
       $plots$gear[[4]]
         x        y PANEL group flipped_aes       ymin     ymax xmin xmax colour fill
@@ -3420,9 +3420,9 @@
       
       $plots$gear[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   47% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 -8.8   38% 2     1     2  black    3     0   0.5  -0.2   0.5               1
-      3 -8.8   16% 3     1     3  black    3     0   0.5  -0.2   0.5               1
+      1 10.4   47% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   38% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   16% 3     1     3  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -3432,11 +3432,11 @@
       $plots$country
       $plots$country[[1]]
         yintercept PANEL group colour linewidth linetype alpha
-      1     -3.775     1    -1  black       0.5   dashed    NA
+      1     15.425     1    -1  black       0.5   dashed    NA
       
       $plots$country[[2]]
         yintercept PANEL group colour linewidth linetype alpha
-      1        3.6     1    -1  black       0.5   dashed    NA
+      1       22.8     1    -1  black       0.5   dashed    NA
       
       $plots$country[[3]]
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -3447,12 +3447,12 @@
       5 5 4.553649     1     5     NA lightgray       0.5        1    NA -Inf  Inf
       6 6 1.434129     1     6     NA lightgray       0.5        1    NA -Inf  Inf
         ymin ymax
-      1    0    0
-      2    0    0
-      3    0    0
-      4    0    0
-      5    0    0
-      6    0    0
+      1 19.2 19.2
+      2 19.2 19.2
+      3 19.2 19.2
+      4 19.2 19.2
+      5 19.2 19.2
+      6 19.2 19.2
       
       $plots$country[[4]]
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
@@ -3488,12 +3488,12 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 -8.8   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
-      3 -8.8   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 -8.8    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 -8.8    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
-      6 -8.8   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
+      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
+      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2

@@ -11,11 +11,16 @@
 #' interactions among variables in a model and its computation is relatively
 #' rapid. This package rewrites the original code from the 'ALEPlot' package for
 #' calculating ALE data and it completely reimplements the plotting of ALE values.
-#' Future versions hope to extend the original ALE concept beyond global
-#' explanations with ALE-based measures that can be used for statistical
-#' inference as well as an ALE-based approach for local explanations.
+#' It also extends the original ALE concept to add ALE-based statistics that can
+#' be used for statistical inference. Future versions hope to go beyond global
+#' explanations with an ALE-based approach for local explanations.
 #'
 #' @author Chitu Okoli \email{Chitu.Okoli@skema.edu}
 #' @docType package
 #' @name ale
+#'
+#' @import dplyr
+#' @import purrr
+#' @import ggplot2
+#'
 '_PACKAGE'

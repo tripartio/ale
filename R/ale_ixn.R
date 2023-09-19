@@ -137,33 +137,33 @@ ale_ixn <- function (
 
 
 
-#' Calculate ALE interaction data
-#'
-#' This function is not exported. It is copy-pasted (with some variable name changes)
-#' from `ALEPlot::ALEPlot`.
-#' This function is not usually called directly by the user. For details about
-#' arguments not documented here, see `ale`.
-#'
-#' @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
-#' @references Apley, Daniel W., and Jingyu Zhu.
-#' "Visualizing the effects of predictor variables in black box supervised learning models."
-#' Journal of the Royal Statistical Society Series B: Statistical Methodology
-#' 82.4 (2020): 1059-1086.
-#' @author Chitu Okoli (rewrote the code while retaining ALE calculation)
-#'
-#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
-#' column is absent.
-#' @param model See documentation for `ale`
-#' @param x1_col,x2_col character length 1. Name of single columns in X for which
-#' ALE interaction data is to be calculated. `x1_col` can be of any standard
-#'  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
-#' @param pred_fun See documentation for `ale`
-#' @param x_intervals See documentation for `ale`
-#'
-#' @import dplyr
-#' @import purrr
-#' @importFrom stats quantile
-#'
+# Calculate ALE interaction data
+#
+# This function is not exported. It is copy-pasted (with some variable name changes)
+# from `ALEPlot::ALEPlot`.
+# This function is not usually called directly by the user. For details about
+# arguments not documented here, see `ale`.
+#
+# @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
+# @references Apley, Daniel W., and Jingyu Zhu.
+# "Visualizing the effects of predictor variables in black box supervised learning models."
+# Journal of the Royal Statistical Society Series B: Statistical Methodology
+# 82.4 (2020): 1059-1086.
+# @author Chitu Okoli (rewrote the code while retaining ALE calculation)
+#
+# @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
+# column is absent.
+# @param model See documentation for `ale`
+# @param x1_col,x2_col character length 1. Name of single columns in X for which
+# ALE interaction data is to be calculated. `x1_col` can be of any standard
+#  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
+# @param pred_fun See documentation for `ale`
+# @param x_intervals See documentation for `ale`
+#
+# @import dplyr
+# @import purrr
+# @importFrom stats quantile
+#
 calc_ale_ixn <- function(X, model, x1_col, x2_col,
                          # n_row, n_col,
                          pred_fun, x_intervals) {
@@ -425,13 +425,13 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
 
 
 
-#' Plot ALE data
-#'
-#' This function is not exported. It creates a ggplot object that plots the input
-#' ALE data generated from `calc_ale`.
-#' This function is not usually called directly by the user. For details about
-#' arguments not documented here, see `ale`.
-#'
+# Plot ALE data
+#
+# This function is not exported. It creates a ggplot object that plots the input
+# ALE data generated from `calc_ale`.
+# This function is not usually called directly by the user. For details about
+# arguments not documented here, see `ale`.
+#
 # TODO: add rug plots on the x1 and x2 axes.
 # See general considerations at plot_ale.
 # However, the sampling must be stratified for plot_ale_ixn:
@@ -451,34 +451,34 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
 #     First deleting, then adding in all members is especially crucial to avoid duplicates at this step.
 #
 # With that, a manageable rug plot should be feasible.
-#'
-#'
-#'
-#' @param ale_data tibble. Output data from `calc_ale`.
-#' @param x1_col,x2_col character length 1. Name of single x1 and single x2 column
-#' whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted
-#' on the y axis.
-#' @param y_col character length 1. Name of y (output) column whose ALE data is to
-#' be plotted by colour.
-#' @param y_type See documentation for `ale`
-#' @param y_summary named double. Named vector of y summary statistics to be used
-#' for plotting.
-#' @param y_vals numeric. Vector of all values of y in the dataset used to create
-#' `ale_data`.
+#
+#
+#
+# @param ale_data tibble. Output data from `calc_ale`.
+# @param x1_col,x2_col character length 1. Name of single x1 and single x2 column
+# whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted
+# on the y axis.
+# @param y_col character length 1. Name of y (output) column whose ALE data is to
+# be plotted by colour.
+# @param y_type See documentation for `ale`
+# @param y_summary named double. Named vector of y summary statistics to be used
+# for plotting.
+# @param y_vals numeric. Vector of all values of y in the dataset used to create
+# `ale_data`.
 # @param ... arguments passed from `ale_ixn`
-#' @param relative_y See documentation for `ale`
-#' @param plot_alpha See documentation for `ale`
-#' @param n_x1_int,n_x2_int See documentation for `ale_ixn`
-#' @param n_y_quant See documentation for `ale_ixn`
-#' @param data See documentation for `plot_ale`
-#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-#' @param seed See documentation for `ale`
-#'
-#'
-#' @import dplyr
-#' @import purrr
-#' @import ggplot2
-#'
+# @param relative_y See documentation for `ale`
+# @param plot_alpha See documentation for `ale`
+# @param n_x1_int,n_x2_int See documentation for `ale_ixn`
+# @param n_y_quant See documentation for `ale_ixn`
+# @param data See documentation for `plot_ale`
+# @param rug_sample_size,min_rug_per_interval See documentation for `ale`
+# @param seed See documentation for `ale`
+#
+#
+# @import dplyr
+# @import purrr
+# @import ggplot2
+#
 plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
     y_summary,  # as of 0.0.230825, this is not used at all

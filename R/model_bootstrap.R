@@ -513,7 +513,10 @@ model_bootstrap <- function (
       } else {  # User did not exclude plots, so create them
         map2(
           ale_summary_data, names(ale_summary_data), \(.x_col_data, .x_col_name) {
-            plot_ale(.x_col_data, .x_col_name, y_col, y_type, y_summary)
+            plot_ale(
+              .x_col_data, .x_col_name, y_col, y_type, y_summary,
+              data = data
+            )
           }
         )
       }

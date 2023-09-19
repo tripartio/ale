@@ -11,6 +11,7 @@ ale(
   model,
   x_cols = NULL,
   y_col = NULL,
+  ...,
   output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
@@ -47,6 +48,9 @@ Must be provided if \code{ixn} is FALSE (default).}
 \item{y_col}{character length 1. Name of the outcome target label (y) variable.
 If not provided, \code{ale} will try to detect it automatically. For non-standard
 models, \code{y_col} should be provided.}
+
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.
+Any invalid argument (including typographical errors) will be silently ignored.}
 
 \item{output}{character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 an ALE plot; 'data' will return the source ALE data; both together will return both.}
@@ -110,7 +114,7 @@ Within each list element, the data or plot is returned as requested in
 the \code{output} argument.
 }
 \description{
-This is the central function that manages the creation of ALE data and plots
+\code{ale} is the central function that manages the creation of ALE data and plots
 for one-way ALE. For two-way interactions, see \code{ale_ixn}. This function calls
 \code{ale_core} (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.
@@ -136,9 +140,18 @@ the R convention for the generic stats::predict function.
 You can see an example below of a custom prediction function.
 
 \strong{ALE statistics}
+
+ALE deviation (ALED):
 \deqn{
-\text{ALED}(y, n) = \frac{\sum_{i=1}^{k} |y_i \times n_i|}{\sum_{i=1}^{k} n_i}
+  \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
 }
+
+ALE range (ALER):
+\deqn{
+  \mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}
+}
+
+\strong{About the \code{ale} package}
 
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
@@ -151,9 +164,9 @@ Additive exPlanations (SHAP): its values are not affected by the presence of
 interactions among variables in a model and its computation is relatively
 rapid. This package rewrites the original code from the 'ALEPlot' package for
 calculating ALE data and it completely reimplements the plotting of ALE values.
-Future versions hope to extend the original ALE concept beyond global
-explanations with ALE-based measures that can be used for statistical
-inference as well as an ALE-based approach for local explanations.
+It also extends the original ALE concept to add ALE-based statistics that can
+be used for statistical inference. Future versions hope to go beyond global
+explanations with an ALE-based approach for local explanations.
 }
 \details{
 ale_core.R
