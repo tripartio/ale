@@ -4,11 +4,12 @@
 #'
 
 
-#' Create and return ALE data and plots
+#' @title Create and return ALE data and plots
 #'
+#' @description
 #' This is the central function that manages the creation of ALE data and plots
 #' for one-way ALE. For two-way interactions, see `ale_ixn`. This function calls
-#' `ale_core` that manages the ALE data and plot creation in detail. For details, see
+#' `ale_core` (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 #'  the introductory vignette for this package or the details and examples below.
 #'
 #'
@@ -31,7 +32,10 @@
 #'
 #' You can see an example below of a custom prediction function.
 #'
-#'
+#' **ALE statistics**
+#' \deqn{
+#' \text{ALED}(y, n) = \frac{\sum_{i=1}^{k} |y_i \times n_i|}{\sum_{i=1}^{k} n_i}
+#' }
 #' @export
 #'
 #'
@@ -939,6 +943,7 @@ calc_ale <- function(
           #   unname()
         }
       )
+
 
     # Tabulate number of cases per ale_x_int
     n_x_int <-

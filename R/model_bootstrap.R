@@ -16,7 +16,7 @@
 #' `model_bootstrap` automatically carries out full-model bootstrapping suitable
 #' for small datasets. Specifically, it:
 #'
-#' *  Creates multiple bootstrap samples (default 100; the user can specify any number);
+#' * Creates multiple bootstrap samples (default 100; the user can specify any number);
 #' * Creates a model on each bootstrap sample;
 #' * Calculates model overall statistics, variable coefficients, and ALE values
 #'  for each model on each bootstrap sample;
@@ -48,12 +48,27 @@
 #' Arguments to pass to the `ale`, `broom::tidy`, or `broom::glance` functions, respectively,
 #' beyond (or overriding) the defaults.
 #'
-#' @return list with the following elements (depending on values requested in
+#' @return list with tibbles of the following elements (depending on values requested in
 #' the `output` argument:
 #' * model_stats: bootstrapped results from `broom::glance`
 #' * model_coefs: bootstrapped results from `broom::tidy`
-#' * ale_data: bootstrapped ALE data and plots
+#' * ale: bootstrapped ALE results
+#'   * data: ALE data (see `ale` for details about the format)
+#'   * stats: ALE statistics. The same data is duplicated with different views
+#'   that might be variously useful. The column
+#'     * by_term: statistic, estimate, conf.low, median, mean, conf.high.
+#'     ("term" means variable name.)
+#'     The column names are compatible with the `broom` package. The confidence intervals
+#'     are based on the `ale` function defaults; they can be changed with the
+#'     `ale_options` argument. The estimate is the median or the mean, depending
+#'     on the `boot_centre` argument.
+#'     * by_statistic: term, estimate, conf.low, median, mean, conf.high.
+#'     * estimate: term, then one column per statistic Provided with the default
+#'     estimate. This view does not present confidence intervals.
+#'   * plots: ALE plots (see `ale` for details about the format)
 #' * boot_data: full bootstrap data (not returned by default)
+#' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that
+#' were originally passed are returned for reference.
 #'
 #' @examples
 #'
@@ -94,6 +109,7 @@
 #' @importFrom stats quantile
 #' @importFrom stats median
 #' @importFrom stats sd
+#' @importFrom tidyr pivot_wider
 #'
 model_bootstrap <- function (
     data,
@@ -143,7 +159,7 @@ model_bootstrap <- function (
   # Make them null local variables within the function with the issues. So,
   # when NSE applies, the NSE variables will be prioritized over these null
   # local variables.
-  ale_data <- NULL
+  # ale_data <- NULL
   ale_x <- NULL
   ale_n <- NULL
   ale_y <- NULL
@@ -226,8 +242,7 @@ model_bootstrap <- function (
             # This might be due to collinearity in a bootsrapped sample, which
             # yields the warning: "Coefficients: (_ not defined because of singularities)".
             NA
-          }
-          else {  # Valid model and ALE requested
+          } else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
             do.call(ale, utils::modifyList(list(
@@ -272,7 +287,7 @@ model_bootstrap <- function (
 
         list(
           model = boot_model,
-          ale_data = boot_ale,
+          ale = boot_ale,
           tidy = boot_tidy,
           glance = do.call(broom::glance, list(boot_model,
                                              unlist(glance_options)))
@@ -287,12 +302,10 @@ model_bootstrap <- function (
   boot_data <- boot_data |>
     mutate(
       model = model_and_ale$model,
-      ale_data = model_and_ale$ale_data,
+      ale = model_and_ale$ale,
       tidy = model_and_ale$tidy,
       glance = model_and_ale$glance
-    ) # |>
-    # # Remove failed bootstraps
-    # filter(!is.na(ale_data))
+    )
 
 
   ## Summarize the bootstrapped data
@@ -374,33 +387,27 @@ model_bootstrap <- function (
   # Bootstrapped ALE data with plot
   ale_summary <-
     if ('ale' %in% output) {
-      full_ale_data <- boot_data$ale_data[[1]]
+      full_ale <- boot_data$ale[[1]]
 
       # Extract useful details from full model ALE; will be used for plotting
-      y_col <- full_ale_data$y_col
-      y_type <- full_ale_data$y_type
-      y_summary <- full_ale_data$y_summary
+      y_col <- full_ale$y_col
+      y_type <- full_ale$y_type
+      y_summary <- full_ale$y_summary
 
-      # boot_ale: bootstrapped ALE data grouped by variable
-      summary_ale_data <-
-        boot_data$ale_data[-1] |>  # remove the first row (full data, not bootstrapped)
+      # Summarize bootstrapped ALE data, grouped by variable
+      ale_summary_data <-
+        boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
         map(\(.it) .it$data) |>   # extract data from each iteration
-        transpose() # |>  # rearrange list to group all iterations by x_col
-        # map(\(.x_col) {
-
-      summary_ale_data <-
-        map2(summary_ale_data, names(summary_ale_data), \(.x_col, .x_col_name) {
-
-          # # Extract ale_x and ale_n: it is identical for all bootstrap samples,
-          # # so extracting it only from the first element is sufficient.
-          # .ale_x <- full_ale_data$data[[.x_col_name]]$ale_x
-          # .ale_n <- full_ale_data$data[[.x_col_name]]$ale_n
+        transpose()  # rearrange list to group all iterations by x_col
+      ale_summary_data <-
+        map2(ale_summary_data, names(ale_summary_data), \(.x_col, .x_col_name) {
 
           # If ale_x for .x_col is ordinal,
           # harmonize the levels across bootstrap iterations,
           # otherwise binding rows will fail
           if (is.ordered(.x_col[[1]]$ale_x)) {
-            ale_x_levels <- full_ale_data$data[[.x_col_name]]$ale_x
+            # The levels of the full data ALE are canonical for all bootstrap iterations
+            ale_x_levels <- full_ale$data[[.x_col_name]]$ale_x
 
             .x_col <- .x_col |>
               map(\(.ale_tbl) {
@@ -410,15 +417,7 @@ model_bootstrap <- function (
           }
 
           .x_col |>
-            # map(\(.it) .it |>
-            #       # Replace iteration ale_x and ale_n to be unique for each variable
-            #       mutate(
-            #         ale_x = .ale_x,
-            #         ale_n = .ale_n,
-            #       )
-            # ) |>
             bind_rows() |>
-            # group_by(ale_x, ale_n) |>
             group_by(ale_x) |>
             summarize(
               ale_y_lo = quantile(ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
@@ -429,29 +428,84 @@ model_bootstrap <- function (
             ) |>
             right_join(
               tibble(
-                ale_x = full_ale_data$data[[.x_col_name]]$ale_x,
-                ale_n = full_ale_data$data[[.x_col_name]]$ale_n,
+                ale_x = full_ale$data[[.x_col_name]]$ale_x,
+                ale_n = full_ale$data[[.x_col_name]]$ale_n,
               ),
               by = 'ale_x'
             ) |>
             select(ale_x, ale_n, ale_y, everything())
         })
 
-      summary_ale_plots <- if (('output' %in% names(ale_options)) &&
+      # Summarize bootstrapped ALE statistics
+      ale_summary_stats <-
+        boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
+        map(\(.it) .it$stats) |>   # extract stats from each iteration
+        transpose()  # rearrange list to group all iterations by x_col (term)
+      ale_summary_stats <-
+        # Iterate by x_col (by term)
+        map2(ale_summary_stats, names(ale_summary_stats), \(.x_col, .x_col_name) {
+
+          # if (.x_col_name == 'wt') browser()
+
+          # Combine all bootstrap iterations into one tibble
+          .x_col_boot_stats <-
+            .x_col |>
+            bind_rows()
+
+          # Iterate by statistic (columns in .x_col_boot_stats)
+          # and create summary of all the bootstrap values
+          map2(
+            .x_col_boot_stats, names(.x_col_boot_stats),
+            \(.boot_stats, .stat_name) {
+              tibble(
+                term = .x_col_name,
+                statistic = .stat_name,
+                conf.low = quantile(.boot_stats, probs = (boot_alpha / 2), na.rm = TRUE),
+                median = median(.boot_stats, na.rm = TRUE),
+                mean = mean(.boot_stats, na.rm = TRUE),
+                conf.high = quantile(.boot_stats, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                estimate = if_else(boot_centre == 'median', median, mean),
+              ) |>
+                select(term, statistic, estimate, everything())
+          }) |>
+          bind_rows()
+        }) |>
+        bind_rows()
+
+
+      ale_summary_plots <- if (('output' %in% names(ale_options)) &&
                                !('plot' %in% ale_options$output)) {
         # User specifically excluded plots from the output
         NULL
       } else {  # User did not exclude plots, so create them
         map2(
-          summary_ale_data, names(summary_ale_data), \(.x_col_data, .x_col_name) {
+          ale_summary_data, names(ale_summary_data), \(.x_col_data, .x_col_name) {
             plot_ale(.x_col_data, .x_col_name, y_col, y_type, y_summary)
           }
         )
       }
 
+      # Return ALE results
       list(
-        data = summary_ale_data,
-        plots = summary_ale_plots
+        data = ale_summary_data,
+        # Return stats with various pivots of the same data.
+        # Note: split sorts statistics automatically. If it's a big deal, they
+        # can be arranged explicitly with list[c('first', 'second', 'etc')].
+        stats = list(
+          by_term = ale_summary_stats |>
+            split(~ term) |>
+            map(\(.term_tbl) select(.term_tbl, -term)),
+          by_statistic = ale_summary_stats |>
+            split(~ statistic) |>
+            map(\(.statistic_tbl) select(.statistic_tbl, -statistic)),
+          estimate = ale_summary_stats |>
+            tidyr::pivot_wider(
+              id_cols = term,
+              names_from = statistic,
+              values_from = estimate
+            )
+        ),
+        plots = ale_summary_plots
       )
     } else {  # ALE not requested
       NULL

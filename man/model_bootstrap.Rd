@@ -51,13 +51,32 @@ Arguments to pass to the \code{ale}, \code{broom::tidy}, or \code{broom::glance}
 beyond (or overriding) the defaults.}
 }
 \value{
-list with the following elements (depending on values requested in
+list with tibbles of the following elements (depending on values requested in
 the \code{output} argument:
 \itemize{
 \item model_stats: bootstrapped results from \code{broom::glance}
 \item model_coefs: bootstrapped results from \code{broom::tidy}
-\item ale_data: bootstrapped ALE data and plots
+\item ale: bootstrapped ALE results
+\itemize{
+\item data: ALE data (see \code{ale} for details about the format)
+\item stats: ALE statistics. The same data is duplicated with different views
+that might be variously useful. The column
+\itemize{
+\item by_term: statistic, estimate, conf.low, median, mean, conf.high.
+("term" means variable name.)
+The column names are compatible with the \code{broom} package. The confidence intervals
+are based on the \code{ale} function defaults; they can be changed with the
+\code{ale_options} argument. The estimate is the median or the mean, depending
+on the \code{boot_centre} argument.
+\item by_statistic: term, estimate, conf.low, median, mean, conf.high.
+\item estimate: term, then one column per statistic Provided with the default
+estimate. This view does not present confidence intervals.
+}
+\item plots: ALE plots (see \code{ale} for details about the format)
+}
 \item boot_data: full bootstrap data (not returned by default)
+\item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that
+were originally passed are returned for reference.
 }
 }
 \description{
