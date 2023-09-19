@@ -28,6 +28,12 @@
 #' @param data dataframe. Dataset that will be bootstrapped.
 #' @param model_call_string character. Character string of the full call for the model,
 #'  except that the data option must be left out. The data option will be replaced with the `data` argument.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' Any invalid argument (including typographical errors) will be silently ignored.
+# Future arguments:
+# * y_col: name of y column in data. This would allow SD and MAD to be calculated.
+# * predict_call_string: allows the prediction function to be called; this would
+# allow bootstrapped RMSE, MAE, cross entropy, and AUC to be calculated.
 #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
 #' If boot_it = 0, then the model is run as normal once on the full `data` with
 #' no bootstrap.
@@ -114,6 +120,9 @@
 model_bootstrap <- function (
     data,
     model_call_string,
+    ...,
+    # y_col,
+    # predict_call_string,
     boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
@@ -211,8 +220,13 @@ model_bootstrap <- function (
 
         boot_glance <-
           if ('model_stats' %in% output) {
-            do.call(broom::glance, list(boot_model,
+            bg <- do.call(broom::glance, list(boot_model,
                                         unlist(glance_options)))
+            # # If we eventually add a predict function, add RMSE and MAE
+            # bg$mae <- mae(actual, predicted)
+            # bg$rmse <- rmse(actual, predicted)
+
+            bg
           } else {
             NA
           }
@@ -333,12 +347,22 @@ model_bootstrap <- function (
         select(name, value) |>
         summarize(
           .by = name,
-          conf_lo = quantile(value, boot_alpha / 2, na.rm = TRUE),
+          conf.low = quantile(value, boot_alpha / 2, na.rm = TRUE),
           mean = mean(value, na.rm = TRUE),
           median = median(value, na.rm = TRUE),
-          conf_hi = quantile(value, 1 - (boot_alpha / 2), na.rm = TRUE),
+          conf.high = quantile(value, 1 - (boot_alpha / 2), na.rm = TRUE),
           sd = sd(value, na.rm = TRUE)
         )
+      # # If y_values is ever added...
+      # |>
+      #   bind_rows(tibble(
+      #     name = c('sd', 'mad'),
+      #     conf.low = c(sd(y_values), mad(y_values)),
+      #     mean = conf.low,
+      #     median = conf.low,
+      #     conf.high = conf.low,
+      #     sd = 0,
+      #   ))
     } else {
       NULL
     }
@@ -374,10 +398,10 @@ model_bootstrap <- function (
         select(term, estimate) |>
         summarize(
           .by = term,
-          conf_lo = quantile(estimate, boot_alpha / 2, na.rm = TRUE),
+          conf.low = quantile(estimate, boot_alpha / 2, na.rm = TRUE),
           mean = mean(estimate, na.rm = TRUE),
           median = median(estimate, na.rm = TRUE),
-          conf_hi = quantile(estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
+          conf.high = quantile(estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
           std.error = sd(estimate, na.rm = TRUE)
         )
     } else {
@@ -394,9 +418,18 @@ model_bootstrap <- function (
       y_type <- full_ale$y_type
       y_summary <- full_ale$y_summary
 
+      # Remove first element (not bootstrapped) if bootstrapping is requested
+      boot_data_ale <-
+        if (boot_it == 0) {  # only one full iteration; it is valid
+          boot_data$ale
+        } else {  # for regular bootstraps, delete the first full model ALE
+          boot_data$ale[-1]
+        }
+
       # Summarize bootstrapped ALE data, grouped by variable
       ale_summary_data <-
-        boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
+        boot_data_ale |>
+        # boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
         map(\(.it) .it$data) |>   # extract data from each iteration
         transpose()  # rearrange list to group all iterations by x_col
       ale_summary_data <-
@@ -438,14 +471,13 @@ model_bootstrap <- function (
 
       # Summarize bootstrapped ALE statistics
       ale_summary_stats <-
-        boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
-        map(\(.it) .it$stats) |>   # extract stats from each iteration
+        boot_data_ale |>
+        # boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
+      map(\(.it) .it$stats) |>   # extract stats from each iteration
         transpose()  # rearrange list to group all iterations by x_col (term)
       ale_summary_stats <-
         # Iterate by x_col (by term)
         map2(ale_summary_stats, names(ale_summary_stats), \(.x_col, .x_col_name) {
-
-          # if (.x_col_name == 'wt') browser()
 
           # Combine all bootstrap iterations into one tibble
           .x_col_boot_stats <-
@@ -484,6 +516,7 @@ model_bootstrap <- function (
           }
         )
       }
+
 
       # Return ALE results
       list(

@@ -5,6 +5,8 @@
 ### User-visible changes
 
 -   We changed the output data structure of the ALE data and plots. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
+-   We added new experimental ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.) A dedicated vignette will explain how these experimental statistics may be used.
+-   We added three simple functions to generate common model evaluation measures: `rmse` for the root mean squared error, `mae` for the mean absolute error, and `mad` for the mean absolute deviation.
 
 ### Under the hood
 

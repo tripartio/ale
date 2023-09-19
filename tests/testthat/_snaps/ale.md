@@ -137,6 +137,52 @@
       6 USA        12  14.4     14.4         14.4       14.4     14.4
       
       
+      $stats
+      $stats$cyl
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       5.23084860 -6.12392031  6.94044302  0.59497549  0.05882353  0.83333333 
+      
+      $stats$disp
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       5.80279145 -8.52056187 11.19885912  0.62843137  0.05882353  0.86666667 
+      
+      $stats$hp
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.3321005 -1.5850772  4.7613103  0.2294118  0.3529412  0.7666667 
+      
+      $stats$drat
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.9759754 -3.4471489  5.9160437  0.2616422  0.2647059  0.8000000 
+      
+      $stats$wt
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       1.87599311 -5.77319088  4.18575337  0.28014706  0.08823529  0.76666667 
+      
+      $stats$qsec
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+        3.7962221 -17.3951315   4.6265220   0.4165441   0.0000000   0.7666667 
+      
+      $stats$vs
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       6.70020863 -5.95574101  7.65738130  0.78799020  0.05882353  0.83333333 
+      
+      $stats$am
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       2.6059871 -2.1945154  3.2073687  0.3720588  0.3235294  0.7000000 
+      
+      $stats$gear
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       2.3893045 -2.5485915  7.4927977  0.2696078  0.3235294  0.8333333 
+      
+      $stats$carb
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       1.82414195 -7.83046302  2.13558082  0.24473039  0.05882353  0.60000000 
+      
+      $stats$country
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       4.1344995 -4.7676253  4.6301176  0.5944853  0.1176471  0.7666667 
+      
+      
       $plots
       $plots$cyl
       $plots$cyl[[1]]
@@ -1174,8 +1220,8 @@
       
       $plots$vs[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   56% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   44% 2     1     2  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   56% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   44% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -1216,8 +1262,8 @@
       
       $plots$am[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   59% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   41% 2     1     2  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   59% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   41% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -1264,9 +1310,9 @@
       
       $plots$gear[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   47% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   38% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 10.4   16% 3     1     3  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   47% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   38% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   16% 3     1     3  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -1418,12 +1464,12 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 10.4   19% 3     1     3  black    3     0   0.5  -0.5   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.5   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.5   0.5               1
-      6 10.4   38% 6     1     6  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
+      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -1605,6 +1651,52 @@
       4 Italy       1  24.3     19.3         24.3       24.5     30.6
       5 Germany     1  22.1     16.6         22.1       22.1     27.4
       6 USA        12  18.5     13.5         18.5       18.9     25.2
+      
+      
+      $stats
+      $stats$cyl
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       5.23084860 -6.12392031  6.94044302  0.59497549  0.05882353  0.83333333 
+      
+      $stats$disp
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       4.46927891 -8.52056187  6.28588179  0.57585784  0.05882353  0.80000000 
+      
+      $stats$hp
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.6861699 -0.1573358  4.7613103  0.2094363  0.4411765  0.7666667 
+      
+      $stats$drat
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.5096024 -3.4471489  3.2839942  0.2154412  0.2647059  0.7000000 
+      
+      $stats$wt
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.7920815 -2.6818694  4.1857534  0.2033088  0.3235294  0.7666667 
+      
+      $stats$qsec
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+        3.0412805 -17.3951315   3.5338799   0.3455882   0.0000000   0.7000000 
+      
+      $stats$vs
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       3.90845504 -5.95574101  1.27623022  0.52549020  0.05882353  0.53333333 
+      
+      $stats$am
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       1.4401508 -2.1945154  0.3376178  0.2095588  0.3235294  0.5000000 
+      
+      $stats$gear
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       2.4104055 -2.5485915  3.8883011  0.3590686  0.3235294  0.7666667 
+      
+      $stats$carb
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       1.82414195 -7.83046302  2.13558082  0.24473039  0.05882353  0.60000000 
+      
+      $stats$country
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       2.6427785 -0.7484564  5.0513058  0.3703431  0.4117647  0.7666667 
       
       
       $plots
@@ -2644,8 +2736,8 @@
       
       $plots$vs[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   56% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   44% 2     1     2  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   56% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   44% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -2686,8 +2778,8 @@
       
       $plots$am[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   59% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   41% 2     1     2  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   59% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   41% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -2734,9 +2826,9 @@
       
       $plots$gear[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   47% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   38% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 10.4   16% 3     1     3  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   47% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   38% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   16% 3     1     3  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -2888,12 +2980,12 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 10.4   19% 3     1     3  black    3     0   0.5  -0.5   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.5   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.5   0.5               1
-      6 10.4   38% 6     1     6  black    3     0   0.5  -0.5   0.5               1
+      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
+      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -2958,6 +3050,28 @@
       
       $data$country
       NULL
+      
+      
+      $stats
+      $stats$cyl
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       5.23084860 -6.12392031  6.94044302  0.59497549  0.05882353  0.83333333 
+      
+      $stats$disp
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       4.55952287 -8.52056187  6.07807665  0.54362745  0.05882353  0.80000000 
+      
+      $stats$vs
+             aled    aler_min    aler_max       naled   naler_min   naler_max 
+       3.64789137 -5.95574101  0.68065612  0.52549020  0.05882353  0.53333333 
+      
+      $stats$gear
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+       2.1488918 -2.5485915  3.7697040  0.3149510  0.3235294  0.7666667 
+      
+      $stats$country
+           aled  aler_min  aler_max     naled naler_min naler_max 
+      3.6153297 1.4341294 6.7679406 0.3729167 0.5333333 0.8000000 
       
       
       $plots
@@ -3258,8 +3372,8 @@
       
       $plots$vs[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   56% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 -8.8   44% 2     1     2  black    3     0   0.5  -0.5   0.5               1
+      1 -8.8   56% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 -8.8   44% 2     1     2  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -3306,9 +3420,9 @@
       
       $plots$gear[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   47% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 -8.8   38% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 -8.8   16% 3     1     3  black    3     0   0.5  -0.5   0.5               1
+      1 -8.8   47% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 -8.8   38% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 -8.8   16% 3     1     3  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2
@@ -3374,12 +3488,12 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   25% 1     1     1  black    3     0   0.5  -0.5   0.5               1
-      2 -8.8   12% 2     1     2  black    3     0   0.5  -0.5   0.5               1
-      3 -8.8   19% 3     1     3  black    3     0   0.5  -0.5   0.5               1
-      4 -8.8    3% 4     1     4  black    3     0   0.5  -0.5   0.5               1
-      5 -8.8    3% 5     1     5  black    3     0   0.5  -0.5   0.5               1
-      6 -8.8   38% 6     1     6  black    3     0   0.5  -0.5   0.5               1
+      1 -8.8   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 -8.8   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      3 -8.8   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
+      4 -8.8    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 -8.8    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      6 -8.8   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
       2        1.2

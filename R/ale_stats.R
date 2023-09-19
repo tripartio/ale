@@ -178,7 +178,7 @@ rmse <- function(actual, predicted, na.rm = FALSE) {
 #' @returns MAE of `actual` and `predicted`. If any value in `actual` or `predicted` is
 #' `NA` and `na.rm = FALSE`, then returns `NA`.
 #'
-mae <- function(x, na.rm = FALSE) {
+mae <- function(actual, predicted, na.rm = FALSE) {
   calc_vector_error(actual, predicted, na.rm) |>
     abs() |>
     mean()
