@@ -2,7 +2,7 @@
 % Please edit documentation in R/ale_stats.R
 \name{rmse}
 \alias{rmse}
-\title{Root mean squared error}
+\title{ale_stats.R}
 \usage{
 rmse(actual, predicted, na.rm = FALSE)
 }
@@ -21,6 +21,11 @@ RMSE of \code{actual} and \code{predicted}. If any value in \code{actual} or \co
 \code{NA} and \code{na.rm = FALSE}, then returns \code{NA}.
 }
 \description{
+Calculate statistical measures based on ALE
+}
+\details{
+Root mean squared error
+
 Returns the root mean squared error (RMSE) of predicted values relative to the
 actual values.
 }

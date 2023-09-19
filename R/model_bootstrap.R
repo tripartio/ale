@@ -179,6 +179,7 @@ model_bootstrap <- function (
   value <- NULL
   term <- NULL
   estimate <- NULL
+  statistic <- NULL
 
 
   # Create bootstrap tbl

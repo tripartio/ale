@@ -4,17 +4,17 @@
 \alias{mae}
 \title{Mean absolute error}
 \usage{
-mae(x, na.rm = FALSE)
+mae(actual, predicted, na.rm = FALSE)
 }
 \arguments{
-\item{na.rm}{single logical. TRUE if missing values should be removed; FALSE
-if they should be retained. If TRUE, then if any element of either actual or
-predicted is missing, its paired element will be also removed.}
-
 \item{actual}{numeric vector. Actual (true) values from a dataset.}
 
 \item{predicted}{numeric vector. Predictions corresponding to each respective
 element in \code{actual}.}
+
+\item{na.rm}{single logical. TRUE if missing values should be removed; FALSE
+if they should be retained. If TRUE, then if any element of either actual or
+predicted is missing, its paired element will be also removed.}
 }
 \value{
 MAE of \code{actual} and \code{predicted}. If any value in \code{actual} or \code{predicted} is
