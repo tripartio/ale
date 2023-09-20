@@ -1350,13 +1350,6 @@ calc_ale <- function(
 #  arguments not documented here, see `ale`.
 #
 #
-#
-# TODO: add rug plots on the x and y axes.
-# To do this, I would probably need to create a new dataset just for the rug plots.
-# The main problem with geom_rug is that it is too slow. Perhaps I could resolve
-# this by sampling 1000 rows of data maximum (only if the test_data has more than
-# 1000 lines). However, the sampling must be stratified for plot_ale_ixn (see note there).
-#
 #  @param ale_data tibble. Output data from `calc_ale`.
 #  @param x_col character length 1. Name of single column whose ALE data is to
 #  be plotted.
@@ -1411,10 +1404,6 @@ plot_ale <- function(
     relative_y == 'zero' ~ -y_summary[['50%']],
   )
 
-  # # XXXXX: DON'T Shift all y values in ale_data
-  # ale_data <- ale_data |>
-  #   mutate(across(starts_with('ale_y'), \(.y) .y + y_shift))
-
   # Then shift all the y summary data
   y_summary <- y_summary + y_shift
 
@@ -1429,15 +1418,13 @@ plot_ale <- function(
   plot <-
     ale_data |>
     ggplot(aes(x = ale_x, y = ale_y)) +
-    # ggplot(aes(x = ale_x, y = ale_y_median)) +
     theme_bw() +
     coord_cartesian(
-      ylim = c(
-        min(y_summary[['min']], ale_data$ale_y_lo),
-        max(y_summary[['max']], ale_data$ale_y_hi)
-        # min(y_summary[['min']], ale_data$ale_y),
-        # max(y_summary[['max']], ale_data$ale_y)
-      )
+      ylim = c(y_summary[['min']], y_summary[['max']])
+      # ylim = c(
+        # min(y_summary[['min']], ale_data$ale_y_lo),
+        # max(y_summary[['max']], ale_data$ale_y_hi)
+      # )
     ) +
     # Add guides to show 25th and 75th percentiles of y
     geom_hline(yintercept = y_summary[['25%']], linetype = "dashed") +
@@ -1448,9 +1435,6 @@ plot_ale <- function(
       xmax = Inf,
       ymin = y_summary[['mid_lower']],
       ymax = y_summary[['mid_upper']],
-      # ymin = y_summary[['mean_lower']],
-      # ymax = y_summary[['mean_upper']],
-      # alpha = 0.05,
       fill = 'lightgray'
     ) +
     # Add a secondary axis to label the percentiles
@@ -1459,13 +1443,10 @@ plot_ale <- function(
         trans = ~ .,  # do not change the scale
         name = NULL,  # no axis title
         labels = c('25%',
-                   # paste0('median\u00B1', format((plot_alpha / 2) * 100), '%'),
                    paste0(relative_y, '\u00B1', format((plot_alpha / 2) * 100), '%'),
                    '75%'),
         breaks = c(y_summary[['25%']],
-                   # if_else(relative_y == 'median',
-                           y_summary[['50%']],
-                           # y_summary[['mean']]),
+                   y_summary[['50%']],
                    y_summary[['75%']]),
       )
     ) +
@@ -1514,7 +1495,6 @@ plot_ale <- function(
     }
 
   } else {  # x_type is not numeric
-    # } else if (x_type == "ordinal") {
 
     plot <- plot +
       geom_col(fill = 'gray') +
@@ -1538,8 +1518,6 @@ plot_ale <- function(
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
 
-  # } else {
-  #   stop("Only factors or numerics can be plotted.")
   }
 
 
