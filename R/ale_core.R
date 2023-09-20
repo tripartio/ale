@@ -333,14 +333,8 @@ ale_core <- function (
     msg = 'The value in the output argument must be one or both of "plots" or "data".'
   )
   assert_that(is.string(predict_type))
-  assert_that(is.count(boot_it) || boot_it == 0) # whole number
-  # assert_that(
-  #   round(boot_it) == boot_it &&  # boot_it is a whole number
-  #     is.scalar(boot_it) && boot_it >= 0
-  # )
-  # if (!is.null(seed)) {
-  #   assert_that(round(seed) == seed)  # seed is a whole number
-  # }
+  assert_that(is.whole(boot_it))
+  assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   assert_that(
     is.string(boot_centre) && (boot_centre %in% c('median', 'mean')),
@@ -376,16 +370,16 @@ ale_core <- function (
     assert_that(is.number(plot_alpha) && between(plot_alpha, 0, 1))
     assert_that(
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
-        (is.count(rug_sample_size) &&
+        (is.natural(rug_sample_size) &&
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
       msg = 'rug_sample_size must be either 0 or
     an integer larger than the number of x_intervals.'
     )
-    assert_that(is.count(min_rug_per_interval) || min_rug_per_interval == 0) # whole number
-    assert_that(is.count(n_x1_int))
-    assert_that(is.count(n_x2_int))
-    assert_that(is.count(n_y_quant))
+    assert_that(is.whole(min_rug_per_interval))
+    assert_that(is.natural(n_x1_int))
+    assert_that(is.natural(n_x2_int))
+    assert_that(is.natural(n_y_quant))
 
   }
 

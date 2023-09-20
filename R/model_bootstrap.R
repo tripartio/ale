@@ -142,16 +142,11 @@ model_bootstrap <- function (
       # model_call_string must terminate with ')'
       (stringr::str_sub(model_call_string, start = -1) == ')')
   )
-  assert_that(
-    round(boot_it) == boot_it &&  # boot_it is a whole number
-      is.scalar(boot_it) && boot_it >= 0
-    )
-  if (!is.null(seed)) {
-    assert_that(round(seed) == seed)  # seed is a whole number
-  }
+  assert_that(is.whole(boot_it))
+  assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   assert_that(boot_centre == 'median' || boot_centre == 'mean')
-  # Output must be a subset of c('ale', 'model_stats', 'model_coefs')
+  # output must be a subset of c('ale', 'model_stats', 'model_coefs')
   assert_that(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
     msg = 'The value in the output argument must be one or more of
