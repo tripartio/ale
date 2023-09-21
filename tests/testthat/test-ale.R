@@ -1,10 +1,9 @@
 # test-ale.R
 
-
 # Because it is complex to save entire ggplot objects,
 # only save the core data from the plot
 test_that(
-  'mostly default snapshot works with multiple x datatypes', {
+  'Default snapshot works with multiple x datatypes', {
     cars_ale <- ale(var_cars, cars_gam)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     expect_snapshot(cars_ale)
@@ -12,8 +11,8 @@ test_that(
 )
 
 test_that(
-  'mostly default (boot_it=10) snapshot works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam, boot_it = 10)
+  'Snapshot with no bootstrap works with multiple x datatypes', {
+    cars_ale <- ale(var_cars, cars_gam, boot_it = 0)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     expect_snapshot(cars_ale)
   }
@@ -29,7 +28,7 @@ test_that(
       pred_fun = test_predict,  # function defined in setup.R
       predict_type = "link",
       x_intervals = 50,
-      boot_it = 5,
+      boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
       boot_centre = 'median',

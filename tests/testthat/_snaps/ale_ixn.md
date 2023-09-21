@@ -1,4 +1,4 @@
-# mostly default snapshot works with multiple x datatypes
+# Default snapshot works with multiple x datatypes
 
     Code
       cars_ale_ixn
