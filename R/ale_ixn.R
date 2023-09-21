@@ -112,7 +112,7 @@ ale_ixn <- function (
     x_intervals = 100,
     # boot_it = 0,
     # boot_alpha = 0.05,
-    # boot_centre = 'median',
+    # boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,

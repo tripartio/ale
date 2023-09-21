@@ -126,7 +126,7 @@ model_bootstrap <- function (
     boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
-    boot_centre = 'median',
+    boot_centre = 'mean',
     output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
     tidy_options = list(),
@@ -145,7 +145,7 @@ model_bootstrap <- function (
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  assert_that(boot_centre == 'median' || boot_centre == 'mean')
+  assert_that(boot_centre == 'mean' || boot_centre == 'median')
   # output must be a subset of c('ale', 'model_stats', 'model_coefs')
   assert_that(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
@@ -450,10 +450,10 @@ model_bootstrap <- function (
             group_by(ale_x) |>
             summarize(
               ale_y_lo = quantile(ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
-              ale_y_median = median(ale_y, na.rm = TRUE),
               ale_y_mean = mean(ale_y, na.rm = TRUE),
+              ale_y_median = median(ale_y, na.rm = TRUE),
               ale_y_hi = quantile(ale_y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-              ale_y = if_else(boot_centre == 'median', ale_y_median, ale_y_mean),
+              ale_y = if_else(boot_centre == 'mean', ale_y_mean, ale_y_median),
             ) |>
             right_join(
               tibble(
@@ -492,7 +492,7 @@ model_bootstrap <- function (
                 median = median(.boot_stats, na.rm = TRUE),
                 mean = mean(.boot_stats, na.rm = TRUE),
                 conf.high = quantile(.boot_stats, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                estimate = if_else(boot_centre == 'median', median, mean),
+                estimate = if_else(boot_centre == 'mean', mean, median),
               ) |>
                 select(term, statistic, estimate, everything())
           }) |>

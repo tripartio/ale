@@ -42,7 +42,7 @@ var_cars <<-
 # Super-assignment <<- used: without it, these variables are not found in many
 # of the subsequent testthat tests.
 cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                  + vs + am + gear + carb + country,
+                  vs + am + gear + carb + country,
                 data = var_cars)
 
 # Returns list of ALE plots converted to ggplot data format

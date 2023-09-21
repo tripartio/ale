@@ -11,7 +11,7 @@ model_bootstrap(
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
-  boot_centre = "median",
+  boot_centre = "mean",
   output = c("ale", "model_stats", "model_coefs"),
   ale_options = list(),
   tidy_options = list(),

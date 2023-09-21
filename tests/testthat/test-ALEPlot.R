@@ -29,7 +29,7 @@ test_that('ale function matches output of ALEPlot', {
   nnet_ale <- ale(
     dfx, nnet.dfx,  # basic arguments
     # make ale equivalent to ALEPlot
-    relative_y = 'zero', output = 'data',
+    relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
     predict_type = "raw", x_intervals = 500
   )

@@ -32,7 +32,7 @@ test_that(
       boot_it = 5,
       seed = 1234,
       boot_alpha = 0.01,
-      boot_centre = 'mean',
+      boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'numeric',
       plot_alpha = 0.01

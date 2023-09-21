@@ -8,7 +8,7 @@ test_that(
     mb <- model_bootstrap(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                + vs + am + gear + carb + country)',
+                vs + am + gear + carb + country)',
       boot_it = 0
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
@@ -22,7 +22,7 @@ test_that(
     mb <- model_bootstrap(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                + vs + am + gear + carb + country)',
+                vs + am + gear + carb + country)',
       boot_it = 5
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
@@ -36,11 +36,11 @@ test_that(
     mb <- model_bootstrap(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                + vs + am + gear + carb + country)',
+                vs + am + gear + carb + country)',
       boot_it = 5,
       seed = 1234,
       boot_alpha = 0.1,
-      boot_centre = 'mean',
+      boot_centre = 'median',
       output = 'ale',
       ale_options = list(relative_y = 'zero')
     )
@@ -54,11 +54,11 @@ test_that(
     mb <- model_bootstrap(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                + vs + am + gear + carb + country)',
+                vs + am + gear + carb + country)',
       boot_it = 3,
       seed = 12,
       boot_alpha = 0.01,
-      boot_centre = 'mean',
+      boot_centre = 'median',
       output = c('model_stats', 'model_coefs'),
       tidy_options = list(parametric = TRUE),
       glance_options = list(glance.gam_options_are_ignored = TRUE),

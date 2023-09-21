@@ -17097,13 +17097,13 @@
       [1] "median"
       
       $boot_it
-      [1] 0
+      [1] 100
       
       $boot_alpha
       [1] 0.05
       
       $boot_centre
-      [1] "median"
+      [1] "mean"
       
       $plot_alpha
       [1] 0.05
@@ -18764,13 +18764,13 @@
       [1] "zero"
       
       $boot_it
-      [1] 0
+      [1] 100
       
       $boot_alpha
       [1] 0.05
       
       $boot_centre
-      [1] "median"
+      [1] "mean"
       
       $plot_alpha
       [1] 0.01

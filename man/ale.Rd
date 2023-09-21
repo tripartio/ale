@@ -19,10 +19,10 @@ ale(
  },
   predict_type = "response",
   x_intervals = 100,
-  boot_it = 0,
+  boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
-  boot_centre = "median",
+  boot_centre = "mean",
   relative_y = "median",
   y_type = NULL,
   plot_alpha = 0.05,
@@ -65,8 +65,8 @@ might eventually be fewer than what the user specifies if the data values for
 a given x value do not support that many intervals.}
 
 \item{boot_it}{non-negative integer. Number of bootstrap iterations for the
-ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
-with no bootstrapping.}
+ALE values. To calculate ALE on the entire dataset with no bootstrapping,
+set boot_it = 0.}
 
 \item{seed}{integer. Random seed. Supply this between runs to assure that
 identical random ALE data is generated each time}
@@ -77,9 +77,9 @@ will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example,
 if \code{boot_alpha} == 0.05 (default), the intervals will be from the 2.5 and 97.5
 percentiles.}
 
-\item{boot_centre}{character in c('median', 'mean'). When bootstrapping, the
+\item{boot_centre}{character in c('mean', 'median'). When bootstrapping, the
 main estimate for \code{ale_y} is considered to be \code{boot_centre}. Regardless of the
-value specified here, both the median and mean will be available.}
+value specified here, both the mean and median will be available.}
 
 \item{relative_y}{character in c('median', 'mean', 'zero'). The ale_y values will
 be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
@@ -199,7 +199,7 @@ gam_diamonds <- mgcv::gam(
 summary(gam_diamonds)
 
 
-# Simple ALE without bootstrapping
+# Default ALE with 100 bootstrap samples
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 
 
@@ -207,14 +207,9 @@ ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 # Plot the ALE data
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 
-# Bootstrapped ALE
-# This can be slow, since bootstrapping runs the algorithm boot_it times
-
-# Create ALE with 100 bootstrap samples
-ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
-
-# Bootstrapped ALEs print with confidence intervals
-gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
+# Create ALE with no bootstrap
+ale_gam_diamonds_no_boot <- ale(diamonds_test, gam_diamonds, boot_it = 0)
+gridExtra::grid.arrange(grobs = ale_gam_diamonds_no_boot$plots, ncol = 2)
 
 
 # If the predict function you want is non-standard, you may define a

@@ -76,8 +76,8 @@
 #' might eventually be fewer than what the user specifies if the data values for
 #' a given x value do not support that many intervals.
 #' @param boot_it non-negative integer. Number of bootstrap iterations for the
-#' ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
-#' with no bootstrapping.
+#' ALE values. To calculate ALE on the entire dataset with no bootstrapping,
+#' set boot_it = 0.
 #' @param seed integer. Random seed. Supply this between runs to assure that
 #' identical random ALE data is generated each time
 #' @param boot_alpha numeric from 0 to 1. Alpha for percentile-based confidence
@@ -85,9 +85,9 @@
 #' will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example,
 #' if `boot_alpha` == 0.05 (default), the intervals will be from the 2.5 and 97.5
 #' percentiles.
-#' @param boot_centre character in c('median', 'mean'). When bootstrapping, the
+#' @param boot_centre character in c('mean', 'median'). When bootstrapping, the
 #' main estimate for `ale_y` is considered to be `boot_centre`. Regardless of the
-#' value specified here, both the median and mean will be available.
+#' value specified here, both the mean and median will be available.
 #' @param relative_y character in c('median', 'mean', 'zero'). The ale_y values will
 #' be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
 #' default of `ALEPlot::ALEPlot`, which is not shifted.
@@ -142,7 +142,7 @@
 #' summary(gam_diamonds)
 #'
 #'
-#' # Simple ALE without bootstrapping
+#' # Default ALE with 100 bootstrap samples
 #' ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
 #'
 #'
@@ -151,14 +151,9 @@
 #' gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 
 #'
-#' # Bootstrapped ALE
-#' # This can be slow, since bootstrapping runs the algorithm boot_it times
-#'
-#' # Create ALE with 100 bootstrap samples
-#' ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
-#'
-#' # Bootstrapped ALEs print with confidence intervals
-#' gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
+#' # Create ALE with no bootstrap
+#' ale_gam_diamonds_no_boot <- ale(diamonds_test, gam_diamonds, boot_it = 0)
+#' gridExtra::grid.arrange(grobs = ale_gam_diamonds_no_boot$plots, ncol = 2)
 #'
 #'
 #' # If the predict function you want is non-standard, you may define a
@@ -189,10 +184,10 @@ ale <- function (
     },
     predict_type = "response",
     x_intervals = 100,
-    boot_it = 0,
+    boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
-    boot_centre = 'median',
+    boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
@@ -266,10 +261,10 @@ ale_core <- function (
     },
     predict_type = "response",
     x_intervals = 100,
-    boot_it = 0,
+    boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
-    boot_centre = 'median',
+    boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
     plot_alpha = 0.05,
@@ -325,6 +320,8 @@ ale_core <- function (
       paste0(all_x_cols[!valid_x_cols], collapse = ', ')
     )
   }
+  # #Later: Verify valid datatypes for all x_col
+  # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
   if (!is.null(y_col)) assert_that(is.string(y_col))
   # Assure that output is a subset of c('plots', 'data')
@@ -337,8 +334,8 @@ ale_core <- function (
   assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   assert_that(
-    is.string(boot_centre) && (boot_centre %in% c('median', 'mean')),
-    msg = 'boot_centre must be one of "median" or "mean".'
+    is.string(boot_centre) && (boot_centre %in% c('mean', 'median')),
+    msg = 'boot_centre must be one of "mean" or "median".'
   )
   assert_that(
     is.string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
@@ -719,43 +716,6 @@ ale_core <- function (
 
 
 
-#  Determine the datatype of a vector
-#
-#  Not exported. See @returns for details of what it does.
-#
-#  @param var vector whose datatype is to be determined
-#
-#  @returns Returns generic datatypes of R basic vectors according to the following mapping:
-#  * `logical` returns 'binary'
-#  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
-#  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#  * unordered `factor` returns 'multinomial'
-#  * `ordered` `factor` returns 'ordinal'
-#
-var_type <- function(var) {
-
-  # If var has more than one class, use only the first (predominant) one.
-  # This is particularly needed for ordered factors, whose class is
-  # c('ordered', 'factor')
-  class_var <- class(var)[1]
-
-  return(case_when(
-    class_var == 'logical' ~ 'binary',
-    # var consisting only of one of any two values is considered binary
-    (var |> unique() |> length()) == 2 ~ 'binary',
-    # numeric var consisting purely of 0 and 1 values is considered binary
-    # is.numeric(var) && (var |>
-    #                       unique() |>
-    #                       sort() |>
-    #                       identical(c(0, 1))) ~
-    #   'binary',
-    class_var == 'factor' ~ 'multinomial',
-    class_var == 'ordered' ~ 'ordinal',
-    is.numeric(var) ~ 'numeric'
-  ))
-
-}
-
 #  Calculate ALE data
 #
 #  This function is not exported. It is uses tidyverse principles to rewrite
@@ -820,8 +780,8 @@ calc_ale <- function(
     # row_idxs: row indexes of each bootstrap sample.
     # Store just the indexes rather than duplicating the entire dataset
     #   multiple times.
-    row_idxs = map(0:boot_it, \(it) {
-      if (it == 0) {  # row 0 is the full dataset without bootstrapping
+    row_idxs = map(0:boot_it, \(.it) {
+      if (.it == 0) {  # row 0 is the full dataset without bootstrapping
         1:n_row
       } else {  # bootstrap: sample n_row with replacement
         sample.int(n_row, replace = TRUE)
@@ -842,7 +802,6 @@ calc_ale <- function(
       X[[x_col]]
     }
   )
-  # x_type <- var_type(X[[x_col]])
 
   if (x_type == 'numeric') {
 
@@ -882,66 +841,49 @@ calc_ale <- function(
     #
     # Calculate the ALE Y values for each bootstrap sample.
     # Row 0 is the ALE Y for the full dataset.
+
+    ale_x_int <- cut(X[[x_col]], breaks = ale_x, include.lowest = TRUE) |>
+      as.numeric()
+
+    X_lo <- X |>  # X with x_col set at the lower bound of the ALE interval
+      mutate(!!x_col := ale_x[ale_x_int])
+    X_hi <- X |>  # X with x_col set at the upper bound of the ALE interval
+      mutate(!!x_col := ale_x[ale_x_int + 1])
+
+    # Difference between low and high boundary predictions
+    delta_pred <- pred_fun(model, newdata = X_hi) - pred_fun(model, newdata = X_lo)
+
     boot_ale$ale_y <-
-      map(
-        boot_ale$row_idxs,
-        \(.idxs) {
+      map(boot_ale$row_idxs, \(.idxs) {
 
-          X_boot <- X[.idxs, ]  # this particular bootstrap sample
+        # Generate the cumulative ale_y predictions
+        cum_pred <-
+          delta_pred[.idxs] |>  # predictions for current bootstrap sample
+          # list where each element is vector of x_col values in that x_int interval
+          split(ale_x_int) |>
+          map_dbl(mean) |>
+          cumsum()
 
-          # ale_x_int: n_row-length index vector indicating into which ale_x-bin the rows fall
-          boot_ale_x_int <- cut(X_boot[[x_col]], breaks = ale_x, include.lowest = TRUE) |>
-            as.numeric()
+        # The ale_y just created might have gaps if this data does not have
+        # all the ale_x intervals. This might be the case for small bootstrapped
+        # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
-          x_lo <- X_boot |>  # X_boot with x_col set at the lower bound of the ALE interval
-            mutate(!!x_col := ale_x[boot_ale_x_int])
-          x_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
-            mutate(!!x_col := ale_x[boot_ale_x_int + 1])
+        # Get the numbered indexes that are actually used
+        cum_pred_idx_names <- names(cum_pred)
 
-          # Difference between low and high boundary predictions
-          delta_pred <- pred_fun(model, newdata = x_hi) - pred_fun(model, newdata = x_lo)
+        # Extend the ale_y to set missing ale_x intervals as NA
+        1:(length_ale_x - 1) |>
+          map_dbl(\(.i) {
+            if (.i %in% cum_pred_idx_names) {
+              cum_pred[[as.character(.i)]]
+            } else {
+              NA
+            }
+          }) |>
+          c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+          unname()
 
-          # if (is.null(global_ale_x_int)) {
-          #   global_ale_x_int <- boot_ale_x_int
-          # }
-
-          # Generate the cumulative ale_y predictions
-          cum_pred <-
-            delta_pred |>
-            # list where each element is vector of x_col values in that x_int interval
-            split(boot_ale_x_int) |>
-            map_dbl(mean) |>  # Consider changing this to the median
-            cumsum()
-
-          #  The ale_y just created might have gaps if this data does not have
-          # all the ale_x intervals. This might be the case for small bootstrapped
-          # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-
-          # Get the numbered indexes that are actually used
-          cum_pred_idx_names <- names(cum_pred)
-
-          # Extend the ale_y to set missing ale_x intervals as NA
-          1:(length_ale_x - 1) |>
-            map_dbl(\(.i) {
-              if (.i %in% cum_pred_idx_names) {
-                cum_pred[[as.character(.i)]]
-              } else {
-                NA
-              }
-            }) |>
-            c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-            unname()
-
-
-          # delta_pred |>
-          #   # list where each element is vector of x_col values in that x_int interval
-          #   split(global_ale_x_int) |>
-          #   map_dbl(mean) |>  # Consider changing this to the median
-          #   cumsum() |>
-          #   c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-          #   unname()
-        }
-      )
+    })
 
 
     # Tabulate number of cases per ale_x_int
@@ -1146,28 +1088,71 @@ calc_ale <- function(
     row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
 
     # Calculate ale_y
+
+    # pred_ale_x: matrix of predictions for all possible factor levels
+    pred_ale_x  <-
+      map(ale_x, \(.x) {
+        if (.x %in% X[[x_col]]) {
+          pred_fun(
+            object = model,
+            newdata = X |>
+              mutate(
+                !!x_col :=
+                  if (is.logical(X[[x_col]])) {
+                    as.logical(.x)
+                  } else {
+                    .x
+                  }
+              )
+          )
+        } else {
+          rep(as.numeric(NA), n_row)
+        }
+      }) |>
+      unlist() |>
+      matrix(ncol = length_ale_x)
+    colnames(pred_ale_x) <- ale_x
+
+
     boot_ale$ale_y <-
       map(
         boot_ale$row_idxs,
         \(.idxs) {
 
-          # Initialize hi and lo X matrices with this particular bootstrap sample
-          X_boot <- X[.idxs, ]
+          # X_boot_x_col_vals: x_col values for this particular bootstrap sample
+          X_boot_x_col_vals <- X[[x_col]][.idxs] |>
+            # Convert to factor if not already so (e.g., for logical)
+            ordered(levels = levels_ale_order)
+
+          # index of x_col value according to ordered indexes
+          x_ordered_idx <-
+            X_boot_x_col_vals |>
+            as.integer()
+
+          #Calculate the model predictions with the levels of X[[x_col]] increased and decreased by one
+          row_idx_not_hi <- (1:n_row)[x_ordered_idx < xint]  #indices of rows for which X[[x_col]] was not the highest level
+          row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
+
 
           # X_boot_x_col_unique_idxs: unique factor indexes present in current
           # bootstrap sample. This is necessary because for a full model outer
           # bootstrap, a random bootstrap sample might not have all the levels
           # in the full dataset.
           X_boot_x_col_unique_idxs <-
-            X_boot[[x_col]] |>
+            X_boot_x_col_vals |>
             ordered(levels = levels_ale_order) |>
             as.integer() |>
             unique()
 
-          # X_hi: X_boot with x_col values all set at the next x_col level.
-          # Only change rows where row_idx_not_hi, since the highest level cannot go higher.
-          X_hi <- X_boot
-          hi_idxs <- x_ordered_idx[row_idx_not_hi] + 1
+          # hi_idxs: integer indexes of the factor levels  all set at the next x_col level
+          hi_idxs <-
+            X_boot_x_col_vals |>
+            as.integer() |>
+            (`+`)(1)
+          # If the index was already at the maximum, keep it at the max.
+          # Note: The value of length_ale_x == max(as.integer(ale_x)),
+          hi_idxs <-
+            if_else(hi_idxs > length_ale_x, length_ale_x, hi_idxs)
 
           # If any hi_idxs are not within the set of values in the current bootstrap
           # sample, adjust them to be the closest valid value
@@ -1181,21 +1166,17 @@ calc_ale <- function(
               }
           }
 
-          # Assign rows that are not already at the highest level to their upper bound
-          X_hi[row_idx_not_hi, x_col] <-
-            if (identical(class(X_hi[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(levels_ale_order[hi_idxs])
-            } else {
-              levels_ale_order[hi_idxs]
-            }
+          # X_boot_x_col_hi: x_col values all set at the immediate higher x_col level.
+          X_boot_x_col_hi <- ale_x[hi_idxs]
 
-            # levels_ale_order[hi_idxs] |>
-            # as(class(X_hi[[x_col]])[1])  # convert character levels to appropriate class
-
-          # X_lo: X_boot with x_col values all set at the previous x_col level.
-          # Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
-          X_lo <- X_boot
-          lo_idxs <- x_ordered_idx[row_idx_not_lo] - 1
+          # lo_idxs: integer indexes of the factor levels  all set at the next x_col level
+          lo_idxs <-
+            X_boot_x_col_vals |>
+            as.integer() |>
+            (`-`)(1)
+          # If the index was already at the minimum, keep it at the min (1).
+          lo_idxs <-
+            if_else(lo_idxs < 1, 1, lo_idxs)
 
           # If any lo_idxs are not within the set of values in the current bootstrap
           # sample, adjust them to be the closest valid value
@@ -1209,35 +1190,31 @@ calc_ale <- function(
               }
           }
 
-          # Assign rows that are not already at the lowest level to their lower bound
-          X_lo[row_idx_not_lo, x_col] <-
-            if (identical(class(X_lo[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(levels_ale_order[lo_idxs])
-            } else {
-              levels_ale_order[lo_idxs]
-            }
+          # X_boot_x_col_lo: x_col values all set at the immediate lower x_col level.
+          X_boot_x_col_lo <- ale_x[lo_idxs]
 
-          pred_y <- pred_fun(object = model, newdata = X_boot)
-          pred_hi <- pred_fun(object = model, newdata = X_hi[row_idx_not_hi, ])
-          pred_lo <- pred_fun(object = model, newdata = X_lo[row_idx_not_lo, ])
+          # Calculate prediction vectors
+          pred_y <- pred_ale_x[cbind(.idxs, as.integer(X_boot_x_col_vals))]
+          pred_hi <- pred_ale_x[cbind(.idxs, as.integer(X_boot_x_col_hi))]
+          pred_lo <- pred_ale_x[cbind(.idxs, as.integer(X_boot_x_col_lo))]
 
           #Take the appropriate differencing and averaging for the ALE plot
 
           ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
           # individual local effects: differences between predictions with the level of
           # X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
-          delta_hi <- pred_hi - pred_y[row_idx_not_hi]
+          delta_hi <- pred_hi[row_idx_not_hi] - pred_y[row_idx_not_hi]
 
           ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
           # actual level minus predictions decreased by one ordinal level
-          delta_lo <- pred_y[row_idx_not_lo] - pred_lo
+          delta_lo <- pred_y[row_idx_not_lo] - pred_lo[row_idx_not_lo]
 
           # Generate the cumulative ale_y predictions
           cum_pred <-
             c(delta_hi, delta_lo) |>
             # list where each element is vector of x_col values in that x_int interval
             split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
-            map_dbl(mean) |>  # Consider changing this to the median
+            map_dbl(mean) |>
             cumsum()
 
             #  The ale_y just created might have gaps if this data does not have
@@ -1261,9 +1238,6 @@ calc_ale <- function(
 
         }
       )
-
-    ### Bootstrap probably starts here
-
 
     # Calculate centring constant so that weighted mean(ale_y) is 0.
     # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
@@ -1307,15 +1281,15 @@ calc_ale <- function(
   # When boot_it = 0, all values are the same
   boot_summary <- tibble(
     ale_y_lo = rep(as.double(NA), length_ale_x),
-    ale_y_median = rep(as.double(NA), length_ale_x),
     ale_y_mean = rep(as.double(NA), length_ale_x),
+    ale_y_median = rep(as.double(NA), length_ale_x),
     ale_y_hi = rep(as.double(NA), length_ale_x),
   )
   for (i in 1:length_ale_x) {
     boot_summary$ale_y_lo[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
                                          probs = (boot_alpha / 2))
-    boot_summary$ale_y_median[i] <- stats::median(boot_mtx[i, ], na.rm = TRUE)
     boot_summary$ale_y_mean[i] <- mean(boot_mtx[i, ], na.rm = TRUE)
+    boot_summary$ale_y_median[i] <- stats::median(boot_mtx[i, ], na.rm = TRUE)
     boot_summary$ale_y_hi[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
                                          probs = 1 - (boot_alpha / 2))
   }
@@ -1323,8 +1297,8 @@ calc_ale <- function(
   boot_summary <- boot_summary |>
     mutate(
       ale_y = case_when(
-        boot_centre == 'median' ~ ale_y_median,
         boot_centre == 'mean' ~ ale_y_mean,
+        boot_centre == 'median' ~ ale_y_median,
       )
     ) |>
     select(ale_y, everything())
@@ -1420,7 +1394,11 @@ plot_ale <- function(
     ggplot(aes(x = ale_x, y = ale_y)) +
     theme_bw() +
     coord_cartesian(
-      ylim = c(y_summary[['min']], y_summary[['max']])
+      ylim = c(
+        min(y_summary[['min']], ale_data$ale_y),
+        max(y_summary[['max']], ale_data$ale_y)
+      )
+      # ylim = c(y_summary[['min']], y_summary[['max']])
       # ylim = c(
         # min(y_summary[['min']], ale_data$ale_y_lo),
         # max(y_summary[['max']], ale_data$ale_y_hi)
@@ -1490,7 +1468,7 @@ plot_ale <- function(
           aes(x = rug_x, y = rug_y),
           data = rug_data,
           # alpha = 0.5,
-          position = 'jitter'
+          position = position_jitter(width = 0.1, height = 0.1)
         )
     }
 

@@ -1,5 +1,45 @@
 # utils.R miscellaneous internal utility functions
 
+
+#  Determine the datatype of a vector
+#
+#  Not exported. See @returns for details of what it does.
+#
+#  @param var vector whose datatype is to be determined
+#
+#  @returns Returns generic datatypes of R basic vectors according to the following mapping:
+#  * `logical` returns 'binary'
+#  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
+#  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
+#  * unordered `factor` returns 'multinomial'
+#  * `ordered` `factor` returns 'ordinal'
+#
+var_type <- function(var) {
+
+  # If var has more than one class, use only the first (predominant) one.
+  # This is particularly needed for ordered factors, whose class is
+  # c('ordered', 'factor')
+  class_var <- class(var)[1]
+
+  return(case_when(
+    class_var == 'logical' ~ 'binary',
+    # var consisting only of one of any two values is considered binary
+    (var |> unique() |> length()) == 2 ~ 'binary',
+    # numeric var consisting purely of 0 and 1 values is considered binary
+    # is.numeric(var) && (var |>
+    #                       unique() |>
+    #                       sort() |>
+    #                       identical(c(0, 1))) ~
+    #   'binary',
+    class_var == 'factor' ~ 'multinomial',
+    class_var == 'ordered' ~ 'ordinal',
+    is.numeric(var) ~ 'numeric'
+  ))
+
+}
+
+
+
 # Rename assertthat::is.count to accurately match what it actually specifies:
 # TRUE if x is a natural number (positive integer, zero excluded)
 is.natural <- function(x) {
