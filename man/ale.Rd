@@ -171,7 +171,7 @@ explanations with an ALE-based approach for local explanations.
 \details{
 ale_core.R
 
-Core functions for the ale package
+Core functions for the ale package: ale, ale_ixn, and ale_core
 }
 \examples{
 diamonds

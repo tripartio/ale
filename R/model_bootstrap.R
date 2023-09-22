@@ -238,9 +238,6 @@ model_bootstrap <- function (
             do.call(broom::tidy,
                     c(list(boot_model),  # model object
                       tidy_options))  # any parameters
-            # do.call(broom::tidy, list(boot_model, unlist(tidy_options)))
-            # do.call(broom::tidy, list(boot_model,
-            #                           unlist(tidy_options), conf.int = FALSE))
           } else {
             NA
           }
@@ -278,12 +275,10 @@ model_bootstrap <- function (
             # Super-assignment needed to set ale_xs and ale_ns for all iterations,
             # not just the current one
             ale_xs <<-
-            # ale_xs <-
               boot_ale$data |>
               map(\(.x) .x$ale_x)
 
             ale_ns <<-
-            # ale_ns <-
               boot_ale$data |>
               map(\(.x) .x$ale_n)
           }
@@ -425,7 +420,6 @@ model_bootstrap <- function (
       # Summarize bootstrapped ALE data, grouped by variable
       ale_summary_data <-
         boot_data_ale |>
-        # boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
         map(\(.it) .it$data) |>   # extract data from each iteration
         transpose()  # rearrange list to group all iterations by x_col
       ale_summary_data <-
@@ -468,7 +462,6 @@ model_bootstrap <- function (
       # Summarize bootstrapped ALE statistics
       ale_summary_stats <-
         boot_data_ale |>
-        # boot_data$ale[-1] |>  # remove the first row (full data, not bootstrapped)
       map(\(.it) .it$stats) |>   # extract stats from each iteration
         transpose()  # rearrange list to group all iterations by x_col (term)
       ale_summary_stats <-
