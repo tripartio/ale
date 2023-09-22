@@ -120,7 +120,7 @@ nnet.dfx <- nnet(y~., data = dfx, linout = T, skip = F, size = 6,
                  decay = 0.1, maxit = 1000, trace = F)
 
 # Compare both in all cases
-nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw", relative_y = 'zero')
+nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw", relative_y = 'zero', boot_it = 0)
 nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw")
 
 # Print plots
