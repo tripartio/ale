@@ -4,7 +4,6 @@
 
 ### Breaking changes
 -   We changed the output data structure of the ALE data and plots. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
--   The bootstrapping algorithm was completely rewritten and is now much faster than the original version. As such, `ale` runs 100 bootstrap iterations by default; the user must specify boot_it = 0 to disable bootstrapping. However, `ale_ixn` still does not yet support bootstrapping; that will come in a later version.
 
 ### Other user-visible changes
 
