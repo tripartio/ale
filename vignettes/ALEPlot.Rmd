@@ -192,34 +192,35 @@ library(ALEPlot)
 library(gbm)
 
 ## Read data and fit a boosted tree supervised learning model
-# # You must adjust the file path to match your local computer
-# data = read.csv("adult_data.csv", 
-#                 header = TRUE, strip.white = TRUE, na.strings = "?",
-#                 stringsAsFactors = TRUE)  # Required as of R 4.0.0
 data(census, package = 'ale')  # load ale package version of the data
 data <-  
   census |> 
   as.data.frame() |>   # ALEPlot is not compatible with the tibble format
   select(age:native_country, higher_income) |>  # Rearrange columns to match ALEPlot order
   na.omit(data)
+```
 
+Although gradient boosted trees generally perform quite well, they are rather slow. Rather than having you wait for it to run, the code here downloads a pretrained GBM model. However, the code used to generate it is provided in comments so that you can see it and run it yourself if you want to.
+
+```{r, fig.asp=1.1}
 # To generate the code, uncomment the following lines.
 # But it is slow, so this vignette loads a pre-created model object.
 # gbm.data <- gbm(higher_income ~ ., data= data[,-c(3,4)],
 #                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
 #                 interaction.depth=3)
 # saveRDS(gbm.data, file.choose())
-gbm.data <- readRDS('gbm.data_model.rds')
+gbm.data <- url('https://github.com/Tripartio/ale/raw/main/download/gbm.data_model.rds') |> 
+  readRDS()
 
+gbm.data
 ```
 
 
 ### ALEPlot code
 
+As before, we create a custom prediction function and then call the `ALEPlot` function to generate the plots. Creation of the ALE plots here is rather slow because the `gbm` predict function is slow.
 
-
-
-```{r, fig.asp=1.5}
+```{r, fig.asp=1.1}
 ## Define the predictive function; note the additional arguments for the
 ## predict function in gbm
 yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
@@ -240,60 +241,32 @@ K=50, NA.plot = FALSE)
 
 ### `ale` package equivalent
 
-Here is the analogous code using the `ale` package. We are not a fan of the variable names from the `ALEPlot` examples, but we retain them so that the code can be more easily compared.
+Here is the analogous code using the `ale` package. In this case, we also need to define a custom predict function because of the particular `n.trees = 6000` argument. Again,  
 
 ```{r}
-## R code for Example 3
-## Load relevant packages
-# library(ALEPlot)
-
-library(ale)
-library(gbm)
-## Read data and fit a boosted tree supervised learning model
-
-data <- readr::read_csv("adult_data.csv", 
-                        na = '?') |>
-  mutate(higher_income = income == '>50K') |>
-  select(higher_income, everything()) |>
-  select(!c(income, fnlwgt, education)) |>
-  mutate(across(where(is.character), factor)) |>
-  na.omit()
-
-# Add random variables for demonstration
-set.seed(0)
-data <- data |>
-  mutate(
-    rand_unif = runif(nrow(data)),
-    rand_norm = rnorm(nrow(data))
-  )
-
-n.trees <- 6000
-# n.trees <- 500  # runs faster, but less accurate results
-
-set.seed(0)
-# To generate the code, uncomment the following lines.
-# But it is slow, so this vignette loads a pre-created model object.
-# gbm.data <- gbm(higher_income ~ ., data= data,
-#                 distribution = "bernoulli", n.trees=n.trees, shrinkage=0.02,
-#                 interaction.depth=3)
-# saveRDS(gbm.data, 'demo_gbm.data_ale.rds')
-gbm.data <- readRDS('demo_gbm.data_ale.rds')
-
-yhat <- function(object, newdata) as.numeric(
-  predict(object, newdata,  n.trees = n.trees,
-          type="response"))  # return predicted probabilities
+# Custom predict function
+yhat <- function(object, newdata) {
+  as.numeric(
+    predict(object, newdata,  n.trees = 6000,
+          # type="response"))  # return predicted probabilities
 # original ALEPlot example returns log odds, I think, which are not as interpretable
-# type="link"))  
-
-xint <- 500
+            type="link")
+  )
+}
 
 # Generate ALE data for all variables
 
-# To generate the code, uncomment the following lines.
-# But it is slow, so this vignette loads a pre-created model object.
-# gbm_ale <- ale(data, gbm.data, pred_fun = yhat, x_intervals = xint)
-# saveRDS(gbm_ale, 'demo_gbm_ale_100x.rds')
-gbm_ale <- readRDS('demo_gbm_ale_100x.rds')
+# # To generate the code, uncomment the following lines.
+# # But it is slow, so this vignette loads a pre-created model object.
+# gbm_ale <- ale(
+#   data, gbm.data, 
+#   pred_fun = yhat, 
+#   x_intervals = 500, 
+#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+# )
+# saveRDS(gbm_ale, file.choose())
+gbm_ale <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale.rds') |> 
+  readRDS()
 
 # Print plots
 gridExtra::grid.arrange(grobs = gbm_ale$plots, ncol = 2)
@@ -304,7 +277,7 @@ Now we generate ALE data for all two-way interactions and then plot them.
 ```{r, fig.asp=1.2}
 # To generate the code, uncomment the following lines.
 # But it is slow, so this vignette loads a pre-created model object.
-# gbm_ale_ixn <- ale_ixn(data, gbm.data, pred_fun = yhat, x_intervals = xint)
+# gbm_ale_ixn <- ale_ixn(data, gbm.data, pred_fun = yhat, x_intervals = 500)
 # saveRDS(gbm_ale_ixn, 'demo_gbm_ale_ixn_100x.rds')
 gbm_ale_ixn <- readRDS('demo_gbm_ale_ixn_100x.rds')
 

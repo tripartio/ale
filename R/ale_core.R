@@ -507,7 +507,7 @@ ale_core <- function (
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
       msg = 'rug_sample_size must be either 0 or
-    an integer larger than the number of x_intervals.'
+    an integer larger than the number of x_intervals + 1.'
     )
     assert_that(is.whole(min_rug_per_interval))
     assert_that(is.natural(n_x1_int))
