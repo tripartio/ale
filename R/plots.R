@@ -134,7 +134,7 @@ plot_ale <- function(
     if (!is.null(data) && rug_sample_size > 0) {
       rug_data <- tibble(
         rug_x = data[[x_col]],
-        rug_y = data[[y_col]],
+        rug_y = data[[y_col]] + y_shift,
       )
 
       # If the data is too big, down-sample for rug plots
@@ -312,8 +312,24 @@ plot_ale_ixn <- function(
   y_quantile_names <- names(y_quantiles) |>
     stringr::str_sub(end = -2)
 
-  y_legend <- map_chr(1:n_y_quant, function(i) {
-    lgd <- paste0('[', y_quantile_names[i], '-', y_quantile_names[i + 1], ')')
+  # quantile_chars <-
+  #   y_quantiles |>
+  #   format(digits = 2)
+  quantile_mids <-
+    c(
+      (y_quantiles[1:(n_y_quant - 1)] + y_quantiles[2:n_y_quant]) / 2,
+      NA
+    ) |>
+    round(1) |>
+    format(digits = 2)
+
+  y_legend <-
+    map_chr(1:n_y_quant, function(i) {
+    lgd <- paste0(
+      # quantile_chars[i],
+      quantile_mids[i],
+      ' [', y_quantile_names[i], '-', y_quantile_names[i + 1], '%)'
+    )
 
     # Label special cases
     lgd <- lgd <-
@@ -364,6 +380,8 @@ plot_ale_ixn <- function(
       )
   }
 
+  # browser()
+
   plot <-
     ale_data |>
     ggplot(aes(x = x1_quantile, y = x2_quantile, fill = y_quantile)) +
@@ -378,7 +396,7 @@ plot_ale_ixn <- function(
     labs(x = x1_col, y = x2_col,
          fill = paste0(
            # y_col, ' interaction\nquasi-percentiles\nrelative to the mean')
-           y_col, ' interaction\npercentiles')
+           y_col, ' interaction')
     )
 
   # Add rug plot if data is provided

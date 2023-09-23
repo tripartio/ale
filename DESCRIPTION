@@ -39,3 +39,4 @@ Depends:
 URL: https://github.com/Tripartio/ale
 BugReports: https://github.com/Tripartio/ale/issues
 Config/testthat/edition: 3
+LazyData: true

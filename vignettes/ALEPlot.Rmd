@@ -13,27 +13,27 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
 ```{r setup}
 library(dplyr)
 ```
 
-This is code that demonstrates the capabilities of the R `ale` package, especially in comparison with [examples from the `ALEPlot` package](https://cran.r-project.org/web/packages/ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) which it extends.
+The `ale` package originally began as a rewrite and extension of the `ALEPlot`. Thus, in developing the `ale` package, we must ensure that we correctly implement the original ALE algorithm while extending it. Indeed, some permanent unit tests call the `ALEPlot` to make sure that `ale` provides identical results for identical inputs. We thought presenting some of these comparisons as a vignette might be helpful. We focus on the [examples from the `ALEPlot` package](https://cran.r-project.org/web/packages/ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) so that results are directly comparable.
 
-Here are the main changes:
+Other than its extensions for ALE-based statistics, here are some of the main points in which `ale` differs from `ALEPlot` where it provides otherwise similar functionality:
 
--   Uses ggplot2 instead of base R graphics
--   saves the plot to a "plot" element of the return value; does not print the plot to the screen
--   Works with tibble input or any other data format convertible to a dataframe
--   requires the entire input dataset; automatically identifies and uses the Y target label
--   Replaces J (index positions of x variable(s) in X) with x_col (character name(s) of x variable(s))
--   Specifies a generic default predict function. However, if the prediction type is not "response", then predict_type must be specified.
--   Y is displayed by default on its full absolute scale, not a relative scale (control with relative_y)
+-   It uses `ggplot2` instead of base R graphics. We consider `ggplot2` to be a more modern and versatile graphics system.
+-   It saves plots as ggplot objects to a "plots" element of the return value; it does not automatically print the plot to the screen. So, the user can manipulate the plots more flexibly.
+-   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument.) We such plots more easily interpretable.6
+-   In addition, there are numerous design choices to simply the function interface based on [tidyverse](https://www.tidyverse.org/) design principles.
+
+One notable difference between the two packages is that the `ale` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `ALEPlot`.
+
+In each section here, we cover an example from `ALEPlot` and then reimplement it with `ale`. 
 
 ## Simulated data with numeric outcomes (ALEPlot Example 2)
 
-### ALEPlot code
-
-Here is the second code example directly from the `ALEPlot` package. (We skip the first example because it is a subset of the second, simply without interactions.)
+We begin with the second code example directly from the `ALEPlot` package. (We skip the first example because it is a subset of the second, simply without interactions.) Here is the code from the example to create a simulated dataset and train a neural network on it:
 
 ```{r ALEPlot ex2, fig.width=10, fig.height=8}
 ## R code for Example 2
@@ -42,6 +42,7 @@ library(ALEPlot)
 library(nnet)
 
 ## Generate some data and fit a neural network supervised learning model
+set.seed(0)  # not in the original, but added for reproducibility
 n = 5000
 x1 <- runif(n, min = 0, max = 1)
 x2 <- runif(n, min = 0, max = 1)
@@ -52,11 +53,24 @@ y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
 DAT <- data.frame(y, x1, x2, x3, x4)
 nnet.DAT <- nnet(y~., data = DAT, linout = T, skip = F, size = 6,
 decay = 0.1, maxit = 1000, trace = F)
+```
 
+For the demonstration, `x1` has a linear relationship with `y`, `x2` and `x3` have non-linear relationships, and `x4` is a random variable with no relationship with `y`. `x1` and `x2` interact with each other in their relationship with `y`. 
+
+### ALEPlot code
+
+To create ALE data and plots, `ALEPlot` requires the creation of a custom prediction function:
+
+```{r}
 ## Define the predictive function
 yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
 type = "raw"))
 
+```
+
+Now the `ALEPlot` function can be called to create the ALE data and plot it. The function returns a specially formatted list with the ALE data; it can be saved for subsequent custom plotting. 
+
+```{r}
 ## Calculate and plot the ALE main effects of x1, x2, x3, and x4
 ALE.1 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 1, K = 500,
 NA.plot = TRUE)
@@ -66,13 +80,23 @@ ALE.3 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 3, K = 500,
 NA.plot = TRUE)
 ALE.4 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = 4, K = 500,
 NA.plot = TRUE)
+```
 
+One point I dislike about the `ALEPlot` implementation is that calling the function automatically prints a plot, whether the user likes it or not. The user must jump through a few hoops to suspend graphic output to avoid this--the function does not give any such option.
+
+ALE interactions can also be calculated and plotted:
+
+```{r}
 ## Calculate and plot the ALE second-order effects of {x1, x2} and {x1, x4}
 ALE.12 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = c(1,2), K = 100,
 NA.plot = TRUE)
 ALE.14 = ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = yhat, J = c(1,4), K = 100,
 NA.plot = TRUE)
+```
 
+If the output of the `ALEPlot` has been saved to variables, then its contents can be plotted with finer user control using the generic R `plot` method:
+
+```{r, fig.asp=1.5}
 ## Manually plot the ALE main effects on the same scale for easier comparison
 ## of the relative importance of the four predictor variables
 par(mfrow = c(3,2))
@@ -98,53 +122,68 @@ drawlabels=TRUE)
 
 ### `ale` package equivalent
 
-Here is the analogous code using the `ale` package:
+Now we demonstrate the same functionality with the `ale` package. We will work with the same model on the same data, so we will not create them again.
+
+To create the model, we invoke the `ale` which returns a list with various ALE elements. 
+
 
 ```{r}
-
 library(ale)
-library(nnet)
 
-## Generate some data and fit a neural network supervised learning model
-
-set.seed(0)
-n = 5000
-x1 <- runif(n, min = 0, max = 1)
-x2 <- runif(n, min = 0, max = 1)
-x3 <- runif(n, min = 0, max = 1)
-x4 <- runif(n, min = 0, max = 1)
-y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
-  13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
-dfx <- data.frame(y, x1, x2, x3, x4)
-nnet.dfx <- nnet(y~., data = dfx, linout = T, skip = F, size = 6,
-                 decay = 0.1, maxit = 1000, trace = F)
-
-# Compare both in all cases
-nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw", relative_y = 'zero', boot_it = 0)
-nnet_ale <- ale(dfx, nnet.dfx, predict_type = "raw")
-
-# Print plots
-gridExtra::grid.arrange(grobs = nnet_ale$plots, ncol = 2)
+nn_ale <- ale(DAT, nnet.DAT, predict_type = "raw")
 ```
+
+
+Here are some notable differences compared to `ALEPlot`:
+
+* In tidyverse style, the first element is the data and the second is the model.
+* Unlike `ALEPlot` that functions on only one variable at a time, `ale` generates ALE data for multiple variables in a dataset at once. By default, it generates ALE elements for all the predictor variables in the dataset that it is given. We will cover them in another vignette, but for our purposes here, we note the `data` element that returns a list of the ALE data for each variable and the `plots` element returns a list of `ggplot` plots.
+* `ale` creates a default generic predict function that matches most standard R models. When the prediction type is not the default "response", as in our case, the user can set the desired type with the `predict_type` argument. However, for more complex or non-standard prediction functions, `ale` supports custom functions with the `pred_fun` argument.
+
+Since the plots are saved as a list,  they can easily be printed out all at once:
+
+```{r}
+# Print plots
+gridExtra::grid.arrange(grobs = nn_ale$plots, ncol = 2)
+```
+The `ale` package plots have various features that enhance interpretability:
+
+* The outcome y is displayed on its full original scale.
+* A median band that shows the middle 5 percentile of the y values is displayed. The idea is that any ALE values outside this band are at least somewhat significant.
+* Similarly, there are 25% and 75% percentile markers to show the middle 50% of the y values. Any ALE y value beyond these bands indicates that the x variable is so strong that it alone at the values indicated can shift the y value by that much.
+* Rug plots indicate the distribution of the data so that outliers are not over-interpreted.
+
+It might not be clear that the previous plots display exactly the same data as those shown above from `ALEPlot`. To make the comparison clearer, we can recalculate the ALEs on a zero-centred scale: 
+
+```{r}
+# Zero-centred ALE
+nn_ale <- ale(DAT, nnet.DAT, predict_type = "raw", relative_y = 'zero')
+
+gridExtra::grid.arrange(grobs = nn_ale$plots, ncol = 2)
+```
+With these zero-centred plots, the full range of y values and the rug plots give some context that aids interpretation. (If the rugs look slightly different, it is because they are randomly jittered to avoid overplotting.)
+
+The `ale` also produces interaction plots. Unlike `ALEPlot`, it does so with a separate dedicated function, `ale_ixn`. By default, it calculates all possible two-way interactions between all variables in the data.
+
+Because the variables interact with each other, the output data structure is a two-layer list, so the print code is slightly more complicated. However, the sample code we provide here using functions from the `purrr` package for iterating through lists and `gridExtra` package for arranging plots are reusable in any application.
+
 
 ```{r, fig.asp=1.2}
 # Create and plot interactions
-nnet_ale_ixn <- ale_ixn(dfx, nnet.dfx, predict_type = "raw")
+nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, predict_type = "raw")
 
 # Print plots
-nnet_ale_ixn$plots |>
+nn_ale_ixn$plots |>
   purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
-    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
+    gridExtra::grid.arrange(grobs = .x1, ncol = 1)  # plot all x1 plots
   })
 ```
 
-
+These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
 
 ## Real data with binary outcomes (ALEPlot Example 3)
 
-### ALEPlot code 
-
-Here is the original example from the `ALEPlot` package.
+The next code example from the `ALEPlot` package analyzes a real dataset with a binary outcome variable. Whereas the `ALEPlot` has the user load a CSV file that might not be readily available, we make that dataset available as the census dataset. We load it here with the adjustments necessary to run the `ALEPlot` example.
 
 ```{r ALEPlot ex3}
 ## R code for Example 3
@@ -153,21 +192,34 @@ library(ALEPlot)
 library(gbm)
 
 ## Read data and fit a boosted tree supervised learning model
-# You must adust the file path to match your local computer
-# data = read.csv("S:/Dropbox/Travail/Research/ALE/R/adult_data.csv", 
-data = read.csv("adult_data.csv", 
-                header = TRUE, strip.white = TRUE, na.strings = "?",
-                stringsAsFactors = TRUE)  # Required as of R 4.0.0
-data = na.omit(data)
+# # You must adjust the file path to match your local computer
+# data = read.csv("adult_data.csv", 
+#                 header = TRUE, strip.white = TRUE, na.strings = "?",
+#                 stringsAsFactors = TRUE)  # Required as of R 4.0.0
+data(census, package = 'ale')  # load ale package version of the data
+data <-  
+  census |> 
+  as.data.frame() |>   # ALEPlot is not compatible with the tibble format
+  select(age:native_country, higher_income) |>  # Rearrange columns to match ALEPlot order
+  na.omit(data)
 
 # To generate the code, uncomment the following lines.
 # But it is slow, so this vignette loads a pre-created model object.
-# gbm.data <- gbm(income==">50K" ~ ., data= data[,-c(3,4)], 
+# gbm.data <- gbm(higher_income ~ ., data= data[,-c(3,4)],
 #                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
 #                 interaction.depth=3)
-# saveRDS(gbm.data, 'demo_gbm.data_ALEPlot.rds')
-gbm.data <- readRDS('demo_gbm.data_ALEPlot.rds')
+# saveRDS(gbm.data, file.choose())
+gbm.data <- readRDS('gbm.data_model.rds')
 
+```
+
+
+### ALEPlot code
+
+
+
+
+```{r, fig.asp=1.5}
 ## Define the predictive function; note the additional arguments for the
 ## predict function in gbm
 yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,

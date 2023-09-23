@@ -684,8 +684,9 @@ ale_core <- function (
         if ('plots' %in% output) {  # user requested the plot
           plot <- plot_ale(
             ale_data, x_col, y_col, y_type,
-            y_summary, relative_y,
-            plot_alpha,
+            y_summary,
+            relative_y = relative_y,
+            plot_alpha = plot_alpha,
             data = data[, c(x_col, y_col)],
             rug_sample_size = rug_sample_size,
             min_rug_per_interval = min_rug_per_interval,
@@ -739,8 +740,11 @@ ale_core <- function (
                 y_summary,
                 y_vals,
                 # ggplot_custom
-                relative_y,
-                plot_alpha, n_x1_int, n_x2_int, n_y_quant,
+                relative_y = relative_y,
+                plot_alpha = plot_alpha,
+                n_x1_int = n_x1_int,
+                n_x2_int = n_x2_int,
+                n_y_quant = n_y_quant,
                 data = data[, c(x1_col, x2_col, y_col)],
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
