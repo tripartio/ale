@@ -28,11 +28,7 @@ test_that(
       pred_fun = test_predict,  # function defined in setup.R
       predict_type = "link",
       x_intervals = 50,
-<<<<<<< HEAD
       boot_it = 1,  # edge case
-=======
-      boot_it = 1,
->>>>>>> origin/main
       seed = 1234,
       boot_alpha = 0.01,
       boot_centre = 'median',

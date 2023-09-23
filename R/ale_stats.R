@@ -216,46 +216,47 @@ ale_stats <- function(
 
 
 
-# var_summary <- function(var_vals, plot_alpha = 0.05)  {
-#   # Generate summary statistics for y for plotting
-#   s <- stats::quantile(
-#     var_vals,
-#     probs = c(
-#       0.01, 0.025, 0.05, 0.1, 0.25,
-#       0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
-#       0.75, 0.9, 0.95, 0.975, 0.99
-#     )
-#   )
-#
-#   s <- c(
-#     # Retain first half of values
-#     s[1:match('50%', names(s))],
-#
-#     # Create lower confidence bound just below the midpoint
-#     mid_lower = s[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
-#
-#     mean = mean(var_vals, na.rm = TRUE),
-#
-#     # Create upper confidence bound just above the midpoint
-#     mid_upper = s[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
-#
-#     # Retain latter half of values
-#     s[match('75%', names(s)):length(s)]
-#   )
-#
-#   # Determine the limits and average of y.
-#   # min and max are needed only for plotting, but avg is needed for data.
-#   # Set the plotting boundaries for the y axis
-#   v_type <- var_type(vals)
-#   if (v_type == 'numeric') {
-#     s <- c(min = s[['1%']], s)
-#     s <- c(s, max = s[['99%']])
-#   } else if (v_type == 'binary') {
-#     s <- c(min = 0, s)
-#     s <- c(s, max = 1)
-#   }  # as of now, no treatment and no error for non-numeric y
-#
-#   return(s)
-# }
+var_summary <- function(var_vals, plot_alpha = 0.05)  {
+  # Generate summary statistics for y for plotting
+  s <- stats::quantile(
+    var_vals,
+    probs = c(
+      0.01, 0.025, 0.05, 0.1, 0.25,
+      0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
+      0.75, 0.9, 0.95, 0.975, 0.99
+    )
+  )
+
+  s <- c(
+    # Retain first half of values
+    s[1:match('50%', names(s))],
+
+    # Create lower confidence bound just below the midpoint
+    mid_lower = s[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
+
+    mean = mean(var_vals, na.rm = TRUE),
+
+    # Create upper confidence bound just above the midpoint
+    mid_upper = s[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
+
+    # Retain latter half of values
+    s[match('75%', names(s)):length(s)]
+  )
+
+  # Determine the limits and average of y.
+  # min and max are needed only for plotting, but avg is needed for data.
+  # Set the plotting boundaries for the y axis
+  v_type <- var_type(var_vals)
+  if (v_type == 'numeric') {
+    s <- c(min = s[['1%']], s)
+    s <- c(s, max = s[['99%']])
+  } else if (v_type == 'binary' &&
+             min(var_vals) > 0 && max(var_vals) < 1) {  # var is a probability
+    s <- c(min = 0, s)
+    s <- c(s, max = 1)
+  }  # as of now, no treatment and no error for non-numeric y
+
+  return(s)
+}
 
 

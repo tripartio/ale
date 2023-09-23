@@ -550,42 +550,45 @@ ale_core <- function (
       stop('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
     }
 
-  # Generate summary statistics for y for plotting
-  y_summary <- stats::quantile(
-    y_vals,
-    probs = c(
-      0.01, 0.025, 0.05, 0.1, 0.25,
-      0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
-      0.75, 0.9, 0.95, 0.975, 0.99
-    )
-  )
+  # # Generate summary statistics for y for plotting
+  y_summary <- var_summary(y_vals, plot_alpha)
 
-  y_summary <- c(
-    # Retain first half of values
-    y_summary[1:match('50%', names(y_summary))],
-
-    # Create lower confidence bound just below the midpoint
-    mid_lower = y_summary[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
-
-    mean = mean(y_vals, na.rm = TRUE),
-
-    # Create upper confidence bound just above the midpoint
-    mid_upper = y_summary[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
-
-    # Retain latter half of values
-    y_summary[match('75%', names(y_summary)):length(y_summary)]
-  )
-
-  # Determine the limits and average of y.
-  # min and max are needed only for plotting, but avg is needed for data.
-  # Set the plotting boundaries for the y axis
-  if (y_type == 'numeric') {
-    y_summary <- c(min = y_summary[['1%']], y_summary)
-    y_summary <- c(y_summary, max = y_summary[['99%']])
-  } else if (y_type == 'binary') {
-    y_summary <- c(min = 0, y_summary)
-    y_summary <- c(y_summary, max = 1)
-  }  # as of now, no treatment and no error for non-numeric y
+  # # Generate summary statistics for y for plotting
+  # y_summary <- stats::quantile(
+  #   y_vals,
+  #   probs = c(
+  #     0.01, 0.025, 0.05, 0.1, 0.25,
+  #     0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
+  #     0.75, 0.9, 0.95, 0.975, 0.99
+  #   )
+  # )
+  #
+  # y_summary <- c(
+  #   # Retain first half of values
+  #   y_summary[1:match('50%', names(y_summary))],
+  #
+  #   # Create lower confidence bound just below the midpoint
+  #   mid_lower = y_summary[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
+  #
+  #   mean = mean(y_vals, na.rm = TRUE),
+  #
+  #   # Create upper confidence bound just above the midpoint
+  #   mid_upper = y_summary[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
+  #
+  #   # Retain latter half of values
+  #   y_summary[match('75%', names(y_summary)):length(y_summary)]
+  # )
+  #
+  # # Determine the limits and average of y.
+  # # min and max are needed only for plotting, but avg is needed for data.
+  # # Set the plotting boundaries for the y axis
+  # if (y_type == 'numeric') {
+  #   y_summary <- c(min = y_summary[['1%']], y_summary)
+  #   y_summary <- c(y_summary, max = y_summary[['99%']])
+  # } else if (y_type == 'binary') {
+  #   y_summary <- c(min = 0, y_summary)
+  #   y_summary <- c(y_summary, max = 1)
+  # }  # as of now, no treatment and no error for non-numeric y
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(

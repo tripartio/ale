@@ -344,7 +344,8 @@ plot_ale_ixn <- function(
   }) |>
     (`[`)(-n_y_quant)  # delete final superfluous element
 
-  if (y_type == 'binary') {
+  if (y_type == 'binary' &&
+      min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
     # Adjust the minimum and maximum deciles to ensure all ale_y values are included
     y_quantiles[1] <- 0
     y_quantiles[n_y_quant + 1] <- 1
