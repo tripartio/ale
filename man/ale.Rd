@@ -49,8 +49,7 @@ Must be provided if \code{ixn} is FALSE (default).}
 If not provided, \code{ale} will try to detect it automatically. For non-standard
 models, \code{y_col} should be provided.}
 
-\item{...}{not used. Inserted to require explicit naming of subsequent arguments.
-Any invalid argument (including typographical errors) will be silently ignored.}
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{output}{character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 an ALE plot; 'data' will return the source ALE data; both together will return both.}

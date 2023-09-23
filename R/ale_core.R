@@ -65,7 +65,7 @@
 #' If not provided, `ale` will try to detect it automatically. For non-standard
 #' models, `y_col` should be provided.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' Any invalid argument (including typographical errors) will be silently ignored.
+# Any invalid argument (including typographical errors) will be silently ignored.
 #' @param output character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
 #' an ALE plot; 'data' will return the source ALE data; both together will return both.
 #' @param pred_fun,predict_type function,character. `pred_fun` is a function that
@@ -242,6 +242,7 @@ ale <- function (
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 #'  `ixn` is TRUE, then both values must be provided.
 #' @param y_col See documentation for `ale`
+#' @param ... not used. See documentation for `ale`
 #' @param output See documentation for `ale`
 #' @param pred_fun,predict_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
@@ -309,6 +310,7 @@ ale_ixn <- function (
     test_data, model,
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
+    ...,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
@@ -361,7 +363,7 @@ ale_ixn <- function (
 # @param x_cols See documentation for `ale`
 # @param x1_cols,x2_cols See documentation for `ale_ixn`
 # @param y_col See documentation for `ale`
-# @param ... not used See documentation for `ale`
+# @param ... not used. See documentation for `ale`
 # @param full_y_range See documentation for `ale`
 # @param output See documentation for `ale`
 # @param pred_fun,predict_type See documentation for `ale`
@@ -414,6 +416,8 @@ ale_core <- function (
 )
 {
   # Validate arguments
+  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
   assert_that(test_data |> inherits('data.frame'))
 
   # If model validation is done more rigorously, also validate that y_col is not

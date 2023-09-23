@@ -40,7 +40,7 @@ dataset with each of the fundamental datatypes: logical, factor, ordered,
 integer, and double. For the factor, it adds the country of the car manufacturer.
 }
 \note{
-Henderson and Velleman (1981) comment in a footnote to Table 1: 'Hocking \link{original transcriber}'s
+Henderson and Velleman (1981) comment in a footnote to Table 1: 'Hocking (original transcriber)'s
 noncrucial coding of the Mazda's rotary engine as a straight six-cylinder engine and the Porsche's
 flat engine as a V engine, as well as the inclusion of the diesel Mercedes 240D, have been retained
 to enable direct comparisons to be made with previous analyses.'

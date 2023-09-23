@@ -10,6 +10,7 @@ ale_ixn(
   x1_cols = NULL,
   x2_cols = NULL,
   y_col = NULL,
+  ...,
   output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
@@ -40,6 +41,8 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 \code{ixn} is TRUE, then both values must be provided.}
 
 \item{y_col}{See documentation for \code{ale}}
+
+\item{...}{not used. See documentation for \code{ale}}
 
 \item{output}{See documentation for \code{ale}}
 

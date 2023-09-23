@@ -45,6 +45,9 @@ plot_ale <- function(
     seed = 0
     ) {
 
+  # Validate arguments
+  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
   # Hack to prevent devtools::check from thinking that NSE variables are global:
   # Make them null local variables within the function with the issues. So,
   # when NSE applies, the NSE variables will be prioritized over these null
@@ -94,7 +97,7 @@ plot_ale <- function(
     # Add guides to show 25th and 75th percentiles of y
     geom_hline(yintercept = y_summary[['25%']], linetype = "dashed") +
     geom_hline(yintercept = y_summary[['75%']], linetype = "dashed") +
-    # Add a band to show the average +/- the confidence limits
+    # Add a band to show the average ± the confidence limits
     geom_rect(
       xmin = -Inf,
       xmax = Inf,
@@ -108,6 +111,7 @@ plot_ale <- function(
         trans = ~ .,  # do not change the scale
         name = NULL,  # no axis title
         labels = c('25%',
+                   # Unicode ± must be replaced by \u00B1 for CRAN
                    paste0(relative_y, '\u00B1', format((plot_alpha / 2) * 100), '%'),
                    '75%'),
         breaks = c(y_summary[['25%']],
@@ -231,7 +235,7 @@ plot_ale <- function(
 # for plotting.
 # @param y_vals numeric. Vector of all values of y in the dataset used to create
 # `ale_data`.
-# @param ... arguments passed from `ale_ixn`
+# @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for `ale`
 # @param plot_alpha See documentation for `ale`
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
@@ -249,7 +253,7 @@ plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
     y_summary,  # as of 0.0.230825, this is not used at all
     y_vals,
-    # ...,
+    ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
     plot_alpha = 0.05,
@@ -259,6 +263,9 @@ plot_ale_ixn <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
+
+  # Validate arguments
+  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
   # Make them null local variables within the function with the issues. So,

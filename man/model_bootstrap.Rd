@@ -24,8 +24,7 @@ model_bootstrap(
 \item{model_call_string}{character. Character string of the full call for the model,
 except that the data option must be left out. The data option will be replaced with the \code{data} argument.}
 
-\item{...}{not used. Inserted to require explicit naming of subsequent arguments.
-Any invalid argument (including typographical errors) will be silently ignored.}
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{boot_it}{integer from 0 to Inf. Number of bootstrap iterations.
 If boot_it = 0, then the model is run as normal once on the full \code{data} with

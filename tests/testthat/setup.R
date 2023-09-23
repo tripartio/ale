@@ -1,6 +1,7 @@
 # Prepare common environment for testing
 
 library(dplyr)
+library(purrr)
 
 # Train a GAM on var_cars dataset -------------------
 
@@ -73,6 +74,9 @@ gbm.data <<- gbm(higher_income ~ ., data= adult_data[,-c(3,4)],
                 n.trees=100,  # smaller model than ALEPlot example for rapid execution
                 shrinkage=0.02, interaction.depth=3)
 
-gbm_pred_fun <<- function(X.model, newdata) {
+gbm_pred_fun_ALEPlot <<- function(X.model, newdata) {
   as.numeric(predict(X.model, newdata, n.trees = 100, type="link"))
+}
+gbm_pred_fun_ale <<- function(object, newdata) {
+  as.numeric(predict(object, newdata, n.trees = 100, type="link"))
 }

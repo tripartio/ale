@@ -27,6 +27,7 @@ Imports:
     assertthat,
     broom,
     dplyr,
+    ellipsis,
     grDevices,
     purrr,
     stats,

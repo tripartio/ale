@@ -29,7 +29,7 @@
 #' @param model_call_string character. Character string of the full call for the model,
 #'  except that the data option must be left out. The data option will be replaced with the `data` argument.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' Any invalid argument (including typographical errors) will be silently ignored.
+# Any invalid argument (including typographical errors) will be silently ignored.
 # Future arguments:
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * predict_call_string: allows the prediction function to be called; this would
@@ -133,6 +133,8 @@ model_bootstrap <- function (
     glance_options = list()
 ) {
   # Validate arguments
+  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
   assert_that(data |> inherits('data.frame'))
   assert_that(
     is.string(model_call_string) &&

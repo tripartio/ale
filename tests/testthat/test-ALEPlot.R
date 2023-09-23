@@ -61,7 +61,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
   gbm_ALEPlot <-
     map(c(1, 3, 11), \(.col_idx) {
       ALEPlot(
-        adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun,
+        adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
         J = .col_idx,
         K = 100, NA.plot = TRUE
       ) |>
@@ -81,7 +81,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    pred.fun = gbm_pred_fun, x_intervals = 100
+    pred_fun = gbm_pred_fun_ale, x_intervals = 100
   ) |>
     suppressMessages()
 
@@ -103,7 +103,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
 
 
 test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
-  # Swallow plots into a temp PDF file so they don't print
+  # Dump plots into a temp PDF file so they don't print
   pdf(file = tempfile())
 
   # Create list of ALEPlot data that can be readily compared for accuracy
@@ -164,6 +164,76 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   # Compare results of ALEPlot with ale
   expect_true(
     all.equal(nnet_ALEPlot_ixn, nnet_ale_ixn_to_ALEPlot)
+  )
+})
+
+
+test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
+  # Dump plots into a temp PDF file so they don't print
+  pdf(file = tempfile())
+
+  # Create list of ALEPlot data that can be readily compared for accuracy
+  gbm_ALEPlot_ixn <-
+    map(c(1, 3, 11), \(.col1_idx) {
+      map(c(1, 3, 11), \(.col2_idx) {
+        if (.col1_idx < .col2_idx) {
+          ap_data <- ALEPlot(
+            adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
+            J = c(.col1_idx, .col2_idx), K = 100, NA.plot = TRUE
+          )
+          .x1 <- ap_data$x.values[[1]]
+          .x2 <- ap_data$x.values[[2]]
+          .y  <- ap_data$f.values
+
+          ixn_tbl <-
+            expand.grid(
+              row = 1:length(.x1),
+              col = 1:length(.x2)
+            ) |>
+            as_tibble() |>
+            mutate(
+              ale_x1 = as.numeric(.x1[row]),
+              ale_x2 = as.numeric(.x2[col]),
+              ale_y  = as.numeric(.y[cbind(row, col)])
+            ) |>
+            select(-row, -col) |>
+            arrange(ale_x1, ale_x2, ale_y)
+
+          # Remove extraneous attributes, otherwise comparison will not match
+          attributes(ixn_tbl)$out.attrs <- NULL
+
+          ixn_tbl
+        }
+      }) |>
+        set_names(names(adult_data[,-c(3,4,15)])[c(1, 3, 11)]) |>
+        compact()
+    }) |>
+    set_names(names(adult_data[,-c(3,4,15)])[c(1, 3, 11)]) |>
+    compact()
+
+  # Return to regular printing of plots
+  dev.off() |> invisible()
+
+  gbm_ale_ixn <- ale_ixn(
+    adult_data, gbm.data,  # basic arguments
+    c('age', 'education_num', 'hours_per_week'),
+    c('age', 'education_num', 'hours_per_week'),
+    relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
+    pred_fun = gbm_pred_fun_ale, x_intervals = 100  # specific options requested
+  )
+
+  # Convert ale results to version that can be readily compared with ALEPlot
+  gbm_ale_ixn_to_ALEPlot <-
+    gbm_ale_ixn$data |>
+    map(\(.x1) {
+      map(.x1, \(.x2) {
+        .x2 |> arrange(ale_x1, ale_x2, ale_y)
+      })
+    })
+
+  # Compare results of ALEPlot with ale
+  expect_true(
+    all.equal(gbm_ALEPlot_ixn, gbm_ale_ixn_to_ALEPlot)
   )
 })
 
