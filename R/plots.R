@@ -396,9 +396,11 @@ plot_ale_ixn <- function(
     ) +
     labs(x = x1_col, y = x2_col,
          fill = paste0(
-           # y_col, ' interaction\nquasi-percentiles\nrelative to the mean')
            y_col, ' interaction')
-    )
+    ) +
+    theme(legend.title = element_text(size = 10)) +
+    theme(legend.text = element_text(size = 8)) +
+    theme(legend.key.size = unit(4, "mm"))
 
   # Add rug plot if data is provided
   if (!is.null(data) && rug_sample_size > 0) {
