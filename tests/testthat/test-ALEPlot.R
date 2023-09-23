@@ -9,29 +9,29 @@
 # To minimize test time, the reference output should be serialized with expect_snapshot_value.
 
 
-test_that('ale function matches output of ALEPlot', {
-  # Swallow plots into a temp PDF file so they don't print
+test_that('ale function matches output of ALEPlot with nnet', {
+  # Dump plots into a temp PDF file so they don't print
   pdf(file = tempfile())
 
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
     map(1:4, \(.col_idx) {
-      ALEPlot(dfx[,2:5], nnet.dfx, pred.fun = nnet_pred_fun, J = .col_idx, K = 500) |>
+      ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun, J = .col_idx, K = 100) |>
         as_tibble() |>
         select(-K)
     }) |>
-    set_names(names(dfx[,2:5]))
+    set_names(names(DAT[,2:5]))
 
   # Return to regular printing of plots
   dev.off() |> invisible()
 
   # Create ale results with data only
   nnet_ale <- ale(
-    dfx, nnet.dfx,  # basic arguments
+    DAT, nnet.DAT,  # basic arguments
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    predict_type = "raw", x_intervals = 500
+    predict_type = "raw", x_intervals = 100
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
@@ -51,7 +51,58 @@ test_that('ale function matches output of ALEPlot', {
 })
 
 
-test_that('ale_ixn function matches output of ALEPlot interactions', {
+test_that('ale function matches output of ALEPlot with gbm', {
+  # Dump plots into a temp PDF file so they don't print
+  pdf(file = tempfile())
+
+  # Create list of ALEPlot data that can be readily compared for accuracy
+  # For this test, get only three variables: c('age', 'education_num', 'hours_per_week')
+  # These are column indexes c(1, 3, 11)
+  gbm_ALEPlot <-
+    map(c(1, 3, 11), \(.col_idx) {
+      ALEPlot(
+        adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun,
+        J = .col_idx,
+        K = 100, NA.plot = TRUE
+      ) |>
+        as_tibble() |>
+        select(-K)
+    }) |>
+    set_names(names(adult_data[,-c(3,4,15)])[c(1, 3, 11)])
+
+  # Return to regular printing of plots
+  dev.off() |> invisible()
+
+  # Create ale results with data only
+  gbm_ale <- ale(
+    adult_data, gbm.data,  # basic arguments
+    # adult_data[,-c(3,4)], gbm.data,  # basic arguments
+    c('age', 'education_num', 'hours_per_week'),
+    # make ale equivalent to ALEPlot
+    relative_y = 'zero', output = 'data', boot_it = 0,
+    # specific options requested by ALEPlot example
+    pred.fun = gbm_pred_fun, x_intervals = 100
+  ) |>
+    suppressMessages()
+
+  # Convert ale results to version that can be readily compared with ALEPlot
+  gbm_ale_to_ALEPlot <-
+    gbm_ale$data |>
+    map(\(.x1) {
+      tibble(
+        x.values = .x1$ale_x,
+        f.values = .x1$ale_y,
+      )
+    })
+
+  # Compare results of ALEPlot with ale
+  expect_true(
+    all.equal(gbm_ALEPlot, gbm_ale_to_ALEPlot)
+  )
+})
+
+
+test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   # Swallow plots into a temp PDF file so they don't print
   pdf(file = tempfile())
 
@@ -60,7 +111,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions', {
     map(1:4, \(.col1_idx) {
       map(1:4, \(.col2_idx) {
         if (.col1_idx < .col2_idx) {
-          ap_data <- ALEPlot(dfx[,2:5], nnet.dfx, pred.fun = nnet_pred_fun,
+          ap_data <- ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun,
                              J = c(.col1_idx, .col2_idx), K = 100)
           .x1 <- ap_data$x.values[[1]]
           .x2 <- ap_data$x.values[[2]]
@@ -86,17 +137,17 @@ test_that('ale_ixn function matches output of ALEPlot interactions', {
           ixn_tbl
         }
       }) |>
-        set_names(names(dfx[,2:5])) |>
+        set_names(names(DAT[,2:5])) |>
         compact()
     }) |>
-    set_names(names(dfx[,2:5])) |>
+    set_names(names(DAT[,2:5])) |>
     compact()
 
   # Return to regular printing of plots
   dev.off() |> invisible()
 
   nnet_ale_ixn <- ale_ixn(
-    dfx, nnet.dfx,  # basic arguments
+    DAT, nnet.DAT,  # basic arguments
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
     predict_type = "raw", x_intervals = 100  # specific options requested
   )

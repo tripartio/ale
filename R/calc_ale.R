@@ -119,6 +119,25 @@ calc_ale <- function(
 
     xint <- length_ale_x - 1  # reset xint to number of unique intervals
 
+    # Tabulate number of cases per ale_x_int
+    n_x_int <-
+      X[[x_col]] |>
+      cut(breaks = ale_x, include.lowest = TRUE) |>
+      as.numeric() |>
+      table()
+
+    n_x_int_names <- names(n_x_int)
+
+    n_x_int <-
+      1:(length_ale_x - 1) |>
+      map_dbl(\(.i) {
+        if (.i %in% n_x_int_names) {
+          n_x_int[[as.character(.i)]]
+        } else {
+          0
+        }
+      })
+
     # Bootstrap the predictions
     #
     # Calculate the ALE Y values for each bootstrap sample.
@@ -169,26 +188,7 @@ calc_ale <- function(
 
     })
 
-
-    # Tabulate number of cases per ale_x_int
-    n_x_int <-
-      X[[x_col]] |>
-      cut(breaks = ale_x, include.lowest = TRUE) |>
-      as.numeric() |>
-      table()
-
-    n_x_int_names <- names(n_x_int)
-
-    n_x_int <-
-      1:(length_ale_x - 1) |>
-      map_dbl(\(.i) {
-        if (.i %in% n_x_int_names) {
-          n_x_int[[as.character(.i)]]
-        } else {
-          0
-        }
-      })
-
+    ##TODO: try moving this into bootstrap iterations for fast bootstrap
     # Calculate centring constant so that weighted mean(ale_y) is 0.
     # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
     # boot_ale$ale_y[[1]]
