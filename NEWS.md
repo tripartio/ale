@@ -2,6 +2,8 @@
 
 ## Next version
 
+**CRAN submission date**
+
 ### Breaking changes
 -   We changed the output data structure of the ALE data and plots. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
 
@@ -10,12 +12,13 @@
 -   We added new experimental ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.) A dedicated vignette will explain how these experimental statistics may be used.
 -   We added three simple functions to generate common model evaluation measures: `rmse` for the root mean squared error, `mae` for the mean absolute error, and `mad` for the mean absolute deviation.
 -   We added rug plots to numeric values and percentage frequencies to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
+-   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/intro.Rmd "Comparison with ALEPlot").
 
 ### Under the hood
 
 -   Added data validation to exported functions. Under the hood, each user-facing function carefully validates that the user has entered valid data using the [`assertthat`](https://github.com/hadley/assertthat "assertthat package") package; if not, the function fails quickly with an appropriate error message.
 -   Created unit tests for exported functions. Under the hood, the [testthat](https://testthat.r-lib.org/ "testthat package") package is now used for testing the outputs of each user-facing function. This should help the code base to be more robust going forward with future developments.
--   In particular, we added tests that compare results with the original reference ALEPlot package. These tests should ensure that any future code that breaks the accuracy of ALE calculations should be caught quickly.
+-   In particular, we added tests that compare results with the original reference `ALEPlot` package. These tests should ensure that any future code that breaks the accuracy of ALE calculations should be caught quickly.
 
 
 ## ale 0.1.0

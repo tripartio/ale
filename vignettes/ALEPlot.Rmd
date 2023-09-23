@@ -1,8 +1,8 @@
 ---
-title: "Comparison between ALEPlot and ale packages"
+title: "Comparison between `ALEPlot` and `ale` packages"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Comparison between ALEPlot and ale packages}
+  %\VignetteIndexEntry{Comparison between `ALEPlot` and `ale` packages}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -98,27 +98,27 @@ NA.plot = TRUE)
 
 If the output of the `ALEPlot` has been saved to variables, then its contents can be plotted with finer user control using the generic R `plot` method:
 
-```{r ALEPlot nnet organized plots, fig.asp=4}
-# ## Manually plot the ALE main effects on the same scale for easier comparison
-# ## of the relative importance of the four predictor variables
-# par(mfrow = c(3,2))
-# plot(ALE.1$x.values, ALE.1$f.values, type="l", xlab="x1",
-# ylab="ALE_main_x1", xlim = c(0,1), ylim = c(-2,2), main = "(a)")
-# plot(ALE.2$x.values, ALE.2$f.values, type="l", xlab="x2",
-# ylab="ALE_main_x2", xlim = c(0,1), ylim = c(-2,2), main = "(b)")
-# plot(ALE.3$x.values, ALE.3$f.values, type="l", xlab="x3",
-# ylab="ALE_main_x3", xlim = c(0,1), ylim = c(-2,2), main = "(c)")
-# plot(ALE.4$x.values, ALE.4$f.values, type="l", xlab="x4",
-# ylab="ALE_main_x4", xlim = c(0,1), ylim = c(-2,2), main = "(d)")
-# ## Manually plot the ALE second-order effects of {x1, x2} and {x1, x4}
-# image(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, xlab = "x1",
-# ylab = "x2", main = "(e)")
-# contour(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, add=TRUE,
-# drawlabels=TRUE)
-# image(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, xlab = "x1",
-# ylab = "x4", main = "(f)")
-# contour(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, add=TRUE,
-# drawlabels=TRUE)
+```{r ALEPlot nnet organized plots, fig.width=7, fig.height=10}
+## Manually plot the ALE main effects on the same scale for easier comparison
+## of the relative importance of the four predictor variables
+par(mfrow = c(3,2))
+plot(ALE.1$x.values, ALE.1$f.values, type="l", xlab="x1",
+ylab="ALE_main_x1", xlim = c(0,1), ylim = c(-2,2), main = "(a)")
+plot(ALE.2$x.values, ALE.2$f.values, type="l", xlab="x2",
+ylab="ALE_main_x2", xlim = c(0,1), ylim = c(-2,2), main = "(b)")
+plot(ALE.3$x.values, ALE.3$f.values, type="l", xlab="x3",
+ylab="ALE_main_x3", xlim = c(0,1), ylim = c(-2,2), main = "(c)")
+plot(ALE.4$x.values, ALE.4$f.values, type="l", xlab="x4",
+ylab="ALE_main_x4", xlim = c(0,1), ylim = c(-2,2), main = "(d)")
+## Manually plot the ALE second-order effects of {x1, x2} and {x1, x4}
+image(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, xlab = "x1",
+ylab = "x2", main = "(e)")
+contour(ALE.12$x.values[[1]], ALE.12$x.values[[2]], ALE.12$f.values, add=TRUE,
+drawlabels=TRUE)
+image(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, xlab = "x1",
+ylab = "x4", main = "(f)")
+contour(ALE.14$x.values[[1]], ALE.14$x.values[[2]], ALE.14$f.values, add=TRUE,
+drawlabels=TRUE)
 
 ```
 
@@ -223,23 +223,23 @@ As before, we create a custom prediction function and then call the `ALEPlot` fu
 
 Creation of the ALE plots here is rather slow because the `gbm` predict function is slow. In this example, only `age`, `education_num` (number of years of education), and `hours_per_week` are plotted, along with the interaction between `age` and `hours_per_week`.
 
-```{r ALEPlot gbm, fig.asp=2}
-# ## Define the predictive function; note the additional arguments for the
-# ## predict function in gbm
-# yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
-# n.trees = 6000, type="link"))
-# 
-# ## Calculate and plot the ALE main and interaction effects for x_1, x_3,
-# ## x_11, and {x_1, x_11}
-# par(mfrow = c(2,2), mar = c(4,4,2,2)+ 0.1)
-# ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=500,
-# NA.plot = TRUE)
-# ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=500,
-# NA.plot = TRUE)
-# ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=500,
-# NA.plot = TRUE)
-# ALE.1and11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=c(1,11),
-# K=50, NA.plot = FALSE)
+```{r ALEPlot gbm, fig.width=7, fig.height=5}
+## Define the predictive function; note the additional arguments for the
+## predict function in gbm
+yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata,
+n.trees = 6000, type="link"))
+
+## Calculate and plot the ALE main and interaction effects for x_1, x_3,
+## x_11, and {x_1, x_11}
+par(mfrow = c(2,2), mar = c(4,4,2,2)+ 0.1)
+ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=500,
+NA.plot = TRUE)
+ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=500,
+NA.plot = TRUE)
+ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=500,
+NA.plot = TRUE)
+ALE.1and11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=c(1,11),
+K=50, NA.plot = FALSE)
 ```
 
 ### `ale` package equivalent

@@ -5,10 +5,7 @@
 ^CRAN-SUBMISSION$
 ^LICENSE\.md$
 ^catboost_info$
-^data/adult_data\.csv$
+^data-raw$
 ^download$
 ^inst/WORDLIST$
 ^projects/.*
-^vignettes/ALEPlot\.Rmd$
-^vignettes/.*\.rds$
-^data-raw$
