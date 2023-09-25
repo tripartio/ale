@@ -2,10 +2,7 @@
 
 export(ale)
 export(ale_ixn)
-export(mad)
-export(mae)
 export(model_bootstrap)
-export(rmse)
 import(assertthat)
 import(dplyr)
 import(ggplot2)

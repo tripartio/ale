@@ -3,7 +3,7 @@
 \docType{data}
 \name{var_cars}
 \alias{var_cars}
-\title{datasets}
+\title{Multi-variable transformation of the mtcars dataset.}
 \format{
 A tibble with 32 observations on 12 variables.
 
@@ -26,18 +26,15 @@ A tibble with 32 observations on 12 variables.
 var_cars
 }
 \description{
-Here is the description of the \code{mtcars} dataset:
-The data was extracted from the 1974 \emph{Motor Trend} US magazine, and comprises
-fuel consumption and 10 aspects of automobile design and performance for 32
-automobiles (1973--74 models).
-}
-\details{
-Datasets included with the ale package
-Multi-variable transformation of the mtcars dataset.
-
 This is a transformation of the \code{mtcars} dataset from R to produce a small
 dataset with each of the fundamental datatypes: logical, factor, ordered,
 integer, and double. For the factor, it adds the country of the car manufacturer.
+
+Here is the original description of the \code{mtcars} dataset:
+
+The data was extracted from the 1974 \emph{Motor Trend} US magazine, and comprises
+fuel consumption and 10 aspects of automobile design and performance for 32
+automobiles (1973--74 models).
 }
 \note{
 Henderson and Velleman (1981) comment in a footnote to Table 1: 'Hocking (original transcriber)'s

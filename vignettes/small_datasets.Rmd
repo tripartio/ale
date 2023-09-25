@@ -26,10 +26,6 @@ An obvious question is, "How small is 'small'?" This is a very complex question 
 
 Most analyses use the `attitude` dataset, built-in with R: "From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments." Since we're talking about "small" datasets, we figure that we might as well demonstrate principles with extremely small examples.
 
-```{r attitude_help}
-help(attitude)
-```
-
 ### Description
 
 From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments. The numbers give the percent proportion of favourable responses to seven questions in each department.
@@ -76,7 +72,7 @@ summary(lm_attitude)
 
 At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
-```{r lm_simple}
+```{r lm_simple, fig.width=7, fig.height=7}
 ale_lm_attitude_simple <- ale(attitude, lm_attitude)
 
 # Print all plots
@@ -89,7 +85,7 @@ What is unique about ALE compared to other approaches is that it visualizes the 
 
 We can use `ale_ixn` to visualize the possible existence of any interactions:
 
-```{r lm_ixn, fig.asp=1.5}
+```{r lm_ixn, fig.width=7, fig.height=7}
 ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude)
 
 # Print plots
@@ -120,12 +116,7 @@ For example, the call for the OLS regression earlier was `lm(rating ~ ., data = 
 mb_lm <- model_bootstrap(attitude, 'lm(rating ~ .)')
 ```
 
-By default, `model_bootstrap` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance`) and bootstrapped model coefficients (provided through `broom::tidy`). Any of the default options for `broom::glance`, `broom::tidy`, and `ale::ale` can be customized, along with defaults for `model_bootstrap`, such as the number of bootstrap iterations. You can consult the help file for these details.
-
-```{r full_help}
-# help(ale::model_bootstrap)
-help(model_bootstrap)
-```
+By default, `model_bootstrap` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance`) and bootstrapped model coefficients (provided through `broom::tidy`). Any of the default options for `broom::glance`, `broom::tidy`, and `ale::ale` can be customized, along with defaults for `model_bootstrap`, such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
 
 `model_bootstrap` returns a list with the following elements (depending on values requested in the `output` argument: \* model_stats: bootstrapped results from `broom::glance` \* model_coefs: bootstrapped results from `broom::tidy` \* ale_data: bootstrapped ALE data and plots \* boot_data: full bootstrap data (not returned by default)
 
@@ -143,7 +134,7 @@ mb_lm$model_coefs
 
 Here we can visualize the results of the ALE plots.
 
-```{r lm_full_ale, fig.asp=1.1}
+```{r lm_full_ale, fig.width=7, fig.height=7}
 gridExtra::grid.arrange(grobs = mb_lm$ale$plots, ncol = 2)
 ```
 
@@ -173,7 +164,7 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
-```{r gam_simple}
+```{r gam_simple, fig.width=7, fig.height=7}
 ale_gam_attitude_simple <- ale(attitude, gam_attitude, boot_it = 0)
 
 gridExtra::grid.arrange(grobs = ale_gam_attitude_simple$plots, ncol = 2)
@@ -194,7 +185,7 @@ mb_gam$model_stats
 mb_gam$model_coefs
 ```
 
-```{r gam_full_ale, fig.asp=1.1}
+```{r gam_full_ale, fig.width=7, fig.height=7}
 gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 ```
 

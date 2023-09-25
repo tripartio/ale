@@ -12,7 +12,6 @@ This version introduces various ALE-based statistics that let ALE be used for st
 ### Other user-visible changes
 
 -   We added new experimental ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.) 
--   We added three simple functions to generate common model evaluation measures: `rmse` for the root mean squared error, `mae` for the mean absolute error, and `mad` for the mean absolute deviation.
 -   We added rug plots to numeric values and percentage frequencies to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
 -   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/intro.Rmd "Comparison with ALEPlot").
 

@@ -181,7 +181,15 @@ nn_ale_ixn$plots |>
   })
 ```
 
-These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
+These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction; blue indicates a positive interaction effect; red indicates a negative effect. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
+
+The range of outcome (y) values is divided into quantiles, deciles by default. However, the middle quantiles are modified. Rather than showing the middle 10% or 20% of values, it is much narrow: it shows the middle 5%. (This value is based on the notion of alpha of 0.05 for confidence intervals; it can be customized with the `plot_alpha` argument.) 
+
+The legend shows the midpoint y value of each quantile, which is usually the mean of the boundaries of the quantile. The exception is the special middle quantile, whose displayed midpoint value is the median of the entire dataset.
+
+The interpretation of these interaction plots is that in any given region, the interaction between x1 and x2 increases (blue) or decreases (red) y by the amount indicated over and above the separate individual direct effects of x1 and x2 shown in the one-way ALE plots above. It is **not** an indication of the total effect of both variables together but rather of the additional effect of their interaction- beyond their individual effects. Thus, only the x1-x2 interaction shows any effect. For the interactions with x3, even though x3 indeed has a strong effect on y as we see in the one-way ALE plot above, it has no additional effect in interaction with the other variables, and so its interaction plots are entirely grey.
+
+
 
 ## Real data with binary outcomes (ALEPlot Example 3)
 
@@ -246,6 +254,8 @@ K=50, NA.plot = FALSE)
 
 Here is the analogous code using the `ale` package. In this case, we also need to define a custom predict function because of the particular `n.trees = 6000` argument. To speed things up, we provide a pretrained `ale` object. This is possible because `ale` returns objects with data and plots bundled together with no side effects (like automatic printing of created plots). (It is probably possible to similarly cache `ALEPlot` ALE objects, but it is not quite as straightforward.)
 
+#### Log odds
+
 We display all the plots because it is easy to do so with the `ale` package but we focus on `age`, `education_num`, and `hours_per_week` for comparison with ALEPlot. If the shapes of these plots look different, it is because `ale` tries as much as possible to display plots on the same y-axis coordinate scale for easy comparison across plots.
 
 ```{r ale one-way link, fig.width=7, fig.height=20}
@@ -298,6 +308,8 @@ gbm_ale_ixn_link$plots |>
     gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 interaction plots
   })
 ```
+
+#### Predicted probabilities
 
 Log odds are not necessarily the most interpretable way to express probabilities (though we will show shortly that they are sometimes uniquely valuable). So, we repeat the ALE creation using the "response" prediction type for probabilities and the default median centring of the plots.
 

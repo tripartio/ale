@@ -111,12 +111,15 @@ plot_ale <- function(
         trans = ~ .,  # do not change the scale
         name = NULL,  # no axis title
         labels = c('25%',
+                   relative_y,
                    # Unicode ± must be replaced by \u00B1 for CRAN
-                   paste0(relative_y, '\u00B1', format((plot_alpha / 2) * 100), '%'),
+                   # paste0(relative_y, '\u00B1', format((plot_alpha / 2) * 100), '%'),
                    '75%'),
-        breaks = c(y_summary[['25%']],
-                   y_summary[['50%']],
-                   y_summary[['75%']]),
+        breaks = c(
+          y_summary[['25%']],
+          y_summary[['50%']],
+          y_summary[['75%']]
+        ),
       )
     ) +
     theme(axis.text.y.right = element_text(size = 6)) +
@@ -319,16 +322,16 @@ plot_ale_ixn <- function(
   y_quantile_names <- names(y_quantiles) |>
     stringr::str_sub(end = -2)
 
-  # quantile_chars <-
-  #   y_quantiles |>
-  #   format(digits = 2)
   quantile_mids <-
     c(
       (y_quantiles[1:(n_y_quant - 1)] + y_quantiles[2:n_y_quant]) / 2,
       NA
-    ) |>
+    )
+  # set the middle quantile to the median
+  quantile_mids[n_y_quant / 2] <- y_summary[['50%']]
+  quantile_mids <- quantile_mids|>
     round(1) |>
-    format(digits = 2)
+    format(digits = 2, big.mark = ',')
 
   y_legend <-
     map_chr(1:n_y_quant, function(i) {

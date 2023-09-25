@@ -4,117 +4,6 @@
 #'
 
 
-#' Root mean squared error
-#'
-#' Returns the root mean squared error (RMSE) of predicted values relative to the
-#' actual values.
-#'
-#' @export
-#'
-#' @param actual numeric vector. Actual (true) values from a dataset.
-#' @param predicted numeric vector. Predictions corresponding to each respective
-#' element in `actual`.
-#' @param na.rm single logical. TRUE if missing values should be removed; FALSE
-#' if they should be retained. If TRUE, then if any element of either actual or
-#' predicted is missing, its paired element will be also removed.
-#'
-#' @returns RMSE of `actual` and `predicted`. If any value in `actual` or `predicted` is
-#' `NA` and `na.rm = FALSE`, then returns `NA`.
-#'
-rmse <- function(actual, predicted, na.rm = FALSE) {
-  calc_vector_error(actual, predicted, na.rm) |>
-    (`^`)(2) |>
-    mean() |>
-    sqrt()
-}
-
-
-#' Mean absolute error
-#'
-#' Returns the mean absolute error (MAE) of predicted values relative to the
-#' actual values.
-#'
-#' @export
-#'
-#' @param actual numeric vector. Actual (true) values from a dataset.
-#' @param predicted numeric vector. Predictions corresponding to each respective
-#' element in `actual`.
-#' @param na.rm single logical. TRUE if missing values should be removed; FALSE
-#' if they should be retained. If TRUE, then if any element of either actual or
-#' predicted is missing, its paired element will be also removed.
-#'
-#' @returns MAE of `actual` and `predicted`. If any value in `actual` or `predicted` is
-#' `NA` and `na.rm = FALSE`, then returns `NA`.
-#'
-mae <- function(actual, predicted, na.rm = FALSE) {
-  calc_vector_error(actual, predicted, na.rm) |>
-    abs() |>
-    mean()
-}
-
-
-#' Mean absolute deviation
-#'
-#' Returns the mean absolute deviation (MAD) of values relative to their mean.
-#'
-#' Note: This function is different from `mad` in the `stats` package, which returns the median
-#' absolute deviation relative to the median, a different statistic. If you want
-#' to access that function, you can explicitly refer to it as `stats::mad`.
-#'
-#' @export
-#'
-#' @param x numeric vector. Values for which to calculate the mean absolute deviation.
-#' @param na.rm single logical. TRUE if missing values should be removed; FALSE
-#' if they should be retained.
-#'
-#' @returns MAD of the `x` values. If any value of `x` is `NA` and `na.rm = FALSE`,
-#' then returns `NA`.
-#'
-mad <- function(x, na.rm = FALSE) {
-  mae(
-    actual = rep(mean(x, na.rm = na.rm), length(x)),
-    predicted = x,
-    na.rm = na.rm
-  )
-}
-
-
-
-# Calculate the error (or deviation) between two numeric vectors
-#
-# Not exported. Returns the error (or deviation) between two numeric vectors. This is a utility
-# function for other functions that need to calculate such error or deviation
-# because this function validates the inputs and handles the `na.rm` instruction.
-#
-# @param actual numeric vector. Actual (true) values from a dataset.
-# @param predicted numeric vector. Predictions corresponding to each respective
-# element in `actual`.
-# @param na.rm single logical. TRUE if missing values should be removed; FALSE
-# if they should be retained. If TRUE, then if any element of either actual or
-# predicted is missing, its paired element will be also removed.
-#
-# @returns Numeric vector of the same length as `actual` and `predicted`. But if
-# `na.rm = TRUE`, the vector will be shortened to omit any values where either
-# actual or predicted is `NA`.
-#
-calc_vector_error <- function(actual, predicted, na.rm = FALSE) {
-  # Validate inputs
-  assert_that(is.numeric(actual))
-  assert_that(is.numeric(predicted))
-  assert_that(length(actual) == length(predicted))
-  assert_that(is.flag(na.rm))
-
-  error <- actual - predicted
-
-  if (na.rm) {
-    error <- stats::na.omit(error)
-  }
-
-  return(error)
-}
-
-
-
 # Calculate statistics from ALE y values.
 #
 # Not exported. The following statistics are calculated based on a vector of ALE y values:
@@ -154,7 +43,7 @@ ale_stats <- function(
     ale_n,
     ecdf_pos_y,
     ecdf_neg_y,
-    zeroed_ale = FALSE
+    zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
 
   if (!zeroed_ale) {
@@ -215,7 +104,7 @@ ale_stats <- function(
 }
 
 
-
+# Provide a vector of descriptive statistics
 var_summary <- function(var_vals, plot_alpha = 0.05)  {
   # Generate summary statistics for y for plotting
   s <- stats::quantile(

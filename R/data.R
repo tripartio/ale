@@ -1,17 +1,12 @@
-#' datasets
+#' @title Multi-variable transformation of the mtcars dataset.
 #'
-#' Datasets included with the ale package
-
-
-
-#' Multi-variable transformation of the mtcars dataset.
-#'
+#' @description
 #' This is a transformation of the `mtcars` dataset from R to produce a small
 #' dataset with each of the fundamental datatypes: logical, factor, ordered,
 #' integer, and double. For the factor, it adds the country of the car manufacturer.
 #'
-#' @description
-#' Here is the description of the `mtcars` dataset:
+#' Here is the original description of the `mtcars` dataset:
+#'
 #' The data was extracted from the 1974 *Motor Trend* US magazine, and comprises
 #' fuel consumption and 10 aspects of automobile design and performance for 32
 #' automobiles (1973--74 models).
@@ -57,7 +52,7 @@
 #'   \item{higher_income}{TRUE if income > $50,000}
 #'   \item{age}{continuous}
 #'   \item{workclass}{Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked}
-#'   \item{fnlwgt}{continuous} "A proxy for the demographic background of the people: 'People with similar demographic characteristics should have similar weights'" For more details, see https://www.openml.org/search?type=data&id=1590.
+#'   \item{fnlwgt}{continuous. "A proxy for the demographic background of the people: 'People with similar demographic characteristics should have similar weights'" For more details, see https://www.openml.org/search?type=data&id=1590.}
 #'   \item{education}{Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool}
 #'   \item{education_num}{continuous}
 #'   \item{marital_status}{Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse}
