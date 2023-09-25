@@ -666,13 +666,14 @@ ale_core <- function (
         ale_stats <- ale_stats(
           ale_data$ale_y,
           ale_data$ale_n,
-          # percentiles of the upper half of the y values (50.00001 to 100%)
+          # percentiles of the upper half of the y values (50 to 100%)
+          # Note: the median is included in both halves.
           ecdf_pos_y = stats::ecdf(
-            y_vals[y_vals > y_summary['50%']] -
+            y_vals[y_vals >= y_summary['50%']] -
               y_summary['50%']  # subtract the median to centre on zero
           ),
           # percentiles of the lower half of the y values (0 to 50%)
-          # note that the median itself is arbitrarily included in the lower half
+          # Note: the median is included in both halves.
           ecdf_neg_y = stats::ecdf(
             -1 * (y_vals[y_vals <= y_summary['50%']] -
               y_summary['50%'])  # subtract the median to centre on zero

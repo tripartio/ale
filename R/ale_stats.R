@@ -23,8 +23,8 @@
 # @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
 # the same length as `ale_y`.
 # @param ecdf_pos_y,ecdf_neg_y ecdf function. ECDF functions of the upper and lower
-# halves respectively of the Y values relative to the median. (The precise median is
-# arbitrarily placed in the lower half: neg is <= median; pos is > median).
+# halves respectively of the Y values relative to the median. (The median is
+# included in both the negative and the positive halves.)
 # @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
 # If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
 # but the function will run slightly slower because of this extra calculation.
@@ -72,7 +72,11 @@ ale_stats <- function(
 
   # Normalized scores
 
-  # Assign each ale_y value to its respective ale_y_half_pct (half percentile)
+  # Assign each ale_y value to its respective ale_y_half_pct (half percentile).
+  # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
+  # be assigned to one or the other. The choice is to assign it to the negative half
+  # based on the logic that the 50th percentile (that 0 represents) is more
+  # intuitively considered to be in the first half of 100 percentiles.
   ale_y_half_pct <- if_else(
     ale_y > 0,
     ecdf_pos_y(ale_y),
