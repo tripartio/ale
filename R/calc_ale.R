@@ -338,7 +338,12 @@ calc_ale <- function(
       ale_n <-
         X[[x_col]] |>
         table() |>
-        as.integer()
+        # as.integer()
+        # Sort the table in ale_x order
+        as.data.frame() |>
+        mutate(Var1 = factor(Var1, ordered = TRUE, levels = levels(ale_x))) |>
+        arrange(Var1) |>
+        pull(Freq)
       names(ale_n) <- levels(ale_x)
 
 
