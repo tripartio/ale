@@ -1,8 +1,5 @@
 # Prepare common environment for testing
 
-library(dplyr)
-library(purrr)
-
 # Train a GAM on var_cars dataset -------------------
 
 # Super-assignment <<- used: without it, these variables are not found in many
@@ -33,10 +30,9 @@ test_predict <<- function(object, newdata) {
 
 
 # Gold standard environment: test ALEPlot ---------------
-library(ALEPlot)
+
 
 ## nnet -----------------
-library(nnet)
 
 set.seed(0)
 n = 1000  # smaller dataset for more rapid execution
@@ -50,7 +46,7 @@ y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
 DAT <<- data.frame(y, x1, x2, x3, x4)
 
 set.seed(0)
-nnet.DAT <<- nnet(y~., data = DAT, linout = T, skip = F, size = 6,
+nnet.DAT <<- nnet::nnet(y~., data = DAT, linout = T, skip = F, size = 6,
                  decay = 0.1, maxit = 1000, trace = F)
 
 ## Define the predictive function
@@ -60,7 +56,6 @@ nnet_pred_fun <<- function(X.model, newdata) {
 
 
 ## gbm ----------------
-library(gbm)
 
 adult_data <<-
   census |>
@@ -69,14 +64,14 @@ adult_data <<-
   na.omit(data)
 
 set.seed(0)
-gbm.data <<- gbm(higher_income ~ ., data= adult_data[,-c(3,4)],
+gbm.data <<- gbm::gbm(higher_income ~ ., data= adult_data[,-c(3,4)],
                 distribution = "bernoulli",
                 n.trees=100,  # smaller model than ALEPlot example for rapid execution
                 shrinkage=0.02, interaction.depth=3)
 
 gbm_pred_fun_ALEPlot <<- function(X.model, newdata) {
-  as.numeric(predict(X.model, newdata, n.trees = 100, type="link"))
+  as.numeric(gbm::predict.gbm(X.model, newdata, n.trees = 100, type="link"))
 }
 gbm_pred_fun_ale <<- function(object, newdata) {
-  as.numeric(predict(object, newdata, n.trees = 100, type="link"))
+  as.numeric(gbm::predict.gbm(object, newdata, n.trees = 100, type="link"))
 }

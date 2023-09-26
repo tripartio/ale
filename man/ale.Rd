@@ -12,7 +12,7 @@ ale(
   x_cols = NULL,
   y_col = NULL,
   ...,
-  output = c("plots", "data"),
+  output = c("plots", "data", "stats"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
     newdata, type = predict_type)
@@ -51,8 +51,10 @@ models, \code{y_col} should be provided.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{output}{character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
-an ALE plot; 'data' will return the source ALE data; both together will return both.}
+\item{output}{character in c('plots', 'data', 'stats'). Vector of types of results to return.
+'plots' will return an ALE plot; 'data' will return the source ALE data;
+'stats' will return ALE statistics. Each option must be listed to return the
+specified component. By default, all are returned.}
 
 \item{pred_fun, predict_type}{function,character. \code{pred_fun} is a function that
 returns a vector of predicted values of type \code{predict_type} from \code{model} on \code{test_data}.
@@ -109,7 +111,7 @@ see the \code{model_bootstrap} function).}
 }
 \value{
 list of ALE data tibbles and plots. The list is named by the x variables.
-Within each list element, the data or plot is returned as requested in
+Within each list element, the data, plots, and stats are returned as requested in
 the \code{output} argument.
 }
 \description{

@@ -1,7 +1,7 @@
-##' ale_stats.R
-#'
-#' Calculate statistical measures based on ALE
-#'
+## ale_stats.R
+#
+# Calculate statistical measures based on ALE
+#
 
 
 # Calculate statistics from ALE y values.
@@ -22,9 +22,10 @@
 # @param ale_y numeric. Vector of ALE y values.
 # @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
 # the same length as `ale_y`.
-# @param ecdf_pos_y,ecdf_neg_y ecdf function. ECDF functions of the upper and lower
-# halves respectively of the Y values relative to the median. (The median is
-# included in both the negative and the positive halves.)
+# @param y_vals numeric. Entire vector of y values. Needed for normalization.
+# # @param ecdf_pos_y,ecdf_neg_y ecdf function. ECDF functions of the upper and lower
+# # halves respectively of the Y values relative to the median. (The median is
+# # included in both the negative and the positive halves.)
 # @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
 # If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
 # but the function will run slightly slower because of this extra calculation.
@@ -41,8 +42,9 @@
 ale_stats <- function(
     ale_y,
     ale_n,
-    ecdf_pos_y,
-    ecdf_neg_y,
+    y_vals,
+    # ecdf_pos_y,
+    # ecdf_neg_y,
     zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
 
@@ -72,24 +74,35 @@ ale_stats <- function(
 
   # Normalized scores
 
-  # Assign each ale_y value to its respective ale_y_half_pct (half percentile).
+  centred_y <- y_vals - stats::median(y_vals)
+
+  # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
   # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
   # be assigned to one or the other. The choice is to assign it to the negative half
   # based on the logic that the 50th percentile (that 0 represents) is more
   # intuitively considered to be in the first half of 100 percentiles.
-  ale_y_half_pct <- if_else(
+  norm_ale_y <- if_else(
     ale_y > 0,
-    ecdf_pos_y(ale_y),
-    -ecdf_neg_y(-ale_y)
+    # percentiles of the upper half of the y values (50 to 100%)
+    # Note: the median is included in both halves.
+    stats::ecdf(centred_y[centred_y >= 0])(ale_y),
+    # percentiles of the lower half of the y values (0 to 50%)
+    # Note: the median is included in both halves.
+    -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
   )
+  # norm_ale_y <- if_else(
+  #   ale_y > 0,
+  #   ecdf_pos_y(ale_y),
+  #   -ecdf_neg_y(-ale_y)
+  # )
 
   # Scale is 0 to 1, representing equivalent average percentile effect
-  naled <- aled_score(ale_y_half_pct, ale_n)
+  naled <- aled_score(norm_ale_y, ale_n)
 
   # Scale is 0 to 1, representing lowest and highest percentile effects
   naler <- c(
-    min(ale_y_half_pct),
-    max(ale_y_half_pct)
+    min(norm_ale_y),
+    max(norm_ale_y)
   ) |>
     (`/`)(2) |>
     (`+`)(0.5)

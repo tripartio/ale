@@ -129,11 +129,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      8  23.3     23.3       23.3         23.3     23.3
-      2 UK          4  15.9     15.9       15.9         15.9     15.9
+      1 Sweden      1  23.3     23.3       23.3         23.3     23.3
+      2 UK          1  15.9     15.9       15.9         15.9     15.9
       3 Japan       6  22.9     22.9       22.9         22.9     22.9
-      4 Italy       1  23.8     23.8       23.8         23.8     23.8
-      5 Germany     1  21.2     21.2       21.2         21.2     21.2
+      4 Italy       4  23.8     23.8       23.8         23.8     23.8
+      5 Germany     8  21.2     21.2       21.2         21.2     21.2
       6 USA        12  14.4     14.4       14.4         14.4     14.4
       
       
@@ -180,7 +180,7 @@
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       4.1344995 -4.7676253  4.6301176  0.6231618  0.1176471  0.7941176 
+       3.7849186 -4.7676253  4.6301176  0.5753676  0.1176471  0.7941176 
       
       
       $plots
@@ -1464,11 +1464,11 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 10.4   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -1645,11 +1645,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      8  23.3     23.3       23.3         23.3     23.3
-      2 UK          4  15.9     15.9       15.9         15.9     15.9
+      1 Sweden      1  23.3     23.3       23.3         23.3     23.3
+      2 UK          1  15.9     15.9       15.9         15.9     15.9
       3 Japan       6  22.9     22.9       22.9         22.9     22.9
-      4 Italy       1  23.8     23.8       23.8         23.8     23.8
-      5 Germany     1  21.2     21.2       21.2         21.2     21.2
+      4 Italy       4  23.8     23.8       23.8         23.8     23.8
+      5 Germany     8  21.2     21.2       21.2         21.2     21.2
       6 USA        12  14.4     14.4       14.4         14.4     14.4
       
       
@@ -1696,7 +1696,7 @@
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       4.1344995 -4.7676253  4.6301176  0.6231618  0.1176471  0.7941176 
+       3.7849186 -4.7676253  4.6301176  0.5753676  0.1176471  0.7941176 
       
       
       $plots
@@ -2980,11 +2980,11 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 10.4   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -3054,24 +3054,19 @@
       
       $stats
       $stats$cyl
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       5.23084860 -6.12392031  6.94044302  0.63786765  0.05882353  0.85294118 
+      NULL
       
       $stats$disp
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       4.78573908 -8.52056187  6.13924878  0.62834225  0.05882353  0.82352941 
+      NULL
       
       $stats$am
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       1.7830438 -2.1945154  1.1816622  0.2812500  0.3235294  0.5882353 
+      NULL
       
       $stats$gear
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       2.3900368 -2.5485915  4.3565903  0.3455882  0.3235294  0.7941176 
+      NULL
       
       $stats$country
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       6.6075713  4.1074782 11.1819465  0.6470588  0.7941176  0.8823529 
+      NULL
       
       
       $plots
@@ -3488,11 +3483,11 @@
       
       $plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 -8.8   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 -8.8   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 -8.8    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 -8.8    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 -8.8   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 -8.8    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 -8.8    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 -8.8   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 -8.8   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 -8.8   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -3677,11 +3672,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n     ale_y  ale_y_lo ale_y_mean ale_y_median  ale_y_hi
         <ord>   <int>     <dbl>     <dbl>      <dbl>        <dbl>     <dbl>
-      1 Sweden      8  0.000904  0.000904   0.000904     0.000904  0.000904
-      2 UK          4  0.525     0.525      0.525        0.525     0.525   
+      1 Sweden      1  0.000904  0.000904   0.000904     0.000904  0.000904
+      2 UK          1  0.525     0.525      0.525        0.525     0.525   
       3 Japan       6 -0.0538   -0.0538    -0.0538      -0.0538   -0.0538  
-      4 Italy       1 -0.0591   -0.0591    -0.0591      -0.0591   -0.0591  
-      5 Germany     1 -0.137    -0.137     -0.137       -0.137    -0.137   
+      4 Italy       4 -0.0591   -0.0591    -0.0591      -0.0591   -0.0591  
+      5 Germany     8 -0.137    -0.137     -0.137       -0.137    -0.137   
       6 USA        12  0.373     0.373      0.373        0.373     0.373   
       
       
@@ -3728,7 +3723,7 @@
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2213449 -0.2414589  0.4206917  0.4101562  0.0000000  0.5625000 
+       0.2274028 -0.2414589  0.4206917  0.5898438  0.0000000  0.5625000 
       
       
       $plots
@@ -5151,11 +5146,11 @@
       
       $plots$country[[6]]
                  y label x PANEL group colour size angle hjust vjust alpha family
-      1 -0.1288448   25% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 -0.1288448   12% 2     1     2  black    3     0   0.5  -0.2   0.5       
+      1 -0.1288448    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
+      2 -0.1288448    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
       3 -0.1288448   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 -0.1288448    3% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 -0.1288448    3% 5     1     5  black    3     0   0.5  -0.2   0.5       
+      4 -0.1288448   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
+      5 -0.1288448   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
       6 -0.1288448   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
         fontface lineheight
       1        1        1.2
@@ -5343,11 +5338,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n     ale_y  ale_y_lo ale_y_mean ale_y_median  ale_y_hi
         <ord>   <int>     <dbl>     <dbl>      <dbl>        <dbl>     <dbl>
-      1 Sweden      8  0.000904  0.000904   0.000904     0.000904  0.000904
-      2 UK          4  0.525     0.525      0.525        0.525     0.525   
+      1 Sweden      1  0.000904  0.000904   0.000904     0.000904  0.000904
+      2 UK          1  0.525     0.525      0.525        0.525     0.525   
       3 Japan       6 -0.0538   -0.0538    -0.0538      -0.0538   -0.0538  
-      4 Italy       1 -0.0591   -0.0591    -0.0591      -0.0591   -0.0591  
-      5 Germany     1 -0.137    -0.137     -0.137       -0.137    -0.137   
+      4 Italy       4 -0.0591   -0.0591    -0.0591      -0.0591   -0.0591  
+      5 Germany     8 -0.137    -0.137     -0.137       -0.137    -0.137   
       6 USA        12  0.373     0.373      0.373        0.373     0.373   
       
       
@@ -5394,7 +5389,7 @@
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2213449 -0.2414589  0.4206917  0.4101562  0.0000000  0.5625000 
+       0.2274028 -0.2414589  0.4206917  0.5898438  0.0000000  0.5625000 
       
       
       $plots
@@ -6817,11 +6812,11 @@
       
       $plots$country[[6]]
                  y label x PANEL group colour size angle hjust vjust alpha family
-      1 -0.1288448   25% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 -0.1288448   12% 2     1     2  black    3     0   0.5  -0.2   0.5       
+      1 -0.1288448    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
+      2 -0.1288448    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
       3 -0.1288448   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 -0.1288448    3% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 -0.1288448    3% 5     1     5  black    3     0   0.5  -0.2   0.5       
+      4 -0.1288448   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
+      5 -0.1288448   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
       6 -0.1288448   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
         fontface lineheight
       1        1        1.2
@@ -6893,24 +6888,19 @@
       
       $stats
       $stats$cyl
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.1390624 -0.1845120  0.1628047  0.4257812  0.0625000  0.5625000 
+      NULL
       
       $stats$disp
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2613459 -0.3825477  0.4562247  0.4346591  0.0000000  0.5625000 
+      NULL
       
       $stats$am
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       0.14150341 -0.09377741  0.17415805  0.25195312  0.28125000  0.56250000 
+      NULL
       
       $stats$gear
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       0.12149737 -0.19868824  0.09493446  0.45312500  0.06250000  0.56250000 
+      NULL
       
       $stats$country
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.3902318 -0.7235863 -0.1035439  0.8750000  0.0000000  0.2500000 
+      NULL
       
       
       $plots
@@ -7327,11 +7317,11 @@
       
       $plots$country[[6]]
                 y label x PANEL group colour size angle hjust vjust alpha family
-      1 -0.233293   25% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 -0.233293   12% 2     1     2  black    3     0   0.5  -0.2   0.5       
+      1 -0.233293    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
+      2 -0.233293    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
       3 -0.233293   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 -0.233293    3% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 -0.233293    3% 5     1     5  black    3     0   0.5  -0.2   0.5       
+      4 -0.233293   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
+      5 -0.233293   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
       6 -0.233293   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
         fontface lineheight
       1        1        1.2

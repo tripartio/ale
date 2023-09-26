@@ -16,7 +16,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
     map(1:4, \(.col_idx) {
-      ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun, J = .col_idx, K = 100) |>
+      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun, J = .col_idx, K = 100) |>
         as_tibble() |>
         select(-K)
     }) |>
@@ -60,7 +60,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # These are column indexes c(1, 3, 11)
   gbm_ALEPlot <-
     map(c(1, 3, 11), \(.col_idx) {
-      ALEPlot(
+      ALEPlot::ALEPlot(
         adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
         J = .col_idx,
         K = 100, NA.plot = TRUE
@@ -111,7 +111,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
     map(1:4, \(.col1_idx) {
       map(1:4, \(.col2_idx) {
         if (.col1_idx < .col2_idx) {
-          ap_data <- ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun,
+          ap_data <- ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun,
                              J = c(.col1_idx, .col2_idx), K = 100)
           .x1 <- ap_data$x.values[[1]]
           .x2 <- ap_data$x.values[[2]]
@@ -177,7 +177,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     map(c(1, 3, 11), \(.col1_idx) {
       map(c(1, 3, 11), \(.col2_idx) {
         if (.col1_idx < .col2_idx) {
-          ap_data <- ALEPlot(
+          ap_data <- ALEPlot::ALEPlot(
             adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
             J = c(.col1_idx, .col2_idx), K = 100, NA.plot = TRUE
           )

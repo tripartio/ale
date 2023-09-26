@@ -66,8 +66,10 @@
 #' models, `y_col` should be provided.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 # Any invalid argument (including typographical errors) will be silently ignored.
-#' @param output character in c('plots', 'data'). Vector of types of results to return. 'plots' will return
-#' an ALE plot; 'data' will return the source ALE data; both together will return both.
+#' @param output character in c('plots', 'data', 'stats'). Vector of types of results to return.
+#' 'plots' will return an ALE plot; 'data' will return the source ALE data;
+#' 'stats' will return ALE statistics. Each option must be listed to return the
+#' specified component. By default, all are returned.
 #' @param pred_fun,predict_type function,character. `pred_fun` is a function that
 #' returns a vector of predicted values of type `predict_type` from `model` on `test_data`.
 #' See details.
@@ -112,7 +114,7 @@
 #' see the `model_bootstrap` function).
 #'
 #' @return list of ALE data tibbles and plots. The list is named by the x variables.
-#' Within each list element, the data or plot is returned as requested in
+#' Within each list element, the data, plots, and stats are returned as requested in
 #' the `output` argument.
 #'
 #' @examples
@@ -182,7 +184,7 @@ ale <- function (
     x_cols = NULL,
     y_col = NULL,
     ...,
-    output = c('plots', 'data'),
+    output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -263,6 +265,8 @@ ale <- function (
 #' * Within each x1 variable list, the second level is named by the x2 variables.
 #' * Within each x1-x2 list element, the data or plot is returned as requested in
 #' the `output` argument.
+# * Within each list element, the data, plots, and stats are returned as requested in
+# the `output` argument.
 #'
 #' @examples
 #'
@@ -392,7 +396,7 @@ ale_core <- function (
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
-    output = c('plots', 'data'),
+    output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata) {
       stats::predict(object = object, newdata = newdata, type = predict_type)
     },
@@ -459,10 +463,10 @@ ale_core <- function (
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
   if (!is.null(y_col)) assert_that(is.string(y_col))
-  # Assure that output is a subset of c('plots', 'data')
+  # Assure that output is a subset of c('plots', 'data', 'stats')
   assert_that(
-    length(setdiff(output, c('plots', 'data'))) == 0,
-    msg = 'The value in the output argument must be one or both of "plots" or "data".'
+    length(setdiff(output, c('plots', 'data', 'stats'))) == 0,
+    msg = 'The value in the output argument must be one or more of "plots", "data", or "stats".'
   )
   assert_that(is.string(predict_type))
   assert_that(is.natural(x_intervals) && (x_intervals > 1))
@@ -663,23 +667,27 @@ ale_core <- function (
             )
 
         # Calculate the ALE statistics
-        ale_stats <- ale_stats(
-          ale_data$ale_y,
-          ale_data$ale_n,
-          # percentiles of the upper half of the y values (50 to 100%)
-          # Note: the median is included in both halves.
-          ecdf_pos_y = stats::ecdf(
-            y_vals[y_vals >= y_summary['50%']] -
-              y_summary['50%']  # subtract the median to centre on zero
-          ),
-          # percentiles of the lower half of the y values (0 to 50%)
-          # Note: the median is included in both halves.
-          ecdf_neg_y = stats::ecdf(
-            -1 * (y_vals[y_vals <= y_summary['50%']] -
-              y_summary['50%'])  # subtract the median to centre on zero
-          ),
-          zeroed_ale = TRUE
-        )
+        stats <- NULL  # Start with a NULL object
+        if ('stats' %in% output) {  # user requested the statistics
+          stats <- ale_stats(
+            ale_data$ale_y,
+            ale_data$ale_n,
+            y_vals,
+            # # percentiles of the upper half of the y values (50 to 100%)
+            # # Note: the median is included in both halves.
+            # ecdf_pos_y = stats::ecdf(
+            #   y_vals[y_vals >= y_summary['50%']] -
+            #     y_summary['50%']  # subtract the median to centre on zero
+            # ),
+            # # percentiles of the lower half of the y values (0 to 50%)
+            # # Note: the median is included in both halves.
+            # ecdf_neg_y = stats::ecdf(
+            #   -1 * (y_vals[y_vals <= y_summary['50%']] -
+            #     y_summary['50%'])  # subtract the median to centre on zero
+            # ),
+            zeroed_ale = TRUE
+          )
+        }
 
         # Shift ale_y by appropriate relative_y
         ale_data <- ale_data |>
@@ -710,7 +718,7 @@ ale_core <- function (
 
         return(list(
           data = ale_data,
-          stats = ale_stats,
+          stats = stats,
           plots = plot
         ))
 

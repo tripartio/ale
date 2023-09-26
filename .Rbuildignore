@@ -8,4 +8,5 @@
 ^data-raw$
 ^download$
 ^inst/WORDLIST$
-^projects/.*
+^projects$
+^vignettes/.*_cache$

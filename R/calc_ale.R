@@ -48,6 +48,8 @@ calc_ale <- function(
   # local variables.
   `:=` <- NULL
   ale_y <- NULL
+  Var1 <- NULL
+  Freq <- NULL
 
 
   n_row <- nrow(X)

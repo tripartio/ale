@@ -4,20 +4,20 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 6
-        name        conf.low  mean median conf.high    sd
-        <chr>          <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df             27.3  27.3   27.3      27.3     NA
-      2 df.residual     4.71  4.71   4.71      4.71    NA
-      3 nobs           32    32     32        32       NA
+      # A tibble: 3 x 7
+        name        estimate conf.low  mean median conf.high    sd
+        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
+      1 df             27.3     27.3  27.3   27.3      27.3     NA
+      2 df.residual     4.71     4.71  4.71   4.71      4.71    NA
+      3 nobs           32       32    32     32        32       NA
       
       $model_coefs
-      # A tibble: 3 x 6
-        term    conf.low  mean median conf.high std.error
-        <chr>      <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.77  1.77   1.77      1.77        NA
-      2 s(hp)       3.14  3.14   3.14      3.14        NA
-      3 s(qsec)     8.38  8.38   8.38      8.38        NA
+      # A tibble: 3 x 7
+        term    estimate conf.low  mean median conf.high std.error
+        <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>     <dbl>
+      1 s(disp)     1.77     1.77  1.77   1.77      1.77        NA
+      2 s(hp)       3.14     3.14  3.14   3.14      3.14        NA
+      3 s(qsec)     8.38     8.38  8.38   8.38      8.38        NA
       
       $ale
       $ale$data
@@ -146,11 +146,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      8  23.3     23.3       23.3         23.3     23.3
-      2 UK          4  15.9     15.9       15.9         15.9     15.9
+      1 Sweden      1  23.3     23.3       23.3         23.3     23.3
+      2 UK          1  15.9     15.9       15.9         15.9     15.9
       3 Japan       6  22.9     22.9       22.9         22.9     22.9
-      4 Italy       1  23.8     23.8       23.8         23.8     23.8
-      5 Germany     1  21.2     21.2       21.2         21.2     21.2
+      4 Italy       4  23.8     23.8       23.8         23.8     23.8
+      5 Germany     8  21.2     21.2       21.2         21.2     21.2
       6 USA        12  14.4     14.4       14.4         14.4     14.4
       
       
@@ -182,10 +182,10 @@
       # A tibble: 6 x 6
         statistic estimate conf.low median   mean conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         4.13     4.13   4.13   4.13      4.13 
+      1 aled         3.78     3.78   3.78   3.78      3.78 
       2 aler_min    -4.77    -4.77  -4.77  -4.77     -4.77 
       3 aler_max     4.63     4.63   4.63   4.63      4.63 
-      4 naled        0.623    0.623  0.623  0.623     0.623
+      4 naled        0.575    0.575  0.575  0.575     0.575
       5 naler_min    0.118    0.118  0.118  0.118     0.118
       6 naler_max    0.794    0.794  0.794  0.794     0.794
       
@@ -293,7 +293,7 @@
        8 am          2.61     2.61   2.61  2.61      2.61
        9 gear        2.39     2.39   2.39  2.39      2.39
       10 carb        1.82     1.82   1.82  1.82      1.82
-      11 country     4.13     4.13   4.13  4.13      4.13
+      11 country     3.78     3.78   3.78  3.78      3.78
       
       $ale$stats$by_statistic$aler_max
       # A tibble: 11 x 6
@@ -341,7 +341,7 @@
        8 am         0.401    0.401  0.401 0.401     0.401
        9 gear       0.320    0.320  0.320 0.320     0.320
       10 carb       0.300    0.300  0.300 0.300     0.300
-      11 country    0.623    0.623  0.623 0.623     0.623
+      11 country    0.575    0.575  0.575 0.575     0.575
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
@@ -390,7 +390,7 @@
        8 am       2.61    -2.19     3.21 0.401    0.324      0.735
        9 gear     2.39    -2.55     7.49 0.320    0.324      0.853
       10 carb     1.82    -7.83     2.14 0.300    0.0588     0.647
-      11 country  4.13    -4.77     4.63 0.623    0.118      0.794
+      11 country  3.78    -4.77     4.63 0.575    0.118      0.794
       
       
       $ale$plots
@@ -1674,11 +1674,11 @@
       
       $ale$plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 10.4   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -1713,20 +1713,20 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 6
-        name        conf.low  mean median conf.high    sd
-        <chr>          <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              16.2  19.4   21.0      21.0  2.30
-      2 df.residual     11.0  12.6   11.0      15.8  2.30
-      3 nobs            32    32     32        32    0   
+      # A tibble: 3 x 7
+        name        estimate conf.low  mean median conf.high    sd
+        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
+      1 df              19.4     16.2  19.4   21.0      21.0  2.30
+      2 df.residual     12.6     11.0  12.6   11.0      15.8  2.30
+      3 nobs            32       32    32     32        32    0   
       
       $model_coefs
-      # A tibble: 3 x 6
-        term    conf.low  mean median conf.high std.error
-        <chr>      <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.00  1.04   1.01      1.11    0.0527
-      2 s(hp)       1.00  2.01   1.00      3.89    1.42  
-      3 s(qsec)     1.10  3.75   3.81      6.79    2.38  
+      # A tibble: 3 x 7
+        term    estimate conf.low  mean median conf.high std.error
+        <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>     <dbl>
+      1 s(disp)     1.04     1.00  1.04   1.01      1.11    0.0527
+      2 s(hp)       2.01     1.00  2.01   1.00      3.89    1.42  
+      3 s(qsec)     3.75     1.10  3.75   3.81      6.79    2.38  
       
       $ale
       $ale$data
@@ -1855,11 +1855,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      8  19.5    11.9        19.5         20.1     25.5
-      2 UK          4  16.7     4.14       16.7         19.0     25.2
+      1 Sweden      1  19.5    11.9        19.5         20.1     25.5
+      2 UK          1  16.7     4.14       16.7         19.0     25.2
       3 Japan       6  20.8    16.3        20.8         19.9     24.5
-      4 Italy       1  21.5    12.0        21.5         24.9     26.6
-      5 Germany     1  23.6    20.0        23.6         24.1     26.5
+      4 Italy       4  21.5    12.0        21.5         24.9     26.6
+      5 Germany     8  23.6    20.0        23.6         24.1     26.5
       6 USA        12  18.1    12.8        18.1         18.0     24.1
       
       
@@ -1891,10 +1891,10 @@
       # A tibble: 6 x 6
         statistic estimate  conf.low  median   mean conf.high
         <chr>        <dbl>     <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         4.14    1.15     4.42    4.14      6.17 
+      1 aled         4.28    1.05     5.14    4.28      5.89 
       2 aler_min    -7.42  -13.9     -6.75   -7.42     -1.76 
       3 aler_max     5.88    1.38     6.45    5.88      9.01 
-      4 naled        0.508   0.175    0.533   0.508     0.715
+      4 naled        0.519   0.170    0.521   0.519     0.762
       5 naler_min    0.103   0.00263  0.0312  0.103     0.375
       6 naler_max    0.787   0.581    0.806   0.787     0.913
       
@@ -2002,7 +2002,7 @@
        8 am          3.04    0.678  0.847  3.04      7.37
        9 gear        2.88    1.57   3.17   2.88      3.75
       10 carb        2.16    0.433  1.33   2.16      5.48
-      11 country     4.14    1.15   4.42   4.14      6.17
+      11 country     4.28    1.05   5.14   4.28      5.89
       
       $ale$stats$by_statistic$aler_max
       # A tibble: 11 x 6
@@ -2050,7 +2050,7 @@
        8 am         0.463   0.125   0.378 0.463     0.870
        9 gear       0.416   0.192   0.504 0.416     0.567
       10 carb       0.371   0.0661  0.401 0.371     0.731
-      11 country    0.508   0.175   0.533 0.508     0.715
+      11 country    0.519   0.170   0.521 0.519     0.762
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
@@ -2099,7 +2099,7 @@
        8 am       3.04    -2.42     4.04 0.463    0.264      0.726
        9 gear     2.88    -7.88     4.04 0.416    0.126      0.731
       10 carb     2.16    -4.54     3.25 0.371    0.183      0.724
-      11 country  4.14    -7.42     5.88 0.508    0.103      0.787
+      11 country  4.28    -7.42     5.88 0.519    0.103      0.787
       
       
       $ale$plots
@@ -3383,11 +3383,11 @@
       
       $ale$plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 10.4   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -3554,11 +3554,11 @@
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      8 -3.54   -13.3     -3.46          -3.54     4.49
-      2 UK          4  2.20    -4.23     1.72           2.20     8.26
+      1 Sweden      1 -3.54   -13.3     -3.46          -3.54     4.49
+      2 UK          1  2.20    -4.23     1.72           2.20     8.26
       3 Japan       6  1.08   -13.9      1.23           1.08    15.5 
-      4 Italy       1  1.20   -11.4     -0.0490         1.20     8.41
-      5 Germany     1  1.84    -4.55     2.40           1.84     7.62
+      4 Italy       4  1.20   -11.4     -0.0490         1.20     8.41
+      5 Germany     8  1.84    -4.55     2.40           1.84     7.62
       6 USA        12  1.26    -7.81     1.94           1.26    16.4 
       
       
@@ -3590,10 +3590,10 @@
       # A tibble: 6 x 6
         statistic estimate  conf.low median   mean conf.high
         <chr>        <dbl>     <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.58    2.26     3.58   6.61     14.7  
+      1 aled         3.24    2.67     3.24   6.47     13.1  
       2 aler_min    -4.98  -15.8     -4.98  -7.81     -3.70 
       3 aler_max     7.79    5.62     7.79  11.8      19.9  
-      4 naled        0.508   0.333    0.508  0.574     0.922
+      4 naled        0.419   0.370    0.419  0.589     0.902
       5 naler_min    0.125   0.00588  0.125  0.132     0.290
       6 naler_max    0.917   0.794    0.917  0.908     1    
       
@@ -3701,7 +3701,7 @@
        8 am          3.51    0.435   3.51  3.91      7.68
        9 gear        3.33    1.83    3.33  4.89     10.5 
       10 carb        1.12    0.932   1.12  4.17      9.92
-      11 country     3.58    2.26    3.58  6.61     14.7 
+      11 country     3.24    2.67    3.24  6.47     13.1 
       
       $ale$stats$by_statistic$aler_max
       # A tibble: 11 x 6
@@ -3749,7 +3749,7 @@
        8 am         0.428   0.0945  0.428 0.455     0.810
        9 gear       0.461   0.298   0.461 0.466     0.701
       10 carb       0.275   0.132   0.275 0.383     0.708
-      11 country    0.508   0.333   0.508 0.574     0.922
+      11 country    0.419   0.370   0.419 0.589     0.902
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
@@ -3798,7 +3798,7 @@
        8 am       3.51    -2.15     5.49 0.428    0.375      0.794
        9 gear     3.33    -3.95     6.16 0.461    0.219      0.794
       10 carb     1.12    -3.85     3.22 0.275    0.219      0.722
-      11 country  3.58    -4.98     7.79 0.508    0.125      0.917
+      11 country  3.24    -4.98     7.79 0.419    0.125      0.917
       
       
       $ale$plots
@@ -5082,11 +5082,11 @@
       
       $ale$plots$country[[6]]
            y label x PANEL group colour size angle hjust vjust alpha family fontface
-      1 10.4   25% 1     1     1  black    3     0   0.5  -0.2   0.5               1
-      2 10.4   12% 2     1     2  black    3     0   0.5  -0.2   0.5               1
+      1 10.4    3% 1     1     1  black    3     0   0.5  -0.2   0.5               1
+      2 10.4    3% 2     1     2  black    3     0   0.5  -0.2   0.5               1
       3 10.4   19% 3     1     3  black    3     0   0.5  -0.2   0.5               1
-      4 10.4    3% 4     1     4  black    3     0   0.5  -0.2   0.5               1
-      5 10.4    3% 5     1     5  black    3     0   0.5  -0.2   0.5               1
+      4 10.4   12% 4     1     4  black    3     0   0.5  -0.2   0.5               1
+      5 10.4   25% 5     1     5  black    3     0   0.5  -0.2   0.5               1
       6 10.4   38% 6     1     6  black    3     0   0.5  -0.2   0.5               1
         lineheight
       1        1.2
@@ -5121,31 +5121,31 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 6
-        name        conf.low  mean median conf.high    sd
-        <chr>          <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              20.0  20.7   21.0      21.0 0.577
-      2 df.residual     11.0  11.3   11.0      12.0 0.577
-      3 nobs            32    32     32        32   0    
+      # A tibble: 3 x 7
+        name        estimate conf.low  mean median conf.high    sd
+        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
+      1 df              21.0     20.0  20.7   21.0      21.0 0.577
+      2 df.residual     11.0     11.0  11.3   11.0      12.0 0.577
+      3 nobs            32       32    32     32        32   0    
       
       $model_coefs
-      # A tibble: 14 x 6
-         term          conf.low   mean  median conf.high std.error
-         <chr>            <dbl>  <dbl>   <dbl>     <dbl>     <dbl>
-       1 (Intercept)    -26.5    7.60  -4.65      53.5      41.8  
-       2 cyl             -3.27   0.493  1.94       2.85      3.34 
-       3 drat            -1.64   5.43   7.05      10.9       6.50 
-       4 wt              -4.93  -4.54  -4.83      -3.88      0.584
-       5 vsTRUE           3.85   7.16   6.85      10.8       3.50 
-       6 amTRUE           4.18  11.1    9.33      19.9       8.07 
-       7 gear.L         -13.5   -6.06  -3.81      -0.816     6.70 
-       8 gear.Q          -0.119  6.18   2.76      15.8       8.57 
-       9 carb            -3.31  -0.933  0.0318     0.505     2.10 
-      10 countryItaly    -1.90   3.84   4.16       9.27      5.65 
-      11 countryJapan    -7.19   3.14  -0.0730    16.6      12.3  
-      12 countryUK       -3.22  -0.524 -1.17       2.80      3.10 
-      13 countryUSA      -9.09  -7.47  -6.66      -6.63      1.43 
-      14 countrySweden   -4.15   0.828  0.828      5.81      7.12 
+      # A tibble: 14 x 7
+         term          estimate conf.low   mean  median conf.high std.error
+         <chr>            <dbl>    <dbl>  <dbl>   <dbl>     <dbl>     <dbl>
+       1 (Intercept)    -4.65    -26.5    7.60  -4.65      53.5      41.8  
+       2 cyl             1.94     -3.27   0.493  1.94       2.85      3.34 
+       3 drat            7.05     -1.64   5.43   7.05      10.9       6.50 
+       4 wt             -4.83     -4.93  -4.54  -4.83      -3.88      0.584
+       5 vsTRUE          6.85      3.85   7.16   6.85      10.8       3.50 
+       6 amTRUE          9.33      4.18  11.1    9.33      19.9       8.07 
+       7 gear.L         -3.81    -13.5   -6.06  -3.81      -0.816     6.70 
+       8 gear.Q          2.76     -0.119  6.18   2.76      15.8       8.57 
+       9 carb            0.0318   -3.31  -0.933  0.0318     0.505     2.10 
+      10 countryItaly    4.16     -1.90   3.84   4.16       9.27      5.65 
+      11 countryJapan   -0.0730   -7.19   3.14  -0.0730    16.6      12.3  
+      12 countryUK      -1.17     -3.22  -0.524 -1.17       2.80      3.10 
+      13 countryUSA     -6.66     -9.09  -7.47  -6.66      -6.63      1.43 
+      14 countrySweden   0.828    -4.15   0.828  0.828      5.81      7.12 
       
       $ale
       NULL
