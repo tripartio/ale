@@ -12,6 +12,7 @@ test_that(
       boot_it = 0
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
     expect_snapshot(mb)
   }
 )
@@ -26,6 +27,7 @@ test_that(
       boot_it = 5
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
     expect_snapshot(mb)
   }
 )
@@ -45,6 +47,7 @@ test_that(
       ale_options = list(relative_y = 'zero')
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
     expect_snapshot(mb)
   }
 )

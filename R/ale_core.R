@@ -340,6 +340,12 @@ ale_ixn <- function (
   # capture all arguments passed into `-ale_ixn` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
   args$ixn <- TRUE  # when the user calls `ale_ixn`, they want interactions
+
+  # stats not yet enabled for ale_ixn
+  if (missing(output)) {
+    args$output = c('plots', 'data')
+  }
+
   do.call(ale_core, args)
 
 }
@@ -525,6 +531,13 @@ ale_core <- function (
   }
 
 
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  # ale_data <- NULL
+  term <- NULL
+
 
   # Internally rename test_data. It is named test_data as an argument as a
   # warning to users to only use a test dataset for ALE, not the full dataset.
@@ -560,43 +573,6 @@ ale_core <- function (
 
   # # Generate summary statistics for y for plotting
   y_summary <- var_summary(y_vals, plot_alpha)
-
-  # # Generate summary statistics for y for plotting
-  # y_summary <- stats::quantile(
-  #   y_vals,
-  #   probs = c(
-  #     0.01, 0.025, 0.05, 0.1, 0.25,
-  #     0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
-  #     0.75, 0.9, 0.95, 0.975, 0.99
-  #   )
-  # )
-  #
-  # y_summary <- c(
-  #   # Retain first half of values
-  #   y_summary[1:match('50%', names(y_summary))],
-  #
-  #   # Create lower confidence bound just below the midpoint
-  #   mid_lower = y_summary[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
-  #
-  #   mean = mean(y_vals, na.rm = TRUE),
-  #
-  #   # Create upper confidence bound just above the midpoint
-  #   mid_upper = y_summary[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
-  #
-  #   # Retain latter half of values
-  #   y_summary[match('75%', names(y_summary)):length(y_summary)]
-  # )
-  #
-  # # Determine the limits and average of y.
-  # # min and max are needed only for plotting, but avg is needed for data.
-  # # Set the plotting boundaries for the y axis
-  # if (y_type == 'numeric') {
-  #   y_summary <- c(min = y_summary[['1%']], y_summary)
-  #   y_summary <- c(y_summary, max = y_summary[['99%']])
-  # } else if (y_type == 'binary') {
-  #   y_summary <- c(min = 0, y_summary)
-  #   y_summary <- c(y_summary, max = 1)
-  # }  # as of now, no treatment and no error for non-numeric y
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
@@ -649,6 +625,14 @@ ale_core <- function (
     select(where(is.numeric)) |>
     names()
 
+
+  # Prepare to create ALE statistics
+  ale_y_norm_fun <- NULL
+  if ('stats' %in% output) {
+    ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
+  }
+
+
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
     ales <-
@@ -656,38 +640,41 @@ ale_core <- function (
       map(\(x_col) {
         # Calculate ale_data for single variables
 
-        ale_data <-
+        ale_data_stats <-
+          # ale_data <-
           calc_ale(
             data_X, model, x_col,
-            # nrow(data_X), ncol(data_X),
             pred_fun, x_intervals,
             boot_it, seed, boot_alpha, boot_centre,
             ale_x = ale_xs[[x_col]],
-            ale_n = ale_ns[[x_col]]
-            )
-
-        # Calculate the ALE statistics
-        stats <- NULL  # Start with a NULL object
-        if ('stats' %in% output) {  # user requested the statistics
-          stats <- ale_stats(
-            ale_data$ale_y,
-            ale_data$ale_n,
-            y_vals,
-            # # percentiles of the upper half of the y values (50 to 100%)
-            # # Note: the median is included in both halves.
-            # ecdf_pos_y = stats::ecdf(
-            #   y_vals[y_vals >= y_summary['50%']] -
-            #     y_summary['50%']  # subtract the median to centre on zero
-            # ),
-            # # percentiles of the lower half of the y values (0 to 50%)
-            # # Note: the median is included in both halves.
-            # ecdf_neg_y = stats::ecdf(
-            #   -1 * (y_vals[y_vals <= y_summary['50%']] -
-            #     y_summary['50%'])  # subtract the median to centre on zero
-            # ),
-            zeroed_ale = TRUE
+            ale_n = ale_ns[[x_col]],
+            ale_y_norm_fun = ale_y_norm_fun
           )
-        }
+        ale_data <- ale_data_stats$summary
+        stats    <- ale_data_stats$stats
+
+        # # Calculate the ALE statistics
+        # stats <- NULL  # Start with a NULL object
+        # if ('stats' %in% output) {  # user requested the statistics
+        #   stats <- ale_stats(
+        #     ale_data$ale_y,
+        #     ale_data$ale_n,
+        #     y_vals,
+        #     # # percentiles of the upper half of the y values (50 to 100%)
+        #     # # Note: the median is included in both halves.
+        #     # ecdf_pos_y = stats::ecdf(
+        #     #   y_vals[y_vals >= y_summary['50%']] -
+        #     #     y_summary['50%']  # subtract the median to centre on zero
+        #     # ),
+        #     # # percentiles of the lower half of the y values (0 to 50%)
+        #     # # Note: the median is included in both halves.
+        #     # ecdf_neg_y = stats::ecdf(
+        #     #   -1 * (y_vals[y_vals <= y_summary['50%']] -
+        #     #     y_summary['50%'])  # subtract the median to centre on zero
+        #     # ),
+        #     zeroed_ale = TRUE
+        #   )
+        # }
 
         # Shift ale_y by appropriate relative_y
         ale_data <- ale_data |>
@@ -716,11 +703,12 @@ ale_core <- function (
           ale_data <- NULL
         }
 
-        return(list(
+        list(
+          # return(list(
           data = ale_data,
           stats = stats,
           plots = plot
-        ))
+        )
 
       }) |>
       set_names(x_cols) |>
@@ -773,10 +761,11 @@ ale_core <- function (
               ale_data <- NULL
             }
 
-            return(list(
+            list(
+              # return(list(
               data = ale_data,
               plot = plot  # + theme_bw()
-            ))
+            )
           }) |>
           set_names(x2_cols_to_interact)
       }) |>
@@ -797,6 +786,30 @@ ale_core <- function (
           map(.x1, \(.x2) .x2$plot)
         })
     )
+  }
+
+  # browser()
+
+  if ('stats' %in% output) {
+    ales$stats <-
+      map2(
+        ales$stats, names(ales$stats),
+        \(.term_tbl, .term) {
+          .term_tbl |>
+            mutate(term = .term)
+        }) |>
+      bind_rows() |>
+      select(term, everything()) |>
+      pivot_stats()
+
+    if ('plots' %in% output) {
+      ales$stats$effects_plot <- plot_effects(
+        ales$stats$estimate,
+        y_vals,
+        y_col,
+        plot_alpha = plot_alpha
+      )
+    }
   }
 
   # Append useful output data that is shared across all variables

@@ -155,11 +155,11 @@ For categorical variables (`public` and `high_minority` above), the confidence e
 
 For numeric variables, the confidence regions overlap the middle bar for most of the domains of the predictor variables except for some regions that we will examine. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the middle bar, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the middle bar for the entirety of their domains, so any apparent trends are not supported by the data.
 
-However, although ALE plots allow rapid and intuitive conclusions, it is often helpful to have numbers that give us these conclusions. Thus, we have developed a collection of statistics based on ALE tailored for intuitive interpretation.
+However, although ALE plots allow rapid and intuitive conclusions, it is often helpful to have numbers that give us these conclusions. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation.
 
 ## ALE data structures for categorical and numeric variables
 
-To understand how ALE statistics are calculated, we must understand the structure of ALE data. Let's begin simple with a binary variable with just two categories, `public`:
+To understand how ALE effect size measures are calculated, we must understand the structure of ALE data. Let's begin simple with a binary variable with just two categories, `public`:
 
 ```{r ale data for public}
 mb_gam$ale$data$public
@@ -182,35 +182,35 @@ mb_gam$ale$data$academic_ratio
 
 The columns are the same as with a categorical variable, but the meaning of `ale_x` is different since there are no categories. To calculate ALE for numeric variables, the range of x values is divided into fixed intervals (by default 100, customizable with the `x_intervals` argument). If the x values have fewer than 100 distinct values in the data, then each distinct value becomes an ale_x interval. (This is often the case with smaller datasets like ours; here `academic_ratio` has only 65 distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. So, `ale_x` represents each of these x-variable intervals. The other columns mean the same thing as with categorical variables: `ale_n` is the number of rows of data in each `ale_x` interval and `ale_y` is the calculated ALE for that `ale_x` value.
 
-## ALE statistics
+## ALE effect size measures
 
-With this understanding, let us explain the ALE statistics. They are accessible through the `ale$stats` element of the bootstrap result object, with multiple views. To focus on all the statistics for a specific variable, we can access the `ale$stats$by_term` element. Here are the statistics for the categorical `public`:
+With this understanding, let us explain the ALE effect size measures. They are accessible through the `ale$stats` element of the bootstrap result object, with multiple views. To focus on all the measures for a specific variable, we can access the `ale$stats$by_term` element. Here are the effect size measures for the categorical `public`:
 
 ```{r ALE stats for public}
 mb_gam$ale$stats$by_term$public
 ```
 
-Let's look at the plot for `public` to help us understand what these statistics tell us.
+Let's look at the plot for `public` to help us understand what these measures tell us.
 
 ```{r ALE plot for public}
 mb_gam$ale$plots$public
 ```
 
-Now, here are the ALE statistics for the numeric `academic_ratio`:
+Now, here are the ALE effect size measures for the numeric `academic_ratio`:
 
 ```{r ALE stats for academic_ratio}
 mb_gam$ale$stats$by_term$academic_ratio
 ```
 
-We can see that the same ALE statistics apply to categorical and numeric variables, even though their plots are quite different, as we see here:
+We can see that the same ALE measures apply to categorical and numeric variables, even though their plots are quite different, as we see here:
 
 ```{r ALE plot for academic_ratio}
 mb_gam$ale$plots$academic_ratio
 ```
 
-Before we present the various ALE statistics we must reiterate the timeless reminder that correlation is not causation. So, none of the scores necessarily means that an x variable *causes* a certain effect on the y outcome; we can only say that the ALE statistics indicate associated or related variations between the two variables. 
+Before we present the various ALE effect size measures, we must reiterate the timeless reminder that correlation is not causation. So, none of the scores necessarily means that an x variable *causes* a certain effect on the y outcome; we can only say that the ALE effect size measures indicate associated or related variations between the two variables. 
 
-### ALE statistics on the scale of the y outcome variable
+### ALE effect size measures on the scale of the y outcome variable
 
 #### ALE range (ALER)
 
@@ -219,7 +219,7 @@ The easiest ALE statistic to understand is the ALE range (ALER). It is simply th
 $$\mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}$$  
 where $\mathrm{ale\_y}$ is the vector of ALE y values for a variable.
 
-All the ALE statistics are centred on zero so that they are consistent regardless of if the user chooses to centre their plots on zero, the median, or the mean. Specifically,
+All the ALE effect size measures are centred on zero so that they are consistent regardless of if the user chooses to centre their plots on zero, the median, or the mean. Specifically,
 
 -   `aler_min`: minimum of any `ale_y` value for the variable.
 -   `aler_max`: maximum of any `ale_y` value for the variable.
@@ -239,7 +239,7 @@ where $i$ is the index of $k$ ALE x intervals for the variable (for a categorica
 
 Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r mb_gam$ale$stats$by_term$public$estimate['aled'] |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). The average effect for ratio of academic track students is slightly higher at `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aled'] |> round(2)`
 
-### Normalized ALE statistics
+### Normalized ALE effect size measures
 
 Since ALER and ALED scores are scaled on the range of y for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred y values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE y values, all negative and zero values are converted to their percentile score relative to the lower half of the original y values while all positive ALE y values are converted to their percentile score relative to the upper half. Technically, this percentile assignment is the empirical cumulative distribution function (ECDF) of each half. (Note that we choose to include the score of zero ALE y in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.)
 

@@ -22,10 +22,14 @@
 # @param ale_y numeric. Vector of ALE y values.
 # @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
 # the same length as `ale_y`.
-# @param y_vals numeric. Entire vector of y values. Needed for normalization.
-# # @param ecdf_pos_y,ecdf_neg_y ecdf function. ECDF functions of the upper and lower
-# # halves respectively of the Y values relative to the median. (The median is
-# # included in both the negative and the positive halves.)
+# @param y_vals numeric. Entire vector of y values. Needed for normalization. If
+# not provided, ale_y_norm_fun must be provided.
+# @param ale_y_norm_fun function. Result of create_ale_y_norm_function. If not
+# provided, y_vals must be provided. ale_stats could be faster if ale_y_norm_fun
+# is provided, especially in bootstrap workflows that call the same function
+# many, many times.
+# halves respectively of the Y values relative to the median. (The median is
+# included in both the negative and the positive halves.)
 # @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
 # If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
 # but the function will run slightly slower because of this extra calculation.
@@ -42,11 +46,15 @@
 ale_stats <- function(
     ale_y,
     ale_n,
-    y_vals,
-    # ecdf_pos_y,
-    # ecdf_neg_y,
+    y_vals = NULL,
+    ale_y_norm_fun = NULL,
     zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
+
+  assert_that(
+    !(is.null(y_vals) && is.null(ale_y_norm_fun)),
+    msg = 'Either y_vals or ale_y_norm_fun must be provided.'
+  )
 
   if (!zeroed_ale) {
     stop('Zeroed ALE required for now.')
@@ -73,29 +81,31 @@ ale_stats <- function(
   aler <- c(min(ale_y), max(ale_y))
 
   # Normalized scores
+  norm_ale_y <- if (is.null(ale_y_norm_fun)) {
+    create_ale_y_norm_function(y_vals)(ale_y)
 
-  centred_y <- y_vals - stats::median(y_vals)
+    # centred_y <- y_vals - stats::median(y_vals)
+    #
+    # # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
+    # # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
+    # # be assigned to one or the other. The choice is to assign it to the negative half
+    # # based on the logic that the 50th percentile (that 0 represents) is more
+    # # intuitively considered to be in the first half of 100 percentiles.
+    # norm_ale_y <- if_else(
+    #   ale_y > 0,
+    #   # percentiles of the upper half of the y values (50 to 100%)
+    #   # Note: the median is included in both halves.
+    #   stats::ecdf(centred_y[centred_y >= 0])(ale_y),
+    #   # percentiles of the lower half of the y values (0 to 50%)
+    #   # Note: the median is included in both halves.
+    #   -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
+    # ) |>
+    #   (`*`)(100)
 
-  # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
-  # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
-  # be assigned to one or the other. The choice is to assign it to the negative half
-  # based on the logic that the 50th percentile (that 0 represents) is more
-  # intuitively considered to be in the first half of 100 percentiles.
-  norm_ale_y <- if_else(
-    ale_y > 0,
-    # percentiles of the upper half of the y values (50 to 100%)
-    # Note: the median is included in both halves.
-    stats::ecdf(centred_y[centred_y >= 0])(ale_y),
-    # percentiles of the lower half of the y values (0 to 50%)
-    # Note: the median is included in both halves.
-    -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
-  ) |>
-    (`*`)(100)
-  # norm_ale_y <- if_else(
-  #   ale_y > 0,
-  #   ecdf_pos_y(ale_y),
-  #   -ecdf_neg_y(-ale_y)
-  # )
+  } else {  # ale_y_norm_fun is provided, so use it
+    ale_y_norm_fun(ale_y)
+  }
+
 
   # Scale is 0 to 100, representing equivalent average percentile effect
   naled <- aled_score(norm_ale_y, ale_n) / 2
@@ -120,6 +130,43 @@ ale_stats <- function(
     )
   )
 }
+
+
+# Creates a function that normalizes ALE y values
+create_ale_y_norm_function <- function(y_vals) {
+  centred_y <- y_vals - stats::median(y_vals)
+
+  return(
+    function(ale_y) {
+      # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
+      # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
+      # be assigned to one or the other. The choice is to assign it to the negative half
+      # based on the logic that the 50th percentile (that 0 represents) is more
+      # intuitively considered to be in the first half of 100 percentiles.
+      norm_ale_y <- dplyr::if_else(
+        ale_y > 0,
+        # percentiles of the upper half of the y values (50 to 100%)
+        # Note: the median is included in both halves.
+        stats::ecdf(centred_y[centred_y >= 0])(ale_y),
+        # percentiles of the lower half of the y values (0 to 50%)
+        # Note: the median is included in both halves.
+        -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
+      )
+
+      return(norm_ale_y * 100)
+      # norm_ale_y <- if_else(
+      #   ale_y > 0,
+      #   ecdf_pos_y(ale_y),
+      #   -ecdf_neg_y(-ale_y)
+      # )
+
+    }
+  )
+
+}
+
+
+
 
 
 # Provide a vector of descriptive statistics
@@ -167,3 +214,69 @@ var_summary <- function(var_vals, plot_alpha = 0.05)  {
 }
 
 
+# Rearrange ALE statistics in multiple orientations
+pivot_stats <- function(long_stats) {
+
+    # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  # ale_data <- NULL
+  term <- NULL
+  estimate <- NULL
+  statistic <- NULL
+
+
+  return(list(
+    by_term = long_stats |>
+      split(~ term) |>
+      # Name each element on each row by its corresponding statistic
+      map(\(.term_tbl) {
+        .row_names <- .term_tbl[['statistic']]
+
+        .term_tbl |>
+          # Name each element on each row
+          map(\(.col) {
+            names(.col) <- .row_names
+            .col
+          }) |>
+          as_tibble() |>
+          select(-term)  # remove superfluous column
+      }),
+
+    by_statistic = long_stats |>
+      split(~ statistic) |>
+      # Name each element on each row by its corresponding term
+      map(\(.statistic_tbl) {
+        .row_names <- .statistic_tbl[['term']]
+
+        .statistic_tbl |>
+          # Name each element on each row
+          map(\(.col) {
+            names(.col) <- .row_names
+            .col
+          }) |>
+          as_tibble() |>
+          select(-statistic)  # remove superfluous column
+      }),
+
+    estimate = long_stats |>
+      # create single tibble with estimates (no confidence intervals) with
+      # terms in rows and statistics in columns
+      tidyr::pivot_wider(
+        id_cols = term,
+        names_from = statistic,
+        values_from = estimate
+      ) |>
+      as_tibble() |>
+      # name each element of each row with the term names (all_cols[[1]]).
+      # This is an anonymous function that operates on
+      (\(all_cols) {
+        map(all_cols, \(.col) {
+          names(.col) <- all_cols[[1]]
+          .col
+        }) |>
+          as_tibble()
+      })()
+  ))
+}

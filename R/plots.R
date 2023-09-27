@@ -528,10 +528,18 @@ plot_effects <- function(
     y_col,
     plot_alpha = 0.05
 ) {
-  # estimates = mb_gam$ale$stats$estimate
-  # y_vals = math$math_avg
-  # y_col = 'math_avg'
-  # plot_alpha = 0.05
+
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  # ale_data <- NULL
+  term <- NULL
+  naled <- NULL
+  aler_min <- NULL
+  aler_max <- NULL
+  aled <- NULL
+
 
   y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
   median_y <- median(y_vals)

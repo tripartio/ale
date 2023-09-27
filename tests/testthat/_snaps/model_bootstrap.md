@@ -392,6 +392,198 @@
       10 carb     1.82    -7.83     2.14  15.0      5.88      64.7
       11 country  3.78    -4.77     4.63  28.8     11.8       79.4
       
+      $ale$stats$effects_plot
+      $ale$stats$effects_plot[[1]]
+      $ale$stats$effects_plot[[1]][[1]]
+          y PANEL group colour      fill linewidth linetype alpha    xmin    xmax
+      1   1     1     1     NA lightgray       0.5        1    NA 19.0625 19.3375
+      2   2     1     2     NA lightgray       0.5        1    NA 19.0625 19.3375
+      3   3     1     3     NA lightgray       0.5        1    NA 19.0625 19.3375
+      4   4     1     4     NA lightgray       0.5        1    NA 19.0625 19.3375
+      5   5     1     5     NA lightgray       0.5        1    NA 19.0625 19.3375
+      6   6     1     6     NA lightgray       0.5        1    NA 19.0625 19.3375
+      7   7     1     7     NA lightgray       0.5        1    NA 19.0625 19.3375
+      8   8     1     8     NA lightgray       0.5        1    NA 19.0625 19.3375
+      9   9     1     9     NA lightgray       0.5        1    NA 19.0625 19.3375
+      10 10     1    10     NA lightgray       0.5        1    NA 19.0625 19.3375
+      11 11     1    11     NA lightgray       0.5        1    NA 19.0625 19.3375
+         ymin ymax
+      1  -Inf  Inf
+      2  -Inf  Inf
+      3  -Inf  Inf
+      4  -Inf  Inf
+      5  -Inf  Inf
+      6  -Inf  Inf
+      7  -Inf  Inf
+      8  -Inf  Inf
+      9  -Inf  Inf
+      10 -Inf  Inf
+      11 -Inf  Inf
+      
+      $ale$stats$effects_plot[[1]][[2]]
+             xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
+      1  17.61492 23.96131  1     1     1  0.875  1.125  black       0.5        1
+      2  11.36954 21.33558  2     1     2  1.875  2.125  black       0.5        1
+      3  15.75285 25.11604  3     1     3  2.875  3.125  black       0.5        1
+      4  13.42681 23.38575  4     1     4  3.875  4.125  black       0.5        1
+      5  16.65141 26.69280  5     1     5  4.875  5.125  black       0.5        1
+      6  17.00548 22.40737  6     1     6  5.875  6.125  black       0.5        1
+      7        NA 23.82652  7     1     7  6.875  7.125  black       0.5        1
+      8  14.43237 23.83012  8     1     8  7.875  8.125  black       0.5        1
+      9  13.07608 26.14044  9     1     9  8.875  9.125  black       0.5        1
+      10 10.67944 30.39886 10     1    10  9.875 10.125  black       0.5        1
+      11 13.24426 26.85738 11     1    11 10.875 11.125  black       0.5        1
+         height alpha
+      1    0.25    NA
+      2    0.25    NA
+      3    0.25    NA
+      4    0.25    NA
+      5    0.25    NA
+      6    0.25    NA
+      7    0.25    NA
+      8    0.25    NA
+      9    0.25    NA
+      10   0.25    NA
+      11   0.25    NA
+      
+      $ale$stats$effects_plot[[1]][[3]]
+             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
+      1  18.53395 19.86605  0.8  1.2  1     1     1     NA white       0.5        1
+      2  18.28793 20.11207  1.8  2.2  2     1     2     NA white       0.5        1
+      3  18.21201 20.18799  2.8  3.2  3     1     3     NA white       0.5        1
+      4  18.26200 20.13800  3.8  4.2  4     1     4     NA white       0.5        1
+      5  18.00535 20.39465  4.8  5.2  5     1     5     NA white       0.5        1
+      6  17.89701 20.50299  5.8  6.2  6     1     6     NA white       0.5        1
+      7  17.30189 21.09811  6.8  7.2  7     1     7     NA white       0.5        1
+      8  17.30754 21.09246  7.8  8.2  8     1     8     NA white       0.5        1
+      9  16.58458 21.81542  8.8  9.2  9     1     9     NA white       0.5        1
+      10 16.29860 22.10140  9.8 10.2 10     1    10     NA white       0.5        1
+      11 15.84990 22.55010 10.8 11.2 11     1    11     NA white       0.5        1
+         alpha
+      1     NA
+      2     NA
+      3     NA
+      4     NA
+      5     NA
+      6     NA
+      7     NA
+      8     NA
+      9     NA
+      10    NA
+      11    NA
+      
+      $ale$stats$effects_plot[[1]][[4]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  18.53395     (  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  18.28793     (  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  18.21201     (  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  18.26200     (  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  18.00535     (  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  17.89701     (  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  17.30189     (  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  17.30754     (  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  16.58458     (  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 16.29860     ( 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 15.84990     ( 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[5]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.86605     )  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  20.11207     )  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  20.18799     )  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  20.13800     )  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  20.39465     )  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  20.50299     )  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  21.09811     )  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  21.09246     )  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  21.81542     )  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 22.10140     ) 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 22.55010     ) 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[6]]
+            x       label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 NALED 12.7%  1     1     1  black    3     0   0.5    -1    NA       
+      2  19.2 NALED 15.0%  2     1     2  black    3     0   0.5    -1    NA       
+      3  19.2 NALED 15.7%  3     1     3  black    3     0   0.5    -1    NA       
+      4  19.2 NALED 15.8%  4     1     4  black    3     0   0.5    -1    NA       
+      5  19.2 NALED 16.0%  5     1     5  black    3     0   0.5    -1    NA       
+      6  19.2 NALED 20.0%  6     1     6  black    3     0   0.5    -1    NA       
+      7  19.2 NALED 23.6%  7     1     7  black    3     0   0.5    -1    NA       
+      8  19.2 NALED 28.8%  8     1     8  black    3     0   0.5    -1    NA       
+      9  19.2 NALED 31.9%  9     1     9  black    3     0   0.5    -1    NA       
+      10 19.2 NALED 32.7% 10     1    10  black    3     0   0.5    -1    NA       
+      11 19.2 NALED 40.3% 11     1    11  black    3     0   0.5    -1    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[7]]
+            x     label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 ALED 1.33  1     1     1  black    3     0   0.5     2    NA       
+      2  19.2 ALED 1.82  2     1     2  black    3     0   0.5     2    NA       
+      3  19.2 ALED 1.98  3     1     3  black    3     0   0.5     2    NA       
+      4  19.2 ALED 1.88  4     1     4  black    3     0   0.5     2    NA       
+      5  19.2 ALED 2.39  5     1     5  black    3     0   0.5     2    NA       
+      6  19.2 ALED 2.61  6     1     6  black    3     0   0.5     2    NA       
+      7  19.2 ALED 3.80  7     1     7  black    3     0   0.5     2    NA       
+      8  19.2 ALED 3.78  8     1     8  black    3     0   0.5     2    NA       
+      9  19.2 ALED 5.23  9     1     9  black    3     0   0.5     2    NA       
+      10 19.2 ALED 5.80 10     1    10  black    3     0   0.5     2    NA       
+      11 19.2 ALED 6.70 11     1    11  black    3     0   0.5     2    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[8]]
+           x y PANEL group colour size angle hjust vjust alpha family fontface
+      1 33.9 2     1    -1  black    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
       
       $ale$plots
       $ale$plots$cyl
@@ -2101,6 +2293,198 @@
       10 carb     2.16    -4.54     3.25  18.5     18.3       72.4
       11 country  4.28    -7.42     5.88  26.0     10.3       78.7
       
+      $ale$stats$effects_plot
+      $ale$stats$effects_plot[[1]]
+      $ale$stats$effects_plot[[1]][[1]]
+          y PANEL group colour      fill linewidth linetype alpha    xmin    xmax
+      1   1     1     1     NA lightgray       0.5        1    NA 19.0625 19.3375
+      2   2     1     2     NA lightgray       0.5        1    NA 19.0625 19.3375
+      3   3     1     3     NA lightgray       0.5        1    NA 19.0625 19.3375
+      4   4     1     4     NA lightgray       0.5        1    NA 19.0625 19.3375
+      5   5     1     5     NA lightgray       0.5        1    NA 19.0625 19.3375
+      6   6     1     6     NA lightgray       0.5        1    NA 19.0625 19.3375
+      7   7     1     7     NA lightgray       0.5        1    NA 19.0625 19.3375
+      8   8     1     8     NA lightgray       0.5        1    NA 19.0625 19.3375
+      9   9     1     9     NA lightgray       0.5        1    NA 19.0625 19.3375
+      10 10     1    10     NA lightgray       0.5        1    NA 19.0625 19.3375
+      11 11     1    11     NA lightgray       0.5        1    NA 19.0625 19.3375
+         ymin ymax
+      1  -Inf  Inf
+      2  -Inf  Inf
+      3  -Inf  Inf
+      4  -Inf  Inf
+      5  -Inf  Inf
+      6  -Inf  Inf
+      7  -Inf  Inf
+      8  -Inf  Inf
+      9  -Inf  Inf
+      10 -Inf  Inf
+      11 -Inf  Inf
+      
+      $ale$stats$effects_plot[[1]][[2]]
+             xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
+      1  16.28837 23.80022  1     1     1  0.875  1.125  black       0.5        1
+      2  14.66146 22.44500  2     1     2  1.875  2.125  black       0.5        1
+      3  12.19847 25.15298  3     1     3  2.875  3.125  black       0.5        1
+      4  11.31543 23.23527  4     1     4  3.875  4.125  black       0.5        1
+      5  12.54595 24.16104  5     1     5  4.875  5.125  black       0.5        1
+      6  13.77445 26.19068  6     1     6  5.875  6.125  black       0.5        1
+      7  16.78156 23.23814  7     1     7  6.875  7.125  black       0.5        1
+      8  12.32838 26.61465  8     1     8  7.875  8.125  black       0.5        1
+      9  11.77786 25.07829  9     1     9  8.875  9.125  black       0.5        1
+      10 15.85451 23.44779 10     1    10  9.875 10.125  black       0.5        1
+      11 12.89946 25.72663 11     1    11 10.875 11.125  black       0.5        1
+         height alpha
+      1    0.25    NA
+      2    0.25    NA
+      3    0.25    NA
+      4    0.25    NA
+      5    0.25    NA
+      6    0.25    NA
+      7    0.25    NA
+      8    0.25    NA
+      9    0.25    NA
+      10   0.25    NA
+      11   0.25    NA
+      
+      $ale$stats$effects_plot[[1]][[3]]
+             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
+      1  18.42033 19.97967  0.8  1.2  1     1     1     NA white       0.5        1
+      2  18.12048 20.27952  1.8  2.2  2     1     2     NA white       0.5        1
+      3  17.99525 20.40475  2.8  3.2  3     1     3     NA white       0.5        1
+      4  17.76233 20.63767  3.8  4.2  4     1     4     NA white       0.5        1
+      5  17.88975 20.51025  4.8  5.2  5     1     5     NA white       0.5        1
+      6  17.46431 20.93569  5.8  6.2  6     1     6     NA white       0.5        1
+      7  17.67931 20.72069  6.8  7.2  7     1     7     NA white       0.5        1
+      8  17.48099 20.91901  7.8  8.2  8     1     8     NA white       0.5        1
+      9  17.06025 21.33975  8.8  9.2  9     1     9     NA white       0.5        1
+      10 17.32988 21.07012  9.8 10.2 10     1    10     NA white       0.5        1
+      11 16.65678 21.74322 10.8 11.2 11     1    11     NA white       0.5        1
+         alpha
+      1     NA
+      2     NA
+      3     NA
+      4     NA
+      5     NA
+      6     NA
+      7     NA
+      8     NA
+      9     NA
+      10    NA
+      11    NA
+      
+      $ale$stats$effects_plot[[1]][[4]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  18.42033     (  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  18.12048     (  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  17.99525     (  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  17.76233     (  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  17.88975     (  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  17.46431     (  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  17.67931     (  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  17.48099     (  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  17.06025     (  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 17.32988     ( 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 16.65678     ( 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[5]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.97967     )  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  20.27952     )  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  20.40475     )  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  20.63767     )  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  20.51025     )  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  20.93569     )  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  20.72069     )  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  20.91901     )  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  21.33975     )  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 21.07012     ) 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 21.74322     ) 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[6]]
+            x       label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 NALED 16.8%  1     1     1  black    3     0   0.5    -1    NA       
+      2  19.2 NALED 18.5%  2     1     2  black    3     0   0.5    -1    NA       
+      3  19.2 NALED 19.6%  3     1     3  black    3     0   0.5    -1    NA       
+      4  19.2 NALED 20.8%  4     1     4  black    3     0   0.5    -1    NA       
+      5  19.2 NALED 21.6%  5     1     5  black    3     0   0.5    -1    NA       
+      6  19.2 NALED 22.7%  6     1     6  black    3     0   0.5    -1    NA       
+      7  19.2 NALED 23.2%  7     1     7  black    3     0   0.5    -1    NA       
+      8  19.2 NALED 24.5%  8     1     8  black    3     0   0.5    -1    NA       
+      9  19.2 NALED 26.0%  9     1     9  black    3     0   0.5    -1    NA       
+      10 19.2 NALED 28.0% 10     1    10  black    3     0   0.5    -1    NA       
+      11 19.2 NALED 28.5% 11     1    11  black    3     0   0.5    -1    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[7]]
+            x     label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 ALED 1.56  1     1     1  black    3     0   0.5     2    NA       
+      2  19.2 ALED 2.16  2     1     2  black    3     0   0.5     2    NA       
+      3  19.2 ALED 2.41  3     1     3  black    3     0   0.5     2    NA       
+      4  19.2 ALED 2.88  4     1     4  black    3     0   0.5     2    NA       
+      5  19.2 ALED 2.62  5     1     5  black    3     0   0.5     2    NA       
+      6  19.2 ALED 3.47  6     1     6  black    3     0   0.5     2    NA       
+      7  19.2 ALED 3.04  7     1     7  black    3     0   0.5     2    NA       
+      8  19.2 ALED 3.44  8     1     8  black    3     0   0.5     2    NA       
+      9  19.2 ALED 4.28  9     1     9  black    3     0   0.5     2    NA       
+      10 19.2 ALED 3.74 10     1    10  black    3     0   0.5     2    NA       
+      11 19.2 ALED 5.09 11     1    11  black    3     0   0.5     2    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[8]]
+           x y PANEL group colour size angle hjust vjust alpha family fontface
+      1 33.9 2     1    -1  black    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
       
       $ale$plots
       $ale$plots$cyl
@@ -3799,6 +4183,198 @@
        9 gear     3.33    -3.95     6.16  23.1     21.9       79.4
       10 carb     1.12    -3.85     3.22  13.8     21.9       72.2
       11 country  3.24    -4.98     7.79  21.0     12.5       91.7
+      
+      $ale$stats$effects_plot
+      $ale$stats$effects_plot[[1]]
+      $ale$stats$effects_plot[[1]][[1]]
+          y PANEL group colour      fill linewidth linetype alpha  xmin   xmax ymin
+      1   1     1     1     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      2   2     1     2     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      3   3     1     3     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      4   4     1     4     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      5   5     1     5     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      6   6     1     6     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      7   7     1     7     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      8   8     1     8     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      9   9     1     9     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      10 10     1    10     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+      11 11     1    11     NA lightgray       0.5        1    NA 18.67 19.765 -Inf
+         ymax
+      1   Inf
+      2   Inf
+      3   Inf
+      4   Inf
+      5   Inf
+      6   Inf
+      7   Inf
+      8   Inf
+      9   Inf
+      10  Inf
+      11  Inf
+      
+      $ale$stats$effects_plot[[1]][[2]]
+             xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
+      1  15.34935 22.41593  1     1     1  0.875  1.125  black       0.5        1
+      2  15.98911 23.71984  2     1     2  1.875  2.125  black       0.5        1
+      3  16.33942 24.40651  3     1     3  2.875  3.125  black       0.5        1
+      4  10.45287 23.25503  4     1     4  3.875  4.125  black       0.5        1
+      5  14.22464 26.99396  5     1     5  4.875  5.125  black       0.5        1
+      6  17.04979 24.69497  6     1     6  5.875  6.125  black       0.5        1
+      7  14.49575 24.54063  7     1     7  6.875  7.125  black       0.5        1
+      8  16.49168 22.59422  8     1     8  7.875  8.125  black       0.5        1
+      9  15.25437 25.36161  9     1     9  8.875  9.125  black       0.5        1
+      10 11.46923 25.28867 10     1    10  9.875 10.125  black       0.5        1
+      11 12.59128 25.40819 11     1    11 10.875 11.125  black       0.5        1
+         height alpha
+      1    0.25    NA
+      2    0.25    NA
+      3    0.25    NA
+      4    0.25    NA
+      5    0.25    NA
+      6    0.25    NA
+      7    0.25    NA
+      8    0.25    NA
+      9    0.25    NA
+      10   0.25    NA
+      11   0.25    NA
+      
+      $ale$stats$effects_plot[[1]][[3]]
+             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
+      1  18.63755 19.76245  0.8  1.2  1     1     1     NA white       0.5        1
+      2  18.22007 20.17993  1.8  2.2  2     1     2     NA white       0.5        1
+      3  18.00753 20.39247  2.8  3.2  3     1     3     NA white       0.5        1
+      4  18.08495 20.31505  3.8  4.2  4     1     4     NA white       0.5        1
+      5  17.57965 20.82035  4.8  5.2  5     1     5     NA white       0.5        1
+      6  17.44549 20.95451  5.8  6.2  6     1     6     NA white       0.5        1
+      7  17.70439 20.69561  6.8  7.2  7     1     7     NA white       0.5        1
+      8  17.76685 20.63315  7.8  8.2  8     1     8     NA white       0.5        1
+      9  17.53637 20.86363  8.8  9.2  9     1     9     NA white       0.5        1
+      10 17.84838 20.55162  9.8 10.2 10     1    10     NA white       0.5        1
+      11 16.68418 21.71582 10.8 11.2 11     1    11     NA white       0.5        1
+         alpha
+      1     NA
+      2     NA
+      3     NA
+      4     NA
+      5     NA
+      6     NA
+      7     NA
+      8     NA
+      9     NA
+      10    NA
+      11    NA
+      
+      $ale$stats$effects_plot[[1]][[4]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  18.63755     (  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  18.22007     (  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  18.00753     (  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  18.08495     (  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  17.57965     (  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  17.44549     (  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  17.70439     (  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  17.76685     (  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  17.53637     (  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 17.84838     ( 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 16.68418     ( 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[5]]
+                x label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.76245     )  1     1     1  black 3.88     0   0.5   0.5    NA       
+      2  20.17993     )  2     1     2  black 3.88     0   0.5   0.5    NA       
+      3  20.39247     )  3     1     3  black 3.88     0   0.5   0.5    NA       
+      4  20.31505     )  4     1     4  black 3.88     0   0.5   0.5    NA       
+      5  20.82035     )  5     1     5  black 3.88     0   0.5   0.5    NA       
+      6  20.95451     )  6     1     6  black 3.88     0   0.5   0.5    NA       
+      7  20.69561     )  7     1     7  black 3.88     0   0.5   0.5    NA       
+      8  20.63315     )  8     1     8  black 3.88     0   0.5   0.5    NA       
+      9  20.86363     )  9     1     9  black 3.88     0   0.5   0.5    NA       
+      10 20.55162     ) 10     1    10  black 3.88     0   0.5   0.5    NA       
+      11 21.71582     ) 11     1    11  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[6]]
+            x       label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 NALED 13.8%  1     1     1  black    3     0   0.5    -1    NA       
+      2  19.2 NALED 14.0%  2     1     2  black    3     0   0.5    -1    NA       
+      3  19.2 NALED 16.0%  3     1     3  black    3     0   0.5    -1    NA       
+      4  19.2 NALED 20.9%  4     1     4  black    3     0   0.5    -1    NA       
+      5  19.2 NALED 21.0%  5     1     5  black    3     0   0.5    -1    NA       
+      6  19.2 NALED 21.4%  6     1     6  black    3     0   0.5    -1    NA       
+      7  19.2 NALED 21.7%  7     1     7  black    3     0   0.5    -1    NA       
+      8  19.2 NALED 22.1%  8     1     8  black    3     0   0.5    -1    NA       
+      9  19.2 NALED 23.1%  9     1     9  black    3     0   0.5    -1    NA       
+      10 19.2 NALED 23.1% 10     1    10  black    3     0   0.5    -1    NA       
+      11 19.2 NALED 31.0% 11     1    11  black    3     0   0.5    -1    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[7]]
+            x     label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 ALED 1.12  1     1     1  black    3     0   0.5     2    NA       
+      2  19.2 ALED 1.96  2     1     2  black    3     0   0.5     2    NA       
+      3  19.2 ALED 2.38  3     1     3  black    3     0   0.5     2    NA       
+      4  19.2 ALED 2.23  4     1     4  black    3     0   0.5     2    NA       
+      5  19.2 ALED 3.24  5     1     5  black    3     0   0.5     2    NA       
+      6  19.2 ALED 3.51  6     1     6  black    3     0   0.5     2    NA       
+      7  19.2 ALED 2.99  7     1     7  black    3     0   0.5     2    NA       
+      8  19.2 ALED 2.87  8     1     8  black    3     0   0.5     2    NA       
+      9  19.2 ALED 3.33  9     1     9  black    3     0   0.5     2    NA       
+      10 19.2 ALED 2.70 10     1    10  black    3     0   0.5     2    NA       
+      11 19.2 ALED 5.03 11     1    11  black    3     0   0.5     2    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $ale$stats$effects_plot[[1]][[8]]
+           x y PANEL group colour size angle hjust vjust alpha family fontface
+      1 33.9 1     1    -1  black    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
       
       
       $ale$plots

@@ -30,6 +30,11 @@
 #  @param ale_x numeric or ordinal vector. Normally generated automatically (if
 #  NULL), but if provided, the provided value will be used instead.
 #  @param ale_n integer vector. See `ale_x`
+#  @param ale_y_norm_fun function. Custom function for normalizing ale_y for
+#  statistics. If provided, saves some time since it is usually the same for all
+#  all variables throughout one call to `ale`. For now, used as a flag to
+#  determine whether statistics will be calculated or not; if NULL, statistics
+#  will not be calculated.
 #
 #  @import dplyr
 #  @import purrr
@@ -39,7 +44,8 @@ calc_ale <- function(
     pred_fun, x_intervals,
     boot_it, seed, boot_alpha, boot_centre,
     ale_x = NULL,
-    ale_n = NULL
+    ale_n = NULL,
+    ale_y_norm_fun = NULL
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -50,6 +56,9 @@ calc_ale <- function(
   ale_y <- NULL
   Var1 <- NULL
   Freq <- NULL
+  statistic <- NULL
+  estimate <- NULL
+
 
 
   n_row <- nrow(X)
@@ -526,37 +535,121 @@ calc_ale <- function(
 
   # Create summary statistics of bootstrap results.
   # When boot_it = 0, all values are the same
-  boot_summary <- tibble(
-    ale_y_lo = rep(as.double(NA), length_ale_x),
-    ale_y_mean = rep(as.double(NA), length_ale_x),
-    ale_y_median = rep(as.double(NA), length_ale_x),
-    ale_y_hi = rep(as.double(NA), length_ale_x),
-  )
-  for (i in 1:length_ale_x) {
-    boot_summary$ale_y_lo[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
-                                         probs = (boot_alpha / 2))
-    boot_summary$ale_y_mean[i] <- mean(boot_mtx[i, ], na.rm = TRUE)
-    boot_summary$ale_y_median[i] <- stats::median(boot_mtx[i, ], na.rm = TRUE)
-    boot_summary$ale_y_hi[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
-                                         probs = 1 - (boot_alpha / 2))
-  }
 
-  boot_summary <- boot_summary |>
+  # Assign column names to allow conversion to tibble.
+  # In the future, maybe return this boot_mtx if users want it.
+  colnames(boot_mtx) <- paste0('it_', 1:ncol(boot_mtx))
+
+  boot_summary <-
+    boot_mtx |>
+    as_tibble() |>
+    rowwise() |>
     mutate(
+      ale_y_lo = stats::quantile(c_across(everything()), na.rm = TRUE,
+                                 probs = (boot_alpha / 2)),
+      ale_y_mean = mean(c_across(everything()), na.rm = TRUE),
+      ale_y_median = stats::median(c_across(everything()), na.rm = TRUE),
+      ale_y_hi = stats::quantile(c_across(everything()), na.rm = TRUE,
+                                 probs = 1 - (boot_alpha / 2)),
+    ) |>
+    ungroup() |>
+    mutate(
+      ale_x = ale_x,
+      ale_n = ale_n,
       ale_y = case_when(
         boot_centre == 'mean' ~ ale_y_mean,
         boot_centre == 'median' ~ ale_y_median,
-      )
+        ),
     ) |>
-    select(ale_y, everything())
+    select(ale_x, ale_n, ale_y, starts_with('ale_y'), everything())
+  # select(-starts_with('it_')) |>
+    # select(ale_x, ale_n, ale_y, everything())
 
-  return(
-    bind_cols(
-      ale_x = ale_x,
-      ale_n = ale_n,
-      boot_summary
-    )
-  )
+  # set names of bootstrap iteration columns
+  it_col_names <- names(boot_summary)[names(boot_summary) |> stringr::str_starts('it_')]
+
+  # browser()
+
+  # Call ale_stats for each bootstrap iteration
+  boot_stats <- NULL
+  if (!is.null(ale_y_norm_fun)) {  # only get stats if ale_y_norm_fun is provided
+    boot_stats <-
+      it_col_names |>
+      map(\(.it) {
+        ale_stats(boot_summary[[.it]], ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
+      })
+
+    # browser()
+
+    boot_stats <- boot_stats |>
+      set_names(it_col_names) |>
+      bind_cols() |>
+      rowwise() |>
+      mutate(
+        conf.low = stats::quantile(c_across(everything()), na.rm = TRUE,
+                                   probs = (boot_alpha / 2)),
+        mean = mean(c_across(everything()), na.rm = TRUE),
+        median = stats::median(c_across(everything()), na.rm = TRUE),
+        conf.high = stats::quantile(c_across(everything()), na.rm = TRUE,
+                                    probs = 1 - (boot_alpha / 2)),
+      ) |>
+      ungroup() |>
+      mutate(
+        estimate = case_when(
+          boot_centre == 'mean' ~ mean,
+          boot_centre == 'median' ~ median,
+        ),
+      ) |>
+      select(-starts_with('it_')) |>
+      mutate(statistic = names(boot_stats[[1]])) |>
+      select(statistic, estimate, everything())|>
+      # Name each element on each row
+      map(\(.col) {
+        names(.col) <- names(boot_stats[[1]])
+        .col
+      }) |>
+      as_tibble()
+  }
+
+
+
+  return(list(
+    summary = boot_summary |>
+      select(-starts_with('it_')),
+    stats = boot_stats
+  ))
+
+  # boot_summary <- tibble(
+  #   ale_y_lo = rep(as.double(NA), length_ale_x),
+  #   ale_y_mean = rep(as.double(NA), length_ale_x),
+  #   ale_y_median = rep(as.double(NA), length_ale_x),
+  #   ale_y_hi = rep(as.double(NA), length_ale_x),
+  # )
+  # for (i in 1:length_ale_x) {
+  #   boot_summary$ale_y_lo[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
+  #                                        probs = (boot_alpha / 2))
+  #   boot_summary$ale_y_mean[i] <- mean(boot_mtx[i, ], na.rm = TRUE)
+  #   boot_summary$ale_y_median[i] <- stats::median(boot_mtx[i, ], na.rm = TRUE)
+  #   boot_summary$ale_y_hi[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
+  #                                        probs = 1 - (boot_alpha / 2))
+  # }
+  #
+  # boot_summary <- boot_summary |>
+  #   mutate(
+  #     ale_y = case_when(
+  #       boot_centre == 'mean' ~ ale_y_mean,
+  #       boot_centre == 'median' ~ ale_y_median,
+  #     )
+  #   ) |>
+  #   select(ale_y, everything())
+  #
+  # return(
+  #   bind_cols(
+  #     ale_x = ale_x,
+  #     ale_n = ale_n,
+  #     boot_summary
+  #   )
+  # )
 
 }
 
