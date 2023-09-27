@@ -519,3 +519,90 @@ rug_sample <- function(
       select(rug_x, rug_y)
   )
 }
+
+
+# ALE effects plot
+plot_effects <- function(
+    estimates,
+    y_vals,
+    y_col,
+    plot_alpha = 0.05
+) {
+  # estimates = mb_gam$ale$stats$estimate
+  # y_vals = math$math_avg
+  # y_col = 'math_avg'
+  # plot_alpha = 0.05
+
+  y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
+  median_y <- median(y_vals)
+
+  # Sort estimates by naled and convert term to an ordered factor for proper sorting.
+  # This must be done in two steps to access the correctly sorted estimates$term.
+  estimates <- estimates |>
+    arrange(naled)
+  estimates <- estimates |>
+      mutate(term = factor(term, ordered = TRUE, levels = estimates$term))
+
+  plot <-
+    estimates |>
+    ggplot(aes(y = term)) +
+    ylab(NULL) +
+    theme_bw() +
+    # Set the outcome (y) variable on the x axis
+    scale_x_continuous(
+      name = paste0(y_col, ' (ALER and ALED)'),
+      limits = range(y_vals),
+      # Use decile breaks
+      breaks = y_deciles |> round_dp() |> as.numeric(),
+      sec.axis = dup_axis(
+        name = paste0('Percentiles of ', y_col, ' (NALER and NALED)'),
+        breaks = y_deciles,
+      )
+    ) +
+    # Add a band to show the average ± the confidence limits
+    geom_rect(
+      xmin = quantile(y_vals, 0.5 - (plot_alpha / 2)),
+      xmax = quantile(y_vals, 0.5 + (plot_alpha / 2)),
+      ymin = -Inf,
+      ymax = Inf,
+      fill = 'lightgray'
+    ) +
+    # ALER/NALER bands as error bars
+    geom_errorbarh(
+      aes(
+        xmin = median_y + aler_min,
+        xmax = median_y + aler_max
+      ),
+      height = 0.25
+    ) +
+    # ALED/NALED as annotated text on blank rectangle background
+    geom_rect(
+      aes(
+        xmin = median_y - (aled / 2),
+        xmax = median_y + (aled / 2),
+        ymin = as.integer(as.factor(term)) - 0.2,
+        ymax = as.integer(as.factor(term)) + 0.2,
+      ),
+      fill = 'white'
+    ) +
+    geom_text(aes(label = '(', x = median_y - (aled / 2))) +
+    geom_text(aes(label = ')', x = median_y + (aled / 2))) +
+    geom_text(
+      aes(label = paste0('NALED ', format(round_dp(naled)), '%'), x = median_y),
+      size = 3, vjust = -1
+    ) +
+    geom_text(
+      aes(label = paste0('ALED ', format(round_dp(aled))), x = median_y),
+      size = 3, vjust = 2
+    ) +
+    annotate(
+      geom = 'text',
+      x = max(y_vals),
+      y = which(estimates$aler_max == min(estimates$aler_max))[1],
+      label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
+      size = 3,
+      hjust = 1
+    )
+
+  return(plot)
+}

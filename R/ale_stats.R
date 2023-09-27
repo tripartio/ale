@@ -89,23 +89,24 @@ ale_stats <- function(
     # percentiles of the lower half of the y values (0 to 50%)
     # Note: the median is included in both halves.
     -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
-  )
+  ) |>
+    (`*`)(100)
   # norm_ale_y <- if_else(
   #   ale_y > 0,
   #   ecdf_pos_y(ale_y),
   #   -ecdf_neg_y(-ale_y)
   # )
 
-  # Scale is 0 to 1, representing equivalent average percentile effect
-  naled <- aled_score(norm_ale_y, ale_n)
+  # Scale is 0 to 100, representing equivalent average percentile effect
+  naled <- aled_score(norm_ale_y, ale_n) / 2
 
-  # Scale is 0 to 1, representing lowest and highest percentile effects
+  # Scale is 0 to 100, representing lowest and highest percentile effects
   naler <- c(
     min(norm_ale_y),
     max(norm_ale_y)
   ) |>
     (`/`)(2) |>
-    (`+`)(0.5)
+    (`+`)(50)
 
 
     return(

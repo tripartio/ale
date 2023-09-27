@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r libraries}
-library(ale)
-library(dplyr)  # for data manipulation
 library(mgcv)  # for datasets and for gam function
+library(dplyr)  # for data manipulation
+library(ale)
 ```
 
 ## Example dataset
@@ -232,7 +232,9 @@ The unit for ALER is the same unit as the outcome variable; in our case, that is
 
 While the ALE range shows the most extreme effects a variable might have on the outcome, the ALE deviation indicates its average effect over its full domain of values. With the zero-centred ALE values, it is conceptually similar to the weighted mean absolute error (MAE) of the ALE y values. Mathematically, it is 
 
-$$\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}$$ 
+$$
+\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
+$$ 
 where $i$ is the index of $k$ ALE x intervals for the variable (for a categorical variable, this is the number of distinct categories), $\mathrm{ale\_y}_i$ is the ALE y value for the $i$th ALE x interval, and $\mathrm{ale\_n}_i$ is the number of rows of data in the $i$th ALE x interval.
 
 Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r mb_gam$ale$stats$by_term$public$estimate['aled'] |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). The average effect for ratio of academic track students is slightly higher at `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aled'] |> round(2)`
@@ -241,10 +243,10 @@ Based on its ALED, we can say that the average effect on math scores of whether 
 
 Since ALER and ALED scores are scaled on the range of y for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred y values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE y values, all negative and zero values are converted to their percentile score relative to the lower half of the original y values while all positive ALE y values are converted to their percentile score relative to the upper half. Technically, this percentile assignment is the empirical cumulative distribution function (ECDF) of each half. (Note that we choose to include the score of zero ALE y in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.)
 
-The transformed maximum ALE y is thus scaled as a percentile from 0 to 1. Its formula is
+The transformed maximum ALE y is thus scaled as a percentile from 0 to 100%. Its formula is
 
 $$
-\mathrm{norm\_ale\_y} = \begin{cases} 
+\mathrm{norm\_ale\_y} = 100 \begin{cases} 
 ECDF_{y_{\geq 0}}(\mathrm{ale\_y}) & \text{if }\mathrm{ale\_y} > 0 \\
 -ECDF_{y_{\leq 0}}(\mathrm{ale\_y}) & \text{otherwise}
 \end{cases} 
@@ -255,25 +257,27 @@ where
 
 #### Normalized ALER (NALER)
 
-Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE y values from 0 to 1, centred on 0.5:
+Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE y values from 0 to 100%, centred on 50%:
 
 $$
-\mathrm{NALER}(\mathrm{y, ale\_y}) = \{ \frac{\min(\mathrm{norm\_ale\_y}) + 1}{2}, \frac{\max(\mathrm{norm\_ale\_y}) + 1}{2} \}
+\mathrm{NALER}(\mathrm{y, ale\_y}) = 
+\{ \frac{\min(\mathrm{norm\_ale\_y}) + 100}{2}, 
+\frac{\max(\mathrm{norm\_ale\_y}) + 100}{2} \}
 $$  
 
 where $y$ is the full vector of y values in the original dataset, required to calculate $\mathrm{norm\_ale\_y}$.
 
-The result of this transformation is that NALER values can be interpreted as percentiles with respect to the range of y about the median (0.5). `naler_min` is always less than 0.5 and `naler_max` is always greater than 0.5. Their numbers represent the limits of the effect of the x variable with units in percentile scores of y. So, with a NALER of `r c(mb_gam$ale$stats$by_term$public$estimate['naler_min'], mb_gam$ale$stats$by_term$public$estimate['naler_max']) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores to the `r (mb_gam$ale$stats$by_term$public$estimate['naler_min'] |> round(2)) * 100`th percentile of y values whereas the maximum (`public == FALSE`) shifts math scores to the `r (mb_gam$ale$stats$by_term$public$estimate['naler_max'] |> round(2)) * 100`th percentile. Academic track ratio has a NALER of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'], mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max']) |> round(2)`, ranging from the `r (mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'] |> round(2)) * 100`th to the `r (mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max'] |> round(2)) * 100`th percentiles of math scores.
+The result of this transformation is that NALER values can be interpreted as percentiles with respect to the range of y about the median (50%). `naler_min` is always less than 50% and `naler_max` is always greater than 50%. Their numbers represent the limits of the effect of the x variable with units in percentile scores of y. So, with a NALER of `r c(mb_gam$ale$stats$by_term$public$estimate['naler_min'], mb_gam$ale$stats$by_term$public$estimate['naler_max']) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores to the `r (mb_gam$ale$stats$by_term$public$estimate['naler_min'] |> round(2)) * 100`th percentile of y values whereas the maximum (`public == FALSE`) shifts math scores to the `r (mb_gam$ale$stats$by_term$public$estimate['naler_max'] |> round(2)) * 100`th percentile. Academic track ratio has a NALER of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'], mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max']) |> round(2)`, ranging from the `r (mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'] |> round(2)) * 100`th to the `r (mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max'] |> round(2)) * 100`th percentiles of math scores.
 
 #### Normalized ALED (NALED)
 
 The normalization of ALED scores applies the same ALED formula as before but on the normalized ALE values instead of on the original ALE y values:
 
 $$
-\mathrm{NALED}(y, \mathrm{ale\_y}, \mathrm{ale\_n}) = \mathrm{ALED}(\mathrm{norm\_ale\_y}, \mathrm{ale\_n})
+\mathrm{NALED}(y, \mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\mathrm{ALED}(\mathrm{norm\_ale\_y}, \mathrm{ale\_n})}{2}
 $$
 
-NALED produces a score that ranges from 0 to 1. It can be interpreted as the middle percentile range associated with the average variation of the x variable. So, the NALED of public school status of `r c(mb_gam$ale$stats$by_term$public$estimate['naled']) |> round(2)` indicates that its average variation with math scores is the same as that of the middle `r (mb_gam$ale$stats$by_term$public$estimate['naled'] |> round(2)) * 100`th percentile of scores. Academic ratio has a NALED of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naled']) |> round(2)`, associated with an average variation of the middle `r (mb_gam$ale$stats$by_term$academic_ratio$estimate['naled'] |> round(2)) * 100`% of scores.
+NALED produces a score that ranges from 0 to 100%. It is essentially the ALED expressed in percentiles, that is, the average effect of a variable over its full domain of values. So, the NALED of public school status of `r c(mb_gam$ale$stats$by_term$public$estimate['naled']) |> round(2)` indicates that its average effect on math scores spans the middle `r mb_gam$ale$stats$by_term$public$estimate['naled'] |> round()` percent of scores. Academic ratio has an average effect expressed in NALED of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naled']) |> round(1)`% of scores.
 
 
 

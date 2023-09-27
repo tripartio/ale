@@ -158,124 +158,124 @@
       $ale$stats$by_term
       $ale$stats$by_term$am
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         2.61     2.61   2.61   2.61      2.61 
-      2 aler_min    -2.19    -2.19  -2.19  -2.19     -2.19 
-      3 aler_max     3.21     3.21   3.21   3.21      3.21 
-      4 naled        0.401    0.401  0.401  0.401     0.401
-      5 naler_min    0.324    0.324  0.324  0.324     0.324
-      6 naler_max    0.735    0.735  0.735  0.735     0.735
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.61     2.61   2.61  2.61      2.61
+      2 aler_min     -2.19    -2.19  -2.19 -2.19     -2.19
+      3 aler_max      3.21     3.21   3.21  3.21      3.21
+      4 naled        20.0     20.0   20.0  20.0      20.0 
+      5 naler_min    32.4     32.4   32.4  32.4      32.4 
+      6 naler_max    73.5     73.5   73.5  73.5      73.5 
       
       $ale$stats$by_term$carb
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        1.82     1.82    1.82    1.82      1.82  
-      2 aler_min   -7.83    -7.83   -7.83   -7.83     -7.83  
-      3 aler_max    2.14     2.14    2.14    2.14      2.14  
-      4 naled       0.300    0.300   0.300   0.300     0.300 
-      5 naler_min   0.0588   0.0588  0.0588  0.0588    0.0588
-      6 naler_max   0.647    0.647   0.647   0.647     0.647 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.82     1.82   1.82  1.82      1.82
+      2 aler_min     -7.83    -7.83  -7.83 -7.83     -7.83
+      3 aler_max      2.14     2.14   2.14  2.14      2.14
+      4 naled        15.0     15.0   15.0  15.0      15.0 
+      5 naler_min     5.88     5.88   5.88  5.88      5.88
+      6 naler_max    64.7     64.7   64.7  64.7      64.7 
       
       $ale$stats$by_term$country
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.78     3.78   3.78   3.78      3.78 
-      2 aler_min    -4.77    -4.77  -4.77  -4.77     -4.77 
-      3 aler_max     4.63     4.63   4.63   4.63      4.63 
-      4 naled        0.575    0.575  0.575  0.575     0.575
-      5 naler_min    0.118    0.118  0.118  0.118     0.118
-      6 naler_max    0.794    0.794  0.794  0.794     0.794
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.78     3.78   3.78  3.78      3.78
+      2 aler_min     -4.77    -4.77  -4.77 -4.77     -4.77
+      3 aler_max      4.63     4.63   4.63  4.63      4.63
+      4 naled        28.8     28.8   28.8  28.8      28.8 
+      5 naler_min    11.8     11.8   11.8  11.8      11.8 
+      6 naler_max    79.4     79.4   79.4  79.4      79.4 
       
       $ale$stats$by_term$cyl
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        5.23     5.23    5.23    5.23      5.23  
-      2 aler_min   -6.12    -6.12   -6.12   -6.12     -6.12  
-      3 aler_max    6.94     6.94    6.94    6.94      6.94  
-      4 naled       0.638    0.638   0.638   0.638     0.638 
-      5 naler_min   0.0588   0.0588  0.0588  0.0588    0.0588
-      6 naler_max   0.853    0.853   0.853   0.853     0.853 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          5.23     5.23   5.23  5.23      5.23
+      2 aler_min     -6.12    -6.12  -6.12 -6.12     -6.12
+      3 aler_max      6.94     6.94   6.94  6.94      6.94
+      4 naled        31.9     31.9   31.9  31.9      31.9 
+      5 naler_min     5.88     5.88   5.88  5.88      5.88
+      6 naler_max    85.3     85.3   85.3  85.3      85.3 
       
       $ale$stats$by_term$disp
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        5.80     5.80    5.80    5.80      5.80  
-      2 aler_min   -8.52    -8.52   -8.52   -8.52     -8.52  
-      3 aler_max   11.2     11.2    11.2    11.2      11.2   
-      4 naled       0.654    0.654   0.654   0.654     0.654 
-      5 naler_min   0.0588   0.0588  0.0588  0.0588    0.0588
-      6 naler_max   0.882    0.882   0.882   0.882     0.882 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          5.80     5.80   5.80  5.80      5.80
+      2 aler_min     -8.52    -8.52  -8.52 -8.52     -8.52
+      3 aler_max     11.2     11.2   11.2  11.2      11.2 
+      4 naled        32.7     32.7   32.7  32.7      32.7 
+      5 naler_min     5.88     5.88   5.88  5.88      5.88
+      6 naler_max    88.2     88.2   88.2  88.2      88.2 
       
       $ale$stats$by_term$drat
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         1.98     1.98   1.98   1.98      1.98 
-      2 aler_min    -3.45    -3.45  -3.45  -3.45     -3.45 
-      3 aler_max     5.92     5.92   5.92   5.92      5.92 
-      4 naled        0.314    0.314  0.314  0.314     0.314
-      5 naler_min    0.265    0.265  0.265  0.265     0.265
-      6 naler_max    0.824    0.824  0.824  0.824     0.824
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.98     1.98   1.98  1.98      1.98
+      2 aler_min     -3.45    -3.45  -3.45 -3.45     -3.45
+      3 aler_max      5.92     5.92   5.92  5.92      5.92
+      4 naled        15.7     15.7   15.7  15.7      15.7 
+      5 naler_min    26.5     26.5   26.5  26.5      26.5 
+      6 naler_max    82.4     82.4   82.4  82.4      82.4 
       
       $ale$stats$by_term$gear
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         2.39     2.39   2.39   2.39      2.39 
-      2 aler_min    -2.55    -2.55  -2.55  -2.55     -2.55 
-      3 aler_max     7.49     7.49   7.49   7.49      7.49 
-      4 naled        0.320    0.320  0.320  0.320     0.320
-      5 naler_min    0.324    0.324  0.324  0.324     0.324
-      6 naler_max    0.853    0.853  0.853  0.853     0.853
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.39     2.39   2.39  2.39      2.39
+      2 aler_min     -2.55    -2.55  -2.55 -2.55     -2.55
+      3 aler_max      7.49     7.49   7.49  7.49      7.49
+      4 naled        16.0     16.0   16.0  16.0      16.0 
+      5 naler_min    32.4     32.4   32.4  32.4      32.4 
+      6 naler_max    85.3     85.3   85.3  85.3      85.3 
       
       $ale$stats$by_term$hp
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         1.33     1.33   1.33   1.33      1.33 
-      2 aler_min    -1.59    -1.59  -1.59  -1.59     -1.59 
-      3 aler_max     4.76     4.76   4.76   4.76      4.76 
-      4 naled        0.254    0.254  0.254  0.254     0.254
-      5 naler_min    0.353    0.353  0.353  0.353     0.353
-      6 naler_max    0.794    0.794  0.794  0.794     0.794
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.33     1.33   1.33  1.33      1.33
+      2 aler_min     -1.59    -1.59  -1.59 -1.59     -1.59
+      3 aler_max      4.76     4.76   4.76  4.76      4.76
+      4 naled        12.7     12.7   12.7  12.7      12.7 
+      5 naler_min    35.3     35.3   35.3  35.3      35.3 
+      6 naler_max    79.4     79.4   79.4  79.4      79.4 
       
       $ale$stats$by_term$qsec
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         3.80     3.80    3.80    3.80      3.80 
-      2 aler_min   -17.4    -17.4   -17.4   -17.4     -17.4  
-      3 aler_max     4.63     4.63    4.63    4.63      4.63 
-      4 naled        0.472    0.472   0.472   0.472     0.472
-      5 naler_min    0        0       0       0         0    
-      6 naler_max    0.794    0.794   0.794   0.794     0.794
+        statistic estimate conf.low median   mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 aled          3.80     3.80   3.80   3.80      3.80
+      2 aler_min    -17.4    -17.4  -17.4  -17.4     -17.4 
+      3 aler_max      4.63     4.63   4.63   4.63      4.63
+      4 naled        23.6     23.6   23.6   23.6      23.6 
+      5 naler_min     0        0      0      0         0   
+      6 naler_max    79.4     79.4   79.4   79.4      79.4 
       
       $ale$stats$by_term$vs
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        6.70     6.70    6.70    6.70      6.70  
-      2 aler_min   -5.96    -5.96   -5.96   -5.96     -5.96  
-      3 aler_max    7.66     7.66    7.66    7.66      7.66  
-      4 naled       0.805    0.805   0.805   0.805     0.805 
-      5 naler_min   0.0588   0.0588  0.0588  0.0588    0.0588
-      6 naler_max   0.853    0.853   0.853   0.853     0.853 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          6.70     6.70   6.70  6.70      6.70
+      2 aler_min     -5.96    -5.96  -5.96 -5.96     -5.96
+      3 aler_max      7.66     7.66   7.66  7.66      7.66
+      4 naled        40.3     40.3   40.3  40.3      40.3 
+      5 naler_min     5.88     5.88   5.88  5.88      5.88
+      6 naler_max    85.3     85.3   85.3  85.3      85.3 
       
       $ale$stats$by_term$wt
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        1.88     1.88    1.88    1.88      1.88  
-      2 aler_min   -5.77    -5.77   -5.77   -5.77     -5.77  
-      3 aler_max    4.19     4.19    4.19    4.19      4.19  
-      4 naled       0.316    0.316   0.316   0.316     0.316 
-      5 naler_min   0.0882   0.0882  0.0882  0.0882    0.0882
-      6 naler_max   0.794    0.794   0.794   0.794     0.794 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.88     1.88   1.88  1.88      1.88
+      2 aler_min     -5.77    -5.77  -5.77 -5.77     -5.77
+      3 aler_max      4.19     4.19   4.19  4.19      4.19
+      4 naled        15.8     15.8   15.8  15.8      15.8 
+      5 naler_min     8.82     8.82   8.82  8.82      8.82
+      6 naler_max    79.4     79.4   79.4  79.4      79.4 
       
       
       $ale$stats$by_statistic
@@ -331,66 +331,66 @@
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.638    0.638  0.638 0.638     0.638
-       2 disp       0.654    0.654  0.654 0.654     0.654
-       3 hp         0.254    0.254  0.254 0.254     0.254
-       4 drat       0.314    0.314  0.314 0.314     0.314
-       5 wt         0.316    0.316  0.316 0.316     0.316
-       6 qsec       0.472    0.472  0.472 0.472     0.472
-       7 vs         0.805    0.805  0.805 0.805     0.805
-       8 am         0.401    0.401  0.401 0.401     0.401
-       9 gear       0.320    0.320  0.320 0.320     0.320
-      10 carb       0.300    0.300  0.300 0.300     0.300
-      11 country    0.575    0.575  0.575 0.575     0.575
+       1 cyl         31.9     31.9   31.9  31.9      31.9
+       2 disp        32.7     32.7   32.7  32.7      32.7
+       3 hp          12.7     12.7   12.7  12.7      12.7
+       4 drat        15.7     15.7   15.7  15.7      15.7
+       5 wt          15.8     15.8   15.8  15.8      15.8
+       6 qsec        23.6     23.6   23.6  23.6      23.6
+       7 vs          40.3     40.3   40.3  40.3      40.3
+       8 am          20.0     20.0   20.0  20.0      20.0
+       9 gear        16.0     16.0   16.0  16.0      16.0
+      10 carb        15.0     15.0   15.0  15.0      15.0
+      11 country     28.8     28.8   28.8  28.8      28.8
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.853    0.853  0.853 0.853     0.853
-       2 disp       0.882    0.882  0.882 0.882     0.882
-       3 hp         0.794    0.794  0.794 0.794     0.794
-       4 drat       0.824    0.824  0.824 0.824     0.824
-       5 wt         0.794    0.794  0.794 0.794     0.794
-       6 qsec       0.794    0.794  0.794 0.794     0.794
-       7 vs         0.853    0.853  0.853 0.853     0.853
-       8 am         0.735    0.735  0.735 0.735     0.735
-       9 gear       0.853    0.853  0.853 0.853     0.853
-      10 carb       0.647    0.647  0.647 0.647     0.647
-      11 country    0.794    0.794  0.794 0.794     0.794
+       1 cyl         85.3     85.3   85.3  85.3      85.3
+       2 disp        88.2     88.2   88.2  88.2      88.2
+       3 hp          79.4     79.4   79.4  79.4      79.4
+       4 drat        82.4     82.4   82.4  82.4      82.4
+       5 wt          79.4     79.4   79.4  79.4      79.4
+       6 qsec        79.4     79.4   79.4  79.4      79.4
+       7 vs          85.3     85.3   85.3  85.3      85.3
+       8 am          73.5     73.5   73.5  73.5      73.5
+       9 gear        85.3     85.3   85.3  85.3      85.3
+      10 carb        64.7     64.7   64.7  64.7      64.7
+      11 country     79.4     79.4   79.4  79.4      79.4
       
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
-         term    estimate conf.low median   mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl       0.0588   0.0588 0.0588 0.0588    0.0588
-       2 disp      0.0588   0.0588 0.0588 0.0588    0.0588
-       3 hp        0.353    0.353  0.353  0.353     0.353 
-       4 drat      0.265    0.265  0.265  0.265     0.265 
-       5 wt        0.0882   0.0882 0.0882 0.0882    0.0882
-       6 qsec      0        0      0      0         0     
-       7 vs        0.0588   0.0588 0.0588 0.0588    0.0588
-       8 am        0.324    0.324  0.324  0.324     0.324 
-       9 gear      0.324    0.324  0.324  0.324     0.324 
-      10 carb      0.0588   0.0588 0.0588 0.0588    0.0588
-      11 country   0.118    0.118  0.118  0.118     0.118 
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl         5.88     5.88   5.88  5.88      5.88
+       2 disp        5.88     5.88   5.88  5.88      5.88
+       3 hp         35.3     35.3   35.3  35.3      35.3 
+       4 drat       26.5     26.5   26.5  26.5      26.5 
+       5 wt          8.82     8.82   8.82  8.82      8.82
+       6 qsec        0        0      0     0         0   
+       7 vs          5.88     5.88   5.88  5.88      5.88
+       8 am         32.4     32.4   32.4  32.4      32.4 
+       9 gear       32.4     32.4   32.4  32.4      32.4 
+      10 carb        5.88     5.88   5.88  5.88      5.88
+      11 country    11.8     11.8   11.8  11.8      11.8 
       
       
       $ale$stats$estimate
       # A tibble: 11 x 7
          term     aled aler_min aler_max naled naler_min naler_max
          <chr>   <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl      5.23    -6.12     6.94 0.638    0.0588     0.853
-       2 disp     5.80    -8.52    11.2  0.654    0.0588     0.882
-       3 hp       1.33    -1.59     4.76 0.254    0.353      0.794
-       4 drat     1.98    -3.45     5.92 0.314    0.265      0.824
-       5 wt       1.88    -5.77     4.19 0.316    0.0882     0.794
-       6 qsec     3.80   -17.4      4.63 0.472    0          0.794
-       7 vs       6.70    -5.96     7.66 0.805    0.0588     0.853
-       8 am       2.61    -2.19     3.21 0.401    0.324      0.735
-       9 gear     2.39    -2.55     7.49 0.320    0.324      0.853
-      10 carb     1.82    -7.83     2.14 0.300    0.0588     0.647
-      11 country  3.78    -4.77     4.63 0.575    0.118      0.794
+       1 cyl      5.23    -6.12     6.94  31.9      5.88      85.3
+       2 disp     5.80    -8.52    11.2   32.7      5.88      88.2
+       3 hp       1.33    -1.59     4.76  12.7     35.3       79.4
+       4 drat     1.98    -3.45     5.92  15.7     26.5       82.4
+       5 wt       1.88    -5.77     4.19  15.8      8.82      79.4
+       6 qsec     3.80   -17.4      4.63  23.6      0         79.4
+       7 vs       6.70    -5.96     7.66  40.3      5.88      85.3
+       8 am       2.61    -2.19     3.21  20.0     32.4       73.5
+       9 gear     2.39    -2.55     7.49  16.0     32.4       85.3
+      10 carb     1.82    -7.83     2.14  15.0      5.88      64.7
+      11 country  3.78    -4.77     4.63  28.8     11.8       79.4
       
       
       $ale$plots
@@ -1867,124 +1867,124 @@
       $ale$stats$by_term
       $ale$stats$by_term$am
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.04    0.678   0.847  3.04      7.37 
-      2 aler_min    -2.42   -5.16   -1.40  -2.42     -0.479
-      3 aler_max     4.04    0.509   0.980  4.04     11.9  
-      4 naled        0.463   0.125   0.378  0.463     0.870
-      5 naler_min    0.264   0.0641  0.333  0.264     0.438
-      6 naler_max    0.726   0.562   0.722  0.726     0.953
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.04    0.678  0.847  3.04     7.37 
+      2 aler_min     -2.42   -5.16  -1.40  -2.42    -0.479
+      3 aler_max      4.04    0.509  0.980  4.04    11.9  
+      4 naled        23.2     6.23  18.9   23.2     43.5  
+      5 naler_min    26.4     6.41  33.3   26.4     43.8  
+      6 naler_max    72.6    56.2   72.2   72.6     95.3  
       
       $ale$stats$by_term$carb
       # A tibble: 6 x 6
-        statistic estimate conf.low  median   mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         2.16   0.433    1.33    2.16      5.48 
-      2 aler_min    -4.54  -8.86    -4.53   -4.54     -0.587
-      3 aler_max     3.25   1.44     2.57    3.25      7.20 
-      4 naled        0.371  0.0661   0.401   0.371     0.731
-      5 naler_min    0.183  0.00313  0.0952  0.183     0.429
-      6 naler_max    0.724  0.572    0.722   0.724     0.924
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.16    0.433   1.33  2.16     5.48 
+      2 aler_min     -4.54   -8.86   -4.53 -4.54    -0.587
+      3 aler_max      3.25    1.44    2.57  3.25     7.20 
+      4 naled        18.5     3.31   20.1  18.5     36.5  
+      5 naler_min    18.3     0.313   9.52 18.3     42.9  
+      6 naler_max    72.4    57.2    72.2  72.4     92.4  
       
       $ale$stats$by_term$country
       # A tibble: 6 x 6
-        statistic estimate  conf.low  median   mean conf.high
-        <chr>        <dbl>     <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         4.28    1.05     5.14    4.28      5.89 
-      2 aler_min    -7.42  -13.9     -6.75   -7.42     -1.76 
-      3 aler_max     5.88    1.38     6.45    5.88      9.01 
-      4 naled        0.519   0.170    0.521   0.519     0.762
-      5 naler_min    0.103   0.00263  0.0312  0.103     0.375
-      6 naler_max    0.787   0.581    0.806   0.787     0.913
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          4.28    1.05    5.14  4.28      5.89
+      2 aler_min     -7.42  -13.9    -6.75 -7.42     -1.76
+      3 aler_max      5.88    1.38    6.45  5.88      9.01
+      4 naled        26.0     8.52   26.1  26.0      38.1 
+      5 naler_min    10.3     0.263   3.12 10.3      37.5 
+      6 naler_max    78.7    58.1    80.6  78.7      91.3 
       
       $ale$stats$by_term$cyl
       # A tibble: 6 x 6
-        statistic estimate  conf.low  median   mean conf.high
-        <chr>        <dbl>     <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         5.09    0.534    4.74    5.09      9.08 
-      2 aler_min    -6.30  -11.7     -6.03   -6.30     -0.672
-      3 aler_max     6.53    0.670    6.23    6.53     11.2  
-      4 naled        0.571   0.161    0.645   0.571     0.810
-      5 naler_min    0.117   0.00313  0.0476  0.117     0.403
-      6 naler_max    0.791   0.581    0.781   0.791     0.961
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          5.09    0.534   4.74  5.09     9.08 
+      2 aler_min     -6.30  -11.7    -6.03 -6.30    -0.672
+      3 aler_max      6.53    0.670   6.23  6.53    11.2  
+      4 naled        28.5     8.03   32.2  28.5     40.5  
+      5 naler_min    11.7     0.313   4.76 11.7     40.3  
+      6 naler_max    79.1    58.1    78.1  79.1     96.1  
       
       $ale$stats$by_term$disp
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.47     0.666  1.73   3.47      7.55 
-      2 aler_min    -5.43   -11.3   -3.74  -5.43     -1.27 
-      3 aler_max     6.99     0.998  2.89   6.99     15.5  
-      4 naled        0.454    0.131  0.453  0.454     0.745
-      5 naler_min    0.206    0      0.211  0.206     0.411
-      6 naler_max    0.799    0.569  0.861  0.799     0.992
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.47    0.666   1.73  3.47      7.55
+      2 aler_min     -5.43  -11.3    -3.74 -5.43     -1.27
+      3 aler_max      6.99    0.998   2.89  6.99     15.5 
+      4 naled        22.7     6.55   22.6  22.7      37.2 
+      5 naler_min    20.6     0      21.1  20.6      41.1 
+      6 naler_max    79.9    56.9    86.1  79.9      99.2 
       
       $ale$stats$by_term$drat
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         1.56    0.382   1.21   1.56      3.28 
-      2 aler_min    -2.91   -6.39   -1.95  -2.91     -0.779
-      3 aler_max     4.60    1.26    4.32   4.60      8.81 
-      4 naled        0.335   0.141   0.340  0.335     0.491
-      5 naler_min    0.209   0.0688  0.214  0.209     0.347
-      6 naler_max    0.726   0.567   0.778  0.726     0.866
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.56    0.382   1.21  1.56     3.28 
+      2 aler_min     -2.91   -6.39   -1.95 -2.91    -0.779
+      3 aler_max      4.60    1.26    4.32  4.60     8.81 
+      4 naled        16.8     7.03   17.0  16.8     24.5  
+      5 naler_min    20.9     6.88   21.4  20.9     34.7  
+      6 naler_max    72.6    56.7    77.8  72.6     86.6  
       
       $ale$stats$by_term$gear
       # A tibble: 6 x 6
-        statistic estimate conf.low  median   mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         2.88     1.57   3.17    2.88      3.75 
-      2 aler_min    -7.88   -17.0   -4.28   -7.88     -1.79 
-      3 aler_max     4.04     0.947  2.85    4.04      8.12 
-      4 naled        0.416    0.192  0.504   0.416     0.567
-      5 naler_min    0.126    0      0.0625  0.126     0.339
-      6 naler_max    0.731    0.562  0.781   0.731     0.861
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.88    1.57    3.17  2.88      3.75
+      2 aler_min     -7.88  -17.0    -4.28 -7.88     -1.79
+      3 aler_max      4.04    0.947   2.85  4.04      8.12
+      4 naled        20.8     9.61   25.2  20.8      28.4 
+      5 naler_min    12.6     0       6.25 12.6      33.9 
+      6 naler_max    73.1    56.2    78.1  73.1      86.1 
       
       $ale$stats$by_term$hp
       # A tibble: 6 x 6
-        statistic estimate conf.low  median   mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         3.44    0.342   3.14    3.44      7.26 
-      2 aler_min    -6.87  -12.6    -7.31   -6.87     -1.03 
-      3 aler_max     7.41    0.498   8.08    7.41     16.9  
-      4 naled        0.491   0.0690  0.478   0.491     0.858
-      5 naler_min    0.137   0       0.0312  0.137     0.415
-      6 naler_max    0.804   0.550   0.824   0.804     0.994
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.44    0.342   3.14  3.44      7.26
+      2 aler_min     -6.87  -12.6    -7.31 -6.87     -1.03
+      3 aler_max      7.41    0.498   8.08  7.41     16.9 
+      4 naled        24.5     3.45   23.9  24.5      42.9 
+      5 naler_min    13.7     0       3.12 13.7      41.5 
+      6 naler_max    80.4    55.0    82.4  80.4      99.4 
       
       $ale$stats$by_term$qsec
       # A tibble: 6 x 6
-        statistic estimate conf.low median    mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
-      1 aled        2.62      1.38   2.47   2.62       4.29 
-      2 aler_min   -6.65     -9.51  -9.25  -6.65      -2.32 
-      3 aler_max    4.96      1.74   5.04   4.96       8.35 
-      4 naled       0.432     0.185  0.486  0.432      0.575
-      5 naler_min   0.0992    0      0      0.0992     0.332
-      6 naler_max   0.769     0.581  0.781  0.769      0.906
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.62     1.38   2.47  2.62      4.29
+      2 aler_min     -6.65    -9.51  -9.25 -6.65     -2.32
+      3 aler_max      4.96     1.74   5.04  4.96      8.35
+      4 naled        21.6      9.24  24.3  21.6      28.8 
+      5 naler_min     9.92     0      0     9.92     33.2 
+      6 naler_max    76.9     58.1   78.1  76.9      90.6 
       
       $ale$stats$by_term$vs
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.74    1.65    2.23   3.74      8.72 
-      2 aler_min    -3.35   -7.73   -2.27  -3.35     -1.33 
-      3 aler_max     4.25    2.01    2.39   4.25      9.99 
-      4 naled        0.560   0.380   0.540  0.560     0.812
-      5 naler_min    0.209   0.0188  0.214  0.209     0.347
-      6 naler_max    0.766   0.737   0.75   0.766     0.809
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.74     1.65   2.23  3.74      8.72
+      2 aler_min     -3.35    -7.73  -2.27 -3.35     -1.33
+      3 aler_max      4.25     2.01   2.39  4.25      9.99
+      4 naled        28.0     19.0   27.0  28.0      40.6 
+      5 naler_min    20.9      1.88  21.4  20.9      34.7 
+      6 naler_max    76.6     73.7   75    76.6      80.9 
       
       $ale$stats$by_term$wt
       # A tibble: 6 x 6
-        statistic estimate conf.low  median   mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         2.41     0.714  2.33    2.41      3.85 
-      2 aler_min    -7.00   -14.8   -5.57   -7.00     -2.77 
-      3 aler_max     5.95     1.52   7.74    5.95      8.85 
-      4 naled        0.392    0.144  0.452   0.392     0.594
-      5 naler_min    0.101    0      0.0263  0.101     0.330
-      6 naler_max    0.785    0.581  0.781   0.785     0.936
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.41    0.714   2.33  2.41      3.85
+      2 aler_min     -7.00  -14.8    -5.57 -7.00     -2.77
+      3 aler_max      5.95    1.52    7.74  5.95      8.85
+      4 naled        19.6     7.19   22.6  19.6      29.7 
+      5 naler_min    10.1     0       2.63 10.1      33.0 
+      6 naler_max    78.5    58.1    78.1  78.5      93.6 
       
       
       $ale$stats$by_statistic
@@ -2040,66 +2040,66 @@
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.571   0.161   0.645 0.571     0.810
-       2 disp       0.454   0.131   0.453 0.454     0.745
-       3 hp         0.491   0.0690  0.478 0.491     0.858
-       4 drat       0.335   0.141   0.340 0.335     0.491
-       5 wt         0.392   0.144   0.452 0.392     0.594
-       6 qsec       0.432   0.185   0.486 0.432     0.575
-       7 vs         0.560   0.380   0.540 0.560     0.812
-       8 am         0.463   0.125   0.378 0.463     0.870
-       9 gear       0.416   0.192   0.504 0.416     0.567
-      10 carb       0.371   0.0661  0.401 0.371     0.731
-      11 country    0.519   0.170   0.521 0.519     0.762
+       1 cyl         28.5     8.03   32.2  28.5      40.5
+       2 disp        22.7     6.55   22.6  22.7      37.2
+       3 hp          24.5     3.45   23.9  24.5      42.9
+       4 drat        16.8     7.03   17.0  16.8      24.5
+       5 wt          19.6     7.19   22.6  19.6      29.7
+       6 qsec        21.6     9.24   24.3  21.6      28.8
+       7 vs          28.0    19.0    27.0  28.0      40.6
+       8 am          23.2     6.23   18.9  23.2      43.5
+       9 gear        20.8     9.61   25.2  20.8      28.4
+      10 carb        18.5     3.31   20.1  18.5      36.5
+      11 country     26.0     8.52   26.1  26.0      38.1
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.791    0.581  0.781 0.791     0.961
-       2 disp       0.799    0.569  0.861 0.799     0.992
-       3 hp         0.804    0.550  0.824 0.804     0.994
-       4 drat       0.726    0.567  0.778 0.726     0.866
-       5 wt         0.785    0.581  0.781 0.785     0.936
-       6 qsec       0.769    0.581  0.781 0.769     0.906
-       7 vs         0.766    0.737  0.75  0.766     0.809
-       8 am         0.726    0.562  0.722 0.726     0.953
-       9 gear       0.731    0.562  0.781 0.731     0.861
-      10 carb       0.724    0.572  0.722 0.724     0.924
-      11 country    0.787    0.581  0.806 0.787     0.913
+       1 cyl         79.1     58.1   78.1  79.1      96.1
+       2 disp        79.9     56.9   86.1  79.9      99.2
+       3 hp          80.4     55.0   82.4  80.4      99.4
+       4 drat        72.6     56.7   77.8  72.6      86.6
+       5 wt          78.5     58.1   78.1  78.5      93.6
+       6 qsec        76.9     58.1   78.1  76.9      90.6
+       7 vs          76.6     73.7   75    76.6      80.9
+       8 am          72.6     56.2   72.2  72.6      95.3
+       9 gear        73.1     56.2   78.1  73.1      86.1
+      10 carb        72.4     57.2   72.2  72.4      92.4
+      11 country     78.7     58.1   80.6  78.7      91.3
       
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
-         term    estimate conf.low median   mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl       0.117   0.00313 0.0476 0.117      0.403
-       2 disp      0.206   0       0.211  0.206      0.411
-       3 hp        0.137   0       0.0312 0.137      0.415
-       4 drat      0.209   0.0688  0.214  0.209      0.347
-       5 wt        0.101   0       0.0263 0.101      0.330
-       6 qsec      0.0992  0       0      0.0992     0.332
-       7 vs        0.209   0.0188  0.214  0.209      0.347
-       8 am        0.264   0.0641  0.333  0.264      0.438
-       9 gear      0.126   0       0.0625 0.126      0.339
-      10 carb      0.183   0.00313 0.0952 0.183      0.429
-      11 country   0.103   0.00263 0.0312 0.103      0.375
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl        11.7     0.313   4.76 11.7       40.3
+       2 disp       20.6     0      21.1  20.6       41.1
+       3 hp         13.7     0       3.12 13.7       41.5
+       4 drat       20.9     6.88   21.4  20.9       34.7
+       5 wt         10.1     0       2.63 10.1       33.0
+       6 qsec        9.92    0       0     9.92      33.2
+       7 vs         20.9     1.88   21.4  20.9       34.7
+       8 am         26.4     6.41   33.3  26.4       43.8
+       9 gear       12.6     0       6.25 12.6       33.9
+      10 carb       18.3     0.313   9.52 18.3       42.9
+      11 country    10.3     0.263   3.12 10.3       37.5
       
       
       $ale$stats$estimate
       # A tibble: 11 x 7
          term     aled aler_min aler_max naled naler_min naler_max
          <chr>   <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl      5.09    -6.30     6.53 0.571    0.117      0.791
-       2 disp     3.47    -5.43     6.99 0.454    0.206      0.799
-       3 hp       3.44    -6.87     7.41 0.491    0.137      0.804
-       4 drat     1.56    -2.91     4.60 0.335    0.209      0.726
-       5 wt       2.41    -7.00     5.95 0.392    0.101      0.785
-       6 qsec     2.62    -6.65     4.96 0.432    0.0992     0.769
-       7 vs       3.74    -3.35     4.25 0.560    0.209      0.766
-       8 am       3.04    -2.42     4.04 0.463    0.264      0.726
-       9 gear     2.88    -7.88     4.04 0.416    0.126      0.731
-      10 carb     2.16    -4.54     3.25 0.371    0.183      0.724
-      11 country  4.28    -7.42     5.88 0.519    0.103      0.787
+       1 cyl      5.09    -6.30     6.53  28.5     11.7       79.1
+       2 disp     3.47    -5.43     6.99  22.7     20.6       79.9
+       3 hp       3.44    -6.87     7.41  24.5     13.7       80.4
+       4 drat     1.56    -2.91     4.60  16.8     20.9       72.6
+       5 wt       2.41    -7.00     5.95  19.6     10.1       78.5
+       6 qsec     2.62    -6.65     4.96  21.6      9.92      76.9
+       7 vs       3.74    -3.35     4.25  28.0     20.9       76.6
+       8 am       3.04    -2.42     4.04  23.2     26.4       72.6
+       9 gear     2.88    -7.88     4.04  20.8     12.6       73.1
+      10 carb     2.16    -4.54     3.25  18.5     18.3       72.4
+      11 country  4.28    -7.42     5.88  26.0     10.3       78.7
       
       
       $ale$plots
@@ -3566,124 +3566,124 @@
       $ale$stats$by_term
       $ale$stats$by_term$am
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.51    0.435   3.51   3.91      7.68 
-      2 aler_min    -2.15   -6.54   -2.15  -3.18     -0.556
-      3 aler_max     5.49    0.353   5.49   4.95     10.2  
-      4 naled        0.428   0.0945  0.428  0.455     0.810
-      5 naler_min    0.375   0.0446  0.375  0.284     0.463
-      6 naler_max    0.794   0.554   0.794  0.752     0.924
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.51    0.435   3.51  3.91     7.68 
+      2 aler_min     -2.15   -6.54   -2.15 -3.18    -0.556
+      3 aler_max      5.49    0.353   5.49  4.95    10.2  
+      4 naled        21.4     4.72   21.4  22.7     40.5  
+      5 naler_min    37.5     4.46   37.5  28.4     46.3  
+      6 naler_max    79.4    55.4    79.4  75.2     92.4  
       
       $ale$stats$by_term$carb
       # A tibble: 6 x 6
-        statistic estimate conf.low median    mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
-      1 aled         1.12     0.932  1.12    4.17      9.92 
-      2 aler_min    -3.85   -26.7   -3.85  -10.1      -1.64 
-      3 aler_max     3.22     1.18   3.22   10.2      30.9  
-      4 naled        0.275    0.132  0.275   0.383     0.708
-      5 naler_min    0.219    0      0.219   0.186     0.363
-      6 naler_max    0.722    0.562  0.722   0.728     0.959
+        statistic estimate conf.low median   mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 aled          1.12    0.932   1.12   4.17      9.92
+      2 aler_min     -3.85  -26.7    -3.85 -10.1      -1.64
+      3 aler_max      3.22    1.18    3.22  10.2      30.9 
+      4 naled        13.8     6.61   13.8   19.1      35.4 
+      5 naler_min    21.9     0      21.9   18.6      36.3 
+      6 naler_max    72.2    56.2    72.2   72.8      95.9 
       
       $ale$stats$by_term$country
       # A tibble: 6 x 6
-        statistic estimate  conf.low median   mean conf.high
-        <chr>        <dbl>     <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         3.24    2.67     3.24   6.47     13.1  
-      2 aler_min    -4.98  -15.8     -4.98  -7.81     -3.70 
-      3 aler_max     7.79    5.62     7.79  11.8      19.9  
-      4 naled        0.419   0.370    0.419  0.589     0.902
-      5 naler_min    0.125   0.00588  0.125  0.132     0.290
-      6 naler_max    0.917   0.794    0.917  0.908     1    
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          3.24    2.67    3.24  6.47     13.1 
+      2 aler_min     -4.98  -15.8    -4.98 -7.81     -3.70
+      3 aler_max      7.79    5.62    7.79 11.8      19.9 
+      4 naled        21.0    18.5    21.0  29.4      45.1 
+      5 naler_min    12.5     0.588  12.5  13.2      29.0 
+      6 naler_max    91.7    79.4    91.7  90.8     100   
       
       $ale$stats$by_term$cyl
       # A tibble: 6 x 6
-        statistic estimate  conf.low  median    mean conf.high
-        <chr>        <dbl>     <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        5.03     2.07     5.03     7.78     18.6  
-      2 aler_min   -6.61   -27.2     -6.61   -10.8      -2.36 
-      3 aler_max    6.21     2.78     6.21     7.74     15.7  
-      4 naled       0.619    0.259    0.619    0.605     0.931
-      5 naler_min   0.0526   0.00588  0.0526   0.129     0.337
-      6 naler_max   0.844    0.653    0.844    0.824     0.978
+        statistic estimate conf.low median   mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 aled          5.03    2.07    5.03   7.78     18.6 
+      2 aler_min     -6.61  -27.2    -6.61 -10.8      -2.36
+      3 aler_max      6.21    2.78    6.21   7.74     15.7 
+      4 naled        31.0    13.0    31.0   30.2      46.5 
+      5 naler_min     5.26    0.588   5.26  12.9      33.8 
+      6 naler_max    84.4    65.3    84.4   82.4      97.8 
       
       $ale$stats$by_term$disp
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         2.99    1.10    2.99   3.13      5.91 
-      2 aler_min    -4.70   -7.03   -4.70  -5.38     -4.56 
-      3 aler_max     5.34    1.55    5.34   6.30     13.6  
-      4 naled        0.434   0.215   0.434  0.437     0.664
-      5 naler_min    0.147   0.0961  0.147  0.142     0.185
-      6 naler_max    0.844   0.635   0.844  0.834     0.983
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.99     1.10   2.99  3.13      5.91
+      2 aler_min     -4.70    -7.03  -4.70 -5.38     -4.56
+      3 aler_max      5.34     1.55   5.34  6.30     13.6 
+      4 naled        21.7     10.8   21.7  21.9      33.2 
+      5 naler_min    14.7      9.61  14.7  14.2      18.5 
+      6 naler_max    84.4     63.5   84.4  83.4      98.3 
       
       $ale$stats$by_term$drat
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         1.96    0.600   1.96   1.65      2.53 
-      2 aler_min    -3.21   -8.56   -3.21  -3.87     -1.05 
-      3 aler_max     4.52    1.82    4.52   4.17      6.51 
-      4 naled        0.280   0.0837  0.280  0.273     0.468
-      5 naler_min    0.324   0.0709  0.324  0.268     0.394
-      6 naler_max    0.812   0.579   0.812  0.758     0.904
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          1.96    0.600   1.96  1.65      2.53
+      2 aler_min     -3.21   -8.56   -3.21 -3.87     -1.05
+      3 aler_max      4.52    1.82    4.52  4.17      6.51
+      4 naled        14.0     4.19   14.0  13.6      23.4 
+      5 naler_min    32.4     7.09   32.4  26.8      39.4 
+      6 naler_max    81.2    57.9    81.2  75.8      90.4 
       
       $ale$stats$by_term$gear
       # A tibble: 6 x 6
-        statistic estimate conf.low median    mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
-      1 aled         3.33    1.83    3.33    4.89     10.5  
-      2 aler_min    -3.95  -40.1    -3.95  -13.0      -3.75 
-      3 aler_max     6.16    1.64    6.16    5.94     10.2  
-      4 naled        0.461   0.298   0.461   0.466     0.701
-      5 naler_min    0.219   0.0368  0.219   0.190     0.278
-      6 naler_max    0.794   0.655   0.794   0.782     0.896
+        statistic estimate conf.low median   mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 aled          3.33     1.83   3.33   4.89     10.5 
+      2 aler_min     -3.95   -40.1   -3.95 -13.0      -3.75
+      3 aler_max      6.16     1.64   6.16   5.94     10.2 
+      4 naled        23.1     14.9   23.1   23.3      35.0 
+      5 naler_min    21.9      3.68  21.9   19.0      27.8 
+      6 naler_max    79.4     65.5   79.4   78.2      89.6 
       
       $ale$stats$by_term$hp
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         2.38    0.390   2.38   3.21      8.31 
-      2 aler_min    -2.86   -7.04   -2.86  -3.48     -1.05 
-      3 aler_max     5.21    0.888   5.21   9.30     24.5  
-      4 naled        0.32    0.0782  0.32   0.349     0.694
-      5 naler_min    0.344   0.0412  0.344  0.247     0.399
-      6 naler_max    0.794   0.569   0.794  0.778     0.969
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.38    0.390   2.38  3.21      8.31
+      2 aler_min     -2.86   -7.04   -2.86 -3.48     -1.05
+      3 aler_max      5.21    0.888   5.21  9.30     24.5 
+      4 naled        16       3.91   16    17.5      34.7 
+      5 naler_min    34.4     4.12   34.4  24.7      39.9 
+      6 naler_max    79.4    56.9    79.4  77.8      96.9 
       
       $ale$stats$by_term$qsec
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        2.23      1.78   2.23    2.45      3.37  
-      2 aler_min   -8.75    -10.8   -8.75   -8.45     -5.92  
-      3 aler_max    4.06      3.53   4.06    4.44      6.10  
-      4 naled       0.418     0.248  0.418   0.367     0.468 
-      5 naler_min   0.0294    0      0.0294  0.0305    0.0809
-      6 naler_max   0.833     0.727  0.833   0.810     0.851 
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.23     1.78   2.23  2.45      3.37
+      2 aler_min     -8.75   -10.8   -8.75 -8.45     -5.92
+      3 aler_max      4.06     3.53   4.06  4.44      6.10
+      4 naled        20.9     12.4   20.9  18.4      23.4 
+      5 naler_min     2.94     0      2.94  3.05      8.09
+      6 naler_max    83.3     72.7   83.3  81.0      85.1 
       
       $ale$stats$by_term$vs
       # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         2.87    0.650   2.87   3.55      6.23 
-      2 aler_min    -2.71   -5.82   -2.71  -3.11     -0.441
-      3 aler_max     3.39    0.747   3.39   4.01      6.75 
-      4 naled        0.441   0.166   0.441  0.492     0.779
-      5 naler_min    0.375   0.0961  0.375  0.285     0.435
-      6 naler_max    0.824   0.597   0.824  0.773     0.880
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.87    0.650   2.87  3.55     6.23 
+      2 aler_min     -2.71   -5.82   -2.71 -3.11    -0.441
+      3 aler_max      3.39    0.747   3.39  4.01     6.75 
+      4 naled        22.1     8.30   22.1  24.6     39.0  
+      5 naler_min    37.5     9.61   37.5  28.5     43.5  
+      6 naler_max    82.4    59.7    82.4  77.3     88.0  
       
       $ale$stats$by_term$wt
       # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        2.70      1.64   2.70    4.10       8.27 
-      2 aler_min   -7.73    -16.5   -7.73   -9.99      -4.79 
-      3 aler_max    6.09      3.94   6.09    8.85      17.1  
-      4 naled       0.462     0.212  0.462   0.462      0.806
-      5 naler_min   0.0526    0      0.0526  0.0833     0.185
-      6 naler_max   0.889     0.727  0.889   0.875      0.994
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          2.70     1.64   2.70  4.10      8.27
+      2 aler_min     -7.73   -16.5   -7.73 -9.99     -4.79
+      3 aler_max      6.09     3.94   6.09  8.85     17.1 
+      4 naled        23.1     10.6   23.1  23.1      40.3 
+      5 naler_min     5.26     0      5.26  8.33     18.5 
+      6 naler_max    88.9     72.7   88.9  87.5      99.4 
       
       
       $ale$stats$by_statistic
@@ -3739,66 +3739,66 @@
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.619   0.259   0.619 0.605     0.931
-       2 disp       0.434   0.215   0.434 0.437     0.664
-       3 hp         0.32    0.0782  0.32  0.349     0.694
-       4 drat       0.280   0.0837  0.280 0.273     0.468
-       5 wt         0.462   0.212   0.462 0.462     0.806
-       6 qsec       0.418   0.248   0.418 0.367     0.468
-       7 vs         0.441   0.166   0.441 0.492     0.779
-       8 am         0.428   0.0945  0.428 0.455     0.810
-       9 gear       0.461   0.298   0.461 0.466     0.701
-      10 carb       0.275   0.132   0.275 0.383     0.708
-      11 country    0.419   0.370   0.419 0.589     0.902
+       1 cyl         31.0    13.0    31.0  30.2      46.5
+       2 disp        21.7    10.8    21.7  21.9      33.2
+       3 hp          16       3.91   16    17.5      34.7
+       4 drat        14.0     4.19   14.0  13.6      23.4
+       5 wt          23.1    10.6    23.1  23.1      40.3
+       6 qsec        20.9    12.4    20.9  18.4      23.4
+       7 vs          22.1     8.30   22.1  24.6      39.0
+       8 am          21.4     4.72   21.4  22.7      40.5
+       9 gear        23.1    14.9    23.1  23.3      35.0
+      10 carb        13.8     6.61   13.8  19.1      35.4
+      11 country     21.0    18.5    21.0  29.4      45.1
       
       $ale$stats$by_statistic$naler_max
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
          <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        0.844    0.653  0.844 0.824     0.978
-       2 disp       0.844    0.635  0.844 0.834     0.983
-       3 hp         0.794    0.569  0.794 0.778     0.969
-       4 drat       0.812    0.579  0.812 0.758     0.904
-       5 wt         0.889    0.727  0.889 0.875     0.994
-       6 qsec       0.833    0.727  0.833 0.810     0.851
-       7 vs         0.824    0.597  0.824 0.773     0.880
-       8 am         0.794    0.554  0.794 0.752     0.924
-       9 gear       0.794    0.655  0.794 0.782     0.896
-      10 carb       0.722    0.562  0.722 0.728     0.959
-      11 country    0.917    0.794  0.917 0.908     1    
+       1 cyl         84.4     65.3   84.4  82.4      97.8
+       2 disp        84.4     63.5   84.4  83.4      98.3
+       3 hp          79.4     56.9   79.4  77.8      96.9
+       4 drat        81.2     57.9   81.2  75.8      90.4
+       5 wt          88.9     72.7   88.9  87.5      99.4
+       6 qsec        83.3     72.7   83.3  81.0      85.1
+       7 vs          82.4     59.7   82.4  77.3      88.0
+       8 am          79.4     55.4   79.4  75.2      92.4
+       9 gear        79.4     65.5   79.4  78.2      89.6
+      10 carb        72.2     56.2   72.2  72.8      95.9
+      11 country     91.7     79.4   91.7  90.8     100  
       
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
-         term    estimate conf.low median   mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl       0.0526  0.00588 0.0526 0.129     0.337 
-       2 disp      0.147   0.0961  0.147  0.142     0.185 
-       3 hp        0.344   0.0412  0.344  0.247     0.399 
-       4 drat      0.324   0.0709  0.324  0.268     0.394 
-       5 wt        0.0526  0       0.0526 0.0833    0.185 
-       6 qsec      0.0294  0       0.0294 0.0305    0.0809
-       7 vs        0.375   0.0961  0.375  0.285     0.435 
-       8 am        0.375   0.0446  0.375  0.284     0.463 
-       9 gear      0.219   0.0368  0.219  0.190     0.278 
-      10 carb      0.219   0       0.219  0.186     0.363 
-      11 country   0.125   0.00588 0.125  0.132     0.290 
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl         5.26    0.588   5.26 12.9      33.8 
+       2 disp       14.7     9.61   14.7  14.2      18.5 
+       3 hp         34.4     4.12   34.4  24.7      39.9 
+       4 drat       32.4     7.09   32.4  26.8      39.4 
+       5 wt          5.26    0       5.26  8.33     18.5 
+       6 qsec        2.94    0       2.94  3.05      8.09
+       7 vs         37.5     9.61   37.5  28.5      43.5 
+       8 am         37.5     4.46   37.5  28.4      46.3 
+       9 gear       21.9     3.68   21.9  19.0      27.8 
+      10 carb       21.9     0      21.9  18.6      36.3 
+      11 country    12.5     0.588  12.5  13.2      29.0 
       
       
       $ale$stats$estimate
       # A tibble: 11 x 7
          term     aled aler_min aler_max naled naler_min naler_max
          <chr>   <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl      5.03    -6.61     6.21 0.619    0.0526     0.844
-       2 disp     2.99    -4.70     5.34 0.434    0.147      0.844
-       3 hp       2.38    -2.86     5.21 0.32     0.344      0.794
-       4 drat     1.96    -3.21     4.52 0.280    0.324      0.812
-       5 wt       2.70    -7.73     6.09 0.462    0.0526     0.889
-       6 qsec     2.23    -8.75     4.06 0.418    0.0294     0.833
-       7 vs       2.87    -2.71     3.39 0.441    0.375      0.824
-       8 am       3.51    -2.15     5.49 0.428    0.375      0.794
-       9 gear     3.33    -3.95     6.16 0.461    0.219      0.794
-      10 carb     1.12    -3.85     3.22 0.275    0.219      0.722
-      11 country  3.24    -4.98     7.79 0.419    0.125      0.917
+       1 cyl      5.03    -6.61     6.21  31.0      5.26      84.4
+       2 disp     2.99    -4.70     5.34  21.7     14.7       84.4
+       3 hp       2.38    -2.86     5.21  16       34.4       79.4
+       4 drat     1.96    -3.21     4.52  14.0     32.4       81.2
+       5 wt       2.70    -7.73     6.09  23.1      5.26      88.9
+       6 qsec     2.23    -8.75     4.06  20.9      2.94      83.3
+       7 vs       2.87    -2.71     3.39  22.1     37.5       82.4
+       8 am       3.51    -2.15     5.49  21.4     37.5       79.4
+       9 gear     3.33    -3.95     6.16  23.1     21.9       79.4
+      10 carb     1.12    -3.85     3.22  13.8     21.9       72.2
+      11 country  3.24    -4.98     7.79  21.0     12.5       91.7
       
       
       $ale$plots

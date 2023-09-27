@@ -67,3 +67,21 @@ is.count <- function(x) {
 # is.count(10)
 # assertthat::is.count('dodo')
 # assertthat::is.count(0)
+
+
+# Round a numeric vector to an intuitive number of decimal places:
+# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
+round_dp <- function(x) {
+  assert_that(is.numeric(x))
+
+  max_x <- max(abs(x))
+  dp <- dplyr::case_when(
+    max_x > 100 ~ 0,
+    max_x >  10 ~ 1,
+    max_x >   1 ~ 2,
+    .default = 3
+  )
+
+  round(x, dp)
+}
+

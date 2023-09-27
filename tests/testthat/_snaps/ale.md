@@ -139,48 +139,48 @@
       
       $stats
       $stats$cyl
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       5.23084860 -6.12392031  6.94044302  0.63786765  0.05882353  0.85294118 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       5.230849 -6.123920  6.940443 31.893382  5.882353 85.294118 
       
       $stats$disp
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       5.80279145 -8.52056187 11.19885912  0.65441176  0.05882353  0.88235294 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       5.802791 -8.520562 11.198859 32.720588  5.882353 88.235294 
       
       $stats$hp
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       1.3321005 -1.5850772  4.7613103  0.2536765  0.3529412  0.7941176 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.332101 -1.585077  4.761310 12.683824 35.294118 79.411765 
       
       $stats$drat
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       1.9759754 -3.4471489  5.9160437  0.3143382  0.2647059  0.8235294 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.975975 -3.447149  5.916044 15.716912 26.470588 82.352941 
       
       $stats$wt
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       1.87599311 -5.77319088  4.18575337  0.31617647  0.08823529  0.79411765 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.875993 -5.773191  4.185753 15.808824  8.823529 79.411765 
       
       $stats$qsec
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-        3.7962221 -17.3951315   4.6265220   0.4724265   0.0000000   0.7941176 
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+        3.796222 -17.395132   4.626522  23.621324   0.000000  79.411765 
       
       $stats$vs
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       6.70020863 -5.95574101  7.65738130  0.80514706  0.05882353  0.85294118 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       6.700209 -5.955741  7.657381 40.257353  5.882353 85.294118 
       
       $stats$am
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       2.6059871 -2.1945154  3.2073687  0.4007353  0.3235294  0.7352941 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       2.605987 -2.194515  3.207369 20.036765 32.352941 73.529412 
       
       $stats$gear
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       2.3893045 -2.5485915  7.4927977  0.3198529  0.3235294  0.8529412 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       2.389304 -2.548591  7.492798 15.992647 32.352941 85.294118 
       
       $stats$carb
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       1.82414195 -7.83046302  2.13558082  0.29963235  0.05882353  0.64705882 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.824142 -7.830463  2.135581 14.981618  5.882353 64.705882 
       
       $stats$country
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       3.7849186 -4.7676253  4.6301176  0.5753676  0.1176471  0.7941176 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       3.784919 -4.767625  4.630118 28.768382 11.764706 79.411765 
       
       
       $plots
@@ -1655,48 +1655,48 @@
       
       $stats
       $stats$cyl
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       5.23084860 -6.12392031  6.94044302  0.63786765  0.05882353  0.85294118 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       5.230849 -6.123920  6.940443 31.893382  5.882353 85.294118 
       
       $stats$disp
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       5.80279145 -8.52056187 11.19885912  0.65441176  0.05882353  0.88235294 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       5.802791 -8.520562 11.198859 32.720588  5.882353 88.235294 
       
       $stats$hp
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       1.3321005 -1.5850772  4.7613103  0.2536765  0.3529412  0.7941176 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.332101 -1.585077  4.761310 12.683824 35.294118 79.411765 
       
       $stats$drat
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       1.9759754 -3.4471489  5.9160437  0.3143382  0.2647059  0.8235294 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.975975 -3.447149  5.916044 15.716912 26.470588 82.352941 
       
       $stats$wt
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       1.87599311 -5.77319088  4.18575337  0.31617647  0.08823529  0.79411765 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.875993 -5.773191  4.185753 15.808824  8.823529 79.411765 
       
       $stats$qsec
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-        3.7962221 -17.3951315   4.6265220   0.4724265   0.0000000   0.7941176 
+            aled   aler_min   aler_max      naled  naler_min  naler_max 
+        3.796222 -17.395132   4.626522  23.621324   0.000000  79.411765 
       
       $stats$vs
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       6.70020863 -5.95574101  7.65738130  0.80514706  0.05882353  0.85294118 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       6.700209 -5.955741  7.657381 40.257353  5.882353 85.294118 
       
       $stats$am
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       2.6059871 -2.1945154  3.2073687  0.4007353  0.3235294  0.7352941 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       2.605987 -2.194515  3.207369 20.036765 32.352941 73.529412 
       
       $stats$gear
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       2.3893045 -2.5485915  7.4927977  0.3198529  0.3235294  0.8529412 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       2.389304 -2.548591  7.492798 15.992647 32.352941 85.294118 
       
       $stats$carb
-             aled    aler_min    aler_max       naled   naler_min   naler_max 
-       1.82414195 -7.83046302  2.13558082  0.29963235  0.05882353  0.64705882 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       1.824142 -7.830463  2.135581 14.981618  5.882353 64.705882 
       
       $stats$country
-            aled   aler_min   aler_max      naled  naler_min  naler_max 
-       3.7849186 -4.7676253  4.6301176  0.5753676  0.1176471  0.7941176 
+           aled  aler_min  aler_max     naled naler_min naler_max 
+       3.784919 -4.767625  4.630118 28.768382 11.764706 79.411765 
       
       
       $plots
@@ -3683,47 +3683,47 @@
       $stats
       $stats$mpg
            aled  aler_min  aler_max     naled naler_min naler_max 
-            0.0       0.0       0.0       0.0       0.5       0.5 
+              0         0         0         0        50        50 
       
       $stats$cyl
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.1390624 -0.1845120  0.1628047  0.4257812  0.0625000  0.5625000 
+       0.1390624 -0.1845120  0.1628047 21.2890625  6.2500000 56.2500000 
       
       $stats$disp
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.3245771 -0.7438604  0.4562247  0.5019531  0.0000000  0.5625000 
+       0.3245771 -0.7438604  0.4562247 25.0976562  0.0000000 56.2500000 
       
       $stats$hp
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2472276 -0.3905515  0.8565692  0.4843750  0.0000000  0.6875000 
+       0.2472276 -0.3905515  0.8565692 24.2187500  0.0000000 68.7500000 
       
       $stats$drat
               aled     aler_min     aler_max        naled    naler_min    naler_max 
-       0.007790698 -0.023325244  0.013591108  0.003906250  0.468750000  0.500000000 
+       0.007790698 -0.023325244  0.013591108  0.195312500 46.875000000 50.000000000 
       
       $stats$wt
              aled    aler_min    aler_max       naled   naler_min   naler_max 
-       0.05911103 -0.18190860  0.13188972  0.14648438  0.06250000  0.56250000 
+       0.05911103 -0.18190860  0.13188972  7.32421875  6.25000000 56.25000000 
       
       $stats$qsec
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.3067294 -0.5207641  0.4317365  0.4667969  0.0000000  0.5625000 
+       0.3067294 -0.5207641  0.4317365 23.3398438  0.0000000 56.2500000 
       
       $stats$am
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2068127 -0.2545387  0.1741580  0.4804688  0.0000000  0.5625000 
+       0.2068127 -0.2545387  0.1741580 24.0234375  0.0000000 56.2500000 
       
       $stats$gear
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.1862702 -0.1986882  0.2149127  0.4765625  0.0625000  0.5625000 
+       0.1862702 -0.1986882  0.2149127 23.8281250  6.2500000 56.2500000 
       
       $stats$carb
               aled     aler_min     aler_max        naled    naler_min    naler_max 
-       0.006638222 -0.028495784  0.007771577  0.003906250  0.468750000  0.500000000 
+       0.006638222 -0.028495784  0.007771577  0.195312500 46.875000000 50.000000000 
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2274028 -0.2414589  0.4206917  0.5898438  0.0000000  0.5625000 
+       0.2274028 -0.2414589  0.4206917 29.4921875  0.0000000 56.2500000 
       
       
       $plots
@@ -5349,47 +5349,47 @@
       $stats
       $stats$mpg
            aled  aler_min  aler_max     naled naler_min naler_max 
-            0.0       0.0       0.0       0.0       0.5       0.5 
+              0         0         0         0        50        50 
       
       $stats$cyl
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.1390624 -0.1845120  0.1628047  0.4257812  0.0625000  0.5625000 
+       0.1390624 -0.1845120  0.1628047 21.2890625  6.2500000 56.2500000 
       
       $stats$disp
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.3245771 -0.7438604  0.4562247  0.5019531  0.0000000  0.5625000 
+       0.3245771 -0.7438604  0.4562247 25.0976562  0.0000000 56.2500000 
       
       $stats$hp
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2472276 -0.3905515  0.8565692  0.4843750  0.0000000  0.6875000 
+       0.2472276 -0.3905515  0.8565692 24.2187500  0.0000000 68.7500000 
       
       $stats$drat
               aled     aler_min     aler_max        naled    naler_min    naler_max 
-       0.007790698 -0.023325244  0.013591108  0.003906250  0.468750000  0.500000000 
+       0.007790698 -0.023325244  0.013591108  0.195312500 46.875000000 50.000000000 
       
       $stats$wt
              aled    aler_min    aler_max       naled   naler_min   naler_max 
-       0.05911103 -0.18190860  0.13188972  0.14648438  0.06250000  0.56250000 
+       0.05911103 -0.18190860  0.13188972  7.32421875  6.25000000 56.25000000 
       
       $stats$qsec
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.3067294 -0.5207641  0.4317365  0.4667969  0.0000000  0.5625000 
+       0.3067294 -0.5207641  0.4317365 23.3398438  0.0000000 56.2500000 
       
       $stats$am
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2068127 -0.2545387  0.1741580  0.4804688  0.0000000  0.5625000 
+       0.2068127 -0.2545387  0.1741580 24.0234375  0.0000000 56.2500000 
       
       $stats$gear
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.1862702 -0.1986882  0.2149127  0.4765625  0.0625000  0.5625000 
+       0.1862702 -0.1986882  0.2149127 23.8281250  6.2500000 56.2500000 
       
       $stats$carb
               aled     aler_min     aler_max        naled    naler_min    naler_max 
-       0.006638222 -0.028495784  0.007771577  0.003906250  0.468750000  0.500000000 
+       0.006638222 -0.028495784  0.007771577  0.195312500 46.875000000 50.000000000 
       
       $stats$country
             aled   aler_min   aler_max      naled  naler_min  naler_max 
-       0.2274028 -0.2414589  0.4206917  0.5898438  0.0000000  0.5625000 
+       0.2274028 -0.2414589  0.4206917 29.4921875  0.0000000 56.2500000 
       
       
       $plots
