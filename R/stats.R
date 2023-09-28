@@ -280,3 +280,68 @@ pivot_stats <- function(long_stats) {
       })()
   ))
 }
+
+
+# Summarize overlapping confidence regions
+summarize_conf_regions <- function(ale_data, y_summary) {
+
+  conf_regions <-
+    ale_data |>
+    mutate(
+      # where is the current point relative to the middle bar?
+      relative_to_mid = case_when(
+        ale_y_hi < y_summary[['mid_lower']] ~ 'below',
+        ale_y_lo > y_summary[['mid_upper']] ~ 'above',
+        .default = 'overlap'
+      ) |>
+        factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
+      # new_streak == TRUE if current row has different relative_to_mid from previous row
+      new_streak = relative_to_mid != lag(relative_to_mid, default = first(relative_to_mid)),
+      # unique ID for each consecutive streak
+      streak_id = cumsum(new_streak)
+    )
+
+  if (var_type(ale_data$ale_x) == 'numeric') {
+
+    conf_regions <- conf_regions |>
+      summarize(
+        .by = streak_id,
+        start_x = first(ale_x),
+        end_x = last(ale_x),
+        start_y = first(ale_y),
+        end_y = last(ale_y),
+        n = sum(ale_n),
+        n_pct = n / sum(ale_data$ale_n),
+        relative_to_mid = first(relative_to_mid),
+      ) |>
+      mutate(
+        # dif between start_x and end_x normalized on scale of x
+        x_span = (end_x - start_x) / diff(range(ale_data$ale_x)),
+        trend = if_else(
+          x_span != 0,
+          (end_y - start_y) / x_span,
+          0
+        )
+      ) |>
+      select(
+        start_x, end_x, x_span,
+        n, n_pct,
+        start_y, end_y, trend,
+        relative_to_mid
+      )
+
+  } else {  # non-numeric x
+    conf_regions <- conf_regions |>
+      rename(
+        x = ale_x,
+        n = ale_n,
+        y = ale_y,
+      ) |>
+      mutate(
+        n_pct = n / sum(ale_data$ale_n)
+      ) |>
+      select(x, n, n_pct, y, relative_to_mid)
+  }
+
+  conf_regions
+}

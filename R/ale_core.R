@@ -788,8 +788,6 @@ ale_core <- function (
     )
   }
 
-  # browser()
-
   if ('stats' %in% output) {
     ales$stats <-
       map2(
@@ -802,6 +800,15 @@ ale_core <- function (
       select(term, everything()) |>
       pivot_stats()
 
+    # if the user wants stats, assume they also want confidence regions
+    ales$conf_regions <-
+      ales$data |>
+      map(\(.ale_data) {
+        summarize_conf_regions(.ale_data, y_summary)
+      }) |>
+      set_names(names(ales$data))
+
+    # Create an effects plot only if plots are requested
     if ('plots' %in% output) {
       ales$stats$effects_plot <- plot_effects(
         ales$stats$estimate,

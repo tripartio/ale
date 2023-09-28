@@ -562,15 +562,11 @@ calc_ale <- function(
         ),
     ) |>
     select(ale_x, ale_n, ale_y, starts_with('ale_y'), everything())
-  # select(-starts_with('it_')) |>
-    # select(ale_x, ale_n, ale_y, everything())
 
   # set names of bootstrap iteration columns
   it_col_names <- names(boot_summary)[names(boot_summary) |> stringr::str_starts('it_')]
 
-  # browser()
-
-  # Call ale_stats for each bootstrap iteration
+  # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
   if (!is.null(ale_y_norm_fun)) {  # only get stats if ale_y_norm_fun is provided
     boot_stats <-
@@ -578,8 +574,6 @@ calc_ale <- function(
       map(\(.it) {
         ale_stats(boot_summary[[.it]], ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
       })
-
-    # browser()
 
     boot_stats <- boot_stats |>
       set_names(it_col_names) |>
@@ -609,6 +603,7 @@ calc_ale <- function(
         .col
       }) |>
       as_tibble()
+
   }
 
 

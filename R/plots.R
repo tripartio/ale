@@ -144,7 +144,7 @@ plot_ale <- function(
         rug_y = data[[y_col]] + y_shift,
       )
 
-      # If the data is too big, down-sample for rug plots
+      # If the data is too big, down-sample or else rug plots are too slow
       rug_data <- if (nrow(rug_data) > rug_sample_size) {
         rug_sample(
           rug_data,
@@ -161,8 +161,13 @@ plot_ale <- function(
         geom_rug(
           aes(x = rug_x, y = rug_y),
           data = rug_data,
-          # alpha = 0.5,
-          position = position_jitter(width = 0.1, height = 0.1)
+          alpha = 0.5,
+          position = position_jitter(
+            # randomly jitter by 1% of the domain and range
+            width = 0.01 * diff(range(ale_data$ale_x)),
+            height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
+            seed = seed
+          )
         )
     }
 
@@ -390,8 +395,6 @@ plot_ale_ixn <- function(
         x1_quantile = ntile(ale_x1, n_x1_int) / n_x2_int * max(ale_x1),
       )
   }
-
-  # browser()
 
   plot <-
     ale_data |>

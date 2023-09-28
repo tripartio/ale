@@ -493,55 +493,17 @@ model_bootstrap <- function (
         ) |>
         select(term, statistic, estimate, everything())
 
-      # ale_summary_stats <-
-      #   # Iterate by x_col (by term)
-      #   map2(
-      #     ale_summary_stats, names(ale_summary_stats),
-      #     \(.x_col, .x_col_name) {
-      #
-      #       # Combine all bootstrap iterations into one tibble
-      #       .x_col_boot_stats <-
-      #         .x_col |>
-      #         bind_rows()
-      #
-      #       browser()
-      #
-      #       .x_col_boot_stats |>
-      #         summarize(
-      #           .by = statistic,
-      #           conf.low = quantile(estimate, probs = (boot_alpha / 2), na.rm = TRUE),
-      #           median = median(estimate, na.rm = TRUE),
-      #           mean = mean(estimate, na.rm = TRUE),
-      #           conf.high = quantile(estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-      #           estimate = if_else(boot_centre == 'mean', mean, median),
-      #         ) |>
-      #         mutate(
-      #           term = .x_col_name,
-      #         ) |>
-      #         select(term, statistic, estimate, everything())
-      #
-      #       # # Iterate by statistic (columns in .x_col_boot_stats)
-      #       # # and create summary of all the bootstrap values
-      #       # map2(
-      #       #   .x_col_boot_stats, names(.x_col_boot_stats),
-      #       #   \(.boot_stats, .stat_name) {
-      #       #
-      #       #     browser()
-      #       #
-      #       #     tibble(
-      #       #       term = .x_col_name,
-      #       #       statistic = .stat_name,
-      #       #       conf.low = quantile(.boot_stats, probs = (boot_alpha / 2), na.rm = TRUE),
-      #       #       median = median(.boot_stats, na.rm = TRUE),
-      #       #       mean = mean(.boot_stats, na.rm = TRUE),
-      #       #       conf.high = quantile(.boot_stats, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-      #       #       estimate = if_else(boot_centre == 'mean', mean, median),
-      #       #     ) |>
-      #       #       select(term, statistic, estimate, everything())
-      #     }) |>
-      #     bind_rows()
-      #   # }) |>
-      #   # bind_rows()
+      # browser()
+
+      # if the user wants stats, assume they also want confidence regions
+      ale_conf_regions <-
+        ale_summary_data |>
+        map(\(.ale_data) {
+          summarize_conf_regions(.ale_data, y_summary)
+        }) |>
+        set_names(names(ale_summary_data))
+
+
 
       detailed_ale_stats <- pivot_stats(ale_summary_stats)
 
@@ -578,99 +540,12 @@ model_bootstrap <- function (
 
       }
 
-
-      # ale_summary_plots <- if (('output' %in% names(ale_options)) &&
-      #                          !('plot' %in% ale_options$output)) {
-      #   # User specifically excluded plots from the output
-      #   NULL
-      # } else {  # User did not exclude plots, so create them
-      #   map2(
-      #     ale_summary_data, names(ale_summary_data),
-      #     \(.x_col_data, .x_col_name) {
-      #       plot_ale(
-      #         .x_col_data, .x_col_name, y_col, y_type, y_summary,
-      #         data = data
-      #       )
-      #     }
-      #   )
-      # }
-
       # Return ALE results
       list(
         data = ale_summary_data,
-
         stats = detailed_ale_stats,
-        # Return stats with various pivots of the same data.
-        # Note: split sorts statistics automatically. If it's a big deal, they
-        # can be arranged explicitly with list[c('first', 'second', 'etc')].
-        # stats = list(
-        #   by_term = ale_summary_stats |>
-        #     split(~ term) |>
-        #     # Name each element on each row by its corresponding statistic
-        #     map(\(.term_tbl) {
-        #       .row_names <- .term_tbl[['statistic']]
-        #
-        #       .term_tbl |>
-        #         # Name each element on each row
-        #         map(\(.col) {
-        #           names(.col) <- .row_names
-        #           .col
-        #         }) |>
-        #         as_tibble() |>
-        #         select(-term)  # remove superfluous column
-        #     }),
-        #
-        #   by_statistic = ale_summary_stats |>
-        #     split(~ statistic) |>
-        #     # Name each element on each row by its corresponding term
-        #     map(\(.statistic_tbl) {
-        #       .row_names <- .statistic_tbl[['term']]
-        #
-        #       .statistic_tbl |>
-        #         # Name each element on each row
-        #         map(\(.col) {
-        #           names(.col) <- .row_names
-        #           .col
-        #         }) |>
-        #         as_tibble() |>
-        #         select(-statistic)  # remove superfluous column
-        #     }),
-        #
-        #   estimate = ale_summary_stats |>
-        #     # create single tibble with estimates (no confidence intervals) with
-        #     # terms in rows and statistics in columns
-        #     tidyr::pivot_wider(
-        #       id_cols = term,
-        #       names_from = statistic,
-        #       values_from = estimate
-        #     ) |>
-        #     as_tibble() |>
-        #     # name each element of each row with the term names (all_cols[[1]]).
-        #     # This is an anonymous function that operates on
-        #     (\(all_cols) {
-        #       map(all_cols, \(.col) {
-        #         names(.col) <- all_cols[[1]]
-        #         .col
-        #       }) |>
-        #         as_tibble()
-        #     })()
-        # ),
-
-        # stats = list(
-        #   by_term = ale_summary_stats |>
-        #     split(~ term) |>
-        #     map(\(.term_tbl) select(.term_tbl, -term)),
-        #   by_statistic = ale_summary_stats |>
-        #     split(~ statistic) |>
-        #     map(\(.statistic_tbl) select(.statistic_tbl, -statistic)),
-        #   estimate = ale_summary_stats |>
-        #     tidyr::pivot_wider(
-        #       id_cols = term,
-        #       names_from = statistic,
-        #       values_from = estimate
-        #     )
-        # ),
-        plots = ale_summary_plots
+        plots = ale_summary_plots,
+        conf_regions = ale_conf_regions
       )
     } else {  # ALE not requested
       NULL
