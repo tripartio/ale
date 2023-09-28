@@ -407,9 +407,9 @@ plot_ale_ixn <- function(
       drop = FALSE,  # show all levels in legend, even those that don't occur
       labels = y_legend,
     ) +
-    labs(x = x1_col, y = x2_col,
-         fill = paste0(
-           y_col, ' interaction')
+    labs(
+      x = x1_col, y = x2_col,
+      fill = paste0(y_col, ' interaction')
     ) +
     theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
@@ -442,9 +442,10 @@ plot_ale_ixn <- function(
       )
   }
 
-  # if (class(ale_data$ale_x1) == 'factor') {
-  if (ale_data$ale_x1 |> isa('factor')) {
-    # Rotate categorical labels in case there are too many
+  # Rotate categorical labels if they are too long
+  if ((ale_data$ale_x1 |> paste(collapse = ' ') |> nchar()) > 50) {
+  # if (ale_data$ale_x1 |> isa('factor')) {
+  #   # Rotate categorical labels in case there are too many
     plot <- plot +
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }

@@ -215,6 +215,7 @@ Although gradient boosted trees generally perform quite well, they are rather sl
 ```{r gbm model}
 # To generate the code, uncomment the following lines.
 # But it is slow, so this vignette loads a pre-created model object.
+# set.seed(0)
 # gbm.data <- gbm(higher_income ~ ., data= data[,-c(3,4)],
 #                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
 #                 interaction.depth=3)
@@ -272,9 +273,9 @@ yhat <- function(object, newdata) {
 # # To generate the code, uncomment the following lines.
 # # But it is slow, so this vignette loads a pre-created model object.
 # gbm_ale_link <- ale(
-#   data[,-c(3,4)], gbm.data, 
-#   pred_fun = yhat, 
-#   x_intervals = 500, 
+#   data[,-c(3,4)], gbm.data,
+#   pred_fun = yhat,
+#   x_intervals = 500,
 #   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
 #   relative_y = 'zero'  # compatibility with ALEPlot
 # )
