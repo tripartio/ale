@@ -366,6 +366,8 @@ plot_ale_ixn <- function(
     y_quantiles[n_y_quant + 1] <- 1
   }
 
+  # browser()
+
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
   ale_data <- ale_data |>
     mutate(
@@ -376,9 +378,13 @@ plot_ale_ixn <- function(
       x1_quantile = ale_x1,
 
       # x2_quantile: divide ale_x2 into n_x2_int bins.
-      #ntile (the bin number) is divided by the number of bins (n_x2_int)
+      # ntile (the bin number) is divided by the number of bins (n_x2_int)
       # and then scaled by max(ale_x2) to fill the range of ale_x2 values.
-      x2_quantile = ntile(ale_x2, n_x2_int) / n_x2_int * max(ale_x2),
+      # ChatGPT helped me: it works
+      x2_quantile = (((max(ale_data$ale_x2) - min(ale_data$ale_x2)) *
+                        (ntile(ale_data$ale_x2, n_x2_int) - 1) / (n_x2_int - 1))
+                     + min(ale_data$ale_x2)),
+      # x2_quantile = ntile(ale_x2, n_x2_int) / n_x2_int * max(ale_x2),
 
       # y_quantile: which of the n_y_quant in which ale_y falls
       y_quantile = ale_y |>
@@ -392,9 +398,14 @@ plot_ale_ixn <- function(
       mutate(
         # Set numeric x1 to quantiles; factors will be unchanged.
         # See x2_quantile above for documentation of the formula.
-        x1_quantile = ntile(ale_x1, n_x1_int) / n_x2_int * max(ale_x1),
+        x1_quantile = (((max(ale_data$ale_x1) - min(ale_data$ale_x1)) *
+                          (ntile(ale_data$ale_x1, n_x1_int) - 1) / (n_x1_int - 1))
+                       + min(ale_data$ale_x1)),
+        # x1_quantile = ntile(ale_x1, n_x1_int) / n_x2_int * max(ale_x1),
       )
   }
+
+  # browser()
 
   plot <-
     ale_data |>
@@ -564,12 +575,27 @@ plot_effects <- function(
     scale_x_continuous(
       name = paste0(y_col, ' (ALER and ALED)'),
       limits = range(y_vals),
-      # Use decile breaks
-      breaks = y_deciles |> round_dp() |> as.numeric(),
+      # Regular breaks plus the median
+      breaks = \(.limits) {
+        # Create 4 logically placed breaks + add the median.
+        # 5 major breaks on the lower raw outcome scale counterbalances
+        # 10 decile breaks on the upper percentile scale.
+        labeling::extended(
+          .limits[1], .limits[2], 4
+        ) |>
+          c(median(y_vals)) |>
+          round_dp()
+      },
+      # Use decile for minor breaks
+      minor_breaks = y_deciles |> round_dp() |> as.numeric(),
       sec.axis = dup_axis(
         name = paste0('Percentiles of ', y_col, ' (NALER and NALED)'),
         breaks = y_deciles,
       )
+    ) +
+    theme(
+      panel.grid.major.x = element_line(colour = "grey75", linewidth = 0.5),
+      panel.grid.minor.x = element_line(colour = "grey90", linewidth = 0.1)
     ) +
     # Add a band to show the average ± the confidence limits
     geom_rect(
@@ -587,7 +613,7 @@ plot_effects <- function(
       ),
       height = 0.25
     ) +
-    # ALED/NALED as annotated text on blank rectangle background
+    # ALED/NALED as annotated text above and below white box
     geom_rect(
       aes(
         xmin = median_y - (aled / 2),
@@ -597,23 +623,30 @@ plot_effects <- function(
       ),
       fill = 'white'
     ) +
-    geom_text(aes(label = '(', x = median_y - (aled / 2))) +
-    geom_text(aes(label = ')', x = median_y + (aled / 2))) +
     geom_text(
       aes(label = paste0('NALED ', format(round_dp(naled)), '%'), x = median_y),
       size = 3, vjust = -1
     ) +
+    # Use ( ) as the demarcators of the plot.
+    # This visualization should not be confused with a box plot.
+    geom_text(aes(label = '(', x = median_y - (aled / 2))) +
+    geom_text(aes(label = ')', x = median_y + (aled / 2))) +
     geom_text(
       aes(label = paste0('ALED ', format(round_dp(aled))), x = median_y),
       size = 3, vjust = 2
     ) +
+    # annotation to explain symbols
     annotate(
-      geom = 'text',
+      geom = 'label',
+      # Position as far to the right as possible
       x = max(y_vals),
+      # Position next to variable with the least aler_max; this reduces
+      # the likelihood that the annotation will overlap any data.
       y = which(estimates$aler_max == min(estimates$aler_max))[1],
       label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
       size = 3,
-      hjust = 1
+      hjust = 1,
+      label.size = 0
     )
 
   return(plot)

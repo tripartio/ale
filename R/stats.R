@@ -108,14 +108,15 @@ ale_stats <- function(
 
 
   # Scale is 0 to 100, representing equivalent average percentile effect
-  naled <- aled_score(norm_ale_y, ale_n) / 2
+  naled <- aled_score(norm_ale_y, ale_n)
+  # naled <- aled_score(norm_ale_y, ale_n) / 2
 
   # Scale is 0 to 100, representing lowest and highest percentile effects
   naler <- c(
     min(norm_ale_y),
     max(norm_ale_y)
   ) |>
-    (`/`)(2) |>
+    # (`/`)(2) |>
     (`+`)(50)
 
 
@@ -147,10 +148,10 @@ create_ale_y_norm_function <- function(y_vals) {
         ale_y > 0,
         # percentiles of the upper half of the y values (50 to 100%)
         # Note: the median is included in both halves.
-        stats::ecdf(centred_y[centred_y >= 0])(ale_y),
+        stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
         # percentiles of the lower half of the y values (0 to 50%)
         # Note: the median is included in both halves.
-        -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
+        -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y) / 2
       )
 
       return(norm_ale_y * 100)
@@ -315,11 +316,14 @@ summarize_conf_regions <- function(ale_data, y_summary) {
         relative_to_mid = first(relative_to_mid),
       ) |>
       mutate(
-        # dif between start_x and end_x normalized on scale of x
+        # diff between start_x and end_x normalized on scale of x
         x_span = (end_x - start_x) / diff(range(ale_data$ale_x)),
         trend = if_else(
           x_span != 0,
-          (end_y - start_y) / x_span,
+          # slope from (start_x, start_y) to (end_x, end_y)
+          # normalized on scales of x and y
+          ((end_y - start_y) / (y_summary[['max']] - y_summary[['min']])) /
+             x_span,
           0
         )
       ) |>
@@ -345,3 +349,38 @@ summarize_conf_regions <- function(ale_data, y_summary) {
 
   conf_regions
 }
+
+# Receives a confidence region summary tibble and then converts its essential
+# contents in words.
+summarize_conf_regions_in_words <- function(conf_region_summary) {
+  map_chr(1:nrow(conf_region_summary), \(.row_num) {
+    with(
+      conf_region_summary[.row_num, ],
+      if (exists('start_x')) { # conf_region_summary is numeric
+        stringr::str_glue(
+          'From {round_dp(start_x)} to {round_dp(end_x)}, ',
+          'ALE ',
+          if_else(
+            relative_to_mid == 'overlap',
+            'overlaps',
+            paste0('is ', relative_to_mid)
+          ),
+          ' the middle bar ',
+          'from {round_dp(start_y)} to {round_dp(end_y)}.',
+        )
+      } else { # conf_region_summary is NOT numeric
+        stringr::str_glue(
+          'For {x}, the ALE of {round_dp(y)} ',
+          if_else(
+            relative_to_mid == 'overlap',
+            'overlaps',
+            paste0('is ', relative_to_mid)
+          ),
+          ' the middle bar.',
+        )
+      }
+    )
+  }) |>
+    paste(collapse = ' ')
+}
+

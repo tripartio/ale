@@ -456,6 +456,32 @@
       11    NA
       
       $stats$effects_plot[[1]][[4]]
+            x       label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 NALED 12.7%  1     1     1  black    3     0   0.5    -1    NA       
+      2  19.2 NALED 15.0%  2     1     2  black    3     0   0.5    -1    NA       
+      3  19.2 NALED 15.7%  3     1     3  black    3     0   0.5    -1    NA       
+      4  19.2 NALED 15.8%  4     1     4  black    3     0   0.5    -1    NA       
+      5  19.2 NALED 16.0%  5     1     5  black    3     0   0.5    -1    NA       
+      6  19.2 NALED 20.0%  6     1     6  black    3     0   0.5    -1    NA       
+      7  19.2 NALED 23.6%  7     1     7  black    3     0   0.5    -1    NA       
+      8  19.2 NALED 28.8%  8     1     8  black    3     0   0.5    -1    NA       
+      9  19.2 NALED 31.9%  9     1     9  black    3     0   0.5    -1    NA       
+      10 19.2 NALED 32.7% 10     1    10  black    3     0   0.5    -1    NA       
+      11 19.2 NALED 40.3% 11     1    11  black    3     0   0.5    -1    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $stats$effects_plot[[1]][[5]]
                 x label  y PANEL group colour size angle hjust vjust alpha family
       1  18.53395     (  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  18.28793     (  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -481,7 +507,7 @@
       10        1        1.2
       11        1        1.2
       
-      $stats$effects_plot[[1]][[5]]
+      $stats$effects_plot[[1]][[6]]
                 x label  y PANEL group colour size angle hjust vjust alpha family
       1  19.86605     )  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  20.11207     )  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -494,32 +520,6 @@
       9  21.81542     )  9     1     9  black 3.88     0   0.5   0.5    NA       
       10 22.10140     ) 10     1    10  black 3.88     0   0.5   0.5    NA       
       11 22.55010     ) 11     1    11  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      
-      $stats$effects_plot[[1]][[6]]
-            x       label  y PANEL group colour size angle hjust vjust alpha family
-      1  19.2 NALED 12.7%  1     1     1  black    3     0   0.5    -1    NA       
-      2  19.2 NALED 15.0%  2     1     2  black    3     0   0.5    -1    NA       
-      3  19.2 NALED 15.7%  3     1     3  black    3     0   0.5    -1    NA       
-      4  19.2 NALED 15.8%  4     1     4  black    3     0   0.5    -1    NA       
-      5  19.2 NALED 16.0%  5     1     5  black    3     0   0.5    -1    NA       
-      6  19.2 NALED 20.0%  6     1     6  black    3     0   0.5    -1    NA       
-      7  19.2 NALED 23.6%  7     1     7  black    3     0   0.5    -1    NA       
-      8  19.2 NALED 28.8%  8     1     8  black    3     0   0.5    -1    NA       
-      9  19.2 NALED 31.9%  9     1     9  black    3     0   0.5    -1    NA       
-      10 19.2 NALED 32.7% 10     1    10  black    3     0   0.5    -1    NA       
-      11 19.2 NALED 40.3% 11     1    11  black    3     0   0.5    -1    NA       
          fontface lineheight
       1         1        1.2
       2         1        1.2
@@ -560,8 +560,8 @@
       11        1        1.2
       
       $stats$effects_plot[[1]][[8]]
-           x y PANEL group colour size angle hjust vjust alpha family fontface
-      1 33.9 2     1    -1  black    3     0     1   0.5    NA               1
+           x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 33.9 2     1    -1  black white    3     0     1   0.5    NA               1
         lineheight                                                              label
       1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
@@ -1870,48 +1870,48 @@
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1       4     4    0      11 0.344    13.1  13.1   0   below          
-      2       6     8    0.5    21 0.656    19.6  26.1  13.1 above          
+      1       4     4    0      11 0.344    13.1  13.1 0     below          
+      2       6     8    0.5    21 0.656    19.6  26.1 0.567 above          
       
       $conf_regions$disp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    71.1  168.  0.241    16   0.5    10.7  16.5  24.1 below          
-      2   225    472   0.616    16   0.5    19.9  30.4  17.1 above          
+      1    71.1  168.  0.241    16   0.5    10.7  16.5 1.05  below          
+      2   225    472   0.616    16   0.5    19.9  30.4 0.741 above          
       
       $conf_regions$hp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>   <dbl> <ord>          
-      1      52    97  0.159     9 0.281    24.0  19.4 -28.5   above          
-      2     105   335  0.813    23 0.719    18.9  18.4  -0.648 below          
+      1      52    97  0.159     9 0.281    24.0  19.4 -1.24   above          
+      2     105   335  0.813    23 0.719    18.9  18.4 -0.0281 below          
       
       $conf_regions$drat
       # A tibble: 3 x 9
         start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    2.76  3.23  0.217    13 0.406     15.8  17.8  9.36 below          
-      2    3.54  3.54  0         1 0.0312    19.1  19.1  0    overlap        
-      3    3.62  4.93  0.604    18 0.562     19.5  25.1  9.36 above          
+      1    2.76  3.23  0.217    13 0.406     15.8  17.8 0.406 below          
+      2    3.54  3.54  0         1 0.0312    19.1  19.1 0     overlap        
+      3    3.62  4.93  0.604    18 0.562     19.5  25.1 0.406 above          
       
       $conf_regions$wt
       # A tibble: 3 x 9
-        start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    1.51  2.88 0.348     12 0.375     23.4  19.9 -9.96 above          
-      2    3.15  3.19 0.0102     3 0.0938    19.2  19.1 -9.96 overlap        
-      3    3.22  5.42 0.565     17 0.531     19.1  13.4 -9.96 below          
+        start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1    1.51  2.88 0.348     12 0.375     23.4  19.9 -0.432 above          
+      2    3.15  3.19 0.0102     3 0.0938    19.2  19.1 -0.432 overlap        
+      3    3.22  5.42 0.565     17 0.531     19.1  13.4 -0.432 below          
       
       $conf_regions$qsec
       # A tibble: 5 x 9
-        start_x end_x x_span     n  n_pct start_y end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>   <dbl> <ord>          
-      1    14.5  15.4 0.108      3 0.0938    1.80  18.6 155.    below          
-      2    15.5  18.0 0.295     15 0.469    19.4   19.4   0.201 above          
-      3    18    18   0          1 0.0312   19.3   19.3   0     overlap        
-      4    18.3  18.9 0.0714     6 0.188    16.6   15.7 -12.8   below          
-      5    19.4  22.9 0.412      7 0.219    21.0   23.4   5.77  above          
+        start_x end_x x_span     n  n_pct start_y end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>    <dbl> <ord>          
+      1    14.5  15.4 0.108      3 0.0938    1.80  18.6  6.73    below          
+      2    15.5  18.0 0.295     15 0.469    19.4   19.4  0.00874 above          
+      3    18    18   0          1 0.0312   19.3   19.3  0       overlap        
+      4    18.3  18.9 0.0714     6 0.188    16.6   15.7 -0.555   below          
+      5    19.4  22.9 0.412      7 0.219    21.0   23.4  0.250   above          
       
       $conf_regions$vs
       # A tibble: 2 x 5
@@ -1937,10 +1937,10 @@
       
       $conf_regions$carb
       # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1       1     2  0.143    17 0.531    21.3  19.9 -9.97 above          
-      2       3     8  0.714    15 0.469    18.5  11.4 -9.97 below          
+        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1       1     2  0.143    17 0.531    21.3  19.9 -0.433 above          
+      2       3     8  0.714    15 0.469    18.5  11.4 -0.433 below          
       
       $conf_regions$country
       # A tibble: 6 x 5
@@ -2446,6 +2446,32 @@
       11    NA
       
       $stats$effects_plot[[1]][[4]]
+            x       label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.2 NALED 13.3%  1     1     1  black    3     0   0.5    -1    NA       
+      2  19.2 NALED 13.7%  2     1     2  black    3     0   0.5    -1    NA       
+      3  19.2 NALED 13.9%  3     1     3  black    3     0   0.5    -1    NA       
+      4  19.2 NALED 13.9%  4     1     4  black    3     0   0.5    -1    NA       
+      5  19.2 NALED 14.9%  5     1     5  black    3     0   0.5    -1    NA       
+      6  19.2 NALED 17.6%  6     1     6  black    3     0   0.5    -1    NA       
+      7  19.2 NALED 23.4%  7     1     7  black    3     0   0.5    -1    NA       
+      8  19.2 NALED 28.1%  8     1     8  black    3     0   0.5    -1    NA       
+      9  19.2 NALED 29.7%  9     1     9  black    3     0   0.5    -1    NA       
+      10 19.2 NALED 31.0% 10     1    10  black    3     0   0.5    -1    NA       
+      11 19.2 NALED 31.9% 11     1    11  black    3     0   0.5    -1    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      
+      $stats$effects_plot[[1]][[5]]
                 x label  y PANEL group colour size angle hjust vjust alpha family
       1  18.46164     (  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  18.38379     (  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -2471,7 +2497,7 @@
       10        1        1.2
       11        1        1.2
       
-      $stats$effects_plot[[1]][[5]]
+      $stats$effects_plot[[1]][[6]]
                 x label  y PANEL group colour size angle hjust vjust alpha family
       1  19.93836     )  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  20.01621     )  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -2484,32 +2510,6 @@
       9  21.24729     )  9     1     9  black 3.88     0   0.5   0.5    NA       
       10 22.69119     ) 10     1    10  black 3.88     0   0.5   0.5    NA       
       11 21.81542     ) 11     1    11  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      
-      $stats$effects_plot[[1]][[6]]
-            x       label  y PANEL group colour size angle hjust vjust alpha family
-      1  19.2 NALED 13.3%  1     1     1  black    3     0   0.5    -1    NA       
-      2  19.2 NALED 13.7%  2     1     2  black    3     0   0.5    -1    NA       
-      3  19.2 NALED 13.9%  3     1     3  black    3     0   0.5    -1    NA       
-      4  19.2 NALED 13.9%  4     1     4  black    3     0   0.5    -1    NA       
-      5  19.2 NALED 14.9%  5     1     5  black    3     0   0.5    -1    NA       
-      6  19.2 NALED 17.6%  6     1     6  black    3     0   0.5    -1    NA       
-      7  19.2 NALED 23.4%  7     1     7  black    3     0   0.5    -1    NA       
-      8  19.2 NALED 28.1%  8     1     8  black    3     0   0.5    -1    NA       
-      9  19.2 NALED 29.7%  9     1     9  black    3     0   0.5    -1    NA       
-      10 19.2 NALED 31.0% 10     1    10  black    3     0   0.5    -1    NA       
-      11 19.2 NALED 31.9% 11     1    11  black    3     0   0.5    -1    NA       
          fontface lineheight
       1         1        1.2
       2         1        1.2
@@ -2550,8 +2550,8 @@
       11        1        1.2
       
       $stats$effects_plot[[1]][[8]]
-           x  y PANEL group colour size angle hjust vjust alpha family fontface
-      1 33.9 10     1    -1  black    3     0     1   0.5    NA               1
+           x  y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 33.9 10     1    -1  black white    3     0     1   0.5    NA               1
         lineheight                                                              label
       1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
@@ -3860,63 +3860,63 @@
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1       4     4    0      11 0.344    13.1  13.1   0   below          
-      2       6     8    0.5    21 0.656    19.6  26.1  13.1 above          
+      1       4     4    0      11 0.344    13.1  13.1 0     below          
+      2       6     8    0.5    21 0.656    19.6  26.1 0.567 above          
       
       $conf_regions$disp
       # A tibble: 7 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    71.1  258  0.466     18 0.562     10.7  16.7 13.0   below          
-      2   276.   276. 0          3 0.0938    18.5  18.5  0     overlap        
-      3   301    301  0          1 0.0312    20.4  20.4  0     above          
-      4   304    318  0.0349     2 0.0625    19.0  20.0 28.2   overlap        
-      5   350    350  0          1 0.0312    21.3  21.3  0     above          
-      6   351    360  0.0224     3 0.0938    20.2  20.9 32.3   overlap        
-      7   400    472  0.180      4 0.125     21.6  21.7  0.926 above          
+      1    71.1  258  0.466     18 0.562     10.7  16.7 0.564  below          
+      2   276.   276. 0          3 0.0938    18.5  18.5 0      overlap        
+      3   301    301  0          1 0.0312    20.4  20.4 0      above          
+      4   304    318  0.0349     2 0.0625    19.0  20.0 1.22   overlap        
+      5   350    350  0          1 0.0312    21.3  21.3 0      above          
+      6   351    360  0.0224     3 0.0938    20.2  20.9 1.40   overlap        
+      7   400    472  0.180      4 0.125     21.6  21.7 0.0402 above          
       
       $conf_regions$hp
       # A tibble: 4 x 9
-        start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1      52   110  0.205    14 0.438     24.0  20.6 -16.6  above          
-      2     113   215  0.360    13 0.406     20.3  19.9  -1.15 overlap        
-      3     230   230  0         1 0.0312    21.4  21.4   0    above          
-      4     245   335  0.318     4 0.125     20.4  19.9  -1.68 overlap        
+        start_x end_x x_span     n  n_pct start_y end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>   <dbl> <ord>          
+      1      52   110  0.205    14 0.438     24.0  20.6 -0.719  above          
+      2     113   215  0.360    13 0.406     20.3  19.9 -0.0498 overlap        
+      3     230   230  0         1 0.0312    21.4  21.4  0      above          
+      4     245   335  0.318     4 0.125     20.4  19.9 -0.0727 overlap        
       
       $conf_regions$drat
       # A tibble: 5 x 9
         start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    2.76  3.23  0.217    13 0.406     15.8  17.8  9.23 below          
-      2    3.54  4.08  0.249    14 0.438     18.9  19.8  3.43 overlap        
-      3    4.11  4.11  0         1 0.0312    20.7  20.7  0    above          
-      4    4.22  4.22  0         2 0.0625    20.3  20.3  0    overlap        
-      5    4.43  4.93  0.230     2 0.0625    20.6  22.9  9.93 above          
+      1    2.76  3.23  0.217    13 0.406     15.8  17.8 0.401 below          
+      2    3.54  4.08  0.249    14 0.438     18.9  19.8 0.149 overlap        
+      3    4.11  4.11  0         1 0.0312    20.7  20.7 0     above          
+      4    4.22  4.22  0         2 0.0625    20.3  20.3 0     overlap        
+      5    4.43  4.93  0.230     2 0.0625    20.6  22.9 0.431 above          
       
       $conf_regions$wt
       # A tibble: 5 x 9
-        start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    1.51  3.84  0.596    28 0.875     23.4  19.9 -5.85 above          
-      2    4.07  4.07  0         1 0.0312    19.4  19.4  0    overlap        
-      3    5.25  5.25  0         1 0.0312    16.7  16.7  0    below          
-      4    5.34  5.34  0         1 0.0312    18.9  18.9  0    overlap        
-      5    5.42  5.42  0         1 0.0312    17.7  17.7  0    below          
+        start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1    1.51  3.84  0.596    28 0.875     23.4  19.9 -0.254 above          
+      2    4.07  4.07  0         1 0.0312    19.4  19.4  0     overlap        
+      3    5.25  5.25  0         1 0.0312    16.7  16.7  0     below          
+      4    5.34  5.34  0         1 0.0312    18.9  18.9  0     overlap        
+      5    5.42  5.42  0         1 0.0312    17.7  17.7  0     below          
       
       $conf_regions$qsec
       # A tibble: 9 x 9
-        start_x end_x x_span     n  n_pct start_y end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>   <dbl> <ord>          
-      1    14.5  15.5 0.119      4 0.125     1.80  9.05 60.8    below          
-      2    15.8  17.4 0.188     11 0.344    12.8  11.7  -5.84   overlap        
-      3    17.6  17.6 0          1 0.0312   11.0  11.0   0      below          
-      4    17.8  18   0.0214     3 0.0938   13.0  13.0  -0.0671 overlap        
-      5    18.3  18.9 0.0714     6 0.188     8.42  9.38 13.5    below          
-      6    19.4  20   0.0667     4 0.125    13.3  18.3  74.7    overlap        
-      7    20.0  20.0 0          1 0.0312    7.39  7.39  0      below          
-      8    20.2  20.2 0          1 0.0312   11.9  11.9   0      overlap        
-      9    22.9  22.9 0          1 0.0312    5.50  5.50  0      below          
+        start_x end_x x_span     n  n_pct start_y end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>    <dbl> <ord>          
+      1    14.5  15.5 0.119      4 0.125     1.80  9.05  2.64    below          
+      2    15.8  17.4 0.188     11 0.344    12.8  11.7  -0.253   overlap        
+      3    17.6  17.6 0          1 0.0312   11.0  11.0   0       below          
+      4    17.8  18   0.0214     3 0.0938   13.0  13.0  -0.00291 overlap        
+      5    18.3  18.9 0.0714     6 0.188     8.42  9.38  0.587   below          
+      6    19.4  20   0.0667     4 0.125    13.3  18.3   3.24    overlap        
+      7    20.0  20.0 0          1 0.0312    7.39  7.39  0       below          
+      8    20.2  20.2 0          1 0.0312   11.9  11.9   0       overlap        
+      9    22.9  22.9 0          1 0.0312    5.50  5.50  0       below          
       
       $conf_regions$vs
       # A tibble: 2 x 5
@@ -3942,10 +3942,10 @@
       
       $conf_regions$carb
       # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1       1     2  0.143    17 0.531    21.3  19.9 -9.97 above          
-      2       3     8  0.714    15 0.469    18.5  12.8 -7.92 below          
+        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1       1     2  0.143    17 0.531    21.3  19.9 -0.433 above          
+      2       3     8  0.714    15 0.469    18.5  12.8 -0.344 below          
       
       $conf_regions$country
       # A tibble: 6 x 5
@@ -4962,6 +4962,32 @@
       11        1    NA
       
       $stats$effects_plot[[1]][[4]]
+                 x       label  y PANEL group colour size angle hjust vjust alpha
+      1  0.1044482 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  0.1044482 NALED  0.2%  2     1     2  black    3     0   0.5    -1    NA
+      3  0.1044482 NALED  0.2%  3     1     3  black    3     0   0.5    -1    NA
+      4  0.1044482 NALED  7.3%  4     1     4  black    3     0   0.5    -1    NA
+      5  0.1044482 NALED 21.3%  5     1     5  black    3     0   0.5    -1    NA
+      6  0.1044482 NALED 23.3%  6     1     6  black    3     0   0.5    -1    NA
+      7  0.1044482 NALED 23.8%  7     1     7  black    3     0   0.5    -1    NA
+      8  0.1044482 NALED 24.0%  8     1     8  black    3     0   0.5    -1    NA
+      9  0.1044482 NALED 24.2%  9     1     9  black    3     0   0.5    -1    NA
+      10 0.1044482 NALED 25.1% 10     1    10  black    3     0   0.5    -1    NA
+      11 0.1044482 NALED 29.5% 11     1    11  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      
+      $stats$effects_plot[[1]][[5]]
                     x label  y PANEL group colour size angle hjust vjust alpha family
       1   0.104448170     (  1     1     1  black 3.88     0   0.5   0.5    NA       
       2   0.100552821     (  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -4987,7 +5013,7 @@
       10        1        1.2
       11        1        1.2
       
-      $stats$effects_plot[[1]][[5]]
+      $stats$effects_plot[[1]][[6]]
                  x label  y PANEL group colour size angle hjust vjust alpha family
       1  0.1044482     )  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  0.1083435     )  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -5012,32 +5038,6 @@
       9         1        1.2
       10        1        1.2
       11        1        1.2
-      
-      $stats$effects_plot[[1]][[6]]
-                 x       label  y PANEL group colour size angle hjust vjust alpha
-      1  0.1044482 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
-      2  0.1044482 NALED  0.2%  2     1     2  black    3     0   0.5    -1    NA
-      3  0.1044482 NALED  0.2%  3     1     3  black    3     0   0.5    -1    NA
-      4  0.1044482 NALED  7.3%  4     1     4  black    3     0   0.5    -1    NA
-      5  0.1044482 NALED 21.3%  5     1     5  black    3     0   0.5    -1    NA
-      6  0.1044482 NALED 23.3%  6     1     6  black    3     0   0.5    -1    NA
-      7  0.1044482 NALED 23.8%  7     1     7  black    3     0   0.5    -1    NA
-      8  0.1044482 NALED 24.0%  8     1     8  black    3     0   0.5    -1    NA
-      9  0.1044482 NALED 24.2%  9     1     9  black    3     0   0.5    -1    NA
-      10 0.1044482 NALED 25.1% 10     1    10  black    3     0   0.5    -1    NA
-      11 0.1044482 NALED 29.5% 11     1    11  black    3     0   0.5    -1    NA
-         family fontface lineheight
-      1                1        1.2
-      2                1        1.2
-      3                1        1.2
-      4                1        1.2
-      5                1        1.2
-      6                1        1.2
-      7                1        1.2
-      8                1        1.2
-      9                1        1.2
-      10               1        1.2
-      11               1        1.2
       
       $stats$effects_plot[[1]][[7]]
                  x      label  y PANEL group colour size angle hjust vjust alpha
@@ -5066,10 +5066,12 @@
       11               1        1.2
       
       $stats$effects_plot[[1]][[8]]
-               x y PANEL group colour size angle hjust vjust alpha family fontface
-      1 1.069211 1     1    -1  black    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 1.069211 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -6529,38 +6531,38 @@
       # A tibble: 3 x 9
         start_x end_x x_span     n  n_pct start_y  end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>  <dbl> <dbl> <ord>          
-      1    71.1  168.  0.241    16 0.5    0.561    0.272 -1.20 above          
+      1    71.1  168.  0.241    16 0.5    0.561    0.272 -1.00 above          
       2   225    225   0         1 0.0312 0.100    0.100  0    overlap        
-      3   258    472   0.534    15 0.469  0.00119 -0.639 -1.20 below          
+      3   258    472   0.534    15 0.469  0.00119 -0.639 -1.00 below          
       
       $conf_regions$hp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl> <dbl> <ord>          
-      1      52   123  0.251    17 0.531  -0.286 0.0268  1.25 below          
-      2     150   335  0.654    15 0.469   0.146 0.961   1.25 above          
+      1      52   123  0.251    17 0.531  -0.286 0.0268  1.04 below          
+      2     150   335  0.654    15 0.469   0.146 0.961   1.04 above          
       
       $conf_regions$drat
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1    2.76  4.93      1    32     1   0.118 0.0811 -0.0369 overlap        
+      1    2.76  4.93      1    32     1   0.118 0.0811 -0.0308 overlap        
       
       $conf_regions$wt
       # A tibble: 3 x 9
         start_x end_x x_span     n n_pct start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>          
-      1    1.51  2.77  0.321    10 0.312  0.236   0.135  -0.314 above          
-      2    2.78  3.46  0.174    11 0.344  0.135   0.0801 -0.314 overlap        
-      3    3.52  5.42  0.487    11 0.344  0.0753 -0.0775 -0.314 below          
+      1    1.51  2.77  0.321    10 0.312  0.236   0.135  -0.262 above          
+      2    2.78  3.46  0.174    11 0.344  0.135   0.0801 -0.262 overlap        
+      3    3.52  5.42  0.487    11 0.344  0.0753 -0.0775 -0.262 below          
       
       $conf_regions$qsec
       # A tibble: 3 x 9
         start_x end_x x_span     n  n_pct start_y  end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>  <dbl> <dbl> <ord>          
-      1    14.5  17.4  0.348    15 0.469  -0.415  0.0251 1.26  below          
+      1    14.5  17.4  0.348    15 0.469  -0.415  0.0251 1.06  below          
       2    17.6  17.6  0         1 0.0312  0.0931 0.0931 0     overlap        
-      3    17.8  22.9  0.605    16 0.5     0.178  0.301  0.203 above          
+      3    17.8  22.9  0.605    16 0.5     0.178  0.301  0.169 above          
       
       $conf_regions$am
       # A tibble: 2 x 5
@@ -6581,7 +6583,7 @@
       # A tibble: 2 x 9
         start_x end_x x_span     n  n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1       1     6  0.714    31 0.969   0.112  0.0863 -0.0363 overlap        
+      1       1     6  0.714    31 0.969   0.112  0.0863 -0.0303 overlap        
       2       8     8  0         1 0.0312  0.0760 0.0760  0      below          
       
       $conf_regions$country
@@ -7099,6 +7101,32 @@
       11        1    NA
       
       $stats$effects_plot[[1]][[4]]
+                 x       label  y PANEL group colour size angle hjust vjust alpha
+      1  0.1044482 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  0.1044482 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  0.1044482 NALED  0.1%  3     1     3  black    3     0   0.5    -1    NA
+      4  0.1044482 NALED  4.2%  4     1     4  black    3     0   0.5    -1    NA
+      5  0.1044482 NALED  6.3%  5     1     5  black    3     0   0.5    -1    NA
+      6  0.1044482 NALED 11.4%  6     1     6  black    3     0   0.5    -1    NA
+      7  0.1044482 NALED 21.3%  7     1     7  black    3     0   0.5    -1    NA
+      8  0.1044482 NALED 21.3%  8     1     8  black    3     0   0.5    -1    NA
+      9  0.1044482 NALED 25.1%  9     1     9  black    3     0   0.5    -1    NA
+      10 0.1044482 NALED 27.3% 10     1    10  black    3     0   0.5    -1    NA
+      11 0.1044482 NALED 27.6% 11     1    11  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      
+      $stats$effects_plot[[1]][[5]]
                     x label  y PANEL group colour size angle hjust vjust alpha family
       1   0.104448170     (  1     1     1  black 3.88     0   0.5   0.5    NA       
       2   0.101220350     (  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -7124,7 +7152,7 @@
       10        1        1.2
       11        1        1.2
       
-      $stats$effects_plot[[1]][[5]]
+      $stats$effects_plot[[1]][[6]]
                  x label  y PANEL group colour size angle hjust vjust alpha family
       1  0.1044482     )  1     1     1  black 3.88     0   0.5   0.5    NA       
       2  0.1076760     )  2     1     2  black 3.88     0   0.5   0.5    NA       
@@ -7149,32 +7177,6 @@
       9         1        1.2
       10        1        1.2
       11        1        1.2
-      
-      $stats$effects_plot[[1]][[6]]
-                 x       label  y PANEL group colour size angle hjust vjust alpha
-      1  0.1044482 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
-      2  0.1044482 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
-      3  0.1044482 NALED  0.1%  3     1     3  black    3     0   0.5    -1    NA
-      4  0.1044482 NALED  4.2%  4     1     4  black    3     0   0.5    -1    NA
-      5  0.1044482 NALED  6.3%  5     1     5  black    3     0   0.5    -1    NA
-      6  0.1044482 NALED 11.4%  6     1     6  black    3     0   0.5    -1    NA
-      7  0.1044482 NALED 21.3%  7     1     7  black    3     0   0.5    -1    NA
-      8  0.1044482 NALED 21.3%  8     1     8  black    3     0   0.5    -1    NA
-      9  0.1044482 NALED 25.1%  9     1     9  black    3     0   0.5    -1    NA
-      10 0.1044482 NALED 27.3% 10     1    10  black    3     0   0.5    -1    NA
-      11 0.1044482 NALED 27.6% 11     1    11  black    3     0   0.5    -1    NA
-         family fontface lineheight
-      1                1        1.2
-      2                1        1.2
-      3                1        1.2
-      4                1        1.2
-      5                1        1.2
-      6                1        1.2
-      7                1        1.2
-      8                1        1.2
-      9                1        1.2
-      10               1        1.2
-      11               1        1.2
       
       $stats$effects_plot[[1]][[7]]
                  x      label  y PANEL group colour size angle hjust vjust alpha
@@ -7203,10 +7205,12 @@
       11               1        1.2
       
       $stats$effects_plot[[1]][[8]]
-               x y PANEL group colour size angle hjust vjust alpha family fontface
-      1 1.069211 1     1    -1  black    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 1.069211 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
@@ -8666,50 +8670,50 @@
       # A tibble: 7 x 9
         start_x end_x x_span     n  n_pct start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl>  <dbl> <ord>          
-      1    71.1  258  0.466     18 0.562   0.561   0.226  -0.718 above          
+      1    71.1  258  0.466     18 0.562   0.561   0.226  -0.600 above          
       2   276.   276. 0          3 0.0938  0.142   0.142   0     overlap        
       3   301    301  0          1 0.0312  0.0338  0.0338  0     below          
-      4   304    318  0.0349     2 0.0625  0.0880  0.0316 -1.62  overlap        
+      4   304    318  0.0349     2 0.0625  0.0880  0.0316 -1.35  overlap        
       5   350    350  0          1 0.0312 -0.0345 -0.0345  0     below          
-      6   351    360  0.0224     3 0.0938  0.0340 -0.0207 -2.43  overlap        
-      7   400    472  0.180      4 0.125  -0.128  -0.0911  0.208 below          
+      6   351    360  0.0224     3 0.0938  0.0340 -0.0207 -2.03  overlap        
+      7   400    472  0.180      4 0.125  -0.128  -0.0911  0.174 below          
       
       $conf_regions$hp
       # A tibble: 3 x 9
         start_x end_x x_span     n n_pct start_y  end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl> <dbl> <ord>          
-      1      52   150 0.346     19 0.594  -0.286 0.0127 0.863 below          
-      2     175   180 0.0177     6 0.188   0.123 0.145  1.25  overlap        
-      3     205   335 0.459      7 0.219   0.262 0.652  0.848 above          
+      1      52   150 0.346     19 0.594  -0.286 0.0127 0.721 below          
+      2     175   180 0.0177     6 0.188   0.123 0.145  1.04  overlap        
+      3     205   335 0.459      7 0.219   0.262 0.652  0.708 above          
       
       $conf_regions$drat
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1    2.76  4.93      1    32     1   0.118 0.0900 -0.0281 overlap        
+      1    2.76  4.93      1    32     1   0.118 0.0900 -0.0234 overlap        
       
       $conf_regions$wt
       # A tibble: 6 x 9
         start_x end_x  x_span     n  n_pct start_y  end_y  trend relative_to_mid
           <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl>  <dbl>  <dbl> <ord>          
-      1    1.51  3.22 0.435      16 0.5     0.236  0.160  -0.175 above          
-      2    3.44  3.44 0.00128     4 0.125   0.143  0.142  -0.314 overlap        
+      1    1.51  3.22 0.435      16 0.5     0.236  0.160  -0.146 above          
+      2    3.44  3.44 0.00128     4 0.125   0.143  0.142  -0.262 overlap        
       3    3.46  3.46 0           1 0.0312  0.145  0.145   0     above          
-      4    3.52  4.07 0.141       8 0.25    0.135  0.106  -0.207 overlap        
+      4    3.52  4.07 0.141       8 0.25    0.135  0.106  -0.173 overlap        
       5    5.25  5.25 0           1 0.0312  0.0241 0.0241  0     below          
-      6    5.34  5.42 0.0202      2 0.0625  0.0936 0.0873 -0.314 overlap        
+      6    5.34  5.42 0.0202      2 0.0625  0.0936 0.0873 -0.262 overlap        
       
       $conf_regions$qsec
       # A tibble: 8 x 9
         start_x end_x x_span     n  n_pct start_y    end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>    <dbl>   <dbl> <ord>          
-      1    14.5  17.6 0.369     16 0.5    -0.415  -0.00598  1.11   below          
+      1    14.5  17.6 0.369     16 0.5    -0.415  -0.00598  0.925  below          
       2    17.8  17.8 0          1 0.0312  0.0789  0.0789   0      overlap        
       3    18.0  18.0 0          1 0.0312 -0.0349 -0.0349   0      below          
-      4    18    18.5 0.0619     3 0.0938  0.0585  0.168    1.77   overlap        
+      4    18    18.5 0.0619     3 0.0938  0.0585  0.168    1.48   overlap        
       5    18.6  18.6 0          1 0.0312  0.219   0.219    0      above          
       6    18.6  18.6 0          1 0.0312  0.110   0.110    0      overlap        
-      7    18.9  20.2 0.157      8 0.25    0.232   0.218   -0.0923 above          
+      7    18.9  20.2 0.157      8 0.25    0.232   0.218   -0.0771 above          
       8    22.9  22.9 0          1 0.0312  0.0847  0.0847   0      overlap        
       
       $conf_regions$am
@@ -8731,7 +8735,7 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1       1     8      1    32     1   0.112 0.0795 -0.0327 overlap        
+      1       1     8      1    32     1   0.112 0.0795 -0.0273 overlap        
       
       $conf_regions$country
       # A tibble: 6 x 5
