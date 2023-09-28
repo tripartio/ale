@@ -16,15 +16,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r libraries}
+```{r libraries, cache=TRUE}
 library(mgcv)  # for datasets and for gam function
 library(dplyr)  # for data manipulation
 library(ale)
 ```
 
+Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the `ale` package aims to extend it for statistical inference and other IML domains such as local explanation. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. This is the initial development of these measures, so they should be considered experimental for now as we refine and start to apply them.
+
 ## Example dataset
 
-We will demonstrate ALE statistics using a dataset composed and transformed from the `mgcv` package. This package is required to create teh generalized additive model (GAM) that we will use for this demonstration. (Strictly speaking, the source datasets are in the `nlme` package, which is loaded automatically when we load the `mgcv` package.) Here is the code to generate the data that we will work with:
+We will demonstrate ALE statistics using a dataset composed and transformed from the `mgcv` package. This package is required to create the generalized additive model (GAM) that we will use for this demonstration. (Strictly speaking, the source datasets are in the `nlme` package, which is loaded automatically when we load the `mgcv` package.) Here is the code to generate the data that we will work with:
 
 ```{r data setup, cache=TRUE}
 # Create and prepare the data
@@ -98,7 +100,8 @@ Now we create a model and compute statistics on it. Because this is a relatively
 
 By default, `model_bootstrap` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually quite slow since the entire process is repeated that many times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
-```{r model bootstrap, cache=TRUE, cache.extra=digest::digest("20230928.1851")}
+```{r model bootstrap, cache=TRUE}
+# ```{r model bootstrap, cache=TRUE, cache.extra=digest::digest("20230928.1851")}
 mb_gam <- model_bootstrap(
   math, 
   'gam(
