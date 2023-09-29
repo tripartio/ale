@@ -256,8 +256,9 @@ model_bootstrap <- function (
           } else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
-            do.call(ale, utils::modifyList(list(
+            do.call(ale_core, utils::modifyList(list(
               boot_data, boot_model,
+              ixn = FALSE,
               boot_it = 0,  # do not bootstrap at this inner level
               output = c('data', 'stats'),  # do not generate plots
               ale_xs = if (.it == 0) {

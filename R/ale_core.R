@@ -4,7 +4,7 @@
 #'
 
 
-#' @title Create and return ALE data and plots
+#' @title Create and return ALE data, statistics, and plots
 #'
 #' @description
 #' `ale` is the central function that manages the creation of ALE data and plots
@@ -14,7 +14,7 @@
 #'
 #'
 #' The calculation of ALE requires modifying several values of the original
-#' `test_data`. Thus, `ale` needs direct access to a `predict` function that work on
+#' `data`. Thus, `ale` needs direct access to a `predict` function that work on
 #' `model`. By default, `ale` uses a generic default `predict` function of the form
 #' `predict(model_object, new_data)` with the default prediction type of 'response'.
 #' If, however, the desired prediction values are not generated with that format,
@@ -52,13 +52,11 @@
 #' @export
 #'
 #'
-#' @param test_data dataframe. Dataset from which to create predictions for the ALE.
-#' Normally, this should be a test dataset, not the dataset on which the model
-#' was trained.
+#' @param data dataframe. Dataset from which to create predictions for the ALE.
 #' @param model model object. Model for which ALE should be calculated. Must
 #' contain a `terms` element, from which the name of the outcome target variable
 #' will be automatically calculated.
-#' @param x_cols character. Vector of column names from `test_dataset` for which
+#' @param x_cols character. Vector of column names from `data` for which
 #'  one-way ALE data is to be calculated (that is, simple ALE without interactions).
 #'  Must be provided if `ixn` is FALSE (default).
 #' @param y_col character length 1. Name of the outcome target label (y) variable.
@@ -71,7 +69,7 @@
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
 #' @param pred_fun,predict_type function,character. `pred_fun` is a function that
-#' returns a vector of predicted values of type `predict_type` from `model` on `test_data`.
+#' returns a vector of predicted values of type `predict_type` from `model` on `data`.
 #' See details.
 #' @param x_intervals non-negative integer. Maximum number of intervals on the x-axis
 #' for the ALE data for each column in `x_cols`. The number of intervals that the algorithm generates
@@ -179,7 +177,7 @@
 #' }
 #'
 ale <- function (
-    test_data,
+    data,
     model,
     x_cols = NULL,
     y_col = NULL,
@@ -206,22 +204,24 @@ ale <- function (
   # capture all arguments passed into `ale` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
   args$ixn <- FALSE  # when the user calls `ale`, they want no interactions
+
   do.call(ale_core, args)
 }
 
 
 
-#' Create and return ALE interaction data and plots
+#' @title Create and return ALE interaction data, statistics, and plots
 #'
+#' @description
 #' This is the central function that manages the creation of ALE data and plots
 #' for two-way ALE interactions. For simple one-way ALE, see `ale`.
 #' See documentation there for functionality shared between both functions.
-#'  This function calls `ale_core` that manages the ALE data and plot creation in detail.
-#'   For details, see
-#'  the introductory vignette for this package or the details and examples below.
+
+
+#' For details, see the introductory vignette for this package or the details and examples below.
+
 #'
-#'
-#' `n_y_quant` is the number of quantiles into which to
+#' For the plots, `n_y_quant` is the number of quantiles into which to
 #' divide the predicted variable (y). The middle quantiles are grouped specially:
 #'
 #' * The middle quantile is the `plot_alpha` confidence interval around the median.
@@ -236,9 +236,9 @@ ale <- function (
 #' number specified will be used, including the middle quantile.
 #'
 #'
-#' @param test_data See documentation for `ale`
+#' @param data See documentation for `ale`
 #' @param model See documentation for `ale`
-#' @param x1_cols,x2_cols character. Vectors of column names from `test_dataset` for which
+#' @param x1_cols,x2_cols character. Vectors of column names from `data` for which
 #'  two-way interaction ALE data is to be calculated. ALE data will be calculated
 #'  for each x1 column interacting with each x2 column. x1_cols can be of any standard
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
@@ -311,7 +311,7 @@ ale <- function (
 #' @export
 #'
 ale_ixn <- function (
-    test_data, model,
+    data, model,
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
@@ -337,7 +337,7 @@ ale_ixn <- function (
     n_x2_int = 20,
     n_y_quant = 10
 ) {
-  # capture all arguments passed into `-ale_ixn` (code thanks to ChatGPT)
+  # capture all arguments passed into `ale_ixn` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
   args$ixn <- TRUE  # when the user calls `ale_ixn`, they want interactions
 
@@ -363,7 +363,7 @@ ale_ixn <- function (
 # documentation details for each variable here is specified in the user-facing
 # function that specifies it.
 #
-# @param test_data See documentation for `ale`
+# @param data See documentation for `ale`
 # @param model See documentation for `ale`
 # @param ixn logical. If TRUE, `ale_core` will return interaction data between `x1_cols`
 # and `x2_cols`; both must be provided; `x_cols` will be ignored.
@@ -397,7 +397,7 @@ ale_ixn <- function (
 #
 #
 ale_core <- function (
-    test_data, model,
+    data, model,
     ixn,
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
@@ -425,10 +425,12 @@ ale_core <- function (
     n_y_quant = 10
 )
 {
-  # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  ellipsis::check_dots_empty()
 
-  assert_that(test_data |> inherits('data.frame'))
+  # Validate arguments
+  assert_that(data |> inherits('data.frame'))
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
@@ -446,7 +448,7 @@ ale_core <- function (
         (`%in%`)(class(model)) |>
         any(),  # at least one predict method matches one of the classes of model
       msg = 'The value entered in the model argument does not seem to be
-      a model object with a predict method.'
+        a model object with a predict method.'
     )
   }
 
@@ -458,10 +460,10 @@ ale_core <- function (
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
-  valid_x_cols <- all_x_cols %in% names(test_data)
+  valid_x_cols <- all_x_cols %in% names(data)
   if (!all(valid_x_cols)) {
     stop(
-      'The following columns were not found in test_data: ',
+      'The following columns were not found in data: ',
       paste0(all_x_cols[!valid_x_cols], collapse = ', ')
     )
   }
@@ -521,7 +523,7 @@ ale_core <- function (
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
       msg = 'rug_sample_size must be either 0 or
-    an integer larger than the number of x_intervals + 1.'
+        an integer larger than the number of x_intervals + 1.'
     )
     assert_that(is.whole(min_rug_per_interval))
     assert_that(is.natural(n_x1_int))
@@ -529,6 +531,7 @@ ale_core <- function (
     assert_that(is.natural(n_y_quant))
 
   }
+
 
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -539,10 +542,10 @@ ale_core <- function (
   term <- NULL
 
 
-  # Internally rename test_data. It is named test_data as an argument as a
-  # warning to users to only use a test dataset for ALE, not the full dataset.
-  data <- test_data
-  rm(test_data)
+
+
+
+
 
   # Identify y column from the Y term of a standard R model call
   if (is.null(y_col)) {
