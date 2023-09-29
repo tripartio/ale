@@ -19,14 +19,16 @@ library(ale)
 library(dplyr)
 ```
 
+Accumulated Local Effects (ALE) were initially developed as a [model-agnostic approach for global explanations of the results of black-box machine learning algorithms](https://www.doi.org/10.1111/rssb.12377 "Apley, Daniel W., and Jingyu Zhu. 'Visualizing the effects of predictor variables in black box supervised learning models.' Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086"). ALE has two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package rewrites the original code from the 'ALEPlot' package for calculating ALE data and it completely reimplements the plotting of ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference. Future versions hope to go beyond global explanations with an ALE-based approach for local explanations.
+
 This vignette demonstrates the basic functionality of the `ale` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](small_datasets.Rmd "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".)
 
 ## diamonds dataset
 
 For this introduction, we use the `diamonds` dataset, built-in with `ggplot2` (a required package for `ale`): "a dataset containing the prices and other attributes of almost 54,000 diamonds":
 
-| Variable | Description                                                  |
-|---------------|---------------------------------------------------------|
+| Variable | Description                                                                                       |
+|----------|---------------------------------------------------------------------------------------------------|
 | price    | price in US dollars (\$326--\$18,823)                                                             |
 | carat    | weight of the diamond (0.2--5.01)                                                                 |
 | cut      | quality of the cut (Fair, Good, Very Good, Premium, Ideal)                                        |
@@ -165,7 +167,6 @@ Because we are printing all plots together with the same `gridExtra::grid.arrang
 ale_ixn_gam_diamonds$plots$carat$depth
 ```
 
-This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band, which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect. 
+This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band, which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
 
-Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course x and y both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the 
-[ALEPlot comparison vignette](ALEPlot.rmd), which explains the plots in more detail.
+Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course x and y both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ALEPlot.rmd), which explains the plots in more detail.

@@ -1,10 +1,10 @@
 ---
-title: "ALE-based statistics (experimental)"
+title: "ALE-based statistics (experimental) for statistical inference and effect sizes"
 author: "Chitu Okoli"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ALE-based statistics (experimental)}
+  %\VignetteIndexEntry{ALE-based statistics (experimental) for statistical inference and effect sizes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

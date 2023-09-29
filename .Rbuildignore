@@ -4,9 +4,7 @@
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^LICENSE\.md$
-^catboost_info$
 ^data-raw$
 ^download$
 ^inst/WORDLIST$
-^projects$
 ^vignettes/.*_cache$
