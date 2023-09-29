@@ -530,87 +530,132 @@ calc_ale <- function(
     boot_mtx <- boot_mtx[, -1, drop = FALSE]
   }
 
+  #TODO: In the future, maybe return this boot_mtx if users want it.
+
   #TODO: report incomplete bootstraps (with some NA values).
   # Current version silently ignores them with na.rm = TRUE
 
   # Create summary statistics of bootstrap results.
   # When boot_it = 0, all values are the same
 
-  # Assign column names to allow conversion to tibble.
-  # In the future, maybe return this boot_mtx if users want it.
-  colnames(boot_mtx) <- paste0('it_', 1:ncol(boot_mtx))
+  # # Assign column names to allow conversion to tibble.
+  # colnames(boot_mtx) <- paste0('it_', 1:ncol(boot_mtx))
 
-  boot_summary <-
-    boot_mtx |>
-    as_tibble() |>
-    rowwise() |>
-    mutate(
-      ale_y_lo = stats::quantile(c_across(everything()), na.rm = TRUE,
-                                 probs = (boot_alpha / 2)),
-      ale_y_mean = mean(c_across(everything()), na.rm = TRUE),
-      ale_y_median = stats::median(c_across(everything()), na.rm = TRUE),
-      ale_y_hi = stats::quantile(c_across(everything()), na.rm = TRUE,
-                                 probs = 1 - (boot_alpha / 2)),
-    ) |>
-    ungroup() |>
-    mutate(
-      ale_x = ale_x,
-      ale_n = ale_n,
-      ale_y = case_when(
-        boot_centre == 'mean' ~ ale_y_mean,
-        boot_centre == 'median' ~ ale_y_median,
-        ),
-    ) |>
-    select(ale_x, ale_n, ale_y, starts_with('ale_y'), everything())
+  boot_summary <- tibble(
+    ale_x = ale_x,
+    ale_n = ale_n,
+    ale_y_lo = apply(
+      boot_mtx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+    ),
+    ale_y_mean = apply(boot_mtx, 1, mean, na.rm = TRUE),
+    ale_y_median = apply(boot_mtx, 1, stats::median, na.rm = TRUE),
+    ale_y_hi = apply(
+      boot_mtx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+    ),
+    ale_y = case_when(
+      boot_centre == 'mean' ~ ale_y_mean,
+      boot_centre == 'median' ~ ale_y_median,
+    ),
+  ) |>
+    select(ale_x, ale_n, ale_y, everything())
 
-  # set names of bootstrap iteration columns
-  it_col_names <- names(boot_summary)[names(boot_summary) |> stringr::str_starts('it_')]
+  # boot_summary <-
+  #   boot_mtx |>
+  #   as_tibble() |>
+  #   rowwise() |>
+  #   mutate(
+  #     ale_y_lo = stats::quantile(c_across(everything()), na.rm = TRUE,
+  #                                probs = (boot_alpha / 2)),
+  #     ale_y_mean = mean(c_across(everything()), na.rm = TRUE),
+  #     ale_y_median = stats::median(c_across(everything()), na.rm = TRUE),
+  #     ale_y_hi = stats::quantile(c_across(everything()), na.rm = TRUE,
+  #                                probs = 1 - (boot_alpha / 2)),
+  #   ) |>
+  #   ungroup() |>
+  #   mutate(
+  #     ale_x = ale_x,
+  #     ale_n = ale_n,
+  #     ale_y = case_when(
+  #       boot_centre == 'mean' ~ ale_y_mean,
+  #       boot_centre == 'median' ~ ale_y_median,
+  #       ),
+  #   ) |>
+  #   select(ale_x, ale_n, ale_y, starts_with('ale_y'), everything())
+
+  # browser()
+  #
+  # # set names of bootstrap iteration columns
+  # it_col_names <- names(boot_summary)[names(boot_summary) |> stringr::str_starts('it_')]
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
   if (!is.null(ale_y_norm_fun)) {  # only get stats if ale_y_norm_fun is provided
-    boot_stats <-
-      it_col_names |>
-      map(\(.it) {
-        ale_stats(boot_summary[[.it]], ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
-      })
+    boot_stats <- apply(
+      boot_mtx, 2,
+      \(.it) ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
+    )
 
-    boot_stats <- boot_stats |>
-      set_names(it_col_names) |>
-      bind_cols() |>
-      rowwise() |>
-      mutate(
-        conf.low = stats::quantile(c_across(everything()), na.rm = TRUE,
-                                   probs = (boot_alpha / 2)),
-        mean = mean(c_across(everything()), na.rm = TRUE),
-        median = stats::median(c_across(everything()), na.rm = TRUE),
-        conf.high = stats::quantile(c_across(everything()), na.rm = TRUE,
-                                    probs = 1 - (boot_alpha / 2)),
-      ) |>
-      ungroup() |>
-      mutate(
-        estimate = case_when(
-          boot_centre == 'mean' ~ mean,
-          boot_centre == 'median' ~ median,
-        ),
-      ) |>
-      select(-starts_with('it_')) |>
-      mutate(statistic = names(boot_stats[[1]])) |>
-      select(statistic, estimate, everything())|>
-      # Name each element on each row
-      map(\(.col) {
-        names(.col) <- names(boot_stats[[1]])
-        .col
-      }) |>
-      as_tibble()
+    # browser()
+
+    boot_stats <- tibble(
+      statistic = rownames(boot_stats),
+      conf.low = apply(
+        boot_stats, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+      ),
+      mean = apply(boot_stats, 1, mean, na.rm = TRUE),
+      median = apply(boot_stats, 1, stats::median, na.rm = TRUE),
+      conf.high = apply(
+        boot_stats, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+      ),
+      estimate = case_when(
+        boot_centre == 'mean' ~ mean,
+        boot_centre == 'median' ~ median,
+      ),
+    ) |>
+      select(statistic, estimate, everything())
+
+        # boot_stats <-
+    #   it_col_names |>
+    #   map(\(.it) {
+    #     ale_stats(boot_summary[[.it]], ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
+    #   })
+    #
+    # boot_stats <- boot_stats |>
+    #   set_names(it_col_names) |>
+    #   bind_cols() |>
+    #   rowwise() |>
+    #   mutate(
+    #     conf.low = stats::quantile(c_across(everything()), na.rm = TRUE,
+    #                                probs = (boot_alpha / 2)),
+    #     mean = mean(c_across(everything()), na.rm = TRUE),
+    #     median = stats::median(c_across(everything()), na.rm = TRUE),
+    #     conf.high = stats::quantile(c_across(everything()), na.rm = TRUE,
+    #                                 probs = 1 - (boot_alpha / 2)),
+    #   ) |>
+    #   ungroup() |>
+    #   mutate(
+    #     estimate = case_when(
+    #       boot_centre == 'mean' ~ mean,
+    #       boot_centre == 'median' ~ median,
+    #     ),
+    #   ) |>
+    #   select(-starts_with('it_')) |>
+    #   mutate(statistic = names(boot_stats[[1]])) |>
+    #   select(statistic, estimate, everything())|>
+    #   # Name each element on each row
+    #   map(\(.col) {
+    #     names(.col) <- names(boot_stats[[1]])
+    #     .col
+    #   }) |>
+    #   as_tibble()
 
   }
 
 
-
   return(list(
-    summary = boot_summary |>
-      select(-starts_with('it_')),
+    summary = boot_summary,
+    # summary = boot_summary |>
+    #   select(-starts_with('it_')),
     stats = boot_stats
   ))
 
