@@ -4,10 +4,10 @@
 \name{ale}
 \alias{ale}
 \alias{ale-package}
-\title{Create and return ALE data and plots}
+\title{Create and return ALE data, statistics, and plots}
 \usage{
 ale(
-  test_data,
+  data,
   model,
   x_cols = NULL,
   y_col = NULL,
@@ -33,15 +33,13 @@ ale(
 )
 }
 \arguments{
-\item{test_data}{dataframe. Dataset from which to create predictions for the ALE.
-Normally, this should be a test dataset, not the dataset on which the model
-was trained.}
+\item{data}{dataframe. Dataset from which to create predictions for the ALE.}
 
 \item{model}{model object. Model for which ALE should be calculated. Must
 contain a \code{terms} element, from which the name of the outcome target variable
 will be automatically calculated.}
 
-\item{x_cols}{character. Vector of column names from \code{test_dataset} for which
+\item{x_cols}{character. Vector of column names from \code{data} for which
 one-way ALE data is to be calculated (that is, simple ALE without interactions).
 Must be provided if \code{ixn} is FALSE (default).}
 
@@ -57,7 +55,7 @@ models, \code{y_col} should be provided.}
 specified component. By default, all are returned.}
 
 \item{pred_fun, predict_type}{function,character. \code{pred_fun} is a function that
-returns a vector of predicted values of type \code{predict_type} from \code{model} on \code{test_data}.
+returns a vector of predicted values of type \code{predict_type} from \code{model} on \code{data}.
 See details.}
 
 \item{x_intervals}{non-negative integer. Maximum number of intervals on the x-axis
@@ -121,7 +119,7 @@ for one-way ALE. For two-way interactions, see \code{ale_ixn}. This function cal
 the introductory vignette for this package or the details and examples below.
 
 The calculation of ALE requires modifying several values of the original
-\code{test_data}. Thus, \code{ale} needs direct access to a \code{predict} function that work on
+\code{data}. Thus, \code{ale} needs direct access to a \code{predict} function that work on
 \code{model}. By default, \code{ale} uses a generic default \code{predict} function of the form
 \code{predict(model_object, new_data)} with the default prediction type of 'response'.
 If, however, the desired prediction values are not generated with that format,

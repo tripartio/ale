@@ -2,10 +2,10 @@
 % Please edit documentation in R/ale_core.R
 \name{ale_ixn}
 \alias{ale_ixn}
-\title{Create and return ALE interaction data and plots}
+\title{Create and return ALE interaction data, statistics, and plots}
 \usage{
 ale_ixn(
-  test_data,
+  data,
   model,
   x1_cols = NULL,
   x2_cols = NULL,
@@ -30,11 +30,11 @@ ale_ixn(
 )
 }
 \arguments{
-\item{test_data}{See documentation for \code{ale}}
+\item{data}{See documentation for \code{ale}}
 
 \item{model}{See documentation for \code{ale}}
 
-\item{x1_cols, x2_cols}{character. Vectors of column names from \code{test_dataset} for which
+\item{x1_cols, x2_cols}{character. Vectors of column names from \code{data} for which
 two-way interaction ALE data is to be calculated. ALE data will be calculated
 for each x1 column interacting with each x2 column. x1_cols can be of any standard
 datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
@@ -81,12 +81,9 @@ the \code{output} argument.
 This is the central function that manages the creation of ALE data and plots
 for two-way ALE interactions. For simple one-way ALE, see \code{ale}.
 See documentation there for functionality shared between both functions.
-This function calls \code{ale_core} that manages the ALE data and plot creation in detail.
-For details, see
-the introductory vignette for this package or the details and examples below.
-}
-\details{
-\code{n_y_quant} is the number of quantiles into which to
+For details, see the introductory vignette for this package or the details and examples below.
+
+For the plots, \code{n_y_quant} is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:
 \itemize{
 \item The middle quantile is the \code{plot_alpha} confidence interval around the median.
