@@ -12,8 +12,8 @@ In addition, it has some minor functions that are helpful for model evaluation.
 
 You may find more details in the following vignettes:
 
--   [Introduction to the `ale` package](vignettes/intro.Rmd)
--   [ALE-based statistics (experimental) for statistical inference and effect sizes](vignettes/statistics.Rmd)
--   [Analyzing small datasets (\<2000 rows) with ALE](vignettes/small_datasets.Rmd)
--   [Comparison between `ALEPlot` and `ale` packages](vignettes/ALEPlot.Rmd)
--   [`ale` function handling of various datatypes for x](vignettes/x_datatypes.Rmd)
+-   [Introduction to the `ale` package](vignettes/ale-intro.Rmd)
+-   [ALE-based statistics (experimental) for statistical inference and effect sizes](vignettes/ale-statistics.Rmd)
+-   [Analyzing small datasets (\<2000 rows) with ALE](vignettes/ale-small-datasets.Rmd)
+-   [Comparison between `ALEPlot` and `ale` packages](vignettes/ale-ALEPlot.Rmd)
+-   [`ale` function handling of various datatypes for x](vignettes/ale-x-datatypes.Rmd)

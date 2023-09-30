@@ -21,7 +21,7 @@ library(ale)
 library(dplyr)
 ```
 
-This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
 ## `var_cars`: modified `mtcars` dataset (Motor Trend Car Road Tests)
 
@@ -92,7 +92,7 @@ cars_ale_ixn$plots |>
 
 There are no interactions in this dataset.
 
-Finally, as explained in the vignette on modelling with [small datasets](small_datasets.Rmd "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
+Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.Rmd "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
 ```{r cars_full, fig.width=7, fig.height=14}
 mb <- model_bootstrap(

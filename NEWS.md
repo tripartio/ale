@@ -13,7 +13,8 @@ This version introduces various ALE-based statistics that let ALE be used for st
 
 -   We added new experimental ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.) 
 -   We added rug plots to numeric values and percentage frequencies to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
--   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/intro.Rmd "Comparison with ALEPlot").
+-   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/ale-intro.Rmd).
+-   We added a vignette that introduces ALE-based statistics, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics (experimental) for statistical inference and effect sizes](vignettes/ale-statistics.Rmd).
 
 ### Under the hood
 
@@ -42,6 +43,6 @@ This initial release replicates the full functionality of the `ALEPlot` package 
 
 This release provides more details in the following vignettes:
 
--   [Introduction to the `ale` package](vignettes/intro.Rmd "General introduction")
--   [Analyzing small datasets (\<2000 rows) with ALE](vignettes/small_datasets.Rmd "Analyzing small datasets")
--   [`ale` function handling of various datatypes for x](vignettes/x_datatypes.Rmd "various datatypes for x")
+-   [Introduction to the `ale` package](vignettes/ale-intro.Rmd "General introduction")
+-   [Analyzing small datasets (\<2000 rows) with ALE](vignettes/ale-small-datasets.Rmd "Analyzing small datasets")
+-   [`ale` function handling of various datatypes for x](vignettes/ale-x-datatypes.Rmd "various datatypes for x")
