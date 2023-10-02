@@ -4,12 +4,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df             27.3     27.3  27.3   27.3      27.3     NA
-      2 df.residual     4.71     4.71  4.71   4.71      4.71    NA
-      3 nobs           32       32    32     32        32       NA
+      # A tibble: 5 x 7
+        name          estimate conf.low   mean median conf.high    sd
+        <chr>            <dbl>    <dbl>  <dbl>  <dbl>     <dbl> <dbl>
+      1 df              27.3     27.3   27.3   27.3      27.3      NA
+      2 df.residual      4.71     4.71   4.71   4.71      4.71     NA
+      3 nobs            32       32     32     32        32        NA
+      4 adj.r.squared    0.986    0.986  0.986  0.986     0.986    NA
+      5 npar            41       41     41     41        41        NA
       
       $model_coefs
       # A tibble: 3 x 7
@@ -1994,12 +1996,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              19.4     16.2  19.4   21.0      21.0  2.30
-      2 df.residual     12.6     11.0  12.6   11.0      15.8  2.30
-      3 nobs            32       32    32     32        32    0   
+      # A tibble: 5 x 7
+        name          estimate conf.low  mean median conf.high       sd
+        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl>    <dbl>
+      1 df               19.4     16.2  19.4   21.0       21.0 2.30e+ 0
+      2 df.residual      12.6     11.0  12.6   11.0       15.8 2.30e+ 0
+      3 nobs             32       32    32     32         32   0       
+      4 adj.r.squared     1.00     1.00  1.00   1.00       1   6.05e-15
+      5 npar             40       39.1  40     40         40.9 7.07e- 1
       
       $model_coefs
       # A tibble: 3 x 7
@@ -5998,12 +6002,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              21.0     20.0  20.7   21.0      21.0 0.577
-      2 df.residual     11.0     11.0  11.3   11.0      12.0 0.577
-      3 nobs            32       32    32     32        32   0    
+      # A tibble: 5 x 7
+        name          estimate conf.low  mean median conf.high       sd
+        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl>    <dbl>
+      1 df                21.0    20.0  20.7    21.0      21.0 5.77e- 1
+      2 df.residual       11.0    11.0  11.3    11.0      12.0 5.77e- 1
+      3 nobs              32      32    32      32        32   0       
+      4 adj.r.squared      1       1.00  1.00    1         1   5.61e-15
+      5 npar              41      40.0  40.7    41        41   5.77e- 1
       
       $model_coefs
       # A tibble: 14 x 7

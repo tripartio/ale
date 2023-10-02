@@ -382,6 +382,8 @@ model_bootstrap <- function (
         (`[[`)('tidy') |>
         bind_rows()
 
+      # browser()
+
       tidy_boot_data_names <- names(tidy_boot_data)
       if (!('estimate' %in% tidy_boot_data_names)) {
         # Explicitly rename some known columns that `tidy` sometimes uses
@@ -389,6 +391,12 @@ model_bootstrap <- function (
         if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = FALSE
           tidy_boot_data$estimate <- tidy_boot_data$edf
         }
+      } else if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = NULL
+        tidy_boot_data$estimate <- if_else(
+          is.na(tidy_boot_data$estimate),
+          tidy_boot_data$edf,
+          tidy_boot_data$estimate
+        )
       }
 
       # assign result for tidy_summary

@@ -289,7 +289,7 @@ summarize_conf_regions <- function(ale_data, y_summary) {
   conf_regions <-
     ale_data |>
     mutate(
-      # where is the current point relative to the middle bar?
+      # where is the current point relative to the median bar?
       relative_to_mid = case_when(
         ale_y_hi < y_summary[['mid_lower']] ~ 'below',
         ale_y_lo > y_summary[['mid_upper']] ~ 'above',
@@ -365,7 +365,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the middle bar ',
+          ' the median bar ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.',
         )
       } else { # conf_region_summary is NOT numeric
@@ -376,7 +376,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the middle bar.',
+          ' the median bar.',
         )
       }
     )
