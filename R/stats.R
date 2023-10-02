@@ -171,13 +171,13 @@ create_ale_y_norm_function <- function(y_vals) {
 
 
 # Provide a vector of descriptive statistics
-var_summary <- function(var_vals, plot_alpha = 0.05)  {
+var_summary <- function(var_vals, median_bar = 0.05)  {
   # Generate summary statistics for y for plotting
   s <- stats::quantile(
     var_vals,
     probs = c(
       0.01, 0.025, 0.05, 0.1, 0.25,
-      0.5 - (plot_alpha / 2), 0.5, 0.5 + (plot_alpha / 2),
+      0.5 - (median_bar / 2), 0.5, 0.5 + (median_bar / 2),
       0.75, 0.9, 0.95, 0.975, 0.99
     )
   )
@@ -187,12 +187,12 @@ var_summary <- function(var_vals, plot_alpha = 0.05)  {
     s[1:match('50%', names(s))],
 
     # Create lower confidence bound just below the midpoint
-    mid_lower = s[[paste0(format((0.5 - (plot_alpha / 2)) * 100), '%')]],
+    mid_lower = s[[paste0(format((0.5 - (median_bar / 2)) * 100), '%')]],
 
     mean = mean(var_vals, na.rm = TRUE),
 
     # Create upper confidence bound just above the midpoint
-    mid_upper = s[[paste0(format((0.5 + (plot_alpha / 2)) * 100), '%')]],
+    mid_upper = s[[paste0(format((0.5 + (median_bar / 2)) * 100), '%')]],
 
     # Retain latter half of values
     s[match('75%', names(s)):length(s)]

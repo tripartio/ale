@@ -20,7 +20,7 @@ ale_ixn(
   x_intervals = 100,
   relative_y = "median",
   y_type = NULL,
-  plot_alpha = 0.05,
+  median_bar = 0.05,
   rug_sample_size = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
@@ -54,7 +54,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{y_type}{See documentation for \code{ale}}
 
-\item{plot_alpha}{See documentation for \code{ale}}
+\item{median_bar}{See documentation for \code{ale}}
 
 \item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
 
@@ -86,7 +86,7 @@ For details, see the introductory vignette for this package or the details and e
 For the plots, \code{n_y_quant} is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:
 \itemize{
-\item The middle quantile is the \code{plot_alpha} confidence interval around the median.
+\item The middle quantile is the \code{median_bar} confidence interval around the median.
 This middle quantile is special because it generally represents no meaningful
 interaction.
 \item The quantiles above and below the middle are extended from the borders of

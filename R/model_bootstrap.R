@@ -525,18 +525,18 @@ model_bootstrap <- function (
 
         # Also produce an ALE effects plot
 
-        # Retrieve plot_alpha if provided; otherwise use boot_alpha
-        plot_alpha <- if (is.null(ale_options$plot_alpha)) {
+        # Retrieve median_bar if provided; otherwise use boot_alpha
+        median_bar <- if (is.null(ale_options$median_bar)) {
           boot_alpha
         } else {
-          ale_options$plot_alpha
+          ale_options$median_bar
         }
 
         detailed_ale_stats$effects_plot <- plot_effects(
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          plot_alpha = plot_alpha
+          median_bar = median_bar
         )
 
       }

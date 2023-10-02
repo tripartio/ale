@@ -21,7 +21,7 @@
 #  for plotting.
 #  @param ... not used. Enforces explicit naming of subsequent arguments.
 #  @param relative_y See documentation for `ale`
-#  @param plot_alpha See documentation for `ale`
+#  @param median_bar See documentation for `ale`
 #  @param data dataframe. If provided, used to generate rug plots. Must at least
 #  contain columns x_col and y_col; any other columns are not used.
 #  @param rug_sample_size,min_rug_per_interval See documentation for `ale`
@@ -38,7 +38,7 @@ plot_ale <- function(
     ...,
     # ggplot_custom,
     relative_y = 'median',
-    plot_alpha = 0.05,
+    median_bar = 0.05,
     data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
@@ -113,7 +113,7 @@ plot_ale <- function(
         labels = c('25%',
                    relative_y,
                    # Unicode ± must be replaced by \u00B1 for CRAN
-                   # paste0(relative_y, '\u00B1', format((plot_alpha / 2) * 100), '%'),
+                   # paste0(relative_y, '\u00B1', format((median_bar / 2) * 100), '%'),
                    '75%'),
         breaks = c(
           y_summary[['25%']],
@@ -245,7 +245,7 @@ plot_ale <- function(
 # `ale_data`.
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for `ale`
-# @param plot_alpha See documentation for `ale`
+# @param median_bar See documentation for `ale`
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 # @param n_y_quant See documentation for `ale_ixn`
 # @param data See documentation for `plot_ale`
@@ -264,7 +264,7 @@ plot_ale_ixn <- function(
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
-    plot_alpha = 0.05,
+    median_bar = 0.05,
     n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
     data = NULL,
     rug_sample_size = 500,
@@ -313,8 +313,8 @@ plot_ale_ixn <- function(
     stats::quantile(
       probs = c(
         seq(0, 1, 1 / n_y_quant),
-        0.5 - (plot_alpha / 2),
-        0.5 + (plot_alpha / 2)
+        0.5 - (median_bar / 2),
+        0.5 + (median_bar / 2)
       ) |>
         sort()
     )
@@ -541,7 +541,7 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
-    plot_alpha = 0.05
+    median_bar = 0.05
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -599,8 +599,8 @@ plot_effects <- function(
     ) +
     # Add a band to show the average ± the confidence limits
     geom_rect(
-      xmin = quantile(y_vals, 0.5 - (plot_alpha / 2)),
-      xmax = quantile(y_vals, 0.5 + (plot_alpha / 2)),
+      xmin = quantile(y_vals, 0.5 - (median_bar / 2)),
+      xmax = quantile(y_vals, 0.5 + (median_bar / 2)),
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'

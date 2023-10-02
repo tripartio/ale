@@ -39,7 +39,7 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'numeric',
-      plot_alpha = 0.01
+      median_bar = 0.01
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
@@ -84,7 +84,7 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'binary',
-      plot_alpha = 0.01
+      median_bar = 0.01
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)

@@ -17105,7 +17105,7 @@
       $boot_centre
       [1] "mean"
       
-      $plot_alpha
+      $median_bar
       [1] 0.05
       
 
@@ -18772,7 +18772,7 @@
       $boot_centre
       [1] "mean"
       
-      $plot_alpha
+      $median_bar
       [1] 0.01
       
 
@@ -43238,7 +43238,7 @@
       $boot_centre
       [1] "mean"
       
-      $plot_alpha
+      $median_bar
       [1] 0.05
       
 
@@ -44907,7 +44907,7 @@
       $boot_centre
       [1] "mean"
       
-      $plot_alpha
+      $median_bar
       [1] 0.01
       
 
