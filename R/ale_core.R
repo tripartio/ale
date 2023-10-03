@@ -94,9 +94,9 @@
 #' @param y_type character. Datatype of the y (outcome) variable according to the
 #' types returned by the `var_type` function (see that function for options). If not
 #' provided, this will be automatically determined.
-#' @param median_bar numeric from 0 to 1. Alpha for "confidence interval" range
+#' @param median_band numeric from 0 to 1. Alpha for "confidence interval" range
 #' for printing bands around the median for single-variable plots.
-#'  The band range will be the median value of y ± `median_bar`.
+#'  The band range will be the median value of y ± `median_band`.
 #' @param rug_sample_size,min_rug_per_interval single non-negative integer.
 #' Rug plots are normally
 #' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
@@ -194,7 +194,7 @@ ale <- function (
     boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_bar = 0.05,
+    median_band = 0.05,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -224,7 +224,7 @@ ale <- function (
 #' For the plots, `n_y_quant` is the number of quantiles into which to
 #' divide the predicted variable (y). The middle quantiles are grouped specially:
 #'
-#' * The middle quantile is the `median_bar` confidence interval around the median.
+#' * The middle quantile is the `median_band` confidence interval around the median.
 #' This middle quantile is special because it generally represents no meaningful
 #' interaction.
 #' * The quantiles above and below the middle are extended from the borders of
@@ -250,7 +250,7 @@ ale <- function (
 #' @param x_intervals See documentation for `ale`
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
-#' @param median_bar See documentation for `ale`
+#' @param median_band See documentation for `ale`
 #' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #' @param ale_xs See documentation for `ale`
 #' @param n_x1_int,n_x2_int non-negative integer. Number of intervals
@@ -326,7 +326,7 @@ ale_ixn <- function (
     # boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_bar = 0.05,
+    median_band = 0.05,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -384,7 +384,7 @@ ale_ixn <- function (
 # @param boot_centre See documentation for `ale`
 # @param relative_y See documentation for `ale`
 # @param y_type See documentation for `ale`
-# @param median_bar See documentation for `ale`
+# @param median_band See documentation for `ale`
 # @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 # @param ale_xs See documentation for `ale`
 # @param ale_ns See documentation for `ale`
@@ -414,7 +414,7 @@ ale_core <- function (
     boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_bar = 0.05,
+    median_band = 0.05,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -516,7 +516,7 @@ ale_core <- function (
   # Validate plot-related arguments.
   # If plots are not requested, then ignore these arguments.
   if ('plots' %in% output) {
-    assert_that(is.number(median_bar) && between(median_bar, 0, 1))
+    assert_that(is.number(median_band) && between(median_band, 0, 1))
     assert_that(
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
         (is.natural(rug_sample_size) &&
@@ -575,7 +575,7 @@ ale_core <- function (
     }
 
   # # Generate summary statistics for y for plotting
-  y_summary <- var_summary(y_vals, median_bar)
+  y_summary <- var_summary(y_vals, median_band)
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
@@ -692,7 +692,7 @@ ale_core <- function (
             ale_data, x_col, y_col, y_type,
             y_summary,
             relative_y = relative_y,
-            median_bar = median_bar,
+            median_band = median_band,
             data = data[, c(x_col, y_col)],
             rug_sample_size = rug_sample_size,
             min_rug_per_interval = min_rug_per_interval,
@@ -748,7 +748,7 @@ ale_core <- function (
                 y_vals,
                 # ggplot_custom
                 relative_y = relative_y,
-                median_bar = median_bar,
+                median_band = median_band,
                 n_x1_int = n_x1_int,
                 n_x2_int = n_x2_int,
                 n_y_quant = n_y_quant,
@@ -817,7 +817,7 @@ ale_core <- function (
         ales$stats$estimate,
         y_vals,
         y_col,
-        median_bar = median_bar
+        median_band = median_band
       )
     }
   }
@@ -836,7 +836,7 @@ ale_core <- function (
   ales$boot_it <- boot_it
   ales$boot_alpha <- boot_alpha
   ales$boot_centre <- boot_centre
-  ales$median_bar <- median_bar
+  ales$median_band <- median_band
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.

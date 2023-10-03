@@ -1984,7 +1984,7 @@
       $boot_centre
       [1] "mean"
       
-      $median_bar
+      $median_band
       [1] 0.05
       
 
@@ -3987,7 +3987,7 @@
       $boot_centre
       [1] "mean"
       
-      $median_bar
+      $median_band
       [1] 0.05
       
 
@@ -4489,7 +4489,7 @@
       $boot_centre
       [1] "median"
       
-      $median_bar
+      $median_band
       [1] 0.01
       
 
@@ -6628,7 +6628,7 @@
       $boot_centre
       [1] "mean"
       
-      $median_bar
+      $median_band
       [1] 0.05
       
 
@@ -8779,7 +8779,7 @@
       $boot_centre
       [1] "mean"
       
-      $median_bar
+      $median_band
       [1] 0.05
       
 
@@ -9283,7 +9283,7 @@
       $boot_centre
       [1] "median"
       
-      $median_bar
+      $median_band
       [1] 0.01
       
 

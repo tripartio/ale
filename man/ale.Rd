@@ -25,7 +25,7 @@ ale(
   boot_centre = "mean",
   relative_y = "median",
   y_type = NULL,
-  median_bar = 0.05,
+  median_band = 0.05,
   rug_sample_size = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
@@ -88,9 +88,9 @@ default of \code{ALEPlot::ALEPlot}, which is not shifted.}
 types returned by the \code{var_type} function (see that function for options). If not
 provided, this will be automatically determined.}
 
-\item{median_bar}{numeric from 0 to 1. Alpha for "confidence interval" range
+\item{median_band}{numeric from 0 to 1. Alpha for "confidence interval" range
 for printing bands around the median for single-variable plots.
-The band range will be the median value of y ± \code{median_bar}.}
+The band range will be the median value of y ± \code{median_band}.}
 
 \item{rug_sample_size, min_rug_per_interval}{single non-negative integer.
 Rug plots are normally

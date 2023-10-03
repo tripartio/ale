@@ -171,13 +171,13 @@ create_ale_y_norm_function <- function(y_vals) {
 
 
 # Provide a vector of descriptive statistics
-var_summary <- function(var_vals, median_bar = 0.05)  {
+var_summary <- function(var_vals, median_band = 0.05)  {
   # Generate summary statistics for y for plotting
   s <- stats::quantile(
     var_vals,
     probs = c(
       0.01, 0.025, 0.05, 0.1, 0.25,
-      0.5 - (median_bar / 2), 0.5, 0.5 + (median_bar / 2),
+      0.5 - (median_band / 2), 0.5, 0.5 + (median_band / 2),
       0.75, 0.9, 0.95, 0.975, 0.99
     )
   )
@@ -187,12 +187,12 @@ var_summary <- function(var_vals, median_bar = 0.05)  {
     s[1:match('50%', names(s))],
 
     # Create lower confidence bound just below the midpoint
-    mid_lower = s[[paste0(format((0.5 - (median_bar / 2)) * 100), '%')]],
+    mid_lower = s[[paste0(format((0.5 - (median_band / 2)) * 100), '%')]],
 
     mean = mean(var_vals, na.rm = TRUE),
 
     # Create upper confidence bound just above the midpoint
-    mid_upper = s[[paste0(format((0.5 + (median_bar / 2)) * 100), '%')]],
+    mid_upper = s[[paste0(format((0.5 + (median_band / 2)) * 100), '%')]],
 
     # Retain latter half of values
     s[match('75%', names(s)):length(s)]
@@ -289,7 +289,7 @@ summarize_conf_regions <- function(ale_data, y_summary) {
   conf_regions <-
     ale_data |>
     mutate(
-      # where is the current point relative to the median bar?
+      # where is the current point relative to the median band?
       relative_to_mid = case_when(
         ale_y_hi < y_summary[['mid_lower']] ~ 'below',
         ale_y_lo > y_summary[['mid_upper']] ~ 'above',
@@ -365,7 +365,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the median bar ',
+          ' the median band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.',
         )
       } else { # conf_region_summary is NOT numeric
@@ -376,7 +376,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the median bar.',
+          ' the median band.',
         )
       }
     )

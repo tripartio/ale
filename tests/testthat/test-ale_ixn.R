@@ -26,7 +26,7 @@ test_that(
       x_intervals = 50,
       relative_y = 'zero',
       y_type = 'numeric',
-      median_bar = 0.01,
+      median_band = 0.01,
       n_x1_int = 10,
       n_x2_int = 25,
       n_y_quant = 5
@@ -62,7 +62,7 @@ test_that(
       x_intervals = 50,
       relative_y = 'zero',
       y_type = 'binary',
-      median_bar = 0.01,
+      median_band = 0.01,
       n_x1_int = 10,
       n_x2_int = 25,
       n_y_quant = 5

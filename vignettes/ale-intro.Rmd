@@ -19,9 +19,9 @@ library(ale)
 library(dplyr)
 ```
 
-Accumulated Local Effects (ALE) were initially developed as a [model-agnostic approach for global explanations of the results of black-box machine learning algorithms](https://www.doi.org/10.1111/rssb.12377 "Apley, Daniel W., and Jingyu Zhu. 'Visualizing the effects of predictor variables in black box supervised learning models.' Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086"). ALE has two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package rewrites the original code from the 'ALEPlot' package for calculating ALE data and it completely reimplements the plotting of ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference. Future versions hope to go beyond global explanations with an ALE-based approach for local explanations.
+Accumulated Local Effects (ALE) were initially developed as a [model-agnostic approach for global explanations of the results of black-box machine learning algorithms](https://www.doi.org/10.1111/rssb.12377 "Apley, Daniel W., and Jingyu Zhu. 'Visualizing the effects of predictor variables in black box supervised learning models.' Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086"). ALE has at least two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package rewrites the original code from the 'ALEPlot' package for calculating ALE data and it completely reimplements the plotting of ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference. Future versions hope to go beyond global explanations with an ALE-based approach for local explanations.
 
-This vignette demonstrates the basic functionality of the `ale` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](ale-small-datasets.Rmd "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".)
+This vignette demonstrates the basic functionality of the `ale` package on standard large datasets used for machine learning. A separate vignette is devoted to its use on [small datasets](ale-small-datasets.Rmd "ale package for small datasets"), as is often the case with statistical inference. (How small is small? That's a tough question, but as that vignette explains, most datasets of less than 2000 rows are probably "small" and even many datasets that are more than 2000 rows are nonetheless "small".) Other vignettes introduce [ALE-based statistics for statistical inference](ale-statistics.Rmd), show how the `ale` package handles [various datatypes of input variables](ale-x-datatypes.Rmd), and [compares the `ale` package with the reference `ALEPlot` package](ale-ALEPlot.Rmd).
 
 ## diamonds dataset
 
@@ -40,12 +40,17 @@ For this introduction, we use the `diamonds` dataset, built-in with `ggplot2` (a
 | depth    | total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43--79)                               |
 | table    | width of top of diamond relative to widest point (43--95)                                         |
 
-A few entries are clearly invalid, where the length (x), width (y), or depth (z) is 0. We will remove these for the analysis.
+A few entries are clearly invalid, where the length (x), width (y), or depth (z) is 0. In addition, around a quarter of the entries have unusual duplicate features. We will remove these for the analysis.
 
 ```{r diamonds_print}
 # Clean up some invalid entries
 diamonds <- diamonds |> 
-  filter(!(x == 0 | y == 0 | z == 0))
+  filter(!(x == 0 | y == 0 | z == 0)) |> 
+  # curious diamonds
+  distinct(
+    price, carat, cut, color, clarity,
+    .keep_all = TRUE
+  )
 
 diamonds
 ```
@@ -58,7 +63,7 @@ str(diamonds)
 summary(diamonds$price)
 ```
 
-For any valid machine learning analysis, We must first split the dataset into training and test samples. The model is developed on the training set and then evaluated on the test set. Although this is well-known to all machine learning scientists, we emphasize it here because it is not obvious to everyone that ALE results are only valid when run on a distinct test set. They are not valid when calculated on the same dataset that was used to train the model. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](ale-small-datasets.Rmd "ale package for small datasets").)
+For machine learning analysis that intends to extrapolate its results to future data, We must first split the dataset into training and test samples. The model is developed on the training set and then evaluated on the test set. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](ale-small-datasets.Rmd "ale package for small datasets").
 
 ```{r diamonds_split}
 # Split the dataset into training and test sets
@@ -75,10 +80,10 @@ So, now we split the dataset with an 80-20 split for a training set of `r format
 
 ALE is a model-agnostic IML approach, that is, it works with any kind of machine learning model. As such, the `ale` works with any R model with the only condition that it can predict numeric outcomes (such as raw estimates for regression and probabilities or odds ratios for classification). For this demonstration, we will use general additive models (GAM), a relatively fast algorithm that models data more flexibly than ordinary least squares regression. It is beyond our scope here to explain how GAM works (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")), but the examples here will work with any machine learning algorithm.
 
-We train a GAM model to predict diamond price:
+We train a GAM model to predict diamond prices:
 
 ```{r train_gam}
-# Create a GAM model with flexible curves to predict diamond price
+# Create a GAM model with flexible curves to predict diamond prices
 # Smooth all numeric variables and include all other variables
 # Build model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
@@ -93,7 +98,7 @@ summary(gam_diamonds)
 
 The core function in the `ale` package is the `ale` function. Consistent with tidyverse conventions, its first argument is a dataset. Its second argument is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates ALE data and plots on all the input variables used for the model. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or the plots only rather than both; or to use a custom, non-standard predict function for the model), see details in the help file for the function: `help(ale)`.
 
-The `ale` function returns a list with various elements. The two main ones are `data`, containing the ALE x intervals and the y values for each interval, and `plots`, containing the ALE plots as individual `ggplot` objects. Each of these elements is a list with one element per input variable. The function also returns several details about the outcome (y) variable and important parameters that were used for the ALE calculation. Another important element is `stats`, containing ALE-based statistics, which we describe in [a separate vignette](ale_stats.Rmd "ALE-based statistics").
+The `ale` function returns a list with various elements. The two main ones are `data`, containing the ALE x intervals and the y values for each interval, and `plots`, containing the ALE plots as individual `ggplot` objects. Each of these elements is a list with one element per input variable. The function also returns several details about the outcome (y) variable and important parameters that were used for the ALE calculation. Another important element is `stats`, containing ALE-based statistics, which we describe in [a separate vignette](ale-statistics.Rmd "ALE-based statistics").
 
 ```{r ale_simple}
 # Simple ALE without bootstrapping
@@ -117,7 +122,7 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 
 ## Bootstrapped ALE
 
-One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was built. Again, we stress that the `ale` function is valid only when analyzed on test data distinct from the training data. When samples are too small for this, we provide a different bootstrapping method, `model_bootstrap`, explained in the vignette for [small datasets](ale-small-datasets.Rmd "ale package for small datasets").
+One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was built. Such external generalization requires analyzing the `ale` function on test data distinct from the training data. When samples are too small for this, we provide a different bootstrapping method, `model_bootstrap`, explained in the vignette for [small datasets](ale-small-datasets.Rmd "ale package for small datasets").
 
 Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies that time by the number of bootstrap iterations. Since this vignette is just a demonstration of package functionality rather than a real analysis, we will demonstrate bootstrapping on a small subset of the test data. This will run much faster as the speed of the ALE algorithm depends on the size of the dataset. So, let us take a random sample of 200 rows of the test set.
 
@@ -167,6 +172,6 @@ Because we are printing all plots together with the same `gridExtra::grid.arrang
 ale_ixn_gam_diamonds$plots$carat$depth
 ```
 
-This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band, which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
+This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band (the median band), which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
 
-Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course x and y both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.rmd), which explains the plots in more detail.
+Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course x and y both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.rmd), which explains the interaction plots in more detail.

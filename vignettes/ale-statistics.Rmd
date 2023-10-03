@@ -22,7 +22,7 @@ library(dplyr)  # for data manipulation
 library(ale)
 ```
 
-Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the `ale` package aims to extend it for statistical inference and other IML domains such as local explanation. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. This is the initial development of these measures, so they should be considered experimental for now as we refine and start to apply them.
+Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.Rmd) aims to extend it for statistical inference and other IML domains such as local explanation. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. This is the initial development of these measures, so they should be considered experimental for now as we refine and start to apply them.
 
 ## Example dataset
 
@@ -106,7 +106,7 @@ summary(math$math_avg)
 
 ## Full model bootstrap
 
-Now we create a model and compute statistics on it. Because this is a relatively small model, we will carry out full model bootstrapping using the `model_bootstrap` function. We create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.
+Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.Rmd), we will carry out full model bootstrapping using the `model_bootstrap` function. We create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.
 
 By default, `model_bootstrap` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
@@ -170,13 +170,13 @@ ALE was developed to graphically display the relationship between predictor vari
 gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 ```
 
-We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey bar that indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median bar". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median bar, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median bar. (We use 5% by default, but the value can be changed with the `median_bar` argument.)
+We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey band that indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% by default, but the value can be changed with the `median_band` argument.)
 
-For categorical variables (`public` and `high_minority` above), the confidence interval bars for all categories overlap the median bar. The confidence interval bars indicate two useful pieces of information to us. When we compare them to the median bar, their overlap or lack thereof tells us about the practical significance of the category. When we compare the confidence bars of one category with those of others, it allows us to assess if the category has a statistically significant effect that is different from that of the other categories; this is equivalent to the regular interpretation of coefficients for GAM and other GLM models. In both cases, the confidence interval bars of the TRUE and FALSE categories overlap each other, indicating that there is no statistically significant difference between categories. Whereas the coefficient table above based on classic statistics indicated this conclusion for `public`, it indicated  that `high_minority` had a statistically significant effect; our ALE analysis indicates that `high_minority` does not. In addition, each confidence interval bar overlaps the median bar, indicating that none of the effects is practically significant, either.
+For categorical variables (`public` and `high_minority` above), the confidence interval bars for all categories overlap the median band. The confidence interval bars indicate two useful pieces of information to us. When we compare them to the median band, their overlap or lack thereof tells us about the practical significance of the category. When we compare the confidence bars of one category with those of others, it allows us to assess if the category has a statistically significant effect that is different from that of the other categories; this is equivalent to the regular interpretation of coefficients for GAM and other GLM models. In both cases, the confidence interval bars of the TRUE and FALSE categories overlap each other, indicating that there is no statistically significant difference between categories. Whereas the coefficient table above based on classic statistics indicated this conclusion for `public`, it indicated  that `high_minority` had a statistically significant effect; our ALE analysis indicates that `high_minority` does not. In addition, each confidence interval band overlaps the median band, indicating that none of the effects is practically significant, either.
 
-For numeric variables, the confidence regions overlap the median bar for most of the domains of the predictor variables except for some regions that we will examine. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the median bar, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the median bar for the entirety of their domains, so any apparent trends are not supported by the data.
+For numeric variables, the confidence regions overlap the median band for most of the domains of the predictor variables except for some regions that we will examine. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the median band, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the median band for the entirety of their domains, so any apparent trends are not supported by the data.
 
-Of particular interest is the random variable `rand_norm`, whose average ALE appears to show a decreasing effect. However, we can see that the confidence intervals overlap the median bar for its entire domain. We will return to the implications of this observation.
+Of particular interest is the random variable `rand_norm`, whose average ALE appears to show a decreasing effect. However, we can see that the confidence intervals overlap the median band for its entire domain. We will return to the implications of this observation.
 
 ### ALE effect size measures on the scale of the y outcome variable
 
@@ -193,7 +193,7 @@ This plot is unusual, so it requires some explanation:
 * On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks default to five units each from 5 to 20, evenly spaced.
 * On the top, the outcome variable is expressed as percentiles ranging from 0 (the minimum outcome value in the dataset) to 100 (the maximum). It is divided into 10 deciles of 10% each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
 * Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slighly lighter align with the percentiles (upper axis).
-* The vertical grey bar in the middle is the median bar, representing the median ± 2.5% of values.
+* The vertical grey band in the middle is the median band, representing the median ± 2.5% of values.
 * The variables on the horizontal axis are sorted by decreasing NALED value (explained below). NALED is the most universal ALE measure of effect size.
 
 Although it is somewhat confusing to have two axes, the percentiles are a direct transformation of the raw outcome values. The first two base ALE effect size measures below are in units of the outcome variable while their normalized versions are in percentiles of the outcome. Thus, the same plot can display the two kinds of measures simultaneously. Referring to this plot can help understand each of the measures, which we proceed to explain in detail.
@@ -239,7 +239,7 @@ $$
 $$ 
 where $i$ is the index of $k$ ALE x intervals for the variable (for a categorical variable, this is the number of distinct categories), $\mathrm{ale\_y}_i$ is the ALE y value for the $i$th ALE x interval, and $\mathrm{ale\_n}_i$ is the number of rows of data in the $i$th ALE x interval.
 
-Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r mb_gam$ale$stats$by_term$public$estimate['aled'] |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). In the effects plot above, the ALED is indicated by a white box bounded by parentheses ( and ). As it is centred on the median, we can readily see that the average effect of school sector barely exceeds the limits of the median bar, indicating that it barely exceeds our threshold of practical relevance. The average effect for ratio of academic track students is slightly higher at `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aled'] |> round(2)`. We can see on the plot that it slightly exceeds the median bar on both sides, indicating its slightly stronger effect. We will comment on the values of other variables when we discuss the normalized versions of these scores, to which we proceed next.
+Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r mb_gam$ale$stats$by_term$public$estimate['aled'] |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). In the effects plot above, the ALED is indicated by a white box bounded by parentheses ( and ). As it is centred on the median, we can readily see that the average effect of school sector barely exceeds the limits of the median band, indicating that it barely exceeds our threshold of practical relevance. The average effect for ratio of academic track students is slightly higher at `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aled'] |> round(2)`. We can see on the plot that it slightly exceeds the median band on both sides, indicating its slightly stronger effect. We will comment on the values of other variables when we discuss the normalized versions of these scores, to which we proceed next.
 
 ### Normalized ALE effect size measures
 
@@ -285,7 +285,7 @@ NALED produces a score that ranges from 0 to 100%. It is essentially the ALED ex
 
 The NALED is particularly helpful in comparing the practical relevance of variables against our threshold by which we consider that a variable needs to shift the outcome on average by more than 5% of the median values. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r mb_gam$ale$stats$by_term$public$estimate['naled'] |> round(1)` just barely crosses our threshold.
 
-### The median bar and random variables
+### The median band and random variables
 
 It is particularly striking to note the ALE effect size measures for the random `rand_norm`:
 
@@ -293,7 +293,7 @@ It is particularly striking to note the ALE effect size measures for the random 
 mb_gam$ale$stats$by_term$rand_norm
 ```
 
-`rand_norm` has a NALED of `r mb_gam$ale$stats$by_term$rand_norm$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have a value. However, by setting our default value for the median bar at 5%, we effectively exclude `rand_norm` from serious consideration. Setting the median bar too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r mb_gam$ale$stats$by_term$discrim$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
+`rand_norm` has a NALED of `r mb_gam$ale$stats$by_term$rand_norm$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have some numeric value or the othere. However, by setting our default value for the median band at 5%, we effectively exclude `rand_norm` from serious consideration. Setting the median band too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r mb_gam$ale$stats$by_term$discrim$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
 
 
 ## Statistical inference with ALE
@@ -327,7 +327,7 @@ The columns are the same as with a categorical variable, but the meaning of `ale
 
 ### Bootstrap-based inference with ALE
 
-In a bootstrapped ALE plot, values within the confidence intervals are statistically significant; values outside of the median bar can be considered at least somewhat meaningful. Thus, **the essence of ALE-based statistical inference is that only effects that are simultaneously within the confidence intervals AND outside of the median bar should be considered conceptually meaningful.**
+In a bootstrapped ALE plot, values within the confidence intervals are statistically significant; values outside of the median band can be considered at least somewhat meaningful. Thus, **the essence of ALE-based statistical inference is that only effects that are simultaneously within the confidence intervals AND outside of the median band should be considered conceptually meaningful.**
 
 We can see this, for example, with the plot of `academic_ratio`:
 
@@ -341,18 +341,18 @@ It might not always be easy to tell from a plot which regions are relevant, so t
 mb_gam$ale$conf_regions$academic_ratio
 ```
 
-For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance bar, they overlap the bar, or they are all above the bar. Here are the summary components:
+For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance band, they overlap the band, or they are all above the band. Here are the summary components:
 
 -   `start_x` is the first and `end_x` is the last x value in the sequence. `start_y` is the y value that corresponds to `start_x` while `end_y` corresponds to `end_x`. 
 -   `n` is the number of data elements in the sequence; `n_pct` is the percentage of total data elements out of the total number.
 -   `x_span` is the length of x of the sequence that has the same confidence status. However, so that it may be comparable across variables with different units of x, `x_span` is expressed as a percentage of the full domain of x values. 
 -   `trend` is the average slope from the point `(start_x, start_y)` to `(end_x, end_y)`. Because only the start and end points are used to calculate `trend`, it does not reflect any ups and downs that might occur between those two points. Since the various x values in a dataset are on different scales, the scales of the x and y values in calculating the `trend` are normalized on a scale of 100 each so that the trends for all variables are directly comparable. A positive `trend` means that, on average, y increases with x; a negative `trend` means that, on average, y decreases with x; a zero `trend` means that y has the same value at its start and end points--this is always the case if there is only one point in the indicated sequence.
--   **`relative_to_mid`** is the key information here. It indicates if all the values in sequence from `start_x` to `end_x` are below, overlapping, or above the median bar:
-    -   below: the higher limit of the confidence interval of ALE y (`ale_y_hi`) is below the lower limit of the median bar. 
-    -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the median bar.
-    -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the median bar.
+-   **`relative_to_mid`** is the key information here. It indicates if all the values in sequence from `start_x` to `end_x` are below, overlapping, or above the median band:
+    -   below: the higher limit of the confidence interval of ALE y (`ale_y_hi`) is below the lower limit of the median band. 
+    -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the median band.
+    -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the median band.
 
-These results tell us simply that, for `academic_ratio`, from 0 to 0, ALE is below the median bar from 9.27 to 9.27. From 0.05 to 0.91, ALE overlaps the median bar from 10.9 to 13.9. From 0.95 to 1, ALE is above the median bar from 14.2 to 14.6.
+These results tell us simply that, for `academic_ratio`, from 0 to 0, ALE is below the median band from 9.27 to 9.27. From 0.05 to 0.91, ALE overlaps the median band from 10.9 to 13.9. From 0.95 to 1, ALE is above the median band from 14.2 to 14.6.
 
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
@@ -374,9 +374,9 @@ And here is its confidence regions summary table:
 mb_gam$ale$conf_regions$public
 ```
 
-Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `n_pct` of the respective category and `relative_to_mid` as before to indicate whether the indicated category is below, overlaps with, or is above the median bar.
+Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `n_pct` of the respective category and `relative_to_mid` as before to indicate whether the indicated category is below, overlaps with, or is above the median band.
 
-Again with the help of `ale:::summarize_conf_regions_in_words`, these results tell us that, for `public`, for FALSE, the ALE of 13.3 overlaps the median bar. For TRUE, the ALE of 12.6 overlaps the median bar.
+Again with the help of `ale:::summarize_conf_regions_in_words`, these results tell us that, for `public`, for FALSE, the ALE of 13.3 overlaps the median band. For TRUE, the ALE of 12.6 overlaps the median band.
 
 Again, our random variable `rand_norm` is particularly interesting. Here is its ALE plot:
 
@@ -390,6 +390,6 @@ And here is its confidence regions summary table:
 mb_gam$ale$conf_regions$rand_norm
 ```
 
-Despite the apparent downward trend, we see that from -2.4 to 2.61, ALE overlaps the median bar from 11.9 to 12.5. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+Despite the apparent downward trend, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.5. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
 
 
