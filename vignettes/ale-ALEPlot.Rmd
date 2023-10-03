@@ -131,14 +131,14 @@ To create the model, we invoke the `ale` which returns a list with various ALE e
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ale(DAT, nnet.DAT, predict_type = "raw")
+nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw")
 ```
 
 Here are some notable differences compared to `ALEPlot`:
 
 -   In tidyverse style, the first element is the data and the second is the model.
 -   Unlike `ALEPlot` that functions on only one variable at a time, `ale` generates ALE data for multiple variables in a dataset at once. By default, it generates ALE elements for all the predictor variables in the dataset that it is given; the user can specify a single variable or any subset of variables. We will cover more details in another vignette, but for our purposes here, we note the `data` element that returns a list of the ALE data for each variable and the `plots` element returns a list of `ggplot` plots.
--   `ale` creates a default generic predict function that matches most standard R models. When the prediction type is not the default "response", as in our case, the user can set the desired type with the `predict_type` argument. However, for more complex or non-standard prediction functions, `ale` supports custom functions with the `pred_fun` argument.
+-   `ale` creates a default generic predict function that matches most standard R models. When the prediction type is not the default "response", as in our case, the user can set the desired type with the `pred_type` argument. However, for more complex or non-standard prediction functions, `ale` supports custom functions with the `pred_fun` argument.
 
 Since the plots are saved as a list, they can easily be printed out all at once:
 
@@ -159,7 +159,7 @@ It might not be clear that the previous plots display exactly the same data as t
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE
-nn_ale <- ale(DAT, nnet.DAT, predict_type = "raw", relative_y = 'zero')
+nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero')
 
 gridExtra::grid.arrange(grobs = nn_ale$plots, ncol = 2)
 ```
@@ -172,7 +172,7 @@ Because the variables interact with each other, the output data structure is a t
 
 ```{r ale nnet ixn, fig.width=7, fig.height=10}
 # Create and plot interactions
-nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, predict_type = "raw")
+nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, pred_type = "raw")
 
 # Print plots
 nn_ale_ixn$plots |>

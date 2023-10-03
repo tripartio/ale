@@ -31,7 +31,7 @@ test_that(
       x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
-      predict_type = "link",
+      pred_type = "link",
       x_intervals = 50,
       boot_it = 1,  # edge case
       seed = 1234,
@@ -76,7 +76,7 @@ test_that(
       x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
-      predict_type = "link",
+      pred_type = "link",
       x_intervals = 50,
       boot_it = 1,  # edge case
       seed = 1234,

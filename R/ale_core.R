@@ -19,7 +19,7 @@
 #' `predict(model_object, new_data)` with the default prediction type of 'response'.
 #' If, however, the desired prediction values are not generated with that format,
 #' the user must specify what they want. Most of the time, the only modification needed is
-#' to change the prediction type to some other value by setting the `predict_type` argument
+#' to change the prediction type to some other value by setting the `pred_type` argument
 #' (e.g., to 'prob' to generated classification probabilities). But if the desired
 #' predictions need a different function signature, then the user must create a
 #' custom prediction function and pass it to `pred_fun`. The requirements for this
@@ -68,8 +68,8 @@
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
-#' @param pred_fun,predict_type function,character. `pred_fun` is a function that
-#' returns a vector of predicted values of type `predict_type` from `model` on `data`.
+#' @param pred_fun,pred_type function,character. `pred_fun` is a function that
+#' returns a vector of predicted values of type `pred_type` from `model` on `data`.
 #' See details.
 #' @param x_intervals non-negative integer. Maximum number of intervals on the x-axis
 #' for the ALE data for each column in `x_cols`. The number of intervals that the algorithm generates
@@ -184,9 +184,9 @@ ale <- function (
     ...,
     output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata) {
-      stats::predict(object = object, newdata = newdata, type = predict_type)
+      stats::predict(object = object, newdata = newdata, type = pred_type)
     },
-    predict_type = "response",
+    pred_type = "response",
     x_intervals = 100,
     boot_it = 0,
     seed = 0,
@@ -246,7 +246,7 @@ ale <- function (
 #' @param y_col See documentation for `ale`
 #' @param ... not used. See documentation for `ale`
 #' @param output See documentation for `ale`
-#' @param pred_fun,predict_type See documentation for `ale`
+#' @param pred_fun,pred_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
 #' @param relative_y See documentation for `ale`
 #' @param y_type See documentation for `ale`
@@ -317,9 +317,9 @@ ale_ixn <- function (
     ...,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata) {
-      stats::predict(object = object, newdata = newdata, type = predict_type)
+      stats::predict(object = object, newdata = newdata, type = pred_type)
     },
-    predict_type = "response",
+    pred_type = "response",
     x_intervals = 100,
     # boot_it = 0,
     # boot_alpha = 0.05,
@@ -376,7 +376,7 @@ ale_ixn <- function (
 # @param ... not used. See documentation for `ale`
 # @param full_y_range See documentation for `ale`
 # @param output See documentation for `ale`
-# @param pred_fun,predict_type See documentation for `ale`
+# @param pred_fun,pred_type See documentation for `ale`
 # @param x_intervals See documentation for `ale`
 # @param boot_it See documentation for `ale`
 # @param seed See documentation for `ale`
@@ -404,9 +404,9 @@ ale_core <- function (
     ...,
     output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata) {
-      stats::predict(object = object, newdata = newdata, type = predict_type)
+      stats::predict(object = object, newdata = newdata, type = pred_type)
     },
-    predict_type = "response",
+    pred_type = "response",
     x_intervals = 100,
     boot_it = 0,
     seed = 0,
@@ -430,27 +430,57 @@ ale_core <- function (
   ellipsis::check_dots_empty()
 
   # Validate arguments
-  assert_that(data |> inherits('data.frame'))
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
 
-  # Assume that if a custom predict function is supplied, it must be because
-  # model is a valid model, so do not try to validate it further.
-  # But if the default predict function is used, validate that model is valid.
-  if (missing(pred_fun)) {   # default pred_fun used, so don't assume model is valid
-    # A valid model is defined as one that has a predict method
-    assert_that(
-      utils::methods('predict') |>  # list all existing predict methods
-        as.character() |>
-        stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
-        # Search for the name of the class of the model argument in the list of methods
-        (`%in%`)(class(model)) |>
-        any(),  # at least one predict method matches one of the classes of model
-      msg = 'The value entered in the model argument does not seem to be
-        a model object with a predict method.'
-    )
-  }
+  # browser()
+
+  # Validate the model:
+  # A valid model is one that, when passed to a predict function with a valid
+  # dataset, produces a numeric vector with length equal to the number of rows
+  # in the dataset.
+
+  # Validate the dataset
+  assert_that(data |> inherits('data.frame'))
+
+  # Validate the prediction function with the model and the dataset
+  # Note: y_preds will be used later in this function.
+  y_preds <- tryCatch(
+    pred_fun(model, data),
+    # predict(model, data, 'raw'),
+    error = \(.e) {
+      print(paste0(
+        'There is an error with the predict function pred_fun or with the ',
+        'prediction type pred_type. ',
+        'See help(ale) for how to create a custom predict function for ',
+        'non-standard models. Here is the full error message:'
+      ))
+
+      stop(.e)
+    },
+    finally = NULL
+  )
+
+  # Validate the resulting predictions
+  assert_that(is.numeric(y_preds) && length(y_preds) == nrow(data))
+
+  # # Assume that if a custom predict function is supplied, it must be because
+  # # model is a valid model, so do not try to validate it further.
+  # # But if the default predict function is used, validate that model is valid.
+  # if (missing(pred_fun)) {   # default pred_fun used, so don't assume model is valid
+  #   # A valid model is defined as one that has a predict method
+  #   assert_that(
+  #     utils::methods('predict') |>  # list all existing predict methods
+  #       as.character() |>
+  #       stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
+  #       # Search for the name of the class of the model argument in the list of methods
+  #       (`%in%`)(class(model)) |>
+  #       any(),  # at least one predict method matches one of the classes of model
+  #     msg = 'The value entered in the model argument does not seem to be
+  #       a model object with a predict method.'
+  #   )
+  # }
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
@@ -476,7 +506,7 @@ ale_core <- function (
     length(setdiff(output, c('plots', 'data', 'stats'))) == 0,
     msg = 'The value in the output argument must be one or more of "plots", "data", or "stats".'
   )
-  assert_that(is.string(predict_type))
+  assert_that(is.string(pred_type))
   assert_that(is.natural(x_intervals) && (x_intervals > 1))
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))
@@ -493,7 +523,7 @@ ale_core <- function (
     assert_that(is.string(y_type) &&
                   (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
   }
-  assert_that(is.string(predict_type))
+  assert_that(is.string(pred_type))
   if (!is.null(ale_xs)) {
     map(
       ale_xs,
@@ -569,7 +599,8 @@ ale_core <- function (
     if (y_type %in% c('numeric', 'ordinal')) {
       data[[y_col]]
     } else if (y_type == 'binary') {
-      pred_fun(model, as.data.frame(data))
+      y_preds
+      # pred_fun(model, as.data.frame(data))
     } else {
       stop('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
     }

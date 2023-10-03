@@ -31,7 +31,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    predict_type = "raw", x_intervals = 100
+    pred_type = "raw", x_intervals = 100
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
@@ -149,7 +149,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   nnet_ale_ixn <- ale_ixn(
     DAT, nnet.DAT,  # basic arguments
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
-    predict_type = "raw", x_intervals = 100  # specific options requested
+    pred_type = "raw", x_intervals = 100  # specific options requested
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot

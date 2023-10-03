@@ -14,9 +14,9 @@ ale_ixn(
   output = c("plots", "data"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
-    newdata, type = predict_type)
+    newdata, type = pred_type)
  },
-  predict_type = "response",
+  pred_type = "response",
   x_intervals = 100,
   relative_y = "median",
   y_type = NULL,
@@ -46,7 +46,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{output}{See documentation for \code{ale}}
 
-\item{pred_fun, predict_type}{See documentation for \code{ale}}
+\item{pred_fun, pred_type}{See documentation for \code{ale}}
 
 \item{x_intervals}{See documentation for \code{ale}}
 

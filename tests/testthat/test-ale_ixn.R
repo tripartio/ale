@@ -22,7 +22,7 @@ test_that(
       x2_cols = c('cyl', 'disp', 'hp'),
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
-      predict_type = "link",
+      pred_type = "link",
       x_intervals = 50,
       relative_y = 'zero',
       y_type = 'numeric',
@@ -58,7 +58,7 @@ test_that(
       x2_cols = c('cyl', 'disp', 'hp'),
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
-      predict_type = "link",
+      pred_type = "link",
       x_intervals = 50,
       relative_y = 'zero',
       y_type = 'binary',

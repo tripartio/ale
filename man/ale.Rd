@@ -15,9 +15,9 @@ ale(
   output = c("plots", "data", "stats"),
   pred_fun = function(object, newdata) {
      stats::predict(object = object, newdata =
-    newdata, type = predict_type)
+    newdata, type = pred_type)
  },
-  predict_type = "response",
+  pred_type = "response",
   x_intervals = 100,
   boot_it = 0,
   seed = 0,
@@ -54,8 +54,8 @@ models, \code{y_col} should be provided.}
 'stats' will return ALE statistics. Each option must be listed to return the
 specified component. By default, all are returned.}
 
-\item{pred_fun, predict_type}{function,character. \code{pred_fun} is a function that
-returns a vector of predicted values of type \code{predict_type} from \code{model} on \code{data}.
+\item{pred_fun, pred_type}{function,character. \code{pred_fun} is a function that
+returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}.
 See details.}
 
 \item{x_intervals}{non-negative integer. Maximum number of intervals on the x-axis
@@ -124,7 +124,7 @@ The calculation of ALE requires modifying several values of the original
 \code{predict(model_object, new_data)} with the default prediction type of 'response'.
 If, however, the desired prediction values are not generated with that format,
 the user must specify what they want. Most of the time, the only modification needed is
-to change the prediction type to some other value by setting the \code{predict_type} argument
+to change the prediction type to some other value by setting the \code{pred_type} argument
 (e.g., to 'prob' to generated classification probabilities). But if the desired
 predictions need a different function signature, then the user must create a
 custom prediction function and pass it to \code{pred_fun}. The requirements for this
