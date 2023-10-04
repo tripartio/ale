@@ -25,35 +25,41 @@ This vignette demonstrates the basic functionality of the `ale` package on stand
 
 ## diamonds dataset
 
-For this introduction, we use the `diamonds` dataset, built-in with `ggplot2` (a required package for `ale`): "a dataset containing the prices and other attributes of almost 54,000 diamonds":
-
-| Variable | Description                                                                                       |
-|----------|---------------------------------------------------------------------------------------------------|
-| price    | price in US dollars (\$326--\$18,823)                                                             |
-| carat    | weight of the diamond (0.2--5.01)                                                                 |
-| cut      | quality of the cut (Fair, Good, Very Good, Premium, Ideal)                                        |
-| color    | diamond color, from D (best) to J (worst)                                                         |
-| clarity  | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best)) |
-| x        | length in mm (0--10.74)                                                                           |
-| y        | width in mm (0--58.9)                                                                             |
-| z        | depth in mm (0--31.8)                                                                             |
-| depth    | total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43--79)                               |
-| table    | width of top of diamond relative to widest point (43--95)                                         |
-
-A few entries are clearly invalid, where the length (x), width (y), or depth (z) is 0. In addition, around a quarter of the entries have unusual duplicate features. We will remove these for the analysis.
+For this introduction, we use the `diamonds` dataset, built-in with the `ggplot2` graphics system. We cleaned the original version by [removing duplicates](https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/ "errors in the diamonds dataset") and invalid entries where the length (x), width (y), or depth (z) is 0.
 
 ```{r diamonds_print}
 # Clean up some invalid entries
-diamonds <- diamonds |> 
+diamonds <- ggplot2::diamonds |> 
   filter(!(x == 0 | y == 0 | z == 0)) |> 
-  # curious diamonds
+  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
   distinct(
     price, carat, cut, color, clarity,
     .keep_all = TRUE
+  ) |> 
+  rename(
+    x_length = x,
+    y_width = y,
+    z_depth = z,
+    depth_pct = depth
   )
 
-diamonds
+summary(diamonds)
 ```
+
+Here is the description of the modified dataset.
+
+| Variable  | Description                                                                                       |
+|-----------------|-------------------------------------------------------|
+| price     | price in US dollars (\$326--\$18,823)                                                             |
+| carat     | weight of the diamond (0.2--5.01)                                                                 |
+| cut       | quality of the cut (Fair, Good, Very Good, Premium, Ideal)                                        |
+| color     | diamond color, from D (best) to J (worst)                                                         |
+| clarity   | a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best)) |
+| x_length  | length in mm (0--10.74)                                                                           |
+| y_width   | width in mm (0--58.9)                                                                             |
+| z_depth   | depth in mm (0--31.8)                                                                             |
+| depth_pct | total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43--79)                               |
+| table     | width of top of diamond relative to widest point (43--95)                                         |
 
 ```{r diamonds_str}
 str(diamonds)
@@ -83,11 +89,12 @@ ALE is a model-agnostic IML approach, that is, it works with any kind of machine
 We train a GAM model to predict diamond prices:
 
 ```{r train_gam}
-# Create a GAM model with flexible curves to predict diamond prices
+# Create a GAM model with flexible curves to predict diamond prices.
+# (In testing, mgcv::gam actually performed better than nnet.)
 # Smooth all numeric variables and include all other variables
 # Build model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) + 
+  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
     cut + color + clarity,
   data = diamonds_train
   )
@@ -103,7 +110,6 @@ The `ale` function returns a list with various elements. The two main ones are `
 ```{r ale_simple}
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
-
 ```
 
 To access the plot for a specific variable, we can call it by its variable name as an element of the `plots` element. These are `ggplot` objects, so they are easy to manipulate. For example, to access and print the `carat` ALE plot, we simply call `ale_gam_diamonds$plots$carat` :
@@ -128,21 +134,21 @@ Although ALE is faster than most other IML techniques for global explanation suc
 
 ```{r diamonds_new}
 # Bootstraping is rather slow, so create a smaller subset of new data for demonstration
+set.seed(0)
 new_rows <- sample(nrow(diamonds_test), 200, replace = FALSE)
-diamonds_new <- diamonds_test[new_rows, ]
+diamonds_small_test <- diamonds_test[new_rows, ]
 ```
 
 Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations.
 
 ```{r ale_boot, fig.width=7, fig.height=11}
-ale_gam_diamonds_boot <- ale(diamonds_new, gam_diamonds, boot_it = 100)
+ale_gam_diamonds_boot <- ale(diamonds_small_test, gam_diamonds, boot_it = 100)
 
 # Bootstrapping produces confidence intervals
 gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
-
 ```
 
-In this case, the bootstrapped results are mostly similar to single (non-bootstrapped) ALE result. In principle, we should always bootstrap the results and trust only in bootstrapped results. The most unusual result is that values of `x` (the length of the diamond) from 6.2 mm or so and higher are associated with lower diamond prices. When we compare this with the y value (height of the diamond), we suspect that when both the length and height (that is, the size) of a diamond become increasingly large, the price increases so much more rapidly with the height than with the length that the height (`y`) has an inordinately high effect that is tempered by a decreased effect of the length (`x`) at those high values. This would be worth further exploration for real analysis, but here we are just demonstrating the package.
+In this case, the bootstrapped results are mostly similar to single (non-bootstrapped) ALE result. In principle, we should always bootstrap the results and trust only in bootstrapped results. The most unusual result is that values of `x_length` (the length of the diamond) from 6.2 mm or so and higher are associated with lower diamond prices. When we compare this with the `y_width` value (width of the diamond), we suspect that when both the length and width (that is, the size) of a diamond become increasingly large, the price increases so much more rapidly with the width than with the length that the width has an inordinately high effect that is tempered by a decreased effect of the length at those high values. This would be worth further exploration for real analysis, but here we are just introducing the key features of the package.
 
 ## ALE interactions
 
@@ -174,4 +180,4 @@ ale_ixn_gam_diamonds$plots$carat$depth
 
 This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band (the median band), which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
 
-Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course x and y both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.rmd), which explains the interaction plots in more detail.
+Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course `x_length` and `y_width` both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.rmd), which explains the interaction plots in more detail.

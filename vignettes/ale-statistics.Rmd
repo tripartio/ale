@@ -157,7 +157,7 @@ mb_gam$model_coefs |>
 
 The statistical significance of the `estimate` (EDF) of the smooth terms is meaningless here because EDF cannot go below 1.0. Thus, even the random term `s(rand_norm)` appears to be "statistically significant". Only the values for the non-smooth (parametric terms) `public` and `high_minority` should be considered here. So, we find that neither of the coefficient estimates of `public` nor of `high_minority` has an effect that is statistically significantly different from zero. (The intercept is not conceptually meaningful here; it is a statistical artifact.) 
 
-However, initial analysis immediately highlights two limitations of classical hypothesis-testing analysis. First, it might work suitably well when we use models that have traditional linear regression coefficients. But once we use more advanced models like GAM that flexibly fit the data, we cannot interpret coefficients meaningfully and so it is not so clear how to reach inferential conclusions. Second, a basic challenge with models that are based on the general linear model (including GAM and almost all other statistical analyses) is that their coefficient significance compares the estimates with the null hypothesis that there is no effect. However, even if there is an effect, it might not be practically meaningful. As we will see, ALE-based statistics are explicitly tailored to emphasize practical implications beyond the notion of "statistical significance".
+This initial analysis highlights two limitations of classical hypothesis-testing analysis. First, it might work suitably well when we use models that have traditional linear regression coefficients. But once we use more advanced models like GAM that flexibly fit the data, we cannot interpret coefficients meaningfully and so it is not so clear how to reach inferential conclusions. Second, a basic challenge with models that are based on the general linear model (including GAM and almost all other statistical analyses) is that their coefficient significance compares the estimates with the null hypothesis that there is no effect. However, even if there is an effect, it might not be practically meaningful. As we will see, ALE-based statistics are explicitly tailored to emphasize practical implications beyond the notion of "statistical significance".
 
 
 ## ALE effect size measures
@@ -176,7 +176,7 @@ For categorical variables (`public` and `high_minority` above), the confidence i
 
 For numeric variables, the confidence regions overlap the median band for most of the domains of the predictor variables except for some regions that we will examine. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the median band, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the median band for the entirety of their domains, so any apparent trends are not supported by the data.
 
-Of particular interest is the random variable `rand_norm`, whose average ALE appears to show a decreasing effect. However, we can see that the confidence intervals overlap the median band for its entire domain. We will return to the implications of this observation.
+Of particular interest is the random variable `rand_norm`, whose average ALE appears to show some sort of pattern. However, we can see that the confidence intervals overlap the median band for its entire domain. We will return to the implications of this observation.
 
 ### ALE effect size measures on the scale of the y outcome variable
 
@@ -192,7 +192,7 @@ This plot is unusual, so it requires some explanation:
 * The x (horizontal) axis thus displays the y (outcome) variable. But there are two representations of this same axis, one at the bottom and one at the top.
 * On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks default to five units each from 5 to 20, evenly spaced.
 * On the top, the outcome variable is expressed as percentiles ranging from 0 (the minimum outcome value in the dataset) to 100 (the maximum). It is divided into 10 deciles of 10% each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
-* Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slighly lighter align with the percentiles (upper axis).
+* Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slightly lighter align with the percentiles (upper axis).
 * The vertical grey band in the middle is the median band, representing the median ± 2.5% of values.
 * The variables on the horizontal axis are sorted by decreasing NALED value (explained below). NALED is the most universal ALE measure of effect size.
 
@@ -295,6 +295,8 @@ mb_gam$ale$stats$by_term$rand_norm
 
 `rand_norm` has a NALED of `r mb_gam$ale$stats$by_term$rand_norm$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have some numeric value or the othere. However, by setting our default value for the median band at 5%, we effectively exclude `rand_norm` from serious consideration. Setting the median band too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r mb_gam$ale$stats$by_term$discrim$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
 
+On one hand, 5% as a threshold for the median band might seem to be somewhat arbitrary, inspired by traditional $\alpha$ = 0.05 for statistical significance and confidence intervals. The "correct" baseline should be a qualitative question, depending on an analyst's goals and the context of a specific study. On the other hand, our initial analyses here show that 5% seems to be an effective choice for excluding a purely random variable from consideration, whether for small or for large datasets. 
+
 
 ## Statistical inference with ALE
 
@@ -390,6 +392,6 @@ And here is its confidence regions summary table:
 mb_gam$ale$conf_regions$rand_norm
 ```
 
-Despite the apparent downward trend, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.5. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+Despite the apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.5. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
 
 
