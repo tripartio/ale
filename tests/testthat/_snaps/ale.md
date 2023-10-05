@@ -110,9 +110,9 @@
       # A tibble: 3 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 3        15  16.7     16.7       16.7         16.7     16.7
-      2 4        12  19.3     19.3       19.3         19.3     19.3
-      3 5         5  26.7     26.7       26.7         26.7     26.7
+      1 three    15  16.7     16.7       16.7         16.7     16.7
+      2 four     12  19.3     19.3       19.3         19.3     19.3
+      3 five      5  26.7     26.7       26.7         26.7     26.7
       
       $data$carb
       # A tibble: 6 x 7
@@ -1931,9 +1931,9 @@
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
-      1 3        15 0.469  16.7 below          
-      2 4        12 0.375  19.3 overlap        
-      3 5         5 0.156  26.7 above          
+      1 three    15 0.469  16.7 below          
+      2 four     12 0.375  19.3 overlap        
+      3 five      5 0.156  26.7 above          
       
       $conf_regions$carb
       # A tibble: 2 x 9
@@ -2100,9 +2100,9 @@
       # A tibble: 3 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 3        15  16.7     16.7       16.7         16.7     16.7
-      2 4        12  17.7     17.3       17.7         17.6     18.3
-      3 5         5  23.2     22.8       23.2         23.2     23.5
+      1 three    15  16.7     16.7       16.7         16.7     16.7
+      2 four     12  17.7     17.3       17.7         17.6     18.3
+      3 five      5  23.2     22.8       23.2         23.2     23.5
       
       $data$carb
       # A tibble: 6 x 7
@@ -3934,9 +3934,9 @@
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
-      1 3        15 0.469  16.7 below          
-      2 4        12 0.375  17.7 below          
-      3 5         5 0.156  23.2 above          
+      1 three    15 0.469  16.7 below          
+      2 four     12 0.375  17.7 below          
+      3 five      5 0.156  23.2 above          
       
       $conf_regions$carb
       # A tibble: 2 x 9
@@ -4614,9 +4614,9 @@
       # A tibble: 3 x 7
         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 3        15 -0.0942  -0.0942    -0.0942      -0.0942  -0.0942
-      2 4        12  0.319    0.319      0.319        0.319    0.319 
-      3 5         5  0.185    0.185      0.185        0.185    0.185 
+      1 three    15 -0.0942  -0.0942    -0.0942      -0.0942  -0.0942
+      2 four     12  0.319    0.319      0.319        0.319    0.319 
+      3 five      5  0.185    0.185      0.185        0.185    0.185 
       
       $data$carb
       # A tibble: 6 x 7
@@ -6573,9 +6573,9 @@
       # A tibble: 3 x 5
         x         n n_pct       y relative_to_mid
         <ord> <int> <dbl>   <dbl> <ord>          
-      1 3        15 0.469 -0.0942 below          
-      2 4        12 0.375  0.319  above          
-      3 5         5 0.156  0.185  above          
+      1 three    15 0.469 -0.0942 below          
+      2 four     12 0.375  0.319  above          
+      3 five      5 0.156  0.185  above          
       
       $conf_regions$carb
       # A tibble: 2 x 9
@@ -6753,9 +6753,9 @@
       # A tibble: 3 x 7
         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 3        15 -0.0942  -0.0942    -0.0942      -0.0942  -0.0942
-      2 4        12  0.0946   0.0616     0.0946       0.0971   0.123 
-      3 5         5  0.113    0.0790     0.113        0.116    0.142 
+      1 three    15 -0.0942  -0.0942    -0.0942      -0.0942  -0.0942
+      2 four     12  0.0946   0.0616     0.0946       0.0971   0.123 
+      3 five      5  0.113    0.0790     0.113        0.116    0.142 
       
       $data$carb
       # A tibble: 6 x 7
@@ -8725,9 +8725,9 @@
       # A tibble: 3 x 5
         x         n n_pct       y relative_to_mid
         <ord> <int> <dbl>   <dbl> <ord>          
-      1 3        15 0.469 -0.0942 below          
-      2 4        12 0.375  0.0946 overlap        
-      3 5         5 0.156  0.113  overlap        
+      1 three    15 0.469 -0.0942 below          
+      2 four     12 0.375  0.0946 overlap        
+      3 five      5 0.156  0.113  overlap        
       
       $conf_regions$carb
       # A tibble: 1 x 9

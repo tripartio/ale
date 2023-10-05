@@ -3,7 +3,14 @@
 #' @description
 #' This is a transformation of the `mtcars` dataset from R to produce a small
 #' dataset with each of the fundamental datatypes: logical, factor, ordered,
-#' integer, and double. For the factor, it adds the country of the car manufacturer.
+#' integer, and double. Most of the transformations are obvious, but two are
+#' noteworthy:
+#'
+#' * For the unordered factor, the country of the car manufacturer is obtained
+#' based on the row names of `mtcars`. This `var_cars` version does not have row names.
+#' * For the ordered factor, gears 3, 4, and 5 are encoded as 'three', 'four',
+#' and 'five', respectively. The text labels make it explicit that the variable
+#' is ordinal, yet the number names make the order crystal clear.
 #'
 #' Here is the original description of the `mtcars` dataset:
 #'

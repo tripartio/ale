@@ -1,5 +1,7 @@
 ## create var_cars dataset
 
+library(dplyr)
+
 # Create a function to determine the country of origin of a car based on its make
 car_country <- function(make) {
   american_makes <- c("AMC", "Cadillac", "Camaro", "Chrysler", "Dodge", "Duster", "Ford", "Hornet", "Lincoln", "Pontiac", "Valiant")
@@ -29,7 +31,16 @@ var_cars <-
   ) |>
   select(-make) |>
   mutate(across(c(vs, am), as.logical)) |>
-  mutate(gear = as.ordered(gear)) |>
+  mutate(
+    gear = gear |>
+      factor(
+        ordered = TRUE,
+        levels = c(3, 4, 5),
+        # Use text labels to make it explicit that variable is ordinal,
+        # yet the number names make the order crystal clear.
+        labels = c('three', 'four', 'five')
+      )
+  ) |>
   mutate(across(c(cyl, carb), as.integer))
 
 usethis::use_data(var_cars, overwrite = TRUE)
