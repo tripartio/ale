@@ -105,13 +105,18 @@ calc_ale <- function(
     # ale_x: xint quantile intervals of x_col values
     if (is.null(ale_x)) {
       ale_x <- c(
-        min(X[[x_col]]),  # first value is the min
-        stats::quantile(X[[x_col]],
-                 seq(1 / xint, 1, length.out = xint),
-                 type = 1) |>  # keep quantile type=1 for consistency with Apley & Zhu
+        min(X[[x_col]], na.rm = TRUE),  # first value is the min
+        stats::quantile(
+          X[[x_col]],
+          seq(1 / xint, 1, length.out = xint),
+          type = 1,
+          na.rm = TRUE
+        ) |>  # keep quantile type=1 for consistency with Apley & Zhu
           as.numeric()
       ) |>
         unique()  # one interval per value regardless of duplicates
+
+      # browser()
 
       # ale_n: ale_n[i] is the count of elements in X[[x_col]] whose values
       # are between ale_x[i-1] (exclusive) and ale_x[i] (inclusive)

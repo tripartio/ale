@@ -304,6 +304,8 @@ summarize_conf_regions <- function(ale_data, y_summary) {
 
   if (var_type(ale_data$ale_x) == 'numeric') {
 
+    # browser()
+
     conf_regions <- conf_regions |>
       summarize(
         .by = streak_id,
@@ -317,7 +319,10 @@ summarize_conf_regions <- function(ale_data, y_summary) {
       ) |>
       mutate(
         # diff between start_x and end_x normalized on scale of x
-        x_span = (end_x - start_x) / diff(range(ale_data$ale_x)),
+        # Convert differences to numeric to handle dates and maybe other unusual types
+        x_span = as.numeric(end_x - start_x) /
+          as.numeric(diff(range(ale_data$ale_x))),
+        # x_span = (end_x - start_x) / diff(range(ale_data$ale_x)),
         trend = if_else(
           x_span != 0,
           # slope from (start_x, start_y) to (end_x, end_y)
