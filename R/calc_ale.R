@@ -264,52 +264,10 @@ calc_ale <- function(
       }
       else if (x_type == 'multinomial') {
 
-        # Initialize distance matrices between pairs of levels of X[[x_col]]
-        dist_mx <- matrix(0, xint, xint)
-        cum_dist_mx <- matrix(0, xint, xint)  # cumulative distance matrix
-
-        # Calculate distance matrix for each of the other X columns
-        for (j_col in setdiff(names(X), x_col)) {
-          if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
-
-            # list of ecdf's for X[[j_col]] by levels of X[[x_col]]
-            x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)
-
-            # quantiles of X[[j_col]] for all levels of X[[x_col]] combined
-            j_quantiles <- stats::quantile(X[[j_col]],
-                                    probs = seq(0, 1, length.out = 100),
-                                    na.rm = TRUE,
-                                    names = FALSE)
-
-            for (i in 1:(xint - 1)) {
-              for (k in (i + 1):xint) {
-                # Kolmogorov-Smirnov distance between X[[j_col]]
-                # for levels i and k of X[[x_col]]; always within [0, 1]
-                dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
-                                           x_by_j_ecdf[[k]](j_quantiles)))
-                dist_mx[k, i] <- dist_mx[i, k]
-              }
-            }
-          }
-          else {  # distance matrix for non-numeric j_col
-            x_j_freq <- table(X[[x_col]], X[[j_col]])  #frequency table, rows of which will be compared
-            x_j_freq <- x_j_freq / as.numeric(x_level_counts)
-            for (i in 1:(xint-1)) {
-              for (k in (i+1):xint) {
-                # Dissimilarity measure always within [0, 1]
-                dist_mx[i, k] <- sum(abs(x_j_freq[i, ] -
-                                           x_j_freq[k, ])) / 2
-                dist_mx[k, i] <- dist_mx[i, k]
-              }
-            }
-          }
-
-          cum_dist_mx <- cum_dist_mx + dist_mx
-        }
-
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <-
-          cum_dist_mx |>
+          # Call function to order multinomial categories
+          cum_dist_mx(X, x_col, xint, x_level_counts) |>
           stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
           sort(index.return = TRUE) |>
           (`[[`)('ix')
@@ -517,7 +475,7 @@ calc_ale <- function(
     )
 
   # Create matrix of bootstrapped ale_y values
-  boot_mtx <-
+  boot_mx <-
     unlist(boot_ale$ale_y) |>
     matrix(
       nrow = length_ale_x,  # length of any ale_y vector
@@ -527,10 +485,10 @@ calc_ale <- function(
   # When bootstrapping, remove first column: ALE on full dataset
   if (boot_it > 0) {
     # drop = FALSE is necessary to maintain matrix structure even if boot_it = 1
-    boot_mtx <- boot_mtx[, -1, drop = FALSE]
+    boot_mx <- boot_mx[, -1, drop = FALSE]
   }
 
-  #TODO: In the future, maybe return this boot_mtx if users want it.
+  #TODO: In the future, maybe return this boot_mx if users want it.
 
   #TODO: report incomplete bootstraps (with some NA values).
   # Current version silently ignores them with na.rm = TRUE
@@ -538,19 +496,16 @@ calc_ale <- function(
   # Create summary statistics of bootstrap results.
   # When boot_it = 0, all values are the same
 
-  # # Assign column names to allow conversion to tibble.
-  # colnames(boot_mtx) <- paste0('it_', 1:ncol(boot_mtx))
-
   boot_summary <- tibble(
     ale_x = ale_x,
     ale_n = ale_n,
     ale_y_lo = apply(
-      boot_mtx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+      boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
     ),
-    ale_y_mean = apply(boot_mtx, 1, mean, na.rm = TRUE),
-    ale_y_median = apply(boot_mtx, 1, stats::median, na.rm = TRUE),
+    ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
+    ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
     ale_y_hi = apply(
-      boot_mtx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+      boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
     ),
     ale_y = case_when(
       boot_centre == 'mean' ~ ale_y_mean,
@@ -559,39 +514,12 @@ calc_ale <- function(
   ) |>
     select(ale_x, ale_n, ale_y, everything())
 
-  # boot_summary <-
-  #   boot_mtx |>
-  #   as_tibble() |>
-  #   rowwise() |>
-  #   mutate(
-  #     ale_y_lo = stats::quantile(c_across(everything()), na.rm = TRUE,
-  #                                probs = (boot_alpha / 2)),
-  #     ale_y_mean = mean(c_across(everything()), na.rm = TRUE),
-  #     ale_y_median = stats::median(c_across(everything()), na.rm = TRUE),
-  #     ale_y_hi = stats::quantile(c_across(everything()), na.rm = TRUE,
-  #                                probs = 1 - (boot_alpha / 2)),
-  #   ) |>
-  #   ungroup() |>
-  #   mutate(
-  #     ale_x = ale_x,
-  #     ale_n = ale_n,
-  #     ale_y = case_when(
-  #       boot_centre == 'mean' ~ ale_y_mean,
-  #       boot_centre == 'median' ~ ale_y_median,
-  #       ),
-  #   ) |>
-  #   select(ale_x, ale_n, ale_y, starts_with('ale_y'), everything())
-
-  # browser()
-  #
-  # # set names of bootstrap iteration columns
-  # it_col_names <- names(boot_summary)[names(boot_summary) |> stringr::str_starts('it_')]
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
   if (!is.null(ale_y_norm_fun)) {  # only get stats if ale_y_norm_fun is provided
     boot_stats <- apply(
-      boot_mtx, 2,
+      boot_mx, 2,
       \(.it) ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
     )
 
@@ -613,84 +541,91 @@ calc_ale <- function(
       ),
     ) |>
       select(statistic, estimate, everything())
-
-        # boot_stats <-
-    #   it_col_names |>
-    #   map(\(.it) {
-    #     ale_stats(boot_summary[[.it]], ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
-    #   })
-    #
-    # boot_stats <- boot_stats |>
-    #   set_names(it_col_names) |>
-    #   bind_cols() |>
-    #   rowwise() |>
-    #   mutate(
-    #     conf.low = stats::quantile(c_across(everything()), na.rm = TRUE,
-    #                                probs = (boot_alpha / 2)),
-    #     mean = mean(c_across(everything()), na.rm = TRUE),
-    #     median = stats::median(c_across(everything()), na.rm = TRUE),
-    #     conf.high = stats::quantile(c_across(everything()), na.rm = TRUE,
-    #                                 probs = 1 - (boot_alpha / 2)),
-    #   ) |>
-    #   ungroup() |>
-    #   mutate(
-    #     estimate = case_when(
-    #       boot_centre == 'mean' ~ mean,
-    #       boot_centre == 'median' ~ median,
-    #     ),
-    #   ) |>
-    #   select(-starts_with('it_')) |>
-    #   mutate(statistic = names(boot_stats[[1]])) |>
-    #   select(statistic, estimate, everything())|>
-    #   # Name each element on each row
-    #   map(\(.col) {
-    #     names(.col) <- names(boot_stats[[1]])
-    #     .col
-    #   }) |>
-    #   as_tibble()
-
   }
 
 
   return(list(
     summary = boot_summary,
-    # summary = boot_summary |>
-    #   select(-starts_with('it_')),
     stats = boot_stats
   ))
-
-  # boot_summary <- tibble(
-  #   ale_y_lo = rep(as.double(NA), length_ale_x),
-  #   ale_y_mean = rep(as.double(NA), length_ale_x),
-  #   ale_y_median = rep(as.double(NA), length_ale_x),
-  #   ale_y_hi = rep(as.double(NA), length_ale_x),
-  # )
-  # for (i in 1:length_ale_x) {
-  #   boot_summary$ale_y_lo[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
-  #                                        probs = (boot_alpha / 2))
-  #   boot_summary$ale_y_mean[i] <- mean(boot_mtx[i, ], na.rm = TRUE)
-  #   boot_summary$ale_y_median[i] <- stats::median(boot_mtx[i, ], na.rm = TRUE)
-  #   boot_summary$ale_y_hi[i] <- stats::quantile(boot_mtx[i, ], na.rm = TRUE,
-  #                                        probs = 1 - (boot_alpha / 2))
-  # }
-  #
-  # boot_summary <- boot_summary |>
-  #   mutate(
-  #     ale_y = case_when(
-  #       boot_centre == 'mean' ~ ale_y_mean,
-  #       boot_centre == 'median' ~ ale_y_median,
-  #     )
-  #   ) |>
-  #   select(ale_y, everything())
-  #
-  # return(
-  #   bind_cols(
-  #     ale_x = ale_x,
-  #     ale_n = ale_n,
-  #     boot_summary
-  #   )
-  # )
 
 }
 
 
+# Cumulative distance matrix based on Kolmogorov-Smirnov distances
+# for empirically ordering multinomial categories.
+cum_dist_mx <- function(
+    X,
+    x_col,
+    xint,
+    x_level_counts
+  ) {
+  # browser()
+
+  # Initialize distance matrices between pairs of levels of X[[x_col]]
+  dist_mx <- matrix(0, xint, xint)
+  cdm <- matrix(0, xint, xint)  # cumulative distance matrix
+
+  # Calculate distance matrix for each of the other X columns
+  for (j_col in setdiff(names(X), x_col)) {
+    if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
+
+      # if (j_col == 'user_vote_reputation') browser()
+
+      # list of ecdf's for X[[j_col]] by levels of X[[x_col]]
+      j_by_x_groups <- split(X[[j_col]], X[[x_col]])
+
+      # Create ecdf's, but return NA for any group that is only NA or else the code will crash
+      x_by_j_ecdf <-
+        j_by_x_groups |>
+        map(\(.group) {
+
+          if (all(is.na(.group))) {
+          # if (length(.group) == 1 && is.na(.group)) {
+          function(x) NA
+          } else {
+            stats::ecdf(.group)
+          }
+        })
+
+      # x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)
+
+      # quantiles of X[[j_col]] for all levels of X[[x_col]] combined
+      j_quantiles <- stats::quantile(X[[j_col]],
+                                     probs = seq(0, 1, length.out = 100),
+                                     na.rm = TRUE,
+                                     names = FALSE)
+
+      for (i in 1:(xint - 1)) {
+        for (k in (i + 1):xint) {
+          # Kolmogorov-Smirnov distance between X[[j_col]]
+          # for levels i and k of X[[x_col]]; always within [0, 1]
+          dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
+                                     x_by_j_ecdf[[k]](j_quantiles)))
+          dist_mx[k, i] <- dist_mx[i, k]
+        }
+      }
+    }
+    else {  # distance matrix for non-numeric j_col
+      x_j_freq <- table(X[[x_col]], X[[j_col]])  #frequency table, rows of which will be compared
+      x_j_freq <- x_j_freq / as.numeric(x_level_counts)
+      for (i in 1:(xint-1)) {
+        for (k in (i+1):xint) {
+          # Dissimilarity measure always within [0, 1]
+          dist_mx[i, k] <- sum(abs(x_j_freq[i, ] -
+                                     x_j_freq[k, ])) / 2
+          dist_mx[k, i] <- dist_mx[i, k]
+        }
+      }
+    }
+
+
+    cdm <- cdm + dist_mx
+  }
+
+  # Replace any NA with the maximum distance
+  cdm[is.na(cdm)] <- max(cdm, na.rm = TRUE)
+
+  return(cdm)
+
+}

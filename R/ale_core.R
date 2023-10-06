@@ -447,7 +447,7 @@ ale_core <- function (
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
   y_preds <- tryCatch(
-    pred_fun(model, data),
+    pred_fun(object = model, newdata = data),
     # predict(model, data, 'raw'),
     error = \(.e) {
       print(paste0(
@@ -464,6 +464,36 @@ ale_core <- function (
 
   # Validate the resulting predictions
   assert_that(is.numeric(y_preds) && length(y_preds) == nrow(data))
+
+  # Validate y_col
+  if (!is.null(y_col)) assert_that(is.string(y_col))
+
+  # Identify y column from the Y term of a standard R model call
+  if (is.null(y_col)) {
+    tryCatch(
+      {
+        y_col <-
+          model[["terms"]][[2]] |>
+          as.character()
+        if (length(y_col) == 0) {
+          y_col <-
+            model[["Terms"]][[2]] |>
+            as.character()
+        }
+      },
+      error = \(.e) {
+        print(paste0(
+          'This model seems to be non-standard, so y_col must be provided. ',
+          'Here is the full error message:'
+        ))
+
+        stop(.e)
+      },
+      finally = NULL
+    )
+  }
+
+
 
   # # Assume that if a custom predict function is supplied, it must be because
   # # model is a valid model, so do not try to validate it further.
@@ -500,7 +530,6 @@ ale_core <- function (
   # #Later: Verify valid datatypes for all x_col
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
-  if (!is.null(y_col)) assert_that(is.string(y_col))
   # Assure that output is a subset of c('plots', 'data', 'stats')
   assert_that(
     length(setdiff(output, c('plots', 'data', 'stats'))) == 0,
@@ -576,18 +605,6 @@ ale_core <- function (
 
 
 
-
-  # Identify y column from the Y term of a standard R model call
-  if (is.null(y_col)) {
-    y_col <-
-      model[["terms"]][[2]] |>
-      as.character()
-    if (length(y_col) == 0) {
-      y_col <-
-        model[["Terms"]][[2]] |>
-        as.character()
-    }
-  }
 
   # Determine datatype of y
   if (is.null(y_type)) {
@@ -671,7 +688,9 @@ ale_core <- function (
   if (!ixn) {
     ales <-
       x_cols |>
-      map(\(x_col) {
+      map(
+        .progress = 'Calculating ALE...',
+        .f = \(x_col) {
         # Calculate ale_data for single variables
 
         ale_data_stats <-
