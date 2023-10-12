@@ -205,8 +205,13 @@ model_bootstrap <- function (
 
   model_and_ale <-
     map2(
-      boot_data$it, boot_data$row_idxs,
-      \(.it, .idxs) {
+      .progress = list(
+        name = 'Creating and analyzing models',
+        show_after = 5
+      ),
+      .x = boot_data$it,
+      .y = boot_data$row_idxs,
+      .f = \(.it, .idxs) {
 
         # boot_data: this particular bootstrap sample
         boot_data <- data[.idxs, ]

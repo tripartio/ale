@@ -331,8 +331,6 @@ ale_ixn <- function (
     min_rug_per_interval = 1,
     ale_xs = NULL,
     # ggplot_custom = NULL,
-    # marginal = TRUE,
-    # gg_marginal_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10
@@ -689,7 +687,15 @@ ale_core <- function (
     ales <-
       x_cols |>
       map(
-        .progress = 'Calculating ALE...',
+        # show progress bar only if not in an outer loop with ale_xs
+        .progress = if (is.null(ale_xs)) {
+          list(
+            name = 'Calculating ALE',
+            show_after = 5
+          )
+        } else {
+          FALSE
+        },
         .f = \(x_col) {
         # Calculate ale_data for single variables
 
@@ -771,7 +777,9 @@ ale_core <- function (
 
     ales_by_var <-
       x1_cols |>
-      map(\(x1_col) {
+      map(
+        .progress = 'Calculating ALE interactions',
+        .f = \(x1_col) {
         # Calculate ale_data for two-way interactions
 
         # Do not redo interactions that have already been done
