@@ -22,7 +22,7 @@ library(dplyr)  # for data manipulation
 library(ale)
 ```
 
-Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.Rmd) aims to extend it for statistical inference and other IML domains such as local explanation. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. This is the initial development of these measures, so they should be considered experimental for now as we refine and start to apply them.
+Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.Rmd) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. This is the initial development of these measures, so they should be considered experimental for now as we refine and start to apply them.
 
 ## Example dataset
 

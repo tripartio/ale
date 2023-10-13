@@ -164,8 +164,7 @@ interactions among variables in a model and its computation is relatively
 rapid. This package rewrites the original code from the 'ALEPlot' package for
 calculating ALE data and it completely reimplements the plotting of ALE values.
 It also extends the original ALE concept to add ALE-based statistics that can
-be used for statistical inference. Future versions hope to go beyond global
-explanations with an ALE-based approach for local explanations.
+be used for statistical inference.
 }
 \details{
 ale_core.R
