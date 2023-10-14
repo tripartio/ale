@@ -15,7 +15,8 @@ model_bootstrap(
   output = c("ale", "model_stats", "model_coefs"),
   ale_options = list(),
   tidy_options = list(),
-  glance_options = list()
+  glance_options = list(),
+  silent = FALSE
 )
 }
 \arguments{
@@ -52,6 +53,8 @@ except if included in this \code{output} argument.
 \item{ale_options, tidy_options, glance_options}{list of named arguments.
 Arguments to pass to the \code{ale}, \code{broom::tidy}, or \code{broom::glance} functions, respectively,
 beyond (or overriding) the defaults.}
+
+\item{silent}{See documentation for \code{ale}}
 }
 \value{
 list with tibbles of the following elements (depending on values requested in

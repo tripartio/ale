@@ -53,6 +53,7 @@
 #' @param ale_options,tidy_options,glance_options list of named arguments.
 #' Arguments to pass to the `ale`, `broom::tidy`, or `broom::glance` functions, respectively,
 #' beyond (or overriding) the defaults.
+#' @param silent See documentation for `ale`
 #'
 #' @return list with tibbles of the following elements (depending on values requested in
 #' the `output` argument:
@@ -115,7 +116,6 @@
 #' @importFrom stats quantile
 #' @importFrom stats median
 #' @importFrom stats sd
-#' @importFrom tidyr pivot_wider
 #'
 model_bootstrap <- function (
     data,
@@ -130,7 +130,8 @@ model_bootstrap <- function (
     output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
     tidy_options = list(),
-    glance_options = list()
+    glance_options = list(),
+    silent = FALSE
 ) {
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
@@ -205,10 +206,14 @@ model_bootstrap <- function (
 
   model_and_ale <-
     map2(
-      .progress = list(
-        name = 'Creating and analyzing models',
-        show_after = 5
-      ),
+      .progress = if (!silent) {
+        list(
+          name = 'Creating and analyzing models',
+          show_after = 5
+        )
+      } else {
+        FALSE
+      },
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(.it, .idxs) {
@@ -255,14 +260,15 @@ model_bootstrap <- function (
         if ('ale' %in% output) {
           boot_ale <-if (is.na(sum(boot_model$coefficients, na.rm = FALSE))) {
             # One or more coefficients are not defined.
-            # This might be due to collinearity in a bootsrapped sample, which
+            # This might be due to collinearity in a bootstrapped sample, which
             # yields the warning: "Coefficients: (_ not defined because of singularities)".
             NA
           } else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
             do.call(ale_core, utils::modifyList(list(
-              boot_data, boot_model,
+              data = boot_data,
+              model = boot_model,
               ixn = FALSE,
               boot_it = 0,  # do not bootstrap at this inner level
               output = c('data', 'stats'),  # do not generate plots
@@ -275,7 +281,8 @@ model_bootstrap <- function (
                 NULL
               } else {
                 ale_ns
-              }
+              },
+              silent = silent
             ), ale_options)  # pass all other desired options, e.g., specific x_col
             )
           }
@@ -356,7 +363,7 @@ model_bootstrap <- function (
           estimate = if_else(boot_centre == 'mean', mean, median)
         ) |>
         select(name, estimate, everything())
-      # # If y_values is ever added...
+      # # If y_vals is ever added...
       # |>
       #   bind_rows(tibble(
       #     name = c('sd', 'mad'),
@@ -386,8 +393,6 @@ model_bootstrap <- function (
         )) |>
         (`[[`)('tidy') |>
         bind_rows()
-
-      # browser()
 
       tidy_boot_data_names <- names(tidy_boot_data)
       if (!('estimate' %in% tidy_boot_data_names)) {
@@ -506,8 +511,6 @@ model_bootstrap <- function (
           estimate = if_else(boot_centre == 'mean', mean, median),
         ) |>
         select(term, statistic, estimate, everything())
-
-      # browser()
 
       # if the user wants stats, assume they also want confidence regions
       ale_conf_regions <-

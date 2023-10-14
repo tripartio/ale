@@ -25,12 +25,6 @@ var_type <- function(var) {
     class_var == 'logical' ~ 'binary',
     # var consisting only of one of any two values is considered binary
     (var |> unique() |> length()) == 2 ~ 'binary',
-    # numeric var consisting purely of 0 and 1 values is considered binary
-    # is.numeric(var) && (var |>
-    #                       unique() |>
-    #                       sort() |>
-    #                       identical(c(0, 1))) ~
-    #   'binary',
     class_var == 'factor' ~ 'multinomial',
     class_var == 'ordered' ~ 'ordinal',
     is.numeric(var) ~ 'numeric',
@@ -109,7 +103,7 @@ modes <- function(x) {
       ordered = is.ordered(x)
     )
   } else {
-    m <- as(m, class_x)
+    m <- methods::as(m, class_x)
   }
 
   # Returning the mode(s)

@@ -84,24 +84,6 @@ ale_stats <- function(
   norm_ale_y <- if (is.null(ale_y_norm_fun)) {
     create_ale_y_norm_function(y_vals)(ale_y)
 
-    # centred_y <- y_vals - stats::median(y_vals)
-    #
-    # # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
-    # # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
-    # # be assigned to one or the other. The choice is to assign it to the negative half
-    # # based on the logic that the 50th percentile (that 0 represents) is more
-    # # intuitively considered to be in the first half of 100 percentiles.
-    # norm_ale_y <- if_else(
-    #   ale_y > 0,
-    #   # percentiles of the upper half of the y values (50 to 100%)
-    #   # Note: the median is included in both halves.
-    #   stats::ecdf(centred_y[centred_y >= 0])(ale_y),
-    #   # percentiles of the lower half of the y values (0 to 50%)
-    #   # Note: the median is included in both halves.
-    #   -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y)
-    # ) |>
-    #   (`*`)(100)
-
   } else {  # ale_y_norm_fun is provided, so use it
     ale_y_norm_fun(ale_y)
   }
@@ -109,27 +91,23 @@ ale_stats <- function(
 
   # Scale is 0 to 100, representing equivalent average percentile effect
   naled <- aled_score(norm_ale_y, ale_n)
-  # naled <- aled_score(norm_ale_y, ale_n) / 2
 
   # Scale is 0 to 100, representing lowest and highest percentile effects
   naler <- c(
     min(norm_ale_y),
     max(norm_ale_y)
   ) |>
-    # (`/`)(2) |>
     (`+`)(50)
 
 
-    return(
-    c(
-      aled = aled,
-      aler_min = aler[1],
-      aler_max = aler[2],
-      naled = naled,
-      naler_min = naler[1],
-      naler_max = naler[2]
-    )
-  )
+  return(c(
+    aled = aled,
+    aler_min = aler[1],
+    aler_max = aler[2],
+    naled = naled,
+    naler_min = naler[1],
+    naler_max = naler[2]
+  ))
 }
 
 
@@ -155,12 +133,6 @@ create_ale_y_norm_function <- function(y_vals) {
       )
 
       return(norm_ale_y * 100)
-      # norm_ale_y <- if_else(
-      #   ale_y > 0,
-      #   ecdf_pos_y(ale_y),
-      #   -ecdf_neg_y(-ale_y)
-      # )
-
     }
   )
 
@@ -218,11 +190,10 @@ var_summary <- function(var_vals, median_band = 0.05)  {
 # Rearrange ALE statistics in multiple orientations
 pivot_stats <- function(long_stats) {
 
-    # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
   # Make them null local variables within the function with the issues. So,
   # when NSE applies, the NSE variables will be prioritized over these null
   # local variables.
-  # ale_data <- NULL
   term <- NULL
   estimate <- NULL
   statistic <- NULL
@@ -286,6 +257,27 @@ pivot_stats <- function(long_stats) {
 # Summarize overlapping confidence regions
 summarize_conf_regions <- function(ale_data, y_summary) {
 
+  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when NSE applies, the NSE variables will be prioritized over these null
+  # local variables.
+  ale_n <- NULL
+  ale_x <- NULL
+  ale_y <- NULL
+  end_x <- NULL
+  end_y <- NULL
+  n_pct <- NULL
+  new_streak <- NULL
+  relative_to_mid <- NULL
+  start_x <- NULL
+  start_y <- NULL
+  streak_id <- NULL
+  trend <- NULL
+  x <- NULL
+  x_span <- NULL
+  y <- NULL
+
+
   conf_regions <-
     ale_data |>
     mutate(
@@ -304,8 +296,6 @@ summarize_conf_regions <- function(ale_data, y_summary) {
 
   if (var_type(ale_data$ale_x) == 'numeric') {
 
-    # browser()
-
     conf_regions <- conf_regions |>
       summarize(
         .by = streak_id,
@@ -322,7 +312,6 @@ summarize_conf_regions <- function(ale_data, y_summary) {
         # Convert differences to numeric to handle dates and maybe other unusual types
         x_span = as.numeric(end_x - start_x) /
           as.numeric(diff(range(ale_data$ale_x))),
-        # x_span = (end_x - start_x) / diff(range(ale_data$ale_x)),
         trend = if_else(
           x_span != 0,
           # slope from (start_x, start_y) to (end_x, end_y)

@@ -1,13 +1,13 @@
 # `ale` Package Release Notes
 
-## Next version
+## ale 0.2.0
 
-**CRAN submission date**
+**October 14, 2023**
 
 This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. These statistics must be considered experimental; they have not been robustly analyzed. **A dedicated vignette introduces this functionality.**
 
 ### Breaking changes
--   We changed the output data structure of the ALE data and plots. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
+-   We changed the output data structure of the ALE data and plots. This was necessary to add ALE statistics as explained below. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
 
 ### Other user-visible changes
 
@@ -15,6 +15,11 @@ This version introduces various ALE-based statistics that let ALE be used for st
 -   We added rug plots to numeric values and percentage frequencies to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
 -   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/ale-intro.Rmd).
 -   We added a vignette that introduces ALE-based statistics, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics (experimental) for statistical inference and effect sizes](vignettes/ale-statistics.Rmd).
+-   We added two datasets: 
+    - `var_cars` is a modified version of mtcars that features many different types of variables.
+    - `census` is a polished version of the adult income dataset used for a vignette in the `ALEPlot` package.
+-   Progress bars show the progression of analysis. They can be disabled by passing `silent = TRUE` to `ale`, `ale_ixn`, or `model_bootstrap`.
+-   The user can specify a random seed by passing the `seed` argument to `ale`, `ale_ixn`, or `model_bootstrap`.
 
 ### Under the hood
 
@@ -23,6 +28,15 @@ By far the most extensive changes have been to assure the accuracy and stability
 -   Added data validation to exported functions. Under the hood, each user-facing function carefully validates that the user has entered valid data using the [`assertthat`](https://github.com/hadley/assertthat "assertthat package") package; if not, the function fails quickly with an appropriate error message.
 -   Created unit tests for exported functions. Under the hood, the [testthat](https://testthat.r-lib.org/ "testthat package") package is now used for testing the outputs of each user-facing function. This should help the code base to be more robust going forward with future developments.
 -   In particular, we created tests that compare results with the original reference `ALEPlot` package. These tests should ensure that any future code that breaks the accuracy of ALE calculations will be caught quickly.
+-   Bootstrapped ALE values are now centred on the mean by default, instead of on the median. Mean averaging is generally more stable, especially for smaller datasets.
+-   The code base has been extensively reorganized for more efficient development moving forward.
+-   Numerous bugs have been fixed following internal usage and testing.
+
+### Known issues to be addressed in a future version
+
+* Bootstrapping is not yet supported for ALE interactions (`ale_ixn`).
+* ALE statistics are not yet supported for ALE interactions (`ale_ixn`).
+* Survival models are not yet supported. The dual outcome variable (event + time) means that it cannot be handled the same way as models whose outcome is only one variable.
 
 
 ## ale 0.1.0

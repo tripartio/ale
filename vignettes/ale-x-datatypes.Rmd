@@ -104,4 +104,4 @@ mb <- model_bootstrap(
 gridExtra::grid.arrange(grobs = mb$ale$plots, ncol = 2)
 ```
 
-With such a small dataset, the bootstrap confidence interval always overlap with the middle band, indicating that this dataset cannot support any claims that any of its variables has a meanintful effect on fuel efficiency (mpg). Considering that the average bootstrapped ALE values suggest various intriguing patterns, the problem is no doubt that the dataset is too small--if more data were collected and analyzed, some of the patterns would probably be confirmed.
+With such a small dataset, the bootstrap confidence interval always overlap with the middle band, indicating that this dataset cannot support any claims that any of its variables has a meaningful effect on fuel efficiency (mpg). Considering that the average bootstrapped ALE values suggest various intriguing patterns, the problem is no doubt that the dataset is too small--if more data were collected and analyzed, some of the patterns would probably be confirmed.

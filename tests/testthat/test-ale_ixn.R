@@ -7,7 +7,7 @@
 
 test_that(
   'numeric outcome works with multiple x datatypes', {
-    cars_ale_ixn <- ale_ixn(var_cars, cars_gam)
+    cars_ale_ixn <- ale_ixn(var_cars, cars_gam, silent = TRUE)
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
     expect_snapshot(cars_ale_ixn)
@@ -29,7 +29,8 @@ test_that(
       median_band = 0.01,
       n_x1_int = 10,
       n_x2_int = 25,
-      n_y_quant = 5
+      n_y_quant = 5,
+      silent = TRUE
     )
 
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
@@ -43,7 +44,7 @@ test_that(
 
 test_that(
   'binary outcome works with multiple x datatypes', {
-    cars_ale_ixn <- ale_ixn(var_cars, cars_gam_binary)
+    cars_ale_ixn <- ale_ixn(var_cars, cars_gam_binary, silent = TRUE)
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
     expect_snapshot(cars_ale_ixn)
@@ -65,7 +66,8 @@ test_that(
       median_band = 0.01,
       n_x1_int = 10,
       n_x2_int = 25,
-      n_y_quant = 5
+      n_y_quant = 5,
+      silent = TRUE
     )
 
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>

@@ -13,6 +13,8 @@
 #'  the introductory vignette for this package or the details and examples below.
 #'
 #'
+#' **Custom predict function**
+#'
 #' The calculation of ALE requires modifying several values of the original
 #' `data`. Thus, `ale` needs direct access to a `predict` function that work on
 #' `model`. By default, `ale` uses a generic default `predict` function of the form
@@ -34,15 +36,9 @@
 #'
 #' **ALE statistics**
 #'
-#' ALE deviation (ALED):
-#' \deqn{
-#'   \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
-#' }
+#' For details on the ALE-based statistics (ALED, ALER, NALED, and NALER), see
+#' the vignette "ale-statistics".
 #'
-#' ALE range (ALER):
-#' \deqn{
-#'   \mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}
-#' }
 #'
 #'
 #'
@@ -110,6 +106,9 @@
 #' in advanced analyses where the ale_x intervals from a previous analysis are
 #' reused for subsequent analyses (for example, for full model bootstrapping;
 #' see the `model_bootstrap` function).
+#' @param silent logical scalar, default FALSE. If TRUE, do not display any
+#' non-essential messages during execution (such as progress bars).
+#' Regardless, any warnings and errors will always display.
 #'
 #' @return list of ALE data tibbles and plots. The list is named by the x variables.
 #' Within each list element, the data, plots, and stats are returned as requested in
@@ -198,7 +197,8 @@ ale <- function (
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
-    ale_ns = NULL
+    ale_ns = NULL,
+    silent = FALSE
     # ggplot_custom = NULL,
 ) {
   # capture all arguments passed into `ale` (code thanks to ChatGPT)
@@ -258,6 +258,7 @@ ale <- function (
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive integer. which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
+#' @param silent See documentation for `ale`
 #'
 #' @return list of ALE interaction data tibbles and plots.
 #' The list has two levels of depth:
@@ -333,7 +334,8 @@ ale_ixn <- function (
     # ggplot_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
-    n_y_quant = 10
+    n_y_quant = 10,
+    silent = FALSE
 ) {
   # capture all arguments passed into `ale_ixn` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
@@ -388,6 +390,7 @@ ale_ixn <- function (
 # @param ale_ns See documentation for `ale`
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 # @param n_y_quant See documentation for `ale_ixn`
+# @param silent See documentation for `ale`
 #
 # @import dplyr
 # @import purrr
@@ -420,7 +423,8 @@ ale_core <- function (
     # ggplot_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
-    n_y_quant = 10
+    n_y_quant = 10,
+    silent = FALSE
 )
 {
   # Error if any unlisted argument is used (captured in ...).
@@ -431,8 +435,6 @@ ale_core <- function (
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
-
-  # browser()
 
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
@@ -490,25 +492,6 @@ ale_core <- function (
       finally = NULL
     )
   }
-
-
-
-  # # Assume that if a custom predict function is supplied, it must be because
-  # # model is a valid model, so do not try to validate it further.
-  # # But if the default predict function is used, validate that model is valid.
-  # if (missing(pred_fun)) {   # default pred_fun used, so don't assume model is valid
-  #   # A valid model is defined as one that has a predict method
-  #   assert_that(
-  #     utils::methods('predict') |>  # list all existing predict methods
-  #       as.character() |>
-  #       stringr::str_replace('^predict\\.', '') |>  # strip the 'predict.' prefix
-  #       # Search for the name of the class of the model argument in the list of methods
-  #       (`%in%`)(class(model)) |>
-  #       any(),  # at least one predict method matches one of the classes of model
-  #     msg = 'The value entered in the model argument does not seem to be
-  #       a model object with a predict method.'
-  #   )
-  # }
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
@@ -586,8 +569,9 @@ ale_core <- function (
     assert_that(is.natural(n_x1_int))
     assert_that(is.natural(n_x2_int))
     assert_that(is.natural(n_y_quant))
-
   }
+
+  assert_that(is.flag(silent))
 
 
 
@@ -597,11 +581,6 @@ ale_core <- function (
   # local variables.
   # ale_data <- NULL
   term <- NULL
-
-
-
-
-
 
 
   # Determine datatype of y
@@ -615,12 +594,11 @@ ale_core <- function (
       data[[y_col]]
     } else if (y_type == 'binary') {
       y_preds
-      # pred_fun(model, as.data.frame(data))
     } else {
       stop('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
     }
 
-  # # Generate summary statistics for y for plotting
+  # Generate summary statistics for y for plotting
   y_summary <- var_summary(y_vals, median_band)
 
   # Calculate value to add to y to shift for requested relative_y
@@ -688,7 +666,7 @@ ale_core <- function (
       x_cols |>
       map(
         # show progress bar only if not in an outer loop with ale_xs
-        .progress = if (is.null(ale_xs)) {
+        .progress = if (!silent && is.null(ale_xs)) {
           list(
             name = 'Calculating ALE',
             show_after = 5
@@ -711,29 +689,6 @@ ale_core <- function (
           )
         ale_data <- ale_data_stats$summary
         stats    <- ale_data_stats$stats
-
-        # # Calculate the ALE statistics
-        # stats <- NULL  # Start with a NULL object
-        # if ('stats' %in% output) {  # user requested the statistics
-        #   stats <- ale_stats(
-        #     ale_data$ale_y,
-        #     ale_data$ale_n,
-        #     y_vals,
-        #     # # percentiles of the upper half of the y values (50 to 100%)
-        #     # # Note: the median is included in both halves.
-        #     # ecdf_pos_y = stats::ecdf(
-        #     #   y_vals[y_vals >= y_summary['50%']] -
-        #     #     y_summary['50%']  # subtract the median to centre on zero
-        #     # ),
-        #     # # percentiles of the lower half of the y values (0 to 50%)
-        #     # # Note: the median is included in both halves.
-        #     # ecdf_neg_y = stats::ecdf(
-        #     #   -1 * (y_vals[y_vals <= y_summary['50%']] -
-        #     #     y_summary['50%'])  # subtract the median to centre on zero
-        #     # ),
-        #     zeroed_ale = TRUE
-        #   )
-        # }
 
         # Shift ale_y by appropriate relative_y
         ale_data <- ale_data |>
@@ -778,7 +733,14 @@ ale_core <- function (
     ales_by_var <-
       x1_cols |>
       map(
-        .progress = 'Calculating ALE interactions',
+        .progress = if (!silent && is.null(ale_xs)) {
+          list(
+            name = 'Calculating ALE interactions',
+            show_after = 5
+          )
+        } else {
+          FALSE
+        },
         .f = \(x1_col) {
         # Calculate ale_data for two-way interactions
 
@@ -823,7 +785,6 @@ ale_core <- function (
             }
 
             list(
-              # return(list(
               data = ale_data,
               plot = plot  # + theme_bw()
             )

@@ -116,8 +116,6 @@ calc_ale <- function(
       ) |>
         unique()  # one interval per value regardless of duplicates
 
-      # browser()
-
       # ale_n: ale_n[i] is the count of elements in X[[x_col]] whose values
       # are between ale_x[i-1] (exclusive) and ale_x[i] (inclusive)
       ale_n <-
@@ -269,13 +267,12 @@ calc_ale <- function(
       }
       else if (x_type == 'multinomial') {
 
+        # browser()
+
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <-
           # Call function to order multinomial categories
-          cum_dist_mx(X, x_col, xint, x_level_counts) |>
-          stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
-          sort(index.return = TRUE) |>
-          (`[[`)('ix')
+          idxs_kolmogorov_smirnov(X, x_col, xint, x_level_counts)
 
         # index of x_col value according to ordered indexes
         x_ordered_idx <-
@@ -312,7 +309,6 @@ calc_ale <- function(
       ale_n <-
         X[[x_col]] |>
         table() |>
-        # as.integer()
         # Sort the table in ale_x order
         as.data.frame() |>
         mutate(Var1 = factor(Var1, ordered = TRUE, levels = levels(ale_x))) |>
@@ -468,9 +464,9 @@ calc_ale <- function(
 
   }
 
-  else {
-    stop("class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric.")
-  }
+  # else {
+  #   stop("class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric.")
+  # }
 
   # Center all the ale_y values
   boot_ale$ale_y <-
@@ -528,8 +524,6 @@ calc_ale <- function(
       \(.it) ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
     )
 
-    # browser()
-
     boot_stats <- tibble(
       statistic = rownames(boot_stats),
       conf.low = apply(
@@ -557,15 +551,14 @@ calc_ale <- function(
 }
 
 
-# Cumulative distance matrix based on Kolmogorov-Smirnov distances
+# Sorted multinomial indexes based on Kolmogorov-Smirnov distances
 # for empirically ordering multinomial categories.
-cum_dist_mx <- function(
+idxs_kolmogorov_smirnov <- function(
     X,
     x_col,
     xint,
     x_level_counts
   ) {
-  # browser()
 
   # Initialize distance matrices between pairs of levels of X[[x_col]]
   dist_mx <- matrix(0, xint, xint)
@@ -574,8 +567,6 @@ cum_dist_mx <- function(
   # Calculate distance matrix for each of the other X columns
   for (j_col in setdiff(names(X), x_col)) {
     if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
-
-      # if (j_col == 'user_vote_reputation') browser()
 
       # list of ecdf's for X[[j_col]] by levels of X[[x_col]]
       j_by_x_groups <- split(X[[j_col]], X[[x_col]])
@@ -592,8 +583,6 @@ cum_dist_mx <- function(
             stats::ecdf(.group)
           }
         })
-
-      # x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)
 
       # quantiles of X[[j_col]] for all levels of X[[x_col]] combined
       j_quantiles <- stats::quantile(X[[j_col]],
@@ -631,6 +620,13 @@ cum_dist_mx <- function(
   # Replace any NA with the maximum distance
   cdm[is.na(cdm)] <- max(cdm, na.rm = TRUE)
 
-  return(cdm)
+  # Convert cumulative distance matrix to sorted indexes
+  idxs <- cdm |>
+    stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
+    sort(index.return = TRUE) |>
+    (`[[`)('ix')
+
+  return(idxs)
+  # return(cdm)
 
 }

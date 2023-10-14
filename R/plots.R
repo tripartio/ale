@@ -130,12 +130,7 @@ plot_ale <- function(
     plot <- plot +
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
-      geom_line()  # +
-      # # show points proportional to the frequency of the ale_x
-      # geom_point(
-      #   aes(size = (ale_n / total_n) * 5),
-      #   alpha = 0.2,
-      # )
+      geom_line()
 
     # Add rug plot if data is provided
     if (!is.null(data) && rug_sample_size > 0) {
@@ -298,7 +293,6 @@ plot_ale_ixn <- function(
   )
 
   # Then shift all the y values data
-  # y_summary <- y_summary + y_shift
   y_vals <- y_vals + y_shift
 
 
@@ -366,8 +360,6 @@ plot_ale_ixn <- function(
     y_quantiles[n_y_quant + 1] <- 1
   }
 
-  # browser()
-
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
   ale_data <- ale_data |>
     mutate(
@@ -384,7 +376,6 @@ plot_ale_ixn <- function(
       x2_quantile = (((max(ale_data$ale_x2) - min(ale_data$ale_x2)) *
                         (ntile(ale_data$ale_x2, n_x2_int) - 1) / (n_x2_int - 1))
                      + min(ale_data$ale_x2)),
-      # x2_quantile = ntile(ale_x2, n_x2_int) / n_x2_int * max(ale_x2),
 
       # y_quantile: which of the n_y_quant in which ale_y falls
       y_quantile = ale_y |>
@@ -401,11 +392,8 @@ plot_ale_ixn <- function(
         x1_quantile = (((max(ale_data$ale_x1) - min(ale_data$ale_x1)) *
                           (ntile(ale_data$ale_x1, n_x1_int) - 1) / (n_x1_int - 1))
                        + min(ale_data$ale_x1)),
-        # x1_quantile = ntile(ale_x1, n_x1_int) / n_x2_int * max(ale_x1),
       )
   }
-
-  # browser()
 
   plot <-
     ale_data |>
@@ -455,8 +443,6 @@ plot_ale_ixn <- function(
 
   # Rotate categorical labels if they are too long
   if ((ale_data$ale_x1 |> paste(collapse = ' ') |> nchar()) > 50) {
-  # if (ale_data$ale_x1 |> isa('factor')) {
-  #   # Rotate categorical labels in case there are too many
     plot <- plot +
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
@@ -583,8 +569,6 @@ plot_effects <- function(
   estimates <- estimates |>
       mutate(term = factor(term, ordered = TRUE, levels = estimates$term))
 
-  # browser()
-
   plot <-
     estimates |>
     ggplot(aes(y = term)) +
@@ -598,7 +582,6 @@ plot_effects <- function(
         min(min(y_vals, estimates$aler_min)),
         max(max(y_vals, estimates$aler_max))
       ),
-      # limits = range(y_vals),
       # Regular breaks plus the median
       breaks = \(.limits) {
         # Create 4 logically placed breaks + add the median.
@@ -627,8 +610,6 @@ plot_effects <- function(
     geom_rect(
       xmin = median_band_lo,
       xmax = median_band_hi,
-      # xmin = quantile(y_vals, 0.5 - (median_band / 2)),
-      # xmax = quantile(y_vals, 0.5 + (median_band / 2)),
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'
@@ -646,8 +627,6 @@ plot_effects <- function(
       aes(
         xmin = median_band_mid - (aled / 2),
         xmax = median_band_mid + (aled / 2),
-        # xmin = median_y - (aled / 2),
-        # xmax = median_y + (aled / 2),
         ymin = as.integer(as.factor(term)) - 0.3,
         ymax = as.integer(as.factor(term)) + 0.3,
       ),
@@ -655,7 +634,6 @@ plot_effects <- function(
     ) +
     geom_text(
       aes(label = paste0('NALED ', format(round_dp(naled)), '%'), x = median_band_mid),
-      # aes(label = paste0('NALED ', format(round_dp(naled)), '%'), x = median_y),
       size = 3, vjust = -1
     ) +
     # Use ( ) as the demarcators of the plot.
@@ -668,11 +646,8 @@ plot_effects <- function(
       aes(label = ')', x = median_band_mid + (aled / 2)),
       nudge_y = 0.02
     ) +
-    # geom_text(aes(label = '(', x = median_y - (aled / 2))) +
-    # geom_text(aes(label = ')', x = median_y + (aled / 2))) +
     geom_text(
       aes(label = paste0('ALED ', format(round_dp(aled))), x = median_band_mid),
-      # aes(label = paste0('ALED ', format(round_dp(aled))), x = median_y),
       size = 3, vjust = 2
     ) +
     # annotation to explain symbols

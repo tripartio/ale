@@ -9,7 +9,8 @@ test_that(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 vs + am + gear + carb + country)',
-      boot_it = 0
+      boot_it = 0,
+      silent = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
@@ -24,7 +25,8 @@ test_that(
       var_cars,
       'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
                 vs + am + gear + carb + country)',
-      boot_it = 5
+      boot_it = 5,
+      silent = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
@@ -44,7 +46,8 @@ test_that(
       boot_alpha = 0.1,
       boot_centre = 'median',
       output = 'ale',
-      ale_options = list(relative_y = 'zero')
+      ale_options = list(relative_y = 'zero'),
+      silent = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
@@ -65,6 +68,7 @@ test_that(
       output = c('model_stats', 'model_coefs'),
       tidy_options = list(parametric = TRUE),
       glance_options = list(glance.gam_options_are_ignored = TRUE),
+      silent = TRUE
     )
     expect_snapshot(mb)
   }

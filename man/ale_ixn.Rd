@@ -26,7 +26,8 @@ ale_ixn(
   ale_xs = NULL,
   n_x1_int = 20,
   n_x2_int = 20,
-  n_y_quant = 10
+  n_y_quant = 10,
+  silent = FALSE
 )
 }
 \arguments{
@@ -66,6 +67,8 @@ ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
 
 \item{n_y_quant}{positive integer. which the range
 of y values is divided for the colour bands of the interaction plot. See details.}
+
+\item{silent}{See documentation for \code{ale}}
 }
 \value{
 list of ALE interaction data tibbles and plots.

@@ -4,9 +4,56 @@
 
 # test_file('tests/testthat/test-ALEPlot.R')
 
-# So far, only tests the nnet example. Tests should also be created for the gbm example and
-# for our own x_datasets example.
 # To minimize test time, the reference output should be serialized with expect_snapshot_value.
+
+# Do not run these on CRAN so that the required packages are not included
+# as dependencies.
+skip_on_cran()
+
+## nnet -----------------
+
+set.seed(0)
+n = 1000  # smaller dataset for more rapid execution
+x1 <- runif(n, min = 0, max = 1)
+x2 <- runif(n, min = 0, max = 1)
+x3 <- runif(n, min = 0, max = 1)
+x4 <- runif(n, min = 0, max = 1)
+y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
+  13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
+
+DAT <<- data.frame(y, x1, x2, x3, x4)
+
+set.seed(0)
+nnet.DAT <<- nnet::nnet(y~., data = DAT, linout = T, skip = F, size = 6,
+                        decay = 0.1, maxit = 1000, trace = F)
+
+## Define the predictive function
+nnet_pred_fun <<- function(X.model, newdata) {
+  as.numeric(predict(X.model, newdata,type = "raw"))
+}
+
+
+## gbm ----------------
+
+adult_data <<-
+  census |>
+  as.data.frame() |>   # ALEPlot is not compatible with the tibble format
+  select(age:native_country, higher_income) |>  # Rearrange columns to match ALEPlot order
+  na.omit(data)
+
+set.seed(0)
+gbm.data <<- gbm::gbm(higher_income ~ ., data= adult_data[,-c(3,4)],
+                      distribution = "bernoulli",
+                      n.trees=100,  # smaller model than ALEPlot example for rapid execution
+                      shrinkage=0.02, interaction.depth=3)
+
+gbm_pred_fun_ALEPlot <<- function(X.model, newdata) {
+  as.numeric(gbm::predict.gbm(X.model, newdata, n.trees = 100, type="link"))
+}
+gbm_pred_fun_ale <<- function(object, newdata) {
+  as.numeric(gbm::predict.gbm(object, newdata, n.trees = 100, type="link"))
+}
+
 
 
 test_that('ale function matches output of ALEPlot with nnet', {
@@ -31,7 +78,8 @@ test_that('ale function matches output of ALEPlot with nnet', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    pred_type = "raw", x_intervals = 100
+    pred_type = "raw", x_intervals = 100,
+    silent = TRUE
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
@@ -81,7 +129,8 @@ test_that('ale function matches output of ALEPlot with gbm', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    pred_fun = gbm_pred_fun_ale, x_intervals = 100
+    pred_fun = gbm_pred_fun_ale, x_intervals = 100,
+    silent = TRUE
   ) |>
     suppressMessages()
 
@@ -149,7 +198,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   nnet_ale_ixn <- ale_ixn(
     DAT, nnet.DAT,  # basic arguments
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
-    pred_type = "raw", x_intervals = 100  # specific options requested
+    pred_type = "raw", x_intervals = 100,  # specific options requested
+    silent = TRUE
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
@@ -219,7 +269,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     c('age', 'education_num', 'hours_per_week'),
     c('age', 'education_num', 'hours_per_week'),
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
-    pred_fun = gbm_pred_fun_ale, x_intervals = 100  # specific options requested
+    pred_fun = gbm_pred_fun_ale, x_intervals = 100,  # specific options requested
+    silent = TRUE
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot

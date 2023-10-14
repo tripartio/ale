@@ -7,7 +7,7 @@
 
 test_that(
   'numeric outcome works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam)
+    cars_ale <- ale(var_cars, cars_gam, silent = TRUE)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -16,7 +16,7 @@ test_that(
 
 test_that(
   'numeric outcome with bootstrap works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam, boot_it = 5)
+    cars_ale <- ale(var_cars, cars_gam, boot_it = 5, silent = TRUE)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -39,7 +39,8 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'numeric',
-      median_band = 0.01
+      median_band = 0.01,
+      silent = TRUE
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
@@ -52,7 +53,7 @@ test_that(
 
 test_that(
   'binary outcome default works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam_binary)
+    cars_ale <- ale(var_cars, cars_gam_binary, silent = TRUE)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -61,7 +62,7 @@ test_that(
 
 test_that(
   'binary outcome with bootstrap works with multiple x datatypes', {
-    cars_ale <- ale(var_cars, cars_gam_binary, boot_it = 4)
+    cars_ale <- ale(var_cars, cars_gam_binary, boot_it = 4, silent = TRUE)
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -84,7 +85,8 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'binary',
-      median_band = 0.01
+      median_band = 0.01,
+      silent = TRUE
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)

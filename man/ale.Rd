@@ -29,7 +29,8 @@ ale(
   rug_sample_size = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
-  ale_ns = NULL
+  ale_ns = NULL,
+  silent = FALSE
 )
 }
 \arguments{
@@ -106,6 +107,10 @@ function automatically calculates the ale_x intervals. \code{ale_xs} is normally
 in advanced analyses where the ale_x intervals from a previous analysis are
 reused for subsequent analyses (for example, for full model bootstrapping;
 see the \code{model_bootstrap} function).}
+
+\item{silent}{logical scalar, default FALSE. If TRUE, do not display any
+non-essential messages during execution (such as progress bars).
+Regardless, any warnings and errors will always display.}
 }
 \value{
 list of ALE data tibbles and plots. The list is named by the x variables.
@@ -117,6 +122,8 @@ the \code{output} argument.
 for one-way ALE. For two-way interactions, see \code{ale_ixn}. This function calls
 \code{ale_core} (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.
+
+\strong{Custom predict function}
 
 The calculation of ALE requires modifying several values of the original
 \code{data}. Thus, \code{ale} needs direct access to a \code{predict} function that work on
@@ -140,31 +147,22 @@ You can see an example below of a custom prediction function.
 
 \strong{ALE statistics}
 
-ALE deviation (ALED):
-\deqn{
-  \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
-}
-
-ALE range (ALER):
-\deqn{
-  \mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}
-}
+For details on the ALE-based statistics (ALED, ALER, NALED, and NALER), see
+the vignette "ale-statistics".
 
 \strong{About the \code{ale} package}
 
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
-algorithms. (Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of
-predictor variables in black box supervised learning models." Journal of the
-Royal Statistical Society Series B: Statistical Methodology 82.4
-(2020): 1059-1086 \url{doi:10.1111/rssb.12377}.) ALE has two primary advantages
-over other approaches like partial dependency plots (PDP) and SHapley
-Additive exPlanations (SHAP): its values are not affected by the presence of
-interactions among variables in a model and its computation is relatively
-rapid. This package rewrites the original code from the 'ALEPlot' package for
-calculating ALE data and it completely reimplements the plotting of ALE values.
-It also extends the original ALE concept to add ALE-based statistics that can
-be used for statistical inference.
+algorithms. ALE has a key advantage over other approaches like partial
+dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values
+represent a clean functional decomposition of the model. As such, ALE values
+are not affected by the presence or absence of interactions among variables
+in a mode. Moreover, its computation is relatively rapid. This package
+rewrites the original code from the 'ALEPlot' package for calculating ALE data
+and it completely reimplements the plotting of ALE values. It also extends
+the original ALE concept to add bootstrap-based confidence intervals and
+ALE-based statistics that can be used for statistical inference.
 }
 \details{
 ale_core.R
