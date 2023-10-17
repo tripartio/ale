@@ -1,0 +1,30 @@
+citHeader("To cite package 'ale' in publications use:")
+
+citEntry(entry = "Article",
+         title = "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE)",
+         author = as.person('Chitu Okoli'),
+         year = "2023",
+         journal = "arXiv",
+         doi = "10.48550/arXiv.2310.09877",
+         url = "https://arxiv.org/abs/2310.09877",
+         pages = "1-30",
+         textVersion = paste(
+           "Okoli, Chitu (2023 ).",
+           "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE).",
+           "arXiv, pp. 1-30,",
+           "https://arxiv.org/abs/2310.09877,"
+           )
+)
+
+citHeader("For the package itself use:")
+
+citEntry(entry = "Manual",
+         title = paste0(
+           packageDescription("ale")$Package, ': ',
+           packageDescription("ale")$Title
+         ),
+         author = as.person("Chitu Okoli"),
+         year = "2023",
+         note = paste0("R package version ", packageDescription("ale")$Version),
+         url = "https://CRAN.R-project.org/package=ale"
+)

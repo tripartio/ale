@@ -25,6 +25,12 @@
 #'
 #' @export
 #'
+#' @references Okoli, Chitu. 2023.
+#' “Statistical Inference Using Machine Learning and Classical Techniques Based
+#' on Accumulated Local Effects (ALE).”
+#' arXiv. https://doi.org/10.48550/arXiv.2310.09877.
+#'
+#'
 #' @param data dataframe. Dataset that will be bootstrapped.
 #' @param model_call_string character. Character string of the full call for the model,
 #'  except that the data option must be left out. The data option will be replaced with the `data` argument.

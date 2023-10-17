@@ -9,12 +9,14 @@
 #  This function is not usually called directly by the user. For details about
 #  arguments not documented here, see `ale`.
 #
-#  @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
 #  @references Apley, Daniel W., and Jingyu Zhu.
 #  "Visualizing the effects of predictor variables in black box supervised learning models."
 #  Journal of the Royal Statistical Society Series B: Statistical Methodology
 #  82.4 (2020): 1059-1086.
-#  @author Chitu Okoli (rewrote the code while retaining ALE calculation)
+#  @references Okoli, Chitu. 2023.
+#  “Statistical Inference Using Machine Learning and Classical Techniques Based
+#  on Accumulated Local Effects (ALE).”
+#  arXiv. https://doi.org/10.48550/arXiv.2310.09877.
 #
 #  @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
 #  column is absent.
@@ -111,7 +113,7 @@ calc_ale <- function(
           seq(1 / xint, 1, length.out = xint),
           type = 1,
           na.rm = TRUE
-        ) |>  # keep quantile type=1 for consistency with Apley & Zhu
+        ) |>  # keep quantile type=1 for consistency with Apley & Zhu 2020
           as.numeric()
       ) |>
         unique()  # one interval per value regardless of duplicates

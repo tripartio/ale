@@ -2,22 +2,23 @@
 
 ## ale 0.2.0
 
-**October 14, 2023**
+**October 17, 2023**
 
-This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. These statistics must be considered experimental; they have not been robustly analyzed. **A dedicated vignette introduces this functionality.**
+This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. [A dedicated vignette introduces this functionality](vignettes/ale-statistics.Rmd "ALE-based statistics for statistical inference and effect sizes"). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 ### Breaking changes
+
 -   We changed the output data structure of the ALE data and plots. This was necessary to add ALE statistics as explained below. Unfortunately, this change breaks any code that depended on the initial 0.1.0 version. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
 
 ### Other user-visible changes
 
--   We added new experimental ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.) 
+-   We added new ALE-based statistics: ALED and ALER with their normalized versions NALED and NALER. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.)
 -   We added rug plots to numeric values and percentage frequencies to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
 -   We added a vignette that compares the `ale` package with the reference `ALEPlot` package: [Comparison between `ALEPlot` and `ale` packages](vignettes/ale-intro.Rmd).
--   We added a vignette that introduces ALE-based statistics, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics (experimental) for statistical inference and effect sizes](vignettes/ale-statistics.Rmd).
--   We added two datasets: 
-    - `var_cars` is a modified version of mtcars that features many different types of variables.
-    - `census` is a polished version of the adult income dataset used for a vignette in the `ALEPlot` package.
+-   We added a vignette that introduces ALE-based statistics, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics for statistical inference and effect sizes](vignettes/ale-statistics.Rmd).
+-   We added two datasets:
+    -   `var_cars` is a modified version of mtcars that features many different types of variables.
+    -   `census` is a polished version of the adult income dataset used for a vignette in the `ALEPlot` package.
 -   Progress bars show the progression of analysis. They can be disabled by passing `silent = TRUE` to `ale`, `ale_ixn`, or `model_bootstrap`.
 -   The user can specify a random seed by passing the `seed` argument to `ale`, `ale_ixn`, or `model_bootstrap`.
 
@@ -34,10 +35,9 @@ By far the most extensive changes have been to assure the accuracy and stability
 
 ### Known issues to be addressed in a future version
 
-* Bootstrapping is not yet supported for ALE interactions (`ale_ixn`).
-* ALE statistics are not yet supported for ALE interactions (`ale_ixn`).
-* Survival models are not yet supported. The dual outcome variable (event + time) means that it cannot be handled the same way as models whose outcome is only one variable.
-
+-   Bootstrapping is not yet supported for ALE interactions (`ale_ixn`).
+-   ALE statistics are not yet supported for ALE interactions (`ale_ixn`).
+-   Survival models are not yet supported. The dual outcome variable (event + time) means that it cannot be handled the same way as models whose outcome is only one variable.
 
 ## ale 0.1.0
 

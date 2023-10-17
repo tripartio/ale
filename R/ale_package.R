@@ -11,6 +11,9 @@
 #' and it completely reimplements the plotting of ALE values. It also extends
 #' the original ALE concept to add bootstrap-based confidence intervals and
 #' ALE-based statistics that can be used for statistical inference.
+#' For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
+#' Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).”
+#' arXiv. https://doi.org/10.48550/arXiv.2310.09877.
 #'
 #' @author Chitu Okoli \email{Chitu.Okoli@skema.edu}
 #' @docType package
