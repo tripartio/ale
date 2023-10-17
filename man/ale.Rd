@@ -163,6 +163,9 @@ rewrites the original code from the 'ALEPlot' package for calculating ALE data
 and it completely reimplements the plotting of ALE values. It also extends
 the original ALE concept to add bootstrap-based confidence intervals and
 ALE-based statistics that can be used for statistical inference.
+For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
+Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).”
+arXiv. https://doi.org/10.48550/arXiv.2310.09877.
 }
 \details{
 ale_core.R
@@ -229,6 +232,12 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds_custom$plots, ncol = 2)
 
 }
 
+}
+\references{
+Okoli, Chitu. 2023.
+“Statistical Inference Using Machine Learning and Classical Techniques Based
+on Accumulated Local Effects (ALE).”
+arXiv. https://doi.org/10.48550/arXiv.2310.09877.
 }
 \seealso{
 Useful links:

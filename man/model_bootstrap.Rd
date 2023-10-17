@@ -144,3 +144,9 @@ gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 
 
 }
+\references{
+Okoli, Chitu. 2023.
+“Statistical Inference Using Machine Learning and Classical Techniques Based
+on Accumulated Local Effects (ALE).”
+arXiv. https://doi.org/10.48550/arXiv.2310.09877.
+}
