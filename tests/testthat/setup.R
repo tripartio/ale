@@ -4,13 +4,13 @@
 
 # Super-assignment <<- used: without it, these variables are not found in many
 # of the subsequent testthat tests.
-cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                  vs + am + gear + carb + country,
-                data = var_cars)
-
-cars_gam_binary <<- mgcv::gam(vs ~ cyl + s(disp) + s(hp) + drat + wt + s(qsec) +
-                         am + gear + carb + country,
+cars_gam <<- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
+                         vs + am + gear + carb + country,
                        data = var_cars)
+
+cars_gam_binary <<- mgcv::gam(vs ~ cyl + disp + hp + drat + wt + s(qsec) +
+                                am + gear + carb + country,
+                              data = var_cars)
 
 # Returns list of ALE plots converted to ggplot data format ---------------
 ale_plots_to_data <- function(

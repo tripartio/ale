@@ -50,7 +50,7 @@
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
 #' on Accumulated Local Effects (ALE).”
-#' arXiv. https://doi.org/10.48550/arXiv.2310.09877.
+#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
 #'
 #'
 #' @param data dataframe. Dataset from which to create predictions for the ALE.

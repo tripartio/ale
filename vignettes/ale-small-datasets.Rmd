@@ -154,9 +154,9 @@ Because the samples here are relatively small, we will use general additive mode
 With GAM, the variables that we want to become flexible need to be wrapped in the `s` (smooth) function, e.g., `s(complaints)`. For this example, we will smooth all our numerical input variables:
 
 ```{r gam_summary}
-gam_attitude <- mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
-                            s(raises) + s(critical) + s(advance),
-                data = attitude)
+gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
+                            raises + s(critical) + advance,
+                          data = attitude)
 summary(gam_attitude)
 ```
 
@@ -175,8 +175,8 @@ Compared to the OLS results above, the GAM results provide quite a surprise conc
 ```{r gam_full_stats}
 mb_gam <- model_bootstrap(
   attitude, 
-  'mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
-                      s(raises) + s(critical) + s(advance))'
+  'mgcv::gam(rating ~ complaints + privileges + s(learning) +
+               raises + s(critical) + advance)'
   )
 mb_gam$model_stats
 ```
@@ -191,9 +191,9 @@ gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 
 The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
 
-So, what should we conclude? First, it is tempting to retain the OLS results because they tell a more interesting story. But we consider that this would be irresponsible since the GAM model is clearly superior in terms of adjusted R^2^: it is the model that far more reliably tells us what is really going on. And what does it tell us? 
+So, what should we conclude? First, it is tempting to retain the OLS results because they tell a more interesting story. But we consider that this would be irresponsible since the GAM model is clearly superior in terms of adjusted R^2^: it is the model that far more reliably tells us what is really going on. And what does it tell us?
 
-* There seems to be a positive effect of handled complaints on ratings (the higher the percentage of complaints that are handled, the higher the average rating), but the data does not allow us to be sufficiently certain to generalize these results.
-* There is insufficient evidence that any of the other variables has any effect at all.
+-   There seems to be a positive effect of handled complaints on ratings (the higher the percentage of complaints that are handled, the higher the average rating), but the data does not allow us to be sufficiently certain to generalize these results.
+-   There is insufficient evidence that any of the other variables have any effect at all.
 
 No doubt, the inconclusive results are because the dataset is so small (only 30 rows). A dataset even double that size might show significant effects at least for complaints, if not for other variables.

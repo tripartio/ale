@@ -28,7 +28,7 @@
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
 #' on Accumulated Local Effects (ALE).”
-#' arXiv. https://doi.org/10.48550/arXiv.2310.09877.
+#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
 #'
 #'
 #' @param data dataframe. Dataset that will be bootstrapped.
@@ -89,8 +89,9 @@
 #' attitude
 #'
 #' ## ALE for general additive models (GAM)
-#' gam_attitude <- mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
-#'                             s(raises) + s(critical) + s(advance),
+#' ## GAM is tweaked to work on the small dataset.
+#' gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
+#'                             raises + s(critical) + advance,
 #'                           data = attitude)
 #' summary(gam_attitude)
 #'
@@ -99,8 +100,8 @@
 #' # Increase value of boot_it for more realistic results
 #' mb_gam <- model_bootstrap(
 #'   attitude,
-#'   'mgcv::gam(rating ~ s(complaints) + s(privileges) + s(learning) +
-#'                s(raises) + s(critical) + s(advance))',
+#'   'mgcv::gam(rating ~ complaints + privileges + s(learning) +
+#'                raises + s(critical) + advance)',
 #'   boot_it = 5
 #' )
 #'
