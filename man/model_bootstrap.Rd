@@ -123,13 +123,13 @@ gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
 summary(gam_attitude)
 
 # Full model bootstrapping
-# Only 5 bootstrap iterations for a rapid example
+# Only 3 bootstrap iterations for a rapid example; default is 100
 # Increase value of boot_it for more realistic results
 mb_gam <- model_bootstrap(
   attitude,
   'mgcv::gam(rating ~ complaints + privileges + s(learning) +
                raises + s(critical) + advance)',
-  boot_it = 5
+  boot_it = 3
 )
 
 # Model statistics and coefficients
@@ -148,6 +148,5 @@ gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 \references{
 Okoli, Chitu. 2023.
 “Statistical Inference Using Machine Learning and Classical Techniques Based
-on Accumulated Local Effects (ALE).”
-arXiv. \url{https://doi.org/10.48550/arXiv.2310.09877}.
+on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
 }

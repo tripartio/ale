@@ -7,7 +7,7 @@
 
 test_that(
   'numeric outcome works with multiple x datatypes', {
-    cars_ale_ixn <- ale_ixn(var_cars, cars_gam, silent = TRUE)
+    cars_ale_ixn <- ale_ixn(test_cars, cars_gam, silent = TRUE)
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
     expect_snapshot(cars_ale_ixn)
@@ -17,7 +17,7 @@ test_that(
 test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
     cars_ale_ixn <- ale_ixn(
-      var_cars, cars_gam,
+      test_cars, cars_gam,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
       x2_cols = c('cyl', 'disp', 'hp'),
       output = c('plots'),
@@ -44,7 +44,7 @@ test_that(
 
 test_that(
   'binary outcome works with multiple x datatypes', {
-    cars_ale_ixn <- ale_ixn(var_cars, cars_gam_binary, silent = TRUE)
+    cars_ale_ixn <- ale_ixn(test_cars, cars_gam_binary, silent = TRUE)
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
     expect_snapshot(cars_ale_ixn)
@@ -54,7 +54,7 @@ test_that(
 test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
     cars_ale_ixn <- ale_ixn(
-      var_cars, cars_gam_binary,
+      test_cars, cars_gam_binary,
       x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
       x2_cols = c('cyl', 'disp', 'hp'),
       output = c('plots'),

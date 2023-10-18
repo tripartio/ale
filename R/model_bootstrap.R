@@ -27,15 +27,13 @@
 #'
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
-#' on Accumulated Local Effects (ALE).”
-#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#' on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
 #'
 #' @param data dataframe. Dataset that will be bootstrapped.
 #' @param model_call_string character. Character string of the full call for the model,
 #'  except that the data option must be left out. The data option will be replaced with the `data` argument.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-# Any invalid argument (including typographical errors) will be silently ignored.
 # Future arguments:
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * predict_call_string: allows the prediction function to be called; this would
@@ -96,13 +94,13 @@
 #' summary(gam_attitude)
 #'
 #' # Full model bootstrapping
-#' # Only 5 bootstrap iterations for a rapid example
+#' # Only 3 bootstrap iterations for a rapid example; default is 100
 #' # Increase value of boot_it for more realistic results
 #' mb_gam <- model_bootstrap(
 #'   attitude,
 #'   'mgcv::gam(rating ~ complaints + privileges + s(learning) +
 #'                raises + s(critical) + advance)',
-#'   boot_it = 5
+#'   boot_it = 3
 #' )
 #'
 #' # Model statistics and coefficients

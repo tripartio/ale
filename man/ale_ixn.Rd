@@ -43,7 +43,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{y_col}{See documentation for \code{ale}}
 
-\item{...}{not used. See documentation for \code{ale}}
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{output}{See documentation for \code{ale}}
 
@@ -61,11 +61,11 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{ale_xs}{See documentation for \code{ale}}
 
-\item{n_x1_int, n_x2_int}{non-negative integer. Number of intervals
+\item{n_x1_int, n_x2_int}{positive scalar integer. Number of intervals
 for the x1 or x2 axes respectively for interaction plot. These values are
 ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
 
-\item{n_y_quant}{positive integer. which the range
+\item{n_y_quant}{positive scalar integer. Number of intervals over which the range
 of y values is divided for the colour bands of the interaction plot. See details.}
 
 \item{silent}{See documentation for \code{ale}}
