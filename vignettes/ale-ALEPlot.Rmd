@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 library(dplyr)
 ```
 
-The [`ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot) is the reference implementation of the brilliant idea of [accumulated local effects (ALE) by Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377). However, it has not been updated since 2018. The [`ale` package](ale-intro.Rmd "Introduction to the ale package") attempts to rewrite and extend the original base work.
+The [`ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot) is the reference implementation of the brilliant idea of [accumulated local effects (ALE) by Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377). However, it has not been updated since 2018. The [`ale` package](ale-intro.html "Introduction to the ale package") attempts to rewrite and extend the original base work.
 
 In developing the `ale` package, we must ensure that we correctly implement the original ALE algorithm while extending it. Indeed, some permanent unit tests call `ALEPlot` to make sure that `ale` provides identical results for identical inputs. We thought that presenting some of these comparisons as a vignette might be helpful. We focus here on the [examples from the `ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) so that results are directly comparable.
 
-Other than its [extensions for ALE-based statistics](ale-statistics.Rmd), here are some of the main points in which `ale` differs from `ALEPlot` where it provides otherwise similar functionality:
+Other than its [extensions for ALE-based statistics](ale-statistics.html), here are some of the main points in which `ale` differs from `ALEPlot` where it provides otherwise similar functionality:
 
 -   It uses `ggplot2` instead of base R graphics. We consider `ggplot2` to be a more modern and versatile graphics system.
 -   It saves plots as ggplot objects to a "plots" element of the return value; it does not automatically print the plot to the screen. As we show, this lets the user manipulate the plots more flexibly.

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 library(ale)
 ```
 
-This vignette demonstrates using the `ale` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](ale-intro.Rmd "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
+This vignette demonstrates using the `ale` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
 
 ## What is a "small" dataset?
 

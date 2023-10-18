@@ -4,7 +4,7 @@
 
 **October 18, 2023**
 
-This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. [A dedicated vignette introduces this functionality](vignettes/ale-statistics.Rmd "ALE-based statistics for statistical inference and effect sizes"). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
+This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. [A dedicated vignette introduces this functionality](../vignettes/ale-statistics.html "ALE-based statistics for statistical inference and effect sizes"). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 ### Breaking changes
 
@@ -14,8 +14,8 @@ This version introduces various ALE-based statistics that let ALE be used for st
 
 -   We added new **ALE-based statistics: ALED and ALER** with their normalized versions **NALED and NALER**. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.)
 -   We added **rug plots** to numeric values and **percentage frequencies** to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
--   We added a vignette that introduces **ALE-based statistics**, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics for statistical inference and effect sizes](vignettes/ale-statistics.Rmd).
--   We added a vignette that compares the `ale` package with the reference **`ALEPlot` package**: [Comparison between `ALEPlot` and `ale` packages](vignettes/ale-intro.Rmd).
+-   We added a vignette that introduces **ALE-based statistics**, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics for statistical inference and effect sizes](../vignettes/ale-statistics.html).
+-   We added a vignette that compares the `ale` package with the reference **`ALEPlot` package**: [Comparison between `ALEPlot` and `ale` packages](../vignettes/ale-intro.html).
 -   We added two **datasets**:
     -   `var_cars` is a modified version of mtcars that features many different types of variables.
     -   `census` is a polished version of the adult income dataset used for a vignette in the `ALEPlot` package.
@@ -56,6 +56,6 @@ This initial release replicates the full functionality of the `ALEPlot` package 
 
 This release provides more details in the following vignettes:
 
--   [Introduction to the `ale` package](vignettes/ale-intro.Rmd "General introduction")
--   [Analyzing small datasets (\<2000 rows) with ALE](vignettes/ale-small-datasets.Rmd "Analyzing small datasets")
--   [`ale` function handling of various datatypes for x](vignettes/ale-x-datatypes.Rmd "various datatypes for x")
+-   [Introduction to the `ale` package](../vignettes/ale-intro.html "General introduction")
+-   [Analyzing small datasets (\<2000 rows) with ALE](../vignettes/ale-small-datasets.html "Analyzing small datasets")
+-   [`ale` function handling of various datatypes for x](../vignettes/ale-x-datatypes.html "various datatypes for x")
