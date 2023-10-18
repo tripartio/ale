@@ -37,7 +37,6 @@ By far the most extensive changes have been to assure the accuracy and stability
 
 -   Bootstrapping is not yet supported for ALE interactions (`ale_ixn`).
 -   ALE statistics are not yet supported for ALE interactions (`ale_ixn`).
--   Survival models are not yet supported. The dual outcome variable (event + time) means that it cannot be handled the same way as models whose outcome is only one variable.
 
 ## ale 0.1.0
 

@@ -34,10 +34,15 @@
 #'
 #' You can see an example below of a custom prediction function.
 #'
+#' **Note:** `survival` models probably do not need a custom prediction function
+#' but `y_col` must be set to the name of the binary event column and
+#' `pred_type` must be set to the desired prediction type.
+#'
+#'
 #' **ALE statistics**
 #'
-#' For details on the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-#' the vignette "ale-statistics".
+#' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
+#' `vignette("ale-statistics")`.
 #'
 #'
 #'
@@ -49,56 +54,55 @@
 #'
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
-#' on Accumulated Local Effects (ALE).”
-#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#' on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
 #'
 #' @param data dataframe. Dataset from which to create predictions for the ALE.
-#' @param model model object. Model for which ALE should be calculated. Must
-#' contain a `terms` element, from which the name of the outcome target variable
-#' will be automatically calculated.
+#' @param model model object. Model for which ALE should be calculated.
+#' May be any kind of R object that can make predictions from data.
 #' @param x_cols character. Vector of column names from `data` for which
-#'  one-way ALE data is to be calculated (that is, simple ALE without interactions).
-#'  Must be provided if `ixn` is FALSE (default).
+#' one-way ALE data is to be calculated (that is, simple ALE without interactions).
+#' If not provided, ALE will be created for all columns in `data` except `y_col`.
 #' @param y_col character length 1. Name of the outcome target label (y) variable.
 #' If not provided, `ale` will try to detect it automatically. For non-standard
-#' models, `y_col` should be provided.
+#' models, `y_col` should be provided. For survival models, set `y_col` to the
+#' name of the binary event column; in that case, `pred_type` should also be specified.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-# Any invalid argument (including typographical errors) will be silently ignored.
 #' @param output character in c('plots', 'data', 'stats'). Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
-#' @param pred_fun,pred_type function,character. `pred_fun` is a function that
+#' @param pred_fun,pred_type function,character length 1. `pred_fun` is a function that
 #' returns a vector of predicted values of type `pred_type` from `model` on `data`.
 #' See details.
-#' @param x_intervals non-negative integer. Maximum number of intervals on the x-axis
+#' @param x_intervals positive integer length 1. Maximum number of intervals on the x-axis
 #' for the ALE data for each column in `x_cols`. The number of intervals that the algorithm generates
 #' might eventually be fewer than what the user specifies if the data values for
 #' a given x value do not support that many intervals.
-#' @param boot_it non-negative integer. Number of bootstrap iterations for the
-#' ALE values. If boot_it == 0 (default), then ALE will be calculated on the entire dataset
+#' @param boot_it non-negative integer length 1. Number of bootstrap iterations for the
+#' ALE values. If `boot_it = 0` (default), then ALE will be calculated on the entire dataset
 #' with no bootstrapping.
-#' @param seed integer. Random seed. Supply this between runs to assure that
+#' @param seed integer length 1. Random seed. Supply this between runs to assure that
 #' identical random ALE data is generated each time
-#' @param boot_alpha numeric from 0 to 1. Alpha for percentile-based confidence
+#' @param boot_alpha numeric length 1 from 0 to 1. Alpha for percentile-based confidence
 #' interval range for the bootstrap intervals; the bootstrap confidence intervals
 #' will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example,
-#' if `boot_alpha` == 0.05 (default), the intervals will be from the 2.5 and 97.5
+#' if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5
 #' percentiles.
-#' @param boot_centre character in c('mean', 'median'). When bootstrapping, the
+#' @param boot_centre character length 1 in c('mean', 'median'). When bootstrapping, the
 #' main estimate for `ale_y` is considered to be `boot_centre`. Regardless of the
 #' value specified here, both the mean and median will be available.
-#' @param relative_y character in c('median', 'mean', 'zero'). The ale_y values will
+#' @param relative_y character length 1 in c('median', 'mean', 'zero'). The ale_y values will
 #' be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
 #' default of `ALEPlot::ALEPlot`, which is not shifted.
-#' @param y_type character. Datatype of the y (outcome) variable according to the
-#' types returned by the `var_type` function (see that function for options). If not
-#' provided, this will be automatically determined.
-#' @param median_band numeric from 0 to 1. Alpha for "confidence interval" range
+#' @param y_type character length 1. Datatype of the y (outcome) variable.
+#' Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
+#' determined automatically; only provide for complex non-standard models that
+#' require it.
+#' @param median_band numeric length 1 from 0 to 1. Alpha for "confidence interval" range
 #' for printing bands around the median for single-variable plots.
 #'  The band range will be the median value of y ± `median_band`.
-#' @param rug_sample_size,min_rug_per_interval single non-negative integer.
+#' @param rug_sample_size,min_rug_per_interval single non-negative integer length 1.
 #' Rug plots are normally
 #' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
 #' of this sample. To prevent down-sampling, set to `Inf`. To suppress rug plots,
@@ -111,13 +115,15 @@
 #' in advanced analyses where the ale_x intervals from a previous analysis are
 #' reused for subsequent analyses (for example, for full model bootstrapping;
 #' see the `model_bootstrap` function).
-#' @param silent logical scalar, default FALSE. If TRUE, do not display any
+#' @param silent logical length 1, default FALSE. If TRUE, do not display any
 #' non-essential messages during execution (such as progress bars).
 #' Regardless, any warnings and errors will always display.
 #'
-#' @return list of ALE data tibbles and plots. The list is named by the x variables.
-#' Within each list element, the data, plots, and stats are returned as requested in
-#' the `output` argument.
+#' @return list with elements `data`, `plots`, and `stats` as requested in
+#' the `output` argument. Each of these is a list named by the x variables with
+#' the respective values for each variable. In addition, the return object
+#' recapitulates several elements that were passed as arguments that apply to
+#' all the x variables for the ALE calculation.
 #'
 #' @examples
 # Sample 1000 rows from the diamonds dataset (for a simple example)
@@ -249,7 +255,7 @@ ale <- function (
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 #'  `ixn` is TRUE, then both values must be provided.
 #' @param y_col See documentation for `ale`
-#' @param ... not used. See documentation for `ale`
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param output See documentation for `ale`
 #' @param pred_fun,pred_type See documentation for `ale`
 #' @param x_intervals See documentation for `ale`
@@ -258,10 +264,10 @@ ale <- function (
 #' @param median_band See documentation for `ale`
 #' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #' @param ale_xs See documentation for `ale`
-#' @param n_x1_int,n_x2_int non-negative integer. Number of intervals
+#' @param n_x1_int,n_x2_int positive scalar integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
-#' @param n_y_quant positive integer. which the range
+#' @param n_y_quant positive scalar integer. Number of intervals over which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
 #' @param silent See documentation for `ale`
 #'
