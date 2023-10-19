@@ -4,7 +4,7 @@
 
 **October 19, 2023**
 
-This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. [A dedicated vignette introduces this functionality](../vignettes/ale-statistics.html "ALE-based statistics for statistical inference and effect sizes"). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
+This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. A dedicated vignette introduces this functionality (see "ALE-based statistics for statistical inference and effect sizes" from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 ### Breaking changes
 
@@ -14,17 +14,17 @@ This version introduces various ALE-based statistics that let ALE be used for st
 
 -   We added new **ALE-based statistics: ALED and ALER** with their normalized versions **NALED and NALER**. `ale` and `model_bootstrap` now output these statistics. (`ale_ixn` will come later.)
 -   We added **rug plots** to numeric values and **percentage frequencies** to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
--   We added a vignette that introduces **ALE-based statistics**, especially effect size measures, and demonstrates how to use them for statistical inference: [ALE-based statistics for statistical inference and effect sizes](../vignettes/ale-statistics.html).
--   We added a vignette that compares the `ale` package with the reference **`ALEPlot` package**: [Comparison between `ALEPlot` and `ale` packages](../vignettes/ale-intro.html).
+-   We added a vignette that introduces **ALE-based statistics**, especially effect size measures, and demonstrates how to use them for statistical inference: "ALE-based statistics for statistical inference and effect sizes" (available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>).
+-   We added a vignette that compares the `ale` package with the reference **`ALEPlot` package**: "Comparison between `ALEPlot` and `ale` packages" (available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>).
 -   We added two **datasets**:
     -   `var_cars` is a modified version of mtcars that features many different types of variables.
     -   `census` is a polished version of the adult income dataset used for a vignette in the `ALEPlot` package.
--   **Progress bars** show the progression of analysis. They can be disabled by passing `silent = TRUE` to `ale`, `ale_ixn`, or `model_bootstrap`.
+-   **Progress bars** show the progression of the analysis. They can be disabled by passing `silent = TRUE` to `ale`, `ale_ixn`, or `model_bootstrap`.
 -   The user can specify a **random seed** by passing the `seed` argument to `ale`, `ale_ixn`, or `model_bootstrap`.
 
 ### Under the hood
 
-By far the most extensive changes have been to assure the accuracy and stability of the package from a software engineering perspective. Even though these are not visible to users, they make the package more robust with hopefully fewer bugs. In fact, the extensive data validation should help users debug their own errors.
+By far the most extensive changes have been to assure the accuracy and stability of the package from a software engineering perspective. Even though these are not visible to users, they make the package more robust with hopefully fewer bugs. Indeed, the extensive data validation may help users debug their own errors.
 
 -   Added **data validation** to exported functions. Under the hood, each user-facing function carefully validates that the user has entered valid data using the [`assertthat`](https://github.com/hadley/assertthat "assertthat package") package; if not, the function fails quickly with an appropriate error message.
 -   Created **unit tests** for exported functions. Under the hood, the [testthat](https://testthat.r-lib.org/ "testthat package") package is now used for testing the outputs of each user-facing function. This should help the code base to be more robust going forward with future developments.
@@ -54,8 +54,8 @@ This initial release replicates the full functionality of the `ALEPlot` package 
 -   `ale_ixn`: create data for and plot two-way ALE interactions. Bootstrapping of the interaction ALE values has not yet been implemented.
 -   `model_bootstrap`: bootstrap an entire model, not just the ALE values. This function returns the bootstrapped model statistics and coefficients as well as the bootstrapped ALE values. This is the appropriate approach for small samples.
 
-This release provides more details in the following vignettes:
+This release provides more details in the following vignettes (they are all available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>):
 
--   [Introduction to the `ale` package](../vignettes/ale-intro.html "General introduction")
--   [Analyzing small datasets (\<2000 rows) with ALE](../vignettes/ale-small-datasets.html "Analyzing small datasets")
--   [`ale` function handling of various datatypes for x](../vignettes/ale-x-datatypes.html "various datatypes for x")
+-   Introduction to the `ale` package
+-   Analyzing small datasets (\<2000 rows) with ALE
+-   `ale` function handling of various datatypes for x

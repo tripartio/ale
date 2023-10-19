@@ -12,10 +12,10 @@ The `ale` package replicates the full functionality of the `ALEPlot` package and
 
 In addition, it has some minor functions that are helpful for model evaluation.
 
-You may find more details in the following vignettes:
+You may find more details in the following vignettes (they are all available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>):
 
--   [Introduction to the `ale` package](../vignettes/ale-intro.html)
--   [ALE-based statistics for statistical inference and effect sizes](../vignettes/ale-statistics.html)
--   [Analyzing small datasets (\<2000 rows) with ALE](../vignettes/ale-small-datasets.html)
--   [Comparison between `ALEPlot` and `ale` packages](../vignettes/ale-ALEPlot.html)
--   [`ale` function handling of various datatypes for x](../vignettes/ale-x-datatypes.html)
+-   Introduction to the `ale` package
+-   ALE-based statistics for statistical inference and effect sizes
+-   Analyzing small datasets (\<2000 rows) with ALE
+-   Comparison between `ALEPlot` and `ale` packages
+-   `ale` function handling of various datatypes for x
