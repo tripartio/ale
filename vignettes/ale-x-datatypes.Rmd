@@ -89,7 +89,7 @@ cars_ale_ixn$plots |>
   })
 ```
 
-There are no interactions in this dataset.
+There are no interactions in this dataset. (To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.html), which explains the interaction plots in more detail.)
 
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
@@ -97,10 +97,14 @@ Finally, as explained in the vignette on modelling with [small datasets](ale-sma
 mb <- model_bootstrap(
   var_cars, 
   'mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
-               vs + am + gear + carb + country)'
+               vs + am + gear + carb + country)',
+  boot_it = 10,  # 100 by default but reduced here for a faster demonstration
+  silent = TRUE  # progress bars disabled for the vignette
 )
 
 gridExtra::grid.arrange(grobs = mb$ale$plots, ncol = 2)
 ```
+
+(By default, `model_bootstrap` creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) 
 
 With such a small dataset, the bootstrap confidence interval always overlap with the middle band, indicating that this dataset cannot support any claims that any of its variables has a meaningful effect on fuel efficiency (mpg). Considering that the average bootstrapped ALE values suggest various intriguing patterns, the problem is no doubt that the dataset is too small--if more data were collected and analyzed, some of the patterns would probably be confirmed.

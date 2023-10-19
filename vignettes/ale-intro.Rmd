@@ -141,10 +141,11 @@ new_rows <- sample(nrow(diamonds_test), 200, replace = FALSE)
 diamonds_small_test <- diamonds_test[new_rows, ]
 ```
 
-Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations.
+Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. However, so that this introduction runs faster, we demonstrate it here with only 10 iterations. 
 
 ```{r ale_boot, fig.width=7, fig.height=11}
-ale_gam_diamonds_boot <- ale(diamonds_small_test, gam_diamonds, boot_it = 100)
+# Normally boot_it should be set to 100, but just 10 here for a faster demonstration
+ale_gam_diamonds_boot <- ale(diamonds_small_test, gam_diamonds, boot_it = 10)
 
 # Bootstrapping produces confidence intervals
 gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)

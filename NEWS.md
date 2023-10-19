@@ -2,7 +2,7 @@
 
 ## ale 0.2.0
 
-**October 18, 2023**
+**October 19, 2023**
 
 This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. [A dedicated vignette introduces this functionality](../vignettes/ale-statistics.html "ALE-based statistics for statistical inference and effect sizes"). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 

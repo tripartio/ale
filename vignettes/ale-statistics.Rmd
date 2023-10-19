@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r libraries, cache=TRUE}
+```{r libraries}
 library(mgcv)  # for datasets and for gam function
 library(dplyr)  # for data manipulation
 library(ale)
@@ -28,7 +28,7 @@ Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](h
 
 We will demonstrate ALE statistics using a dataset composed and transformed from the `mgcv` package. This package is required to create the generalized additive model (GAM) that we will use for this demonstration. (Strictly speaking, the source datasets are in the `nlme` package, which is loaded automatically when we load the `mgcv` package.) Here is the code to generate the data that we will work with:
 
-```{r data setup, cache=TRUE}
+```{r data setup}
 # Create and prepare the data
 
 # Specific seed chosen to illustrate the spuriousness of the random variable
@@ -110,8 +110,7 @@ Now we create a model and compute statistics on it. Because this is a [relativel
 
 By default, `model_bootstrap` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
-```{r model bootstrap, cache=TRUE}
-# ```{r model bootstrap, cache=TRUE, cache.extra=digest::digest("20230928.1851")}
+```{r model bootstrap}
 mb_gam <- model_bootstrap(
   math, 
   'gam(
@@ -122,7 +121,8 @@ mb_gam <- model_bootstrap(
   # For the GAM model coefficients, show details of all variables, parametric or not
   tidy_options = list(parametric = TRUE),
   # tidy_options = list(parametric = NULL),
-  boot_it = 100
+  boot_it = 40,  # 100 by default but reduced here for a faster demonstration
+  silent = TRUE  # progress bars disabled for the vignette
 )
 ```
 
@@ -167,7 +167,7 @@ ALE was developed to graphically display the relationship between predictor vari
 
 ### ALE plots
 
-```{r all ALE plots, cache=TRUE, fig.width=7, fig.height=10}
+```{r all ALE plots, fig.width=7, fig.height=10}
 gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 ```
 
@@ -355,7 +355,7 @@ For numeric variables, the confidence regions summary has one row for each conse
     -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the median band.
     -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the median band.
 
-These results tell us simply that, for `academic_ratio`, from 0 to 0, ALE is below the median band from 9.27 to 9.27. From 0.05 to 0.91, ALE overlaps the median band from 10.9 to 13.9. From 0.95 to 1, ALE is above the median band from 14.2 to 14.6.
+These results tell us simply that, for `academic_ratio`, from 0 to 0, ALE is below the median band from 9.25 to 9.25. From 0.05 to 0.9, ALE overlaps the median band from 11 to 13.7. From 0.91 to 1, ALE is above the median band from 13.8 to 14.5.
 
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
@@ -393,6 +393,6 @@ And here is its confidence regions summary table:
 mb_gam$ale$conf_regions$rand_norm
 ```
 
-Despite the apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.5. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+Despite the apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
 
 
