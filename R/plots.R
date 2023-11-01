@@ -581,12 +581,13 @@ plot_effects <- function(
   median_band_mid <- (median_band_lo + median_band_hi) / 2
 
 
-  # Sort estimates by naled and convert term to an ordered factor for proper sorting.
+  # Sort estimates by ALED and convert term to an ordered factor for proper sorting.
+  # NALED sometimes gives unusual values because of the normalization.
   # This must be done in two steps to access the correctly sorted estimates$term.
   estimates <- estimates |>
-    arrange(naled)
+    arrange(aled, naled)
   estimates <- estimates |>
-      mutate(term = factor(term, ordered = TRUE, levels = estimates$term))
+    mutate(term = factor(term, ordered = TRUE, levels = estimates$term))
 
   plot <-
     estimates |>
