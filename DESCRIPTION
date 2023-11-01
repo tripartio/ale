@@ -1,6 +1,6 @@
 Package: ale
 Title: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)
-Version: 0.2.0
+Version: 0.2.20231101
 Authors@R: c(
     person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5574-7572")),
