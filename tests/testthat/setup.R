@@ -43,7 +43,10 @@ ale_plots_to_data <- function(
 # custom predict function ------------
 # Super-assignment <<- used: without it, these variables are not found in many
 # of the subsequent testthat tests.
-test_predict <<- function(object, newdata) {
-  predict(object, newdata, se.fit = TRUE)$fit
+test_predict <<- function(object, newdata, type = pred_type) {
+  predict(object, newdata, se.fit = TRUE, type = type)$fit
 }
+# test_predict <<- function(object, newdata) {
+#   predict(object, newdata, se.fit = TRUE)$fit
+# }
 

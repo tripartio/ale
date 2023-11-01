@@ -125,6 +125,8 @@ plot_ale <- function(
     theme(axis.text.y.right = element_text(size = 6)) +
     labs(x = x_col, y = y_col)
 
+  # browser()
+
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
     plot <- plot +

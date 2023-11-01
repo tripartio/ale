@@ -18,7 +18,7 @@
 #' The calculation of ALE requires modifying several values of the original
 #' `data`. Thus, `ale` needs direct access to a `predict` function that work on
 #' `model`. By default, `ale` uses a generic default `predict` function of the form
-#' `predict(model_object, new_data)` with the default prediction type of 'response'.
+#' `predict(object, newdata, type)` with the default prediction type of 'response'.
 #' If, however, the desired prediction values are not generated with that format,
 #' the user must specify what they want. Most of the time, the only modification needed is
 #' to change the prediction type to some other value by setting the `pred_type` argument
@@ -27,9 +27,12 @@
 #' custom prediction function and pass it to `pred_fun`. The requirements for this
 #' custom function are:
 #'
-#' * It must take two arguments and nothing else: `object` (a model) and `newdata`
-#' (a dataframe or compatible table type). These argument names are according to
-#' the R convention for the generic stats::predict function.
+#' * It must take three required arguments and nothing else:
+#'     * `object`: a model
+#'     * `newdata`: a dataframe or compatible table type
+#'     * `type`: a string; it should usually be specified as `type = pred_type`
+#'     These argument names are according to the R convention for the
+#'     generic stats::predict function.
 #' * It must return a vector of numeric values as the prediction.
 #'
 #' You can see an example below of a custom prediction function.
@@ -172,13 +175,13 @@
 #'
 #' # If the predict function you want is non-standard, you may define a
 #' # custom predict function. It must return a single numeric vector.
-#' custom_predict <- function(object, newdata) {
-#'   predict(object, newdata, type = 'link', se.fit = TRUE)$fit
+#' custom_predict <- function(object, newdata, type = pred_type) {
+#'   predict(object, newdata, type = type, se.fit = TRUE)$fit
 #' }
 #'
 #' ale_gam_diamonds_custom <- ale(
 #'   diamonds_test, gam_diamonds,
-#'   pred_fun = custom_predict
+#'   pred_fun = custom_predict, pred_type = 'link'
 #' )
 #'
 #' # Plot the ALE data
@@ -415,8 +418,10 @@ ale_core <- function (
     y_col = NULL,
     ...,
     output = c('plots', 'data', 'stats'),
-    pred_fun = function(object, newdata) {
-      stats::predict(object = object, newdata = newdata, type = pred_type)
+    # pred_fun = function(object, newdata) {
+    pred_fun = function(object, newdata, type = pred_type) {
+      # stats::predict(object = object, newdata = newdata, type = pred_type)
+      stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
     x_intervals = 100,
@@ -455,10 +460,13 @@ ale_core <- function (
   # Validate the dataset
   assert_that(data |> inherits('data.frame'))
 
+  # browser()
+
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
   y_preds <- tryCatch(
-    pred_fun(object = model, newdata = data),
+    pred_fun(object = model, newdata = data, type = pred_type),
+    # pred_fun(object = model, newdata = data),
     # predict(model, data, 'raw'),
     error = \(.e) {
       print(paste0(
@@ -472,6 +480,8 @@ ale_core <- function (
     },
     finally = NULL
   )
+
+  # browser()
 
   # Validate the resulting predictions
   assert_that(is.numeric(y_preds) && length(y_preds) == nrow(data))
@@ -692,7 +702,8 @@ ale_core <- function (
           # ale_data <-
           calc_ale(
             data_X, model, x_col,
-            pred_fun, x_intervals,
+            pred_fun, pred_type, x_intervals,
+            # pred_fun, x_intervals,
             boot_it, seed, boot_alpha, boot_centre,
             ale_x = ale_xs[[x_col]],
             ale_n = ale_ns[[x_col]],
@@ -764,8 +775,11 @@ ale_core <- function (
           map(\(x2_col) {
 
             ale_data <-
-              calc_ale_ixn(data_X, model, x1_col, x2_col,
-                           pred_fun, x_intervals)
+              calc_ale_ixn(
+                data_X, model, x1_col, x2_col,
+                pred_fun, pred_type, x_intervals
+                # pred_fun, x_intervals
+              )
 
             # Shift ale_y by appropriate relative_y
             ale_data$ale_y <- ale_data$ale_y + relative_y_shift

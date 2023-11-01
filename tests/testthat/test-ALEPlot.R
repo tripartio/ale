@@ -27,10 +27,17 @@ set.seed(0)
 nnet.DAT <<- nnet::nnet(y~., data = DAT, linout = T, skip = F, size = 6,
                         decay = 0.1, maxit = 1000, trace = F)
 
-## Define the predictive function
-nnet_pred_fun <<- function(X.model, newdata) {
+# Define the predictive function
+nnet_pred_fun_ALEPlot <<- function(X.model, newdata) {
   as.numeric(predict(X.model, newdata,type = "raw"))
 }
+nnet_pred_fun_ale <<- function(object, newdata, type = pred_type) {
+  as.numeric(predict(object, newdata, type = type))
+}
+# ## Define the predictive function
+# nnet_pred_fun <<- function(X.model, newdata) {
+#   as.numeric(predict(X.model, newdata,type = "raw"))
+# }
 
 
 ## gbm ----------------
@@ -50,8 +57,8 @@ gbm.data <<- gbm::gbm(higher_income ~ ., data= adult_data[,-c(3,4)],
 gbm_pred_fun_ALEPlot <<- function(X.model, newdata) {
   as.numeric(gbm::predict.gbm(X.model, newdata, n.trees = 100, type="link"))
 }
-gbm_pred_fun_ale <<- function(object, newdata) {
-  as.numeric(gbm::predict.gbm(object, newdata, n.trees = 100, type="link"))
+gbm_pred_fun_ale <<- function(object, newdata, type = pred_type) {
+  as.numeric(gbm::predict.gbm(object, newdata, n.trees = 100, type = type))
 }
 
 
@@ -63,7 +70,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
     map(1:4, \(.col_idx) {
-      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun, J = .col_idx, K = 100) |>
+      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = .col_idx, K = 100) |>
         as_tibble() |>
         select(-K)
     }) |>
@@ -78,7 +85,8 @@ test_that('ale function matches output of ALEPlot with nnet', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    pred_type = "raw", x_intervals = 100,
+    pred_type = "raw", pred_fun = nnet_pred_fun_ale,
+    x_intervals = 100,
     silent = TRUE
   )
 
@@ -129,7 +137,8 @@ test_that('ale function matches output of ALEPlot with gbm', {
     # make ale equivalent to ALEPlot
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
-    pred_fun = gbm_pred_fun_ale, x_intervals = 100,
+    pred_fun = gbm_pred_fun_ale, pred_type = 'link',
+    x_intervals = 100,
     silent = TRUE
   ) |>
     suppressMessages()
@@ -160,7 +169,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
     map(1:4, \(.col1_idx) {
       map(1:4, \(.col2_idx) {
         if (.col1_idx < .col2_idx) {
-          ap_data <- ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun,
+          ap_data <- ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot,
                              J = c(.col1_idx, .col2_idx), K = 100)
           .x1 <- ap_data$x.values[[1]]
           .x2 <- ap_data$x.values[[2]]
@@ -198,6 +207,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   nnet_ale_ixn <- ale_ixn(
     DAT, nnet.DAT,  # basic arguments
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
+    pred_fun = nnet_pred_fun_ale,
     pred_type = "raw", x_intervals = 100,  # specific options requested
     silent = TRUE
   )
@@ -269,7 +279,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     c('age', 'education_num', 'hours_per_week'),
     c('age', 'education_num', 'hours_per_week'),
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
-    pred_fun = gbm_pred_fun_ale, x_intervals = 100,  # specific options requested
+    pred_fun = gbm_pred_fun_ale,
+    pred_type = 'link', x_intervals = 100,  # specific options requested
     silent = TRUE
   )
 

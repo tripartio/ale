@@ -24,6 +24,7 @@
 #  @param x_col character length 1. Name of single column in X for which ALE data is to
 #  be calculated.
 #  @param pred_fun See documentation for `ale`
+#  @param pred_type See documentation for `ale`
 #  @param x_intervals See documentation for `ale`
 #  @param boot_it See documentation for `ale`
 #  @param seed See documentation for `ale`
@@ -43,7 +44,8 @@
 #
 calc_ale <- function(
     X, model, x_col,
-    pred_fun, x_intervals,
+    pred_fun, pred_type,
+    x_intervals,
     boot_it, seed, boot_alpha, boot_centre,
     ale_x = NULL,
     ale_n = NULL,
@@ -172,8 +174,11 @@ calc_ale <- function(
         X_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
           mutate(!!x_col := ale_x[boot_ale_x_int + 1])
 
+        # browser()
+
         # Difference between low and high boundary predictions
-        delta_pred <- pred_fun(model, newdata = X_hi) - pred_fun(model, newdata = X_lo)
+        delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
+        # delta_pred <- pred_fun(model, newdata = X_hi) - pred_fun(model, newdata = X_lo)
 
         # Generate the cumulative ale_y predictions
         cum_pred <-
@@ -412,9 +417,12 @@ calc_ale <- function(
               levels_ale_order[lo_idxs]
             }
 
-          pred_y <- pred_fun(object = model, newdata = X_boot)
-          pred_hi <- pred_fun(object = model, newdata = X_hi[row_idx_not_hi, ])
-          pred_lo <- pred_fun(object = model, newdata = X_lo[row_idx_not_lo, ])
+          pred_y  <- pred_fun(model, X_boot, pred_type)
+          pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, ], pred_type)
+          pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, ], pred_type)
+          # pred_y <- pred_fun(object = model, newdata = X_boot)
+          # pred_hi <- pred_fun(object = model, newdata = X_hi[row_idx_not_hi, ])
+          # pred_lo <- pred_fun(object = model, newdata = X_lo[row_idx_not_lo, ])
 
           #Take the appropriate differencing and averaging for the ALE plot
 

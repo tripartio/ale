@@ -22,6 +22,7 @@
 # ALE interaction data is to be calculated. `x1_col` can be of any standard
 #  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
 # @param pred_fun See documentation for `ale`
+# @param pred_type See documentation for `ale`
 # @param x_intervals See documentation for `ale`
 #
 # @import dplyr
@@ -30,7 +31,7 @@
 #
 calc_ale_ixn <- function(X, model, x1_col, x2_col,
                          # n_row, n_col,
-                         pred_fun, x_intervals) {
+                         pred_fun, pred_type, x_intervals) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
   # Make them null local variables within the function with the issues. So,
@@ -82,10 +83,14 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
     X12[c(x1_col, x2_col)] = cbind(z1[a1], z2[a2+1])
     X21[c(x1_col, x2_col)] = cbind(z1[a1+1], z2[a2])
     X22[c(x1_col, x2_col)] = cbind(z1[a1+1], z2[a2+1])
-    y.hat11 = pred_fun(object = model, newdata = X11)
-    y.hat12 = pred_fun(object = model, newdata = X12)
-    y.hat21 = pred_fun(object = model, newdata = X21)
-    y.hat22 = pred_fun(object = model, newdata = X22)
+    y.hat11 = pred_fun(model, X11, pred_type)
+    y.hat12 = pred_fun(model, X12, pred_type)
+    y.hat21 = pred_fun(model, X21, pred_type)
+    y.hat22 = pred_fun(model, X22, pred_type)
+    # y.hat11 = pred_fun(object = model, newdata = X11)
+    # y.hat12 = pred_fun(object = model, newdata = X12)
+    # y.hat21 = pred_fun(object = model, newdata = X21)
+    # y.hat22 = pred_fun(object = model, newdata = X22)
 
     Delta=(y.hat22-y.hat21)-(y.hat12-y.hat11)  #n_row-length vector of individual local effect values
 
@@ -196,10 +201,14 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
     X22[row_idx_not_hi,x1_col] = levels_ale_order[x_ordered_idx[row_idx_not_hi]+1]
     X21[row_idx_not_hi,x2_col] = z2[a2][row_idx_not_hi]
     X22[row_idx_not_hi,x2_col] = z2[a2+1][row_idx_not_hi]
-    y.hat11 = pred_fun(object = model, newdata = X11[row_idx_not_hi,])
-    y.hat12 = pred_fun(object = model, newdata = X12[row_idx_not_hi,])
-    y.hat21 = pred_fun(object = model, newdata = X21[row_idx_not_hi,])
-    y.hat22 = pred_fun(object = model, newdata = X22[row_idx_not_hi,])
+    y.hat11 = pred_fun(model, X11[row_idx_not_hi,], pred_type)
+    y.hat12 = pred_fun(model, X12[row_idx_not_hi,], pred_type)
+    y.hat21 = pred_fun(model, X21[row_idx_not_hi,], pred_type)
+    y.hat22 = pred_fun(model, X22[row_idx_not_hi,], pred_type)
+    # y.hat11 = pred_fun(object = model, newdata = X11[row_idx_not_hi,])
+    # y.hat12 = pred_fun(object = model, newdata = X12[row_idx_not_hi,])
+    # y.hat21 = pred_fun(object = model, newdata = X21[row_idx_not_hi,])
+    # y.hat22 = pred_fun(object = model, newdata = X22[row_idx_not_hi,])
     delta_hi=(y.hat22-y.hat21)-(y.hat12-y.hat11)  #n.plus-length vector of individual local effect values
     row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x1_col]] was not the lowest level
     X11 = X  #matrix with low X[[x1_col]] and low X[[x2_col]]
@@ -212,10 +221,14 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
     X12[row_idx_not_lo,x2_col] = z2[a2+1][row_idx_not_lo]
     X21[row_idx_not_lo,x2_col] = z2[a2][row_idx_not_lo]
     X22[row_idx_not_lo,x2_col] = z2[a2+1][row_idx_not_lo]
-    y.hat11 = pred_fun(object = model, newdata = X11[row_idx_not_lo,])
-    y.hat12 = pred_fun(object = model, newdata = X12[row_idx_not_lo,])
-    y.hat21 = pred_fun(object = model, newdata = X21[row_idx_not_lo,])
-    y.hat22 = pred_fun(object = model, newdata = X22[row_idx_not_lo,])
+    y.hat11 = pred_fun(model, X11[row_idx_not_lo,], pred_type)
+    y.hat12 = pred_fun(model, X12[row_idx_not_lo,], pred_type)
+    y.hat21 = pred_fun(model, X21[row_idx_not_lo,], pred_type)
+    y.hat22 = pred_fun(model, X22[row_idx_not_lo,], pred_type)
+    # y.hat11 = pred_fun(object = model, newdata = X11[row_idx_not_lo,])
+    # y.hat12 = pred_fun(object = model, newdata = X12[row_idx_not_lo,])
+    # y.hat21 = pred_fun(object = model, newdata = X21[row_idx_not_lo,])
+    # y.hat22 = pred_fun(object = model, newdata = X22[row_idx_not_lo,])
     delta_lo=(y.hat22-y.hat21)-(y.hat12-y.hat11)  #n.neg-length vector of individual local effect values
 
 
