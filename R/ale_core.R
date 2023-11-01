@@ -726,7 +726,9 @@ ale_core <- function (
             y_summary,
             relative_y = relative_y,
             median_band = median_band,
-            data = data[, c(x_col, y_col)],
+            x_y = tibble(data[[x_col]], y_vals) |>
+              setNames(c(x_col, y_col)),
+            # data = data[, c(x_col, y_col)],
             rug_sample_size = rug_sample_size,
             min_rug_per_interval = min_rug_per_interval,
             seed = seed
@@ -797,7 +799,9 @@ ale_core <- function (
                 n_x1_int = n_x1_int,
                 n_x2_int = n_x2_int,
                 n_y_quant = n_y_quant,
-                data = data[, c(x1_col, x2_col, y_col)],
+                x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
+                  setNames(c(x1_col, x2_col, y_col)),
+                # data = data[, c(x1_col, x2_col, y_col)],
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
                 seed = seed

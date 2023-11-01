@@ -372,7 +372,7 @@ model_bootstrap <- function (
       # |>
       #   bind_rows(tibble(
       #     name = c('sd', 'mad'),
-      #     conf.low = c(sd(y_values), mad(y_values)),
+      #     conf.low = c(sd(y_vals), mad(y_vals)),
       #     mean = conf.low,
       #     median = conf.low,
       #     conf.high = conf.low,
@@ -539,7 +539,12 @@ model_bootstrap <- function (
           \(.x_col_data, .x_col_name) {
             plot_ale(
               .x_col_data, .x_col_name, y_col, y_type, y_summary,
-              data = data
+              # Temporarily buggy for binary y
+              x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
+                setNames(c(.x_col_name, y_col)),
+              # When y_vals is added
+              # x_y = tibble(data[[.x_col_name]], y_vals) |>
+              #   setNames(c(.x_col_name, y_col)),
             )
           }
         )

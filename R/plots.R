@@ -22,8 +22,10 @@
 #  @param ... not used. Enforces explicit naming of subsequent arguments.
 #  @param relative_y See documentation for `ale`
 #  @param median_band See documentation for `ale`
-#  @param data dataframe. If provided, used to generate rug plots. Must at least
-#  contain columns x_col and y_col; any other columns are not used.
+#  @param x_y dataframe with two columns: x_col and y_col.
+#  If provided, used to generate rug plots.
+#@param data dataframe. If provided, used to generate rug plots. Must at least
+#contain columns x_col and y_col; any other columns are not used.
 #  @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 #  @param seed See documentation for `ale`
 #
@@ -39,7 +41,8 @@ plot_ale <- function(
     # ggplot_custom,
     relative_y = 'median',
     median_band = 0.05,
-    data = NULL,
+    x_y = NULL,
+    # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     seed = 0
@@ -135,11 +138,16 @@ plot_ale <- function(
       geom_line()
 
     # Add rug plot if data is provided
-    if (!is.null(data) && rug_sample_size > 0) {
+    if (!is.null(x_y) && rug_sample_size > 0) {
       rug_data <- tibble(
-        rug_x = data[[x_col]],
-        rug_y = data[[y_col]] + y_shift,
+        rug_x = x_y[[x_col]],
+        rug_y = x_y[[y_col]] + y_shift,
       )
+      # if (!is.null(data) && rug_sample_size > 0) {
+    #   rug_data <- tibble(
+    #     rug_x = data[[x_col]],
+    #     rug_y = data[[y_col]] + y_shift,
+    #   )
 
       # If the data is too big, down-sample or else rug plots are too slow
       rug_data <- if (nrow(rug_data) > rug_sample_size) {
@@ -245,7 +253,9 @@ plot_ale <- function(
 # @param median_band See documentation for `ale`
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 # @param n_y_quant See documentation for `ale_ixn`
-# @param data See documentation for `plot_ale`
+# @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
+# If provided, used to generate rug plots.
+#@param data See documentation for `plot_ale`
 # @param rug_sample_size,min_rug_per_interval See documentation for `ale`
 # @param seed See documentation for `ale`
 #
@@ -263,7 +273,8 @@ plot_ale_ixn <- function(
     relative_y = 'median',
     median_band = 0.05,
     n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
-    data = NULL,
+    x1_x2_y = NULL,
+    # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     seed = 0
@@ -416,12 +427,18 @@ plot_ale_ixn <- function(
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
 
-  # Add rug plot if data is provided
-  if (!is.null(data) && rug_sample_size > 0) {
+  # Add rug plot if x1_x2_y is provided
+  if (!is.null(x1_x2_y) && rug_sample_size > 0) {
     rug_data <- tibble(
-      rug_x = data[[x1_col]],
-      rug_y = data[[x2_col]],
+      rug_x = x1_x2_y[[x1_col]],
+      rug_y = x1_x2_y[[x2_col]],
     )
+    # # Add rug plot if data is provided
+  # if (!is.null(data) && rug_sample_size > 0) {
+  #   rug_data <- tibble(
+  #     rug_x = data[[x1_col]],
+  #     rug_y = data[[x2_col]],
+  #   )
 
     # If the data is too big, down-sample for rug plots
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
