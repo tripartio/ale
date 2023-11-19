@@ -8,3 +8,4 @@
 ^download$
 ^inst/WORDLIST$
 ^vignettes/.*_cache$
+^catboost_info$
