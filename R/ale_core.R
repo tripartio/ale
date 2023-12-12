@@ -460,8 +460,6 @@ ale_core <- function (
   # Validate the dataset
   assert_that(data |> inherits('data.frame'))
 
-  # browser()
-
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
   y_preds <- tryCatch(
@@ -481,13 +479,16 @@ ale_core <- function (
     finally = NULL
   )
 
-  # browser()
-
   # Validate the resulting predictions
   assert_that(is.numeric(y_preds) && length(y_preds) == nrow(data))
 
   # Validate y_col
-  if (!is.null(y_col)) assert_that(is.string(y_col))
+  if (!is.null(y_col)) {
+    assert_that(is.string(y_col))
+    assert_that(
+      y_col %in% names(data),
+      msg = 'y_col is not found in data.')
+  }
 
   # Identify y column from the Y term of a standard R model call
   if (is.null(y_col)) {
