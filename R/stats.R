@@ -111,26 +111,47 @@ ale_stats <- function(
 }
 
 
-# Creates a function that normalizes ALE y values
+# Create a function that normalizes ALE y values
 create_ale_y_norm_function <- function(y_vals) {
   centred_y <- y_vals - stats::median(y_vals)
+
+  # Find the values right below and right above median y (0 for centred_y)
+  pre_median  <- max(centred_y[centred_y < 0])  # Value right below the median
+  post_median <- min(centred_y[centred_y > 0]) # Value right above the median
 
   return(
     function(ale_y) {
       # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
-      # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
-      # be assigned to one or the other. The choice is to assign it to the negative half
-      # based on the logic that the 50th percentile (that 0 represents) is more
-      # intuitively considered to be in the first half of 100 percentiles.
-      norm_ale_y <- dplyr::if_else(
-        ale_y > 0,
-        # percentiles of the upper half of the y values (50 to 100%)
-        # Note: the median is included in both halves.
-        stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
+      # ale_y == 0 is assigned at the 50th percentile.
+      norm_ale_y <- dplyr::case_when(
+        # When ale_y is between the values right below and above the median (0),
+        # normalize it to 0.
+        (ale_y >= pre_median) & (ale_y <= post_median) ~ 0,
         # percentiles of the lower half of the y values (0 to 50%)
         # Note: the median is included in both halves.
-        -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y) / 2
+        ale_y < 0  ~ -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y) / 2,
+        # The exact median.
+        # Normally, the first condition should catch this case, but just in case...
+        ale_y == 0 ~ 0,
+        # percentiles of the upper half of the y values (50 to 100%)
+        # Note: the median is included in both halves.
+        ale_y > 0  ~ stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
       )
+
+      # # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
+      # # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
+      # # be assigned to one or the other. The choice is to assign it to the negative half
+      # # based on the logic that the 50th percentile (that 0 represents) is more
+      # # intuitively considered to be in the first half of 100 percentiles.
+      # norm_ale_y <- dplyr::if_else(
+      #   ale_y > 0,
+      #   # percentiles of the upper half of the y values (50 to 100%)
+      #   # Note: the median is included in both halves.
+      #   stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
+      #   # percentiles of the lower half of the y values (0 to 50%)
+      #   # Note: the median is included in both halves.
+      #   -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y) / 2
+      # )
 
       return(norm_ale_y * 100)
     }
