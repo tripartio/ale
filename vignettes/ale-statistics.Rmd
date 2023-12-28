@@ -244,14 +244,23 @@ Based on its ALED, we can say that the average effect on math scores of whether 
 
 ### Normalized ALE effect size measures
 
-Since ALER and ALED scores are scaled on the range of y for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred y values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE y values, all negative and zero values are converted to their percentile score relative to the lower half of the original y values while all positive ALE y values are converted to their percentile score relative to the upper half. (Technically, this percentile assignment is called the empirical cumulative distribution function (ECDF) of each half.) Each half is then divided by two to scale them from 0 to 50 so that together they can represent 100 percentiles. (Note: when a centred ALE y value of exactly 0 occurs, we choose to include the score of zero ALE y in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.) The transformed maximum ALE y is then scaled as a percentile from 0 to 100%. Its formula is
+Since ALER and ALED scores are scaled on the range of y for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred y values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE y values, all negative and zero values are converted to their percentile score relative to the lower half of the original y values while all positive ALE y values are converted to their percentile score relative to the upper half. (Technically, this percentile assignment is called the empirical cumulative distribution function (ECDF) of each half.) Each half is then divided by two to scale them from 0 to 50 so that together they can represent 100 percentiles. (Note: when a centred ALE y value of exactly 0 occurs, we choose to include the score of zero ALE y in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.) The transformed maximum ALE y is then scaled as a percentile from 0 to 100%.
+
+There is a notable complication. This normalization smoothly distributes ALE y values when there are many distinct values, but when there are only a few distinct ALE y values, then even a minimal ALE y deviation can have a relatively large percentile difference. If any ALE y value is less than the difference between the median in the data and the value either immediately below or above the median, we consider that it has virtually no effect. Thus, the normalization sets such minimal ALE y values as zero.
+
+Its formula is:
 
 $$
-\mathrm{norm\_ale\_y} = 100 \times \begin{cases} 
-\frac{ECDF_{y_{\geq 0}}(\mathrm{ale\_y})}{2} & \text{if }\mathrm{ale\_y} > 0 \\
-\frac{-ECDF_{y_{\leq 0}}(\mathrm{ale\_y})}{2} & \text{otherwise}
+norm\_ale\_y = 100 \times \begin{cases} 
+0 & \text{if } \max(centred\_y < 0) \leq ale\_y \leq \min(centred\_y > 0), \\
+\frac{-ECDF_{y_{\leq 0}}(ale\_y)}{2} & \text{if }ale\_y < 0 \\
+\frac{ECDF_{y_{\geq 0}}(ale\_y)}{2} & \text{if }ale\_y > 0 \\
 \end{cases} 
-$$ where - $ECDF_{y_{\geq 0}}$ is the ECDF of the non-negative values in `y`. - $-ECDF_{y_{\leq 0}}$ is the ECDF of the negative values in `y` after they have been inverted (multiplied by -1).
+$$
+where 
+- $centred\_y$ is the vector of `y` values centred on the median (that is, the median is subtracted from all values). 
+- $ECDF_{y_{\geq 0}}$ is the ECDF of the non-negative values in `y`. 
+- $-ECDF_{y_{\leq 0}}$ is the ECDF of the negative values in `y` after they have been inverted (multiplied by -1).
 
 Of course, the formula could be simplified by multiplying by 50 instead of by 100 and not dividing the ECDFs by two each. But we prefer the form we have given because it is explicit that each ECDF represents only half the percentile range and that the result is scored to 100 percentiles.
 

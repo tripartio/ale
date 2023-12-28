@@ -131,7 +131,7 @@ the introductory vignette for this package or the details and examples below.
 The calculation of ALE requires modifying several values of the original
 \code{data}. Thus, \code{ale} needs direct access to a \code{predict} function that work on
 \code{model}. By default, \code{ale} uses a generic default \code{predict} function of the form
-\code{predict(model_object, new_data)} with the default prediction type of 'response'.
+\code{predict(object, newdata, type)} with the default prediction type of 'response'.
 If, however, the desired prediction values are not generated with that format,
 the user must specify what they want. Most of the time, the only modification needed is
 to change the prediction type to some other value by setting the \code{pred_type} argument
@@ -140,9 +140,14 @@ predictions need a different function signature, then the user must create a
 custom prediction function and pass it to \code{pred_fun}. The requirements for this
 custom function are:
 \itemize{
-\item It must take two arguments and nothing else: \code{object} (a model) and \code{newdata}
-(a dataframe or compatible table type). These argument names are according to
-the R convention for the generic stats::predict function.
+\item It must take three required arguments and nothing else:
+\itemize{
+\item \code{object}: a model
+\item \code{newdata}: a dataframe or compatible table type
+\item \code{type}: a string; it should usually be specified as \code{type = pred_type}
+These argument names are according to the R convention for the
+generic stats::predict function.
+}
 \item It must return a vector of numeric values as the prediction.
 }
 
@@ -225,13 +230,13 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
 
 # If the predict function you want is non-standard, you may define a
 # custom predict function. It must return a single numeric vector.
-custom_predict <- function(object, newdata) {
-  predict(object, newdata, type = 'link', se.fit = TRUE)$fit
+custom_predict <- function(object, newdata, type = pred_type) {
+  predict(object, newdata, type = type, se.fit = TRUE)$fit
 }
 
 ale_gam_diamonds_custom <- ale(
   diamonds_test, gam_diamonds,
-  pred_fun = custom_predict
+  pred_fun = custom_predict, pred_type = 'link'
 )
 
 # Plot the ALE data
