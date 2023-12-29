@@ -266,22 +266,21 @@ Of course, the formula could be simplified by multiplying by 50 instead of by 10
 
 #### Normalized ALER (NALER)
 
-Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE y values from 0 to 100%, centred on 50%:
+Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE y values from -50% to +50%, centred on 0%, which represents the median:
 
 $$
 \mathrm{NALER}(\mathrm{y, ale\_y}) = 
-\{\min(\mathrm{norm\_ale\_y}) + 100, 
-\max(\mathrm{norm\_ale\_y}) + 100 \}
+\{\min(\mathrm{norm\_ale\_y}) + 50, 
+\max(\mathrm{norm\_ale\_y}) + 50 \}
 $$
 
 where $y$ is the full vector of y values in the original dataset, required to calculate $\mathrm{norm\_ale\_y}$.
 
 ALER shows the extreme values of a variable's effect on the outcome. In the effects plot above, it is indicated by the extreme ends of the horizontal bars for each variable. We see there that `public` has an ALER of `r c(mb_gam$ale$stats$by_term$public$estimate['aler_min'], mb_gam$ale$stats$by_term$public$estimate['aler_max']) |> round(2)`. When we consider that the median math score in the dataset is `r math$math_avg |> median() |> round(1)`, this ALER indicates that the minimum of any ALE y value for `public` (when `public == TRUE`) is `r mb_gam$ale$stats$by_term$public$estimate['aler_min'] |> round(2)` below the median. This is shown at the `r (math$math_avg |> median() + mb_gam$ale$stats$by_term$public$estimate['aler_min']) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r mb_gam$ale$stats$by_term$public$estimate['aler_max'] |> round(2)` above the median, shown at the `r (math$math_avg |> median() + mb_gam$ale$stats$by_term$public$estimate['aler_max']) |> round(1)` point above. The ALER for `academic_ratio` is considerably broader with `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aler_min'] |> round(2)` below and `r mb_gam$ale$stats$by_term$academic_ratio$estimate['aler_max'] |> round(2)` above the median.
 
+The result of this transformation is that NALER values can be interpreted as percentile effects of y below or above the median, which is centred at 0%. Their numbers represent the limits of the effect of the x variable with units in percentile scores of y. In the effects plot above, because the percentile scale on the top corresponds exactly to the raw scale below, the NALER limits are represented by exactly the same points as the ALER limits; only the scale changes. The scale for ALER and ALED is the lower scale of the raw outcomes; the scale for NALER and NALED is the upper scale of percentiles.
 
-The result of this transformation is that NALER values can be interpreted as percentiles with respect to the range of y around the median (50%). `naler_min` is always less than 50% and `naler_max` is always greater than 50%. Their numbers represent the limits of the effect of the x variable with units in percentile scores of y. In the effects plot above, because the percentile scale on the top corresponds exactly to the raw scale below, the NALER limits are represented by exactly the same points as the ALER limits; only the scale changes. The scale for ALER and ALED is the lower scale of the raw outcomes; the scale for NALER and NALED is the upper scale of percentiles.
-
-So, with a NALER of `r c(mb_gam$ale$stats$by_term$public$estimate['naler_min'], mb_gam$ale$stats$by_term$public$estimate['naler_max']) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores to the `r mb_gam$ale$stats$by_term$public$estimate['naler_min'] |> round()`th percentile of y values whereas the maximum (`public == FALSE`) shifts math scores to the `r mb_gam$ale$stats$by_term$public$estimate['naler_max'] |> round()`th percentile. Academic track ratio has a NALER of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'], mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max']) |> round(2)`, ranging from the `r mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'] |> round()`th to the `r mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max'] |> round()`th percentiles of math scores.
+So, with a NALER of `r c(mb_gam$ale$stats$by_term$public$estimate['naler_min'], mb_gam$ale$stats$by_term$public$estimate['naler_max']) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores by `r mb_gam$ale$stats$by_term$public$estimate['naler_min'] |> round()` percentile y points whereas the maximum (`public == FALSE`) shifts math scores by `r mb_gam$ale$stats$by_term$public$estimate['naler_max'] |> round()` percentile points. Academic track ratio has a NALER of `r c(mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'], mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max']) |> round(2)`, ranging from `r mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_min'] |> round()` to `r mb_gam$ale$stats$by_term$academic_ratio$estimate['naler_max'] |> round()` percentile points of math scores.
 
 #### Normalized ALED (NALED)
 

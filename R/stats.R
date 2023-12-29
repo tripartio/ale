@@ -33,6 +33,8 @@
 # @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
 # If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
 # but the function will run slightly slower because of this extra calculation.
+# In the current version, `ale_y` must be zeroed or else this function will fail.
+# So, zeroed_ale must always be explicitly set to `TRUE`.
 #
 # @returns Named numeric vector:
 #
@@ -81,23 +83,23 @@ ale_stats <- function(
   aler <- c(min(ale_y), max(ale_y))
 
   # Normalized scores
-  norm_ale_y <- if (is.null(ale_y_norm_fun)) {
-    create_ale_y_norm_function(y_vals)(ale_y)
-
-  } else {  # ale_y_norm_fun is provided, so use it
-    ale_y_norm_fun(ale_y)
+  if (is.null(ale_y_norm_fun)) {
+    ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
+  norm_ale_y <- ale_y_norm_fun(ale_y)
 
-
-  # Scale is 0 to 100, representing equivalent average percentile effect
+  # NALED scale is 0 to 100, representing equivalent average percentile effect
   naled <- aled_score(norm_ale_y, ale_n)
 
-  # Scale is 0 to 100, representing lowest and highest percentile effects
+  # Scale is -50 to +50, representing lowest and highest percentile deviations
+  # from the median
+  # # Scale is 0 to 100, representing lowest and highest percentile effects
   naler <- c(
     min(norm_ale_y),
     max(norm_ale_y)
-  ) |>
-    (`+`)(50)
+  )
+  # ) |>
+  #   (`+`)(50)
 
 
   return(c(

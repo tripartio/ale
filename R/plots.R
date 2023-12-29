@@ -560,9 +560,12 @@ plot_effects <- function(
   aler_max <- NULL
   aled <- NULL
 
-
-  y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
-  # median_y <- median(y_vals)
+  # Create deciles for NALED and NALER axis
+  norm_deciles <-
+    y_vals |>
+    quantile(seq(0, 1, 0.1)) |>
+    setNames(seq(-50, 50, 10) |> paste0('%'))
+  # y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
 
   # Determine key points for the median band
   median_band_quantiles <- quantile(
@@ -614,10 +617,12 @@ plot_effects <- function(
           round_dp()
       },
       # Use decile for minor breaks
-      minor_breaks = y_deciles |> round_dp() |> as.numeric(),
+      minor_breaks = norm_deciles,
+      # minor_breaks = y_deciles |> round_dp() |> as.numeric(),
       sec.axis = dup_axis(
         name = paste0('Percentiles of ', y_col, ' (NALER and NALED)'),
-        breaks = y_deciles,
+        breaks = norm_deciles,
+        # breaks = y_deciles,
       )
     ) +
     # Even if the ALE values are extreme, zoom in to natural Y value limits

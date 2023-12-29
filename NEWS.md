@@ -1,5 +1,32 @@
 # `ale` Package Release Notes
 
+## ale next version
+
+**Mmm dd, yyyy**
+
+Summary
+
+
+### Breaking changes
+
+One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the `ale` function now also requires an argument for `type` to specify the prediction type, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows ale to analyze many new model types than before. See the updated documentation of the `ale` function for details.
+
+### Other user-visible changes
+
+-   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details.
+-   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
+
+### Under the hood
+
+-   Various minor bug fixes.
+
+### Known issues to be addressed in a future version
+
+-   Bootstrapping is not yet supported for ALE interactions (`ale_ixn`).
+-   ALE statistics are not yet supported for ALE interactions (`ale_ixn`).
+-   `ale` does not yet support multi-output model prediction types (e.g., multi-class classification and multi-time survival probabilities).
+
+
 ## ale 0.2.0
 
 **October 19, 2023**
