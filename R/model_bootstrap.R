@@ -541,10 +541,10 @@ model_bootstrap <- function (
               .x_col_data, .x_col_name, y_col, y_type, y_summary,
               # Temporarily buggy for binary y
               x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
-                setNames(c(.x_col_name, y_col)),
+                stats::setNames(c(.x_col_name, y_col)),
               # When y_vals is added
               # x_y = tibble(data[[.x_col_name]], y_vals) |>
-              #   setNames(c(.x_col_name, y_col)),
+              #   stats::setNames(c(.x_col_name, y_col)),
             )
           }
         )

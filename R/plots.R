@@ -564,7 +564,7 @@ plot_effects <- function(
   norm_deciles <-
     y_vals |>
     quantile(seq(0, 1, 0.1)) |>
-    setNames(seq(-50, 50, 10) |> paste0('%'))
+    stats::setNames(seq(-50, 50, 10) |> paste0('%'))
   # y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
 
   # Determine key points for the median band

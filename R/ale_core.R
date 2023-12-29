@@ -728,7 +728,7 @@ ale_core <- function (
             relative_y = relative_y,
             median_band = median_band,
             x_y = tibble(data[[x_col]], y_vals) |>
-              setNames(c(x_col, y_col)),
+              stats::setNames(c(x_col, y_col)),
             # data = data[, c(x_col, y_col)],
             rug_sample_size = rug_sample_size,
             min_rug_per_interval = min_rug_per_interval,
@@ -801,7 +801,7 @@ ale_core <- function (
                 n_x2_int = n_x2_int,
                 n_y_quant = n_y_quant,
                 x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
-                  setNames(c(x1_col, x2_col, y_col)),
+                  stats::setNames(c(x1_col, x2_col, y_col)),
                 # data = data[, c(x1_col, x2_col, y_col)],
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
