@@ -28,8 +28,6 @@
 # provided, y_vals must be provided. ale_stats could be faster if ale_y_norm_fun
 # is provided, especially in bootstrap workflows that call the same function
 # many, many times.
-# halves respectively of the Y values relative to the median. (The median is
-# included in both the negative and the positive halves.)
 # @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
 # If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
 # but the function will run slightly slower because of this extra calculation.
@@ -67,8 +65,8 @@ ale_stats <- function(
   ale_y <- ale_y[!na_ale_y]
   ale_n <- ale_n[!na_ale_y]
 
-  # ALED formula. Internal function because it will be reused for both
-  # ALED and NALED
+  # ALED formula.
+  # Internal function because it will be reused for both ALED and NALED.
   aled_score <- function(y, n) {
     (y * n) |>
       abs() |>
@@ -115,6 +113,9 @@ ale_stats <- function(
 
 # Create a function that normalizes ALE y values
 create_ale_y_norm_function <- function(y_vals) {
+  # Centre y_vals on the median.
+  # This code works even if y_vals is already centred on the median;
+  # it might be slightly off if y_vals is centred on the mean.
   centred_y <- y_vals - stats::median(y_vals)
 
   # Find the values right below and right above median y (0 for centred_y)
