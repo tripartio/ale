@@ -1,5 +1,7 @@
 ---
 title: "Analyzing small datasets (<2000 rows) with ALE"
+author: "Chitu Okoli"
+date: "October 24, 2023"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Analyzing small datasets (<2000 rows) with ALE}

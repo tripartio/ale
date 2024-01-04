@@ -1,5 +1,7 @@
 ---
 title: "Comparison between `ALEPlot` and `ale` packages"
+author: "Chitu Okoli"
+date: "October 24, 2023"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Comparison between `ALEPlot` and `ale` packages}

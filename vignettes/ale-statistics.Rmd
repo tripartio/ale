@@ -1,7 +1,7 @@
 ---
 title: "ALE-based statistics for statistical inference and effect sizes"
 author: "Chitu Okoli"
-date: "`r Sys.Date()`"
+date: "January 3, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ALE-based statistics for statistical inference and effect sizes}

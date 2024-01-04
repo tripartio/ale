@@ -1,7 +1,7 @@
 ---
 title: "Introduction to the `ale` package"
 author: "Chitu Okoli"
-date: "`r Sys.Date()`"
+date: "October 24, 2023"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to the `ale` package}
