@@ -16,18 +16,18 @@
 #  be plotted.
 #  @param y_col character length 1. Name of y (output) column whose ALE data is to
 #  be plotted.
-#  @param y_type See documentation for `ale`
+#  @param y_type See documentation for [ale()]
 #  @param y_summary named double. Named vector of y summary statistics to be used
 #  for plotting.
 #  @param ... not used. Enforces explicit naming of subsequent arguments.
-#  @param relative_y See documentation for `ale`
-#  @param median_band See documentation for `ale`
+#  @param relative_y See documentation for [ale()]
+#  @param median_band See documentation for [ale()]
 #  @param x_y dataframe with two columns: x_col and y_col.
 #  If provided, used to generate rug plots.
 #@param data dataframe. If provided, used to generate rug plots. Must at least
 #contain columns x_col and y_col; any other columns are not used.
-#  @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-#  @param seed See documentation for `ale`
+#  @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+#  @param seed See documentation for [ale()]
 #
 #
 #  @import dplyr
@@ -243,21 +243,21 @@ plot_ale <- function(
 # on the y axis.
 # @param y_col character length 1. Name of y (output) column whose ALE data is to
 # be plotted by colour.
-# @param y_type See documentation for `ale`
+# @param y_type See documentation for [ale()]
 # @param y_summary named double. Named vector of y summary statistics to be used
 # for plotting.
 # @param y_vals numeric. Vector of all values of y in the dataset used to create
 # `ale_data`.
 # @param ... not used. Enforces explicit naming of subsequent arguments.
-# @param relative_y See documentation for `ale`
-# @param median_band See documentation for `ale`
+# @param relative_y See documentation for [ale()]
+# @param median_band See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 # @param n_y_quant See documentation for `ale_ixn`
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
 # If provided, used to generate rug plots.
 #@param data See documentation for `plot_ale`
-# @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-# @param seed See documentation for `ale`
+# @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+# @param seed See documentation for [ale()]
 #
 #
 # @import dplyr
@@ -484,9 +484,9 @@ plot_ale_ixn <- function(
 # @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
 # @param ale_x numeric vector. ale_x intervals. Rug plots are only valid for
 # numeric x types.
-# @param rug_sample_size See documentation for `ale`
-# @param min_rug_per_interval See documentation for `ale`
-# @param seed See documentation for `ale`
+# @param rug_sample_size See documentation for [ale()]
+# @param min_rug_per_interval See documentation for [ale()]
+# @param seed See documentation for [ale()]
 #
 rug_sample <- function(
     x_y,

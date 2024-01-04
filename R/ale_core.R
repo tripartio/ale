@@ -250,29 +250,29 @@ ale <- function (
 #' number specified will be used, including the middle quantile.
 #'
 #'
-#' @param data See documentation for `ale`
-#' @param model See documentation for `ale`
+#' @param data See documentation for [ale()]
+#' @param model See documentation for [ale()]
 #' @param x1_cols,x2_cols character. Vectors of column names from `data` for which
 #'  two-way interaction ALE data is to be calculated. ALE data will be calculated
 #'  for each x1 column interacting with each x2 column. x1_cols can be of any standard
 #'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 #'  `ixn` is TRUE, then both values must be provided.
-#' @param y_col See documentation for `ale`
+#' @param y_col See documentation for [ale()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param output See documentation for `ale`
-#' @param pred_fun,pred_type See documentation for `ale`
-#' @param x_intervals See documentation for `ale`
-#' @param relative_y See documentation for `ale`
-#' @param y_type See documentation for `ale`
-#' @param median_band See documentation for `ale`
-#' @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-#' @param ale_xs See documentation for `ale`
+#' @param output See documentation for [ale()]
+#' @param pred_fun,pred_type See documentation for [ale()]
+#' @param x_intervals See documentation for [ale()]
+#' @param relative_y See documentation for [ale()]
+#' @param y_type See documentation for [ale()]
+#' @param median_band See documentation for [ale()]
+#' @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+#' @param ale_xs See documentation for [ale()]
 #' @param n_x1_int,n_x2_int positive scalar integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive scalar integer. Number of intervals over which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
-#' @param silent See documentation for `ale`
+#' @param silent See documentation for [ale()]
 #'
 #' @return list of ALE interaction data tibbles and plots.
 #' The list has two levels of depth:
@@ -377,34 +377,34 @@ ale_ixn <- function (
 # documentation details for each variable here is specified in the user-facing
 # function that specifies it.
 #
-# @param data See documentation for `ale`
-# @param model See documentation for `ale`
+# @param data See documentation for [ale()]
+# @param model See documentation for [ale()]
 # @param ixn logical. If TRUE, `ale_core` will return interaction data between `x1_cols`
 # and `x2_cols`; both must be provided; `x_cols` will be ignored.
 # If FALSE (default), only one-way ALE data
 # of `x_cols` (required in that case) will be created; `x1_cols` and `x2_cols` will
 # be ignored.
-# @param x_cols See documentation for `ale`
+# @param x_cols See documentation for [ale()]
 # @param x1_cols,x2_cols See documentation for `ale_ixn`
-# @param y_col See documentation for `ale`
-# @param ... not used. See documentation for `ale`
-# @param full_y_range See documentation for `ale`
-# @param output See documentation for `ale`
-# @param pred_fun,pred_type See documentation for `ale`
-# @param x_intervals See documentation for `ale`
-# @param boot_it See documentation for `ale`
-# @param seed See documentation for `ale`
-# @param boot_alpha See documentation for `ale`
-# @param boot_centre See documentation for `ale`
-# @param relative_y See documentation for `ale`
-# @param y_type See documentation for `ale`
-# @param median_band See documentation for `ale`
-# @param rug_sample_size,min_rug_per_interval See documentation for `ale`
-# @param ale_xs See documentation for `ale`
-# @param ale_ns See documentation for `ale`
+# @param y_col See documentation for [ale()]
+# @param ... not used. See documentation for [ale()]
+# @param full_y_range See documentation for [ale()]
+# @param output See documentation for [ale()]
+# @param pred_fun,pred_type See documentation for [ale()]
+# @param x_intervals See documentation for [ale()]
+# @param boot_it See documentation for [ale()]
+# @param seed See documentation for [ale()]
+# @param boot_alpha See documentation for [ale()]
+# @param boot_centre See documentation for [ale()]
+# @param relative_y See documentation for [ale()]
+# @param y_type See documentation for [ale()]
+# @param median_band See documentation for [ale()]
+# @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+# @param ale_xs See documentation for [ale()]
+# @param ale_ns See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for `ale_ixn`
 # @param n_y_quant See documentation for `ale_ixn`
-# @param silent See documentation for `ale`
+# @param silent See documentation for [ale()]
 #
 # @import dplyr
 # @import purrr

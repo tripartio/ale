@@ -20,16 +20,16 @@
 #
 #  @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
 #  column is absent.
-#  @param model See documentation for `ale`
+#  @param model See documentation for [ale()]
 #  @param x_col character length 1. Name of single column in X for which ALE data is to
 #  be calculated.
-#  @param pred_fun See documentation for `ale`
-#  @param pred_type See documentation for `ale`
-#  @param x_intervals See documentation for `ale`
-#  @param boot_it See documentation for `ale`
-#  @param seed See documentation for `ale`
-#  @param boot_alpha See documentation for `ale`
-#  @param boot_centre See documentation for `ale`
+#  @param pred_fun See documentation for [ale()]
+#  @param pred_type See documentation for [ale()]
+#  @param x_intervals See documentation for [ale()]
+#  @param boot_it See documentation for [ale()]
+#  @param seed See documentation for [ale()]
+#  @param boot_alpha See documentation for [ale()]
+#  @param boot_centre See documentation for [ale()]
 #  @param ale_x numeric or ordinal vector. Normally generated automatically (if
 #  NULL), but if provided, the provided value will be used instead.
 #  @param ale_n integer vector. See `ale_x`

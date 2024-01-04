@@ -46,7 +46,7 @@
 #' @param boot_alpha numeric. The confidence level for the bootstrap confidence intervals is
 #' 1 - boot_alpha. For example, the default 0.05 will give a 95% confidence
 #' interval, that is, from the 2.5% to the 97.5% percentile.
-#' @param boot_centre See documentation for `ale`
+#' @param boot_centre See See documentation for [ale()]
 #' @param output character vector. Which types of bootstraps to calculate and return:
 #' * 'ale': Calculate and return bootstrapped ALE data and plot.
 #' * 'model_stats': Calculate and return bootstrapped overall model statistics.
@@ -57,7 +57,7 @@
 #' @param ale_options,tidy_options,glance_options list of named arguments.
 #' Arguments to pass to the `ale`, `broom::tidy`, or `broom::glance` functions, respectively,
 #' beyond (or overriding) the defaults.
-#' @param silent See documentation for `ale`
+#' @param silent See See documentation for [ale()]
 #'
 #' @return list with tibbles of the following elements (depending on values requested in
 #' the `output` argument:

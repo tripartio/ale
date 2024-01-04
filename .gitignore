@@ -1,8 +1,7 @@
-catboost_info/
-graphics/
-.Rproj.user
-inst/doc
 .Rhistory
+.Rproj.user
 ale.Rproj
-
+catboost_info/
 docs
+graphics/
+inst/doc

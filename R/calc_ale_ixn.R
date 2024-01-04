@@ -17,13 +17,13 @@
 #
 # @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
 # column is absent.
-# @param model See documentation for `ale`
+# @param model See documentation for [ale()]
 # @param x1_col,x2_col character length 1. Name of single columns in X for which
 # ALE interaction data is to be calculated. `x1_col` can be of any standard
 #  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
-# @param pred_fun See documentation for `ale`
-# @param pred_type See documentation for `ale`
-# @param x_intervals See documentation for `ale`
+# @param pred_fun See documentation for [ale()]
+# @param pred_type See documentation for [ale()]
+# @param x_intervals See documentation for [ale()]
 #
 # @import dplyr
 # @import purrr
