@@ -1,0 +1,14 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  ale-ALEPlot: ale-ALEPlot.html
+  ale-intro: ale-intro.html
+  ale-small-datasets: ale-small-datasets.html
+  ale-statistics: ale-statistics.html
+  ale-x-datatypes: ale-x-datatypes.html
+last_built: 2024-01-04T09:02Z
+urls:
+  reference: https://tripartio.github.io/ale/reference
+  article: https://tripartio.github.io/ale/articles
+
