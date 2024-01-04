@@ -452,68 +452,28 @@ ale_core <- function (
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
 
+  # Validate the dataset
+  assert_that(data |> inherits('data.frame'))
+
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
   # dataset, produces a numeric vector with length equal to the number of rows
   # in the dataset.
-
-  # Validate the dataset
-  assert_that(data |> inherits('data.frame'))
-
-  # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
-  y_preds <- tryCatch(
-    pred_fun(object = model, newdata = data, type = pred_type),
-    # pred_fun(object = model, newdata = data),
-    # predict(model, data, 'raw'),
-    error = \(.e) {
-      print(paste0(
-        'There is an error with the predict function pred_fun or with the ',
-        'prediction type pred_type. ',
-        'See help(ale) for how to create a custom predict function for ',
-        'non-standard models. Here is the full error message:'
-      ))
-
-      stop(.e)
-    },
-    finally = NULL
+  y_preds <- validate_y_preds(
+    pred_fun = pred_fun,
+    model = model,
+    data = data,
+    pred_type = pred_type
   )
 
-  # Validate the resulting predictions
-  assert_that(is.numeric(y_preds) && length(y_preds) == nrow(data))
-
-  # Validate y_col
-  if (!is.null(y_col)) {
-    assert_that(is.string(y_col))
-    assert_that(
-      y_col %in% names(data),
-      msg = 'y_col is not found in data.')
-  }
-
-  # Identify y column from the Y term of a standard R model call
-  if (is.null(y_col)) {
-    tryCatch(
-      {
-        y_col <-
-          model[["terms"]][[2]] |>
-          as.character()
-        if (length(y_col) == 0) {
-          y_col <-
-            model[["Terms"]][[2]] |>
-            as.character()
-        }
-      },
-      error = \(.e) {
-        print(paste0(
-          'This model seems to be non-standard, so y_col must be provided. ',
-          'Here is the full error message:'
-        ))
-
-        stop(.e)
-      },
-      finally = NULL
-    )
-  }
+  # Validate y_col.
+  # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+  y_col <- validate_y_col(
+    y_col = y_col,
+    data = data,
+    model = model
+  )
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
