@@ -174,8 +174,6 @@ calc_ale <- function(
         X_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
           mutate(!!x_col := ale_x[boot_ale_x_int + 1])
 
-        # browser()
-
         # Difference between low and high boundary predictions
         delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
         # delta_pred <- pred_fun(model, newdata = X_hi) - pred_fun(model, newdata = X_lo)
@@ -273,8 +271,6 @@ calc_ale <- function(
 
       }
       else if (x_type == 'multinomial') {
-
-        # browser()
 
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <-
@@ -486,12 +482,13 @@ calc_ale <- function(
     )
 
   # Create matrix of bootstrapped ale_y values
-  boot_mx <-
-    unlist(boot_ale$ale_y) |>
-    matrix(
-      nrow = length_ale_x,  # length of any ale_y vector
-      ncol = boot_it + 1  # one column for each boot_it + full dataset
-    )
+  boot_vals <- unlist(boot_ale$ale_y)
+
+  boot_mx <- matrix(
+    boot_vals,
+    nrow = length_ale_x,  # length of any ale_y vector
+    ncol = boot_it + 1  # one column for each boot_it + full dataset
+  )
 
   # When bootstrapping, remove first column: ALE on full dataset
   if (boot_it > 0) {
@@ -507,24 +504,37 @@ calc_ale <- function(
   # Create summary statistics of bootstrap results.
   # When boot_it = 0, all values are the same
 
-  boot_summary <- tibble(
-    ale_x = ale_x,
-    ale_n = ale_n,
-    ale_y_lo = apply(
-      boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-    ),
-    ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
-    ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
-    ale_y_hi = apply(
-      boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-    ),
-    ale_y = case_when(
-      boot_centre == 'mean' ~ ale_y_mean,
-      boot_centre == 'median' ~ ale_y_median,
-    ),
-  ) |>
-    select(ale_x, ale_n, ale_y, everything())
+  boot_summary <- if (boot_it == 0) {
+    tibble(
+      ale_y_lo = boot_vals,
+      ale_y_mean = boot_vals,
+      ale_y_median = boot_vals,
+      ale_y_hi = boot_vals,
+    )
+  } else {
+    # aggregate bootstrap results
+    tibble(
+      ale_y_lo = apply(
+        boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+      ),
+      ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
+      ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
+      ale_y_hi = apply(
+        boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+      ),
+    )
+  }
 
+  boot_summary <- boot_summary |>
+    mutate(
+      ale_x = ale_x,
+      ale_n = ale_n,
+      ale_y = case_when(
+        boot_centre == 'mean' ~ ale_y_mean,
+        boot_centre == 'median' ~ ale_y_median,
+      ),
+    ) |>
+    select(ale_x, ale_n, ale_y, everything())
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL

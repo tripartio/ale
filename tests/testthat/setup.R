@@ -8,6 +8,8 @@ set.seed(0)
 dbl_jitter <- runif(nrow(var_cars), 0.99, 1.01)
 int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 
+# Super-assignment <<- used: without it, these variables are not found in many
+# of the subsequent testthat tests.
 test_cars <<- var_cars |>
   bind_rows(
     var_cars |>
@@ -18,9 +20,6 @@ test_cars <<- var_cars |>
       ))
   )
 
-
-# Super-assignment <<- used: without it, these variables are not found in many
-# of the subsequent testthat tests.
 cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                          vs + am + gear + carb + country,
                        data = test_cars)
