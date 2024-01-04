@@ -6,19 +6,23 @@
 
 Summary
 
+The most significant updates are the addition of p-values for the ALE statistics and the launching of a pkgdown website which will henceforth host the development version of the package.
+
 
 ### Breaking changes
 
-One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the `ale` function now also requires an argument for `type` to specify the prediction type, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows `ale` to analyze many new model types than before. See the updated documentation of the `ale` function for details.
+One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the `ale` function now also requires an argument for `type` to specify the prediction type, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows `ale` to analyze many new model types than before. See the updated documentation of the [ale()] function for details.
 
 ### Other user-visible changes
 
 -   The package now uses a pkgdown website located at https://tripartio.github.io/ale/. This is where the most recent development features will be documented.
+-   P-values are now provided for all ALE statistics. However, their calculation is very slow, so they are disabled by default; they must be explicitly requested. When requested, they will be automatically calculated when possible (for standard R model types); if not, some additional steps must be taken for their calculation. See the new [create_p_funs()] function for details and an example.
 -   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
 -   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
 
 ### Under the hood
 
+-   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the ale package in general.
 -   Various minor bug fixes.
 
 ### Known issues to be addressed in a future version
