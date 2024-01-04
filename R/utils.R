@@ -48,6 +48,7 @@ validate_y_preds <- function(
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
+    # pred_fun(object = model, newdata = data, type = pred_type),
     error = \(.e) {
       print(paste0(
         'There is an error with the predict function pred_fun or with the ',
@@ -85,28 +86,36 @@ validate_y_col <- function(
 
   # Identify y column from the Y term of a standard R model call
   if (is.null(y_col)) {
-    tryCatch(
-      {
-        y_col <-
-          model[["terms"]][[2]] |>
-          as.character()
-        if (length(y_col) == 0) {
-          y_col <-
-            model[["Terms"]][[2]] |>
-            as.character()
-        }
-      },
-      error = \(.e) {
-        print(paste0(
-          'This model seems to be non-standard, so y_col must be provided. ',
-          'Here is the full error message:'
-        ))
+    y_col <- insight::find_response(model)
 
-        stop(.e)
-      },
-      finally = NULL
-    )
+    if (is.null(y_col)) {
+      stop('This model seems to be non-standard, so y_col must be provided.')
+    }
   }
+
+  # if (is.null(y_col)) {
+  #   tryCatch(
+  #     {
+  #       y_col <-
+  #         model[["terms"]][[2]] |>
+  #         as.character()
+  #       if (length(y_col) == 0) {
+  #         y_col <-
+  #           model[["Terms"]][[2]] |>
+  #           as.character()
+  #       }
+  #     },
+  #     error = \(.e) {
+  #       print(paste0(
+  #         'This model seems to be non-standard, so y_col must be provided. ',
+  #         'Here is the full error message:'
+  #       ))
+  #
+  #       stop(.e)
+  #     },
+  #     finally = NULL
+  #   )
+  # }
 
   y_col
 }

@@ -38,6 +38,7 @@
 #  all variables throughout one call to `ale`. For now, used as a flag to
 #  determine whether statistics will be calculated or not; if NULL, statistics
 #  will not be calculated.
+#  @param p_funs See documentation for `p_values` in [ale()]
 #
 #  @import dplyr
 #  @import purrr
@@ -49,7 +50,8 @@ calc_ale <- function(
     boot_it, seed, boot_alpha, boot_centre,
     ale_x = NULL,
     ale_n = NULL,
-    ale_y_norm_fun = NULL
+    ale_y_norm_fun = NULL,
+    p_funs = NULL
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -538,7 +540,8 @@ calc_ale <- function(
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
-  if (!is.null(ale_y_norm_fun)) {  # only get stats if ale_y_norm_fun is provided
+  # Only get stats if ale_y_norm_fun is provided
+  if (!is.null(ale_y_norm_fun)) {
     boot_stats <- apply(
       boot_mx, 2,
       \(.it) ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
@@ -560,6 +563,20 @@ calc_ale <- function(
       ),
     ) |>
       select(statistic, estimate, everything())
+
+    # If p_funs are provided, calculate p-values
+    if (!is.null(p_funs)) {
+      boot_stats <- boot_stats |>
+        mutate(
+          p.value = map2_dbl(
+            estimate, statistic,
+            \(.stat, .stat_name) {
+              # Call the p-value function corresponding to the named statistic
+              p_funs$p_funs[[.stat_name]](.stat)
+            })
+        ) |>
+        select(statistic, estimate, p.value, everything())
+    }
   }
 
 

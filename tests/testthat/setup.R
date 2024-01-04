@@ -19,6 +19,8 @@ test_cars <<- var_cars |>
         \(.int) if_else(.int > 1, .int + int_jitter, .int)
       ))
   )
+rm(dbl_jitter)
+rm(int_jitter)
 
 cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                          vs + am + gear + carb + country,
