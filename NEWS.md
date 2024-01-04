@@ -13,6 +13,7 @@ One of the key goals for the `ale` package is that it would be truly model-agnos
 
 ### Other user-visible changes
 
+-   The package now uses a pkgdown website located at https://tripartio.github.io/ale/. This is where the most recent development features will be documented.
 -   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
 -   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
 

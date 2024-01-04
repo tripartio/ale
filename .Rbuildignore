@@ -10,3 +10,7 @@
 ^download$
 ^inst/WORDLIST$
 ^vignettes/.*_cache$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
