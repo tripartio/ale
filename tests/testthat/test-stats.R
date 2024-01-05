@@ -22,17 +22,17 @@ test_that(
       .testing_mode = TRUE
     )
 
-    # expect_snapshot doesn't quite work for pf$p_funs because function environments change.
+    # expect_snapshot doesn't quite work for pf$value_to_p because function environments change.
     # So, only partially test the function matches.
     expect_equal(
-      names(pf$p_funs),
+      names(pf$value_to_p),
       c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
     )
 
     # Verify that the functions give the expected output
     test_vals <- c(-1000, -100, -10, -1, 0, 1, 10, 100, 1000)
     expect_snapshot(
-      pf$p_funs |>
+      pf$value_to_p |>
         map(\(.stat_fun) {
           .stat_fun(test_vals)
         })

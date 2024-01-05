@@ -85,11 +85,35 @@
 #' @param silent See See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
-#' @return list with elements `data`, `plots`, and `stats` as requested in
-#' the `output` argument. Each of these is a list named by the x variables with
-#' the respective values for each variable. In addition, the return object
-#' recapitulates several elements that were passed as arguments that apply to
-#' all the x variables for the ALE calculation.
+#' @return
+#' The return value is a list of class `c('p_funs', 'ale', 'list'`) with an
+#' `ale_version` attribute whose value is the version of the `ale` package used to
+#' create the object. See examples for an illustration of how to inspect this list.
+#' Its elements are:
+#' * `value_to_p`: a list of functions named for each each available ALE statistic.
+#' Each function signature is `function(x)` where x is a numeric. The function returns
+#' the p-value (minimum 0; maximum 1) for the respective statistic based on the random variable analysis.
+#' For an input x that returns p, its interpretation is that p% of random variables
+#' obtained the same or higher statistic value. For example, to get the p-value
+#' of a NALED of 4.2, enter `p_funs$value_to_p(4.2)`. A return value of 0.03 means
+#' that only 3% of random variables obtained a NALED greater than or equal to 4.2.
+#' * `p_to_random_value`: a list of functions named for each each available ALE statistic.
+#' These are the inverse functions of `value_to_p`. The signature is `function(p)`
+#' where p is a numeric from 0 to 1. The function returns the numeric value of the
+#' random variable statistic that would yield the provided p-value.
+#' For an input p that returns x, its interpretation is that p% of random variables
+#' obtained the same or higher statistic value. For example, to get the random
+#' variable ALED for the 0.05 p-value, enter `p_funs$p_to_random_value(0.05)`.
+#' A return value of 102 means that only 5% of random variables obtained an ALED
+#' greater than or equal to 102.
+#' * `rand_stats`: a tibble whose rows are each of the `rand_it` iterations of the
+#' random variable analysis and whose columns are the ALE statistics obtained for
+#' each random variable.
+#' * `residuals`: the actual `y_col` values from `training_data` minus the predicted
+#' values from the `model` (without random variables) on the `training_data`.
+#' `residual_distribution`: the closest estimated distribution for the `residuals`
+#' as determined by [univariateML::rml()]. This is the distribution used to generate
+#' all the random variables.
 #'
 #' @examples
 #' \donttest{
@@ -126,8 +150,16 @@
 #'   rand_it = 100
 #' )
 #'
+#' # Examine the structure of the returned object
+#' str(pf_diamonds)
+#' # In RStudio: View(pf_diamonds)
+#'
 #' # Calculate ALEs with p-values
-#' ale_gam_diamonds <- ale(diamonds_test, gam_diamonds, p_values = pf_diamonds)
+#' ale_gam_diamonds <- ale(
+#'   diamonds_test,
+#'   gam_diamonds,
+#'   p_values = pf_diamonds
+#' )
 #'
 #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
 #' gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
@@ -295,11 +327,13 @@ create_p_funs <- function(
     }) |>
     bind_rows()
 
-  # Return a named list of p_value_funs
-  funs <- map2(
+  # Create functions that return p-values given a statistic value
+  value_to_p <- map2(
     rand_stats, names(rand_stats),
     \(.stat_vals, .name_stat) {
       function(x) {
+        assertthat::assert_that(is.numeric(x))
+
         # For aler_min and naler_min, the p-value is the simple ECDF
         if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
           ecdf(.stat_vals)(x)
@@ -312,8 +346,37 @@ create_p_funs <- function(
     }
   )
 
+  # Create functions that return the random statistic value given a p-value
+  p_to_random_value <- map2(
+    rand_stats, names(rand_stats),
+    \(.stat_vals, .name_stat) {
+      function(p) {
+        assertthat::assert_that(is.numeric(p))
+        assertthat::assert_that(all(p >= 0 & p <= 1))
+
+        # Interpretation of p-value: percentage of values >= or greater than the statistic.
+        # This code returns the statistic that yields the given p for this data.
+
+        # For aler_min and naler_min, the value is the simple quantile
+        if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
+          .stat_vals |>
+            quantile(probs = p) |>
+            setNames(p)
+        }
+        # For other statistics, the value is the quantile of 1 - p
+        else {
+          .stat_vals |>
+            quantile(probs = 1 - p) |>
+            setNames(p)
+        }
+      }
+    }
+  )
+
   p_funs <- list(
-    p_funs = funs,
+    value_to_p = value_to_p,
+    p_to_random_value = p_to_random_value,
+    rand_stats = rand_stats,
     residuals = residuals,
     residual_distribution = residual_distribution
   )
@@ -325,6 +388,13 @@ create_p_funs <- function(
   return(p_funs)
 
 }
+
+
+
+
+
+
+
 
 
 

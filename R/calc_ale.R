@@ -572,7 +572,7 @@ calc_ale <- function(
             estimate, statistic,
             \(.stat, .stat_name) {
               # Call the p-value function corresponding to the named statistic
-              p_funs$p_funs[[.stat_name]](.stat)
+              p_funs$value_to_p[[.stat_name]](.stat)
             })
         ) |>
         select(statistic, estimate, p.value, everything())

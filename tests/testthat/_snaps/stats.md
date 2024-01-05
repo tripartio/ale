@@ -1,7 +1,7 @@
 # create_p_funs works with default inputs
 
     Code
-      map(pf$p_funs, function(.stat_fun) {
+      map(pf$value_to_p, function(.stat_fun) {
         .stat_fun(test_vals)
       })
     Output
