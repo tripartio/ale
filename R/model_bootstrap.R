@@ -626,6 +626,7 @@ model_bootstrap <- function (
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
+          y_summary,
           median_band = median_band
         )
 

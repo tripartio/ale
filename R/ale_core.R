@@ -629,7 +629,7 @@ ale_core <- function (
     }
 
   # Generate summary statistics for y for plotting
-  y_summary <- var_summary(y_vals, median_band)
+  y_summary <- var_summary(y_vals, median_band, p_values)
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
@@ -685,10 +685,10 @@ ale_core <- function (
 
   # Prepare to create ALE statistics
   ale_y_norm_fun <- NULL
-  p_funs <- NULL
+  # p_funs <- NULL
   if ('stats' %in% output) {
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
-    p_funs <- p_values
+    # p_funs <- p_values
   }
 
 
@@ -719,7 +719,7 @@ ale_core <- function (
             ale_x = ale_xs[[x_col]],
             ale_n = ale_ns[[x_col]],
             ale_y_norm_fun = ale_y_norm_fun,
-            p_funs = p_funs
+            p_funs = p_values
           )
         ale_data <- ale_data_stats$summary
         stats    <- ale_data_stats$stats
@@ -877,6 +877,7 @@ ale_core <- function (
         ales$stats$estimate,
         y_vals,
         y_col,
+        y_summary,
         median_band = median_band
       )
     }

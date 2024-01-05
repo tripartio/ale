@@ -561,7 +561,11 @@ create_ale_y_norm_function <- function(y_vals) {
 
 
 # Provide a vector of descriptive statistics
-var_summary <- function(var_vals, median_band = 0.05)  {
+var_summary <- function(
+    var_vals,
+    median_band = 0.05,
+    p_funs = NULL
+) {
   # Generate summary statistics for y for plotting
   s <- stats::quantile(
     var_vals,
@@ -574,19 +578,59 @@ var_summary <- function(var_vals, median_band = 0.05)  {
 
   s <- c(
     # Retain first half of values
-    s[1:match('50%', names(s))],
+    s[1:match('25%', names(s))],
+
+    aler_min_0.01 = if (!is.null(p_funs)) {
+      s[['50%']] + p_funs$p_to_random_value$aler_min(0.01)
+    } else {
+      NULL
+    },
+    aler_min_0.05 = if (!is.null(p_funs)) {
+      s[['50%']] + p_funs$p_to_random_value$aler_min(0.05)
+    } else {
+      NULL
+    },
 
     # Create lower confidence bound just below the midpoint
     mid_lower = s[[paste0(format((0.5 - (median_band / 2)) * 100), '%')]],
+
+    s[match('50%', names(s))],
 
     mean = mean(var_vals, na.rm = TRUE),
 
     # Create upper confidence bound just above the midpoint
     mid_upper = s[[paste0(format((0.5 + (median_band / 2)) * 100), '%')]],
 
+    aler_max_0.05 = if (!is.null(p_funs)) {
+      s[['50%']] + p_funs$p_to_random_value$aler_max(0.05)
+    } else {
+      NULL
+    },
+    aler_max_0.01 = if (!is.null(p_funs)) {
+      s[['50%']] + p_funs$p_to_random_value$aler_max(0.01)
+    } else {
+      NULL
+    },
+
     # Retain latter half of values
     s[match('75%', names(s)):length(s)]
   )
+
+  # s <- c(
+  #   # Retain first half of values
+  #   s[1:match('50%', names(s))],
+  #
+  #   # Create lower confidence bound just below the midpoint
+  #   mid_lower = s[[paste0(format((0.5 - (median_band / 2)) * 100), '%')]],
+  #
+  #   mean = mean(var_vals, na.rm = TRUE),
+  #
+  #   # Create upper confidence bound just above the midpoint
+  #   mid_upper = s[[paste0(format((0.5 + (median_band / 2)) * 100), '%')]],
+  #
+  #   # Retain latter half of values
+  #   s[match('75%', names(s)):length(s)]
+  # )
 
   # Determine the limits and average of y.
   # min and max are needed only for plotting, but avg is needed for data.

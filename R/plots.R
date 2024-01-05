@@ -544,6 +544,7 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
+    y_summary,
     median_band = 0.05
 ) {
 
