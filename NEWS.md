@@ -11,7 +11,9 @@ The most significant updates are the addition of p-values for the ALE statistics
 
 ### Breaking changes
 
-One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the [ale()] function now also requires an argument for `type` to specify the prediction type, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows `ale` to analyze many new model types than before. See the updated documentation of the [ale()] function for details.
+One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, **in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the [ale()] function now also requires an argument for `type` to specify the prediction type**, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows `ale` to analyze many new model types than before. Code that did not require custom predict functions should not be affected by this change. See the updated documentation of the [ale()] function for details.
+
+Another change that breaks former code is that the arguments for [model_bootstrap()] have been modified. Instead of a cumbersome `model_call_string`, **[model_bootstrap()] now uses the {insight} package to automatically detect many R models and directly manipulate the model object as needed**. So, the second argument is now the `model` object. However, for non-standard models that {insight} cannot automatically parse, a modified `model_call_string` is still available to assure model-agnostic functionality. Although this change breaks former code that ran [model_bootstrap()], we believe that the new function interface is much more user-friendly.
 
 ### Other user-visible changes
 
@@ -22,7 +24,7 @@ One of the key goals for the `ale` package is that it would be truly model-agnos
 
 ### Under the hood
 
--   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the ale package in general.
+-   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the `ale` package in general.
 -   Various minor bug fixes.
 
 ### Known issues to be addressed in a future version

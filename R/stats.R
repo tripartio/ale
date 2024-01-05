@@ -73,7 +73,7 @@
 #' @param model model object. The model used to train the original `training_data`.
 #'  for which ALE should be calculated. See details and also documentation for [ale()].
 #' @param y_col See documentation for [ale()]
-#' @param random_model_call_string character. If NULL, `create_p_funs()` tries to
+#' @param random_model_call_string character string. If NULL, `create_p_funs()` tries to
 #' automatically detect and construct the call for p-values. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.

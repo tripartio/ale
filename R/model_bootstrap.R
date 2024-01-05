@@ -6,14 +6,14 @@
 #' No modelling results, with or without ALE, should be considered reliable without
 #' being bootstrapped.
 #'  For large datasets with clear separation between training and testing samples,
-#'  `ale` bootstraps the ALE results of the test data. However, when a dataset
+#'  [ale()] bootstraps the ALE results of the test data. However, when a dataset
 #'  is too small to be subdivided into training and test sets, then the entire
 #'   model should be bootstrapped. That is, multiple models should be trained,
 #'    one on each bootstrap sample. The reliable results are the average results
 #'     of all the bootstrap models, however many there are. For details, see
 #'  the vignette on small datasets or the details and examples below.
 #'
-#' `model_bootstrap` automatically carries out full-model bootstrapping suitable
+#' [model_bootstrap()] automatically carries out full-model bootstrapping suitable
 #' for small datasets. Specifically, it:
 #'
 #' * Creates multiple bootstrap samples (default 100; the user can specify any number);
@@ -31,16 +31,19 @@
 #'
 #'
 #' @param data dataframe. Dataset that will be bootstrapped.
-#' @param model_call_string character. Character string of the full call for the model,
-#'  except that the data option must be left out. The data option will be replaced with the `data` argument.
+#' @param model See documentation for [ale()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param model_call_string character string. If NULL, [model_bootstrap()] tries to
+#' automatically detect and construct the call for bootstrapped datasets. If it cannot, the
+#' function will fail early. In that case, a character string of the full call
+#' for the model must be provided that includes `boot_data` as the data argument for the call. See examples
 # Future arguments:
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
-# * predict_call_string: allows the prediction function to be called; this would
+# * pred_fun,pred_type: allows the prediction function to be called; this would
 # allow bootstrapped RMSE, MAE, cross entropy, and AUC to be calculated.
 #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
 #' If boot_it = 0, then the model is run as normal once on the full `data` with
-#' no bootstrap.
+#' no bootstrapping.
 #' @param seed integer. Random seed. Supply this between runs to assure identical
 #' bootstrap samples are generated each time on the same data.
 #' @param boot_alpha numeric. The confidence level for the bootstrap confidence intervals is
@@ -55,28 +58,28 @@
 #' because it is needed for the bootstrap averages. By default, it is not returned
 #' except if included in this `output` argument.
 #' @param ale_options,tidy_options,glance_options list of named arguments.
-#' Arguments to pass to the `ale`, `broom::tidy`, or `broom::glance` functions, respectively,
+#' Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively,
 #' beyond (or overriding) the defaults.
-#' @param silent See See documentation for [ale()]
+#' @param silent See documentation for [ale()]
 #'
 #' @return list with tibbles of the following elements (depending on values requested in
 #' the `output` argument:
-#' * model_stats: bootstrapped results from `broom::glance`
-#' * model_coefs: bootstrapped results from `broom::tidy`
+#' * model_stats: bootstrapped results from [broom::glance()]
+#' * model_coefs: bootstrapped results from [broom::tidy()]
 #' * ale: bootstrapped ALE results
-#'   * data: ALE data (see `ale` for details about the format)
+#'   * data: ALE data (see [ale()] for details about the format)
 #'   * stats: ALE statistics. The same data is duplicated with different views
 #'   that might be variously useful. The column
 #'     * by_term: statistic, estimate, conf.low, median, mean, conf.high.
 #'     ("term" means variable name.)
 #'     The column names are compatible with the `broom` package. The confidence intervals
-#'     are based on the `ale` function defaults; they can be changed with the
+#'     are based on the [ale()] function defaults; they can be changed with the
 #'     `ale_options` argument. The estimate is the median or the mean, depending
 #'     on the `boot_centre` argument.
 #'     * by_statistic: term, estimate, conf.low, median, mean, conf.high.
 #'     * estimate: term, then one column per statistic Provided with the default
 #'     estimate. This view does not present confidence intervals.
-#'   * plots: ALE plots (see `ale` for details about the format)
+#'   * plots: ALE plots (see [ale()] for details about the format)
 #' * boot_data: full bootstrap data (not returned by default)
 #' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that
 #' were originally passed are returned for reference.
@@ -98,8 +101,20 @@
 #' # Increase value of boot_it for more realistic results
 #' mb_gam <- model_bootstrap(
 #'   attitude,
-#'   'mgcv::gam(rating ~ complaints + privileges + s(learning) +
-#'                raises + s(critical) + advance)',
+#'   gam_attitude,
+#'   boot_it = 3
+#' )
+#'
+#' \donttest{
+#' # If the model is not standard, supply model_call_string with
+#' # 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])
+#' mb_gam <- model_bootstrap(
+#'   attitude,
+#'   model_call_string = 'mgcv::gam(
+#'     rating ~ complaints + privileges + s(learning) +
+#'       raises + s(critical) + advance),
+#'     data = boot_data
+#'   )',
 #'   boot_it = 3
 #' )
 #'
@@ -107,7 +122,6 @@
 #' mb_gam$model_stats
 #' mb_gam$model_coefs
 #'
-#' \donttest{
 #' # Plot ALE
 #' gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
 #' }
@@ -124,10 +138,12 @@
 #'
 model_bootstrap <- function (
     data,
-    model_call_string,
+    model = NULL,
     ...,
+    model_call_string = NULL,
     # y_col,
-    # predict_call_string,
+    # pred_fun,
+    # pred_type,
     boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
@@ -142,14 +158,49 @@ model_bootstrap <- function (
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   assert_that(data |> inherits('data.frame'))
-  assert_that(
-    is.string(model_call_string) &&
-      # There must be no data argument
-      stringr::str_detect(model_call_string, 'data = ', negate = TRUE) &&
-      stringr::str_detect(model_call_string, 'data=', negate = TRUE) &&
-      # model_call_string must terminate with ')'
-      (stringr::str_sub(model_call_string, start = -1) == ')')
-  )
+
+  # If model_call_string is provided, then model is ignored.
+  # Otherwise, the model must allow automatic manipulation.
+  if (is.null(model_call_string)) {
+    assert_that(
+      !is.null(model),
+      msg = glue::glue(
+        'Either a model object or a model_call_string must be provided. ',
+        'See help(model_bootstrap) for details.'
+      )
+    )
+
+    # Automatically extract the call from the model
+    model_call <- insight::get_call(model)
+
+    assert_that(
+      !is.null(model_call),
+      msg = glue::glue(
+        'The model call could not be automatically detected, so ',
+        'model_call_string must be provided. See help(model_bootstrap) ',
+        'for details.'
+      )
+    )
+  }
+  else {  # validate model_call_string
+    assert_that(is.string(model_call_string))
+    assert_that(
+      stringr::str_detect(model_call_string, 'boot_data'),
+      msg = glue::glue(
+        'The data argument for model_call_string must be "boot_data". ',
+        'See help(model_bootstrap) for details.'
+      )
+    )
+  }
+
+  # assert_that(
+  #   is.string(model_call_string) &&
+  #     # There must be no data argument
+  #     stringr::str_detect(model_call_string, 'data = ', negate = TRUE) &&
+  #     stringr::str_detect(model_call_string, 'data=', negate = TRUE) &&
+  #     # model_call_string must terminate with ')'
+  #     (stringr::str_sub(model_call_string, start = -1) == ')')
+  # )
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
@@ -167,11 +218,10 @@ model_bootstrap <- function (
 
   n_rows <- nrow(data)
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when data masking applies, the masked variables will be prioritized over these null
   # local variables.
-  # ale_data <- NULL
   ale_x <- NULL
   ale_n <- NULL
   ale_y <- NULL
@@ -226,12 +276,26 @@ model_bootstrap <- function (
         # boot_data: this particular bootstrap sample
         boot_data <- data[.idxs, ]
 
-        boot_model <- # model generated on this particular bootstrap sample
-          model_call_string |>
-          stringr::str_sub(end = -2) |>  # remove the closing paranthesis ')'
-          paste0(', data = boot_data)') |>  # add data argument
-          parse(text = _) |>  # convert model call string to an expression
-          eval()
+        # If model_call_string was provided, prefer it to automatic detection
+        if (!is.null(model_call_string)) {
+          boot_model <-  # model generated on this particular bootstrap sample
+            model_call_string |>
+            parse(text = _) |>  # convert model call string to an expression
+            eval()
+        }
+        else {  # use the automatically detected model call
+          # Update the model to call to train on boot_data
+          model_call$data <- boot_data
+
+          boot_model <- eval(model_call)
+        }
+
+        # boot_model <- # model generated on this particular bootstrap sample
+        #   model_call_string |>
+        #   stringr::str_sub(end = -2) |>  # remove the closing paranthesis ')'
+        #   paste0(', data = boot_data)') |>  # add data argument
+        #   parse(text = _) |>  # convert model call string to an expression
+        #   eval()
 
         boot_glance <-
           if ('model_stats' %in% output) {

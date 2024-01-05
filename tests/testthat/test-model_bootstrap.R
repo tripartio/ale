@@ -7,8 +7,7 @@ test_that(
   'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
     mb <- model_bootstrap(
       test_cars,
-      'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country)',
+      cars_gam,
       boot_it = 0,
       silent = TRUE
     )
@@ -23,8 +22,8 @@ test_that(
   'mostly default (boot_it=5) snapshot works with multiple x datatypes', {
     mb <- model_bootstrap(
       test_cars,
-      'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country)',
+      model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
+                vs + am + gear + carb + country, data = boot_data)',
       boot_it = 5,
       silent = TRUE
     )
@@ -39,8 +38,7 @@ test_that(
   'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
     mb <- model_bootstrap(
       test_cars,
-      'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country)',
+      cars_gam,
       boot_it = 5,
       seed = 1234,
       boot_alpha = 0.1,
@@ -59,8 +57,8 @@ test_that(
   'snapshot works without ALE, with every parameter set to something, with multiple x datatypes', {
     mb <- model_bootstrap(
       test_cars,
-      'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country)',
+      model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
+                vs + am + gear + carb + country, data = boot_data)',
       boot_it = 3,
       seed = 12,
       boot_alpha = 0.01,

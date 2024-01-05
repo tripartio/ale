@@ -28,6 +28,7 @@ Imports:
     broom,
     dplyr,
     ellipsis,
+    glue,
     grDevices,
     labeling,
     methods,
