@@ -4,11 +4,11 @@ Accumulated Local Effects (ALE) were initially developed as a [model-agnostic ap
 
 For more details, see Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
 
-The `ale` package replicates the full functionality of the `ALEPlot` package and a lot more. It currently presents three main functions:
+The `ale` package replicates the full functionality of the {ALEPlot} package and a lot more. It currently presents three main functions:
 
 -   `ale`: create data for and plot one-way ALE (single variables). ALE values may be bootstrapped.
--   `ale_ixn`: create data for and plot two-way ALE interactions. Bootstrapping of the interaction ALE values has not yet been implemented.
--   `model_bootstrap`: bootstrap an entire model, not just the ALE values. This function returns the bootstrapped model statistics and coefficients as well as the bootstrapped ALE values. This is the appropriate approach for small samples.
+-   [ale_ixn()]: create data for and plot two-way ALE interactions. Bootstrapping of the interaction ALE values has not yet been implemented.
+-   [model_bootstrap()]: bootstrap an entire model, not just the ALE values. This function returns the bootstrapped model statistics and coefficients as well as the bootstrapped ALE values. This is the appropriate approach for small samples.
 
 In addition, it has some minor functions that are helpful for model evaluation.
 
@@ -17,5 +17,5 @@ You may find more details in the following vignettes (they are all available fro
 -   Introduction to the `ale` package
 -   ALE-based statistics for statistical inference and effect sizes
 -   Analyzing small datasets (\<2000 rows) with ALE
--   Comparison between `ALEPlot` and `ale` packages
+-   Comparison between {ALEPlot} and `ale` packages
 -   `ale` function handling of various datatypes for x

@@ -6,7 +6,7 @@
 # This function is not exported. It is copy-pasted (with some variable name changes)
 # from `ALEPlot::ALEPlot`.
 # This function is not usually called directly by the user. For details about
-# arguments not documented here, see `ale`.
+# arguments not documented here, see [ale()].
 #
 #  @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
 #  @references Apley, Daniel W., and Jingyu Zhu.

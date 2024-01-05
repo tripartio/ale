@@ -85,7 +85,7 @@ This visualization confirms what we see in the model coefficients above: complai
 
 What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
 
-We can use `ale_ixn` to visualize the possible existence of any interactions:
+We can use [ale_ixn()] to visualize the possible existence of any interactions:
 
 ```{r lm_ixn, fig.width=7, fig.height=7}
 ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude)
@@ -110,9 +110,9 @@ The `ale::model_bootstrap` function automatically carries out full-model bootstr
 -   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 -   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 
-`model_bootstrap` has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument, `model_call_string` is a character version of the full call expression for the model with everything except for the data argument. Because `model_bootstrap` programmatically modifies the model call and calls the model multiple times, it needs direct access to the expression rather than to the model object, as is more typical in such functions.
+[model_bootstrap()] has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument, `model_call_string` is a character version of the full call expression for the model with everything except for the data argument. Because [model_bootstrap()] programmatically modifies the model call and calls the model multiple times, it needs direct access to the expression rather than to the model object, as is more typical in such functions.
 
-For example, the call for the OLS regression earlier was `lm(rating ~ ., data = attitude)`. To convert this to the format required for `model_call_string`, simply remove the data argument (so, it becomes `lm(rating ~ .)`) and then wrap that in a string: `'lm(rating ~ .)'`. So, here is the full call to `model_bootstrap`:
+For example, the call for the OLS regression earlier was `lm(rating ~ ., data = attitude)`. To convert this to the format required for `model_call_string`, simply remove the data argument (so, it becomes `lm(rating ~ .)`) and then wrap that in a string: `'lm(rating ~ .)'`. So, here is the full call to [model_bootstrap()]:
 
 ```{r lm_full_call}
 mb_lm <- model_bootstrap(
@@ -123,9 +123,9 @@ mb_lm <- model_bootstrap(
 )
 ```
 
-By default, `model_bootstrap` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance`) and bootstrapped model coefficients (provided through `broom::tidy`). Any of the default options for `broom::glance`, `broom::tidy`, and `ale::ale` can be customized, along with defaults for `model_bootstrap`, such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
+By default, [model_bootstrap()] creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance`) and bootstrapped model coefficients (provided through `broom::tidy`). Any of the default options for `broom::glance`, `broom::tidy`, and `ale::ale` can be customized, along with defaults for [model_bootstrap()], such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
 
-`model_bootstrap` returns a list with the following elements (depending on values requested in the `output` argument: \* model_stats: bootstrapped results from `broom::glance` \* model_coefs: bootstrapped results from `broom::tidy` \* ale_data: bootstrapped ALE data and plots \* boot_data: full bootstrap data (not returned by default)
+[model_bootstrap()] returns a list with the following elements (depending on values requested in the `output` argument: \* model_stats: bootstrapped results from `broom::glance` \* model_coefs: bootstrapped results from `broom::tidy` \* ale_data: bootstrapped ALE data and plots \* boot_data: full bootstrap data (not returned by default)
 
 Here are the bootstrapped overall model statistics:
 

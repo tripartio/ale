@@ -7,7 +7,7 @@
 #  This function is not exported. It is uses tidyverse principles to rewrite
 #  `ALEPlot::ALEPlot`.
 #  This function is not usually called directly by the user. For details about
-#  arguments not documented here, see `ale`.
+#  arguments not documented here, see [ale()].
 #
 #  @references Apley, Daniel W., and Jingyu Zhu.
 #  "Visualizing the effects of predictor variables in black box supervised learning models."
@@ -35,7 +35,7 @@
 #  @param ale_n integer vector. See `ale_x`
 #  @param ale_y_norm_fun function. Custom function for normalizing ale_y for
 #  statistics. If provided, saves some time since it is usually the same for all
-#  all variables throughout one call to `ale`. For now, used as a flag to
+#  all variables throughout one call to [ale()]. For now, used as a flag to
 #  determine whether statistics will be calculated or not; if NULL, statistics
 #  will not be calculated.
 #  @param p_funs See documentation for `p_values` in [ale()]

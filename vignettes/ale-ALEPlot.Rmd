@@ -168,7 +168,7 @@ gridExtra::grid.arrange(grobs = nn_ale$plots, ncol = 2)
 
 With these zero-centred plots, the full range of y values and the rug plots give some context that aids interpretation. (If the rugs look slightly different, it is because they are randomly jittered to avoid overplotting.)
 
-The `ale` also produces interaction plots. Unlike `ALEPlot`, it does so with a separate dedicated function, `ale_ixn`. By default, it calculates all possible two-way interactions between all variables in the data.
+The `ale` also produces interaction plots. Unlike `ALEPlot`, it does so with a separate dedicated function, [ale_ixn()]. By default, it calculates all possible two-way interactions between all variables in the data.
 
 Because the variables interact with each other, the output data structure is a two-layer list, so the print code is slightly more complicated. However, the sample code we provide here using functions from the `purrr` package for iterating through lists and `gridExtra` package for arranging plots are reusable in any application.
 

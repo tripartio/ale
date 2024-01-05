@@ -106,9 +106,9 @@ summary(math$math_avg)
 
 ## Full model bootstrap
 
-Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.html), we will carry out full model bootstrapping using the `model_bootstrap` function. We create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.
+Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.html), we will carry out full model bootstrapping using the [model_bootstrap()] function. We create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.
 
-By default, `model_bootstrap` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
+By default, [model_bootstrap()] runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
 ```{r model bootstrap}
 mb_gam <- model_bootstrap(
@@ -135,8 +135,8 @@ mb_gam$model_stats
 The names of the columns follow the `broom` package conventions:
 
 -   `name` is the specific overall model statistic described in the row.
--   `estimate` is the bootstrapped estimate of the statistic. It is the same as the bootstrap `mean` by default, though it can be set to the `median` with the `boot_centre` argument of `model_bootstrap`. Regardless, both the `mean` and `median` estimates are always returned. The `estimate` column is provided for convenience since that is a standard name in the `broom` package.
--   `conf.low` and `conf.high` are the lower and upper confidence intervals respectively. `model_bootstrap` defaults to a 95% confidence interval; this can be changed by setting the `boot_alpha` argument (the default is 0.05 for a 95% confidence interval).
+-   `estimate` is the bootstrapped estimate of the statistic. It is the same as the bootstrap `mean` by default, though it can be set to the `median` with the `boot_centre` argument of [model_bootstrap()]. Regardless, both the `mean` and `median` estimates are always returned. The `estimate` column is provided for convenience since that is a standard name in the `broom` package.
+-   `conf.low` and `conf.high` are the lower and upper confidence intervals respectively. [model_bootstrap()] defaults to a 95% confidence interval; this can be changed by setting the `boot_alpha` argument (the default is 0.05 for a 95% confidence interval).
 -   `sd` is the standard deviation of the bootstrapped estimate.
 
 Our focus, however, in this vignette is on the effects of individual variables. These are available in the `model_coefs` element of the model bootstrap object:

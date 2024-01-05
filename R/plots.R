@@ -8,7 +8,7 @@
 #  This function is not exported. It creates a ggplot object that plots the input
 #  ALE data generated from `calc_ale`.
 #  This function is not usually called directly by the user. For details about
-#  arguments not documented here, see `ale`.
+#  arguments not documented here, see [ale()].
 #
 #
 #  @param ale_data tibble. Output data from `calc_ale`.
@@ -211,7 +211,7 @@ plot_ale <- function(
 # This function is not exported. It creates a ggplot object that plots the input
 # ALE data generated from `calc_ale`.
 # This function is not usually called directly by the user. For details about
-# arguments not documented here, see `ale`.
+# arguments not documented here, see [ale()].
 #
 # TODO: add rug plots on the x1 and x2 axes.
 # See general considerations at plot_ale.
@@ -249,8 +249,8 @@ plot_ale <- function(
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for [ale()]
 # @param median_band See documentation for [ale()]
-# @param n_x1_int,n_x2_int See documentation for `ale_ixn`
-# @param n_y_quant See documentation for `ale_ixn`
+# @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
+# @param n_y_quant See documentation for [ale_ixn()]
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
 # If provided, used to generate rug plots.
 #@param data See documentation for `plot_ale`
