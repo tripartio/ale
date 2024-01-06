@@ -703,9 +703,9 @@ var_summary <- function(
 # Rearrange ALE statistics in multiple orientations
 pivot_stats <- function(long_stats) {
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   term <- NULL
   estimate <- NULL
@@ -770,9 +770,9 @@ pivot_stats <- function(long_stats) {
 # Summarize overlapping confidence regions
 summarize_conf_regions <- function(ale_data, y_summary) {
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   ale_n <- NULL
   ale_x <- NULL

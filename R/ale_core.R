@@ -611,9 +611,9 @@ ale_core <- function (
 
 
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   # ale_data <- NULL
   term <- NULL

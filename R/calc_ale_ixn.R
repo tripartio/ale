@@ -33,9 +33,9 @@ calc_ale_ixn <- function(X, model, x1_col, x2_col,
                          # n_row, n_col,
                          pred_fun, pred_type, x_intervals) {
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   ale_x2 <- NULL
 

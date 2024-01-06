@@ -50,9 +50,9 @@ plot_ale <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   ale_x <- NULL
   ale_n <- NULL
@@ -305,9 +305,9 @@ plot_ale_ixn <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   ale_x1 <- NULL
   ale_x2 <- NULL
@@ -517,9 +517,9 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   rug_x <- NULL
   rug_y <- NULL
@@ -571,9 +571,9 @@ plot_effects <- function(
     median_band = c(0.05, 0.5)
 ) {
 
-  # Hack to prevent devtools::check from thinking that NSE variables are global:
+  # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
-  # when NSE applies, the NSE variables will be prioritized over these null
+  # when masking applies, the masked variables will be prioritized over these null
   # local variables.
   # ale_data <- NULL
   term <- NULL
