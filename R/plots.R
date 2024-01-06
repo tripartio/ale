@@ -40,9 +40,8 @@ plot_ale <- function(
     ...,
     # ggplot_custom,
     relative_y = 'median',
-    median_band = 0.05,
+    median_band = c(0.05, 0.5),
     x_y = NULL,
-    # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     seed = 0
@@ -97,36 +96,48 @@ plot_ale <- function(
         max(y_summary[['max']], ale_data$ale_y)
       )
     ) +
-    # Add guides to show 25th and 75th percentiles of y
-    geom_hline(yintercept = y_summary[['25%']], linetype = "dashed") +
-    geom_hline(yintercept = y_summary[['75%']], linetype = "dashed") +
-    # Add a band to show the average ± the confidence limits
-    geom_rect(
-      xmin = -Inf,
-      xmax = Inf,
-      ymin = y_summary[['mid_lower']],
-      ymax = y_summary[['mid_upper']],
-      fill = 'lightgray'
-    ) +
     # Add a secondary axis to label the percentiles
     scale_y_continuous(
       sec.axis = sec_axis(
         trans = ~ .,  # do not change the scale
         name = NULL,  # no axis title
-        labels = c('25%',
-                   relative_y,
-                   # Unicode ± must be replaced by \u00B1 for CRAN
-                   # paste0(relative_y, '\u00B1', format((median_band / 2) * 100), '%'),
-                   '75%'),
+        # Construct secondary (right) axis label from bottom to top.
+        labels = if (names(y_summary[1]) == 'p') {
+          # p-values were provided for y_summary; ALER is used
+          c(
+            glue::glue('-p={format(median_band[2], nsmall = 2)}'),
+            glue::glue('ALER p={format(median_band[1], nsmall = 2)}'),
+            glue::glue('+p={format(median_band[2], nsmall = 2)}')
+          )
+        }
+        else {
+          # without p-values, quantiles are used
+          c(
+            glue::glue('{50-(median_band[2]*100/2)}%'),
+            relative_y,
+            glue::glue('{50+(median_band[2]*100/2)}%')
+          )
+        },
         breaks = c(
-          y_summary[['25%']],
-          y_summary[['50%']],
-          y_summary[['75%']]
-        ),
+          y_summary[['med_lo_2']],
+          if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
+          y_summary[['med_hi_2']]
+         ),
+        # labels = c('25%',
+        #            relative_y,
+        #            # Unicode ± must be replaced by \u00B1 for CRAN
+        #            # paste0(relative_y, '\u00B1', format((median_band / 2) * 100), '%'),
+        #            '75%'),
+        # breaks = c(
+        #   y_summary[['25%']],
+        #   y_summary[['50%']],
+        #   y_summary[['75%']]
+        # ),
       )
     ) +
     theme(axis.text.y.right = element_text(size = 6)) +
     labs(x = x_col, y = y_col)
+
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
@@ -134,48 +145,8 @@ plot_ale <- function(
       geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
       geom_line()
-
-    # Add rug plot if data is provided
-    if (!is.null(x_y) && rug_sample_size > 0) {
-      rug_data <- tibble(
-        rug_x = x_y[[x_col]],
-        rug_y = x_y[[y_col]] + y_shift,
-      )
-      # if (!is.null(data) && rug_sample_size > 0) {
-    #   rug_data <- tibble(
-    #     rug_x = data[[x_col]],
-    #     rug_y = data[[y_col]] + y_shift,
-    #   )
-
-      # If the data is too big, down-sample or else rug plots are too slow
-      rug_data <- if (nrow(rug_data) > rug_sample_size) {
-        rug_sample(
-          rug_data,
-          ale_data$ale_x,
-          rug_sample_size = rug_sample_size,
-          min_rug_per_interval = min_rug_per_interval,
-          seed = seed
-        )
-      } else {
-        rug_data
-      }
-
-      plot <- plot +
-        geom_rug(
-          aes(x = rug_x, y = rug_y),
-          data = rug_data,
-          alpha = 0.5,
-          position = position_jitter(
-            # randomly jitter by 1% of the domain and range
-            width = 0.01 * diff(range(ale_data$ale_x)),
-            height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
-            seed = seed
-          )
-        )
-    }
-
-  } else {  # x_type is not numeric
-
+  }
+  else {  # x_type is not numeric
     plot <- plot +
       geom_col(fill = 'gray') +
       geom_errorbar(aes(ymin = ale_y_lo, ymax = ale_y_hi), width = 0.05) +
@@ -197,8 +168,61 @@ plot_ale <- function(
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
-
   }
+
+  # Add median bars after main geoms so that they are on the top layers
+  plot <- plot +
+    # Add a band to show the average ± the confidence limits
+    geom_rect(
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = y_summary[['med_lo']],
+      ymax = y_summary[['med_hi']],
+      fill = 'lightgray',
+      alpha = 0.1,
+    ) +
+    # Add guides to show the outer median band
+    geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
+    geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
+    # # Add guides to show 25th and 75th percentiles of y
+    # geom_hline(yintercept = y_summary[['25%']], linetype = "dashed") +
+    # geom_hline(yintercept = y_summary[['75%']], linetype = "dashed") +
+
+
+  # Add rug plot if data is provided
+  if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
+    rug_data <- tibble(
+      rug_x = x_y[[x_col]],
+      rug_y = x_y[[y_col]] + y_shift,
+    )
+
+    # If the data is too big, down-sample or else rug plots are too slow
+    rug_data <- if (nrow(rug_data) > rug_sample_size) {
+      rug_sample(
+        rug_data,
+        ale_data$ale_x,
+        rug_sample_size = rug_sample_size,
+        min_rug_per_interval = min_rug_per_interval,
+        seed = seed
+      )
+    } else {
+      rug_data
+    }
+
+    plot <- plot +
+      geom_rug(
+        aes(x = rug_x, y = rug_y),
+        data = rug_data,
+        alpha = 0.5,
+        position = position_jitter(
+          # randomly jitter by 1% of the domain and range
+          width = 0.01 * diff(range(ale_data$ale_x)),
+          height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
+          seed = seed
+        )
+      )
+    }
+
 
 
   return(plot)
@@ -269,7 +293,7 @@ plot_ale_ixn <- function(
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
-    median_band = 0.05,
+    median_band = c(0.05, 0.5),
     n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
     x1_x2_y = NULL,
     # data = NULL,
@@ -318,8 +342,8 @@ plot_ale_ixn <- function(
     stats::quantile(
       probs = c(
         seq(0, 1, 1 / n_y_quant),
-        0.5 - (median_band / 2),
-        0.5 + (median_band / 2)
+        0.5 - (median_band[1] / 2),
+        0.5 + (median_band[1] / 2)
       ) |>
         sort()
     )
@@ -544,8 +568,7 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
-    y_summary,
-    median_band = 0.05
+    median_band = c(0.05, 0.5)
 ) {
 
   # Hack to prevent devtools::check from thinking that NSE variables are global:
@@ -566,12 +589,16 @@ plot_effects <- function(
     stats::setNames(seq(-50, 50, 10) |> paste0('%'))
   # y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
 
+  # median_band_lo <- y_summary[['med_lo']]
+  # median_y       <- y_summary[['50%']]
+  # median_band_hi <- y_summary[['med_hi']]
   # Determine key points for the median band
   median_band_quantiles <- quantile(
     y_vals, c(
-      0.5 - (median_band / 2),
+      # effects plot only uses the inner median band
+      0.5 - (median_band[1] / 2),
       0.5,
-      0.5 + (median_band / 2)
+      0.5 + (median_band[1] / 2)
     )
   )
   median_band_lo <- median_band_quantiles[1]

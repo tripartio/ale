@@ -617,7 +617,7 @@ model_bootstrap <- function (
 
         # Retrieve median_band if provided; otherwise use boot_alpha
         median_band <- if (is.null(ale_options$median_band)) {
-          boot_alpha
+          c(boot_alpha, boot_alpha)
         } else {
           ale_options$median_band
         }
@@ -626,8 +626,7 @@ model_bootstrap <- function (
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          y_summary,
-          median_band = median_band
+          median_band
         )
 
       }

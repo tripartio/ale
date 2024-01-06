@@ -111,9 +111,10 @@
 #' Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
 #' determined automatically; only provide for complex non-standard models that
 #' require it.
-#' @param median_band numeric length 1 from 0 to 1. Alpha for "confidence interval" range
+#' @param median_band numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
 #' for printing bands around the median for single-variable plots.
-#'  The band range will be the median value of y ± `median_band`.
+#' The inner band range will be the median value of y ± `median_band[1]`.
+#' For plots with a second outer band, its range will be the median ± `median_band[2]`.
 #' @param rug_sample_size,min_rug_per_interval single non-negative integer length 1.
 #' Rug plots are normally
 #' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
@@ -218,7 +219,7 @@ ale <- function (
     boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_band = 0.05,
+    median_band = c(0.05, 0.5),
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -249,7 +250,8 @@ ale <- function (
 #' For the plots, `n_y_quant` is the number of quantiles into which to
 #' divide the predicted variable (y). The middle quantiles are grouped specially:
 #'
-#' * The middle quantile is the `median_band` confidence interval around the median.
+#' * The middle quantile is the first confidence interval of `median_band`
+#' (`median_band[1]`) around the median.
 #' This middle quantile is special because it generally represents no meaningful
 #' interaction.
 #' * The quantiles above and below the middle are extended from the borders of
@@ -352,7 +354,7 @@ ale_ixn <- function (
     # boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_band = 0.05,
+    median_band = c(0.05, 0.5),
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -443,7 +445,7 @@ ale_core <- function (
     boot_centre = 'mean',
     relative_y = 'median',
     y_type = NULL,
-    median_band = 0.05,
+    median_band = c(0.05, 0.5),
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
@@ -586,7 +588,11 @@ ale_core <- function (
   # Validate plot-related arguments.
   # If plots are not requested, then ignore these arguments.
   if ('plots' %in% output) {
-    assert_that(is.number(median_band) && between(median_band, 0, 1))
+    assert_that(
+      is.numeric(median_band) &&
+        length(median_band) == 2 &&
+        all(between(median_band, 0, 1))
+    )
     assert_that(
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
         (is.natural(rug_sample_size) &&
@@ -877,8 +883,18 @@ ale_core <- function (
         ales$stats$estimate,
         y_vals,
         y_col,
-        y_summary,
-        median_band = median_band
+        # median_band = median_band
+        median_band = if (is.null(p_values)) {
+          median_band
+        }
+        else {  # use p-value of NALED
+          median_band |>
+            # p_fun functions are vectorized, so return as many NALED values
+            # as median_band values are provided
+            p_values$p_to_random_value$naled() |>
+            unname() |>
+            (`/`)(100)  # scale NALED from percentage to 0 to 1
+        }
       )
     }
   }
@@ -891,18 +907,21 @@ ale_core <- function (
   } else {
     ales$x_cols <- x_cols
   }
-  ales$y_type <- y_type
   ales$y_summary <- y_summary
-  ales$relative_y <- relative_y
   ales$boot_it <- boot_it
+  ales$seed <- seed
   ales$boot_alpha <- boot_alpha
   ales$boot_centre <- boot_centre
+  ales$relative_y <- relative_y
+  ales$y_type <- y_type
   ales$median_band <- median_band
+  ales$rug_sample_size <- rug_sample_size
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
   return(ales)
 
 }
+
 
 
