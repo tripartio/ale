@@ -23,6 +23,20 @@
 #' * Calculates the mean, median, and lower and upper confidence intervals for
 #'  each of those values across all bootstrap samples.
 #'
+#'  **P-values**
+#'  The [broom::tidy()] summary statistics will provide p-values as normal, but the
+#'  situation is somewhat complicated with p-values for ALE statistics. The challenge
+#'  is that the procedure for obtaining their p-values is very slow: it involves
+#'  retraining the model 1000 times. Thus, it is not efficient to calculate p-values
+#'  on every execution of `model_bootstrap()`. Although the [ale()] function provides
+#'  an 'auto' option for creating p-values,
+#'  that option is disabled in `model_bootstrap()` because it would be far too slow:
+#'  it would involve retraining the model 1000 times the number of bootstrap iterations.
+#'  Rather, you must first create a p-values function object using the procedure
+#'  described in `help(create_p_funs)`. If the name of your p-values object is
+#'  `p_funs`, you can then request p-values each time you run `model_bootstrap()`
+#'  by passing it the argument `ale_options = list(p_values = p_funs)`.
+#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
@@ -59,7 +73,8 @@
 #' except if included in this `output` argument.
 #' @param ale_options,tidy_options,glance_options list of named arguments.
 #' Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively,
-#' beyond (or overriding) the defaults.
+#' beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
+#' statistics, see the details.
 #' @param silent See documentation for [ale()]
 #'
 #' @return list with tibbles of the following elements (depending on values requested in
@@ -211,7 +226,20 @@ model_bootstrap <- function (
     msg = 'The value in the output argument must be one or more of
     "ale", "model_stats", or "model_coefs".'
   )
+
   assert_that(is.list(ale_options))
+  assert_that(
+    !(
+      !is.null(ale_options$p_values) &&
+        length(ale_options$p_values) == 1 &&
+        ale_options$p_values == 'auto'
+    ),
+    msg = paste0(
+      'The `ale_options` `p_values == "auto"` option is disabled for `model_bootstrap()` ',
+      'because it is far too slow. Rather, you must pass a p-values ',
+      'function object using the procedure described in `help(create_p_funs)`.'
+    )
+  )
   assert_that(is.list(tidy_options))
   assert_that(is.list(glance_options))
 
@@ -581,6 +609,17 @@ model_bootstrap <- function (
         ) |>
         select(term, statistic, estimate, everything())
 
+      # If an ALE p-values object was passed, calculate p-values
+      if (names(y_summary)[1] == 'p') {
+        ale_summary_stats <- ale_summary_stats |>
+          rowwise() |>  # required to get statistic function for each row
+          mutate(
+            p.value = ale_options$p_values$value_to_p[[statistic]](estimate),
+          ) |>
+          ungroup() |>  # undo rowwise()
+          select(term, statistic, estimate, p.value, everything())
+      }
+
       # if the user wants stats, assume they also want confidence regions
       ale_conf_regions <-
         ale_summary_data |>
@@ -638,7 +677,9 @@ model_bootstrap <- function (
         plots = ale_summary_plots,
         conf_regions = ale_conf_regions
       )
-    } else {  # ALE not requested
+    }
+  # ALE not requested
+  else {
       NULL
     }
 
