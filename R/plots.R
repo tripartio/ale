@@ -96,6 +96,14 @@ plot_ale <- function(
         max(y_summary[['max']], ale_data$ale_y)
       )
     ) +
+    # Add a band to show the average ± the confidence limits
+    geom_rect(
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = y_summary[['med_lo']],
+      ymax = y_summary[['med_hi']],
+      fill = 'lightgray'
+    ) +
     # Add a secondary axis to label the percentiles
     scale_y_continuous(
       sec.axis = sec_axis(
@@ -170,18 +178,9 @@ plot_ale <- function(
     }
   }
 
-  # Add median bars after main geoms so that they are on the top layers
+  # Add guides to show the outer median band.
+  # Add them late so that they superimpose most other elements.
   plot <- plot +
-    # Add a band to show the average ± the confidence limits
-    geom_rect(
-      xmin = -Inf,
-      xmax = Inf,
-      ymin = y_summary[['med_lo']],
-      ymax = y_summary[['med_hi']],
-      fill = 'lightgray',
-      alpha = 0.1,
-    ) +
-    # Add guides to show the outer median band
     geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
     geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
     # # Add guides to show 25th and 75th percentiles of y
@@ -189,7 +188,8 @@ plot_ale <- function(
     # geom_hline(yintercept = y_summary[['75%']], linetype = "dashed") +
 
 
-  # Add rug plot if data is provided
+  # Add rug plot if data is provided.
+  # Add them late so that they superimpose most other elements.
   if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
     rug_data <- tibble(
       rug_x = x_y[[x_col]],
