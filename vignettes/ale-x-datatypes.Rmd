@@ -96,8 +96,7 @@ Finally, as explained in the vignette on modelling with [small datasets](ale-sma
 ```{r cars_full, fig.width=7, fig.height=14}
 mb <- model_bootstrap(
   var_cars, 
-  'mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
-               vs + am + gear + carb + country)',
+  cm,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   silent = TRUE  # progress bars disabled for the vignette
 )
