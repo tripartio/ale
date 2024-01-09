@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20231101</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">2024-01-04</h4>
+            <h4 data-toc-skip class="date">October 24, 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-x-datatypes.Rmd" class="external-link"><code>vignettes/ale-x-datatypes.Rmd</code></a></small>
       <div class="d-none name"><code>ale-x-datatypes.Rmd</code></div>
@@ -304,7 +304,7 @@ interactions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cars_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">var_cars</span>, <span class="va">cm</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■          </span>  71% |  ETA:  0s</span></span>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■     </span>  86% |  ETA:  0s</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">cars_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
@@ -321,17 +321,16 @@ model, not just the ALE data. So, let’s do that now.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_bootstrap.html">model_bootstrap</a></span><span class="op">(</span></span>
 <span>  <span class="va">var_cars</span>, </span>
-<span>  <span class="st">'mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +</span></span>
-<span><span class="st">               vs + am + gear + carb + country)'</span>,</span>
+<span>  <span class="va">cm</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
 <span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_full-1.png" width="672"></p>
-<p>(By default, <code>model_bootstrap</code> creates 100 bootstrap
-samples but, so that this illustration runs faster, we demonstrate it
-here with only 10 iterations.)</p>
+<p>(By default, [model_bootstrap()] creates 100 bootstrap samples but,
+so that this illustration runs faster, we demonstrate it here with only
+10 iterations.)</p>
 <p>With such a small dataset, the bootstrap confidence interval always
 overlap with the middle band, indicating that this dataset cannot
 support any claims that any of its variables has a meaningful effect on

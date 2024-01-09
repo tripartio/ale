@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20231101</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Analyzing small datasets (
+                        <h4 data-toc-skip class="author">Chitu
+Okoli</h4>
             
+            <h4 data-toc-skip class="date">October 24, 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-small-datasets.Rmd" class="external-link"><code>vignettes/ale-small-datasets.Rmd</code></a></small>
       <div class="d-none name"><code>ale-small-datasets.Rmd</code></div>
@@ -93,9 +96,9 @@ small datasets, as is often the case with statistical inference. You
 should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
 explains general functionality of the package; this vignette goes beyond
 those details to discuss issues unique to small datasets.</p>
-<div class="section level2">
-<h2 id="what-is-a-small-dataset">What is a “small” dataset?<a class="anchor" aria-label="anchor" href="#what-is-a-small-dataset"></a>
-</h2>
+<div class="section level3">
+<h3 id="what-is-a-small-dataset">What is a “small” dataset?<a class="anchor" aria-label="anchor" href="#what-is-a-small-dataset"></a>
+</h3>
 <p>An obvious question is, “How small is ‘small’?” This is a very
 complex question and it is way beyond the scope of this vignette to try
 to answer it rigorously. But we can simply say that the key issue at
@@ -118,9 +121,9 @@ probably “small”</strong>. You can see that even many datasets that are
 more than 2000 rows are nonetheless “small”, and so probably need the
 techniques mentioned in this vignette.</p>
 </div>
-<div class="section level2">
-<h2 id="attitude-dataset">attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
-</h2>
+<div class="section level3">
+<h3 id="attitude-dataset">attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
+</h3>
 <p>Most analyses use the <code>attitude</code> dataset, built-in with R:
 “From a survey of the clerical employees of a large financial
 organization, the data are aggregated from the questionnaires of the
@@ -128,18 +131,18 @@ approximately 35 employees for each of 30 (randomly selected)
 departments.” Since we’re talking about “small” datasets, we figure that
 we might as well demonstrate principles with extremely small
 examples.</p>
-<div class="section level3">
-<h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h3>
+<div class="section level4">
+<h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h4>
 <p>From a survey of the clerical employees of a large financial
 organization, the data are aggregated from the questionnaires of the
 approximately 35 employees for each of 30 (randomly selected)
 departments. The numbers give the percent proportion of favourable
 responses to seven questions in each department.</p>
 </div>
-<div class="section level3">
-<h3 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a>
-</h3>
+<div class="section level4">
+<h4 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a>
+</h4>
 <p>A data frame with 30 observations on 7 variables. The first column
 are the short names from the reference, the second one the variable
 names in the data frame:</p>
@@ -196,9 +199,9 @@ names in the data frame:</p>
 </tbody>
 </table>
 </div>
-<div class="section level3">
-<h3 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a>
-</h3>
+<div class="section level4">
+<h4 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a>
+</h4>
 <p>Chatterjee, S. and Price, B. (1977) <em>Regression Analysis by
 Example</em>. New York: Wiley. (Section 3.7, p.68ff of 2nd
 ed.(1991).)</p>
@@ -235,10 +238,10 @@ split. This is a small-scale demonstration mainly to demonstrate that
 just the large datasets typically used for machine learning.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="ale-for-ordinary-least-squares-regression-multiple-linear-regression">ALE for ordinary least squares regression (multiple linear
+<div class="section level3">
+<h3 id="ale-for-ordinary-least-squares-regression-multiple-linear-regression">ALE for ordinary least squares regression (multiple linear
 regression)<a class="anchor" aria-label="anchor" href="#ale-for-ordinary-least-squares-regression-multiple-linear-regression"></a>
-</h2>
+</h3>
 <p>Ordinary least squares (OLS) regression is the most generic
 multivariate statistical technique. Thus, we use it as a baseline
 illustration to help motivate the value of ALE for interpreting the
@@ -294,8 +297,8 @@ discrepancies.</p>
 visualizes the effect of each variable irrespective of interactions that
 might or might not exist with other variables, whether these other
 interacting variables are included in the model or not.</p>
-<p>We can use <code>ale_ixn</code> to visualize the possible existence
-of any interactions:</p>
+<p>We can use [ale_ixn()] to visualize the possible existence of any
+interactions:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_lm_attitude_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">attitude</span>, <span class="va">lm_attitude</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■                          </span>  17% |  ETA:  1s</span></span>
@@ -313,9 +316,9 @@ such findings cannot be considered reliable. In this case, there are no
 interactions in this dataset, so we will not continue exploring
 them.</p>
 </div>
-<div class="section level2">
-<h2 id="full-model-bootstrapping">Full model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a>
-</h2>
+<div class="section level3">
+<h3 id="full-model-bootstrapping">Full model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a>
+</h3>
 <p>We have referred frequently to the importance of bootstrapping. None
 of our model results, with or without ALE, should be considered reliable
 without being bootstrapped. For large datasets with clear separation
@@ -325,9 +328,8 @@ subdivided into training and test sets, then the entire model should be
 bootstrapped. That is, multiple models should be trained, one on each
 bootstrap sample. The reliable results are the average results of all
 the bootstrap models, however many there are.</p>
-<p>The <code><a href="../reference/model_bootstrap.html">ale::model_bootstrap</a></code> function automatically carries
-out full-model bootstrapping suitable for small datasets. Specifically,
-it:</p>
+<p>The [model_bootstrap()] function automatically carries out full-model
+bootstrapping suitable for small datasets. Specifically, it:</p>
 <ul>
 <li>Creates multiple bootstrap samples (default 100; the user can
 specify any number);</li>
@@ -337,47 +339,38 @@ values for each model on each bootstrap sample;</li>
 <li>Calculates the mean, median, and lower and upper confidence
 intervals for each of those values across all bootstrap samples.</li>
 </ul>
-<p><code>model_bootstrap</code> has two required arguments. Consistent
-with tidyverse conventions, its first argument is a dataset,
-<code>data.</code> The second argument, <code>model_call_string</code>
-is a character version of the full call expression for the model with
-everything except for the data argument. Because
-<code>model_bootstrap</code> programmatically modifies the model call
-and calls the model multiple times, it needs direct access to the
-expression rather than to the model object, as is more typical in such
-functions.</p>
-<p>For example, the call for the OLS regression earlier was
-<code>lm(rating ~ ., data = attitude)</code>. To convert this to the
-format required for <code>model_call_string</code>, simply remove the
-data argument (so, it becomes <code>lm(rating ~ .)</code>) and then wrap
-that in a string: <code>'lm(rating ~ .)'</code>. So, here is the full
-call to <code>model_bootstrap</code>:</p>
+<p>[model_bootstrap()] has two required arguments. Consistent with
+tidyverse conventions, its first argument is a dataset,
+<code>data.</code> The second argument is the model object to be
+analyzed. For objects that follow standard R modelling conventions,
+[model_bootstrap()] should be able to automatically recognize and parse
+the model object. So, here is the call to [model_bootstrap()]:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_bootstrap.html">model_bootstrap</a></span><span class="op">(</span></span>
 <span>  <span class="va">attitude</span>, </span>
-<span>  <span class="st">'lm(rating ~ .)'</span>,</span>
+<span>  <span class="va">lm_attitude</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
 <span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>By default, <code>model_bootstrap</code> creates 100 bootstrap
-samples of the provided dataset and creates 100 + 1 models on the data
-(one for each bootstrap sample and then once for the original dataset).
-(However, so that this illustration runs faster, we demonstrate it here
-with only 10 iterations.) Beyond ALE data, it also provides bootstrapped
-overall model statistics (provided through <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance</a></code>)
-and bootstrapped model coefficients (provided through
-<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy</a></code>). Any of the default options for
-<code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance</a></code>, <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy</a></code>, and
-<code><a href="../reference/ale.html">ale::ale</a></code> can be customized, along with defaults for
-<code>model_bootstrap</code>, such as the number of bootstrap
-iterations. You can consult the help file for these details with
-<code><a href="../reference/model_bootstrap.html">help(model_bootstrap)</a></code>.</p>
-<p><code>model_bootstrap</code> returns a list with the following
-elements (depending on values requested in the <code>output</code>
-argument: * model_stats: bootstrapped results from
-<code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance</a></code> * model_coefs: bootstrapped results from
-<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy</a></code> * ale_data: bootstrapped ALE data and plots *
-boot_data: full bootstrap data (not returned by default)</p>
+<p>By default, [model_bootstrap()] creates 100 bootstrap samples of the
+provided dataset and creates 100 + 1 models on the data (one for each
+bootstrap sample and then once for the original dataset). (However, so
+that this illustration runs faster, we demonstrate it here with only 10
+iterations.) Beyond ALE data, it also provides bootstrapped overall
+model statistics (provided through [broom::glance()]) and bootstrapped
+model coefficients (provided through [broom::tidy()]). Any of the
+default options for [broom::glance()], [broom::tidy()], and [ale()] can
+be customized, along with defaults for [model_bootstrap()], such as the
+number of bootstrap iterations. You can consult the help file for these
+details with <code><a href="../reference/model_bootstrap.html">help(model_bootstrap)</a></code>.</p>
+<p>[model_bootstrap()] returns a list with the following elements
+(depending on values requested in the <code>output</code> argument:</p>
+<ul>
+<li>model_stats: bootstrapped results from [broom::glance()]</li>
+<li>model_coefs: bootstrapped results from [broom::tidy()]</li>
+<li>ale_data: bootstrapped ALE data and plots</li>
+<li>boot_data: full bootstrap data (not returned by default)</li>
+</ul>
 <p>Here are the bootstrapped overall model statistics:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">$</span><span class="va">model_stats</span></span>
@@ -429,9 +422,9 @@ other factor had a convincingly meaningful effect on ratings.</li>
 proper bootstrapping is to make meaningful inferences from data
 analysis.</p>
 </div>
-<div class="section level2">
-<h2 id="ale-for-general-additive-models-gam">ALE for general additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-general-additive-models-gam"></a>
-</h2>
+<div class="section level3">
+<h3 id="ale-for-general-additive-models-gam">ALE for general additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-general-additive-models-gam"></a>
+</h3>
 <p>A major limitation of OLS regression is that it models all
 relationships between the x variables and y as straight lines. But it is
 unlikely that all relationships are truly linear. OLS cannot accurately
@@ -504,8 +497,7 @@ bootstrapping will give us.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_bootstrap.html">model_bootstrap</a></span><span class="op">(</span></span>
 <span>  <span class="va">attitude</span>, </span>
-<span>  <span class="st">'mgcv::gam(rating ~ complaints + privileges + s(learning) +</span></span>
-<span><span class="st">               raises + s(critical) + advance)'</span>, </span>
+<span>  <span class="va">gam_attitude</span>, </span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
 <span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  <span class="op">)</span></span>
@@ -549,6 +541,90 @@ any effect at all.</li>
 small (only 30 rows). A dataset even double that size might show
 significant effects at least for complaints, if not for other
 variables.</p>
+</div>
+<div class="section level2">
+<h2 id="model_call_string-argument-for-non-standard-models">
+<code>model_call_string</code> argument for non-standard models<a class="anchor" aria-label="anchor" href="#model_call_string-argument-for-non-standard-models"></a>
+</h2>
+<p>[model_bootstrap()] accesses the model object and internally modifies
+it to retrain the model on bootstrapped datasets. It should be able to
+automatically manipulate most R model objects that are used for
+statistical analysis. However, if an object does not follow standard
+conventions for R model objects, [model_bootstrap()] might not be able
+to manipulate it. If so, the function will fail early with an
+appropriate error message. In that case, the user must specify the
+<code>model_call_string</code> argument with a character string of the
+full call for the model with <code>boot_data</code> as the data argument
+for the call. (<code>boot_data</code> is a placeholder for the bootstrap
+datasets that [model_bootstrap()] will internally work with.)</p>
+<p>To show how this works, let’s pretend that the <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">mgcv::gam</a></code>
+object needs such special treatment. To construct, the
+<code>model_call_string</code>, we must first execute the model and make
+sure that it works. We did that earlier but we repeat it here for this
+demonstration</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gam_attitude_again</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">learning</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                                  <span class="va">raises</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">critical</span><span class="op">)</span> <span class="op">+</span> <span class="va">advance</span>,</span>
+<span>                                data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_attitude_again</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Family: gaussian </span></span>
+<span><span class="co">#&gt; Link function: identity </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Formula:</span></span>
+<span><span class="co">#&gt; rating ~ complaints + privileges + s(learning) + raises + s(critical) + </span></span>
+<span><span class="co">#&gt;     advance</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Parametric coefficients:</span></span>
+<span><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) 36.97245   11.60967   3.185 0.004501 ** </span></span>
+<span><span class="co">#&gt; complaints   0.60933    0.13297   4.582 0.000165 ***</span></span>
+<span><span class="co">#&gt; privileges  -0.12662    0.11432  -1.108 0.280715    </span></span>
+<span><span class="co">#&gt; raises       0.06222    0.18900   0.329 0.745314    </span></span>
+<span><span class="co">#&gt; advance     -0.23790    0.14807  -1.607 0.123198    </span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
+<span><span class="co">#&gt;               edf Ref.df     F p-value  </span></span>
+<span><span class="co">#&gt; s(learning) 1.923  2.369 3.761  0.0312 *</span></span>
+<span><span class="co">#&gt; s(critical) 2.296  2.862 3.272  0.0565 .</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; R-sq.(adj) =  0.776   Deviance explained = 83.9%</span></span>
+<span><span class="co">#&gt; GCV = 47.947  Scale est. = 33.213    n = 30</span></span></code></pre></div>
+<p>Once we’re sure that the model call works, then the
+<code>model_call_string</code> is constructed with three simple
+steps:</p>
+<ol style="list-style-type: decimal">
+<li>Wrap the entire call (everything to the right of the assignment
+operator <code>&lt;-</code>) in quotes.</li>
+<li>Replace the dataset in the data argument with
+<code>boot_data</code>.</li>
+<li>Pass the quoted string to [model_bootstrap()] as the
+<code>model_call_string</code> argument (the argument must be explicitly
+named).</li>
+</ol>
+<p>So, here is the form of the call to [model_bootstrap()] for a
+non-standard model object type:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mb_gam_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_bootstrap.html">model_bootstrap</a></span><span class="op">(</span></span>
+<span>  <span class="va">attitude</span>,</span>
+<span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(rating ~ complaints + privileges + s(learning) +</span></span>
+<span><span class="st">                                  raises + s(critical) + advance,</span></span>
+<span><span class="st">                                data = boot_data)'</span>, </span>
+<span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">mb_gam_non_standard</span><span class="op">$</span><span class="va">model_stats</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
+<span><span class="co">#&gt;   name        estimate conf.low  mean median conf.high    sd</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df              14.4     8.18  14.4   14.5      20.5  4.62</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual     15.6     9.45  15.6   15.5      21.8  4.62</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs            30      30     30     30        30    0</span></span></code></pre></div>
+<p>Everything else works as normal.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

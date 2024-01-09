@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20231101</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,9 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">model_bootstrap</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
-<span>  <span class="va">model_call_string</span>,</span>
+<span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  boot_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -83,19 +84,26 @@
 <dd><p>dataframe. Dataset that will be bootstrapped.</p></dd>
 
 
-<dt>model_call_string</dt>
-<dd><p>character. Character string of the full call for the model,
-except that the data option must be left out. The data option will be replaced with the <code>data</code> argument.</p></dd>
+<dt>model</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>...</dt>
 <dd><p>not used. Inserted to require explicit naming of subsequent arguments.</p></dd>
 
 
+<dt>model_call_string</dt>
+<dd><p>character string. If NULL, <code>model_bootstrap()</code> tries to
+automatically detect and construct the call for bootstrapped datasets. If it cannot, the
+function will fail early. In that case, a character string of the full call
+for the model must be provided that includes <code>boot_data</code> as the data argument for the call.
+See examples.</p></dd>
+
+
 <dt>boot_it</dt>
 <dd><p>integer from 0 to Inf. Number of bootstrap iterations.
 If boot_it = 0, then the model is run as normal once on the full <code>data</code> with
-no bootstrap.</p></dd>
+no bootstrapping.</p></dd>
 
 
 <dt>seed</dt>
@@ -110,7 +118,7 @@ interval, that is, from the 2.5% to the 97.5% percentile.</p></dd>
 
 
 <dt>boot_centre</dt>
-<dd><p>See documentation for <code>ale</code></p></dd>
+<dd><p>See See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>output</dt>
@@ -125,12 +133,13 @@ except if included in this <code>output</code> argument.</p></li>
 
 <dt>ale_options, tidy_options, glance_options</dt>
 <dd><p>list of named arguments.
-Arguments to pass to the <code>ale</code>, <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy</a></code>, or <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance</a></code> functions, respectively,
-beyond (or overriding) the defaults.</p></dd>
+Arguments to pass to the <code><a href="ale.html">ale()</a></code>, <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code>, or <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::glance()</a></code> functions, respectively,
+beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
+statistics, see the details.</p></dd>
 
 
 <dt>silent</dt>
-<dd><p>See documentation for <code>ale</code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -138,21 +147,21 @@ beyond (or overriding) the defaults.</p></dd>
     
 
 <p>list with tibbles of the following elements (depending on values requested in
-the <code>output</code> argument:</p><ul><li><p>model_stats: bootstrapped results from <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance</a></code></p></li>
-<li><p>model_coefs: bootstrapped results from <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy</a></code></p></li>
-<li><p>ale: bootstrapped ALE results</p><ul><li><p>data: ALE data (see <code>ale</code> for details about the format)</p></li>
+the <code>output</code> argument:</p><ul><li><p>model_stats: bootstrapped results from <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::glance()</a></code></p></li>
+<li><p>model_coefs: bootstrapped results from <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code></p></li>
+<li><p>ale: bootstrapped ALE results</p><ul><li><p>data: ALE data (see <code><a href="ale.html">ale()</a></code> for details about the format)</p></li>
 <li><p>stats: ALE statistics. The same data is duplicated with different views
 that might be variously useful. The column</p><ul><li><p>by_term: statistic, estimate, conf.low, median, mean, conf.high.
 ("term" means variable name.)
 The column names are compatible with the <code>broom</code> package. The confidence intervals
-are based on the <code>ale</code> function defaults; they can be changed with the
+are based on the <code><a href="ale.html">ale()</a></code> function defaults; they can be changed with the
 <code>ale_options</code> argument. The estimate is the median or the mean, depending
 on the <code>boot_centre</code> argument.</p></li>
 <li><p>by_statistic: term, estimate, conf.low, median, mean, conf.high.</p></li>
 <li><p>estimate: term, then one column per statistic Provided with the default
 estimate. This view does not present confidence intervals.</p></li>
 </ul></li>
-<li><p>plots: ALE plots (see <code>ale</code> for details about the format)</p></li>
+<li><p>plots: ALE plots (see <code><a href="ale.html">ale()</a></code> for details about the format)</p></li>
 </ul></li>
 <li><p>boot_data: full bootstrap data (not returned by default)</p></li>
 <li><p>other values: the <code>boot_it</code>, <code>seed</code>, <code>boot_alpha</code>, and <code>boot_centre</code> arguments that
@@ -163,20 +172,33 @@ were originally passed are returned for reference.</p></li>
     <p>No modelling results, with or without ALE, should be considered reliable without
 being bootstrapped.
 For large datasets with clear separation between training and testing samples,
-<code>ale</code> bootstraps the ALE results of the test data. However, when a dataset
+<code><a href="ale.html">ale()</a></code> bootstraps the ALE results of the test data. However, when a dataset
 is too small to be subdivided into training and test sets, then the entire
 model should be bootstrapped. That is, multiple models should be trained,
 one on each bootstrap sample. The reliable results are the average results
 of all the bootstrap models, however many there are. For details, see
 the vignette on small datasets or the details and examples below.</p>
-<p><code>model_bootstrap</code> automatically carries out full-model bootstrapping suitable
+<p><code>model_bootstrap()</code> automatically carries out full-model bootstrapping suitable
 for small datasets. Specifically, it:</p><ul><li><p>Creates multiple bootstrap samples (default 100; the user can specify any number);</p></li>
 <li><p>Creates a model on each bootstrap sample;</p></li>
 <li><p>Calculates model overall statistics, variable coefficients, and ALE values
 for each model on each bootstrap sample;</p></li>
 <li><p>Calculates the mean, median, and lower and upper confidence intervals for
 each of those values across all bootstrap samples.</p></li>
-</ul></div>
+</ul><p><strong>P-values</strong>
+The <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code> summary statistics will provide p-values as normal, but the
+situation is somewhat complicated with p-values for ALE statistics. The challenge
+is that the procedure for obtaining their p-values is very slow: it involves
+retraining the model 1000 times. Thus, it is not efficient to calculate p-values
+on every execution of <code>model_bootstrap()</code>. Although the <code><a href="ale.html">ale()</a></code> function provides
+an 'auto' option for creating p-values,
+that option is disabled in <code>model_bootstrap()</code> because it would be far too slow:
+it would involve retraining the model 1000 times the number of bootstrap iterations.
+Rather, you must first create a p-values function object using the procedure
+described in <code><a href="create_p_funs.html">help(create_p_funs)</a></code>. If the name of your p-values object is
+<code>p_funs</code>, you can then request p-values each time you run <code>model_bootstrap()</code>
+by passing it the argument <code>ale_options = list(p_values = p_funs)</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Okoli, Chitu. 2023.
@@ -260,11 +282,23 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="co"># Increase value of boot_it for more realistic results</span></span></span>
 <span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">model_bootstrap</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">attitude</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'mgcv::gam(rating ~ complaints + privileges + s(learning) +</span></span></span>
-<span class="r-in"><span><span class="st">               raises + s(critical) + advance)'</span>,</span></span>
+<span class="r-in"><span>  <span class="va">gam_attitude</span>,</span></span>
 <span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">3</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating and analyzing models <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># If the model is not standard, supply model_call_string with</span></span></span>
+<span class="r-in"><span><span class="co"># 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])</span></span></span>
+<span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">model_bootstrap</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">attitude</span>,</span></span>
+<span class="r-in"><span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span></span>
+<span class="r-in"><span><span class="st">    rating ~ complaints + privileges + s(learning) +</span></span></span>
+<span class="r-in"><span><span class="st">      raises + s(critical) + advance,</span></span></span>
+<span class="r-in"><span><span class="st">    data = boot_data</span></span></span>
+<span class="r-in"><span><span class="st">  )'</span>,</span></span>
+<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Model statistics and coefficients</span></span></span>
 <span class="r-in"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_stats</span></span></span>
@@ -281,7 +315,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> s(learning)     8.21     7.39  8.21   8.36      8.91     0.813</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> s(critical)     4.12     1.29  4.12   5.64      5.66     2.65 </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Plot ALE</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="model_bootstrap-1.png" alt="" width="700" height="433"></span>

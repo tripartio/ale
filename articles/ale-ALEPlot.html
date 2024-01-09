@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20231101</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Comparison between `ALEPlot` and `ale` packages</h1>
+                        <h4 data-toc-skip class="author">Chitu
+Okoli</h4>
             
+            <h4 data-toc-skip class="date">October 24, 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-ALEPlot.Rmd" class="external-link"><code>vignettes/ale-ALEPlot.Rmd</code></a></small>
       <div class="d-none name"><code>ale-ALEPlot.Rmd</code></div>
@@ -312,8 +315,8 @@ slightly different, it is because they are randomly jittered to avoid
 overplotting.)</p>
 <p>The <code>ale</code> also produces interaction plots. Unlike
 <code>ALEPlot</code>, it does so with a separate dedicated function,
-<code>ale_ixn</code>. By default, it calculates all possible two-way
-interactions between all variables in the data.</p>
+[ale_ixn()]. By default, it calculates all possible two-way interactions
+between all variables in the data.</p>
 <p>Because the variables interact with each other, the output data
 structure is a two-layer list, so the print code is slightly more
 complicated. However, the sample code we provide here using functions
@@ -323,7 +326,7 @@ application.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and plot interactions</span></span>
 <span><span class="va">nn_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■                       </span>  25% |  ETA:  1s</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">nn_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
