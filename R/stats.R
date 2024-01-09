@@ -164,6 +164,10 @@
 #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
 #' gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 #' }
+#'
+#'
+#' @importFrom glue glue
+#'
 create_p_funs <- function(
     training_data,
     test_data,
@@ -178,6 +182,7 @@ create_p_funs <- function(
     silent = FALSE,
     .testing_mode = FALSE
 ) {
+
   # Validate arguments
 
   assert_that(training_data |> inherits('data.frame'))
@@ -245,6 +250,17 @@ create_p_funs <- function(
   assert_that(is.flag(silent))
 
 
+  # Hack to prevent devtools::check from thinking that masked variables are global:
+  # Make them null local variables within the function with the issues. So,
+  # when masking applies, the masked variables will be prioritized over these null
+  # local variables.
+
+  # This super-assignment might be problematic. See this tip from ChatGPT to resolve it:
+  # https://chat.openai.com/c/08b68562-c339-4c37-baab-3c71d2e9fb73
+  .rand_model <<- NULL
+  .rand_test <<- NULL
+  .rand_train <<- NULL
+
 
 
   # Determine the closest distribution of the residuals
@@ -294,7 +310,7 @@ create_p_funs <- function(
       else {  # use the automatically detected model call
         # Update the model to call to add .random_variable and to train on .rand_train
         model_call$formula <- model_call$formula |>
-          update.formula(~ . + .random_variable)
+          stats::update.formula(~ . + .random_variable)
         model_call$data <- .rand_train
 
         .rand_model <<- eval(model_call)
@@ -314,11 +330,11 @@ create_p_funs <- function(
       .rand_ale
     })
 
-  ale_y_norm <- ale:::create_ale_y_norm_function(test_data[[y_col]])
+  ale_y_norm <- create_ale_y_norm_function(test_data[[y_col]])
 
   rand_stats <-
     map(rand_ales, \(.rand) {
-      ale:::ale_stats(
+      ale_stats(
         ale_y = .rand$data$.random_variable$ale_y,
         ale_n = .rand$data$.random_variable$ale_n,
         ale_y_norm_fun = ale_y_norm,
@@ -336,11 +352,11 @@ create_p_funs <- function(
 
         # For aler_min and naler_min, the p-value is the simple ECDF
         if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
-          ecdf(.stat_vals)(x)
+          stats::ecdf(.stat_vals)(x)
         }
         # For other statistics, the p-value is 1 - ECDF.
         else {
-          1 - ecdf(.stat_vals)(x)
+          1 - stats::ecdf(.stat_vals)(x)
         }
       }
     }
@@ -361,13 +377,13 @@ create_p_funs <- function(
         if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
           .stat_vals |>
             quantile(probs = p) |>
-            setNames(p)
+            stats::setNames(p)
         }
         # For other statistics, the value is the quantile of 1 - p
         else {
           .stat_vals |>
             quantile(probs = 1 - p) |>
-            setNames(p)
+            stats::setNames(p)
         }
       }
     }
@@ -383,7 +399,7 @@ create_p_funs <- function(
 
   # Set S3 class information for the p_funs object
   class(p_funs) <- c('p_funs', 'ale', 'list')
-  attr(p_funs, 'ale_version') <- packageVersion('ale')
+  attr(p_funs, 'ale_version') <- utils::packageVersion('ale')
 
   return(p_funs)
 

@@ -12,15 +12,15 @@ ale_ixn(
   y_col = NULL,
   ...,
   output = c("plots", "data"),
-  pred_fun = function(object, newdata) {
-     stats::predict(object = object, newdata =
-    newdata, type = pred_type)
+  pred_fun = function(object, newdata, type = pred_type) {
+     stats::predict(object =
+    object, newdata = newdata, type = type)
  },
   pred_type = "response",
   x_intervals = 100,
   relative_y = "median",
   y_type = NULL,
-  median_band = 0.05,
+  median_band = c(0.05, 0.5),
   rug_sample_size = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
@@ -31,9 +31,9 @@ ale_ixn(
 )
 }
 \arguments{
-\item{data}{See documentation for \code{ale}}
+\item{data}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{model}{See documentation for \code{ale}}
+\item{model}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{x1_cols, x2_cols}{character. Vectors of column names from \code{data} for which
 two-way interaction ALE data is to be calculated. ALE data will be calculated
@@ -41,25 +41,25 @@ for each x1 column interacting with each x2 column. x1_cols can be of any standa
 datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 \code{ixn} is TRUE, then both values must be provided.}
 
-\item{y_col}{See documentation for \code{ale}}
+\item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{output}{See documentation for \code{ale}}
+\item{output}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{pred_fun, pred_type}{See documentation for \code{ale}}
+\item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{x_intervals}{See documentation for \code{ale}}
+\item{x_intervals}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{relative_y}{See documentation for \code{ale}}
+\item{relative_y}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{y_type}{See documentation for \code{ale}}
+\item{y_type}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{median_band}{See documentation for \code{ale}}
+\item{median_band}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{ale}}
+\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{ale_xs}{See documentation for \code{ale}}
+\item{ale_xs}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{n_x1_int, n_x2_int}{positive scalar integer. Number of intervals
 for the x1 or x2 axes respectively for interaction plot. These values are
@@ -68,7 +68,7 @@ ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
 \item{n_y_quant}{positive scalar integer. Number of intervals over which the range
 of y values is divided for the colour bands of the interaction plot. See details.}
 
-\item{silent}{See documentation for \code{ale}}
+\item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 }
 \value{
 list of ALE interaction data tibbles and plots.
@@ -82,14 +82,15 @@ the \code{output} argument.
 }
 \description{
 This is the central function that manages the creation of ALE data and plots
-for two-way ALE interactions. For simple one-way ALE, see \code{ale}.
+for two-way ALE interactions. For simple one-way ALE, see \code{\link[=ale]{ale()}}.
 See documentation there for functionality shared between both functions.
 For details, see the introductory vignette for this package or the details and examples below.
 
 For the plots, \code{n_y_quant} is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:
 \itemize{
-\item The middle quantile is the \code{median_band} confidence interval around the median.
+\item The middle quantile is the first confidence interval of \code{median_band}
+(\code{median_band[1]}) around the median.
 This middle quantile is special because it generally represents no meaningful
 interaction.
 \item The quantiles above and below the middle are extended from the borders of

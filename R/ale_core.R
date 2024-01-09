@@ -200,6 +200,9 @@
 #'
 #' }
 #'
+#'
+#' @importFrom glue glue
+#'
 ale <- function (
     data,
     model,

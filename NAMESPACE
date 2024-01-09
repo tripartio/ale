@@ -2,11 +2,13 @@
 
 export(ale)
 export(ale_ixn)
+export(create_p_funs)
 export(model_bootstrap)
 import(assertthat)
 import(dplyr)
 import(ggplot2)
 import(purrr)
+importFrom(glue,glue)
 importFrom(stats,median)
 importFrom(stats,quantile)
 importFrom(stats,sd)

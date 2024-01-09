@@ -50,7 +50,8 @@
 #' @param model_call_string character string. If NULL, [model_bootstrap()] tries to
 #' automatically detect and construct the call for bootstrapped datasets. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
-#' for the model must be provided that includes `boot_data` as the data argument for the call. See examples
+#' for the model must be provided that includes `boot_data` as the data argument for the call.
+#' See examples.
 # Future arguments:
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * pred_fun,pred_type: allows the prediction function to be called; this would
@@ -127,7 +128,7 @@
 #'   attitude,
 #'   model_call_string = 'mgcv::gam(
 #'     rating ~ complaints + privileges + s(learning) +
-#'       raises + s(critical) + advance),
+#'       raises + s(critical) + advance,
 #'     data = boot_data
 #'   )',
 #'   boot_it = 3
@@ -255,14 +256,15 @@ model_bootstrap <- function (
   ale_y <- NULL
   ale_y_mean <- NULL
   ale_y_median <- NULL
-  it <- NULL
-  name <- NULL
-  value <- NULL
-  term <- NULL
-  estimate <- NULL
-  statistic <- NULL
   aled <- NULL
+  estimate <- NULL
+  it <- NULL
   naler_max <- NULL
+  name <- NULL
+  p.value <- NULL
+  statistic <- NULL
+  term <- NULL
+  value <- NULL
 
 
   # Create bootstrap tbl

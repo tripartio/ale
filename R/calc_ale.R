@@ -60,10 +60,11 @@ calc_ale <- function(
   # local variables.
   `:=` <- NULL
   ale_y <- NULL
-  Var1 <- NULL
-  Freq <- NULL
-  statistic <- NULL
   estimate <- NULL
+  Freq <- NULL
+  p.value <- NULL
+  statistic <- NULL
+  Var1 <- NULL
 
 
 
