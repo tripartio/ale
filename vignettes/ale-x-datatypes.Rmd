@@ -1,7 +1,7 @@
 ---
 title: "ale function handling of various datatypes for x"
 author: "Chitu Okoli"
-date: "October 24, 2023"
+date: "January 9, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ale function handling of various datatypes for x}
@@ -16,12 +16,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+
+We begin by loading the necessary libraries.
+
+```{r load libraries}
 library(ale)
 library(dplyr)
 ```
-
-This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
 ## `var_cars`: modified `mtcars` dataset (Motor Trend Car Road Tests)
 

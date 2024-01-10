@@ -16,10 +16,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r general setup}
-library(dplyr)
-```
-
 The [`ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot) is the reference implementation of the brilliant idea of [accumulated local effects (ALE) by Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377). However, it has not been updated since 2018. The [`ale` package](ale-intro.html "Introduction to the ale package") attempts to rewrite and extend the original base work.
 
 In developing the `ale` package, we must ensure that we correctly implement the original ALE algorithm while extending it. Indeed, some permanent unit tests call `ALEPlot` to make sure that `ale` provides identical results for identical inputs. We thought that presenting some of these comparisons as a vignette might be helpful. We focus here on the [examples from the `ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) so that results are directly comparable.
@@ -34,6 +30,14 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 One notable difference between the two packages is that the `ale` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `ALEPlot` or other implementations.
 
 In each section here, we cover an example from `ALEPlot` and then reimplement it with `ale`.
+
+We begin by loading the necessary libraries.
+
+```{r load libraries}
+library(dplyr)
+```
+
+
 
 ## Simulated data with numeric outcomes (ALEPlot Example 2)
 
