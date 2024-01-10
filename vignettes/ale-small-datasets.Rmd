@@ -85,7 +85,7 @@ This visualization confirms what we see in the model coefficients above: complai
 
 What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
 
-We can use [ale_ixn()] to visualize the possible existence of any interactions:
+We can use `ale_ixn()` to visualize the possible existence of any interactions:
 
 ```{r lm_ixn, fig.width=7, fig.height=7}
 ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude)
@@ -103,14 +103,14 @@ This is a powerful use-case for the `ale` package: it can be used to explore the
 
 We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets with clear separation between training and testing samples, `ale` bootstraps the ALE results of the test data. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
 
-The [model_bootstrap()] function automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
+The `model_bootstrap()` function automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
 
 -   Creates multiple bootstrap samples (default 100; the user can specify any number);
 -   Creates a model on each bootstrap sample;
 -   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 -   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 
-[model_bootstrap()] has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument is the model object to be analyzed. For objects that follow standard R modelling conventions, [model_bootstrap()] should be able to automatically recognize and parse the model object. So, here is the call to [model_bootstrap()]:
+`model_bootstrap()` has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument is the model object to be analyzed. For objects that follow standard R modelling conventions, `model_bootstrap()` should be able to automatically recognize and parse the model object. So, here is the call to `model_bootstrap()`:
 
 ```{r lm_full_call}
 mb_lm <- model_bootstrap(
@@ -121,14 +121,14 @@ mb_lm <- model_bootstrap(
 )
 ```
 
-By default, [model_bootstrap()] creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through [broom::glance()]) and bootstrapped model coefficients (provided through [broom::tidy()]). Any of the default options for [broom::glance()], [broom::tidy()], and [ale()] can be customized, along with defaults for [model_bootstrap()], such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
+By default, `model_bootstrap()` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance()`) and bootstrapped model coefficients (provided through `broom::tidy()`). Any of the default options for `broom::glance()`, `broom::tidy()`, and `ale()` can be customized, along with defaults for `model_bootstrap()`, such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
 
-[model_bootstrap()] returns a list with the following elements (depending on values requested in the `output` argument:
+`model_bootstrap()` returns a list with the following elements (depending on values requested in the `output` argument:
 
-* model_stats: bootstrapped results from [broom::glance()]
-* model_coefs: bootstrapped results from [broom::tidy()]
-* ale_data: bootstrapped ALE data and plots
-* boot_data: full bootstrap data (not returned by default)
+* `model_stats`: bootstrapped results from `broom::glance()`
+* `model_coefs`: bootstrapped results from `broom::tidy()`
+* `ale_data`: bootstrapped ALE data and plots
+* `boot_data`: full bootstrap data (not returned by default)
 
 Here are the bootstrapped overall model statistics:
 
@@ -211,7 +211,7 @@ No doubt, the inconclusive results are because the dataset is so small (only 30 
 
 # `model_call_string` argument for non-standard models
 
-[model_bootstrap()] accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow standard conventions for R model objects, [model_bootstrap()] might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the `model_call_string` argument with a character string of the full call for the model with `boot_data` as the data argument for the call. (`boot_data` is a placeholder for the bootstrap datasets that [model_bootstrap()] will internally work with.)
+`model_bootstrap()` accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow standard conventions for R model objects, `model_bootstrap()` might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the `model_call_string` argument with a character string of the full call for the model with `boot_data` as the data argument for the call. (`boot_data` is a placeholder for the bootstrap datasets that `model_bootstrap()` will internally work with.)
 
 To show how this works, let's pretend that the `mgcv::gam` object needs such special treatment. To construct, the `model_call_string`, we must first execute the model and make sure that it works. We did that earlier but we repeat it here for this demonstration
 
@@ -226,9 +226,9 @@ Once we're sure that the model call works, then the `model_call_string` is const
 
 1. Wrap the entire call (everything to the right of the assignment operator `<-`) in quotes.
 2. Replace the dataset in the data argument with `boot_data`.
-3. Pass the quoted string to [model_bootstrap()] as the `model_call_string` argument (the argument must be explicitly named).
+3. Pass the quoted string to `model_bootstrap()` as the `model_call_string` argument (the argument must be explicitly named).
 
-So, here is the form of the call to [model_bootstrap()] for a non-standard model object type:
+So, here is the form of the call to `model_bootstrap()` for a non-standard model object type:
 
 ```{r model_call_string}
 mb_gam_non_standard <- model_bootstrap(
