@@ -1,10 +1,10 @@
 ---
-title: "Analyzing small datasets (<2000 rows) with ALE"
+title: "Analyzing small datasets (fewer than 2000 rows) with ALE"
 author: "Chitu Okoli"
-date: "October 24, 2023"
+date: "January 9, 2024"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Analyzing small datasets (<2000 rows) with ALE}
+  %\VignetteIndexEntry{Analyzing small datasets (fewer than 2000 rows) with ALE}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(ale)
 ```
 
 This vignette demonstrates using the `ale` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
@@ -23,6 +22,12 @@ This vignette demonstrates using the `ale` package on small datasets, as is ofte
 ## What is a "small" dataset?
 
 An obvious question is, "How small is 'small'?" This is a very complex question and it is way beyond the scope of this vignette to try to answer it rigorously. But we can simply say that the key issue at stake is that applying the training-test split that is common in machine learning is a crucial technique for increasing the generalizability of data analysis. So, the question becomes focused to, "How small is too small for a training-test split for machine learning analysis?" The rule of thumb I am familiar with is that machine learning requires at least 200 rows of data for each predictor variable. So, for example, if you have five input variables, you would need at least 1000 rows of data. But note that this does not refer to the size of the entire dataset but to the minimum size of the training subset. So, if you carry out an 80-20 split on the full dataset (that is, 80% training set), then you would need at least 1000 rows for the training set and another 250 rows for the test set, for a minimum of 1250 rows. (And if you carry out hyperparameter tuning with cross validation on that training set, then you need even more data.) If you see where this is headed, you might quickly realize **that most datasets of less than 2000 rows are probably "small"**. You can see that even many datasets that are more than 2000 rows are nonetheless "small", and so probably need the techniques mentioned in this vignette.
+
+We begin by loading the necessary libraries.
+
+```{r load libraries}
+library(ale)
+```
 
 ## attitude dataset
 
