@@ -41,9 +41,9 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `ALEPlot` and `ale` packages</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
     <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
-    <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (&lt;2000 rows) with ALE</a>
+    <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
   </div>
@@ -79,7 +79,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">October 24, 2023</h4>
+            <h4 data-toc-skip class="date">January 9, 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-x-datatypes.Rmd" class="external-link"><code>vignettes/ale-x-datatypes.Rmd</code></a></small>
       <div class="d-none name"><code>ale-x-datatypes.Rmd</code></div>
@@ -87,6 +87,11 @@ Okoli</h4>
 
     
     
+<p>This vignette demonstrates how <code>ale</code> works for various
+datatypes of input (x) values. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
+explains general functionality of the package; this vignette is a
+demonstration of specific functionality.</p>
+<p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
@@ -99,10 +104,6 @@ Okoli</h4>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<p>This vignette demonstrates how <code>ale</code> works for various
-datatypes of input (x) values. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
-explains general functionality of the package; this vignette is a
-demonstration of specific functionality.</p>
 <div class="section level2">
 <h2 id="var_cars-modified-mtcars-dataset-motor-trend-car-road-tests">
 <code>var_cars</code>: modified <code>mtcars</code> dataset (Motor
@@ -304,7 +305,7 @@ interactions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cars_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">var_cars</span>, <span class="va">cm</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■     </span>  86% |  ETA:  0s</span></span>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■                  </span>  43% |  ETA:  1s</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">cars_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
@@ -328,9 +329,9 @@ model, not just the ALE data. So, let’s do that now.</p>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_full-1.png" width="672"></p>
-<p>(By default, [model_bootstrap()] creates 100 bootstrap samples but,
-so that this illustration runs faster, we demonstrate it here with only
-10 iterations.)</p>
+<p>(By default, <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> creates 100 bootstrap
+samples but, so that this illustration runs faster, we demonstrate it
+here with only 10 iterations.)</p>
 <p>With such a small dataset, the bootstrap confidence interval always
 overlap with the middle band, indicating that this dataset cannot
 support any claims that any of its variables has a meaningful effect on

@@ -41,9 +41,9 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `ALEPlot` and `ale` packages</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
     <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
-    <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (&lt;2000 rows) with ALE</a>
+    <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
   </div>
@@ -79,7 +79,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">January 3, 2024</h4>
+            <h4 data-toc-skip class="date">January 9, 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-statistics.Rmd" class="external-link"><code>vignettes/ale-statistics.Rmd</code></a></small>
       <div class="d-none name"><code>ale-statistics.Rmd</code></div>
@@ -87,8 +87,20 @@ Okoli</h4>
 
     
     
+<p>Accumulated local effects (ALE) was developed by <a href="https://www.doi.org/10.1111/rssb.12377" class="external-link">Daniel Apley and Jingyu
+Zhu</a> as a global explanation approach for interpretable machine
+learning (IML). However, the <a href="ale-intro.html"><code>ale</code>
+package</a> aims to extend it for statistical inference, among other
+extensions. This vignette presents the initial effort at extending ALE
+for statistical inference. In particular, we present some effect size
+measures specific to ALE. We introduce these statistics in detail in a
+working paper: Okoli, Chitu. 2023. “Statistical Inference Using Machine
+Learning and Classical Techniques Based on Accumulated Local Effects
+(ALE).” arXiv. <a href="https://doi.org/10.48550/arXiv.2310.09877" class="external-link uri">https://doi.org/10.48550/arXiv.2310.09877</a>. Please note
+that they might be further refined after peer review.</p>
+<p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>  <span class="co"># for datasets and for gam function</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>   <span class="co"># for datasets and for the gam function</span></span>
 <span><span class="co">#&gt; Loading required package: nlme</span></span>
 <span><span class="co">#&gt; This is mgcv 1.9-0. For overview type 'help("mgcv-package")'.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data manipulation</span></span>
@@ -105,17 +117,6 @@ Okoli</h4>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span></code></pre></div>
-<p>Accumulated local effects (ALE) was developed by <a href="https://www.doi.org/10.1111/rssb.12377" class="external-link">Daniel Apley and Jingyu
-Zhu</a> as a global explanation approach for interpretable machine
-learning (IML). However, the <a href="ale-intro.html"><code>ale</code>
-package</a> aims to extend it for statistical inference, among other
-extensions. This vignette presents the initial effort at extending ALE
-for statistical inference. In particular, we present some effect size
-measures specific to ALE. We introduce these statistics in detail in a
-working paper: Okoli, Chitu. 2023. “Statistical Inference Using Machine
-Learning and Classical Techniques Based on Accumulated Local Effects
-(ALE).” arXiv. <a href="https://doi.org/10.48550/arXiv.2310.09877" class="external-link uri">https://doi.org/10.48550/arXiv.2310.09877</a>. Please note
-that they might be further refined after peer review.</p>
 <div class="section level2">
 <h2 id="example-dataset">Example dataset<a class="anchor" aria-label="anchor" href="#example-dataset"></a>
 </h2>
@@ -280,17 +281,18 @@ students in each school. Here are its descriptive statistics:</p>
 </h2>
 <p>Now we create a model and compute statistics on it. Because this is a
 <a href="ale-small-datasets.html">relatively small dataset</a>, we will
-carry out full model bootstrapping using the [model_bootstrap()]
-function. We create a generalized additive model (GAM) so that we can
-capture non-linear relationships in the data.</p>
-<p>By default, [model_bootstrap()] runs 100 bootstrap iterations; this
-can be controlled with the <code>boot_it</code> argument. Bootstrapping
-is usually rather slow, even on small datasets, since the entire process
-is repeated that many times. The default of 100 should be sufficiently
-stable for model building, when you would want to run the bootstrapped
-algorithm several times and you do not want it to be too slow each time.
-For definitive conclusions, you could run 1,000 bootstraps or more to
-confirm the results of 100 bootstraps.</p>
+carry out full model bootstrapping using the
+<code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> function. We create a generalized
+additive model (GAM) so that we can capture non-linear relationships in
+the data.</p>
+<p>By default, <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> runs 100 bootstrap
+iterations; this can be controlled with the <code>boot_it</code>
+argument. Bootstrapping is usually rather slow, even on small datasets,
+since the entire process is repeated that many times. The default of 100
+should be sufficiently stable for model building, when you would want to
+run the bootstrapped algorithm several times and you do not want it to
+be too slow each time. For definitive conclusions, you could run 1,000
+bootstraps or more to confirm the results of 100 bootstraps.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>     <span class="va">math_avg</span> <span class="op">~</span> <span class="va">public</span> <span class="op">+</span> <span class="va">high_minority</span> <span class="op">+</span></span>
@@ -329,15 +331,15 @@ in the row.</li>
 <code>estimate</code> is the bootstrapped estimate of the statistic.
 It is the same as the bootstrap <code>mean</code> by default, though it
 can be set to the <code>median</code> with the <code>boot_centre</code>
-argument of [model_bootstrap()]. Regardless, both the <code>mean</code>
-and <code>median</code> estimates are always returned. The
-<code>estimate</code> column is provided for convenience since that is a
-standard name in the <code>broom</code> package.</li>
+argument of <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code>. Regardless, both the
+<code>mean</code> and <code>median</code> estimates are always returned.
+The <code>estimate</code> column is provided for convenience since that
+is a standard name in the <code>broom</code> package.</li>
 <li>
 <code>conf.low</code> and <code>conf.high</code> are the lower and
-upper confidence intervals respectively. [model_bootstrap()] defaults to
-a 95% confidence interval; this can be changed by setting the
-<code>boot_alpha</code> argument (the default is 0.05 for a 95%
+upper confidence intervals respectively. <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code>
+defaults to a 95% confidence interval; this can be changed by setting
+the <code>boot_alpha</code> argument (the default is 0.05 for a 95%
 confidence interval).</li>
 <li>
 <code>sd</code> is the standard deviation of the bootstrapped
