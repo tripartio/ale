@@ -31,8 +31,9 @@
 #
 #
 #  @import dplyr
-#  @import purrr
 #  @import ggplot2
+#  @importFrom glue glue
+#  @import purrr
 #
 plot_ale <- function(
     ale_data, x_col, y_col, y_type,
@@ -144,7 +145,11 @@ plot_ale <- function(
       )
     ) +
     theme(axis.text.y.right = element_text(size = 6)) +
-    labs(x = x_col, y = y_col)
+    labs(
+      x = x_col,
+      y = y_col,
+      alt = glue('ALE plot of {y_col} against {x_col}')
+    )
 
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
@@ -282,9 +287,10 @@ plot_ale <- function(
 # @param seed See documentation for [ale()]
 #
 #
-# @import dplyr
-# @import purrr
-# @import ggplot2
+#  @import dplyr
+#  @import ggplot2
+#  @importFrom glue glue
+#  @import purrr
 #
 plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
@@ -442,10 +448,15 @@ plot_ale_ixn <- function(
       labels = y_legend,
     ) +
     labs(
-      x = x1_col, y = x2_col,
-      fill = paste0(y_col, ' interaction')
+      x = x1_col,
+      y = x2_col,
+      fill = paste0(y_col, ' interaction'),
+      alt = glue(
+        'ALE interaction plot of {y_col} encoded as contours of its interaction ',
+        'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
+      )
     ) +
-    theme(legend.title = element_text(size = 10)) +
+  theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
 
@@ -622,8 +633,12 @@ plot_effects <- function(
     estimates |>
     ggplot(aes(y = term)) +
     theme_bw() +
-    ylab(NULL) +
-    # Set the outcome (y) variable on the x axis
+    # ylab(NULL) +
+    labs(
+      y = NULL,
+      alt = glue('ALE effects plot for {y_col}')
+    ) +
+  # Set the outcome (y) variable on the x axis
     scale_x_continuous(
       name = paste0(y_col, ' (ALER and ALED)'),
       # Set allowable data limits to extremes of either y_vals or ALER
