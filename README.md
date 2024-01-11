@@ -117,11 +117,6 @@ With a test dataset and a model object, we can create ALE data with the
 ``` r
 # Create ALE data and plot it
 ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
-#> Calculating ALE ■ 0% | ETA: ?Calculating ALE ■■■■ 11% | ETA: 4sCalculating ALE
-#> ■■■■■■■■ 22% | ETA: 2sCalculating ALE ■■■■■■■■■■■■■■ 44% | ETA: 1sCalculating
-#> ALE ■■■■■■■■■■■■■■■■■■ 56% | ETA: 1sCalculating ALE ■■■■■■■■■■■■■■■■■■■■■ 67% |
-#> ETA: 1sCalculating ALE ■■■■■■■■■■■■■■■■■■■■■■■■ 78% | ETA: 0sCalculating ALE
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 89% | ETA: 0s
 
 
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
