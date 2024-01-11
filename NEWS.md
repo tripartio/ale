@@ -1,6 +1,4 @@
-# `ale` Package Release Notes
-
-## `ale` next version
+# ale (development version)
 
 **Mmmm dd, yyyy**
 
@@ -9,42 +7,42 @@ Summary
 The most significant updates are the addition of p-values for the ALE statistics and the launching of a pkgdown website which will henceforth host the development version of the package.
 
 
-### Breaking changes
+## Breaking changes
 
 One of the key goals for the `ale` package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for `tidymodels` objects and various survival models (but for now, only those that return single-vector predictions). So, **in addition to taking required `object` and `newdata` arguments, the custom predict function `pred_fun` in the [ale()] function now also requires an argument for `type` to specify the prediction type**, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows `ale` to analyze many new model types than before. Code that did not require custom predict functions should not be affected by this change. See the updated documentation of the [ale()] function for details.
 
 Another change that breaks former code is that the arguments for [model_bootstrap()] have been modified. Instead of a cumbersome `model_call_string`, **[model_bootstrap()] now uses the {insight} package to automatically detect many R models and directly manipulate the model object as needed**. So, the second argument is now the `model` object. However, for non-standard models that {insight} cannot automatically parse, a modified `model_call_string` is still available to assure model-agnostic functionality. Although this change breaks former code that ran [model_bootstrap()], we believe that the new function interface is much more user-friendly.
 
-### Other user-visible changes
+## Other user-visible changes
 
 -   The package now uses a pkgdown website located at https://tripartio.github.io/ale/. This is where the most recent development features will be documented.
 -   P-values are now provided for all ALE statistics. However, their calculation is very slow, so they are disabled by default; they must be explicitly requested. When requested, they will be automatically calculated when possible (for standard R model types); if not, some additional steps must be taken for their calculation. See the new [create_p_funs()] function for details and an example.
 -   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
 -   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
 
-### Under the hood
+## Under the hood
 
 -   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the `ale` package in general.
 -   Various minor bug fixes.
 
-### Known issues to be addressed in a future version
+## Known issues to be addressed in a future version
 
 -   Bootstrapping is not yet supported for ALE interactions ([ale_ixn()]).
 -   ALE statistics are not yet supported for ALE interactions ([ale_ixn()]).
 -   [ale()] does not yet support multi-output model prediction types (e.g., multi-class classification and multi-time survival probabilities).
 
 
-## ale 0.2.0
+# ale 0.2.0
 
 **October 19, 2023**
 
 This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. A dedicated vignette introduces this functionality (see "ALE-based statistics for statistical inference and effect sizes" from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
-### Breaking changes
+## Breaking changes
 
 -   We changed the output data structure of the ALE data and plots. This was necessary to add ALE statistics. Unfortunately, this change breaks any code that refers to objects created by the initial 0.1.0 version, especially code for printing plots. However, we felt it was necessary because the new structure makes coding in workflows much easier. See the vignettes and examples for code examples for how to print plots using the new structure.
 
-### Other user-visible changes
+## Other user-visible changes
 
 -   We added new **ALE-based statistics: ALED and ALER** with their normalized versions **NALED and NALER**. [ale()] and [model_bootstrap()] now output these statistics. ([ale_ixn()] will come later.)
 -   We added **rug plots** to numeric values and **percentage frequencies** to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.
@@ -56,7 +54,7 @@ This version introduces various ALE-based statistics that let ALE be used for st
 -   **Progress bars** show the progression of the analysis. They can be disabled by passing `silent = TRUE` to [ale()], [ale_ixn()], or [model_bootstrap()].
 -   The user can specify a **random seed** by passing the `seed` argument to [ale()], [ale_ixn()], or [model_bootstrap()].
 
-### Under the hood
+## Under the hood
 
 By far the most extensive changes have been to assure the accuracy and stability of the package from a software engineering perspective. Even though these are not visible to users, they make the package more robust with hopefully fewer bugs. Indeed, the extensive data validation may help users debug their own errors.
 
@@ -67,12 +65,12 @@ By far the most extensive changes have been to assure the accuracy and stability
 -   The code base has been extensively reorganized for more efficient development moving forward.
 -   Numerous bugs have been fixed following internal usage and testing.
 
-### Known issues to be addressed in a future version
+## Known issues to be addressed in a future version
 
 -   Bootstrapping is not yet supported for ALE interactions ([ale_ixn()]).
 -   ALE statistics are not yet supported for ALE interactions ([ale_ixn()]).
 
-## ale 0.1.0
+# ale 0.1.0
 
 **August 29, 2023**
 
@@ -91,5 +89,5 @@ This initial release replicates the full functionality of the {ALEPlot} package 
 This release provides more details in the following vignettes (they are all available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>):
 
 -   Introduction to the `ale` package
--   Analyzing small datasets (\<2000 rows) with ALE
+-   Analyzing small datasets (fewer than 2000 rows) with ALE
 -   [ale()] function handling of various datatypes for x
