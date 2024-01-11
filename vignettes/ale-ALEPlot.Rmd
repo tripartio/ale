@@ -1,10 +1,10 @@
 ---
-title: "Comparison between `{ALEPlot}` and `{ale}` packages"
+title: "Comparison between ALEPlot and ale packages"
 author: "Chitu Okoli"
 date: "January 10, 2024"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Comparison between `{ALEPlot}` and `{ale}` packages}
+  %\VignetteIndexEntry{Comparison between ALEPlot and ale packages}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
