@@ -357,7 +357,7 @@ statistics, which we describe in <a href="ale-statistics.html" title="ALE-based 
 <code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
 <span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
-<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■■■■■■■■■■■■■■                  </span>  44% |  ETA:  3s</span></span></code></pre></div>
+<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■              </span>  56% |  ETA:  2s</span></span></code></pre></div>
 <p>To access the plot for a specific variable, we can call it by its
 variable name as an element of the <code>plots</code> element. These are
 <code>ggplot</code> objects, so they are easy to manipulate. For
@@ -414,7 +414,7 @@ we demonstrate it here with only 10 iterations.</p>
 <code class="sourceCode R"><span><span class="co"># Normally boot_it should be set to 100, but just 10 here for a faster demonstration</span></span>
 <span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">diamonds_small_test</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
-<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■■■■■■■■■■■                     </span>  33% |  ETA:  3s</span></span>
+<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■■■■■■■■■■■■■■                  </span>  44% |  ETA:  2s</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -453,8 +453,9 @@ function: <code><a href="../reference/ale_ixn.html">help(ale_ixn)</a></code>.</p
 <span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
 <span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■                          </span>  17% |  ETA: 22s</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■                     </span>  33% |  ETA: 16s</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■                </span>  50% |  ETA: 10s</span></span></code></pre></div>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■                     </span>  33% |  ETA: 15s</span></span>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■                </span>  50% |  ETA: 10s</span></span>
+<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■           </span>  67% |  ETA:  6s</span></span></code></pre></div>
 <p>Like the <code><a href="../reference/ale.html">ale()</a></code> function, the <code><a href="../reference/ale_ixn.html">ale_ixn()</a></code>
 returns a list with one element per input x1 variable, as well as a
 <code>.common_data</code> element with details about the outcome (y)
