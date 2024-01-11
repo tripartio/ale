@@ -242,27 +242,6 @@ plot_ale <- function(
 # This function is not usually called directly by the user. For details about
 # arguments not documented here, see [ale()].
 #
-# TODO: add rug plots on the x1 and x2 axes.
-# See general considerations at plot_ale.
-# However, the sampling must be stratified for plot_ale_ixn:
-# I must be sure to sample at least one or two cases from each n_x1_int and n_x2_int bin.
-# That way, no bin will be empty unless there is no data at all present in the
-# input test_data.
-#
-# if nrow(data) <= 500
-#   Use all data
-# else
-#   Sample 500 rows of data (x and y)
-#   For this sample, count how many rows fall into each x bin and each y bin
-#   For each x bin with fewer than min_rug_bin elements,
-#     Add in all the elements from such bins (so, final sample may exceed 500)
-#       Actually, first delete all members from such a bin then add them back in; this avoids duplicates
-#   Do the same for each y bin
-#     First deleting, then adding in all members is especially crucial to avoid duplicates at this step.
-#
-# With that, a manageable rug plot should be feasible.
-#
-#
 #
 # @param ale_data tibble. Output data from `calc_ale`.
 # @param x1_col,x2_col character length 1. Name of single x1 and single x2 column
@@ -477,7 +456,10 @@ plot_ale_ixn <- function(
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
       rug_sample(
         rug_data,
-        ale_data$ale_x1,
+        ale_data$x1_quantile |> unique(),
+        ale_data$x2_quantile |> unique(),
+        # ale_data$ale_x1,
+        # ale_data$ale_x2,
         rug_sample_size = rug_sample_size,
         min_rug_per_interval = min_rug_per_interval,
         seed = seed
@@ -505,12 +487,12 @@ plot_ale_ixn <- function(
 }
 
 
-# Downsample x and y rows to match a target sample size while respecting specified
-# intervals in the random sample
+# Downsample x and y rows for a rug plot to match a target sample size
+# while respecting specified intervals in the random sample
 #
 # Not exported. Rug plots are slow with large datasets because each data point
-# must be plotted. `rug_sample` tries to resolve this issue by sampling
-# `rug_sample_size` rows of data maximum (only if the data has more than that
+# must be plotted. [rug_sample()] tries to resolve this issue by sampling
+# `rug_sample_size` rows of data at the most (only if the data has more than that
 # number of lines lines). However, to be representative, the sampling must have
 # at least min_rug_per_interval in each ale_x interval.
 #
@@ -523,7 +505,8 @@ plot_ale_ixn <- function(
 #
 rug_sample <- function(
     x_y,
-    ale_x,
+    x_intervals,
+    y_intervals = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     seed = 0
@@ -544,28 +527,36 @@ rug_sample <- function(
   x_y <- x_y |>
     mutate(
       row = row_number(),
-      # Specify ale_x interval for each x value
-      interval = findInterval(rug_x, ale_x)
+      # Specify intervals for each x- and y-axis value
+      x_interval = findInterval(rug_x, x_intervals |> sort()),
+      # Note: if y_intervals = NULL, then the intervals are all 0 and the code still works
+      y_interval = findInterval(rug_y, y_intervals |> sort()),
     ) |>
-    select(row, rug_x, interval, rug_y)
+    select(row, rug_x, x_interval, rug_y, y_interval)
 
   # rs_idxs: row indexes of the rug sample
-  # First, ensure there are at least min_rug_per_interval rows selected per interval.
+  # First, ensure there are at least min_rug_per_interval rows
+  # selected per x_interval and y_interval.
   set.seed(seed)
   rs_idxs <-
     x_y |>
     summarize(
-      .by = interval,
+      .by = c(x_interval, y_interval),
       row = sample(row, min_rug_per_interval)
     ) |>
     pull(row)
 
-  # Next, add a sample of all the other rows to meet the rug_sample_size target.
-  rs_idxs <- c(
+  # if (x_y$rug_y[1] == 2.62) browser()
+
+  if (length(rs_idxs) < rug_sample_size) {
+  # Add a sample of all the other rows to meet the rug_sample_size target.
+    rs_idxs <- c(
     rs_idxs,
     setdiff(x_y$row, rs_idxs) |>  # don't duplicate any rows already selected
       sample(rug_sample_size - length(rs_idxs))  # only sample enough to match rug_sample_size
   )
+  }
+
 
   return(
     x_y[rs_idxs, ] |>
