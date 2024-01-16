@@ -265,7 +265,8 @@ create_p_funs <- function(
 
   # Determine the closest distribution of the residuals
   # Note that the distribution is determined from the training data, not the test data
-  residuals <- (training_data[[y_col]] - pred_fun(model, training_data, pred_type)) |>
+  residuals <- (training_data[[y_col]] - y_preds) |>
+    # residuals <- (training_data[[y_col]] - pred_fun(model, training_data, pred_type)) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
 
@@ -323,6 +324,9 @@ create_p_funs <- function(
         .rand_model,
         '.random_variable',
         output = 'data',
+        y_col = y_col,
+        pred_fun = pred_fun,
+        pred_type = pred_type,
         silent = TRUE,
         relative_y = 'zero'
       )
