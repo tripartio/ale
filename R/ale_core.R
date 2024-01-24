@@ -48,6 +48,23 @@
 #' `vignette("ale-statistics")`.
 #'
 #'
+#' **Parallel processing**
+#'
+#' Parallel processing using the {furrr} library is enabled by default. By default,
+#' it will use all the available physical
+#' CPU cores (minus the core being used for the current R) with the setting
+#' `parallel = parallel::detectCores(logical = FALSE) - 1`. Note that only
+#' physical cores are used (not logical cores or "hyperthreading") because
+#' machine learning can only take advantage of the floating point processors on
+#' physical cores, which are absent from logical cores. Trying to use logical
+#' cores will not speed up processing and might actually slow it down with useless
+#' data transfer. If you will dedicate
+#' the entire computer to running this function (and you don't mind everything
+#' else becoming very slow while it runs), you may use all cores by setting
+#' `parallel = parallel::detectCores(logical = FALSE)`. To disable parallel
+#' processing, set `parallel = 0`.
+
+#'
 #'
 #'
 #'
@@ -131,6 +148,10 @@
 #' @param silent logical length 1, default FALSE. If TRUE, do not display any
 #' non-essential messages during execution (such as progress bars).
 #' Regardless, any warnings and errors will always display.
+#' @param parallel non-negative integer length 1. Not yet impplemented,
+#'  so currently ignored. When implemented:
+#' Number of parallel threads (workers or tasks)
+#' for parallel execution of the function. See details.
 #'
 #' @return list with elements `data`, `plots`, and `stats` as requested in
 #' the `output` argument. Each of these is a list named by the x variables with
@@ -227,7 +248,8 @@ ale <- function (
     min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
-    silent = FALSE
+    silent = FALSE,
+    parallel = parallel::detectCores(logical = FALSE) - 1
     # ggplot_custom = NULL,
 ) {
   # capture all arguments passed into `ale()` (code thanks to ChatGPT)
@@ -289,6 +311,7 @@ ale <- function (
 #' @param n_y_quant positive scalar integer. Number of intervals over which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
 #' @param silent See documentation for [ale()]
+#' @param parallel See documentation for [ale()]
 #'
 #' @return list of ALE interaction data tibbles and plots.
 #' The list has two levels of depth:
@@ -365,7 +388,8 @@ ale_ixn <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
-    silent = FALSE
+    silent = FALSE,
+    parallel = parallel::detectCores(logical = FALSE) - 1
 ) {
   # capture all arguments passed into [ale_ixn()] (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
@@ -421,6 +445,7 @@ ale_ixn <- function (
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
 # @param silent See documentation for [ale()]
+# @param parallel See documentation for [ale()]
 #
 # @import dplyr
 # @import purrr
@@ -457,7 +482,8 @@ ale_core <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
-    silent = FALSE
+    silent = FALSE,
+    parallel = parallel::detectCores(logical = FALSE) - 1
 )
 {
   # Error if any unlisted argument is used (captured in ...).
