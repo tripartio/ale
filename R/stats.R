@@ -89,7 +89,9 @@
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
 #' test runs.
 #' @param silent See documentation for [ale()]
-#' @param parallel See documentation for [ale()]
+#' @param parallel See documentation for [ale()]. (However, it IS currently
+#' implemented in create_p_funs().)
+#' @param model_packages See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
 #' @return
@@ -165,6 +167,7 @@
 #' ale_gam_diamonds <- ale(
 #'   diamonds_test,
 #'   gam_diamonds,
+#'   parallel = 0,
 #'   p_values = pf_diamonds
 #' )
 #'
@@ -190,6 +193,7 @@ create_p_funs <- function(
     rand_it = 1000,  # iterations of random variables
     silent = FALSE,
     parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     .testing_mode = FALSE
 ) {
 
@@ -262,6 +266,7 @@ create_p_funs <- function(
   }
   assert_that(is.flag(silent))
   assert_that(is.whole(parallel))
+  assert_that(is.character(model_packages))
 
 
   # Hack to prevent devtools::check from thinking that masked variables are global:
@@ -291,14 +296,17 @@ create_p_funs <- function(
   train_n <- nrow(training_data)
   test_n  <- nrow(test_data)
 
-  # Enable parallel processing and set appropriate map function
+  # Enable parallel processing and set appropriate map function.
+  # Because furrr::future_map has an important .options argument absent from
+  # purrr::map, map_loop() is created to unify these two functions.
   if (parallel > 0) {
     future::plan(future::multisession, workers = parallel)
-    map_progress <- furrr::future_map
+    map_loop <- furrr::future_map
   } else {
-    # no parallel processing
-    future::plan(future::sequential)
-    map_progress <- function(..., .options = NULL) {
+    # If no parallel processing, do not set future::plan(future::sequential):
+    # this might interfere with other parallel processing in a larger workflow.
+    # Just do nothing parallel.
+    map_loop <- function(..., .options = NULL) {
       # Ignore the .options argument and pass on everything else
       purrr::map(...)
     }
@@ -311,16 +319,17 @@ create_p_funs <- function(
     '.rand_train', '.rand_test', '.random_variable', '.rand_model', '.rand_ale',
     random_model_call_string_vars
   )
-  .rand_ales <- map_progress(
+  .rand_ales <- map_loop(
     .progress = !silent,  # future_map does not allow messages for .progress
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
-      # transmit any globals in random_model_call_string to the parallel workers
-      # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
+      # transmit any globals and packages in random_model_call_string to the parallel workers
       # globals = structure(TRUE)
+      # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
       # globals = structure(TRUE, add = random_model_call_string_vars)
-      globals = random_model_call_string_vars
+      globals = random_model_call_string_vars,
+      packages = model_packages
     ),
     # .progress = if (!silent) {
     #   list(
@@ -369,6 +378,8 @@ create_p_funs <- function(
         .rand_test,
         .rand_model,
         '.random_variable',
+        # avoid iterative parallelization
+        parallel = 0,
         output = 'data',
         y_col = y_col,
         pred_fun = pred_fun,
@@ -380,9 +391,10 @@ create_p_funs <- function(
       .rand_ale
     })
 
-  # Disable parallel processing
-  future::plan(future::sequential)
-
+  # Disable parallel processing if it had been enabled
+  if (parallel > 0) {
+    future::plan(future::sequential)
+  }
 
   ale_y_norm <- create_ale_y_norm_function(test_data[[y_col]])
 

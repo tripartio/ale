@@ -6,8 +6,39 @@
 # Test numeric outcomes ----------------
 
 test_that(
+  'Parallelized versions do not crash', {
+    # No bootstrap
+    expect_no_error(
+      ale(
+        test_cars, cars_gam,
+        x_cols = c('cyl', 'disp'),
+        model_packages = 'mgcv',
+        silent = TRUE
+      )
+    )
+
+    # With bootstrap
+    expect_no_error(
+      ale(
+        test_cars, cars_gam,
+        x_cols = c('cyl', 'disp'),
+        model_packages = 'mgcv',
+        boot_it = 5,
+        silent = TRUE
+      )
+    )
+  }
+)
+
+# All other tests are without parallelization so that results are reproducible
+
+test_that(
   'numeric outcome works with multiple x datatypes', {
-    cars_ale <- ale(test_cars, cars_gam, silent = TRUE)
+    cars_ale <- ale(
+      test_cars, cars_gam,
+      parallel = 0,
+      silent = TRUE,
+    )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -16,7 +47,12 @@ test_that(
 
 test_that(
   'numeric outcome with bootstrap works with multiple x datatypes', {
-    cars_ale <- ale(test_cars, cars_gam, boot_it = 5, silent = TRUE)
+    cars_ale <- ale(
+      test_cars, cars_gam,
+      parallel = 0,
+      boot_it = 5,
+      silent = TRUE,
+    )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -25,10 +61,10 @@ test_that(
 
 test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
-
     cars_ale <- ale(
       test_cars, cars_gam,
       x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
@@ -53,7 +89,11 @@ test_that(
 
 test_that(
   'binary outcome default works with multiple x datatypes', {
-    cars_ale <- ale(test_cars, cars_gam_binary, silent = TRUE)
+    cars_ale <- ale(
+      test_cars, cars_gam_binary,
+      parallel = 0,
+      silent = TRUE
+    )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -62,7 +102,12 @@ test_that(
 
 test_that(
   'binary outcome with bootstrap works with multiple x datatypes', {
-    cars_ale <- ale(test_cars, cars_gam_binary, boot_it = 4, silent = TRUE)
+    cars_ale <- ale(
+      test_cars, cars_gam_binary,
+      parallel = 0,
+      boot_it = 4,
+      silent = TRUE
+    )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
@@ -75,6 +120,7 @@ test_that(
     cars_ale <- ale(
       test_cars, cars_gam_binary,
       x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",

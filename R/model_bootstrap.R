@@ -369,6 +369,7 @@ model_bootstrap <- function (
               data = boot_data,
               model = boot_model,
               ixn = FALSE,
+              parallel = 0,  # do not parallelize at this inner level
               boot_it = 0,  # do not bootstrap at this inner level
               output = c('data', 'stats'),  # do not generate plots
               ale_xs = if (.it == 0) {

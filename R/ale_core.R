@@ -13,8 +13,7 @@
 #'  the introductory vignette for this package or the details and examples below.
 #'
 #'
-#' **Custom predict function**
-#'
+#' @section Custom predict function:
 #' The calculation of ALE requires modifying several values of the original
 #' `data`. Thus, `ale()` needs direct access to a `predict` function that work on
 #' `model`. By default, `ale()` uses a generic default `predict` function of the form
@@ -42,17 +41,15 @@
 #' `pred_type` must be set to the desired prediction type.
 #'
 #'
-#' **ALE statistics**
-#'
+#' @section ALE statistics:
 #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
 #' `vignette("ale-statistics")`.
 #'
 #'
-#' **Parallel processing**
-#'
-#' Parallel processing using the {furrr} library is enabled by default. By default,
+#' @section Parallel processing:
+#' Parallel processing using the `{furrr}` library is enabled by default. By default,
 #' it will use all the available physical
-#' CPU cores (minus the core being used for the current R) with the setting
+#' CPU cores (minus the core being used for the current R session) with the setting
 #' `parallel = parallel::detectCores(logical = FALSE) - 1`. Note that only
 #' physical cores are used (not logical cores or "hyperthreading") because
 #' machine learning can only take advantage of the floating point processors on
@@ -63,12 +60,11 @@
 #' else becoming very slow while it runs), you may use all cores by setting
 #' `parallel = parallel::detectCores(logical = FALSE)`. To disable parallel
 #' processing, set `parallel = 0`.
-
 #'
 #'
 #'
 #'
-#' **About the `ale` package**
+#' @section About the `ale` package:
 #'
 #' @export
 #'
@@ -88,6 +84,16 @@
 #' models, `y_col` should be provided. For survival models, set `y_col` to the
 #' name of the binary event column; in that case, `pred_type` should also be specified.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param parallel non-negative integer length 1. Number of parallel threads
+#' (workers or tasks) for parallel execution of the function. See details.
+#' @param model_packages character. Character vector of names of
+#' packages that `model` depends on that might not be obvious.
+#' The `{ale}` package should be able to automatically recognize and load most
+#' packages that are needed, but with parallel processing enabled (which is the
+#' default), some packages might not be properly loaded. If you get an error
+#' related to unavailable packages or functions that you verify exist in your
+#' system, try adding them to this vector, especially if you see such errors after
+#' the progress bars begin displaying (assuming the default `silent = FALSE`).
 #' @param output character in c('plots', 'data', 'stats'). Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
@@ -148,10 +154,7 @@
 #' @param silent logical length 1, default FALSE. If TRUE, do not display any
 #' non-essential messages during execution (such as progress bars).
 #' Regardless, any warnings and errors will always display.
-#' @param parallel non-negative integer length 1. Not yet impplemented,
-#'  so currently ignored. When implemented:
-#' Number of parallel threads (workers or tasks)
-#' for parallel execution of the function. See details.
+#'
 #'
 #' @return list with elements `data`, `plots`, and `stats` as requested in
 #' the `output` argument. Each of these is a list named by the x variables with
@@ -230,6 +233,8 @@ ale <- function (
     x_cols = NULL,
     y_col = NULL,
     ...,
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -248,8 +253,7 @@ ale <- function (
     min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
-    silent = FALSE,
-    parallel = parallel::detectCores(logical = FALSE) - 1
+    silent = FALSE
     # ggplot_custom = NULL,
 ) {
   # capture all arguments passed into `ale()` (code thanks to ChatGPT)
@@ -297,6 +301,8 @@ ale <- function (
 #'  `ixn` is TRUE, then both values must be provided.
 #' @param y_col See documentation for [ale()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param parallel See documentation for [ale()]
+#' @param model_packages See documentation for [ale()]
 #' @param output See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()]
 #' @param x_intervals See documentation for [ale()]
@@ -311,7 +317,6 @@ ale <- function (
 #' @param n_y_quant positive scalar integer. Number of intervals over which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
 #' @param silent See documentation for [ale()]
-#' @param parallel See documentation for [ale()]
 #'
 #' @return list of ALE interaction data tibbles and plots.
 #' The list has two levels of depth:
@@ -369,6 +374,8 @@ ale_ixn <- function (
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     output = c('plots', 'data'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -388,8 +395,7 @@ ale_ixn <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
-    silent = FALSE,
-    parallel = parallel::detectCores(logical = FALSE) - 1
+    silent = FALSE
 ) {
   # capture all arguments passed into [ale_ixn()] (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
@@ -428,7 +434,8 @@ ale_ixn <- function (
 # @param x1_cols,x2_cols See documentation for [ale_ixn()]
 # @param y_col See documentation for [ale()]
 # @param ... not used. See documentation for [ale()]
-# @param full_y_range See documentation for [ale()]
+# @param parallel See documentation for [ale()]
+# @param model_packages See documentation for [ale()]
 # @param output See documentation for [ale()]
 # @param pred_fun,pred_type See documentation for [ale()]
 # @param x_intervals See documentation for [ale()]
@@ -445,7 +452,6 @@ ale_ixn <- function (
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
 # @param silent See documentation for [ale()]
-# @param parallel See documentation for [ale()]
 #
 # @import dplyr
 # @import purrr
@@ -458,6 +464,8 @@ ale_core <- function (
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     output = c('plots', 'data', 'stats'),
     # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
@@ -482,8 +490,7 @@ ale_core <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
-    silent = FALSE,
-    parallel = parallel::detectCores(logical = FALSE) - 1
+    silent = FALSE
 )
 {
   # Error if any unlisted argument is used (captured in ...).
@@ -637,6 +644,7 @@ ale_core <- function (
   }
 
   assert_that(is.flag(silent))
+  assert_that(is.whole(parallel))
 
 
 
@@ -726,26 +734,48 @@ ale_core <- function (
     # p_funs <- p_values
   }
 
+  # Enable parallel processing and set appropriate map function.
+  # Because furrr::future_map has an important .options argument absent from
+  # purrr::map, map_loop() is created to unify these two functions.
+  if (parallel > 0) {
+    future::plan(future::multisession, workers = parallel)
+    map_loop <- furrr::future_map
+  } else {
+    # If no parallel processing, do not set future::plan(future::sequential):
+    # this might interfere with other parallel processing in a larger workflow.
+    # Just do nothing parallel.
+    map_loop <- function(..., .options = NULL) {
+      # Ignore the .options argument and pass on everything else
+      purrr::map(...)
+    }
+  }
 
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
     ales <-
       x_cols |>
-      map(
-        # show progress bar only if not in an outer loop with ale_xs
-        .progress = if (!silent && is.null(ale_xs)) {
-          list(
-            name = 'Calculating ALE',
-            show_after = 5
-          )
-        } else {
-          FALSE
-        },
+      # map(
+      map_loop(
+        # future_map() does not allow messages for .progress.
+        # Show progress bar only if not in an outer loop with ale_xs
+        .progress = !silent && is.null(ale_xs),
+        .options = furrr::furrr_options(
+          # Enable parallel-processing random seed generation
+          seed = TRUE,
+          packages = model_packages
+        ),
+        # .progress = if (!silent && is.null(ale_xs)) {
+        #   list(
+        #     name = 'Calculating ALE',
+        #     show_after = 5
+        #   )
+        # } else {
+        #   FALSE
+        # },
         .f = \(x_col) {
         # Calculate ale_data for single variables
 
         ale_data_stats <-
-          # ale_data <-
           calc_ale(
             data_X, model, x_col,
             pred_fun, pred_type, x_intervals,
@@ -803,15 +833,25 @@ ale_core <- function (
 
     ales_by_var <-
       x1_cols |>
-      map(
-        .progress = if (!silent && is.null(ale_xs)) {
-          list(
-            name = 'Calculating ALE interactions',
-            show_after = 5
-          )
-        } else {
-          FALSE
-        },
+      # map(
+      map_loop(
+        # future_map() does not allow messages for .progress.
+        # Show progress bar only if not in an outer loop with ale_xs
+        .progress = !silent && is.null(ale_xs),
+        .options = furrr::furrr_options(
+          # Enable parallel-processing random seed generation
+          seed = TRUE,
+          # Specify packages (parallel processing does not always see them easily)
+          packages = model_packages
+        ),
+        # .progress = if (!silent && is.null(ale_xs)) {
+        #   list(
+        #     name = 'Calculating ALE interactions',
+        #     show_after = 5
+        #   )
+        # } else {
+        #   FALSE
+        # },
         .f = \(x1_col) {
         # Calculate ale_data for two-way interactions
 
@@ -885,6 +925,13 @@ ale_core <- function (
         })
     )
   }
+
+  # Disable parallel processing if it had been enabled
+  if (parallel > 0) {
+    future::plan(future::sequential)
+  }
+
+
 
   if ('stats' %in% output) {
     ales$stats <-
