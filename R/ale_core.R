@@ -761,7 +761,7 @@ ale_core <- function (
         .progress = !silent && is.null(ale_xs),
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
-          seed = TRUE,
+          seed = seed,
           packages = model_packages
         ),
         # .progress = if (!silent && is.null(ale_xs)) {
@@ -840,7 +840,7 @@ ale_core <- function (
         .progress = !silent && is.null(ale_xs),
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
-          seed = TRUE,
+          seed = seed,
           # Specify packages (parallel processing does not always see them easily)
           packages = model_packages
         ),

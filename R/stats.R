@@ -73,15 +73,14 @@
 #' @param model model object. The model used to train the original `training_data`.
 #'  for which ALE should be calculated. See details and also documentation for [ale()].
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param parallel See documentation for [ale()]
+#' @param model_packages See documentation for [ale()]
 #' @param random_model_call_string character string. If NULL, `create_p_funs()` tries to
 #' automatically detect and construct the call for p-values. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.
-#' @param random_model_call_string_vars character. Character vector of names of variables
-#' included in `random_model_call_string` that are not columns in `training_data`.
-#' If any such variables exist, they must be specified here or else parallel processing
-#' will produce an error. If parallelization is disabled with `parallel = 0`,
-#' then this is not a concern.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars`
+#' in [model_bootstrap()]; the operation is very similar.
 #' @param y_col See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()].
 #' @param rand_it non-negative integer length 1. Number of times that the model
@@ -89,9 +88,6 @@
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
 #' test runs.
 #' @param silent See documentation for [ale()]
-#' @param parallel See documentation for [ale()]. (However, it IS currently
-#' implemented in create_p_funs().)
-#' @param model_packages See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
 #' @return
@@ -183,6 +179,8 @@ create_p_funs <- function(
     test_data,
     model,
     ...,
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     y_col = NULL,
@@ -192,8 +190,6 @@ create_p_funs <- function(
     pred_type = "response",
     rand_it = 1000,  # iterations of random variables
     silent = FALSE,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
     .testing_mode = FALSE
 ) {
 
@@ -210,6 +206,9 @@ create_p_funs <- function(
     data = training_data,
     pred_type = pred_type
   )
+
+  assert_that(is.whole(parallel))
+  assert_that(is.character(model_packages))
 
   if (is.null(random_model_call_string)) {
     # Automatically extract the call from the model
@@ -265,8 +264,6 @@ create_p_funs <- function(
     )
   }
   assert_that(is.flag(silent))
-  assert_that(is.whole(parallel))
-  assert_that(is.character(model_packages))
 
 
   # Hack to prevent devtools::check from thinking that masked variables are global:

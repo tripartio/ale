@@ -56,6 +56,13 @@
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * pred_fun,pred_type: allows the prediction function to be called; this would
 # allow bootstrapped RMSE, MAE, cross entropy, and AUC to be calculated.
+#' @param model_call_string_vars character. Character vector of names of variables
+#' included in `model_call_string` that are not columns in `data`.
+#' If any such variables exist, they must be specified here or else parallel processing
+#' will produce an error. If parallelization is disabled with `parallel = 0`,
+#' then this is not a concern.
+#' @param parallel See documentation for [ale()]
+#' @param model_packages See documentation for [ale()]
 #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
 #' If boot_it = 0, then the model is run as normal once on the full `data` with
 #' no bootstrapping.
@@ -118,6 +125,7 @@
 #' mb_gam <- model_bootstrap(
 #'   attitude,
 #'   gam_attitude,
+#'   parallel = 0,
 #'   boot_it = 3
 #' )
 #'
@@ -131,6 +139,7 @@
 #'       raises + s(critical) + advance,
 #'     data = boot_data
 #'   )',
+#'   parallel = 0,
 #'   boot_it = 3
 #' )
 #'
@@ -157,6 +166,9 @@ model_bootstrap <- function (
     model = NULL,
     ...,
     model_call_string = NULL,
+    model_call_string_vars = character(),
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     # y_col,
     # pred_fun,
     # pred_type,
@@ -217,6 +229,10 @@ model_bootstrap <- function (
   #     # model_call_string must terminate with ')'
   #     (stringr::str_sub(model_call_string, start = -1) == ')')
   # )
+
+  assert_that(is.whole(parallel))
+  assert_that(is.character(model_packages))
+
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
@@ -289,16 +305,47 @@ model_bootstrap <- function (
   ale_xs <- NULL
   ale_ns <- NULL
 
+  # Enable parallel processing and set appropriate map function.
+  # Because furrr::future_map2 has an important .options argument absent from
+  # purrr::map2, map2_loop() is created to unify these two functions.
+  if (parallel > 0) {
+    future::plan(future::multisession, workers = parallel)
+    map2_loop <- furrr::future_map2
+  } else {
+    # If no parallel processing, do not set future::plan(future::sequential):
+    # this might interfere with other parallel processing in a larger workflow.
+    # Just do nothing parallel.
+    map2_loop <- function(..., .options = NULL) {
+      # Ignore the .options argument and pass on everything else
+      purrr::map2(...)
+    }
+  }
+
+  model_call_string_vars <- c(
+    '.rand_train', '.rand_test', '.random_variable', '.rand_model', '.rand_ale',
+    model_call_string_vars
+  )
+
+
   model_and_ale <-
-    map2(
-      .progress = if (!silent) {
-        list(
-          name = 'Creating and analyzing models',
-          show_after = 5
-        )
-      } else {
-        FALSE
-      },
+    # map2(
+    map2_loop(
+      .progress = !silent,  # future_map does not allow messages for .progress
+      .options = furrr::furrr_options(
+        # Enable parallel-processing random seed generation
+        seed = seed,
+        # transmit any globals and packages in model_call_string to the parallel workers
+        globals = model_call_string_vars,
+        packages = model_packages
+      ),
+      # .progress = if (!silent) {
+      #   list(
+      #     name = 'Creating and analyzing models',
+      #     show_after = 5
+      #   )
+      # } else {
+      #   FALSE
+      # },
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(.it, .idxs) {
@@ -418,6 +465,11 @@ model_bootstrap <- function (
       }
     ) |>
     transpose()
+
+  # Disable parallel processing if it had been enabled
+  if (parallel > 0) {
+    future::plan(future::sequential)
+  }
 
 
   # Bind the model and ALE data to the bootstrap tbl

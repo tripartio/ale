@@ -1,6 +1,32 @@
 # test-model_bootstrap.R
 
 
+test_that(
+  'Parallelized versions do not crash', {
+    # No bootstrap
+    expect_no_error(
+      model_bootstrap(
+        test_cars, cars_gam,
+        ale_options = list(x_cols = c('cyl', 'disp')),
+        silent = TRUE
+      )
+    )
+
+    # With bootstrap
+    expect_no_error(
+      model_bootstrap(
+        test_cars, cars_gam,
+        ale_options = list(x_cols = c('cyl', 'disp')),
+        boot_it = 5,
+        silent = TRUE
+      )
+    )
+  }
+)
+
+
+# All other tests are without parallelization so that results are reproducible
+
 # Because it is complex to save entire ggplot objects,
 # only save the core data from the plot
 test_that(
@@ -8,6 +34,7 @@ test_that(
     mb <- model_bootstrap(
       test_cars,
       cars_gam,
+      parallel = 0,
       boot_it = 0,
       silent = TRUE
     )
@@ -24,6 +51,7 @@ test_that(
       test_cars,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
+      parallel = 0,
       boot_it = 5,
       silent = TRUE
     )
@@ -39,6 +67,7 @@ test_that(
     mb <- model_bootstrap(
       test_cars,
       cars_gam,
+      parallel = 0,
       boot_it = 5,
       seed = 1234,
       boot_alpha = 0.1,
@@ -59,6 +88,7 @@ test_that(
       test_cars,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
+      parallel = 0,
       boot_it = 3,
       seed = 12,
       boot_alpha = 0.01,
