@@ -517,7 +517,8 @@ rug_sample <- function(
   # local variables.
   rug_x <- NULL
   rug_y <- NULL
-  interval <- NULL
+  x_interval <- NULL
+  y_interval <- NULL
 
   # Only sample small datasets
   if (nrow(x_y) <= rug_sample_size) {

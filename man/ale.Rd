@@ -2,8 +2,8 @@
 % Please edit documentation in R/ale_core.R, R/ale_package.R
 \docType{package}
 \name{ale}
-\alias{ale}
 \alias{ale-package}
+\alias{ale}
 \title{Create and return ALE data, statistics, and plots}
 \usage{
 ale(
@@ -12,6 +12,8 @@ ale(
   x_cols = NULL,
   y_col = NULL,
   ...,
+  parallel = parallel::detectCores(logical = FALSE) - 1,
+  model_packages = character(),
   output = c("plots", "data", "stats"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -50,6 +52,18 @@ models, \code{y_col} should be provided. For survival models, set \code{y_col} t
 name of the binary event column; in that case, \code{pred_type} should also be specified.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
+
+\item{parallel}{non-negative integer length 1. Number of parallel threads
+(workers or tasks) for parallel execution of the function. See details.}
+
+\item{model_packages}{character. Character vector of names of
+packages that \code{model} depends on that might not be obvious.
+The \code{{ale}} package should be able to automatically recognize and load most
+packages that are needed, but with parallel processing enabled (which is the
+default), some packages might not be properly loaded. If you get an error
+related to unavailable packages or functions that you verify exist in your
+system, try adding them to this vector, especially if you see such errors after
+the progress bars begin displaying (assuming the default \code{silent = FALSE}).}
 
 \item{output}{character in c('plots', 'data', 'stats'). Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
@@ -139,7 +153,27 @@ for one-way ALE. For two-way interactions, see \code{\link[=ale_ixn]{ale_ixn()}}
 \code{ale_core} (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.
 
-\strong{Custom predict function}
+Accumulated Local Effects (ALE) were initially developed as a model-agnostic
+approach for global explanations of the results of black-box machine learning
+algorithms. ALE has a key advantage over other approaches like partial
+dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values
+represent a clean functional decomposition of the model. As such, ALE values
+are not affected by the presence or absence of interactions among variables
+in a mode. Moreover, its computation is relatively rapid. This package
+rewrites the original code from the 'ALEPlot' package for calculating ALE data
+and it completely reimplements the plotting of ALE values. It also extends
+the original ALE concept to add bootstrap-based confidence intervals and
+ALE-based statistics that can be used for statistical inference.
+For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
+Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).”
+arXiv. \url{https://arxiv.org/abs/2310.09877}.
+}
+\details{
+ale_core.R
+
+Core functions for the ale package: ale, ale_ixn, and ale_core
+}
+\section{Custom predict function}{
 
 The calculation of ALE requires modifying several values of the original
 \code{data}. Thus, \code{ale()} needs direct access to a \code{predict} function that work on
@@ -169,34 +203,36 @@ You can see an example below of a custom prediction function.
 \strong{Note:} \code{survival} models probably do not need a custom prediction function
 but \code{y_col} must be set to the name of the binary event column and
 \code{pred_type} must be set to the desired prediction type.
+}
 
-\strong{ALE statistics}
+\section{ALE statistics}{
 
 For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
 \code{vignette("ale-statistics")}.
-
-\strong{About the \code{ale} package}
-
-Accumulated Local Effects (ALE) were initially developed as a model-agnostic
-approach for global explanations of the results of black-box machine learning
-algorithms. ALE has a key advantage over other approaches like partial
-dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values
-represent a clean functional decomposition of the model. As such, ALE values
-are not affected by the presence or absence of interactions among variables
-in a mode. Moreover, its computation is relatively rapid. This package
-rewrites the original code from the 'ALEPlot' package for calculating ALE data
-and it completely reimplements the plotting of ALE values. It also extends
-the original ALE concept to add bootstrap-based confidence intervals and
-ALE-based statistics that can be used for statistical inference.
-For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
-Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).”
-arXiv. \url{https://arxiv.org/abs/2310.09877}.
 }
-\details{
-ale_core.R
 
-Core functions for the ale package: ale, ale_ixn, and ale_core
+\section{Parallel processing}{
+
+Parallel processing using the \code{{furrr}} library is enabled by default. By default,
+it will use all the available physical
+CPU cores (minus the core being used for the current R session) with the setting
+\code{parallel = parallel::detectCores(logical = FALSE) - 1}. Note that only
+physical cores are used (not logical cores or "hyperthreading") because
+machine learning can only take advantage of the floating point processors on
+physical cores, which are absent from logical cores. Trying to use logical
+cores will not speed up processing and might actually slow it down with useless
+data transfer. If you will dedicate
+the entire computer to running this function (and you don't mind everything
+else becoming very slow while it runs), you may use all cores by setting
+\code{parallel = parallel::detectCores(logical = FALSE)}. To disable parallel
+processing, set \code{parallel = 0}.
 }
+
+\section{About the \code{{ale}} package}{
+
+Overview of the \code{{ale}} package.
+}
+
 \examples{
 diamonds
 set.seed(0)
@@ -224,7 +260,11 @@ summary(gam_diamonds)
 
 
 # Simple ALE without bootstrapping
-ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
+ale_gam_diamonds <- ale(
+  diamonds_test, gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 
 \donttest{
@@ -235,7 +275,11 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 # This can be slow, since bootstrapping runs the algorithm boot_it times
 
 # Create ALE with 100 bootstrap samples
-ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
+ale_gam_diamonds_boot <- ale(
+  diamonds_test, gam_diamonds, boot_it = 100,
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Bootstrapped ALEs print with confidence intervals
 gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
@@ -249,7 +293,9 @@ custom_predict <- function(object, newdata, type = pred_type) {
 
 ale_gam_diamonds_custom <- ale(
   diamonds_test, gam_diamonds,
-  pred_fun = custom_predict, pred_type = 'link'
+  pred_fun = custom_predict, pred_type = 'link',
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Plot the ALE data

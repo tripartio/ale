@@ -75,7 +75,12 @@ summary(lm_attitude)
 At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple, fig.width=7, fig.height=7}
-ale_lm_attitude_simple <- ale(attitude, lm_attitude)
+ale_lm_attitude_simple <- ale(
+  attitude, lm_attitude,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Print all plots
 gridExtra::grid.arrange(grobs = ale_lm_attitude_simple$plots, ncol = 2)
@@ -88,7 +93,12 @@ What is unique about ALE compared to other approaches is that it visualizes the 
 We can use `ale_ixn()` to visualize the possible existence of any interactions:
 
 ```{r lm_ixn, fig.width=7, fig.height=7}
-ale_lm_attitude_ixn <- ale_ixn(attitude, lm_attitude)
+ale_lm_attitude_ixn <- ale_ixn(
+  attitude, lm_attitude,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Print plots
 ale_lm_attitude_ixn$plots |>
@@ -117,7 +127,9 @@ mb_lm <- model_bootstrap(
   attitude, 
   lm_attitude,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  silent = TRUE  # progress bars disabled for the vignette
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
 
@@ -175,7 +187,12 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
 ```{r gam_simple, fig.width=7, fig.height=7}
-ale_gam_attitude_simple <- ale(attitude, gam_attitude)
+ale_gam_attitude_simple <- ale(
+  attitude, gam_attitude,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 gridExtra::grid.arrange(grobs = ale_gam_attitude_simple$plots, ncol = 2)
 ```
@@ -187,7 +204,9 @@ mb_gam <- model_bootstrap(
   attitude, 
   gam_attitude, 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  silent = TRUE  # progress bars disabled for the vignette
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam$model_stats
 ```
@@ -237,7 +256,9 @@ mb_gam_non_standard <- model_bootstrap(
                                   raises + s(critical) + advance,
                                 data = boot_data)', 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  silent = TRUE  # progress bars disabled for the vignette
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam_non_standard$model_stats
 ```

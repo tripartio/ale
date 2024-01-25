@@ -11,6 +11,8 @@ ale_ixn(
   x2_cols = NULL,
   y_col = NULL,
   ...,
+  parallel = parallel::detectCores(logical = FALSE) - 1,
+  model_packages = character(),
   output = c("plots", "data"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -44,6 +46,10 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 \item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
+
+\item{parallel}{See documentation for \code{\link[=ale]{ale()}}}
+
+\item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{output}{See documentation for \code{\link[=ale]{ale()}}}
 
@@ -129,7 +135,11 @@ gam_diamonds <- mgcv::gam(
 summary(gam_diamonds)
 
 # ALE two-way interactions
-ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
+ale_ixn_gam_diamonds <- ale_ixn(
+  diamonds_test, gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 
 \donttest{

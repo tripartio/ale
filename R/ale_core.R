@@ -64,7 +64,8 @@
 #'
 #'
 #'
-#' @section About the `ale` package:
+#' @section About the `{ale}` package:
+#' Overview of the `{ale}` package.
 #'
 #' @export
 #'
@@ -191,7 +192,11 @@
 #'
 #'
 #' # Simple ALE without bootstrapping
-#' ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
+#' ale_gam_diamonds <- ale(
+#'   diamonds_test, gam_diamonds,
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#' )
 #'
 #'
 #' \donttest{
@@ -202,7 +207,11 @@
 #' # This can be slow, since bootstrapping runs the algorithm boot_it times
 #'
 #' # Create ALE with 100 bootstrap samples
-#' ale_gam_diamonds_boot <- ale(diamonds_test, gam_diamonds, boot_it = 100)
+#' ale_gam_diamonds_boot <- ale(
+#'   diamonds_test, gam_diamonds, boot_it = 100,
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#' )
 #'
 #' # Bootstrapped ALEs print with confidence intervals
 #' gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
@@ -216,7 +225,9 @@
 #'
 #' ale_gam_diamonds_custom <- ale(
 #'   diamonds_test, gam_diamonds,
-#'   pred_fun = custom_predict, pred_type = 'link'
+#'   pred_fun = custom_predict, pred_type = 'link',
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
 #' # Plot the ALE data
@@ -355,7 +366,11 @@ ale <- function (
 #' summary(gam_diamonds)
 #'
 #' # ALE two-way interactions
-#' ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
+#' ale_ixn_gam_diamonds <- ale_ixn(
+#'   diamonds_test, gam_diamonds,
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#' )
 #'
 #'
 #' \donttest{

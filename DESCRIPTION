@@ -11,7 +11,7 @@ License: GPL-2
 Language: en-ca
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Suggests: 
     ALEPlot,
     gbm,
@@ -28,6 +28,8 @@ Imports:
     broom,
     dplyr,
     ellipsis,
+    furrr,
+    future,
     glue,
     grDevices,
     insight,

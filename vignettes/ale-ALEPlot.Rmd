@@ -133,7 +133,10 @@ To create the model, we invoke the `{ale}` which returns a list with various ALE
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw")
+nn_ale <- ale(
+  DAT, nnet.DAT, pred_type = "raw",
+  model_packages = 'nnet'  # required for parallel processing
+)
 ```
 
 Here are some notable differences compared to `ALEPlot`:
@@ -161,7 +164,10 @@ It might not be clear that the previous plots display exactly the same data as t
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE
-nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero')
+nn_ale <- ale(
+  DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero',
+  model_packages = 'nnet'  # required for parallel processing
+)
 
 gridExtra::grid.arrange(grobs = nn_ale$plots, ncol = 2)
 ```
@@ -174,7 +180,10 @@ Because the variables interact with each other, the output data structure is a t
 
 ```{r ale nnet ixn, fig.width=7, fig.height=10}
 # Create and plot interactions
-nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, pred_type = "raw")
+nn_ale_ixn <- ale_ixn(
+  DAT, nnet.DAT, pred_type = "raw",
+  model_packages = 'nnet'  # required for parallel processing
+)
 
 # Print plots
 nn_ale_ixn$plots |>
@@ -277,7 +286,8 @@ yhat <- function(object, newdata) {
 #   pred_fun = yhat,
 #   x_intervals = 500,
 #   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   relative_y = 'zero',  # compatibility with ALEPlot
+#   model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -297,7 +307,9 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   pred_fun = yhat,
 #   x_intervals = 500,
 #   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   relative_y = 'zero',  # compatibility with ALEPlot
+#   model_packages = 'gbm'  # required for parallel processing
+
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
 gbm_ale_ixn_link <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
@@ -341,7 +353,8 @@ yhat <- function(object, newdata) {
 #   data[,-c(3,4)], gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
+#   model_packages = 'nnet'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -360,7 +373,8 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #   data[,-c(3,4)], gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
+#  model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_ixn_prob, file.choose())
 gbm_ale_ixn_prob <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 

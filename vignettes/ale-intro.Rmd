@@ -111,8 +111,15 @@ The `ale()` function returns a list with various elements. The two main ones are
 
 ```{r ale_simple}
 # Simple ALE without bootstrapping
-ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
+ale_gam_diamonds <- ale(
+  diamonds_test, gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 ```
+
+By default, most core functions in the `{ale}` package use parallel processing. However, this requires explicit specification of the packages used to build the model, specified with the `model_packages` argument. (If parallelization is disabled with `parallel = 0`, then `model_packages` is not required.) See `help(ale)` for more details.
 
 To access the plot for a specific variable, we can call it by its variable name as an element of the `plots` element. These are `ggplot` objects, so they are easy to manipulate. For example, to access and print the `carat` ALE plot, we simply call `ale_gam_diamonds$plots$carat` :
 
@@ -144,8 +151,15 @@ diamonds_small_test <- diamonds_test[new_rows, ]
 Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. However, so that this introduction runs faster, we demonstrate it here with only 10 iterations. 
 
 ```{r ale_boot, fig.width=7, fig.height=11}
-# Normally boot_it should be set to 100, but just 10 here for a faster demonstration
-ale_gam_diamonds_boot <- ale(diamonds_small_test, gam_diamonds, boot_it = 10)
+
+ale_gam_diamonds_boot <- ale(
+  diamonds_small_test, gam_diamonds, 
+  # Normally boot_it should be set to 100, but just 10 here for a faster demonstration
+  boot_it = 10,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Bootstrapping produces confidence intervals
 gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
@@ -159,7 +173,12 @@ Another advantage of ALE is that it provides data for two-way interactions betwe
 
 ```{r ale_ixn}
 # ALE two-way interactions
-ale_ixn_gam_diamonds <- ale_ixn(diamonds_test, gam_diamonds)
+ale_ixn_gam_diamonds <- ale_ixn(
+  diamonds_test, gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 ```
 
