@@ -3,36 +3,6 @@
 for one-way ALE. For two-way interactions, see ale_ixn(). This function calls
 ale_core (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.
-Custom predict function
-The calculation of ALE requires modifying several values of the original
-data. Thus, ale() needs direct access to a predict function that work on
-model. By default, ale() uses a generic default predict function of the form
-predict(object, newdata, type) with the default prediction type of 'response'.
-If, however, the desired prediction values are not generated with that format,
-the user must specify what they want. Most of the time, the only modification needed is
-to change the prediction type to some other value by setting the pred_type argument
-(e.g., to 'prob' to generated classification probabilities). But if the desired
-predictions need a different function signature, then the user must create a
-custom prediction function and pass it to pred_fun. The requirements for this
-custom function are:
-It must take three required arguments and nothing else:
-object: a model
-newdata: a dataframe or compatible table type
-type: a string; it should usually be specified as type = pred_type
-These argument names are according to the R convention for the
-generic stats::predict function.
-
-It must return a vector of numeric values as the prediction.
-
-
-You can see an example below of a custom prediction function.
-Note: survival models probably do not need a custom prediction function
-but y_col must be set to the name of the binary event column and
-pred_type must be set to the desired prediction type.
-ALE statistics
-For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-vignette(&quot;ale-statistics&quot;).
-About the ale package
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
 algorithms. ALE has a key advantage over other approaches like partial
@@ -50,36 +20,6 @@ arXiv. https://arxiv.org/abs/2310.09877."><title>Create and return ALE data, sta
 for one-way ALE. For two-way interactions, see ale_ixn(). This function calls
 ale_core (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.
-Custom predict function
-The calculation of ALE requires modifying several values of the original
-data. Thus, ale() needs direct access to a predict function that work on
-model. By default, ale() uses a generic default predict function of the form
-predict(object, newdata, type) with the default prediction type of 'response'.
-If, however, the desired prediction values are not generated with that format,
-the user must specify what they want. Most of the time, the only modification needed is
-to change the prediction type to some other value by setting the pred_type argument
-(e.g., to 'prob' to generated classification probabilities). But if the desired
-predictions need a different function signature, then the user must create a
-custom prediction function and pass it to pred_fun. The requirements for this
-custom function are:
-It must take three required arguments and nothing else:
-object: a model
-newdata: a dataframe or compatible table type
-type: a string; it should usually be specified as type = pred_type
-These argument names are according to the R convention for the
-generic stats::predict function.
-
-It must return a vector of numeric values as the prediction.
-
-
-You can see an example below of a custom prediction function.
-Note: survival models probably do not need a custom prediction function
-but y_col must be set to the name of the binary event column and
-pred_type must be set to the desired prediction type.
-ALE statistics
-For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-vignette(&quot;ale-statistics&quot;).
-About the ale package
 Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
 algorithms. ALE has a key advantage over other approaches like partial
@@ -104,7 +44,7 @@ arXiv. https://arxiv.org/abs/2310.09877."><!-- mathjax --><script src="https://c
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240124</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,8 +58,8 @@ arXiv. https://arxiv.org/abs/2310.09877."><!-- mathjax --><script src="https://c
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
-    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
+    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
@@ -154,32 +94,6 @@ arXiv. https://arxiv.org/abs/2310.09877."><!-- mathjax --><script src="https://c
 for one-way ALE. For two-way interactions, see <code><a href="ale_ixn.html">ale_ixn()</a></code>. This function calls
 <code>ale_core</code> (a non-exported function) that manages the ALE data and plot creation in detail. For details, see
 the introductory vignette for this package or the details and examples below.</p>
-<p><strong>Custom predict function</strong></p>
-<p>The calculation of ALE requires modifying several values of the original
-<code>data</code>. Thus, <code>ale()</code> needs direct access to a <code>predict</code> function that work on
-<code>model</code>. By default, <code>ale()</code> uses a generic default <code>predict</code> function of the form
-<code>predict(object, newdata, type)</code> with the default prediction type of 'response'.
-If, however, the desired prediction values are not generated with that format,
-the user must specify what they want. Most of the time, the only modification needed is
-to change the prediction type to some other value by setting the <code>pred_type</code> argument
-(e.g., to 'prob' to generated classification probabilities). But if the desired
-predictions need a different function signature, then the user must create a
-custom prediction function and pass it to <code>pred_fun</code>. The requirements for this
-custom function are:</p><ul><li><p>It must take three required arguments and nothing else:</p><ul><li><p><code>object</code>: a model</p></li>
-<li><p><code>newdata</code>: a dataframe or compatible table type</p></li>
-<li><p><code>type</code>: a string; it should usually be specified as <code>type = pred_type</code>
-These argument names are according to the R convention for the
-generic stats::predict function.</p></li>
-</ul></li>
-<li><p>It must return a vector of numeric values as the prediction.</p></li>
-</ul><p>You can see an example below of a custom prediction function.</p>
-<p><strong>Note:</strong> <code>survival</code> models probably do not need a custom prediction function
-but <code>y_col</code> must be set to the name of the binary event column and
-<code>pred_type</code> must be set to the desired prediction type.</p>
-<p><strong>ALE statistics</strong></p>
-<p>For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-<code><a href="../articles/ale-statistics.html">vignette("ale-statistics")</a></code>.</p>
-<p><strong>About the <code>ale</code> package</strong></p>
 <p>Accumulated Local Effects (ALE) were initially developed as a model-agnostic
 approach for global explanations of the results of black-box machine learning
 algorithms. ALE has a key advantage over other approaches like partial
@@ -204,6 +118,8 @@ arXiv. <a href="https://arxiv.org/abs/2310.09877" class="external-link">https://
 <span>  x_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plots"</span>, <span class="st">"data"</span>, <span class="st">"stats"</span><span class="op">)</span>,</span>
 <span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
@@ -253,6 +169,22 @@ name of the binary event column; in that case, <code>pred_type</code> should als
 
 <dt>...</dt>
 <dd><p>not used. Inserted to require explicit naming of subsequent arguments.</p></dd>
+
+
+<dt>parallel</dt>
+<dd><p>non-negative integer length 1. Number of parallel threads
+(workers or tasks) for parallel execution of the function. See details.</p></dd>
+
+
+<dt>model_packages</dt>
+<dd><p>character. Character vector of names of
+packages that <code>model</code> depends on that might not be obvious.
+The <code>{ale}</code> package should be able to automatically recognize and load most
+packages that are needed, but with parallel processing enabled (which is the
+default), some packages might not be properly loaded. If you get an error
+related to unavailable packages or functions that you verify exist in your
+system, try adding them to this vector, especially if you see such errors after
+the progress bars begin displaying (assuming the default <code>silent = FALSE</code>).</p></dd>
 
 
 <dt>output</dt>
@@ -374,6 +306,63 @@ all the x variables for the ALE calculation.</p>
 <p>Core functions for the ale package: ale, ale_ixn, and ale_core</p>
     </div>
     <div class="section level2">
+    <h2 id="custom-predict-function">Custom predict function<a class="anchor" aria-label="anchor" href="#custom-predict-function"></a></h2>
+    
+
+<p>The calculation of ALE requires modifying several values of the original
+<code>data</code>. Thus, <code>ale()</code> needs direct access to a <code>predict</code> function that work on
+<code>model</code>. By default, <code>ale()</code> uses a generic default <code>predict</code> function of the form
+<code>predict(object, newdata, type)</code> with the default prediction type of 'response'.
+If, however, the desired prediction values are not generated with that format,
+the user must specify what they want. Most of the time, the only modification needed is
+to change the prediction type to some other value by setting the <code>pred_type</code> argument
+(e.g., to 'prob' to generated classification probabilities). But if the desired
+predictions need a different function signature, then the user must create a
+custom prediction function and pass it to <code>pred_fun</code>. The requirements for this
+custom function are:</p><ul><li><p>It must take three required arguments and nothing else:</p><ul><li><p><code>object</code>: a model</p></li>
+<li><p><code>newdata</code>: a dataframe or compatible table type</p></li>
+<li><p><code>type</code>: a string; it should usually be specified as <code>type = pred_type</code>
+These argument names are according to the R convention for the
+generic stats::predict function.</p></li>
+</ul></li>
+<li><p>It must return a vector of numeric values as the prediction.</p></li>
+</ul><p>You can see an example below of a custom prediction function.</p>
+<p><strong>Note:</strong> <code>survival</code> models probably do not need a custom prediction function
+but <code>y_col</code> must be set to the name of the binary event column and
+<code>pred_type</code> must be set to the desired prediction type.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="ale-statistics">ALE statistics<a class="anchor" aria-label="anchor" href="#ale-statistics"></a></h2>
+    
+
+<p>For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
+<code><a href="../articles/ale-statistics.html">vignette("ale-statistics")</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="parallel-processing">Parallel processing<a class="anchor" aria-label="anchor" href="#parallel-processing"></a></h2>
+    
+
+<p>Parallel processing using the <code>{furrr}</code> library is enabled by default. By default,
+it will use all the available physical
+CPU cores (minus the core being used for the current R session) with the setting
+<code>parallel = parallel::detectCores(logical = FALSE) - 1</code>. Note that only
+physical cores are used (not logical cores or "hyperthreading") because
+machine learning can only take advantage of the floating point processors on
+physical cores, which are absent from logical cores. Trying to use logical
+cores will not speed up processing and might actually slow it down with useless
+data transfer. If you will dedicate
+the entire computer to running this function (and you don't mind everything
+else becoming very slow while it runs), you may use all cores by setting
+<code>parallel = parallel::detectCores(logical = FALSE)</code>. To disable parallel
+processing, set <code>parallel = 0</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="about-the-ale-package">About the <code>{ale}</code> package<a class="anchor" aria-label="anchor" href="#about-the-ale-package"></a></h2>
+    
+
+<p>Overview of the <code>{ale}</code> package.</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Okoli, Chitu. 2023.
 “Statistical Inference Using Machine Learning and Classical Techniques Based
@@ -477,8 +466,12 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Simple ALE without bootstrapping</span></span></span>
-<span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span><span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds):</span> object 'diamonds_test' not found</span>
+<span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, model_packages = "mgcv", parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
@@ -490,8 +483,12 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="co"># This can be slow, since bootstrapping runs the algorithm boot_it times</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create ALE with 100 bootstrap samples</span></span></span>
-<span class="r-in"><span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span><span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, boot_it = 100):</span> object 'diamonds_test' not found</span>
+<span class="r-in"><span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, boot_it = 100, model_packages = "mgcv",     parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bootstrapped ALEs print with confidence intervals</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
@@ -506,9 +503,11 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds_custom</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
-<span class="r-in"><span>  pred_fun <span class="op">=</span> <span class="va">custom_predict</span>, pred_type <span class="op">=</span> <span class="st">'link'</span></span></span>
+<span class="r-in"><span>  pred_fun <span class="op">=</span> <span class="va">custom_predict</span>, pred_type <span class="op">=</span> <span class="st">'link'</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, pred_fun = custom_predict, pred_type = "link"):</span> object 'diamonds_test' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, pred_fun = custom_predict, pred_type = "link",     model_packages = "mgcv", parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_custom</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>

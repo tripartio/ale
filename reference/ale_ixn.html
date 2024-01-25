@@ -44,7 +44,7 @@ number specified will be used, including the middle quantile."><!-- mathjax --><
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240124</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,8 +58,8 @@ number specified will be used, including the middle quantile."><!-- mathjax --><
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
-    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
+    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
@@ -116,6 +116,8 @@ number specified will be used, including the middle quantile.</p>
 <span>  x2_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plots"</span>, <span class="st">"data"</span><span class="op">)</span>,</span>
 <span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
@@ -160,6 +162,14 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 <dt>...</dt>
 <dd><p>not used. Inserted to require explicit naming of subsequent arguments.</p></dd>
+
+
+<dt>parallel</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+
+
+<dt>model_packages</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>output</dt>
@@ -306,8 +316,12 @@ the <code>output</code> argument.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.5069e+05  Scale est. = 8.9531e+05  n = 801</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ALE two-way interactions</span></span></span>
-<span class="r-in"><span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale_ixn</span><span class="op">(</span><span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale_ixn(diamonds_test, gam_diamonds):</span> object 'diamonds_test' not found</span>
+<span class="r-in"><span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale_ixn</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale_ixn(diamonds_test, gam_diamonds, model_packages = "mgcv",     parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>

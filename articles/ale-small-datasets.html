@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240124</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,8 +41,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
-    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
+    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
@@ -280,8 +280,12 @@ with no bootstrapping (the default) because small samples require a
 special bootstrap approach, as explained below. For now, all we are
 doing is using ALE to accurately visualize what the model estimates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">attitude</span>, <span class="va">lm_attitude</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
+<code class="sourceCode R"><span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
+<span>  <span class="va">attitude</span>, <span class="va">lm_attitude</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_lm_attitude_simple</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -300,8 +304,12 @@ interacting variables are included in the model or not.</p>
 <p>We can use <code><a href="../reference/ale_ixn.html">ale_ixn()</a></code> to visualize the possible existence
 of any interactions:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_lm_attitude_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">attitude</span>, <span class="va">lm_attitude</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Calculating ALE interactions <span style="color: #00BB00;">■■■■■■                          </span>  17% |  ETA:  1s</span></span>
+<code class="sourceCode R"><span><span class="va">ale_lm_attitude_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
+<span>  <span class="va">attitude</span>, <span class="va">lm_attitude</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">ale_lm_attitude_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
@@ -352,7 +360,9 @@ and parse the model object. So, here is the call to
 <span>  <span class="va">attitude</span>, </span>
 <span>  <span class="va">lm_attitude</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>By default, <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> creates 100 bootstrap
 samples of the provided dataset and creates 100 + 1 models on the data
@@ -389,29 +399,29 @@ default)</li>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">$</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 7</span></span></span>
-<span><span class="co">#&gt;   name            estimate conf.low       mean       median  conf.high        sd</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> r.squared      0.793      6.78<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.793      0.822        0.874     0.075<span style="text-decoration: underline;">8</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> adj.r.squared  0.739      5.94<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.739      0.775        0.841     0.095<span style="text-decoration: underline;">6</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sigma          6.03       4.62<span style="color: #949494;">e</span>+0  6.03       5.91         7.65      1.05     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> statistic     16.9        8.07<span style="color: #949494;">e</span>+0 16.9       17.7         26.7       6.86     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> p.value        0.000<span style="text-decoration: underline;">020</span>3  3.53<span style="color: #949494;">e</span><span style="color: #BB0000;">-9</span>  0.000<span style="text-decoration: underline;">020</span>3  0.000<span style="text-decoration: underline;">000</span>159  0.000<span style="text-decoration: underline;">092</span>2 0.000<span style="text-decoration: underline;">036</span>2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> df             6          6   <span style="color: #949494;">e</span>+0  6          6            6         0        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> df.residual   23          2.3 <span style="color: #949494;">e</span>+1 23         23           23         0        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> nobs          30          3   <span style="color: #949494;">e</span>+1 30         30           30         0</span></span></code></pre></div>
+<span><span class="co">#&gt;   name            estimate     conf.low       mean      median conf.high      sd</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> r.squared      0.767      0.665        0.767      0.775       0.864    6.23<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> adj.r.squared  0.707      0.577        0.707      0.716       0.828    7.86<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sigma          6.57       5.33         6.57       6.77        7.95     8.60<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> statistic     13.9        7.62        13.9       13.2        25.6      5.80<span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> p.value        0.000<span style="text-decoration: underline;">025</span>7  0.000<span style="text-decoration: underline;">000</span>104  0.000<span style="text-decoration: underline;">025</span>7  0.000<span style="text-decoration: underline;">002</span>00  0.000<span style="text-decoration: underline;">150</span> 5.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> df             6          6            6          6           6        0   <span style="color: #949494;"> </span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> df.residual   23         23           23         23          23        0   <span style="color: #949494;"> </span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> nobs          30         30           30         30          30        0   <span style="color: #949494;"> </span></span></span></code></pre></div>
 <p>Here are the bootstrapped model coefficients:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">$</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate conf.low    mean  median conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)   8.40   -<span style="color: #BB0000;">15.4</span>     8.40    6.57      37.1      19.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> complaints    0.561    0.370   0.561   0.556      0.772     0.144</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> privileges   -<span style="color: #BB0000;">0.057</span><span style="color: #BB0000; text-decoration: underline;">5</span>  -<span style="color: #BB0000;">0.325</span>  -<span style="color: #BB0000;">0.057</span><span style="color: #BB0000; text-decoration: underline;">5</span>  0.032<span style="text-decoration: underline;">3</span>     0.187     0.199</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> learning      0.227    0.038<span style="text-decoration: underline;">5</span>  0.227   0.233      0.434     0.131</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> raises        0.215   -<span style="color: #BB0000;">0.010</span><span style="color: #BB0000; text-decoration: underline;">5</span>  0.215   0.169      0.472     0.179</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> critical      0.030<span style="text-decoration: underline;">0</span>  -<span style="color: #BB0000;">0.303</span>   0.030<span style="text-decoration: underline;">0</span>  0.120      0.302     0.235</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advance      -<span style="color: #BB0000;">0.173</span>   -<span style="color: #BB0000;">0.509</span>  -<span style="color: #BB0000;">0.173</span>  -<span style="color: #BB0000;">0.081</span><span style="color: #BB0000; text-decoration: underline;">6</span>     0.133     0.239</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)   3.05   -<span style="color: #BB0000;">9.92</span>     3.05    3.64      13.5       8.29 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> complaints    0.613   0.323    0.613   0.589      0.871     0.175</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> privileges   -<span style="color: #BB0000;">0.058</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.292</span>   -<span style="color: #BB0000;">0.058</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.114</span>      0.353     0.204</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> learning      0.334   0.035<span style="text-decoration: underline;">8</span>   0.334   0.320      0.605     0.174</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> raises        0.060<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.267</span>    0.060<span style="text-decoration: underline;">4</span>  0.059<span style="text-decoration: underline;">9</span>     0.337     0.206</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> critical      0.159  -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">70</span>  0.159   0.158      0.298     0.110</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advance      -<span style="color: #BB0000;">0.260</span>  -<span style="color: #BB0000;">0.756</span>   -<span style="color: #BB0000;">0.260</span>  -<span style="color: #BB0000;">0.152</span>      0.104     0.294</span></span></code></pre></div>
 <p>Here we can visualize the results of the ALE plots.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb_lm</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -496,8 +506,12 @@ the results for the smooth terms in GAM are not readily interpretable.
 They need to be visualized for effective interpretation—ALE is perfect
 for such purposes.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">attitude</span>, <span class="va">gam_attitude</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Calculating ALE <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span></span>
+<code class="sourceCode R"><span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
+<span>  <span class="va">attitude</span>, <span class="va">gam_attitude</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_attitude_simple</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/gam_simple-1.png" width="672"></p>
@@ -513,22 +527,24 @@ bootstrapping will give us.</p>
 <span>  <span class="va">attitude</span>, </span>
 <span>  <span class="va">gam_attitude</span>, </span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
 <span><span class="co">#&gt;   name        estimate conf.low  mean median conf.high    sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df              14.4     8.18  14.4   14.5      20.5  4.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual     15.6     9.45  15.6   15.5      21.8  4.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs            30      30     30     30        30    0</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df              16.0     10.6  16.0   16.5      18.8  2.77</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual     14.0     11.2  14.0   13.5      19.4  2.77</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs            30       30    30     30        30    0</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 7</span></span></span>
 <span><span class="co">#&gt;   term        estimate conf.low  mean median conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     5.17     1.20  5.17   4.78      8.99      3.58</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     4.24     1.26  4.24   4.84      6.94      2.26</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     6.84     2.05  6.84   7.76      8.93      2.61</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     4.17     1.29  4.17   3.81      7.36      2.07</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/gam_full_ale-1.png" width="672"></p>
@@ -630,15 +646,17 @@ for a non-standard model object type:</p>
 <span><span class="st">                                  raises + s(critical) + advance,</span></span>
 <span><span class="st">                                data = boot_data)'</span>, </span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
+<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">mb_gam_non_standard</span><span class="op">$</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
 <span><span class="co">#&gt;   name        estimate conf.low  mean median conf.high    sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df              14.4     8.18  14.4   14.5      20.5  4.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual     15.6     9.45  15.6   15.5      21.8  4.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs            30      30     30     30        30    0</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df              16.0     10.6  16.0   16.5      18.8  2.77</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual     14.0     11.2  14.0   13.5      19.4  2.77</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs            30       30    30     30        30    0</span></span></code></pre></div>
 <p>Everything else works as normal.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

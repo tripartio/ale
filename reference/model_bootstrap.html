@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.20240109</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240124</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,8 +24,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between `{ALEPlot}` and `{ale}` packages</a>
-    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the `ale` package</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
+    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
@@ -66,6 +66,9 @@
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  model_call_string_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  boot_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -98,6 +101,22 @@ automatically detect and construct the call for bootstrapped datasets. If it can
 function will fail early. In that case, a character string of the full call
 for the model must be provided that includes <code>boot_data</code> as the data argument for the call.
 See examples.</p></dd>
+
+
+<dt>model_call_string_vars</dt>
+<dd><p>character. Character vector of names of variables
+included in <code>model_call_string</code> that are not columns in <code>data</code>.
+If any such variables exist, they must be specified here or else parallel processing
+will produce an error. If parallelization is disabled with <code>parallel = 0</code>,
+then this is not a concern.</p></dd>
+
+
+<dt>parallel</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+
+
+<dt>model_packages</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>boot_it</dt>
@@ -278,14 +297,15 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 47.947  Scale est. = 33.213    n = 30</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Full model bootstrapping</span></span></span>
-<span class="r-in"><span><span class="co"># Only 3 bootstrap iterations for a rapid example; default is 100</span></span></span>
+<span class="r-in"><span><span class="co"># Only 4 bootstrap iterations for a rapid example; default is 100</span></span></span>
 <span class="r-in"><span><span class="co"># Increase value of boot_it for more realistic results</span></span></span>
 <span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">model_bootstrap</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">attitude</span>,</span></span>
 <span class="r-in"><span>  <span class="va">gam_attitude</span>,</span></span>
-<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating and analyzing models <span style="color: #00BB00;">■                               </span>   0% |  ETA: ?</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># If the model is not standard, supply model_call_string with</span></span></span>
@@ -297,24 +317,25 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="st">      raises + s(critical) + advance,</span></span></span>
 <span class="r-in"><span><span class="st">    data = boot_data</span></span></span>
 <span class="r-in"><span><span class="st">  )'</span>,</span></span>
-<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
+<span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating and analyzing models <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■         </span>  75% |  ETA:  0s</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Model statistics and coefficients</span></span></span>
 <span class="r-in"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_stats</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   name        estimate conf.low  mean median conf.high    sd</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> df              17.3     15.1  17.3   18.0      18.9  2.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> df.residual     12.7     11.1  12.7   12.0      14.9  2.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nobs            30       30    30     30        30    0   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> df              18.2    15.2   18.2   18.5      20.8  2.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> df.residual     11.8     9.15  11.8   11.5      14.8  2.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nobs            30      30     30     30        30    0   </span>
 <span class="r-in"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_coefs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term        estimate conf.low  mean median conf.high std.error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> s(learning)     8.21     7.39  8.21   8.36      8.91     0.813</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> s(critical)     4.12     1.29  4.12   5.64      5.66     2.65 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> s(learning)     8.41     7.41  8.41   8.65      8.99     0.771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> s(critical)     4.84     1.40  4.84   5.65      6.90     2.60 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot ALE</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
