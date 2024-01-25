@@ -8,7 +8,11 @@ create_p_funs(
   training_data,
   test_data,
   model,
+  ...,
+  parallel = parallel::detectCores(logical = FALSE) - 1,
+  model_packages = character(),
   random_model_call_string = NULL,
+  random_model_call_string_vars = character(),
   y_col = NULL,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -30,10 +34,19 @@ See details.}
 \item{model}{model object. The model used to train the original \code{training_data}.
 for which ALE should be calculated. See details and also documentation for \code{\link[=ale]{ale()}}.}
 
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
+
+\item{parallel}{See documentation for \code{\link[=ale]{ale()}}}
+
+\item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
+
 \item{random_model_call_string}{character string. If NULL, \code{create_p_funs()} tries to
 automatically detect and construct the call for p-values. If it cannot, the
 function will fail early. In that case, a character string of the full call
 for the model must be provided that includes the random variable. See details.}
+
+\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars}
+in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very similar.}
 
 \item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
@@ -44,7 +57,7 @@ should be retrained with a new random variable. The default of 1000 should
 give reasonably stable p-values. It can be reduced as low as 100 for faster
 test runs.}
 
-\item{silent}{See See documentation for \code{\link[=ale]{ale()}}}
+\item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{.testing_mode}{logical. Internal use only.}
 }
@@ -95,8 +108,9 @@ used statistics packages (like \code{mgcv} and \code{survival}), but which exclu
 machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard
 algorithms, the user needs to do a little work to help the ale function
 correctly manipulate its model object.
+}
+\section{Approach to calculating p-values}{
 
-\strong{Approach to calculating p-values}
 The \code{ale} package takes a literal frequentist approach to the calculation of
 p-values. That is, it literally retrains the model 1000 times, each time
 modifying it by adding a distinct random variable to the model.
@@ -120,8 +134,10 @@ added.
 (from \code{stats::ecdf()}) is used to create a function to determine p-values
 according to the distribution of the random variables' ALE statistics.
 }
+}
 
-\strong{Datasets}
+\section{Datasets}{
+
 Because the \code{ale} package takes a literal frequentist approach to the
 calculation of p-values, the precision of the p-values depends on correctly
 representing the modelling workflow. Specifically, models should be trained
@@ -133,6 +149,7 @@ for whatever reason, the ALE is calculated on the same dataset as is used to
 train the model, then the same dataset should be entered for both
 \code{training_data} and \code{test_data}.
 }
+
 \examples{
 \donttest{
 # Sample 1000 rows from the diamonds dataset (for a simple example)diamonds
@@ -165,7 +182,8 @@ pf_diamonds <- create_p_funs(
   diamonds_test,
   gam_diamonds,
   # only 100 iterations for a quick demo; but usually should remain at 1000
-  rand_it = 100
+  rand_it = 100,
+  model_packages = 'mgcv',  # required for parallel processing
 )
 
 # Examine the structure of the returned object
@@ -176,11 +194,13 @@ str(pf_diamonds)
 ale_gam_diamonds <- ale(
   diamonds_test,
   gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
   p_values = pf_diamonds
 )
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+
 }
 
 

@@ -120,13 +120,14 @@
 #' summary(gam_attitude)
 #'
 #' # Full model bootstrapping
-#' # Only 3 bootstrap iterations for a rapid example; default is 100
+#' # Only 4 bootstrap iterations for a rapid example; default is 100
 #' # Increase value of boot_it for more realistic results
 #' mb_gam <- model_bootstrap(
 #'   attitude,
 #'   gam_attitude,
-#'   parallel = 0,
-#'   boot_it = 3
+#'   boot_it = 4,
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
 #' \donttest{
@@ -139,8 +140,9 @@
 #'       raises + s(critical) + advance,
 #'     data = boot_data
 #'   )',
-#'   parallel = 0,
-#'   boot_it = 3
+#'   boot_it = 4,
+#'   model_packages = 'mgcv',  # required for parallel processing
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
 #' # Model statistics and coefficients

@@ -9,6 +9,9 @@ model_bootstrap(
   model = NULL,
   ...,
   model_call_string = NULL,
+  model_call_string_vars = character(),
+  parallel = parallel::detectCores(logical = FALSE) - 1,
+  model_packages = character(),
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
@@ -32,6 +35,16 @@ automatically detect and construct the call for bootstrapped datasets. If it can
 function will fail early. In that case, a character string of the full call
 for the model must be provided that includes \code{boot_data} as the data argument for the call.
 See examples.}
+
+\item{model_call_string_vars}{character. Character vector of names of variables
+included in \code{model_call_string} that are not columns in \code{data}.
+If any such variables exist, they must be specified here or else parallel processing
+will produce an error. If parallelization is disabled with \code{parallel = 0},
+then this is not a concern.}
+
+\item{parallel}{See documentation for \code{\link[=ale]{ale()}}}
+
+\item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{boot_it}{integer from 0 to Inf. Number of bootstrap iterations.
 If boot_it = 0, then the model is run as normal once on the full \code{data} with
@@ -144,12 +157,14 @@ gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
 summary(gam_attitude)
 
 # Full model bootstrapping
-# Only 3 bootstrap iterations for a rapid example; default is 100
+# Only 4 bootstrap iterations for a rapid example; default is 100
 # Increase value of boot_it for more realistic results
 mb_gam <- model_bootstrap(
   attitude,
   gam_attitude,
-  boot_it = 3
+  boot_it = 4,
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 \donttest{
@@ -162,7 +177,9 @@ mb_gam <- model_bootstrap(
       raises + s(critical) + advance,
     data = boot_data
   )',
-  boot_it = 3
+  boot_it = 4,
+  model_packages = 'mgcv',  # required for parallel processing
+  parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Model statistics and coefficients

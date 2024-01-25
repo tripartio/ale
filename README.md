@@ -4,6 +4,12 @@
 # ale
 
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/package=ale)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Accumulated Local Effects (ALE) were initially developed as a
@@ -74,14 +80,16 @@ of ale from [GitHub](https://github.com/Tripartio/ale) with:
 pak::pak("Tripartio/ale")
 ```
 
-The development version in the main branch of GitHUb is always
+The development version in the main branch of GitHub is always
 thoroughly checked. However, the documentation might not be fully
 up-to-date with the functionality.
 
 ## Usage
 
 Here is a simple example that demonstrates the usage of the model.
-First, we train a GAM model.
+First, we train a GAM model. Then, with a test dataset and a model
+object, we can create ALE data with the `ale()` function and then plot
+the `ggplot` plot objects.
 
 ``` r
 library(ale)
@@ -99,30 +107,32 @@ train_test_split <- sample(
   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
 )
 diamonds_train <- diamonds_sample[train_test_split, ]
-diamonds_test <- diamonds_sample[!train_test_split, ]
+# <<- is not normally needed; it is just for this README document.
+diamonds_test <<- diamonds_sample[!train_test_split, ]
 
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build model on training data, not on the full dataset.
-gam_diamonds <- mgcv::gam(
+# <<- is not normally needed; it is just for this README document.
+gam_diamonds <<- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
     cut + color + clarity,
   data = diamonds_train
 )
-```
 
-With a test dataset and a model object, we can create ALE data with the
-`ale()` function and then plot the `ggplot` plot objects.
-
-``` r
 # Create ALE data and plot it
-ale_gam_diamonds <- ale(diamonds_test, gam_diamonds)
-
+ale_gam_diamonds <- ale(
+  diamonds_test, gam_diamonds,
+  model_packages = 'mgcv',  # required for parallel processing
+  # Disable progress bars for this README document.
+  # For interactive use, you would normally want to delete this option.
+  silent = TRUE
+)
 
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 ```
 
-<img src="man/figures/README-ale-1.png" width="100%" />
+<img src="man/figures/README-gam-and-ale-1.png" width="100%" />
 
 ## Getting help
 

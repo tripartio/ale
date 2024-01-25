@@ -69,7 +69,12 @@ summary(cm)
 Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.width=7, fig.height=14}
-cars_ale <- ale(var_cars, cm)
+cars_ale <- ale(
+  var_cars, cm,
+  model_packages = 'mgcv',  #required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Print all plots
 gridExtra::grid.arrange(grobs = cars_ale$plots, ncol = 2)
@@ -82,7 +87,12 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r cars_ale_ixn, fig.width=7, fig.height=7}
-cars_ale_ixn <- ale_ixn(var_cars, cm)
+cars_ale_ixn <- ale_ixn(
+  var_cars, cm,
+  model_packages = 'mgcv',  #required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2  # CRAN limit (delete this line on your own computer)
+)
 
 # Print plots
 cars_ale_ixn$plots |>
@@ -100,7 +110,10 @@ mb <- model_bootstrap(
   var_cars, 
   cm,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  silent = TRUE  # progress bars disabled for the vignette
+  model_packages = 'mgcv',  #required for parallel processing
+  silent = TRUE,  # progress bars disabled for the vignette
+  parallel = 2,  # CRAN limit (delete this line on your own computer)
+  seed = 2  # workaround to avoid random error on such a small dataset
 )
 
 gridExtra::grid.arrange(grobs = mb$ale$plots, ncol = 2)
