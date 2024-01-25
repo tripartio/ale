@@ -23,7 +23,7 @@
 #' algorithms, the user needs to do a little work to help the ale function
 #' correctly manipulate its model object.
 #'
-#' **Approach to calculating p-values**
+#' @section Approach to calculating p-values:
 #' The `ale` package takes a literal frequentist approach to the calculation of
 #' p-values. That is, it literally retrains the model 1000 times, each time
 #' modifying it by adding a distinct random variable to the model.
@@ -46,7 +46,7 @@
 #' (from `stats::ecdf()`) is used to create a function to determine p-values
 #' according to the distribution of the random variables' ALE statistics.
 #'
-#' **Datasets**
+#' @section Datasets:
 #' Because the `ale` package takes a literal frequentist approach to the
 #' calculation of p-values, the precision of the p-values depends on correctly
 #' representing the modelling workflow. Specifically, models should be trained
@@ -72,17 +72,22 @@
 #' See details.
 #' @param model model object. The model used to train the original `training_data`.
 #'  for which ALE should be calculated. See details and also documentation for [ale()].
-#' @param y_col See documentation for [ale()]
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param parallel See documentation for [ale()]
+#' @param model_packages See documentation for [ale()]
 #' @param random_model_call_string character string. If NULL, `create_p_funs()` tries to
 #' automatically detect and construct the call for p-values. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars`
+#' in [model_bootstrap()]; the operation is very similar.
+#' @param y_col See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()].
 #' @param rand_it non-negative integer length 1. Number of times that the model
 #' should be retrained with a new random variable. The default of 1000 should
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
 #' test runs.
-#' @param silent See See documentation for [ale()]
+#' @param silent See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
 #' @return
@@ -158,6 +163,7 @@
 #' ale_gam_diamonds <- ale(
 #'   diamonds_test,
 #'   gam_diamonds,
+#'   parallel = 0,
 #'   p_values = pf_diamonds
 #' )
 #'
@@ -172,7 +178,11 @@ create_p_funs <- function(
     training_data,
     test_data,
     model,
+    ...,
+    parallel = parallel::detectCores(logical = FALSE) - 1,
+    model_packages = character(),
     random_model_call_string = NULL,
+    random_model_call_string_vars = character(),
     y_col = NULL,
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -196,6 +206,9 @@ create_p_funs <- function(
     data = training_data,
     pred_type = pred_type
   )
+
+  assert_that(is.whole(parallel))
+  assert_that(is.character(model_packages))
 
   if (is.null(random_model_call_string)) {
     # Automatically extract the call from the model
@@ -227,6 +240,9 @@ create_p_funs <- function(
       )
     )
   }
+
+  assert_that(is.character(random_model_call_string_vars))
+
 
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -265,7 +281,8 @@ create_p_funs <- function(
 
   # Determine the closest distribution of the residuals
   # Note that the distribution is determined from the training data, not the test data
-  residuals <- (training_data[[y_col]] - pred_fun(model, training_data, pred_type)) |>
+  residuals <- (training_data[[y_col]] - y_preds) |>
+    # residuals <- (training_data[[y_col]] - pred_fun(model, training_data, pred_type)) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
 
@@ -275,17 +292,53 @@ create_p_funs <- function(
   .rand_test  <<- test_data
   train_n <- nrow(training_data)
   test_n  <- nrow(test_data)
-  rand_ales <- map(
-    .progress = if (!silent) {
-      list(
-        name = paste0('Retraining ', rand_it, ' models with random variables...'),
-        show_after = 5
-      )
-    } else {
-      FALSE
-    },
+
+  # Enable parallel processing and set appropriate map function.
+  # Because furrr::future_map has an important .options argument absent from
+  # purrr::map, map_loop() is created to unify these two functions.
+  if (parallel > 0) {
+    future::plan(future::multisession, workers = parallel)
+    map_loop <- furrr::future_map
+  } else {
+    # If no parallel processing, do not set future::plan(future::sequential):
+    # this might interfere with other parallel processing in a larger workflow.
+    # Just do nothing parallel.
+    map_loop <- function(..., .options = NULL) {
+      # Ignore the .options argument and pass on everything else
+      purrr::map(...)
+    }
+  }
+
+  # .rand_ales <- map(
+  # .rand_ales <- furrr::future_map(
+  # extend random_model_call_string_vars with local variables for parallel processing
+  random_model_call_string_vars <- c(
+    '.rand_train', '.rand_test', '.random_variable', '.rand_model', '.rand_ale',
+    random_model_call_string_vars
+  )
+  .rand_ales <- map_loop(
+    .progress = !silent,  # future_map does not allow messages for .progress
+    .options = furrr::furrr_options(
+      # Enable parallel-processing random seed generation
+      seed = TRUE,
+      # transmit any globals and packages in random_model_call_string to the parallel workers
+      # globals = structure(TRUE)
+      # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
+      # globals = structure(TRUE, add = random_model_call_string_vars)
+      globals = random_model_call_string_vars,
+      packages = model_packages
+    ),
+    # .progress = if (!silent) {
+    #   list(
+    #     name = paste0('Retraining ', rand_it, ' models with random variables...'),
+    #     show_after = 5
+    #   )
+    # } else {
+    #   FALSE
+    # },
     .x = 1:rand_it,
     .f = \(.it) {
+
       # Generate training and test subsets with the random variable.
       # Super-assignment because they modify the datasets defined outside of the map function.
       set.seed(.it)
@@ -322,7 +375,12 @@ create_p_funs <- function(
         .rand_test,
         .rand_model,
         '.random_variable',
+        # avoid iterative parallelization
+        parallel = 0,
         output = 'data',
+        y_col = y_col,
+        pred_fun = pred_fun,
+        pred_type = pred_type,
         silent = TRUE,
         relative_y = 'zero'
       )
@@ -330,10 +388,15 @@ create_p_funs <- function(
       .rand_ale
     })
 
+  # Disable parallel processing if it had been enabled
+  if (parallel > 0) {
+    future::plan(future::sequential)
+  }
+
   ale_y_norm <- create_ale_y_norm_function(test_data[[y_col]])
 
   rand_stats <-
-    map(rand_ales, \(.rand) {
+    map(.rand_ales, \(.rand) {
       ale_stats(
         ale_y = .rand$data$.random_variable$ale_y,
         ale_n = .rand$data$.random_variable$ale_n,

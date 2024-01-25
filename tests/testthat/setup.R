@@ -1,5 +1,7 @@
 # Prepare common environment for testing
 
+library(dplyr, quietly = TRUE)
+
 # Train a GAM on var_cars dataset -------------------
 
 ## Create test_cars; var_cars with more variables so that test will not fail

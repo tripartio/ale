@@ -1,10 +1,10 @@
 ---
-title: "Introduction to the `ale` package"
+title: "Introduction to the ale package"
 author: "Chitu Okoli"
 date: "October 24, 2023"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to the `ale` package}
+  %\VignetteIndexEntry{Introduction to the ale package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
