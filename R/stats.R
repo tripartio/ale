@@ -245,7 +245,6 @@ create_p_funs <- function(
 
   assert_that(is.character(random_model_call_string_vars))
 
-
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
   y_col <- validate_y_col(
@@ -265,7 +264,8 @@ create_p_funs <- function(
         ' p-values created on fewer than 100 iterations are very unreliable.')
     )
   }
-  assert_that(is.flag(silent))
+
+  validate_silent(silent)
 
 
   # Hack to prevent devtools::check from thinking that masked variables are global:
@@ -311,6 +311,20 @@ create_p_funs <- function(
     }
   }
 
+  # Create progress bar iterator
+  if (!silent) {
+    progress_iterator <- progressr::progressor(steps = rand_it)
+    # if (!progressr::handlers(global = NA)) {
+    #   # No global handlers are set, so establish cli (with ETA) by default.
+    #   progressr::handlers(global = TRUE)  # enable progressr progress bars
+    #   progressr::handlers('cli')  # set cli progress bars
+    #   on.exit(progressr::handlers(global = FALSE))  # disable progressr on function exit
+    #   # old_progress_handlers <- progressr::handlers('cli')
+    #   # on.exit(progressr::handlers(old_progress_handlers), add = TRUE)
+    # }
+  }
+
+
   # .rand_ales <- map(
   # .rand_ales <- furrr::future_map(
   # extend random_model_call_string_vars with local variables for parallel processing
@@ -319,7 +333,7 @@ create_p_funs <- function(
     random_model_call_string_vars
   )
   .rand_ales <- map_loop(
-    .progress = !silent,  # future_map does not allow messages for .progress
+    # .progress = !silent,  # future_map does not allow messages for .progress
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
@@ -340,6 +354,13 @@ create_p_funs <- function(
     # },
     .x = 1:rand_it,
     .f = \(.it) {
+
+      # Increment the progress bar iterator.
+      # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+      if (!silent) {
+        progress_iterator()
+      }
+
 
       # Generate training and test subsets with the random variable.
       # Super-assignment because they modify the datasets defined outside of the map function.

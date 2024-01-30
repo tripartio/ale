@@ -62,6 +62,28 @@
 #' processing, set `parallel = 0`.
 #'
 #'
+#' @section Progress bars:
+#' Progress bars are enabled using the `{progressr}` package, whose design philosophy
+#' insists on giving the user full control on progress bars. Thus, progress bars
+#' in the `{ale}` package must be enabled once per session by running the following
+#' two lines of code:
+#' ```R
+#' progressr::handlers(global = TRUE)
+#' progressr::handlers('cli')
+#' ```
+#' If you like these progress bars and you want to make them permanent, then you
+#' can [add these lines of code to your .Rprofile configuration file](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf)
+#' and they will become your defaults for every R session; you would not need to call them
+#' manually again.
+#'
+#' If you do not change the `silent` argument from its default value of `FALSE`,
+#' you will be required to enable progress bars in this way once per session.
+#' **To disable progress bars, set `silent = TRUE`.**
+#'
+#' For more details on formatting progress bars to your liking, see the introduction
+#' to the [{progressr} package](https://progressr.futureverse.org/articles/progressr-intro.html).
+#'
+#'
 #'
 #'
 #' @section About the `{ale}` package:
@@ -154,7 +176,8 @@
 #' see the [model_bootstrap()] function).
 #' @param silent logical length 1, default FALSE. If TRUE, do not display any
 #' non-essential messages during execution (such as progress bars).
-#' Regardless, any warnings and errors will always display.
+#' Regardless, any warnings and errors will always display. See details for how
+#' to enable progress bars. (Not yet enabled in the [ale()] function.)
 #'
 #'
 #' @return list with elements `data`, `plots`, and `stats` as requested in
@@ -658,7 +681,8 @@ ale_core <- function (
     assert_that(is.natural(n_y_quant))
   }
 
-  assert_that(is.flag(silent))
+  validate_silent(silent)
+
   assert_that(is.whole(parallel))
 
 
