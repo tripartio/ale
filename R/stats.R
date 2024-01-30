@@ -395,14 +395,19 @@ create_p_funs <- function(
     future::plan(future::sequential)
   }
 
-  ale_y_norm <- create_ale_y_norm_function(test_data[[y_col]])
+  # Normalization is based on y_preds rather than y_col:
+  # * takes care of classification, survival, or other [0, 1] prediction values
+  # * reflects fact that .random_variable results are based on random iterations
+  #   of the input dataset, which changes each time.
+  ale_y_norm_fun <- create_ale_y_norm_function(y_preds)
+  # ale_y_norm_fun <- create_ale_y_norm_function(test_data[[y_col]])
 
   rand_stats <-
     map(.rand_ales, \(.rand) {
       ale_stats(
         ale_y = .rand$data$.random_variable$ale_y,
         ale_n = .rand$data$.random_variable$ale_n,
-        ale_y_norm_fun = ale_y_norm,
+        ale_y_norm_fun = ale_y_norm_fun,
         zeroed_ale = TRUE
       )
     }) |>
