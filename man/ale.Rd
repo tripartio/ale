@@ -13,7 +13,7 @@ ale(
   y_col = NULL,
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = character(),
+  model_packages = as.character(NA),
   output = c("plots", "data", "stats"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -137,7 +137,8 @@ see the \code{\link[=model_bootstrap]{model_bootstrap()}} function).}
 
 \item{silent}{logical length 1, default FALSE. If TRUE, do not display any
 non-essential messages during execution (such as progress bars).
-Regardless, any warnings and errors will always display.}
+Regardless, any warnings and errors will always display. See details for how
+to enable progress bars.}
 }
 \value{
 list with elements \code{data}, \code{plots}, and \code{stats} as requested in
@@ -226,6 +227,29 @@ the entire computer to running this function (and you don't mind everything
 else becoming very slow while it runs), you may use all cores by setting
 \code{parallel = parallel::detectCores(logical = FALSE)}. To disable parallel
 processing, set \code{parallel = 0}.
+}
+
+\section{Progress bars}{
+
+Progress bars are implemented with the \code{{progressr}} package, which lets
+the user fully control progress bars. \strong{To disable progress bars, set \code{silent = TRUE}.}
+The first time a function is called in
+the \code{{ale}} package that requires progress bars, it checks if the user has
+activated the necessary \code{{progressr}} settings. If not, the \code{{ale}} package
+automatically enables \code{{progressr}} progress bars with the \code{cli} handler and
+prints a message notifying the user.
+
+If you like the default progress bars and you want to make them permanent, then you
+can \href{https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf}{add the following lines of code to your .Rprofile configuration file}
+and they will become your defaults for every R session; you will not see the
+message again:
+
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+}\if{html}{\out{</div>}}
+
+For more details on formatting progress bars to your liking, see the introduction
+to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}.
 }
 
 \section{About the \code{{ale}} package}{

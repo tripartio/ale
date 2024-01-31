@@ -11,7 +11,7 @@ model_bootstrap(
   model_call_string = NULL,
   model_call_string_vars = character(),
   parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = character(),
+  model_packages = as.character(NA),
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,

@@ -118,10 +118,21 @@ validate_silent <- function(silent) {
   if (!silent) {
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
-      progressr::handlers(global = TRUE)
+
+      progressr::handlers(global = TRUE) |>
+        tryCatch(error = function(e) {
+          # If there is an error here, then this code is probably being executed
+          # in a context where global handlers are forbidden
+          # (e.g., RMarkdown, a tryCatch block, etc.).
+          # In that case, do nothing--progress bars will not be enabled.
+          # This is actually fine for non-interactive contexts, which tend to be
+          # the problematic cases.
+        }
+      )
+
       progressr::handlers('cli')
       message(
-        'No global progress bars were found; the cli handler has been enabled. ',
+        'Info: No global progress bars were found; the cli handler has been enabled. ',
         'This activation only lasts for one R session; see help(ale) for how to
         permanently configure the progress bar settings.'
       )

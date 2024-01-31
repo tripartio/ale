@@ -10,7 +10,7 @@ create_p_funs(
   model,
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = character(),
+  model_packages = as.character(NA),
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   y_col = NULL,

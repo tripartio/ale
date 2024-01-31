@@ -12,7 +12,7 @@ ale_ixn(
   y_col = NULL,
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = character(),
+  model_packages = as.character(NA),
   output = c("plots", "data"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
