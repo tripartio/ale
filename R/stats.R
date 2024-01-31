@@ -182,7 +182,7 @@ create_p_funs <- function(
     model,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
+    model_packages = as.character(NA),
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     y_col = NULL,
@@ -209,8 +209,7 @@ create_p_funs <- function(
     pred_type = pred_type
   )
 
-  assert_that(is.whole(parallel))
-  assert_that(is.character(model_packages))
+  validate_parallel(parallel, model_packages)
 
   if (is.null(random_model_call_string)) {
     # Automatically extract the call from the model
@@ -314,14 +313,6 @@ create_p_funs <- function(
   # Create progress bar iterator
   if (!silent) {
     progress_iterator <- progressr::progressor(steps = rand_it)
-    # if (!progressr::handlers(global = NA)) {
-    #   # No global handlers are set, so establish cli (with ETA) by default.
-    #   progressr::handlers(global = TRUE)  # enable progressr progress bars
-    #   progressr::handlers('cli')  # set cli progress bars
-    #   on.exit(progressr::handlers(global = FALSE))  # disable progressr on function exit
-    #   # old_progress_handlers <- progressr::handlers('cli')
-    #   # on.exit(progressr::handlers(old_progress_handlers), add = TRUE)
-    # }
   }
 
 

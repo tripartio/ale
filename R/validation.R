@@ -94,6 +94,21 @@ validate_y_col <- function(
 }
 
 
+# Validate parallel processing inputs: parallel, model_packages.
+validate_parallel <- function(parallel, model_packages) {
+  assert_that(is.whole(parallel))
+
+  assert_that(
+    is.character(model_packages),
+    parallel == 0 || !any(is.na(model_packages)),
+    msg = paste0(
+      'If parallel processing is not disabled with `parallel = 0`, ',
+      'then `model_packages` must be a character vector of the packages required ',
+      'to predict `model`.'
+    )
+  )
+}
+
 
 # Validate silent output flag.
 # Mainly enables or disables progress bars.
@@ -101,12 +116,22 @@ validate_silent <- function(silent) {
   assert_that(is.flag(silent))
 
   if (!silent) {
-    assert_that(
-      progressr::handlers(global = NA),
-      msg = "If silent = FALSE (default), then progress bars must be explicitly enabled.
-        Run `progressr::handlers(global = TRUE); progressr::handlers('cli')` (once per session).
-        See help(ale) for details on the silent argument."
-    )
+    if (!progressr::handlers(global = NA)) {
+      # If no progressr bar settings are configured, then set cli as the default.
+      progressr::handlers(global = TRUE)
+      progressr::handlers('cli')
+      message(
+        'No global progress bars were found; the cli handler has been enabled. ',
+        'This activation only lasts for one R session; see help(ale) for how to
+        permanently configure the progress bar settings.'
+      )
+    }
+    # assert_that(
+    #   progressr::handlers(global = NA),
+    #   msg = "If silent = FALSE (default), then progress bars must be explicitly enabled.
+    #     Run `progressr::handlers(global = TRUE); progressr::handlers('cli')` (once per session).
+    #     See help(ale) for details on the silent argument."
+    # )
   }
 
 }

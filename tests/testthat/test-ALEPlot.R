@@ -136,6 +136,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     # adult_data[,-c(3,4)], gbm.data,  # basic arguments
     c('age', 'education_num', 'hours_per_week'),
     # make ale equivalent to ALEPlot
+    parallel = 0,
     relative_y = 'zero', output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
@@ -280,6 +281,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     adult_data, gbm.data,  # basic arguments
     c('age', 'education_num', 'hours_per_week'),
     c('age', 'education_num', 'hours_per_week'),
+    parallel = 0,
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
     pred_fun = gbm_pred_fun_ale,
     pred_type = 'link', x_intervals = 100,  # specific options requested

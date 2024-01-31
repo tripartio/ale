@@ -170,7 +170,7 @@ model_bootstrap <- function (
     model_call_string = NULL,
     model_call_string_vars = character(),
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
+    model_packages = as.character(NA),
     # y_col,
     # pred_fun,
     # pred_type,
@@ -232,8 +232,7 @@ model_bootstrap <- function (
   #     (stringr::str_sub(model_call_string, start = -1) == ')')
   # )
 
-  assert_that(is.whole(parallel))
-  assert_that(is.character(model_packages))
+  validate_parallel(parallel, model_packages)
 
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))
@@ -324,15 +323,22 @@ model_bootstrap <- function (
   }
 
   model_call_string_vars <- c(
-    '.rand_train', '.rand_test', '.random_variable', '.rand_model', '.rand_ale',
+    'boot_data',
     model_call_string_vars
   )
 
+  # Create progress bar iterator
+  if (!silent) {
+    progress_iterator <- progressr::progressor(
+      steps = boot_it,
+      message = 'Creating and analyzing models'
+    )
+  }
 
   model_and_ale <-
     # map2(
     map2_loop(
-      .progress = !silent,  # future_map does not allow messages for .progress
+      # .progress = !silent,  # future_map does not allow messages for .progress
       .options = furrr::furrr_options(
         # Enable parallel-processing random seed generation
         seed = seed,
@@ -351,6 +357,11 @@ model_bootstrap <- function (
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(.it, .idxs) {
+        # Increment progress bar iterator
+        # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+        if (!silent) {
+          progress_iterator()
+        }
 
         # boot_data: this particular bootstrap sample
         boot_data <- data[.idxs, ]

@@ -63,25 +63,24 @@
 #'
 #'
 #' @section Progress bars:
-#' Progress bars are enabled using the `{progressr}` package, whose design philosophy
-#' insists on giving the user full control on progress bars. Thus, progress bars
-#' in the `{ale}` package must be enabled once per session by running the following
-#' two lines of code:
+#' Progress bars are implemented with the `{progressr}` package, which lets
+#' the user fully control progress bars. **To disable progress bars, set `silent = TRUE`.**
+#' The first time a function is called in
+#' the `{ale}` package that requires progress bars, it checks if the user has
+#' activated the necessary `{progressr}` settings. If not, the `{ale}` package
+#' automatically enables `{progressr}` progress bars with the `cli` handler and
+#' prints a message notifying the user.
+#'
+#' If you like the default progress bars and you want to make them permanent, then you
+#' can [add the following lines of code to your .Rprofile configuration file](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf)
+#' and they will become your defaults for every R session; you will not see the
+#' message again:
 #' ```R
 #' progressr::handlers(global = TRUE)
 #' progressr::handlers('cli')
 #' ```
-#' If you like these progress bars and you want to make them permanent, then you
-#' can [add these lines of code to your .Rprofile configuration file](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf)
-#' and they will become your defaults for every R session; you would not need to call them
-#' manually again.
-#'
-#' If you do not change the `silent` argument from its default value of `FALSE`,
-#' you will be required to enable progress bars in this way once per session.
-#' **To disable progress bars, set `silent = TRUE`.**
-#'
 #' For more details on formatting progress bars to your liking, see the introduction
-#' to the [{progressr} package](https://progressr.futureverse.org/articles/progressr-intro.html).
+#' to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html).
 #'
 #'
 #'
@@ -177,7 +176,7 @@
 #' @param silent logical length 1, default FALSE. If TRUE, do not display any
 #' non-essential messages during execution (such as progress bars).
 #' Regardless, any warnings and errors will always display. See details for how
-#' to enable progress bars. (Not yet enabled in the [ale()] function.)
+#' to enable progress bars.
 #'
 #'
 #' @return list with elements `data`, `plots`, and `stats` as requested in
@@ -268,7 +267,7 @@ ale <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
+    model_packages = as.character(NA),
     output = c('plots', 'data', 'stats'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -413,7 +412,7 @@ ale_ixn <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
+    model_packages = as.character(NA),
     output = c('plots', 'data'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -503,7 +502,7 @@ ale_core <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = character(),
+    model_packages = as.character(NA),
     output = c('plots', 'data', 'stats'),
     # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
@@ -562,6 +561,8 @@ ale_core <- function (
     data = data,
     model = model
   )
+
+  validate_parallel(parallel, model_packages)
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
@@ -683,7 +684,6 @@ ale_core <- function (
 
   validate_silent(silent)
 
-  assert_that(is.whole(parallel))
 
 
 
@@ -791,92 +791,100 @@ ale_core <- function (
 
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
+    # Create progress bar iterator only if not in an outer loop with ale_xs
+    if (!silent && is.null(ale_xs)) {
+      progress_iterator <- progressr::progressor(
+        steps = length(x_cols),
+        message = 'Calculating ALE'
+      )
+    }
+
     ales <-
       x_cols |>
       # map(
       map_loop(
-        # future_map() does not allow messages for .progress.
-        # Show progress bar only if not in an outer loop with ale_xs
-        .progress = !silent && is.null(ale_xs),
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
           packages = model_packages
         ),
-        # .progress = if (!silent && is.null(ale_xs)) {
-        #   list(
-        #     name = 'Calculating ALE',
-        #     show_after = 5
-        #   )
-        # } else {
-        #   FALSE
-        # },
         .f = \(x_col) {
-        # Calculate ale_data for single variables
+          # Increment progress bar iterator only if not in an outer loop with ale_xs
+          # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+          if (!silent && is.null(ale_xs)) {
+            progress_iterator()
+          }
 
-        ale_data_stats <-
-          calc_ale(
-            data_X, model, x_col,
-            pred_fun, pred_type, x_intervals,
-            # pred_fun, x_intervals,
-            boot_it, seed, boot_alpha, boot_centre,
-            ale_x = ale_xs[[x_col]],
-            ale_n = ale_ns[[x_col]],
-            ale_y_norm_fun = ale_y_norm_fun,
-            p_funs = p_values
+          # Calculate ale_data for single variables
+          ale_data_stats <-
+            calc_ale(
+              data_X, model, x_col,
+              pred_fun, pred_type, x_intervals,
+              # pred_fun, x_intervals,
+              boot_it, seed, boot_alpha, boot_centre,
+              ale_x = ale_xs[[x_col]],
+              ale_n = ale_ns[[x_col]],
+              ale_y_norm_fun = ale_y_norm_fun,
+              p_funs = p_values
+            )
+          ale_data <- ale_data_stats$summary
+          stats    <- ale_data_stats$stats
+
+          # Shift ale_y by appropriate relative_y
+          ale_data <- ale_data |>
+            mutate(across(contains('ale_y'), \(.x) {
+              .x + relative_y_shift
+            }))
+
+          # Generate ALE plot
+          plot <- NULL  # Start with a NULL plot
+          if ('plots' %in% output) {  # user requested the plot
+            plot <- plot_ale(
+              ale_data, x_col, y_col, y_type,
+              y_summary,
+              relative_y = relative_y,
+              median_band = median_band,
+              x_y = tibble(data[[x_col]], y_vals) |>
+                stats::setNames(c(x_col, y_col)),
+              # data = data[, c(x_col, y_col)],
+              rug_sample_size = rug_sample_size,
+              min_rug_per_interval = min_rug_per_interval,
+              seed = seed
+              # ggplot_custom
+            )
+          }
+
+          # Delete data if only plot was requested
+          if (identical(output, 'plots')) {  # No data desired
+            ale_data <- NULL
+          }
+
+          list(
+            # return(list(
+            data = ale_data,
+            stats = stats,
+            plots = plot
           )
-        ale_data <- ale_data_stats$summary
-        stats    <- ale_data_stats$stats
-
-        # Shift ale_y by appropriate relative_y
-        ale_data <- ale_data |>
-          mutate(across(contains('ale_y'), \(.x) {
-            .x + relative_y_shift
-          }))
-
-        # Generate ALE plot
-        plot <- NULL  # Start with a NULL plot
-        if ('plots' %in% output) {  # user requested the plot
-          plot <- plot_ale(
-            ale_data, x_col, y_col, y_type,
-            y_summary,
-            relative_y = relative_y,
-            median_band = median_band,
-            x_y = tibble(data[[x_col]], y_vals) |>
-              stats::setNames(c(x_col, y_col)),
-            # data = data[, c(x_col, y_col)],
-            rug_sample_size = rug_sample_size,
-            min_rug_per_interval = min_rug_per_interval,
-            seed = seed
-            # ggplot_custom
-          )
-        }
-
-        # Delete data if only plot was requested
-        if (identical(output, 'plots')) {  # No data desired
-          ale_data <- NULL
-        }
-
-        list(
-          # return(list(
-          data = ale_data,
-          stats = stats,
-          plots = plot
-        )
-
-      }) |>
-      set_names(x_cols) |>
-      transpose()
+        }) |>
+        set_names(x_cols) |>
+        transpose()
   }
   else {  # two-way interactions
+    # Create progress bar iterator only if not in an outer loop with ale_xs
+    if (!silent && is.null(ale_xs)) {
+      progress_iterator <- progressr::progressor(
+        steps = length(x1_cols) * length(x2_cols),
+        message = 'Calculating ALE interactions'
+      )
+    }
 
     ales_by_var <-
       x1_cols |>
       # map(
       map_loop(
-        # future_map() does not allow messages for .progress.
-        # Show progress bar only if not in an outer loop with ale_xs
-        .progress = !silent && is.null(ale_xs),
+        # # future_map() does not allow messages for .progress.
+        # # Show progress bar only if not in an outer loop with ale_xs
+        # .progress = !silent && is.null(ale_xs),
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -901,6 +909,11 @@ ale_core <- function (
 
         x2_cols_to_interact |>
           map(\(x2_col) {
+            # Increment progress bar iterator only if not in an outer loop with ale_xs
+            # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+            if (!silent && is.null(ale_xs)) {
+              progress_iterator()
+            }
 
             ale_data <-
               calc_ale_ixn(

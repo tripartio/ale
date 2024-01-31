@@ -7,6 +7,7 @@ test_that(
     expect_no_error(
       model_bootstrap(
         test_cars, cars_gam,
+        model_packages = 'mgcv',
         ale_options = list(x_cols = c('cyl', 'disp')),
         silent = TRUE
       )
@@ -16,6 +17,7 @@ test_that(
     expect_no_error(
       model_bootstrap(
         test_cars, cars_gam,
+        model_packages = 'mgcv',
         ale_options = list(x_cols = c('cyl', 'disp')),
         boot_it = 5,
         silent = TRUE
