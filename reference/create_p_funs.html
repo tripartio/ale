@@ -36,7 +36,7 @@ correctly manipulate its model object."><!-- mathjax --><script src="https://cdn
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240124</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240131</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@ correctly manipulate its model object.</p>
 <span>  <span class="va">model</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
-<span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  random_model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  random_model_call_string_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -344,6 +344,8 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  rand_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Info: No global progress bars were found; the cli handler has been enabled. This activation only lasts for one R session; see help(ale) for how to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>         permanently configure the progress bar settings.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pf_diamonds</span><span class="op">)</span></span></span>
@@ -366,9 +368,9 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aled     : num [1:100] 25.58 11.85 6.25 30.87 16.93 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_min : num [1:100] -180.2 -57.9 -17.1 -124.9 -98 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_max : num [1:100] 122 42.5 28.5 214.6 171.4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naled    : num [1:100] 0.677 0.575 0.276 0.67 0.545 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_min: num [1:100] -2 -1.5 0 -2 -2 -2 -2 -2 0 -2 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_max: num [1:100] 1.98 1.49 1.49 2.48 1.98 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naled    : num [1:100] 0.3208 0.1385 0.0401 0.3853 0.2162 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_min: num [1:100] -2.868 -1.122 -0.374 -1.995 -1.87 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_max: num [1:100] 0.873 0.249 0.249 1.621 1.247 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ residuals            : num [1:801(1d)] -1180.2 -1096.3 -216.6 -25.6 -1511.5 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ residual_distribution: 'univariateML' Named num [1:4] 9.71 1020.87 2.99 1.24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:4] "mean" "sd" "nu" "xi"</span>
@@ -380,7 +382,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:3] "p_funs" "ale" "list"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "ale_version")=Classes 'package_version', 'numeric_version'  hidden list of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240131</span>
 <span class="r-in"><span><span class="co"># In RStudio: View(pf_diamonds)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate ALEs with p-values</span></span></span>
