@@ -689,12 +689,21 @@ model_bootstrap <- function (
       }
 
       # if the user wants stats, assume they also want confidence regions
-      ale_conf_regions <-
-        ale_summary_data |>
-        map(\(.ale_data) {
-          summarize_conf_regions(.ale_data, y_summary)
-        }) |>
-        set_names(names(ale_summary_data))
+      ale_conf_regions <- summarize_conf_regions(
+        ale_summary_data,
+        y_summary,
+        sig_criterion = if (!is.null(ale_options$p_values)) {
+          'p_values'
+        } else {
+          'median_bar_pct'
+        }
+      )
+      # ale_conf_regions <-
+      #   ale_summary_data |>
+      #   map(\(.ale_data) {
+      #     summarize_conf_regions(.ale_data, y_summary)
+      #   }) |>
+      #   set_names(names(ale_summary_data))
 
 
 
