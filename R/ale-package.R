@@ -23,4 +23,10 @@
 #' @import purrr
 #' @import ggplot2
 #'
+#'
+#' @aliases ale-package NULL
+#'
+#' @keywords internal
 '_PACKAGE'
+
+# How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages
