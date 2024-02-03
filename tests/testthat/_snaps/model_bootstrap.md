@@ -3058,7 +3058,7 @@
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       
@@ -6197,7 +6197,7 @@
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       
@@ -9507,7 +9507,7 @@
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       

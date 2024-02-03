@@ -198,7 +198,7 @@ nn_ale_ixn$plots |>
 
 These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction; blue indicates a positive interaction effect; red indicates a negative effect. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
 
-The range of outcome (y) values is divided into quantiles, deciles by default. However, the middle quantiles are modified. Rather than showing the middle 10% or 20% of values, it is much narrow: it shows the middle 5%. (This value is based on the notion of alpha of 0.05 for confidence intervals; it can be customized with the `median_band` argument.)
+The range of outcome (y) values is divided into quantiles, deciles by default. However, the middle quantiles are modified. Rather than showing the middle 10% or 20% of values, it is much narrow: it shows the middle 5%. (This value is based on the notion of alpha of 0.05 for confidence intervals; it can be customized with the `median_band_pct` argument.)
 
 The legend shows the midpoint y value of each quantile, which is usually the mean of the boundaries of the quantile. The exception is the special middle quantile, whose displayed midpoint value is the median of the entire dataset.
 

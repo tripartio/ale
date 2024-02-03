@@ -21,7 +21,7 @@
 #  for plotting.
 #  @param ... not used. Enforces explicit naming of subsequent arguments.
 #  @param relative_y See documentation for [ale()]
-#  @param median_band See documentation for [ale()]
+#  @param median_band_pct See documentation for [ale()]
 #  @param x_y dataframe with two columns: x_col and y_col.
 #  If provided, used to generate rug plots.
 #@param data dataframe. If provided, used to generate rug plots. Must at least
@@ -41,7 +41,7 @@ plot_ale <- function(
     ...,
     # ggplot_custom,
     relative_y = 'median',
-    median_band = c(0.05, 0.5),
+    median_band_pct = c(0.05, 0.5),
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
@@ -114,17 +114,17 @@ plot_ale <- function(
         labels = if (names(y_summary[1]) == 'p') {
           # p-values were provided for y_summary; ALER is used
           c(
-            glue::glue('-p={format(median_band[2], nsmall = 2)}'),
-            glue::glue('ALER p={format(median_band[1], nsmall = 2)}'),
-            glue::glue('+p={format(median_band[2], nsmall = 2)}')
+            glue::glue('-p={format(median_band_pct[2], nsmall = 2)}'),
+            glue::glue('ALER p={format(median_band_pct[1], nsmall = 2)}'),
+            glue::glue('+p={format(median_band_pct[2], nsmall = 2)}')
           )
         }
         else {
           # without p-values, quantiles are used
           c(
-            glue::glue('{50-(median_band[2]*100/2)}%'),
+            glue::glue('{50-(median_band_pct[2]*100/2)}%'),
             relative_y,
-            glue::glue('{50+(median_band[2]*100/2)}%')
+            glue::glue('{50+(median_band_pct[2]*100/2)}%')
           )
         },
         breaks = c(
@@ -135,7 +135,7 @@ plot_ale <- function(
         # labels = c('25%',
         #            relative_y,
         #            # Unicode ± must be replaced by \u00B1 for CRAN
-        #            # paste0(relative_y, '\u00B1', format((median_band / 2) * 100), '%'),
+        #            # paste0(relative_y, '\u00B1', format((median_band_pct / 2) * 100), '%'),
         #            '75%'),
         # breaks = c(
         #   y_summary[['25%']],
@@ -256,7 +256,7 @@ plot_ale <- function(
 # `ale_data`.
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for [ale()]
-# @param median_band See documentation for [ale()]
+# @param median_band_pct See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
@@ -278,7 +278,7 @@ plot_ale_ixn <- function(
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
-    median_band = c(0.05, 0.5),
+    median_band_pct = c(0.05, 0.5),
     n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
     x1_x2_y = NULL,
     # data = NULL,
@@ -327,8 +327,8 @@ plot_ale_ixn <- function(
     stats::quantile(
       probs = c(
         seq(0, 1, 1 / n_y_quant),
-        0.5 - (median_band[1] / 2),
-        0.5 + (median_band[1] / 2)
+        0.5 - (median_band_pct[1] / 2),
+        0.5 + (median_band_pct[1] / 2)
       ) |>
         sort()
     )
@@ -571,7 +571,7 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
-    median_band = c(0.05, 0.5)
+    median_band_pct = c(0.05, 0.5)
 ) {
 
   # Hack to prevent devtools::check from thinking that masked variables are global:
@@ -599,9 +599,9 @@ plot_effects <- function(
   median_band_quantiles <- quantile(
     y_vals, c(
       # effects plot only uses the inner median band
-      0.5 - (median_band[1] / 2),
+      0.5 - (median_band_pct[1] / 2),
       0.5,
-      0.5 + (median_band[1] / 2)
+      0.5 + (median_band_pct[1] / 2)
     )
   )
   median_band_lo <- median_band_quantiles[1]

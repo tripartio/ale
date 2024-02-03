@@ -661,20 +661,21 @@ create_ale_y_norm_function <- function(y_vals) {
 # Provide a vector of descriptive statistics
 var_summary <- function(
     var_vals,
-    median_band = c(0.05, 0.5),
-    p_funs = NULL
+    median_band_pct = c(0.05, 0.5),
+    p_funs = NULL,
+    p_alpha = c(0.01, 0.05)
 ) {
   # Generate summary statistics for y for plotting
   s <- stats::quantile(
     var_vals,
     probs = c(
       0.01, 0.025, 0.05, 0.1, 0.25,
-      0.5 - (median_band[2] / 2),
-      0.5 - (median_band[1] / 2),
+      0.5 - (median_band_pct[2] / 2),
+      0.5 - (median_band_pct[1] / 2),
       0.5,
-      0.5 + (median_band[1] / 2),
-      0.5 + (median_band[2] / 2),
-      # 0.5 - (median_band / 2), 0.5, 0.5 + (median_band / 2),
+      0.5 + (median_band_pct[1] / 2),
+      0.5 + (median_band_pct[2] / 2),
+      # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
       0.75, 0.9, 0.95, 0.975, 0.99
     )
   )
@@ -685,14 +686,14 @@ var_summary <- function(
 
     # Create lower confidence bounds just below the midpoint
     med_lo_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(0.01))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[1]))
     } else {
-      s[[paste0(format((0.5 - (median_band[2] / 2)) * 100), '%')]]
+      s[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
     },
     med_lo = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(0.05))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[2]))
     } else {
-      s[[paste0(format((0.5 - (median_band[1] / 2)) * 100), '%')]]
+      s[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
     },
 
     s[match('50%', names(s))],
@@ -701,75 +702,20 @@ var_summary <- function(
 
     # Create upper confidence bounds just above the midpoint
     med_hi = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(0.05))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[2]))
     } else {
-      s[[paste0(format((0.5 + (median_band[1] / 2)) * 100), '%')]]
+      s[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
     },
     med_hi_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(0.01))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[1]))
     } else {
-      s[[paste0(format((0.5 + (median_band[2] / 2)) * 100), '%')]]
+      s[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
     },
 
     # Retain latter half of values
     s[match('75%', names(s)):length(s)]
   )
 
-  # s <- c(
-  #   # Retain first half of values
-  #   s[1:match('25%', names(s))],
-  #
-  #   aler_min_0.01 = if (!is.null(p_funs)) {
-  #     s[['50%']] + p_funs$p_to_random_value$aler_min(0.01)
-  #   } else {
-  #     NULL
-  #   },
-  #   aler_min_0.05 = if (!is.null(p_funs)) {
-  #     s[['50%']] + p_funs$p_to_random_value$aler_min(0.05)
-  #   } else {
-  #     NULL
-  #   },
-  #
-  #   # Create lower confidence bound just below the midpoint
-  #   med_lo = s[[paste0(format((0.5 - (median_band / 2)) * 100), '%')]],
-  #
-  #   s[match('50%', names(s))],
-  #
-  #   mean = mean(var_vals, na.rm = TRUE),
-  #
-  #   # Create upper confidence bound just above the midpoint
-  #   med_hi = s[[paste0(format((0.5 + (median_band / 2)) * 100), '%')]],
-  #
-  #   aler_max_0.05 = if (!is.null(p_funs)) {
-  #     s[['50%']] + p_funs$p_to_random_value$aler_max(0.05)
-  #   } else {
-  #     NULL
-  #   },
-  #   aler_max_0.01 = if (!is.null(p_funs)) {
-  #     s[['50%']] + p_funs$p_to_random_value$aler_max(0.01)
-  #   } else {
-  #     NULL
-  #   },
-  #
-  #   # Retain latter half of values
-  #   s[match('75%', names(s)):length(s)]
-  # )
-
-  # s <- c(
-  #   # Retain first half of values
-  #   s[1:match('50%', names(s))],
-  #
-  #   # Create lower confidence bound just below the midpoint
-  #   med_lo = s[[paste0(format((0.5 - (median_band / 2)) * 100), '%')]],
-  #
-  #   mean = mean(var_vals, na.rm = TRUE),
-  #
-  #   # Create upper confidence bound just above the midpoint
-  #   med_hi = s[[paste0(format((0.5 + (median_band / 2)) * 100), '%')]],
-  #
-  #   # Retain latter half of values
-  #   s[match('75%', names(s)):length(s)]
-  # )
 
   # Determine the limits and average of y.
   # min and max are needed only for plotting, but avg is needed for data.
@@ -786,7 +732,7 @@ var_summary <- function(
 
   # Encode whether the med values represent p-values or not:
   # names(s[1]) == 'p': p-values
-  # names(s[1]) == 'q': quantiles (that is, median_band not replaced by p-values)
+  # names(s[1]) == 'q': quantiles (that is, median_band_pct not replaced by p-values)
   s <- if (is.null(p_funs)) {
     c(q = 0, s)
   }
@@ -873,7 +819,7 @@ pivot_stats <- function(long_stats) {
 summarize_conf_regions <- function(
     ale_data_list,  # list of ale_data elements
     y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'p_values' or 'median_bar_pct'
+    sig_criterion  # string either 'p_values' or 'median_band_pct'
   ) {
 
   # Hack to prevent devtools::check from thinking that masked variables are global:

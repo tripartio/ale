@@ -695,7 +695,7 @@ model_bootstrap <- function (
         sig_criterion = if (!is.null(ale_options$p_values)) {
           'p_values'
         } else {
-          'median_bar_pct'
+          'median_band_pct'
         }
       )
       # ale_conf_regions <-
@@ -731,18 +731,18 @@ model_bootstrap <- function (
 
         # Also produce an ALE effects plot
 
-        # Retrieve median_band if provided; otherwise use boot_alpha
-        median_band <- if (is.null(ale_options$median_band)) {
+        # Retrieve median_band_pct if provided; otherwise use boot_alpha
+        median_band_pct <- if (is.null(ale_options$median_band_pct)) {
           c(boot_alpha, boot_alpha)
         } else {
-          ale_options$median_band
+          ale_options$median_band_pct
         }
 
         detailed_ale_stats$effects_plot <- plot_effects(
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          median_band
+          median_band_pct
         )
 
       }

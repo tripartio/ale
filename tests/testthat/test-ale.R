@@ -75,7 +75,7 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'numeric',
-      median_band = c(0.01, 0.15),
+      median_band_pct = c(0.01, 0.15),
       silent = TRUE
     )
 
@@ -131,7 +131,7 @@ test_that(
       boot_centre = 'median',
       relative_y = 'zero',
       y_type = 'binary',
-      median_band = c(0.01, 0.2),
+      median_band_pct = c(0.01, 0.2),
       silent = TRUE
     )
 

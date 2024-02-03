@@ -3037,7 +3037,7 @@
       # i 1 more variable: relative_to_mid <ord>
       
       $conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       $y_col
@@ -3073,7 +3073,7 @@
       $y_type
       [1] "numeric"
       
-      $median_band
+      $median_band_pct
       [1] 0.05 0.50
       
       $rug_sample_size
@@ -6158,7 +6158,7 @@
       # i 1 more variable: relative_to_mid <ord>
       
       $conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       $y_col
@@ -6194,7 +6194,7 @@
       $y_type
       [1] "numeric"
       
-      $median_band
+      $median_band_pct
       [1] 0.05 0.50
       
       $rug_sample_size
@@ -6881,7 +6881,7 @@
       $y_type
       [1] "numeric"
       
-      $median_band
+      $median_band_pct
       [1] 0.01 0.15
       
       $rug_sample_size
@@ -10562,7 +10562,7 @@
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
       $conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       $y_col
@@ -10600,7 +10600,7 @@
       $y_type
       [1] "binary"
       
-      $median_band
+      $median_band_pct
       [1] 0.05 0.50
       
       $rug_sample_size
@@ -14324,7 +14324,7 @@
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
       $conf_regions$sig_criterion
-      [1] "median_bar_pct"
+      [1] "median_band_pct"
       
       
       $y_col
@@ -14362,7 +14362,7 @@
       $y_type
       [1] "binary"
       
-      $median_band
+      $median_band_pct
       [1] 0.05 0.50
       
       $rug_sample_size
@@ -15098,7 +15098,7 @@
       $y_type
       [1] "binary"
       
-      $median_band
+      $median_band_pct
       [1] 0.01 0.20
       
       $rug_sample_size
