@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240131</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -438,7 +438,7 @@ to fall within this middle median band, then it only has a minimal
 effect. For an effect to be considered statistically significant, there
 should be no overlap between the confidence regions of a predictor
 variable and the median band. (We use 5% by default, but the value can
-be changed with the <code>median_band</code> argument.)</p>
+be changed with the <code>median_band_pct</code> argument.)</p>
 <p>For categorical variables (<code>public</code> and
 <code>high_minority</code> above), the confidence interval bars for all
 categories overlap the median band. The confidence interval bars
@@ -893,7 +893,7 @@ dataset provided to the function.</li>
 <code>ale_y</code>: the ALE function value calculated for that
 category. For bootstrapped ALE, this is the same as
 <code>ale_y_mean</code> by default or <code>ale_y_median</code> if the
-the <code>relative_y = 'median'</code> argument is specified.</li>
+<code>boot_centre = 'median'</code> argument is specified.</li>
 <li>
 <code>ale_y_lo</code> and <code>ale_y_hi</code>: the lower and upper
 confidence intervals for the bootstrapped <code>ale_y</code> value.</li>
@@ -957,9 +957,9 @@ band should be considered conceptually meaningful.</strong></p>
 <p>It might not always be easy to tell from a plot which regions are
 relevant, so the results of statistical significance are summarized with
 the <code>ale$conf_regions</code> element, which can be accessed for
-each variable:</p>
+each variable from its <code>by_term</code> element:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">academic_ratio</span></span>
+<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">academic_ratio</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 9</span></span></span>
 <span><span class="co">#&gt;   start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid</span></span>
 <span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          </span></span>
@@ -1028,7 +1028,7 @@ generated automatically by an internal (unexported function)
 is not exported, you must use <code>ale:::</code> with three colons, not
 just two, if you want to access it.)</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_in_words</span><span class="op">(</span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">academic_ratio</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_in_words</span><span class="op">(</span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">academic_ratio</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "From 0 to 0.05, ALE is below the median band from 8.71 to 10.8. From 0.09 to 0.91, ALE overlaps the median band from 11.7 to 13.8. From 0.95 to 1, ALE is above the median band from 14.2 to 14.7."</span></span></code></pre></div>
 <p>While the wording is rather mechanical, it nonetheless illustrates
 the potential value of being able to summarize the inferentially
@@ -1041,7 +1041,7 @@ Here is its ALE plot:</p>
 <p><img src="ale-statistics_files/figure-html/ALE%20plot%20for%20public-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">public</span></span>
+<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">public</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
 <span><span class="co">#&gt;   x         n n_pct     y relative_to_mid</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          </span></span>
@@ -1064,7 +1064,7 @@ interesting. Here is its ALE plot:</p>
 <p><img src="ale-statistics_files/figure-html/ALE%20plot%20for%20rand_norm-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">rand_norm</span></span>
+<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">rand_norm</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 9</span></span></span>
 <span><span class="co">#&gt;   start_x end_x x_span     n n_pct start_y end_y   trend relative_to_mid</span></span>
 <span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          </span></span>
@@ -1074,6 +1074,38 @@ overlaps the median band from 11.9 to 12.8. So, despite the random highs
 and lows in the bootstrap confidence interval, there is no reason to
 suppose that the random variable has any effect anywhere in its
 domain.</p>
+<p>We can conveniently summarize all the confidence regions from all
+variables that are statistically significant or meaningful by accessing
+the <code>conf_regions$significant</code> element:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 12</span></span></span>
+<span><span class="co">#&gt;    term  x      start_x    end_x x_span     n   n_pct     y start_y end_y  trend</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> size  <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">2</span>357      2.71<span style="color: #949494;">e</span>+3 0.136      8 0.05       <span style="color: #BB0000;">NA</span>   14.1  15.0   0.450</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> acad… <span style="color: #BB0000;">NA</span>       0      5   <span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 0.05       3 0.018<span style="text-decoration: underline;">8</span>     <span style="color: #BB0000;">NA</span>    8.71 10.8   2.81 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> acad… <span style="color: #BB0000;">NA</span>       0.95   1   <span style="color: #949494;">e</span>+0 0.050<span style="text-decoration: underline;">0</span>    16 0.1        <span style="color: #BB0000;">NA</span>   14.2  14.7   0.721</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> fema… <span style="color: #BB0000;">NA</span>       0      0   <span style="color: #949494;"> </span>   0         19 0.119      <span style="color: #BB0000;">NA</span>   14.5  14.5   0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> mean… <span style="color: #BB0000;">NA</span>      -<span style="color: #BB0000;">1.19</span>  -<span style="color: #BB0000;">3.47</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.417     34 0.212      <span style="color: #BB0000;">NA</span>    6.14 12.0   0.951</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> mean… <span style="color: #BB0000;">NA</span>       0.163  1.63<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          1 0.006<span style="text-decoration: underline;">25</span>    <span style="color: #BB0000;">NA</span>   13.6  13.6   0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> mean… <span style="color: #BB0000;">NA</span>       0.218  2.54<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.017<span style="text-decoration: underline;">8</span>     6 0.037<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   14.1  14.0  -<span style="color: #BB0000;">0.394</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> mean… <span style="color: #BB0000;">NA</span>       0.498  7.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.129     19 0.119      <span style="color: #BB0000;">NA</span>   14.1  15.1   0.545</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mino… <span style="color: #BB0000;">NA</span>       0      3.70<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 0.037<span style="text-decoration: underline;">0</span>    42 0.262      <span style="color: #BB0000;">NA</span>   14.5  14.0  -<span style="color: #BB0000;">0.938</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> mino… <span style="color: #BB0000;">NA</span>       0.396  3.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          1 0.006<span style="text-decoration: underline;">25</span>    <span style="color: #BB0000;">NA</span>   11.8  11.8   0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> mino… <span style="color: #BB0000;">NA</span>       0.429  5.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.161     10 0.062<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   11.5  11.0  -<span style="color: #BB0000;">0.210</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> mino… <span style="color: #BB0000;">NA</span>       0.955  1   <span style="color: #949494;">e</span>+0 0.044<span style="text-decoration: underline;">8</span>     9 0.056<span style="text-decoration: underline;">2</span>     <span style="color: #BB0000;">NA</span>   11.2   9.66 -<span style="color: #BB0000;">2.26</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: relative_to_mid &lt;ord&gt;</span></span></span></code></pre></div>
+<p>This summary focuses only on the x variables that have meaningful ALE
+regions anywhere in their domain. We can also conveniently isolate which
+variables have any such meaningful region by extracting the unique
+values in the <code>term</code> column:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span><span class="op">$</span><span class="va">term</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "size"           "academic_ratio" "female_ratio"   "mean_ses"      </span></span>
+<span><span class="co">#&gt; [5] "minority_ratio"</span></span></code></pre></div>
+<p>This is especially useful for analyses with dozens of variables; we
+can thus quickly isolate and focus on the most meaningful ones.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

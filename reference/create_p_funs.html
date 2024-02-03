@@ -36,7 +36,7 @@ correctly manipulate its model object."><!-- mathjax --><script src="https://cdn
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240131</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -344,8 +344,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  rand_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Info: No global progress bars were found; the cli handler has been enabled. This activation only lasts for one R session; see help(ale) for how to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>         permanently configure the progress bar settings.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pf_diamonds</span><span class="op">)</span></span></span>
@@ -382,7 +380,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:3] "p_funs" "ale" "list"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "ale_version")=Classes 'package_version', 'numeric_version'  hidden list of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240203</span>
 <span class="r-in"><span><span class="co"># In RStudio: View(pf_diamonds)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate ALEs with p-values</span></span></span>

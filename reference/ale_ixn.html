@@ -5,8 +5,8 @@ See documentation there for functionality shared between both functions.
 For details, see the introductory vignette for this package or the details and examples below.
 For the plots, n_y_quant is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:
-The middle quantile is the first confidence interval of median_band
-(median_band[1]) around the median.
+The middle quantile is the first confidence interval of median_band_pct
+(median_band_pct[1]) around the median.
 This middle quantile is special because it generally represents no meaningful
 interaction.
 The quantiles above and below the middle are extended from the borders of
@@ -22,8 +22,8 @@ See documentation there for functionality shared between both functions.
 For details, see the introductory vignette for this package or the details and examples below.
 For the plots, n_y_quant is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:
-The middle quantile is the first confidence interval of median_band
-(median_band[1]) around the median.
+The middle quantile is the first confidence interval of median_band_pct
+(median_band_pct[1]) around the median.
 This middle quantile is special because it generally represents no meaningful
 interaction.
 The quantiles above and below the middle are extended from the borders of
@@ -44,7 +44,7 @@ number specified will be used, including the middle quantile."><!-- mathjax --><
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240131</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,8 +95,8 @@ for two-way ALE interactions. For simple one-way ALE, see <code><a href="ale.htm
 See documentation there for functionality shared between both functions.
 For details, see the introductory vignette for this package or the details and examples below.</p>
 <p>For the plots, <code>n_y_quant</code> is the number of quantiles into which to
-divide the predicted variable (y). The middle quantiles are grouped specially:</p><ul><li><p>The middle quantile is the first confidence interval of <code>median_band</code>
-(<code>median_band[1]</code>) around the median.
+divide the predicted variable (y). The middle quantiles are grouped specially:</p><ul><li><p>The middle quantile is the first confidence interval of <code>median_band_pct</code>
+(<code>median_band_pct[1]</code>) around the median.
 This middle quantile is special because it generally represents no meaningful
 interaction.</p></li>
 <li><p>The quantiles above and below the middle are extended from the borders of
@@ -127,7 +127,7 @@ number specified will be used, including the middle quantile.</p>
 <span>  x_intervals <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  relative_y <span class="op">=</span> <span class="st">"median"</span>,</span>
 <span>  y_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  median_band <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  median_band_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>  rug_sample_size <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  min_rug_per_interval <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ale_xs <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -192,7 +192,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 <dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
-<dt>median_band</dt>
+<dt>median_band_pct</dt>
 <dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
