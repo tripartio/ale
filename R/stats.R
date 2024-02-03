@@ -813,6 +813,8 @@ pivot_stats <- function(long_stats) {
   return(list(
     by_term = long_stats |>
       split(~ term) |>
+      # split() sort terms alphabetically; revert to the original provided order of terms
+      (`[`)(unique(long_stats$term)) |>
       # Name each element on each row by its corresponding statistic
       map(\(.term_tbl) {
         .row_names <- .term_tbl[['statistic']]
@@ -829,6 +831,8 @@ pivot_stats <- function(long_stats) {
 
     by_statistic = long_stats |>
       split(~ statistic) |>
+      # split() sort statistics alphabetically; revert to the original provided order of statistics
+      (`[`)(unique(long_stats$statistic)) |>
       # Name each element on each row by its corresponding term
       map(\(.statistic_tbl) {
         .row_names <- .statistic_tbl[['term']]

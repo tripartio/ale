@@ -305,22 +305,6 @@
       10 carb      0.0602   0.0602 0.0602 0.0602    0.0602
       11 country   5.26     5.26   5.26   5.26      5.26  
       
-      $ale$stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low median   mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl        0.153    0.153  0.153  0.153     0.153
-       2 disp      18.4     18.4   18.4   18.4      18.4  
-       3 hp        13.5     13.5   13.5   13.5      13.5  
-       4 drat      12.2     12.2   12.2   12.2      12.2  
-       5 wt        20.4     20.4   20.4   20.4      20.4  
-       6 qsec       4.76     4.76   4.76   4.76      4.76 
-       7 vs         2.41     2.41   2.41   2.41      2.41 
-       8 am         7.71     7.71   7.71   7.71      7.71 
-       9 gear      16.5     16.5   16.5   16.5      16.5  
-      10 carb       0.260    0.260  0.260  0.260     0.260
-      11 country   16.0     16.0   16.0   16.0      16.0  
-      
       $ale$stats$by_statistic$aler_min
       # A tibble: 11 x 6
          term    estimate conf.low   median     mean conf.high
@@ -336,6 +320,22 @@
        9 gear     -9.32    -9.32    -9.32    -9.32     -9.32  
       10 carb     -0.0728  -0.0728  -0.0728  -0.0728   -0.0728
       11 country  -9.83    -9.83    -9.83    -9.83     -9.83  
+      
+      $ale$stats$by_statistic$aler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low median   mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 cyl        0.153    0.153  0.153  0.153     0.153
+       2 disp      18.4     18.4   18.4   18.4      18.4  
+       3 hp        13.5     13.5   13.5   13.5      13.5  
+       4 drat      12.2     12.2   12.2   12.2      12.2  
+       5 wt        20.4     20.4   20.4   20.4      20.4  
+       6 qsec       4.76     4.76   4.76   4.76      4.76 
+       7 vs         2.41     2.41   2.41   2.41      2.41 
+       8 am         7.71     7.71   7.71   7.71      7.71 
+       9 gear      16.5     16.5   16.5   16.5      16.5  
+      10 carb       0.260    0.260  0.260  0.260     0.260
+      11 country   16.0     16.0   16.0   16.0      16.0  
       
       $ale$stats$by_statistic$naled
       # A tibble: 11 x 6
@@ -353,22 +353,6 @@
       10 carb        1.56     1.56   1.56  1.56      1.56
       11 country    29.5     29.5   29.5  29.5      29.5 
       
-      $ale$stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low median  mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl         4.55     4.55   4.55  4.55      4.55
-       2 disp       50       50     50    50        50   
-       3 hp         47.0     47.0   47.0  47.0      47.0 
-       4 drat       43.9     43.9   43.9  43.9      43.9 
-       5 wt         50       50     50    50        50   
-       6 qsec       28.8     28.8   28.8  28.8      28.8 
-       7 vs         21.2     21.2   21.2  21.2      21.2 
-       8 am         34.8     34.8   34.8  34.8      34.8 
-       9 gear       50       50     50    50        50   
-      10 carb        4.55     4.55   4.55  4.55      4.55
-      11 country    50       50     50    50        50   
-      
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
@@ -384,6 +368,22 @@
        9 gear       -50      -50    -50   -50       -50  
       10 carb         0        0      0     0         0  
       11 country    -50      -50    -50   -50       -50  
+      
+      $ale$stats$by_statistic$naler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl         4.55     4.55   4.55  4.55      4.55
+       2 disp       50       50     50    50        50   
+       3 hp         47.0     47.0   47.0  47.0      47.0 
+       4 drat       43.9     43.9   43.9  43.9      43.9 
+       5 wt         50       50     50    50        50   
+       6 qsec       28.8     28.8   28.8  28.8      28.8 
+       7 vs         21.2     21.2   21.2  21.2      21.2 
+       8 am         34.8     34.8   34.8  34.8      34.8 
+       9 gear       50       50     50    50        50   
+      10 carb        4.55     4.55   4.55  4.55      4.55
+      11 country    50       50     50    50        50   
       
       
       $ale$stats$estimate
@@ -3385,22 +3385,6 @@
       10 carb        5.77    0.106  4.60   5.77     17.5 
       11 country    12.3     4.88   5.05  12.3      34.0 
       
-      $ale$stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low median  mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl        12.3     0.437   1.79 12.3      44.1 
-       2 disp       24.3     5.06   14.9  24.3      70.1 
-       3 hp         11.2     4.12    7.71 11.2      28.1 
-       4 drat       15.2     0.617   7.57 15.2      50.9 
-       5 wt          6.43    2.38    8.41  6.43      9.25
-       6 qsec        5.93    1.58    6.58  5.93      8.65
-       7 vs         16.0     3.97    6.92 16.0      45.5 
-       8 am         21.9     8.37   14.0  21.9      50.3 
-       9 gear       19.6     3.97    7.83 19.6      57.8 
-      10 carb       11.2     0.142  15.0  11.2      22.3 
-      11 country    34.9     8.43    8.92 34.9     126.  
-      
       $ale$stats$by_statistic$aler_min
       # A tibble: 11 x 6
          term    estimate conf.low median   mean conf.high
@@ -3416,6 +3400,22 @@
        9 gear      -24.5    -64.5  -10.1  -24.5     -5.46 
       10 carb      -19.1    -74.3   -5.33 -19.1     -0.373
       11 country   -20.8    -55.3  -16.0  -20.8     -4.97 
+      
+      $ale$stats$by_statistic$aler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl        12.3     0.437   1.79 12.3      44.1 
+       2 disp       24.3     5.06   14.9  24.3      70.1 
+       3 hp         11.2     4.12    7.71 11.2      28.1 
+       4 drat       15.2     0.617   7.57 15.2      50.9 
+       5 wt          6.43    2.38    8.41  6.43      9.25
+       6 qsec        5.93    1.58    6.58  5.93      8.65
+       7 vs         16.0     3.97    6.92 16.0      45.5 
+       8 am         21.9     8.37   14.0  21.9      50.3 
+       9 gear       19.6     3.97    7.83 19.6      57.8 
+      10 carb       11.2     0.142  15.0  11.2      22.3 
+      11 country    34.9     8.43    8.92 34.9     126.  
       
       $ale$stats$by_statistic$naled
       # A tibble: 11 x 6
@@ -3433,22 +3433,6 @@
       10 carb        22.8    0.382  33.3   22.8      43.2
       11 country     33.1   25.6    32.2   33.1      46.9
       
-      $ale$stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low median  mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl         21.3    0.469   12.5  21.3      48.9
-       2 disp        42.2   26.1     50    42.2      50  
-       3 hp          38.5   27.0     39.4  38.5      49.5
-       4 drat        31.6   14.8     29.7  31.6      48.9
-       5 wt          31.7   16.1     34.8  31.7      39.0
-       6 qsec        30.0   16.6     31.2  30.0      40.1
-       7 vs          40.1   27.2     43.9  40.1      49.7
-       8 am          45.4   36.9     45.5  45.4      50  
-       9 gear        41.1   34.8     35.9  41.1      50  
-      10 carb        30.3    0.156   50    30.3      50  
-      11 country     41.0   34.5     39.4  41.0      49.5
-      
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
          term    estimate conf.low median  mean conf.high
@@ -3464,6 +3448,22 @@
        9 gear       -47.6    -50   -50    -47.6    -39.4 
       10 carb       -31.1    -49.4 -44.1  -31.1     -2.97
       11 country    -45.1    -50   -50    -45.1    -37.6 
+      
+      $ale$stats$by_statistic$naler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl         21.3    0.469   12.5  21.3      48.9
+       2 disp        42.2   26.1     50    42.2      50  
+       3 hp          38.5   27.0     39.4  38.5      49.5
+       4 drat        31.6   14.8     29.7  31.6      48.9
+       5 wt          31.7   16.1     34.8  31.7      39.0
+       6 qsec        30.0   16.6     31.2  30.0      40.1
+       7 vs          40.1   27.2     43.9  40.1      49.7
+       8 am          45.4   36.9     45.5  45.4      50  
+       9 gear        41.1   34.8     35.9  41.1      50  
+      10 carb        30.3    0.156   50    30.3      50  
+      11 country     41.0   34.5     39.4  41.0      49.5
       
       
       $ale$stats$estimate
@@ -6510,22 +6510,6 @@
       10 carb      0.0115  0.00424 0.0115  0.102     0.249
       11 country   6.73    3.19    6.73    7.23     13.2  
       
-      $ale$stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low  median   mean conf.high
-         <chr>      <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-       1 cyl       0.347   0.0476   0.347   0.524     1.28 
-       2 disp     10.4     7.05    10.4    17.1      38.8  
-       3 hp        7.25    1.19     7.25   17.2      54.3  
-       4 drat      5.91    4.73     5.91   10.2      24.0  
-       5 wt        4.02    1.67     4.02    4.80      8.56 
-       6 qsec      3.31    2.91     3.31    3.73      5.00 
-       7 vs        5.58    4.15     5.58    5.63      7.01 
-       8 am        6.63    3.67     6.63    7.65     12.6  
-       9 gear      4.43    2.69     4.43    7.05     13.1  
-      10 carb      0.0133  0.00502  0.0133  0.275     0.901
-      11 country   9.89    7.11     9.89    9.23     10.5  
-      
       $ale$stats$by_statistic$aler_min
       # A tibble: 11 x 6
          term    estimate conf.low   median    mean conf.high
@@ -6541,6 +6525,22 @@
        9 gear     -4.54    -17.7    -4.54    -7.34    -1.14  
       10 carb     -0.0374   -0.793  -0.0374  -0.263   -0.0168
       11 country  -9.09    -26.9    -9.09   -13.3     -7.45  
+      
+      $ale$stats$by_statistic$aler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low  median   mean conf.high
+         <chr>      <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
+       1 cyl       0.347   0.0476   0.347   0.524     1.28 
+       2 disp     10.4     7.05    10.4    17.1      38.8  
+       3 hp        7.25    1.19     7.25   17.2      54.3  
+       4 drat      5.91    4.73     5.91   10.2      24.0  
+       5 wt        4.02    1.67     4.02    4.80      8.56 
+       6 qsec      3.31    2.91     3.31    3.73      5.00 
+       7 vs        5.58    4.15     5.58    5.63      7.01 
+       8 am        6.63    3.67     6.63    7.65     12.6  
+       9 gear      4.43    2.69     4.43    7.05     13.1  
+      10 carb      0.0133  0.00502  0.0133  0.275     0.901
+      11 country   9.89    7.11     9.89    9.23     10.5  
       
       $ale$stats$by_statistic$naled
       # A tibble: 11 x 6
@@ -6558,22 +6558,6 @@
       10 carb        0       0       0     2.04      5.46
       11 country    36.2    19.0    36.2  31.6      43.8 
       
-      $ale$stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low median  mean conf.high
-         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl         3.12    0.312   3.12  4.51      9.75
-       2 disp       40.6    33.9    40.6  42.0      50   
-       3 hp         33.3    10.8    33.3  30.9      48.1 
-       4 drat       31.2    29.8    31.2  34.9      46.7 
-       5 wt         31.2     8.79   31.2  27.1      38.6 
-       6 qsec       27.3    17.4    27.3  25.0      30.6 
-       7 vs         33.3    26.8    33.3  32.1      35.6 
-       8 am         35.9    25.4    35.9  35.2      44.9 
-       9 gear       31.2    21.5    31.2  32.0      44.2 
-      10 carb        0       0       0     2.97      9.14
-      11 country    39.7    36.0    39.7  39.3      43.3 
-      
       $ale$stats$by_statistic$naler_min
       # A tibble: 11 x 6
          term    estimate conf.low median   mean conf.high
@@ -6589,6 +6573,22 @@
        9 gear      -32.8    -49.1  -32.8  -31.8     -9.85 
       10 carb        0       -7.27   0     -2.73     0    
       11 country   -50      -50    -50    -46.3    -39.7  
+      
+      $ale$stats$by_statistic$naler_max
+      # A tibble: 11 x 6
+         term    estimate conf.low median  mean conf.high
+         <chr>      <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 cyl         3.12    0.312   3.12  4.51      9.75
+       2 disp       40.6    33.9    40.6  42.0      50   
+       3 hp         33.3    10.8    33.3  30.9      48.1 
+       4 drat       31.2    29.8    31.2  34.9      46.7 
+       5 wt         31.2     8.79   31.2  27.1      38.6 
+       6 qsec       27.3    17.4    27.3  25.0      30.6 
+       7 vs         33.3    26.8    33.3  32.1      35.6 
+       8 am         35.9    25.4    35.9  35.2      44.9 
+       9 gear       31.2    21.5    31.2  32.0      44.2 
+      10 carb        0       0       0     2.97      9.14
+      11 country    39.7    36.0    39.7  39.3      43.3 
       
       
       $ale$stats$estimate
