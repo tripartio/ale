@@ -866,7 +866,11 @@ pivot_stats <- function(long_stats) {
 
 
 # Summarize overlapping confidence regions
-summarize_conf_regions <- function(ale_data, y_summary) {
+summarize_conf_regions <- function(
+    ale_data_list,  # list of ale_data elements
+    y_summary,  # result of var_summary(y_vals)
+    sig_criterion  # string either 'p_values' or 'median_bar_pct'
+  ) {
 
   # Hack to prevent devtools::check from thinking that masked variables are global:
   # Make them null local variables within the function with the issues. So,
@@ -888,71 +892,119 @@ summarize_conf_regions <- function(ale_data, y_summary) {
   x_span <- NULL
   y <- NULL
 
+      # browser()
 
-  conf_regions <-
-    ale_data |>
-    mutate(
-      # where is the current point relative to the median band?
-      relative_to_mid = case_when(
-        ale_y_hi < y_summary[['med_lo']] ~ 'below',
-        ale_y_lo > y_summary[['med_hi']] ~ 'above',
-        .default = 'overlap'
-      ) |>
-        factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
-      # new_streak == TRUE if current row has different relative_to_mid from previous row
-      new_streak = relative_to_mid != lag(relative_to_mid, default = first(relative_to_mid)),
-      # unique ID for each consecutive streak
-      streak_id = cumsum(new_streak)
+  # Create confidence regions for each variable (term)
+  cr_by_term <-
+    ale_data_list |>
+    map(\(.ale_data) {
+
+      # cr is the confidence regions for a single variable (term) at a time
+      cr <-
+        .ale_data |>
+        mutate(
+          # where is the current point relative to the median band?
+          relative_to_mid = case_when(
+            ale_y_hi < y_summary[['med_lo']] ~ 'below',
+            ale_y_lo > y_summary[['med_hi']] ~ 'above',
+            .default = 'overlap'
+          ) |>
+            factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
+          # new_streak == TRUE if current row has different relative_to_mid from previous row
+          new_streak = relative_to_mid != lag(relative_to_mid, default = first(relative_to_mid)),
+          # unique ID for each consecutive streak
+          streak_id = cumsum(new_streak)
+        )
+
+      if (var_type(.ale_data$ale_x) == 'numeric') {
+
+        cr <- cr |>
+          summarize(
+            .by = streak_id,
+            start_x = first(ale_x),
+            end_x = last(ale_x),
+            start_y = first(ale_y),
+            end_y = last(ale_y),
+            n = sum(ale_n),
+            n_pct = n / sum(.ale_data$ale_n),
+            relative_to_mid = first(relative_to_mid),
+          ) |>
+          mutate(
+            # diff between start_x and end_x normalized on scale of x
+            # Convert differences to numeric to handle dates and maybe other unusual types
+            x_span = as.numeric(end_x - start_x) /
+              as.numeric(diff(range(.ale_data$ale_x))),
+            trend = if_else(
+              x_span != 0,
+              # slope from (start_x, start_y) to (end_x, end_y)
+              # normalized on scales of x and y
+              ((end_y - start_y) / (y_summary[['max']] - y_summary[['min']])) /
+                x_span,
+              0
+            )
+          ) |>
+          select(
+            start_x, end_x, x_span,
+            n, n_pct,
+            start_y, end_y, trend,
+            relative_to_mid
+          )
+
+      } else {  # non-numeric x
+        cr <- cr |>
+          rename(
+            x = ale_x,
+            n = ale_n,
+            y = ale_y,
+          ) |>
+          mutate(
+            n_pct = n / sum(.ale_data$ale_n)
+          ) |>
+          select(x, n, n_pct, y, relative_to_mid)
+      }
+
+      cr
+
+    }) |>
+    set_names(names(ale_data_list))
+
+
+  # Highlight which confidence regions are statistically significant
+  sig_conf_regions <- map2(
+    cr_by_term, names(cr_by_term),
+    \(.conf_tbl, .term) {
+      .conf_tbl$term <- .term
+
+      if ('x' %in% names(.conf_tbl)) {
+        # Convert x column from ordinal to character for consistency across terms
+        .conf_tbl$x <- as.character(.conf_tbl$x)
+      }
+
+      .conf_tbl
+    }
+  ) |>
+    bind_rows() |>
+    filter(relative_to_mid != 'overlap') |>
+    # https://bard.google.com/chat/ea68c7b9e8437179
+    select(
+      term,
+      # any_of is used because categorical variables do not have 'start_x', 'end_x', 'x_span'
+      # while numeric values do not have 'x'
+      any_of(c('x', 'start_x', 'end_x', 'x_span')),
+      n, n_pct,
+      any_of(c('y', 'start_y', 'end_y', 'trend')),
+      relative_to_mid
     )
 
-  if (var_type(ale_data$ale_x) == 'numeric') {
 
-    conf_regions <- conf_regions |>
-      summarize(
-        .by = streak_id,
-        start_x = first(ale_x),
-        end_x = last(ale_x),
-        start_y = first(ale_y),
-        end_y = last(ale_y),
-        n = sum(ale_n),
-        n_pct = n / sum(ale_data$ale_n),
-        relative_to_mid = first(relative_to_mid),
-      ) |>
-      mutate(
-        # diff between start_x and end_x normalized on scale of x
-        # Convert differences to numeric to handle dates and maybe other unusual types
-        x_span = as.numeric(end_x - start_x) /
-          as.numeric(diff(range(ale_data$ale_x))),
-        trend = if_else(
-          x_span != 0,
-          # slope from (start_x, start_y) to (end_x, end_y)
-          # normalized on scales of x and y
-          ((end_y - start_y) / (y_summary[['max']] - y_summary[['min']])) /
-             x_span,
-          0
-        )
-      ) |>
-      select(
-        start_x, end_x, x_span,
-        n, n_pct,
-        start_y, end_y, trend,
-        relative_to_mid
-      )
 
-  } else {  # non-numeric x
-    conf_regions <- conf_regions |>
-      rename(
-        x = ale_x,
-        n = ale_n,
-        y = ale_y,
-      ) |>
-      mutate(
-        n_pct = n / sum(ale_data$ale_n)
-      ) |>
-      select(x, n, n_pct, y, relative_to_mid)
-  }
-
-  conf_regions
+  return(
+    list(
+      by_term = cr_by_term,
+      significant = sig_conf_regions,
+      sig_criterion = sig_criterion
+    )
+  )
 }
 
 # Receives a confidence region summary tibble and then converts its essential

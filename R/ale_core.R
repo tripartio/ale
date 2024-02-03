@@ -179,7 +179,27 @@
 #' to enable progress bars.
 #'
 #'
-#' @return list with elements `data`, `plots`, and `stats` as requested in
+#' @return list with the following elements:
+#' * `data`: a list whose elements, named by each requested x variable, are each
+#'   a tibble with the following columns:
+#'     * `ale_x`: the values of each of the ALE x intervals or categories.
+#'     * `ale_n`: the number of rows of data in each `ale_x` interval or category.
+#'     * `ale_y`: the ALE function value calculated for that interval or category.
+#'       For bootstrapped ALE, this is the same as `ale_y_mean` by default
+#'       or `ale_y_median` if the `boot_centre = 'median'` argument is specified.
+#'     * `ale_y_lo`, `ale_y_hi`: the lower and upper confidence intervals for
+#'       the bootstrapped `ale_y` value.
+#' * `stats`: if `stats` is requested in the `output` argument (as is the default),
+#'   returns a list. If not requested, returns `NULL`. The returned list provides
+#'   ALE statistics of the `data` element duplicated and presented from various
+#'   perspectives in the following elements:
+#'     * `by_term`:
+#'     * `column`:
+#'     * `column`:
+#'     * `column`:
+#'
+#'     named by the x variables with
+#' the respective values for each variable., `plots`, and `stats` as requested in
 #' the `output` argument. Each of these is a list named by the x variables with
 #' the respective values for each variable. If any of these was not requested in
 #' the `output` argument, its return value will be NULL. In addition, the return object
@@ -998,12 +1018,20 @@ ale_core <- function (
       pivot_stats()
 
     # if the user wants stats, assume they also want confidence regions
-    ales$conf_regions <-
-      ales$data |>
-      map(\(.ale_data) {
-        summarize_conf_regions(.ale_data, y_summary)
-      }) |>
-      set_names(names(ales$data))
+    ales$conf_regions <- summarize_conf_regions(
+      ales$data,
+      y_summary,
+      sig_criterion = if (!is.null(p_values)) {
+        'p_values'
+      } else {
+        'median_bar_pct'
+      }
+    )
+      # ales$data |>
+      # map(\(.ale_data) {
+      #   summarize_conf_regions(.ale_data, y_summary)
+      # }) |>
+      # set_names(names(ales$data))
 
     # Create an effects plot only if plots are requested
     if ('plots' %in% output) {
