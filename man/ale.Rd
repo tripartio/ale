@@ -192,7 +192,7 @@ respectively, for the bootstrapped \code{estimate}.
 }
 \item \code{by_statistic}: list named by each of the following ALE statistics:
 \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}. See
-\link{vignette('ale-statistics')} for details.
+\code{vignette('ale-statistics')} for details.
 \item \code{estimate}: a tibble whose data consists of the \code{estimate} values from the
 \code{by_term} element above. The columns are \code{term} (the variable name) and the
 statistic for which the estimate is given:
@@ -212,7 +212,7 @@ The list has the following elements:
 \itemize{
 \item \code{by_term}: a list named by each requested x variable, each of whose elements
 is a tibble with the relevant data for the confidence regions.
-(See \link{vignette('ale-statistics')} for details about confidence regions.)
+(See \code{vignette('ale-statistics')} for details about confidence regions.)
 \item \code{significant}: a tibble that summarizes the \code{by_term} to only show confidence
 regions that are statistically significant. Its columns are those from
 \code{by_term} plus a \code{term} column to specify which x variable is indicated
@@ -229,7 +229,7 @@ to document the key elements used to calculate the ALE data, statistics, and plo
 provided by the user or used by default if the user did not change them.
 \item \code{y_summary}: summary statistics of y values used for the ALE calculation.
 These statistics are based on the actual values of \code{y_col} unless if \code{y_type} is a
-probability or other value that is constrained in the \link{0, 1} range. In that
+probability or other value that is constrained in the \verb{[0, 1]} range. In that
 case, \code{y_summary} is based on the predicted values of \code{y_col} by applying
 \code{model} to the \code{data}. \code{y_summary} is a named numeric vector. Most of the
 elements are the percentile of the y values. E.g., the '5\%' element is the
@@ -312,7 +312,7 @@ but \code{y_col} must be set to the name of the binary event column and
 \section{ALE statistics}{
 
 For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-\code{vignette("ale-statistics")}.
+\code{vignette('ale-statistics')}.
 }
 
 \section{Parallel processing}{

@@ -43,7 +43,7 @@
 #'
 #' @section ALE statistics:
 #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
-#' `vignette("ale-statistics")`.
+#' `vignette('ale-statistics')`.
 #'
 #'
 #' @section Parallel processing:
@@ -223,7 +223,7 @@
 #'           respectively, for the bootstrapped `estimate`.
 #'     * `by_statistic`: list named by each of the following ALE statistics:
 #'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`. See
-#'      [vignette('ale-statistics')] for details.
+#'      `vignette('ale-statistics')` for details.
 #'     * `estimate`: a tibble whose data consists of the `estimate` values from the
 #'       `by_term` element above. The columns are `term` (the variable name) and the
 #'       statistic for which the estimate is given:
@@ -241,7 +241,7 @@
 #'   The list has the following elements:
 #'     * `by_term`: a list named by each requested x variable, each of whose elements
 #'       is a tibble with the relevant data for the confidence regions.
-#'       (See [vignette('ale-statistics')] for details about confidence regions.)
+#'       (See `vignette('ale-statistics')` for details about confidence regions.)
 #'     * `significant`: a tibble that summarizes the `by_term` to only show confidence
 #'       regions that are statistically significant. Its columns are those from
 #'       `by_term` plus a `term` column to specify which x variable is indicated
@@ -257,7 +257,7 @@
 #'   provided by the user or used by default if the user did not change them.
 #' * `y_summary`: summary statistics of y values used for the ALE calculation.
 #'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
-#'   probability or other value that is constrained in the [0, 1] range. In that
+#'   probability or other value that is constrained in the `[0, 1]` range. In that
 #'   case, `y_summary` is based on the predicted values of `y_col` by applying
 #'   `model` to the `data`. `y_summary` is a named numeric vector. Most of the
 #'   elements are the percentile of the y values. E.g., the '5%' element is the
