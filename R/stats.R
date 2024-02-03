@@ -837,6 +837,7 @@ summarize_conf_regions <- function(
   start_x <- NULL
   start_y <- NULL
   streak_id <- NULL
+  term <- NULL
   trend <- NULL
   x <- NULL
   x_span <- NULL

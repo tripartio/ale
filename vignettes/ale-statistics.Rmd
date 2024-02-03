@@ -373,10 +373,10 @@ We can see this, for example, with the plot of `academic_ratio`:
 mb_gam$ale$plots$academic_ratio
 ```
 
-It might not always be easy to tell from a plot which regions are relevant, so the results of statistical significance are summarized with the `ale$conf_regions` element, which can be accessed for each variable:
+It might not always be easy to tell from a plot which regions are relevant, so the results of statistical significance are summarized with the `ale$conf_regions` element, which can be accessed for each variable from its `by_term` element:
 
 ```{r conf_regions for academic_ratio}
-mb_gam$ale$conf_regions$academic_ratio
+mb_gam$ale$conf_regions$by_term$academic_ratio
 ```
 
 For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance band, they overlap the band, or they are all above the band. Here are the summary components:
@@ -395,7 +395,7 @@ These results tell us simply that, for `academic_ratio`, from 0 to 0, ALE is bel
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
 ```{r text conf_regions for academic_ratio}
-ale:::summarize_conf_regions_in_words(mb_gam$ale$conf_regions$academic_ratio)
+ale:::summarize_conf_regions_in_words(mb_gam$ale$conf_regions$by_term$academic_ratio)
 ```
 
 While the wording is rather mechanical, it nonetheless illustrates the potential value of being able to summarize the inferentially relevant conclusions in tabular form.
@@ -409,7 +409,7 @@ mb_gam$ale$plots$public
 And here is its confidence regions summary table:
 
 ```{r conf_regions for public}
-mb_gam$ale$conf_regions$public
+mb_gam$ale$conf_regions$by_term$public
 ```
 
 Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `n_pct` of the respective category and `relative_to_mid` as before to indicate whether the indicated category is below, overlaps with, or is above the median band.
@@ -425,7 +425,23 @@ mb_gam$ale$plots$rand_norm
 And here is its confidence regions summary table:
 
 ```{r conf_regions for rand_norm}
-mb_gam$ale$conf_regions$rand_norm
+mb_gam$ale$conf_regions$by_term$rand_norm
 ```
 
 Despite the apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 11.9 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+
+We can conveniently summarize all the confidence regions from all variables that are statistically significant or meaningful by accessing the `conf_regions$significant` element:
+
+```{r significant conf_regions}
+mb_gam$ale$conf_regions$significant
+```
+
+This summary focuses only on the x variables that have meaningful ALE regions anywhere in their domain. We can also conveniently isolate which variables have any such meaningful region by extracting the unique values in the `term` column:
+
+
+```{r variables with significant conf_regions}
+mb_gam$ale$conf_regions$significant$term |> 
+  unique()
+```
+
+This is especially useful for analyses with dozens of variables; we can thus quickly isolate and focus on the most meaningful ones.
