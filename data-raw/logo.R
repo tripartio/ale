@@ -34,7 +34,8 @@ generic_ale_plot <-
 hexSticker::sticker(
   generic_ale_plot,
   package="ale",
-  p_size=15, p_y = 1.5,
+  p_size=45, p_y = 1.5,
+  # p_size=15, p_y = 1.5,  # svg
   s_x=1, s_y=.75, s_width=0.9, s_height=0.75,
   h_color = 'black',
   filename="ale-logo.png"
