@@ -5,7 +5,7 @@
 #  Calculate ALE data
 #
 #  This function is not exported. It is uses tidyverse principles to rewrite
-#  `ALEPlot::ALEPlot`.
+#  [ALEPlot::ALEPlot()].
 #  This function is not usually called directly by the user. For details about
 #  arguments not documented here, see [ale()].
 #

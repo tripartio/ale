@@ -20,9 +20,10 @@ ALE has two primary advantages over other approaches like partial
 dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its
 values are not affected by the presence of interactions among variables
 in a model and its computation is relatively rapid. This package
-rewrites the original code from the `{ALEPlot}` package for calculating
-ALE data and it completely reimplements the plotting of ALE values. It
-also extends the original ALE concept to add bootstrap-based confidence
+rewrites the original code from the [`{ALEPlot}`
+package](https://CRAN.r-project.org/package=ALEPlot) for calculating ALE
+data and it completely reimplements the plotting of ALE values. It also
+extends the original ALE concept to add bootstrap-based confidence
 intervals and ALE-based statistics that can be used for statistical
 inference.
 

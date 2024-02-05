@@ -4,16 +4,16 @@
 # Calculate ALE interaction data
 #
 # This function is not exported. It is copy-pasted (with some variable name changes)
-# from `ALEPlot::ALEPlot`.
+# from [ALEPlot::ALEPlot()].
 # This function is not usually called directly by the user. For details about
 # arguments not documented here, see [ale()].
 #
-#  @author Dan Apley (source of original calculation of ALE in `ALEPlot::ALEPlot`)
+#  @author Dan Apley (source of original calculation of ALE in [ALEPlot::ALEPlot()])
 #  @references Apley, Daniel W., and Jingyu Zhu.
 #  "Visualizing the effects of predictor variables in black box supervised learning models."
 #  Journal of the Royal Statistical Society Series B: Statistical Methodology
 #  82.4 (2020): 1059-1086.
-#  @author Chitu Okoli (rewrote the code based on `ALEPlot::ALEPlot` from while retaining ALE calculation)
+#  @author Chitu Okoli (rewrote the code based on [ALEPlot::ALEPlot()]` from while retaining ALE calculation)
 #
 # @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
 # column is absent.

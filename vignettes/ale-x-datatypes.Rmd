@@ -101,7 +101,7 @@ cars_ale_ixn$plots |>
   })
 ```
 
-There are no interactions in this dataset. (To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](ale-ALEPlot.html), which explains the interaction plots in more detail.)
+There are no interactions in this dataset. (To see what ALE interaction plots look like in the presence of interactions, see the [{ALEPlot} comparison vignette](ale-ALEPlot.html), which explains the interaction plots in more detail.)
 
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
