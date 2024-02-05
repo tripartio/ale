@@ -46,7 +46,7 @@ validate_y_preds <- function(
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
     # pred_fun(object = model, newdata = data, type = pred_type),
-    error = \(.e) {
+    error = \(e) {
       print(paste0(
         'There is an error with the predict function pred_fun or with the ',
         'prediction type pred_type. ',
@@ -54,7 +54,7 @@ validate_y_preds <- function(
         'non-standard models. Here is the full error message:'
       ))
 
-      stop(.e)
+      stop(e)
     },
     finally = NULL
   )
@@ -120,6 +120,7 @@ validate_silent <- function(silent) {
       # If no progressr bar settings are configured, then set cli as the default.
 
       if (interactive()) {
+        # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
         message(
@@ -128,6 +129,25 @@ validate_silent <- function(silent) {
           'see help(ale) for how to permanently configure the progress bar settings.'
         )
       }
+
+      # if (interactive()) {
+      #   if (isTRUE(getOption('knitr.in.progress'))) {
+      #     # global handlers cannot be set in Rmd knitr contexts
+      #     message(
+      #       'Info: No global progress bars were found. ',
+      #       'To enable progress bars, see help(ale).'
+      #     )
+      #   } else {
+      #     # interactive execution outside of Rmd knitr context: enable progress bars
+      #     progressr::handlers(global = TRUE)
+      #     progressr::handlers('cli')
+      #     message(
+      #       'Info: No global progress bars were found; the cli handler has been enabled. ',
+      #       'This activation only lasts for one R session; ',
+      #       'see help(ale) for how to permanently configure the progress bar settings.'
+      #     )
+      #   }
+      # }
 
       # progressr::handlers(global = TRUE) |>
       #   tryCatch(error = function(e) {

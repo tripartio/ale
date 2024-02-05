@@ -245,7 +245,6 @@ inner lower and upper confidence intervals of y values with respect to
 the median (\verb{50\%}); \code{med_lo_2} and \code{med_hi_2} are the outer confidence
 intervals. See the documentation for the \code{p_alpha} and \code{median_band_pct}
 arguments to understand how these are determined.
-\strong{document q or p and other non-percentile elements}
 }
 }
 }
