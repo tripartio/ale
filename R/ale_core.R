@@ -271,7 +271,6 @@
 #'       the median (`50%`); `med_lo_2` and `med_hi_2` are the outer confidence
 #'       intervals. See the documentation for the `p_alpha` and `median_band_pct`
 #'       arguments to understand how these are determined.
-#'        **document q or p and other non-percentile elements**
 #'
 #' @examples
 # Sample 1000 rows from the diamonds dataset (for a simple example)
