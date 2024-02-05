@@ -30,6 +30,7 @@
 #'
 #'
 #' @keywords internal
+#' @aliases ale-package NULL
 '_PACKAGE'
 
 # How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages

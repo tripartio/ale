@@ -88,7 +88,6 @@
 #' @section About the `{ale}` package:
 #' Overview of the `{ale}` package.
 #'
-#' @aliases ale-package NULL
 #'
 #' @export
 #'
