@@ -7,7 +7,8 @@
 #' represent a clean functional decomposition of the model. As such, ALE values
 #' are not affected by the presence or absence of interactions among variables
 #' in a mode. Moreover, its computation is relatively rapid. This package
-#' rewrites the original code from the 'ALEPlot' package for calculating ALE data
+#' rewrites the original code from the [`{ALEPlot}` package](https://CRAN.r-project.org/package=ALEPlot)
+#' for calculating ALE data
 #' and it completely reimplements the plotting of ALE values. It also extends
 #' the original ALE concept to add bootstrap-based confidence intervals and
 #' ALE-based statistics that can be used for statistical inference.
@@ -23,8 +24,10 @@
 #' @import purrr
 #' @import ggplot2
 #'
+#' @references Okoli, Chitu. 2023.
+#' “Statistical Inference Using Machine Learning and Classical Techniques Based
+#' on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
-#' @aliases ale-package NULL
 #'
 #' @keywords internal
 '_PACKAGE'

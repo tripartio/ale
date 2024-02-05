@@ -88,6 +88,8 @@
 #' @section About the `{ale}` package:
 #' Overview of the `{ale}` package.
 #'
+#' @aliases ale-package NULL
+#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
@@ -163,7 +165,7 @@
 #' value specified here, both the mean and median will be available.
 #' @param relative_y character length 1 in c('median', 'mean', 'zero'). The ale_y values will
 #' be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
-#' default of `ALEPlot::ALEPlot`, which is not shifted.
+#' default of [ALEPlot::ALEPlot()], which is not shifted.
 #' @param y_type character length 1. Datatype of the y (outcome) variable.
 #' Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
 #' determined automatically; only provide for complex non-standard models that
