@@ -18,7 +18,6 @@
 #'
 #' @author Chitu Okoli \email{Chitu.Okoli@skema.edu}
 #' @docType package
-#' @name ale
 #'
 #' @import dplyr
 #' @import purrr

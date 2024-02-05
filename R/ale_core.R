@@ -85,10 +85,6 @@
 #'
 #'
 #'
-#' @section About the `{ale}` package:
-#' Overview of the `{ale}` package.
-#'
-#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
