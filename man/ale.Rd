@@ -2,8 +2,8 @@
 % Please edit documentation in R/ale-package.R, R/ale_core.R
 \docType{package}
 \name{ale}
-\alias{ale-package}
 \alias{ale}
+\alias{ale-package}
 \title{Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)}
 \usage{
 ale(
@@ -110,7 +110,7 @@ value specified here, both the mean and median will be available.}
 
 \item{relative_y}{character length 1 in c('median', 'mean', 'zero'). The ale_y values will
 be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
-default of \code{ALEPlot::ALEPlot}, which is not shifted.}
+default of \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}, which is not shifted.}
 
 \item{y_type}{character length 1. Datatype of the y (outcome) variable.
 Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
@@ -259,7 +259,8 @@ dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values
 represent a clean functional decomposition of the model. As such, ALE values
 are not affected by the presence or absence of interactions among variables
 in a mode. Moreover, its computation is relatively rapid. This package
-rewrites the original code from the 'ALEPlot' package for calculating ALE data
+rewrites the original code from the \href{https://CRAN.r-project.org/package=ALEPlot}{\code{{ALEPlot}} package}
+for calculating ALE data
 and it completely reimplements the plotting of ALE values. It also extends
 the original ALE concept to add bootstrap-based confidence intervals and
 ALE-based statistics that can be used for statistical inference.
@@ -433,6 +434,10 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds_custom$plots, ncol = 2)
 
 }
 \references{
+Okoli, Chitu. 2023.
+“Statistical Inference Using Machine Learning and Classical Techniques Based
+on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
+
 Okoli, Chitu. 2023.
 “Statistical Inference Using Machine Learning and Classical Techniques Based
 on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
