@@ -85,6 +85,19 @@ The development version in the main branch of GitHub is always
 thoroughly checked. However, the documentation might not be fully
 up-to-date with the functionality.
 
+There is one more optional but recommended setup option. To enable
+**progress bars** to see how long procedures will take, you should run
+the following code at the beginning of your R session:
+
+``` r
+progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+```
+
+The `{ale}` package will normally run this automatically for you the
+first time you execute a function from the package in an R session. To
+see how to configure this permanently, see \[help(ale)\].
+
 ## Usage
 
 Here is a simple example that demonstrates the usage of the model.
