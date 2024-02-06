@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,11 +48,11 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
     <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -88,7 +88,7 @@ Okoli</h4>
             
             <h4 data-toc-skip class="date">January 10, 2024</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-ALEPlot.Rmd" class="external-link"><code>vignettes/ale-ALEPlot.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/articles/ale-ALEPlot.Rmd" class="external-link"><code>vignettes/articles/ale-ALEPlot.Rmd</code></a></small>
       <div class="d-none name"><code>ale-ALEPlot.Rmd</code></div>
     </div>
 
@@ -256,9 +256,17 @@ using the generic R <code>plot</code> method:</p>
 <p>Now we demonstrate the same functionality with the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a>
 package. We will work with the same model on the same data, so we will
 not create them again.</p>
+<p>Before starting, we recommend that you enable progress bars to see
+how long procedures will take. Simply run the following code at the
+beginning of your R session:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
+<p>If you forget to do that, the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package will do it
+automatically for you with a notification message.</p>
 <p>To create the model, we invoke the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> which returns a
 list with various ALE elements.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span></span>
@@ -290,7 +298,7 @@ functions with the <code>pred_fun</code> argument.</li>
 </ul>
 <p>Since the plots are saved as a list, they can easily be printed out
 all at once:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># , fig.asp=3 is OK</span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -313,7 +321,7 @@ not over-interpreted.</li>
 same data as those shown above from <code>ALEPlot</code>. To make the
 comparison clearer, we can recalculate the ALEs on a zero-centred
 scale:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Zero-centred ALE</span></span>
 <span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span>,</span>
@@ -336,7 +344,7 @@ complicated. However, the sample code we provide here using functions
 from the <code>purrr</code> package for iterating through lists and
 <code>gridExtra</code> package for arranging plots are reusable in any
 application.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and plot interactions</span></span>
 <span><span class="va">nn_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
 <span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>,</span>
@@ -388,7 +396,7 @@ analyzes a real dataset with a binary outcome variable. Whereas the
 readily available, we make that dataset available as the census dataset.
 We load it here with the adjustments necessary to run the
 <code>{ALEPlot}</code> example.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## R code for Example 3</span></span>
 <span><span class="co">## Load relevant packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ALEPlot</span><span class="op">)</span></span>
@@ -410,9 +418,9 @@ generate it is provided in comments so that you can see it and run it
 yourself if you want to. Note that the model calls is based on
 <code>data[,-c(3,4)]</code>, which drops the third and fourth variables
 (<code>fnlwgt</code> and <code>education</code>, respectively).</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># But it is slow, so this vignette loads a pre-created model object.</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # But they are slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># set.seed(0)</span></span>
 <span><span class="co"># gbm.data &lt;- gbm(higher_income ~ ., data= data[,-c(3,4)],</span></span>
 <span><span class="co">#                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,</span></span>
@@ -441,7 +449,7 @@ type here is “link”, which represents the log odds in the
 education), and <code>hours_per_week</code> are plotted, along with the
 interaction between <code>age</code> and
 <code>hours_per_week</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Define the predictive function; note the additional arguments for the</span></span>
 <span><span class="co">## predict function in gbm</span></span>
 <span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X.model</span>, <span class="va">newdata</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">X.model</span>, <span class="va">newdata</span>,</span>
@@ -483,13 +491,11 @@ comparison with ALEPlot. If the shapes of these plots look different, it
 is because <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> tries as much as possible to display plots
 on the same y-axis coordinate scale for easy comparison across
 plots.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom predict function that returns log odds</span></span>
-<span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>,  n.trees <span class="op">=</span> <span class="fl">6000</span>,</span>
-<span>            type<span class="op">=</span><span class="st">"link"</span><span class="op">)</span>  <span class="co"># return log odds</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, type<span class="op">=</span><span class="st">'link'</span>, n.trees <span class="op">=</span> <span class="fl">6000</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># return log odds</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Generate ALE data for all variables</span></span>
@@ -497,7 +503,8 @@ plots.</p>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_link &lt;- ale(</span></span>
-<span><span class="co">#   data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
@@ -515,17 +522,17 @@ plots.</p>
 them. Again, note the interaction between <code>age</code> and
 <code>hours_per_week</code>. The interaction is minimal except for the
 extremely high cases of hours per week.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_ixn_link &lt;- ale_ixn(</span></span>
-<span><span class="co">#   data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
 <span><span class="co">#   relative_y = 'zero',  # compatibility with ALEPlot</span></span>
 <span><span class="co">#   model_packages = 'gbm'  # required for parallel processing</span></span>
-<span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_ixn_link, file.choose())</span></span>
 <span><span class="va">gbm_ale_ixn_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/Tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -536,12 +543,12 @@ extremely high cases of hours per week.</p>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
 <span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot all x1 interaction plots</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-4.png" width="672"></p>
+<p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-5.png" width="672"></p>
 <p>In some of these plots, we can see some white spots. These are the
 interaction zones where there is no data in the dataset to calculate the
 existence of an interaction. For example, let’s focus on the
 interactions of <code>age</code> with <code>education_num</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gbm_ale_ixn_link</span><span class="op">[[</span><span class="st">"plots"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"age"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"education_num"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20age%20x%20education_num-1.png" width="700"></p>
 <p>Here, the grey zones in the majority of the plot indicate that there
@@ -571,9 +578,9 @@ higher income and half were predicted to have lower likelihood. The
 y-axis rug plots indicate that the predictions were generally rather
 extreme, either relatively close to 0 or 1, with few predictions in the
 middle.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom predict function that returns predicted probabilities</span></span>
-<span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>,  n.trees <span class="op">=</span> <span class="fl">6000</span>,</span>
 <span>            type<span class="op">=</span><span class="st">"response"</span><span class="op">)</span>  <span class="co"># return predicted probabilities</span></span>
@@ -585,11 +592,12 @@ middle.</p>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_prob &lt;- ale(</span></span>
-<span><span class="co">#   data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
-<span><span class="co">#   model_packages = 'nnet'  # required for parallel processing</span></span>
+<span><span class="co">#   model_packages = 'gbm'  # required for parallel processing</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_prob, file.choose())</span></span>
 <span><span class="va">gbm_ale_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/Tripartio/ale/raw/main/download/gbm_ale_prob.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -605,11 +613,12 @@ the rugs in the one-way ALE plots, the GBM model heavily concentrates
 its probabilities in the extremes near 0 and 1. Thus, the plots’
 suggestions of strong interactions are likely exaggerated. In this case,
 the log odds ALEs shown above are probably more relevant.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># But it is slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_ixn_prob &lt;- ale_ixn(</span></span>
-<span><span class="co">#   data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
+<span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
@@ -624,7 +633,7 @@ the log odds ALEs shown above are probably more relevant.</p>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
 <span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot all x1 plots</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-4.png" width="672"></p>
+<p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-5.png" width="672"></p>
 </div>
 </div>
 </div>

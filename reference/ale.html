@@ -16,7 +16,7 @@ the introductory vignette for this package or the details and examples below."><
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,11 +30,11 @@ the introductory vignette for this package or the details and examples below."><
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
     <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -78,13 +78,14 @@ the introductory vignette for this package or the details and examples below.</p
 <span>  <span class="va">...</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plots"</span>, <span class="st">"data"</span>, <span class="st">"stats"</span><span class="op">)</span>,</span>
+<span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plots"</span>, <span class="st">"data"</span>, <span class="st">"stats"</span>, <span class="st">"conf_regions"</span><span class="op">)</span>,</span>
 <span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
 <span>    <span class="va">object</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
 <span> <span class="op">}</span>,</span>
 <span>  pred_type <span class="op">=</span> <span class="st">"response"</span>,</span>
 <span>  p_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  p_alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>  x_intervals <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -146,7 +147,7 @@ the progress bars begin displaying (assuming the default <code>silent = FALSE</c
 
 
 <dt>output</dt>
-<dd><p>character in c('plots', 'data', 'stats'). Vector of types of results to return.
+<dd><p>character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
 'stats' will return ALE statistics. Each option must be listed to return the
 specified component. By default, all are returned.</p></dd>
@@ -170,6 +171,19 @@ if p-values cannot be generated. Any other input provided to this argument
 will result in an error. For more details about creating p-values,
 see documentation for <code><a href="create_p_funs.html">create_p_funs()</a></code>. Note that p-values will not be
 generated if 'stats' are not included as an option in the <code>output</code> argument.</p></dd>
+
+
+<dt>p_alpha</dt>
+<dd><p>numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
+for printing bands around the median for single-variable plots. These are the
+default values used if <code>p_values</code> are provided. If <code>p_values</code> are not provided,
+then <code>median_band_pct</code> is used instead.
+The inner band range will be the median value of y ± <code>p_alpha[2]</code> of the relevant
+ALE statistic (usually ALE range or normalized ALE range).
+For plots with a second outer band, its range will be the median ± <code>p_alpha[1]</code>.
+For example, in the ALE plots, for the default <code>p_alpha = c(0.01, 0.05)</code>,
+the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
+the outer band will be the median ± ALE minimum or maximum at p = 0.01.</p></dd>
 
 
 <dt>x_intervals</dt>
@@ -253,19 +267,6 @@ non-essential messages during execution (such as progress bars).
 Regardless, any warnings and errors will always display. See details for how
 to enable progress bars.</p></dd>
 
-
-<dt>p_alpha</dt>
-<dd><p>numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
-for printing bands around the median for single-variable plots. These are the
-default values used if <code>p_values</code> are provided. If <code>p_values</code> are not provided,
-then <code>median_band_pct</code> is used instead.
-The inner band range will be the median value of y ± <code>p_alpha[2]</code> of the relevant
-ALE statistic (usually ALE range or normalized ALE range).
-For plots with a second outer band, its range will be the median ± <code>p_alpha[1]</code>.
-For example, in the ALE plots, for the default <code>p_alpha = c(0.01, 0.05)</code>,
-the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
-the outer band will be the median ± ALE minimum or maximum at p = 0.01.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -309,7 +310,7 @@ x variables.</p></li>
 returns a list whose elements, named by each requested x variable, are each
 a <code>ggplot</code> object of the ALE y values plotted against the x variable intervals.
 If <code>plots</code> is not included in <code>output</code>, this element is <code>NULL</code>.</p></li>
-<li><p><code>conf_regions</code>: if <code>stats</code> are requested in the <code>output</code> argument (as is the default),
+<li><p><code>conf_regions</code>: if <code>conf_regions</code> are requested in the <code>output</code> argument (as is the default),
 returns a list. If not requested, returns <code>NULL</code>. The returned list provides
 summaries of the confidence regions of the relevant ALE statistics of the <code>data</code>
 element.
@@ -347,8 +348,7 @@ Note that the median is <code>50%</code>, the 50th percentile.</p></li>
 inner lower and upper confidence intervals of y values with respect to
 the median (<code>50%</code>); <code>med_lo_2</code> and <code>med_hi_2</code> are the outer confidence
 intervals. See the documentation for the <code>p_alpha</code> and <code>median_band_pct</code>
-arguments to understand how these are determined.
-<strong>document q or p and other non-percentile elements</strong></p></li>
+arguments to understand how these are determined.</p></li>
 </ul></li>
 </ul></div>
     <div class="section level2">

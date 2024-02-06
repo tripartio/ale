@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240203</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,11 +48,11 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
     <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
     <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
     <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
     <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
+    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
   </div>
 </li>
 <li class="nav-item">
@@ -284,6 +284,18 @@ students in each school. Here are its descriptive statistics:</p>
 <span><span class="co">#&gt;    4.24   10.47   12.90   12.62   14.65   19.72</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="enable-progress-bars">Enable progress bars<a class="anchor" aria-label="anchor" href="#enable-progress-bars"></a>
+</h2>
+<p>Before starting, we recommend that you enable progress bars to see
+how long procedures will take. Simply run the following code at the
+beginning of your R session:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
+<p>If you forget to do that, the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package will do it
+automatically for you with a notification message.</p>
+</div>
+<div class="section level2">
 <h2 id="full-model-bootstrap">Full model bootstrap<a class="anchor" aria-label="anchor" href="#full-model-bootstrap"></a>
 </h2>
 <p>Now we create a model and compute statistics on it. Because this is a
@@ -300,7 +312,7 @@ should be sufficiently stable for model building, when you would want to
 run the bootstrapped algorithm several times and you do not want it to
 be too slow each time. For definitive conclusions, you could run 1,000
 bootstraps or more to confirm the results of 100 bootstraps.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>     <span class="va">math_avg</span> <span class="op">~</span> <span class="va">public</span> <span class="op">+</span> <span class="va">high_minority</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">size</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">academic_ratio</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">female_ratio</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">mean_ses</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -323,7 +335,7 @@ bootstraps or more to confirm the results of 100 bootstraps.</p>
 <p>We can see the bootstrapped values of various overall model
 statistics by printing the <code>model_stats</code> element of the model
 bootstrap object:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
 <span><span class="co">#&gt;   name        estimate conf.low  mean median conf.high    sd</span></span>
@@ -358,7 +370,7 @@ estimate.</li>
 <p>Our focus, however, in this vignette is on the effects of individual
 variables. These are available in the <code>model_coefs</code> element
 of the model bootstrap object:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
 <span><span class="co">#&gt;   term              estimate conf.low   mean median conf.high std.error</span></span>
@@ -387,7 +399,7 @@ the default 95% confidence intervals, a coefficient is statistically
 significant if <code>conf.low</code> and <code>conf.high</code> are both
 positive or both negative. We can filter the results on this
 criterion:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_coefs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="co"># filter is TRUE if conf.low and conf.high are both positive or both negative because</span></span>
 <span>  <span class="co"># multiplying two numbers of the same sign results in a positive number.</span></span>
@@ -431,7 +443,7 @@ plots for each variable.</p>
 <div class="section level3">
 <h3 id="ale-plots">ALE plots<a class="anchor" aria-label="anchor" href="#ale-plots"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/all%20ALE%20plots-1.png" width="672"></p>
 <p>We can see that most variables seem to have some sort of mean effect
@@ -496,7 +508,7 @@ This is generated when <code>ale</code> is executed and both statistics
 and plots are requested (which is the case by default) and is accessible
 with the To focus on all the measures for a specific variable, we can
 access the <code>ale$stats$effects_plot</code> element:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">stats</span><span class="op">$</span><span class="va">effects_plot</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE%20effects%20plot-1.png" width="768"></p>
 <p>This plot is unusual, so it requires some explanation:</p>
@@ -571,7 +583,7 @@ result object, with multiple views. To focus on all the measures for a
 specific variable, we can access the <code>ale$stats$by_term</code>
 element. Here are the effect size measures for the categorical
 <code>public</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">stats</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">public</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   statistic estimate conf.low median   mean conf.high</span></span>
@@ -595,7 +607,7 @@ the average ALE values might be, the ALER quickly shows the minimum and
 maximum effects of any value of the x variable on the y variable.</p>
 <p>Now, here are the ALE effect size measures for the numeric
 <code>academic_ratio</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">stats</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">academic_ratio</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   statistic estimate conf.low  median    mean conf.high</span></span>
@@ -762,7 +774,7 @@ our threshold.</p>
 </h3>
 <p>It is particularly striking to note the ALE effect size measures for
 the random <code>rand_norm</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">stats</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">rand_norm</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   statistic estimate  conf.low median    mean conf.high</span></span>
@@ -880,7 +892,7 @@ effect depending on its specific value.</p>
 inference, we must understand the structure of ALE data. Let’s begin
 simple with a binary variable with just two categories,
 <code>public</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">public</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 7</span></span></span>
 <span><span class="co">#&gt;   ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi</span></span>
@@ -916,7 +928,7 @@ category percentages, the average weighted ALE y approximately equals
 the median.</p>
 <p>Here is the ALE data structure for a numeric variable,
 <code>academic_ratio</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">academic_ratio</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 65 × 7</span></span></span>
 <span><span class="co">#&gt;    ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi</span></span>
@@ -958,14 +970,14 @@ simultaneously within the confidence intervals AND outside of the median
 band should be considered conceptually meaningful.</strong></p>
 <p>We can see this, for example, with the plot of
 <code>academic_ratio</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">academic_ratio</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE%20plot%20for%20academic_ratio-1.png" width="700"></p>
 <p>It might not always be easy to tell from a plot which regions are
 relevant, so the results of statistical significance are summarized with
 the <code>ale$conf_regions</code> element, which can be accessed for
 each variable from its <code>by_term</code> element:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">academic_ratio</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 9</span></span></span>
 <span><span class="co">#&gt;   start_x end_x x_span     n  n_pct start_y end_y trend relative_to_mid</span></span>
@@ -1034,7 +1046,7 @@ generated automatically by an internal (unexported function)
 <code>ale:::summarize_conf_regions_in_words</code>. (Since the function
 is not exported, you must use <code>ale:::</code> with three colons, not
 just two, if you want to access it.)</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_in_words</span><span class="op">(</span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">academic_ratio</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "From 0 to 0.05, ALE is below the median band from 8.71 to 10.8. From 0.09 to 0.91, ALE overlaps the median band from 11.7 to 13.8. From 0.95 to 1, ALE is above the median band from 14.2 to 14.7."</span></span></code></pre></div>
 <p>While the wording is rather mechanical, it nonetheless illustrates
@@ -1043,11 +1055,11 @@ relevant conclusions in tabular form.</p>
 <p>Confidence region summary tables are available not only for numeric
 but also for categorical variables, as we see with <code>public</code>.
 Here is its ALE plot:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">public</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE%20plot%20for%20public-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">public</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
 <span><span class="co">#&gt;   x         n n_pct     y relative_to_mid</span></span>
@@ -1066,11 +1078,11 @@ us that, for <code>public</code>, for FALSE, the ALE of 13.3 overlaps
 the median band. For TRUE, the ALE of 12.6 overlaps the median band.</p>
 <p>Again, our random variable <code>rand_norm</code> is particularly
 interesting. Here is its ALE plot:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">rand_norm</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE%20plot%20for%20rand_norm-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">rand_norm</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 9</span></span></span>
 <span><span class="co">#&gt;   start_x end_x x_span     n n_pct start_y end_y   trend relative_to_mid</span></span>
@@ -1084,7 +1096,7 @@ domain.</p>
 <p>We can conveniently summarize all the confidence regions from all
 variables that are statistically significant or meaningful by accessing
 the <code>conf_regions$significant</code> element:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 12</span></span></span>
 <span><span class="co">#&gt;    term  x      start_x    end_x x_span     n   n_pct     y start_y end_y  trend</span></span>
@@ -1106,7 +1118,7 @@ the <code>conf_regions$significant</code> element:</p>
 regions anywhere in their domain. We can also conveniently isolate which
 variables have any such meaningful region by extracting the unique
 values in the <code>term</code> column:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span><span class="op">$</span><span class="va">term</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "size"           "academic_ratio" "female_ratio"   "mean_ses"      </span></span>
