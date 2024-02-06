@@ -66,6 +66,15 @@ cm <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
 summary(cm)
 ```
 
+Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
+
+```{r enable progressr, eval = FALSE}
+progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+```
+
+If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
+
 Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.width=7, fig.height=14}

@@ -107,6 +107,17 @@ The outcome variable that is the focus of our analysis is `math_avg`, the averag
 summary(math$math_avg)
 ```
 
+## Enable progress bars
+
+Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
+
+```{r enable progressr, eval = FALSE}
+progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+```
+
+If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
+
 ## Full model bootstrap
 
 Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.html), we will carry out full model bootstrapping using the `model_bootstrap()` function. We create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.

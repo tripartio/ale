@@ -77,7 +77,18 @@ lm_attitude <- lm(rating ~ ., data = attitude)
 summary(lm_attitude)
 ```
 
-At the very least, the `ale` is useful for visualizing the effects of model variables. Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
+At the very least, the `ale` is useful for visualizing the effects of model variables.
+
+Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
+
+```{r enable progressr, eval = FALSE}
+progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+```
+
+If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
+
+Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple, fig.width=7, fig.height=7}
 ale_lm_attitude_simple <- ale(

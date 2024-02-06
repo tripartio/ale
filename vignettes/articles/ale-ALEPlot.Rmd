@@ -132,6 +132,15 @@ drawlabels=TRUE)
 
 Now we demonstrate the same functionality with the `{ale}` package. We will work with the same model on the same data, so we will not create them again.
 
+Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
+
+```{r enable progressr, eval = FALSE}
+progressr::handlers(global = TRUE)
+progressr::handlers('cli')
+```
+
+If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
+
 To create the model, we invoke the `{ale}` which returns a list with various ALE elements.
 
 ```{r ale nnet one-way creation}
