@@ -108,7 +108,7 @@ plot_ale <- function(
     # Add a secondary axis to label the percentiles
     scale_y_continuous(
       sec.axis = sec_axis(
-        trans = ~ .,  # do not change the scale
+        transform = ~ .,  # do not change the scale
         name = NULL,  # no axis title
         # Construct secondary (right) axis label from bottom to top.
         labels = if (names(y_summary[1]) == 'p') {
