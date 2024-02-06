@@ -12,7 +12,7 @@ ale(
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
   model_packages = as.character(NA),
-  output = c("plots", "data", "stats"),
+  output = c("plots", "data", "stats", "conf_regions"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
     object, newdata = newdata, type = type)
@@ -63,7 +63,7 @@ related to unavailable packages or functions that you verify exist in your
 system, try adding them to this vector, especially if you see such errors after
 the progress bars begin displaying (assuming the default \code{silent = FALSE}).}
 
-\item{output}{character in c('plots', 'data', 'stats'). Vector of types of results to return.
+\item{output}{character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
 'stats' will return ALE statistics. Each option must be listed to return the
 specified component. By default, all are returned.}
@@ -202,7 +202,7 @@ x variables.
 returns a list whose elements, named by each requested x variable, are each
 a \code{ggplot} object of the ALE y values plotted against the x variable intervals.
 If \code{plots} is not included in \code{output}, this element is \code{NULL}.
-\item \code{conf_regions}: if \code{stats} are requested in the \code{output} argument (as is the default),
+\item \code{conf_regions}: if \code{conf_regions} are requested in the \code{output} argument (as is the default),
 returns a list. If not requested, returns \code{NULL}. The returned list provides
 summaries of the confidence regions of the relevant ALE statistics of the \code{data}
 element.
