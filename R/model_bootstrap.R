@@ -431,7 +431,8 @@ model_bootstrap <- function (
               ixn = FALSE,
               parallel = 0,  # do not parallelize at this inner level
               boot_it = 0,  # do not bootstrap at this inner level
-              output = c('data', 'stats'),  # do not generate plots
+              # do not generate plots or request conf_regions
+              output = c('data', 'stats'),
               ale_xs = if (.it == 0) {
                 NULL
               } else {
@@ -442,7 +443,8 @@ model_bootstrap <- function (
               } else {
                 ale_ns
               },
-              silent = silent
+              silent = TRUE  # silence inner bootstrap loop
+              # silent = silent
             ), ale_options)  # pass all other desired options, e.g., specific x_col
             )
           }
@@ -688,7 +690,6 @@ model_bootstrap <- function (
           select(term, statistic, estimate, p.value, everything())
       }
 
-      # if the user wants stats, assume they also want confidence regions
       ale_conf_regions <- summarize_conf_regions(
         ale_summary_data,
         y_summary,

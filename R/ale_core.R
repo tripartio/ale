@@ -113,7 +113,7 @@
 #' related to unavailable packages or functions that you verify exist in your
 #' system, try adding them to this vector, especially if you see such errors after
 #' the progress bars begin displaying (assuming the default `silent = FALSE`).
-#' @param output character in c('plots', 'data', 'stats'). Vector of types of results to return.
+#' @param output character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
@@ -231,7 +231,7 @@
 #'   returns a list whose elements, named by each requested x variable, are each
 #'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
 #'   If `plots` is not included in `output`, this element is `NULL`.
-#' * `conf_regions`: if `stats` are requested in the `output` argument (as is the default),
+#' * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),
 #'   returns a list. If not requested, returns `NULL`. The returned list provides
 #'   summaries of the confidence regions of the relevant ALE statistics of the `data`
 #'   element.
@@ -354,7 +354,7 @@ ale <- function (
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
     model_packages = as.character(NA),
-    output = c('plots', 'data', 'stats'),
+    output = c('plots', 'data', 'stats', 'conf_regions'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -590,7 +590,7 @@ ale_core <- function (
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
     model_packages = as.character(NA),
-    output = c('plots', 'data', 'stats'),
+    output = c('plots', 'data', 'stats', 'conf_regions'),
     # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
       # stats::predict(object = object, newdata = newdata, type = pred_type)
@@ -670,11 +670,23 @@ ale_core <- function (
   # #Later: Verify valid datatypes for all x_col
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
-  # Assure that output is a subset of c('plots', 'data', 'stats')
   assert_that(
-    length(setdiff(output, c('plots', 'data', 'stats'))) == 0,
-    msg = 'The value in the output argument must be one or more of "plots", "data", or "stats".'
+    length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions'))) == 0,
+    msg = paste0(
+      'The value in the output argument must be one or more of ',
+      '"plots", "data", "stats", or "conf_regions".'
+    )
   )
+  if ('conf_regions' %in% output) {
+    assert_that(
+      'stats' %in% output,
+      msg = paste0(
+        'If "conf_regions" is requested in the output argument, ',
+        'then "stats" must also be requested.'
+      )
+    )
+  }
+
   assert_that(is.string(pred_type))
 
   if (!is.null(p_values)) {
@@ -1085,21 +1097,18 @@ ale_core <- function (
       select(term, everything()) |>
       pivot_stats()
 
-    # if the user wants stats, assume they also want confidence regions
-    ales$conf_regions <- summarize_conf_regions(
-      ales$data,
-      y_summary,
-      sig_criterion = if (!is.null(p_values)) {
-        'p_values'
-      } else {
-        'median_band_pct'
-      }
-    )
-      # ales$data |>
-      # map(\(.ale_data) {
-      #   summarize_conf_regions(.ale_data, y_summary)
-      # }) |>
-      # set_names(names(ales$data))
+    if ('conf_regions' %in% output) {
+      # conf_regions optionally provided only if stats also requested
+      ales$conf_regions <- summarize_conf_regions(
+        ales$data,
+        y_summary,
+        sig_criterion = if (!is.null(p_values)) {
+          'p_values'
+        } else {
+          'median_band_pct'
+        }
+      )
+    }
 
     # Create an effects plot only if plots are requested
     if ('plots' %in% output) {
