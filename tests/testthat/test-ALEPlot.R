@@ -8,7 +8,9 @@
 
 # Do not run these on CRAN so that the required packages are not included
 # as dependencies.
-skip_on_cran()
+# https://community.rstudio.com/t/skip-an-entire-test-file-on-cran-only/162842
+if (!identical(Sys.getenv("NOT_CRAN"), "true")) return()
+
 
 ## nnet -----------------
 
