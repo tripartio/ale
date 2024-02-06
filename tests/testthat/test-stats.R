@@ -9,14 +9,6 @@ test_that(
       test_cars,
       test_cars,
       cars_gam,
-      # random_model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-      #         vs + am + gear + carb + country + .random_variable,
-      #         data = .rand_train)',
-      # 'mpg',
-      # pred_fun = function(object, newdata, type = pred_type) {
-      #   stats::predict(object = object, newdata = newdata, type = type)
-      # },
-      # pred_type = "response",
       rand_it = 10,
       silent = TRUE,
       parallel = 0,  # disable parallelization for reproducible tests

@@ -261,6 +261,8 @@ model_bootstrap <- function (
   assert_that(is.list(tidy_options))
   assert_that(is.list(glance_options))
 
+  validate_silent(silent)
+
 
   n_rows <- nrow(data)
 
@@ -330,7 +332,8 @@ model_bootstrap <- function (
   # Create progress bar iterator
   if (!silent) {
     progress_iterator <- progressr::progressor(
-      steps = boot_it,
+      # progressor will run once for the full dataset + boot_it times
+      steps = boot_it + 1,
       message = 'Creating and analyzing models'
     )
   }
@@ -705,8 +708,6 @@ model_bootstrap <- function (
       #     summarize_conf_regions(.ale_data, y_summary)
       #   }) |>
       #   set_names(names(ale_summary_data))
-
-
 
       detailed_ale_stats <- pivot_stats(ale_summary_stats)
 

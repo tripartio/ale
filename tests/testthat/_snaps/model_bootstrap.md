@@ -405,30 +405,30 @@
       $ale$stats$effects_plot
       $ale$stats$effects_plot[[1]]
       $ale$stats$effects_plot[[1]][[1]]
-          y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
-      1   1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
-      2   2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
-      3   3     1     3     NA lightgray       0.5        1    NA 19.04095 19.28336
-      4   4     1     4     NA lightgray       0.5        1    NA 19.04095 19.28336
-      5   5     1     5     NA lightgray       0.5        1    NA 19.04095 19.28336
-      6   6     1     6     NA lightgray       0.5        1    NA 19.04095 19.28336
-      7   7     1     7     NA lightgray       0.5        1    NA 19.04095 19.28336
-      8   8     1     8     NA lightgray       0.5        1    NA 19.04095 19.28336
-      9   9     1     9     NA lightgray       0.5        1    NA 19.04095 19.28336
-      10 10     1    10     NA lightgray       0.5        1    NA 19.04095 19.28336
-      11 11     1    11     NA lightgray       0.5        1    NA 19.04095 19.28336
-         ymin ymax
-      1  -Inf  Inf
-      2  -Inf  Inf
-      3  -Inf  Inf
-      4  -Inf  Inf
-      5  -Inf  Inf
-      6  -Inf  Inf
-      7  -Inf  Inf
-      8  -Inf  Inf
-      9  -Inf  Inf
-      10 -Inf  Inf
-      11 -Inf  Inf
+          y PANEL group colour linewidth linetype alpha     xmin     xmax ymin ymax
+      1   1     1     1     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      2   2     1     2     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      3   3     1     3     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      4   4     1     4     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      5   5     1     5     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      6   6     1     6     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      7   7     1     7     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      8   8     1     8     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      9   9     1     9     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      10 10     1    10     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      11 11     1    11     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+              fill
+      1  lightgray
+      2  lightgray
+      3  lightgray
+      4  lightgray
+      5  lightgray
+      6  lightgray
+      7  lightgray
+      8  lightgray
+      9  lightgray
+      10 lightgray
+      11 lightgray
       
       $ale$stats$effects_plot[[1]][[2]]
               xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
@@ -443,70 +443,70 @@
       9   2.259000 32.68691  9     1     9  8.875  9.125  black       0.5        1
       10  9.876782       NA 10     1    10  9.875 10.125  black       0.5        1
       11  7.938195 26.90545 11     1    11 10.875 11.125  black       0.5        1
-         height alpha
-      1    0.25    NA
-      2    0.25    NA
-      3    0.25    NA
-      4    0.25    NA
-      5    0.25    NA
-      6    0.25    NA
-      7    0.25    NA
-      8    0.25    NA
-      9    0.25    NA
-      10   0.25    NA
-      11   0.25    NA
+         alpha height
+      1     NA   0.25
+      2     NA   0.25
+      3     NA   0.25
+      4     NA   0.25
+      5     NA   0.25
+      6     NA   0.25
+      7     NA   0.25
+      8     NA   0.25
+      9     NA   0.25
+      10    NA   0.25
+      11    NA   0.25
       
       $ale$stats$effects_plot[[1]][[3]]
-             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
-      1  19.13205 19.19226  0.7  1.3  1     1     1     NA white       0.5        1
-      2  19.12433 19.19998  1.7  2.3  2     1     2     NA white       0.5        1
-      3  18.10817 20.21614  2.7  3.3  3     1     3     NA white       0.5        1
-      4  18.05387 20.27044  3.7  4.3  4     1     4     NA white       0.5        1
-      5  17.36180 20.96251  4.7  5.3  5     1     5     NA white       0.5        1
-      6  16.53140 21.79291  5.7  6.3  6     1     6     NA white       0.5        1
-      7  15.97674 22.34757  6.7  7.3  7     1     7     NA white       0.5        1
-      8  15.61211 22.71220  7.7  8.3  8     1     8     NA white       0.5        1
-      9  15.41967 22.90464  8.7  9.3  9     1     9     NA white       0.5        1
-      10 14.79190 23.53241  9.7 10.3 10     1    10     NA white       0.5        1
-      11 14.58705 23.73726 10.7 11.3 11     1    11     NA white       0.5        1
-         alpha
-      1     NA
-      2     NA
-      3     NA
-      4     NA
-      5     NA
-      6     NA
-      7     NA
-      8     NA
-      9     NA
-      10    NA
-      11    NA
+             xmin     xmax ymin ymax  y PANEL group colour linewidth linetype alpha
+      1  19.13205 19.19226  0.7  1.3  1     1     1     NA       0.5        1    NA
+      2  19.12433 19.19998  1.7  2.3  2     1     2     NA       0.5        1    NA
+      3  18.10817 20.21614  2.7  3.3  3     1     3     NA       0.5        1    NA
+      4  18.05387 20.27044  3.7  4.3  4     1     4     NA       0.5        1    NA
+      5  17.36180 20.96251  4.7  5.3  5     1     5     NA       0.5        1    NA
+      6  16.53140 21.79291  5.7  6.3  6     1     6     NA       0.5        1    NA
+      7  15.97674 22.34757  6.7  7.3  7     1     7     NA       0.5        1    NA
+      8  15.61211 22.71220  7.7  8.3  8     1     8     NA       0.5        1    NA
+      9  15.41967 22.90464  8.7  9.3  9     1     9     NA       0.5        1    NA
+      10 14.79190 23.53241  9.7 10.3 10     1    10     NA       0.5        1    NA
+      11 14.58705 23.73726 10.7 11.3 11     1    11     NA       0.5        1    NA
+          fill
+      1  white
+      2  white
+      3  white
+      4  white
+      5  white
+      6  white
+      7  white
+      8  white
+      9  white
+      10 white
+      11 white
       
       $ale$stats$effects_plot[[1]][[4]]
-                x       label  y PANEL group colour size angle hjust vjust alpha
-      1  19.16215 NALED  1.6%  1     1     1  black    3     0   0.5    -1    NA
-      2  19.16215 NALED  2.1%  2     1     2  black    3     0   0.5    -1    NA
-      3  19.16215 NALED 17.0%  3     1     3  black    3     0   0.5    -1    NA
-      4  19.16215 NALED 15.3%  4     1     4  black    3     0   0.5    -1    NA
-      5  19.16215 NALED 25.6%  5     1     5  black    3     0   0.5    -1    NA
-      6  19.16215 NALED 29.5%  6     1     6  black    3     0   0.5    -1    NA
-      7  19.16215 NALED 30.7%  7     1     7  black    3     0   0.5    -1    NA
-      8  19.16215 NALED 27.6%  8     1     8  black    3     0   0.5    -1    NA
-      9  19.16215 NALED 32.3%  9     1     9  black    3     0   0.5    -1    NA
-      10 19.16215 NALED 42.0% 10     1    10  black    3     0   0.5    -1    NA
-      11 19.16215 NALED 41.0% 11     1    11  black    3     0   0.5    -1    NA
-         family fontface lineheight
-      1                1        1.2
-      2                1        1.2
-      3                1        1.2
-      4                1        1.2
-      5                1        1.2
-      6                1        1.2
-      7                1        1.2
-      8                1        1.2
-      9                1        1.2
-      10               1        1.2
-      11               1        1.2
+                x       label  y PANEL group colour angle hjust alpha family fontface
+      1  19.16215 NALED  1.6%  1     1     1  black     0   0.5    NA               1
+      2  19.16215 NALED  2.1%  2     1     2  black     0   0.5    NA               1
+      3  19.16215 NALED 17.0%  3     1     3  black     0   0.5    NA               1
+      4  19.16215 NALED 15.3%  4     1     4  black     0   0.5    NA               1
+      5  19.16215 NALED 25.6%  5     1     5  black     0   0.5    NA               1
+      6  19.16215 NALED 29.5%  6     1     6  black     0   0.5    NA               1
+      7  19.16215 NALED 30.7%  7     1     7  black     0   0.5    NA               1
+      8  19.16215 NALED 27.6%  8     1     8  black     0   0.5    NA               1
+      9  19.16215 NALED 32.3%  9     1     9  black     0   0.5    NA               1
+      10 19.16215 NALED 42.0% 10     1    10  black     0   0.5    NA               1
+      11 19.16215 NALED 41.0% 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3    -1
+      2         1.2    3    -1
+      3         1.2    3    -1
+      4         1.2    3    -1
+      5         1.2    3    -1
+      6         1.2    3    -1
+      7         1.2    3    -1
+      8         1.2    3    -1
+      9         1.2    3    -1
+      10        1.2    3    -1
+      11        1.2    3    -1
       
       $ale$stats$effects_plot[[1]][[5]]
                 x label     y PANEL group colour size angle hjust vjust alpha family
@@ -561,36 +561,36 @@
       11        1        1.2
       
       $ale$stats$effects_plot[[1]][[7]]
-                x     label  y PANEL group colour size angle hjust vjust alpha family
-      1  19.16215 ALED 0.06  1     1     1  black    3     0   0.5     2    NA       
-      2  19.16215 ALED 0.08  2     1     2  black    3     0   0.5     2    NA       
-      3  19.16215 ALED 2.11  3     1     3  black    3     0   0.5     2    NA       
-      4  19.16215 ALED 2.22  4     1     4  black    3     0   0.5     2    NA       
-      5  19.16215 ALED 3.60  5     1     5  black    3     0   0.5     2    NA       
-      6  19.16215 ALED 5.26  6     1     6  black    3     0   0.5     2    NA       
-      7  19.16215 ALED 6.37  7     1     7  black    3     0   0.5     2    NA       
-      8  19.16215 ALED 7.10  8     1     8  black    3     0   0.5     2    NA       
-      9  19.16215 ALED 7.48  9     1     9  black    3     0   0.5     2    NA       
-      10 19.16215 ALED 8.74 10     1    10  black    3     0   0.5     2    NA       
-      11 19.16215 ALED 9.15 11     1    11  black    3     0   0.5     2    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
+                x     label  y PANEL group colour angle hjust alpha family fontface
+      1  19.16215 ALED 0.06  1     1     1  black     0   0.5    NA               1
+      2  19.16215 ALED 0.08  2     1     2  black     0   0.5    NA               1
+      3  19.16215 ALED 2.11  3     1     3  black     0   0.5    NA               1
+      4  19.16215 ALED 2.22  4     1     4  black     0   0.5    NA               1
+      5  19.16215 ALED 3.60  5     1     5  black     0   0.5    NA               1
+      6  19.16215 ALED 5.26  6     1     6  black     0   0.5    NA               1
+      7  19.16215 ALED 6.37  7     1     7  black     0   0.5    NA               1
+      8  19.16215 ALED 7.10  8     1     8  black     0   0.5    NA               1
+      9  19.16215 ALED 7.48  9     1     9  black     0   0.5    NA               1
+      10 19.16215 ALED 8.74 10     1    10  black     0   0.5    NA               1
+      11 19.16215 ALED 9.15 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3     2
+      2         1.2    3     2
+      3         1.2    3     2
+      4         1.2    3     2
+      5         1.2    3     2
+      6         1.2    3     2
+      7         1.2    3     2
+      8         1.2    3     2
+      9         1.2    3     2
+      10        1.2    3     2
+      11        1.2    3     2
       
       $ale$stats$effects_plot[[1]][[8]]
-           x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 33.9 2     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+           x y PANEL group colour  fill angle vjust alpha family fontface lineheight
+      1 33.9 2     1    -1  black white     0   0.5    NA               1        1.2
+                                                                     label size hjust
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max    3     1
       
       
       
@@ -598,40 +598,40 @@
       $ale$plots
       $ale$plots$cyl
       $ale$plots$cyl[[1]]
-        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 3 19.07283     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 4 19.11961     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      3 5 19.16638     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      4 6 19.21316     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      5 7 19.25993     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      6 8 19.30670     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      7 9 19.35348     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
-      7 19.04095 19.28336
+        x        y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 3 19.07283     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 4 19.11961     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 5 19.16638     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 6 19.21316     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 7 19.25993     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 8 19.30670     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 9 19.35348     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
       
       $ale$plots$cyl[[2]]
-            ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
-      1 19.07283 19.07283 3 19.07283     1    -1       FALSE     NA grey85       0.5
-      2 19.11961 19.11961 4 19.11961     1    -1       FALSE     NA grey85       0.5
-      3 19.16638 19.16638 5 19.16638     1    -1       FALSE     NA grey85       0.5
-      4 19.21316 19.21316 6 19.21316     1    -1       FALSE     NA grey85       0.5
-      5 19.25993 19.25993 7 19.25993     1    -1       FALSE     NA grey85       0.5
-      6 19.30670 19.30670 8 19.30670     1    -1       FALSE     NA grey85       0.5
-      7 19.35348 19.35348 9 19.35348     1    -1       FALSE     NA grey85       0.5
-        linetype alpha
-      1        1   0.5
-      2        1   0.5
-      3        1   0.5
-      4        1   0.5
-      5        1   0.5
-      6        1   0.5
-      7        1   0.5
+            ymin     ymax x        y PANEL group flipped_aes colour linewidth
+      1 19.07283 19.07283 3 19.07283     1    -1       FALSE     NA       0.5
+      2 19.11961 19.11961 4 19.11961     1    -1       FALSE     NA       0.5
+      3 19.16638 19.16638 5 19.16638     1    -1       FALSE     NA       0.5
+      4 19.21316 19.21316 6 19.21316     1    -1       FALSE     NA       0.5
+      5 19.25993 19.25993 7 19.25993     1    -1       FALSE     NA       0.5
+      6 19.30670 19.30670 8 19.30670     1    -1       FALSE     NA       0.5
+      7 19.35348 19.35348 9 19.35348     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
       
       $ale$plots$cyl[[3]]
         x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -644,12 +644,12 @@
       7 9 19.35348     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$cyl[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -721,126 +721,126 @@
       
       $ale$plots$disp
       $ale$plots$disp[[1]]
-                 x         y PANEL group colour      fill linewidth linetype alpha
-      1   70.92941 37.582035     1    -1     NA lightgray       0.5        1    NA
-      2   71.10000 37.516059     1    -1     NA lightgray       0.5        1    NA
-      3   75.70000 35.738755     1    -1     NA lightgray       0.5        1    NA
-      4   76.44475 35.451698     1    -1     NA lightgray       0.5        1    NA
-      5   78.63221 34.610641     1    -1     NA lightgray       0.5        1    NA
-      6   78.70000 34.584637     1    -1     NA lightgray       0.5        1    NA
-      7   79.00000 34.469613     1    -1     NA lightgray       0.5        1    NA
-      8   79.04253 34.453313     1    -1     NA lightgray       0.5        1    NA
-      9   94.17447 28.887216     1    -1     NA lightgray       0.5        1    NA
-      10  95.10000 28.570150     1    -1     NA lightgray       0.5        1    NA
-      11 107.72379 24.654201     1    -1     NA lightgray       0.5        1    NA
-      12 108.00000 24.578070     1    -1     NA lightgray       0.5        1    NA
-      13 120.02599 21.703558     1    -1     NA lightgray       0.5        1    NA
-      14 120.10000 21.688556     1    -1     NA lightgray       0.5        1    NA
-      15 120.30000 21.648181     1    -1     NA lightgray       0.5        1    NA
-      16 120.76642 21.554958     1    -1     NA lightgray       0.5        1    NA
-      17 120.95663 21.517315     1    -1     NA lightgray       0.5        1    NA
-      18 121.00000 21.508763     1    -1     NA lightgray       0.5        1    NA
-      19 140.80000 18.453883     1    -1     NA lightgray       0.5        1    NA
-      20 141.25281 18.396239     1    -1     NA lightgray       0.5        1    NA
-      21 145.00000 17.925085     1    -1     NA lightgray       0.5        1    NA
-      22 146.07210 17.791260     1    -1     NA lightgray       0.5        1    NA
-      23 146.70000 17.712894     1    -1     NA lightgray       0.5        1    NA
-      24 148.00468 17.549898     1    -1     NA lightgray       0.5        1    NA
-      25 159.24963 16.106946     1    -1     NA lightgray       0.5        1    NA
-      26 160.00000 16.006531     1    -1     NA lightgray       0.5        1    NA
-      27 161.26943 15.835070     1    -1     NA lightgray       0.5        1    NA
-      28 166.13111 15.161030     1    -1     NA lightgray       0.5        1    NA
-      29 167.60000 14.952585     1    -1     NA lightgray       0.5        1    NA
-      30 168.03279 14.890811     1    -1     NA lightgray       0.5        1    NA
-      31 223.65757 10.391882     1    -1     NA lightgray       0.5        1    NA
-      32 225.00000 10.486571     1    -1     NA lightgray       0.5        1    NA
-      33 258.00000 16.153718     1    -1     NA lightgray       0.5        1    NA
-      34 258.37592 16.239272     1    -1     NA lightgray       0.5        1    NA
-      35 274.01589 19.676359     1    -1     NA lightgray       0.5        1    NA
-      36 274.17816 19.708296     1    -1     NA lightgray       0.5        1    NA
-      37 275.80000 20.020348     1    -1     NA lightgray       0.5        1    NA
-      38 276.83162 20.211704     1    -1     NA lightgray       0.5        1    NA
-      39 300.03890 22.539540     1    -1     NA lightgray       0.5        1    NA
-      40 301.00000 22.534575     1    -1     NA lightgray       0.5        1    NA
-      41 302.24983 22.513881     1    -1     NA lightgray       0.5        1    NA
-      42 304.00000 22.457956     1    -1     NA lightgray       0.5        1    NA
-      43 318.00000 20.999349     1    -1     NA lightgray       0.5        1    NA
-      44 320.76473 20.530783     1    -1     NA lightgray       0.5        1    NA
-      45 350.00000 14.003963     1    -1     NA lightgray       0.5        1    NA
-      46 350.17436 13.965217     1    -1     NA lightgray       0.5        1    NA
-      47 351.00000 13.783093     1    -1     NA lightgray       0.5        1    NA
-      48 351.06172 13.769570     1    -1     NA lightgray       0.5        1    NA
-      49 360.00000 11.955260     1    -1     NA lightgray       0.5        1    NA
-      50 362.86841 11.438002     1    -1     NA lightgray       0.5        1    NA
-      51 362.93910 11.425671     1    -1     NA lightgray       0.5        1    NA
-      52 397.00444  7.334865     1    -1     NA lightgray       0.5        1    NA
-      53 400.00000  7.101139     1    -1     NA lightgray       0.5        1    NA
-      54 439.97975  5.693494     1    -1     NA lightgray       0.5        1    NA
-      55 440.00000  5.693839     1    -1     NA lightgray       0.5        1    NA
-      56 460.00000  6.547858     1    -1     NA lightgray       0.5        1    NA
-      57 462.48254  6.705702     1    -1     NA lightgray       0.5        1    NA
-      58 470.90594  7.278278     1    -1     NA lightgray       0.5        1    NA
-      59 472.00000  7.354466     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
+                 x         y PANEL group colour linewidth linetype alpha xmin xmax
+      1   70.92941 37.582035     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   71.10000 37.516059     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   75.70000 35.738755     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   76.44475 35.451698     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   78.63221 34.610641     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   78.70000 34.584637     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   79.00000 34.469613     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   79.04253 34.453313     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   94.17447 28.887216     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  95.10000 28.570150     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 107.72379 24.654201     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 108.00000 24.578070     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 120.02599 21.703558     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 120.10000 21.688556     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 120.30000 21.648181     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 120.76642 21.554958     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 120.95663 21.517315     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 121.00000 21.508763     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 140.80000 18.453883     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 141.25281 18.396239     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 145.00000 17.925085     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 146.07210 17.791260     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 146.70000 17.712894     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 148.00468 17.549898     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 159.24963 16.106946     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 160.00000 16.006531     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 161.26943 15.835070     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 166.13111 15.161030     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 167.60000 14.952585     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 168.03279 14.890811     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 223.65757 10.391882     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 225.00000 10.486571     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 258.00000 16.153718     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 258.37592 16.239272     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 274.01589 19.676359     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 274.17816 19.708296     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 275.80000 20.020348     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 276.83162 20.211704     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 300.03890 22.539540     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 301.00000 22.534575     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 302.24983 22.513881     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 304.00000 22.457956     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 318.00000 20.999349     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 320.76473 20.530783     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 350.00000 14.003963     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 350.17436 13.965217     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 351.00000 13.783093     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 351.06172 13.769570     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 360.00000 11.955260     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 362.86841 11.438002     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 362.93910 11.425671     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 397.00444  7.334865     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 400.00000  7.101139     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 439.97975  5.693494     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 440.00000  5.693839     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 460.00000  6.547858     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 462.48254  6.705702     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 470.90594  7.278278     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 472.00000  7.354466     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
       
       $ale$plots$disp[[2]]
               ymin      ymax         x         y PANEL group flipped_aes colour
@@ -903,66 +903,66 @@
       57  6.705702  6.705702 462.48254  6.705702     1    -1       FALSE     NA
       58  7.278278  7.278278 470.90594  7.278278     1    -1       FALSE     NA
       59  7.354466  7.354466 472.00000  7.354466     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      12 grey85       0.5        1   0.5
-      13 grey85       0.5        1   0.5
-      14 grey85       0.5        1   0.5
-      15 grey85       0.5        1   0.5
-      16 grey85       0.5        1   0.5
-      17 grey85       0.5        1   0.5
-      18 grey85       0.5        1   0.5
-      19 grey85       0.5        1   0.5
-      20 grey85       0.5        1   0.5
-      21 grey85       0.5        1   0.5
-      22 grey85       0.5        1   0.5
-      23 grey85       0.5        1   0.5
-      24 grey85       0.5        1   0.5
-      25 grey85       0.5        1   0.5
-      26 grey85       0.5        1   0.5
-      27 grey85       0.5        1   0.5
-      28 grey85       0.5        1   0.5
-      29 grey85       0.5        1   0.5
-      30 grey85       0.5        1   0.5
-      31 grey85       0.5        1   0.5
-      32 grey85       0.5        1   0.5
-      33 grey85       0.5        1   0.5
-      34 grey85       0.5        1   0.5
-      35 grey85       0.5        1   0.5
-      36 grey85       0.5        1   0.5
-      37 grey85       0.5        1   0.5
-      38 grey85       0.5        1   0.5
-      39 grey85       0.5        1   0.5
-      40 grey85       0.5        1   0.5
-      41 grey85       0.5        1   0.5
-      42 grey85       0.5        1   0.5
-      43 grey85       0.5        1   0.5
-      44 grey85       0.5        1   0.5
-      45 grey85       0.5        1   0.5
-      46 grey85       0.5        1   0.5
-      47 grey85       0.5        1   0.5
-      48 grey85       0.5        1   0.5
-      49 grey85       0.5        1   0.5
-      50 grey85       0.5        1   0.5
-      51 grey85       0.5        1   0.5
-      52 grey85       0.5        1   0.5
-      53 grey85       0.5        1   0.5
-      54 grey85       0.5        1   0.5
-      55 grey85       0.5        1   0.5
-      56 grey85       0.5        1   0.5
-      57 grey85       0.5        1   0.5
-      58 grey85       0.5        1   0.5
-      59 grey85       0.5        1   0.5
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
+      55       0.5        1 grey85   0.5
+      56       0.5        1 grey85   0.5
+      57       0.5        1 grey85   0.5
+      58       0.5        1 grey85   0.5
+      59       0.5        1 grey85   0.5
       
       $ale$plots$disp[[3]]
                  x         y PANEL group flipped_aes colour linewidth linetype alpha
@@ -1027,12 +1027,12 @@
       59 472.00000  7.354466     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$disp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -1104,116 +1104,116 @@
       
       $ale$plots$hp
       $ale$plots$hp[[1]]
-                 x         y PANEL group colour      fill linewidth linetype alpha
-      1   52.00000 25.979005     1    -1     NA lightgray       0.5        1    NA
-      2   52.51158 26.302590     1    -1     NA lightgray       0.5        1    NA
-      3   62.00000 31.516852     1    -1     NA lightgray       0.5        1    NA
-      4   62.55140 31.724491     1    -1     NA lightgray       0.5        1    NA
-      5   64.84405 32.411874     1    -1     NA lightgray       0.5        1    NA
-      6   65.00000 32.447665     1    -1     NA lightgray       0.5        1    NA
-      7   65.69273 32.588899     1    -1     NA lightgray       0.5        1    NA
-      8   66.00000 32.642227     1    -1     NA lightgray       0.5        1    NA
-      9   66.28726 32.686910     1    -1     NA lightgray       0.5        1    NA
-      10  90.79273 26.794001     1    -1     NA lightgray       0.5        1    NA
-      11  91.00000 26.736620     1    -1     NA lightgray       0.5        1    NA
-      12  92.76215 26.294799     1    -1     NA lightgray       0.5        1    NA
-      13  93.00000 26.241728     1    -1     NA lightgray       0.5        1    NA
-      14  95.00000 25.858190     1    -1     NA lightgray       0.5        1    NA
-      15  95.30552 25.809261     1    -1     NA lightgray       0.5        1    NA
-      16  97.00000 25.580544     1    -1     NA lightgray       0.5        1    NA
-      17  97.53824 25.521564     1    -1     NA lightgray       0.5        1    NA
-      18 104.37353 25.017825     1    -1     NA lightgray       0.5        1    NA
-      19 105.00000 24.965005     1    -1     NA lightgray       0.5        1    NA
-      20 108.96093 24.442042     1    -1     NA lightgray       0.5        1    NA
-      21 109.00000 24.434694     1    -1     NA lightgray       0.5        1    NA
-      22 109.48412 24.339218     1    -1     NA lightgray       0.5        1    NA
-      23 110.00000 24.228204     1    -1     NA lightgray       0.5        1    NA
-      24 110.16028 24.191705     1    -1     NA lightgray       0.5        1    NA
-      25 110.87273 24.017671     1    -1     NA lightgray       0.5        1    NA
-      26 111.90026 23.732229     1    -1     NA lightgray       0.5        1    NA
-      27 113.00000 23.381357     1    -1     NA lightgray       0.5        1    NA
-      28 121.92199 19.005779     1    -1     NA lightgray       0.5        1    NA
-      29 123.00000 18.324034     1    -1     NA lightgray       0.5        1    NA
-      30 123.31762 18.118217     1    -1     NA lightgray       0.5        1    NA
-      31 149.13643  5.208920     1    -1     NA lightgray       0.5        1    NA
-      32 150.00000  5.298529     1    -1     NA lightgray       0.5        1    NA
-      33 151.30412  5.541690     1    -1     NA lightgray       0.5        1    NA
-      34 173.68944 17.922527     1    -1     NA lightgray       0.5        1    NA
-      35 175.00000 18.349037     1    -1     NA lightgray       0.5        1    NA
-      36 176.29392 18.655748     1    -1     NA lightgray       0.5        1    NA
-      37 176.42873 18.680807     1    -1     NA lightgray       0.5        1    NA
-      38 178.83560 18.900943     1    -1     NA lightgray       0.5        1    NA
-      39 178.94151 18.900608     1    -1     NA lightgray       0.5        1    NA
-      40 180.00000 18.850668     1    -1     NA lightgray       0.5        1    NA
-      41 180.67328 18.775521     1    -1     NA lightgray       0.5        1    NA
-      42 204.52483  5.540399     1    -1     NA lightgray       0.5        1    NA
-      43 205.00000  5.292079     1    -1     NA lightgray       0.5        1    NA
-      44 215.00000  2.308285     1    -1     NA lightgray       0.5        1    NA
-      45 216.16032  2.259000     1    -1     NA lightgray       0.5        1    NA
-      46 229.98942  5.217903     1    -1     NA lightgray       0.5        1    NA
-      47 230.00000  5.221577     1    -1     NA lightgray       0.5        1    NA
-      48 245.00000  9.690265     1    -1     NA lightgray       0.5        1    NA
-      49 245.74320  9.800152     1    -1     NA lightgray       0.5        1    NA
-      50 246.95211  9.942493     1    -1     NA lightgray       0.5        1    NA
-      51 263.37901  8.926001     1    -1     NA lightgray       0.5        1    NA
-      52 264.00000  8.842886     1    -1     NA lightgray       0.5        1    NA
-      53 333.93034  3.752897     1    -1     NA lightgray       0.5        1    NA
-      54 335.00000  3.708389     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
+                 x         y PANEL group colour linewidth linetype alpha xmin xmax
+      1   52.00000 25.979005     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   52.51158 26.302590     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   62.00000 31.516852     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   62.55140 31.724491     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   64.84405 32.411874     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   65.00000 32.447665     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   65.69273 32.588899     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   66.00000 32.642227     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   66.28726 32.686910     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  90.79273 26.794001     1    -1     NA       0.5        1    NA -Inf  Inf
+      11  91.00000 26.736620     1    -1     NA       0.5        1    NA -Inf  Inf
+      12  92.76215 26.294799     1    -1     NA       0.5        1    NA -Inf  Inf
+      13  93.00000 26.241728     1    -1     NA       0.5        1    NA -Inf  Inf
+      14  95.00000 25.858190     1    -1     NA       0.5        1    NA -Inf  Inf
+      15  95.30552 25.809261     1    -1     NA       0.5        1    NA -Inf  Inf
+      16  97.00000 25.580544     1    -1     NA       0.5        1    NA -Inf  Inf
+      17  97.53824 25.521564     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 104.37353 25.017825     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 105.00000 24.965005     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 108.96093 24.442042     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 109.00000 24.434694     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 109.48412 24.339218     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 110.00000 24.228204     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 110.16028 24.191705     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 110.87273 24.017671     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 111.90026 23.732229     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 113.00000 23.381357     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 121.92199 19.005779     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 123.00000 18.324034     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 123.31762 18.118217     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 149.13643  5.208920     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 150.00000  5.298529     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 151.30412  5.541690     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 173.68944 17.922527     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 175.00000 18.349037     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 176.29392 18.655748     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 176.42873 18.680807     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 178.83560 18.900943     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 178.94151 18.900608     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 180.00000 18.850668     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 180.67328 18.775521     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 204.52483  5.540399     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 205.00000  5.292079     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 215.00000  2.308285     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 216.16032  2.259000     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 229.98942  5.217903     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 230.00000  5.221577     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 245.00000  9.690265     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 245.74320  9.800152     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 246.95211  9.942493     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 263.37901  8.926001     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 264.00000  8.842886     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 333.93034  3.752897     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 335.00000  3.708389     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$hp[[2]]
               ymin      ymax         x         y PANEL group flipped_aes colour
@@ -1271,61 +1271,61 @@
       52  8.842886  8.842886 264.00000  8.842886     1    -1       FALSE     NA
       53  3.752897  3.752897 333.93034  3.752897     1    -1       FALSE     NA
       54  3.708389  3.708389 335.00000  3.708389     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      12 grey85       0.5        1   0.5
-      13 grey85       0.5        1   0.5
-      14 grey85       0.5        1   0.5
-      15 grey85       0.5        1   0.5
-      16 grey85       0.5        1   0.5
-      17 grey85       0.5        1   0.5
-      18 grey85       0.5        1   0.5
-      19 grey85       0.5        1   0.5
-      20 grey85       0.5        1   0.5
-      21 grey85       0.5        1   0.5
-      22 grey85       0.5        1   0.5
-      23 grey85       0.5        1   0.5
-      24 grey85       0.5        1   0.5
-      25 grey85       0.5        1   0.5
-      26 grey85       0.5        1   0.5
-      27 grey85       0.5        1   0.5
-      28 grey85       0.5        1   0.5
-      29 grey85       0.5        1   0.5
-      30 grey85       0.5        1   0.5
-      31 grey85       0.5        1   0.5
-      32 grey85       0.5        1   0.5
-      33 grey85       0.5        1   0.5
-      34 grey85       0.5        1   0.5
-      35 grey85       0.5        1   0.5
-      36 grey85       0.5        1   0.5
-      37 grey85       0.5        1   0.5
-      38 grey85       0.5        1   0.5
-      39 grey85       0.5        1   0.5
-      40 grey85       0.5        1   0.5
-      41 grey85       0.5        1   0.5
-      42 grey85       0.5        1   0.5
-      43 grey85       0.5        1   0.5
-      44 grey85       0.5        1   0.5
-      45 grey85       0.5        1   0.5
-      46 grey85       0.5        1   0.5
-      47 grey85       0.5        1   0.5
-      48 grey85       0.5        1   0.5
-      49 grey85       0.5        1   0.5
-      50 grey85       0.5        1   0.5
-      51 grey85       0.5        1   0.5
-      52 grey85       0.5        1   0.5
-      53 grey85       0.5        1   0.5
-      54 grey85       0.5        1   0.5
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
       
       $ale$plots$hp[[3]]
                  x         y PANEL group flipped_aes colour linewidth linetype alpha
@@ -1385,12 +1385,12 @@
       54 335.00000  3.708389     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$hp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -1462,228 +1462,228 @@
       
       $ale$plots$drat
       $ale$plots$drat[[1]]
-                x        y PANEL group colour      fill linewidth linetype alpha xmin
-      1  2.743533 19.59794     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  2.760000 19.45219     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  2.783996 19.24538     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  2.923208 18.71639     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  2.930000 18.74215     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  3.000000 19.31285     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  3.016190 19.49902     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  3.050141 19.90605     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  3.051947 19.92729     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 3.056934 19.98527     1    -1     NA lightgray       0.5        1    NA -Inf
-      11 3.070000 20.13118     1    -1     NA lightgray       0.5        1    NA -Inf
-      12 3.080000 20.23513     1    -1     NA lightgray       0.5        1    NA -Inf
-      13 3.081483 20.24987     1    -1     NA lightgray       0.5        1    NA -Inf
-      14 3.084488 20.27913     1    -1     NA lightgray       0.5        1    NA -Inf
-      15 3.131865 20.61849     1    -1     NA lightgray       0.5        1    NA -Inf
-      16 3.150000 20.67684     1    -1     NA lightgray       0.5        1    NA -Inf
-      17 3.175717 20.68253     1    -1     NA lightgray       0.5        1    NA -Inf
-      18 3.210000 20.54803     1    -1     NA lightgray       0.5        1    NA -Inf
-      19 3.229851 20.39839     1    -1     NA lightgray       0.5        1    NA -Inf
-      20 3.230000 20.39708     1    -1     NA lightgray       0.5        1    NA -Inf
-      21 3.235577 20.34591     1    -1     NA lightgray       0.5        1    NA -Inf
-      22 3.528697 15.20501     1    -1     NA lightgray       0.5        1    NA -Inf
-      23 3.540000 15.03330     1    -1     NA lightgray       0.5        1    NA -Inf
-      24 3.620000 14.20541     1    -1     NA lightgray       0.5        1    NA -Inf
-      25 3.646766 14.12235     1    -1     NA lightgray       0.5        1    NA -Inf
-      26 3.690000 14.24260     1    -1     NA lightgray       0.5        1    NA -Inf
-      27 3.700000 14.31838     1    -1     NA lightgray       0.5        1    NA -Inf
-      28 3.720531 14.53222     1    -1     NA lightgray       0.5        1    NA -Inf
-      29 3.722817 14.56085     1    -1     NA lightgray       0.5        1    NA -Inf
-      30 3.730000 14.65696     1    -1     NA lightgray       0.5        1    NA -Inf
-      31 3.733310 14.70433     1    -1     NA lightgray       0.5        1    NA -Inf
-      32 3.741315 14.82669     1    -1     NA lightgray       0.5        1    NA -Inf
-      33 3.770000 15.34477     1    -1     NA lightgray       0.5        1    NA -Inf
-      34 3.840154 16.91991     1    -1     NA lightgray       0.5        1    NA -Inf
-      35 3.850000 17.14941     1    -1     NA lightgray       0.5        1    NA -Inf
-      36 3.881710 17.85770     1    -1     NA lightgray       0.5        1    NA -Inf
-      37 3.885644 17.94048     1    -1     NA lightgray       0.5        1    NA -Inf
-      38 3.900000 18.22965     1    -1     NA lightgray       0.5        1    NA -Inf
-      39 3.920000 18.59411     1    -1     NA lightgray       0.5        1    NA -Inf
-      40 3.930123 18.75965     1    -1     NA lightgray       0.5        1    NA -Inf
-      41 3.930942 18.77247     1    -1     NA lightgray       0.5        1    NA -Inf
-      42 3.932607 18.79823     1    -1     NA lightgray       0.5        1    NA -Inf
-      43 4.061005 20.01182     1    -1     NA lightgray       0.5        1    NA -Inf
-      44 4.080000 20.12441     1    -1     NA lightgray       0.5        1    NA -Inf
-      45 4.097758 20.23141     1    -1     NA lightgray       0.5        1    NA -Inf
-      46 4.108527 20.29993     1    -1     NA lightgray       0.5        1    NA -Inf
-      47 4.110000 20.30963     1    -1     NA lightgray       0.5        1    NA -Inf
-      48 4.209875 21.32487     1    -1     NA lightgray       0.5        1    NA -Inf
-      49 4.210074 21.32791     1    -1     NA lightgray       0.5        1    NA -Inf
-      50 4.220000 21.48622     1    -1     NA lightgray       0.5        1    NA -Inf
-      51 4.419910 26.09751     1    -1     NA lightgray       0.5        1    NA -Inf
-      52 4.430000 26.32645     1    -1     NA lightgray       0.5        1    NA -Inf
-      53 4.930000 31.26594     1    -1     NA lightgray       0.5        1    NA -Inf
-      54 4.978502 31.37972     1    -1     NA lightgray       0.5        1    NA -Inf
-         xmax     ymin     ymax
-      1   Inf 19.04095 19.28336
-      2   Inf 19.04095 19.28336
-      3   Inf 19.04095 19.28336
-      4   Inf 19.04095 19.28336
-      5   Inf 19.04095 19.28336
-      6   Inf 19.04095 19.28336
-      7   Inf 19.04095 19.28336
-      8   Inf 19.04095 19.28336
-      9   Inf 19.04095 19.28336
-      10  Inf 19.04095 19.28336
-      11  Inf 19.04095 19.28336
-      12  Inf 19.04095 19.28336
-      13  Inf 19.04095 19.28336
-      14  Inf 19.04095 19.28336
-      15  Inf 19.04095 19.28336
-      16  Inf 19.04095 19.28336
-      17  Inf 19.04095 19.28336
-      18  Inf 19.04095 19.28336
-      19  Inf 19.04095 19.28336
-      20  Inf 19.04095 19.28336
-      21  Inf 19.04095 19.28336
-      22  Inf 19.04095 19.28336
-      23  Inf 19.04095 19.28336
-      24  Inf 19.04095 19.28336
-      25  Inf 19.04095 19.28336
-      26  Inf 19.04095 19.28336
-      27  Inf 19.04095 19.28336
-      28  Inf 19.04095 19.28336
-      29  Inf 19.04095 19.28336
-      30  Inf 19.04095 19.28336
-      31  Inf 19.04095 19.28336
-      32  Inf 19.04095 19.28336
-      33  Inf 19.04095 19.28336
-      34  Inf 19.04095 19.28336
-      35  Inf 19.04095 19.28336
-      36  Inf 19.04095 19.28336
-      37  Inf 19.04095 19.28336
-      38  Inf 19.04095 19.28336
-      39  Inf 19.04095 19.28336
-      40  Inf 19.04095 19.28336
-      41  Inf 19.04095 19.28336
-      42  Inf 19.04095 19.28336
-      43  Inf 19.04095 19.28336
-      44  Inf 19.04095 19.28336
-      45  Inf 19.04095 19.28336
-      46  Inf 19.04095 19.28336
-      47  Inf 19.04095 19.28336
-      48  Inf 19.04095 19.28336
-      49  Inf 19.04095 19.28336
-      50  Inf 19.04095 19.28336
-      51  Inf 19.04095 19.28336
-      52  Inf 19.04095 19.28336
-      53  Inf 19.04095 19.28336
-      54  Inf 19.04095 19.28336
+                x        y PANEL group colour linewidth linetype alpha xmin xmax
+      1  2.743533 19.59794     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  2.760000 19.45219     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  2.783996 19.24538     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  2.923208 18.71639     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  2.930000 18.74215     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  3.000000 19.31285     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  3.016190 19.49902     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  3.050141 19.90605     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  3.051947 19.92729     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 3.056934 19.98527     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 3.070000 20.13118     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 3.080000 20.23513     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 3.081483 20.24987     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 3.084488 20.27913     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 3.131865 20.61849     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 3.150000 20.67684     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 3.175717 20.68253     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 3.210000 20.54803     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 3.229851 20.39839     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 3.230000 20.39708     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 3.235577 20.34591     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 3.528697 15.20501     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 3.540000 15.03330     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 3.620000 14.20541     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.646766 14.12235     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.690000 14.24260     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.700000 14.31838     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.720531 14.53222     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.722817 14.56085     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.730000 14.65696     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.733310 14.70433     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.741315 14.82669     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.770000 15.34477     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.840154 16.91991     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.850000 17.14941     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.881710 17.85770     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.885644 17.94048     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.900000 18.22965     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.920000 18.59411     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.930123 18.75965     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.930942 18.77247     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.932607 18.79823     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 4.061005 20.01182     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 4.080000 20.12441     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 4.097758 20.23141     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 4.108527 20.29993     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 4.110000 20.30963     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 4.209875 21.32487     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 4.210074 21.32791     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 4.220000 21.48622     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 4.419910 26.09751     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 4.430000 26.32645     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 4.930000 31.26594     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.978502 31.37972     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$drat[[2]]
-             ymin     ymax        x        y PANEL group flipped_aes colour   fill
-      1  19.59794 19.59794 2.743533 19.59794     1    -1       FALSE     NA grey85
-      2  19.45219 19.45219 2.760000 19.45219     1    -1       FALSE     NA grey85
-      3  19.24538 19.24538 2.783996 19.24538     1    -1       FALSE     NA grey85
-      4  18.71639 18.71639 2.923208 18.71639     1    -1       FALSE     NA grey85
-      5  18.74215 18.74215 2.930000 18.74215     1    -1       FALSE     NA grey85
-      6  19.31285 19.31285 3.000000 19.31285     1    -1       FALSE     NA grey85
-      7  19.49902 19.49902 3.016190 19.49902     1    -1       FALSE     NA grey85
-      8  19.90605 19.90605 3.050141 19.90605     1    -1       FALSE     NA grey85
-      9  19.92729 19.92729 3.051947 19.92729     1    -1       FALSE     NA grey85
-      10 19.98527 19.98527 3.056934 19.98527     1    -1       FALSE     NA grey85
-      11 20.13118 20.13118 3.070000 20.13118     1    -1       FALSE     NA grey85
-      12 20.23513 20.23513 3.080000 20.23513     1    -1       FALSE     NA grey85
-      13 20.24987 20.24987 3.081483 20.24987     1    -1       FALSE     NA grey85
-      14 20.27913 20.27913 3.084488 20.27913     1    -1       FALSE     NA grey85
-      15 20.61849 20.61849 3.131865 20.61849     1    -1       FALSE     NA grey85
-      16 20.67684 20.67684 3.150000 20.67684     1    -1       FALSE     NA grey85
-      17 20.68253 20.68253 3.175717 20.68253     1    -1       FALSE     NA grey85
-      18 20.54803 20.54803 3.210000 20.54803     1    -1       FALSE     NA grey85
-      19 20.39839 20.39839 3.229851 20.39839     1    -1       FALSE     NA grey85
-      20 20.39708 20.39708 3.230000 20.39708     1    -1       FALSE     NA grey85
-      21 20.34591 20.34591 3.235577 20.34591     1    -1       FALSE     NA grey85
-      22 15.20501 15.20501 3.528697 15.20501     1    -1       FALSE     NA grey85
-      23 15.03330 15.03330 3.540000 15.03330     1    -1       FALSE     NA grey85
-      24 14.20541 14.20541 3.620000 14.20541     1    -1       FALSE     NA grey85
-      25 14.12235 14.12235 3.646766 14.12235     1    -1       FALSE     NA grey85
-      26 14.24260 14.24260 3.690000 14.24260     1    -1       FALSE     NA grey85
-      27 14.31838 14.31838 3.700000 14.31838     1    -1       FALSE     NA grey85
-      28 14.53222 14.53222 3.720531 14.53222     1    -1       FALSE     NA grey85
-      29 14.56085 14.56085 3.722817 14.56085     1    -1       FALSE     NA grey85
-      30 14.65696 14.65696 3.730000 14.65696     1    -1       FALSE     NA grey85
-      31 14.70433 14.70433 3.733310 14.70433     1    -1       FALSE     NA grey85
-      32 14.82669 14.82669 3.741315 14.82669     1    -1       FALSE     NA grey85
-      33 15.34477 15.34477 3.770000 15.34477     1    -1       FALSE     NA grey85
-      34 16.91991 16.91991 3.840154 16.91991     1    -1       FALSE     NA grey85
-      35 17.14941 17.14941 3.850000 17.14941     1    -1       FALSE     NA grey85
-      36 17.85770 17.85770 3.881710 17.85770     1    -1       FALSE     NA grey85
-      37 17.94048 17.94048 3.885644 17.94048     1    -1       FALSE     NA grey85
-      38 18.22965 18.22965 3.900000 18.22965     1    -1       FALSE     NA grey85
-      39 18.59411 18.59411 3.920000 18.59411     1    -1       FALSE     NA grey85
-      40 18.75965 18.75965 3.930123 18.75965     1    -1       FALSE     NA grey85
-      41 18.77247 18.77247 3.930942 18.77247     1    -1       FALSE     NA grey85
-      42 18.79823 18.79823 3.932607 18.79823     1    -1       FALSE     NA grey85
-      43 20.01182 20.01182 4.061005 20.01182     1    -1       FALSE     NA grey85
-      44 20.12441 20.12441 4.080000 20.12441     1    -1       FALSE     NA grey85
-      45 20.23141 20.23141 4.097758 20.23141     1    -1       FALSE     NA grey85
-      46 20.29993 20.29993 4.108527 20.29993     1    -1       FALSE     NA grey85
-      47 20.30963 20.30963 4.110000 20.30963     1    -1       FALSE     NA grey85
-      48 21.32487 21.32487 4.209875 21.32487     1    -1       FALSE     NA grey85
-      49 21.32791 21.32791 4.210074 21.32791     1    -1       FALSE     NA grey85
-      50 21.48622 21.48622 4.220000 21.48622     1    -1       FALSE     NA grey85
-      51 26.09751 26.09751 4.419910 26.09751     1    -1       FALSE     NA grey85
-      52 26.32645 26.32645 4.430000 26.32645     1    -1       FALSE     NA grey85
-      53 31.26594 31.26594 4.930000 31.26594     1    -1       FALSE     NA grey85
-      54 31.37972 31.37972 4.978502 31.37972     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
+             ymin     ymax        x        y PANEL group flipped_aes colour linewidth
+      1  19.59794 19.59794 2.743533 19.59794     1    -1       FALSE     NA       0.5
+      2  19.45219 19.45219 2.760000 19.45219     1    -1       FALSE     NA       0.5
+      3  19.24538 19.24538 2.783996 19.24538     1    -1       FALSE     NA       0.5
+      4  18.71639 18.71639 2.923208 18.71639     1    -1       FALSE     NA       0.5
+      5  18.74215 18.74215 2.930000 18.74215     1    -1       FALSE     NA       0.5
+      6  19.31285 19.31285 3.000000 19.31285     1    -1       FALSE     NA       0.5
+      7  19.49902 19.49902 3.016190 19.49902     1    -1       FALSE     NA       0.5
+      8  19.90605 19.90605 3.050141 19.90605     1    -1       FALSE     NA       0.5
+      9  19.92729 19.92729 3.051947 19.92729     1    -1       FALSE     NA       0.5
+      10 19.98527 19.98527 3.056934 19.98527     1    -1       FALSE     NA       0.5
+      11 20.13118 20.13118 3.070000 20.13118     1    -1       FALSE     NA       0.5
+      12 20.23513 20.23513 3.080000 20.23513     1    -1       FALSE     NA       0.5
+      13 20.24987 20.24987 3.081483 20.24987     1    -1       FALSE     NA       0.5
+      14 20.27913 20.27913 3.084488 20.27913     1    -1       FALSE     NA       0.5
+      15 20.61849 20.61849 3.131865 20.61849     1    -1       FALSE     NA       0.5
+      16 20.67684 20.67684 3.150000 20.67684     1    -1       FALSE     NA       0.5
+      17 20.68253 20.68253 3.175717 20.68253     1    -1       FALSE     NA       0.5
+      18 20.54803 20.54803 3.210000 20.54803     1    -1       FALSE     NA       0.5
+      19 20.39839 20.39839 3.229851 20.39839     1    -1       FALSE     NA       0.5
+      20 20.39708 20.39708 3.230000 20.39708     1    -1       FALSE     NA       0.5
+      21 20.34591 20.34591 3.235577 20.34591     1    -1       FALSE     NA       0.5
+      22 15.20501 15.20501 3.528697 15.20501     1    -1       FALSE     NA       0.5
+      23 15.03330 15.03330 3.540000 15.03330     1    -1       FALSE     NA       0.5
+      24 14.20541 14.20541 3.620000 14.20541     1    -1       FALSE     NA       0.5
+      25 14.12235 14.12235 3.646766 14.12235     1    -1       FALSE     NA       0.5
+      26 14.24260 14.24260 3.690000 14.24260     1    -1       FALSE     NA       0.5
+      27 14.31838 14.31838 3.700000 14.31838     1    -1       FALSE     NA       0.5
+      28 14.53222 14.53222 3.720531 14.53222     1    -1       FALSE     NA       0.5
+      29 14.56085 14.56085 3.722817 14.56085     1    -1       FALSE     NA       0.5
+      30 14.65696 14.65696 3.730000 14.65696     1    -1       FALSE     NA       0.5
+      31 14.70433 14.70433 3.733310 14.70433     1    -1       FALSE     NA       0.5
+      32 14.82669 14.82669 3.741315 14.82669     1    -1       FALSE     NA       0.5
+      33 15.34477 15.34477 3.770000 15.34477     1    -1       FALSE     NA       0.5
+      34 16.91991 16.91991 3.840154 16.91991     1    -1       FALSE     NA       0.5
+      35 17.14941 17.14941 3.850000 17.14941     1    -1       FALSE     NA       0.5
+      36 17.85770 17.85770 3.881710 17.85770     1    -1       FALSE     NA       0.5
+      37 17.94048 17.94048 3.885644 17.94048     1    -1       FALSE     NA       0.5
+      38 18.22965 18.22965 3.900000 18.22965     1    -1       FALSE     NA       0.5
+      39 18.59411 18.59411 3.920000 18.59411     1    -1       FALSE     NA       0.5
+      40 18.75965 18.75965 3.930123 18.75965     1    -1       FALSE     NA       0.5
+      41 18.77247 18.77247 3.930942 18.77247     1    -1       FALSE     NA       0.5
+      42 18.79823 18.79823 3.932607 18.79823     1    -1       FALSE     NA       0.5
+      43 20.01182 20.01182 4.061005 20.01182     1    -1       FALSE     NA       0.5
+      44 20.12441 20.12441 4.080000 20.12441     1    -1       FALSE     NA       0.5
+      45 20.23141 20.23141 4.097758 20.23141     1    -1       FALSE     NA       0.5
+      46 20.29993 20.29993 4.108527 20.29993     1    -1       FALSE     NA       0.5
+      47 20.30963 20.30963 4.110000 20.30963     1    -1       FALSE     NA       0.5
+      48 21.32487 21.32487 4.209875 21.32487     1    -1       FALSE     NA       0.5
+      49 21.32791 21.32791 4.210074 21.32791     1    -1       FALSE     NA       0.5
+      50 21.48622 21.48622 4.220000 21.48622     1    -1       FALSE     NA       0.5
+      51 26.09751 26.09751 4.419910 26.09751     1    -1       FALSE     NA       0.5
+      52 26.32645 26.32645 4.430000 26.32645     1    -1       FALSE     NA       0.5
+      53 31.26594 31.26594 4.930000 31.26594     1    -1       FALSE     NA       0.5
+      54 31.37972 31.37972 4.978502 31.37972     1    -1       FALSE     NA       0.5
+         linetype   fill alpha
+      1         1 grey85   0.5
+      2         1 grey85   0.5
+      3         1 grey85   0.5
+      4         1 grey85   0.5
+      5         1 grey85   0.5
+      6         1 grey85   0.5
+      7         1 grey85   0.5
+      8         1 grey85   0.5
+      9         1 grey85   0.5
+      10        1 grey85   0.5
+      11        1 grey85   0.5
+      12        1 grey85   0.5
+      13        1 grey85   0.5
+      14        1 grey85   0.5
+      15        1 grey85   0.5
+      16        1 grey85   0.5
+      17        1 grey85   0.5
+      18        1 grey85   0.5
+      19        1 grey85   0.5
+      20        1 grey85   0.5
+      21        1 grey85   0.5
+      22        1 grey85   0.5
+      23        1 grey85   0.5
+      24        1 grey85   0.5
+      25        1 grey85   0.5
+      26        1 grey85   0.5
+      27        1 grey85   0.5
+      28        1 grey85   0.5
+      29        1 grey85   0.5
+      30        1 grey85   0.5
+      31        1 grey85   0.5
+      32        1 grey85   0.5
+      33        1 grey85   0.5
+      34        1 grey85   0.5
+      35        1 grey85   0.5
+      36        1 grey85   0.5
+      37        1 grey85   0.5
+      38        1 grey85   0.5
+      39        1 grey85   0.5
+      40        1 grey85   0.5
+      41        1 grey85   0.5
+      42        1 grey85   0.5
+      43        1 grey85   0.5
+      44        1 grey85   0.5
+      45        1 grey85   0.5
+      46        1 grey85   0.5
+      47        1 grey85   0.5
+      48        1 grey85   0.5
+      49        1 grey85   0.5
+      50        1 grey85   0.5
+      51        1 grey85   0.5
+      52        1 grey85   0.5
+      53        1 grey85   0.5
+      54        1 grey85   0.5
       
       $ale$plots$drat[[3]]
                 x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -1743,12 +1743,12 @@
       54 4.978502 31.37972     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$drat[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -1820,256 +1820,256 @@
       
       $ale$plots$wt
       $ale$plots$wt[[1]]
-                x         y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 -7.785546     1    -1     NA lightgray       0.5        1    NA
-      2  1.513000 -7.262252     1    -1     NA lightgray       0.5        1    NA
-      3  1.615000 -3.662211     1    -1     NA lightgray       0.5        1    NA
-      4  1.630889 -3.109958     1    -1     NA lightgray       0.5        1    NA
-      5  1.830597  3.373618     1    -1     NA lightgray       0.5        1    NA
-      6  1.835000  3.503183     1    -1     NA lightgray       0.5        1    NA
-      7  1.925991  6.016019     1    -1     NA lightgray       0.5        1    NA
-      8  1.935000  6.247463     1    -1     NA lightgray       0.5        1    NA
-      9  2.135126 10.694640     1    -1     NA lightgray       0.5        1    NA
-      10 2.140000 10.789395     1    -1     NA lightgray       0.5        1    NA
-      11 2.200000 11.917590     1    -1     NA lightgray       0.5        1    NA
-      12 2.209575 12.091811     1    -1     NA lightgray       0.5        1    NA
-      13 2.314067 13.909605     1    -1     NA lightgray       0.5        1    NA
-      14 2.320000 14.008817     1    -1     NA lightgray       0.5        1    NA
-      15 2.465000 16.285368     1    -1     NA lightgray       0.5        1    NA
-      16 2.478678 16.481979     1    -1     NA lightgray       0.5        1    NA
-      17 2.620000 18.214714     1    -1     NA lightgray       0.5        1    NA
-      18 2.640787 18.408490     1    -1     NA lightgray       0.5        1    NA
-      19 2.770000 19.130998     1    -1     NA lightgray       0.5        1    NA
-      20 2.779004 19.146424     1    -1     NA lightgray       0.5        1    NA
-      21 2.780000 19.147826     1    -1     NA lightgray       0.5        1    NA
-      22 2.790481 19.158916     1    -1     NA lightgray       0.5        1    NA
-      23 2.861517 19.073382     1    -1     NA lightgray       0.5        1    NA
-      24 2.875000 19.029440     1    -1     NA lightgray       0.5        1    NA
-      25 3.150000 17.923924     1    -1     NA lightgray       0.5        1    NA
-      26 3.160130 17.933384     1    -1     NA lightgray       0.5        1    NA
-      27 3.162543 17.936742     1    -1     NA lightgray       0.5        1    NA
-      28 3.170000 17.949881     1    -1     NA lightgray       0.5        1    NA
-      29 3.190000 18.006381     1    -1     NA lightgray       0.5        1    NA
-      30 3.215000 18.122402     1    -1     NA lightgray       0.5        1    NA
-      31 3.218370 18.142015     1    -1     NA lightgray       0.5        1    NA
-      32 3.219684 18.149922     1    -1     NA lightgray       0.5        1    NA
-      33 3.409851 20.689749     1    -1     NA lightgray       0.5        1    NA
-      34 3.415224 20.797654     1    -1     NA lightgray       0.5        1    NA
-      35 3.435000 21.209364     1    -1     NA lightgray       0.5        1    NA
-      36 3.439356 21.302972     1    -1     NA lightgray       0.5        1    NA
-      37 3.440000 21.316886     1    -1     NA lightgray       0.5        1    NA
-      38 3.448883 21.511044     1    -1     NA lightgray       0.5        1    NA
-      39 3.460000 21.759133     1    -1     NA lightgray       0.5        1    NA
-      40 3.468085 21.942641     1    -1     NA lightgray       0.5        1    NA
-      41 3.520000 23.155300     1    -1     NA lightgray       0.5        1    NA
-      42 3.550603 23.868378     1    -1     NA lightgray       0.5        1    NA
-      43 3.558601 24.050924     1    -1     NA lightgray       0.5        1    NA
-      44 3.570000 24.307027     1    -1     NA lightgray       0.5        1    NA
-      45 3.598445 24.919482     1    -1     NA lightgray       0.5        1    NA
-      46 3.705871 26.703390     1    -1     NA lightgray       0.5        1    NA
-      47 3.730000 26.949278     1    -1     NA lightgray       0.5        1    NA
-      48 3.780000 27.241220     1    -1     NA lightgray       0.5        1    NA
-      49 3.794139 27.269517     1    -1     NA lightgray       0.5        1    NA
-      50 3.816205 27.266592     1    -1     NA lightgray       0.5        1    NA
-      51 3.840000 27.202423     1    -1     NA lightgray       0.5        1    NA
-      52 3.845000 27.181383     1    -1     NA lightgray       0.5        1    NA
-      53 3.851649 27.149566     1    -1     NA lightgray       0.5        1    NA
-      54 4.046066 25.247854     1    -1     NA lightgray       0.5        1    NA
-      55 4.070000 25.025871     1    -1     NA lightgray       0.5        1    NA
-      56 5.237831 36.601819     1    -1     NA lightgray       0.5        1    NA
-      57 5.250000 36.782334     1    -1     NA lightgray       0.5        1    NA
-      58 5.344754 38.121556     1    -1     NA lightgray       0.5        1    NA
-      59 5.345000 38.124902     1    -1     NA lightgray       0.5        1    NA
-      60 5.424000 39.178184     1    -1     NA lightgray       0.5        1    NA
-      61 5.453272 39.562980     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
-      60 -Inf  Inf 19.04095 19.28336
-      61 -Inf  Inf 19.04095 19.28336
+                x         y PANEL group colour linewidth linetype alpha xmin xmax
+      1  1.498275 -7.785546     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  1.513000 -7.262252     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  1.615000 -3.662211     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  1.630889 -3.109958     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  1.830597  3.373618     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  1.835000  3.503183     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  1.925991  6.016019     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  1.935000  6.247463     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  2.135126 10.694640     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 2.140000 10.789395     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 2.200000 11.917590     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 2.209575 12.091811     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 2.314067 13.909605     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 2.320000 14.008817     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 2.465000 16.285368     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 2.478678 16.481979     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 2.620000 18.214714     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 2.640787 18.408490     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 2.770000 19.130998     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 2.779004 19.146424     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 2.780000 19.147826     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 2.790481 19.158916     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 2.861517 19.073382     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 2.875000 19.029440     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.150000 17.923924     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.160130 17.933384     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.162543 17.936742     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.170000 17.949881     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.190000 18.006381     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.215000 18.122402     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.218370 18.142015     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.219684 18.149922     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.409851 20.689749     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.415224 20.797654     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.435000 21.209364     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.439356 21.302972     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.440000 21.316886     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.448883 21.511044     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.460000 21.759133     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.468085 21.942641     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.520000 23.155300     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.550603 23.868378     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 3.558601 24.050924     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 3.570000 24.307027     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 3.598445 24.919482     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 3.705871 26.703390     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 3.730000 26.949278     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 3.780000 27.241220     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 3.794139 27.269517     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 3.816205 27.266592     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 3.840000 27.202423     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 3.845000 27.181383     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 3.851649 27.149566     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.046066 25.247854     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 4.070000 25.025871     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 5.237831 36.601819     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 5.250000 36.782334     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 5.344754 38.121556     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 5.345000 38.124902     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 5.424000 39.178184     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 5.453272 39.562980     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
       
       $ale$plots$wt[[2]]
-              ymin      ymax        x         y PANEL group flipped_aes colour   fill
-      1  -7.785546 -7.785546 1.498275 -7.785546     1    -1       FALSE     NA grey85
-      2  -7.262252 -7.262252 1.513000 -7.262252     1    -1       FALSE     NA grey85
-      3  -3.662211 -3.662211 1.615000 -3.662211     1    -1       FALSE     NA grey85
-      4  -3.109958 -3.109958 1.630889 -3.109958     1    -1       FALSE     NA grey85
-      5   3.373618  3.373618 1.830597  3.373618     1    -1       FALSE     NA grey85
-      6   3.503183  3.503183 1.835000  3.503183     1    -1       FALSE     NA grey85
-      7   6.016019  6.016019 1.925991  6.016019     1    -1       FALSE     NA grey85
-      8   6.247463  6.247463 1.935000  6.247463     1    -1       FALSE     NA grey85
-      9  10.694640 10.694640 2.135126 10.694640     1    -1       FALSE     NA grey85
-      10 10.789395 10.789395 2.140000 10.789395     1    -1       FALSE     NA grey85
-      11 11.917590 11.917590 2.200000 11.917590     1    -1       FALSE     NA grey85
-      12 12.091811 12.091811 2.209575 12.091811     1    -1       FALSE     NA grey85
-      13 13.909605 13.909605 2.314067 13.909605     1    -1       FALSE     NA grey85
-      14 14.008817 14.008817 2.320000 14.008817     1    -1       FALSE     NA grey85
-      15 16.285368 16.285368 2.465000 16.285368     1    -1       FALSE     NA grey85
-      16 16.481979 16.481979 2.478678 16.481979     1    -1       FALSE     NA grey85
-      17 18.214714 18.214714 2.620000 18.214714     1    -1       FALSE     NA grey85
-      18 18.408490 18.408490 2.640787 18.408490     1    -1       FALSE     NA grey85
-      19 19.130998 19.130998 2.770000 19.130998     1    -1       FALSE     NA grey85
-      20 19.146424 19.146424 2.779004 19.146424     1    -1       FALSE     NA grey85
-      21 19.147826 19.147826 2.780000 19.147826     1    -1       FALSE     NA grey85
-      22 19.158916 19.158916 2.790481 19.158916     1    -1       FALSE     NA grey85
-      23 19.073382 19.073382 2.861517 19.073382     1    -1       FALSE     NA grey85
-      24 19.029440 19.029440 2.875000 19.029440     1    -1       FALSE     NA grey85
-      25 17.923924 17.923924 3.150000 17.923924     1    -1       FALSE     NA grey85
-      26 17.933384 17.933384 3.160130 17.933384     1    -1       FALSE     NA grey85
-      27 17.936742 17.936742 3.162543 17.936742     1    -1       FALSE     NA grey85
-      28 17.949881 17.949881 3.170000 17.949881     1    -1       FALSE     NA grey85
-      29 18.006381 18.006381 3.190000 18.006381     1    -1       FALSE     NA grey85
-      30 18.122402 18.122402 3.215000 18.122402     1    -1       FALSE     NA grey85
-      31 18.142015 18.142015 3.218370 18.142015     1    -1       FALSE     NA grey85
-      32 18.149922 18.149922 3.219684 18.149922     1    -1       FALSE     NA grey85
-      33 20.689749 20.689749 3.409851 20.689749     1    -1       FALSE     NA grey85
-      34 20.797654 20.797654 3.415224 20.797654     1    -1       FALSE     NA grey85
-      35 21.209364 21.209364 3.435000 21.209364     1    -1       FALSE     NA grey85
-      36 21.302972 21.302972 3.439356 21.302972     1    -1       FALSE     NA grey85
-      37 21.316886 21.316886 3.440000 21.316886     1    -1       FALSE     NA grey85
-      38 21.511044 21.511044 3.448883 21.511044     1    -1       FALSE     NA grey85
-      39 21.759133 21.759133 3.460000 21.759133     1    -1       FALSE     NA grey85
-      40 21.942641 21.942641 3.468085 21.942641     1    -1       FALSE     NA grey85
-      41 23.155300 23.155300 3.520000 23.155300     1    -1       FALSE     NA grey85
-      42 23.868378 23.868378 3.550603 23.868378     1    -1       FALSE     NA grey85
-      43 24.050924 24.050924 3.558601 24.050924     1    -1       FALSE     NA grey85
-      44 24.307027 24.307027 3.570000 24.307027     1    -1       FALSE     NA grey85
-      45 24.919482 24.919482 3.598445 24.919482     1    -1       FALSE     NA grey85
-      46 26.703390 26.703390 3.705871 26.703390     1    -1       FALSE     NA grey85
-      47 26.949278 26.949278 3.730000 26.949278     1    -1       FALSE     NA grey85
-      48 27.241220 27.241220 3.780000 27.241220     1    -1       FALSE     NA grey85
-      49 27.269517 27.269517 3.794139 27.269517     1    -1       FALSE     NA grey85
-      50 27.266592 27.266592 3.816205 27.266592     1    -1       FALSE     NA grey85
-      51 27.202423 27.202423 3.840000 27.202423     1    -1       FALSE     NA grey85
-      52 27.181383 27.181383 3.845000 27.181383     1    -1       FALSE     NA grey85
-      53 27.149566 27.149566 3.851649 27.149566     1    -1       FALSE     NA grey85
-      54 25.247854 25.247854 4.046066 25.247854     1    -1       FALSE     NA grey85
-      55 25.025871 25.025871 4.070000 25.025871     1    -1       FALSE     NA grey85
-      56 36.601819 36.601819 5.237831 36.601819     1    -1       FALSE     NA grey85
-      57 36.782334 36.782334 5.250000 36.782334     1    -1       FALSE     NA grey85
-      58 38.121556 38.121556 5.344754 38.121556     1    -1       FALSE     NA grey85
-      59 38.124902 38.124902 5.345000 38.124902     1    -1       FALSE     NA grey85
-      60 39.178184 39.178184 5.424000 39.178184     1    -1       FALSE     NA grey85
-      61 39.562980 39.562980 5.453272 39.562980     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
-      55       0.5        1   0.5
-      56       0.5        1   0.5
-      57       0.5        1   0.5
-      58       0.5        1   0.5
-      59       0.5        1   0.5
-      60       0.5        1   0.5
-      61       0.5        1   0.5
+              ymin      ymax        x         y PANEL group flipped_aes colour
+      1  -7.785546 -7.785546 1.498275 -7.785546     1    -1       FALSE     NA
+      2  -7.262252 -7.262252 1.513000 -7.262252     1    -1       FALSE     NA
+      3  -3.662211 -3.662211 1.615000 -3.662211     1    -1       FALSE     NA
+      4  -3.109958 -3.109958 1.630889 -3.109958     1    -1       FALSE     NA
+      5   3.373618  3.373618 1.830597  3.373618     1    -1       FALSE     NA
+      6   3.503183  3.503183 1.835000  3.503183     1    -1       FALSE     NA
+      7   6.016019  6.016019 1.925991  6.016019     1    -1       FALSE     NA
+      8   6.247463  6.247463 1.935000  6.247463     1    -1       FALSE     NA
+      9  10.694640 10.694640 2.135126 10.694640     1    -1       FALSE     NA
+      10 10.789395 10.789395 2.140000 10.789395     1    -1       FALSE     NA
+      11 11.917590 11.917590 2.200000 11.917590     1    -1       FALSE     NA
+      12 12.091811 12.091811 2.209575 12.091811     1    -1       FALSE     NA
+      13 13.909605 13.909605 2.314067 13.909605     1    -1       FALSE     NA
+      14 14.008817 14.008817 2.320000 14.008817     1    -1       FALSE     NA
+      15 16.285368 16.285368 2.465000 16.285368     1    -1       FALSE     NA
+      16 16.481979 16.481979 2.478678 16.481979     1    -1       FALSE     NA
+      17 18.214714 18.214714 2.620000 18.214714     1    -1       FALSE     NA
+      18 18.408490 18.408490 2.640787 18.408490     1    -1       FALSE     NA
+      19 19.130998 19.130998 2.770000 19.130998     1    -1       FALSE     NA
+      20 19.146424 19.146424 2.779004 19.146424     1    -1       FALSE     NA
+      21 19.147826 19.147826 2.780000 19.147826     1    -1       FALSE     NA
+      22 19.158916 19.158916 2.790481 19.158916     1    -1       FALSE     NA
+      23 19.073382 19.073382 2.861517 19.073382     1    -1       FALSE     NA
+      24 19.029440 19.029440 2.875000 19.029440     1    -1       FALSE     NA
+      25 17.923924 17.923924 3.150000 17.923924     1    -1       FALSE     NA
+      26 17.933384 17.933384 3.160130 17.933384     1    -1       FALSE     NA
+      27 17.936742 17.936742 3.162543 17.936742     1    -1       FALSE     NA
+      28 17.949881 17.949881 3.170000 17.949881     1    -1       FALSE     NA
+      29 18.006381 18.006381 3.190000 18.006381     1    -1       FALSE     NA
+      30 18.122402 18.122402 3.215000 18.122402     1    -1       FALSE     NA
+      31 18.142015 18.142015 3.218370 18.142015     1    -1       FALSE     NA
+      32 18.149922 18.149922 3.219684 18.149922     1    -1       FALSE     NA
+      33 20.689749 20.689749 3.409851 20.689749     1    -1       FALSE     NA
+      34 20.797654 20.797654 3.415224 20.797654     1    -1       FALSE     NA
+      35 21.209364 21.209364 3.435000 21.209364     1    -1       FALSE     NA
+      36 21.302972 21.302972 3.439356 21.302972     1    -1       FALSE     NA
+      37 21.316886 21.316886 3.440000 21.316886     1    -1       FALSE     NA
+      38 21.511044 21.511044 3.448883 21.511044     1    -1       FALSE     NA
+      39 21.759133 21.759133 3.460000 21.759133     1    -1       FALSE     NA
+      40 21.942641 21.942641 3.468085 21.942641     1    -1       FALSE     NA
+      41 23.155300 23.155300 3.520000 23.155300     1    -1       FALSE     NA
+      42 23.868378 23.868378 3.550603 23.868378     1    -1       FALSE     NA
+      43 24.050924 24.050924 3.558601 24.050924     1    -1       FALSE     NA
+      44 24.307027 24.307027 3.570000 24.307027     1    -1       FALSE     NA
+      45 24.919482 24.919482 3.598445 24.919482     1    -1       FALSE     NA
+      46 26.703390 26.703390 3.705871 26.703390     1    -1       FALSE     NA
+      47 26.949278 26.949278 3.730000 26.949278     1    -1       FALSE     NA
+      48 27.241220 27.241220 3.780000 27.241220     1    -1       FALSE     NA
+      49 27.269517 27.269517 3.794139 27.269517     1    -1       FALSE     NA
+      50 27.266592 27.266592 3.816205 27.266592     1    -1       FALSE     NA
+      51 27.202423 27.202423 3.840000 27.202423     1    -1       FALSE     NA
+      52 27.181383 27.181383 3.845000 27.181383     1    -1       FALSE     NA
+      53 27.149566 27.149566 3.851649 27.149566     1    -1       FALSE     NA
+      54 25.247854 25.247854 4.046066 25.247854     1    -1       FALSE     NA
+      55 25.025871 25.025871 4.070000 25.025871     1    -1       FALSE     NA
+      56 36.601819 36.601819 5.237831 36.601819     1    -1       FALSE     NA
+      57 36.782334 36.782334 5.250000 36.782334     1    -1       FALSE     NA
+      58 38.121556 38.121556 5.344754 38.121556     1    -1       FALSE     NA
+      59 38.124902 38.124902 5.345000 38.124902     1    -1       FALSE     NA
+      60 39.178184 39.178184 5.424000 39.178184     1    -1       FALSE     NA
+      61 39.562980 39.562980 5.453272 39.562980     1    -1       FALSE     NA
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
+      55       0.5        1 grey85   0.5
+      56       0.5        1 grey85   0.5
+      57       0.5        1 grey85   0.5
+      58       0.5        1 grey85   0.5
+      59       0.5        1 grey85   0.5
+      60       0.5        1 grey85   0.5
+      61       0.5        1 grey85   0.5
       
       $ale$plots$wt[[3]]
                 x         y PANEL group flipped_aes colour linewidth linetype alpha
@@ -2136,12 +2136,12 @@
       61 5.453272 39.562980     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$wt[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -2213,260 +2213,260 @@
       
       $ale$plots$qsec
       $ale$plots$qsec[[1]]
-                x        y PANEL group colour      fill linewidth linetype alpha xmin
-      1  14.46589 22.97926     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  14.50000 23.01874     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  14.55338 23.08052     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  14.60000 23.13438     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  15.41000 23.88654     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  15.45675 23.90878     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  15.50000 23.92625     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  15.61460 23.95681     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  15.84000 23.94249     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 15.96621 23.88831     1    -1     NA lightgray       0.5        1    NA -Inf
-      11 16.46000 23.42286     1    -1     NA lightgray       0.5        1    NA -Inf
-      12 16.59059 23.26003     1    -1     NA lightgray       0.5        1    NA -Inf
-      13 16.66196 23.16737     1    -1     NA lightgray       0.5        1    NA -Inf
-      14 16.70000 23.11683     1    -1     NA lightgray       0.5        1    NA -Inf
-      15 16.73553 23.06868     1    -1     NA lightgray       0.5        1    NA -Inf
-      16 16.87000 22.87224     1    -1     NA lightgray       0.5        1    NA -Inf
-      17 16.90000 22.82388     1    -1     NA lightgray       0.5        1    NA -Inf
-      18 16.92231 22.78649     1    -1     NA lightgray       0.5        1    NA -Inf
-      19 16.94018 22.75558     1    -1     NA lightgray       0.5        1    NA -Inf
-      20 17.01667 22.61158     1    -1     NA lightgray       0.5        1    NA -Inf
-      21 17.02000 22.60482     1    -1     NA lightgray       0.5        1    NA -Inf
-      22 17.05000 22.54185     1    -1     NA lightgray       0.5        1    NA -Inf
-      23 17.15895 22.27686     1    -1     NA lightgray       0.5        1    NA -Inf
-      24 17.20040 22.15878     1    -1     NA lightgray       0.5        1    NA -Inf
-      25 17.29768 21.83861     1    -1     NA lightgray       0.5        1    NA -Inf
-      26 17.30000 21.83020     1    -1     NA lightgray       0.5        1    NA -Inf
-      27 17.40000 21.43202     1    -1     NA lightgray       0.5        1    NA -Inf
-      28 17.41920 21.34767     1    -1     NA lightgray       0.5        1    NA -Inf
-      29 17.42000 21.34410     1    -1     NA lightgray       0.5        1    NA -Inf
-      30 17.48615 21.03461     1    -1     NA lightgray       0.5        1    NA -Inf
-      31 17.60000 20.44512     1    -1     NA lightgray       0.5        1    NA -Inf
-      32 17.82000 19.19493     1    -1     NA lightgray       0.5        1    NA -Inf
-      33 17.91617 18.64747     1    -1     NA lightgray       0.5        1    NA -Inf
-      34 17.93832 18.52433     1    -1     NA lightgray       0.5        1    NA -Inf
-      35 17.98000 18.29696     1    -1     NA lightgray       0.5        1    NA -Inf
-      36 18.00000 18.19011     1    -1     NA lightgray       0.5        1    NA -Inf
-      37 18.06733 17.84263     1    -1     NA lightgray       0.5        1    NA -Inf
-      38 18.30000 16.80992     1    -1     NA lightgray       0.5        1    NA -Inf
-      39 18.34726 16.63547     1    -1     NA lightgray       0.5        1    NA -Inf
-      40 18.52000 16.10150     1    -1     NA lightgray       0.5        1    NA -Inf
-      41 18.56240 15.99387     1    -1     NA lightgray       0.5        1    NA -Inf
-      42 18.59333 15.92074     1    -1     NA lightgray       0.5        1    NA -Inf
-      43 18.60000 15.90556     1    -1     NA lightgray       0.5        1    NA -Inf
-      44 18.61000 15.88314     1    -1     NA lightgray       0.5        1    NA -Inf
-      45 18.70220 15.69567     1    -1     NA lightgray       0.5        1    NA -Inf
-      46 18.73436 15.63750     1    -1     NA lightgray       0.5        1    NA -Inf
-      47 18.81201 15.50955     1    -1     NA lightgray       0.5        1    NA -Inf
-      48 18.90000 15.38162     1    -1     NA lightgray       0.5        1    NA -Inf
-      49 19.44000 14.73842     1    -1     NA lightgray       0.5        1    NA -Inf
-      50 19.46833 14.70161     1    -1     NA lightgray       0.5        1    NA -Inf
-      51 19.47000 14.69940     1    -1     NA lightgray       0.5        1    NA -Inf
-      52 19.55474 14.58258     1    -1     NA lightgray       0.5        1    NA -Inf
-      53 19.85225 14.11928     1    -1     NA lightgray       0.5        1    NA -Inf
-      54 19.90000 14.04194     1    -1     NA lightgray       0.5        1    NA -Inf
-      55 20.00000 13.88193     1    -1     NA lightgray       0.5        1    NA -Inf
-      56 20.01000 13.86621     1    -1     NA lightgray       0.5        1    NA -Inf
-      57 20.09936 13.72920     1    -1     NA lightgray       0.5        1    NA -Inf
-      58 20.12103 13.69709     1    -1     NA lightgray       0.5        1    NA -Inf
-      59 20.17787 13.61535     1    -1     NA lightgray       0.5        1    NA -Inf
-      60 20.22000 13.55721     1    -1     NA lightgray       0.5        1    NA -Inf
-      61 22.90000 12.90739     1    -1     NA lightgray       0.5        1    NA -Inf
-      62 22.97365 12.93201     1    -1     NA lightgray       0.5        1    NA -Inf
-         xmax     ymin     ymax
-      1   Inf 19.04095 19.28336
-      2   Inf 19.04095 19.28336
-      3   Inf 19.04095 19.28336
-      4   Inf 19.04095 19.28336
-      5   Inf 19.04095 19.28336
-      6   Inf 19.04095 19.28336
-      7   Inf 19.04095 19.28336
-      8   Inf 19.04095 19.28336
-      9   Inf 19.04095 19.28336
-      10  Inf 19.04095 19.28336
-      11  Inf 19.04095 19.28336
-      12  Inf 19.04095 19.28336
-      13  Inf 19.04095 19.28336
-      14  Inf 19.04095 19.28336
-      15  Inf 19.04095 19.28336
-      16  Inf 19.04095 19.28336
-      17  Inf 19.04095 19.28336
-      18  Inf 19.04095 19.28336
-      19  Inf 19.04095 19.28336
-      20  Inf 19.04095 19.28336
-      21  Inf 19.04095 19.28336
-      22  Inf 19.04095 19.28336
-      23  Inf 19.04095 19.28336
-      24  Inf 19.04095 19.28336
-      25  Inf 19.04095 19.28336
-      26  Inf 19.04095 19.28336
-      27  Inf 19.04095 19.28336
-      28  Inf 19.04095 19.28336
-      29  Inf 19.04095 19.28336
-      30  Inf 19.04095 19.28336
-      31  Inf 19.04095 19.28336
-      32  Inf 19.04095 19.28336
-      33  Inf 19.04095 19.28336
-      34  Inf 19.04095 19.28336
-      35  Inf 19.04095 19.28336
-      36  Inf 19.04095 19.28336
-      37  Inf 19.04095 19.28336
-      38  Inf 19.04095 19.28336
-      39  Inf 19.04095 19.28336
-      40  Inf 19.04095 19.28336
-      41  Inf 19.04095 19.28336
-      42  Inf 19.04095 19.28336
-      43  Inf 19.04095 19.28336
-      44  Inf 19.04095 19.28336
-      45  Inf 19.04095 19.28336
-      46  Inf 19.04095 19.28336
-      47  Inf 19.04095 19.28336
-      48  Inf 19.04095 19.28336
-      49  Inf 19.04095 19.28336
-      50  Inf 19.04095 19.28336
-      51  Inf 19.04095 19.28336
-      52  Inf 19.04095 19.28336
-      53  Inf 19.04095 19.28336
-      54  Inf 19.04095 19.28336
-      55  Inf 19.04095 19.28336
-      56  Inf 19.04095 19.28336
-      57  Inf 19.04095 19.28336
-      58  Inf 19.04095 19.28336
-      59  Inf 19.04095 19.28336
-      60  Inf 19.04095 19.28336
-      61  Inf 19.04095 19.28336
-      62  Inf 19.04095 19.28336
+                x        y PANEL group colour linewidth linetype alpha xmin xmax
+      1  14.46589 22.97926     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  14.50000 23.01874     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  14.55338 23.08052     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  14.60000 23.13438     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  15.41000 23.88654     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  15.45675 23.90878     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  15.50000 23.92625     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  15.61460 23.95681     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  15.84000 23.94249     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 15.96621 23.88831     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 16.46000 23.42286     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 16.59059 23.26003     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 16.66196 23.16737     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 16.70000 23.11683     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 16.73553 23.06868     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 16.87000 22.87224     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 16.90000 22.82388     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 16.92231 22.78649     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 16.94018 22.75558     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 17.01667 22.61158     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 17.02000 22.60482     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 17.05000 22.54185     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 17.15895 22.27686     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 17.20040 22.15878     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 17.29768 21.83861     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 17.30000 21.83020     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 17.40000 21.43202     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 17.41920 21.34767     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 17.42000 21.34410     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 17.48615 21.03461     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 17.60000 20.44512     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 17.82000 19.19493     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 17.91617 18.64747     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 17.93832 18.52433     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 17.98000 18.29696     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 18.00000 18.19011     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 18.06733 17.84263     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 18.30000 16.80992     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 18.34726 16.63547     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 18.52000 16.10150     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 18.56240 15.99387     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 18.59333 15.92074     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 18.60000 15.90556     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 18.61000 15.88314     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 18.70220 15.69567     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 18.73436 15.63750     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 18.81201 15.50955     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 18.90000 15.38162     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 19.44000 14.73842     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 19.46833 14.70161     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 19.47000 14.69940     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 19.55474 14.58258     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 19.85225 14.11928     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 19.90000 14.04194     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 20.00000 13.88193     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 20.01000 13.86621     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 20.09936 13.72920     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 20.12103 13.69709     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 20.17787 13.61535     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 20.22000 13.55721     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 22.90000 12.90739     1    -1     NA       0.5        1    NA -Inf  Inf
+      62 22.97365 12.93201     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
+      62 19.04095 19.28336 lightgray
       
       $ale$plots$qsec[[2]]
-             ymin     ymax        x        y PANEL group flipped_aes colour   fill
-      1  22.97926 22.97926 14.46589 22.97926     1    -1       FALSE     NA grey85
-      2  23.01874 23.01874 14.50000 23.01874     1    -1       FALSE     NA grey85
-      3  23.08052 23.08052 14.55338 23.08052     1    -1       FALSE     NA grey85
-      4  23.13438 23.13438 14.60000 23.13438     1    -1       FALSE     NA grey85
-      5  23.88654 23.88654 15.41000 23.88654     1    -1       FALSE     NA grey85
-      6  23.90878 23.90878 15.45675 23.90878     1    -1       FALSE     NA grey85
-      7  23.92625 23.92625 15.50000 23.92625     1    -1       FALSE     NA grey85
-      8  23.95681 23.95681 15.61460 23.95681     1    -1       FALSE     NA grey85
-      9  23.94249 23.94249 15.84000 23.94249     1    -1       FALSE     NA grey85
-      10 23.88831 23.88831 15.96621 23.88831     1    -1       FALSE     NA grey85
-      11 23.42286 23.42286 16.46000 23.42286     1    -1       FALSE     NA grey85
-      12 23.26003 23.26003 16.59059 23.26003     1    -1       FALSE     NA grey85
-      13 23.16737 23.16737 16.66196 23.16737     1    -1       FALSE     NA grey85
-      14 23.11683 23.11683 16.70000 23.11683     1    -1       FALSE     NA grey85
-      15 23.06868 23.06868 16.73553 23.06868     1    -1       FALSE     NA grey85
-      16 22.87224 22.87224 16.87000 22.87224     1    -1       FALSE     NA grey85
-      17 22.82388 22.82388 16.90000 22.82388     1    -1       FALSE     NA grey85
-      18 22.78649 22.78649 16.92231 22.78649     1    -1       FALSE     NA grey85
-      19 22.75558 22.75558 16.94018 22.75558     1    -1       FALSE     NA grey85
-      20 22.61158 22.61158 17.01667 22.61158     1    -1       FALSE     NA grey85
-      21 22.60482 22.60482 17.02000 22.60482     1    -1       FALSE     NA grey85
-      22 22.54185 22.54185 17.05000 22.54185     1    -1       FALSE     NA grey85
-      23 22.27686 22.27686 17.15895 22.27686     1    -1       FALSE     NA grey85
-      24 22.15878 22.15878 17.20040 22.15878     1    -1       FALSE     NA grey85
-      25 21.83861 21.83861 17.29768 21.83861     1    -1       FALSE     NA grey85
-      26 21.83020 21.83020 17.30000 21.83020     1    -1       FALSE     NA grey85
-      27 21.43202 21.43202 17.40000 21.43202     1    -1       FALSE     NA grey85
-      28 21.34767 21.34767 17.41920 21.34767     1    -1       FALSE     NA grey85
-      29 21.34410 21.34410 17.42000 21.34410     1    -1       FALSE     NA grey85
-      30 21.03461 21.03461 17.48615 21.03461     1    -1       FALSE     NA grey85
-      31 20.44512 20.44512 17.60000 20.44512     1    -1       FALSE     NA grey85
-      32 19.19493 19.19493 17.82000 19.19493     1    -1       FALSE     NA grey85
-      33 18.64747 18.64747 17.91617 18.64747     1    -1       FALSE     NA grey85
-      34 18.52433 18.52433 17.93832 18.52433     1    -1       FALSE     NA grey85
-      35 18.29696 18.29696 17.98000 18.29696     1    -1       FALSE     NA grey85
-      36 18.19011 18.19011 18.00000 18.19011     1    -1       FALSE     NA grey85
-      37 17.84263 17.84263 18.06733 17.84263     1    -1       FALSE     NA grey85
-      38 16.80992 16.80992 18.30000 16.80992     1    -1       FALSE     NA grey85
-      39 16.63547 16.63547 18.34726 16.63547     1    -1       FALSE     NA grey85
-      40 16.10150 16.10150 18.52000 16.10150     1    -1       FALSE     NA grey85
-      41 15.99387 15.99387 18.56240 15.99387     1    -1       FALSE     NA grey85
-      42 15.92074 15.92074 18.59333 15.92074     1    -1       FALSE     NA grey85
-      43 15.90556 15.90556 18.60000 15.90556     1    -1       FALSE     NA grey85
-      44 15.88314 15.88314 18.61000 15.88314     1    -1       FALSE     NA grey85
-      45 15.69567 15.69567 18.70220 15.69567     1    -1       FALSE     NA grey85
-      46 15.63750 15.63750 18.73436 15.63750     1    -1       FALSE     NA grey85
-      47 15.50955 15.50955 18.81201 15.50955     1    -1       FALSE     NA grey85
-      48 15.38162 15.38162 18.90000 15.38162     1    -1       FALSE     NA grey85
-      49 14.73842 14.73842 19.44000 14.73842     1    -1       FALSE     NA grey85
-      50 14.70161 14.70161 19.46833 14.70161     1    -1       FALSE     NA grey85
-      51 14.69940 14.69940 19.47000 14.69940     1    -1       FALSE     NA grey85
-      52 14.58258 14.58258 19.55474 14.58258     1    -1       FALSE     NA grey85
-      53 14.11928 14.11928 19.85225 14.11928     1    -1       FALSE     NA grey85
-      54 14.04194 14.04194 19.90000 14.04194     1    -1       FALSE     NA grey85
-      55 13.88193 13.88193 20.00000 13.88193     1    -1       FALSE     NA grey85
-      56 13.86621 13.86621 20.01000 13.86621     1    -1       FALSE     NA grey85
-      57 13.72920 13.72920 20.09936 13.72920     1    -1       FALSE     NA grey85
-      58 13.69709 13.69709 20.12103 13.69709     1    -1       FALSE     NA grey85
-      59 13.61535 13.61535 20.17787 13.61535     1    -1       FALSE     NA grey85
-      60 13.55721 13.55721 20.22000 13.55721     1    -1       FALSE     NA grey85
-      61 12.90739 12.90739 22.90000 12.90739     1    -1       FALSE     NA grey85
-      62 12.93201 12.93201 22.97365 12.93201     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
-      55       0.5        1   0.5
-      56       0.5        1   0.5
-      57       0.5        1   0.5
-      58       0.5        1   0.5
-      59       0.5        1   0.5
-      60       0.5        1   0.5
-      61       0.5        1   0.5
-      62       0.5        1   0.5
+             ymin     ymax        x        y PANEL group flipped_aes colour linewidth
+      1  22.97926 22.97926 14.46589 22.97926     1    -1       FALSE     NA       0.5
+      2  23.01874 23.01874 14.50000 23.01874     1    -1       FALSE     NA       0.5
+      3  23.08052 23.08052 14.55338 23.08052     1    -1       FALSE     NA       0.5
+      4  23.13438 23.13438 14.60000 23.13438     1    -1       FALSE     NA       0.5
+      5  23.88654 23.88654 15.41000 23.88654     1    -1       FALSE     NA       0.5
+      6  23.90878 23.90878 15.45675 23.90878     1    -1       FALSE     NA       0.5
+      7  23.92625 23.92625 15.50000 23.92625     1    -1       FALSE     NA       0.5
+      8  23.95681 23.95681 15.61460 23.95681     1    -1       FALSE     NA       0.5
+      9  23.94249 23.94249 15.84000 23.94249     1    -1       FALSE     NA       0.5
+      10 23.88831 23.88831 15.96621 23.88831     1    -1       FALSE     NA       0.5
+      11 23.42286 23.42286 16.46000 23.42286     1    -1       FALSE     NA       0.5
+      12 23.26003 23.26003 16.59059 23.26003     1    -1       FALSE     NA       0.5
+      13 23.16737 23.16737 16.66196 23.16737     1    -1       FALSE     NA       0.5
+      14 23.11683 23.11683 16.70000 23.11683     1    -1       FALSE     NA       0.5
+      15 23.06868 23.06868 16.73553 23.06868     1    -1       FALSE     NA       0.5
+      16 22.87224 22.87224 16.87000 22.87224     1    -1       FALSE     NA       0.5
+      17 22.82388 22.82388 16.90000 22.82388     1    -1       FALSE     NA       0.5
+      18 22.78649 22.78649 16.92231 22.78649     1    -1       FALSE     NA       0.5
+      19 22.75558 22.75558 16.94018 22.75558     1    -1       FALSE     NA       0.5
+      20 22.61158 22.61158 17.01667 22.61158     1    -1       FALSE     NA       0.5
+      21 22.60482 22.60482 17.02000 22.60482     1    -1       FALSE     NA       0.5
+      22 22.54185 22.54185 17.05000 22.54185     1    -1       FALSE     NA       0.5
+      23 22.27686 22.27686 17.15895 22.27686     1    -1       FALSE     NA       0.5
+      24 22.15878 22.15878 17.20040 22.15878     1    -1       FALSE     NA       0.5
+      25 21.83861 21.83861 17.29768 21.83861     1    -1       FALSE     NA       0.5
+      26 21.83020 21.83020 17.30000 21.83020     1    -1       FALSE     NA       0.5
+      27 21.43202 21.43202 17.40000 21.43202     1    -1       FALSE     NA       0.5
+      28 21.34767 21.34767 17.41920 21.34767     1    -1       FALSE     NA       0.5
+      29 21.34410 21.34410 17.42000 21.34410     1    -1       FALSE     NA       0.5
+      30 21.03461 21.03461 17.48615 21.03461     1    -1       FALSE     NA       0.5
+      31 20.44512 20.44512 17.60000 20.44512     1    -1       FALSE     NA       0.5
+      32 19.19493 19.19493 17.82000 19.19493     1    -1       FALSE     NA       0.5
+      33 18.64747 18.64747 17.91617 18.64747     1    -1       FALSE     NA       0.5
+      34 18.52433 18.52433 17.93832 18.52433     1    -1       FALSE     NA       0.5
+      35 18.29696 18.29696 17.98000 18.29696     1    -1       FALSE     NA       0.5
+      36 18.19011 18.19011 18.00000 18.19011     1    -1       FALSE     NA       0.5
+      37 17.84263 17.84263 18.06733 17.84263     1    -1       FALSE     NA       0.5
+      38 16.80992 16.80992 18.30000 16.80992     1    -1       FALSE     NA       0.5
+      39 16.63547 16.63547 18.34726 16.63547     1    -1       FALSE     NA       0.5
+      40 16.10150 16.10150 18.52000 16.10150     1    -1       FALSE     NA       0.5
+      41 15.99387 15.99387 18.56240 15.99387     1    -1       FALSE     NA       0.5
+      42 15.92074 15.92074 18.59333 15.92074     1    -1       FALSE     NA       0.5
+      43 15.90556 15.90556 18.60000 15.90556     1    -1       FALSE     NA       0.5
+      44 15.88314 15.88314 18.61000 15.88314     1    -1       FALSE     NA       0.5
+      45 15.69567 15.69567 18.70220 15.69567     1    -1       FALSE     NA       0.5
+      46 15.63750 15.63750 18.73436 15.63750     1    -1       FALSE     NA       0.5
+      47 15.50955 15.50955 18.81201 15.50955     1    -1       FALSE     NA       0.5
+      48 15.38162 15.38162 18.90000 15.38162     1    -1       FALSE     NA       0.5
+      49 14.73842 14.73842 19.44000 14.73842     1    -1       FALSE     NA       0.5
+      50 14.70161 14.70161 19.46833 14.70161     1    -1       FALSE     NA       0.5
+      51 14.69940 14.69940 19.47000 14.69940     1    -1       FALSE     NA       0.5
+      52 14.58258 14.58258 19.55474 14.58258     1    -1       FALSE     NA       0.5
+      53 14.11928 14.11928 19.85225 14.11928     1    -1       FALSE     NA       0.5
+      54 14.04194 14.04194 19.90000 14.04194     1    -1       FALSE     NA       0.5
+      55 13.88193 13.88193 20.00000 13.88193     1    -1       FALSE     NA       0.5
+      56 13.86621 13.86621 20.01000 13.86621     1    -1       FALSE     NA       0.5
+      57 13.72920 13.72920 20.09936 13.72920     1    -1       FALSE     NA       0.5
+      58 13.69709 13.69709 20.12103 13.69709     1    -1       FALSE     NA       0.5
+      59 13.61535 13.61535 20.17787 13.61535     1    -1       FALSE     NA       0.5
+      60 13.55721 13.55721 20.22000 13.55721     1    -1       FALSE     NA       0.5
+      61 12.90739 12.90739 22.90000 12.90739     1    -1       FALSE     NA       0.5
+      62 12.93201 12.93201 22.97365 12.93201     1    -1       FALSE     NA       0.5
+         linetype   fill alpha
+      1         1 grey85   0.5
+      2         1 grey85   0.5
+      3         1 grey85   0.5
+      4         1 grey85   0.5
+      5         1 grey85   0.5
+      6         1 grey85   0.5
+      7         1 grey85   0.5
+      8         1 grey85   0.5
+      9         1 grey85   0.5
+      10        1 grey85   0.5
+      11        1 grey85   0.5
+      12        1 grey85   0.5
+      13        1 grey85   0.5
+      14        1 grey85   0.5
+      15        1 grey85   0.5
+      16        1 grey85   0.5
+      17        1 grey85   0.5
+      18        1 grey85   0.5
+      19        1 grey85   0.5
+      20        1 grey85   0.5
+      21        1 grey85   0.5
+      22        1 grey85   0.5
+      23        1 grey85   0.5
+      24        1 grey85   0.5
+      25        1 grey85   0.5
+      26        1 grey85   0.5
+      27        1 grey85   0.5
+      28        1 grey85   0.5
+      29        1 grey85   0.5
+      30        1 grey85   0.5
+      31        1 grey85   0.5
+      32        1 grey85   0.5
+      33        1 grey85   0.5
+      34        1 grey85   0.5
+      35        1 grey85   0.5
+      36        1 grey85   0.5
+      37        1 grey85   0.5
+      38        1 grey85   0.5
+      39        1 grey85   0.5
+      40        1 grey85   0.5
+      41        1 grey85   0.5
+      42        1 grey85   0.5
+      43        1 grey85   0.5
+      44        1 grey85   0.5
+      45        1 grey85   0.5
+      46        1 grey85   0.5
+      47        1 grey85   0.5
+      48        1 grey85   0.5
+      49        1 grey85   0.5
+      50        1 grey85   0.5
+      51        1 grey85   0.5
+      52        1 grey85   0.5
+      53        1 grey85   0.5
+      54        1 grey85   0.5
+      55        1 grey85   0.5
+      56        1 grey85   0.5
+      57        1 grey85   0.5
+      58        1 grey85   0.5
+      59        1 grey85   0.5
+      60        1 grey85   0.5
+      61        1 grey85   0.5
+      62        1 grey85   0.5
       
       $ale$plots$qsec[[3]]
                 x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -2534,12 +2534,12 @@
       62 22.97365 12.93201     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$qsec[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -2611,178 +2611,178 @@
       
       $ale$plots$vs
       $ale$plots$vs[[1]]
-        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 17.32625     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 21.60911     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x        y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 17.32625     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 21.60911     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$vs[[2]]
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 17.32625     1     1       FALSE    0 17.32625 0.55 1.45     NA gray
-      2 2 21.60911     1     2       FALSE    0 21.60911 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour linewidth
+      1 1 17.32625     1     1       FALSE    0 17.32625 0.55 1.45     NA       0.5
+      2 2 21.60911     1     2       FALSE    0 21.60911 1.55 2.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
       
       $ale$plots$vs[[3]]
             ymin     ymax x        y PANEL group flipped_aes  xmin  xmax colour
       1 17.32625 17.32625 1 17.32625     1     1       FALSE 0.975 1.025  black
       2 21.60911 21.60911 2 21.60911     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$vs[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   56% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   44% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   56% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   44% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$vs[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$vs[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$am
       $ale$plots$am[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 26.905445     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2  7.938195     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 26.905445     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2  7.938195     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$am[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1 26.905445     1     1       FALSE    0 26.905445 0.55 1.45     NA gray
-      2 2  7.938195     1     2       FALSE    0  7.938195 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1 26.905445     1     1       FALSE    0 26.905445 0.55 1.45     NA       0.5
+      2 2  7.938195     1     2       FALSE    0  7.938195 1.55 2.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
       
       $ale$plots$am[[3]]
              ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1 26.905445 26.905445 1 26.905445     1     1       FALSE 0.975 1.025  black
       2  7.938195  7.938195 2  7.938195     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$am[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   59% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   41% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   59% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   41% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$am[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$am[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$gear
       $ale$plots$gear[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1  9.876782     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 23.999836     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 35.650050     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1  9.876782     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 23.999836     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 35.650050     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
       
       $ale$plots$gear[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1  9.876782     1     1       FALSE    0  9.876782 0.55 1.45     NA gray
-      2 2 23.999836     1     2       FALSE    0 23.999836 1.55 2.45     NA gray
-      3 3 35.650050     1     3       FALSE    0 35.650050 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1  9.876782     1     1       FALSE    0  9.876782 0.55 1.45     NA       0.5
+      2 2 23.999836     1     2       FALSE    0 23.999836 1.55 2.45     NA       0.5
+      3 3 35.650050     1     3       FALSE    0 35.650050 2.55 3.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
+      3        1    NA gray
       
       $ale$plots$gear[[3]]
              ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1  9.876782  9.876782 1  9.876782     1     1       FALSE 0.975 1.025  black
       2 23.999836 23.999836 2 23.999836     1     2       FALSE 1.975 2.025  black
       3 35.650050 35.650050 3 35.650050     1     3       FALSE 2.975 3.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
       
       $ale$plots$gear[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   47% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   38% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   16% 3     1     3  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   47% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   38% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   16% 3     1     3  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
       
       $ale$plots$gear[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$gear[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$carb
       $ale$plots$carb[[1]]
-        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 19.12721     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 19.17474     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 19.22228     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      4 4 19.26982     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      5 5 19.31736     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      6 6 19.36490     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      7 7 19.41244     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      8 8 19.45998     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
-      7 19.04095 19.28336
-      8 19.04095 19.28336
+        x        y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 19.12721     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 19.17474     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 19.22228     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 19.26982     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5 19.31736     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6 19.36490     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 7 19.41244     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      8 8 19.45998     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
+      8 19.28336 lightgray
       
       $ale$plots$carb[[2]]
-            ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
-      1 19.12721 19.12721 1 19.12721     1    -1       FALSE     NA grey85       0.5
-      2 19.17474 19.17474 2 19.17474     1    -1       FALSE     NA grey85       0.5
-      3 19.22228 19.22228 3 19.22228     1    -1       FALSE     NA grey85       0.5
-      4 19.26982 19.26982 4 19.26982     1    -1       FALSE     NA grey85       0.5
-      5 19.31736 19.31736 5 19.31736     1    -1       FALSE     NA grey85       0.5
-      6 19.36490 19.36490 6 19.36490     1    -1       FALSE     NA grey85       0.5
-      7 19.41244 19.41244 7 19.41244     1    -1       FALSE     NA grey85       0.5
-      8 19.45998 19.45998 8 19.45998     1    -1       FALSE     NA grey85       0.5
-        linetype alpha
-      1        1   0.5
-      2        1   0.5
-      3        1   0.5
-      4        1   0.5
-      5        1   0.5
-      6        1   0.5
-      7        1   0.5
-      8        1   0.5
+            ymin     ymax x        y PANEL group flipped_aes colour linewidth
+      1 19.12721 19.12721 1 19.12721     1    -1       FALSE     NA       0.5
+      2 19.17474 19.17474 2 19.17474     1    -1       FALSE     NA       0.5
+      3 19.22228 19.22228 3 19.22228     1    -1       FALSE     NA       0.5
+      4 19.26982 19.26982 4 19.26982     1    -1       FALSE     NA       0.5
+      5 19.31736 19.31736 5 19.31736     1    -1       FALSE     NA       0.5
+      6 19.36490 19.36490 6 19.36490     1    -1       FALSE     NA       0.5
+      7 19.41244 19.41244 7 19.41244     1    -1       FALSE     NA       0.5
+      8 19.45998 19.45998 8 19.45998     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
+      8        1 grey85   0.5
       
       $ale$plots$carb[[3]]
         x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -2796,12 +2796,12 @@
       8 8 19.45998     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$carb[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -2873,36 +2873,36 @@
       
       $ale$plots$country
       $ale$plots$country[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 19.337294     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 35.174193     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 24.282877     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-      4 4 17.814304     1     4     NA lightgray       0.5        1    NA -Inf  Inf
-      5 5  9.369834     1     5     NA lightgray       0.5        1    NA -Inf  Inf
-      6 6 22.331280     1     6     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 19.337294     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 35.174193     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 24.282877     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 17.814304     1     4     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5  9.369834     1     5     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6 22.331280     1     6     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
       
       $ale$plots$country[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1 19.337294     1     1       FALSE    0 19.337294 0.55 1.45     NA gray
-      2 2 35.174193     1     2       FALSE    0 35.174193 1.55 2.45     NA gray
-      3 3 24.282877     1     3       FALSE    0 24.282877 2.55 3.45     NA gray
-      4 4 17.814304     1     4       FALSE    0 17.814304 3.55 4.45     NA gray
-      5 5  9.369834     1     5       FALSE    0  9.369834 4.55 5.45     NA gray
-      6 6 22.331280     1     6       FALSE    0 22.331280 5.55 6.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      4       0.5        1    NA
-      5       0.5        1    NA
-      6       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1 19.337294     1     1       FALSE    0 19.337294 0.55 1.45     NA       0.5
+      2 2 35.174193     1     2       FALSE    0 35.174193 1.55 2.45     NA       0.5
+      3 3 24.282877     1     3       FALSE    0 24.282877 2.55 3.45     NA       0.5
+      4 4 17.814304     1     4       FALSE    0 17.814304 3.55 4.45     NA       0.5
+      5 5  9.369834     1     5       FALSE    0  9.369834 4.55 5.45     NA       0.5
+      6 6 22.331280     1     6       FALSE    0 22.331280 5.55 6.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
+      3        1    NA gray
+      4        1    NA gray
+      5        1    NA gray
+      6        1    NA gray
       
       $ale$plots$country[[3]]
              ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
@@ -2912,37 +2912,37 @@
       4 17.814304 17.814304 4 17.814304     1     4       FALSE 3.975 4.025  black
       5  9.369834  9.369834 5  9.369834     1     5       FALSE 4.975 5.025  black
       6 22.331280 22.331280 6 22.331280     1     6       FALSE 5.975 6.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
-      4       0.5        1  0.05    NA
-      5       0.5        1  0.05    NA
-      6       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
+      4       0.5        1    NA  0.05
+      5       0.5        1    NA  0.05
+      6       0.5        1    NA  0.05
       
       $ale$plots$country[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 10.39108   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 10.39108   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
-      6 10.39108   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108    3% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108    3% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   19% 3     1     3  black     0   0.5               1        1.2
+      4 10.39108   12% 4     1     4  black     0   0.5               1        1.2
+      5 10.39108   25% 5     1     5  black     0   0.5               1        1.2
+      6 10.39108   38% 6     1     6  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
+      4    3  -0.2   0.5
+      5    3  -0.2   0.5
+      6    3  -0.2   0.5
       
       $ale$plots$country[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$country[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       
@@ -3485,30 +3485,30 @@
       $ale$stats$effects_plot
       $ale$stats$effects_plot[[1]]
       $ale$stats$effects_plot[[1]][[1]]
-          y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
-      1   1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
-      2   2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
-      3   3     1     3     NA lightgray       0.5        1    NA 19.04095 19.28336
-      4   4     1     4     NA lightgray       0.5        1    NA 19.04095 19.28336
-      5   5     1     5     NA lightgray       0.5        1    NA 19.04095 19.28336
-      6   6     1     6     NA lightgray       0.5        1    NA 19.04095 19.28336
-      7   7     1     7     NA lightgray       0.5        1    NA 19.04095 19.28336
-      8   8     1     8     NA lightgray       0.5        1    NA 19.04095 19.28336
-      9   9     1     9     NA lightgray       0.5        1    NA 19.04095 19.28336
-      10 10     1    10     NA lightgray       0.5        1    NA 19.04095 19.28336
-      11 11     1    11     NA lightgray       0.5        1    NA 19.04095 19.28336
-         ymin ymax
-      1  -Inf  Inf
-      2  -Inf  Inf
-      3  -Inf  Inf
-      4  -Inf  Inf
-      5  -Inf  Inf
-      6  -Inf  Inf
-      7  -Inf  Inf
-      8  -Inf  Inf
-      9  -Inf  Inf
-      10 -Inf  Inf
-      11 -Inf  Inf
+          y PANEL group colour linewidth linetype alpha     xmin     xmax ymin ymax
+      1   1     1     1     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      2   2     1     2     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      3   3     1     3     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      4   4     1     4     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      5   5     1     5     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      6   6     1     6     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      7   7     1     7     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      8   8     1     8     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      9   9     1     9     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      10 10     1    10     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+      11 11     1    11     NA       0.5        1    NA 19.04095 19.28336 -Inf  Inf
+              fill
+      1  lightgray
+      2  lightgray
+      3  lightgray
+      4  lightgray
+      5  lightgray
+      6  lightgray
+      7  lightgray
+      8  lightgray
+      9  lightgray
+      10 lightgray
+      11 lightgray
       
       $ale$stats$effects_plot[[1]][[2]]
                xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
@@ -3523,70 +3523,70 @@
       9   6.7168420       NA  9     1     9  8.875  9.125  black       0.5        1
       10  5.7229665       NA 10     1    10  9.875 10.125  black       0.5        1
       11 -5.2641952       NA 11     1    11 10.875 11.125  black       0.5        1
-         height alpha
-      1    0.25    NA
-      2    0.25    NA
-      3    0.25    NA
-      4    0.25    NA
-      5    0.25    NA
-      6    0.25    NA
-      7    0.25    NA
-      8    0.25    NA
-      9    0.25    NA
-      10   0.25    NA
-      11   0.25    NA
+         alpha height
+      1     NA   0.25
+      2     NA   0.25
+      3     NA   0.25
+      4     NA   0.25
+      5     NA   0.25
+      6     NA   0.25
+      7     NA   0.25
+      8     NA   0.25
+      9     NA   0.25
+      10    NA   0.25
+      11    NA   0.25
       
       $ale$stats$effects_plot[[1]][[3]]
-              xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
-      1  18.205494 20.11882  0.7  1.3  1     1     1     NA white       0.5        1
-      2  17.738496 20.58581  1.7  2.3  2     1     2     NA white       0.5        1
-      3  17.571607 20.75270  2.7  3.3  3     1     3     NA white       0.5        1
-      4  17.115673 21.20864  3.7  4.3  4     1     4     NA white       0.5        1
-      5  16.277958 22.04635  4.7  5.3  5     1     5     NA white       0.5        1
-      6  16.025597 22.29871  5.7  6.3  6     1     6     NA white       0.5        1
-      7  13.805526 24.51878  6.7  7.3  7     1     7     NA white       0.5        1
-      8  13.035588 25.28872  7.7  8.3  8     1     8     NA white       0.5        1
-      9  12.144744 26.17956  8.7  9.3  9     1     9     NA white       0.5        1
-      10 10.720143 27.60417  9.7 10.3 10     1    10     NA white       0.5        1
-      11  9.307276 29.01703 10.7 11.3 11     1    11     NA white       0.5        1
-         alpha
-      1     NA
-      2     NA
-      3     NA
-      4     NA
-      5     NA
-      6     NA
-      7     NA
-      8     NA
-      9     NA
-      10    NA
-      11    NA
+              xmin     xmax ymin ymax  y PANEL group colour linewidth linetype alpha
+      1  18.205494 20.11882  0.7  1.3  1     1     1     NA       0.5        1    NA
+      2  17.738496 20.58581  1.7  2.3  2     1     2     NA       0.5        1    NA
+      3  17.571607 20.75270  2.7  3.3  3     1     3     NA       0.5        1    NA
+      4  17.115673 21.20864  3.7  4.3  4     1     4     NA       0.5        1    NA
+      5  16.277958 22.04635  4.7  5.3  5     1     5     NA       0.5        1    NA
+      6  16.025597 22.29871  5.7  6.3  6     1     6     NA       0.5        1    NA
+      7  13.805526 24.51878  6.7  7.3  7     1     7     NA       0.5        1    NA
+      8  13.035588 25.28872  7.7  8.3  8     1     8     NA       0.5        1    NA
+      9  12.144744 26.17956  8.7  9.3  9     1     9     NA       0.5        1    NA
+      10 10.720143 27.60417  9.7 10.3 10     1    10     NA       0.5        1    NA
+      11  9.307276 29.01703 10.7 11.3 11     1    11     NA       0.5        1    NA
+          fill
+      1  white
+      2  white
+      3  white
+      4  white
+      5  white
+      6  white
+      7  white
+      8  white
+      9  white
+      10 white
+      11 white
       
       $ale$stats$effects_plot[[1]][[4]]
-                x       label  y PANEL group colour size angle hjust vjust alpha
-      1  19.16215 NALED 14.2%  1     1     1  black    3     0   0.5    -1    NA
-      2  19.16215 NALED 16.2%  2     1     2  black    3     0   0.5    -1    NA
-      3  19.16215 NALED 16.1%  3     1     3  black    3     0   0.5    -1    NA
-      4  19.16215 NALED 26.4%  4     1     4  black    3     0   0.5    -1    NA
-      5  19.16215 NALED 22.8%  5     1     5  black    3     0   0.5    -1    NA
-      6  19.16215 NALED 17.6%  6     1     6  black    3     0   0.5    -1    NA
-      7  19.16215 NALED 31.4%  7     1     7  black    3     0   0.5    -1    NA
-      8  19.16215 NALED 33.1%  8     1     8  black    3     0   0.5    -1    NA
-      9  19.16215 NALED 41.5%  9     1     9  black    3     0   0.5    -1    NA
-      10 19.16215 NALED 43.6% 10     1    10  black    3     0   0.5    -1    NA
-      11 19.16215 NALED 40.9% 11     1    11  black    3     0   0.5    -1    NA
-         family fontface lineheight
-      1                1        1.2
-      2                1        1.2
-      3                1        1.2
-      4                1        1.2
-      5                1        1.2
-      6                1        1.2
-      7                1        1.2
-      8                1        1.2
-      9                1        1.2
-      10               1        1.2
-      11               1        1.2
+                x       label  y PANEL group colour angle hjust alpha family fontface
+      1  19.16215 NALED 14.2%  1     1     1  black     0   0.5    NA               1
+      2  19.16215 NALED 16.2%  2     1     2  black     0   0.5    NA               1
+      3  19.16215 NALED 16.1%  3     1     3  black     0   0.5    NA               1
+      4  19.16215 NALED 26.4%  4     1     4  black     0   0.5    NA               1
+      5  19.16215 NALED 22.8%  5     1     5  black     0   0.5    NA               1
+      6  19.16215 NALED 17.6%  6     1     6  black     0   0.5    NA               1
+      7  19.16215 NALED 31.4%  7     1     7  black     0   0.5    NA               1
+      8  19.16215 NALED 33.1%  8     1     8  black     0   0.5    NA               1
+      9  19.16215 NALED 41.5%  9     1     9  black     0   0.5    NA               1
+      10 19.16215 NALED 43.6% 10     1    10  black     0   0.5    NA               1
+      11 19.16215 NALED 40.9% 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3    -1
+      2         1.2    3    -1
+      3         1.2    3    -1
+      4         1.2    3    -1
+      5         1.2    3    -1
+      6         1.2    3    -1
+      7         1.2    3    -1
+      8         1.2    3    -1
+      9         1.2    3    -1
+      10        1.2    3    -1
+      11        1.2    3    -1
       
       $ale$stats$effects_plot[[1]][[5]]
                  x label     y PANEL group colour size angle hjust vjust alpha family
@@ -3641,36 +3641,36 @@
       11        1        1.2
       
       $ale$stats$effects_plot[[1]][[7]]
-                x     label  y PANEL group colour size angle hjust vjust alpha family
-      1  19.16215 ALED  1.9  1     1     1  black    3     0   0.5     2    NA       
-      2  19.16215 ALED  2.8  2     1     2  black    3     0   0.5     2    NA       
-      3  19.16215 ALED  3.2  3     1     3  black    3     0   0.5     2    NA       
-      4  19.16215 ALED  4.1  4     1     4  black    3     0   0.5     2    NA       
-      5  19.16215 ALED  5.8  5     1     5  black    3     0   0.5     2    NA       
-      6  19.16215 ALED  6.3  6     1     6  black    3     0   0.5     2    NA       
-      7  19.16215 ALED 10.7  7     1     7  black    3     0   0.5     2    NA       
-      8  19.16215 ALED 12.3  8     1     8  black    3     0   0.5     2    NA       
-      9  19.16215 ALED 14.0  9     1     9  black    3     0   0.5     2    NA       
-      10 19.16215 ALED 16.9 10     1    10  black    3     0   0.5     2    NA       
-      11 19.16215 ALED 19.7 11     1    11  black    3     0   0.5     2    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
+                x     label  y PANEL group colour angle hjust alpha family fontface
+      1  19.16215 ALED  1.9  1     1     1  black     0   0.5    NA               1
+      2  19.16215 ALED  2.8  2     1     2  black     0   0.5    NA               1
+      3  19.16215 ALED  3.2  3     1     3  black     0   0.5    NA               1
+      4  19.16215 ALED  4.1  4     1     4  black     0   0.5    NA               1
+      5  19.16215 ALED  5.8  5     1     5  black     0   0.5    NA               1
+      6  19.16215 ALED  6.3  6     1     6  black     0   0.5    NA               1
+      7  19.16215 ALED 10.7  7     1     7  black     0   0.5    NA               1
+      8  19.16215 ALED 12.3  8     1     8  black     0   0.5    NA               1
+      9  19.16215 ALED 14.0  9     1     9  black     0   0.5    NA               1
+      10 19.16215 ALED 16.9 10     1    10  black     0   0.5    NA               1
+      11 19.16215 ALED 19.7 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3     2
+      2         1.2    3     2
+      3         1.2    3     2
+      4         1.2    3     2
+      5         1.2    3     2
+      6         1.2    3     2
+      7         1.2    3     2
+      8         1.2    3     2
+      9         1.2    3     2
+      10        1.2    3     2
+      11        1.2    3     2
       
       $ale$stats$effects_plot[[1]][[8]]
-           x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 33.9 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+           x y PANEL group colour  fill angle vjust alpha family fontface lineheight
+      1 33.9 1     1    -1  black white     0   0.5    NA               1        1.2
+                                                                     label size hjust
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max    3     1
       
       
       
@@ -3678,40 +3678,40 @@
       $ale$plots
       $ale$plots$cyl
       $ale$plots$cyl[[1]]
-        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 3 11.95767     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 4 14.43546     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      3 5 16.91325     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      4 6 19.39104     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      5 7 21.86883     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      6 8 24.34663     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      7 9 26.82442     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
-      7 19.04095 19.28336
+        x        y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 3 11.95767     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 4 14.43546     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 5 16.91325     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 6 19.39104     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 7 21.86883     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 8 24.34663     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 9 26.82442     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
       
       $ale$plots$cyl[[2]]
-              ymin     ymax x          y PANEL group flipped_aes colour   fill
-      1 -21.809685 28.88215 3 -21.809685     1    -1       FALSE     NA grey85
-      2  -7.992816 25.53774 4  -7.992816     1    -1       FALSE     NA grey85
-      3   5.790281 22.19334 5   5.790281     1    -1       FALSE     NA grey85
-      4  18.759824 19.86805 6  18.759824     1    -1       FALSE     NA grey85
-      5  15.418698 33.45779 7  15.418698     1    -1       FALSE     NA grey85
-      6  12.077572 47.27466 8  12.077572     1    -1       FALSE     NA grey85
-      7   8.736446 61.09152 9   8.736446     1    -1       FALSE     NA grey85
-        linewidth linetype alpha
-      1       0.5        1   0.5
-      2       0.5        1   0.5
-      3       0.5        1   0.5
-      4       0.5        1   0.5
-      5       0.5        1   0.5
-      6       0.5        1   0.5
-      7       0.5        1   0.5
+              ymin     ymax x          y PANEL group flipped_aes colour linewidth
+      1 -21.809685 28.88215 3 -21.809685     1    -1       FALSE     NA       0.5
+      2  -7.992816 25.53774 4  -7.992816     1    -1       FALSE     NA       0.5
+      3   5.790281 22.19334 5   5.790281     1    -1       FALSE     NA       0.5
+      4  18.759824 19.86805 6  18.759824     1    -1       FALSE     NA       0.5
+      5  15.418698 33.45779 7  15.418698     1    -1       FALSE     NA       0.5
+      6  12.077572 47.27466 8  12.077572     1    -1       FALSE     NA       0.5
+      7   8.736446 61.09152 9   8.736446     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
       
       $ale$plots$cyl[[3]]
         x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -3724,12 +3724,12 @@
       7 9 26.82442     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$cyl[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -3801,126 +3801,126 @@
       
       $ale$plots$disp
       $ale$plots$disp[[1]]
-                 x          y PANEL group colour      fill linewidth linetype alpha
-      1   70.92941 29.3356492     1    -1     NA lightgray       0.5        1    NA
-      2   71.10000 29.0883196     1    -1     NA lightgray       0.5        1    NA
-      3   75.70000 22.1024074     1    -1     NA lightgray       0.5        1    NA
-      4   76.44475 27.9338684     1    -1     NA lightgray       0.5        1    NA
-      5   78.63221 22.6376943     1    -1     NA lightgray       0.5        1    NA
-      6   78.70000 30.1125488     1    -1     NA lightgray       0.5        1    NA
-      7   79.00000 18.0995927     1    -1     NA lightgray       0.5        1    NA
-      8   79.04253 18.0357062     1    -1     NA lightgray       0.5        1    NA
-      9   94.17447 -1.1200476     1    -1     NA lightgray       0.5        1    NA
-      10  95.10000  7.1725562     1    -1     NA lightgray       0.5        1    NA
-      11 107.72379 18.0494171     1    -1     NA lightgray       0.5        1    NA
-      12 108.00000 16.8350732     1    -1     NA lightgray       0.5        1    NA
-      13 120.02599 20.7787308     1    -1     NA lightgray       0.5        1    NA
-      14 120.10000 -0.9116923     1    -1     NA lightgray       0.5        1    NA
-      15 120.30000 17.5998322     1    -1     NA lightgray       0.5        1    NA
-      16 120.76642 17.6596365     1    -1     NA lightgray       0.5        1    NA
-      17 120.95663 -2.0471184     1    -1     NA lightgray       0.5        1    NA
-      18 121.00000 -9.5435956     1    -1     NA lightgray       0.5        1    NA
-      19 140.80000 30.4004511     1    -1     NA lightgray       0.5        1    NA
-      20 141.25281 16.3392808     1    -1     NA lightgray       0.5        1    NA
-      21 145.00000 52.0836152     1    -1     NA lightgray       0.5        1    NA
-      22 146.07210 14.4086782     1    -1     NA lightgray       0.5        1    NA
-      23 146.70000 13.1410465     1    -1     NA lightgray       0.5        1    NA
-      24 148.00468 31.7457582     1    -1     NA lightgray       0.5        1    NA
-      25 159.24963 15.8631470     1    -1     NA lightgray       0.5        1    NA
-      26 160.00000 30.7027459     1    -1     NA lightgray       0.5        1    NA
-      27 161.26943 40.4087303     1    -1     NA lightgray       0.5        1    NA
-      28 166.13111 37.1694879     1    -1     NA lightgray       0.5        1    NA
-      29 167.60000 31.3261461     1    -1     NA lightgray       0.5        1    NA
-      30 168.03279 30.0801734     1    -1     NA lightgray       0.5        1    NA
-      31 223.65757  7.6068895     1    -1     NA lightgray       0.5        1    NA
-      32 225.00000  5.8543150     1    -1     NA lightgray       0.5        1    NA
-      33 258.00000 20.3343838     1    -1     NA lightgray       0.5        1    NA
-      34 258.37592  7.6349152     1    -1     NA lightgray       0.5        1    NA
-      35 274.01589  7.0795056     1    -1     NA lightgray       0.5        1    NA
-      36 274.17816 13.7154846     1    -1     NA lightgray       0.5        1    NA
-      37 275.80000 14.0234143     1    -1     NA lightgray       0.5        1    NA
-      38 276.83162 14.2064976     1    -1     NA lightgray       0.5        1    NA
-      39 300.03890 12.0671473     1    -1     NA lightgray       0.5        1    NA
-      40 301.00000 14.5047493     1    -1     NA lightgray       0.5        1    NA
-      41 302.24983 17.3277241     1    -1     NA lightgray       0.5        1    NA
-      42 304.00000  7.2393465     1    -1     NA lightgray       0.5        1    NA
-      43 318.00000 14.2254859     1    -1     NA lightgray       0.5        1    NA
-      44 320.76473 12.0714347     1    -1     NA lightgray       0.5        1    NA
-      45 350.00000 21.8106042     1    -1     NA lightgray       0.5        1    NA
-      46 350.17436 22.2503582     1    -1     NA lightgray       0.5        1    NA
-      47 351.00000 21.9661960     1    -1     NA lightgray       0.5        1    NA
-      48 351.06172 22.8602264     1    -1     NA lightgray       0.5        1    NA
-      49 360.00000 23.2657586     1    -1     NA lightgray       0.5        1    NA
-      50 362.86841 20.1451609     1    -1     NA lightgray       0.5        1    NA
-      51 362.93910 23.3269614     1    -1     NA lightgray       0.5        1    NA
-      52 397.00444 24.1972816     1    -1     NA lightgray       0.5        1    NA
-      53 400.00000 22.4110644     1    -1     NA lightgray       0.5        1    NA
-      54 439.97975 26.5550753     1    -1     NA lightgray       0.5        1    NA
-      55 440.00000 21.8206695     1    -1     NA lightgray       0.5        1    NA
-      56 460.00000 31.5774984     1    -1     NA lightgray       0.5        1    NA
-      57 462.48254 21.5419953     1    -1     NA lightgray       0.5        1    NA
-      58 470.90594 19.9687892     1    -1     NA lightgray       0.5        1    NA
-      59 472.00000 25.8592888     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
+                 x          y PANEL group colour linewidth linetype alpha xmin xmax
+      1   70.92941 29.3356492     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   71.10000 29.0883196     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   75.70000 22.1024074     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   76.44475 27.9338684     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   78.63221 22.6376943     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   78.70000 30.1125488     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   79.00000 18.0995927     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   79.04253 18.0357062     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   94.17447 -1.1200476     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  95.10000  7.1725562     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 107.72379 18.0494171     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 108.00000 16.8350732     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 120.02599 20.7787308     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 120.10000 -0.9116923     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 120.30000 17.5998322     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 120.76642 17.6596365     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 120.95663 -2.0471184     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 121.00000 -9.5435956     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 140.80000 30.4004511     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 141.25281 16.3392808     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 145.00000 52.0836152     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 146.07210 14.4086782     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 146.70000 13.1410465     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 148.00468 31.7457582     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 159.24963 15.8631470     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 160.00000 30.7027459     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 161.26943 40.4087303     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 166.13111 37.1694879     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 167.60000 31.3261461     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 168.03279 30.0801734     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 223.65757  7.6068895     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 225.00000  5.8543150     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 258.00000 20.3343838     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 258.37592  7.6349152     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 274.01589  7.0795056     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 274.17816 13.7154846     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 275.80000 14.0234143     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 276.83162 14.2064976     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 300.03890 12.0671473     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 301.00000 14.5047493     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 302.24983 17.3277241     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 304.00000  7.2393465     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 318.00000 14.2254859     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 320.76473 12.0714347     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 350.00000 21.8106042     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 350.17436 22.2503582     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 351.00000 21.9661960     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 351.06172 22.8602264     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 360.00000 23.2657586     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 362.86841 20.1451609     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 362.93910 23.3269614     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 397.00444 24.1972816     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 400.00000 22.4110644     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 439.97975 26.5550753     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 440.00000 21.8206695     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 460.00000 31.5774984     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 462.48254 21.5419953     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 470.90594 19.9687892     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 472.00000 25.8592888     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
       
       $ale$plots$disp[[2]]
                 ymin     ymax         x           y PANEL group flipped_aes colour
@@ -3983,66 +3983,66 @@
       57  16.5443614 28.15330 462.48254  16.5443614     1    -1       FALSE     NA
       58  19.4227066 20.51487 470.90594  19.4227066     1    -1       FALSE     NA
       59  19.4561598 34.31286 472.00000  19.4561598     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      12 grey85       0.5        1   0.5
-      13 grey85       0.5        1   0.5
-      14 grey85       0.5        1   0.5
-      15 grey85       0.5        1   0.5
-      16 grey85       0.5        1   0.5
-      17 grey85       0.5        1   0.5
-      18 grey85       0.5        1   0.5
-      19 grey85       0.5        1   0.5
-      20 grey85       0.5        1   0.5
-      21 grey85       0.5        1   0.5
-      22 grey85       0.5        1   0.5
-      23 grey85       0.5        1   0.5
-      24 grey85       0.5        1   0.5
-      25 grey85       0.5        1   0.5
-      26 grey85       0.5        1   0.5
-      27 grey85       0.5        1   0.5
-      28 grey85       0.5        1   0.5
-      29 grey85       0.5        1   0.5
-      30 grey85       0.5        1   0.5
-      31 grey85       0.5        1   0.5
-      32 grey85       0.5        1   0.5
-      33 grey85       0.5        1   0.5
-      34 grey85       0.5        1   0.5
-      35 grey85       0.5        1   0.5
-      36 grey85       0.5        1   0.5
-      37 grey85       0.5        1   0.5
-      38 grey85       0.5        1   0.5
-      39 grey85       0.5        1   0.5
-      40 grey85       0.5        1   0.5
-      41 grey85       0.5        1   0.5
-      42 grey85       0.5        1   0.5
-      43 grey85       0.5        1   0.5
-      44 grey85       0.5        1   0.5
-      45 grey85       0.5        1   0.5
-      46 grey85       0.5        1   0.5
-      47 grey85       0.5        1   0.5
-      48 grey85       0.5        1   0.5
-      49 grey85       0.5        1   0.5
-      50 grey85       0.5        1   0.5
-      51 grey85       0.5        1   0.5
-      52 grey85       0.5        1   0.5
-      53 grey85       0.5        1   0.5
-      54 grey85       0.5        1   0.5
-      55 grey85       0.5        1   0.5
-      56 grey85       0.5        1   0.5
-      57 grey85       0.5        1   0.5
-      58 grey85       0.5        1   0.5
-      59 grey85       0.5        1   0.5
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
+      55       0.5        1 grey85   0.5
+      56       0.5        1 grey85   0.5
+      57       0.5        1 grey85   0.5
+      58       0.5        1 grey85   0.5
+      59       0.5        1 grey85   0.5
       
       $ale$plots$disp[[3]]
                  x          y PANEL group flipped_aes colour linewidth linetype alpha
@@ -4107,12 +4107,12 @@
       59 472.00000 25.8592888     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$disp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -4184,228 +4184,228 @@
       
       $ale$plots$hp
       $ale$plots$hp[[1]]
-                 x        y PANEL group colour      fill linewidth linetype alpha
-      1   52.00000 21.93333     1    -1     NA lightgray       0.5        1    NA
-      2   52.51158 20.56471     1    -1     NA lightgray       0.5        1    NA
-      3   62.00000 25.90975     1    -1     NA lightgray       0.5        1    NA
-      4   62.55140 21.61689     1    -1     NA lightgray       0.5        1    NA
-      5   64.84405 18.92088     1    -1     NA lightgray       0.5        1    NA
-      6   65.00000 21.16455     1    -1     NA lightgray       0.5        1    NA
-      7   65.69273 19.50038     1    -1     NA lightgray       0.5        1    NA
-      8   66.00000 21.01180     1    -1     NA lightgray       0.5        1    NA
-      9   66.28726 19.29685     1    -1     NA lightgray       0.5        1    NA
-      10  90.79273 19.52673     1    -1     NA lightgray       0.5        1    NA
-      11  91.00000 19.89284     1    -1     NA lightgray       0.5        1    NA
-      12  92.76215 19.78329     1    -1     NA lightgray       0.5        1    NA
-      13  93.00000 14.94809     1    -1     NA lightgray       0.5        1    NA
-      14  95.00000 21.18045     1    -1     NA lightgray       0.5        1    NA
-      15  95.30552 19.63928     1    -1     NA lightgray       0.5        1    NA
-      16  97.00000 22.61122     1    -1     NA lightgray       0.5        1    NA
-      17  97.53824 19.42816     1    -1     NA lightgray       0.5        1    NA
-      18 104.37353 19.74073     1    -1     NA lightgray       0.5        1    NA
-      19 105.00000 18.99378     1    -1     NA lightgray       0.5        1    NA
-      20 108.96093 18.12157     1    -1     NA lightgray       0.5        1    NA
-      21 109.00000 16.08691     1    -1     NA lightgray       0.5        1    NA
-      22 109.48412 18.56746     1    -1     NA lightgray       0.5        1    NA
-      23 110.00000 18.38106     1    -1     NA lightgray       0.5        1    NA
-      24 110.16028 18.08327     1    -1     NA lightgray       0.5        1    NA
-      25 110.87273 17.20917     1    -1     NA lightgray       0.5        1    NA
-      26 111.90026 15.82300     1    -1     NA lightgray       0.5        1    NA
-      27 113.00000 17.54673     1    -1     NA lightgray       0.5        1    NA
-      28 121.92199 19.40195     1    -1     NA lightgray       0.5        1    NA
-      29 123.00000 19.33735     1    -1     NA lightgray       0.5        1    NA
-      30 123.31762 20.44626     1    -1     NA lightgray       0.5        1    NA
-      31 149.13643 22.09418     1    -1     NA lightgray       0.5        1    NA
-      32 150.00000 21.54294     1    -1     NA lightgray       0.5        1    NA
-      33 151.30412 21.26543     1    -1     NA lightgray       0.5        1    NA
-      34 173.68944 20.70556     1    -1     NA lightgray       0.5        1    NA
-      35 175.00000 18.52381     1    -1     NA lightgray       0.5        1    NA
-      36 176.29392 18.57647     1    -1     NA lightgray       0.5        1    NA
-      37 176.42873 20.62021     1    -1     NA lightgray       0.5        1    NA
-      38 178.83560 20.80116     1    -1     NA lightgray       0.5        1    NA
-      39 178.94151 19.96483     1    -1     NA lightgray       0.5        1    NA
-      40 180.00000 19.81069     1    -1     NA lightgray       0.5        1    NA
-      41 180.67328 19.72649     1    -1     NA lightgray       0.5        1    NA
-      42 204.52483 13.32886     1    -1     NA lightgray       0.5        1    NA
-      43 205.00000 17.04792     1    -1     NA lightgray       0.5        1    NA
-      44 215.00000 18.93304     1    -1     NA lightgray       0.5        1    NA
-      45 216.16032 18.60250     1    -1     NA lightgray       0.5        1    NA
-      46 229.98942 15.02970     1    -1     NA lightgray       0.5        1    NA
-      47 230.00000 19.91569     1    -1     NA lightgray       0.5        1    NA
-      48 245.00000 14.82880     1    -1     NA lightgray       0.5        1    NA
-      49 245.74320 14.72801     1    -1     NA lightgray       0.5        1    NA
-      50 246.95211 15.97690     1    -1     NA lightgray       0.5        1    NA
-      51 263.37901 12.91392     1    -1     NA lightgray       0.5        1    NA
-      52 264.00000 17.14189     1    -1     NA lightgray       0.5        1    NA
-      53 333.93034 29.46131     1    -1     NA lightgray       0.5        1    NA
-      54 335.00000 15.34960     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
+                 x        y PANEL group colour linewidth linetype alpha xmin xmax
+      1   52.00000 21.93333     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   52.51158 20.56471     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   62.00000 25.90975     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   62.55140 21.61689     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   64.84405 18.92088     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   65.00000 21.16455     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   65.69273 19.50038     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   66.00000 21.01180     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   66.28726 19.29685     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  90.79273 19.52673     1    -1     NA       0.5        1    NA -Inf  Inf
+      11  91.00000 19.89284     1    -1     NA       0.5        1    NA -Inf  Inf
+      12  92.76215 19.78329     1    -1     NA       0.5        1    NA -Inf  Inf
+      13  93.00000 14.94809     1    -1     NA       0.5        1    NA -Inf  Inf
+      14  95.00000 21.18045     1    -1     NA       0.5        1    NA -Inf  Inf
+      15  95.30552 19.63928     1    -1     NA       0.5        1    NA -Inf  Inf
+      16  97.00000 22.61122     1    -1     NA       0.5        1    NA -Inf  Inf
+      17  97.53824 19.42816     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 104.37353 19.74073     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 105.00000 18.99378     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 108.96093 18.12157     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 109.00000 16.08691     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 109.48412 18.56746     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 110.00000 18.38106     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 110.16028 18.08327     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 110.87273 17.20917     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 111.90026 15.82300     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 113.00000 17.54673     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 121.92199 19.40195     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 123.00000 19.33735     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 123.31762 20.44626     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 149.13643 22.09418     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 150.00000 21.54294     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 151.30412 21.26543     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 173.68944 20.70556     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 175.00000 18.52381     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 176.29392 18.57647     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 176.42873 20.62021     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 178.83560 20.80116     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 178.94151 19.96483     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 180.00000 19.81069     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 180.67328 19.72649     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 204.52483 13.32886     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 205.00000 17.04792     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 215.00000 18.93304     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 216.16032 18.60250     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 229.98942 15.02970     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 230.00000 19.91569     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 245.00000 14.82880     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 245.74320 14.72801     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 246.95211 15.97690     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 263.37901 12.91392     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 264.00000 17.14189     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 333.93034 29.46131     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 335.00000 15.34960     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$hp[[2]]
-              ymin     ymax         x         y PANEL group flipped_aes colour   fill
-      1  15.333016 28.04316  52.00000 15.333016     1    -1       FALSE     NA grey85
-      2  15.183106 27.47502  52.51158 15.183106     1    -1       FALSE     NA grey85
-      3  25.909746 25.90975  62.00000 25.909746     1    -1       FALSE     NA grey85
-      4  15.217163 27.74161  62.55140 15.217163     1    -1       FALSE     NA grey85
-      5  14.873759 24.97497  64.84405 14.873759     1    -1       FALSE     NA grey85
-      6  14.945077 27.68049  65.00000 14.945077     1    -1       FALSE     NA grey85
-      7  14.809859 27.24547  65.69273 14.809859     1    -1       FALSE     NA grey85
-      8  14.833172 27.55481  66.00000 14.833172     1    -1       FALSE     NA grey85
-      9  14.783081 25.02083  66.28726 14.783081     1    -1       FALSE     NA grey85
-      10 14.774987 24.27847  90.79273 14.774987     1    -1       FALSE     NA grey85
-      11 14.801426 24.98426  91.00000 14.801426     1    -1       FALSE     NA grey85
-      12 14.665662 24.89847  92.76215 14.665662     1    -1       FALSE     NA grey85
-      13 14.644778 15.25140  93.00000 14.644778     1    -1       FALSE     NA grey85
-      14 15.745409 24.55858  95.00000 15.745409     1    -1       FALSE     NA grey85
-      15 14.703563 24.50666  95.30552 14.703563     1    -1       FALSE     NA grey85
-      16 20.012654 24.23103  97.00000 20.012654     1    -1       FALSE     NA grey85
-      17 14.930452 23.92587  97.53824 14.930452     1    -1       FALSE     NA grey85
-      18 15.959421 22.97121 104.37353 15.959421     1    -1       FALSE     NA grey85
-      19 14.841113 22.86478 105.00000 14.841113     1    -1       FALSE     NA grey85
-      20 14.314100 21.98074 108.96093 14.314100     1    -1       FALSE     NA grey85
-      21 14.207410 17.96640 109.00000 14.207410     1    -1       FALSE     NA grey85
-      22 15.037762 22.48099 109.48412 15.037762     1    -1       FALSE     NA grey85
-      23 14.126254 22.58822 110.00000 14.126254     1    -1       FALSE     NA grey85
-      24 14.220643 21.87495 110.16028 14.220643     1    -1       FALSE     NA grey85
-      25 14.016287 22.17737 110.87273 14.016287     1    -1       FALSE     NA grey85
-      26 14.033138 18.02492 111.90026 14.033138     1    -1       FALSE     NA grey85
-      27 14.196614 22.08228 113.00000 14.196614     1    -1       FALSE     NA grey85
-      28 18.044235 21.11716 121.92199 18.044235     1    -1       FALSE     NA grey85
-      29 17.976336 21.00484 123.00000 17.976336     1    -1       FALSE     NA grey85
-      30 18.571106 21.94249 123.31762 18.571106     1    -1       FALSE     NA grey85
-      31 17.864532 26.32383 149.13643 17.864532     1    -1       FALSE     NA grey85
-      32 17.716892 26.36624 150.00000 17.716892     1    -1       FALSE     NA grey85
-      33 17.460685 26.61206 151.30412 17.460685     1    -1       FALSE     NA grey85
-      34 14.655896 26.56896 173.68944 14.655896     1    -1       FALSE     NA grey85
-      35 14.476148 23.47769 175.00000 14.476148     1    -1       FALSE     NA grey85
-      36 14.210661 23.81998 176.29392 14.210661     1    -1       FALSE     NA grey85
-      37 14.279838 26.57410 176.42873 14.279838     1    -1       FALSE     NA grey85
-      38 17.239597 24.36273 178.83560 17.239597     1    -1       FALSE     NA grey85
-      39 14.304683 26.51638 178.94151 14.304683     1    -1       FALSE     NA grey85
-      40 14.155784 26.20018 180.00000 14.155784     1    -1       FALSE     NA grey85
-      41 14.070512 25.98793 180.67328 14.070512     1    -1       FALSE     NA grey85
-      42 10.608276 16.04944 204.52483 10.608276     1    -1       FALSE     NA grey85
-      43 10.821494 24.06326 205.00000 10.821494     1    -1       FALSE     NA grey85
-      44 15.568188 22.29790 215.00000 15.568188     1    -1       FALSE     NA grey85
-      45 16.048568 22.07748 216.16032 16.048568     1    -1       FALSE     NA grey85
-      46 13.100882 16.95852 229.98942 13.100882     1    -1       FALSE     NA grey85
-      47 17.634284 22.19711 230.00000 17.634284     1    -1       FALSE     NA grey85
-      48  8.397505 20.69575 245.00000  8.397505     1    -1       FALSE     NA grey85
-      49  8.229534 20.88592 245.74320  8.229534     1    -1       FALSE     NA grey85
-      50  8.467463 21.15424 246.95211  8.467463     1    -1       FALSE     NA grey85
-      51  5.522187 24.96224 263.37901  5.522187     1    -1       FALSE     NA grey85
-      52  8.019855 25.50452 264.00000  8.019855     1    -1       FALSE     NA grey85
-      53 17.967368 47.76298 333.93034 17.967368     1    -1       FALSE     NA grey85
-      54  7.691498 20.66188 335.00000  7.691498     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
+              ymin     ymax         x         y PANEL group flipped_aes colour
+      1  15.333016 28.04316  52.00000 15.333016     1    -1       FALSE     NA
+      2  15.183106 27.47502  52.51158 15.183106     1    -1       FALSE     NA
+      3  25.909746 25.90975  62.00000 25.909746     1    -1       FALSE     NA
+      4  15.217163 27.74161  62.55140 15.217163     1    -1       FALSE     NA
+      5  14.873759 24.97497  64.84405 14.873759     1    -1       FALSE     NA
+      6  14.945077 27.68049  65.00000 14.945077     1    -1       FALSE     NA
+      7  14.809859 27.24547  65.69273 14.809859     1    -1       FALSE     NA
+      8  14.833172 27.55481  66.00000 14.833172     1    -1       FALSE     NA
+      9  14.783081 25.02083  66.28726 14.783081     1    -1       FALSE     NA
+      10 14.774987 24.27847  90.79273 14.774987     1    -1       FALSE     NA
+      11 14.801426 24.98426  91.00000 14.801426     1    -1       FALSE     NA
+      12 14.665662 24.89847  92.76215 14.665662     1    -1       FALSE     NA
+      13 14.644778 15.25140  93.00000 14.644778     1    -1       FALSE     NA
+      14 15.745409 24.55858  95.00000 15.745409     1    -1       FALSE     NA
+      15 14.703563 24.50666  95.30552 14.703563     1    -1       FALSE     NA
+      16 20.012654 24.23103  97.00000 20.012654     1    -1       FALSE     NA
+      17 14.930452 23.92587  97.53824 14.930452     1    -1       FALSE     NA
+      18 15.959421 22.97121 104.37353 15.959421     1    -1       FALSE     NA
+      19 14.841113 22.86478 105.00000 14.841113     1    -1       FALSE     NA
+      20 14.314100 21.98074 108.96093 14.314100     1    -1       FALSE     NA
+      21 14.207410 17.96640 109.00000 14.207410     1    -1       FALSE     NA
+      22 15.037762 22.48099 109.48412 15.037762     1    -1       FALSE     NA
+      23 14.126254 22.58822 110.00000 14.126254     1    -1       FALSE     NA
+      24 14.220643 21.87495 110.16028 14.220643     1    -1       FALSE     NA
+      25 14.016287 22.17737 110.87273 14.016287     1    -1       FALSE     NA
+      26 14.033138 18.02492 111.90026 14.033138     1    -1       FALSE     NA
+      27 14.196614 22.08228 113.00000 14.196614     1    -1       FALSE     NA
+      28 18.044235 21.11716 121.92199 18.044235     1    -1       FALSE     NA
+      29 17.976336 21.00484 123.00000 17.976336     1    -1       FALSE     NA
+      30 18.571106 21.94249 123.31762 18.571106     1    -1       FALSE     NA
+      31 17.864532 26.32383 149.13643 17.864532     1    -1       FALSE     NA
+      32 17.716892 26.36624 150.00000 17.716892     1    -1       FALSE     NA
+      33 17.460685 26.61206 151.30412 17.460685     1    -1       FALSE     NA
+      34 14.655896 26.56896 173.68944 14.655896     1    -1       FALSE     NA
+      35 14.476148 23.47769 175.00000 14.476148     1    -1       FALSE     NA
+      36 14.210661 23.81998 176.29392 14.210661     1    -1       FALSE     NA
+      37 14.279838 26.57410 176.42873 14.279838     1    -1       FALSE     NA
+      38 17.239597 24.36273 178.83560 17.239597     1    -1       FALSE     NA
+      39 14.304683 26.51638 178.94151 14.304683     1    -1       FALSE     NA
+      40 14.155784 26.20018 180.00000 14.155784     1    -1       FALSE     NA
+      41 14.070512 25.98793 180.67328 14.070512     1    -1       FALSE     NA
+      42 10.608276 16.04944 204.52483 10.608276     1    -1       FALSE     NA
+      43 10.821494 24.06326 205.00000 10.821494     1    -1       FALSE     NA
+      44 15.568188 22.29790 215.00000 15.568188     1    -1       FALSE     NA
+      45 16.048568 22.07748 216.16032 16.048568     1    -1       FALSE     NA
+      46 13.100882 16.95852 229.98942 13.100882     1    -1       FALSE     NA
+      47 17.634284 22.19711 230.00000 17.634284     1    -1       FALSE     NA
+      48  8.397505 20.69575 245.00000  8.397505     1    -1       FALSE     NA
+      49  8.229534 20.88592 245.74320  8.229534     1    -1       FALSE     NA
+      50  8.467463 21.15424 246.95211  8.467463     1    -1       FALSE     NA
+      51  5.522187 24.96224 263.37901  5.522187     1    -1       FALSE     NA
+      52  8.019855 25.50452 264.00000  8.019855     1    -1       FALSE     NA
+      53 17.967368 47.76298 333.93034 17.967368     1    -1       FALSE     NA
+      54  7.691498 20.66188 335.00000  7.691498     1    -1       FALSE     NA
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
       
       $ale$plots$hp[[3]]
                  x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -4465,12 +4465,12 @@
       54 335.00000 15.34960     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$hp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -4542,228 +4542,228 @@
       
       $ale$plots$drat
       $ale$plots$drat[[1]]
-                x        y PANEL group colour      fill linewidth linetype alpha xmin
-      1  2.743533 15.35449     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  2.760000 15.23925     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  2.783996 14.96174     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  2.923208 18.24907     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  2.930000 17.01139     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  3.000000 16.78425     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  3.016190 14.01355     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  3.050141 12.74348     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  3.051947 16.29270     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 3.056934 18.07800     1    -1     NA lightgray       0.5        1    NA -Inf
-      11 3.070000 16.53372     1    -1     NA lightgray       0.5        1    NA -Inf
-      12 3.080000 16.06286     1    -1     NA lightgray       0.5        1    NA -Inf
-      13 3.081483 16.59960     1    -1     NA lightgray       0.5        1    NA -Inf
-      14 3.084488 15.30844     1    -1     NA lightgray       0.5        1    NA -Inf
-      15 3.131865 19.07848     1    -1     NA lightgray       0.5        1    NA -Inf
-      16 3.150000 15.30004     1    -1     NA lightgray       0.5        1    NA -Inf
-      17 3.175717 18.88828     1    -1     NA lightgray       0.5        1    NA -Inf
-      18 3.210000 19.61040     1    -1     NA lightgray       0.5        1    NA -Inf
-      19 3.229851 19.85070     1    -1     NA lightgray       0.5        1    NA -Inf
-      20 3.230000 13.52099     1    -1     NA lightgray       0.5        1    NA -Inf
-      21 3.235577 16.61159     1    -1     NA lightgray       0.5        1    NA -Inf
-      22 3.528697 16.58680     1    -1     NA lightgray       0.5        1    NA -Inf
-      23 3.540000 17.64363     1    -1     NA lightgray       0.5        1    NA -Inf
-      24 3.620000 18.21159     1    -1     NA lightgray       0.5        1    NA -Inf
-      25 3.646766 19.00619     1    -1     NA lightgray       0.5        1    NA -Inf
-      26 3.690000 20.17000     1    -1     NA lightgray       0.5        1    NA -Inf
-      27 3.700000 18.76890     1    -1     NA lightgray       0.5        1    NA -Inf
-      28 3.720531 18.33459     1    -1     NA lightgray       0.5        1    NA -Inf
-      29 3.722817 18.14032     1    -1     NA lightgray       0.5        1    NA -Inf
-      30 3.730000 17.98004     1    -1     NA lightgray       0.5        1    NA -Inf
-      31 3.733310 17.33790     1    -1     NA lightgray       0.5        1    NA -Inf
-      32 3.741315 18.64248     1    -1     NA lightgray       0.5        1    NA -Inf
-      33 3.770000 18.65358     1    -1     NA lightgray       0.5        1    NA -Inf
-      34 3.840154 20.53160     1    -1     NA lightgray       0.5        1    NA -Inf
-      35 3.850000 22.01409     1    -1     NA lightgray       0.5        1    NA -Inf
-      36 3.881710 21.76951     1    -1     NA lightgray       0.5        1    NA -Inf
-      37 3.885644 19.13045     1    -1     NA lightgray       0.5        1    NA -Inf
-      38 3.900000 20.87267     1    -1     NA lightgray       0.5        1    NA -Inf
-      39 3.920000 21.12557     1    -1     NA lightgray       0.5        1    NA -Inf
-      40 3.930123 19.96952     1    -1     NA lightgray       0.5        1    NA -Inf
-      41 3.930942 20.10830     1    -1     NA lightgray       0.5        1    NA -Inf
-      42 3.932607 21.49718     1    -1     NA lightgray       0.5        1    NA -Inf
-      43 4.061005 20.81838     1    -1     NA lightgray       0.5        1    NA -Inf
-      44 4.080000 20.78553     1    -1     NA lightgray       0.5        1    NA -Inf
-      45 4.097758 21.52062     1    -1     NA lightgray       0.5        1    NA -Inf
-      46 4.108527 22.09950     1    -1     NA lightgray       0.5        1    NA -Inf
-      47 4.110000 22.92110     1    -1     NA lightgray       0.5        1    NA -Inf
-      48 4.209875 23.83424     1    -1     NA lightgray       0.5        1    NA -Inf
-      49 4.210074 20.52097     1    -1     NA lightgray       0.5        1    NA -Inf
-      50 4.220000 23.17119     1    -1     NA lightgray       0.5        1    NA -Inf
-      51 4.419910 19.43952     1    -1     NA lightgray       0.5        1    NA -Inf
-      52 4.430000 20.40067     1    -1     NA lightgray       0.5        1    NA -Inf
-      53 4.930000 31.85087     1    -1     NA lightgray       0.5        1    NA -Inf
-      54 4.978502 39.76942     1    -1     NA lightgray       0.5        1    NA -Inf
-         xmax     ymin     ymax
-      1   Inf 19.04095 19.28336
-      2   Inf 19.04095 19.28336
-      3   Inf 19.04095 19.28336
-      4   Inf 19.04095 19.28336
-      5   Inf 19.04095 19.28336
-      6   Inf 19.04095 19.28336
-      7   Inf 19.04095 19.28336
-      8   Inf 19.04095 19.28336
-      9   Inf 19.04095 19.28336
-      10  Inf 19.04095 19.28336
-      11  Inf 19.04095 19.28336
-      12  Inf 19.04095 19.28336
-      13  Inf 19.04095 19.28336
-      14  Inf 19.04095 19.28336
-      15  Inf 19.04095 19.28336
-      16  Inf 19.04095 19.28336
-      17  Inf 19.04095 19.28336
-      18  Inf 19.04095 19.28336
-      19  Inf 19.04095 19.28336
-      20  Inf 19.04095 19.28336
-      21  Inf 19.04095 19.28336
-      22  Inf 19.04095 19.28336
-      23  Inf 19.04095 19.28336
-      24  Inf 19.04095 19.28336
-      25  Inf 19.04095 19.28336
-      26  Inf 19.04095 19.28336
-      27  Inf 19.04095 19.28336
-      28  Inf 19.04095 19.28336
-      29  Inf 19.04095 19.28336
-      30  Inf 19.04095 19.28336
-      31  Inf 19.04095 19.28336
-      32  Inf 19.04095 19.28336
-      33  Inf 19.04095 19.28336
-      34  Inf 19.04095 19.28336
-      35  Inf 19.04095 19.28336
-      36  Inf 19.04095 19.28336
-      37  Inf 19.04095 19.28336
-      38  Inf 19.04095 19.28336
-      39  Inf 19.04095 19.28336
-      40  Inf 19.04095 19.28336
-      41  Inf 19.04095 19.28336
-      42  Inf 19.04095 19.28336
-      43  Inf 19.04095 19.28336
-      44  Inf 19.04095 19.28336
-      45  Inf 19.04095 19.28336
-      46  Inf 19.04095 19.28336
-      47  Inf 19.04095 19.28336
-      48  Inf 19.04095 19.28336
-      49  Inf 19.04095 19.28336
-      50  Inf 19.04095 19.28336
-      51  Inf 19.04095 19.28336
-      52  Inf 19.04095 19.28336
-      53  Inf 19.04095 19.28336
-      54  Inf 19.04095 19.28336
+                x        y PANEL group colour linewidth linetype alpha xmin xmax
+      1  2.743533 15.35449     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  2.760000 15.23925     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  2.783996 14.96174     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  2.923208 18.24907     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  2.930000 17.01139     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  3.000000 16.78425     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  3.016190 14.01355     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  3.050141 12.74348     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  3.051947 16.29270     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 3.056934 18.07800     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 3.070000 16.53372     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 3.080000 16.06286     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 3.081483 16.59960     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 3.084488 15.30844     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 3.131865 19.07848     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 3.150000 15.30004     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 3.175717 18.88828     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 3.210000 19.61040     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 3.229851 19.85070     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 3.230000 13.52099     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 3.235577 16.61159     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 3.528697 16.58680     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 3.540000 17.64363     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 3.620000 18.21159     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.646766 19.00619     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.690000 20.17000     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.700000 18.76890     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.720531 18.33459     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.722817 18.14032     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.730000 17.98004     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.733310 17.33790     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.741315 18.64248     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.770000 18.65358     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.840154 20.53160     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.850000 22.01409     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.881710 21.76951     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.885644 19.13045     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.900000 20.87267     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.920000 21.12557     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.930123 19.96952     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.930942 20.10830     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.932607 21.49718     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 4.061005 20.81838     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 4.080000 20.78553     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 4.097758 21.52062     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 4.108527 22.09950     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 4.110000 22.92110     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 4.209875 23.83424     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 4.210074 20.52097     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 4.220000 23.17119     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 4.419910 19.43952     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 4.430000 20.40067     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 4.930000 31.85087     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.978502 39.76942     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$drat[[2]]
-              ymin     ymax        x         y PANEL group flipped_aes colour   fill
-      1   9.598103 18.73424 2.743533  9.598103     1    -1       FALSE     NA grey85
-      2   9.560812 18.63745 2.760000  9.560812     1    -1       FALSE     NA grey85
-      3   9.580387 18.61635 2.783996  9.580387     1    -1       FALSE     NA grey85
-      4  17.554833 18.94331 2.923208 17.554833     1    -1       FALSE     NA grey85
-      5  13.328473 18.95636 2.930000 13.328473     1    -1       FALSE     NA grey85
-      6  14.612750 18.95575 3.000000 14.612750     1    -1       FALSE     NA grey85
-      7   9.551757 17.64735 3.016190  9.551757     1    -1       FALSE     NA grey85
-      8   9.618805 15.86816 3.050141  9.618805     1    -1       FALSE     NA grey85
-      9  10.127576 19.08798 3.051947 10.127576     1    -1       FALSE     NA grey85
-      10 16.354657 19.16263 3.056934 16.354657     1    -1       FALSE     NA grey85
-      11 10.255826 19.33909 3.070000 10.255826     1    -1       FALSE     NA grey85
-      12 10.094683 19.49505 3.080000 10.094683     1    -1       FALSE     NA grey85
-      13 10.332779 19.49049 3.081483 10.332779     1    -1       FALSE     NA grey85
-      14 10.008027 19.43662 3.084488 10.008027     1    -1       FALSE     NA grey85
-      15 19.033833 19.12314 3.131865 19.033833     1    -1       FALSE     NA grey85
-      16 10.177945 19.04117 3.150000 10.177945     1    -1       FALSE     NA grey85
-      17 17.363495 19.69406 3.175717 17.363495     1    -1       FALSE     NA grey85
-      18 19.259512 19.83920 3.210000 19.259512     1    -1       FALSE     NA grey85
-      19 19.712433 19.98897 3.229851 19.712433     1    -1       FALSE     NA grey85
-      20 10.009360 17.03261 3.230000 10.009360     1    -1       FALSE     NA grey85
-      21 10.443411 19.96741 3.235577 10.443411     1    -1       FALSE     NA grey85
-      22 14.571452 18.74419 3.528697 14.571452     1    -1       FALSE     NA grey85
-      23 14.904460 19.61985 3.540000 14.904460     1    -1       FALSE     NA grey85
-      24 16.650442 19.77274 3.620000 16.650442     1    -1       FALSE     NA grey85
-      25 17.843861 19.95628 3.646766 17.843861     1    -1       FALSE     NA grey85
-      26 20.170004 20.17000 3.690000 20.170004     1    -1       FALSE     NA grey85
-      27 16.977345 20.14121 3.700000 16.977345     1    -1       FALSE     NA grey85
-      28 16.579813 20.08938 3.720531 16.579813     1    -1       FALSE     NA grey85
-      29 16.544046 20.08594 3.722817 16.544046     1    -1       FALSE     NA grey85
-      30 16.599084 20.00093 3.730000 16.599084     1    -1       FALSE     NA grey85
-      31 16.616965 18.13470 3.733310 16.616965     1    -1       FALSE     NA grey85
-      32 16.803879 20.06006 3.741315 16.803879     1    -1       FALSE     NA grey85
-      33 17.162450 20.00961 3.770000 17.162450     1    -1       FALSE     NA grey85
-      34 18.667187 24.27050 3.840154 18.667187     1    -1       FALSE     NA grey85
-      35 19.008088 25.02008 3.850000 19.008088     1    -1       FALSE     NA grey85
-      36 19.378954 26.01404 3.881710 19.378954     1    -1       FALSE     NA grey85
-      37 18.396800 19.65939 3.885644 18.396800     1    -1       FALSE     NA grey85
-      38 19.013374 25.87642 3.900000 19.013374     1    -1       FALSE     NA grey85
-      39 19.415683 25.84309 3.920000 19.415683     1    -1       FALSE     NA grey85
-      40 19.424466 20.49521 3.930123 19.424466     1    -1       FALSE     NA grey85
-      41 19.459771 20.51271 3.930942 19.459771     1    -1       FALSE     NA grey85
-      42 19.427374 25.97540 3.932607 19.427374     1    -1       FALSE     NA grey85
-      43 19.607289 21.69739 4.061005 19.607289     1    -1       FALSE     NA grey85
-      44 19.586893 21.66138 4.080000 19.586893     1    -1       FALSE     NA grey85
-      45 20.443617 22.61150 4.097758 20.443617     1    -1       FALSE     NA grey85
-      46 20.696405 23.29734 4.108527 20.696405     1    -1       FALSE     NA grey85
-      47 22.426175 23.41603 4.110000 22.426175     1    -1       FALSE     NA grey85
-      48 20.280540 29.09436 4.209875 20.280540     1    -1       FALSE     NA grey85
-      49 19.571320 21.74563 4.210074 19.571320     1    -1       FALSE     NA grey85
-      50 19.601513 29.61142 4.220000 19.601513     1    -1       FALSE     NA grey85
-      51 19.234662 19.64437 4.419910 19.234662     1    -1       FALSE     NA grey85
-      52 19.293683 21.50767 4.430000 19.293683     1    -1       FALSE     NA grey85
-      53  2.698821 66.31183 4.930000  2.698821     1    -1       FALSE     NA grey85
-      54 20.006934 70.79007 4.978502 20.006934     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
+              ymin     ymax        x         y PANEL group flipped_aes colour
+      1   9.598103 18.73424 2.743533  9.598103     1    -1       FALSE     NA
+      2   9.560812 18.63745 2.760000  9.560812     1    -1       FALSE     NA
+      3   9.580387 18.61635 2.783996  9.580387     1    -1       FALSE     NA
+      4  17.554833 18.94331 2.923208 17.554833     1    -1       FALSE     NA
+      5  13.328473 18.95636 2.930000 13.328473     1    -1       FALSE     NA
+      6  14.612750 18.95575 3.000000 14.612750     1    -1       FALSE     NA
+      7   9.551757 17.64735 3.016190  9.551757     1    -1       FALSE     NA
+      8   9.618805 15.86816 3.050141  9.618805     1    -1       FALSE     NA
+      9  10.127576 19.08798 3.051947 10.127576     1    -1       FALSE     NA
+      10 16.354657 19.16263 3.056934 16.354657     1    -1       FALSE     NA
+      11 10.255826 19.33909 3.070000 10.255826     1    -1       FALSE     NA
+      12 10.094683 19.49505 3.080000 10.094683     1    -1       FALSE     NA
+      13 10.332779 19.49049 3.081483 10.332779     1    -1       FALSE     NA
+      14 10.008027 19.43662 3.084488 10.008027     1    -1       FALSE     NA
+      15 19.033833 19.12314 3.131865 19.033833     1    -1       FALSE     NA
+      16 10.177945 19.04117 3.150000 10.177945     1    -1       FALSE     NA
+      17 17.363495 19.69406 3.175717 17.363495     1    -1       FALSE     NA
+      18 19.259512 19.83920 3.210000 19.259512     1    -1       FALSE     NA
+      19 19.712433 19.98897 3.229851 19.712433     1    -1       FALSE     NA
+      20 10.009360 17.03261 3.230000 10.009360     1    -1       FALSE     NA
+      21 10.443411 19.96741 3.235577 10.443411     1    -1       FALSE     NA
+      22 14.571452 18.74419 3.528697 14.571452     1    -1       FALSE     NA
+      23 14.904460 19.61985 3.540000 14.904460     1    -1       FALSE     NA
+      24 16.650442 19.77274 3.620000 16.650442     1    -1       FALSE     NA
+      25 17.843861 19.95628 3.646766 17.843861     1    -1       FALSE     NA
+      26 20.170004 20.17000 3.690000 20.170004     1    -1       FALSE     NA
+      27 16.977345 20.14121 3.700000 16.977345     1    -1       FALSE     NA
+      28 16.579813 20.08938 3.720531 16.579813     1    -1       FALSE     NA
+      29 16.544046 20.08594 3.722817 16.544046     1    -1       FALSE     NA
+      30 16.599084 20.00093 3.730000 16.599084     1    -1       FALSE     NA
+      31 16.616965 18.13470 3.733310 16.616965     1    -1       FALSE     NA
+      32 16.803879 20.06006 3.741315 16.803879     1    -1       FALSE     NA
+      33 17.162450 20.00961 3.770000 17.162450     1    -1       FALSE     NA
+      34 18.667187 24.27050 3.840154 18.667187     1    -1       FALSE     NA
+      35 19.008088 25.02008 3.850000 19.008088     1    -1       FALSE     NA
+      36 19.378954 26.01404 3.881710 19.378954     1    -1       FALSE     NA
+      37 18.396800 19.65939 3.885644 18.396800     1    -1       FALSE     NA
+      38 19.013374 25.87642 3.900000 19.013374     1    -1       FALSE     NA
+      39 19.415683 25.84309 3.920000 19.415683     1    -1       FALSE     NA
+      40 19.424466 20.49521 3.930123 19.424466     1    -1       FALSE     NA
+      41 19.459771 20.51271 3.930942 19.459771     1    -1       FALSE     NA
+      42 19.427374 25.97540 3.932607 19.427374     1    -1       FALSE     NA
+      43 19.607289 21.69739 4.061005 19.607289     1    -1       FALSE     NA
+      44 19.586893 21.66138 4.080000 19.586893     1    -1       FALSE     NA
+      45 20.443617 22.61150 4.097758 20.443617     1    -1       FALSE     NA
+      46 20.696405 23.29734 4.108527 20.696405     1    -1       FALSE     NA
+      47 22.426175 23.41603 4.110000 22.426175     1    -1       FALSE     NA
+      48 20.280540 29.09436 4.209875 20.280540     1    -1       FALSE     NA
+      49 19.571320 21.74563 4.210074 19.571320     1    -1       FALSE     NA
+      50 19.601513 29.61142 4.220000 19.601513     1    -1       FALSE     NA
+      51 19.234662 19.64437 4.419910 19.234662     1    -1       FALSE     NA
+      52 19.293683 21.50767 4.430000 19.293683     1    -1       FALSE     NA
+      53  2.698821 66.31183 4.930000  2.698821     1    -1       FALSE     NA
+      54 20.006934 70.79007 4.978502 20.006934     1    -1       FALSE     NA
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
       
       $ale$plots$drat[[3]]
                 x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -4823,12 +4823,12 @@
       54 4.978502 39.76942     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$drat[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -4900,256 +4900,256 @@
       
       $ale$plots$wt
       $ale$plots$wt[[1]]
-                x         y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 14.068940     1    -1     NA lightgray       0.5        1    NA
-      2  1.513000 13.152311     1    -1     NA lightgray       0.5        1    NA
-      3  1.615000 18.729496     1    -1     NA lightgray       0.5        1    NA
-      4  1.630889  8.508619     1    -1     NA lightgray       0.5        1    NA
-      5  1.830597 17.387439     1    -1     NA lightgray       0.5        1    NA
-      6  1.835000 12.681322     1    -1     NA lightgray       0.5        1    NA
-      7  1.925991  7.490877     1    -1     NA lightgray       0.5        1    NA
-      8  1.935000 17.837054     1    -1     NA lightgray       0.5        1    NA
-      9  2.135126  8.783430     1    -1     NA lightgray       0.5        1    NA
-      10 2.140000 19.965792     1    -1     NA lightgray       0.5        1    NA
-      11 2.200000 11.722639     1    -1     NA lightgray       0.5        1    NA
-      12 2.209575 18.093929     1    -1     NA lightgray       0.5        1    NA
-      13 2.314067 16.314671     1    -1     NA lightgray       0.5        1    NA
-      14 2.320000 16.814437     1    -1     NA lightgray       0.5        1    NA
-      15 2.465000 18.784031     1    -1     NA lightgray       0.5        1    NA
-      16 2.478678 18.157612     1    -1     NA lightgray       0.5        1    NA
-      17 2.620000 19.134445     1    -1     NA lightgray       0.5        1    NA
-      18 2.640787 19.499233     1    -1     NA lightgray       0.5        1    NA
-      19 2.770000 18.788831     1    -1     NA lightgray       0.5        1    NA
-      20 2.779004 18.927051     1    -1     NA lightgray       0.5        1    NA
-      21 2.780000 18.838820     1    -1     NA lightgray       0.5        1    NA
-      22 2.790481 20.011613     1    -1     NA lightgray       0.5        1    NA
-      23 2.861517 19.867214     1    -1     NA lightgray       0.5        1    NA
-      24 2.875000 19.162166     1    -1     NA lightgray       0.5        1    NA
-      25 3.150000 20.678815     1    -1     NA lightgray       0.5        1    NA
-      26 3.160130 20.837086     1    -1     NA lightgray       0.5        1    NA
-      27 3.162543 21.021614     1    -1     NA lightgray       0.5        1    NA
-      28 3.170000 18.943921     1    -1     NA lightgray       0.5        1    NA
-      29 3.190000 19.070058     1    -1     NA lightgray       0.5        1    NA
-      30 3.215000 22.342168     1    -1     NA lightgray       0.5        1    NA
-      31 3.218370 20.263163     1    -1     NA lightgray       0.5        1    NA
-      32 3.219684 19.023280     1    -1     NA lightgray       0.5        1    NA
-      33 3.409851 21.033200     1    -1     NA lightgray       0.5        1    NA
-      34 3.415224 22.844428     1    -1     NA lightgray       0.5        1    NA
-      35 3.435000 21.822537     1    -1     NA lightgray       0.5        1    NA
-      36 3.439356 20.711080     1    -1     NA lightgray       0.5        1    NA
-      37 3.440000 20.815324     1    -1     NA lightgray       0.5        1    NA
-      38 3.448883 20.453196     1    -1     NA lightgray       0.5        1    NA
-      39 3.460000 20.443718     1    -1     NA lightgray       0.5        1    NA
-      40 3.468085 21.196175     1    -1     NA lightgray       0.5        1    NA
-      41 3.520000 18.644354     1    -1     NA lightgray       0.5        1    NA
-      42 3.550603 20.946949     1    -1     NA lightgray       0.5        1    NA
-      43 3.558601 19.104161     1    -1     NA lightgray       0.5        1    NA
-      44 3.570000 20.458625     1    -1     NA lightgray       0.5        1    NA
-      45 3.598445 20.787114     1    -1     NA lightgray       0.5        1    NA
-      46 3.705871 18.572472     1    -1     NA lightgray       0.5        1    NA
-      47 3.730000 18.795801     1    -1     NA lightgray       0.5        1    NA
-      48 3.780000 20.564072     1    -1     NA lightgray       0.5        1    NA
-      49 3.794139 20.602817     1    -1     NA lightgray       0.5        1    NA
-      50 3.816205 21.693274     1    -1     NA lightgray       0.5        1    NA
-      51 3.840000 19.306522     1    -1     NA lightgray       0.5        1    NA
-      52 3.845000 21.028221     1    -1     NA lightgray       0.5        1    NA
-      53 3.851649 21.777101     1    -1     NA lightgray       0.5        1    NA
-      54 4.046066 20.994717     1    -1     NA lightgray       0.5        1    NA
-      55 4.070000 19.977786     1    -1     NA lightgray       0.5        1    NA
-      56 5.237831 17.601493     1    -1     NA lightgray       0.5        1    NA
-      57 5.250000 18.576603     1    -1     NA lightgray       0.5        1    NA
-      58 5.344754 24.309854     1    -1     NA lightgray       0.5        1    NA
-      59 5.345000 17.276251     1    -1     NA lightgray       0.5        1    NA
-      60 5.424000 20.334920     1    -1     NA lightgray       0.5        1    NA
-      61 5.453272 20.733524     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
-      60 -Inf  Inf 19.04095 19.28336
-      61 -Inf  Inf 19.04095 19.28336
+                x         y PANEL group colour linewidth linetype alpha xmin xmax
+      1  1.498275 14.068940     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  1.513000 13.152311     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  1.615000 18.729496     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  1.630889  8.508619     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  1.830597 17.387439     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  1.835000 12.681322     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  1.925991  7.490877     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  1.935000 17.837054     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  2.135126  8.783430     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 2.140000 19.965792     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 2.200000 11.722639     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 2.209575 18.093929     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 2.314067 16.314671     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 2.320000 16.814437     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 2.465000 18.784031     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 2.478678 18.157612     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 2.620000 19.134445     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 2.640787 19.499233     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 2.770000 18.788831     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 2.779004 18.927051     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 2.780000 18.838820     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 2.790481 20.011613     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 2.861517 19.867214     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 2.875000 19.162166     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.150000 20.678815     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.160130 20.837086     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.162543 21.021614     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.170000 18.943921     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.190000 19.070058     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.215000 22.342168     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.218370 20.263163     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.219684 19.023280     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.409851 21.033200     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.415224 22.844428     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.435000 21.822537     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.439356 20.711080     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.440000 20.815324     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.448883 20.453196     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.460000 20.443718     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.468085 21.196175     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.520000 18.644354     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.550603 20.946949     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 3.558601 19.104161     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 3.570000 20.458625     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 3.598445 20.787114     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 3.705871 18.572472     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 3.730000 18.795801     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 3.780000 20.564072     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 3.794139 20.602817     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 3.816205 21.693274     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 3.840000 19.306522     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 3.845000 21.028221     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 3.851649 21.777101     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.046066 20.994717     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 4.070000 19.977786     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 5.237831 17.601493     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 5.250000 18.576603     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 5.344754 24.309854     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 5.345000 17.276251     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 5.424000 20.334920     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 5.453272 20.733524     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
       
       $ale$plots$wt[[2]]
-              ymin     ymax        x         y PANEL group flipped_aes colour   fill
-      1  -7.439191 27.93567 1.498275 -7.439191     1    -1       FALSE     NA grey85
-      2  -7.471630 27.35263 1.513000 -7.471630     1    -1       FALSE     NA grey85
-      3  14.631369 21.97997 1.615000 14.631369     1    -1       FALSE     NA grey85
-      4  -7.447913 19.42842 1.630889 -7.447913     1    -1       FALSE     NA grey85
-      5  14.021414 22.50529 1.830597 14.021414     1    -1       FALSE     NA grey85
-      6  -6.241398 22.66975 1.835000 -6.241398     1    -1       FALSE     NA grey85
-      7  -5.041718 15.59980 1.925991 -5.041718     1    -1       FALSE     NA grey85
-      8  12.911638 22.94932 1.935000 12.911638     1    -1       FALSE     NA grey85
-      9   1.274968 16.29189 2.135126  1.274968     1    -1       FALSE     NA grey85
-      10 16.871699 23.05989 2.140000 16.871699     1    -1       FALSE     NA grey85
-      11  4.308065 19.13721 2.200000  4.308065     1    -1       FALSE     NA grey85
-      12 13.256352 22.87212 2.209575 13.256352     1    -1       FALSE     NA grey85
-      13 10.603832 21.34895 2.314067 10.603832     1    -1       FALSE     NA grey85
-      14 16.405400 17.22347 2.320000 16.405400     1    -1       FALSE     NA grey85
-      15 18.047190 19.18248 2.465000 18.047190     1    -1       FALSE     NA grey85
-      16 17.348691 18.96653 2.478678 17.348691     1    -1       FALSE     NA grey85
-      17 17.972968 21.24859 2.620000 17.972968     1    -1       FALSE     NA grey85
-      18 18.069923 21.50526 2.640787 18.069923     1    -1       FALSE     NA grey85
-      19 18.545211 19.03245 2.770000 18.545211     1    -1       FALSE     NA grey85
-      20 18.542139 19.15718 2.779004 18.542139     1    -1       FALSE     NA grey85
-      21 18.526510 19.15113 2.780000 18.526510     1    -1       FALSE     NA grey85
-      22 19.185644 21.48671 2.790481 19.185644     1    -1       FALSE     NA grey85
-      23 18.414941 21.46941 2.861517 18.414941     1    -1       FALSE     NA grey85
-      24 18.518450 19.73181 2.875000 18.518450     1    -1       FALSE     NA grey85
-      25 17.970727 24.90359 3.150000 17.970727     1    -1       FALSE     NA grey85
-      26 18.454674 25.03999 3.160130 18.454674     1    -1       FALSE     NA grey85
-      27 18.443831 25.14453 3.162543 18.443831     1    -1       FALSE     NA grey85
-      28 17.893715 20.23340 3.170000 17.893715     1    -1       FALSE     NA grey85
-      29 19.070058 19.07006 3.190000 19.070058     1    -1       FALSE     NA grey85
-      30 19.106489 25.57785 3.215000 19.106489     1    -1       FALSE     NA grey85
-      31 17.903139 25.23738 3.218370 17.903139     1    -1       FALSE     NA grey85
-      32 17.892751 20.24989 3.219684 17.892751     1    -1       FALSE     NA grey85
-      33 17.509174 26.02887 3.409851 17.509174     1    -1       FALSE     NA grey85
-      34 19.501790 26.18707 3.415224 19.501790     1    -1       FALSE     NA grey85
-      35 17.593283 26.05179 3.435000 17.593283     1    -1       FALSE     NA grey85
-      36 17.476956 25.80728 3.439356 17.476956     1    -1       FALSE     NA grey85
-      37 17.507223 25.80417 3.440000 17.507223     1    -1       FALSE     NA grey85
-      38 17.457132 25.68699 3.448883 17.457132     1    -1       FALSE     NA grey85
-      39 17.434456 25.62930 3.460000 17.434456     1    -1       FALSE     NA grey85
-      40 18.956403 25.65064 3.468085 18.956403     1    -1       FALSE     NA grey85
-      41 17.291487 19.65425 3.520000 17.291487     1    -1       FALSE     NA grey85
-      42 17.265360 25.58398 3.550603 17.265360     1    -1       FALSE     NA grey85
-      43 17.250191 20.31683 3.558601 17.250191     1    -1       FALSE     NA grey85
-      44 17.290308 25.28040 3.570000 17.290308     1    -1       FALSE     NA grey85
-      45 17.249939 25.31139 3.598445 17.249939     1    -1       FALSE     NA grey85
-      46 16.873667 20.27128 3.705871 16.873667     1    -1       FALSE     NA grey85
-      47 16.860659 20.27230 3.730000 16.860659     1    -1       FALSE     NA grey85
-      48 16.934628 25.40659 3.780000 16.934628     1    -1       FALSE     NA grey85
-      49 16.918002 25.49991 3.794139 16.918002     1    -1       FALSE     NA grey85
-      50 20.042132 25.80594 3.816205 20.042132     1    -1       FALSE     NA grey85
-      51 16.788296 20.50662 3.840000 16.788296     1    -1       FALSE     NA grey85
-      52 16.710634 25.98578 3.845000 16.710634     1    -1       FALSE     NA grey85
-      53 19.918408 25.91141 3.851649 19.918408     1    -1       FALSE     NA grey85
-      54 16.337844 27.33942 4.046066 16.337844     1    -1       FALSE     NA grey85
-      55 18.499943 21.45563 4.070000 18.499943     1    -1       FALSE     NA grey85
-      56  8.909287 26.29370 5.237831  8.909287     1    -1       FALSE     NA grey85
-      57  8.893942 26.36412 5.250000  8.893942     1    -1       FALSE     NA grey85
-      58 21.536752 27.08296 5.344754 21.536752     1    -1       FALSE     NA grey85
-      59 16.147989 18.40451 5.345000 16.147989     1    -1       FALSE     NA grey85
-      60 18.802911 21.86693 5.424000 18.802911     1    -1       FALSE     NA grey85
-      61 16.162998 26.93259 5.453272 16.162998     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
-      55       0.5        1   0.5
-      56       0.5        1   0.5
-      57       0.5        1   0.5
-      58       0.5        1   0.5
-      59       0.5        1   0.5
-      60       0.5        1   0.5
-      61       0.5        1   0.5
+              ymin     ymax        x         y PANEL group flipped_aes colour
+      1  -7.439191 27.93567 1.498275 -7.439191     1    -1       FALSE     NA
+      2  -7.471630 27.35263 1.513000 -7.471630     1    -1       FALSE     NA
+      3  14.631369 21.97997 1.615000 14.631369     1    -1       FALSE     NA
+      4  -7.447913 19.42842 1.630889 -7.447913     1    -1       FALSE     NA
+      5  14.021414 22.50529 1.830597 14.021414     1    -1       FALSE     NA
+      6  -6.241398 22.66975 1.835000 -6.241398     1    -1       FALSE     NA
+      7  -5.041718 15.59980 1.925991 -5.041718     1    -1       FALSE     NA
+      8  12.911638 22.94932 1.935000 12.911638     1    -1       FALSE     NA
+      9   1.274968 16.29189 2.135126  1.274968     1    -1       FALSE     NA
+      10 16.871699 23.05989 2.140000 16.871699     1    -1       FALSE     NA
+      11  4.308065 19.13721 2.200000  4.308065     1    -1       FALSE     NA
+      12 13.256352 22.87212 2.209575 13.256352     1    -1       FALSE     NA
+      13 10.603832 21.34895 2.314067 10.603832     1    -1       FALSE     NA
+      14 16.405400 17.22347 2.320000 16.405400     1    -1       FALSE     NA
+      15 18.047190 19.18248 2.465000 18.047190     1    -1       FALSE     NA
+      16 17.348691 18.96653 2.478678 17.348691     1    -1       FALSE     NA
+      17 17.972968 21.24859 2.620000 17.972968     1    -1       FALSE     NA
+      18 18.069923 21.50526 2.640787 18.069923     1    -1       FALSE     NA
+      19 18.545211 19.03245 2.770000 18.545211     1    -1       FALSE     NA
+      20 18.542139 19.15718 2.779004 18.542139     1    -1       FALSE     NA
+      21 18.526510 19.15113 2.780000 18.526510     1    -1       FALSE     NA
+      22 19.185644 21.48671 2.790481 19.185644     1    -1       FALSE     NA
+      23 18.414941 21.46941 2.861517 18.414941     1    -1       FALSE     NA
+      24 18.518450 19.73181 2.875000 18.518450     1    -1       FALSE     NA
+      25 17.970727 24.90359 3.150000 17.970727     1    -1       FALSE     NA
+      26 18.454674 25.03999 3.160130 18.454674     1    -1       FALSE     NA
+      27 18.443831 25.14453 3.162543 18.443831     1    -1       FALSE     NA
+      28 17.893715 20.23340 3.170000 17.893715     1    -1       FALSE     NA
+      29 19.070058 19.07006 3.190000 19.070058     1    -1       FALSE     NA
+      30 19.106489 25.57785 3.215000 19.106489     1    -1       FALSE     NA
+      31 17.903139 25.23738 3.218370 17.903139     1    -1       FALSE     NA
+      32 17.892751 20.24989 3.219684 17.892751     1    -1       FALSE     NA
+      33 17.509174 26.02887 3.409851 17.509174     1    -1       FALSE     NA
+      34 19.501790 26.18707 3.415224 19.501790     1    -1       FALSE     NA
+      35 17.593283 26.05179 3.435000 17.593283     1    -1       FALSE     NA
+      36 17.476956 25.80728 3.439356 17.476956     1    -1       FALSE     NA
+      37 17.507223 25.80417 3.440000 17.507223     1    -1       FALSE     NA
+      38 17.457132 25.68699 3.448883 17.457132     1    -1       FALSE     NA
+      39 17.434456 25.62930 3.460000 17.434456     1    -1       FALSE     NA
+      40 18.956403 25.65064 3.468085 18.956403     1    -1       FALSE     NA
+      41 17.291487 19.65425 3.520000 17.291487     1    -1       FALSE     NA
+      42 17.265360 25.58398 3.550603 17.265360     1    -1       FALSE     NA
+      43 17.250191 20.31683 3.558601 17.250191     1    -1       FALSE     NA
+      44 17.290308 25.28040 3.570000 17.290308     1    -1       FALSE     NA
+      45 17.249939 25.31139 3.598445 17.249939     1    -1       FALSE     NA
+      46 16.873667 20.27128 3.705871 16.873667     1    -1       FALSE     NA
+      47 16.860659 20.27230 3.730000 16.860659     1    -1       FALSE     NA
+      48 16.934628 25.40659 3.780000 16.934628     1    -1       FALSE     NA
+      49 16.918002 25.49991 3.794139 16.918002     1    -1       FALSE     NA
+      50 20.042132 25.80594 3.816205 20.042132     1    -1       FALSE     NA
+      51 16.788296 20.50662 3.840000 16.788296     1    -1       FALSE     NA
+      52 16.710634 25.98578 3.845000 16.710634     1    -1       FALSE     NA
+      53 19.918408 25.91141 3.851649 19.918408     1    -1       FALSE     NA
+      54 16.337844 27.33942 4.046066 16.337844     1    -1       FALSE     NA
+      55 18.499943 21.45563 4.070000 18.499943     1    -1       FALSE     NA
+      56  8.909287 26.29370 5.237831  8.909287     1    -1       FALSE     NA
+      57  8.893942 26.36412 5.250000  8.893942     1    -1       FALSE     NA
+      58 21.536752 27.08296 5.344754 21.536752     1    -1       FALSE     NA
+      59 16.147989 18.40451 5.345000 16.147989     1    -1       FALSE     NA
+      60 18.802911 21.86693 5.424000 18.802911     1    -1       FALSE     NA
+      61 16.162998 26.93259 5.453272 16.162998     1    -1       FALSE     NA
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
+      55       0.5        1 grey85   0.5
+      56       0.5        1 grey85   0.5
+      57       0.5        1 grey85   0.5
+      58       0.5        1 grey85   0.5
+      59       0.5        1 grey85   0.5
+      60       0.5        1 grey85   0.5
+      61       0.5        1 grey85   0.5
       
       $ale$plots$wt[[3]]
                 x         y PANEL group flipped_aes colour linewidth linetype alpha
@@ -5216,12 +5216,12 @@
       61 5.453272 20.733524     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$wt[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -5293,260 +5293,260 @@
       
       $ale$plots$qsec
       $ale$plots$qsec[[1]]
-                x        y PANEL group colour      fill linewidth linetype alpha xmin
-      1  14.46589 20.54415     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  14.50000 20.62965     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  14.55338 22.15049     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  14.60000 19.96767     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  15.41000 21.71623     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  15.45675 21.63241     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  15.50000 19.71233     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  15.61460 21.33064     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  15.84000 20.56407     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 15.96621 20.28918     1    -1     NA lightgray       0.5        1    NA -Inf
-      11 16.46000 20.26264     1    -1     NA lightgray       0.5        1    NA -Inf
-      12 16.59059 19.66408     1    -1     NA lightgray       0.5        1    NA -Inf
-      13 16.66196 19.93716     1    -1     NA lightgray       0.5        1    NA -Inf
-      14 16.70000 20.03456     1    -1     NA lightgray       0.5        1    NA -Inf
-      15 16.73553 20.19055     1    -1     NA lightgray       0.5        1    NA -Inf
-      16 16.87000 19.52694     1    -1     NA lightgray       0.5        1    NA -Inf
-      17 16.90000 20.08586     1    -1     NA lightgray       0.5        1    NA -Inf
-      18 16.92231 20.24675     1    -1     NA lightgray       0.5        1    NA -Inf
-      19 16.94018 20.24276     1    -1     NA lightgray       0.5        1    NA -Inf
-      20 17.01667 19.36573     1    -1     NA lightgray       0.5        1    NA -Inf
-      21 17.02000 20.31861     1    -1     NA lightgray       0.5        1    NA -Inf
-      22 17.05000 19.84047     1    -1     NA lightgray       0.5        1    NA -Inf
-      23 17.15895 19.77218     1    -1     NA lightgray       0.5        1    NA -Inf
-      24 17.20040 19.10642     1    -1     NA lightgray       0.5        1    NA -Inf
-      25 17.29768 19.38431     1    -1     NA lightgray       0.5        1    NA -Inf
-      26 17.30000 19.72461     1    -1     NA lightgray       0.5        1    NA -Inf
-      27 17.40000 18.75326     1    -1     NA lightgray       0.5        1    NA -Inf
-      28 17.41920 18.27077     1    -1     NA lightgray       0.5        1    NA -Inf
-      29 17.42000 19.59741     1    -1     NA lightgray       0.5        1    NA -Inf
-      30 17.48615 19.34046     1    -1     NA lightgray       0.5        1    NA -Inf
-      31 17.60000 18.70437     1    -1     NA lightgray       0.5        1    NA -Inf
-      32 17.82000 17.45202     1    -1     NA lightgray       0.5        1    NA -Inf
-      33 17.91617 17.68660     1    -1     NA lightgray       0.5        1    NA -Inf
-      34 17.93832 18.88078     1    -1     NA lightgray       0.5        1    NA -Inf
-      35 17.98000 17.94096     1    -1     NA lightgray       0.5        1    NA -Inf
-      36 18.00000 17.89544     1    -1     NA lightgray       0.5        1    NA -Inf
-      37 18.06733 17.66323     1    -1     NA lightgray       0.5        1    NA -Inf
-      38 18.30000 17.50267     1    -1     NA lightgray       0.5        1    NA -Inf
-      39 18.34726 17.38585     1    -1     NA lightgray       0.5        1    NA -Inf
-      40 18.52000 15.98096     1    -1     NA lightgray       0.5        1    NA -Inf
-      41 18.56240 16.76741     1    -1     NA lightgray       0.5        1    NA -Inf
-      42 18.59333 16.01711     1    -1     NA lightgray       0.5        1    NA -Inf
-      43 18.60000 15.77190     1    -1     NA lightgray       0.5        1    NA -Inf
-      44 18.61000 15.65620     1    -1     NA lightgray       0.5        1    NA -Inf
-      45 18.70220 16.86338     1    -1     NA lightgray       0.5        1    NA -Inf
-      46 18.73436 16.80395     1    -1     NA lightgray       0.5        1    NA -Inf
-      47 18.81201 16.45957     1    -1     NA lightgray       0.5        1    NA -Inf
-      48 18.90000 16.00333     1    -1     NA lightgray       0.5        1    NA -Inf
-      49 19.44000 18.12431     1    -1     NA lightgray       0.5        1    NA -Inf
-      50 19.46833 16.84465     1    -1     NA lightgray       0.5        1    NA -Inf
-      51 19.47000 16.91017     1    -1     NA lightgray       0.5        1    NA -Inf
-      52 19.55474 17.06571     1    -1     NA lightgray       0.5        1    NA -Inf
-      53 19.85225 18.21894     1    -1     NA lightgray       0.5        1    NA -Inf
-      54 19.90000 18.06364     1    -1     NA lightgray       0.5        1    NA -Inf
-      55 20.00000 20.34244     1    -1     NA lightgray       0.5        1    NA -Inf
-      56 20.01000 18.51862     1    -1     NA lightgray       0.5        1    NA -Inf
-      57 20.09936 18.08932     1    -1     NA lightgray       0.5        1    NA -Inf
-      58 20.12103 20.16017     1    -1     NA lightgray       0.5        1    NA -Inf
-      59 20.17787 18.63634     1    -1     NA lightgray       0.5        1    NA -Inf
-      60 20.22000 19.50697     1    -1     NA lightgray       0.5        1    NA -Inf
-      61 22.90000 23.79427     1    -1     NA lightgray       0.5        1    NA -Inf
-      62 22.97365 22.21253     1    -1     NA lightgray       0.5        1    NA -Inf
-         xmax     ymin     ymax
-      1   Inf 19.04095 19.28336
-      2   Inf 19.04095 19.28336
-      3   Inf 19.04095 19.28336
-      4   Inf 19.04095 19.28336
-      5   Inf 19.04095 19.28336
-      6   Inf 19.04095 19.28336
-      7   Inf 19.04095 19.28336
-      8   Inf 19.04095 19.28336
-      9   Inf 19.04095 19.28336
-      10  Inf 19.04095 19.28336
-      11  Inf 19.04095 19.28336
-      12  Inf 19.04095 19.28336
-      13  Inf 19.04095 19.28336
-      14  Inf 19.04095 19.28336
-      15  Inf 19.04095 19.28336
-      16  Inf 19.04095 19.28336
-      17  Inf 19.04095 19.28336
-      18  Inf 19.04095 19.28336
-      19  Inf 19.04095 19.28336
-      20  Inf 19.04095 19.28336
-      21  Inf 19.04095 19.28336
-      22  Inf 19.04095 19.28336
-      23  Inf 19.04095 19.28336
-      24  Inf 19.04095 19.28336
-      25  Inf 19.04095 19.28336
-      26  Inf 19.04095 19.28336
-      27  Inf 19.04095 19.28336
-      28  Inf 19.04095 19.28336
-      29  Inf 19.04095 19.28336
-      30  Inf 19.04095 19.28336
-      31  Inf 19.04095 19.28336
-      32  Inf 19.04095 19.28336
-      33  Inf 19.04095 19.28336
-      34  Inf 19.04095 19.28336
-      35  Inf 19.04095 19.28336
-      36  Inf 19.04095 19.28336
-      37  Inf 19.04095 19.28336
-      38  Inf 19.04095 19.28336
-      39  Inf 19.04095 19.28336
-      40  Inf 19.04095 19.28336
-      41  Inf 19.04095 19.28336
-      42  Inf 19.04095 19.28336
-      43  Inf 19.04095 19.28336
-      44  Inf 19.04095 19.28336
-      45  Inf 19.04095 19.28336
-      46  Inf 19.04095 19.28336
-      47  Inf 19.04095 19.28336
-      48  Inf 19.04095 19.28336
-      49  Inf 19.04095 19.28336
-      50  Inf 19.04095 19.28336
-      51  Inf 19.04095 19.28336
-      52  Inf 19.04095 19.28336
-      53  Inf 19.04095 19.28336
-      54  Inf 19.04095 19.28336
-      55  Inf 19.04095 19.28336
-      56  Inf 19.04095 19.28336
-      57  Inf 19.04095 19.28336
-      58  Inf 19.04095 19.28336
-      59  Inf 19.04095 19.28336
-      60  Inf 19.04095 19.28336
-      61  Inf 19.04095 19.28336
-      62  Inf 19.04095 19.28336
+                x        y PANEL group colour linewidth linetype alpha xmin xmax
+      1  14.46589 20.54415     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  14.50000 20.62965     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  14.55338 22.15049     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  14.60000 19.96767     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  15.41000 21.71623     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  15.45675 21.63241     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  15.50000 19.71233     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  15.61460 21.33064     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  15.84000 20.56407     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 15.96621 20.28918     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 16.46000 20.26264     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 16.59059 19.66408     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 16.66196 19.93716     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 16.70000 20.03456     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 16.73553 20.19055     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 16.87000 19.52694     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 16.90000 20.08586     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 16.92231 20.24675     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 16.94018 20.24276     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 17.01667 19.36573     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 17.02000 20.31861     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 17.05000 19.84047     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 17.15895 19.77218     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 17.20040 19.10642     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 17.29768 19.38431     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 17.30000 19.72461     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 17.40000 18.75326     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 17.41920 18.27077     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 17.42000 19.59741     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 17.48615 19.34046     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 17.60000 18.70437     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 17.82000 17.45202     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 17.91617 17.68660     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 17.93832 18.88078     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 17.98000 17.94096     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 18.00000 17.89544     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 18.06733 17.66323     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 18.30000 17.50267     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 18.34726 17.38585     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 18.52000 15.98096     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 18.56240 16.76741     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 18.59333 16.01711     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 18.60000 15.77190     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 18.61000 15.65620     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 18.70220 16.86338     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 18.73436 16.80395     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 18.81201 16.45957     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 18.90000 16.00333     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 19.44000 18.12431     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 19.46833 16.84465     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 19.47000 16.91017     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 19.55474 17.06571     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 19.85225 18.21894     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 19.90000 18.06364     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 20.00000 20.34244     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 20.01000 18.51862     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 20.09936 18.08932     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 20.12103 20.16017     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 20.17787 18.63634     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 20.22000 19.50697     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 22.90000 23.79427     1    -1     NA       0.5        1    NA -Inf  Inf
+      62 22.97365 22.21253     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
+      62 19.04095 19.28336 lightgray
       
       $ale$plots$qsec[[2]]
-             ymin     ymax        x        y PANEL group flipped_aes colour   fill
-      1  14.10293 26.47695 14.46589 14.10293     1    -1       FALSE     NA grey85
-      2  14.26352 26.40324 14.50000 14.26352     1    -1       FALSE     NA grey85
-      3  14.75160 26.30476 14.55338 14.75160     1    -1       FALSE     NA grey85
-      4  14.62375 25.58499 14.60000 14.62375     1    -1       FALSE     NA grey85
-      5  17.76159 24.41588 15.41000 17.76159     1    -1       FALSE     NA grey85
-      6  17.78096 24.30157 15.45675 17.78096     1    -1       FALSE     NA grey85
-      7  17.66788 21.75678 15.50000 17.66788     1    -1       FALSE     NA grey85
-      8  18.09725 24.04756 15.61460 18.09725     1    -1       FALSE     NA grey85
-      9  18.69428 21.82298 15.84000 18.69428     1    -1       FALSE     NA grey85
-      10 17.91859 23.55571 15.96621 17.91859     1    -1       FALSE     NA grey85
-      11 18.97324 21.91443 16.46000 18.97324     1    -1       FALSE     NA grey85
-      12 19.14034 20.14475 16.59059 19.14034     1    -1       FALSE     NA grey85
-      13 19.65021 20.22411 16.66196 19.65021     1    -1       FALSE     NA grey85
-      14 19.59943 20.46969 16.70000 19.59943     1    -1       FALSE     NA grey85
-      15 19.17095 21.78870 16.73553 19.17095     1    -1       FALSE     NA grey85
-      16 19.15484 20.11880 16.87000 19.15484     1    -1       FALSE     NA grey85
-      17 19.06306 21.65883 16.90000 19.06306     1    -1       FALSE     NA grey85
-      18 19.04902 21.56548 16.92231 19.04902     1    -1       FALSE     NA grey85
-      19 18.96185 21.52406 16.94018 18.96185     1    -1       FALSE     NA grey85
-      20 18.61390 20.18957 17.01667 18.61390     1    -1       FALSE     NA grey85
-      21 19.32119 21.50225 17.02000 19.32119     1    -1       FALSE     NA grey85
-      22 19.30755 20.22459 17.05000 19.30755     1    -1       FALSE     NA grey85
-      23 18.23167 20.99889 17.15895 18.23167     1    -1       FALSE     NA grey85
-      24 18.01121 20.20164 17.20040 18.01121     1    -1       FALSE     NA grey85
-      25 17.78388 20.55757 17.29768 17.78388     1    -1       FALSE     NA grey85
-      26 19.14953 20.29969 17.30000 19.14953     1    -1       FALSE     NA grey85
-      27 17.49133 20.01519 17.40000 17.49133     1    -1       FALSE     NA grey85
-      28 17.44294 19.09860 17.41920 17.44294     1    -1       FALSE     NA grey85
-      29 19.14129 20.05353 17.42000 19.14129     1    -1       FALSE     NA grey85
-      30 18.96142 19.71949 17.48615 18.96142     1    -1       FALSE     NA grey85
-      31 18.39467 19.12401 17.60000 18.39467     1    -1       FALSE     NA grey85
-      32 16.89625 18.00779 17.82000 16.89625     1    -1       FALSE     NA grey85
-      33 17.44228 18.02730 17.91617 17.44228     1    -1       FALSE     NA grey85
-      34 17.50693 20.25464 17.93832 17.50693     1    -1       FALSE     NA grey85
-      35 16.70662 20.09213 17.98000 16.70662     1    -1       FALSE     NA grey85
-      36 16.63040 20.05694 18.00000 16.63040     1    -1       FALSE     NA grey85
-      37 16.35164 19.94079 18.06733 16.35164     1    -1       FALSE     NA grey85
-      38 16.13756 19.46582 18.30000 16.13756     1    -1       FALSE     NA grey85
-      39 16.30913 19.26067 18.34726 16.30913     1    -1       FALSE     NA grey85
-      40 15.61975 16.25561 18.52000 15.61975     1    -1       FALSE     NA grey85
-      41 15.52325 19.02093 18.56240 15.52325     1    -1       FALSE     NA grey85
-      42 15.45107 16.45739 18.59333 15.45107     1    -1       FALSE     NA grey85
-      43 15.41664 16.12716 18.60000 15.41664     1    -1       FALSE     NA grey85
-      44 15.38899 15.92340 18.61000 15.38899     1    -1       FALSE     NA grey85
-      45 15.79078 18.68124 18.70220 15.79078     1    -1       FALSE     NA grey85
-      46 15.76488 18.55055 18.73436 15.76488     1    -1       FALSE     NA grey85
-      47 15.26834 18.24531 18.81201 15.26834     1    -1       FALSE     NA grey85
-      48 15.17526 16.77919 18.90000 15.17526     1    -1       FALSE     NA grey85
-      49 17.40724 18.84139 19.44000 17.40724     1    -1       FALSE     NA grey85
-      50 15.19509 18.84175 19.46833 15.19509     1    -1       FALSE     NA grey85
-      51 16.47425 17.34609 19.47000 16.47425     1    -1       FALSE     NA grey85
-      52 15.28992 19.07136 19.55474 15.28992     1    -1       FALSE     NA grey85
-      53 15.69678 19.94061 19.85225 15.69678     1    -1       FALSE     NA grey85
-      54 15.76928 20.04206 19.90000 15.76928     1    -1       FALSE     NA grey85
-      55 20.34244 20.34244 20.00000 20.34244     1    -1       FALSE     NA grey85
-      56 17.44819 20.23657 20.01000 17.44819     1    -1       FALSE     NA grey85
-      57 15.87975 20.43012 20.09936 15.87975     1    -1       FALSE     NA grey85
-      58 19.70309 20.61726 20.12103 19.70309     1    -1       FALSE     NA grey85
-      59 16.02847 20.70461 20.17787 16.02847     1    -1       FALSE     NA grey85
-      60 17.77592 20.83562 20.22000 17.77592     1    -1       FALSE     NA grey85
-      61 20.01324 26.41229 22.90000 20.01324     1    -1       FALSE     NA grey85
-      62 19.76488 25.35180 22.97365 19.76488     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      11       0.5        1   0.5
-      12       0.5        1   0.5
-      13       0.5        1   0.5
-      14       0.5        1   0.5
-      15       0.5        1   0.5
-      16       0.5        1   0.5
-      17       0.5        1   0.5
-      18       0.5        1   0.5
-      19       0.5        1   0.5
-      20       0.5        1   0.5
-      21       0.5        1   0.5
-      22       0.5        1   0.5
-      23       0.5        1   0.5
-      24       0.5        1   0.5
-      25       0.5        1   0.5
-      26       0.5        1   0.5
-      27       0.5        1   0.5
-      28       0.5        1   0.5
-      29       0.5        1   0.5
-      30       0.5        1   0.5
-      31       0.5        1   0.5
-      32       0.5        1   0.5
-      33       0.5        1   0.5
-      34       0.5        1   0.5
-      35       0.5        1   0.5
-      36       0.5        1   0.5
-      37       0.5        1   0.5
-      38       0.5        1   0.5
-      39       0.5        1   0.5
-      40       0.5        1   0.5
-      41       0.5        1   0.5
-      42       0.5        1   0.5
-      43       0.5        1   0.5
-      44       0.5        1   0.5
-      45       0.5        1   0.5
-      46       0.5        1   0.5
-      47       0.5        1   0.5
-      48       0.5        1   0.5
-      49       0.5        1   0.5
-      50       0.5        1   0.5
-      51       0.5        1   0.5
-      52       0.5        1   0.5
-      53       0.5        1   0.5
-      54       0.5        1   0.5
-      55       0.5        1   0.5
-      56       0.5        1   0.5
-      57       0.5        1   0.5
-      58       0.5        1   0.5
-      59       0.5        1   0.5
-      60       0.5        1   0.5
-      61       0.5        1   0.5
-      62       0.5        1   0.5
+             ymin     ymax        x        y PANEL group flipped_aes colour linewidth
+      1  14.10293 26.47695 14.46589 14.10293     1    -1       FALSE     NA       0.5
+      2  14.26352 26.40324 14.50000 14.26352     1    -1       FALSE     NA       0.5
+      3  14.75160 26.30476 14.55338 14.75160     1    -1       FALSE     NA       0.5
+      4  14.62375 25.58499 14.60000 14.62375     1    -1       FALSE     NA       0.5
+      5  17.76159 24.41588 15.41000 17.76159     1    -1       FALSE     NA       0.5
+      6  17.78096 24.30157 15.45675 17.78096     1    -1       FALSE     NA       0.5
+      7  17.66788 21.75678 15.50000 17.66788     1    -1       FALSE     NA       0.5
+      8  18.09725 24.04756 15.61460 18.09725     1    -1       FALSE     NA       0.5
+      9  18.69428 21.82298 15.84000 18.69428     1    -1       FALSE     NA       0.5
+      10 17.91859 23.55571 15.96621 17.91859     1    -1       FALSE     NA       0.5
+      11 18.97324 21.91443 16.46000 18.97324     1    -1       FALSE     NA       0.5
+      12 19.14034 20.14475 16.59059 19.14034     1    -1       FALSE     NA       0.5
+      13 19.65021 20.22411 16.66196 19.65021     1    -1       FALSE     NA       0.5
+      14 19.59943 20.46969 16.70000 19.59943     1    -1       FALSE     NA       0.5
+      15 19.17095 21.78870 16.73553 19.17095     1    -1       FALSE     NA       0.5
+      16 19.15484 20.11880 16.87000 19.15484     1    -1       FALSE     NA       0.5
+      17 19.06306 21.65883 16.90000 19.06306     1    -1       FALSE     NA       0.5
+      18 19.04902 21.56548 16.92231 19.04902     1    -1       FALSE     NA       0.5
+      19 18.96185 21.52406 16.94018 18.96185     1    -1       FALSE     NA       0.5
+      20 18.61390 20.18957 17.01667 18.61390     1    -1       FALSE     NA       0.5
+      21 19.32119 21.50225 17.02000 19.32119     1    -1       FALSE     NA       0.5
+      22 19.30755 20.22459 17.05000 19.30755     1    -1       FALSE     NA       0.5
+      23 18.23167 20.99889 17.15895 18.23167     1    -1       FALSE     NA       0.5
+      24 18.01121 20.20164 17.20040 18.01121     1    -1       FALSE     NA       0.5
+      25 17.78388 20.55757 17.29768 17.78388     1    -1       FALSE     NA       0.5
+      26 19.14953 20.29969 17.30000 19.14953     1    -1       FALSE     NA       0.5
+      27 17.49133 20.01519 17.40000 17.49133     1    -1       FALSE     NA       0.5
+      28 17.44294 19.09860 17.41920 17.44294     1    -1       FALSE     NA       0.5
+      29 19.14129 20.05353 17.42000 19.14129     1    -1       FALSE     NA       0.5
+      30 18.96142 19.71949 17.48615 18.96142     1    -1       FALSE     NA       0.5
+      31 18.39467 19.12401 17.60000 18.39467     1    -1       FALSE     NA       0.5
+      32 16.89625 18.00779 17.82000 16.89625     1    -1       FALSE     NA       0.5
+      33 17.44228 18.02730 17.91617 17.44228     1    -1       FALSE     NA       0.5
+      34 17.50693 20.25464 17.93832 17.50693     1    -1       FALSE     NA       0.5
+      35 16.70662 20.09213 17.98000 16.70662     1    -1       FALSE     NA       0.5
+      36 16.63040 20.05694 18.00000 16.63040     1    -1       FALSE     NA       0.5
+      37 16.35164 19.94079 18.06733 16.35164     1    -1       FALSE     NA       0.5
+      38 16.13756 19.46582 18.30000 16.13756     1    -1       FALSE     NA       0.5
+      39 16.30913 19.26067 18.34726 16.30913     1    -1       FALSE     NA       0.5
+      40 15.61975 16.25561 18.52000 15.61975     1    -1       FALSE     NA       0.5
+      41 15.52325 19.02093 18.56240 15.52325     1    -1       FALSE     NA       0.5
+      42 15.45107 16.45739 18.59333 15.45107     1    -1       FALSE     NA       0.5
+      43 15.41664 16.12716 18.60000 15.41664     1    -1       FALSE     NA       0.5
+      44 15.38899 15.92340 18.61000 15.38899     1    -1       FALSE     NA       0.5
+      45 15.79078 18.68124 18.70220 15.79078     1    -1       FALSE     NA       0.5
+      46 15.76488 18.55055 18.73436 15.76488     1    -1       FALSE     NA       0.5
+      47 15.26834 18.24531 18.81201 15.26834     1    -1       FALSE     NA       0.5
+      48 15.17526 16.77919 18.90000 15.17526     1    -1       FALSE     NA       0.5
+      49 17.40724 18.84139 19.44000 17.40724     1    -1       FALSE     NA       0.5
+      50 15.19509 18.84175 19.46833 15.19509     1    -1       FALSE     NA       0.5
+      51 16.47425 17.34609 19.47000 16.47425     1    -1       FALSE     NA       0.5
+      52 15.28992 19.07136 19.55474 15.28992     1    -1       FALSE     NA       0.5
+      53 15.69678 19.94061 19.85225 15.69678     1    -1       FALSE     NA       0.5
+      54 15.76928 20.04206 19.90000 15.76928     1    -1       FALSE     NA       0.5
+      55 20.34244 20.34244 20.00000 20.34244     1    -1       FALSE     NA       0.5
+      56 17.44819 20.23657 20.01000 17.44819     1    -1       FALSE     NA       0.5
+      57 15.87975 20.43012 20.09936 15.87975     1    -1       FALSE     NA       0.5
+      58 19.70309 20.61726 20.12103 19.70309     1    -1       FALSE     NA       0.5
+      59 16.02847 20.70461 20.17787 16.02847     1    -1       FALSE     NA       0.5
+      60 17.77592 20.83562 20.22000 17.77592     1    -1       FALSE     NA       0.5
+      61 20.01324 26.41229 22.90000 20.01324     1    -1       FALSE     NA       0.5
+      62 19.76488 25.35180 22.97365 19.76488     1    -1       FALSE     NA       0.5
+         linetype   fill alpha
+      1         1 grey85   0.5
+      2         1 grey85   0.5
+      3         1 grey85   0.5
+      4         1 grey85   0.5
+      5         1 grey85   0.5
+      6         1 grey85   0.5
+      7         1 grey85   0.5
+      8         1 grey85   0.5
+      9         1 grey85   0.5
+      10        1 grey85   0.5
+      11        1 grey85   0.5
+      12        1 grey85   0.5
+      13        1 grey85   0.5
+      14        1 grey85   0.5
+      15        1 grey85   0.5
+      16        1 grey85   0.5
+      17        1 grey85   0.5
+      18        1 grey85   0.5
+      19        1 grey85   0.5
+      20        1 grey85   0.5
+      21        1 grey85   0.5
+      22        1 grey85   0.5
+      23        1 grey85   0.5
+      24        1 grey85   0.5
+      25        1 grey85   0.5
+      26        1 grey85   0.5
+      27        1 grey85   0.5
+      28        1 grey85   0.5
+      29        1 grey85   0.5
+      30        1 grey85   0.5
+      31        1 grey85   0.5
+      32        1 grey85   0.5
+      33        1 grey85   0.5
+      34        1 grey85   0.5
+      35        1 grey85   0.5
+      36        1 grey85   0.5
+      37        1 grey85   0.5
+      38        1 grey85   0.5
+      39        1 grey85   0.5
+      40        1 grey85   0.5
+      41        1 grey85   0.5
+      42        1 grey85   0.5
+      43        1 grey85   0.5
+      44        1 grey85   0.5
+      45        1 grey85   0.5
+      46        1 grey85   0.5
+      47        1 grey85   0.5
+      48        1 grey85   0.5
+      49        1 grey85   0.5
+      50        1 grey85   0.5
+      51        1 grey85   0.5
+      52        1 grey85   0.5
+      53        1 grey85   0.5
+      54        1 grey85   0.5
+      55        1 grey85   0.5
+      56        1 grey85   0.5
+      57        1 grey85   0.5
+      58        1 grey85   0.5
+      59        1 grey85   0.5
+      60        1 grey85   0.5
+      61        1 grey85   0.5
+      62        1 grey85   0.5
       
       $ale$plots$qsec[[3]]
                 x        y PANEL group flipped_aes colour linewidth linetype alpha
@@ -5614,12 +5614,12 @@
       62 22.97365 22.21253     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$qsec[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -5691,178 +5691,178 @@
       
       $ale$plots$vs
       $ale$plots$vs[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1  6.565827     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 35.078800     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1  6.565827     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 35.078800     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$vs[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1  6.565827     1     1       FALSE    0  6.565827 0.55 1.45     NA gray
-      2 2 35.078800     1     2       FALSE    0 35.078800 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1  6.565827     1     1       FALSE    0  6.565827 0.55 1.45     NA       0.5
+      2 2 35.078800     1     2       FALSE    0 35.078800 1.55 2.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
       
       $ale$plots$vs[[3]]
              ymin     ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1 -15.45354 15.92330 1  6.565827     1     1       FALSE 0.975 1.025  black
       2  23.14075 63.42269 2 35.078800     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$vs[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   56% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   44% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   56% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   44% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$vs[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$vs[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$am
       $ale$plots$am[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1  5.571952     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 40.912453     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1  5.571952     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 40.912453     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$am[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1  5.571952     1     1       FALSE    0  5.571952 0.55 1.45     NA gray
-      2 2 40.912453     1     2       FALSE    0 40.912453 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1  5.571952     1     1       FALSE    0  5.571952 0.55 1.45     NA       0.5
+      2 2 40.912453     1     2       FALSE    0 40.912453 1.55 2.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
       
       $ale$plots$am[[3]]
              ymin     ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1 -12.66558 15.87988 1  5.571952     1     1       FALSE 0.975 1.025  black
       2  28.18418 68.17922 2 40.912453     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$am[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   59% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   41% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   59% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   41% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$am[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$am[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$gear
       $ale$plots$gear[[1]]
-        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 38.6327395     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2  0.1823524     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 -3.0622712     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
+        x          y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 38.6327395     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2  0.1823524     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 -3.0622712     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
       
       $ale$plots$gear[[2]]
         x          y PANEL group flipped_aes      ymin       ymax xmin xmax colour
       1 1 38.6327395     1     1       FALSE  0.000000 38.6327395 0.55 1.45     NA
       2 2  0.1823524     1     2       FALSE  0.000000  0.1823524 1.55 2.45     NA
       3 3  0.0000000     1     3       FALSE -3.062271  0.0000000 2.55 3.45     NA
-        fill linewidth linetype alpha
-      1 gray       0.5        1    NA
-      2 gray       0.5        1    NA
-      3 gray       0.5        1    NA
+        linewidth linetype alpha fill
+      1       0.5        1    NA gray
+      2       0.5        1    NA gray
+      3       0.5        1    NA gray
       
       $ale$plots$gear[[3]]
              ymin     ymax x          y PANEL group flipped_aes  xmin  xmax colour
       1  23.75298 75.60617 1 38.6327395     1     1       FALSE 0.975 1.025  black
       2 -41.89342 15.37607 2  0.1823524     1     2       FALSE 1.975 2.025  black
       3 -46.62345 18.85283 3 -3.0622712     1     3       FALSE 2.975 3.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
       
       $ale$plots$gear[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   47% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   38% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   16% 3     1     3  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   47% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   38% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   16% 3     1     3  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
       
       $ale$plots$gear[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$gear[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$carb
       $ale$plots$carb[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 21.517884     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 20.001720     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 18.485555     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      4 4 16.969390     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      5 5 14.726849     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      6 6 12.848364     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      7 7 -4.183389     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      8 8 -3.279924     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
-      7 19.04095 19.28336
-      8 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 21.517884     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 20.001720     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 18.485555     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 16.969390     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5 14.726849     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6 12.848364     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 7 -4.183389     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      8 8 -3.279924     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
+      8 19.28336 lightgray
       
       $ale$plots$carb[[2]]
-              ymin     ymax x          y PANEL group flipped_aes colour   fill
-      1  13.754432 38.61823 1  13.754432     1    -1       FALSE     NA grey85
-      2  17.641677 25.09154 2  17.641677     1    -1       FALSE     NA grey85
-      3  11.524529 21.94115 3  11.524529     1    -1       FALSE     NA grey85
-      4  -1.961823 25.98380 4  -1.961823     1    -1       FALSE     NA grey85
-      5 -16.393599 30.04904 5 -16.393599     1    -1       FALSE     NA grey85
-      6 -30.281248 34.09654 6 -30.281248     1    -1       FALSE     NA grey85
-      7 -45.847044 18.73201 7 -45.847044     1    -1       FALSE     NA grey85
-      8 -60.098246 35.97064 8 -60.098246     1    -1       FALSE     NA grey85
-        linewidth linetype alpha
-      1       0.5        1   0.5
-      2       0.5        1   0.5
-      3       0.5        1   0.5
-      4       0.5        1   0.5
-      5       0.5        1   0.5
-      6       0.5        1   0.5
-      7       0.5        1   0.5
-      8       0.5        1   0.5
+              ymin     ymax x          y PANEL group flipped_aes colour linewidth
+      1  13.754432 38.61823 1  13.754432     1    -1       FALSE     NA       0.5
+      2  17.641677 25.09154 2  17.641677     1    -1       FALSE     NA       0.5
+      3  11.524529 21.94115 3  11.524529     1    -1       FALSE     NA       0.5
+      4  -1.961823 25.98380 4  -1.961823     1    -1       FALSE     NA       0.5
+      5 -16.393599 30.04904 5 -16.393599     1    -1       FALSE     NA       0.5
+      6 -30.281248 34.09654 6 -30.281248     1    -1       FALSE     NA       0.5
+      7 -45.847044 18.73201 7 -45.847044     1    -1       FALSE     NA       0.5
+      8 -60.098246 35.97064 8 -60.098246     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
+      8        1 grey85   0.5
       
       $ale$plots$carb[[3]]
         x         y PANEL group flipped_aes colour linewidth linetype alpha
@@ -5876,12 +5876,12 @@
       8 8 -3.279924     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$carb[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -5953,36 +5953,36 @@
       
       $ale$plots$country
       $ale$plots$country[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 27.486342     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 51.981651     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 13.829451     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-      4 4 24.089613     1     4     NA lightgray       0.5        1    NA -Inf  Inf
-      5 5 22.550216     1     5     NA lightgray       0.5        1    NA -Inf  Inf
-      6 6  6.283883     1     6     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 27.486342     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 51.981651     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 13.829451     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 24.089613     1     4     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5 22.550216     1     5     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6  6.283883     1     6     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
       
       $ale$plots$country[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1 27.486342     1     1       FALSE    0 27.486342 0.55 1.45     NA gray
-      2 2 51.981651     1     2       FALSE    0 51.981651 1.55 2.45     NA gray
-      3 3 13.829451     1     3       FALSE    0 13.829451 2.55 3.45     NA gray
-      4 4 24.089613     1     4       FALSE    0 24.089613 3.55 4.45     NA gray
-      5 5 22.550216     1     5       FALSE    0 22.550216 4.55 5.45     NA gray
-      6 6  6.283883     1     6       FALSE    0  6.283883 5.55 6.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      4       0.5        1    NA
-      5       0.5        1    NA
-      6       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1 27.486342     1     1       FALSE    0 27.486342 0.55 1.45     NA       0.5
+      2 2 51.981651     1     2       FALSE    0 51.981651 1.55 2.45     NA       0.5
+      3 3 13.829451     1     3       FALSE    0 13.829451 2.55 3.45     NA       0.5
+      4 4 24.089613     1     4       FALSE    0 24.089613 3.55 4.45     NA       0.5
+      5 5 22.550216     1     5       FALSE    0 22.550216 4.55 5.45     NA       0.5
+      6 6  6.283883     1     6       FALSE    0  6.283883 5.55 6.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
+      3        1    NA gray
+      4        1    NA gray
+      5        1    NA gray
+      6        1    NA gray
       
       $ale$plots$country[[3]]
                ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
@@ -5992,37 +5992,37 @@
       4   2.4813604  58.74222 4 24.089613     1     4       FALSE 3.975 4.025  black
       5  14.3367002  29.20255 5 22.550216     1     5       FALSE 4.975 5.025  black
       6 -35.9370032  22.21913 6  6.283883     1     6       FALSE 5.975 6.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
-      4       0.5        1  0.05    NA
-      5       0.5        1  0.05    NA
-      6       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
+      4       0.5        1    NA  0.05
+      5       0.5        1    NA  0.05
+      6       0.5        1    NA  0.05
       
       $ale$plots$country[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 10.39108   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 10.39108   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
-      6 10.39108   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108    3% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108    3% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   19% 3     1     3  black     0   0.5               1        1.2
+      4 10.39108   12% 4     1     4  black     0   0.5               1        1.2
+      5 10.39108   25% 5     1     5  black     0   0.5               1        1.2
+      6 10.39108   38% 6     1     6  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
+      4    3  -0.2   0.5
+      5    3  -0.2   0.5
+      6    3  -0.2   0.5
       
       $ale$plots$country[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$country[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       
@@ -6610,30 +6610,30 @@
       $ale$stats$effects_plot
       $ale$stats$effects_plot[[1]]
       $ale$stats$effects_plot[[1]][[1]]
-          y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
-      1   1     1     1     NA lightgray       0.5        1    NA 18.75343 19.79468
-      2   2     1     2     NA lightgray       0.5        1    NA 18.75343 19.79468
-      3   3     1     3     NA lightgray       0.5        1    NA 18.75343 19.79468
-      4   4     1     4     NA lightgray       0.5        1    NA 18.75343 19.79468
-      5   5     1     5     NA lightgray       0.5        1    NA 18.75343 19.79468
-      6   6     1     6     NA lightgray       0.5        1    NA 18.75343 19.79468
-      7   7     1     7     NA lightgray       0.5        1    NA 18.75343 19.79468
-      8   8     1     8     NA lightgray       0.5        1    NA 18.75343 19.79468
-      9   9     1     9     NA lightgray       0.5        1    NA 18.75343 19.79468
-      10 10     1    10     NA lightgray       0.5        1    NA 18.75343 19.79468
-      11 11     1    11     NA lightgray       0.5        1    NA 18.75343 19.79468
-         ymin ymax
-      1  -Inf  Inf
-      2  -Inf  Inf
-      3  -Inf  Inf
-      4  -Inf  Inf
-      5  -Inf  Inf
-      6  -Inf  Inf
-      7  -Inf  Inf
-      8  -Inf  Inf
-      9  -Inf  Inf
-      10 -Inf  Inf
-      11 -Inf  Inf
+          y PANEL group colour linewidth linetype alpha     xmin     xmax ymin ymax
+      1   1     1     1     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      2   2     1     2     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      3   3     1     3     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      4   4     1     4     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      5   5     1     5     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      6   6     1     6     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      7   7     1     7     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      8   8     1     8     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      9   9     1     9     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      10 10     1    10     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+      11 11     1    11     NA       0.5        1    NA 18.75343 19.79468 -Inf  Inf
+              fill
+      1  lightgray
+      2  lightgray
+      3  lightgray
+      4  lightgray
+      5  lightgray
+      6  lightgray
+      7  lightgray
+      8  lightgray
+      9  lightgray
+      10 lightgray
+      11 lightgray
       
       $ale$stats$effects_plot[[1]][[2]]
               xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
@@ -6648,70 +6648,70 @@
       9  11.917954 29.58138  9     1     9  8.875  9.125  black       0.5        1
       10 14.279689 24.77635 10     1    10  9.875 10.125  black       0.5        1
       11 10.106966 29.08618 11     1    11 10.875 11.125  black       0.5        1
-         height alpha
-      1    0.25    NA
-      2    0.25    NA
-      3    0.25    NA
-      4    0.25    NA
-      5    0.25    NA
-      6    0.25    NA
-      7    0.25    NA
-      8    0.25    NA
-      9    0.25    NA
-      10   0.25    NA
-      11   0.25    NA
+         alpha height
+      1     NA   0.25
+      2     NA   0.25
+      3     NA   0.25
+      4     NA   0.25
+      5     NA   0.25
+      6     NA   0.25
+      7     NA   0.25
+      8     NA   0.25
+      9     NA   0.25
+      10    NA   0.25
+      11    NA   0.25
       
       $ale$stats$effects_plot[[1]][[3]]
-             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
-      1  19.26830 19.27981  0.7  1.3  1     1     1     NA white       0.5        1
-      2  19.18939 19.35872  1.7  2.3  2     1     2     NA white       0.5        1
-      3  18.45196 20.09615  2.7  3.3  3     1     3     NA white       0.5        1
-      4  18.36741 20.18070  3.7  4.3  4     1     4     NA white       0.5        1
-      5  18.28628 20.26183  4.7  5.3  5     1     5     NA white       0.5        1
-      6  17.73320 20.81492  5.7  6.3  6     1     6     NA white       0.5        1
-      7  16.82401 21.72410  6.7  7.3  7     1     7     NA white       0.5        1
-      8  16.76217 21.78594  7.7  8.3  8     1     8     NA white       0.5        1
-      9  16.67658 21.87154  8.7  9.3  9     1     9     NA white       0.5        1
-      10 16.67039 21.87772  9.7 10.3 10     1    10     NA white       0.5        1
-      11 15.90888 22.63923 10.7 11.3 11     1    11     NA white       0.5        1
-         alpha
-      1     NA
-      2     NA
-      3     NA
-      4     NA
-      5     NA
-      6     NA
-      7     NA
-      8     NA
-      9     NA
-      10    NA
-      11    NA
+             xmin     xmax ymin ymax  y PANEL group colour linewidth linetype alpha
+      1  19.26830 19.27981  0.7  1.3  1     1     1     NA       0.5        1    NA
+      2  19.18939 19.35872  1.7  2.3  2     1     2     NA       0.5        1    NA
+      3  18.45196 20.09615  2.7  3.3  3     1     3     NA       0.5        1    NA
+      4  18.36741 20.18070  3.7  4.3  4     1     4     NA       0.5        1    NA
+      5  18.28628 20.26183  4.7  5.3  5     1     5     NA       0.5        1    NA
+      6  17.73320 20.81492  5.7  6.3  6     1     6     NA       0.5        1    NA
+      7  16.82401 21.72410  6.7  7.3  7     1     7     NA       0.5        1    NA
+      8  16.76217 21.78594  7.7  8.3  8     1     8     NA       0.5        1    NA
+      9  16.67658 21.87154  8.7  9.3  9     1     9     NA       0.5        1    NA
+      10 16.67039 21.87772  9.7 10.3 10     1    10     NA       0.5        1    NA
+      11 15.90888 22.63923 10.7 11.3 11     1    11     NA       0.5        1    NA
+          fill
+      1  white
+      2  white
+      3  white
+      4  white
+      5  white
+      6  white
+      7  white
+      8  white
+      9  white
+      10 white
+      11 white
       
       $ale$stats$effects_plot[[1]][[4]]
-                x       label  y PANEL group colour size angle hjust vjust alpha
-      1  19.27406 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
-      2  19.27406 NALED  2.4%  2     1     2  black    3     0   0.5    -1    NA
-      3  19.27406 NALED 11.5%  3     1     3  black    3     0   0.5    -1    NA
-      4  19.27406 NALED 13.3%  4     1     4  black    3     0   0.5    -1    NA
-      5  19.27406 NALED 16.9%  5     1     5  black    3     0   0.5    -1    NA
-      6  19.27406 NALED 20.2%  6     1     6  black    3     0   0.5    -1    NA
-      7  19.27406 NALED 29.8%  7     1     7  black    3     0   0.5    -1    NA
-      8  19.27406 NALED 24.4%  8     1     8  black    3     0   0.5    -1    NA
-      9  19.27406 NALED 31.0%  9     1     9  black    3     0   0.5    -1    NA
-      10 19.27406 NALED 36.5% 10     1    10  black    3     0   0.5    -1    NA
-      11 19.27406 NALED 36.2% 11     1    11  black    3     0   0.5    -1    NA
-         family fontface lineheight
-      1                1        1.2
-      2                1        1.2
-      3                1        1.2
-      4                1        1.2
-      5                1        1.2
-      6                1        1.2
-      7                1        1.2
-      8                1        1.2
-      9                1        1.2
-      10               1        1.2
-      11               1        1.2
+                x       label  y PANEL group colour angle hjust alpha family fontface
+      1  19.27406 NALED  0.0%  1     1     1  black     0   0.5    NA               1
+      2  19.27406 NALED  2.4%  2     1     2  black     0   0.5    NA               1
+      3  19.27406 NALED 11.5%  3     1     3  black     0   0.5    NA               1
+      4  19.27406 NALED 13.3%  4     1     4  black     0   0.5    NA               1
+      5  19.27406 NALED 16.9%  5     1     5  black     0   0.5    NA               1
+      6  19.27406 NALED 20.2%  6     1     6  black     0   0.5    NA               1
+      7  19.27406 NALED 29.8%  7     1     7  black     0   0.5    NA               1
+      8  19.27406 NALED 24.4%  8     1     8  black     0   0.5    NA               1
+      9  19.27406 NALED 31.0%  9     1     9  black     0   0.5    NA               1
+      10 19.27406 NALED 36.5% 10     1    10  black     0   0.5    NA               1
+      11 19.27406 NALED 36.2% 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3    -1
+      2         1.2    3    -1
+      3         1.2    3    -1
+      4         1.2    3    -1
+      5         1.2    3    -1
+      6         1.2    3    -1
+      7         1.2    3    -1
+      8         1.2    3    -1
+      9         1.2    3    -1
+      10        1.2    3    -1
+      11        1.2    3    -1
       
       $ale$stats$effects_plot[[1]][[5]]
                 x label     y PANEL group colour size angle hjust vjust alpha family
@@ -6766,36 +6766,36 @@
       11        1        1.2
       
       $ale$stats$effects_plot[[1]][[7]]
-                x     label  y PANEL group colour size angle hjust vjust alpha family
-      1  19.27406 ALED 0.01  1     1     1  black    3     0   0.5     2    NA       
-      2  19.27406 ALED 0.17  2     1     2  black    3     0   0.5     2    NA       
-      3  19.27406 ALED 1.64  3     1     3  black    3     0   0.5     2    NA       
-      4  19.27406 ALED 1.81  4     1     4  black    3     0   0.5     2    NA       
-      5  19.27406 ALED 1.98  5     1     5  black    3     0   0.5     2    NA       
-      6  19.27406 ALED 3.08  6     1     6  black    3     0   0.5     2    NA       
-      7  19.27406 ALED 4.90  7     1     7  black    3     0   0.5     2    NA       
-      8  19.27406 ALED 5.02  8     1     8  black    3     0   0.5     2    NA       
-      9  19.27406 ALED 5.19  9     1     9  black    3     0   0.5     2    NA       
-      10 19.27406 ALED 5.21 10     1    10  black    3     0   0.5     2    NA       
-      11 19.27406 ALED 6.73 11     1    11  black    3     0   0.5     2    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
+                x     label  y PANEL group colour angle hjust alpha family fontface
+      1  19.27406 ALED 0.01  1     1     1  black     0   0.5    NA               1
+      2  19.27406 ALED 0.17  2     1     2  black     0   0.5    NA               1
+      3  19.27406 ALED 1.64  3     1     3  black     0   0.5    NA               1
+      4  19.27406 ALED 1.81  4     1     4  black     0   0.5    NA               1
+      5  19.27406 ALED 1.98  5     1     5  black     0   0.5    NA               1
+      6  19.27406 ALED 3.08  6     1     6  black     0   0.5    NA               1
+      7  19.27406 ALED 4.90  7     1     7  black     0   0.5    NA               1
+      8  19.27406 ALED 5.02  8     1     8  black     0   0.5    NA               1
+      9  19.27406 ALED 5.19  9     1     9  black     0   0.5    NA               1
+      10 19.27406 ALED 5.21 10     1    10  black     0   0.5    NA               1
+      11 19.27406 ALED 6.73 11     1    11  black     0   0.5    NA               1
+         lineheight size vjust
+      1         1.2    3     2
+      2         1.2    3     2
+      3         1.2    3     2
+      4         1.2    3     2
+      5         1.2    3     2
+      6         1.2    3     2
+      7         1.2    3     2
+      8         1.2    3     2
+      9         1.2    3     2
+      10        1.2    3     2
+      11        1.2    3     2
       
       $ale$stats$effects_plot[[1]][[8]]
-           x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 33.9 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+           x y PANEL group colour  fill angle vjust alpha family fontface lineheight
+      1 33.9 1     1    -1  black white     0   0.5    NA               1        1.2
+                                                                     label size hjust
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max    3     1
       
       
       
@@ -6803,40 +6803,40 @@
       $ale$plots
       $ale$plots$cyl
       $ale$plots$cyl[[1]]
-        x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 3 -0.017269681     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 4 -0.010184683     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 5 -0.003099686     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 6  0.003985311     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 7  0.011070308     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 8  0.018155305     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 9  0.025240302     1    -1     NA lightgray       0.5        1    NA -Inf
-        xmax     ymin     ymax
-      1  Inf 19.04095 19.28336
-      2  Inf 19.04095 19.28336
-      3  Inf 19.04095 19.28336
-      4  Inf 19.04095 19.28336
-      5  Inf 19.04095 19.28336
-      6  Inf 19.04095 19.28336
-      7  Inf 19.04095 19.28336
+        x            y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 3 -0.017269681     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 4 -0.010184683     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 5 -0.003099686     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 6  0.003985311     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 7  0.011070308     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 8  0.018155305     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 9  0.025240302     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
       
       $ale$plots$cyl[[2]]
-               ymin       ymax x           y PANEL group flipped_aes colour   fill
-      1 -0.47223471 1.17290662 3 -0.47223471     1    -1       FALSE     NA grey85
-      2 -0.29163111 0.75370516 4 -0.29163111     1    -1       FALSE     NA grey85
-      3 -0.11102751 0.33450371 5 -0.11102751     1    -1       FALSE     NA grey85
-      4 -0.08469775 0.06957609 6 -0.08469775     1    -1       FALSE     NA grey85
-      5 -0.50389920 0.25017969 7 -0.50389920     1    -1       FALSE     NA grey85
-      6 -0.92310066 0.43078328 8 -0.92310066     1    -1       FALSE     NA grey85
-      7 -1.34230211 0.61138688 9 -1.34230211     1    -1       FALSE     NA grey85
-        linewidth linetype alpha
-      1       0.5        1   0.5
-      2       0.5        1   0.5
-      3       0.5        1   0.5
-      4       0.5        1   0.5
-      5       0.5        1   0.5
-      6       0.5        1   0.5
-      7       0.5        1   0.5
+               ymin       ymax x           y PANEL group flipped_aes colour linewidth
+      1 -0.47223471 1.17290662 3 -0.47223471     1    -1       FALSE     NA       0.5
+      2 -0.29163111 0.75370516 4 -0.29163111     1    -1       FALSE     NA       0.5
+      3 -0.11102751 0.33450371 5 -0.11102751     1    -1       FALSE     NA       0.5
+      4 -0.08469775 0.06957609 6 -0.08469775     1    -1       FALSE     NA       0.5
+      5 -0.50389920 0.25017969 7 -0.50389920     1    -1       FALSE     NA       0.5
+      6 -0.92310066 0.43078328 8 -0.92310066     1    -1       FALSE     NA       0.5
+      7 -1.34230211 0.61138688 9 -1.34230211     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
       
       $ale$plots$cyl[[3]]
         x            y PANEL group flipped_aes colour linewidth linetype alpha
@@ -6849,12 +6849,12 @@
       7 9  0.025240302     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$cyl[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$cyl[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -6926,126 +6926,126 @@
       
       $ale$plots$disp
       $ale$plots$disp[[1]]
-                 x           y PANEL group colour      fill linewidth linetype alpha
-      1   70.92941  -6.6890552     1    -1     NA lightgray       0.5        1    NA
-      2   71.10000  -6.3795070     1    -1     NA lightgray       0.5        1    NA
-      3   75.70000  -5.9055995     1    -1     NA lightgray       0.5        1    NA
-      4   76.44475  -5.6185170     1    -1     NA lightgray       0.5        1    NA
-      5   78.63221  -6.5535390     1    -1     NA lightgray       0.5        1    NA
-      6   78.70000  17.2131613     1    -1     NA lightgray       0.5        1    NA
-      7   79.00000  -7.0655419     1    -1     NA lightgray       0.5        1    NA
-      8   79.04253  -5.5527148     1    -1     NA lightgray       0.5        1    NA
-      9   94.17447  -7.0182849     1    -1     NA lightgray       0.5        1    NA
-      10  95.10000  -4.3363732     1    -1     NA lightgray       0.5        1    NA
-      11 107.72379  -3.3655615     1    -1     NA lightgray       0.5        1    NA
-      12 108.00000  -3.3477914     1    -1     NA lightgray       0.5        1    NA
-      13 120.02599  -3.0711660     1    -1     NA lightgray       0.5        1    NA
-      14 120.10000  -6.0132719     1    -1     NA lightgray       0.5        1    NA
-      15 120.30000  22.0419286     1    -1     NA lightgray       0.5        1    NA
-      16 120.76642  -3.0384842     1    -1     NA lightgray       0.5        1    NA
-      17 120.95663          NA     1    -1     NA lightgray       0.5        1    NA
-      18 121.00000  -5.9965643     1    -1     NA lightgray       0.5        1    NA
-      19 140.80000  -4.7799624     1    -1     NA lightgray       0.5        1    NA
-      20 141.25281  -4.8983746     1    -1     NA lightgray       0.5        1    NA
-      21 145.00000  -2.1883041     1    -1     NA lightgray       0.5        1    NA
-      22 146.07210  -3.9974858     1    -1     NA lightgray       0.5        1    NA
-      23 146.70000  -2.5707391     1    -1     NA lightgray       0.5        1    NA
-      24 148.00468  -4.2665552     1    -1     NA lightgray       0.5        1    NA
-      25 159.24963  -4.2830118     1    -1     NA lightgray       0.5        1    NA
-      26 160.00000  -3.7251889     1    -1     NA lightgray       0.5        1    NA
-      27 161.26943  40.0456415     1    -1     NA lightgray       0.5        1    NA
-      28 166.13111  -3.3491209     1    -1     NA lightgray       0.5        1    NA
-      29 167.60000  -1.7095844     1    -1     NA lightgray       0.5        1    NA
-      30 168.03279  -1.6997835     1    -1     NA lightgray       0.5        1    NA
-      31 223.65757  -0.4818102     1    -1     NA lightgray       0.5        1    NA
-      32 225.00000  -0.3720255     1    -1     NA lightgray       0.5        1    NA
-      33 258.00000   2.2878549     1    -1     NA lightgray       0.5        1    NA
-      34 258.37592  -0.3911941     1    -1     NA lightgray       0.5        1    NA
-      35 274.01589  -1.1462967     1    -1     NA lightgray       0.5        1    NA
-      36 274.17816 -18.8030889     1    -1     NA lightgray       0.5        1    NA
-      37 275.80000   2.2556260     1    -1     NA lightgray       0.5        1    NA
-      38 276.83162   7.4606521     1    -1     NA lightgray       0.5        1    NA
-      39 300.03890   0.9625796     1    -1     NA lightgray       0.5        1    NA
-      40 301.00000   2.6527290     1    -1     NA lightgray       0.5        1    NA
-      41 302.24983   4.3358413     1    -1     NA lightgray       0.5        1    NA
-      42 304.00000   2.7643701     1    -1     NA lightgray       0.5        1    NA
-      43 318.00000   3.5750181     1    -1     NA lightgray       0.5        1    NA
-      44 320.76473 -24.6680185     1    -1     NA lightgray       0.5        1    NA
-      45 350.00000 -19.3625451     1    -1     NA lightgray       0.5        1    NA
-      46 350.17436   1.7600844     1    -1     NA lightgray       0.5        1    NA
-      47 351.00000   3.4115979     1    -1     NA lightgray       0.5        1    NA
-      48 351.06172   2.6900496     1    -1     NA lightgray       0.5        1    NA
-      49 360.00000   4.7655020     1    -1     NA lightgray       0.5        1    NA
-      50 362.86841   4.9113626     1    -1     NA lightgray       0.5        1    NA
-      51 362.93910   3.1267227     1    -1     NA lightgray       0.5        1    NA
-      52 397.00444   4.8804853     1    -1     NA lightgray       0.5        1    NA
-      53 400.00000   4.6179266     1    -1     NA lightgray       0.5        1    NA
-      54 439.97975   7.6585028     1    -1     NA lightgray       0.5        1    NA
-      55 440.00000   6.9773813     1    -1     NA lightgray       0.5        1    NA
-      56 460.00000   8.6404551     1    -1     NA lightgray       0.5        1    NA
-      57 462.48254   8.7607002     1    -1     NA lightgray       0.5        1    NA
-      58 470.90594   8.0234455     1    -1     NA lightgray       0.5        1    NA
-      59 472.00000  10.3813830     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
+                 x           y PANEL group colour linewidth linetype alpha xmin xmax
+      1   70.92941  -6.6890552     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   71.10000  -6.3795070     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   75.70000  -5.9055995     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   76.44475  -5.6185170     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   78.63221  -6.5535390     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   78.70000  17.2131613     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   79.00000  -7.0655419     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   79.04253  -5.5527148     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   94.17447  -7.0182849     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  95.10000  -4.3363732     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 107.72379  -3.3655615     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 108.00000  -3.3477914     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 120.02599  -3.0711660     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 120.10000  -6.0132719     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 120.30000  22.0419286     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 120.76642  -3.0384842     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 120.95663          NA     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 121.00000  -5.9965643     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 140.80000  -4.7799624     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 141.25281  -4.8983746     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 145.00000  -2.1883041     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 146.07210  -3.9974858     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 146.70000  -2.5707391     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 148.00468  -4.2665552     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 159.24963  -4.2830118     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 160.00000  -3.7251889     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 161.26943  40.0456415     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 166.13111  -3.3491209     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 167.60000  -1.7095844     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 168.03279  -1.6997835     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 223.65757  -0.4818102     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 225.00000  -0.3720255     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 258.00000   2.2878549     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 258.37592  -0.3911941     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 274.01589  -1.1462967     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 274.17816 -18.8030889     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 275.80000   2.2556260     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 276.83162   7.4606521     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 300.03890   0.9625796     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 301.00000   2.6527290     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 302.24983   4.3358413     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 304.00000   2.7643701     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 318.00000   3.5750181     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 320.76473 -24.6680185     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 350.00000 -19.3625451     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 350.17436   1.7600844     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 351.00000   3.4115979     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 351.06172   2.6900496     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 360.00000   4.7655020     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 362.86841   4.9113626     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 362.93910   3.1267227     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 397.00444   4.8804853     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 400.00000   4.6179266     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 439.97975   7.6585028     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 440.00000   6.9773813     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 460.00000   8.6404551     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 462.48254   8.7607002     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 470.90594   8.0234455     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 472.00000  10.3813830     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
       
       $ale$plots$disp[[2]]
                ymin        ymax         x          y PANEL group flipped_aes colour
@@ -7108,66 +7108,66 @@
       57   6.900844 14.50082393 462.48254   6.900844     1    -1       FALSE     NA
       58   6.925847 10.08277955 470.90594   6.925847     1    -1       FALSE     NA
       59   8.291436 14.93462547 472.00000   8.291436     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      12 grey85       0.5        1   0.5
-      13 grey85       0.5        1   0.5
-      14 grey85       0.5        1   0.5
-      15 grey85       0.5        1   0.5
-      16 grey85       0.5        1   0.5
-      17 grey85       0.5        1   0.5
-      18 grey85       0.5        1   0.5
-      19 grey85       0.5        1   0.5
-      20 grey85       0.5        1   0.5
-      21 grey85       0.5        1   0.5
-      22 grey85       0.5        1   0.5
-      23 grey85       0.5        1   0.5
-      24 grey85       0.5        1   0.5
-      25 grey85       0.5        1   0.5
-      26 grey85       0.5        1   0.5
-      27 grey85       0.5        1   0.5
-      28 grey85       0.5        1   0.5
-      29 grey85       0.5        1   0.5
-      30 grey85       0.5        1   0.5
-      31 grey85       0.5        1   0.5
-      32 grey85       0.5        1   0.5
-      33 grey85       0.5        1   0.5
-      34 grey85       0.5        1   0.5
-      35 grey85       0.5        1   0.5
-      36 grey85       0.5        1   0.5
-      37 grey85       0.5        1   0.5
-      38 grey85       0.5        1   0.5
-      39 grey85       0.5        1   0.5
-      40 grey85       0.5        1   0.5
-      41 grey85       0.5        1   0.5
-      42 grey85       0.5        1   0.5
-      43 grey85       0.5        1   0.5
-      44 grey85       0.5        1   0.5
-      45 grey85       0.5        1   0.5
-      46 grey85       0.5        1   0.5
-      47 grey85       0.5        1   0.5
-      48 grey85       0.5        1   0.5
-      49 grey85       0.5        1   0.5
-      50 grey85       0.5        1   0.5
-      51 grey85       0.5        1   0.5
-      52 grey85       0.5        1   0.5
-      53 grey85       0.5        1   0.5
-      54 grey85       0.5        1   0.5
-      55 grey85       0.5        1   0.5
-      56 grey85       0.5        1   0.5
-      57 grey85       0.5        1   0.5
-      58 grey85       0.5        1   0.5
-      59 grey85       0.5        1   0.5
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
+      55       0.5        1 grey85   0.5
+      56       0.5        1 grey85   0.5
+      57       0.5        1 grey85   0.5
+      58       0.5        1 grey85   0.5
+      59       0.5        1 grey85   0.5
       
       $ale$plots$disp[[3]]
                  x           y PANEL group flipped_aes colour linewidth linetype
@@ -7292,12 +7292,12 @@
       59    NA
       
       $ale$plots$disp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$disp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -7369,116 +7369,116 @@
       
       $ale$plots$hp
       $ale$plots$hp[[1]]
-                 x           y PANEL group colour      fill linewidth linetype alpha
-      1   52.00000  2.56430357     1    -1     NA lightgray       0.5        1    NA
-      2   52.51158  2.31870160     1    -1     NA lightgray       0.5        1    NA
-      3   62.00000 -1.11695693     1    -1     NA lightgray       0.5        1    NA
-      4   62.55140  3.43271734     1    -1     NA lightgray       0.5        1    NA
-      5   64.84405 -2.82392871     1    -1     NA lightgray       0.5        1    NA
-      6   65.00000 -1.56550421     1    -1     NA lightgray       0.5        1    NA
-      7   65.69273  3.39206314     1    -1     NA lightgray       0.5        1    NA
-      8   66.00000 -0.24713207     1    -1     NA lightgray       0.5        1    NA
-      9   66.28726 -3.06956875     1    -1     NA lightgray       0.5        1    NA
-      10  90.79273  0.01635232     1    -1     NA lightgray       0.5        1    NA
-      11  91.00000 -7.21403899     1    -1     NA lightgray       0.5        1    NA
-      12  92.76215 -1.79174797     1    -1     NA lightgray       0.5        1    NA
-      13  93.00000 -1.75433709     1    -1     NA lightgray       0.5        1    NA
-      14  95.00000  1.62196137     1    -1     NA lightgray       0.5        1    NA
-      15  95.30552 -0.22100996     1    -1     NA lightgray       0.5        1    NA
-      16  97.00000  1.52228705     1    -1     NA lightgray       0.5        1    NA
-      17  97.53824  0.44844258     1    -1     NA lightgray       0.5        1    NA
-      18 104.37353  0.52788684     1    -1     NA lightgray       0.5        1    NA
-      19 105.00000  0.78462294     1    -1     NA lightgray       0.5        1    NA
-      20 108.96093          NA     1    -1     NA lightgray       0.5        1    NA
-      21 109.00000  1.52532331     1    -1     NA lightgray       0.5        1    NA
-      22 109.48412  1.03593873     1    -1     NA lightgray       0.5        1    NA
-      23 110.00000  0.97757669     1    -1     NA lightgray       0.5        1    NA
-      24 110.16028  1.54693359     1    -1     NA lightgray       0.5        1    NA
-      25 110.87273 -6.36314970     1    -1     NA lightgray       0.5        1    NA
-      26 111.90026  1.69853401     1    -1     NA lightgray       0.5        1    NA
-      27 113.00000  0.76572392     1    -1     NA lightgray       0.5        1    NA
-      28 121.92199 -0.07754381     1    -1     NA lightgray       0.5        1    NA
-      29 123.00000  0.34973336     1    -1     NA lightgray       0.5        1    NA
-      30 123.31762  0.32229006     1    -1     NA lightgray       0.5        1    NA
-      31 149.13643  0.02504503     1    -1     NA lightgray       0.5        1    NA
-      32 150.00000 -0.12794827     1    -1     NA lightgray       0.5        1    NA
-      33 151.30412 -1.39151390     1    -1     NA lightgray       0.5        1    NA
-      34 173.68944  0.36573522     1    -1     NA lightgray       0.5        1    NA
-      35 175.00000  0.05719514     1    -1     NA lightgray       0.5        1    NA
-      36 176.29392 -0.62511392     1    -1     NA lightgray       0.5        1    NA
-      37 176.42873  0.56498041     1    -1     NA lightgray       0.5        1    NA
-      38 178.83560  1.77514046     1    -1     NA lightgray       0.5        1    NA
-      39 178.94151  0.56558539     1    -1     NA lightgray       0.5        1    NA
-      40 180.00000  0.06443505     1    -1     NA lightgray       0.5        1    NA
-      41 180.67328 -6.21392552     1    -1     NA lightgray       0.5        1    NA
-      42 204.52483  0.04413455     1    -1     NA lightgray       0.5        1    NA
-      43 205.00000 -6.27323045     1    -1     NA lightgray       0.5        1    NA
-      44 215.00000 -3.62429831     1    -1     NA lightgray       0.5        1    NA
-      45 216.16032 -3.69318608     1    -1     NA lightgray       0.5        1    NA
-      46 229.98942 -4.51421579     1    -1     NA lightgray       0.5        1    NA
-      47 230.00000  0.36370653     1    -1     NA lightgray       0.5        1    NA
-      48 245.00000  0.05034054     1    -1     NA lightgray       0.5        1    NA
-      49 245.74320 -0.08276370     1    -1     NA lightgray       0.5        1    NA
-      50 246.95211 -5.07216690     1    -1     NA lightgray       0.5        1    NA
-      51 263.37901  0.56622122     1    -1     NA lightgray       0.5        1    NA
-      52 264.00000 -9.67844829     1    -1     NA lightgray       0.5        1    NA
-      53 333.93034  1.49217078     1    -1     NA lightgray       0.5        1    NA
-      54 335.00000  0.57271100     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
+                 x           y PANEL group colour linewidth linetype alpha xmin xmax
+      1   52.00000  2.56430357     1    -1     NA       0.5        1    NA -Inf  Inf
+      2   52.51158  2.31870160     1    -1     NA       0.5        1    NA -Inf  Inf
+      3   62.00000 -1.11695693     1    -1     NA       0.5        1    NA -Inf  Inf
+      4   62.55140  3.43271734     1    -1     NA       0.5        1    NA -Inf  Inf
+      5   64.84405 -2.82392871     1    -1     NA       0.5        1    NA -Inf  Inf
+      6   65.00000 -1.56550421     1    -1     NA       0.5        1    NA -Inf  Inf
+      7   65.69273  3.39206314     1    -1     NA       0.5        1    NA -Inf  Inf
+      8   66.00000 -0.24713207     1    -1     NA       0.5        1    NA -Inf  Inf
+      9   66.28726 -3.06956875     1    -1     NA       0.5        1    NA -Inf  Inf
+      10  90.79273  0.01635232     1    -1     NA       0.5        1    NA -Inf  Inf
+      11  91.00000 -7.21403899     1    -1     NA       0.5        1    NA -Inf  Inf
+      12  92.76215 -1.79174797     1    -1     NA       0.5        1    NA -Inf  Inf
+      13  93.00000 -1.75433709     1    -1     NA       0.5        1    NA -Inf  Inf
+      14  95.00000  1.62196137     1    -1     NA       0.5        1    NA -Inf  Inf
+      15  95.30552 -0.22100996     1    -1     NA       0.5        1    NA -Inf  Inf
+      16  97.00000  1.52228705     1    -1     NA       0.5        1    NA -Inf  Inf
+      17  97.53824  0.44844258     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 104.37353  0.52788684     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 105.00000  0.78462294     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 108.96093          NA     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 109.00000  1.52532331     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 109.48412  1.03593873     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 110.00000  0.97757669     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 110.16028  1.54693359     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 110.87273 -6.36314970     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 111.90026  1.69853401     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 113.00000  0.76572392     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 121.92199 -0.07754381     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 123.00000  0.34973336     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 123.31762  0.32229006     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 149.13643  0.02504503     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 150.00000 -0.12794827     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 151.30412 -1.39151390     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 173.68944  0.36573522     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 175.00000  0.05719514     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 176.29392 -0.62511392     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 176.42873  0.56498041     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 178.83560  1.77514046     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 178.94151  0.56558539     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 180.00000  0.06443505     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 180.67328 -6.21392552     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 204.52483  0.04413455     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 205.00000 -6.27323045     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 215.00000 -3.62429831     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 216.16032 -3.69318608     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 229.98942 -4.51421579     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 230.00000  0.36370653     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 245.00000  0.05034054     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 245.74320 -0.08276370     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 246.95211 -5.07216690     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 263.37901  0.56622122     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 264.00000 -9.67844829     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 333.93034  1.49217078     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 335.00000  0.57271100     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$hp[[2]]
                  ymin        ymax         x            y PANEL group flipped_aes
@@ -7536,61 +7536,61 @@
       52 -11.26152060 16.96241850 264.00000 -11.26152060     1    -1       FALSE
       53 -19.12483432 58.55064144 333.93034 -19.12483432     1    -1       FALSE
       54 -19.28861665 59.05631203 335.00000 -19.28861665     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      11     NA grey85       0.5        1   0.5
-      12     NA grey85       0.5        1   0.5
-      13     NA grey85       0.5        1   0.5
-      14     NA grey85       0.5        1   0.5
-      15     NA grey85       0.5        1   0.5
-      16     NA grey85       0.5        1   0.5
-      17     NA grey85       0.5        1   0.5
-      18     NA grey85       0.5        1   0.5
-      19     NA grey85       0.5        1   0.5
-      20     NA grey85       0.5        1   0.5
-      21     NA grey85       0.5        1   0.5
-      22     NA grey85       0.5        1   0.5
-      23     NA grey85       0.5        1   0.5
-      24     NA grey85       0.5        1   0.5
-      25     NA grey85       0.5        1   0.5
-      26     NA grey85       0.5        1   0.5
-      27     NA grey85       0.5        1   0.5
-      28     NA grey85       0.5        1   0.5
-      29     NA grey85       0.5        1   0.5
-      30     NA grey85       0.5        1   0.5
-      31     NA grey85       0.5        1   0.5
-      32     NA grey85       0.5        1   0.5
-      33     NA grey85       0.5        1   0.5
-      34     NA grey85       0.5        1   0.5
-      35     NA grey85       0.5        1   0.5
-      36     NA grey85       0.5        1   0.5
-      37     NA grey85       0.5        1   0.5
-      38     NA grey85       0.5        1   0.5
-      39     NA grey85       0.5        1   0.5
-      40     NA grey85       0.5        1   0.5
-      41     NA grey85       0.5        1   0.5
-      42     NA grey85       0.5        1   0.5
-      43     NA grey85       0.5        1   0.5
-      44     NA grey85       0.5        1   0.5
-      45     NA grey85       0.5        1   0.5
-      46     NA grey85       0.5        1   0.5
-      47     NA grey85       0.5        1   0.5
-      48     NA grey85       0.5        1   0.5
-      49     NA grey85       0.5        1   0.5
-      50     NA grey85       0.5        1   0.5
-      51     NA grey85       0.5        1   0.5
-      52     NA grey85       0.5        1   0.5
-      53     NA grey85       0.5        1   0.5
-      54     NA grey85       0.5        1   0.5
+         colour linewidth linetype   fill alpha
+      1      NA       0.5        1 grey85   0.5
+      2      NA       0.5        1 grey85   0.5
+      3      NA       0.5        1 grey85   0.5
+      4      NA       0.5        1 grey85   0.5
+      5      NA       0.5        1 grey85   0.5
+      6      NA       0.5        1 grey85   0.5
+      7      NA       0.5        1 grey85   0.5
+      8      NA       0.5        1 grey85   0.5
+      9      NA       0.5        1 grey85   0.5
+      10     NA       0.5        1 grey85   0.5
+      11     NA       0.5        1 grey85   0.5
+      12     NA       0.5        1 grey85   0.5
+      13     NA       0.5        1 grey85   0.5
+      14     NA       0.5        1 grey85   0.5
+      15     NA       0.5        1 grey85   0.5
+      16     NA       0.5        1 grey85   0.5
+      17     NA       0.5        1 grey85   0.5
+      18     NA       0.5        1 grey85   0.5
+      19     NA       0.5        1 grey85   0.5
+      20     NA       0.5        1 grey85   0.5
+      21     NA       0.5        1 grey85   0.5
+      22     NA       0.5        1 grey85   0.5
+      23     NA       0.5        1 grey85   0.5
+      24     NA       0.5        1 grey85   0.5
+      25     NA       0.5        1 grey85   0.5
+      26     NA       0.5        1 grey85   0.5
+      27     NA       0.5        1 grey85   0.5
+      28     NA       0.5        1 grey85   0.5
+      29     NA       0.5        1 grey85   0.5
+      30     NA       0.5        1 grey85   0.5
+      31     NA       0.5        1 grey85   0.5
+      32     NA       0.5        1 grey85   0.5
+      33     NA       0.5        1 grey85   0.5
+      34     NA       0.5        1 grey85   0.5
+      35     NA       0.5        1 grey85   0.5
+      36     NA       0.5        1 grey85   0.5
+      37     NA       0.5        1 grey85   0.5
+      38     NA       0.5        1 grey85   0.5
+      39     NA       0.5        1 grey85   0.5
+      40     NA       0.5        1 grey85   0.5
+      41     NA       0.5        1 grey85   0.5
+      42     NA       0.5        1 grey85   0.5
+      43     NA       0.5        1 grey85   0.5
+      44     NA       0.5        1 grey85   0.5
+      45     NA       0.5        1 grey85   0.5
+      46     NA       0.5        1 grey85   0.5
+      47     NA       0.5        1 grey85   0.5
+      48     NA       0.5        1 grey85   0.5
+      49     NA       0.5        1 grey85   0.5
+      50     NA       0.5        1 grey85   0.5
+      51     NA       0.5        1 grey85   0.5
+      52     NA       0.5        1 grey85   0.5
+      53     NA       0.5        1 grey85   0.5
+      54     NA       0.5        1 grey85   0.5
       
       $ale$plots$hp[[3]]
                  x           y PANEL group flipped_aes colour linewidth linetype
@@ -7705,12 +7705,12 @@
       54    NA
       
       $ale$plots$hp[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$hp[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -7782,116 +7782,116 @@
       
       $ale$plots$drat
       $ale$plots$drat[[1]]
-                x            y PANEL group colour      fill linewidth linetype alpha
-      1  2.743533  -1.72911732     1    -1     NA lightgray       0.5        1    NA
-      2  2.760000  -1.89851315     1    -1     NA lightgray       0.5        1    NA
-      3  2.783996  13.08271622     1    -1     NA lightgray       0.5        1    NA
-      4  2.923208  -1.62883613     1    -1     NA lightgray       0.5        1    NA
-      5  2.930000  -1.59729555     1    -1     NA lightgray       0.5        1    NA
-      6  3.000000  -1.92226201     1    -1     NA lightgray       0.5        1    NA
-      7  3.016190  -1.82281057     1    -1     NA lightgray       0.5        1    NA
-      8  3.050141  -1.51669952     1    -1     NA lightgray       0.5        1    NA
-      9  3.051947  14.50555469     1    -1     NA lightgray       0.5        1    NA
-      10 3.056934  -1.26610680     1    -1     NA lightgray       0.5        1    NA
-      11 3.070000  -0.95272557     1    -1     NA lightgray       0.5        1    NA
-      12 3.080000   0.73869114     1    -1     NA lightgray       0.5        1    NA
-      13 3.081483  -0.90897435     1    -1     NA lightgray       0.5        1    NA
-      14 3.084488   0.90342154     1    -1     NA lightgray       0.5        1    NA
-      15 3.131865  -0.39447076     1    -1     NA lightgray       0.5        1    NA
-      16 3.150000   0.78309319     1    -1     NA lightgray       0.5        1    NA
-      17 3.175717   1.30326420     1    -1     NA lightgray       0.5        1    NA
-      18 3.210000  -0.52920807     1    -1     NA lightgray       0.5        1    NA
-      19 3.229851   0.56799406     1    -1     NA lightgray       0.5        1    NA
-      20 3.230000  -0.44540874     1    -1     NA lightgray       0.5        1    NA
-      21 3.235577   1.39468705     1    -1     NA lightgray       0.5        1    NA
-      22 3.528697  -2.95763793     1    -1     NA lightgray       0.5        1    NA
-      23 3.540000  -3.20576767     1    -1     NA lightgray       0.5        1    NA
-      24 3.620000  -0.23226488     1    -1     NA lightgray       0.5        1    NA
-      25 3.646766  -0.08884776     1    -1     NA lightgray       0.5        1    NA
-      26 3.690000  -1.62514676     1    -1     NA lightgray       0.5        1    NA
-      27 3.700000  -1.56550292     1    -1     NA lightgray       0.5        1    NA
-      28 3.720531  -1.34321689     1    -1     NA lightgray       0.5        1    NA
-      29 3.722817  -1.43936647     1    -1     NA lightgray       0.5        1    NA
-      30 3.730000  -5.63196459     1    -1     NA lightgray       0.5        1    NA
-      31 3.733310   0.34514037     1    -1     NA lightgray       0.5        1    NA
-      32 3.741315  -1.35747020     1    -1     NA lightgray       0.5        1    NA
-      33 3.770000  -1.02478338     1    -1     NA lightgray       0.5        1    NA
-      34 3.840154   0.14700588     1    -1     NA lightgray       0.5        1    NA
-      35 3.850000  -1.04522557     1    -1     NA lightgray       0.5        1    NA
-      36 3.881710  -0.34622476     1    -1     NA lightgray       0.5        1    NA
-      37 3.885644  -0.63371018     1    -1     NA lightgray       0.5        1    NA
-      38 3.900000   0.04948575     1    -1     NA lightgray       0.5        1    NA
-      39 3.920000   0.08530826     1    -1     NA lightgray       0.5        1    NA
-      40 3.930123  -0.40506995     1    -1     NA lightgray       0.5        1    NA
-      41 3.930942 -16.42126296     1    -1     NA lightgray       0.5        1    NA
-      42 3.932607   0.13632822     1    -1     NA lightgray       0.5        1    NA
-      43 4.061005   0.55071407     1    -1     NA lightgray       0.5        1    NA
-      44 4.080000   0.58146266     1    -1     NA lightgray       0.5        1    NA
-      45 4.097758   1.02436726     1    -1     NA lightgray       0.5        1    NA
-      46 4.108527           NA     1    -1     NA lightgray       0.5        1    NA
-      47 4.110000   1.44667939     1    -1     NA lightgray       0.5        1    NA
-      48 4.209875   0.51974000     1    -1     NA lightgray       0.5        1    NA
-      49 4.210074   1.83146346     1    -1     NA lightgray       0.5        1    NA
-      50 4.220000   1.88421836     1    -1     NA lightgray       0.5        1    NA
-      51 4.419910   4.93364458     1    -1     NA lightgray       0.5        1    NA
-      52 4.430000  -1.83011632     1    -1     NA lightgray       0.5        1    NA
-      53 4.930000   3.72761410     1    -1     NA lightgray       0.5        1    NA
-      54 4.978502   2.37364728     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
+                x            y PANEL group colour linewidth linetype alpha xmin xmax
+      1  2.743533  -1.72911732     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  2.760000  -1.89851315     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  2.783996  13.08271622     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  2.923208  -1.62883613     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  2.930000  -1.59729555     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  3.000000  -1.92226201     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  3.016190  -1.82281057     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  3.050141  -1.51669952     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  3.051947  14.50555469     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 3.056934  -1.26610680     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 3.070000  -0.95272557     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 3.080000   0.73869114     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 3.081483  -0.90897435     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 3.084488   0.90342154     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 3.131865  -0.39447076     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 3.150000   0.78309319     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 3.175717   1.30326420     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 3.210000  -0.52920807     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 3.229851   0.56799406     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 3.230000  -0.44540874     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 3.235577   1.39468705     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 3.528697  -2.95763793     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 3.540000  -3.20576767     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 3.620000  -0.23226488     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.646766  -0.08884776     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.690000  -1.62514676     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.700000  -1.56550292     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.720531  -1.34321689     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.722817  -1.43936647     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.730000  -5.63196459     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.733310   0.34514037     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.741315  -1.35747020     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.770000  -1.02478338     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.840154   0.14700588     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.850000  -1.04522557     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.881710  -0.34622476     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.885644  -0.63371018     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.900000   0.04948575     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.920000   0.08530826     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.930123  -0.40506995     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.930942 -16.42126296     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.932607   0.13632822     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 4.061005   0.55071407     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 4.080000   0.58146266     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 4.097758   1.02436726     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 4.108527           NA     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 4.110000   1.44667939     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 4.209875   0.51974000     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 4.210074   1.83146346     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 4.220000   1.88421836     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 4.419910   4.93364458     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 4.430000  -1.83011632     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 4.930000   3.72761410     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.978502   2.37364728     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
       
       $ale$plots$drat[[2]]
                 ymin        ymax        x           y PANEL group flipped_aes colour
@@ -7949,61 +7949,61 @@
       52  -8.7995273   5.1392946 4.430000  -8.7995273     1    -1       FALSE     NA
       53  -1.1028729   6.8764653 4.930000  -1.1028729     1    -1       FALSE     NA
       54  -0.8674943   3.6503773 4.978502  -0.8674943     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      11 grey85       0.5        1   0.5
-      12 grey85       0.5        1   0.5
-      13 grey85       0.5        1   0.5
-      14 grey85       0.5        1   0.5
-      15 grey85       0.5        1   0.5
-      16 grey85       0.5        1   0.5
-      17 grey85       0.5        1   0.5
-      18 grey85       0.5        1   0.5
-      19 grey85       0.5        1   0.5
-      20 grey85       0.5        1   0.5
-      21 grey85       0.5        1   0.5
-      22 grey85       0.5        1   0.5
-      23 grey85       0.5        1   0.5
-      24 grey85       0.5        1   0.5
-      25 grey85       0.5        1   0.5
-      26 grey85       0.5        1   0.5
-      27 grey85       0.5        1   0.5
-      28 grey85       0.5        1   0.5
-      29 grey85       0.5        1   0.5
-      30 grey85       0.5        1   0.5
-      31 grey85       0.5        1   0.5
-      32 grey85       0.5        1   0.5
-      33 grey85       0.5        1   0.5
-      34 grey85       0.5        1   0.5
-      35 grey85       0.5        1   0.5
-      36 grey85       0.5        1   0.5
-      37 grey85       0.5        1   0.5
-      38 grey85       0.5        1   0.5
-      39 grey85       0.5        1   0.5
-      40 grey85       0.5        1   0.5
-      41 grey85       0.5        1   0.5
-      42 grey85       0.5        1   0.5
-      43 grey85       0.5        1   0.5
-      44 grey85       0.5        1   0.5
-      45 grey85       0.5        1   0.5
-      46 grey85       0.5        1   0.5
-      47 grey85       0.5        1   0.5
-      48 grey85       0.5        1   0.5
-      49 grey85       0.5        1   0.5
-      50 grey85       0.5        1   0.5
-      51 grey85       0.5        1   0.5
-      52 grey85       0.5        1   0.5
-      53 grey85       0.5        1   0.5
-      54 grey85       0.5        1   0.5
+         linewidth linetype   fill alpha
+      1        0.5        1 grey85   0.5
+      2        0.5        1 grey85   0.5
+      3        0.5        1 grey85   0.5
+      4        0.5        1 grey85   0.5
+      5        0.5        1 grey85   0.5
+      6        0.5        1 grey85   0.5
+      7        0.5        1 grey85   0.5
+      8        0.5        1 grey85   0.5
+      9        0.5        1 grey85   0.5
+      10       0.5        1 grey85   0.5
+      11       0.5        1 grey85   0.5
+      12       0.5        1 grey85   0.5
+      13       0.5        1 grey85   0.5
+      14       0.5        1 grey85   0.5
+      15       0.5        1 grey85   0.5
+      16       0.5        1 grey85   0.5
+      17       0.5        1 grey85   0.5
+      18       0.5        1 grey85   0.5
+      19       0.5        1 grey85   0.5
+      20       0.5        1 grey85   0.5
+      21       0.5        1 grey85   0.5
+      22       0.5        1 grey85   0.5
+      23       0.5        1 grey85   0.5
+      24       0.5        1 grey85   0.5
+      25       0.5        1 grey85   0.5
+      26       0.5        1 grey85   0.5
+      27       0.5        1 grey85   0.5
+      28       0.5        1 grey85   0.5
+      29       0.5        1 grey85   0.5
+      30       0.5        1 grey85   0.5
+      31       0.5        1 grey85   0.5
+      32       0.5        1 grey85   0.5
+      33       0.5        1 grey85   0.5
+      34       0.5        1 grey85   0.5
+      35       0.5        1 grey85   0.5
+      36       0.5        1 grey85   0.5
+      37       0.5        1 grey85   0.5
+      38       0.5        1 grey85   0.5
+      39       0.5        1 grey85   0.5
+      40       0.5        1 grey85   0.5
+      41       0.5        1 grey85   0.5
+      42       0.5        1 grey85   0.5
+      43       0.5        1 grey85   0.5
+      44       0.5        1 grey85   0.5
+      45       0.5        1 grey85   0.5
+      46       0.5        1 grey85   0.5
+      47       0.5        1 grey85   0.5
+      48       0.5        1 grey85   0.5
+      49       0.5        1 grey85   0.5
+      50       0.5        1 grey85   0.5
+      51       0.5        1 grey85   0.5
+      52       0.5        1 grey85   0.5
+      53       0.5        1 grey85   0.5
+      54       0.5        1 grey85   0.5
       
       $ale$plots$drat[[3]]
                 x            y PANEL group flipped_aes colour linewidth linetype
@@ -8118,12 +8118,12 @@
       54    NA
       
       $ale$plots$drat[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$drat[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -8195,130 +8195,130 @@
       
       $ale$plots$wt
       $ale$plots$wt[[1]]
-                x           y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 -1.28022886     1    -1     NA lightgray       0.5        1    NA
-      2  1.513000 -1.19514243     1    -1     NA lightgray       0.5        1    NA
-      3  1.615000  1.21036767     1    -1     NA lightgray       0.5        1    NA
-      4  1.630889 -1.09698365     1    -1     NA lightgray       0.5        1    NA
-      5  1.830597 -0.38027257     1    -1     NA lightgray       0.5        1    NA
-      6  1.835000  1.25745744     1    -1     NA lightgray       0.5        1    NA
-      7  1.925991 -0.83818973     1    -1     NA lightgray       0.5        1    NA
-      8  1.935000 -0.71479344     1    -1     NA lightgray       0.5        1    NA
-      9  2.135126 -1.94156605     1    -1     NA lightgray       0.5        1    NA
-      10 2.140000 -1.96059318     1    -1     NA lightgray       0.5        1    NA
-      11 2.200000 -1.01951145     1    -1     NA lightgray       0.5        1    NA
-      12 2.209575  2.14987297     1    -1     NA lightgray       0.5        1    NA
-      13 2.314067  0.59072353     1    -1     NA lightgray       0.5        1    NA
-      14 2.320000 -0.72389875     1    -1     NA lightgray       0.5        1    NA
-      15 2.465000 -2.10729749     1    -1     NA lightgray       0.5        1    NA
-      16 2.478678 -2.10173665     1    -1     NA lightgray       0.5        1    NA
-      17 2.620000 -1.14030869     1    -1     NA lightgray       0.5        1    NA
-      18 2.640787 -3.43022308     1    -1     NA lightgray       0.5        1    NA
-      19 2.770000  0.28858884     1    -1     NA lightgray       0.5        1    NA
-      20 2.779004          NA     1    -1     NA lightgray       0.5        1    NA
-      21 2.780000  0.28755624     1    -1     NA lightgray       0.5        1    NA
-      22 2.790481 -0.23991469     1    -1     NA lightgray       0.5        1    NA
-      23 2.861517 -1.01994939     1    -1     NA lightgray       0.5        1    NA
-      24 2.875000 -1.35791656     1    -1     NA lightgray       0.5        1    NA
-      25 3.150000  0.07186264     1    -1     NA lightgray       0.5        1    NA
-      26 3.160130  0.03712750     1    -1     NA lightgray       0.5        1    NA
-      27 3.162543 -0.16719601     1    -1     NA lightgray       0.5        1    NA
-      28 3.170000 -0.07465349     1    -1     NA lightgray       0.5        1    NA
-      29 3.190000 -0.11343232     1    -1     NA lightgray       0.5        1    NA
-      30 3.215000  0.18751904     1    -1     NA lightgray       0.5        1    NA
-      31 3.218370  0.05067623     1    -1     NA lightgray       0.5        1    NA
-      32 3.219684 -0.15297236     1    -1     NA lightgray       0.5        1    NA
-      33 3.409851  0.13603508     1    -1     NA lightgray       0.5        1    NA
-      34 3.415224  0.05388110     1    -1     NA lightgray       0.5        1    NA
-      35 3.435000  0.17176956     1    -1     NA lightgray       0.5        1    NA
-      36 3.439356  0.24556044     1    -1     NA lightgray       0.5        1    NA
-      37 3.440000  0.25682871     1    -1     NA lightgray       0.5        1    NA
-      38 3.448883  0.42679914     1    -1     NA lightgray       0.5        1    NA
-      39 3.460000  0.44576855     1    -1     NA lightgray       0.5        1    NA
-      40 3.468085  0.22916253     1    -1     NA lightgray       0.5        1    NA
-      41 3.520000  0.51157512     1    -1     NA lightgray       0.5        1    NA
-      42 3.550603  6.02877378     1    -1     NA lightgray       0.5        1    NA
-      43 3.558601  3.53667084     1    -1     NA lightgray       0.5        1    NA
-      44 3.570000  0.52602430     1    -1     NA lightgray       0.5        1    NA
-      45 3.598445  2.09045277     1    -1     NA lightgray       0.5        1    NA
-      46 3.705871  0.66219472     1    -1     NA lightgray       0.5        1    NA
-      47 3.730000  4.67260194     1    -1     NA lightgray       0.5        1    NA
-      48 3.780000  5.68734345     1    -1     NA lightgray       0.5        1    NA
-      49 3.794139  0.77408050     1    -1     NA lightgray       0.5        1    NA
-      50 3.816205  0.02430437     1    -1     NA lightgray       0.5        1    NA
-      51 3.840000  3.87911574     1    -1     NA lightgray       0.5        1    NA
-      52 3.845000 -0.76988630     1    -1     NA lightgray       0.5        1    NA
-      53 3.851649  2.44725273     1    -1     NA lightgray       0.5        1    NA
-      54 4.046066  5.40496465     1    -1     NA lightgray       0.5        1    NA
-      55 4.070000 -0.87046493     1    -1     NA lightgray       0.5        1    NA
-      56 5.237831 -4.71122094     1    -1     NA lightgray       0.5        1    NA
-      57 5.250000 -0.61129486     1    -1     NA lightgray       0.5        1    NA
-      58 5.344754 -2.78728183     1    -1     NA lightgray       0.5        1    NA
-      59 5.345000 -5.06367814     1    -1     NA lightgray       0.5        1    NA
-      60 5.424000 -2.88415282     1    -1     NA lightgray       0.5        1    NA
-      61 5.453272 -2.92083640     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
-      60 -Inf  Inf 19.04095 19.28336
-      61 -Inf  Inf 19.04095 19.28336
+                x           y PANEL group colour linewidth linetype alpha xmin xmax
+      1  1.498275 -1.28022886     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  1.513000 -1.19514243     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  1.615000  1.21036767     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  1.630889 -1.09698365     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  1.830597 -0.38027257     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  1.835000  1.25745744     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  1.925991 -0.83818973     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  1.935000 -0.71479344     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  2.135126 -1.94156605     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 2.140000 -1.96059318     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 2.200000 -1.01951145     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 2.209575  2.14987297     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 2.314067  0.59072353     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 2.320000 -0.72389875     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 2.465000 -2.10729749     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 2.478678 -2.10173665     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 2.620000 -1.14030869     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 2.640787 -3.43022308     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 2.770000  0.28858884     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 2.779004          NA     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 2.780000  0.28755624     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 2.790481 -0.23991469     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 2.861517 -1.01994939     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 2.875000 -1.35791656     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 3.150000  0.07186264     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 3.160130  0.03712750     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 3.162543 -0.16719601     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 3.170000 -0.07465349     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 3.190000 -0.11343232     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 3.215000  0.18751904     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 3.218370  0.05067623     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 3.219684 -0.15297236     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 3.409851  0.13603508     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 3.415224  0.05388110     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 3.435000  0.17176956     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 3.439356  0.24556044     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 3.440000  0.25682871     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 3.448883  0.42679914     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 3.460000  0.44576855     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 3.468085  0.22916253     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 3.520000  0.51157512     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 3.550603  6.02877378     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 3.558601  3.53667084     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 3.570000  0.52602430     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 3.598445  2.09045277     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 3.705871  0.66219472     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 3.730000  4.67260194     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 3.780000  5.68734345     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 3.794139  0.77408050     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 3.816205  0.02430437     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 3.840000  3.87911574     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 3.845000 -0.76988630     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 3.851649  2.44725273     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 4.046066  5.40496465     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 4.070000 -0.87046493     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 5.237831 -4.71122094     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 5.250000 -0.61129486     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 5.344754 -2.78728183     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 5.345000 -5.06367814     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 5.424000 -2.88415282     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 5.453272 -2.92083640     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
       
       $ale$plots$wt[[2]]
                   ymin       ymax        x             y PANEL group flipped_aes
@@ -8383,68 +8383,68 @@
       59  -5.425545183  0.3648875 5.345000  -5.425545183     1    -1       FALSE
       60  -5.668719045  0.8412506 5.424000  -5.668719045     1    -1       FALSE
       61  -5.766273046  0.8762263 5.453272  -5.766273046     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      11     NA grey85       0.5        1   0.5
-      12     NA grey85       0.5        1   0.5
-      13     NA grey85       0.5        1   0.5
-      14     NA grey85       0.5        1   0.5
-      15     NA grey85       0.5        1   0.5
-      16     NA grey85       0.5        1   0.5
-      17     NA grey85       0.5        1   0.5
-      18     NA grey85       0.5        1   0.5
-      19     NA grey85       0.5        1   0.5
-      20     NA grey85       0.5        1   0.5
-      21     NA grey85       0.5        1   0.5
-      22     NA grey85       0.5        1   0.5
-      23     NA grey85       0.5        1   0.5
-      24     NA grey85       0.5        1   0.5
-      25     NA grey85       0.5        1   0.5
-      26     NA grey85       0.5        1   0.5
-      27     NA grey85       0.5        1   0.5
-      28     NA grey85       0.5        1   0.5
-      29     NA grey85       0.5        1   0.5
-      30     NA grey85       0.5        1   0.5
-      31     NA grey85       0.5        1   0.5
-      32     NA grey85       0.5        1   0.5
-      33     NA grey85       0.5        1   0.5
-      34     NA grey85       0.5        1   0.5
-      35     NA grey85       0.5        1   0.5
-      36     NA grey85       0.5        1   0.5
-      37     NA grey85       0.5        1   0.5
-      38     NA grey85       0.5        1   0.5
-      39     NA grey85       0.5        1   0.5
-      40     NA grey85       0.5        1   0.5
-      41     NA grey85       0.5        1   0.5
-      42     NA grey85       0.5        1   0.5
-      43     NA grey85       0.5        1   0.5
-      44     NA grey85       0.5        1   0.5
-      45     NA grey85       0.5        1   0.5
-      46     NA grey85       0.5        1   0.5
-      47     NA grey85       0.5        1   0.5
-      48     NA grey85       0.5        1   0.5
-      49     NA grey85       0.5        1   0.5
-      50     NA grey85       0.5        1   0.5
-      51     NA grey85       0.5        1   0.5
-      52     NA grey85       0.5        1   0.5
-      53     NA grey85       0.5        1   0.5
-      54     NA grey85       0.5        1   0.5
-      55     NA grey85       0.5        1   0.5
-      56     NA grey85       0.5        1   0.5
-      57     NA grey85       0.5        1   0.5
-      58     NA grey85       0.5        1   0.5
-      59     NA grey85       0.5        1   0.5
-      60     NA grey85       0.5        1   0.5
-      61     NA grey85       0.5        1   0.5
+         colour linewidth linetype   fill alpha
+      1      NA       0.5        1 grey85   0.5
+      2      NA       0.5        1 grey85   0.5
+      3      NA       0.5        1 grey85   0.5
+      4      NA       0.5        1 grey85   0.5
+      5      NA       0.5        1 grey85   0.5
+      6      NA       0.5        1 grey85   0.5
+      7      NA       0.5        1 grey85   0.5
+      8      NA       0.5        1 grey85   0.5
+      9      NA       0.5        1 grey85   0.5
+      10     NA       0.5        1 grey85   0.5
+      11     NA       0.5        1 grey85   0.5
+      12     NA       0.5        1 grey85   0.5
+      13     NA       0.5        1 grey85   0.5
+      14     NA       0.5        1 grey85   0.5
+      15     NA       0.5        1 grey85   0.5
+      16     NA       0.5        1 grey85   0.5
+      17     NA       0.5        1 grey85   0.5
+      18     NA       0.5        1 grey85   0.5
+      19     NA       0.5        1 grey85   0.5
+      20     NA       0.5        1 grey85   0.5
+      21     NA       0.5        1 grey85   0.5
+      22     NA       0.5        1 grey85   0.5
+      23     NA       0.5        1 grey85   0.5
+      24     NA       0.5        1 grey85   0.5
+      25     NA       0.5        1 grey85   0.5
+      26     NA       0.5        1 grey85   0.5
+      27     NA       0.5        1 grey85   0.5
+      28     NA       0.5        1 grey85   0.5
+      29     NA       0.5        1 grey85   0.5
+      30     NA       0.5        1 grey85   0.5
+      31     NA       0.5        1 grey85   0.5
+      32     NA       0.5        1 grey85   0.5
+      33     NA       0.5        1 grey85   0.5
+      34     NA       0.5        1 grey85   0.5
+      35     NA       0.5        1 grey85   0.5
+      36     NA       0.5        1 grey85   0.5
+      37     NA       0.5        1 grey85   0.5
+      38     NA       0.5        1 grey85   0.5
+      39     NA       0.5        1 grey85   0.5
+      40     NA       0.5        1 grey85   0.5
+      41     NA       0.5        1 grey85   0.5
+      42     NA       0.5        1 grey85   0.5
+      43     NA       0.5        1 grey85   0.5
+      44     NA       0.5        1 grey85   0.5
+      45     NA       0.5        1 grey85   0.5
+      46     NA       0.5        1 grey85   0.5
+      47     NA       0.5        1 grey85   0.5
+      48     NA       0.5        1 grey85   0.5
+      49     NA       0.5        1 grey85   0.5
+      50     NA       0.5        1 grey85   0.5
+      51     NA       0.5        1 grey85   0.5
+      52     NA       0.5        1 grey85   0.5
+      53     NA       0.5        1 grey85   0.5
+      54     NA       0.5        1 grey85   0.5
+      55     NA       0.5        1 grey85   0.5
+      56     NA       0.5        1 grey85   0.5
+      57     NA       0.5        1 grey85   0.5
+      58     NA       0.5        1 grey85   0.5
+      59     NA       0.5        1 grey85   0.5
+      60     NA       0.5        1 grey85   0.5
+      61     NA       0.5        1 grey85   0.5
       
       $ale$plots$wt[[3]]
                 x           y PANEL group flipped_aes colour linewidth linetype alpha
@@ -8511,12 +8511,12 @@
       61 5.453272 -2.92083640     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$wt[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$wt[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -8588,132 +8588,132 @@
       
       $ale$plots$qsec
       $ale$plots$qsec[[1]]
-                x            y PANEL group colour      fill linewidth linetype alpha
-      1  14.46589 -1.051524663     1    -1     NA lightgray       0.5        1    NA
-      2  14.50000 -0.421403250     1    -1     NA lightgray       0.5        1    NA
-      3  14.55338  3.934290138     1    -1     NA lightgray       0.5        1    NA
-      4  14.60000  3.768496284     1    -1     NA lightgray       0.5        1    NA
-      5  15.41000  2.728607225     1    -1     NA lightgray       0.5        1    NA
-      6  15.45675  2.121906343     1    -1     NA lightgray       0.5        1    NA
-      7  15.50000  1.727986974     1    -1     NA lightgray       0.5        1    NA
-      8  15.61460  2.643982147     1    -1     NA lightgray       0.5        1    NA
-      9  15.84000  2.154050312     1    -1     NA lightgray       0.5        1    NA
-      10 15.96621  2.746496233     1    -1     NA lightgray       0.5        1    NA
-      11 16.46000  1.004291419     1    -1     NA lightgray       0.5        1    NA
-      12 16.59059  1.831545034     1    -1     NA lightgray       0.5        1    NA
-      13 16.66196  2.087283375     1    -1     NA lightgray       0.5        1    NA
-      14 16.70000  0.707647427     1    -1     NA lightgray       0.5        1    NA
-      15 16.73553  1.435746025     1    -1     NA lightgray       0.5        1    NA
-      16 16.87000  1.935955778     1    -1     NA lightgray       0.5        1    NA
-      17 16.90000  1.475668782     1    -1     NA lightgray       0.5        1    NA
-      18 16.92231  1.816786604     1    -1     NA lightgray       0.5        1    NA
-      19 16.94018  2.362226624     1    -1     NA lightgray       0.5        1    NA
-      20 17.01667  1.095897242     1    -1     NA lightgray       0.5        1    NA
-      21 17.02000  1.888677425     1    -1     NA lightgray       0.5        1    NA
-      22 17.05000  0.825867290     1    -1     NA lightgray       0.5        1    NA
-      23 17.15895  0.575569960     1    -1     NA lightgray       0.5        1    NA
-      24 17.20040  0.852419660     1    -1     NA lightgray       0.5        1    NA
-      25 17.29768  0.148880747     1    -1     NA lightgray       0.5        1    NA
-      26 17.30000  0.279288602     1    -1     NA lightgray       0.5        1    NA
-      27 17.40000  0.007771904     1    -1     NA lightgray       0.5        1    NA
-      28 17.41920  0.789546409     1    -1     NA lightgray       0.5        1    NA
-      29 17.42000  1.684197643     1    -1     NA lightgray       0.5        1    NA
-      30 17.48615 -0.175431155     1    -1     NA lightgray       0.5        1    NA
-      31 17.60000  0.392193188     1    -1     NA lightgray       0.5        1    NA
-      32 17.82000 -0.567717725     1    -1     NA lightgray       0.5        1    NA
-      33 17.91617 -1.103815518     1    -1     NA lightgray       0.5        1    NA
-      34 17.93832 -1.338961090     1    -1     NA lightgray       0.5        1    NA
-      35 17.98000 -1.498783420     1    -1     NA lightgray       0.5        1    NA
-      36 18.00000 -0.766069184     1    -1     NA lightgray       0.5        1    NA
-      37 18.06733 -1.107469018     1    -1     NA lightgray       0.5        1    NA
-      38 18.30000 -1.398423386     1    -1     NA lightgray       0.5        1    NA
-      39 18.34726 -1.325927731     1    -1     NA lightgray       0.5        1    NA
-      40 18.52000 -1.796995163     1    -1     NA lightgray       0.5        1    NA
-      41 18.56240 -1.907544639     1    -1     NA lightgray       0.5        1    NA
-      42 18.59333           NA     1    -1     NA lightgray       0.5        1    NA
-      43 18.60000 -1.948272674     1    -1     NA lightgray       0.5        1    NA
-      44 18.61000 -1.853738263     1    -1     NA lightgray       0.5        1    NA
-      45 18.70220 -1.936294224     1    -1     NA lightgray       0.5        1    NA
-      46 18.73436 -2.099184552     1    -1     NA lightgray       0.5        1    NA
-      47 18.81201 -2.247234587     1    -1     NA lightgray       0.5        1    NA
-      48 18.90000 -2.102562012     1    -1     NA lightgray       0.5        1    NA
-      49 19.44000 -0.130668850     1    -1     NA lightgray       0.5        1    NA
-      50 19.46833 -1.676509298     1    -1     NA lightgray       0.5        1    NA
-      51 19.47000 -0.828755170     1    -1     NA lightgray       0.5        1    NA
-      52 19.55474  1.315532089     1    -1     NA lightgray       0.5        1    NA
-      53 19.85225 -0.887621299     1    -1     NA lightgray       0.5        1    NA
-      54 19.90000  0.031286005     1    -1     NA lightgray       0.5        1    NA
-      55 20.00000  0.046522588     1    -1     NA lightgray       0.5        1    NA
-      56 20.01000 -1.563810495     1    -1     NA lightgray       0.5        1    NA
-      57 20.09936 -0.926090234     1    -1     NA lightgray       0.5        1    NA
-      58 20.12103 -1.428768205     1    -1     NA lightgray       0.5        1    NA
-      59 20.17787 -1.364469631     1    -1     NA lightgray       0.5        1    NA
-      60 20.22000 -0.980212464     1    -1     NA lightgray       0.5        1    NA
-      61 22.90000 -0.152016785     1    -1     NA lightgray       0.5        1    NA
-      62 22.97365 -1.942341385     1    -1     NA lightgray       0.5        1    NA
-         xmin xmax     ymin     ymax
-      1  -Inf  Inf 19.04095 19.28336
-      2  -Inf  Inf 19.04095 19.28336
-      3  -Inf  Inf 19.04095 19.28336
-      4  -Inf  Inf 19.04095 19.28336
-      5  -Inf  Inf 19.04095 19.28336
-      6  -Inf  Inf 19.04095 19.28336
-      7  -Inf  Inf 19.04095 19.28336
-      8  -Inf  Inf 19.04095 19.28336
-      9  -Inf  Inf 19.04095 19.28336
-      10 -Inf  Inf 19.04095 19.28336
-      11 -Inf  Inf 19.04095 19.28336
-      12 -Inf  Inf 19.04095 19.28336
-      13 -Inf  Inf 19.04095 19.28336
-      14 -Inf  Inf 19.04095 19.28336
-      15 -Inf  Inf 19.04095 19.28336
-      16 -Inf  Inf 19.04095 19.28336
-      17 -Inf  Inf 19.04095 19.28336
-      18 -Inf  Inf 19.04095 19.28336
-      19 -Inf  Inf 19.04095 19.28336
-      20 -Inf  Inf 19.04095 19.28336
-      21 -Inf  Inf 19.04095 19.28336
-      22 -Inf  Inf 19.04095 19.28336
-      23 -Inf  Inf 19.04095 19.28336
-      24 -Inf  Inf 19.04095 19.28336
-      25 -Inf  Inf 19.04095 19.28336
-      26 -Inf  Inf 19.04095 19.28336
-      27 -Inf  Inf 19.04095 19.28336
-      28 -Inf  Inf 19.04095 19.28336
-      29 -Inf  Inf 19.04095 19.28336
-      30 -Inf  Inf 19.04095 19.28336
-      31 -Inf  Inf 19.04095 19.28336
-      32 -Inf  Inf 19.04095 19.28336
-      33 -Inf  Inf 19.04095 19.28336
-      34 -Inf  Inf 19.04095 19.28336
-      35 -Inf  Inf 19.04095 19.28336
-      36 -Inf  Inf 19.04095 19.28336
-      37 -Inf  Inf 19.04095 19.28336
-      38 -Inf  Inf 19.04095 19.28336
-      39 -Inf  Inf 19.04095 19.28336
-      40 -Inf  Inf 19.04095 19.28336
-      41 -Inf  Inf 19.04095 19.28336
-      42 -Inf  Inf 19.04095 19.28336
-      43 -Inf  Inf 19.04095 19.28336
-      44 -Inf  Inf 19.04095 19.28336
-      45 -Inf  Inf 19.04095 19.28336
-      46 -Inf  Inf 19.04095 19.28336
-      47 -Inf  Inf 19.04095 19.28336
-      48 -Inf  Inf 19.04095 19.28336
-      49 -Inf  Inf 19.04095 19.28336
-      50 -Inf  Inf 19.04095 19.28336
-      51 -Inf  Inf 19.04095 19.28336
-      52 -Inf  Inf 19.04095 19.28336
-      53 -Inf  Inf 19.04095 19.28336
-      54 -Inf  Inf 19.04095 19.28336
-      55 -Inf  Inf 19.04095 19.28336
-      56 -Inf  Inf 19.04095 19.28336
-      57 -Inf  Inf 19.04095 19.28336
-      58 -Inf  Inf 19.04095 19.28336
-      59 -Inf  Inf 19.04095 19.28336
-      60 -Inf  Inf 19.04095 19.28336
-      61 -Inf  Inf 19.04095 19.28336
-      62 -Inf  Inf 19.04095 19.28336
+                x            y PANEL group colour linewidth linetype alpha xmin xmax
+      1  14.46589 -1.051524663     1    -1     NA       0.5        1    NA -Inf  Inf
+      2  14.50000 -0.421403250     1    -1     NA       0.5        1    NA -Inf  Inf
+      3  14.55338  3.934290138     1    -1     NA       0.5        1    NA -Inf  Inf
+      4  14.60000  3.768496284     1    -1     NA       0.5        1    NA -Inf  Inf
+      5  15.41000  2.728607225     1    -1     NA       0.5        1    NA -Inf  Inf
+      6  15.45675  2.121906343     1    -1     NA       0.5        1    NA -Inf  Inf
+      7  15.50000  1.727986974     1    -1     NA       0.5        1    NA -Inf  Inf
+      8  15.61460  2.643982147     1    -1     NA       0.5        1    NA -Inf  Inf
+      9  15.84000  2.154050312     1    -1     NA       0.5        1    NA -Inf  Inf
+      10 15.96621  2.746496233     1    -1     NA       0.5        1    NA -Inf  Inf
+      11 16.46000  1.004291419     1    -1     NA       0.5        1    NA -Inf  Inf
+      12 16.59059  1.831545034     1    -1     NA       0.5        1    NA -Inf  Inf
+      13 16.66196  2.087283375     1    -1     NA       0.5        1    NA -Inf  Inf
+      14 16.70000  0.707647427     1    -1     NA       0.5        1    NA -Inf  Inf
+      15 16.73553  1.435746025     1    -1     NA       0.5        1    NA -Inf  Inf
+      16 16.87000  1.935955778     1    -1     NA       0.5        1    NA -Inf  Inf
+      17 16.90000  1.475668782     1    -1     NA       0.5        1    NA -Inf  Inf
+      18 16.92231  1.816786604     1    -1     NA       0.5        1    NA -Inf  Inf
+      19 16.94018  2.362226624     1    -1     NA       0.5        1    NA -Inf  Inf
+      20 17.01667  1.095897242     1    -1     NA       0.5        1    NA -Inf  Inf
+      21 17.02000  1.888677425     1    -1     NA       0.5        1    NA -Inf  Inf
+      22 17.05000  0.825867290     1    -1     NA       0.5        1    NA -Inf  Inf
+      23 17.15895  0.575569960     1    -1     NA       0.5        1    NA -Inf  Inf
+      24 17.20040  0.852419660     1    -1     NA       0.5        1    NA -Inf  Inf
+      25 17.29768  0.148880747     1    -1     NA       0.5        1    NA -Inf  Inf
+      26 17.30000  0.279288602     1    -1     NA       0.5        1    NA -Inf  Inf
+      27 17.40000  0.007771904     1    -1     NA       0.5        1    NA -Inf  Inf
+      28 17.41920  0.789546409     1    -1     NA       0.5        1    NA -Inf  Inf
+      29 17.42000  1.684197643     1    -1     NA       0.5        1    NA -Inf  Inf
+      30 17.48615 -0.175431155     1    -1     NA       0.5        1    NA -Inf  Inf
+      31 17.60000  0.392193188     1    -1     NA       0.5        1    NA -Inf  Inf
+      32 17.82000 -0.567717725     1    -1     NA       0.5        1    NA -Inf  Inf
+      33 17.91617 -1.103815518     1    -1     NA       0.5        1    NA -Inf  Inf
+      34 17.93832 -1.338961090     1    -1     NA       0.5        1    NA -Inf  Inf
+      35 17.98000 -1.498783420     1    -1     NA       0.5        1    NA -Inf  Inf
+      36 18.00000 -0.766069184     1    -1     NA       0.5        1    NA -Inf  Inf
+      37 18.06733 -1.107469018     1    -1     NA       0.5        1    NA -Inf  Inf
+      38 18.30000 -1.398423386     1    -1     NA       0.5        1    NA -Inf  Inf
+      39 18.34726 -1.325927731     1    -1     NA       0.5        1    NA -Inf  Inf
+      40 18.52000 -1.796995163     1    -1     NA       0.5        1    NA -Inf  Inf
+      41 18.56240 -1.907544639     1    -1     NA       0.5        1    NA -Inf  Inf
+      42 18.59333           NA     1    -1     NA       0.5        1    NA -Inf  Inf
+      43 18.60000 -1.948272674     1    -1     NA       0.5        1    NA -Inf  Inf
+      44 18.61000 -1.853738263     1    -1     NA       0.5        1    NA -Inf  Inf
+      45 18.70220 -1.936294224     1    -1     NA       0.5        1    NA -Inf  Inf
+      46 18.73436 -2.099184552     1    -1     NA       0.5        1    NA -Inf  Inf
+      47 18.81201 -2.247234587     1    -1     NA       0.5        1    NA -Inf  Inf
+      48 18.90000 -2.102562012     1    -1     NA       0.5        1    NA -Inf  Inf
+      49 19.44000 -0.130668850     1    -1     NA       0.5        1    NA -Inf  Inf
+      50 19.46833 -1.676509298     1    -1     NA       0.5        1    NA -Inf  Inf
+      51 19.47000 -0.828755170     1    -1     NA       0.5        1    NA -Inf  Inf
+      52 19.55474  1.315532089     1    -1     NA       0.5        1    NA -Inf  Inf
+      53 19.85225 -0.887621299     1    -1     NA       0.5        1    NA -Inf  Inf
+      54 19.90000  0.031286005     1    -1     NA       0.5        1    NA -Inf  Inf
+      55 20.00000  0.046522588     1    -1     NA       0.5        1    NA -Inf  Inf
+      56 20.01000 -1.563810495     1    -1     NA       0.5        1    NA -Inf  Inf
+      57 20.09936 -0.926090234     1    -1     NA       0.5        1    NA -Inf  Inf
+      58 20.12103 -1.428768205     1    -1     NA       0.5        1    NA -Inf  Inf
+      59 20.17787 -1.364469631     1    -1     NA       0.5        1    NA -Inf  Inf
+      60 20.22000 -0.980212464     1    -1     NA       0.5        1    NA -Inf  Inf
+      61 22.90000 -0.152016785     1    -1     NA       0.5        1    NA -Inf  Inf
+      62 22.97365 -1.942341385     1    -1     NA       0.5        1    NA -Inf  Inf
+             ymin     ymax      fill
+      1  19.04095 19.28336 lightgray
+      2  19.04095 19.28336 lightgray
+      3  19.04095 19.28336 lightgray
+      4  19.04095 19.28336 lightgray
+      5  19.04095 19.28336 lightgray
+      6  19.04095 19.28336 lightgray
+      7  19.04095 19.28336 lightgray
+      8  19.04095 19.28336 lightgray
+      9  19.04095 19.28336 lightgray
+      10 19.04095 19.28336 lightgray
+      11 19.04095 19.28336 lightgray
+      12 19.04095 19.28336 lightgray
+      13 19.04095 19.28336 lightgray
+      14 19.04095 19.28336 lightgray
+      15 19.04095 19.28336 lightgray
+      16 19.04095 19.28336 lightgray
+      17 19.04095 19.28336 lightgray
+      18 19.04095 19.28336 lightgray
+      19 19.04095 19.28336 lightgray
+      20 19.04095 19.28336 lightgray
+      21 19.04095 19.28336 lightgray
+      22 19.04095 19.28336 lightgray
+      23 19.04095 19.28336 lightgray
+      24 19.04095 19.28336 lightgray
+      25 19.04095 19.28336 lightgray
+      26 19.04095 19.28336 lightgray
+      27 19.04095 19.28336 lightgray
+      28 19.04095 19.28336 lightgray
+      29 19.04095 19.28336 lightgray
+      30 19.04095 19.28336 lightgray
+      31 19.04095 19.28336 lightgray
+      32 19.04095 19.28336 lightgray
+      33 19.04095 19.28336 lightgray
+      34 19.04095 19.28336 lightgray
+      35 19.04095 19.28336 lightgray
+      36 19.04095 19.28336 lightgray
+      37 19.04095 19.28336 lightgray
+      38 19.04095 19.28336 lightgray
+      39 19.04095 19.28336 lightgray
+      40 19.04095 19.28336 lightgray
+      41 19.04095 19.28336 lightgray
+      42 19.04095 19.28336 lightgray
+      43 19.04095 19.28336 lightgray
+      44 19.04095 19.28336 lightgray
+      45 19.04095 19.28336 lightgray
+      46 19.04095 19.28336 lightgray
+      47 19.04095 19.28336 lightgray
+      48 19.04095 19.28336 lightgray
+      49 19.04095 19.28336 lightgray
+      50 19.04095 19.28336 lightgray
+      51 19.04095 19.28336 lightgray
+      52 19.04095 19.28336 lightgray
+      53 19.04095 19.28336 lightgray
+      54 19.04095 19.28336 lightgray
+      55 19.04095 19.28336 lightgray
+      56 19.04095 19.28336 lightgray
+      57 19.04095 19.28336 lightgray
+      58 19.04095 19.28336 lightgray
+      59 19.04095 19.28336 lightgray
+      60 19.04095 19.28336 lightgray
+      61 19.04095 19.28336 lightgray
+      62 19.04095 19.28336 lightgray
       
       $ale$plots$qsec[[2]]
                  ymin        ymax        x            y PANEL group flipped_aes
@@ -8779,69 +8779,69 @@
       60 -3.432243978  2.47527528 20.22000 -3.432243978     1    -1       FALSE
       61 -2.022296097  1.89836134 22.90000 -2.022296097     1    -1       FALSE
       62 -2.059886077  1.53614909 22.97365 -2.059886077     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      11     NA grey85       0.5        1   0.5
-      12     NA grey85       0.5        1   0.5
-      13     NA grey85       0.5        1   0.5
-      14     NA grey85       0.5        1   0.5
-      15     NA grey85       0.5        1   0.5
-      16     NA grey85       0.5        1   0.5
-      17     NA grey85       0.5        1   0.5
-      18     NA grey85       0.5        1   0.5
-      19     NA grey85       0.5        1   0.5
-      20     NA grey85       0.5        1   0.5
-      21     NA grey85       0.5        1   0.5
-      22     NA grey85       0.5        1   0.5
-      23     NA grey85       0.5        1   0.5
-      24     NA grey85       0.5        1   0.5
-      25     NA grey85       0.5        1   0.5
-      26     NA grey85       0.5        1   0.5
-      27     NA grey85       0.5        1   0.5
-      28     NA grey85       0.5        1   0.5
-      29     NA grey85       0.5        1   0.5
-      30     NA grey85       0.5        1   0.5
-      31     NA grey85       0.5        1   0.5
-      32     NA grey85       0.5        1   0.5
-      33     NA grey85       0.5        1   0.5
-      34     NA grey85       0.5        1   0.5
-      35     NA grey85       0.5        1   0.5
-      36     NA grey85       0.5        1   0.5
-      37     NA grey85       0.5        1   0.5
-      38     NA grey85       0.5        1   0.5
-      39     NA grey85       0.5        1   0.5
-      40     NA grey85       0.5        1   0.5
-      41     NA grey85       0.5        1   0.5
-      42     NA grey85       0.5        1   0.5
-      43     NA grey85       0.5        1   0.5
-      44     NA grey85       0.5        1   0.5
-      45     NA grey85       0.5        1   0.5
-      46     NA grey85       0.5        1   0.5
-      47     NA grey85       0.5        1   0.5
-      48     NA grey85       0.5        1   0.5
-      49     NA grey85       0.5        1   0.5
-      50     NA grey85       0.5        1   0.5
-      51     NA grey85       0.5        1   0.5
-      52     NA grey85       0.5        1   0.5
-      53     NA grey85       0.5        1   0.5
-      54     NA grey85       0.5        1   0.5
-      55     NA grey85       0.5        1   0.5
-      56     NA grey85       0.5        1   0.5
-      57     NA grey85       0.5        1   0.5
-      58     NA grey85       0.5        1   0.5
-      59     NA grey85       0.5        1   0.5
-      60     NA grey85       0.5        1   0.5
-      61     NA grey85       0.5        1   0.5
-      62     NA grey85       0.5        1   0.5
+         colour linewidth linetype   fill alpha
+      1      NA       0.5        1 grey85   0.5
+      2      NA       0.5        1 grey85   0.5
+      3      NA       0.5        1 grey85   0.5
+      4      NA       0.5        1 grey85   0.5
+      5      NA       0.5        1 grey85   0.5
+      6      NA       0.5        1 grey85   0.5
+      7      NA       0.5        1 grey85   0.5
+      8      NA       0.5        1 grey85   0.5
+      9      NA       0.5        1 grey85   0.5
+      10     NA       0.5        1 grey85   0.5
+      11     NA       0.5        1 grey85   0.5
+      12     NA       0.5        1 grey85   0.5
+      13     NA       0.5        1 grey85   0.5
+      14     NA       0.5        1 grey85   0.5
+      15     NA       0.5        1 grey85   0.5
+      16     NA       0.5        1 grey85   0.5
+      17     NA       0.5        1 grey85   0.5
+      18     NA       0.5        1 grey85   0.5
+      19     NA       0.5        1 grey85   0.5
+      20     NA       0.5        1 grey85   0.5
+      21     NA       0.5        1 grey85   0.5
+      22     NA       0.5        1 grey85   0.5
+      23     NA       0.5        1 grey85   0.5
+      24     NA       0.5        1 grey85   0.5
+      25     NA       0.5        1 grey85   0.5
+      26     NA       0.5        1 grey85   0.5
+      27     NA       0.5        1 grey85   0.5
+      28     NA       0.5        1 grey85   0.5
+      29     NA       0.5        1 grey85   0.5
+      30     NA       0.5        1 grey85   0.5
+      31     NA       0.5        1 grey85   0.5
+      32     NA       0.5        1 grey85   0.5
+      33     NA       0.5        1 grey85   0.5
+      34     NA       0.5        1 grey85   0.5
+      35     NA       0.5        1 grey85   0.5
+      36     NA       0.5        1 grey85   0.5
+      37     NA       0.5        1 grey85   0.5
+      38     NA       0.5        1 grey85   0.5
+      39     NA       0.5        1 grey85   0.5
+      40     NA       0.5        1 grey85   0.5
+      41     NA       0.5        1 grey85   0.5
+      42     NA       0.5        1 grey85   0.5
+      43     NA       0.5        1 grey85   0.5
+      44     NA       0.5        1 grey85   0.5
+      45     NA       0.5        1 grey85   0.5
+      46     NA       0.5        1 grey85   0.5
+      47     NA       0.5        1 grey85   0.5
+      48     NA       0.5        1 grey85   0.5
+      49     NA       0.5        1 grey85   0.5
+      50     NA       0.5        1 grey85   0.5
+      51     NA       0.5        1 grey85   0.5
+      52     NA       0.5        1 grey85   0.5
+      53     NA       0.5        1 grey85   0.5
+      54     NA       0.5        1 grey85   0.5
+      55     NA       0.5        1 grey85   0.5
+      56     NA       0.5        1 grey85   0.5
+      57     NA       0.5        1 grey85   0.5
+      58     NA       0.5        1 grey85   0.5
+      59     NA       0.5        1 grey85   0.5
+      60     NA       0.5        1 grey85   0.5
+      61     NA       0.5        1 grey85   0.5
+      62     NA       0.5        1 grey85   0.5
       
       $ale$plots$qsec[[3]]
                 x            y PANEL group flipped_aes colour linewidth linetype
@@ -8972,12 +8972,12 @@
       62    NA
       
       $ale$plots$qsec[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$qsec[[6]]
                 x        y PANEL group colour linewidth linetype alpha
@@ -9049,178 +9049,178 @@
       
       $ale$plots$vs
       $ale$plots$vs[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 -4.920311     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2  5.576353     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 -4.920311     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2  5.576353     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$vs[[2]]
-        x        y PANEL group flipped_aes      ymin     ymax xmin xmax colour fill
-      1 1 0.000000     1     1       FALSE -4.920311 0.000000 0.55 1.45     NA gray
-      2 2 5.576353     1     2       FALSE  0.000000 5.576353 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes      ymin     ymax xmin xmax colour
+      1 1 0.000000     1     1       FALSE -4.920311 0.000000 0.55 1.45     NA
+      2 2 5.576353     1     2       FALSE  0.000000 5.576353 1.55 2.45     NA
+        linewidth linetype alpha fill
+      1       0.5        1    NA gray
+      2       0.5        1    NA gray
       
       $ale$plots$vs[[3]]
              ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1 -7.745490 -3.658689 1 -4.920311     1     1       FALSE 0.975 1.025  black
       2  4.146514  7.010293 2  5.576353     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$vs[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   56% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   44% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   56% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   44% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$vs[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$vs[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$am
       $ale$plots$am[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 -3.718007     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2  6.627752     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 -3.718007     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2  6.627752     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
       
       $ale$plots$am[[2]]
-        x        y PANEL group flipped_aes      ymin     ymax xmin xmax colour fill
-      1 1 0.000000     1     1       FALSE -3.718007 0.000000 0.55 1.45     NA gray
-      2 2 6.627752     1     2       FALSE  0.000000 6.627752 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes      ymin     ymax xmin xmax colour
+      1 1 0.000000     1     1       FALSE -3.718007 0.000000 0.55 1.45     NA
+      2 2 6.627752     1     2       FALSE  0.000000 6.627752 1.55 2.45     NA
+        linewidth linetype alpha fill
+      1       0.5        1    NA gray
+      2       0.5        1    NA gray
       
       $ale$plots$am[[3]]
              ymin      ymax x         y PANEL group flipped_aes  xmin  xmax colour
       1 -9.248404  1.894828 1 -3.718007     1     1       FALSE 0.975 1.025  black
       2 -3.617400 12.551679 2  6.627752     1     2       FALSE 1.975 2.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
       
       $ale$plots$am[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   59% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   41% 2     1     2  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   59% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   41% 2     1     2  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
       
       $ale$plots$am[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$am[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$gear
       $ale$plots$gear[[1]]
-        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1  2.4533156     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 -0.6044931     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 -0.9135960     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
+        x          y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1  2.4533156     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 -0.6044931     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 -0.9135960     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
       
       $ale$plots$gear[[2]]
-        x        y PANEL group flipped_aes       ymin     ymax xmin xmax colour fill
-      1 1 2.453316     1     1       FALSE  0.0000000 2.453316 0.55 1.45     NA gray
-      2 2 0.000000     1     2       FALSE -0.6044931 0.000000 1.55 2.45     NA gray
-      3 3 0.000000     1     3       FALSE -0.9135960 0.000000 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+        x        y PANEL group flipped_aes       ymin     ymax xmin xmax colour
+      1 1 2.453316     1     1       FALSE  0.0000000 2.453316 0.55 1.45     NA
+      2 2 0.000000     1     2       FALSE -0.6044931 0.000000 1.55 2.45     NA
+      3 3 0.000000     1     3       FALSE -0.9135960 0.000000 2.55 3.45     NA
+        linewidth linetype alpha fill
+      1       0.5        1    NA gray
+      2       0.5        1    NA gray
+      3       0.5        1    NA gray
       
       $ale$plots$gear[[3]]
               ymin      ymax x          y PANEL group flipped_aes  xmin  xmax colour
       1  -3.698467  9.647674 1  2.4533156     1     1       FALSE 0.975 1.025  black
       2  -3.162360  1.957260 2 -0.6044931     1     2       FALSE 1.975 2.025  black
       3 -17.663918 11.761084 3 -0.9135960     1     3       FALSE 2.975 3.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
       
       $ale$plots$gear[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108   47% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108   38% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   16% 3     1     3  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108   47% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108   38% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   16% 3     1     3  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
       
       $ale$plots$gear[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$gear[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       $ale$plots$carb
       $ale$plots$carb[[1]]
-        x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1  0.005501888     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 2  0.001674488     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 3 -0.002152913     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 4 -0.005980313     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 5 -0.009807713     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 6 -0.013635113     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 7 -0.017462513     1    -1     NA lightgray       0.5        1    NA -Inf
-      8 8 -0.015654827     1    -1     NA lightgray       0.5        1    NA -Inf
-        xmax     ymin     ymax
-      1  Inf 19.04095 19.28336
-      2  Inf 19.04095 19.28336
-      3  Inf 19.04095 19.28336
-      4  Inf 19.04095 19.28336
-      5  Inf 19.04095 19.28336
-      6  Inf 19.04095 19.28336
-      7  Inf 19.04095 19.28336
-      8  Inf 19.04095 19.28336
+        x            y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1  0.005501888     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2  0.001674488     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 -0.002152913     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 -0.005980313     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5 -0.009807713     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6 -0.013635113     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      7 7 -0.017462513     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+      8 8 -0.015654827     1    -1     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
+      7 19.28336 lightgray
+      8 19.28336 lightgray
       
       $ale$plots$carb[[2]]
-               ymin       ymax x           y PANEL group flipped_aes colour   fill
-      1 -0.26292344 0.24173470 1 -0.26292344     1    -1       FALSE     NA grey85
-      2 -0.10576006 0.07864671 2 -0.10576006     1    -1       FALSE     NA grey85
-      3 -0.08444129 0.05140332 3 -0.08444129     1    -1       FALSE     NA grey85
-      4 -0.24752929 0.20856670 4 -0.24752929     1    -1       FALSE     NA grey85
-      5 -0.41061728 0.36573007 5 -0.41061728     1    -1       FALSE     NA grey85
-      6 -0.57370528 0.52289345 6 -0.57370528     1    -1       FALSE     NA grey85
-      7 -0.81992947 0.76684001 7 -0.81992947     1    -1       FALSE     NA grey85
-      8 -0.02072640 0.94460028 8 -0.02072640     1    -1       FALSE     NA grey85
-        linewidth linetype alpha
-      1       0.5        1   0.5
-      2       0.5        1   0.5
-      3       0.5        1   0.5
-      4       0.5        1   0.5
-      5       0.5        1   0.5
-      6       0.5        1   0.5
-      7       0.5        1   0.5
-      8       0.5        1   0.5
+               ymin       ymax x           y PANEL group flipped_aes colour linewidth
+      1 -0.26292344 0.24173470 1 -0.26292344     1    -1       FALSE     NA       0.5
+      2 -0.10576006 0.07864671 2 -0.10576006     1    -1       FALSE     NA       0.5
+      3 -0.08444129 0.05140332 3 -0.08444129     1    -1       FALSE     NA       0.5
+      4 -0.24752929 0.20856670 4 -0.24752929     1    -1       FALSE     NA       0.5
+      5 -0.41061728 0.36573007 5 -0.41061728     1    -1       FALSE     NA       0.5
+      6 -0.57370528 0.52289345 6 -0.57370528     1    -1       FALSE     NA       0.5
+      7 -0.81992947 0.76684001 7 -0.81992947     1    -1       FALSE     NA       0.5
+      8 -0.02072640 0.94460028 8 -0.02072640     1    -1       FALSE     NA       0.5
+        linetype   fill alpha
+      1        1 grey85   0.5
+      2        1 grey85   0.5
+      3        1 grey85   0.5
+      4        1 grey85   0.5
+      5        1 grey85   0.5
+      6        1 grey85   0.5
+      7        1 grey85   0.5
+      8        1 grey85   0.5
       
       $ale$plots$carb[[3]]
         x            y PANEL group flipped_aes colour linewidth linetype alpha
@@ -9234,12 +9234,12 @@
       8 8 -0.015654827     1    -1       FALSE  black       0.5        1    NA
       
       $ale$plots$carb[[4]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       $ale$plots$carb[[6]]
                  x        y PANEL group colour linewidth linetype alpha
@@ -9311,36 +9311,36 @@
       
       $ale$plots$country
       $ale$plots$country[[1]]
-        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 1.5218725     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 5.6124284     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 1.7157562     1     3     NA lightgray       0.5        1    NA -Inf  Inf
-      4 4 3.7980967     1     4     NA lightgray       0.5        1    NA -Inf  Inf
-      5 5 5.3604063     1     5     NA lightgray       0.5        1    NA -Inf  Inf
-      6 6 0.6099854     1     6     NA lightgray       0.5        1    NA -Inf  Inf
-            ymin     ymax
-      1 19.04095 19.28336
-      2 19.04095 19.28336
-      3 19.04095 19.28336
-      4 19.04095 19.28336
-      5 19.04095 19.28336
-      6 19.04095 19.28336
+        x         y PANEL group colour linewidth linetype alpha xmin xmax     ymin
+      1 1 1.5218725     1     1     NA       0.5        1    NA -Inf  Inf 19.04095
+      2 2 5.6124284     1     2     NA       0.5        1    NA -Inf  Inf 19.04095
+      3 3 1.7157562     1     3     NA       0.5        1    NA -Inf  Inf 19.04095
+      4 4 3.7980967     1     4     NA       0.5        1    NA -Inf  Inf 19.04095
+      5 5 5.3604063     1     5     NA       0.5        1    NA -Inf  Inf 19.04095
+      6 6 0.6099854     1     6     NA       0.5        1    NA -Inf  Inf 19.04095
+            ymax      fill
+      1 19.28336 lightgray
+      2 19.28336 lightgray
+      3 19.28336 lightgray
+      4 19.28336 lightgray
+      5 19.28336 lightgray
+      6 19.28336 lightgray
       
       $ale$plots$country[[2]]
-        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour fill
-      1 1 1.5218725     1     1       FALSE    0 1.5218725 0.55 1.45     NA gray
-      2 2 5.6124284     1     2       FALSE    0 5.6124284 1.55 2.45     NA gray
-      3 3 1.7157562     1     3       FALSE    0 1.7157562 2.55 3.45     NA gray
-      4 4 3.7980967     1     4       FALSE    0 3.7980967 3.55 4.45     NA gray
-      5 5 5.3604063     1     5       FALSE    0 5.3604063 4.55 5.45     NA gray
-      6 6 0.6099854     1     6       FALSE    0 0.6099854 5.55 6.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      4       0.5        1    NA
-      5       0.5        1    NA
-      6       0.5        1    NA
+        x         y PANEL group flipped_aes ymin      ymax xmin xmax colour linewidth
+      1 1 1.5218725     1     1       FALSE    0 1.5218725 0.55 1.45     NA       0.5
+      2 2 5.6124284     1     2       FALSE    0 5.6124284 1.55 2.45     NA       0.5
+      3 3 1.7157562     1     3       FALSE    0 1.7157562 2.55 3.45     NA       0.5
+      4 4 3.7980967     1     4       FALSE    0 3.7980967 3.55 4.45     NA       0.5
+      5 5 5.3604063     1     5       FALSE    0 5.3604063 4.55 5.45     NA       0.5
+      6 6 0.6099854     1     6       FALSE    0 0.6099854 5.55 6.45     NA       0.5
+        linetype alpha fill
+      1        1    NA gray
+      2        1    NA gray
+      3        1    NA gray
+      4        1    NA gray
+      5        1    NA gray
+      6        1    NA gray
       
       $ale$plots$country[[3]]
               ymin     ymax x         y PANEL group flipped_aes  xmin  xmax colour
@@ -9350,37 +9350,37 @@
       4 -24.270171 9.553863 4 3.7980967     1     4       FALSE 3.975 4.025  black
       5  -8.288286 8.081093 5 5.3604063     1     5       FALSE 4.975 5.025  black
       6  -8.057429 8.892602 6 0.6099854     1     6       FALSE 5.975 6.025  black
-        linewidth linetype width alpha
-      1       0.5        1  0.05    NA
-      2       0.5        1  0.05    NA
-      3       0.5        1  0.05    NA
-      4       0.5        1  0.05    NA
-      5       0.5        1  0.05    NA
-      6       0.5        1  0.05    NA
+        linewidth linetype alpha width
+      1       0.5        1    NA  0.05
+      2       0.5        1    NA  0.05
+      3       0.5        1    NA  0.05
+      4       0.5        1    NA  0.05
+      5       0.5        1    NA  0.05
+      6       0.5        1    NA  0.05
       
       $ale$plots$country[[4]]
-               y label x PANEL group colour size angle hjust vjust alpha family
-      1 10.39108    3% 1     1     1  black    3     0   0.5  -0.2   0.5       
-      2 10.39108    3% 2     1     2  black    3     0   0.5  -0.2   0.5       
-      3 10.39108   19% 3     1     3  black    3     0   0.5  -0.2   0.5       
-      4 10.39108   12% 4     1     4  black    3     0   0.5  -0.2   0.5       
-      5 10.39108   25% 5     1     5  black    3     0   0.5  -0.2   0.5       
-      6 10.39108   38% 6     1     6  black    3     0   0.5  -0.2   0.5       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
+               y label x PANEL group colour angle hjust family fontface lineheight
+      1 10.39108    3% 1     1     1  black     0   0.5               1        1.2
+      2 10.39108    3% 2     1     2  black     0   0.5               1        1.2
+      3 10.39108   19% 3     1     3  black     0   0.5               1        1.2
+      4 10.39108   12% 4     1     4  black     0   0.5               1        1.2
+      5 10.39108   25% 5     1     5  black     0   0.5               1        1.2
+      6 10.39108   38% 6     1     6  black     0   0.5               1        1.2
+        size vjust alpha
+      1    3  -0.2   0.5
+      2    3  -0.2   0.5
+      3    3  -0.2   0.5
+      4    3  -0.2   0.5
+      5    3  -0.2   0.5
+      6    3  -0.2   0.5
       
       $ale$plots$country[[5]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1   15.43921     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1   15.43921     1    -1  black       0.5    NA   dashed
       
       $ale$plots$country[[6]]
-        yintercept PANEL group colour linewidth linetype alpha
-      1       22.8     1    -1  black       0.5   dashed    NA
+        yintercept PANEL group colour linewidth alpha linetype
+      1       22.8     1    -1  black       0.5    NA   dashed
       
       
       
