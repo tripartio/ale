@@ -172,10 +172,16 @@ calc_ale <- function(
         boot_ale_x_int <- cut(X_boot[[x_col]], breaks = ale_x, include.lowest = TRUE) |>
           as.numeric()
 
-        X_lo <- X_boot |>  # X_boot with x_col set at the lower bound of the ALE interval
-          mutate(!!x_col := ale_x[boot_ale_x_int])
-        X_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
-          mutate(!!x_col := ale_x[boot_ale_x_int + 1])
+        # X_boot with x_col set at the lower bound of the ALE interval
+        X_lo <- X_boot
+        X_lo[x_col] <- ale_x[boot_ale_x_int]
+        # X_boot with x_col set at the upper bound of the ALE interval
+        X_hi <- X_boot
+        X_hi[x_col] <- ale_x[boot_ale_x_int + 1]
+        # X_lo <- X_boot |>  # X_boot with x_col set at the lower bound of the ALE interval
+        #   mutate(!!x_col := ale_x[boot_ale_x_int])
+        # X_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
+        #   mutate(!!x_col := ale_x[boot_ale_x_int + 1])
 
         # Difference between low and high boundary predictions
         delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
