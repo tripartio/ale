@@ -234,9 +234,9 @@ create_p_funs <- function(
       )
     )
     assert_that(
-      stringr::str_detect(random_model_call_string, '.rand_train'),
+      stringr::str_detect(random_model_call_string, 'rand_train'),
       msg = glue(
-        'The data argument for random_model_call_string must be ".rand_train". ',
+        'The data argument for random_model_call_string must be "rand_train". ',
         'See help(create_p_funs) for details.'
       )
     )
@@ -274,9 +274,9 @@ create_p_funs <- function(
 
   # This super-assignment might be problematic. See this tip from ChatGPT to resolve it:
   # https://chat.openai.com/c/08b68562-c339-4c37-baab-3c71d2e9fb73
-  .rand_model <<- NULL
-  .rand_test <<- NULL
-  .rand_train <<- NULL
+  rand_model <<- NULL
+  rand_test <<- NULL
+  rand_train <<- NULL
 
 
 
@@ -289,8 +289,8 @@ create_p_funs <- function(
 
   # Create ALEs for random variables based on residual_distribution
   # Super-assignment so that the modified datasets will be visible within the ale function
-  .rand_train <<- training_data
-  .rand_test  <<- test_data
+  rand_train <<- training_data
+  rand_test  <<- test_data
   train_n <- nrow(training_data)
   test_n  <- nrow(test_data)
 
@@ -316,14 +316,14 @@ create_p_funs <- function(
   }
 
 
-  # .rand_ales <- map(
-  # .rand_ales <- furrr::future_map(
+  # rand_ales <- map(
+  # rand_ales <- furrr::future_map(
   # extend random_model_call_string_vars with local variables for parallel processing
   random_model_call_string_vars <- c(
-    '.rand_train', '.rand_test', '.random_variable', '.rand_model', '.rand_ale',
+    'rand_train', 'rand_test', '.random_variable', 'rand_model', 'rand_ale',
     random_model_call_string_vars
   )
-  .rand_ales <- map_loop(
+  rand_ales <- map_loop(
     # .progress = !silent,  # future_map does not allow messages for .progress
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
@@ -356,38 +356,38 @@ create_p_funs <- function(
       # Generate training and test subsets with the random variable.
       # Super-assignment because they modify the datasets defined outside of the map function.
       set.seed(.it)
-      .rand_train$.random_variable <<- univariateML::rml(
+      rand_train$.random_variable <<- univariateML::rml(
         n = train_n,
         obj = residual_distribution
       )
-      .rand_test$.random_variable <<- univariateML::rml(
+      rand_test$.random_variable <<- univariateML::rml(
         n = test_n,
         obj = residual_distribution
       )
 
       # Train model with the random variable: convert model call string to an expression
-      # Super-assignment so that .rand_model will be visible within the ale function
+      # Super-assignment so that rand_model will be visible within the ale function
 
       # If random_model_call_string was provided, prefer it to automatic detection
       if (!is.null(random_model_call_string)) {
-        .rand_model <<- random_model_call_string |>
+        rand_model <<- random_model_call_string |>
           parse(text = _) |>
           eval()
       }
       else {  # use the automatically detected model call
-        # Update the model to call to add .random_variable and to train on .rand_train
+        # Update the model to call to add .random_variable and to train on rand_train
         model_call$formula <- model_call$formula |>
           stats::update.formula(~ . + .random_variable)
-        model_call$data <- .rand_train
+        model_call$data <- rand_train
 
-        .rand_model <<- eval(model_call)
+        rand_model <<- eval(model_call)
       }
 
       # Calculate ale of random variable on the test set.
       # If calculated on the training set, p-values will be too liberal.
-      .rand_ale <- ale::ale(
-        .rand_test,
-        .rand_model,
+      rand_ale <- ale::ale(
+        rand_test,
+        rand_model,
         '.random_variable',
         # avoid iterative parallelization
         parallel = 0,
@@ -399,7 +399,7 @@ create_p_funs <- function(
         relative_y = 'zero'
       )
 
-      .rand_ale
+      rand_ale
     })
 
   # Disable parallel processing if it had been enabled
@@ -415,7 +415,7 @@ create_p_funs <- function(
   # ale_y_norm_fun <- create_ale_y_norm_function(test_data[[y_col]])
 
   rand_stats <-
-    map(.rand_ales, \(.rand) {
+    map(rand_ales, \(.rand) {
       ale_stats(
         ale_y = .rand$data$.random_variable$ale_y,
         ale_n = .rand$data$.random_variable$ale_n,

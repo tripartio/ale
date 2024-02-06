@@ -360,6 +360,7 @@ ale <- function (
     },
     pred_type = "response",
     p_values = NULL,
+    p_alpha = c(0.01, 0.05),
     x_intervals = 100,
     boot_it = 0,
     seed = 0,

@@ -19,6 +19,7 @@ ale(
  },
   pred_type = "response",
   p_values = NULL,
+  p_alpha = c(0.01, 0.05),
   x_intervals = 100,
   boot_it = 0,
   seed = 0,
@@ -84,6 +85,17 @@ will result in an error. For more details about creating p-values,
 see documentation for \code{\link[=create_p_funs]{create_p_funs()}}. Note that p-values will not be
 generated if 'stats' are not included as an option in the \code{output} argument.}
 
+\item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
+for printing bands around the median for single-variable plots. These are the
+default values used if \code{p_values} are provided. If \code{p_values} are not provided,
+then \code{median_band_pct} is used instead.
+The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant
+ALE statistic (usually ALE range or normalized ALE range).
+For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}.
+For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)},
+the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
+the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
+
 \item{x_intervals}{positive integer length 1. Maximum number of intervals on the x-axis
 for the ALE data for each column in \code{x_cols}. The number of intervals that the algorithm generates
 might eventually be fewer than what the user specifies if the data values for
@@ -143,17 +155,6 @@ see the \code{\link[=model_bootstrap]{model_bootstrap()}} function).}
 non-essential messages during execution (such as progress bars).
 Regardless, any warnings and errors will always display. See details for how
 to enable progress bars.}
-
-\item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
-for printing bands around the median for single-variable plots. These are the
-default values used if \code{p_values} are provided. If \code{p_values} are not provided,
-then \code{median_band_pct} is used instead.
-The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant
-ALE statistic (usually ALE range or normalized ALE range).
-For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}.
-For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)},
-the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
-the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 }
 \value{
 list with the following elements:
