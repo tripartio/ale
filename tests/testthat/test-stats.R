@@ -1,6 +1,25 @@
 # test-stats.R
 # Only test exported functions.
 
+
+test_that(
+  'Parallelized version does not crash', {
+    expect_no_error(
+      create_p_funs(
+        # For testing, just use the same training and test sets
+        test_cars,
+        test_cars,
+        cars_gam,
+        model_packages = 'mgcv',
+        rand_it = 2,
+        silent = TRUE,
+        parallel = 2,
+        .testing_mode = TRUE
+      )
+    )
+  }
+)
+
 test_that(
   'create_p_funs works with default inputs', {
 

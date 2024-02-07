@@ -4,7 +4,6 @@
 #
 
 
-
 #' @title Create a p-value functions object that can be used to generate p-values
 #'
 #' @description
@@ -227,9 +226,9 @@ create_p_funs <- function(
   else {  # validate random_model_call_string
     assert_that(is.string(random_model_call_string))
     assert_that(
-      stringr::str_detect(random_model_call_string, '.random_variable'),
+      stringr::str_detect(random_model_call_string, 'random_variable'),
       msg = glue(
-        'random_model_call_string must contain a variable named .random_variable. ',
+        'random_model_call_string must contain a variable named random_variable. ',
         'See help(create_p_funs) for details.'
       )
     )
@@ -267,30 +266,15 @@ create_p_funs <- function(
   validate_silent(silent)
 
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-
-  # This super-assignment might be problematic. See this tip from ChatGPT to resolve it:
-  # https://chat.openai.com/c/08b68562-c339-4c37-baab-3c71d2e9fb73
-  rand_model <<- NULL
-  rand_test <<- NULL
-  rand_train <<- NULL
-
-
-
   # Determine the closest distribution of the residuals
   # Note that the distribution is determined from the training data, not the test data
   residuals <- (training_data[[y_col]] - y_preds) |>
-    # residuals <- (training_data[[y_col]] - pred_fun(model, training_data, pred_type)) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
 
   # Create ALEs for random variables based on residual_distribution
-  # Super-assignment so that the modified datasets will be visible within the ale function
-  rand_train <<- training_data
-  rand_test  <<- test_data
+  assign('rand_train', training_data, package_scope)
+  assign('rand_test', test_data, package_scope)
   train_n <- nrow(training_data)
   test_n  <- nrow(test_data)
 
@@ -315,16 +299,12 @@ create_p_funs <- function(
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
-
-  # rand_ales <- map(
-  # rand_ales <- furrr::future_map(
-  # extend random_model_call_string_vars with local variables for parallel processing
-  random_model_call_string_vars <- c(
-    'rand_train', 'rand_test', '.random_variable', 'rand_model', 'rand_ale',
-    random_model_call_string_vars
-  )
+  # # extend random_model_call_string_vars with local variables for parallel processing
+  # random_model_call_string_vars <- c(
+  #   'package_scope', 'rand_train', 'rand_test', 'random_variable', 'rand_model', 'rand_ale',
+  #   random_model_call_string_vars
+  # )
   rand_ales <- map_loop(
-    # .progress = !silent,  # future_map does not allow messages for .progress
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
@@ -332,17 +312,9 @@ create_p_funs <- function(
       # globals = structure(TRUE)
       # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
       # globals = structure(TRUE, add = random_model_call_string_vars)
-      globals = random_model_call_string_vars,
+      # globals = random_model_call_string_vars,
       packages = model_packages
     ),
-    # .progress = if (!silent) {
-    #   list(
-    #     name = paste0('Retraining ', rand_it, ' models with random variables...'),
-    #     show_after = 5
-    #   )
-    # } else {
-    #   FALSE
-    # },
     .x = 1:rand_it,
     .f = \(.it) {
 
@@ -356,41 +328,51 @@ create_p_funs <- function(
       # Generate training and test subsets with the random variable.
       # Super-assignment because they modify the datasets defined outside of the map function.
       set.seed(.it)
-      rand_train$.random_variable <<- univariateML::rml(
+
+      tmp_rand_train <- training_data
+      tmp_rand_train$random_variable <- univariateML::rml(
         n = train_n,
         obj = residual_distribution
       )
-      rand_test$.random_variable <<- univariateML::rml(
+      assign('rand_train', tmp_rand_train, package_scope)
+      rm(tmp_rand_train)
+
+      tmp_rand_test <- test_data
+      tmp_rand_test$random_variable <- univariateML::rml(
         n = test_n,
         obj = residual_distribution
       )
+      assign('rand_test', tmp_rand_test, package_scope)
+      rm(tmp_rand_test)
 
       # Train model with the random variable: convert model call string to an expression
-      # Super-assignment so that rand_model will be visible within the ale function
 
       # If random_model_call_string was provided, prefer it to automatic detection
       if (!is.null(random_model_call_string)) {
-        rand_model <<- random_model_call_string |>
-          parse(text = _) |>
-          eval()
+        assign(
+          envir = package_scope,
+          'rand_model',
+          random_model_call_string |>
+            parse(text = _) |>
+            eval()
+          )
       }
       else {  # use the automatically detected model call
-        # Update the model to call to add .random_variable and to train on rand_train
+        # Update the model to call to add random_variable and to train on rand_train
         model_call$formula <- model_call$formula |>
-          stats::update.formula(~ . + .random_variable)
-        model_call$data <- rand_train
+          stats::update.formula(~ . + random_variable)
+        model_call$data <- package_scope$rand_train
 
-        rand_model <<- eval(model_call)
+        assign('rand_model', eval(model_call), package_scope)
       }
 
       # Calculate ale of random variable on the test set.
       # If calculated on the training set, p-values will be too liberal.
       rand_ale <- ale::ale(
-        rand_test,
-        rand_model,
-        '.random_variable',
-        # avoid iterative parallelization
-        parallel = 0,
+        package_scope$rand_test,
+        package_scope$rand_model,
+        'random_variable',
+        parallel = 0,  # avoid iterative parallelization
         output = 'data',
         y_col = y_col,
         pred_fun = pred_fun,
@@ -409,7 +391,7 @@ create_p_funs <- function(
 
   # Normalization is based on y_preds rather than y_col:
   # * takes care of classification, survival, or other [0, 1] prediction values
-  # * reflects fact that .random_variable results are based on random iterations
+  # * reflects fact that random_variable results are based on random iterations
   #   of the input dataset, which changes each time.
   ale_y_norm_fun <- create_ale_y_norm_function(y_preds)
   # ale_y_norm_fun <- create_ale_y_norm_function(test_data[[y_col]])
@@ -417,8 +399,8 @@ create_p_funs <- function(
   rand_stats <-
     map(rand_ales, \(.rand) {
       ale_stats(
-        ale_y = .rand$data$.random_variable$ale_y,
-        ale_n = .rand$data$.random_variable$ale_n,
+        ale_y = .rand$data$random_variable$ale_y,
+        ale_n = .rand$data$random_variable$ale_n,
         ale_y_norm_fun = ale_y_norm_fun,
         zeroed_ale = TRUE
       )
@@ -889,7 +871,7 @@ summarize_conf_regions <- function(
             x_span = as.numeric(.data$end_x - .data$start_x) /
               as.numeric(diff(range(.ale_data$ale_x))),
             trend = if_else(
-              x_span != 0,
+              .data$x_span != 0,
               # slope from (start_x, start_y) to (end_x, end_y)
               # normalized on scales of x and y
               ((.data$end_y - .data$start_y) /
