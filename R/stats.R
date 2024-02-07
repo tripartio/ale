@@ -78,8 +78,8 @@
 #' automatically detect and construct the call for p-values. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.
-# @param random_model_call_string_vars See documentation for `model_call_string_vars`
-# in [model_bootstrap()]; the operation is very similar.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars`
+#' in [model_bootstrap()]; the operation is very similar.
 #' @param y_col See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()].
 #' @param rand_it non-negative integer length 1. Number of times that the model
@@ -183,7 +183,7 @@ create_p_funs <- function(
     parallel = parallel::detectCores(logical = FALSE) - 1,
     model_packages = as.character(NA),
     random_model_call_string = NULL,
-    # random_model_call_string_vars = character(),
+    random_model_call_string_vars = character(),
     y_col = NULL,
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -239,9 +239,16 @@ create_p_funs <- function(
         'See help(create_p_funs) for details.'
       )
     )
+
+    # Replace 'rand_train' with the proper internal reference.
+    random_model_call_string <- random_model_call_string |>
+      stringr::str_replace_all(
+        'rand_train',
+        'package_scope$rand_train'
+      )
   }
 
-  # assert_that(is.character(random_model_call_string_vars))
+  assert_that(is.character(random_model_call_string_vars))
 
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -312,7 +319,7 @@ create_p_funs <- function(
       # globals = structure(TRUE)
       # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
       # globals = structure(TRUE, add = random_model_call_string_vars)
-      # globals = random_model_call_string_vars,
+      globals = random_model_call_string_vars,
       packages = model_packages
     ),
     .x = 1:rand_it,
