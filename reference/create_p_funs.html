@@ -36,7 +36,7 @@ correctly manipulate its model object."><meta property="og:image" content="https
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +108,6 @@ correctly manipulate its model object.</p>
 <span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  random_model_call_string <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  random_model_call_string_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
@@ -155,11 +154,6 @@ for which ALE should be calculated. See details and also documentation for <code
 automatically detect and construct the call for p-values. If it cannot, the
 function will fail early. In that case, a character string of the full call
 for the model must be provided that includes the random variable. See details.</p></dd>
-
-
-<dt>random_model_call_string_vars</dt>
-<dd><p>See documentation for <code>model_call_string_vars</code>
-in <code><a href="model_bootstrap.html">model_bootstrap()</a></code>; the operation is very similar.</p></dd>
 
 
 <dt>y_col</dt>
@@ -380,7 +374,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:3] "p_funs" "ale" "list"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "ale_version")=Classes 'package_version', 'numeric_version'  hidden list of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ : int [1:4] 0 2 0 20240207</span>
 <span class="r-in"><span><span class="co"># In RStudio: View(pf_diamonds)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate ALEs with p-values</span></span></span>

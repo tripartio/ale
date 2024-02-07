@@ -44,7 +44,7 @@ number specified will be used, including the middle quantile."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -315,6 +315,7 @@ the <code>output</code> argument.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.942   Deviance explained = 94.5%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.5069e+05  Scale est. = 8.9531e+05  n = 801</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># ALE two-way interactions</span></span></span>
 <span class="r-in"><span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale_ixn</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
@@ -323,8 +324,6 @@ the <code>output</code> argument.</p></li>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale_ixn(diamonds_test, gam_diamonds, model_packages = "mgcv",     parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Print interaction plots</span></span></span>
 <span class="r-in"><span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span></span>

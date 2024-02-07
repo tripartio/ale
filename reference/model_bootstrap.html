@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240206</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -296,6 +296,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.776   Deviance explained = 83.9%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 47.947  Scale est. = 33.213    n = 30</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Full model bootstrapping</span></span></span>
 <span class="r-in"><span><span class="co"># Only 4 bootstrap iterations for a rapid example; default is 100</span></span></span>
 <span class="r-in"><span><span class="co"># Increase value of boot_it for more realistic results</span></span></span>
@@ -307,7 +308,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># If the model is not standard, supply model_call_string with</span></span></span>
 <span class="r-in"><span><span class="co"># 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])</span></span></span>
 <span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">model_bootstrap</span><span class="op">(</span></span></span>
