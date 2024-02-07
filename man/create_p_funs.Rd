@@ -12,7 +12,6 @@ create_p_funs(
   parallel = parallel::detectCores(logical = FALSE) - 1,
   model_packages = as.character(NA),
   random_model_call_string = NULL,
-  random_model_call_string_vars = character(),
   y_col = NULL,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -44,9 +43,6 @@ for which ALE should be calculated. See details and also documentation for \code
 automatically detect and construct the call for p-values. If it cannot, the
 function will fail early. In that case, a character string of the full call
 for the model must be provided that includes the random variable. See details.}
-
-\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars}
-in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very similar.}
 
 \item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
