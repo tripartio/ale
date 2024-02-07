@@ -119,6 +119,7 @@
 #'                           data = attitude)
 #' summary(gam_attitude)
 #'
+#' \donttest{
 #' # Full model bootstrapping
 #' # Only 4 bootstrap iterations for a rapid example; default is 100
 #' # Increase value of boot_it for more realistic results
@@ -130,7 +131,6 @@
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
-#' \donttest{
 #' # If the model is not standard, supply model_call_string with
 #' # 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])
 #' mb_gam <- model_bootstrap(
@@ -266,24 +266,24 @@ model_bootstrap <- function (
 
   n_rows <- nrow(data)
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when data masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  ale_x <- NULL
-  ale_n <- NULL
-  ale_y <- NULL
-  ale_y_mean <- NULL
-  ale_y_median <- NULL
-  aled <- NULL
-  estimate <- NULL
-  it <- NULL
-  naler_max <- NULL
-  name <- NULL
-  p.value <- NULL
-  statistic <- NULL
-  term <- NULL
-  value <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when data masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # ale_x <- NULL
+  # ale_n <- NULL
+  # ale_y <- NULL
+  # ale_y_mean <- NULL
+  # ale_y_median <- NULL
+  # aled <- NULL
+  # estimate <- NULL
+  # it <- NULL
+  # naler_max <- NULL
+  # name <- NULL
+  # p.value <- NULL
+  # statistic <- NULL
+  # term <- NULL
+  # value <- NULL
 
 
   # Create bootstrap tbl
@@ -295,8 +295,8 @@ model_bootstrap <- function (
     # row_idxs: row indexes of each bootstrap sample.
     # Store just the indexes rather than duplicating the entire dataset
     #   multiple times.
-    row_idxs = map(0:boot_it, \(it) {
-      if (it == 0) {  # row 0 is the full dataset without bootstrapping
+    row_idxs = map(0:boot_it, \(.it) {
+      if (.it == 0) {  # row 0 is the full dataset without bootstrapping
         1:n_rows
       } else {  # bootstrap: sample n_rows with replacement
         sample.int(n_rows, replace = TRUE)
@@ -513,7 +513,7 @@ model_bootstrap <- function (
       boot_data |>
         # filter(it != 0) |>
         # only summarize rows other than the full dataset analysis (it == 0)
-        filter(it != if_else(
+        filter(.data$it != if_else(
           boot_it != 0,
           0,  # if boot_it != 0, remove it == 0
           -1  # else, remove nothing; analyze the unique row (it is never -1)
@@ -522,17 +522,17 @@ model_bootstrap <- function (
         bind_rows() |>
         select(-any_of(invalid_boot_model_stats)) |>
         tidyr::pivot_longer(everything()) |>
-        select(name, value) |>
+        select('name', 'value') |>
         summarize(
-          .by = name,
-          conf.low = quantile(value, boot_alpha / 2, na.rm = TRUE),
-          mean = mean(value, na.rm = TRUE),
-          median = median(value, na.rm = TRUE),
-          conf.high = quantile(value, 1 - (boot_alpha / 2), na.rm = TRUE),
-          sd = sd(value, na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', mean, median)
+          .by = 'name',
+          conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
+          mean = mean(.data$value, na.rm = TRUE),
+          median = median(.data$value, na.rm = TRUE),
+          conf.high = quantile(.data$value, 1 - (boot_alpha / 2), na.rm = TRUE),
+          sd = sd(.data$value, na.rm = TRUE),
+          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
         ) |>
-        select(name, estimate, everything())
+        select('name', 'estimate', everything())
       # # If y_vals is ever added...
       # |>
       #   bind_rows(tibble(
@@ -556,7 +556,7 @@ model_bootstrap <- function (
         boot_data |>
         # filter(it != 0) |>
         # only summarize rows other than the full dataset analysis (it == 0)
-        filter(it != if_else(
+        filter(.data$it != if_else(
           boot_it != 0,
           0,  # if boot_it != 0, remove it == 0
           -1  # else, remove nothing; analyze the unique row (it is never -1)
@@ -581,17 +581,17 @@ model_bootstrap <- function (
 
       # assign result for tidy_summary
       tidy_boot_data |>
-        select(term, estimate) |>
+        select('term', 'estimate') |>
         summarize(
-          .by = term,
-          conf.low = quantile(estimate, boot_alpha / 2, na.rm = TRUE),
-          mean = mean(estimate, na.rm = TRUE),
-          median = median(estimate, na.rm = TRUE),
-          conf.high = quantile(estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
-          std.error = sd(estimate, na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', mean, median)
+          .by = 'term',
+          conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
+          mean = mean(.data$estimate, na.rm = TRUE),
+          median = median(.data$estimate, na.rm = TRUE),
+          conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
+          std.error = sd(.data$estimate, na.rm = TRUE),
+          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
         ) |>
-        select(term, estimate, everything())
+        select('term', 'estimate', everything())
     } else {
       NULL
     }
@@ -634,19 +634,19 @@ model_bootstrap <- function (
               .x_col <- .x_col |>
                 map(\(.ale_tbl) {
                   .ale_tbl |>
-                    mutate(ale_x = ordered(ale_x, levels = ale_x_levels))
+                    mutate(ale_x = ordered(.data$ale_x, levels = ale_x_levels))
                 })
             }
 
             .x_col |>
               bind_rows() |>
-              group_by(ale_x) |>
+              group_by(.data$ale_x) |>
               summarize(
-                ale_y_lo = quantile(ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
-                ale_y_mean = mean(ale_y, na.rm = TRUE),
-                ale_y_median = median(ale_y, na.rm = TRUE),
-                ale_y_hi = quantile(ale_y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                ale_y = if_else(boot_centre == 'mean', ale_y_mean, ale_y_median),
+                ale_y_lo = quantile(.data$ale_y, probs = (boot_alpha / 2), na.rm = TRUE),
+                ale_y_mean = mean(.data$ale_y, na.rm = TRUE),
+                ale_y_median = median(.data$ale_y, na.rm = TRUE),
+                ale_y_hi = quantile(.data$ale_y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                ale_y = if_else(boot_centre == 'mean', .data$ale_y_mean, .data$ale_y_median),
               ) |>
               right_join(
                 tibble(
@@ -655,7 +655,7 @@ model_bootstrap <- function (
                 ),
                 by = 'ale_x'
               ) |>
-              select(ale_x, ale_n, ale_y, everything())
+              select('ale_x', 'ale_n', 'ale_y', everything())
         })
 
       # Summarize bootstrapped ALE statistics
@@ -668,29 +668,29 @@ model_bootstrap <- function (
         ale_summary_stats$estimate |>
         bind_rows() |>
         tidyr::pivot_longer(
-          cols = aled:naler_max,
+          cols = 'aled':'naler_max',
           names_to = 'statistic',
           values_to = 'estimate'
         ) |>
         summarize(
-          .by = c(term, statistic),
-          conf.low = quantile(estimate, probs = (boot_alpha / 2), na.rm = TRUE),
-          median = median(estimate, na.rm = TRUE),
-          mean = mean(estimate, na.rm = TRUE),
-          conf.high = quantile(estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', mean, median),
+          .by = c('term', 'statistic'),
+          conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
+          median = median(.data$estimate, na.rm = TRUE),
+          mean = mean(.data$estimate, na.rm = TRUE),
+          conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
         ) |>
-        select(term, statistic, estimate, everything())
+        select('term', 'statistic', 'estimate', everything())
 
       # If an ALE p-values object was passed, calculate p-values
       if (names(y_summary)[1] == 'p') {
         ale_summary_stats <- ale_summary_stats |>
           rowwise() |>  # required to get statistic function for each row
           mutate(
-            p.value = ale_options$p_values$value_to_p[[statistic]](estimate),
+            p.value = ale_options$p_values$value_to_p[[.data$statistic]](.data$estimate),
           ) |>
           ungroup() |>  # undo rowwise()
-          select(term, statistic, estimate, p.value, everything())
+          select('term', 'statistic', 'estimate', 'p.value', everything())
       }
 
       ale_conf_regions <- summarize_conf_regions(

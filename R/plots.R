@@ -51,17 +51,17 @@ plot_ale <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  ale_x <- NULL
-  ale_n <- NULL
-  ale_y <- NULL
-  ale_y_lo <- NULL
-  ale_y_hi <- NULL
-  rug_x <- NULL
-  rug_y <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # ale_x <- NULL
+  # ale_n <- NULL
+  # ale_y <- NULL
+  # ale_y_lo <- NULL
+  # ale_y_hi <- NULL
+  # rug_x <- NULL
+  # rug_y <- NULL
 
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
@@ -84,7 +84,7 @@ plot_ale <- function(
 
   plot <-
     ale_data |>
-    ggplot(aes(x = ale_x, y = ale_y)) +
+    ggplot(aes(x = .data$ale_x, y = .data$ale_y)) +
     theme_bw() +
     # Zoom y-axis to the range of actual Y and ALE Y values.
     # In particular, ignore extreme ale_y_lo or ale_y_hi values, or else they
@@ -155,20 +155,20 @@ plot_ale <- function(
   # Differentiate numeric x (line chart) from categorical x (bar charts)
   if (x_type == 'numeric') {
     plot <- plot +
-      geom_ribbon(aes(ymin = ale_y_lo, ymax = ale_y_hi),
+      geom_ribbon(aes(ymin = .data$ale_y_lo, ymax = .data$ale_y_hi),
                   fill = 'grey85', alpha = 0.5) +
       geom_line()
   }
   else {  # x_type is not numeric
     plot <- plot +
       geom_col(fill = 'gray') +
-      geom_errorbar(aes(ymin = ale_y_lo, ymax = ale_y_hi), width = 0.05) +
+      geom_errorbar(aes(ymin = .data$ale_y_lo, ymax = .data$ale_y_hi), width = 0.05) +
       # Add labels for percentage of dataset.
       # This serves the equivalent function of rugs for numeric data.
       # Varying column width is an idea, but it usually does not work well visually.
       geom_text(
         aes(
-          label = paste0(round((ale_n / total_n) * 100), '%'),
+          label = paste0(round((.data$ale_n / total_n) * 100), '%'),
           y = y_summary[['min']]
         ),
         size = 3,
@@ -216,7 +216,7 @@ plot_ale <- function(
 
     plot <- plot +
       geom_rug(
-        aes(x = rug_x, y = rug_y),
+        aes(x = .data$rug_x, y = .data$rug_y),
         data = rug_data,
         alpha = 0.5,
         position = position_jitter(
@@ -290,18 +290,18 @@ plot_ale_ixn <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  ale_x1 <- NULL
-  ale_x2 <- NULL
-  ale_y <- NULL
-  x1_quantile <- NULL
-  x2_quantile <- NULL
-  y_quantile <- NULL
-  rug_x <- NULL
-  rug_y <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # ale_x1 <- NULL
+  # ale_x2 <- NULL
+  # ale_y <- NULL
+  # x1_quantile <- NULL
+  # x2_quantile <- NULL
+  # y_quantile <- NULL
+  # rug_x <- NULL
+  # rug_y <- NULL
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -387,7 +387,7 @@ plot_ale_ixn <- function(
       # For numeric x1, this is only temporarily--it will be properly
       # configured in the next code block.
       # This lets the code be cleaner than inserting an if_else here.
-      x1_quantile = ale_x1,
+      x1_quantile = .data$ale_x1,
 
       # x2_quantile: divide ale_x2 into n_x2_int bins.
       # ntile (the bin number) is divided by the number of bins (n_x2_int)
@@ -398,7 +398,7 @@ plot_ale_ixn <- function(
                      + min(ale_data$ale_x2)),
 
       # y_quantile: which of the n_y_quant in which ale_y falls
-      y_quantile = ale_y |>
+      y_quantile = .data$ale_y |>
         findInterval(y_quantiles) |>
         # levels must be set so that all quantiles appear in legend
         ordered(levels = 1:(n_y_quant - 1))
@@ -417,7 +417,7 @@ plot_ale_ixn <- function(
 
   plot <-
     ale_data |>
-    ggplot(aes(x = x1_quantile, y = x2_quantile, fill = y_quantile)) +
+    ggplot(aes(x = .data$x1_quantile, y = .data$x2_quantile, fill = .data$y_quantile)) +
     theme_bw() +
     geom_tile() +
     scale_fill_manual(
@@ -470,7 +470,10 @@ plot_ale_ixn <- function(
 
     plot <- plot +
       geom_rug(
-        aes(x = rug_x, y = rug_y),
+        aes(
+          x = .data$rug_x, y = .data$rug_y,
+          fill = NULL  # remove the fill from the previous layer
+        ),
         data = rug_data
       )
   }
@@ -511,14 +514,14 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  rug_x <- NULL
-  rug_y <- NULL
-  x_interval <- NULL
-  y_interval <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # rug_x <- NULL
+  # rug_y <- NULL
+  # x_interval <- NULL
+  # y_interval <- NULL
 
   # Only sample small datasets
   if (nrow(x_y) <= rug_sample_size) {
@@ -529,11 +532,11 @@ rug_sample <- function(
     mutate(
       row = row_number(),
       # Specify intervals for each x- and y-axis value
-      x_interval = findInterval(rug_x, x_intervals |> sort()),
+      x_interval = findInterval(.data$rug_x, x_intervals |> sort()),
       # Note: if y_intervals = NULL, then the intervals are all 0 and the code still works
-      y_interval = findInterval(rug_y, y_intervals |> sort()),
+      y_interval = findInterval(.data$rug_y, y_intervals |> sort()),
     ) |>
-    select(row, rug_x, x_interval, rug_y, y_interval)
+    select('row', 'rug_x', 'x_interval', 'rug_y', 'y_interval')
 
   # rs_idxs: row indexes of the rug sample
   # First, ensure there are at least min_rug_per_interval rows
@@ -542,7 +545,7 @@ rug_sample <- function(
   rs_idxs <-
     x_y |>
     summarize(
-      .by = c(x_interval, y_interval),
+      .by = c('x_interval', 'y_interval'),
       row = sample(row, min_rug_per_interval)
     ) |>
     pull(row)
@@ -561,7 +564,7 @@ rug_sample <- function(
 
   return(
     x_y[rs_idxs, ] |>
-      select(rug_x, rug_y)
+      select('rug_x', 'rug_y')
   )
 }
 
@@ -574,16 +577,16 @@ plot_effects <- function(
     median_band_pct = c(0.05, 0.5)
 ) {
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  # ale_data <- NULL
-  term <- NULL
-  naled <- NULL
-  aler_min <- NULL
-  aler_max <- NULL
-  aled <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # # ale_data <- NULL
+  # term <- NULL
+  # naled <- NULL
+  # aler_min <- NULL
+  # aler_max <- NULL
+  # aled <- NULL
 
   # Create deciles for NALED and NALER axis
   norm_deciles <-
@@ -617,13 +620,14 @@ plot_effects <- function(
   # NALED sometimes gives unusual values because of the normalization.
   # This must be done in two steps to access the correctly sorted estimates$term.
   estimates <- estimates |>
-    arrange(aled, naled)
+    arrange(.data$aled, .data$naled)
   estimates <- estimates |>
-    mutate(term = factor(term, ordered = TRUE, levels = estimates$term))
+    mutate(term = factor(.data$term, ordered = TRUE, levels = .data$term))
+  # mutate(term = factor(.data$term, ordered = TRUE, levels = estimates$term))
 
   plot <-
     estimates |>
-    ggplot(aes(y = term)) +
+    ggplot(aes(y = .data$term)) +
     theme_bw() +
     # ylab(NULL) +
     labs(
@@ -675,37 +679,37 @@ plot_effects <- function(
     # ALER/NALER bands as error bars
     geom_errorbarh(
       aes(
-        xmin = median_y + aler_min,
-        xmax = median_y + aler_max
+        xmin = median_y + .data$aler_min,
+        xmax = median_y + .data$aler_max
       ),
       height = 0.25
     ) +
     # ALED/NALED as annotated text above and below white box
     geom_rect(
       aes(
-        xmin = median_band_mid - (aled / 2),
-        xmax = median_band_mid + (aled / 2),
-        ymin = as.integer(as.factor(term)) - 0.3,
-        ymax = as.integer(as.factor(term)) + 0.3,
+        xmin = median_band_mid - (.data$aled / 2),
+        xmax = median_band_mid + (.data$aled / 2),
+        ymin = as.integer(as.factor(.data$term)) - 0.3,
+        ymax = as.integer(as.factor(.data$term)) + 0.3,
       ),
       fill = 'white'
     ) +
     geom_text(
-      aes(label = paste0('NALED ', format(round_dp(naled)), '%'), x = median_band_mid),
+      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = median_band_mid),
       size = 3, vjust = -1
     ) +
     # Use ( ) as the demarcators of the plot.
     # This visualization should not be confused with a box plot.
     geom_text(
-      aes(label = '(', x = median_band_mid - (aled / 2)),
+      aes(label = '(', x = median_band_mid - (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = ')', x = median_band_mid + (aled / 2)),
+      aes(label = ')', x = median_band_mid + (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = paste0('ALED ', format(round_dp(aled))), x = median_band_mid),
+      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = median_band_mid),
       size = 3, vjust = 2
     ) +
     # annotation to explain symbols

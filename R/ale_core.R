@@ -299,6 +299,8 @@
 #' summary(gam_diamonds)
 #'
 #'
+#' \donttest{
+#'
 #' # Simple ALE without bootstrapping
 #' ale_gam_diamonds <- ale(
 #'   diamonds_test, gam_diamonds,
@@ -306,8 +308,6 @@
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
-#'
-#' \donttest{
 #' # Plot the ALE data
 #' gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 #'
@@ -474,6 +474,7 @@ ale <- function (
 #' )
 #' summary(gam_diamonds)
 #'
+#' \donttest{
 #' # ALE two-way interactions
 #' ale_ixn_gam_diamonds <- ale_ixn(
 #'   diamonds_test, gam_diamonds,
@@ -481,8 +482,6 @@ ale <- function (
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
-#'
-#' \donttest{
 #' # Print interaction plots
 #' ale_ixn_gam_diamonds$plots |>
 #'   purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
@@ -788,12 +787,11 @@ ale_core <- function (
 
 
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  # ale_data <- NULL
-  term <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # term <- NULL
 
 
   # Determine datatype of y
@@ -1095,7 +1093,7 @@ ale_core <- function (
             mutate(term = .term)
         }) |>
       bind_rows() |>
-      select(term, everything()) |>
+      select('term', everything()) |>
       pivot_stats()
 
     if ('conf_regions' %in% output) {

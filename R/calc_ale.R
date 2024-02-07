@@ -54,17 +54,17 @@ calc_ale <- function(
     p_funs = NULL
 ) {
 
-  # Hack to prevent devtools::check from thinking that masked variables are global:
-  # Make them null local variables within the function with the issues. So,
-  # when masking applies, the masked variables will be prioritized over these null
-  # local variables.
-  `:=` <- NULL
-  ale_y <- NULL
-  estimate <- NULL
-  Freq <- NULL
-  p.value <- NULL
-  statistic <- NULL
-  Var1 <- NULL
+  # # Hack to prevent devtools::check from thinking that masked variables are global:
+  # # Make them null local variables within the function with the issues. So,
+  # # when masking applies, the masked variables will be prioritized over these null
+  # # local variables.
+  # `:=` <- NULL
+  # ale_y <- NULL
+  # estimate <- NULL
+  # Freq <- NULL
+  # p.value <- NULL
+  # statistic <- NULL
+  # Var1 <- NULL
 
 
 
@@ -323,9 +323,9 @@ calc_ale <- function(
         table() |>
         # Sort the table in ale_x order
         as.data.frame() |>
-        mutate(Var1 = factor(Var1, ordered = TRUE, levels = levels(ale_x))) |>
-        arrange(Var1) |>
-        pull(Freq)
+        mutate(Var1 = factor(.data$Var1, ordered = TRUE, levels = levels(ale_x))) |>
+        arrange(.data$Var1) |>
+        pull(.data$Freq)
       names(ale_n) <- levels(ale_x)
 
 
@@ -543,7 +543,7 @@ calc_ale <- function(
         boot_centre == 'median' ~ ale_y_median,
       ),
     ) |>
-    select(ale_x, ale_n, ale_y, everything())
+    select('ale_x', 'ale_n', 'ale_y', everything())
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
@@ -569,20 +569,20 @@ calc_ale <- function(
         boot_centre == 'median' ~ median,
       ),
     ) |>
-      select(statistic, estimate, everything())
+      select('statistic', 'estimate', everything())
 
     # If p_funs are provided, calculate p-values
     if (!is.null(p_funs)) {
       boot_stats <- boot_stats |>
         mutate(
           p.value = map2_dbl(
-            estimate, statistic,
+            .data$estimate, .data$statistic,
             \(.stat, .stat_name) {
               # Call the p-value function corresponding to the named statistic
               p_funs$value_to_p[[.stat_name]](.stat)
             })
         ) |>
-        select(statistic, estimate, p.value, everything())
+        select('statistic', 'estimate', 'p.value', everything())
     }
   }
 

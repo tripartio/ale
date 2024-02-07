@@ -22,6 +22,7 @@
 #' @import dplyr
 #' @import purrr
 #' @import ggplot2
+#' @importFrom rlang .data
 #'
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
