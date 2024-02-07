@@ -134,6 +134,7 @@ gam_diamonds <- mgcv::gam(
 )
 summary(gam_diamonds)
 
+\donttest{
 # ALE two-way interactions
 ale_ixn_gam_diamonds <- ale_ixn(
   diamonds_test, gam_diamonds,
@@ -141,8 +142,6 @@ ale_ixn_gam_diamonds <- ale_ixn(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-
-\donttest{
 # Print interaction plots
 ale_ixn_gam_diamonds$plots |>
   purrr::walk(\(.x1) {  # extract list of x1 ALE outputs

@@ -364,6 +364,8 @@ gam_diamonds <- mgcv::gam(
 summary(gam_diamonds)
 
 
+\donttest{
+
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
@@ -371,8 +373,6 @@ ale_gam_diamonds <- ale(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-
-\donttest{
 # Plot the ALE data
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 

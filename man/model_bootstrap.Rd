@@ -156,6 +156,7 @@ gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
                           data = attitude)
 summary(gam_attitude)
 
+\donttest{
 # Full model bootstrapping
 # Only 4 bootstrap iterations for a rapid example; default is 100
 # Increase value of boot_it for more realistic results
@@ -167,7 +168,6 @@ mb_gam <- model_bootstrap(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-\donttest{
 # If the model is not standard, supply model_call_string with
 # 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])
 mb_gam <- model_bootstrap(
