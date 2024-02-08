@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ale
+# ale <a href="https://tripartio.github.io/ale/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -9,7 +9,7 @@
 status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/package=ale)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Accumulated Local Effects (ALE) were initially developed as a
@@ -62,7 +62,7 @@ You can obtain the official releases from
 [CRAN](https://CRAN.R-project.org/package=ale):
 
 ``` r
-install.packages('ale)
+install.packages('ale')
 ```
 
 The CRAN releases are extensively tested and should have relatively few
@@ -74,11 +74,11 @@ towards a stable version that flexibly meets the needs of the broadest
 user base.
 
 To get the most recent features, you can install the development version
-of ale from [GitHub](https://github.com/Tripartio/ale) with:
+of ale from [GitHub](https://github.com/tripartio/ale) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("Tripartio/ale")
+# install.packages('pak')
+pak::pak('tripartio/ale')
 ```
 
 The development version in the main branch of GitHub is always
@@ -96,7 +96,7 @@ progressr::handlers('cli')
 
 The `{ale}` package will normally run this automatically for you the
 first time you execute a function from the package in an R session. To
-see how to configure this permanently, see \[help(ale)\].
+see how to configure this permanently, see `help(ale)`.
 
 ## Usage
 
@@ -121,13 +121,13 @@ train_test_split <- sample(
   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
 )
 diamonds_train <- diamonds_sample[train_test_split, ]
-# <<- is not normally needed; it is just for this README document.
+# <<- is not normally needed; it is just a technical issue for this README document.
 diamonds_test <<- diamonds_sample[!train_test_split, ]
 
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build model on training data, not on the full dataset.
-# <<- is not normally needed; it is just for this README document.
+# <<- is not normally needed; it is just a technical issue for this README document.
 gam_diamonds <<- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
     cut + color + clarity,
@@ -137,10 +137,7 @@ gam_diamonds <<- mgcv::gam(
 # Create ALE data and plot it
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
-  model_packages = 'mgcv',  # required for parallel processing
-  # Disable progress bars for this README document.
-  # For interactive use, you would normally want to delete this option.
-  silent = TRUE
+  model_packages = 'mgcv'  # required for parallel processing
 )
 
 gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
@@ -151,7 +148,7 @@ gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
 ## Getting help
 
 If you find a bug, please report it on
-[GitHub](https://github.com/Tripartio/ale/issues). If you have a
+[GitHub](https://github.com/tripartio/ale/issues). If you have a
 question about how to use the package, you can post it on [Stack
 Overflow with the “ale”
 tag](https://stackoverflow.com/questions/tagged/ale). I will follow that
