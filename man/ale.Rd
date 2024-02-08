@@ -339,9 +339,8 @@ to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\c
 }
 
 \examples{
-diamonds
 set.seed(0)
-diamonds_sample <- diamonds[sample(nrow(diamonds), 1000), ]
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
 # Split the dataset into training and test sets
 # https://stackoverflow.com/a/54892459/2449926
@@ -374,7 +373,8 @@ ale_gam_diamonds <- ale(
 )
 
 # Plot the ALE data
-gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+ale_gam_diamonds$plots |>
+  patchwork::wrap_plots()
 
 # Bootstrapped ALE
 # This can be slow, since bootstrapping runs the algorithm boot_it times
@@ -387,7 +387,8 @@ ale_gam_diamonds_boot <- ale(
 )
 
 # Bootstrapped ALEs print with confidence intervals
-gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
+ale_gam_diamonds_boot$plots |>
+  patchwork::wrap_plots()
 
 
 # If the predict function you want is non-standard, you may define a
@@ -404,7 +405,8 @@ ale_gam_diamonds_custom <- ale(
 )
 
 # Plot the ALE data
-gridExtra::grid.arrange(grobs = ale_gam_diamonds_custom$plots, ncol = 2)
+ale_gam_diamonds_custom$plots |>
+  patchwork::wrap_plots()
 
 }
 

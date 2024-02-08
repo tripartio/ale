@@ -32,7 +32,7 @@ library(dplyr)
 
 ## diamonds dataset
 
-For this introduction, we use the `diamonds` dataset, built-in with the `ggplot2` graphics system. We cleaned the original version by [removing duplicates](https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/ "errors in the diamonds dataset") and invalid entries where the length (x), width (y), or depth (z) is 0.
+For this introduction, we use the `diamonds` dataset, included with the `{ggplot2}` graphics system. We cleaned the original version by [removing duplicates](https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/ "errors in the diamonds dataset") and invalid entries where the length (x), width (y), or depth (z) is 0.
 
 ```{r diamonds_print}
 # Clean up some invalid entries
@@ -130,7 +130,6 @@ The `ale()` function returns a list with various elements. The two main ones are
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -144,11 +143,12 @@ To access the plot for a specific variable, we can call it by its variable name 
 ale_gam_diamonds$plots$carat
 ```
 
-To iterate the list and plot all the ALE plots, we provide here some demonstration code using the `gridExtra` package for arranging multiple plots in a common plot grid using `gridExtra::grid.arrange`. We need to pass the list of plots to the `grobs` argument and we can specify that we want two plots per row with the `ncol` argument.
+To iterate the list and plot all the ALE plots, we provide here some demonstration code using the `patchwork` package for arranging multiple plots in a common plot grid using `patchwork::wrap_plots()`. We need to pass the list of plots to the `grobs` argument and we can specify that we want two plots per row with the `ncol` argument.
 
 ```{r print ale_simple, fig.width=7, fig.height=11}
 # Print all plots
-gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+ale_gam_diamonds$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 ## Bootstrapped ALE
@@ -173,12 +173,12 @@ ale_gam_diamonds_boot <- ale(
   # Normally boot_it should be set to 100, but just 10 here for a faster demonstration
   boot_it = 10,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Bootstrapping produces confidence intervals
-gridExtra::grid.arrange(grobs = ale_gam_diamonds_boot$plots, ncol = 2)
+ale_gam_diamonds_boot$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 In this case, the bootstrapped results are mostly similar to single (non-bootstrapped) ALE result. In principle, we should always bootstrap the results and trust only in bootstrapped results. The most unusual result is that values of `x_length` (the length of the diamond) from 6.2 mm or so and higher are associated with lower diamond prices. When we compare this with the `y_width` value (width of the diamond), we suspect that when both the length and width (that is, the size) of a diamond become increasingly large, the price increases so much more rapidly with the width than with the length that the width has an inordinately high effect that is tempered by a decreased effect of the length at those high values. This would be worth further exploration for real analysis, but here we are just introducing the key features of the package.
@@ -192,7 +192,6 @@ Another advantage of ALE is that it provides data for two-way interactions betwe
 ale_ixn_gam_diamonds <- ale_ixn(
   diamonds_test, gam_diamonds,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -200,17 +199,21 @@ ale_ixn_gam_diamonds <- ale_ixn(
 
 Like the `ale()` function, the `ale_ixn()` returns a list with one element per input x1 variable, as well as a `.common_data` element with details about the outcome (y) variable. However, in this case, each variable's element consists of a list of all the x2 variables for which the x1 interaction is calculated. Each x2 element then has two elements: the ALE data for that variable and a `ggplot` plot object that plots that ALE data. In the interaction plots, the x1 variable is always shown on the x axis and the x2 variable on the y axis.
 
-Again, we provide here some demonstration code to plot all the ALE plots. It is a little more complex this time because of the two levels of interacting variables in the output data, so we use the `purrr` package to iterate the list structure. `purrr::walk` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(.x1) {...}` where `.x1` in our case represents each individual element of `ale_ixn_gam_diamonds$plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `gridExtra::grid.arrange`, as before.
+Again, we provide here some demonstration code to plot all the ALE plots. It is a little more complex this time because of the two levels of interacting variables in the output data, so we use the `purrr` package to iterate the list structure. `purrr::walk()` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(.x1) {...}` where `.x1` in our case represents each individual element of `ale_ixn_gam_diamonds$plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `patchwork::wrap_plots()`, as before.
 
 ```{r print all ale_ixn, fig.width=7, fig.height=7}
 # Print all interaction plots
 ale_ixn_gam_diamonds$plots |>
-  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
-    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot each x1 plot
+  # extract list of x1 ALE outputs
+  purrr::walk(\(.x1) {
+    # plot all x2 plots in each .x1 element
+    patchwork::wrap_plots(.x1, ncol = 2) |>
+      print()
   })
+
 ```
 
-Because we are printing all plots together with the same `gridExtra::grid.arrange` statement, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. For example, we can print the interaction plot between carat and depth by referring to it thus: `ale_ixn_gam_diamonds$plots$carat$depth`.
+Because we are printing all plots together with the same `patchwork::wrap_plots()` statement, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. For example, we can print the interaction plot between carat and depth by referring to it thus: `ale_ixn_gam_diamonds$plots$carat$depth`.
 
 ```{r print specific ixn, fig.width=5, fig.height=3}
 ale_ixn_gam_diamonds$plots$carat$depth

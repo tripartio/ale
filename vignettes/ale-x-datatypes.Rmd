@@ -81,12 +81,12 @@ Now we generate ALE data from the `var_cars` GAM model and plot it.
 cars_ale <- ale(
   var_cars, cm,
   model_packages = 'mgcv',  #required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print all plots
-gridExtra::grid.arrange(grobs = cars_ale$plots, ncol = 2)
+cars_ale$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
@@ -99,14 +99,16 @@ We can also generate and plot the ALE data for all two-way interactions.
 cars_ale_ixn <- ale_ixn(
   var_cars, cm,
   model_packages = 'mgcv',  #required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print plots
 cars_ale_ixn$plots |>
-  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
-    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
+  # extract list of x1 ALE outputs
+  purrr::walk(\(.x1) {  
+    # plot all x2 plots in each .x1 element
+    patchwork::wrap_plots(.x1, ncol = 2) |> 
+      print()
   })
 ```
 
@@ -120,12 +122,12 @@ mb <- model_bootstrap(
   cm,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   model_packages = 'mgcv',  #required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2,  # CRAN limit (delete this line on your own computer)
   seed = 2  # workaround to avoid random error on such a small dataset
 )
 
-gridExtra::grid.arrange(grobs = mb$ale$plots, ncol = 2)
+mb$ale$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 (By default, `model_bootstrap()` creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) 

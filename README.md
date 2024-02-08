@@ -107,12 +107,10 @@ the `ggplot` plot objects.
 
 ``` r
 library(ale)
-#> Loading required package: ggplot2
 
-# Sample 1000 rows from the diamonds dataset (for a simple example).
-# diamonds is included with ggplot2, which is imported by the ale package.
+# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
 set.seed(0)
-diamonds_sample <- diamonds[sample(nrow(diamonds), 1000), ]
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
 # Split the dataset into training and test sets
 # https://stackoverflow.com/a/54892459/2449926
@@ -132,13 +130,15 @@ gam_diamonds <- mgcv::gam(
   data = diamonds_train
 )
 
-# Create ALE data and plot it
+# Create ALE data
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
   model_packages = 'mgcv'  # required for parallel processing
 )
 
-gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+# Plot the ALE data
+ale_gam_diamonds$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 <img src="man/figures/README-gam-and-ale-1.png" width="100%" />
@@ -153,5 +153,5 @@ tag](https://stackoverflow.com/questions/tagged/ale). I will follow that
 tag, so I will try my best to respond quickly. However, be sure to
 always include a minimal reproducible example for your usage requests.
 If you cannot include your own dataset in the question, then use one of
-the built-in datasets to frame your help request: `var_cars`, `census`,
-or `diamonds`.
+the built-in datasets to frame your help request: `var_cars` or
+`census`. You may also use `ggplot2::diamonds` for a larger sample.

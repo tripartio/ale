@@ -110,9 +110,8 @@ number specified will be used, including the middle quantile.
 }
 \examples{
 
-diamonds
 set.seed(0)
-diamonds_sample <- diamonds[sample(nrow(diamonds), 1000), ]
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
 # Split the dataset into training and test sets
 # https://stackoverflow.com/a/54892459/2449926
@@ -144,8 +143,11 @@ ale_ixn_gam_diamonds <- ale_ixn(
 
 # Print interaction plots
 ale_ixn_gam_diamonds$plots |>
-  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
-    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
+  # extract list of x1 ALE outputs
+  purrr::walk(\(.x1) {
+    # plot all x2 plots in each .x1 element
+    patchwork::wrap_plots(.x1) |>
+      print()
   })
 }
 

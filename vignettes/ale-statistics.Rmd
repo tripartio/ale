@@ -140,9 +140,7 @@ mb_gam <- model_bootstrap(
   tidy_options = list(parametric = TRUE),
   # tidy_options = list(parametric = NULL),
   boot_it = 40,  # 100 by default but reduced here for a faster demonstration
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
-
 )
 ```
 
@@ -187,7 +185,8 @@ ALE was developed to graphically display the relationship between predictor vari
 ### ALE plots
 
 ```{r all ALE plots, fig.width=7, fig.height=10}
-gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
+mb_gam$ale$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey band that indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% by default, but the value can be changed with the `median_band_pct` argument.)

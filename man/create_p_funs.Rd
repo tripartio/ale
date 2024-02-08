@@ -152,9 +152,9 @@ train the model, then the same dataset should be entered for both
 
 \examples{
 \donttest{
-# Sample 1000 rows from the diamonds dataset (for a simple example)diamonds
+# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
 set.seed(0)
-diamonds_sample <- diamonds[sample(nrow(diamonds), 1000), ]
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
 # Split the dataset into training and test sets
 # https://stackoverflow.com/a/54892459/2449926
@@ -199,7 +199,8 @@ ale_gam_diamonds <- ale(
 )
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
-gridExtra::grid.arrange(grobs = ale_gam_diamonds$plots, ncol = 2)
+ale_gam_diamonds$plots |>
+  patchwork::wrap_plots()
 
 }
 

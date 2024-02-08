@@ -94,12 +94,12 @@ Note that for now, we run `ale` with no bootstrapping (the default) because smal
 ale_lm_attitude_simple <- ale(
   attitude, lm_attitude,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print all plots
-gridExtra::grid.arrange(grobs = ale_lm_attitude_simple$plots, ncol = 2)
+ale_lm_attitude_simple$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.
@@ -112,14 +112,16 @@ We can use `ale_ixn()` to visualize the possible existence of any interactions:
 ale_lm_attitude_ixn <- ale_ixn(
   attitude, lm_attitude,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print plots
 ale_lm_attitude_ixn$plots |>
-  purrr::walk(\(.x1) {  # extract list of x1 ALE outputs
-    gridExtra::grid.arrange(grobs = .x1, ncol = 2)  # plot all x1 plots
+  # extract list of x1 ALE outputs
+  purrr::walk(\(.x1) {  
+    # plot all x2 plots in each .x1 element
+    patchwork::wrap_plots(.x1, ncol = 2) |> 
+      print()
   })
 ```
 
@@ -144,7 +146,6 @@ mb_lm <- model_bootstrap(
   lm_attitude,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -173,7 +174,8 @@ mb_lm$model_coefs
 Here we can visualize the results of the ALE plots.
 
 ```{r lm_full_ale, fig.width=7, fig.height=7}
-gridExtra::grid.arrange(grobs = mb_lm$ale$plots, ncol = 2)
+mb_lm$ale$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
@@ -206,11 +208,11 @@ To understand which variables were responsible for this relationship, the result
 ale_gam_attitude_simple <- ale(
   attitude, gam_attitude,
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-gridExtra::grid.arrange(grobs = ale_gam_attitude_simple$plots, ncol = 2)
+ale_gam_attitude_simple$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 Compared to the OLS results above, the GAM results provide quite a surprise concerning the shape of the effect of employees' perceptions that their department is too critical--it seems that both low criticism and very high criticism negatively affect ratings. However, before trying to interpret these results, we must remember that results that are not bootstrapped are simply not reliable. So, let us see what bootstrapping will give us.
@@ -221,7 +223,6 @@ mb_gam <- model_bootstrap(
   gam_attitude, 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam$model_stats
@@ -232,7 +233,8 @@ mb_gam$model_coefs
 ```
 
 ```{r gam_full_ale, fig.width=7, fig.height=7}
-gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
+mb_gam$ale$plots |> 
+  patchwork::wrap_plots(ncol = 2)
 ```
 
 The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
@@ -273,10 +275,9 @@ mb_gam_non_standard <- model_bootstrap(
                                 data = boot_data)', 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   model_packages = 'mgcv',  # required for parallel processing
-  silent = TRUE,  # progress bars disabled for the vignette
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam_non_standard$model_stats
 ```
 
-Everything else works as normal.
+Everything else works as usual.

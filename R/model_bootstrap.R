@@ -150,7 +150,8 @@
 #' mb_gam$model_coefs
 #'
 #' # Plot ALE
-#' gridExtra::grid.arrange(grobs = mb_gam$ale$plots, ncol = 2)
+#' mb_gam$ale$plots |>
+#'   patchwork::wrap_plots()
 #' }
 #'
 #'
