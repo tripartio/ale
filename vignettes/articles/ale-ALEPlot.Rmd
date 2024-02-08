@@ -242,7 +242,7 @@ Although gradient boosted trees generally perform quite well, they are rather sl
 #                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
 #                 interaction.depth=3)
 # saveRDS(gbm.data, file.choose())
-gbm.data <- url('https://github.com/Tripartio/ale/raw/main/download/gbm.data_model.rds') |> 
+gbm.data <- url('https://github.com/tripartio/ale/raw/main/download/gbm.data_model.rds') |> 
   readRDS()
 
 gbm.data
@@ -302,7 +302,7 @@ yhat <- function(object, newdata, type) {
 #   model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_link, file.choose())
-gbm_ale_link <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
+gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
   readRDS()
 
 # Print plots
@@ -324,7 +324,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
-gbm_ale_ixn_link <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
+gbm_ale_ixn_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
   readRDS()
 
 # Print plots
@@ -370,7 +370,7 @@ yhat <- function(object, newdata, type) {
 #   model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_prob, file.choose())
-gbm_ale_prob <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
+gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
   readRDS()
 
 # Print plots
@@ -391,7 +391,7 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #  model_packages = 'gbm'  # required for parallel processing
 # )
 # saveRDS(gbm_ale_ixn_prob, file.choose())
-gbm_ale_ixn_prob <- url('https://github.com/Tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 
+gbm_ale_ixn_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 
   readRDS()
 
 # Print plots
