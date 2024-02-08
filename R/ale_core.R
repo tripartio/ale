@@ -380,7 +380,7 @@ ale <- function (
   args <- as.list(match.call())[-1]
   args$ixn <- FALSE  # when the user calls `ale()`, they want no interactions
 
-  do.call(ale_core, args)
+  do.call(ale_core, args, envir = parent.frame(1))
 }
 
 
@@ -529,8 +529,7 @@ ale_ixn <- function (
     args$output = c('plots', 'data')
   }
 
-  do.call(ale_core, args)
-
+  do.call(ale_core, args, envir = parent.frame(1))
 }
 
 

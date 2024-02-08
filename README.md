@@ -121,14 +121,12 @@ train_test_split <- sample(
   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
 )
 diamonds_train <- diamonds_sample[train_test_split, ]
-# <<- is not normally needed; it is just a technical issue for this README document.
-diamonds_test <<- diamonds_sample[!train_test_split, ]
+diamonds_test <- diamonds_sample[!train_test_split, ]
 
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
 # Build model on training data, not on the full dataset.
-# <<- is not normally needed; it is just a technical issue for this README document.
-gam_diamonds <<- mgcv::gam(
+gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
     cut + color + clarity,
   data = diamonds_train
