@@ -428,27 +428,35 @@ model_bootstrap <- function (
           } else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
-            do.call(ale_core, utils::modifyList(list(
-              data = boot_data,
-              model = boot_model,
-              ixn = FALSE,
-              parallel = 0,  # do not parallelize at this inner level
-              boot_it = 0,  # do not bootstrap at this inner level
-              # do not generate plots or request conf_regions
-              output = c('data', 'stats'),
-              ale_xs = if (.it == 0) {
-                NULL
-              } else {
-                ale_xs
-              },
-              ale_ns = if (.it == 0) {
-                NULL
-              } else {
-                ale_ns
-              },
-              silent = TRUE  # silence inner bootstrap loop
-              # silent = silent
-            ), ale_options)  # pass all other desired options, e.g., specific x_col
+            do.call(
+              ale_core,
+              utils::modifyList(
+                list(
+                  data = boot_data,
+                  model = boot_model,
+                  ixn = FALSE,
+                  parallel = 0,  # do not parallelize at this inner level
+                  boot_it = 0,  # do not bootstrap at this inner level
+                  # do not generate plots or request conf_regions
+                  output = c('data', 'stats'),
+                  ale_xs = if (.it == 0) {
+                    NULL
+                  } else {
+                    ale_xs
+                  },
+                  ale_ns = if (.it == 0) {
+                    NULL
+                  } else {
+                    ale_ns
+                  },
+                  silent = TRUE  # silence inner bootstrap loop
+                  # silent = silent
+                ),
+                # pass all other desired options, e.g., specific x_col
+                ale_options
+              ),
+              # assure appropriate scoping with do.call()
+              envir = parent.frame(1)
             )
           }
 
