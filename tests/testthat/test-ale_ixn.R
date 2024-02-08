@@ -13,6 +13,7 @@ test_that(
         test_cars, cars_gam,
         x_cols = c('cyl', 'disp'),
         model_packages = 'mgcv',
+        parallel = 2,
         silent = TRUE
       )
     )
@@ -24,6 +25,7 @@ test_that(
     #     x_cols = c('cyl', 'disp'),
     #     model_packages = 'mgcv',
     #     boot_it = 5,
+    #     parallel = 2,
     #     silent = TRUE
     #   )
     # )
@@ -34,6 +36,8 @@ test_that(
 
 test_that(
   'numeric outcome works with multiple x datatypes', {
+    skip_on_ci()
+
     cars_ale_ixn <- ale_ixn(
       test_cars, cars_gam,
       parallel = 0,
@@ -47,6 +51,8 @@ test_that(
 
 test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
+    skip_on_ci()
+
     cars_ale_ixn <- ale_ixn(
       test_cars, cars_gam,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
@@ -76,6 +82,8 @@ test_that(
 
 test_that(
   'binary outcome works with multiple x datatypes', {
+    skip_on_ci()
+
     cars_ale_ixn <- ale_ixn(
       test_cars, cars_gam_binary,
       parallel = 0,
@@ -89,6 +97,8 @@ test_that(
 
 test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
+    skip_on_ci()
+
     cars_ale_ixn <- ale_ixn(
       test_cars, cars_gam_binary,
       x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),

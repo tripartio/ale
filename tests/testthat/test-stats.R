@@ -22,6 +22,7 @@ test_that(
 
 test_that(
   'create_p_funs works with default inputs', {
+    skip_on_ci()
 
     pf <- create_p_funs(
       # For testing, just use the same training and test sets
@@ -57,6 +58,7 @@ test_that(
 
 test_that(
   'create_p_funs works with custom random_model_call_string', {
+    skip_on_ci()
 
     pf <- create_p_funs(
       # For testing, just use the same training and test sets

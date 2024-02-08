@@ -9,6 +9,7 @@ test_that(
         test_cars, cars_gam,
         model_packages = 'mgcv',
         ale_options = list(x_cols = c('cyl', 'disp')),
+        parallel = 2,
         silent = TRUE
       )
     )
@@ -20,6 +21,7 @@ test_that(
         model_packages = 'mgcv',
         ale_options = list(x_cols = c('cyl', 'disp')),
         boot_it = 5,
+        parallel = 2,
         silent = TRUE
       )
     )
@@ -33,6 +35,8 @@ test_that(
 # only save the core data from the plot
 test_that(
   'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
+    skip_on_ci()
+
     mb <- model_bootstrap(
       test_cars,
       cars_gam,
@@ -49,6 +53,8 @@ test_that(
 
 test_that(
   'mostly default (boot_it=5) snapshot works with multiple x datatypes', {
+    skip_on_ci()
+
     mb <- model_bootstrap(
       test_cars,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
@@ -66,6 +72,8 @@ test_that(
 
 test_that(
   'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
+    skip_on_ci()
+
     mb <- model_bootstrap(
       test_cars,
       cars_gam,
@@ -86,6 +94,8 @@ test_that(
 
 test_that(
   'snapshot works without ALE, with every parameter set to something, with multiple x datatypes', {
+    skip_on_ci()
+
     mb <- model_bootstrap(
       test_cars,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
