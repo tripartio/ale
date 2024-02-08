@@ -29,9 +29,9 @@ on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/Tripartio/ale}
+  \item \url{https://github.com/tripartio/ale}
   \item \url{https://tripartio.github.io/ale/}
-  \item Report bugs at \url{https://github.com/Tripartio/ale/issues}
+  \item Report bugs at \url{https://github.com/tripartio/ale/issues}
 }
 
 }
