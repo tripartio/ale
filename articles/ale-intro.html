@@ -65,7 +65,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/Tripartio/ale/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/tripartio/ale/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -88,7 +88,7 @@ Okoli</h4>
             
             <h4 data-toc-skip class="date">October 24, 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/HEAD/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
       <div class="d-none name"><code>ale-intro.Rmd</code></div>
     </div>
 
@@ -109,18 +109,18 @@ be used for statistical inference.</p>
 Using Machine Learning and Classical Techniques Based on Accumulated
 Local Effects (ALE).” arXiv. <a href="https://doi.org/10.48550/arXiv.2310.09877" class="external-link uri">https://doi.org/10.48550/arXiv.2310.09877</a>.</p>
 <p>This vignette demonstrates the basic functionality of the
-<a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package on standard large datasets used for machine
+<a href="https://github.com/tripartio/ale" class="external-link">ale</a> package on standard large datasets used for machine
 learning. A separate vignette is devoted to its use on <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>, as is often
 the case with statistical inference. (How small is small? That’s a tough
 question, but as that vignette explains, most datasets of less than 2000
 rows are probably “small” and even many datasets that are more than 2000
 rows are nonetheless “small”.) Other vignettes introduce <a href="ale-statistics.html">ALE-based statistics for statistical
-inference</a>, show how the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package handles <a href="ale-x-datatypes.html">various datatypes of input variables</a>,
+inference</a>, show how the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package handles <a href="ale-x-datatypes.html">various datatypes of input variables</a>,
 and <a href="ale-ALEPlot.html">compares the <code>{ale}</code> package
 with the reference <code>{ALEPlot}</code> package</a>.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -272,7 +272,7 @@ model.</p>
 <h2 id="modelling-with-general-additive-models-gam">Modelling with general additive models (GAM)<a class="anchor" aria-label="anchor" href="#modelling-with-general-additive-models-gam"></a>
 </h2>
 <p>ALE is a model-agnostic IML approach, that is, it works with any kind
-of machine learning model. As such, <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> works with any R
+of machine learning model. As such, <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works with any R
 model with the only condition that it can predict numeric outcomes (such
 as raw estimates for regression and probabilities or odds ratios for
 classification). For this demonstration, we will use general additive
@@ -346,14 +346,14 @@ beginning of your R session:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
-<p>If you forget to do that, the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package will do it
+<p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
 automatically for you with a notification message.</p>
 </div>
 <div class="section level2">
 <h2 id="ale-function-for-generating-ale-data-and-plots">
 <code>ale()</code> function for generating ALE data and plots<a class="anchor" aria-label="anchor" href="#ale-function-for-generating-ale-data-and-plots"></a>
 </h2>
-<p>The core function in the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package is the
+<p>The core function in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is the
 <code><a href="../reference/ale.html">ale()</a></code> function. Consistent with tidyverse conventions, its
 first argument is a dataset. Its second argument is a model object–any R
 model object that can generate numeric predictions is acceptable. By
@@ -380,7 +380,7 @@ statistics, which we describe in <a href="ale-statistics.html" title="ALE-based 
 <span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>By default, most core functions in the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package use
+<p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
 parallel processing. However, this requires explicit specification of
 the packages used to build the model, specified with the
 <code>model_packages</code> argument. (If parallelization is disabled

@@ -44,7 +44,7 @@ the introductory vignette for this package or the details and examples below."><
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/Tripartio/ale/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/tripartio/ale/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -57,7 +57,7 @@ the introductory vignette for this package or the details and examples below."><
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create and return ALE data, statistics, and plots</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Tripartio/ale/blob/HEAD/R/ale_core.R" class="external-link"><code>R/ale_core.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/HEAD/R/ale_core.R" class="external-link"><code>R/ale_core.R</code></a></small>
       <div class="d-none name"><code>ale.Rd</code></div>
     </div>
 
@@ -527,11 +527,10 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, model_packages = "mgcv", parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'ale_gam_diamonds' not found</span>
+<span class="r-plt img"><img src="ale-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bootstrapped ALE</span></span></span>
 <span class="r-in"><span><span class="co"># This can be slow, since bootstrapping runs the algorithm boot_it times</span></span></span>
@@ -542,11 +541,10 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, boot_it = 100, model_packages = "mgcv",     parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bootstrapped ALEs print with confidence intervals</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'ale_gam_diamonds_boot' not found</span>
+<span class="r-plt img"><img src="ale-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If the predict function you want is non-standard, you may define a</span></span></span>
@@ -561,11 +559,10 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ale(diamonds_test, gam_diamonds, pred_fun = custom_predict, pred_type = "link",     model_packages = "mgcv", parallel = 2):</span> object 'diamonds_test' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data</span></span></span>
 <span class="r-in"><span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_custom</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'ale_gam_diamonds_custom' not found</span>
+<span class="r-plt img"><img src="ale-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

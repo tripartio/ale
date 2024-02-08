@@ -65,7 +65,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/Tripartio/ale/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/tripartio/ale/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -79,14 +79,15 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="ale">ale<a class="anchor" aria-label="anchor" href="#ale"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="ale-">ale 
+<a class="anchor" aria-label="anchor" href="#ale-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
 <p>Accumulated Local Effects (ALE) were initially developed as a <a href="https://www.doi.org/10.1111/rssb.12377" title="Apley, Daniel W., and Jingyu Zhu. 'Visualizing the effects of predictor variables in black box supervised learning models.' Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086" class="external-link">model-agnostic approach for global explanations of the results of black-box machine learning algorithms</a>. ALE has two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package rewrites the original code from the <a href="https://CRAN.r-project.org/package=ALEPlot" class="external-link"><code>{ALEPlot}</code> package</a> for calculating ALE data and it completely reimplements the plotting of ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference.</p>
 <p>For more details, see Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <a href="https://doi.org/10.48550/arXiv.2310.09877" class="external-link uri">https://doi.org/10.48550/arXiv.2310.09877</a>.</p>
-<p>The <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package currently presents three main functions:</p>
+<p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package currently presents three main functions:</p>
 <ul>
 <li>
 <code><a href="reference/ale.html">ale()</a></code>: create data and plots for one-way ALE (single variables). ALE values may be bootstrapped.</li>
@@ -108,25 +109,26 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can obtain the official releases from <a href="https://CRAN.R-project.org/package=ale" class="external-link">CRAN</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'ale)</span></span></code></pre></div>
-<p>The CRAN releases are extensively tested and should have relatively few bugs. However, note that this package is still in beta stage. For the <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package, that means that there will occasionally be new features with changes in the function interface that might break the functionality of earlier versions. Please excuse us for this as we move towards a stable version that flexibly meets the needs of the broadest user base.</p>
-<p>To get the most recent features, you can install the development version of ale from <a href="https://github.com/Tripartio/ale" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'ale'</span><span class="op">)</span></span></code></pre></div>
+<p>The CRAN releases are extensively tested and should have relatively few bugs. However, note that this package is still in beta stage. For the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package, that means that there will occasionally be new features with changes in the function interface that might break the functionality of earlier versions. Please excuse us for this as we move towards a stable version that flexibly meets the needs of the broadest user base.</p>
+<p>To get the most recent features, you can install the development version of ale from <a href="https://github.com/tripartio/ale" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"Tripartio/ale"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages('pak')</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">'tripartio/ale'</span><span class="op">)</span></span></code></pre></div>
 <p>The development version in the main branch of GitHub is always thoroughly checked. However, the documentation might not be fully up-to-date with the functionality.</p>
 <p>There is one more optional but recommended setup option. To enable <strong>progress bars</strong> to see how long procedures will take, you should run the following code at the beginning of your R session:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
-<p>The <a href="https://github.com/Tripartio/ale" class="external-link">ale</a> package will normally run this automatically for you the first time you execute a function from the package in an R session. To see how to configure this permanently, see [help(ale)].</p>
+<p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will normally run this automatically for you the first time you execute a function from the package in an R session. To see how to configure this permanently, see <code><a href="reference/ale.html">help(ale)</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Here is a simple example that demonstrates the usage of the model. First, we train a GAM model. Then, with a test dataset and a model object, we can create ALE data with the <code><a href="reference/ale.html">ale()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span></span>
 <span><span class="co"># Sample 1000 rows from the diamonds dataset (for a simple example).</span></span>
@@ -141,14 +143,12 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds_sample</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">diamonds_train</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="va">train_test_split</span>, <span class="op">]</span></span>
-<span><span class="co"># &lt;&lt;- is not normally needed; it is just for this README document.</span></span>
-<span><span class="va">diamonds_test</span> <span class="op">&lt;&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="op">!</span><span class="va">train_test_split</span>, <span class="op">]</span></span>
+<span><span class="va">diamonds_test</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="op">!</span><span class="va">train_test_split</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Create a GAM model with flexible curves to predict diamond price</span></span>
 <span><span class="co"># Smooth all numeric variables and include all other variables</span></span>
 <span><span class="co"># Build model on training data, not on the full dataset.</span></span>
-<span><span class="co"># &lt;&lt;- is not normally needed; it is just for this README document.</span></span>
-<span><span class="va">gam_diamonds</span> <span class="op">&lt;&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
+<span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">diamonds_train</span></span>
@@ -157,10 +157,7 @@
 <span><span class="co"># Create ALE data and plot it</span></span>
 <span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span>
-<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
-<span>  <span class="co"># Disable progress bars for this README document.</span></span>
-<span>  <span class="co"># For interactive use, you would normally want to delete this option.</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>  <span class="co"># required for parallel processing</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -169,15 +166,15 @@
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h2>
-<p>If you find a bug, please report it on <a href="https://github.com/Tripartio/ale/issues" class="external-link">GitHub</a>. If you have a question about how to use the package, you can post it on <a href="https://stackoverflow.com/questions/tagged/ale" class="external-link">Stack Overflow with the “ale” tag</a>. I will follow that tag, so I will try my best to respond quickly. However, be sure to always include a minimal reproducible example for your usage requests. If you cannot include your own dataset in the question, then use one of the built-in datasets to frame your help request: <code>var_cars</code>, <code>census</code>, or <code>diamonds</code>.</p>
+<p>If you find a bug, please report it on <a href="https://github.com/tripartio/ale/issues" class="external-link">GitHub</a>. If you have a question about how to use the package, you can post it on <a href="https://stackoverflow.com/questions/tagged/ale" class="external-link">Stack Overflow with the “ale” tag</a>. I will follow that tag, so I will try my best to respond quickly. However, be sure to always include a minimal reproducible example for your usage requests. If you cannot include your own dataset in the question, then use one of the built-in datasets to frame your help request: <code>var_cars</code>, <code>census</code>, or <code>diamonds</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=ale" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/Tripartio/ale/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/Tripartio/ale/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/tripartio/ale/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tripartio/ale/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -210,7 +207,7 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=ale" class="external-link"><img src="https://www.r-pkg.org/badges/version/ale" alt="CRAN status"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
