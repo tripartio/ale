@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240208</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,6 @@ with the reference <code>{ALEPlot}</code> package</a>.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -135,7 +134,7 @@ with the reference <code>{ALEPlot}</code> package</a>.</p>
 <h2 id="diamonds-dataset">diamonds dataset<a class="anchor" aria-label="anchor" href="#diamonds-dataset"></a>
 </h2>
 <p>For this introduction, we use the <code>diamonds</code> dataset,
-built-in with the <code>ggplot2</code> graphics system. We cleaned the
+included with the <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> graphics system. We cleaned the
 original version by <a href="https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/" title="errors in the diamonds dataset" class="external-link">removing duplicates</a> and
 invalid entries where the length (x), width (y), or depth (z) is 0.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -377,7 +376,6 @@ statistics, which we describe in <a href="ale-statistics.html" title="ALE-based 
 <span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
@@ -396,14 +394,15 @@ call <code>ale_gam_diamonds$plots$carat</code> :</p>
 <span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print%20carat-1.png" width="384"></p>
 <p>To iterate the list and plot all the ALE plots, we provide here some
-demonstration code using the <code>gridExtra</code> package for
+demonstration code using the <code>patchwork</code> package for
 arranging multiple plots in a common plot grid using
-<code><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">gridExtra::grid.arrange</a></code>. We need to pass the list of plots
+<code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>. We need to pass the list of plots
 to the <code>grobs</code> argument and we can specify that we want two
 plots per row with the <code>ncol</code> argument.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print%20ale_simple-1.png" width="672"></p>
 </div>
 <div class="section level2">
@@ -445,12 +444,12 @@ we demonstrate it here with only 10 iterations.</p>
 <span>  <span class="co"># Normally boot_it should be set to 100, but just 10 here for a faster demonstration</span></span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE result. In principle, we should always bootstrap
@@ -486,7 +485,6 @@ function: <code><a href="../reference/ale_ixn.html">help(ale_ixn)</a></code>.</p
 <span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Like the <code><a href="../reference/ale.html">ale()</a></code> function, the <code><a href="../reference/ale_ixn.html">ale_ixn()</a></code>
@@ -502,23 +500,26 @@ x2 variable on the y axis.</p>
 plots. It is a little more complex this time because of the two levels
 of interacting variables in the output data, so we use the
 <code>purrr</code> package to iterate the list structure.
-<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::walk</a></code> takes a list as its first argument and then we
-specify an anonymous function for what we want to do with each element
-of the list. We specify the anonymous function as
+<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::walk()</a></code> takes a list as its first argument and then
+we specify an anonymous function for what we want to do with each
+element of the list. We specify the anonymous function as
 <code>\(.x1) {...}</code> where <code>.x1</code> in our case represents
 each individual element of <code>ale_ixn_gam_diamonds$plots</code> in
 turn, that is, a sublist of plots with which the x1 variable interacts.
 We print the plots of all the x1 interactions as a combined grid of
-plots with <code><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">gridExtra::grid.arrange</a></code>, as before.</p>
+plots with <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, as before.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all interaction plots</span></span>
 <span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot each x1 plot</span></span>
+<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-1.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-2.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-3.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-4.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-5.png" width="672"></p>
 <p>Because we are printing all plots together with the same
-<code><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">gridExtra::grid.arrange</a></code> statement, some of them might
+<code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code> statement, some of them might
 appear vertically distorted because each plot is forced to be of the
 same height. For more fine-tuned presentation, we would need to refer to
 a specific plot. For example, we can print the interaction plot between

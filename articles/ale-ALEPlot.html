@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240208</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -268,7 +268,6 @@ automatically for you with a notification message.</p>
 list with various ALE elements.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span></span>
 <span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>,</span>
@@ -299,10 +298,10 @@ functions with the <code>pred_fun</code> argument.</li>
 <p>Since the plots are saved as a list, they can easily be printed out
 all at once:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># , fig.asp=3 is OK</span></span>
-<span><span class="co"># Print plots</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20plots-1.png" width="336"></p>
+<code class="sourceCode R"><span><span class="co"># Print plots</span></span>
+<span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20plots-1.png" width="672"></p>
 <p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package plots have various features that
 enhance interpretability:</p>
 <ul>
@@ -328,7 +327,8 @@ scale:</p>
 <span>  model_packages <span class="op">=</span> <span class="st">'nnet'</span>  <span class="co"># required for parallel processing</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20zeroed-1.png" width="672"></p>
 <p>With these zero-centred plots, the full range of y values and the rug
 plots give some context that aids interpretation. (If the rugs look
@@ -342,7 +342,7 @@ interactions between all variables in the data.</p>
 structure is a two-layer list, so the print code is slightly more
 complicated. However, the sample code we provide here using functions
 from the <code>purrr</code> package for iterating through lists and
-<code>gridExtra</code> package for arranging plots are reusable in any
+<code>patchwork</code> package for arranging plots are reusable in any
 application.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and plot interactions</span></span>
@@ -353,8 +353,11 @@ application.</p>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">nn_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># plot all x1 plots</span></span>
+<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20ixn-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20ixn-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20ixn-3.png" width="672"></p>
 <p>These interaction plots are heat maps that indicate the interaction
@@ -400,7 +403,7 @@ We load it here with the adjustments necessary to run the
 <code class="sourceCode R"><span><span class="co">## R code for Example 3</span></span>
 <span><span class="co">## Load relevant packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ALEPlot</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm" class="external-link">gbm</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm" class="external-link">gbm</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loaded gbm 2.1.9</span></span>
 <span><span class="co">#&gt; This version of gbm is no longer under development. Consider transitioning to gbm3, https://github.com/gbm-developers/gbm3</span></span>
 <span></span>
@@ -516,7 +519,8 @@ plots.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">gbm_ale_link</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">gbm_ale_link</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20link-1.png" width="672"></p>
 <p>Now we generate ALE data for all two-way interactions and then plot
 them. Again, note the interaction between <code>age</code> and
@@ -540,8 +544,11 @@ extremely high cases of hours per week.</p>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">gbm_ale_ixn_link</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot all x1 interaction plots</span></span>
+<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20link-5.png" width="672"></p>
 <p>In some of these plots, we can see some white spots. These are the
@@ -604,7 +611,8 @@ middle.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">gbm_ale_prob</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">gbm_ale_prob</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20prob-1.png" width="672"></p>
 <p>Finally, we again generate two-way interactions, this time based on
 probabilities instead of on log odds. However, probabilities might not
@@ -630,8 +638,11 @@ the log odds ALEs shown above are probably more relevant.</p>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">gbm_ale_ixn_prob</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot all x1 plots</span></span>
+<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20ixn%20prob-5.png" width="672"></p>
 </div>

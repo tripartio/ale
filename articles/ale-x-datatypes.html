@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240207</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240208</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +101,6 @@ demonstration of specific functionality.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -302,12 +301,12 @@ plot it.</p>
 <code class="sourceCode R"><span><span class="va">cars_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">var_cars</span>, <span class="va">cm</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co">#required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">cars_ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">cars_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_ale-1.png" width="672"></p>
 <p>We can see that <code>ale</code> has no trouble modelling any of the
 datatypes in our sample (logical, factor, ordered, integer, or double).
@@ -325,14 +324,16 @@ interactions.</p>
 <code class="sourceCode R"><span><span class="va">cars_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
 <span>  <span class="va">var_cars</span>, <span class="va">cm</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co">#required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">cars_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>    <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co"># plot all x1 plots</span></span>
+<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-1.png" width="672"><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-2.png" width="672"><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-3.png" width="672"><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-4.png" width="672"><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-5.png" width="672"><img src="ale-x-datatypes_files/figure-html/cars_ale_ixn-6.png" width="672"></p>
 <p>There are no interactions in this dataset. (To see what ALE
@@ -347,12 +348,12 @@ model, not just the ALE data. So, let’s do that now.</p>
 <span>  <span class="va">cm</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
 <span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co">#required for parallel processing</span></span>
-<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># progress bars disabled for the vignette</span></span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>,  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span>  seed <span class="op">=</span> <span class="fl">2</span>  <span class="co"># workaround to avoid random error on such a small dataset</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">mb</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mb</span><span class="op">$</span><span class="va">ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_full-1.png" width="672"></p>
 <p>(By default, <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> creates 100 bootstrap
 samples but, so that this illustration runs faster, we demonstrate it
