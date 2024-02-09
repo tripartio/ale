@@ -61,6 +61,7 @@ The development version in the main branch of GitHub is always thoroughly checke
 There is one more optional but recommended setup option. To enable **progress bars** to see how long procedures will take, you should run the following code at the beginning of your R session:
 
 ```{r enable progressr, eval = FALSE}
+# Run this in an R console; it will not work directly within an R Markdown or Quarto block
 progressr::handlers(global = TRUE)
 progressr::handlers('cli')
 ```

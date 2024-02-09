@@ -82,6 +82,7 @@ At the very least, the `ale` is useful for visualizing the effects of model vari
 Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
 
 ```{r enable progressr, eval = FALSE}
+# Run this in an R console; it will not work directly within an R Markdown or Quarto block
 progressr::handlers(global = TRUE)
 progressr::handlers('cli')
 ```

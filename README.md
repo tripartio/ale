@@ -90,6 +90,7 @@ There is one more optional but recommended setup option. To enable
 the following code at the beginning of your R session:
 
 ``` r
+# Run this in an R console; it will not work directly within an R Markdown or Quarto block
 progressr::handlers(global = TRUE)
 progressr::handlers('cli')
 ```
