@@ -6,8 +6,8 @@ test_that(
   'Parallelized version does not crash', {
     expect_no_error(
       create_p_funs(
-        # For testing, just use the same training and test sets
-        test_cars,
+        # # For testing, just use the same training and test sets
+        # test_cars,
         test_cars,
         cars_gam,
         rand_it = 2,
@@ -24,8 +24,8 @@ test_that(
     skip_on_ci()
 
     pf <- create_p_funs(
-      # For testing, just use the same training and test sets
-      test_cars,
+      # # For testing, just use the same training and test sets
+      # test_cars,
       test_cars,
       cars_gam,
       rand_it = 10,
@@ -60,14 +60,14 @@ test_that(
     skip_on_ci()
 
     pf <- create_p_funs(
-      # For testing, just use the same training and test sets
-      test_cars,
+      # # For testing, just use the same training and test sets
+      # test_cars,
       test_cars,
       cars_gam,
       random_model_call_string = 'mgcv::gam(
         mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
         vs + am + gear + carb + country + random_variable,
-        data = rand_train
+        data = rand_data
       )',
       # It is difficult to test random_model_call_string_vars because it is only for
       # edge cases, but at least make sure it is a valid entry

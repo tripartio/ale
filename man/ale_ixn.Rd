@@ -113,30 +113,19 @@ number specified will be used, including the middle quantile.
 set.seed(0)
 diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
-# Split the dataset into training and test sets
-# https://stackoverflow.com/a/54892459/2449926
-set.seed(0)
-train_test_split <- sample(
-  c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
-)
-diamonds_train <- diamonds_sample[train_test_split, ]
-diamonds_test <- diamonds_sample[!train_test_split, ]
-
-
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
-# Build model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
     cut + color + clarity,
-  data = diamonds_train
+  data = diamonds_sample
 )
 summary(gam_diamonds)
 
 \donttest{
 # ALE two-way interactions
 ale_ixn_gam_diamonds <- ale_ixn(
-  diamonds_test, gam_diamonds,
+  diamonds_sample, gam_diamonds,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

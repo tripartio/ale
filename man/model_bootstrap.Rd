@@ -110,14 +110,15 @@ Execute full model bootstrapping with ALE calculation on each bootstrap run
 }
 \details{
 No modelling results, with or without ALE, should be considered reliable without
-being bootstrapped.
-For large datasets with clear separation between training and testing samples,
-\code{\link[=ale]{ale()}} bootstraps the ALE results of the test data. However, when a dataset
-is too small to be subdivided into training and test sets, then the entire
-model should be bootstrapped. That is, multiple models should be trained,
-one on each bootstrap sample. The reliable results are the average results
-of all the bootstrap models, however many there are. For details, see
-the vignette on small datasets or the details and examples below.
+being bootstrapped. For large datasets, normally the model provided to \code{\link[=ale]{ale()}}
+is the final deployment model that has been validated and evaluated on
+training and testing on subsets; that is why \code{\link[=ale]{ale()}} is calculated on the full
+dataset. However, when a dataset is too small to be subdivided into training
+and test sets for a standard machine learning process, then the entire model
+should be bootstrapped. That is, multiple models should be trained, one on
+each bootstrap sample. The reliable results are the average results of all
+the bootstrap models, however many there are. For details, see the vignette
+on small datasets or the details and examples below.
 
 \code{\link[=model_bootstrap]{model_bootstrap()}} automatically carries out full-model bootstrapping suitable
 for small datasets. Specifically, it:

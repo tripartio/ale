@@ -76,18 +76,7 @@ str(diamonds)
 summary(diamonds$price)
 ```
 
-For machine learning analysis that intends to extrapolate its results to future data, We must first split the dataset into training and test samples. The model is developed on the training set and then evaluated on the test set. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](ale-small-datasets.html "ale package for small datasets").
-
-```{r diamonds_split}
-# Split the dataset into training and test sets
-# https://stackoverflow.com/a/54892459/2449926
-set.seed(0)
-train_test_split <- sample(c(TRUE, FALSE), nrow(diamonds), replace = TRUE, prob = c(0.8, 0.2))
-diamonds_train <- diamonds[train_test_split, ]
-diamonds_test <- diamonds[!train_test_split, ]
-```
-
-So, now we split the dataset with an 80-20 split for a training set of `r format(nrow(diamonds_train), big.mark = ',')` rows and a test set of `r format(nrow(diamonds_test), big.mark = ',')` rows. Now we can build our model.
+Interpretable machine learning (IML) techniques like ALE should be applied not on training subsets nor on test subsets but on a final deployment model after training and evaluation. This final deployment should be trained on the full dataset to give the best possible model for production deployment. (When a dataset is too small to feasibly split into training and test sets, then the ale package has tools to appropriately handle such [small datasets](ale-small-datasets.html "ale package for small datasets").
 
 ## Modelling with general additive models (GAM)
 
@@ -98,12 +87,11 @@ We train a GAM model to predict diamond prices:
 ```{r train_gam}
 # Create a GAM model with flexible curves to predict diamond prices.
 # (In testing, mgcv::gam actually performed better than nnet.)
-# Smooth all numeric variables and include all other variables
-# Build model on training data, not on the full dataset.
+# Smooth all numeric variables and include all other variables.
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
     cut + color + clarity,
-  data = diamonds_train
+  data = diamonds
   )
 summary(gam_diamonds)
 ```
@@ -128,7 +116,7 @@ The `ale()` function returns a list with various elements. The two main ones are
 ```{r ale_simple}
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(
-  diamonds_test, gam_diamonds,
+  diamonds, gam_diamonds,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -152,15 +140,15 @@ ale_gam_diamonds$plots |>
 
 ## Bootstrapped ALE
 
-One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was built. Such external generalization requires analyzing the `ale()` function on test data distinct from the training data. When samples are too small for this, we provide a different bootstrapping method, `model_bootstrap()`, explained in the vignette for [small datasets](ale-small-datasets.html "ale package for small datasets").
+One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was built. As mentioned above, this assumes that IML analysis is carried out on a final deployment model selected after training and evaluating the model hyperparameters on distinct subsets. When samples are too small for this, we provide a different bootstrapping method, `model_bootstrap()`, explained in the vignette for [small datasets](ale-small-datasets.html "ale package for small datasets").
 
 Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies that time by the number of bootstrap iterations. Since this vignette is just a demonstration of package functionality rather than a real analysis, we will demonstrate bootstrapping on a small subset of the test data. This will run much faster as the speed of the ALE algorithm depends on the size of the dataset. So, let us take a random sample of 200 rows of the test set.
 
 ```{r diamonds_new}
 # Bootstraping is rather slow, so create a smaller subset of new data for demonstration
 set.seed(0)
-new_rows <- sample(nrow(diamonds_test), 200, replace = FALSE)
-diamonds_small_test <- diamonds_test[new_rows, ]
+new_rows <- sample(nrow(diamonds), 200, replace = FALSE)
+diamonds_small_test <- diamonds[new_rows, ]
 ```
 
 Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. However, so that this introduction runs faster, we demonstrate it here with only 10 iterations. 
@@ -188,7 +176,7 @@ Another advantage of ALE is that it provides data for two-way interactions betwe
 ```{r ale_ixn}
 # ALE two-way interactions
 ale_ixn_gam_diamonds <- ale_ixn(
-  diamonds_test, gam_diamonds,
+  diamonds, gam_diamonds,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

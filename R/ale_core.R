@@ -278,23 +278,12 @@
 #' set.seed(0)
 #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 #'
-#' # Split the dataset into training and test sets
-#' # https://stackoverflow.com/a/54892459/2449926
-#' set.seed(0)
-#' train_test_split <- sample(
-#'   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
-#' )
-#' diamonds_train <- diamonds_sample[train_test_split, ]
-#' diamonds_test <- diamonds_sample[!train_test_split, ]
-#'
-#'
 #' # Create a GAM model with flexible curves to predict diamond price
 #' # Smooth all numeric variables and include all other variables
-#' # Build model on training data, not on the full dataset.
 #' gam_diamonds <- mgcv::gam(
 #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
 #'     cut + color + clarity,
-#'   data = diamonds_train
+#'   data = diamonds_sample
 #' )
 #' summary(gam_diamonds)
 #'
@@ -303,7 +292,7 @@
 #'
 #' # Simple ALE without bootstrapping
 #' ale_gam_diamonds <- ale(
-#'   diamonds_test, gam_diamonds,
+#'   diamonds_sample, gam_diamonds,
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -316,7 +305,7 @@
 #'
 #' # Create ALE with 100 bootstrap samples
 #' ale_gam_diamonds_boot <- ale(
-#'   diamonds_test, gam_diamonds, boot_it = 100,
+#'   diamonds_sample, gam_diamonds, boot_it = 100,
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -332,7 +321,7 @@
 #' }
 #'
 #' ale_gam_diamonds_custom <- ale(
-#'   diamonds_test, gam_diamonds,
+#'   diamonds_sample, gam_diamonds,
 #'   pred_fun = custom_predict, pred_type = 'link',
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
@@ -453,30 +442,19 @@ ale <- function (
 #' set.seed(0)
 #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 #'
-#' # Split the dataset into training and test sets
-#' # https://stackoverflow.com/a/54892459/2449926
-#' set.seed(0)
-#' train_test_split <- sample(
-#'   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
-#' )
-#' diamonds_train <- diamonds_sample[train_test_split, ]
-#' diamonds_test <- diamonds_sample[!train_test_split, ]
-#'
-#'
 #' # Create a GAM model with flexible curves to predict diamond price
 #' # Smooth all numeric variables and include all other variables
-#' # Build model on training data, not on the full dataset.
 #' gam_diamonds <- mgcv::gam(
 #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
 #'     cut + color + clarity,
-#'   data = diamonds_train
+#'   data = diamonds_sample
 #' )
 #' summary(gam_diamonds)
 #'
 #' \donttest{
 #' # ALE two-way interactions
 #' ale_ixn_gam_diamonds <- ale_ixn(
-#'   diamonds_test, gam_diamonds,
+#'   diamonds_sample, gam_diamonds,
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -695,17 +673,18 @@ ale_core <- function (
     if (length(p_values) == 1 && p_values == 'auto') {
       # Try to automatically obtain p-values
 
-      training_data <- insight::get_data()
-      if (is.null(training_data)) {
-        stop(glue(
-          'ale() could not automatically obtain the training data for the model, ',
-          'so p-values cannot be automatically obtained. See help(create_p_funs) ',
-          'for instructions for obtaining p-values.'
-        ))
-      }
+      # training_data <- insight::get_data()
+      # if (is.null(training_data)) {
+      #   stop(glue(
+      #     'ale() could not automatically obtain the training data for the model, ',
+      #     'so p-values cannot be automatically obtained. See help(create_p_funs) ',
+      #     'for instructions for obtaining p-values.'
+      #   ))
+      # }
       p_values <- create_p_funs(
-        training_data = training_data,
-        test_data = data,
+        data = data,
+        # training_data = training_data,
+        # test_data = data,
         model = model,
         pred_fun = pred_fun,
         pred_type = pred_type

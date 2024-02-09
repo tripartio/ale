@@ -146,10 +146,7 @@ To create the model, we invoke the `{ale}` which returns a list with various ALE
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ale(
-  DAT, nnet.DAT, pred_type = "raw",
-  model_packages = 'nnet'  # required for parallel processing
-)
+nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw")
 ```
 
 Here are some notable differences compared to `ALEPlot`:
@@ -177,10 +174,7 @@ It might not be clear that the previous plots display exactly the same data as t
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE
-nn_ale <- ale(
-  DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero',
-  model_packages = 'nnet'  # required for parallel processing
-)
+nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero')
 
 nn_ale$plots |> 
   patchwork::wrap_plots()
@@ -194,10 +188,7 @@ Because the variables interact with each other, the output data structure is a t
 
 ```{r ale nnet ixn, fig.width=7, fig.height=5}
 # Create and plot interactions
-nn_ale_ixn <- ale_ixn(
-  DAT, nnet.DAT, pred_type = "raw",
-  model_packages = 'nnet'  # required for parallel processing
-)
+nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, pred_type = "raw")
 
 # Print plots
 nn_ale_ixn$plots |>
@@ -240,7 +231,7 @@ Although gradient boosted trees generally perform quite well, they are rather sl
 
 ```{r gbm model}
 # # To generate the code, uncomment the following lines.
-# # But they are slow, so this vignette loads a pre-created model object.
+# # But GBM training is slow, so this vignette loads a pre-created model object.
 # set.seed(0)
 # gbm.data <- gbm(higher_income ~ ., data= data[,-c(3,4)],
 #                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,
@@ -295,15 +286,15 @@ yhat <- function(object, newdata, type) {
 # Generate ALE data for all variables
 
 # # To generate the code, uncomment the following lines.
-# # But it is slow, so this vignette loads a pre-created model object.
+# # But it is slow because it calculates ALE for all variables,
+# # so this vignette loads a pre-created model object.
 # gbm_ale_link <- ale(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
 #   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero',  # compatibility with ALEPlot
-#   model_packages = 'gbm'  # required for parallel processing
+#   relative_y = 'zero'  # compatibility with ALEPlot
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -318,15 +309,15 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 
 ```{r ale ixn link, fig.width=7, fig.height=5}
 # # To generate the code, uncomment the following lines.
-# # But it is slow, so this vignette loads a pre-created model object.
+# # But it is slow because it calculates ALE for all variables,
+# # so this vignette loads a pre-created model object.
 # gbm_ale_ixn_link <- ale_ixn(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
 #   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero',  # compatibility with ALEPlot
-#   model_packages = 'gbm'  # required for parallel processing
+#   relative_y = 'zero'  # compatibility with ALEPlot
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
 gbm_ale_ixn_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
@@ -368,14 +359,14 @@ yhat <- function(object, newdata, type) {
 # Generate ALE data for all variables
 
 # # To generate the code, uncomment the following lines.
-# # But it is slow, so this vignette loads a pre-created model object.
+# # But it is slow because it calculates ALE for all variables,
+# # so this vignette loads a pre-created model object.
 # gbm_ale_prob <- ale(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   model_packages = 'gbm'  # required for parallel processing
+#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -390,14 +381,14 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 
 ```{r ale ixn prob, fig.width=7, fig.height=5}
 # To generate the code, uncomment the following lines.
-# But it is slow, so this vignette loads a pre-created model object.
+# # But it is slow because it calculates ALE for all variables,
+# # so this vignette loads a pre-created model object.
 # gbm_ale_ixn_prob <- ale_ixn(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#  model_packages = 'gbm'  # required for parallel processing
+#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
 # )
 # saveRDS(gbm_ale_ixn_prob, file.choose())
 gbm_ale_ixn_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 

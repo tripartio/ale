@@ -27,7 +27,7 @@
 #' * In the formula that specifies the model, you must add a variable named
 #' 'random_variable'. This corresponds to the random variables that [create_p_funs()]
 #' will use to estimate p-values.
-#' * The dataset on which the model is trained must be named 'rand_train'. This
+#' * The dataset on which the model is trained must be named 'rand_data'. This
 #' corresponds to the modified datasets that will be used to train the random
 #' variables.
 #'
@@ -56,18 +56,6 @@
 #' (from `stats::ecdf()`) is used to create a function to determine p-values
 #' according to the distribution of the random variables' ALE statistics.
 #'
-#' @section Datasets:
-#' Because the `ale` package takes a literal frequentist approach to the
-#' calculation of p-values, the precision of the p-values depends on correctly
-#' representing the modelling workflow. Specifically, models should be trained
-#' on a training subset and ALE statistics should be calculated on a test subset.
-#' Thus, the random variables should be trained on the same training subset and
-#' their ALE statistics should be calculated on the same test subset. Thus the
-#' model takes both `training_data` and `test_data` as distinct arguments. If,
-#' for whatever reason, the ALE is calculated on the same dataset as is used to
-#' train the model, then the same dataset should be entered for both
-#' `training_data` and `test_data`.
-#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
@@ -76,12 +64,14 @@
 #'
 #'
 #'
-#' @param training_data dataframe. The dataset originally used to train `model`.
-#' See details and also documentation for [ale()].
-#' @param test_data dataframe. The dataset that will be used to create ALE data.
-#' See details.
-#' @param model model object. The model used to train the original `training_data`.
-#'  for which ALE should be calculated. See details and also documentation for [ale()].
+#' @param data See documentation for [ale()]
+# @param training_data dataframe. The dataset originally used to train `model`.
+# See details and also documentation for [ale()].
+# @param test_data dataframe. The dataset that will be used to create ALE data.
+# See details.
+#' @param model See documentation for [ale()]
+# @param model model object. The model used to train the original `training_data`.
+#  for which ALE should be calculated. See details and also documentation for [ale()].
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel See documentation for [ale()]
 #' @param model_packages See documentation for [ale()]
@@ -124,8 +114,10 @@
 #' * `rand_stats`: a tibble whose rows are each of the `rand_it` iterations of the
 #' random variable analysis and whose columns are the ALE statistics obtained for
 #' each random variable.
-#' * `residuals`: the actual `y_col` values from `training_data` minus the predicted
-#' values from the `model` (without random variables) on the `training_data`.
+#' * `residuals`: the actual `y_col` values from `data` minus the predicted
+#' values from the `model` (without random variables) on the `data`.
+# * `residuals`: the actual `y_col` values from `training_data` minus the predicted
+# values from the `model` (without random variables) on the `training_data`.
 #' `residual_distribution`: the closest estimated distribution for the `residuals`
 #' as determined by [univariateML::rml()]. This is the distribution used to generate
 #' all the random variables.
@@ -136,30 +128,18 @@
 #' set.seed(0)
 #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 #'
-#' # Split the dataset into training and test sets
-#' # https://stackoverflow.com/a/54892459/2449926
-#' set.seed(0)
-#' train_test_split <- sample(
-#'   c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
-#' )
-#' diamonds_train <- diamonds_sample[train_test_split, ]
-#' diamonds_test <- diamonds_sample[!train_test_split, ]
-#'
-#'
 #' # Create a GAM model with flexible curves to predict diamond price
 #' # Smooth all numeric variables and include all other variables
-#' # Build model on training data, not on the full dataset.
 #' gam_diamonds <- mgcv::gam(
 #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
 #'     cut + color + clarity,
-#'   data = diamonds_train
+#'   data = diamonds_sample
 #' )
 #' summary(gam_diamonds)
 #'
 #' # Create p-value functions
 #' pf_diamonds <- create_p_funs(
-#'   diamonds_train,
-#'   diamonds_test,
+#'   diamonds_sample,
 #'   gam_diamonds,
 #'   # only 100 iterations for a quick demo; but usually should remain at 1000
 #'   rand_it = 100,
@@ -171,7 +151,7 @@
 #'
 #' # Calculate ALEs with p-values
 #' ale_gam_diamonds <- ale(
-#'   diamonds_test,
+#'   diamonds_sample,
 #'   gam_diamonds,
 #'   p_values = pf_diamonds
 #' )
@@ -186,13 +166,12 @@
 #' # of p-values from random variables as in this example.
 #' # See details above for an explanation.
 #' pf_diamonds <- create_p_funs(
-#'   diamonds_train,
-#'   diamonds_test,
+#'   diamonds_sample,
 #'   gam_diamonds,
 #'   random_model_call_string = 'mgcv::gam(
 #'     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
 #'         cut + color + clarity + random_variable,
-#'     data = rand_train
+#'     data = rand_data
 #'   )',
 #'   # only 100 iterations for a quick demo; but usually should remain at 1000
 #'   rand_it = 100,
@@ -205,8 +184,9 @@
 #' @importFrom glue glue
 #'
 create_p_funs <- function(
-    training_data,
-    test_data,
+    data,
+    # training_data,
+    # test_data,
     model,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
@@ -225,15 +205,17 @@ create_p_funs <- function(
 
   # Validate arguments
 
-  assert_that(training_data |> inherits('data.frame'))
-  assert_that(test_data |> inherits('data.frame'))
+  assert_that(data |> inherits('data.frame'))
+  # assert_that(training_data |> inherits('data.frame'))
+  # assert_that(test_data |> inherits('data.frame'))
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
   y_preds <- validate_y_preds(
     pred_fun = pred_fun,
     model = model,
-    data = training_data,
+    data = data,
+    # data = training_data,
     pred_type = pred_type
   )
 
@@ -262,18 +244,18 @@ create_p_funs <- function(
       )
     )
     assert_that(
-      stringr::str_detect(random_model_call_string, 'rand_train'),
+      stringr::str_detect(random_model_call_string, 'rand_data'),
       msg = glue(
-        'The data argument for random_model_call_string must be "rand_train". ',
+        'The data argument for random_model_call_string must be "rand_data". ',
         'See help(create_p_funs) for details.'
       )
     )
 
-    # Replace 'rand_train' with the proper internal reference.
+    # Replace 'rand_data' with the proper internal reference.
     random_model_call_string <- random_model_call_string |>
       stringr::str_replace_all(
-        'rand_train',
-        'package_scope$rand_train'
+        'rand_data',
+        'package_scope$rand_data'
       )
   }
 
@@ -283,7 +265,8 @@ create_p_funs <- function(
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
   y_col <- validate_y_col(
     y_col = y_col,
-    data = training_data,
+    data = data,
+    # data = training_data,
     model = model
   )
 
@@ -303,16 +286,19 @@ create_p_funs <- function(
 
 
   # Determine the closest distribution of the residuals
-  # Note that the distribution is determined from the training data, not the test data
-  residuals <- (training_data[[y_col]] - y_preds) |>
+  residuals <- (data[[y_col]] - y_preds) |>
+  # # Note that the distribution is determined from the training data, not the test data
+  # residuals <- (training_data[[y_col]] - y_preds) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
 
   # Create ALEs for random variables based on residual_distribution
-  assign('rand_train', training_data, package_scope)
-  assign('rand_test', test_data, package_scope)
-  train_n <- nrow(training_data)
-  test_n  <- nrow(test_data)
+  package_scope$rand_data <- data
+  n_rows <- nrow(data)
+  # assign('rand_data', training_data, package_scope)
+  # assign('rand_test', test_data, package_scope)
+  # train_n <- nrow(training_data)
+  # test_n  <- nrow(test_data)
 
   # Enable parallel processing and set appropriate map function.
   # Because furrr::future_map has an important .options argument absent from
@@ -337,7 +323,7 @@ create_p_funs <- function(
 
   # extend random_model_call_string_vars with local variables for parallel processing
   # random_model_call_string_vars <- c(
-  #   'package_scope', 'rand_train', 'rand_test', 'random_variable', 'rand_model', 'rand_ale',
+  #   'package_scope', 'rand_data', 'rand_test', 'random_variable', 'rand_model', 'rand_ale',
   #   random_model_call_string_vars
   # )
   rand_ales <- map_loop(
@@ -362,24 +348,27 @@ create_p_funs <- function(
 
 
       # Generate training and test subsets with the random variable.
-      # Super-assignment because they modify the datasets defined outside of the map function.
+      # Package scope because they modify the datasets defined outside of the map function.
       set.seed(.it)
 
-      tmp_rand_train <- training_data
-      tmp_rand_train$random_variable <- univariateML::rml(
-        n = train_n,
+      tmp_rand_data <- data
+      # tmp_rand_data <- training_data
+      tmp_rand_data$random_variable <- univariateML::rml(
+        n = n_rows,
+        # n = train_n,
         obj = residual_distribution
       )
-      assign('rand_train', tmp_rand_train, package_scope)
-      rm(tmp_rand_train)
+      package_scope$rand_data <- tmp_rand_data
+      # assign('rand_data', tmp_rand_data, package_scope)
+      rm(tmp_rand_data)
 
-      tmp_rand_test <- test_data
-      tmp_rand_test$random_variable <- univariateML::rml(
-        n = test_n,
-        obj = residual_distribution
-      )
-      assign('rand_test', tmp_rand_test, package_scope)
-      rm(tmp_rand_test)
+      # tmp_rand_test <- test_data
+      # tmp_rand_test$random_variable <- univariateML::rml(
+      #   n = test_n,
+      #   obj = residual_distribution
+      # )
+      # assign('rand_test', tmp_rand_test, package_scope)
+      # rm(tmp_rand_test)
 
       # Train model with the random variable: convert model call string to an expression
 
@@ -394,18 +383,19 @@ create_p_funs <- function(
           )
       }
       else {  # use the automatically detected model call
-        # Update the model to call to add random_variable and to train on rand_train
+        # Update the model to call to add random_variable and to train on rand_data
         model_call$formula <- model_call$formula |>
           stats::update.formula(~ . + random_variable)
-        model_call$data <- package_scope$rand_train
+        model_call$data <- package_scope$rand_data
 
         assign('rand_model', eval(model_call), package_scope)
       }
 
-      # Calculate ale of random variable on the test set.
-      # If calculated on the training set, p-values will be too liberal.
+      # # Calculate ale of random variable on the test set.
+      # # If calculated on the training set, p-values will be too liberal.
       rand_ale <- ale::ale(
-        package_scope$rand_test,
+        package_scope$rand_data,
+        # package_scope$rand_test,
         package_scope$rand_model,
         'random_variable',
         parallel = 0,  # avoid iterative parallelization

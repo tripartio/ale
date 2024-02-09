@@ -5,8 +5,7 @@
 \title{Create a p-value functions object that can be used to generate p-values}
 \usage{
 create_p_funs(
-  training_data,
-  test_data,
+  data,
   model,
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
@@ -25,14 +24,9 @@ create_p_funs(
 )
 }
 \arguments{
-\item{training_data}{dataframe. The dataset originally used to train \code{model}.
-See details and also documentation for \code{\link[=ale]{ale()}}.}
+\item{data}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{test_data}{dataframe. The dataset that will be used to create ALE data.
-See details.}
-
-\item{model}{model object. The model used to train the original \code{training_data}.
-for which ALE should be calculated. See details and also documentation for \code{\link[=ale]{ale()}}.}
+\item{model}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -86,8 +80,8 @@ greater than or equal to 102.
 \item \code{rand_stats}: a tibble whose rows are each of the \code{rand_it} iterations of the
 random variable analysis and whose columns are the ALE statistics obtained for
 each random variable.
-\item \code{residuals}: the actual \code{y_col} values from \code{training_data} minus the predicted
-values from the \code{model} (without random variables) on the \code{training_data}.
+\item \code{residuals}: the actual \code{y_col} values from \code{data} minus the predicted
+values from the \code{model} (without random variables) on the \code{data}.
 \code{residual_distribution}: the closest estimated distribution for the \code{residuals}
 as determined by \code{\link[univariateML:MaximumLikelihoodDistribution]{univariateML::rml()}}. This is the distribution used to generate
 all the random variables.
@@ -114,7 +108,7 @@ correctly manipulate its model object:
 \item In the formula that specifies the model, you must add a variable named
 'random_variable'. This corresponds to the random variables that \code{\link[=create_p_funs]{create_p_funs()}}
 will use to estimate p-values.
-\item The dataset on which the model is trained must be named 'rand_train'. This
+\item The dataset on which the model is trained must be named 'rand_data'. This
 corresponds to the modified datasets that will be used to train the random
 variables.
 }
@@ -148,50 +142,24 @@ according to the distribution of the random variables' ALE statistics.
 }
 }
 
-\section{Datasets}{
-
-Because the \code{ale} package takes a literal frequentist approach to the
-calculation of p-values, the precision of the p-values depends on correctly
-representing the modelling workflow. Specifically, models should be trained
-on a training subset and ALE statistics should be calculated on a test subset.
-Thus, the random variables should be trained on the same training subset and
-their ALE statistics should be calculated on the same test subset. Thus the
-model takes both \code{training_data} and \code{test_data} as distinct arguments. If,
-for whatever reason, the ALE is calculated on the same dataset as is used to
-train the model, then the same dataset should be entered for both
-\code{training_data} and \code{test_data}.
-}
-
 \examples{
 \donttest{
 # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
 set.seed(0)
 diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
-# Split the dataset into training and test sets
-# https://stackoverflow.com/a/54892459/2449926
-set.seed(0)
-train_test_split <- sample(
-  c(TRUE, FALSE), nrow(diamonds_sample), replace = TRUE, prob = c(0.8, 0.2)
-)
-diamonds_train <- diamonds_sample[train_test_split, ]
-diamonds_test <- diamonds_sample[!train_test_split, ]
-
-
 # Create a GAM model with flexible curves to predict diamond price
 # Smooth all numeric variables and include all other variables
-# Build model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
     cut + color + clarity,
-  data = diamonds_train
+  data = diamonds_sample
 )
 summary(gam_diamonds)
 
 # Create p-value functions
 pf_diamonds <- create_p_funs(
-  diamonds_train,
-  diamonds_test,
+  diamonds_sample,
   gam_diamonds,
   # only 100 iterations for a quick demo; but usually should remain at 1000
   rand_it = 100,
@@ -203,7 +171,7 @@ str(pf_diamonds)
 
 # Calculate ALEs with p-values
 ale_gam_diamonds <- ale(
-  diamonds_test,
+  diamonds_sample,
   gam_diamonds,
   p_values = pf_diamonds
 )
@@ -218,13 +186,12 @@ ale_gam_diamonds$plots |>
 # of p-values from random variables as in this example.
 # See details above for an explanation.
 pf_diamonds <- create_p_funs(
-  diamonds_train,
-  diamonds_test,
+  diamonds_sample,
   gam_diamonds,
   random_model_call_string = 'mgcv::gam(
     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
         cut + color + clarity + random_variable,
-    data = rand_train
+    data = rand_data
   )',
   # only 100 iterations for a quick demo; but usually should remain at 1000
   rand_it = 100,
