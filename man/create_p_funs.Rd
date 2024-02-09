@@ -183,7 +183,6 @@ pf_diamonds <- create_p_funs(
   gam_diamonds,
   # only 100 iterations for a quick demo; but usually should remain at 1000
   rand_it = 100,
-  model_packages = 'mgcv',  # required for parallel processing
 )
 
 # Examine the structure of the returned object
@@ -194,7 +193,6 @@ str(pf_diamonds)
 ale_gam_diamonds <- ale(
   diamonds_test,
   gam_diamonds,
-  model_packages = 'mgcv',  # required for parallel processing
   p_values = pf_diamonds
 )
 

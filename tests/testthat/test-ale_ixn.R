@@ -12,7 +12,6 @@ test_that(
       ale_ixn(
         test_cars, cars_gam,
         x_cols = c('cyl', 'disp'),
-        model_packages = 'mgcv',
         parallel = 2,
         silent = TRUE
       )
@@ -23,7 +22,6 @@ test_that(
     #   ale_ixn(
     #     test_cars, cars_gam,
     #     x_cols = c('cyl', 'disp'),
-    #     model_packages = 'mgcv',
     #     boot_it = 5,
     #     parallel = 2,
     #     silent = TRUE

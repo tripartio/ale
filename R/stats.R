@@ -152,7 +152,6 @@
 #'   gam_diamonds,
 #'   # only 100 iterations for a quick demo; but usually should remain at 1000
 #'   rand_it = 100,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #' )
 #'
 #' # Examine the structure of the returned object
@@ -163,7 +162,6 @@
 #' ale_gam_diamonds <- ale(
 #'   diamonds_test,
 #'   gam_diamonds,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   p_values = pf_diamonds
 #' )
 #'
@@ -209,7 +207,7 @@ create_p_funs <- function(
     pred_type = pred_type
   )
 
-  validate_parallel(parallel, model_packages)
+  model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
   if (is.null(random_model_call_string)) {
     # Automatically extract the call from the model
@@ -968,7 +966,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             paste0('is ', relative_to_mid)
           ),
           ' the median band ',
-          'from {round_dp(start_y)} to {round_dp(end_y)}.',
+          'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
         stringr::str_glue(
@@ -978,7 +976,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the median band.',
+          ' the median band.'
         )
       }
     )

@@ -127,7 +127,6 @@
 #'   attitude,
 #'   gam_attitude,
 #'   boot_it = 4,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -135,13 +134,13 @@
 #' # 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])
 #' mb_gam <- model_bootstrap(
 #'   attitude,
+#'   gam_attitude,
 #'   model_call_string = 'mgcv::gam(
 #'     rating ~ complaints + privileges + s(learning) +
 #'       raises + s(critical) + advance,
 #'     data = boot_data
 #'   )',
 #'   boot_it = 4,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -166,7 +165,7 @@
 #'
 model_bootstrap <- function (
     data,
-    model = NULL,
+    model,
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
@@ -190,16 +189,16 @@ model_bootstrap <- function (
 
   assert_that(data |> inherits('data.frame'))
 
-  # If model_call_string is provided, then model is ignored.
-  # Otherwise, the model must allow automatic manipulation.
+  # If model_call_string is not provided, ensure that
+  # the model allows automatic manipulation.
   if (is.null(model_call_string)) {
-    assert_that(
-      !is.null(model),
-      msg = glue::glue(
-        'Either a model object or a model_call_string must be provided. ',
-        'See help(model_bootstrap) for details.'
-      )
-    )
+    # assert_that(
+    #   !is.null(model),
+    #   msg = glue::glue(
+    #     'Either a model object or a model_call_string must be provided. ',
+    #     'See help(model_bootstrap) for details.'
+    #   )
+    # )
 
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
@@ -233,7 +232,7 @@ model_bootstrap <- function (
   #     (stringr::str_sub(model_call_string, start = -1) == ')')
   # )
 
-  validate_parallel(parallel, model_packages)
+  model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
   assert_that(is.whole(boot_it))
   assert_that(is.number(seed))

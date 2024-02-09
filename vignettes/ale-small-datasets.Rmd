@@ -93,7 +93,6 @@ Note that for now, we run `ale` with no bootstrapping (the default) because smal
 ```{r lm_simple, fig.width=7, fig.height=7}
 ale_lm_attitude_simple <- ale(
   attitude, lm_attitude,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -111,7 +110,6 @@ We can use `ale_ixn()` to visualize the possible existence of any interactions:
 ```{r lm_ixn, fig.width=7, fig.height=7}
 ale_lm_attitude_ixn <- ale_ixn(
   attitude, lm_attitude,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -145,7 +143,6 @@ mb_lm <- model_bootstrap(
   attitude, 
   lm_attitude,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -207,7 +204,6 @@ To understand which variables were responsible for this relationship, the result
 ```{r gam_simple, fig.width=7, fig.height=7}
 ale_gam_attitude_simple <- ale(
   attitude, gam_attitude,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -222,7 +218,6 @@ mb_gam <- model_bootstrap(
   attitude, 
   gam_attitude, 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam$model_stats
@@ -270,11 +265,11 @@ So, here is the form of the call to `model_bootstrap()` for a non-standard model
 ```{r model_call_string}
 mb_gam_non_standard <- model_bootstrap(
   attitude,
+  gam_attitude_again,
   model_call_string = 'mgcv::gam(rating ~ complaints + privileges + s(learning) +
                                   raises + s(critical) + advance,
                                 data = boot_data)', 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
 mb_gam_non_standard$model_stats

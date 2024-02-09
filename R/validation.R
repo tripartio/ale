@@ -95,18 +95,45 @@ validate_y_col <- function(
 
 
 # Validate parallel processing inputs: parallel, model_packages.
-validate_parallel <- function(parallel, model_packages) {
+validated_parallel_packages <- function(parallel, model, model_packages) {
+  # validate_parallel <- function(parallel, model_packages) {
   assert_that(is.whole(parallel))
 
-  assert_that(
-    is.character(model_packages),
-    parallel == 0 || !any(is.na(model_packages)),
-    msg = paste0(
-      'If parallel processing is not disabled with `parallel = 0`, ',
-      'then `model_packages` must be a character vector of the packages required ',
-      'to predict `model`.'
-    )
-  )
+  # Validate or set model_packages for parallel processing.
+  # If execution is not parallel, then skip all that follows;
+  # essentially, ignore the model_packages argument.
+  if (parallel > 0) {
+    # If model_packages are not provided, try to automatically detect one
+    if (all(is.na(model_packages))) {
+      # https://github.com/easystats/insight/issues/849#issuecomment-1932476901
+      model_packages <- utils::getS3method('predict', class(model)[1]) |>
+        rlang::ns_env_name()
+    } else {
+      assert_that(
+        is.character(model_packages),
+        msg = paste0(
+          'If parallel processing is not disabled with `parallel = 0`, ',
+          'then `model_packages` must be a character vector of the packages required ',
+          'to predict `model`.'
+        )
+      )
+
+      missing_packages <- setdiff(
+        model_packages,
+        utils::installed.packages()[, 'Package']
+      )
+      assert_that(
+        length(missing_packages) == 0,
+        msg = paste0(
+          'The following packages specified in the "model_packages" argument ',
+          'do not seem to be installed on your system: ',
+          paste0(missing_packages, collapse = ', ')
+        )
+      )
+    }
+  }
+
+  return(model_packages)
 }
 
 

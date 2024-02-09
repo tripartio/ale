@@ -109,10 +109,11 @@
 #' packages that `model` depends on that might not be obvious.
 #' The `{ale}` package should be able to automatically recognize and load most
 #' packages that are needed, but with parallel processing enabled (which is the
-#' default), some packages might not be properly loaded. If you get an error
-#' related to unavailable packages or functions that you verify exist in your
-#' system, try adding them to this vector, especially if you see such errors after
-#' the progress bars begin displaying (assuming the default `silent = FALSE`).
+#' default), some packages might not be properly loaded. If you get a strange error
+#' message that mentions something somewhere about 'future', try adding the
+#' package for your model to this vector, especially if you see such errors after
+#' the progress bars begin displaying (assuming you did not disable progress bars
+#' with `silent = TRUE`).
 #' @param output character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
@@ -303,7 +304,6 @@
 #' # Simple ALE without bootstrapping
 #' ale_gam_diamonds <- ale(
 #'   diamonds_test, gam_diamonds,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -317,7 +317,6 @@
 #' # Create ALE with 100 bootstrap samples
 #' ale_gam_diamonds_boot <- ale(
 #'   diamonds_test, gam_diamonds, boot_it = 100,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -335,7 +334,6 @@
 #' ale_gam_diamonds_custom <- ale(
 #'   diamonds_test, gam_diamonds,
 #'   pred_fun = custom_predict, pred_type = 'link',
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -479,7 +477,6 @@ ale <- function (
 #' # ALE two-way interactions
 #' ale_ixn_gam_diamonds <- ale_ixn(
 #'   diamonds_test, gam_diamonds,
-#'   model_packages = 'mgcv',  # required for parallel processing
 #'   parallel = 2  # CRAN limit (delete this line on your own computer)
 #' )
 #'
@@ -653,7 +650,8 @@ ale_core <- function (
     model = model
   )
 
-  validate_parallel(parallel, model_packages)
+  model_packages <- validated_parallel_packages(parallel, model, model_packages)
+  # validate_parallel(parallel, model_packages)
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))

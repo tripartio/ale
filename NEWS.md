@@ -8,8 +8,6 @@ The most significant updates are the addition of p-values for the ALE statistics
 
 -   Another change that breaks former code is that the arguments for [model_bootstrap()] have been modified. Instead of a cumbersome `model_call_string`, **[model_bootstrap()] now uses the {insight} package to automatically detect many R models and directly manipulate the model object as needed**. So, the second argument is now the `model` object. However, for non-standard models that {insight} cannot automatically parse, a modified `model_call_string` is still available to assure model-agnostic functionality. Although this change breaks former code that ran [model_bootstrap()], we believe that the new function interface is much more user-friendly.
 
--   Yet another important breaking change is the addition of **parallelization** by default. We use the `{furrr}` library. This dramatically speeds up the core functions of [ale()], [ale_ixn()], and [model_bootstrap()], as well as [create_p_funs()]. In our tests, practically, we typically found speed-ups of `n – 2` where `n` is the number of physical cores (machine learning is generally unable to use logical cores). For example, a computer with 4 physical cores should see at least ×2 speed-up and a computer with 6 physical cores should see at least ×4 speed-up. Unfortunately, our parallelization conflicts with our model-agnostic design: to take advantage of the parallelization, users will normally have to explicitly list the model's packages in the new `model_packages` argument so that each parallel thread can find all necessary functions. Because the `{ale}` package is model-agnostic, we cannot hard-code the users' packages in advance. See [help(ale)] for details.
-
 - A slight change that might break some existing code is that the conf_regions output associated with ALE statistics has been restructured. The new structure provides more useful information. See [help(ale)] for details.
 
 ## Other user-visible changes
@@ -18,12 +16,14 @@ The most significant updates are the addition of p-values for the ALE statistics
 -   P-values are now provided for all ALE statistics. However, their calculation is very slow, so they are disabled by default; they must be explicitly requested. When requested, they will be automatically calculated when possible (for standard R model types); if not, some additional steps must be taken for their calculation. See the new [create_p_funs()] function for details and an example.
 -   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
 -   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
+-   Performance has been dramatically improved by the addition of **parallelization** by default. We use the `{furrr}` library. In our tests, practically, we typically found speed-ups of `n – 2` where `n` is the number of physical cores (machine learning is generally unable to use logical cores). For example, a computer with 4 physical cores should see at least ×2 speed-up and a computer with 6 physical cores should see at least ×4 speed-up. However, parallelization is tricky with our model-agnostic design. When users work with models that follow standard R conventions, the {ale} package should be able to automatically configure the system for parallelization. But for some non-standard models users may have to explicitly list the model's packages in the new `model_packages` argument so that each parallel thread can find all necessary functions. This is only a concern if you get weird errors. See [help(ale)] for details.
+
 
 ## Under the hood
 
 -   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the `ale` package in general.
 -   We have switched to using the `{progressr}` package for progress bars. With the `cli` progression handler, this enables accurate estimated times of arrival (ETA) for long procedures, even with parallel computing. A message is displayed once per session informing users of how to customize their progress bars. For details, see [help(ale)], particularly the documentation on progress bars and the `silent` argument.
--   Various minor bug fixes.
+-   Many minor bug fixes and improvements.
 
 ## Known issues to be addressed in a future version
 

@@ -59,10 +59,11 @@ name of the binary event column; in that case, \code{pred_type} should also be s
 packages that \code{model} depends on that might not be obvious.
 The \code{{ale}} package should be able to automatically recognize and load most
 packages that are needed, but with parallel processing enabled (which is the
-default), some packages might not be properly loaded. If you get an error
-related to unavailable packages or functions that you verify exist in your
-system, try adding them to this vector, especially if you see such errors after
-the progress bars begin displaying (assuming the default \code{silent = FALSE}).}
+default), some packages might not be properly loaded. If you get a strange error
+message that mentions something somewhere about 'future', try adding the
+package for your model to this vector, especially if you see such errors after
+the progress bars begin displaying (assuming you did not disable progress bars
+with \code{silent = TRUE}).}
 
 \item{output}{character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
@@ -368,7 +369,6 @@ summary(gam_diamonds)
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -382,7 +382,6 @@ ale_gam_diamonds$plots |>
 # Create ALE with 100 bootstrap samples
 ale_gam_diamonds_boot <- ale(
   diamonds_test, gam_diamonds, boot_it = 100,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -400,7 +399,6 @@ custom_predict <- function(object, newdata, type = pred_type) {
 ale_gam_diamonds_custom <- ale(
   diamonds_test, gam_diamonds,
   pred_fun = custom_predict, pred_type = 'link',
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

@@ -129,7 +129,6 @@ The `ale()` function returns a list with various elements. The two main ones are
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -172,7 +171,6 @@ ale_gam_diamonds_boot <- ale(
   diamonds_small_test, gam_diamonds, 
   # Normally boot_it should be set to 100, but just 10 here for a faster demonstration
   boot_it = 10,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -191,7 +189,6 @@ Another advantage of ALE is that it provides data for two-way interactions betwe
 # ALE two-way interactions
 ale_ixn_gam_diamonds <- ale_ixn(
   diamonds_test, gam_diamonds,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

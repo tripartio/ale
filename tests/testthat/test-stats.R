@@ -10,7 +10,6 @@ test_that(
         test_cars,
         test_cars,
         cars_gam,
-        model_packages = 'mgcv',
         rand_it = 2,
         silent = TRUE,
         parallel = 2,

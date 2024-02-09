@@ -136,7 +136,6 @@ mb_gam <- model_bootstrap(
   math, 
   gam_math,
   # For the GAM model coefficients, show details of all variables, parametric or not
-  model_packages = 'mgcv',  # required for parallel processing
   tidy_options = list(parametric = TRUE),
   # tidy_options = list(parametric = NULL),
   boot_it = 40,  # 100 by default but reduced here for a faster demonstration

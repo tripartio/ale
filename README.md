@@ -133,7 +133,6 @@ gam_diamonds <- mgcv::gam(
 # Create ALE data
 ale_gam_diamonds <- ale(
   diamonds_test, gam_diamonds,
-  model_packages = 'mgcv'  # required for parallel processing
 )
 
 # Plot the ALE data

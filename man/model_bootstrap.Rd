@@ -6,7 +6,7 @@
 \usage{
 model_bootstrap(
   data,
-  model = NULL,
+  model,
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
@@ -164,7 +164,6 @@ mb_gam <- model_bootstrap(
   attitude,
   gam_attitude,
   boot_it = 4,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -172,13 +171,13 @@ mb_gam <- model_bootstrap(
 # 'data = boot_data' in the string (not as a direct argument to [model_bootstrap()])
 mb_gam <- model_bootstrap(
   attitude,
+  gam_attitude,
   model_call_string = 'mgcv::gam(
     rating ~ complaints + privileges + s(learning) +
       raises + s(critical) + advance,
     data = boot_data
   )',
   boot_it = 4,
-  model_packages = 'mgcv',  # required for parallel processing
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
