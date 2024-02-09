@@ -107,7 +107,19 @@ includes almost all built-in R algorithms (like \code{\link[stats:lm]{stats::lm(
 used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most
 machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard
 algorithms, the user needs to do a little work to help the ale function
-correctly manipulate its model object.
+correctly manipulate its model object:
+\itemize{
+\item The full model call must be passed as a character string in the argument
+'random_model_call_string', with two slight modifications as follows.
+\item In the formula that specifies the model, you must add a variable named
+'random_variable'. This corresponds to the random variables that \code{\link[=create_p_funs]{create_p_funs()}}
+will use to estimate p-values.
+\item The dataset on which the model is trained must be named 'rand_train'. This
+corresponds to the modified datasets that will be used to train the random
+variables.
+}
+
+See the example below for how this is implemented.
 }
 \section{Approach to calculating p-values}{
 
@@ -199,6 +211,24 @@ ale_gam_diamonds <- ale(
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 ale_gam_diamonds$plots |>
   patchwork::wrap_plots()
+
+
+# For non-standard models that give errors with the default settings,
+# you can use 'random_model_call_string' to specify a model for the estimation
+# of p-values from random variables as in this example.
+# See details above for an explanation.
+pf_diamonds <- create_p_funs(
+  diamonds_train,
+  diamonds_test,
+  gam_diamonds,
+  random_model_call_string = 'mgcv::gam(
+    price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+        cut + color + clarity + random_variable,
+    data = rand_train
+  )',
+  # only 100 iterations for a quick demo; but usually should remain at 1000
+  rand_it = 100,
+)
 
 }
 

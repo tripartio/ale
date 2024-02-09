@@ -20,7 +20,18 @@
 #' used statistics packages (like `mgcv` and `survival`), but which excludes most
 #' machine learning algorithms (like `tidymodels` and `caret`). For non-standard
 #' algorithms, the user needs to do a little work to help the ale function
-#' correctly manipulate its model object.
+#' correctly manipulate its model object:
+#'
+#' * The full model call must be passed as a character string in the argument
+#' 'random_model_call_string', with two slight modifications as follows.
+#' * In the formula that specifies the model, you must add a variable named
+#' 'random_variable'. This corresponds to the random variables that [create_p_funs()]
+#' will use to estimate p-values.
+#' * The dataset on which the model is trained must be named 'rand_train'. This
+#' corresponds to the modified datasets that will be used to train the random
+#' variables.
+#'
+#' See the example below for how this is implemented.
 #'
 #' @section Approach to calculating p-values:
 #' The `ale` package takes a literal frequentist approach to the calculation of
@@ -169,6 +180,25 @@
 #' ale_gam_diamonds$plots |>
 #'   patchwork::wrap_plots()
 #'
+#'
+#' # For non-standard models that give errors with the default settings,
+#' # you can use 'random_model_call_string' to specify a model for the estimation
+#' # of p-values from random variables as in this example.
+#' # See details above for an explanation.
+#' pf_diamonds <- create_p_funs(
+#'   diamonds_train,
+#'   diamonds_test,
+#'   gam_diamonds,
+#'   random_model_call_string = 'mgcv::gam(
+#'     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+#'         cut + color + clarity + random_variable,
+#'     data = rand_train
+#'   )',
+#'   # only 100 iterations for a quick demo; but usually should remain at 1000
+#'   rand_it = 100,
+#' )
+#'
+
 #' }
 #'
 #'
@@ -305,7 +335,7 @@ create_p_funs <- function(
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
-  # # extend random_model_call_string_vars with local variables for parallel processing
+  # extend random_model_call_string_vars with local variables for parallel processing
   # random_model_call_string_vars <- c(
   #   'package_scope', 'rand_train', 'rand_test', 'random_variable', 'rand_model', 'rand_ale',
   #   random_model_call_string_vars
