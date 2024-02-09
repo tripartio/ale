@@ -146,7 +146,7 @@ validate_silent <- function(silent) {
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
 
-      if (interactive()) {
+      if (interactive() && !getOption("rstudio.notebook.executing")) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
