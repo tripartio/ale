@@ -12,7 +12,18 @@ includes almost all built-in R algorithms (like stats::lm() and stats::glm()) an
 used statistics packages (like mgcv and survival), but which excludes most
 machine learning algorithms (like tidymodels and caret). For non-standard
 algorithms, the user needs to do a little work to help the ale function
-correctly manipulate its model object."><title>Create a p-value functions object that can be used to generate p-values — create_p_funs • ale</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create a p-value functions object that can be used to generate p-values — create_p_funs"><meta property="og:description" content="Calculating p-values is not trivial for ALE statistics because ALE is
+correctly manipulate its model object:
+The full model call must be passed as a character string in the argument
+'random_model_call_string', with two slight modifications as follows.
+In the formula that specifies the model, you must add a variable named
+'random_variable'. This corresponds to the random variables that create_p_funs()
+will use to estimate p-values.
+The dataset on which the model is trained must be named 'rand_data'. This
+corresponds to the modified datasets that will be used to train the random
+variables.
+
+
+See the example below for how this is implemented."><title>Create a p-value functions object that can be used to generate p-values — create_p_funs • ale</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create a p-value functions object that can be used to generate p-values — create_p_funs"><meta property="og:description" content="Calculating p-values is not trivial for ALE statistics because ALE is
 non-parametric and model-agnostic. Because ALE is non-parametric (that is,
 it does not assume any particular distribution of data), the ale package
 generates p-values by calculating ALE for many random variables; this makes the
@@ -25,7 +36,18 @@ includes almost all built-in R algorithms (like stats::lm() and stats::glm()) an
 used statistics packages (like mgcv and survival), but which excludes most
 machine learning algorithms (like tidymodels and caret). For non-standard
 algorithms, the user needs to do a little work to help the ale function
-correctly manipulate its model object."><meta property="og:image" content="https://tripartio.github.io/ale/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+correctly manipulate its model object:
+The full model call must be passed as a character string in the argument
+'random_model_call_string', with two slight modifications as follows.
+In the formula that specifies the model, you must add a variable named
+'random_variable'. This corresponds to the random variables that create_p_funs()
+will use to estimate p-values.
+The dataset on which the model is trained must be named 'rand_data'. This
+corresponds to the modified datasets that will be used to train the random
+variables.
+
+
+See the example below for how this is implemented."><meta property="og:image" content="https://tripartio.github.io/ale/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
@@ -95,14 +117,21 @@ includes almost all built-in R algorithms (like <code><a href="https://rdrr.io/r
 used statistics packages (like <code>mgcv</code> and <code>survival</code>), but which excludes most
 machine learning algorithms (like <code>tidymodels</code> and <code>caret</code>). For non-standard
 algorithms, the user needs to do a little work to help the ale function
-correctly manipulate its model object.</p>
+correctly manipulate its model object:</p><ul><li><p>The full model call must be passed as a character string in the argument
+'random_model_call_string', with two slight modifications as follows.</p></li>
+<li><p>In the formula that specifies the model, you must add a variable named
+'random_variable'. This corresponds to the random variables that <code>create_p_funs()</code>
+will use to estimate p-values.</p></li>
+<li><p>The dataset on which the model is trained must be named 'rand_data'. This
+corresponds to the modified datasets that will be used to train the random
+variables.</p></li>
+</ul><p>See the example below for how this is implemented.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_p_funs</span><span class="op">(</span></span>
-<span>  <span class="va">training_data</span>,</span>
-<span>  <span class="va">test_data</span>,</span>
+<span>  <span class="va">data</span>,</span>
 <span>  <span class="va">model</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
@@ -123,19 +152,12 @@ correctly manipulate its model object.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>training_data</dt>
-<dd><p>dataframe. The dataset originally used to train <code>model</code>.
-See details and also documentation for <code><a href="ale.html">ale()</a></code>.</p></dd>
-
-
-<dt>test_data</dt>
-<dd><p>dataframe. The dataset that will be used to create ALE data.
-See details.</p></dd>
+    <dl><dt>data</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>model</dt>
-<dd><p>model object. The model used to train the original <code>training_data</code>.
-for which ALE should be calculated. See details and also documentation for <code><a href="ale.html">ale()</a></code>.</p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>...</dt>
@@ -211,8 +233,8 @@ greater than or equal to 102.</p></li>
 <li><p><code>rand_stats</code>: a tibble whose rows are each of the <code>rand_it</code> iterations of the
 random variable analysis and whose columns are the ALE statistics obtained for
 each random variable.</p></li>
-<li><p><code>residuals</code>: the actual <code>y_col</code> values from <code>training_data</code> minus the predicted
-values from the <code>model</code> (without random variables) on the <code>training_data</code>.
+<li><p><code>residuals</code>: the actual <code>y_col</code> values from <code>data</code> minus the predicted
+values from the <code>model</code> (without random variables) on the <code>data</code>.
 <code>residual_distribution</code>: the closest estimated distribution for the <code>residuals</code>
 as determined by <code><a href="https://jonasmoss.github.io/univariateML/reference/MaximumLikelihoodDistribution.html" class="external-link">univariateML::rml()</a></code>. This is the distribution used to generate
 all the random variables.</p></li>
@@ -243,21 +265,6 @@ added.</p></li>
 according to the distribution of the random variables' ALE statistics.</p></li>
 </ul></div>
     <div class="section level2">
-    <h2 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a></h2>
-    
-
-<p>Because the <code>ale</code> package takes a literal frequentist approach to the
-calculation of p-values, the precision of the p-values depends on correctly
-representing the modelling workflow. Specifically, models should be trained
-on a training subset and ALE statistics should be calculated on a test subset.
-Thus, the random variables should be trained on the same training subset and
-their ALE statistics should be calculated on the same test subset. Thus the
-model takes both <code>training_data</code> and <code>test_data</code> as distinct arguments. If,
-for whatever reason, the ALE is calculated on the same dataset as is used to
-train the model, then the same dataset should be entered for both
-<code>training_data</code> and <code>test_data</code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Okoli, Chitu. 2023.
 “Statistical Inference Using Machine Learning and Classical Techniques Based
@@ -271,23 +278,12 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">diamonds_sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Split the dataset into training and test sets</span></span></span>
-<span class="r-in"><span><span class="co"># https://stackoverflow.com/a/54892459/2449926</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">train_test_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds_sample</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">diamonds_train</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="va">train_test_split</span>, <span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">diamonds_test</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="op">!</span><span class="va">train_test_split</span>, <span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a GAM model with flexible curves to predict diamond price</span></span></span>
 <span class="r-in"><span><span class="co"># Smooth all numeric variables and include all other variables</span></span></span>
-<span class="r-in"><span><span class="co"># Build model on training data, not on the full dataset.</span></span></span>
 <span class="r-in"><span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span></span>
-<span class="r-in"><span>  data <span class="op">=</span> <span class="va">diamonds_train</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">diamonds_sample</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -299,46 +295,45 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut + color + clarity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parametric coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3311.6596    82.3642  40.208  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         226.8516   174.6866   1.299  0.19447    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q         154.4894   136.7646   1.130  0.25900    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -72.0299   114.5065  -0.629  0.52951    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          63.4426    91.1593   0.696  0.48667    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1748.6107   119.8822 -14.586  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -499.5061   109.9114  -4.545 6.41e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.C        -7.7188   102.4915  -0.075  0.93999    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^4       132.4433    95.3721   1.389  0.16533    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -261.4225    89.7563  -2.913  0.00369 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^6        34.2734    81.9067   0.418  0.67574    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L    4464.0110   271.7651  16.426  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -3168.1893   261.5197 -12.115  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C    1276.9741   215.1091   5.936 4.44e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4    -983.6948   161.9254  -6.075 1.97e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5     557.2408   120.8123   4.612 4.67e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6    -117.3182   100.4726  -1.168  0.24331    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7      -0.9172    87.9078  -0.010  0.99168    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3421.412     74.903  45.678  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         261.339    171.630   1.523 0.128170    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q          53.684    129.990   0.413 0.679710    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -71.942    103.804  -0.693 0.488447    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          -8.657     80.614  -0.107 0.914506    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1778.903    113.669 -15.650  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -482.225    104.675  -4.607 4.64e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.C        58.724     95.983   0.612 0.540807    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^4       125.640     87.111   1.442 0.149548    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -241.194     81.913  -2.945 0.003314 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^6       -49.305     74.435  -0.662 0.507883    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L    4141.841    226.713  18.269  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -2367.820    217.185 -10.902  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C    1026.214    180.295   5.692 1.67e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4    -602.066    137.258  -4.386 1.28e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5     408.336    105.344   3.876 0.000113 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6     -82.379     88.434  -0.932 0.351815    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7       4.017     78.816   0.051 0.959362    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Approximate significance of smooth terms:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            edf Ref.df     F  p-value    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat) 8.507  8.820 3.423 0.000389 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth) 1.273  1.510 0.061 0.901571    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(table) 5.707  6.842 1.522 0.207715    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)     5.006  6.125 4.761 8.88e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)     5.644  6.755 9.317  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)     2.516  3.307 1.128 0.335376    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            edf Ref.df      F  p-value    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat) 7.503  8.536  4.114 3.65e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth) 1.486  1.874  0.601 0.614753    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(table) 2.929  3.738  1.294 0.240011    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)     8.897  8.967  3.323 0.000542 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)     3.875  5.118 11.075  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)     9.000  9.000  2.648 0.004938 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.942   Deviance explained = 94.5%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.5069e+05  Scale est. = 8.9531e+05  n = 801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =   0.94   Deviance explained = 94.3%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.7669e+05  Scale est. = 9.262e+05  n = 1000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create p-value functions</span></span></span>
 <span class="r-in"><span><span class="va">pf_diamonds</span> <span class="op">&lt;-</span> <span class="fu">create_p_funs</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">diamonds_train</span>,</span></span>
-<span class="r-in"><span>  <span class="va">diamonds_test</span>,</span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>,</span></span>
 <span class="r-in"><span>  <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  <span class="co"># only 100 iterations for a quick demo; but usually should remain at 1000</span></span></span>
 <span class="r-in"><span>  rand_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
@@ -362,20 +357,20 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_min:function (p)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_max:function (p)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ rand_stats           : tibble [100 × 6] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aled     : num [1:100] 25.58 11.85 6.25 30.87 16.93 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_min : num [1:100] -180.2 -57.9 -17.1 -124.9 -98 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_max : num [1:100] 122 42.5 28.5 214.6 171.4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naled    : num [1:100] 0.3208 0.1385 0.0401 0.3853 0.2162 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_min: num [1:100] -2.868 -1.122 -0.374 -1.995 -1.87 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_max: num [1:100] 0.873 0.249 0.249 1.621 1.247 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ residuals            : num [1:801(1d)] -1180.2 -1096.3 -216.6 -25.6 -1511.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ residual_distribution: 'univariateML' Named num [1:4] 9.71 1020.87 2.99 1.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aled     : num [1:100] 24.12 19.02 19.08 9.68 15.03 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_min : num [1:100] -250.7 -306.1 -75.6 -74.7 -242.3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aler_max : num [1:100] 370 387 480 104 119 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naled    : num [1:100] 0.331 0.264 0.252 0.14 0.216 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_min: num [1:100] -3 -3.8 -0.7 -0.7 -3 -2.2 -3.1 -6.2 -11.3 -2.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ naler_max: num [1:100] 3.5 3.8 4.7 1.2 1.3 2.1 2.6 8.5 1.7 1.7 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ residuals            : num [1:1000(1d)] 148 -1056 -1222 -455 1435 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ residual_distribution: 'univariateML' Named num [1:4] 9.08 1052.62 2.88 1.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:4] "mean" "sd" "nu" "xi"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "model")= chr "Skew Student-t"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "density")= chr "fGarch::dsstd"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "logLik")= num -6503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "logLik")= num -8123</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "support")= num [1:2] -Inf Inf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "n")= int 801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "n")= int 1000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:3] "p_funs" "ale" "list"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "ale_version")=Classes 'package_version', 'numeric_version'  hidden list of 1</span>
@@ -384,7 +379,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate ALEs with p-values</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="ale.html">ale</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">diamonds_test</span>,</span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>,</span></span>
 <span class="r-in"><span>  <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  p_values <span class="op">=</span> <span class="va">pf_diamonds</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -393,6 +388,23 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="create_p_funs-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># For non-standard models that give errors with the default settings,</span></span></span>
+<span class="r-in"><span><span class="co"># you can use 'random_model_call_string' to specify a model for the estimation</span></span></span>
+<span class="r-in"><span><span class="co"># of p-values from random variables as in this example.</span></span></span>
+<span class="r-in"><span><span class="co"># See details above for an explanation.</span></span></span>
+<span class="r-in"><span><span class="va">pf_diamonds</span> <span class="op">&lt;-</span> <span class="fu">create_p_funs</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>,</span></span>
+<span class="r-in"><span>  <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  random_model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span></span>
+<span class="r-in"><span><span class="st">    price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +</span></span></span>
+<span class="r-in"><span><span class="st">        cut + color + clarity + random_variable,</span></span></span>
+<span class="r-in"><span><span class="st">    data = rand_data</span></span></span>
+<span class="r-in"><span><span class="st">  )'</span>,</span></span>
+<span class="r-in"><span>  <span class="co"># only 100 iterations for a quick demo; but usually should remain at 1000</span></span></span>
+<span class="r-in"><span>  rand_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

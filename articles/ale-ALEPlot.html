@@ -260,7 +260,8 @@ not create them again.</p>
 how long procedures will take. Simply run the following code at the
 beginning of your R session:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
+<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
 <p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
 automatically for you with a notification message.</p>
@@ -269,10 +270,7 @@ list with various ALE elements.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>,</span>
-<span>  model_packages <span class="op">=</span> <span class="st">'nnet'</span>  <span class="co"># required for parallel processing</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span></code></pre></div>
 <p>Here are some notable differences compared to
 <code>ALEPlot</code>:</p>
 <ul>
@@ -322,10 +320,7 @@ comparison clearer, we can recalculate the ALEs on a zero-centred
 scale:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Zero-centred ALE</span></span>
-<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span>,</span>
-<span>  model_packages <span class="op">=</span> <span class="st">'nnet'</span>  <span class="co"># required for parallel processing</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -346,10 +341,7 @@ from the <code>purrr</code> package for iterating through lists and
 application.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and plot interactions</span></span>
-<span><span class="va">nn_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
-<span>  <span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>,</span>
-<span>  model_packages <span class="op">=</span> <span class="st">'nnet'</span>  <span class="co"># required for parallel processing</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">nn_ale_ixn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="va">nn_ale_ixn</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
@@ -423,7 +415,7 @@ yourself if you want to. Note that the model calls is based on
 (<code>fnlwgt</code> and <code>education</code>, respectively).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But they are slow, so this vignette loads a pre-created model object.</span></span>
+<span><span class="co"># # But GBM training is slow, so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># set.seed(0)</span></span>
 <span><span class="co"># gbm.data &lt;- gbm(higher_income ~ ., data= data[,-c(3,4)],</span></span>
 <span><span class="co">#                 distribution = "bernoulli", n.trees=6000, shrinkage=0.02,</span></span>
@@ -504,15 +496,15 @@ plots.</p>
 <span><span class="co"># Generate ALE data for all variables</span></span>
 <span></span>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
+<span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_link &lt;- ale(</span></span>
 <span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
 <span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
-<span><span class="co">#   relative_y = 'zero',  # compatibility with ALEPlot</span></span>
-<span><span class="co">#   model_packages = 'gbm'  # required for parallel processing</span></span>
+<span><span class="co">#   relative_y = 'zero'  # compatibility with ALEPlot</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_link, file.choose())</span></span>
 <span><span class="va">gbm_ale_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -528,15 +520,15 @@ them. Again, note the interaction between <code>age</code> and
 extremely high cases of hours per week.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
+<span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_ixn_link &lt;- ale_ixn(</span></span>
 <span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
 <span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
 <span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
-<span><span class="co">#   relative_y = 'zero',  # compatibility with ALEPlot</span></span>
-<span><span class="co">#   model_packages = 'gbm'  # required for parallel processing</span></span>
+<span><span class="co">#   relative_y = 'zero'  # compatibility with ALEPlot</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_ixn_link, file.choose())</span></span>
 <span><span class="va">gbm_ale_ixn_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -597,14 +589,14 @@ middle.</p>
 <span><span class="co"># Generate ALE data for all variables</span></span>
 <span></span>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow, so this vignette loads a pre-created model object.</span></span>
+<span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_prob &lt;- ale(</span></span>
 <span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
 <span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
-<span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
-<span><span class="co">#   model_packages = 'gbm'  # required for parallel processing</span></span>
+<span><span class="co">#   rug_sample_size = 600  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_prob, file.choose())</span></span>
 <span><span class="va">gbm_ale_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -623,14 +615,14 @@ suggestions of strong interactions are likely exaggerated. In this case,
 the log odds ALEs shown above are probably more relevant.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># But it is slow, so this vignette loads a pre-created model object.</span></span>
+<span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
 <span><span class="co"># gbm_ale_ixn_prob &lt;- ale_ixn(</span></span>
 <span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
 <span><span class="co">#   data, gbm.data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
 <span><span class="co">#   x_intervals = 500,</span></span>
-<span><span class="co">#   rug_sample_size = 600,  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
-<span><span class="co">#  model_packages = 'gbm'  # required for parallel processing</span></span>
+<span><span class="co">#   rug_sample_size = 600  # technical issue: rug_sample_size must be &gt; x_intervals + 1</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_ixn_prob, file.choose())</span></span>
 <span><span class="va">gbm_ale_ixn_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

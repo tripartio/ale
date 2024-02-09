@@ -286,7 +286,8 @@ effects of model variables.</p>
 how long procedures will take. Simply run the following code at the
 beginning of your R session:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
+<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
 <p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
 automatically for you with a notification message.</p>
@@ -344,13 +345,15 @@ them.</p>
 </h3>
 <p>We have referred frequently to the importance of bootstrapping. None
 of our model results, with or without ALE, should be considered reliable
-without being bootstrapped. For large datasets with clear separation
-between training and testing samples, <code>ale</code> bootstraps the
-ALE results of the test data. However, when a dataset is too small to be
+without being bootstrapped. For large datasets whose models have been
+properly trained and evaluated on separate subsets before ALE analysis,
+<code><a href="../reference/ale.html">ale()</a></code> bootstraps the ALE results of the final deployment
+model on the full dataset. However, when a dataset is too small to be
 subdivided into training and test sets, then the entire model should be
-bootstrapped. That is, multiple models should be trained, one on each
-bootstrap sample. The reliable results are the average results of all
-the bootstrap models, however many there are.</p>
+bootstrapped, not just the ALE data from a single deployment model. That
+is, multiple models should be trained, one on each bootstrap sample. The
+reliable results are the average results of all the bootstrap models,
+however many there are.</p>
 <p>The <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code> function automatically carries out
 full-model bootstrapping suitable for small datasets. Specifically,
 it:</p>

@@ -440,23 +440,12 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">diamonds_sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Split the dataset into training and test sets</span></span></span>
-<span class="r-in"><span><span class="co"># https://stackoverflow.com/a/54892459/2449926</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">train_test_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds_sample</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">diamonds_train</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="va">train_test_split</span>, <span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">diamonds_test</span> <span class="op">&lt;-</span> <span class="va">diamonds_sample</span><span class="op">[</span><span class="op">!</span><span class="va">train_test_split</span>, <span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a GAM model with flexible curves to predict diamond price</span></span></span>
 <span class="r-in"><span><span class="co"># Smooth all numeric variables and include all other variables</span></span></span>
-<span class="r-in"><span><span class="co"># Build model on training data, not on the full dataset.</span></span></span>
 <span class="r-in"><span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span></span>
-<span class="r-in"><span>  data <span class="op">=</span> <span class="va">diamonds_train</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">diamonds_sample</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -468,48 +457,48 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut + color + clarity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parametric coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3311.6596    82.3642  40.208  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         226.8516   174.6866   1.299  0.19447    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q         154.4894   136.7646   1.130  0.25900    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -72.0299   114.5065  -0.629  0.52951    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          63.4426    91.1593   0.696  0.48667    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1748.6107   119.8822 -14.586  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -499.5061   109.9114  -4.545 6.41e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.C        -7.7188   102.4915  -0.075  0.93999    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^4       132.4433    95.3721   1.389  0.16533    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -261.4225    89.7563  -2.913  0.00369 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^6        34.2734    81.9067   0.418  0.67574    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L    4464.0110   271.7651  16.426  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -3168.1893   261.5197 -12.115  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C    1276.9741   215.1091   5.936 4.44e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4    -983.6948   161.9254  -6.075 1.97e-09 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5     557.2408   120.8123   4.612 4.67e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6    -117.3182   100.4726  -1.168  0.24331    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7      -0.9172    87.9078  -0.010  0.99168    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3421.412     74.903  45.678  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         261.339    171.630   1.523 0.128170    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q          53.684    129.990   0.413 0.679710    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -71.942    103.804  -0.693 0.488447    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          -8.657     80.614  -0.107 0.914506    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1778.903    113.669 -15.650  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -482.225    104.675  -4.607 4.64e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.C        58.724     95.983   0.612 0.540807    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^4       125.640     87.111   1.442 0.149548    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -241.194     81.913  -2.945 0.003314 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^6       -49.305     74.435  -0.662 0.507883    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L    4141.841    226.713  18.269  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -2367.820    217.185 -10.902  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C    1026.214    180.295   5.692 1.67e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4    -602.066    137.258  -4.386 1.28e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5     408.336    105.344   3.876 0.000113 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6     -82.379     88.434  -0.932 0.351815    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7       4.017     78.816   0.051 0.959362    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Approximate significance of smooth terms:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            edf Ref.df     F  p-value    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat) 8.507  8.820 3.423 0.000389 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth) 1.273  1.510 0.061 0.901571    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(table) 5.707  6.842 1.522 0.207715    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)     5.006  6.125 4.761 8.88e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)     5.644  6.755 9.317  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)     2.516  3.307 1.128 0.335376    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            edf Ref.df      F  p-value    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat) 7.503  8.536  4.114 3.65e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth) 1.486  1.874  0.601 0.614753    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(table) 2.929  3.738  1.294 0.240011    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)     8.897  8.967  3.323 0.000542 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)     3.875  5.118 11.075  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)     9.000  9.000  2.648 0.004938 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.942   Deviance explained = 94.5%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.5069e+05  Scale est. = 8.9531e+05  n = 801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =   0.94   Deviance explained = 94.3%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.7669e+05  Scale est. = 9.262e+05  n = 1000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Simple ALE without bootstrapping</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>, <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -523,7 +512,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create ALE with 100 bootstrap samples</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -540,7 +529,7 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds_custom</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">diamonds_sample</span>, <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  pred_fun <span class="op">=</span> <span class="va">custom_predict</span>, pred_type <span class="op">=</span> <span class="st">'link'</span>,</span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

@@ -250,22 +250,13 @@ VS2, VS1, VVS2, VVS1, IF (best))</td>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">price</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">#&gt;     326    1410    3365    4686    6406   18823</span></span></code></pre></div>
-<p>For machine learning analysis that intends to extrapolate its results
-to future data, We must first split the dataset into training and test
-samples. The model is developed on the training set and then evaluated
-on the test set. (When a dataset is too small to feasibly split into
-training and test sets, then the ale package has tools to appropriately
-handle such <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Split the dataset into training and test sets</span></span>
-<span><span class="co"># https://stackoverflow.com/a/54892459/2449926</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">train_test_split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">diamonds_train</span> <span class="op">&lt;-</span> <span class="va">diamonds</span><span class="op">[</span><span class="va">train_test_split</span>, <span class="op">]</span></span>
-<span><span class="va">diamonds_test</span> <span class="op">&lt;-</span> <span class="va">diamonds</span><span class="op">[</span><span class="op">!</span><span class="va">train_test_split</span>, <span class="op">]</span></span></code></pre></div>
-<p>So, now we split the dataset with an 80-20 split for a training set
-of 31,841 rows and a test set of 7,898 rows. Now we can build our
-model.</p>
+<p>Interpretable machine learning (IML) techniques like ALE should be
+applied not on training subsets nor on test subsets but on a final
+deployment model after training and evaluation. This final deployment
+should be trained on the full dataset to give the best possible model
+for production deployment. (When a dataset is too small to feasibly
+split into training and test sets, then the ale package has tools to
+appropriately handle such <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="modelling-with-general-additive-models-gam">Modelling with general additive models (GAM)<a class="anchor" aria-label="anchor" href="#modelling-with-general-additive-models-gam"></a>
@@ -280,15 +271,14 @@ than ordinary least squares regression. It is beyond our scope here to
 explain how GAM works (you can learn more with <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM" class="external-link">Noam Ross’s excellent tutorial</a>), but the
 examples here will work with any machine learning algorithm.</p>
 <p>We train a GAM model to predict diamond prices:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a GAM model with flexible curves to predict diamond prices.</span></span>
 <span><span class="co"># (In testing, mgcv::gam actually performed better than nnet.)</span></span>
-<span><span class="co"># Smooth all numeric variables and include all other variables</span></span>
-<span><span class="co"># Build model on training data, not on the full dataset.</span></span>
+<span><span class="co"># Smooth all numeric variables and include all other variables.</span></span>
 <span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth_pct</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x_length</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y_width</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z_depth</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">diamonds_train</span></span>
+<span>  data <span class="op">=</span> <span class="va">diamonds</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -300,41 +290,41 @@ examples here will work with any machine learning algorithm.</p>
 <span><span class="co">#&gt;     s(z_depth) + cut + color + clarity</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Parametric coefficients:</span></span>
-<span><span class="co">#&gt;               Estimate Std. Error  t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept)  4413.8270    14.6887  300.490  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; cut.L         282.9005    42.6670    6.630 3.40e-11 ***</span></span>
-<span><span class="co">#&gt; cut.Q           0.5949    29.9527    0.020 0.984153    </span></span>
-<span><span class="co">#&gt; cut.C          59.0119    22.1652    2.662 0.007763 ** </span></span>
-<span><span class="co">#&gt; cut^4          38.5756    15.9970    2.411 0.015896 *  </span></span>
-<span><span class="co">#&gt; color.L     -2154.1921    21.2064 -101.582  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; color.Q      -698.0122    19.4190  -35.945  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; color.C       -66.5582    18.2415   -3.649 0.000264 ***</span></span>
-<span><span class="co">#&gt; color^4        75.6030    17.0393    4.437 9.15e-06 ***</span></span>
-<span><span class="co">#&gt; color^5      -116.1725    16.1289   -7.203 6.03e-13 ***</span></span>
-<span><span class="co">#&gt; color^6       -46.9826    15.0328   -3.125 0.001778 ** </span></span>
-<span><span class="co">#&gt; clarity.L    4174.5052    37.6891  110.762  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity.Q   -1571.3435    35.1359  -44.722  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity.C     807.3063    30.3669   26.585  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^4    -253.7668    24.6400  -10.299  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^5     211.8216    20.4734   10.346  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; clarity^6      37.3081    18.0393    2.068 0.038633 *  </span></span>
-<span><span class="co">#&gt; clarity^7     129.6810    15.9079    8.152 3.71e-16 ***</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error  t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  4436.199     13.315  333.165  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; cut.L         263.124     39.117    6.727 1.76e-11 ***</span></span>
+<span><span class="co">#&gt; cut.Q           1.792     27.558    0.065 0.948151    </span></span>
+<span><span class="co">#&gt; cut.C          74.074     20.169    3.673 0.000240 ***</span></span>
+<span><span class="co">#&gt; cut^4          27.694     14.373    1.927 0.054004 .  </span></span>
+<span><span class="co">#&gt; color.L     -2152.488     18.996 -113.313  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; color.Q      -704.604     17.385  -40.528  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; color.C       -66.839     16.366   -4.084 4.43e-05 ***</span></span>
+<span><span class="co">#&gt; color^4        80.376     15.289    5.257 1.47e-07 ***</span></span>
+<span><span class="co">#&gt; color^5      -110.164     14.484   -7.606 2.89e-14 ***</span></span>
+<span><span class="co">#&gt; color^6       -49.565     13.464   -3.681 0.000232 ***</span></span>
+<span><span class="co">#&gt; clarity.L    4111.691     33.499  122.742  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; clarity.Q   -1539.959     31.211  -49.341  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; clarity.C     762.680     27.013   28.234  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; clarity^4    -232.214     21.977  -10.566  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; clarity^5     193.854     18.324   10.579  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; clarity^6      46.812     16.172    2.895 0.003799 ** </span></span>
+<span><span class="co">#&gt; clarity^7     132.621     14.274    9.291  &lt; 2e-16 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Approximate significance of smooth terms:</span></span>
-<span><span class="co">#&gt;                edf Ref.df       F p-value    </span></span>
-<span><span class="co">#&gt; s(carat)     8.083  8.748  21.871  &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; s(depth_pct) 6.924  7.869   7.081  &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; s(table)     4.035  5.061   2.620  0.0199 *  </span></span>
-<span><span class="co">#&gt; s(x_length)  7.284  8.023  39.995  &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; s(y_width)   8.679  8.878 153.594  &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; s(z_depth)   8.675  8.868  10.990  &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt;                edf Ref.df       F  p-value    </span></span>
+<span><span class="co">#&gt; s(carat)     8.695  8.949  37.027  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; s(depth_pct) 7.606  8.429   6.758  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; s(table)     5.759  6.856   3.682 0.000736 ***</span></span>
+<span><span class="co">#&gt; s(x_length)  8.078  8.527  60.936  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; s(y_width)   7.477  8.144 211.202  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; s(z_depth)   9.000  9.000  16.266  &lt; 2e-16 ***</span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; R-sq.(adj) =  0.929   Deviance explained = 92.9%</span></span>
-<span><span class="co">#&gt; GCV = 1.2564e+06  Scale est. = 1.254e+06  n = 31841</span></span></code></pre></div>
+<span><span class="co">#&gt; GCV = 1.2602e+06  Scale est. = 1.2581e+06  n = 39739</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="enable-progress-bars">Enable progress bars<a class="anchor" aria-label="anchor" href="#enable-progress-bars"></a>
@@ -342,8 +332,9 @@ examples here will work with any machine learning algorithm.</p>
 <p>Before starting, we recommend that you enable progress bars to see
 how long procedures will take. Simply run the following code at the
 beginning of your R session:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
+<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
 <p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
 automatically for you with a notification message.</p>
@@ -371,10 +362,10 @@ also returns several details about the outcome (y) variable and
 important parameters that were used for the ALE calculation. Another
 important element is <code>stats</code>, containing ALE-based
 statistics, which we describe in <a href="ale-statistics.html" title="ALE-based statistics">a separate vignette</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
 <span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span>
+<span>  <span class="va">diamonds</span>, <span class="va">gam_diamonds</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
@@ -388,7 +379,7 @@ variable name as an element of the <code>plots</code> element. These are
 <code>ggplot</code> objects, so they are easy to manipulate. For
 example, to access and print the <code>carat</code> ALE plot, we simply
 call <code>ale_gam_diamonds$plots$carat</code> :</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print%20carat-1.png" width="384"></p>
@@ -398,7 +389,7 @@ arranging multiple plots in a common plot grid using
 <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>. We need to pass the list of plots
 to the <code>grobs</code> argument and we can specify that we want two
 plots per row with the <code>ncol</code> argument.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
 <span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -409,10 +400,11 @@ plots per row with the <code>ncol</code> argument.</p>
 </h2>
 <p>One of the key features of the ALE package is bootstrapping of the
 ALE results to ensure that the results are reliable, that is,
-generalizable to data beyond the sample on which the model was built.
-Such external generalization requires analyzing the <code><a href="../reference/ale.html">ale()</a></code>
-function on test data distinct from the training data. When samples are
-too small for this, we provide a different bootstrapping method,
+generalizable to data beyond the sample on which the model was built. As
+mentioned above, this assumes that IML analysis is carried out on a
+final deployment model selected after training and evaluating the model
+hyperparameters on distinct subsets. When samples are too small for
+this, we provide a different bootstrapping method,
 <code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code>, explained in the vignette for <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
 <p>Although ALE is faster than most other IML techniques for global
 explanation such as partial dependence plots (PDP) and SHAP, it still
@@ -423,11 +415,11 @@ will demonstrate bootstrapping on a small subset of the test data. This
 will run much faster as the speed of the ALE algorithm depends on the
 size of the dataset. So, let us take a random sample of 200 rows of the
 test set.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bootstraping is rather slow, so create a smaller subset of new data for demonstration</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">new_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds_test</span><span class="op">)</span>, <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">diamonds_small_test</span> <span class="op">&lt;-</span> <span class="va">diamonds_test</span><span class="op">[</span><span class="va">new_rows</span>, <span class="op">]</span></span></code></pre></div>
+<span><span class="va">new_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>, <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">diamonds_small_test</span> <span class="op">&lt;-</span> <span class="va">diamonds</span><span class="op">[</span><span class="va">new_rows</span>, <span class="op">]</span></span></code></pre></div>
 <p>Now we create bootstrapped ALE data and plots using the
 <code>boot_it</code> argument. ALE is a relatively stable IML algorithm
 (compared to others like PDP), so 100 bootstrap samples should be
@@ -436,7 +428,7 @@ development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
 beyond 100 iterations. However, so that this introduction runs faster,
 we demonstrate it here with only 10 iterations.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds_small_test</span>, <span class="va">gam_diamonds</span>, </span>
@@ -478,10 +470,10 @@ variable must be numeric whereas the x2 can be of any input datatype. To
 change the default options (e.g., to calculate interactions for only
 certain pairs of variables), see details in the help file for the
 function: <code><a href="../reference/ale_ixn.html">help(ale_ixn)</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
 <span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span>
+<span>  <span class="va">diamonds</span>, <span class="va">gam_diamonds</span>,</span>
 <span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Like the <code><a href="../reference/ale.html">ale()</a></code> function, the <code><a href="../reference/ale_ixn.html">ale_ixn()</a></code>
@@ -505,7 +497,7 @@ each individual element of <code>ale_ixn_gam_diamonds$plots</code> in
 turn, that is, a sublist of plots with which the x1 variable interacts.
 We print the plots of all the x1 interactions as a combined grid of
 plots with <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, as before.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all interaction plots</span></span>
 <span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># extract list of x1 ALE outputs</span></span>
@@ -522,7 +514,7 @@ same height. For more fine-tuned presentation, we would need to refer to
 a specific plot. For example, we can print the interaction plot between
 carat and depth by referring to it thus:
 <code>ale_ixn_gam_diamonds$plots$carat$depth</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span><span class="op">$</span><span class="va">depth</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print%20specific%20ixn-1.png" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
