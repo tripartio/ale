@@ -16,7 +16,7 @@ the introductory vignette for this package or the details and examples below."><
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240208</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240209</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,10 +140,11 @@ name of the binary event column; in that case, <code>pred_type</code> should als
 packages that <code>model</code> depends on that might not be obvious.
 The <code>{ale}</code> package should be able to automatically recognize and load most
 packages that are needed, but with parallel processing enabled (which is the
-default), some packages might not be properly loaded. If you get an error
-related to unavailable packages or functions that you verify exist in your
-system, try adding them to this vector, especially if you see such errors after
-the progress bars begin displaying (assuming the default <code>silent = FALSE</code>).</p></dd>
+default), some packages might not be properly loaded. If you get a strange error
+message that mentions something somewhere about 'future', try adding the
+package for your model to this vector, especially if you see such errors after
+the progress bars begin displaying (assuming you did not disable progress bars
+with <code>silent = TRUE</code>).</p></dd>
 
 
 <dt>output</dt>
@@ -509,7 +510,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="co"># Simple ALE without bootstrapping</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
-<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -524,7 +524,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="co"># Create ALE with 100 bootstrap samples</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>, boot_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -543,7 +542,6 @@ on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/231
 <span class="r-in"><span><span class="va">ale_gam_diamonds_custom</span> <span class="op">&lt;-</span> <span class="fu">ale</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">diamonds_test</span>, <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  pred_fun <span class="op">=</span> <span class="va">custom_predict</span>, pred_type <span class="op">=</span> <span class="st">'link'</span>,</span></span>
-<span class="r-in"><span>  model_packages <span class="op">=</span> <span class="st">'mgcv'</span>,  <span class="co"># required for parallel processing</span></span></span>
 <span class="r-in"><span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
