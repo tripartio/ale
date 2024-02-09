@@ -106,9 +106,23 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
     # If model_packages are not provided, try to automatically detect one
     if (all(is.na(model_packages))) {
       # https://github.com/easystats/insight/issues/849#issuecomment-1932476901
-      model_packages <- utils::getS3method('predict', class(model)[1]) |>
-        rlang::ns_env_name()
-    } else {
+      predict_method <- utils::getS3method(
+        'predict',
+        class(model)[1],
+        optional = TRUE  # return NULL if predict method not found
+      )
+
+      assert_that(
+        !is.null(predict_method),
+        msg = paste0(
+          '"model_packages" could not be automatically determined. ',
+          'It must be specified for parallel processing.'
+        )
+      )
+
+      model_packages <- rlang::ns_env_name(predict_method)
+    }
+    else {
       assert_that(
         is.character(model_packages),
         msg = paste0(
