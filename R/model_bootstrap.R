@@ -205,6 +205,14 @@ model_bootstrap <- function (
     model_call <- insight::get_call(model)
 
     assert_that(
+      !is.character(model),
+      # If there is no model_call_string and model is a character,
+      # then model was probably omitted and model_call_string might was
+      # mistakenly passed in the model argument position
+      msg = '"model" is a required argument.'
+    )
+
+    assert_that(
       !is.null(model_call),
       msg = glue::glue(
         'The model call could not be automatically detected, so ',
