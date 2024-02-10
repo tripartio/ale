@@ -733,6 +733,9 @@ model_bootstrap <- function (
               # Temporarily buggy for binary y
               x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
                 stats::setNames(c(.x_col_name, y_col)),
+
+              ## Later: pass ale_options() that might apply
+
               # When y_vals is added
               # x_y = tibble(data[[.x_col_name]], y_vals) |>
               #   stats::setNames(c(.x_col_name, y_col)),

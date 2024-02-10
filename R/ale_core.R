@@ -922,6 +922,7 @@ ale_core <- function (
               ale_data, x_col, y_col, y_type,
               y_summary,
               relative_y = relative_y,
+              p_alpha = p_alpha,
               median_band_pct = median_band_pct,
               x_y = tibble(data[[x_col]], y_vals) |>
                 stats::setNames(c(x_col, y_col)),

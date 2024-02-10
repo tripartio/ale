@@ -41,6 +41,7 @@ plot_ale <- function(
     ...,
     # ggplot_custom,
     relative_y = 'median',
+    p_alpha = c(0.01, 0.05),
     median_band_pct = c(0.05, 0.5),
     x_y = NULL,
     rug_sample_size = 500,
@@ -114,9 +115,19 @@ plot_ale <- function(
         labels = if (names(y_summary[1]) == 'p') {
           # p-values were provided for y_summary; ALER is used
           c(
-            glue::glue('-p={format(median_band_pct[2], nsmall = 2)}'),
-            glue::glue('ALER p={format(median_band_pct[1], nsmall = 2)}'),
-            glue::glue('+p={format(median_band_pct[2], nsmall = 2)}')
+            # To prevent overlapping text, summarize all details only in the
+            # centre label; leave the others empty
+            '',  #empty
+            glue::glue(
+              'p(ALER)\n',
+              # Unicode ± must be replaced by \u00B1 for CRAN
+              '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
+              '\u00B1{format(p_alpha[1], nsmall = 3)}'),
+            ''  #empty
+            # glue::glue('-{format(p_alpha[1], nsmall = 3)}'),
+            # # Unicode ± must be replaced by \u00B1 for CRAN
+            # glue::glue('\u00B1{format(p_alpha[2], nsmall = 3)}'),
+            # glue::glue('p(ALER)\n+{format(p_alpha[1], nsmall = 3)}')
           )
         }
         else {
@@ -144,7 +155,7 @@ plot_ale <- function(
         # ),
       )
     ) +
-    theme(axis.text.y.right = element_text(size = 6)) +
+    theme(axis.text.y.right = element_text(size = 8)) +
     labs(
       x = x_col,
       y = y_col,
