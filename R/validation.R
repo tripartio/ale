@@ -45,16 +45,14 @@ validate_y_preds <- function(
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
-    # pred_fun(object = model, newdata = data, type = pred_type),
     error = \(e) {
-      print(paste0(
+      stop(
         'There is an error with the predict function pred_fun or with the ',
         'prediction type pred_type. ',
         'See help(ale) for how to create a custom predict function for ',
-        'non-standard models. Here is the full error message:'
-      ))
-
-      stop(e)
+        'non-standard models. Here is the full error message: \n',
+        e
+      )
     },
     finally = NULL
   )
