@@ -996,7 +996,10 @@ summarize_conf_regions <- function(
 
 # Receives a confidence region summary tibble and then converts its essential
 # contents in words.
-summarize_conf_regions_in_words <- function(conf_region_summary) {
+summarize_conf_regions_in_words <- function(
+    conf_region_summary,
+    band_type = 'median'
+) {
   map_chr(1:nrow(conf_region_summary), \(.row_num) {
     with(
       conf_region_summary[.row_num, ],
@@ -1009,7 +1012,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the median band ',
+          ' the {band_type} band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
@@ -1020,7 +1023,7 @@ summarize_conf_regions_in_words <- function(conf_region_summary) {
             'overlaps',
             paste0('is ', relative_to_mid)
           ),
-          ' the median band.'
+          ' the {band_type} band.'
         )
       }
     )
