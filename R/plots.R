@@ -239,9 +239,13 @@ plot_ale <- function(
       )
     }
 
-
-
-  return(plot)
+  # Strip plot of environment or other extraneous elements
+  # https://stackoverflow.com/a/77373906/2449926
+  return(
+    plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+  )
 }
 
 
@@ -495,9 +499,13 @@ plot_ale_ixn <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
-
-  return(plot)
-
+  # Strip plot of environment or other extraneous elements
+  # https://stackoverflow.com/a/77373906/2449926
+  return(
+    plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+  )
 }
 
 
@@ -693,6 +701,7 @@ plot_effects <- function(
         xmin = median_y + .data$aler_min,
         xmax = median_y + .data$aler_max
       ),
+      na.rm = TRUE,
       height = 0.25
     ) +
     # ALED/NALED as annotated text above and below white box
@@ -737,5 +746,11 @@ plot_effects <- function(
       label.size = 0
     )
 
-  return(plot)
+  # Strip plot of environment or other extraneous elements
+  # https://stackoverflow.com/a/77373906/2449926
+  return(
+    plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+  )
 }
