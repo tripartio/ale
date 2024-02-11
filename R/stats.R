@@ -340,13 +340,6 @@ create_p_funs <- function(
     .x = 1:rand_it,
     .f = \(.it) {
 
-      # Increment the progress bar iterator.
-      # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
-      if (!silent) {
-        progress_iterator()
-      }
-
-
       # Generate training and test subsets with the random variable.
       # Package scope because they modify the datasets defined outside of the map function.
       set.seed(.it)
@@ -383,12 +376,37 @@ create_p_funs <- function(
           )
       }
       else {  # use the automatically detected model call
-        # Update the model to call to add random_variable and to train on rand_data
-        model_call$formula <- model_call$formula |>
-          stats::update.formula(~ . + random_variable)
-        model_call$data <- package_scope$rand_data
+        tryCatch(
+          {
+            # Update the model to call to add random_variable and to train on rand_data
+            model_call$data <- package_scope$rand_data
+            model_call$formula <- model_call$formula |>
+              stats::update.formula(~ . + random_variable)
 
-        assign('rand_model', eval(model_call), package_scope)
+            assign('rand_model', eval(model_call), package_scope)
+          },
+          error = \(e) {
+            stop(
+              'Could not automatically detect the model call. ',
+              'You must specify the "random_model_call_string" argument. ',
+              'Here is the full error message: \n',
+              e
+            )
+          }
+        )
+
+        # model_call$formula <- paste0(
+        #   y_col, ' ~ ',
+        #   paste0(
+        #     (package_scope$rand_data |>
+        #        names() |>
+        #        setdiff(y_col)),
+        #     collapse = ' + ')
+        # ) |>
+        #   as.formula() |>
+        #   unclass()
+        # attributes(model_call$formula) <- NULL
+
       }
 
       # # Calculate ale of random variable on the test set.
@@ -406,6 +424,12 @@ create_p_funs <- function(
         silent = TRUE,
         relative_y = 'zero'
       )
+
+      # Increment the progress bar iterator.
+      # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+      if (!silent) {
+        progress_iterator()
+      }
 
       rand_ale
     })
