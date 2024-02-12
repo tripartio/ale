@@ -52,17 +52,6 @@ plot_ale <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # ale_x <- NULL
-  # ale_n <- NULL
-  # ale_y <- NULL
-  # ale_y_lo <- NULL
-  # ale_y_hi <- NULL
-  # rug_x <- NULL
-  # rug_y <- NULL
 
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
@@ -124,10 +113,6 @@ plot_ale <- function(
               '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
               '\u00B1{format(p_alpha[1], nsmall = 3)}'),
             ''  #empty
-            # glue::glue('-{format(p_alpha[1], nsmall = 3)}'),
-            # # Unicode ± must be replaced by \u00B1 for CRAN
-            # glue::glue('\u00B1{format(p_alpha[2], nsmall = 3)}'),
-            # glue::glue('p(ALER)\n+{format(p_alpha[1], nsmall = 3)}')
           )
         }
         else {
@@ -143,16 +128,6 @@ plot_ale <- function(
           if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
           y_summary[['med_hi_2']]
          ),
-        # labels = c('25%',
-        #            relative_y,
-        #            # Unicode ± must be replaced by \u00B1 for CRAN
-        #            # paste0(relative_y, '\u00B1', format((median_band_pct / 2) * 100), '%'),
-        #            '75%'),
-        # breaks = c(
-        #   y_summary[['25%']],
-        #   y_summary[['50%']],
-        #   y_summary[['75%']]
-        # ),
       )
     ) +
     theme(axis.text.y.right = element_text(size = 8)) +
@@ -199,9 +174,6 @@ plot_ale <- function(
   plot <- plot +
     geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
     geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
-    # # Add guides to show 25th and 75th percentiles of y
-    # geom_hline(yintercept = y_summary[['25%']], linetype = "dashed") +
-    # geom_hline(yintercept = y_summary[['75%']], linetype = "dashed") +
 
 
   # Add rug plot if data is provided.
@@ -305,19 +277,6 @@ plot_ale_ixn <- function(
   # Validate arguments
   ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # ale_x1 <- NULL
-  # ale_x2 <- NULL
-  # ale_y <- NULL
-  # x1_quantile <- NULL
-  # x2_quantile <- NULL
-  # y_quantile <- NULL
-  # rug_x <- NULL
-  # rug_y <- NULL
-
 
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
@@ -370,7 +329,6 @@ plot_ale_ixn <- function(
   y_legend <-
     map_chr(1:n_y_quant, function(i) {
     lgd <- paste0(
-      # quantile_chars[i],
       quantile_mids[i],
       ' [', y_quantile_names[i], '-', y_quantile_names[i + 1], '%)'
     )
@@ -460,12 +418,6 @@ plot_ale_ixn <- function(
       rug_x = x1_x2_y[[x1_col]],
       rug_y = x1_x2_y[[x2_col]],
     )
-    # # Add rug plot if data is provided
-  # if (!is.null(data) && rug_sample_size > 0) {
-  #   rug_data <- tibble(
-  #     rug_x = data[[x1_col]],
-  #     rug_y = data[[x2_col]],
-  #   )
 
     # If the data is too big, down-sample for rug plots
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
@@ -473,8 +425,6 @@ plot_ale_ixn <- function(
         rug_data,
         ale_data$x1_quantile |> unique(),
         ale_data$x2_quantile |> unique(),
-        # ale_data$ale_x1,
-        # ale_data$ale_x2,
         rug_sample_size = rug_sample_size,
         min_rug_per_interval = min_rug_per_interval,
         seed = seed
@@ -533,14 +483,6 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # rug_x <- NULL
-  # rug_y <- NULL
-  # x_interval <- NULL
-  # y_interval <- NULL
 
   # Only sample small datasets
   if (nrow(x_y) <= rug_sample_size) {
@@ -569,8 +511,6 @@ rug_sample <- function(
     ) |>
     pull(row)
 
-  # if (x_y$rug_y[1] == 2.62) browser()
-
   if (length(rs_idxs) < rug_sample_size) {
   # Add a sample of all the other rows to meet the rug_sample_size target.
     rs_idxs <- c(
@@ -596,27 +536,12 @@ plot_effects <- function(
     median_band_pct = c(0.05, 0.5)
 ) {
 
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # # ale_data <- NULL
-  # term <- NULL
-  # naled <- NULL
-  # aler_min <- NULL
-  # aler_max <- NULL
-  # aled <- NULL
-
   # Create deciles for NALED and NALER axis
   norm_deciles <-
     y_vals |>
     quantile(seq(0, 1, 0.1)) |>
     stats::setNames(seq(-50, 50, 10) |> paste0('%'))
-  # y_deciles <- quantile(y_vals, seq(0, 1, 0.1))
 
-  # median_band_lo <- y_summary[['med_lo']]
-  # median_y       <- y_summary[['50%']]
-  # median_band_hi <- y_summary[['med_hi']]
   # Determine key points for the median band
   median_band_quantiles <- quantile(
     y_vals, c(
@@ -642,13 +567,11 @@ plot_effects <- function(
     arrange(.data$aled, .data$naled)
   estimates <- estimates |>
     mutate(term = factor(.data$term, ordered = TRUE, levels = .data$term))
-  # mutate(term = factor(.data$term, ordered = TRUE, levels = estimates$term))
 
   plot <-
     estimates |>
     ggplot(aes(y = .data$term)) +
     theme_bw() +
-    # ylab(NULL) +
     labs(
       y = NULL,
       alt = glue('ALE effects plot for {y_col}')
@@ -674,11 +597,9 @@ plot_effects <- function(
       },
       # Use decile for minor breaks
       minor_breaks = norm_deciles,
-      # minor_breaks = y_deciles |> round_dp() |> as.numeric(),
       sec.axis = dup_axis(
         name = paste0('Percentiles of ', y_col, ' (NALER and NALED)'),
         breaks = norm_deciles,
-        # breaks = y_deciles,
       )
     ) +
     # Even if the ALE values are extreme, zoom in to natural Y value limits

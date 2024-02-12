@@ -65,10 +65,6 @@
 #'
 #'
 #' @param data See documentation for [ale()]
-# @param training_data dataframe. The dataset originally used to train `model`.
-# See details and also documentation for [ale()].
-# @param test_data dataframe. The dataset that will be used to create ALE data.
-# See details.
 #' @param model See documentation for [ale()]
 # @param model model object. The model used to train the original `training_data`.
 #  for which ALE should be calculated. See details and also documentation for [ale()].
@@ -116,8 +112,6 @@
 #' each random variable.
 #' * `residuals`: the actual `y_col` values from `data` minus the predicted
 #' values from the `model` (without random variables) on the `data`.
-# * `residuals`: the actual `y_col` values from `training_data` minus the predicted
-# values from the `model` (without random variables) on the `training_data`.
 #' `residual_distribution`: the closest estimated distribution for the `residuals`
 #' as determined by [univariateML::rml()]. This is the distribution used to generate
 #' all the random variables.
@@ -177,7 +171,6 @@
 #'   rand_it = 100,
 #' )
 #'
-
 #' }
 #'
 #'
@@ -185,8 +178,6 @@
 #'
 create_p_funs <- function(
     data,
-    # training_data,
-    # test_data,
     model,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
@@ -206,8 +197,6 @@ create_p_funs <- function(
   # Validate arguments
 
   assert_that(data |> inherits('data.frame'))
-  # assert_that(training_data |> inherits('data.frame'))
-  # assert_that(test_data |> inherits('data.frame'))
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
@@ -272,7 +261,6 @@ create_p_funs <- function(
   y_col <- validate_y_col(
     y_col = y_col,
     data = data,
-    # data = training_data,
     model = model
   )
 
@@ -293,18 +281,12 @@ create_p_funs <- function(
 
   # Determine the closest distribution of the residuals
   residuals <- (data[[y_col]] - y_preds) |>
-  # # Note that the distribution is determined from the training data, not the test data
-  # residuals <- (training_data[[y_col]] - y_preds) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
 
   # Create ALEs for random variables based on residual_distribution
   package_scope$rand_data <- data
   n_rows <- nrow(data)
-  # assign('rand_data', training_data, package_scope)
-  # assign('rand_test', test_data, package_scope)
-  # train_n <- nrow(training_data)
-  # test_n  <- nrow(test_data)
 
   # Enable parallel processing and set appropriate map function.
   # Because furrr::future_map has an important .options argument absent from
@@ -327,19 +309,11 @@ create_p_funs <- function(
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
-  # extend random_model_call_string_vars with local variables for parallel processing
-  # random_model_call_string_vars <- c(
-  #   'package_scope', 'rand_data', 'rand_test', 'random_variable', 'rand_model', 'rand_ale',
-  #   random_model_call_string_vars
-  # )
   rand_ales <- map_loop(
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
       # transmit any globals and packages in random_model_call_string to the parallel workers
-      # globals = structure(TRUE)
-      # https://future.futureverse.org/reference/future.html#globals-used-by-future-expressions-1
-      # globals = structure(TRUE, add = random_model_call_string_vars)
       globals = random_model_call_string_vars,
       packages = model_packages
     ),
@@ -351,23 +325,12 @@ create_p_funs <- function(
       set.seed(.it)
 
       tmp_rand_data <- data
-      # tmp_rand_data <- training_data
       tmp_rand_data$random_variable <- univariateML::rml(
         n = n_rows,
-        # n = train_n,
         obj = residual_distribution
       )
       package_scope$rand_data <- tmp_rand_data
-      # assign('rand_data', tmp_rand_data, package_scope)
       rm(tmp_rand_data)
-
-      # tmp_rand_test <- test_data
-      # tmp_rand_test$random_variable <- univariateML::rml(
-      #   n = test_n,
-      #   obj = residual_distribution
-      # )
-      # assign('rand_test', tmp_rand_test, package_scope)
-      # rm(tmp_rand_test)
 
       # Train model with the random variable: convert model call string to an expression
 
@@ -401,25 +364,12 @@ create_p_funs <- function(
           }
         )
 
-        # model_call$formula <- paste0(
-        #   y_col, ' ~ ',
-        #   paste0(
-        #     (package_scope$rand_data |>
-        #        names() |>
-        #        setdiff(y_col)),
-        #     collapse = ' + ')
-        # ) |>
-        #   as.formula() |>
-        #   unclass()
-        # attributes(model_call$formula) <- NULL
-
       }
 
       # # Calculate ale of random variable on the test set.
       # # If calculated on the training set, p-values will be too liberal.
       rand_ale <- ale::ale(
         package_scope$rand_data,
-        # package_scope$rand_test,
         package_scope$rand_model,
         'random_variable',
         parallel = 0,  # avoid iterative parallelization
@@ -450,7 +400,6 @@ create_p_funs <- function(
   # * reflects fact that random_variable results are based on random iterations
   #   of the input dataset, which changes each time.
   ale_y_norm_fun <- create_ale_y_norm_function(y_preds)
-  # ale_y_norm_fun <- create_ale_y_norm_function(test_data[[y_col]])
 
   rand_stats <-
     map(rand_ales, \(.rand) {
@@ -719,21 +668,6 @@ create_ale_y_norm_function <- function(y_vals) {
         ale_y > 0  ~ stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
       )
 
-      # # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
-      # # Note: since ale_y == 0 cannot be both positive and negative, it must arbitrarily
-      # # be assigned to one or the other. The choice is to assign it to the negative half
-      # # based on the logic that the 50th percentile (that 0 represents) is more
-      # # intuitively considered to be in the first half of 100 percentiles.
-      # norm_ale_y <- dplyr::if_else(
-      #   ale_y > 0,
-      #   # percentiles of the upper half of the y values (50 to 100%)
-      #   # Note: the median is included in both halves.
-      #   stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
-      #   # percentiles of the lower half of the y values (0 to 50%)
-      #   # Note: the median is included in both halves.
-      #   -stats::ecdf(-1 * (centred_y[centred_y <= 0]))(-ale_y) / 2
-      # )
-
       return(norm_ale_y * 100)
     }
   )
@@ -779,13 +713,11 @@ var_summary <- function(
     # Create lower confidence bounds just below the midpoint
     med_lo_2 = if (!is.null(p_funs)) {
       unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
-      # unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[1]))
     } else {
       s[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
     },
     med_lo = if (!is.null(p_funs)) {
       unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
-      # unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[2]))
     } else {
       s[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
     },
@@ -797,13 +729,11 @@ var_summary <- function(
     # Create upper confidence bounds just above the midpoint
     med_hi = if (!is.null(p_funs)) {
       unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
-      # unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[2]))
     } else {
       s[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
     },
     med_hi_2 = if (!is.null(p_funs)) {
       unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
-      # unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[1]))
     } else {
       s[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
     },
@@ -842,15 +772,6 @@ var_summary <- function(
 
 # Rearrange ALE statistics in multiple orientations
 pivot_stats <- function(long_stats) {
-
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # term <- NULL
-  # estimate <- NULL
-  # statistic <- NULL
-
 
   return(list(
     by_term = long_stats |>
@@ -917,29 +838,6 @@ summarize_conf_regions <- function(
     y_summary,  # result of var_summary(y_vals)
     sig_criterion  # string either 'p_values' or 'median_band_pct'
   ) {
-
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # ale_n <- NULL
-  # ale_x <- NULL
-  # ale_y <- NULL
-  # end_x <- NULL
-  # end_y <- NULL
-  # n_pct <- NULL
-  # new_streak <- NULL
-  # relative_to_mid <- NULL
-  # start_x <- NULL
-  # start_y <- NULL
-  # streak_id <- NULL
-  # # term <- NULL
-  # trend <- NULL
-  # x <- NULL
-  # x_span <- NULL
-  # y <- NULL
-
-      # browser()
 
   # Create confidence regions for each variable (term)
   cr_by_term <-

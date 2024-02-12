@@ -193,13 +193,6 @@ model_bootstrap <- function (
   # If model_call_string is not provided, ensure that
   # the model allows automatic manipulation.
   if (is.null(model_call_string)) {
-    # assert_that(
-    #   !is.null(model),
-    #   msg = glue::glue(
-    #     'Either a model object or a model_call_string must be provided. ',
-    #     'See help(model_bootstrap) for details.'
-    #   )
-    # )
 
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
@@ -231,15 +224,6 @@ model_bootstrap <- function (
       )
     )
   }
-
-  # assert_that(
-  #   is.string(model_call_string) &&
-  #     # There must be no data argument
-  #     stringr::str_detect(model_call_string, 'data = ', negate = TRUE) &&
-  #     stringr::str_detect(model_call_string, 'data=', negate = TRUE) &&
-  #     # model_call_string must terminate with ')'
-  #     (stringr::str_sub(model_call_string, start = -1) == ')')
-  # )
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
@@ -275,24 +259,6 @@ model_bootstrap <- function (
 
   n_rows <- nrow(data)
 
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when data masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # ale_x <- NULL
-  # ale_n <- NULL
-  # ale_y <- NULL
-  # ale_y_mean <- NULL
-  # ale_y_median <- NULL
-  # aled <- NULL
-  # estimate <- NULL
-  # it <- NULL
-  # naler_max <- NULL
-  # name <- NULL
-  # p.value <- NULL
-  # statistic <- NULL
-  # term <- NULL
-  # value <- NULL
 
 
   # Create bootstrap tbl
@@ -348,9 +314,7 @@ model_bootstrap <- function (
   }
 
   model_and_ale <-
-    # map2(
     map2_loop(
-      # .progress = !silent,  # future_map does not allow messages for .progress
       .options = furrr::furrr_options(
         # Enable parallel-processing random seed generation
         seed = seed,
@@ -358,14 +322,6 @@ model_bootstrap <- function (
         globals = model_call_string_vars,
         packages = model_packages
       ),
-      # .progress = if (!silent) {
-      #   list(
-      #     name = 'Creating and analyzing models',
-      #     show_after = 5
-      #   )
-      # } else {
-      #   FALSE
-      # },
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(.it, .idxs) {
@@ -391,13 +347,6 @@ model_bootstrap <- function (
 
           boot_model <- eval(model_call)
         }
-
-        # boot_model <- # model generated on this particular bootstrap sample
-        #   model_call_string |>
-        #   stringr::str_sub(end = -2) |>  # remove the closing paranthesis ')'
-        #   paste0(', data = boot_data)') |>  # add data argument
-        #   parse(text = _) |>  # convert model call string to an expression
-        #   eval()
 
         boot_glance <-
           if ('model_stats' %in% output) {
@@ -459,7 +408,6 @@ model_bootstrap <- function (
                     ale_ns
                   },
                   silent = TRUE  # silence inner bootstrap loop
-                  # silent = silent
                 ),
                 # pass all other desired options, e.g., specific x_col
                 ale_options
@@ -719,12 +667,6 @@ model_bootstrap <- function (
           'median_band_pct'
         }
       )
-      # ale_conf_regions <-
-      #   ale_summary_data |>
-      #   map(\(.ale_data) {
-      #     summarize_conf_regions(.ale_data, y_summary)
-      #   }) |>
-      #   set_names(names(ale_summary_data))
 
       detailed_ale_stats <- pivot_stats(ale_summary_stats)
 

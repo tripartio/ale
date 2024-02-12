@@ -20,8 +20,9 @@
 #' @docType package
 #'
 #' @import dplyr
-#' @import purrr
 #' @import ggplot2
+#' @import purrr
+#' @import stats
 #' @importFrom rlang .data
 #'
 #' @references Okoli, Chitu. 2023.

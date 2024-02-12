@@ -29,16 +29,11 @@
 # @import purrr
 # @importFrom stats quantile
 #
-calc_ale_ixn <- function(X, model, x1_col, x2_col,
-                         # n_row, n_col,
-                         pred_fun, pred_type, x_intervals) {
-
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # ale_x2 <- NULL
-
+calc_ale_ixn <- function(
+    X, model, x1_col, x2_col,
+    # n_row, n_col,
+    pred_fun, pred_type, x_intervals
+) {
 
   n_row <- nrow(X)
   n_col <- ncol(X)

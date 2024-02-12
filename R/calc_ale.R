@@ -54,20 +54,6 @@ calc_ale <- function(
     p_funs = NULL
 ) {
 
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # `:=` <- NULL
-  # ale_y <- NULL
-  # estimate <- NULL
-  # Freq <- NULL
-  # p.value <- NULL
-  # statistic <- NULL
-  # Var1 <- NULL
-
-
-
   n_row <- nrow(X)
   n_col <- ncol(X)
 
@@ -178,14 +164,9 @@ calc_ale <- function(
         # X_boot with x_col set at the upper bound of the ALE interval
         X_hi <- X_boot
         X_hi[x_col] <- ale_x[boot_ale_x_int + 1]
-        # X_lo <- X_boot |>  # X_boot with x_col set at the lower bound of the ALE interval
-        #   mutate(!!x_col := ale_x[boot_ale_x_int])
-        # X_hi <- X_boot |>  # X_boot with x_col set at the upper bound of the ALE interval
-        #   mutate(!!x_col := ale_x[boot_ale_x_int + 1])
 
         # Difference between low and high boundary predictions
         delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
-        # delta_pred <- pred_fun(model, newdata = X_hi) - pred_fun(model, newdata = X_lo)
 
         # Generate the cumulative ale_y predictions
         cum_pred <-
@@ -425,9 +406,6 @@ calc_ale <- function(
           pred_y  <- pred_fun(model, X_boot, pred_type)
           pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, ], pred_type)
           pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, ], pred_type)
-          # pred_y <- pred_fun(object = model, newdata = X_boot)
-          # pred_hi <- pred_fun(object = model, newdata = X_hi[row_idx_not_hi, ])
-          # pred_lo <- pred_fun(object = model, newdata = X_lo[row_idx_not_lo, ])
 
           #Take the appropriate differencing and averaging for the ALE plot
 
@@ -478,10 +456,6 @@ calc_ale <- function(
                        na.rm = TRUE)
 
   }
-
-  # else {
-  #   stop("class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric.")
-  # }
 
   # Center all the ale_y values
   boot_ale$ale_y <-
@@ -621,7 +595,6 @@ idxs_kolmogorov_smirnov <- function(
         map(\(.group) {
 
           if (all(is.na(.group))) {
-          # if (length(.group) == 1 && is.na(.group)) {
           function(x) NA
           } else {
             stats::ecdf(.group)
@@ -671,6 +644,4 @@ idxs_kolmogorov_smirnov <- function(
     (`[[`)('ix')
 
   return(idxs)
-  # return(cdm)
-
 }

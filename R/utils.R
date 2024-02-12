@@ -5,34 +5,34 @@
 
 # Mathematical operations ------------
 
-# Calculate the mode(s) of a vector
+# # Calculate the mode(s) of a vector
+# #
+# # modes(c(1, 2, 3, 3, 4, 4, 5))
+# # modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))
+# # modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
+# modes <- function(x) {
+#   class_x <- class(x)[1]
 #
-# modes(c(1, 2, 3, 3, 4, 4, 5))
-# modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))
-# modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
-modes <- function(x) {
-  class_x <- class(x)[1]
-
-  freq_table <- table(x)
-  max_freq <- max(freq_table)
-
-  # Extract the mode(s)
-  m <- names(freq_table[freq_table == max_freq])
-
-  # Assign class of the mode(s) to class of x
-  if (class_x %in% c('factor', 'ordered')) {
-    m <- factor(
-      m,
-      levels = levels(x),
-      ordered = is.ordered(x)
-    )
-  } else {
-    m <- methods::as(m, class_x)
-  }
-
-  # Returning the mode(s)
-  return(m)
-}
+#   freq_table <- table(x)
+#   max_freq <- max(freq_table)
+#
+#   # Extract the mode(s)
+#   m <- names(freq_table[freq_table == max_freq])
+#
+#   # Assign class of the mode(s) to class of x
+#   if (class_x %in% c('factor', 'ordered')) {
+#     m <- factor(
+#       m,
+#       levels = levels(x),
+#       ordered = is.ordered(x)
+#     )
+#   } else {
+#     m <- methods::as(m, class_x)
+#   }
+#
+#   # Returning the mode(s)
+#   return(m)
+# }
 
 
 

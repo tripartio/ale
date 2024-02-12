@@ -380,10 +380,8 @@ ale <- function (
 #' This is the central function that manages the creation of ALE data and plots
 #' for two-way ALE interactions. For simple one-way ALE, see [ale()].
 #' See documentation there for functionality shared between both functions.
-
-
+#'
 #' For details, see the introductory vignette for this package or the details and examples below.
-
 #'
 #' For the plots, `n_y_quant` is the number of quantiles into which to
 #' divide the predicted variable (y). The middle quantiles are grouped specially:
@@ -629,7 +627,6 @@ ale_core <- function (
   )
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
-  # validate_parallel(parallel, model_packages)
 
   assert_that(is.flag(ixn))
   if (!is.null(x_cols)) assert_that(is.character(x_cols))
@@ -673,18 +670,8 @@ ale_core <- function (
     if (length(p_values) == 1 && p_values == 'auto') {
       # Try to automatically obtain p-values
 
-      # training_data <- insight::get_data()
-      # if (is.null(training_data)) {
-      #   stop(glue(
-      #     'ale() could not automatically obtain the training data for the model, ',
-      #     'so p-values cannot be automatically obtained. See help(create_p_funs) ',
-      #     'for instructions for obtaining p-values.'
-      #   ))
-      # }
       p_values <- create_p_funs(
         data = data,
-        # training_data = training_data,
-        # test_data = data,
         model = model,
         pred_fun = pred_fun,
         pred_type = pred_type
@@ -766,14 +753,6 @@ ale_core <- function (
 
 
 
-
-  # # Hack to prevent devtools::check from thinking that masked variables are global:
-  # # Make them null local variables within the function with the issues. So,
-  # # when masking applies, the masked variables will be prioritized over these null
-  # # local variables.
-  # term <- NULL
-
-
   # Determine datatype of y
   if (is.null(y_type)) {
     y_type <- var_type(data[[y_col]])
@@ -849,7 +828,6 @@ ale_core <- function (
   # p_funs <- NULL
   if ('stats' %in% output) {
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
-    # p_funs <- p_values
   }
 
   # Enable parallel processing and set appropriate map function.
@@ -899,7 +877,6 @@ ale_core <- function (
             calc_ale(
               data_X, model, x_col,
               pred_fun, pred_type, x_intervals,
-              # pred_fun, x_intervals,
               boot_it, seed, boot_alpha, boot_centre,
               ale_x = ale_xs[[x_col]],
               ale_n = ale_ns[[x_col]],
@@ -926,11 +903,9 @@ ale_core <- function (
               median_band_pct = median_band_pct,
               x_y = tibble(data[[x_col]], y_vals) |>
                 stats::setNames(c(x_col, y_col)),
-              # data = data[, c(x_col, y_col)],
               rug_sample_size = rug_sample_size,
               min_rug_per_interval = min_rug_per_interval,
               seed = seed
-              # ggplot_custom
             )
           }
 
@@ -940,7 +915,6 @@ ale_core <- function (
           }
 
           list(
-            # return(list(
             data = ale_data,
             stats = stats,
             plots = plot
@@ -962,23 +936,12 @@ ale_core <- function (
       x1_cols |>
       # map(
       map_loop(
-        # # future_map() does not allow messages for .progress.
-        # # Show progress bar only if not in an outer loop with ale_xs
-        # .progress = !silent && is.null(ale_xs),
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
           # Specify packages (parallel processing does not always see them easily)
           packages = model_packages
         ),
-        # .progress = if (!silent && is.null(ale_xs)) {
-        #   list(
-        #     name = 'Calculating ALE interactions',
-        #     show_after = 5
-        #   )
-        # } else {
-        #   FALSE
-        # },
         .f = \(x1_col) {
         # Calculate ale_data for two-way interactions
 
@@ -999,7 +962,6 @@ ale_core <- function (
               calc_ale_ixn(
                 data_X, model, x1_col, x2_col,
                 pred_fun, pred_type, x_intervals
-                # pred_fun, x_intervals
               )
 
             # Shift ale_y by appropriate relative_y
@@ -1012,7 +974,6 @@ ale_core <- function (
                 ale_data, x1_col, x2_col, y_col, y_type,
                 y_summary,
                 y_vals,
-                # ggplot_custom
                 relative_y = relative_y,
                 median_band_pct = median_band_pct,
                 n_x1_int = n_x1_int,
@@ -1020,7 +981,6 @@ ale_core <- function (
                 n_y_quant = n_y_quant,
                 x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
                   stats::setNames(c(x1_col, x2_col, y_col)),
-                # data = data[, c(x1_col, x2_col, y_col)],
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
                 seed = seed
@@ -1096,7 +1056,6 @@ ale_core <- function (
         ales$stats$estimate,
         y_vals,
         y_col,
-        # median_band_pct = median_band_pct
         median_band_pct = if (is.null(p_values)) {
           median_band_pct
         }

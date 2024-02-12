@@ -176,53 +176,7 @@ validate_silent <- function(silent) {
         )
       }
 
-      # if (interactive()) {
-      #   if (isTRUE(getOption('knitr.in.progress'))) {
-      #     # global handlers cannot be set in Rmd knitr contexts
-      #     message(
-      #       'Info: No global progress bars were found. ',
-      #       'To enable progress bars, see help(ale).'
-      #     )
-      #   } else {
-      #     # interactive execution outside of Rmd knitr context: enable progress bars
-      #     progressr::handlers(global = TRUE)
-      #     progressr::handlers('cli')
-      #     message(
-      #       'Info: No global progress bars were found; the cli handler has been enabled. ',
-      #       'This activation only lasts for one R session; ',
-      #       'see help(ale) for how to permanently configure the progress bar settings.'
-      #     )
-      #   }
-      # }
-
-      # progressr::handlers(global = TRUE) |>
-      #   tryCatch(error = function(e) {
-      #     # If there is an error here, then this code is probably being executed
-      #     # in a context where global handlers are forbidden
-      #     # (e.g., RMarkdown, a tryCatch block, etc.).
-      #     # In that case, do nothing--progress bars will not be enabled.
-      #     # This is actually fine for non-interactive contexts, which tend to be
-      #     # the problematic cases.
-      #
-      #     # message(
-      #     #   'Error with progressr::handlers(global = TRUE): ',
-      #     #   e
-      #     # )
-      #   }
-      # )
-      #
-      # progressr::handlers('cli')
-      # message(
-      #   'Info: No global progress bars were found; the cli handler has been enabled. ',
-      #   'See help(ale) for how to permanently configure the progress bar settings.'
-      # )
     }
-    # assert_that(
-    #   progressr::handlers(global = NA),
-    #   msg = "If silent = FALSE (default), then progress bars must be explicitly enabled.
-    #     Run `progressr::handlers(global = TRUE); progressr::handlers('cli')` (once per session).
-    #     See help(ale) for details on the silent argument."
-    # )
   }
 
 }
