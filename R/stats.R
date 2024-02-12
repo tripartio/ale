@@ -760,18 +760,26 @@ var_summary <- function(
     )
   )
 
+  # Calculate the p-values necessary to obtain the desired joint probabilities.
+  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95
+  # confidence that aler_min < ale_y AND ale_y < aler_max. The p-value for this
+  # joint probability is smaller than the untransformed p-value.
+  joint_p <- 1 - sqrt(1 - p_alpha)
+
   s <- c(
     # Retain first half of values
     s[1:match('25%', names(s))],
 
     # Create lower confidence bounds just below the midpoint
     med_lo_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[1]))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
+      # unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[1]))
     } else {
       s[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
     },
     med_lo = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[2]))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
+      # unname(s[['50%']] + p_funs$p_to_random_value$aler_min(p_alpha[2]))
     } else {
       s[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
     },
@@ -782,12 +790,14 @@ var_summary <- function(
 
     # Create upper confidence bounds just above the midpoint
     med_hi = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[2]))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
+      # unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[2]))
     } else {
       s[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
     },
     med_hi_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[1]))
+      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
+      # unname(s[['50%']] + p_funs$p_to_random_value$aler_max(p_alpha[1]))
     } else {
       s[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
     },
