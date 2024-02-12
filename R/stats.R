@@ -219,6 +219,12 @@ create_p_funs <- function(
     pred_type = pred_type
   )
 
+  # Nip in the bud rubbish results due to identical predictions
+  assert_that(
+    !(stats::sd(y_preds) == 0),
+    msg = 'All predictions are identical. P-values cannot be created.'
+  )
+
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
   if (is.null(random_model_call_string)) {
