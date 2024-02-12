@@ -27,6 +27,7 @@
 #@param data dataframe. If provided, used to generate rug plots. Must at least
 #contain columns x_col and y_col; any other columns are not used.
 #  @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+#  @param compact_plots See documentation for [ale()]
 #  @param seed See documentation for [ale()]
 #
 #
@@ -46,6 +47,7 @@ plot_ale <- function(
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
+    compact_plots = FALSE,
     seed = 0
     ) {
 
@@ -211,12 +213,16 @@ plot_ale <- function(
       )
     }
 
-  # Strip plot of environment or other extraneous elements
-  # https://stackoverflow.com/a/77373906/2449926
   return(
-    plot |>
+    if (compact_plots) {
+      # Strip plot of environment or other extraneous elements
+      # https://stackoverflow.com/a/77373906/2449926
+      plot |>
       ggplotGrob() |>
       ggpubr::as_ggplot()
+    } else {
+      plot
+    }
   )
 }
 
@@ -250,6 +256,7 @@ plot_ale <- function(
 # If provided, used to generate rug plots.
 #@param data See documentation for `plot_ale`
 # @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+# @param compact_plots See documentation for [ale()]
 # @param seed See documentation for [ale()]
 #
 #
@@ -265,12 +272,14 @@ plot_ale_ixn <- function(
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
+    p_alpha = c(0.01, 0.05),
     median_band_pct = c(0.05, 0.5),
     n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
     x1_x2_y = NULL,
     # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
+    compact_plots = FALSE,
     seed = 0
 ) {
 
@@ -449,12 +458,16 @@ plot_ale_ixn <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
-  # Strip plot of environment or other extraneous elements
-  # https://stackoverflow.com/a/77373906/2449926
   return(
-    plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
+    if (compact_plots) {
+      # Strip plot of environment or other extraneous elements
+      # https://stackoverflow.com/a/77373906/2449926
+      plot |>
+        ggplotGrob() |>
+        ggpubr::as_ggplot()
+    } else {
+      plot
+    }
   )
 }
 
@@ -533,7 +546,8 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
-    median_band_pct = c(0.05, 0.5)
+    median_band_pct = c(0.05, 0.5),
+    compact_plots = FALSE
 ) {
 
   # Create deciles for NALED and NALER axis
@@ -667,11 +681,15 @@ plot_effects <- function(
       label.size = 0
     )
 
-  # Strip plot of environment or other extraneous elements
-  # https://stackoverflow.com/a/77373906/2449926
   return(
-    plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
+    if (compact_plots) {
+      # Strip plot of environment or other extraneous elements
+      # https://stackoverflow.com/a/77373906/2449926
+      plot |>
+        ggplotGrob() |>
+        ggpubr::as_ggplot()
+    } else {
+      plot
+    }
   )
 }

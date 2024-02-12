@@ -40,6 +40,7 @@ test_that(
       test_cars, cars_gam,
       parallel = 0,
       silent = TRUE,
+      compact_plots = TRUE,
     )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
@@ -56,6 +57,7 @@ test_that(
       parallel = 0,
       boot_it = 5,
       silent = TRUE,
+      compact_plots = TRUE,
     )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
@@ -82,7 +84,8 @@ test_that(
       relative_y = 'zero',
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
@@ -100,7 +103,8 @@ test_that(
     cars_ale <- ale(
       test_cars, cars_gam_binary,
       parallel = 0,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
@@ -116,7 +120,8 @@ test_that(
       test_cars, cars_gam_binary,
       parallel = 0,
       boot_it = 4,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
@@ -143,7 +148,8 @@ test_that(
       relative_y = 'zero',
       y_type = 'binary',
       median_band_pct = c(0.01, 0.2),
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE,
     )
 
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)

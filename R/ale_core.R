@@ -187,7 +187,14 @@
 #' in advanced analyses where the ale_x intervals from a previous analysis are
 #' reused for subsequent analyses (for example, for full model bootstrapping;
 #' see the [model_bootstrap()] function).
-#' @param silent logical length 1, default FALSE. If TRUE, do not display any
+#' @param compact_plots logical length 1, default `FALSE`. When `output` includes
+#' 'plots', the returned `ggplot` objects each include the environments of the plots.
+#' This lets the user modify the plots with all the flexibility of `ggplot`, but it
+#' can result in very large return objects (sometimes even hundreds of megabytes
+#' large). To compact the plots to their bare minimum, set `compact_plots = TRUE`.
+#' However, returned plots will not be easily modifiable, so this should only be
+#' used if you do not want to subsequently modify the plots.
+#' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any
 #' non-essential messages during execution (such as progress bars).
 #' Regardless, any warnings and errors will always display. See details for how
 #' to enable progress bars.
@@ -362,8 +369,8 @@ ale <- function (
     min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
+    compact_plots = FALSE,
     silent = FALSE
-    # ggplot_custom = NULL,
 ) {
   # capture all arguments passed into `ale()` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
@@ -423,6 +430,7 @@ ale <- function (
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive scalar integer. Number of intervals over which the range
 #' of y values is divided for the colour bands of the interaction plot. See details.
+#' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
 #' @return list of ALE interaction data tibbles and plots.
@@ -495,6 +503,7 @@ ale_ixn <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
+    compact_plots = FALSE,
     silent = FALSE
 ) {
   # capture all arguments passed into [ale_ixn()] (code thanks to ChatGPT)
@@ -551,6 +560,7 @@ ale_ixn <- function (
 # @param ale_ns See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
+# @param compact_plots See documentation for [ale()]
 # @param silent See documentation for [ale()]
 #
 # @import dplyr
@@ -591,6 +601,7 @@ ale_core <- function (
     n_x1_int = 20,
     n_x2_int = 20,
     n_y_quant = 10,
+    compact_plots = FALSE,
     silent = FALSE
 )
 {
@@ -905,6 +916,7 @@ ale_core <- function (
                 stats::setNames(c(x_col, y_col)),
               rug_sample_size = rug_sample_size,
               min_rug_per_interval = min_rug_per_interval,
+              compact_plots = compact_plots,
               seed = seed
             )
           }
@@ -983,6 +995,7 @@ ale_core <- function (
                   stats::setNames(c(x1_col, x2_col, y_col)),
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
+                compact_plots = compact_plots,
                 seed = seed
               )
             }
@@ -1066,7 +1079,8 @@ ale_core <- function (
             p_values$p_to_random_value$naled() |>
             unname() |>
             (`/`)(100)  # scale NALED from percentage to 0 to 1
-        }
+        },
+        compact_plots = compact_plots
       )
     }
   }

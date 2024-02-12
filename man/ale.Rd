@@ -32,6 +32,7 @@ ale(
   min_rug_per_interval = 1,
   ale_xs = NULL,
   ale_ns = NULL,
+  compact_plots = FALSE,
   silent = FALSE
 )
 }
@@ -152,7 +153,15 @@ in advanced analyses where the ale_x intervals from a previous analysis are
 reused for subsequent analyses (for example, for full model bootstrapping;
 see the \code{\link[=model_bootstrap]{model_bootstrap()}} function).}
 
-\item{silent}{logical length 1, default FALSE. If TRUE, do not display any
+\item{compact_plots}{logical length 1, default \code{FALSE}. When \code{output} includes
+'plots', the returned \code{ggplot} objects each include the environments of the plots.
+This lets the user modify the plots with all the flexibility of \code{ggplot}, but it
+can result in very large return objects (sometimes even hundreds of megabytes
+large). To compact the plots to their bare minimum, set \code{compact_plots = TRUE}.
+However, returned plots will not be easily modifiable, so this should only be
+used if you do not want to subsequently modify the plots.}
+
+\item{silent}{logical length 1, default \code{FALSE.} If \code{TRUE}, do not display any
 non-essential messages during execution (such as progress bars).
 Regardless, any warnings and errors will always display. See details for how
 to enable progress bars.}

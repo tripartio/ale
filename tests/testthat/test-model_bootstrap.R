@@ -40,7 +40,8 @@ test_that(
       cars_gam,
       parallel = 0,
       boot_it = 0,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
@@ -60,7 +61,8 @@ test_that(
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
       boot_it = 5,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
@@ -83,7 +85,8 @@ test_that(
       boot_centre = 'median',
       output = 'ale',
       ale_options = list(relative_y = 'zero'),
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
     mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))

@@ -20,6 +20,7 @@ model_bootstrap(
   ale_options = list(),
   tidy_options = list(),
   glance_options = list(),
+  compact_plots = FALSE,
   silent = FALSE
 )
 }
@@ -73,6 +74,8 @@ except if included in this \code{output} argument.
 Arguments to pass to the \code{\link[=ale]{ale()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively,
 beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
 statistics, see the details.}
+
+\item{compact_plots}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 }

@@ -84,6 +84,7 @@
 #' Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively,
 #' beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
 #' statistics, see the details.
+#' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
 #' @return list with tibbles of the following elements (depending on values requested in
@@ -183,6 +184,7 @@ model_bootstrap <- function (
     ale_options = list(),
     tidy_options = list(),
     glance_options = list(),
+    compact_plots = FALSE,
     silent = FALSE
 ) {
   # Validate arguments
@@ -685,6 +687,7 @@ model_bootstrap <- function (
                 stats::setNames(c(.x_col_name, y_col)),
 
               ## Later: pass ale_options() that might apply
+              compact_plots = compact_plots
 
               # When y_vals is added
               # x_y = tibble(data[[.x_col_name]], y_vals) |>
@@ -706,7 +709,9 @@ model_bootstrap <- function (
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          median_band_pct
+          median_band_pct,
+          # later pass ale_options like compact_plots
+          compact_plots = compact_plots
         )
 
       }

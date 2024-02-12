@@ -29,6 +29,7 @@ ale_ixn(
   n_x1_int = 20,
   n_x2_int = 20,
   n_y_quant = 10,
+  compact_plots = FALSE,
   silent = FALSE
 )
 }
@@ -74,6 +75,8 @@ ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
 \item{n_y_quant}{positive scalar integer. Number of intervals over which the range
 of y values is divided for the colour bands of the interaction plot. See details.}
 
+\item{compact_plots}{See documentation for \code{\link[=ale]{ale()}}}
+
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 }
 \value{
@@ -90,6 +93,7 @@ the \code{output} argument.
 This is the central function that manages the creation of ALE data and plots
 for two-way ALE interactions. For simple one-way ALE, see \code{\link[=ale]{ale()}}.
 See documentation there for functionality shared between both functions.
+
 For details, see the introductory vignette for this package or the details and examples below.
 
 For the plots, \code{n_y_quant} is the number of quantiles into which to

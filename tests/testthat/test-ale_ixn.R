@@ -40,6 +40,7 @@ test_that(
       test_cars, cars_gam,
       parallel = 0,
       silent = TRUE,
+      compact_plots = TRUE,
     )
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
@@ -66,7 +67,8 @@ test_that(
       n_x1_int = 10,
       n_x2_int = 25,
       n_y_quant = 5,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
 
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
@@ -85,7 +87,8 @@ test_that(
     cars_ale_ixn <- ale_ixn(
       test_cars, cars_gam_binary,
       parallel = 0,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
       map(\(.x1) ale_plots_to_data(.x1))
@@ -112,7 +115,8 @@ test_that(
       n_x1_int = 10,
       n_x2_int = 25,
       n_y_quant = 5,
-      silent = TRUE
+      silent = TRUE,
+      compact_plots = TRUE
     )
 
     cars_ale_ixn$plots <- cars_ale_ixn$plots |>
