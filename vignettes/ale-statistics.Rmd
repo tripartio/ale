@@ -229,7 +229,7 @@ ALE was developed to graphically display the relationship between predictor vari
 
 ### ALE plots with p-values
 
-```{r all ALE plots, fig.width=7, fig.height=10}
+```{r all-ALE-plots, fig.width=7, fig.height=10}
 mb_gam_math$ale$plots |> 
   patchwork::wrap_plots(ncol = 2)
 ```
@@ -252,7 +252,7 @@ Of particular interest is the random variable `rand_norm`, whose average ALE app
 
 Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_funs` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_funs` object. Let us run `model_bootstrap()` again, but this time, without p-values.
 
-```{r model bootstrap without p_funs, fig.width=7, fig.height=10}
+```{r model-bootstrap-without-p_funs, fig.width=7, fig.height=10}
 mb_gam_no_p <- model_bootstrap(
   math, 
   gam_math,
@@ -277,7 +277,7 @@ For most of the rest of this article, we will only analyze the results with ALER
 
 Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated when `ale` is executed and both statistics and plots are requested (which is the case by default) and is accessible with the To focus on all the measures for a specific variable, we can access the `ale$stats$effects_plot` element:
 
-```{r ALE effects plot, fig.width=8, fig.height=6}
+```{r ALE-effects-plot, fig.width=8, fig.height=6}
 mb_gam_math$ale$stats$effects_plot
 ```
 
@@ -311,7 +311,7 @@ ALER shows the extreme values of a variable's effect on the outcome. In the effe
 
 Let's focus on `public`. Here is its ALE plot:
 
-```{r ALE plot for public 1}
+```{r ALE-plot-for-public-1}
 mb_gam_math$ale$plots$public
 ```
 
@@ -329,7 +329,7 @@ The unit for ALER is the same unit as the outcome variable; in our case, that is
 
 For contrast, let us look at a numeric variable, `academic_ratio`:
 
-```{r ALE plot for academic_ratio 1}
+```{r ALE-plot-forl-academic_ratio-1}
 mb_gam_math$ale$plots$academic_ratio
 ```
 
@@ -403,7 +403,7 @@ When we do not have p-values, the NALED is particularly helpful in comparing the
 
 It is particularly striking to note the ALE effect size measures for the random `rand_norm`:
 
-```{r math rand_norm ALE plot, fig.width=3.5, fig.height=3}
+```{r math-rand_norm-ALE-plot, fig.width=3.5, fig.height=3}
 mb_gam_math$ale$plots$rand_norm
 ```
 
@@ -483,7 +483,7 @@ In a bootstrapped ALE plot, values within the confidence intervals are statistic
 
 We can see this, for example, with the plot of `mean_ses`:
 
-```{r ALE plot for mean_ses}
+```{r ALE-plot-for-mean_ses}
 mb_gam_math$ale$plots$mean_ses
 ```
 
@@ -516,7 +516,7 @@ While the wording is rather mechanical, it nonetheless illustrates the potential
 
 Confidence region summary tables are available not only for numeric but also for categorical variables, as we see with `public`. Here is its ALE plot again:
 
-```{r ALE plot for public 2}
+```{r ALE-plot-for-public-2}
 mb_gam_math$ale$plots$public
 ```
 
@@ -532,7 +532,7 @@ Again with the help of `ale:::summarize_conf_regions_in_words`, these results te
 
 Again, our random variable `rand_norm` is particularly interesting. Here is its ALE plot:
 
-```{r ALE plot for rand_norm}
+```{r ALE-plot-for-rand_norm}
 mb_gam_math$ale$plots$rand_norm
 ```
 
