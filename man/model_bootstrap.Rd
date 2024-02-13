@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_bootstrap.R
 \name{model_bootstrap}
 \alias{model_bootstrap}
-\title{model_bootstrap.R}
+\title{Execute full model bootstrapping with ALE calculation on each bootstrap run}
 \usage{
 model_bootstrap(
   data,
@@ -109,9 +109,6 @@ were originally passed are returned for reference.
 }
 }
 \description{
-Execute full model bootstrapping with ALE calculation on each bootstrap run
-}
-\details{
 No modelling results, with or without ALE, should be considered reliable without
 being bootstrapped. For large datasets, normally the model provided to \code{\link[=ale]{ale()}}
 is the final deployment model that has been validated and evaluated on
@@ -147,6 +144,9 @@ Rather, you must first create a p-values function object using the procedure
 described in \code{help(create_p_funs)}. If the name of your p-values object is
 \code{p_funs}, you can then request p-values each time you run \code{model_bootstrap()}
 by passing it the argument \code{ale_options = list(p_values = p_funs)}.
+}
+\details{
+model_bootstrap.R
 }
 \examples{
 

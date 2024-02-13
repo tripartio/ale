@@ -1,8 +1,10 @@
 ##' model_bootstrap.R
 #'
 
+#' @title
 #' Execute full model bootstrapping with ALE calculation on each bootstrap run
 #'
+#' @description
 #' No modelling results, with or without ALE, should be considered reliable without
 #' being bootstrapped. For large datasets, normally the model provided to [ale()]
 #' is the final deployment model that has been validated and evaluated on
