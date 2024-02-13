@@ -137,7 +137,7 @@ ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
 patchwork::wrap_plots(ale_gam_diamonds$plots, ncol = 2)
 ```
 
-<img src="man/figures/README-simple ale-1.png" width="100%" />
+<img src="man/figures/README-simple-ale-1.png" width="100%" />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -190,7 +190,7 @@ ale_gam_diamonds_stats_readme <- url('https://github.com/tripartio/ale/raw/main/
 patchwork::wrap_plots(ale_gam_diamonds_stats_readme$plots, ncol = 2)
 ```
 
-<img src="man/figures/README-stats ale-1.png" width="100%" />
+<img src="man/figures/README-stats-ale-1.png" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect

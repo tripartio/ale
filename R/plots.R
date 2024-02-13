@@ -137,7 +137,7 @@ plot_ale <- function(
 
   plot <- plot +
     scale_y_continuous(
-      sec.axis = if (packageVersion('ggplot2') >= '3.5.0') {
+      sec.axis = if (utils::packageVersion('ggplot2') >= '3.5.0') {
         sec_axis(
           transform = ~ .,  # do not change the scale
           name = NULL,  # no axis title

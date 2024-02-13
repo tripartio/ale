@@ -1,4 +1,4 @@
-# ale (development version)
+# ale 0.3.0
 
 The most significant updates are the addition of p-values for the ALE statistics, the launching of a pkgdown website which will henceforth host the development version of the package, and parallelization of core functions with a resulting performance boost.
 
@@ -8,22 +8,37 @@ The most significant updates are the addition of p-values for the ALE statistics
 
 -   Another change that breaks former code is that the arguments for [model_bootstrap()] have been modified. Instead of a cumbersome `model_call_string`, **[model_bootstrap()] now uses the {insight} package to automatically detect many R models and directly manipulate the model object as needed**. So, the second argument is now the `model` object. However, for non-standard models that {insight} cannot automatically parse, a modified `model_call_string` is still available to assure model-agnostic functionality. Although this change breaks former code that ran [model_bootstrap()], we believe that the new function interface is much more user-friendly.
 
-- A slight change that might break some existing code is that the conf_regions output associated with ALE statistics has been restructured. The new structure provides more useful information. See [help(ale)] for details.
+- A slight change that might break some existing code is that the `conf_regions` output associated with ALE statistics has been restructured. The new structure provides more useful information. See [help(ale)] for details.
 
 ## Other user-visible changes
 
--   The package now uses a pkgdown website located at <https://tripartio.github.io/ale/>. This is where the most recent development features will be documented.
--   P-values are now provided for all ALE statistics. However, their calculation is very slow, so they are disabled by default; they must be explicitly requested. When requested, they will be automatically calculated when possible (for standard R model types); if not, some additional steps must be taken for their calculation. See the new [create_p_funs()] function for details and an example.
--   The normalization formula for ALE statistics was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in the **ALE-based statistics** vignette for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
--   Normalized ALE range (NALER) is now expressed as percentile points relative to the median (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in the **ALE-based statistics** vignette for details.
+-   The package now uses a **`pkgdown` website located at <https://tripartio.github.io/ale/>**. This is where the most recent development features will be documented.
+-   **P-values are now provided for all ALE statistics.** However, their calculation is very slow, so they are disabled by default; they must be explicitly requested. When requested, they will be automatically calculated when possible (for standard R model types); if not, some additional steps must be taken for their calculation. See the new [create_p_funs()] function for details and an example.
+-   The **normalization formula for ALE statistics** was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in `vignette('ale-statistics')` for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.
+-   **Normalized ALE range (NALER) is now expressed as percentile points relative to the median** (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in `vignette('ale-statistics')` for details.
 -   Performance has been dramatically improved by the addition of **parallelization** by default. We use the `{furrr}` library. In our tests, practically, we typically found speed-ups of `n – 2` where `n` is the number of physical cores (machine learning is generally unable to use logical cores). For example, a computer with 4 physical cores should see at least ×2 speed-up and a computer with 6 physical cores should see at least ×4 speed-up. However, parallelization is tricky with our model-agnostic design. When users work with models that follow standard R conventions, the {ale} package should be able to automatically configure the system for parallelization. But for some non-standard models users may have to explicitly list the model's packages in the new `model_packages` argument so that each parallel thread can find all necessary functions. This is only a concern if you get weird errors. See [help(ale)] for details.
+-   Fully documented the output of the [ale()] function. See [help(ale)] for details.
+-   The `median_band_pct` argument to [ale()] now takes a vector of two numbers, one for the inner band and one for the outer.
+-   Switched recommendation of calculating ALE data on test data to instead calculate it on the full dataset with the final deployment model.
+-   Replaced `{gridExtra}` with `{patchwork}` for examples and vignettes for printing plots.
+-   Separated `ale()` function documentation from `ale-package` documentation.
+-   When p-values are provided, the ALE effects plot now shows the NALED band instead of the median band.
+-   `alt` tags to describe plots for accessibility.
+-   More accurate rug plots for ALE interaction plots.
+-   Various minor tweaks to plots.
 
 
 ## Under the hood
 
 -   Uses the {insight} package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the `ale` package in general.
 -   We have switched to using the `{progressr}` package for progress bars. With the `cli` progression handler, this enables accurate estimated times of arrival (ETA) for long procedures, even with parallel computing. A message is displayed once per session informing users of how to customize their progress bars. For details, see [help(ale)], particularly the documentation on progress bars and the `silent` argument.
--   Many minor bug fixes and improvements.
+-   Moved `{ggplot2}` from a dependency to an import. So, it is no longer automatically loaded with the package.
+-   More detailed information from internal `var_summary()` function. In particular, encodes whether the user is using p-values (ALER band) or not (median band).
+-   Separated validation functions that are reused across other functions to internal `validation.R` file.
+-   Added an argument `compact_plots` to plotting functions to strip plot environments to reduce the size of returned objects. See [help(ale)] for details.
+-   Created `package_scope` environment.
+-   Many minor bug fixes and improvements. Improved validation of problematic inputs and more informative error messages.
+-   Various minor performance boosts after profiling and refactoring code.
 
 ## Known issues to be addressed in a future version
 
@@ -32,8 +47,6 @@ The most significant updates are the addition of p-values for the ALE statistics
 -   [ale()] does not yet support multi-output model prediction types (e.g., multi-class classification and multi-time survival probabilities).
 
 # ale 0.2.0
-
-**October 19, 2023**
 
 This version introduces various ALE-based statistics that let ALE be used for statistical inference, not just interpretable machine learning. A dedicated vignette introduces this functionality (see "ALE-based statistics for statistical inference and effect sizes" from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>). We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
@@ -70,8 +83,6 @@ By far the most extensive changes have been to assure the accuracy and stability
 -   ALE statistics are not yet supported for ALE interactions ([ale_ixn()]).
 
 # ale 0.1.0
-
-**August 29, 2023**
 
 This is the first CRAN release of the `ale` package. Here is its official description with the initial release:
 

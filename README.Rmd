@@ -94,7 +94,7 @@ gam_diamonds <- mgcv::gam(
 
 For the simple demonstration, we directly create ALE data with the `ale()` function and then plot the `ggplot` plot objects.
 
-```{r simple ale, fig.width=7, fig.height=11}
+```{r simple-ale, fig.width=7, fig.height=11}
 # Create ALE data
 ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
 
@@ -128,7 +128,7 @@ gam_diamonds_p_funs_readme <- url('https://github.com/tripartio/ale/raw/main/dow
 
 Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:
 
-```{r stats ale, fig.width=7, fig.height=11}
+```{r stats-ale, fig.width=7, fig.height=11}
 # Create ALE data
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it bootstraps the ALE data 100 times,
