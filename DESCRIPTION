@@ -34,7 +34,6 @@ Imports:
     grDevices,
     insight,
     labeling,
-    methods,
     progressr,
     purrr,
     rlang,
@@ -45,8 +44,6 @@ Imports:
     yaImpute
 Depends: 
     R (>= 3.5.0)
-Remotes:
-    tidyverse/ggplot2#5592
 URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3

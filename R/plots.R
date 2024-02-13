@@ -97,46 +97,62 @@ plot_ale <- function(
       ymax = y_summary[['med_hi']],
       fill = 'lightgray'
     ) +
-    # Add a secondary axis to label the percentiles
-    scale_y_continuous(
-      sec.axis = sec_axis(
-        transform = ~ .,  # do not change the scale
-        name = NULL,  # no axis title
-        # Construct secondary (right) axis label from bottom to top.
-        labels = if (names(y_summary[1]) == 'p') {
-          # p-values were provided for y_summary; ALER is used
-          c(
-            # To prevent overlapping text, summarize all details only in the
-            # centre label; leave the others empty
-            '',  #empty
-            glue::glue(
-              'p(ALER)\n',
-              # Unicode ± must be replaced by \u00B1 for CRAN
-              '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
-              '\u00B1{format(p_alpha[1], nsmall = 3)}'),
-            ''  #empty
-          )
-        }
-        else {
-          # without p-values, quantiles are used
-          c(
-            glue::glue('{50-(median_band_pct[2]*100/2)}%'),
-            relative_y,
-            glue::glue('{50+(median_band_pct[2]*100/2)}%')
-          )
-        },
-        breaks = c(
-          y_summary[['med_lo_2']],
-          if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
-          y_summary[['med_hi_2']]
-         ),
-      )
-    ) +
     theme(axis.text.y.right = element_text(size = 8)) +
     labs(
       x = x_col,
       y = y_col,
       alt = glue('ALE plot of {y_col} against {x_col}')
+    )
+
+  # Add a secondary axis to label the percentiles
+  # Construct secondary (right) axis label from bottom to top.
+  sec_labels <- if (names(y_summary[1]) == 'p') {
+    # p-values were provided for y_summary; ALER is used
+    c(
+      # To prevent overlapping text, summarize all details only in the
+      # centre label; leave the others empty
+      '',  #empty
+      glue::glue(
+        'p(ALER)\n',
+        # Unicode ± must be replaced by \u00B1 for CRAN
+        '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
+        '\u00B1{format(p_alpha[1], nsmall = 3)}'),
+      ''  #empty
+    )
+  }
+  else {
+    # without p-values, quantiles are used
+    c(
+      glue::glue('{50-(median_band_pct[2]*100/2)}%'),
+      relative_y,
+      glue::glue('{50+(median_band_pct[2]*100/2)}%')
+    )
+  }
+
+  sec_breaks <- c(
+    y_summary[['med_lo_2']],
+    if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
+    y_summary[['med_hi_2']]
+  )
+
+  plot <- plot +
+    scale_y_continuous(
+      sec.axis = if (packageVersion('ggplot2') >= '3.5.0') {
+        sec_axis(
+          transform = ~ .,  # do not change the scale
+          name = NULL,  # no axis title
+          labels = sec_labels,
+          breaks = sec_breaks
+        )
+      } else {
+        # older versions of ggplot2::sec_axis() used trans argument instead of transform
+        sec_axis(
+          trans = ~ .,
+          name = NULL,
+          labels = sec_labels,
+          breaks = sec_breaks
+        )
+      }
     )
 
 
