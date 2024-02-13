@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -297,8 +297,7 @@ functions with the <code>pred_fun</code> argument.</li>
 all at once:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print plots</span></span>
-<span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20plots-1.png" width="672"></p>
 <p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package plots have various features that
 enhance interpretability:</p>
@@ -322,8 +321,7 @@ scale:</p>
 <code class="sourceCode R"><span><span class="co"># Zero-centred ALE</span></span>
 <span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">nn_ale</span><span class="op">$</span><span class="va">plots</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20zeroed-1.png" width="672"></p>
 <p>With these zero-centred plots, the full range of y values and the rug
 plots give some context that aids interpretation. (If the rugs look
@@ -511,8 +509,7 @@ plots.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_ale_link</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">gbm_ale_link</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20link-1.png" width="672"></p>
 <p>Now we generate ALE data for all two-way interactions and then plot
 them. Again, note the interaction between <code>age</code> and
@@ -603,8 +600,7 @@ middle.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_ale_prob</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">gbm_ale_prob</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20prob-1.png" width="672"></p>
 <p>Finally, we again generate two-way interactions, this time based on
 probabilities instead of on log odds. However, probabilities might not

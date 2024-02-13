@@ -16,7 +16,7 @@ the introductory vignette for this package or the details and examples below."><
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,6 +98,7 @@ the introductory vignette for this package or the details and examples below.</p
 <span>  min_rug_per_interval <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ale_xs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ale_ns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  compact_plots <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -262,8 +263,18 @@ reused for subsequent analyses (for example, for full model bootstrapping;
 see the <code><a href="model_bootstrap.html">model_bootstrap()</a></code> function).</p></dd>
 
 
+<dt>compact_plots</dt>
+<dd><p>logical length 1, default <code>FALSE</code>. When <code>output</code> includes
+'plots', the returned <code>ggplot</code> objects each include the environments of the plots.
+This lets the user modify the plots with all the flexibility of <code>ggplot</code>, but it
+can result in very large return objects (sometimes even hundreds of megabytes
+large). To compact the plots to their bare minimum, set <code>compact_plots = TRUE</code>.
+However, returned plots will not be easily modifiable, so this should only be
+used if you do not want to subsequently modify the plots.</p></dd>
+
+
 <dt>silent</dt>
-<dd><p>logical length 1, default FALSE. If TRUE, do not display any
+<dd><p>logical length 1, default <code>FALSE.</code> If <code>TRUE</code>, do not display any
 non-essential messages during execution (such as progress bars).
 Regardless, any warnings and errors will always display. See details for how
 to enable progress bars.</p></dd>

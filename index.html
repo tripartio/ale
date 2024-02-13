@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,7 +127,7 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Here is a simple example that demonstrates the usage of the model. First, we fit a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset. Then, we can create ALE data with the <code><a href="reference/ale.html">ale()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
+<p>We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span></span>
@@ -142,17 +142,58 @@
 <span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">diamonds_sample</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create ALE data</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds_sample</span>, <span class="va">gam_diamonds</span>,</span>
-<span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="simple-demonstration">Simple demonstration<a class="anchor" aria-label="anchor" href="#simple-demonstration"></a>
+</h3>
+<p>For the simple demonstration, we directly create ALE data with the <code><a href="reference/ale.html">ale()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create ALE data</span></span>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ale.html">ale</a></span><span class="op">(</span><span class="va">diamonds_sample</span>, <span class="va">gam_diamonds</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the ALE data</span></span>
-<span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-gam-and-ale-1.png" width="100%"></p>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-simple-ale-1.png" width="100%"></p>
+<p>For an explanation of these basic features, see the <a href="https://tripartio.github.io/ale/articles/ale-intro.html">introductory vignette</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="statistical-inference-with-ale">Statistical inference with ALE<a class="anchor" aria-label="anchor" href="#statistical-inference-with-ale"></a>
+</h3>
+<p>The statistical functionality of the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is rather slow because it typically involves 100 bootstrap iterations and sometimes a 1,000 random simulations. Even though most functions in the package implement parallel processing by default, such procedures still take some time. So, this statistical demonstration gives you downloadable objects for a rapid demonstration.</p>
+<p>First, we need to create a p-value functions object so that the ALE statistics can be properly distinguished from random effects.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create p-funs object</span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # But it is slow because it retrains the model 100 times,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created p-values object.</span></span>
+<span><span class="co"># gam_diamonds_p_funs_readme &lt;- create_p_funs(</span></span>
+<span><span class="co">#   diamonds_sample, gam_diamonds,</span></span>
+<span><span class="co">#   # Normally should be default 1000, but just 100 for quicker demo</span></span>
+<span><span class="co">#   rand_it = 100</span></span>
+<span><span class="co">#   )</span></span>
+<span><span class="co"># saveRDS(gam_diamonds_p_funs_readme, file.choose())</span></span>
+<span><span class="va">gam_diamonds_p_funs_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_funs_readme.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create ALE data</span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # But it is slow because it bootstraps the ALE data 100 times,</span></span>
+<span><span class="co"># # so this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># ale_gam_diamonds_stats_readme &lt;- ale(</span></span>
+<span><span class="co">#   diamonds_sample, gam_diamonds,</span></span>
+<span><span class="co">#   p_values = gam_diamonds_p_funs_readme,</span></span>
+<span><span class="co">#   boot_it = 100</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds_stats_readme, file.choose())</span></span>
+<span><span class="va">ale_gam_diamonds_stats_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the ALE data</span></span>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_stats_readme</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-stats-ale-1.png" width="100%"></p>
+<p>For a detailed explanation of how to interpret these plots, see the vignette on <a href="https://tripartio.github.io/ale/articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>

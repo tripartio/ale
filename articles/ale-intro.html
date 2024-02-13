@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -382,7 +382,7 @@ call <code>ale_gam_diamonds$plots$carat</code> :</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print%20carat-1.png" width="384"></p>
+<p><img src="ale-intro_files/figure-html/print-carat-1.png" width="384"></p>
 <p>To iterate the list and plot all the ALE plots, we provide here some
 demonstration code using the <code>patchwork</code> package for
 arranging multiple plots in a common plot grid using
@@ -391,9 +391,8 @@ to the <code>grobs</code> argument and we can specify that we want two
 plots per row with the <code>ncol</code> argument.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
-<span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print%20ale_simple-1.png" width="672"></p>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="bootstrapped-ale">Bootstrapped ALE<a class="anchor" aria-label="anchor" href="#bootstrapped-ale"></a>
@@ -438,8 +437,7 @@ we demonstrate it here with only 10 iterations.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
-<span><span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE result. In principle, we should always bootstrap
@@ -506,7 +504,7 @@ plots with <code><a href="https://patchwork.data-imaginist.com/reference/wrap_pl
 <span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-1.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-2.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-3.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-4.png" width="672"><img src="ale-intro_files/figure-html/print%20all%20ale_ixn-5.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/print-all-ale_ixn-1.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-2.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-3.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-4.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-5.png" width="672"></p>
 <p>Because we are printing all plots together with the same
 <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code> statement, some of them might
 appear vertically distorted because each plot is forced to be of the
@@ -516,7 +514,7 @@ carat and depth by referring to it thus:
 <code>ale_ixn_gam_diamonds$plots$carat$depth</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span><span class="op">$</span><span class="va">depth</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print%20specific%20ixn-1.png" width="480"></p>
+<p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
 because there are none here. This is expressed in the graphs by the ALE
 y values all falling in the middle grey band (the median band), which

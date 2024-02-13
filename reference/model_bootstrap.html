@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,6 +77,7 @@
 <span>  ale_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  tidy_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  glance_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  compact_plots <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -155,6 +156,10 @@ except if included in this <code>output</code> argument.</p></li>
 Arguments to pass to the <code><a href="ale.html">ale()</a></code>, <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code>, or <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::glance()</a></code> functions, respectively,
 beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
 statistics, see the details.</p></dd>
+
+
+<dt>compact_plots</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>silent</dt>

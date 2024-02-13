@@ -44,7 +44,7 @@ number specified will be used, including the middle quantile."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.20240212</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,8 +92,8 @@ number specified will be used, including the middle quantile."><meta property="o
     <div class="ref-description section level2">
     <p>This is the central function that manages the creation of ALE data and plots
 for two-way ALE interactions. For simple one-way ALE, see <code><a href="ale.html">ale()</a></code>.
-See documentation there for functionality shared between both functions.
-For details, see the introductory vignette for this package or the details and examples below.</p>
+See documentation there for functionality shared between both functions.</p>
+<p>For details, see the introductory vignette for this package or the details and examples below.</p>
 <p>For the plots, <code>n_y_quant</code> is the number of quantiles into which to
 divide the predicted variable (y). The middle quantiles are grouped specially:</p><ul><li><p>The middle quantile is the first confidence interval of <code>median_band_pct</code>
 (<code>median_band_pct[1]</code>) around the median.
@@ -134,6 +134,7 @@ number specified will be used, including the middle quantile.</p>
 <span>  n_x1_int <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  n_x2_int <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  n_y_quant <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  compact_plots <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -213,6 +214,10 @@ ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).</p></
 <dt>n_y_quant</dt>
 <dd><p>positive scalar integer. Number of intervals over which the range
 of y values is divided for the colour bands of the interaction plot. See details.</p></dd>
+
+
+<dt>compact_plots</dt>
+<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
 
 
 <dt>silent</dt>
