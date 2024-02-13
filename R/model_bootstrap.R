@@ -709,7 +709,7 @@ model_bootstrap <- function (
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          median_band_pct,
+          y_summary,
           # later pass ale_options like compact_plots
           compact_plots = compact_plots
         )

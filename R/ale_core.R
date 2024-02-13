@@ -780,7 +780,12 @@ ale_core <- function (
     }
 
   # Generate summary statistics for y for plotting
-  y_summary <- var_summary(y_vals, median_band_pct, p_values, p_alpha)
+  y_summary <- var_summary(
+    var_vals = y_vals,
+    median_band_pct = median_band_pct,
+    p_funs = p_values,
+    p_alpha = p_alpha
+  )
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
@@ -1069,13 +1074,16 @@ ale_core <- function (
         ales$stats$estimate,
         y_vals,
         y_col,
-        median_band_pct = if (is.null(p_values)) {
+        middle_band = if (is.null(p_values)) {
           median_band_pct
         }
-        else {  # use p-value of NALED
+        else {
+          # Use p-value of NALED:
+          # like median_band_pct, NALED is a percentage value, so it can be a
+          # drop-in replacement, but based on p-values.
           median_band_pct |>
             # p_fun functions are vectorized, so return as many NALED values
-            # as median_band_pct values are provided
+            # as median_band_pct values are provided (2)
             p_values$p_to_random_value$naled() |>
             unname() |>
             (`/`)(100)  # scale NALED from percentage to 0 to 1

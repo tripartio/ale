@@ -681,6 +681,7 @@ create_ale_y_norm_function <- function(y_vals) {
 # Provide a vector of descriptive statistics
 var_summary <- function(
     var_vals,
+    ...,
     median_band_pct = c(0.05, 0.5),
     p_funs = NULL,
     p_alpha = c(0.01, 0.05)
@@ -757,13 +758,13 @@ var_summary <- function(
   }  # as of now, no treatment and no error for non-numeric y
 
   # Encode whether the med values represent p-values or not:
-  # names(s[1]) == 'p': p-values
-  # names(s[1]) == 'q': quantiles (that is, median_band_pct not replaced by p-values)
+  # names(s[1]) == 'p': base p-value
+  # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
   s <- if (is.null(p_funs)) {
-    c(q = 0, s)
+    c(q = median_band_pct[1], s)
   }
   else {
-    c(p = 0, s)
+    c(p = p_alpha[2], s)
   }
 
   return(s)

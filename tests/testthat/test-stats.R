@@ -6,8 +6,6 @@ test_that(
   'Parallelized version does not crash', {
     expect_no_error(
       create_p_funs(
-        # # For testing, just use the same training and test sets
-        # test_cars,
         test_cars,
         cars_gam,
         rand_it = 2,
@@ -24,8 +22,6 @@ test_that(
     skip_on_ci()
 
     pf <- create_p_funs(
-      # # For testing, just use the same training and test sets
-      # test_cars,
       test_cars,
       cars_gam,
       rand_it = 10,
@@ -60,8 +56,6 @@ test_that(
     skip_on_ci()
 
     pf <- create_p_funs(
-      # # For testing, just use the same training and test sets
-      # test_cars,
       test_cars,
       cars_gam,
       random_model_call_string = 'mgcv::gam(

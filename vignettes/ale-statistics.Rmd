@@ -288,8 +288,8 @@ This plot is unusual, so it requires some explanation:
 -   On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks default to five units each from 5 to 20, evenly spaced.
 -   On the top, the outcome variable is expressed as percentiles ranging from 0 (the minimum outcome value in the dataset) to 100 (the maximum). It is divided into 10 deciles of 10% each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
 -   Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slightly lighter align with the percentiles (upper axis).
--   The vertical grey band in the middle is the ALER band, representing the range within which 95% of random variables were fully constrained.
--   The variables on the horizontal axis are sorted by decreasing NALED value (explained below). NALED is the most universal ALE measure of effect size.
+-   The vertical grey band in the middle is the NALED band. Its width is the 0.05 p-value of the NALED (explained below). That is, 95% of random variables had a NALED equal or smaller than that width.
+-   The variables on the horizontal axis are sorted by decreasing ALED and then NALED value (explained below).
 
 Although it is somewhat confusing to have two axes, the percentiles are a direct transformation of the raw outcome values. The first two base ALE effect size measures below are in units of the outcome variable while their normalized versions are in percentiles of the outcome. Thus, the same plot can display the two kinds of measures simultaneously. Referring to this plot can help understand each of the measures, which we proceed to explain in detail.
 
@@ -504,7 +504,7 @@ For numeric variables, the confidence regions summary has one row for each conse
     -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the ALER band.
     -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the ALER band.
 
-These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the median band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the median band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the median band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the median band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the median band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the median band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the median band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.
+These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the median band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the median band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the median band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the median band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the median band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the median band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the median band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.-
 
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 

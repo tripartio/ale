@@ -546,7 +546,7 @@ plot_effects <- function(
     estimates,
     y_vals,
     y_col,
-    median_band_pct = c(0.05, 0.5),
+    middle_band,
     compact_plots = FALSE
 ) {
 
@@ -556,23 +556,22 @@ plot_effects <- function(
     quantile(seq(0, 1, 0.1)) |>
     stats::setNames(seq(-50, 50, 10) |> paste0('%'))
 
-  # Determine key points for the median band
-  median_band_quantiles <- quantile(
+  # Determine key points for the middle_band: naled_band or median_band
+  middle_band_quantiles <- quantile(
     y_vals, c(
       # effects plot only uses the inner median band
-      0.5 - (median_band_pct[1] / 2),
+      0.5 - (middle_band[1] / 2),
       0.5,
-      0.5 + (median_band_pct[1] / 2)
+      0.5 + (middle_band[1] / 2)
     )
   )
-  median_band_lo <- median_band_quantiles[1]
-  median_y       <- median_band_quantiles[2]
-  median_band_hi <- median_band_quantiles[3]
+  middle_band_lo <- middle_band_quantiles[1]
+  median_y       <- middle_band_quantiles[2]
+  middle_band_hi <- middle_band_quantiles[3]
 
   # ALED and NALED should be centred not on the median, but on the middle of the
   # median band. This is visually more intuitive.
-  median_band_mid <- (median_band_lo + median_band_hi) / 2
-
+  middle_band_mid <- (middle_band_lo + middle_band_hi) / 2
 
   # Sort estimates by ALED and convert term to an ordered factor for proper sorting.
   # NALED sometimes gives unusual values because of the normalization.
@@ -624,8 +623,8 @@ plot_effects <- function(
     ) +
     # Plot the median band: the average ± the confidence limits
     geom_rect(
-      xmin = median_band_lo,
-      xmax = median_band_hi,
+      xmin = middle_band_lo,
+      xmax = middle_band_hi,
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'
@@ -642,29 +641,29 @@ plot_effects <- function(
     # ALED/NALED as annotated text above and below white box
     geom_rect(
       aes(
-        xmin = median_band_mid - (.data$aled / 2),
-        xmax = median_band_mid + (.data$aled / 2),
+        xmin = middle_band_mid - (.data$aled / 2),
+        xmax = middle_band_mid + (.data$aled / 2),
         ymin = as.integer(as.factor(.data$term)) - 0.3,
         ymax = as.integer(as.factor(.data$term)) + 0.3,
       ),
       fill = 'white'
     ) +
     geom_text(
-      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = median_band_mid),
+      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = middle_band_mid),
       size = 3, vjust = -1
     ) +
     # Use ( ) as the demarcators of the plot.
     # This visualization should not be confused with a box plot.
     geom_text(
-      aes(label = '(', x = median_band_mid - (.data$aled / 2)),
+      aes(label = '(', x = middle_band_mid - (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = ')', x = median_band_mid + (.data$aled / 2)),
+      aes(label = ')', x = middle_band_mid + (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = median_band_mid),
+      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = middle_band_mid),
       size = 3, vjust = 2
     ) +
     # annotation to explain symbols
