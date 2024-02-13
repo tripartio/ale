@@ -137,23 +137,34 @@ plot_ale <- function(
 
   plot <- plot +
     scale_y_continuous(
-      sec.axis = if (utils::packageVersion('ggplot2') >= '3.5.0') {
-        sec_axis(
-          transform = ~ .,  # do not change the scale
-          name = NULL,  # no axis title
-          labels = sec_labels,
-          breaks = sec_breaks
-        )
-      } else {
-        # older versions of ggplot2::sec_axis() used trans argument instead of transform
-        sec_axis(
-          trans = ~ .,
+      sec.axis = sec_axis(
+          trans = ~ .,  # ggplot2 will change argument to transform
           name = NULL,
           labels = sec_labels,
           breaks = sec_breaks
         )
-      }
     )
+
+  # # Code to adjust after ggplot2 3.5.0
+  # plot <- plot +
+  #   scale_y_continuous(
+  #     sec.axis = if (utils::packageVersion('ggplot2') >= '3.5.0') {
+  #       sec_axis(
+  #         transform = ~ .,  # do not change the scale
+  #         name = NULL,  # no axis title
+  #         labels = sec_labels,
+  #         breaks = sec_breaks
+  #       )
+  #     } else {
+  #       # older versions of ggplot2::sec_axis() used trans argument instead of transform
+  #       sec_axis(
+  #         trans = ~ .,
+  #         name = NULL,
+  #         labels = sec_labels,
+  #         breaks = sec_breaks
+  #       )
+  #     }
+  #   )
 
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
