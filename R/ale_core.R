@@ -72,7 +72,7 @@
 #' prints a message notifying the user.
 #'
 #' If you like the default progress bars and you want to make them permanent, then you
-#' can [add the following lines of code to your .Rprofile configuration file](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf)
+#' can add the following lines of code to your `.Rprofile` configuration file
 #' and they will become your defaults for every R session; you will not see the
 #' message again:
 #' ```R
