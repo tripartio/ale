@@ -3,20 +3,40 @@
 library(shiny)
 library(shinyTree)
 
+# increase maximum file upload size
 # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
 options(shiny.maxRequestSize=200*1024^2)
 
 # Define server logic required to draw a histogram
 function(input, output, session) {
 
+  # Establish reactive variables that will be reused often
+  ale_obj <- reactive({
+    readRDS(input$ale_file$datapath)
+  })
+
+  selected_obj <- reactive({
+    tree <- input$ale_tree
+    req(tree)
+    selected <- get_selected(tree)
+
+    selected_path <- c(
+      attr(selected[[1]], 'ancestry'),
+      selected[[1]]
+    )
+
+    ale_obj() |>
+      purrr::pluck(!!!selected_path)
+  })
+
   output$ale_tree <- renderTree({
-    ale_obj <- readRDS(input$ale_file$datapath)
-    req(ale_obj)
+    # ale_obj <- readRDS(input$ale_file$datapath)
+    req(ale_obj())
 
     # Create a mirror ale structure without heavy rich objects.
     # This will be the tree structure for navigation.
     ale_str <-
-      ale_obj |>
+      ale_obj() |>
       # only transform "leaf" objects, that is, those that are not themselves
       # iterable lists
       purrr::modify_tree(leaf = \(.leaf) {
@@ -39,11 +59,50 @@ function(input, output, session) {
     req(tree)
     get_selected(tree)
   })
-  output$sel_slices <- renderPrint({
-    tree <- input$ale_tree
-    req(tree)
-    get_selected(tree, format = "slices")
+  output$str <- renderPrint({
+    selected_obj()
+    # tree <- input$ale_tree
+    # req(tree)
+    # selected <- get_selected(tree)
+    #
+    # selected_path <- c(
+    #   attr(selected[[1]], 'ancestry'),
+    #   selected[[1]]
+    # )
+    #
+    # ale_obj() |>
+    #   purrr::pluck(!!!selected_path)
   })
+
+  # ChatGPT
+  # Dynamically render the appropriate UI component based on the object type
+  output$dynamicOutput <- renderUI({
+    if(is.null(selected_obj())) {
+      return()
+    }
+
+    if(is.data.frame(selected_obj())) {
+      DT::DTOutput("dfOutput")
+    } else if(is.ggplot(selected_obj())) {
+      plotlyOutput("plotOutput")
+    } else {
+      verbatimTextOutput("vectorOutput")
+    }
+  })
+
+  # Render the selected object based on its type
+  output$vectorOutput <- renderText({
+    selected_obj()
+  })
+
+  output$dfOutput <- renderDT({
+    selected_obj()
+  })
+
+  output$plotOutput <- renderPlotly({
+    ggplotly(selected_obj(), dynamicTicks = TRUE)
+  })
+
 
 }
 
@@ -62,7 +121,8 @@ function(input, output, session) {
 #       tmp_ale$y_summary,
 #       compact_plots = TRUE,
 #     )
-#   })
+#   }) |>
+#   purrr::set_names(names(tmp_ale$data))
 #
 # saveRDS(tmp_ale, file.choose())
 #

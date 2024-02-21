@@ -17,8 +17,8 @@ fluidPage(
 
     mainPanel(
       verbatimTextOutput("sel_names"),
-      verbatimTextOutput("sel_slices"),
-
+      verbatimTextOutput("str"),
+      uiOutput("dynamicOutput")
     )
   )
 )
