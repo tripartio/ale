@@ -4,6 +4,7 @@ library(shiny)
 library(shinyTree)
 library(DT)
 library(plotly)
+library(shinyjs)
 
 # increase maximum file upload size
 # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
@@ -30,6 +31,12 @@ function(input, output, session) {
     ale_obj() |>
       purrr::pluck(!!!selected_path)
   })
+
+  # Toggle file reader
+  observeEvent(
+    input$toggle_file_read,
+    toggleElement(id = 'read_file')
+  )
 
   output$ale_tree <- renderTree({
     # Only display ale_tree if a file has been selected
