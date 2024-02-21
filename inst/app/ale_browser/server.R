@@ -2,6 +2,8 @@
 
 library(shiny)
 library(shinyTree)
+library(DT)
+library(plotly)
 
 # increase maximum file upload size
 # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
@@ -30,8 +32,8 @@ function(input, output, session) {
   })
 
   output$ale_tree <- renderTree({
-    # ale_obj <- readRDS(input$ale_file$datapath)
-    req(ale_obj())
+    # Only display ale_tree if a file has been selected
+    req(input$ale_file)
 
     # Create a mirror ale structure without heavy rich objects.
     # This will be the tree structure for navigation.
@@ -53,26 +55,26 @@ function(input, output, session) {
     ale_str
   })
 
-  # \lib\shinyTree\examples\04-selected
-  output$sel_names <- renderPrint({
-    tree <- input$ale_tree
-    req(tree)
-    get_selected(tree)
-  })
-  output$str <- renderPrint({
-    selected_obj()
-    # tree <- input$ale_tree
-    # req(tree)
-    # selected <- get_selected(tree)
-    #
-    # selected_path <- c(
-    #   attr(selected[[1]], 'ancestry'),
-    #   selected[[1]]
-    # )
-    #
-    # ale_obj() |>
-    #   purrr::pluck(!!!selected_path)
-  })
+  # # \lib\shinyTree\examples\04-selected
+  # output$sel_names <- renderPrint({
+  #   tree <- input$ale_tree
+  #   req(tree)
+  #   get_selected(tree)
+  # })
+  # output$str <- renderPrint({
+  #   selected_obj()
+  #   # tree <- input$ale_tree
+  #   # req(tree)
+  #   # selected <- get_selected(tree)
+  #   #
+  #   # selected_path <- c(
+  #   #   attr(selected[[1]], 'ancestry'),
+  #   #   selected[[1]]
+  #   # )
+  #   #
+  #   # ale_obj() |>
+  #   #   purrr::pluck(!!!selected_path)
+  # })
 
   # ChatGPT
   # Dynamically render the appropriate UI component based on the object type
@@ -84,7 +86,18 @@ function(input, output, session) {
     if(is.data.frame(selected_obj())) {
       DT::DTOutput("dfOutput")
     } else if(is.ggplot(selected_obj())) {
-      plotlyOutput("plotOutput")
+      # Return a UI with both plotlyOutput and plotOutput
+      list(
+        tags$h3('ALE plot'),
+        plotOutput("plotOutput"),
+        tags$h3('Zoomable version of the plot'),
+        tags$p(paste0(
+          'Unfortunately, the zoomable version does not support all the features ',
+          'of the full plot version. However, its zoom features are nonetheless ',
+          'useful.'
+        )),
+        plotlyOutput("plotlyOutput")
+      )
     } else {
       verbatimTextOutput("vectorOutput")
     }
@@ -99,7 +112,10 @@ function(input, output, session) {
     selected_obj()
   })
 
-  output$plotOutput <- renderPlotly({
+  output$plotOutput <- renderPlot({
+    selected_obj()
+  })
+  output$plotlyOutput <- renderPlotly({
     ggplotly(selected_obj(), dynamicTicks = TRUE)
   })
 

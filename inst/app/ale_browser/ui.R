@@ -16,8 +16,8 @@ fluidPage(
     ),
 
     mainPanel(
-      verbatimTextOutput("sel_names"),
-      verbatimTextOutput("str"),
+      # verbatimTextOutput("sel_names"),
+      # verbatimTextOutput("str"),
       uiOutput("dynamicOutput")
     )
   )
