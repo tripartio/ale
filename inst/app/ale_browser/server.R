@@ -62,27 +62,6 @@ function(input, output, session) {
     ale_str
   })
 
-  # # \lib\shinyTree\examples\04-selected
-  # output$sel_names <- renderPrint({
-  #   tree <- input$ale_tree
-  #   req(tree)
-  #   get_selected(tree)
-  # })
-  # output$str <- renderPrint({
-  #   selected_obj()
-  #   # tree <- input$ale_tree
-  #   # req(tree)
-  #   # selected <- get_selected(tree)
-  #   #
-  #   # selected_path <- c(
-  #   #   attr(selected[[1]], 'ancestry'),
-  #   #   selected[[1]]
-  #   # )
-  #   #
-  #   # ale_obj() |>
-  #   #   purrr::pluck(!!!selected_path)
-  # })
-
   # ChatGPT
   # Dynamically render the appropriate UI component based on the object type
   output$dynamicOutput <- renderUI({
@@ -93,10 +72,10 @@ function(input, output, session) {
     if(is.data.frame(selected_obj())) {
       DT::DTOutput("dfOutput")
     } else if(is.ggplot(selected_obj())) {
-      # Return a UI with both plotlyOutput and plotOutput
+      # Return a UI with both plotlyOutput and nav_ggplot
       list(
         tags$h3('ALE plot'),
-        plotOutput("plotOutput"),
+        plotOutput("nav_ggplot"),
         tags$h3('Zoomable version of the plot'),
         tags$p(paste0(
           'Unfortunately, the zoomable version does not support all the features ',
@@ -112,14 +91,33 @@ function(input, output, session) {
 
   # Render the selected object based on its type
   output$vectorOutput <- renderText({
-    selected_obj()
+    vec <- selected_obj()
+
+    # Only output atomic types; lists return an error
+    vec <- if (is.atomic(vec)) {
+      vec
+    } else {
+      NULL
+    }
+
+    vec
   })
 
   output$dfOutput <- renderDT({
-    selected_obj()
+    dt <- selected_obj()
+
+    # Get numeric columns that are not integers
+    decimal_columns <-
+      dt |>
+      select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
+      names()
+
+    dt |>
+      # Format decimal columns with 3 decimal places
+      mutate(across(decimal_columns, \(.col) round(.col, 3)))
   })
 
-  output$plotOutput <- renderPlot({
+  output$nav_ggplot <- renderPlot({
     selected_obj()
   })
   output$plotlyOutput <- renderPlotly({

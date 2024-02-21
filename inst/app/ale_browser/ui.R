@@ -49,7 +49,13 @@ fluidPage(
       ),
 
       tabPanel(
-        'Plots'
+        'Plots',
+        sidebarLayout(
+          sidebarPanel(
+          ),
+          mainPanel(
+          )
+        )
       ),
 
       tabPanel(
