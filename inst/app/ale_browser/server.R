@@ -13,8 +13,9 @@ options(shiny.maxRequestSize=200*1024^2)
 # Define server logic required to draw a histogram
 function(input, output, session) {
 
-  # Establish reactive variables that will be reused often
+  ## Establish reactive variables that will be reused often ---------------
   ale_obj <- reactive({
+    req(input$ale_file)
     readRDS(input$ale_file$datapath)
   })
 
@@ -32,11 +33,30 @@ function(input, output, session) {
       purrr::pluck(!!!selected_path)
   })
 
+  # Populate vector of x_cols
+  x_cols <- reactive({
+    ale_obj()$x_cols
+  })
+
+
+  ## Populate and configure UI elements ----------------
+
+  observe({
+    updatePickerInput(
+      session,
+      'x_cols_input',
+      choices = x_cols()
+    )
+  })
+
   # Toggle file reader
   observeEvent(
     input$toggle_file_read,
     toggleElement(id = 'read_file')
   )
+
+
+  ## Navigation tab ----------
 
   output$ale_tree <- renderTree({
     # Only display ale_tree if a file has been selected
@@ -62,17 +82,16 @@ function(input, output, session) {
     ale_str
   })
 
-  # ChatGPT
   # Dynamically render the appropriate UI component based on the object type
-  output$dynamicOutput <- renderUI({
+  output$nav_output <- renderUI({
     if(is.null(selected_obj())) {
       return()
     }
 
     if(is.data.frame(selected_obj())) {
-      DT::DTOutput("dfOutput")
+      DT::DTOutput("nav_df")
     } else if(is.ggplot(selected_obj())) {
-      # Return a UI with both plotlyOutput and nav_ggplot
+      # Return a UI with both nav_plotly and nav_ggplot
       list(
         tags$h3('ALE plot'),
         plotOutput("nav_ggplot"),
@@ -82,15 +101,15 @@ function(input, output, session) {
           'of the full plot version. However, its zoom features are nonetheless ',
           'useful.'
         )),
-        plotlyOutput("plotlyOutput")
+        plotlyOutput("nav_plotly")
       )
     } else {
-      verbatimTextOutput("vectorOutput")
+      verbatimTextOutput("atomic_output")
     }
   })
 
   # Render the selected object based on its type
-  output$vectorOutput <- renderText({
+  output$atomic_output <- renderPrint({
     vec <- selected_obj()
 
     # Only output atomic types; lists return an error
@@ -103,7 +122,7 @@ function(input, output, session) {
     vec
   })
 
-  output$dfOutput <- renderDT({
+  output$nav_df <- renderDT({
     dt <- selected_obj()
 
     # Get numeric columns that are not integers
@@ -120,11 +139,18 @@ function(input, output, session) {
   output$nav_ggplot <- renderPlot({
     selected_obj()
   })
-  output$plotlyOutput <- renderPlotly({
+  output$nav_plotly <- renderPlotly({
     ggplotly(selected_obj(), dynamicTicks = TRUE)
   })
 
 
+  ## Plot tab -------------
+
+  output$plot <- renderPlot({
+    req(input$x_cols_input)
+    ale_obj()$plots[input$x_cols_input] |>
+      patchwork::wrap_plots()
+  })
 }
 
 
