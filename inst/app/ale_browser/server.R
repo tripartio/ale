@@ -6,6 +6,7 @@ library(DT)
 library(plotly)
 library(shinyjs)
 library(shinyWidgets)
+library(dplyr)
 
 # increase maximum file upload size
 # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
@@ -229,7 +230,8 @@ function(input, output, session) {
   output$plot <- renderPlot({
     req(input$plot_pick_x_cols)
     ale_obj()$plots[input$plot_pick_x_cols] |>
-      patchwork::wrap_plots()
+      patchwork::wrap_plots() +
+      patchwork::plot_layout(axes = 'collect')
   })
 
   # Dynamically change height of output$plot_placeholder depending on
