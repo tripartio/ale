@@ -1,14 +1,12 @@
 # Browse an ale object
 
 library(shiny)
-library(shinyTree)
-library(shinyjs)
-library(shinyWidgets)
 
 # Define UI for application that draws a histogram
 fluidPage(
-  useShinyjs(),
+  shinyjs::useShinyjs(),
 
+  # Title --------------------
   titlePanel(
     # Title is clickable to toggle the file reader
     title = tagList(
@@ -21,7 +19,7 @@ fluidPage(
     )
   ),
 
-  # File reader; collapsible by clicking the title
+  ## File reader; collapsible by clicking the title -------------
   fluidRow(
     div(
       id = 'read_file',
@@ -31,59 +29,103 @@ fluidPage(
     )
   ),
 
-  # The main UI, which depends on the ale object file that has been read in
+  # The main UI, which depends on the ale object file that has been read in -----------
   fluidRow(
     navbarPage(
       '',  # no navbar title
 
-      # Navigator that allows free browsing of the ale object
-      tabPanel(
-        'Navigate',
-        sidebarLayout(
-          sidebarPanel(
-            shinyTree('ale_tree'),
-          ),
-          mainPanel(
-            uiOutput("nav_output")
-          )
-        )
-      ),
-
+      ## Plots tab --------------
       tabPanel(
         'Plots',
         sidebarLayout(
+
           sidebarPanel(
-            pickerInput(
-              'x_cols_input', 'Select the variables to plot',
+            shinyWidgets::pickerInput(
+              'plot_pick_x_cols', 'Select the variables to plot',
               choices = NULL,
               multiple = TRUE,
               options = list(`actions-box` = TRUE)
-            )
+            ),
+            tags$strong('Click column headers to sort the order of variables in the plots:'),
+            DT::DTOutput('plot_sort_tbl', height = '400px'),
+            tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
+            tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
+            verbatimTextOutput('plot_sort_order')
           ),
+
           mainPanel(
-            list(
-              plotOutput("plot"),
-              tags$strong('Zoomable version of the plot'),
+            uiOutput("plot_placeholder"),
+            # plotOutput("plot", height = '800px'),
+            conditionalPanel(
+              'input.plot_pick_x_cols.length == 1',
+              tags$hr(),
+              tags$h3('Confidence regions'),
               tags$em(paste0(
-                'Unfortunately, the zoomable version does not support all the features ',
-                'of the full plot version. However, its zoom features are nonetheless ',
-                'useful.'
+                'Confidence regions are the regions of the x variables where ',
+                'the ALE y values have meaningful or statistically significant ',
+                'values.'
               )),
-              plotlyOutput("plotly_plot")
+              DT::DTOutput('plot_conf_tbl'),
+              tags$hr(),
+              tags$h3('Interactive plot'),
+              tags$em(paste0(
+                'Unfortunately, this interactive version does not support all the features ',
+                'of the full plot version. However, its interactive features are nonetheless ',
+                'useful: hover your mouse over the icons on the top right to see what they do.'
+              )),
+              plotly::plotlyOutput('plotly_plot'),
+            ),
+            conditionalPanel(
+              'input.plot_pick_x_cols.length > 1',
+              tags$hr(),
+              tags$em(paste0(
+                'The interactive version is only available for single plots, ',
+                'not for multiple plots.'
+              )),
             )
           )
         )
       ),
 
+      ## Statistics tab ------------
       tabPanel(
         'Statistics',
         sidebarLayout(
           sidebarPanel(
+            shinyTree::shinyTree('stats_tree'),
           ),
           mainPanel(
+            tags$h3('ALE statistics'),
+            DT::DTOutput('stats_tbl'),
+            conditionalPanel(
+              'true',
+              tags$hr(),
+              tags$h3('Confidence regions'),
+              tags$em(paste0(
+                'Confidence regions are the regions of the x variables where ',
+                'the ALE y values have meaningful or statistically significant ',
+                'values.'
+              )),
+              DT::DTOutput('conf_tbl'),
+            )
           )
         )
-      )
+      ),
+
+      ## Navigator that allows free browsing of the ale object --------
+      tabPanel(
+        'ALE data',
+        sidebarLayout(
+          sidebarPanel(
+            shinyTree::shinyTree('ale_tree'),
+          ),
+          mainPanel(
+            uiOutput("ale_data_output")
+          )
+        )
+      ),
+
+
     )
   )
 )

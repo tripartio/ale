@@ -5,6 +5,7 @@ library(shinyTree)
 library(DT)
 library(plotly)
 library(shinyjs)
+library(shinyWidgets)
 
 # increase maximum file upload size
 # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
@@ -14,15 +15,29 @@ options(shiny.maxRequestSize=200*1024^2)
 function(input, output, session) {
 
   ## Establish reactive variables that will be reused often ---------------
+
+  # If the environment does not have an initial_ale_obj,
+  # the user can use the file reader to read one in.
   ale_obj <- reactive({
-    req(input$ale_file)
-    readRDS(input$ale_file$datapath)
+    # # call interactively to set environment
+    # initial_ale_obj <- readRDS(file.choose())
+
+    if (exists('initial_ale_obj')) {
+      return(initial_ale_obj)
+    }
+    else {
+      req(input$ale_file)
+      return(readRDS(input$ale_file$datapath))
+    }
+
   })
 
   selected_obj <- reactive({
-    tree <- input$ale_tree
-    req(tree)
-    selected <- get_selected(tree)
+    req(input$ale_tree)
+
+    selected <- get_selected(input$ale_tree)
+    # stop if nothing is selected yet
+    req(!identical(selected, list()))
 
     selected_path <- c(
       attr(selected[[1]], 'ancestry'),
@@ -41,14 +56,6 @@ function(input, output, session) {
 
   ## Populate and configure UI elements ----------------
 
-  observe({
-    updatePickerInput(
-      session,
-      'x_cols_input',
-      choices = x_cols()
-    )
-  })
-
   # Toggle file reader
   observeEvent(
     input$toggle_file_read,
@@ -60,7 +67,8 @@ function(input, output, session) {
 
   output$ale_tree <- renderTree({
     # Only display ale_tree if a file has been selected
-    req(input$ale_file)
+    req(ale_obj())
+    # req(input$ale_file)
 
     # Create a mirror ale structure without heavy rich objects.
     # This will be the tree structure for navigation.
@@ -83,25 +91,25 @@ function(input, output, session) {
   })
 
   # Dynamically render the appropriate UI component based on the object type
-  output$nav_output <- renderUI({
+  output$ale_data_output <- renderUI({
     if(is.null(selected_obj())) {
       return()
     }
 
     if(is.data.frame(selected_obj())) {
-      DT::DTOutput("nav_df")
+      DT::DTOutput("ale_data_df")
     } else if(is.ggplot(selected_obj())) {
-      # Return a UI with both nav_plotly and nav_ggplot
+      # Return a UI with both ale_data_plotly and ale_data_ggplot
       list(
         tags$h3('ALE plot'),
-        plotOutput("nav_ggplot"),
+        plotOutput("ale_data_ggplot"),
         tags$h3('Zoomable version of the plot'),
         tags$p(paste0(
           'Unfortunately, the zoomable version does not support all the features ',
           'of the full plot version. However, its zoom features are nonetheless ',
           'useful.'
         )),
-        plotlyOutput("nav_plotly")
+        plotlyOutput("ale_data_plotly")
       )
     } else {
       verbatimTextOutput("atomic_output")
@@ -122,34 +130,137 @@ function(input, output, session) {
     vec
   })
 
-  output$nav_df <- renderDT({
-    dt <- selected_obj()
-
+  decimal_df <- function(df, dp = 3) {
     # Get numeric columns that are not integers
     decimal_columns <-
-      dt |>
+      df |>
       select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
       names()
 
-    dt |>
-      # Format decimal columns with 3 decimal places
-      mutate(across(decimal_columns, \(.col) round(.col, 3)))
+    df |>
+      # Format decimal columns with dp decimal places
+      mutate(across(decimal_columns, \(.col) round(.col, dp)))
+  }
+
+  output$ale_data_df <- renderDT({
+    selected_obj() |> decimal_df()
   })
 
-  output$nav_ggplot <- renderPlot({
+  output$ale_data_ggplot <- renderPlot({
     selected_obj()
   })
-  output$nav_plotly <- renderPlotly({
+  output$ale_data_plotly <- renderPlotly({
     ggplotly(selected_obj(), dynamicTicks = TRUE)
   })
 
 
   ## Plot tab -------------
 
+  ### Sidebar -------------
+
+  # Whenever x_cols() is updated (new ale object), update plot options
+  observe({
+    # browser()
+    updatePickerInput(
+      session,
+      'plot_pick_x_cols',
+      choices = x_cols()
+    )
+  })
+  # Whenever plot_sort_order() is updated, update plot options
+  observe({
+    # browser()
+    updatePickerInput(
+      session,
+      'plot_pick_x_cols',
+      choices = plot_sort_order()
+    )
+  })
+
+  estimate_tbl <- reactive({
+    ale_obj()$stats$estimate
+  })
+
+  # Table to use to sort plot columns in lists
+  output$plot_sort_tbl <- renderDT(
+    expr = {
+      req(ale_obj())
+
+      estimate_tbl() |>
+        decimal_df()
+    },
+    fillContainer = TRUE,
+    options = list(
+      searching = FALSE,
+      paging = FALSE,
+      className = 'compact'
+    )
+  )
+
+  plot_sort_order <- reactive({
+    # browser()
+    req(!is.null(input$plot_sort_tbl_state))
+    req(length(input$plot_sort_tbl_state$order) > 0)
+
+    # sort column index + 1 (convert 0-based DT to 1-based R)
+    sort_col_idx <- input$plot_sort_tbl_state$order[[1]][[1]]#+ 1
+    sort_col     <- names(estimate_tbl())[sort_col_idx]
+    sort_dir     <- input$plot_sort_tbl_state$order[[1]][[2]]
+
+    sorted_asc <- estimate_tbl() |>
+      arrange(.data[[sort_col]]) |>
+      pull(term) |>
+      unname()
+
+    if (sort_dir == 'asc') {
+      return(sorted_asc)
+    } else {
+      return(rev(sorted_asc))
+    }
+  })
+
+  output$plot_sort_order <- renderPrint({
+    # input$plot_sort_tbl_state
+    plot_sort_order()
+  })
+
+  ### Main panel -------------
+
   output$plot <- renderPlot({
-    req(input$x_cols_input)
-    ale_obj()$plots[input$x_cols_input] |>
+    req(input$plot_pick_x_cols)
+    ale_obj()$plots[input$plot_pick_x_cols] |>
       patchwork::wrap_plots()
+  })
+
+  # Dynamically change height of output$plot_placeholder depending on
+  # number of input$plot_pick_x_cols columns
+  output$plot_placeholder <- renderUI({
+    req(input$plot_pick_x_cols)
+
+    plotOutput(
+      'plot',
+      height = if (length(input$plot_pick_x_cols) <= 3) {
+        '400px'
+      } else {
+        '800px'
+      }
+    )
+  })
+
+  output$plot_conf_tbl <- renderDT({
+    req(input$plot_pick_x_cols)
+    req(length(input$plot_pick_x_cols) == 1)
+
+    ale_obj()$conf_regions$by_term[[input$plot_pick_x_cols]] |>
+      decimal_df()
+  })
+
+  output$plotly_plot <- renderPlotly({
+    req(input$plot_pick_x_cols)
+    req(length(input$plot_pick_x_cols) == 1)
+
+    ale_obj()$plots[[input$plot_pick_x_cols]] |>
+      ggplotly(dynamicTicks = TRUE)
   })
 }
 
