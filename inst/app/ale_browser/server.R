@@ -15,7 +15,22 @@ options(shiny.maxRequestSize=200*1024^2)
 # Define server logic required to draw a histogram
 function(input, output, session) {
 
-  ## Establish reactive variables that will be reused often ---------------
+  ## Internal functions and variables ----------------
+
+  decimal_df <- function(df, dp = 3) {
+    # Get numeric columns that are not integers
+    decimal_columns <-
+      df |>
+      select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
+      names()
+
+    df |>
+      # Format decimal columns with dp decimal places
+      mutate(across(decimal_columns, \(.col) round(.col, dp)))
+  }
+
+
+  ### Establish reactive variables that will be reused often ---------------
 
   # If the environment does not have an initial_ale_obj,
   # the user can use the file reader to read one in.
@@ -32,6 +47,26 @@ function(input, output, session) {
     }
 
   })
+
+  ale_str <- reactive({
+    ale_obj() |>
+      # only transform "leaf" objects, that is, those that are not themselves
+      # iterable lists
+      purrr::modify_tree(leaf = \(.leaf) {
+        if (is.list(.leaf)) {
+          # .leaf is a "rich object"; represent it as a special .object element
+          .class <- class(.leaf)
+          .leaf <- '.object'
+          attr(.leaf, 'obj_type') <- .class
+        }
+
+        .leaf
+      })
+  })
+
+
+
+
 
   selected_obj <- reactive({
     req(input$ale_tree)
@@ -63,96 +98,6 @@ function(input, output, session) {
     toggleElement(id = 'read_file')
   )
 
-
-  ## Navigation tab ----------
-
-  output$ale_tree <- renderTree({
-    # Only display ale_tree if a file has been selected
-    req(ale_obj())
-    # req(input$ale_file)
-
-    # Create a mirror ale structure without heavy rich objects.
-    # This will be the tree structure for navigation.
-    ale_str <-
-      ale_obj() |>
-      # only transform "leaf" objects, that is, those that are not themselves
-      # iterable lists
-      purrr::modify_tree(leaf = \(.leaf) {
-        if (is.list(.leaf)) {
-          # .leaf is a "rich object"; represent it as a special .object element
-          .class <- class(.leaf)
-          .leaf <- '.object'
-          attr(.leaf, 'obj_type') <- .class
-        }
-
-        .leaf
-      })
-
-    ale_str
-  })
-
-  # Dynamically render the appropriate UI component based on the object type
-  output$ale_data_output <- renderUI({
-    if(is.null(selected_obj())) {
-      return()
-    }
-
-    if(is.data.frame(selected_obj())) {
-      DT::DTOutput("ale_data_df")
-    } else if(is.ggplot(selected_obj())) {
-      # Return a UI with both ale_data_plotly and ale_data_ggplot
-      list(
-        tags$h3('ALE plot'),
-        plotOutput("ale_data_ggplot"),
-        tags$h3('Zoomable version of the plot'),
-        tags$p(paste0(
-          'Unfortunately, the zoomable version does not support all the features ',
-          'of the full plot version. However, its zoom features are nonetheless ',
-          'useful.'
-        )),
-        plotlyOutput("ale_data_plotly")
-      )
-    } else {
-      verbatimTextOutput("atomic_output")
-    }
-  })
-
-  # Render the selected object based on its type
-  output$atomic_output <- renderPrint({
-    vec <- selected_obj()
-
-    # Only output atomic types; lists return an error
-    vec <- if (is.atomic(vec)) {
-      vec
-    } else {
-      NULL
-    }
-
-    vec
-  })
-
-  decimal_df <- function(df, dp = 3) {
-    # Get numeric columns that are not integers
-    decimal_columns <-
-      df |>
-      select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
-      names()
-
-    df |>
-      # Format decimal columns with dp decimal places
-      mutate(across(decimal_columns, \(.col) round(.col, dp)))
-  }
-
-  output$ale_data_df <- renderDT({
-    selected_obj() |> decimal_df()
-  })
-
-  output$ale_data_ggplot <- renderPlot({
-    selected_obj()
-  })
-  output$ale_data_plotly <- renderPlotly({
-    ggplotly(selected_obj(), dynamicTicks = TRUE)
-  })
 
 
   ## Plot tab -------------
@@ -264,6 +209,82 @@ function(input, output, session) {
     ale_obj()$plots[[input$plot_pick_x_cols]] |>
       ggplotly(dynamicTicks = TRUE)
   })
+
+
+  ## Statistics tab ------------
+
+  output$stats_stats_tree <- renderTree({
+    ale_str()$stats[c('estimate', 'by_term', 'by_statistic')]
+  })
+
+  output$stats_conf_tree <- renderTree({
+    ale_str()$conf_regions
+  })
+
+  output$stats_effects_plot <- renderPlotly({
+    ale_obj()$stats$effects_plots |>
+      ggplotly(dynamicTicks = TRUE)
+  })
+
+
+  ## ALE data tab ----------
+
+  output$ale_tree <- renderTree({
+    ale_str()
+  })
+
+  # Dynamically render the appropriate UI component based on the object type
+  output$ale_data_output <- renderUI({
+    if(is.null(selected_obj())) {
+      return()
+    }
+
+    if(is.data.frame(selected_obj())) {
+      DT::DTOutput("ale_data_df")
+    } else if(is.ggplot(selected_obj())) {
+      # Return a UI with both ale_data_plotly and ale_data_ggplot
+      list(
+        tags$h3('ALE plot'),
+        plotOutput("ale_data_ggplot"),
+        tags$h3('Zoomable version of the plot'),
+        tags$p(paste0(
+          'Unfortunately, the zoomable version does not support all the features ',
+          'of the full plot version. However, its zoom features are nonetheless ',
+          'useful.'
+        )),
+        plotlyOutput("ale_data_plotly")
+      )
+    } else {
+      verbatimTextOutput("ale_atomic_output")
+    }
+  })
+
+  # Render the selected object based on its type
+  output$ale_atomic_output <- renderPrint({
+    vec <- selected_obj()
+
+    # Only output atomic types; lists return an error
+    vec <- if (is.atomic(vec)) {
+      vec
+    } else {
+      NULL
+    }
+
+    vec
+  })
+
+  output$ale_data_df <- renderDT({
+    selected_obj() |> decimal_df()
+  })
+
+  output$ale_data_ggplot <- renderPlot({
+    selected_obj()
+  })
+  output$ale_data_plotly <- renderPlotly({
+    ggplotly(selected_obj(), dynamicTicks = TRUE)
+  })
+
+
 }
 
 

@@ -90,25 +90,36 @@ fluidPage(
       ## Statistics tab ------------
       tabPanel(
         'Statistics',
-        sidebarLayout(
-          sidebarPanel(
-            shinyTree::shinyTree('stats_tree'),
+
+        verticalLayout(
+          sidebarLayout(
+            sidebarPanel(
+              shinyTree::shinyTree('stats_stats_tree'),
+            ),
+            mainPanel(
+              tags$h3('ALE statistics'),
+              DT::DTOutput('stats_stats_tbl'),
+            )
           ),
-          mainPanel(
-            tags$h3('ALE statistics'),
-            DT::DTOutput('stats_tbl'),
-            conditionalPanel(
-              'true',
-              tags$hr(),
+
+          sidebarLayout(
+            sidebarPanel(
+              shinyTree::shinyTree('stats_conf_tree'),
+            ),
+            mainPanel(
               tags$h3('Confidence regions'),
               tags$em(paste0(
                 'Confidence regions are the regions of the x variables where ',
                 'the ALE y values have meaningful or statistically significant ',
                 'values.'
               )),
-              DT::DTOutput('conf_tbl'),
+              DT::DTOutput('stats_conf_tbl'),
             )
-          )
+          ),
+
+          h3('ALE effects plot'),
+          plotly::plotlyOutput('stats_effects_plot'),
+
         )
       ),
 
