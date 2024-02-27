@@ -48,41 +48,9 @@ function(input, output, session) {
 
   })
 
-  ale_str <- reactive({
-    ale_obj() |>
-      # only transform "leaf" objects, that is, those that are not themselves
-      # iterable lists
-      purrr::modify_tree(leaf = \(.leaf) {
-        if (is.list(.leaf)) {
-          # .leaf is a "rich object"; represent it as a special .object element
-          .class <- class(.leaf)
-          .leaf <- '.object'
-          attr(.leaf, 'obj_type') <- .class
-        }
-
-        .leaf
-      })
-  })
 
 
 
-
-
-  selected_obj <- reactive({
-    req(input$ale_tree)
-
-    selected <- get_selected(input$ale_tree)
-    # stop if nothing is selected yet
-    req(!identical(selected, list()))
-
-    selected_path <- c(
-      attr(selected[[1]], 'ancestry'),
-      selected[[1]]
-    )
-
-    ale_obj() |>
-      purrr::pluck(!!!selected_path)
-  })
 
   # Populate vector of x_cols
   x_cols <- reactive({
@@ -115,11 +83,11 @@ function(input, output, session) {
   })
   # Whenever plot_sort_order() is updated, update plot options
   observe({
-    # browser()
     updatePickerInput(
       session,
       'plot_pick_x_cols',
-      choices = plot_sort_order()
+      choices = plot_sort_order(),
+      selected = input$plot_pick_x_cols  # maintain selections
     )
   })
 
@@ -133,6 +101,7 @@ function(input, output, session) {
       req(ale_obj())
 
       estimate_tbl() |>
+        select(term, naled, aled, naler_min, naler_max, aler_min, aler_max) |>
         decimal_df()
     },
     fillContainer = TRUE,
@@ -165,10 +134,9 @@ function(input, output, session) {
     }
   })
 
-  output$plot_sort_order <- renderPrint({
-    # input$plot_sort_tbl_state
-    plot_sort_order()
-  })
+  # output$plot_sort_order <- renderPrint({
+  #   plot_sort_order()
+  # })
 
   ### Main panel -------------
 
@@ -213,21 +181,156 @@ function(input, output, session) {
 
   ## Statistics tab ------------
 
-  output$stats_stats_tree <- renderTree({
-    ale_str()$stats[c('estimate', 'by_term', 'by_statistic')]
+  output$stats_estimate_tbl <- renderDT({
+    ale_obj()$stats$estimate |> decimal_df()
   })
+
+  output$stats_boot_tree <- renderTree({
+    ale_str()$stats[c('by_statistic', 'by_term')]
+  })
+
+  selected_stats_boot <- reactive({
+    req(input$stats_boot_tree)
+
+    selected <- get_selected(input$stats_boot_tree)
+    # stop if nothing is selected yet
+    req(!identical(selected, list()))
+
+    # browser()
+
+    selected_path <- c(
+      'stats',
+      attr(selected[[1]], 'ancestry'),
+      selected[[1]]
+    )
+
+    df <- ale_obj() |>
+      purrr::pluck(!!!selected_path)
+
+    # stop if result is not a dataframe
+    req(df |> inherits('data.frame'))
+
+    df
+  })
+
+  output$stats_boot_tbl <- renderDT({
+    selected_stats_boot() |> decimal_df()
+  })
+
+
 
   output$stats_conf_tree <- renderTree({
-    ale_str()$conf_regions
+    ale_str()$conf_regions$by_term
   })
 
-  output$stats_effects_plot <- renderPlotly({
-    ale_obj()$stats$effects_plots |>
-      ggplotly(dynamicTicks = TRUE)
+  output$stats_conf_header <- renderUI({
+    h3(paste0(
+      'Confidence regions (based on ',
+      if (ale_obj()$conf_regions$sig_criterion == 'p_values') {
+        'p-values'
+      } else if (ale_obj()$conf_regions$sig_criterion == 'median_bar_pct') {
+        'the median'
+      },
+      ')'
+    ))
   })
+
+  output$stats_conf_sig_tbl <- renderDT({
+    ale_obj()$conf_regions$significant |>
+      decimal_df() |>
+      datatable() |>
+      formatPercentage('n_pct')
+  })
+
+  selected_stats_conf <- reactive({
+    req(input$stats_conf_tree)
+
+    selected <- get_selected(input$stats_conf_tree)
+    # stop if nothing is selected yet
+    req(!identical(selected, list()))
+
+    selected_path <- c(
+      'conf_regions', 'by_term',
+      selected[[1]]
+    )
+
+    ale_obj() |>
+      purrr::pluck(!!!selected_path)
+  })
+
+  output$stats_conf_tbl <- renderDT({
+    selected_stats_conf() |>
+      decimal_df() |>
+      datatable() |>
+      formatPercentage('n_pct')
+  })
+
+
+
+  # # Skip the effects plot for now; it's tricky because it needs y_vals
+  # output$stats_effects_plot <- renderPlotly({
+  #   ale:::plot_effects(
+  #     ale_obj()$stats$estimate,
+  #     y_vals,
+  #     ale_obj()$y_col,
+  #     middle_band = if (is.null(p_values)) {
+  #       median_band_pct
+  #     }
+  #     else {
+  #       # Use p-value of NALED:
+  #       # like median_band_pct, NALED is a percentage value, so it can be a
+  #       # drop-in replacement, but based on p-values.
+  #       median_band_pct |>
+  #         # p_fun functions are vectorized, so return as many NALED values
+  #         # as median_band_pct values are provided (2)
+  #         p_values$p_to_random_value$naled() |>
+  #         unname() |>
+  #         (`/`)(100)  # scale NALED from percentage to 0 to 1
+  #     }
+  #   ) |>
+  #   # ale_obj()$stats$effects_plots |>
+  #     ggplotly(dynamicTicks = TRUE)
+  # })
 
 
   ## ALE data tab ----------
+
+  # Reactive variables
+  selected_ale_obj <- reactive({
+    req(input$ale_tree)
+
+    selected <- get_selected(input$ale_tree)
+    # stop if nothing is selected yet
+    req(!identical(selected, list()))
+
+    selected_path <- c(
+      attr(selected[[1]], 'ancestry'),
+      selected[[1]]
+    )
+
+    ale_obj() |>
+      purrr::pluck(!!!selected_path)
+  })
+
+  ale_str <- reactive({
+    as <- ale_obj() |>
+      # only transform "leaf" objects, that is, those that are not themselves
+      # iterable lists
+      purrr::modify_tree(leaf = \(.leaf) {
+        if (is.list(.leaf)) {
+          # .leaf is a "rich object"; represent it as a special .object element
+          .class <- class(.leaf)
+          .leaf <- '.object'
+          attr(.leaf, 'obj_type') <- .class
+        }
+
+        .leaf
+      })
+
+    as[setdiff(names(as), c('stats', 'plots', 'conf_regions'))]
+  })
+
+
 
   output$ale_tree <- renderTree({
     ale_str()
@@ -235,13 +338,13 @@ function(input, output, session) {
 
   # Dynamically render the appropriate UI component based on the object type
   output$ale_data_output <- renderUI({
-    if(is.null(selected_obj())) {
+    if(is.null(selected_ale_obj())) {
       return()
     }
 
-    if(is.data.frame(selected_obj())) {
+    if(is.data.frame(selected_ale_obj())) {
       DT::DTOutput("ale_data_df")
-    } else if(is.ggplot(selected_obj())) {
+    } else if(is.ggplot(selected_ale_obj())) {
       # Return a UI with both ale_data_plotly and ale_data_ggplot
       list(
         tags$h3('ALE plot'),
@@ -261,7 +364,7 @@ function(input, output, session) {
 
   # Render the selected object based on its type
   output$ale_atomic_output <- renderPrint({
-    vec <- selected_obj()
+    vec <- selected_ale_obj()
 
     # Only output atomic types; lists return an error
     vec <- if (is.atomic(vec)) {
@@ -274,14 +377,14 @@ function(input, output, session) {
   })
 
   output$ale_data_df <- renderDT({
-    selected_obj() |> decimal_df()
+    selected_ale_obj() |> decimal_df()
   })
 
   output$ale_data_ggplot <- renderPlot({
-    selected_obj()
+    selected_ale_obj()
   })
   output$ale_data_plotly <- renderPlotly({
-    ggplotly(selected_obj(), dynamicTicks = TRUE)
+    ggplotly(selected_ale_obj(), dynamicTicks = TRUE)
   })
 
 
