@@ -1,6 +1,7 @@
 # Browse an ale object
 
 # # call interactively to set environment
+# ale_dataset <- readRDS(file.choose())
 # initial_ale_obj      <- readRDS(file.choose())
 # initial_ale_obj_name <- 'Test ALE object'
 # initial_ale_obj      <- NULL
@@ -156,9 +157,6 @@ function(input, output, session) {
     }
   })
 
-  # output$plot_sort_order <- renderPrint({
-  #   plot_sort_order()
-  # })
 
   ### Main panel -------------
 
@@ -175,7 +173,8 @@ function(input, output, session) {
           y_col = ale_obj()$y_col,
           y_type = ale_obj()$y_type,
           y_summary = ale_obj()$y_summary,
-          x_y = NULL,
+          # x_y for rug plots is somewhat hackish for now
+          x_y = ale_dataset[c(.x_col, ale_obj()$y_col)]
         )
       })
   })
@@ -185,7 +184,6 @@ function(input, output, session) {
     req(ale_plots())
 
     ale_plots()[input$plot_pick_x_cols] |>
-    # ale_obj()$plots[input$plot_pick_x_cols] |>
       patchwork::wrap_plots() +
       patchwork::plot_layout(axes = 'collect')
   })
@@ -218,7 +216,6 @@ function(input, output, session) {
     req(length(input$plot_pick_x_cols) == 1)
 
     ale_plots()[[input$plot_pick_x_cols]] |>
-    # ale_obj()$plots[[input$plot_pick_x_cols]] |>
       ggplotly(dynamicTicks = TRUE)
   })
 
@@ -239,8 +236,6 @@ function(input, output, session) {
     selected <- get_selected(input$stats_boot_tree)
     # stop if nothing is selected yet
     req(!identical(selected, list()))
-
-    # browser()
 
     selected_path <- c(
       'stats',
@@ -423,43 +418,3 @@ function(input, output, session) {
 }
 
 
-
-# tmp_ale <-
-#   r"(S:\Dropbox\Travail\Research\Actionable explanation\Theory mining\superuser\models\boost_ale_accepted_survival_focus.rds)" |>
-#   readRDS()
-#
-# # temporarily regenerate plots because of ggplot2 3.4.4 to 3.5 issue
-# tmp_ale$plots <- names(tmp_ale$data) |>
-#   purrr::map(\(.x_col) {
-#     ale:::plot_ale(
-#       tmp_ale$data[[.x_col]], .x_col,
-#       tmp_ale$y_col, tmp_ale$y_type,
-#       tmp_ale$y_summary,
-#       compact_plots = TRUE,
-#     )
-#   }) |>
-#   purrr::set_names(names(tmp_ale$data))
-#
-# saveRDS(tmp_ale, file.choose())
-#
-# # compactify existing plots
-# tmp_ale$plots <- tmp_ale$plots |>
-#   purrr::map(\(.plot) {
-#     .plot |>
-#       ggplot2::ggplotGrob() |>
-#       ggpubr::as_ggplot()
-#   })
-#
-#
-# tmp_str <-
-#   tmp_ale |>
-#   purrr::modify_tree(leaf = \(.leaf) {
-#     if (is.list(.leaf)) {
-#       # .leaf is a 'rich object'
-#       .class <- class(.leaf)
-#       .leaf <- '.object'
-#       attr(.leaf, 'obj_type') <- .class
-#     }
-#
-#     .leaf
-#   })
