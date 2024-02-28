@@ -8,18 +8,9 @@ fluidPage(
 
   # Title --------------------
   titlePanel(
-    # Title is clickable to toggle the file reader
-    title = tagList(
-      "",
-      actionLink(
-        'toggle_file_read', 'Browse ale object',
-        icon = icon('chart-line'),
-        title = 'Click to toggle the file reader for loading or changing the ALE file'
-      )
-    )
+    uiOutput('title')
   ),
 
-  ## File reader; collapsible by clicking the title -------------
   # The main UI, which depends on the ale object file that has been read in -----------
   fluidRow(
     navbarPage(
@@ -43,12 +34,10 @@ fluidPage(
             DT::DTOutput('plot_sort_tbl', height = '400px'),
             tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
             tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
-            # verbatimTextOutput('plot_sort_order')
           ),
 
           mainPanel(
             uiOutput("plot_placeholder"),
-            # plotOutput("plot", height = '800px'),
             conditionalPanel(
               'input.plot_pick_x_cols.length == 1',
               hr(),
@@ -153,16 +142,6 @@ fluidPage(
         h3('Load a saved ale object'),
         fileInput('ale_file', '')
       ),
-
-      # fluidRow(
-      #   div(
-      #     id = 'read_file',
-      #     wellPanel(
-      #       fileInput('ale_file', 'Load a saved ale object'),
-      #     )
-      #   )
-      # ),
-
 
     )
   )

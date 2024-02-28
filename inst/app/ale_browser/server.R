@@ -1,5 +1,12 @@
 # Browse an ale object
 
+# # call interactively to set environment
+# initial_ale_obj      <- readRDS(file.choose())
+# initial_ale_obj_name <- 'Test ALE object'
+initial_ale_obj      <- NULL
+initial_ale_obj_name <- NULL
+
+
 library(shiny)
 library(shinyTree)
 library(DT)
@@ -26,7 +33,7 @@ function(input, output, session) {
 
     df |>
       # Format decimal columns with dp decimal places
-      mutate(across(decimal_columns, \(.col) round(.col, dp)))
+      mutate(across(all_of(decimal_columns), \(.col) round(.col, dp)))
   }
 
 
@@ -35,19 +42,30 @@ function(input, output, session) {
   # If the environment does not have an initial_ale_obj,
   # the user can use the file reader to read one in.
   ale_obj <- reactive({
-    # # call interactively to set environment
-    # initial_ale_obj <- readRDS(file.choose())
-
-    if (exists('initial_ale_obj')) {
+    if (is.null(input$fileInput) && !is.null(initial_ale_obj)) {
       return(initial_ale_obj)
     }
     else {
       req(input$ale_file)
       return(readRDS(input$ale_file$datapath))
     }
-
   })
 
+  ale_str <- reactive({
+    ale_obj() |>
+      # only transform "leaf" objects, that is, those that are not themselves
+      # iterable lists
+      purrr::modify_tree(leaf = \(.leaf) {
+        if (is.list(.leaf)) {
+          # .leaf is a "rich object"; represent it as a special .object element
+          .class <- class(.leaf)
+          .leaf <- '.object'
+          attr(.leaf, 'obj_type') <- .class
+        }
+
+        .leaf
+      })
+  })
 
 
 
@@ -58,14 +76,18 @@ function(input, output, session) {
   })
 
 
-  ## Populate and configure UI elements ----------------
+  ## Header -------------
 
-  # Toggle file reader
-  observeEvent(
-    input$toggle_file_read,
-    toggleElement(id = 'read_file')
-  )
+  output$title <- renderUI({
+    ale_obj_name <- if (is.null(input$fileInput) && !is.null(initial_ale_obj_name)) {
+      initial_ale_obj_name
+    }
+    else {
+      input$ale_file$name
+    }
 
+    h2(paste0('Browse an ale object: ', ale_obj_name))
+  })
 
 
   ## Plot tab -------------
@@ -312,28 +334,16 @@ function(input, output, session) {
       purrr::pluck(!!!selected_path)
   })
 
-  ale_str <- reactive({
-    as <- ale_obj() |>
-      # only transform "leaf" objects, that is, those that are not themselves
-      # iterable lists
-      purrr::modify_tree(leaf = \(.leaf) {
-        if (is.list(.leaf)) {
-          # .leaf is a "rich object"; represent it as a special .object element
-          .class <- class(.leaf)
-          .leaf <- '.object'
-          attr(.leaf, 'obj_type') <- .class
-        }
-
-        .leaf
-      })
-
-    as[setdiff(names(as), c('stats', 'plots', 'conf_regions'))]
-  })
 
 
 
   output$ale_tree <- renderTree({
-    ale_str()
+    ale_str()[
+      setdiff(
+        names(ale_str()),
+        c('stats', 'plots', 'conf_regions')
+      )
+    ]
   })
 
   # Dynamically render the appropriate UI component based on the object type
