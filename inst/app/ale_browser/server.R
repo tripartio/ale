@@ -3,8 +3,8 @@
 # # call interactively to set environment
 # initial_ale_obj      <- readRDS(file.choose())
 # initial_ale_obj_name <- 'Test ALE object'
-initial_ale_obj      <- NULL
-initial_ale_obj_name <- NULL
+# initial_ale_obj      <- NULL
+# initial_ale_obj_name <- NULL
 
 
 library(shiny)
@@ -162,9 +162,30 @@ function(input, output, session) {
 
   ### Main panel -------------
 
+  # Generate all plots for this ale_obj
+  ale_plots <- reactive({
+    req(ale_obj())
+
+    purrr::map2(
+      ale_obj()$data, names(ale_obj()$data),
+      \(.ale_data, .x_col) {
+        ale:::plot_ale(
+          ale_data = .ale_data,
+          x_col = .x_col,
+          y_col = ale_obj()$y_col,
+          y_type = ale_obj()$y_type,
+          y_summary = ale_obj()$y_summary,
+          x_y = NULL,
+        )
+      })
+  })
+
+
   output$plot <- renderPlot({
-    req(input$plot_pick_x_cols)
-    ale_obj()$plots[input$plot_pick_x_cols] |>
+    req(ale_plots())
+
+    ale_plots()[input$plot_pick_x_cols] |>
+    # ale_obj()$plots[input$plot_pick_x_cols] |>
       patchwork::wrap_plots() +
       patchwork::plot_layout(axes = 'collect')
   })
@@ -196,7 +217,8 @@ function(input, output, session) {
     req(input$plot_pick_x_cols)
     req(length(input$plot_pick_x_cols) == 1)
 
-    ale_obj()$plots[[input$plot_pick_x_cols]] |>
+    ale_plots()[[input$plot_pick_x_cols]] |>
+    # ale_obj()$plots[[input$plot_pick_x_cols]] |>
       ggplotly(dynamicTicks = TRUE)
   })
 
