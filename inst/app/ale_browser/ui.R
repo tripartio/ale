@@ -3,8 +3,8 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-fluidPage(
-  shinyjs::useShinyjs(),
+ui <- fluidPage(
+  # shinyjs::useShinyjs(),
 
   # Title --------------------
   titlePanel(

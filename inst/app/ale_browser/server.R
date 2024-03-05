@@ -1,27 +1,35 @@
 # Browse an ale object
 
 # # call interactively to set environment
-# ale_dataset <- readRDS(file.choose())
+# ale_dataset          <- readRDS(file.choose())
 # initial_ale_obj      <- readRDS(file.choose())
 # initial_ale_obj_name <- 'Test ALE object'
+# ale_dataset          <- NULL
 # initial_ale_obj      <- NULL
 # initial_ale_obj_name <- NULL
 
+# Establish environment variables
+if (!exists('ale_dataset')) ale_dataset <- NULL
+if (!exists('initial_ale_obj')) initial_ale_obj <- NULL
+if (!exists('initial_ale_obj_name')) initial_ale_obj_name <- NULL
 
-library(shiny)
-library(shinyTree)
-library(DT)
-library(plotly)
-library(shinyjs)
-library(shinyWidgets)
-library(dplyr)
+suppressPackageStartupMessages({
+  library(shiny)
 
-# increase maximum file upload size
-# https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
-options(shiny.maxRequestSize=200*1024^2)
+  library(dplyr, include.only = c('arrange', 'mutate', 'pull', 'select'))
+  library(DT, include.only = c('datatable', 'renderDT', 'formatPercentage'))
+  library(ggplot2, include.only = c('is.ggplot'))
+  library(plotly, include.only = c('renderPlotly', 'ggplotly'))
+  library(shinyTree, include.only = c('renderTree', 'get_selected'))
+  library(shinyWidgets, include.only = c('updatePickerInput'))
+})
+
+# # increase maximum file upload size
+# # https://groups.google.com/g/shiny-discuss/c/rU3vwGMZexQ/m/zeKhiYXrtEQJ
+# options(shiny.maxRequestSize=200*1024^2)
 
 # Define server logic required to draw a histogram
-function(input, output, session) {
+server <- function(input, output, session) {
 
   ## Internal functions and variables ----------------
 
@@ -87,7 +95,7 @@ function(input, output, session) {
       input$ale_file$name
     }
 
-    h2(paste0('Browse an ale object: ', ale_obj_name))
+    h3(paste0('Browse an ale object: ', ale_obj_name))
   })
 
 
