@@ -240,6 +240,7 @@ aleBrowserServer <- function(
 
     decimal_df <- function(df, dp = 3) {
       # Get numeric columns that are not integers
+      # browser()
       decimal_columns <-
         df |>
         select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
@@ -575,9 +576,6 @@ aleBrowserServer <- function(
         purrr::pluck(!!!selected_path)
     })
 
-
-
-
     output$ale_tree <- renderTree({
       ale_str()[
         setdiff(
@@ -599,22 +597,13 @@ aleBrowserServer <- function(
 
       if(is.data.frame(selected_ale_obj())) {
         DT::DTOutput(ns('ale_data_df'))
-      } else if(ggplot2::is.ggplot(selected_ale_obj())) {
-        # Return a UI with both ale_data_plotly and ale_data_ggplot
-        list(
-          tags$h3('ALE plot'),
-          plotOutput(ns('ale_data_ggplot')),
-          tags$h3('Zoomable version of the plot'),
-          tags$p(paste0(
-            'Unfortunately, the zoomable version does not support all the features ',
-            'of the full plot version. However, its zoom features are nonetheless ',
-            'useful.'
-          )),
-          plotlyOutput(ns('ale_data_plotly'))
-        )
       } else {
         verbatimTextOutput(ns('ale_atomic_output'))
       }
+    })
+
+    output$ale_data_df <- renderDT({
+      selected_ale_obj() |> decimal_df()
     })
 
     # Render the selected object based on its type
@@ -630,18 +619,6 @@ aleBrowserServer <- function(
 
       vec
     })
-
-    output$ale_data_df <- renderDT({
-      selected_ale_obj() |> decimal_df()
-    })
-
-    output$ale_data_ggplot <- renderPlot({
-      selected_ale_obj()
-    })
-    output$ale_data_plotly <- renderPlotly({
-      ggplotly(selected_ale_obj(), dynamicTicks = TRUE)
-    })
-
 
   })
 }
