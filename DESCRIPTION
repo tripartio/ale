@@ -41,6 +41,7 @@ Imports:
     rlang,
     shiny,
     shinyTree,
+    shinyWidgets,
     stats,
     stringr,
     tidyr,
