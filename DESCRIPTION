@@ -48,6 +48,8 @@ Imports:
     yaImpute
 Depends: 
     R (>= 3.5.0)
+Remotes: 
+  github::tripartio/ale@shiny
 URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3

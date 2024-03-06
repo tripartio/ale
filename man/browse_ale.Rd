@@ -4,7 +4,14 @@
 \alias{browse_ale}
 \title{Interactively browse an \code{ale} object with a Shiny app}
 \usage{
-browse_ale(id, obj = NULL, obj_name = NULL, ale_dataset = NULL)
+browse_ale(
+  id,
+  obj = NULL,
+  obj_name = NULL,
+  ale_dataset = NULL,
+  width = "100\%",
+  height = 800
+)
 }
 \arguments{
 \item{id}{character length 1. A required unique identifier to distinguish the
