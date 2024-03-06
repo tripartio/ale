@@ -236,22 +236,6 @@ aleBrowserServer <- function(
 ) {
   shiny::moduleServer(id, function(input, output, session) {
 
-    ## Internal functions and variables ----------------
-
-    decimal_df <- function(df, dp = 3) {
-      # Get numeric columns that are not integers
-      # browser()
-      decimal_columns <-
-        df |>
-        select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
-        names()
-
-      df |>
-        # Format decimal columns with dp decimal places
-        mutate(across(all_of(decimal_columns), \(.col) round(.col, dp)))
-    }
-
-
     ### Establish reactive variables that will be reused often ---------------
 
     # If obj was not provided, the user can use the file reader to read one in.

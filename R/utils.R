@@ -88,3 +88,18 @@ round_dp <- function(x) {
   round(x, dp)
 }
 
+
+# Round all decimal (non-integer) columns in a dataframe df by dp number of decimal places
+decimal_df <- function(df, dp = 3) {
+  # Get numeric columns that are not integers
+  decimal_columns <-
+    df |>
+    select(where(\(.col) is.numeric(.col) & !rlang::is_integerish(.col))) |>
+    names()
+
+  df |>
+    # Format decimal columns with dp decimal places
+    mutate(across(all_of(decimal_columns), \(.col) round(.col, dp)))
+}
+
+
