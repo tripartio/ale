@@ -50,7 +50,9 @@ browse_ale <- function(
     id,
     obj = NULL,
     obj_name = NULL,
-    ale_dataset = NULL
+    ale_dataset = NULL,
+    width = '100%',
+    height = 800
 ) {
   ui <- fluidPage(
     aleBrowserUI(id)
@@ -65,7 +67,10 @@ browse_ale <- function(
     )
   }
 
-  shiny::shinyApp(ui, server)
+  shiny::shinyApp(
+    ui, server,
+    options = list(width = width, height = height)
+  )
 }
 
 
