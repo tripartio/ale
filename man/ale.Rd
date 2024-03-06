@@ -336,7 +336,7 @@ automatically enables \code{{progressr}} progress bars with the \code{cli} handl
 prints a message notifying the user.
 
 If you like the default progress bars and you want to make them permanent, then you
-can \href{https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf}{add the following lines of code to your .Rprofile configuration file}
+can add the following lines of code to your \code{.Rprofile} configuration file
 and they will become your defaults for every R session; you will not see the
 message again:
 
