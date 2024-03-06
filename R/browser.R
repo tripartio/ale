@@ -595,6 +595,7 @@ aleBrowserServer <- function(
         return()
       }
 
+      # browser()
       if(is.data.frame(selected_ale_obj())) {
         DT::DTOutput(ns('ale_data_df'))
       } else {
@@ -603,6 +604,7 @@ aleBrowserServer <- function(
     })
 
     output$ale_data_df <- renderDT({
+      req(is.data.frame(selected_ale_obj()))
       selected_ale_obj() |> decimal_df()
     })
 
@@ -610,7 +612,7 @@ aleBrowserServer <- function(
     output$ale_atomic_output <- renderPrint({
       vec <- selected_ale_obj()
 
-      # Only output atomic types; lists return an error
+      # Only output atomic types; lists return NULL
       vec <- if (is.atomic(vec)) {
         vec
       } else {
