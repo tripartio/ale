@@ -1,3 +1,7 @@
+# ale (development version)
+
+We have added a Shiny app that can be used to browse the `ale` data object. It is accessed with the new `browse_ale()` function.
+
 # ale 0.3.0
 
 The most significant updates are the addition of p-values for the ALE statistics, the launching of a pkgdown website which will henceforth host the development version of the package, and parallelization of core functions with a resulting performance boost.
