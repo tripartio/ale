@@ -115,6 +115,7 @@ aleBrowserUI <- function(id) {
             mainPanel(
               uiOutput(ns('plot_placeholder')),
               conditionalPanel(
+                ns = ns,
                 'input.plot_pick_x_cols.length == 1',
                 hr(),
                 h3('Confidence regions'),
@@ -134,6 +135,7 @@ aleBrowserUI <- function(id) {
                 plotly::plotlyOutput(ns('plotly_plot')),
               ),
               conditionalPanel(
+                ns = ns,
                 'input.plot_pick_x_cols.length > 1',
                 hr(),
                 em(paste0(
