@@ -349,6 +349,7 @@ to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\c
 }
 
 \examples{
+# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
 set.seed(0)
 diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
@@ -363,6 +364,7 @@ summary(gam_diamonds)
 
 
 \donttest{
+# donttest on CRAN because examples are quite slow
 
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ale(

@@ -15,18 +15,23 @@
 #' @export
 #'
 #'
-#' @param id character length 1. A required unique identifier to distinguish the
+#' @param id single character string. A required unique identifier to distinguish the
 #' current module from any other modules in the same page or namespace. If two
 #' instances of `browse_ale()` are called in the same page or namespace, they might
 #' not work properly.
 #' @param obj `ale_data` object. The `ale_data` object to browse. If NULL (default),
 #' the app lets the user load a serialized object from the "Load" tab.
-#' @param obj_name character length 1. An optional label with which `obj` will
+#' @param obj_name single character string. An optional label with which `obj` will
 #' be named in the app.
 #' @param ale_dataset dataframe. The dataset on which `obj` was produced. If the
 #' full dataset is unavailable, at least a random sample of the dataset should be
 #' provided. When provided, this optional argument is used for some visualizations,
 #' particularly for rug plots.
+#' @param height,width single integer or character string. Desired height and width
+#' of the application in the user's browser window. The browser might adjust the
+#' actual values. These are expressed as CSS, with integer values defaulting in
+#' pixels. These values are passed to the options list of `shiny::shinyApp()`;
+#' refer to its documentation for more details.
 #'
 #' @return
 #' This function returns a Shiny app that browses ale objects. It is designed such
@@ -34,8 +39,35 @@
 #' documents.
 #'
 #' @examples
-#' \donttest{
-#' browse_ale()
+#' \dontrun{
+#' # donttest on CRAN because examples are quite slow
+#'
+#' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
+#' set.seed(0)
+#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+#'
+#' # Create a GAM model with flexible curves to predict diamond price
+#' # Smooth all numeric variables and include all other variables
+#' gam_diamonds <- mgcv::gam(
+#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+#'     cut + color + clarity,
+#'   data = diamonds_sample
+#' )
+#' summary(gam_diamonds)
+#'
+#' # Simple ALE without bootstrapping
+#' ale_gam_diamonds <- ale(
+#'   diamonds_sample, gam_diamonds,
+#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#' )
+#'
+#' browse_ale(
+#'   'unique_id',
+#'   obj = ale_gam_diamonds,
+#'   obj_name = 'ALE for GAM on diamonds dataset',
+#'   ale_dataset = diamonds_sample
+#' )
+#'
 #' }
 #'
 #'
@@ -51,9 +83,11 @@ browse_ale <- function(
     obj = NULL,
     obj_name = NULL,
     ale_dataset = NULL,
-    width = '100%',
-    height = 800
+    height = 800,
+    width = '100%'
 ) {
+
+  if (requireNamespace())
   ui <- fluidPage(
     aleBrowserUI(id)
   )
@@ -332,7 +366,10 @@ aleBrowserServer <- function(
         req(ale_obj())
 
         estimate_tbl() |>
-          select(term, naled, aled, naler_min, naler_max, aler_min, aler_max) |>
+          select(
+            'term', 'naled', 'aled',
+            'naler_min', 'naler_max', 'aler_min', 'aler_max'
+          ) |>
           decimal_df()
       },
       fillContainer = TRUE,
@@ -355,7 +392,7 @@ aleBrowserServer <- function(
 
       sorted_asc <- estimate_tbl() |>
         arrange(.data[[sort_col]]) |>
-        pull(term) |>
+        pull(.data$term) |>
         unname()
 
       if (sort_dir == 'asc') {
@@ -375,7 +412,7 @@ aleBrowserServer <- function(
       purrr::map2(
         ale_obj()$data, names(ale_obj()$data),
         \(.ale_data, .x_col) {
-          ale:::plot_ale(
+          plot_ale(
             ale_data = .ale_data,
             x_col = .x_col,
             y_col = ale_obj()$y_col,
@@ -524,7 +561,7 @@ aleBrowserServer <- function(
 
     # # Skip the effects plot for now; it's tricky because it needs y_vals
     # output$stats_effects_plot <- renderPlotly({
-    #   ale:::plot_effects(
+    #   plot_effects(
     #     ale_obj()$stats$estimate,
     #     y_vals,
     #     ale_obj()$y_col,
