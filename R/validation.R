@@ -180,3 +180,37 @@ validate_silent <- function(silent) {
   }
 
 }
+
+
+
+# Shiny apps -----------
+
+# assert_that all packages needed for Shiny functionality are installed.
+# Those packages are suggested (nor imported) for the ale package, so the
+# usage is such that Shiny functions gracefully fail if the user does not have
+# any of these packages.
+validate_shiny_pkgs_installed <- function() {
+  # Suggested packages necessary for the Shiny apps but not necessarily for
+  # essential ale package functionality
+  suggested_pkgs <- c('shiny', 'DT', 'plotly', 'shinyTree', 'shinyWidgets', 'patchwork')
+
+  available_pkgs <-
+    suggested_pkgs |>
+    map_lgl(\(.pkg) {
+      requireNamespace(.pkg, quietly = TRUE)
+    })
+
+  assert_that(
+    all(available_pkgs),
+    msg = paste0(
+      'The Shiny app functionality of this package requires installation of ',
+      'the following uninstalled packages: ',
+      paste0(suggested_pkgs[!available_pkgs]
+      )
+    )
+  )
+}
+
+
+
+

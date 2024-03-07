@@ -71,11 +71,14 @@
 #' }
 #'
 #'
-#' @import shiny
-#' @importFrom dplyr arrange mutate pull select
-#' @importFrom DT datatable renderDT formatPercentage
-#' @importFrom plotly renderPlotly ggplotly
-#' @importFrom shinyTree renderTree get_selected
+#'
+# # No imports so that all these packages will be Suggests
+# # But that means that every function call must be explicitly namespaced.
+# @import shiny
+# @importFrom dplyr arrange mutate pull select
+# @importFrom DT datatable renderDT formatPercentage
+# @importFrom plotly renderPlotly ggplotly
+# @importFrom shinyTree renderTree get_selected
 #'
 #'
 browse_ale <- function(
@@ -86,9 +89,10 @@ browse_ale <- function(
     height = 800,
     width = '100%'
 ) {
+  validate_shiny_pkgs_installed()
 
   if (requireNamespace())
-  ui <- fluidPage(
+  ui <- shiny::fluidPage(
     aleBrowserUI(id)
   )
 
@@ -112,67 +116,69 @@ browse_ale <- function(
 # UI module ------------------
 
 aleBrowserUI <- function(id) {
+  validate_shiny_pkgs_installed()
+
   # Create mandatory namespace function for module UI
   ns <- shiny::NS(id)
 
-  tagList(
+  shiny::tagList(
 
     ## Title and navigation bar --------------------
-    titlePanel(
-      uiOutput(ns('title'))
+    shiny::titlePanel(
+      shiny::uiOutput(ns('title'))
     ),
 
-    fluidRow(
-      navbarPage(
+    shiny::fluidRow(
+      shiny::navbarPage(
         '',  # no navbar title
 
         ## Plots tab --------------
-        tabPanel(
+        shiny::tabPanel(
           'Plots',
-          sidebarLayout(
+          shiny::sidebarLayout(
 
             # This variable picker is so useful that it should be modularized for
             # reuse in other components, such as the statistics tab
-            sidebarPanel(
+            shiny::sidebarPanel(
               shinyWidgets::pickerInput(
                 ns('plot_pick_x_cols'), 'Select the variables to plot',
                 choices = NULL,
                 multiple = TRUE,
                 options = list(`actions-box` = TRUE)
               ),
-              strong('Click column headers to sort the order of variables in the plots:'),
+              shiny::strong('Click column headers to sort the order of variables in the plots:'),
               DT::DTOutput(ns('plot_sort_tbl'), height = '400px'),
-              tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
-              tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
+              shiny::tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
+              shiny::tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
             ),
 
-            mainPanel(
-              uiOutput(ns('plot_placeholder')),
-              conditionalPanel(
+            shiny::mainPanel(
+              shiny::uiOutput(ns('plot_placeholder')),
+              shiny::conditionalPanel(
                 ns = ns,
                 'input.plot_pick_x_cols.length == 1',
-                hr(),
-                h3('Confidence regions'),
-                em(paste0(
+                shiny::hr(),
+                shiny::h3('Confidence regions'),
+                shiny::em(paste0(
                   'Confidence regions are the regions of the x variables where ',
                   'the ALE y values have meaningful or statistically significant ',
                   'values.'
                 )),
                 DT::DTOutput(ns('plot_conf_tbl')),
-                hr(),
-                h3('Interactive plot'),
-                em(paste0(
+                shiny::hr(),
+                shiny::h3('Interactive plot'),
+                shiny::em(paste0(
                   'Unfortunately, this interactive version does not support all the features ',
                   'of the full plot version. However, its interactive features are nonetheless ',
                   'useful: hover your mouse over the icons on the top right to see what they do.'
                 )),
                 plotly::plotlyOutput(ns('plotly_plot')),
               ),
-              conditionalPanel(
+              shiny::conditionalPanel(
                 ns = ns,
                 'input.plot_pick_x_cols.length > 1',
-                hr(),
-                em(paste0(
+                shiny::hr(),
+                shiny::em(paste0(
                   'The interactive version is only available for single plots, ',
                   'not for multiple plots.'
                 )),
@@ -182,42 +188,42 @@ aleBrowserUI <- function(id) {
         ),
 
         ## Statistics tab ------------
-        tabPanel(
+        shiny::tabPanel(
           'Statistics',
 
-          verticalLayout(
-            h3('Mean statistics for all variables'),
+          shiny::verticalLayout(
+            shiny::h3('Mean statistics for all variables'),
             DT::DTOutput(ns('stats_estimate_tbl')),
 
-            h3('Statistics with bootstrapped confidence intervals'),
-            sidebarLayout(
-              sidebarPanel(
-                strong('Browse'),
+            shiny::h3('Statistics with bootstrapped confidence intervals'),
+            shiny::sidebarLayout(
+              shiny::sidebarPanel(
+                shiny::strong('Browse'),
                 shinyTree::shinyTree(ns('stats_boot_tree')),
               ),
-              mainPanel(
+              shiny::mainPanel(
                 DT::DTOutput(ns('stats_boot_tbl')),
               )
             ),
 
-            uiOutput(ns('stats_conf_header')),
-            p(em(paste0(
+            shiny::uiOutput(ns('stats_conf_header')),
+            shiny::p(shiny::em(paste0(
               'Confidence regions are the regions of the x variables where ',
               'the ALE y values have meaningful or statistically significant ',
               'values.'
             ))),
-            h4(
+            shiny::h4(
               'Significant confidence regions of all variables with any ',
               'significant regions'
             ),
             DT::DTOutput(ns('stats_conf_sig_tbl')),
-            h4('Confidence regions of all variables'),
-            sidebarLayout(
-              sidebarPanel(
-                strong('Browse'),
+            shiny::h4('Confidence regions of all variables'),
+            shiny::sidebarLayout(
+              shiny::sidebarPanel(
+                shiny::strong('Browse'),
                 shinyTree::shinyTree(ns('stats_conf_tree')),
               ),
-              mainPanel(
+              shiny::mainPanel(
                 DT::DTOutput(ns('stats_conf_tbl')),
               )
             ),
@@ -230,29 +236,29 @@ aleBrowserUI <- function(id) {
         ),
 
         ## ALE data tab: free browsing of the ale object --------
-        tabPanel(
+        shiny::tabPanel(
           'ALE data',
-          h3('Browse the elements of the ale object'),
-          p(
+          shiny::h3('Browse the elements of the ale object'),
+          shiny::p(
             'All the elements of the ale object can be browsed here ',
             'except for those that are available in the Plots and Statistics tabs.'
           ),
-          sidebarLayout(
-            sidebarPanel(
-              strong('Click to browse'),
+          shiny::sidebarLayout(
+            shiny::sidebarPanel(
+              shiny::strong('Click to browse'),
               shinyTree::shinyTree(ns('ale_tree')),
             ),
-            mainPanel(
-              uiOutput(ns('ale_data_output'))
+            shiny::mainPanel(
+              shiny::uiOutput(ns('ale_data_output'))
             )
           )
         ),
 
         ## Load serialized object --------
-        tabPanel(
+        shiny::tabPanel(
           'Load',
-          h3('Load a saved ale object'),
-          fileInput(ns('ale_file'), '')
+          shiny::h3('Load a saved ale object'),
+          shiny::fileInput(ns('ale_file'), '')
         ),
 
       )
@@ -275,22 +281,24 @@ aleBrowserServer <- function(
     obj_name = NULL,
     ale_dataset = NULL
 ) {
+  validate_shiny_pkgs_installed()
+
   shiny::moduleServer(id, function(input, output, session) {
 
     ### Establish reactive variables that will be reused often ---------------
 
     # If obj was not provided, the user can use the file reader to read one in.
-    ale_obj <- reactive({
+    ale_obj <- shiny::reactive({
       if (is.null(input$ale_file) && !is.null(obj)) {
         return(obj)
       }
       else {
-        req(input$ale_file)
+        shiny::req(input$ale_file)
         return(readRDS(input$ale_file$datapath))
       }
     })
 
-    ale_str <- reactive({
+    ale_str <- shiny::reactive({
       ale_obj() |>
         # only transform "leaf" objects, that is, those that are not themselves
         # iterable lists
@@ -310,14 +318,14 @@ aleBrowserServer <- function(
 
 
     # Populate vector of x_cols
-    x_cols <- reactive({
+    x_cols <- shiny::reactive({
       ale_obj()$x_cols
     })
 
 
     ## Header -------------
 
-    output$title <- renderUI({
+    output$title <- shiny::renderUI({
       # https://shiny.posit.co/r/articles/improve/modules/
       # Using renderUI within modules
       ns <- session$ns
@@ -329,7 +337,7 @@ aleBrowserServer <- function(
         input$ale_file$name
       }
 
-      h3(paste0('Browse an ale object: ', ale_obj_name))
+      shiny::h3(paste0('Browse an ale object: ', ale_obj_name))
     })
 
 
@@ -338,8 +346,7 @@ aleBrowserServer <- function(
     ### Sidebar -------------
 
     # Whenever x_cols() is updated (new ale object), update plot options
-    observe({
-      # browser()
+    shiny::observe({
       shinyWidgets::updatePickerInput(
         session,
         'plot_pick_x_cols',
@@ -347,7 +354,7 @@ aleBrowserServer <- function(
       )
     })
     # Whenever plot_sort_order() is updated, update plot options
-    observe({
+    shiny::observe({
       shinyWidgets::updatePickerInput(
         session,
         'plot_pick_x_cols',
@@ -356,14 +363,14 @@ aleBrowserServer <- function(
       )
     })
 
-    estimate_tbl <- reactive({
+    estimate_tbl <- shiny::reactive({
       ale_obj()$stats$estimate
     })
 
     # Table to use to sort plot columns in lists
-    output$plot_sort_tbl <- renderDT(
+    output$plot_sort_tbl <- DT::renderDT(
       expr = {
-        req(ale_obj())
+        shiny::req(ale_obj())
 
         estimate_tbl() |>
           select(
@@ -380,10 +387,9 @@ aleBrowserServer <- function(
       )
     )
 
-    plot_sort_order <- reactive({
-      # browser()
-      req(!is.null(input$plot_sort_tbl_state))
-      req(length(input$plot_sort_tbl_state$order) > 0)
+    plot_sort_order <- shiny::reactive({
+      shiny::req(!is.null(input$plot_sort_tbl_state))
+      shiny::req(length(input$plot_sort_tbl_state$order) > 0)
 
       # sort column index + 1 (convert 0-based DT to 1-based R)
       sort_col_idx <- input$plot_sort_tbl_state$order[[1]][[1]]#+ 1
@@ -406,8 +412,8 @@ aleBrowserServer <- function(
     ### Main panel -------------
 
     # Generate all plots for this ale_obj
-    ale_plots <- reactive({
-      req(ale_obj())
+    ale_plots <- shiny::reactive({
+      shiny::req(ale_obj())
 
       purrr::map2(
         ale_obj()$data, names(ale_obj()$data),
@@ -425,8 +431,8 @@ aleBrowserServer <- function(
     })
 
 
-    output$plot <- renderPlot({
-      req(ale_plots())
+    output$plot <- shiny::renderPlot({
+      shiny::req(ale_plots())
 
       ale_plots()[input$plot_pick_x_cols] |>
         patchwork::wrap_plots() +
@@ -435,14 +441,14 @@ aleBrowserServer <- function(
 
     # Dynamically change height of output$plot_placeholder depending on
     # number of input$plot_pick_x_cols columns
-    output$plot_placeholder <- renderUI({
+    output$plot_placeholder <- shiny::renderUI({
       # https://shiny.posit.co/r/articles/improve/modules/
       # Using renderUI within modules
       ns <- session$ns
 
-      req(input$plot_pick_x_cols)
+      shiny::req(input$plot_pick_x_cols)
 
-      plotOutput(
+      shiny::plotOutput(
         ns('plot'),
         height = if (length(input$plot_pick_x_cols) <= 3) {
           '400px'
@@ -452,39 +458,39 @@ aleBrowserServer <- function(
       )
     })
 
-    output$plot_conf_tbl <- renderDT({
-      req(input$plot_pick_x_cols)
-      req(length(input$plot_pick_x_cols) == 1)
+    output$plot_conf_tbl <- DT::renderDT({
+      shiny::req(input$plot_pick_x_cols)
+      shiny::req(length(input$plot_pick_x_cols) == 1)
 
       ale_obj()$conf_regions$by_term[[input$plot_pick_x_cols]] |>
         decimal_df()
     })
 
-    output$plotly_plot <- renderPlotly({
-      req(input$plot_pick_x_cols)
-      req(length(input$plot_pick_x_cols) == 1)
+    output$plotly_plot <- plotly::renderPlotly({
+      shiny::req(input$plot_pick_x_cols)
+      shiny::req(length(input$plot_pick_x_cols) == 1)
 
       ale_plots()[[input$plot_pick_x_cols]] |>
-        ggplotly(dynamicTicks = TRUE)
+        plotly::ggplotly(dynamicTicks = TRUE)
     })
 
 
     ## Statistics tab ------------
 
-    output$stats_estimate_tbl <- renderDT({
+    output$stats_estimate_tbl <- DT::renderDT({
       ale_obj()$stats$estimate |> decimal_df()
     })
 
-    output$stats_boot_tree <- renderTree({
+    output$stats_boot_tree <- shinyTree::renderTree({
       ale_str()$stats[c('by_statistic', 'by_term')]
     })
 
-    selected_stats_boot <- reactive({
-      req(input$stats_boot_tree)
+    selected_stats_boot <- shiny::reactive({
+      shiny::req(input$stats_boot_tree)
 
-      selected <- get_selected(input$stats_boot_tree)
+      selected <- shinyTree::get_selected(input$stats_boot_tree)
       # stop if nothing is selected yet
-      req(!identical(selected, list()))
+      shiny::req(!identical(selected, list()))
 
       selected_path <- c(
         'stats',
@@ -496,27 +502,27 @@ aleBrowserServer <- function(
         purrr::pluck(!!!selected_path)
 
       # stop if result is not a dataframe
-      req(df |> inherits('data.frame'))
+      shiny::req(df |> inherits('data.frame'))
 
       df
     })
 
-    output$stats_boot_tbl <- renderDT({
+    output$stats_boot_tbl <- DT::renderDT({
       selected_stats_boot() |> decimal_df()
     })
 
 
 
-    output$stats_conf_tree <- renderTree({
+    output$stats_conf_tree <- shinyTree::renderTree({
       ale_str()$conf_regions$by_term
     })
 
-    output$stats_conf_header <- renderUI({
+    output$stats_conf_header <- shiny::renderUI({
       # https://shiny.posit.co/r/articles/improve/modules/
       # Using renderUI within modules
       ns <- session$ns
 
-      h3(paste0(
+      shiny::h3(paste0(
         'Confidence regions (based on ',
         if (ale_obj()$conf_regions$sig_criterion == 'p_values') {
           'p-values'
@@ -527,19 +533,19 @@ aleBrowserServer <- function(
       ))
     })
 
-    output$stats_conf_sig_tbl <- renderDT({
+    output$stats_conf_sig_tbl <- DT::renderDT({
       ale_obj()$conf_regions$significant |>
         decimal_df() |>
-        datatable() |>
-        formatPercentage('n_pct')
+        DT::datatable() |>
+        DT::formatPercentage('n_pct')
     })
 
-    selected_stats_conf <- reactive({
-      req(input$stats_conf_tree)
+    selected_stats_conf <- shiny::reactive({
+      shiny::req(input$stats_conf_tree)
 
-      selected <- get_selected(input$stats_conf_tree)
+      selected <- shinyTree::get_selected(input$stats_conf_tree)
       # stop if nothing is selected yet
-      req(!identical(selected, list()))
+      shiny::req(!identical(selected, list()))
 
       selected_path <- c(
         'conf_regions', 'by_term',
@@ -550,17 +556,17 @@ aleBrowserServer <- function(
         purrr::pluck(!!!selected_path)
     })
 
-    output$stats_conf_tbl <- renderDT({
+    output$stats_conf_tbl <- DT::renderDT({
       selected_stats_conf() |>
         decimal_df() |>
-        datatable() |>
-        formatPercentage('n_pct')
+        DT::datatable() |>
+        DT::formatPercentage('n_pct')
     })
 
 
 
     # # Skip the effects plot for now; it's tricky because it needs y_vals
-    # output$stats_effects_plot <- renderPlotly({
+    # output$stats_effects_plot <- plotly::renderPlotly({
     #   plot_effects(
     #     ale_obj()$stats$estimate,
     #     y_vals,
@@ -581,19 +587,19 @@ aleBrowserServer <- function(
     #     }
     #   ) |>
     #   # ale_obj()$stats$effects_plots |>
-    #     ggplotly(dynamicTicks = TRUE)
+    #     plotly::ggplotly(dynamicTicks = TRUE)
     # })
 
 
     ## ALE data tab ----------
 
     # Reactive variables
-    selected_ale_obj <- reactive({
-      req(input$ale_tree)
+    selected_ale_obj <- shiny::reactive({
+      shiny::req(input$ale_tree)
 
-      selected <- get_selected(input$ale_tree)
+      selected <- shinyTree::get_selected(input$ale_tree)
       # stop if nothing is selected yet
-      req(!identical(selected, list()))
+      shiny::req(!identical(selected, list()))
 
       selected_path <- c(
         attr(selected[[1]], 'ancestry'),
@@ -604,7 +610,7 @@ aleBrowserServer <- function(
         purrr::pluck(!!!selected_path)
     })
 
-    output$ale_tree <- renderTree({
+    output$ale_tree <- shinyTree::renderTree({
       ale_str()[
         setdiff(
           names(ale_str()),
@@ -614,7 +620,7 @@ aleBrowserServer <- function(
     })
 
     # Dynamically render the appropriate UI component based on the object type
-    output$ale_data_output <- renderUI({
+    output$ale_data_output <- shiny::renderUI({
       # https://shiny.posit.co/r/articles/improve/modules/
       # Using renderUI within modules
       ns <- session$ns
@@ -623,21 +629,20 @@ aleBrowserServer <- function(
         return()
       }
 
-      # browser()
       if(is.data.frame(selected_ale_obj())) {
         DT::DTOutput(ns('ale_data_df'))
       } else {
-        verbatimTextOutput(ns('ale_atomic_output'))
+        shiny::verbatimTextOutput(ns('ale_atomic_output'))
       }
     })
 
-    output$ale_data_df <- renderDT({
-      req(is.data.frame(selected_ale_obj()))
+    output$ale_data_df <- DT::renderDT({
+      shiny::req(is.data.frame(selected_ale_obj()))
       selected_ale_obj() |> decimal_df()
     })
 
     # Render the selected object based on its type
-    output$ale_atomic_output <- renderPrint({
+    output$ale_atomic_output <- shiny::renderPrint({
       vec <- selected_ale_obj()
 
       # Only output atomic types; lists return NULL

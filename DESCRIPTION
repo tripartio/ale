@@ -14,18 +14,22 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
     ALEPlot,
+    DT,
     knitr,
     mgcv,
     patchwork,
+    plotly,
     readr,
     rmarkdown,
+    shiny,
+    shinyTree,
+    shinyWidgets,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
     assertthat,
     broom,
     dplyr,
-    DT,
     ellipsis,
     furrr,
     future,
@@ -35,13 +39,9 @@ Imports:
     grDevices,
     insight,
     labeling,
-    plotly,
     progressr,
     purrr,
     rlang,
-    shiny,
-    shinyTree,
-    shinyWidgets,
     stats,
     stringr,
     tidyr,
