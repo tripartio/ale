@@ -83,6 +83,7 @@
 #' should be retrained with a new random variable. The default of 1000 should
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
 #' test runs.
+#' @param seed See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
@@ -190,6 +191,7 @@ create_p_funs <- function(
     },
     pred_type = "response",
     rand_it = 1000,  # iterations of random variables
+    seed = 0,
     silent = FALSE,
     .testing_mode = FALSE
 ) {
@@ -276,6 +278,8 @@ create_p_funs <- function(
     )
   }
 
+  assert_that(is.number(seed))
+
   validate_silent(silent)
 
 
@@ -322,7 +326,7 @@ create_p_funs <- function(
 
       # Generate training and test subsets with the random variable.
       # Package scope because they modify the datasets defined outside of the map function.
-      set.seed(.it)
+      set.seed(seed + .it)
 
       tmp_rand_data <- data
       tmp_rand_data$random_variable <- univariateML::rml(
