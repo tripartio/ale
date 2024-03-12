@@ -33,7 +33,7 @@
 #'
 #' See the example below for how this is implemented.
 #'
-#' @section Approach to calculating p-values:
+#' @section Approach to calculating p-values
 #' The `ale` package takes a literal frequentist approach to the calculation of
 #' p-values. That is, it literally retrains the model 1000 times, each time
 #' modifying it by adding a distinct random variable to the model.
@@ -56,6 +56,38 @@
 #' (from `stats::ecdf()`) is used to create a function to determine p-values
 #' according to the distribution of the random variables' ALE statistics.
 #'
+#' What we have just described is the precise approach to calculating p-values.
+#' Because it is so slow, by default, create_p_funs() implements an approximate
+#' algorithm by default which trains only a few random variables up to the
+#' number of physical parallel processing threads available, with a minimum of
+#' four. To increase speed, the random variable uses only 10 ALE x intervals
+#' instead of the default 100.
+#' Although approximate p-values are much faster than precise ones, they are still somewhat
+#' slow: at the very quickest, they take at least the amount of time that it would
+#' take to train the original model  two or three times. See the
+#' "Parallel processing" section below for more details on the speed of computation.
+#'
+#' @section Parallel processing
+#' Parallel processing using the `{furrr}` library is enabled by default to use
+#' all the available physical CPU cores with the setting
+#' `parallel = parallel::detectCores(logical = FALSE)`. Note that only
+#' physical cores are used (not logical cores or "hyperthreading") because
+#' machine learning can only take advantage of the floating point processors on
+#' physical cores, which are absent from logical cores. Trying to use logical
+#' cores will not speed up processing and might actually slow it down with useless
+#' data transfer.
+#'
+#' For exact p-values, by default 1000 random variables are trained. So, even with
+#' parallel processing, the procedure is very slow. However, a p_funs object
+#' trained with a specific model on a specific dataset can be reused as often as
+#' needed for the identical model-dataset pair.
+#'
+#' For approximate p-values (the default), at least four random variables are trained to give
+#' some minimal variation. With parallel processing, more random variables can
+#' be trained to increase the accuracy of the p-value estimates up to the maximum
+#' number of physical cores.
+#'
+#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
@@ -68,6 +100,8 @@
 #' @param model See documentation for [ale()]
 # @param model model object. The model used to train the original `training_data`.
 #  for which ALE should be calculated. See details and also documentation for [ale()].
+#' @param p_val_type character(1). Either 'approx fast' (default) or
+#' 'precise slow'. See details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel See documentation for [ale()]
 #' @param model_packages See documentation for [ale()]
@@ -180,8 +214,9 @@
 create_p_funs <- function(
     data,
     model,
+    p_val_type = 'approx fast',
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
+    parallel = parallel::detectCores(logical = FALSE),
     model_packages = as.character(NA),
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
@@ -267,20 +302,34 @@ create_p_funs <- function(
   )
 
   assert_that(is.string(pred_type))
-  assert_that(is.whole(rand_it))
-  if (!.testing_mode) {
-    # internal tests override this validation step so that tests can run faster
-    assert_that(
-      rand_it >= 100,
-      msg = paste0(
-        '`rand_it` must be an integer greater than or equal to 100.',
-        ' p-values created on fewer than 100 iterations are very unreliable.')
-    )
-  }
 
   assert_that(is.number(seed))
 
   validate_silent(silent)
+
+  # Validate and set rand_it based on p_val_type
+  assert_that(p_val_type %in% c('approx fast', 'precise slow'))
+  if (p_val_type == 'precise slow') {
+    assert_that(is.whole(rand_it))
+    if (!.testing_mode) {
+      # internal tests override this validation step so that tests can run faster
+      assert_that(
+        rand_it >= 100,
+        msg = paste0(
+          '`rand_it` must be an integer greater than or equal to 100.',
+          ' p-values created on fewer than 100 iterations are very unreliable.')
+      )
+    }
+  }
+  else {  # p_val_type == 'approx fast'
+    # For approx p-values, set one iteration per parallel thread, min 4
+    # In this case, the original value of rand_it is completely ignored.
+    rand_it <- if (parallel <= 4) {
+      4
+    } else {
+      parallel
+    }
+  }
 
 
   # Determine the closest distribution of the residuals
@@ -372,17 +421,23 @@ create_p_funs <- function(
 
       # # Calculate ale of random variable on the test set.
       # # If calculated on the training set, p-values will be too liberal.
-      rand_ale <- ale::ale(
+      rand_ale <- ale(
         package_scope$rand_data,
         package_scope$rand_model,
         'random_variable',
-        parallel = 0,  # avoid iterative parallelization
+        parallel = 0,  # avoid recursive parallelization
+        # The approximate version can use fewer ALE x intervals for faster execution.
+        # The precise version uses the default 100 intervals.
+        x_intervals = if (p_val_type == 'approx fast') 10 else 100,
+        # Don't bootstrap even the approximate version--random variables have
+        # virtually no variation
+        # boot_it = if (p_val_type == 'approx fast') 100 else 0,
         output = 'data',
         y_col = y_col,
         pred_fun = pred_fun,
         pred_type = pred_type,
-        silent = TRUE,
-        relative_y = 'zero'
+        relative_y = 'zero',
+        silent = TRUE
       )
 
       # Increment the progress bar iterator.
