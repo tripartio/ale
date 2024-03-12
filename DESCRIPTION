@@ -25,7 +25,6 @@ Imports:
     assertthat,
     broom,
     dplyr,
-    ellipsis,
     furrr,
     future,
     ggplot2,

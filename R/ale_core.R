@@ -607,7 +607,7 @@ ale_core <- function (
 {
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
-  ellipsis::check_dots_empty()
+  rlang::check_dots_empty()
 
   # Validate arguments
 

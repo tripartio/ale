@@ -52,7 +52,7 @@ plot_ale <- function(
     ) {
 
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -311,7 +311,7 @@ plot_ale_ixn <- function(
 ) {
 
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis

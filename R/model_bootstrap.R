@@ -190,7 +190,7 @@ model_bootstrap <- function (
     silent = FALSE
 ) {
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   assert_that(data |> inherits('data.frame'))
 
