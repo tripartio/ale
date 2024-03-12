@@ -30,6 +30,8 @@
 #  @param seed See documentation for [ale()]
 #  @param boot_alpha See documentation for [ale()]
 #  @param boot_centre See documentation for [ale()]
+#  @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values.
+#  If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
 #  @param ale_x numeric or ordinal vector. Normally generated automatically (if
 #  NULL), but if provided, the provided value will be used instead.
 #  @param ale_n integer vector. See `ale_x`
@@ -48,6 +50,7 @@ calc_ale <- function(
     pred_fun, pred_type,
     x_intervals,
     boot_it, seed, boot_alpha, boot_centre,
+    boot_ale_y = FALSE,
     ale_x = NULL,
     ale_n = NULL,
     ale_y_norm_fun = NULL,
@@ -563,7 +566,12 @@ calc_ale <- function(
 
   return(list(
     summary = boot_summary,
-    stats = boot_stats
+    stats = boot_stats,
+    boot_ale_y = if (boot_ale_y) {
+      boot_mx
+    } else {
+      NULL
+    }
   ))
 
 }

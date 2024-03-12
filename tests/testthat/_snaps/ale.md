@@ -143,6 +143,41 @@
       6 USA        24 22.3     22.3       22.3         22.3     22.3 
       
       
+      $boot_data
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$hp
+      NULL
+      
+      $boot_data$drat
+      NULL
+      
+      $boot_data$wt
+      NULL
+      
+      $boot_data$qsec
+      NULL
+      
+      $boot_data$vs
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$carb
+      NULL
+      
+      $boot_data$country
+      NULL
+      
+      
       $stats
       $stats$by_term
       $stats$by_term$cyl
@@ -758,6 +793,41 @@
       6 USA        24 14.5     5.35       14.5         14.6      24.7
       
       
+      $boot_data
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$hp
+      NULL
+      
+      $boot_data$drat
+      NULL
+      
+      $boot_data$wt
+      NULL
+      
+      $boot_data$qsec
+      NULL
+      
+      $boot_data$vs
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$carb
+      NULL
+      
+      $boot_data$country
+      NULL
+      
+      
       $stats
       $stats$by_term
       $stats$by_term$cyl
@@ -1289,6 +1359,23 @@
       NULL
       
       
+      $boot_data
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$country
+      NULL
+      
+      
       $stats
       $stats$cyl
       NULL
@@ -1529,6 +1616,41 @@
       4 Italy       8  0.452    0.452      0.452        0.452    0.452  
       5 Germany    16 -0.702   -0.702     -0.702       -0.702   -0.702  
       6 USA        24  0.00573  0.00573    0.00573      0.00573  0.00573
+      
+      
+      $boot_data
+      $boot_data$mpg
+      NULL
+      
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$hp
+      NULL
+      
+      $boot_data$drat
+      NULL
+      
+      $boot_data$wt
+      NULL
+      
+      $boot_data$qsec
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$carb
+      NULL
+      
+      $boot_data$country
+      NULL
       
       
       $stats
@@ -2155,6 +2277,41 @@
       6 USA        24 0.584   0.419       0.584        0.547    0.810
       
       
+      $boot_data
+      $boot_data$mpg
+      NULL
+      
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$hp
+      NULL
+      
+      $boot_data$drat
+      NULL
+      
+      $boot_data$wt
+      NULL
+      
+      $boot_data$qsec
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$carb
+      NULL
+      
+      $boot_data$country
+      NULL
+      
+      
       $stats
       $stats$by_term
       $stats$by_term$mpg
@@ -2687,6 +2844,23 @@
       NULL
       
       $data$country
+      NULL
+      
+      
+      $boot_data
+      $boot_data$cyl
+      NULL
+      
+      $boot_data$disp
+      NULL
+      
+      $boot_data$am
+      NULL
+      
+      $boot_data$gear
+      NULL
+      
+      $boot_data$country
       NULL
       
       

@@ -114,7 +114,8 @@
 #' package for your model to this vector, especially if you see such errors after
 #' the progress bars begin displaying (assuming you did not disable progress bars
 #' with `silent = TRUE`).
-#' @param output character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
+#' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
+#' Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
@@ -213,6 +214,11 @@
 #'       for the bootstrapped `ale_y` value.
 #'   Note: regardless what options are requested in the `output` argument, this
 #'   `data` element is always returned.
+#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list
+#'   whose elements, named by each requested x variable, are each a matrix.
+#'   If not requested (as is the default) or if `boot_it == 0`, returns `NULL`.
+#'   Each matrix element is the `ale_y` value of each `ale_x` interval (unnamed rows)
+#'   for each `boot_it` bootstrap iteration (unnamed columns).
 #' * `stats`: if `stats` are requested in the `output` argument (as is the default),
 #'   returns a list. If not requested, returns `NULL`. The returned list provides
 #'   ALE statistics of the `data` element duplicated and presented from various
@@ -658,7 +664,7 @@ ale_core <- function (
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
   assert_that(
-    length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions'))) == 0,
+    length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions', 'boot'))) == 0,
     msg = paste0(
       'The value in the output argument must be one or more of ',
       '"plots", "data", "stats", or "conf_regions".'
@@ -894,13 +900,14 @@ ale_core <- function (
               data_X, model, x_col,
               pred_fun, pred_type, x_intervals,
               boot_it, seed, boot_alpha, boot_centre,
+              boot_ale_y = 'boot' %in% output,
               ale_x = ale_xs[[x_col]],
               ale_n = ale_ns[[x_col]],
               ale_y_norm_fun = ale_y_norm_fun,
               p_funs = p_values
             )
-          ale_data <- ale_data_stats$summary
-          stats    <- ale_data_stats$stats
+          ale_data  <- ale_data_stats$summary
+          stats     <- ale_data_stats$stats
 
           # Shift ale_y by appropriate relative_y
           ale_data <- ale_data |>
@@ -933,6 +940,7 @@ ale_core <- function (
 
           list(
             data = ale_data,
+            boot_data = ale_data_stats$boot_ale_y,
             stats = stats,
             plots = plot
           )
@@ -940,7 +948,9 @@ ale_core <- function (
         set_names(x_cols) |>
         transpose()
   }
-  else {  # two-way interactions
+
+  # two-way interactions
+  else {
     # Create progress bar iterator only if not in an outer loop with ale_xs
     if (!silent && is.null(ale_xs)) {
       progress_iterator <- progressr::progressor(
