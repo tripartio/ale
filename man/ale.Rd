@@ -66,7 +66,8 @@ package for your model to this vector, especially if you see such errors after
 the progress bars begin displaying (assuming you did not disable progress bars
 with \code{silent = TRUE}).}
 
-\item{output}{character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
+\item{output}{character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
+Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
 'stats' will return ALE statistics. Each option must be listed to return the
 specified component. By default, all are returned.}
@@ -183,6 +184,11 @@ for the bootstrapped \code{ale_y} value.
 Note: regardless what options are requested in the \code{output} argument, this
 \code{data} element is always returned.
 }
+\item \code{boot_data}: if \code{boot} is requested in the \code{output} argument, returns a list
+whose elements, named by each requested x variable, are each a matrix.
+If not requested (as is the default) or if \code{boot_it == 0}, returns \code{NULL}.
+Each matrix element is the \code{ale_y} value of each \code{ale_x} interval (unnamed rows)
+for each \code{boot_it} bootstrap iteration (unnamed columns).
 \item \code{stats}: if \code{stats} are requested in the \code{output} argument (as is the default),
 returns a list. If not requested, returns \code{NULL}. The returned list provides
 ALE statistics of the \code{data} element duplicated and presented from various
