@@ -209,8 +209,6 @@
 #' }
 #'
 #'
-#' @importFrom glue glue
-#'
 create_p_funs <- function(
     data,
     model,

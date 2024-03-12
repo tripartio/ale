@@ -157,16 +157,6 @@
 #'   patchwork::wrap_plots()
 #' }
 #'
-#'
-#'
-#'
-#' @import dplyr
-#' @import purrr
-#' @import assertthat
-#' @importFrom stats quantile
-#' @importFrom stats median
-#' @importFrom stats sd
-#'
 model_bootstrap <- function (
     data,
     model,

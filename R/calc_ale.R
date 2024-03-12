@@ -42,9 +42,6 @@
 #  will not be calculated.
 #  @param p_funs See documentation for `p_values` in [ale()]
 #
-#  @import dplyr
-#  @import purrr
-#
 calc_ale <- function(
     X, model, x_col,
     pred_fun, pred_type,

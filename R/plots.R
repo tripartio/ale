@@ -31,11 +31,6 @@
 #  @param seed See documentation for [ale()]
 #
 #
-#  @import dplyr
-#  @import ggplot2
-#  @importFrom glue glue
-#  @import purrr
-#
 plot_ale <- function(
     ale_data, x_col, y_col, y_type,
     y_summary,
@@ -286,11 +281,6 @@ plot_ale <- function(
 # @param compact_plots See documentation for [ale()]
 # @param seed See documentation for [ale()]
 #
-#
-#  @import dplyr
-#  @import ggplot2
-#  @importFrom glue glue
-#  @import purrr
 #
 plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,

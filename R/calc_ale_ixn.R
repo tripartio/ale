@@ -25,10 +25,6 @@
 # @param pred_type See documentation for [ale()]
 # @param x_intervals See documentation for [ale()]
 #
-# @import dplyr
-# @import purrr
-# @importFrom stats quantile
-#
 calc_ale_ixn <- function(
     X, model, x1_col, x2_col,
     # n_row, n_col,

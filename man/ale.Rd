@@ -412,7 +412,6 @@ ale_gam_diamonds_custom$plots |>
 
 }
 
-
 }
 \references{
 Okoli, Chitu. 2023.

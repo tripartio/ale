@@ -194,9 +194,6 @@ mb_gam$ale$plots |>
   patchwork::wrap_plots()
 }
 
-
-
-
 }
 \references{
 Okoli, Chitu. 2023.
