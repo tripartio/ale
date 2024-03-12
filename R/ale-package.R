@@ -28,6 +28,7 @@
 #' @aliases ale-package NULL
 #'
 #'
+#' @importFrom cli cli_alert_info
 #' @import ggplot2
 #' @import dplyr
 #' @import purrr

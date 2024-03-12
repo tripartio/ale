@@ -24,6 +24,7 @@ VignetteBuilder: knitr
 Imports: 
     assertthat,
     broom,
+    cli,
     dplyr,
     furrr,
     future,

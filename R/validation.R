@@ -169,11 +169,14 @@ validate_silent <- function(silent) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
-        message(
-          'Info: No global progress bars were found; the cli handler has been enabled. ',
-          'This activation only lasts for one R session; ',
-          'see help(ale) for how to permanently configure the progress bar settings.'
-        )
+        cli_alert_info(paste0(
+          'No global progress bars were found; the {.pkg cli} progress bar has been activated. ',
+          '(This is not an error.) ',
+          'This default progress bar activation only lasts for one R session. ',
+          'See documentation on {.fun ale::ale} ',
+          'for how to permanently configure the progress bar settings ',
+          'and end these period messages.'
+        ))
       }
 
     }

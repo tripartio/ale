@@ -19,6 +19,7 @@ create_p_funs(
  },
   pred_type = "response",
   rand_it = 1000,
+  seed = 0,
   silent = FALSE,
   .testing_mode = FALSE
 )
@@ -50,6 +51,8 @@ in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very simi
 should be retrained with a new random variable. The default of 1000 should
 give reasonably stable p-values. It can be reduced as low as 100 for faster
 test runs.}
+
+\item{seed}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 
