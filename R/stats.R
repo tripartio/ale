@@ -246,7 +246,7 @@ create_p_funs <- function(
   # Nip in the bud rubbish results due to identical predictions
   assert_that(
     !(stats::sd(y_preds) == 0),
-    msg = 'All predictions are identical. P-values cannot be created.'
+    msg = cli_alert_danger('All predictions are identical. P-values cannot be created.')
   )
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
@@ -257,28 +257,28 @@ create_p_funs <- function(
 
     assert_that(
       !is.null(model_call),
-      msg = glue(
+      msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
-        'random_model_call_string must be provided. See help(create_p_funs) ',
+        '{.arg random_model_call_string} must be provided. See {.fun ale::create_p_funs} ',
         'for details.'
-      )
+      ))
     )
   }
   else {  # validate random_model_call_string
     assert_that(is.string(random_model_call_string))
     assert_that(
       stringr::str_detect(random_model_call_string, 'random_variable'),
-      msg = glue(
-        'random_model_call_string must contain a variable named random_variable. ',
-        'See help(create_p_funs) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        '{.arg random_model_call_string} must contain a variable named {.var random_variable}. ',
+        'See {.fun ale::create_p_funs} for details.'
+      ))
     )
     assert_that(
       stringr::str_detect(random_model_call_string, 'rand_data'),
-      msg = glue(
-        'The data argument for random_model_call_string must be "rand_data". ',
-        'See help(create_p_funs) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        'The {.arg data} argument for {.arg random_model_call_string} must be {.str rand_data}. ',
+        'See {.fun ale::create_p_funs} for details.'
+      ))
     )
 
     # Replace 'rand_data' with the proper internal reference.
@@ -313,10 +313,10 @@ create_p_funs <- function(
       # internal tests override this validation step so that tests can run faster
       assert_that(
         rand_it >= 100,
-        msg = paste0(
-          '`rand_it` must be an integer greater than or equal to 100.',
-          ' p-values created on fewer than 100 iterations are very unreliable.')
-      )
+        msg = cli_alert_danger(paste0(
+          '{.arg rand_it} must be an integer greater than or equal to 100.',
+          ' p-values created on fewer than 100 iterations are very imprecise.')
+      ))
     }
   }
   else {  # p_val_type == 'approx fast'
@@ -637,7 +637,7 @@ ale_stats <- function(
 
   assert_that(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
-    msg = 'Either y_vals or ale_y_norm_fun must be provided.'
+    msg = cli_alert_danger('Either {.arg y_vals} or {.arg ale_y_norm_fun} must be provided.')
   )
 
   if (!zeroed_ale) {
@@ -1024,7 +1024,7 @@ summarize_conf_regions_in_words <- function(
     with(
       conf_region_summary[.row_num, ],
       if (exists('start_x')) { # conf_region_summary is numeric
-        stringr::str_glue(
+        str_glue(
           'From {round_dp(start_x)} to {round_dp(end_x)}, ',
           'ALE ',
           if_else(
@@ -1036,7 +1036,7 @@ summarize_conf_regions_in_words <- function(
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
-        stringr::str_glue(
+        str_glue(
           'For {x}, the ALE of {round_dp(y)} ',
           if_else(
             relative_to_mid == 'overlap',

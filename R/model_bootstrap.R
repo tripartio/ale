@@ -196,26 +196,26 @@ model_bootstrap <- function (
       # If there is no model_call_string and model is a character,
       # then model was probably omitted and model_call_string might was
       # mistakenly passed in the model argument position
-      msg = '"model" is a required argument.'
+      msg = cli_alert_danger('{.arg model} is a required argument.')
     )
 
     assert_that(
       !is.null(model_call),
-      msg = glue::glue(
+      msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
-        'model_call_string must be provided. See help(model_bootstrap) ',
+        '{.arg model_call_string} must be provided. See {.fun ale::model_bootstrap} ',
         'for details.'
-      )
+      ))
     )
   }
   else {  # validate model_call_string
     assert_that(is.string(model_call_string))
     assert_that(
       stringr::str_detect(model_call_string, 'boot_data'),
-      msg = glue::glue(
-        'The data argument for model_call_string must be "boot_data". ',
-        'See help(model_bootstrap) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        'The {.arg data} argument for {.arg model_call_string} must be "boot_data". ',
+        'See {.fun ale::model_bootstrap} for details.'
+      ))
     )
   }
 
@@ -228,8 +228,8 @@ model_bootstrap <- function (
   # output must be a subset of c('ale', 'model_stats', 'model_coefs')
   assert_that(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
-    msg = 'The value in the output argument must be one or more of
-    "ale", "model_stats", or "model_coefs".'
+    msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
+    "ale", "model_stats", or "model_coefs".')
   )
 
   assert_that(is.list(ale_options))
@@ -239,11 +239,11 @@ model_bootstrap <- function (
         length(ale_options$p_values) == 1 &&
         ale_options$p_values == 'auto'
     ),
-    msg = paste0(
-      'The `ale_options` `p_values == "auto"` option is disabled for `model_bootstrap()` ',
+    msg = cli_alert_danger(paste0(
+      'The {.arg ale_options} `p_values == "auto"` option is disabled for `model_bootstrap()` ',
       'because it is far too slow. Rather, you must pass a p-values ',
-      'function object using the procedure described in `help(create_p_funs)`.'
-    )
+      'function object using the procedure described in {.fun ale::create_p_funs}.'
+    ))
   )
   assert_that(is.list(tidy_options))
   assert_that(is.list(glance_options))

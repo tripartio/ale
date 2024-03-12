@@ -30,7 +30,6 @@ Imports:
     future,
     ggplot2,
     ggpubr,
-    glue,
     grDevices,
     insight,
     labeling,

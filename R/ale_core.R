@@ -659,18 +659,18 @@ ale_core <- function (
 
   assert_that(
     length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions', 'boot'))) == 0,
-    msg = paste0(
-      'The value in the output argument must be one or more of ',
+    msg = cli_alert_danger(paste0(
+      'The value in the {.arg output} argument must be one or more of ',
       '"plots", "data", "stats", or "conf_regions".'
-    )
+    ))
   )
   if ('conf_regions' %in% output) {
     assert_that(
       'stats' %in% output,
-      msg = paste0(
-        'If "conf_regions" is requested in the output argument, ',
+      msg = cli_alert_danger(paste0(
+        'If "conf_regions" is requested in the {.arg output} argument, ',
         'then "stats" must also be requested.'
-      )
+      ))
     )
   }
 
@@ -694,10 +694,10 @@ ale_core <- function (
         p_values |> inherits('p_funs'),
         # If the object structure changes in the future, verify the version number:
         # e.g., numeric_version('0.2.0') <= numeric_version('0.2.20240111')
-        msg = glue(
-          'p_values is not a valid p-values model object.
-          See help(ale) for instructions for obtaining p-values.'
-        )
+        msg = cli_alert_danger(paste0(
+          'The value passed to {.arg p_values} is not a valid p-values model object.
+          See {.fun ale::ale} for instructions for obtaining p-values.'
+        ))
       )
     }
   }
@@ -708,11 +708,11 @@ ale_core <- function (
   assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
   assert_that(
     is.string(boot_centre) && (boot_centre %in% c('mean', 'median')),
-    msg = 'boot_centre must be one of "mean" or "median".'
+    msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
   )
   assert_that(
     is.string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
-    msg = 'relative_y must be one of "median", "mean", or "zero".'
+    msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
   )
   if (!is.null(y_type)) {
     assert_that(is.string(y_type) &&
@@ -751,8 +751,8 @@ ale_core <- function (
         (is.natural(rug_sample_size) &&
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
-      msg = 'rug_sample_size must be either 0 or
-        an integer larger than the number of x_intervals + 1.'
+      msg = cli_alert_danger('{.arg rug_sample_size} must be either 0 or
+        an integer larger than the number of x_intervals + 1.')
     )
     assert_that(is.whole(min_rug_per_interval))
     assert_that(is.natural(n_x1_int))

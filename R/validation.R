@@ -49,7 +49,7 @@ validate_y_preds <- function(
       cli_abort(paste0(
         'There is an error with the predict function pred_fun or with the ',
         'prediction type pred_type. ',
-        'See help(ale) for how to create a custom predict function for ',
+        'See {.fun ale::ale} for how to create a custom predict function for ',
         'non-standard models. Here is the full error message: \n',
         e
       ))
@@ -76,7 +76,8 @@ validate_y_col <- function(
     assert_that(is.string(y_col))
     assert_that(
       y_col %in% names(data),
-      msg = 'y_col is not found in data.')
+      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
+    )
   }
 
   # Identify y column from the Y term of a standard R model call
@@ -119,10 +120,10 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
 
       assert_that(
         !is.null(predict_method),
-        msg = paste0(
-          '"model_packages" could not be automatically determined. ',
+        msg = cli_alert_danger(paste0(
+          '{.arg model_packages} could not be automatically determined. ',
           'It must be specified for parallel processing.'
-        )
+        ))
       )
 
       model_packages <- rlang::ns_env_name(predict_method)
@@ -130,11 +131,11 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
     else {
       assert_that(
         is.character(model_packages),
-        msg = paste0(
+        msg = cli_alert_danger(paste0(
           'If parallel processing is not disabled with `parallel = 0`, ',
-          'then `model_packages` must be a character vector of the packages required ',
-          'to predict `model`.'
-        )
+          'then {.arg model_packages} must be a character vector of the packages required ',
+          'to predict {.arg model}.'
+        ))
       )
 
       missing_packages <- setdiff(
@@ -143,11 +144,11 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
       )
       assert_that(
         length(missing_packages) == 0,
-        msg = paste0(
-          'The following packages specified in the "model_packages" argument ',
+        msg = cli_alert_danger(paste0(
+          'The following packages specified in the {.arg model_packages} argument ',
           'do not seem to be installed on your system: ',
           paste0(missing_packages, collapse = ', ')
-        )
+        ))
       )
     }
   }

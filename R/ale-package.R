@@ -35,8 +35,8 @@
 #' @importFrom assertthat is.number
 #' @importFrom assertthat is.string
 #' @importFrom cli cli_abort
+#' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
-#' @importFrom glue glue
 #' @importFrom purrr discard
 #' @importFrom purrr map
 #' @importFrom purrr map2
@@ -49,6 +49,7 @@
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd
+#' @importFrom stringr str_glue
 #'
 '_PACKAGE'
 
