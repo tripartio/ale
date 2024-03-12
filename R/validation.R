@@ -14,14 +14,14 @@ is.whole <- function(x) {
 }
 
 
-# Prevent usage of the ambiguous assertthat::is.count
-is.count <- function(x) {
-  stop('`is.count` is ambiguous. ',
-       'Instead, use `is.whole` for non-negative integer counts (including 0) or ',
-       '`is.natural` for positive whole numbers (excluding 0).')
-}
-
-
+# # Prevent usage of the ambiguous assertthat::is.count
+# is.count <- function(x) {
+#   stop('`is.count` is ambiguous. ',
+#        'Instead, use `is.whole` for non-negative integer counts (including 0) or ',
+#        '`is.natural` for positive whole numbers (excluding 0).')
+# }
+#
+#
 # # Tests
 # is.whole('dodo')
 # is.whole(0)
@@ -46,13 +46,13 @@ validate_y_preds <- function(
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
     error = \(e) {
-      stop(
+      cli_abort(paste0(
         'There is an error with the predict function pred_fun or with the ',
         'prediction type pred_type. ',
         'See help(ale) for how to create a custom predict function for ',
         'non-standard models. Here is the full error message: \n',
         e
-      )
+      ))
     },
     finally = NULL
   )
@@ -84,7 +84,7 @@ validate_y_col <- function(
     y_col <- insight::find_response(model)
 
     if (is.null(y_col)) {
-      stop('This model seems to be non-standard, so y_col must be provided.')
+      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
     }
   }
 

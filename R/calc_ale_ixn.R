@@ -47,7 +47,7 @@ calc_ale_ixn <- function(
 
   # if (class(X[[x2_col]]) != "numeric" & class(X[[x2_col]]) != "integer") {
   if (x2_type != "numeric") {
-    stop("x2 must be numeric or integer. Only x1 can be of a different datatype.")
+    cli_abort("x2 must be numeric or integer. Only x1 can be of a different datatype.")
   }
 
   # if (class(X[[x1_col]]) %in% c('numeric', 'integer')) {#for numerical/integer X[[x1_col]], calculate the ALE plot
@@ -270,7 +270,7 @@ calc_ale_ixn <- function(
   } #end of if (class(X[[x1_col]]) == "factor") statement
 
   else {
-    stop("x1 must be logical, factor, ordered, or numeric")
+    cli_abort("x1 must be logical, factor, ordered, or numeric")
   }
 
 

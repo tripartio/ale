@@ -7,8 +7,9 @@
 create_p_funs(
   data,
   model,
+  p_val_type = "approx fast",
   ...,
-  parallel = parallel::detectCores(logical = FALSE) - 1,
+  parallel = parallel::detectCores(logical = FALSE),
   model_packages = as.character(NA),
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
@@ -28,6 +29,9 @@ create_p_funs(
 \item{data}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
+
+\item{p_val_type}{character(1). Either 'approx fast' (default) or
+'precise slow'. See details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -143,6 +147,39 @@ added.
 (from \code{stats::ecdf()}) is used to create a function to determine p-values
 according to the distribution of the random variables' ALE statistics.
 }
+
+What we have just described is the precise approach to calculating p-values.
+Because it is so slow, by default, create_p_funs() implements an approximate
+algorithm by default which trains only a few random variables up to the
+number of physical parallel processing threads available, with a minimum of
+four. To increase speed, the random variable uses only 10 ALE x intervals
+instead of the default 100.
+Although approximate p-values are much faster than precise ones, they are still somewhat
+slow: at the very quickest, they take at least the amount of time that it would
+take to train the original model  two or three times. See the
+"Parallel processing" section below for more details on the speed of computation.
+}
+
+\section{Parallel processing}{
+
+Parallel processing using the \code{{furrr}} library is enabled by default to use
+all the available physical CPU cores with the setting
+\code{parallel = parallel::detectCores(logical = FALSE)}. Note that only
+physical cores are used (not logical cores or "hyperthreading") because
+machine learning can only take advantage of the floating point processors on
+physical cores, which are absent from logical cores. Trying to use logical
+cores will not speed up processing and might actually slow it down with useless
+data transfer.
+
+For exact p-values, by default 1000 random variables are trained. So, even with
+parallel processing, the procedure is very slow. However, a p_funs object
+trained with a specific model on a specific dataset can be reused as often as
+needed for the identical model-dataset pair.
+
+For approximate p-values (the default), at least four random variables are trained to give
+some minimal variation. With parallel processing, more random variables can
+be trained to increase the accuracy of the p-value estimates up to the maximum
+number of physical cores.
 }
 
 \examples{

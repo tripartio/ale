@@ -28,6 +28,8 @@
 #' @aliases ale-package NULL
 #'
 #'
+#' @importFrom assertthat assert_that
+#' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_info
 #' @import ggplot2
 #' @import dplyr

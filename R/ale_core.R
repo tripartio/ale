@@ -569,9 +569,6 @@ ale_ixn <- function (
 # @param compact_plots See documentation for [ale()]
 # @param silent See documentation for [ale()]
 #
-# @import dplyr
-# @import purrr
-# @import assertthat
 #
 #
 ale_core <- function (
@@ -655,10 +652,10 @@ ale_core <- function (
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
   valid_x_cols <- all_x_cols %in% names(data)
   if (!all(valid_x_cols)) {
-    stop(
-      'The following columns were not found in data: ',
+    cli_abort(paste0(
+      'The following columns were not found in {.arg data}: ',
       paste0(all_x_cols[!valid_x_cols], collapse = ', ')
-    )
+    ))
   }
   # #Later: Verify valid datatypes for all x_col
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
@@ -782,7 +779,7 @@ ale_core <- function (
     } else if (y_type == 'binary') {
       y_preds
     } else {
-      stop('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
+      cli_abort('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
     }
 
   # Generate summary statistics for y for plotting

@@ -33,7 +33,7 @@
 #'
 #' See the example below for how this is implemented.
 #'
-#' @section Approach to calculating p-values
+#' @section Approach to calculating p-values:
 #' The `ale` package takes a literal frequentist approach to the calculation of
 #' p-values. That is, it literally retrains the model 1000 times, each time
 #' modifying it by adding a distinct random variable to the model.
@@ -67,7 +67,7 @@
 #' take to train the original model  two or three times. See the
 #' "Parallel processing" section below for more details on the speed of computation.
 #'
-#' @section Parallel processing
+#' @section Parallel processing:
 #' Parallel processing using the `{furrr}` library is enabled by default to use
 #' all the available physical CPU cores with the setting
 #' `parallel = parallel::detectCores(logical = FALSE)`. Note that only
@@ -408,12 +408,12 @@ create_p_funs <- function(
             assign('rand_model', eval(model_call), package_scope)
           },
           error = \(e) {
-            stop(
+            cli_abort(paste0(
               'Could not automatically detect the model call. ',
-              'You must specify the "random_model_call_string" argument. ',
+              'You must specify the {.arg random_model_call_string} argument. ',
               'Here is the full error message: \n',
               e
-            )
+            ))
           }
         )
 
@@ -643,7 +643,7 @@ ale_stats <- function(
   )
 
   if (!zeroed_ale) {
-    stop('Zeroed ALE required for now.')
+    cli_abort('Zeroed ALE required for now.')
   }
 
   # Remove any NA ale_y values (perhaps from bootstrapping) and corresponding ale_n
