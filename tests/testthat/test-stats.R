@@ -7,7 +7,7 @@ test_that(
     expect_no_error(
       create_p_funs(
         test_cars,
-        cars_gam,
+        test_gam,
         rand_it = 2,
         silent = TRUE,
         parallel = 2,
@@ -23,7 +23,7 @@ test_that(
 
     pf <- create_p_funs(
       test_cars,
-      cars_gam,
+      test_gam,
       rand_it = 10,
       silent = TRUE,
       parallel = 0,  # disable parallelization for reproducible tests
@@ -57,7 +57,7 @@ test_that(
 
     pf <- create_p_funs(
       test_cars,
-      cars_gam,
+      test_gam,
       random_model_call_string = 'mgcv::gam(
         mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
         vs + am + gear + carb + country + random_variable,

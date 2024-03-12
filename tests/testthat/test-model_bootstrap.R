@@ -6,7 +6,7 @@ test_that(
     # No bootstrap
     expect_no_error(
       model_bootstrap(
-        test_cars, cars_gam,
+        test_cars, test_gam,
         ale_options = list(x_cols = c('cyl', 'disp')),
         parallel = 2,
         silent = TRUE
@@ -16,7 +16,7 @@ test_that(
     # With bootstrap
     expect_no_error(
       model_bootstrap(
-        test_cars, cars_gam,
+        test_cars, test_gam,
         ale_options = list(x_cols = c('cyl', 'disp')),
         boot_it = 5,
         parallel = 2,
@@ -37,7 +37,7 @@ test_that(
 
     mb <- model_bootstrap(
       test_cars,
-      cars_gam,
+      test_gam,
       parallel = 0,
       boot_it = 0,
       silent = TRUE,
@@ -56,7 +56,7 @@ test_that(
 
     mb <- model_bootstrap(
       test_cars,
-      cars_gam,
+      test_gam,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
@@ -77,7 +77,7 @@ test_that(
 
     mb <- model_bootstrap(
       test_cars,
-      cars_gam,
+      test_gam,
       parallel = 0,
       boot_it = 5,
       seed = 1234,

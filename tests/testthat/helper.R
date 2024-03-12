@@ -1,4 +1,7 @@
 # Prepare common environment for testing
+# https://testthat.r-lib.org/articles/special-files.html
+# setup.R is only available for tests
+# helper.R is also available for package devoloment with devtools::load_all()
 
 # Train a GAM on var_cars dataset -------------------
 
@@ -10,7 +13,7 @@ int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 
 # Super-assignment <<- used: without it, these variables are not found in many
 # of the subsequent testthat tests.
-test_cars <<- var_cars |>
+test_cars <- var_cars |>
   dplyr::bind_rows(
     var_cars |>
       dplyr::mutate(
@@ -23,11 +26,11 @@ test_cars <<- var_cars |>
 rm(dbl_jitter)
 rm(int_jitter)
 
-cars_gam <<- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
+test_gam <- mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                          vs + am + gear + carb + country,
                        data = test_cars)
 
-cars_gam_binary <<- mgcv::gam(vs ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
+test_gam_binary <- mgcv::gam(vs ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                                 am + gear + carb + country,
                               data = test_cars)
 
@@ -45,7 +48,7 @@ ale_plots_to_data <- function(
 # custom predict function ------------
 # Super-assignment <<- used: without it, these variables are not found in many
 # of the subsequent testthat tests.
-test_predict <<- function(object, newdata, type = pred_type) {
+test_predict <- function(object, newdata, type = pred_type) {
   predict(object, newdata, se.fit = TRUE, type = type)$fit
 }
 
