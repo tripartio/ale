@@ -5,7 +5,7 @@
 ## Create test_cars; var_cars with more variables so that test will not fail
 # with mgcv::gam error "Model has more coefficients than data"
 set.seed(0)
-dbl_jitter <- runif(nrow(var_cars), 0.99, 1.01)
+dbl_jitter <- stats::runif(nrow(var_cars), 0.99, 1.01)
 int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 
 # Super-assignment <<- used: without it, these variables are not found in many

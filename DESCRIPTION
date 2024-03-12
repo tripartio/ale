@@ -46,4 +46,6 @@ Depends:
 URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: model_bootstrap, ale, ale_ixn
 LazyData: true
