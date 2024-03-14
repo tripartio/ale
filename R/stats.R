@@ -543,7 +543,7 @@ create_p_funs <- function(
   p_fun_env$`if` <- base::`if`
   p_fun_env$all  <- base::all
   p_fun_env$is.numeric <- base::is.numeric
-  p_fun_env$`assert_that` <- assert_that
+  p_fun_env$`validate` <- validate
   p_fun_env$`stringr::str_sub` <- stringr::str_sub
   p_fun_env$`stats::ecdf` <- stats::ecdf
   p_fun_env$quantile <- stats::quantile
