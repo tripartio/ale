@@ -231,7 +231,7 @@ create_p_funs <- function(
 
   # Validate arguments
 
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
@@ -244,7 +244,7 @@ create_p_funs <- function(
   )
 
   # Nip in the bud rubbish results due to identical predictions
-  assert_that(
+  validate(
     !(stats::sd(y_preds) == 0),
     msg = cli_alert_danger('All predictions are identical. P-values cannot be created.')
   )
@@ -255,7 +255,7 @@ create_p_funs <- function(
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
 
-    assert_that(
+    validate(
       !is.null(model_call),
       msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
@@ -265,15 +265,15 @@ create_p_funs <- function(
     )
   }
   else {  # validate random_model_call_string
-    assert_that(is.string(random_model_call_string))
-    assert_that(
+    validate(is_string(random_model_call_string))
+    validate(
       stringr::str_detect(random_model_call_string, 'random_variable'),
       msg = cli_alert_danger(paste0(
         '{.arg random_model_call_string} must contain a variable named {.var random_variable}. ',
         'See {.fun ale::create_p_funs} for details.'
       ))
     )
-    assert_that(
+    validate(
       stringr::str_detect(random_model_call_string, 'rand_data'),
       msg = cli_alert_danger(paste0(
         'The {.arg data} argument for {.arg random_model_call_string} must be {.str rand_data}. ',
@@ -289,7 +289,7 @@ create_p_funs <- function(
       )
   }
 
-  assert_that(is.character(random_model_call_string_vars))
+  validate(is.character(random_model_call_string_vars))
 
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -299,19 +299,19 @@ create_p_funs <- function(
     model = model
   )
 
-  assert_that(is.string(pred_type))
+  validate(is_string(pred_type))
 
-  assert_that(is.number(seed))
+  validate(is_scalar_number(seed))
 
   validate_silent(silent)
 
   # Validate and set rand_it based on p_val_type
-  assert_that(p_val_type %in% c('approx fast', 'precise slow'))
+  validate(p_val_type %in% c('approx fast', 'precise slow'))
   if (p_val_type == 'precise slow') {
-    assert_that(is.whole(rand_it))
+    validate(is_scalar_whole(rand_it))
     if (!.testing_mode) {
       # internal tests override this validation step so that tests can run faster
-      assert_that(
+      validate(
         rand_it >= 100,
         msg = cli_alert_danger(paste0(
           '{.arg rand_it} must be an integer greater than or equal to 100.',
@@ -406,12 +406,13 @@ create_p_funs <- function(
             assign('rand_model', eval(model_call), package_scope)
           },
           error = \(e) {
-            cli_abort(paste0(
-              'Could not automatically detect the model call. ',
-              'You must specify the {.arg random_model_call_string} argument. ',
-              'Here is the full error message: \n',
-              e
-            ))
+            cli_abort(
+              'Could not automatically detect the model call.
+              You must specify the {.arg random_model_call_string} argument.
+              Here is the full error message:
+
+              {e}'
+            )
           }
         )
 
@@ -474,7 +475,7 @@ create_p_funs <- function(
     rand_stats, names(rand_stats),
     \(.stat_vals, .name_stat) {
       function(x) {
-        assertthat::assert_that(is.numeric(x))
+        validate(is.numeric(x))
 
         # For aler_min and naler_min, the p-value is the simple ECDF
         if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
@@ -493,8 +494,8 @@ create_p_funs <- function(
     rand_stats, names(rand_stats),
     \(.stat_vals, .name_stat) {
       function(p) {
-        assertthat::assert_that(is.numeric(p))
-        assertthat::assert_that(all(p >= 0 & p <= 1))
+        validate(is.numeric(p))
+        validate(all(p >= 0 & p <= 1))
 
         # Interpretation of p-value: percentage of values >= or greater than the statistic.
         # This code returns the statistic that yields the given p for this data.
@@ -542,7 +543,7 @@ create_p_funs <- function(
   p_fun_env$`if` <- base::`if`
   p_fun_env$all  <- base::all
   p_fun_env$is.numeric <- base::is.numeric
-  p_fun_env$`assertthat::assert_that` <- assertthat::assert_that
+  p_fun_env$`assert_that` <- assert_that
   p_fun_env$`stringr::str_sub` <- stringr::str_sub
   p_fun_env$`stats::ecdf` <- stats::ecdf
   p_fun_env$quantile <- stats::quantile
@@ -635,7 +636,7 @@ ale_stats <- function(
     zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
 
-  assert_that(
+  validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
     msg = cli_alert_danger('Either {.arg y_vals} or {.arg ale_y_norm_fun} must be provided.')
   )

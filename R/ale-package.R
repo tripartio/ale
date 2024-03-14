@@ -30,13 +30,10 @@
 #'
 #' @import dplyr
 #' @import ggplot2
-#' @importFrom assertthat assert_that
-#' @importFrom assertthat is.flag
-#' @importFrom assertthat is.number
-#' @importFrom assertthat is.string
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
+#' @importFrom purrr compact
 #' @importFrom purrr discard
 #' @importFrom purrr map
 #' @importFrom purrr map2
@@ -46,6 +43,8 @@
 #' @importFrom purrr set_names
 #' @importFrom purrr transpose
 #' @importFrom rlang .data
+#' @importFrom rlang is_bool
+#' @importFrom rlang is_string
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd

@@ -615,7 +615,7 @@ ale_core <- function (
   # contained in all_x__cols
 
   # Validate the dataset
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
@@ -639,33 +639,33 @@ ale_core <- function (
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
-  assert_that(is.flag(ixn))
-  if (!is.null(x_cols)) assert_that(is.character(x_cols))
-  if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
-  if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
+  validate(is_bool(ixn))
+  if (!is.null(x_cols)) validate(is.character(x_cols))
+  if (!is.null(x1_cols)) validate(is.character(x1_cols))
+  if (!is.null(x2_cols)) validate(is.character(x2_cols))
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
   valid_x_cols <- all_x_cols %in% names(data)
   if (!all(valid_x_cols)) {
-    cli_abort(paste0(
-      'The following columns were not found in {.arg data}: ',
-      paste0(all_x_cols[!valid_x_cols], collapse = ', ')
-    ))
+    cli_abort(
+      'The following columns were not found in {.arg data}:
+      {paste0(all_x_cols[!valid_x_cols], collapse = ', ')}'
+    )
   }
   # #Later: Verify valid datatypes for all x_col
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
-  assert_that(
+  validate(
     length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions', 'boot'))) == 0,
-    msg = cli_alert_danger(paste0(
-      'The value in the {.arg output} argument must be one or more of ',
-      '"plots", "data", "stats", or "conf_regions".'
-    ))
+    msg = cli_alert_danger(
+      'The value in the {.arg output} argument must be one or more of
+      "plots", "data", "stats", or "conf_regions".'
+    )
   )
   if ('conf_regions' %in% output) {
-    assert_that(
+    validate(
       'stats' %in% output,
       msg = cli_alert_danger(paste0(
         'If "conf_regions" is requested in the {.arg output} argument, ',
@@ -674,7 +674,7 @@ ale_core <- function (
     )
   }
 
-  assert_that(is.string(pred_type))
+  validate(is_string(pred_type))
 
   if (!is.null(p_values)) {
     # The user wants p-values
@@ -689,7 +689,7 @@ ale_core <- function (
       )
     }
     else {  # a p_funs object should be provided
-      assert_that(
+      validate(
         # Verify that p_values is a `p_funs` object (defined by the ale package).
         p_values |> inherits('p_funs'),
         # If the object structure changes in the future, verify the version number:
@@ -702,27 +702,27 @@ ale_core <- function (
     }
   }
 
-  assert_that(is.natural(x_intervals) && (x_intervals > 1))
-  assert_that(is.whole(boot_it))
-  assert_that(is.number(seed))
-  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  assert_that(
-    is.string(boot_centre) && (boot_centre %in% c('mean', 'median')),
+  validate(is_scalar_natural(x_intervals) && (x_intervals > 1))
+  validate(is_scalar_whole(boot_it))
+  validate(is_scalar_number(seed))
+  validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
+  validate(
+    is_string(boot_centre) && (boot_centre %in% c('mean', 'median')),
     msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
   )
-  assert_that(
-    is.string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
+  validate(
+    is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
     msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
   )
   if (!is.null(y_type)) {
-    assert_that(is.string(y_type) &&
+    validate(is_string(y_type) &&
                   (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
   }
-  assert_that(is.string(pred_type))
+  validate(is_string(pred_type))
   if (!is.null(ale_xs)) {
     map(
       ale_xs,
-      \(.var) assert_that(
+      \(.var) validate(
         is.null(.var)  ||  # if the variable is present, try the next two tests
           is.numeric(.var) || is.factor(.var)
       )
@@ -731,7 +731,7 @@ ale_core <- function (
   if (!is.null(ale_ns)) {
     map(
       ale_ns,
-      \(.var) assert_that(
+      \(.var) validate(
         is.null(.var) ||  # if the variable is present, try the next test
           is.integer(.var)
       )
@@ -741,23 +741,23 @@ ale_core <- function (
   # Validate plot-related arguments.
   # If plots are not requested, then ignore these arguments.
   if ('plots' %in% output) {
-    assert_that(
+    validate(
       is.numeric(median_band_pct) &&
         length(median_band_pct) == 2 &&
         all(between(median_band_pct, 0, 1))
     )
-    assert_that(
+    validate(
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
-        (is.natural(rug_sample_size) &&
+        (is_scalar_natural(rug_sample_size) &&
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
       msg = cli_alert_danger('{.arg rug_sample_size} must be either 0 or
         an integer larger than the number of x_intervals + 1.')
     )
-    assert_that(is.whole(min_rug_per_interval))
-    assert_that(is.natural(n_x1_int))
-    assert_that(is.natural(n_x2_int))
-    assert_that(is.natural(n_y_quant))
+    validate(is_scalar_whole(min_rug_per_interval))
+    validate(is_scalar_natural(n_x1_int))
+    validate(is_scalar_natural(n_x2_int))
+    validate(is_scalar_natural(n_y_quant))
   }
 
   validate_silent(silent)

@@ -182,7 +182,7 @@ model_bootstrap <- function (
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # If model_call_string is not provided, ensure that
   # the model allows automatic manipulation.
@@ -191,7 +191,7 @@ model_bootstrap <- function (
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
 
-    assert_that(
+    validate(
       !is.character(model),
       # If there is no model_call_string and model is a character,
       # then model was probably omitted and model_call_string might was
@@ -199,7 +199,7 @@ model_bootstrap <- function (
       msg = cli_alert_danger('{.arg model} is a required argument.')
     )
 
-    assert_that(
+    validate(
       !is.null(model_call),
       msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
@@ -209,8 +209,8 @@ model_bootstrap <- function (
     )
   }
   else {  # validate model_call_string
-    assert_that(is.string(model_call_string))
-    assert_that(
+    validate(is_string(model_call_string))
+    validate(
       stringr::str_detect(model_call_string, 'boot_data'),
       msg = cli_alert_danger(paste0(
         'The {.arg data} argument for {.arg model_call_string} must be "boot_data". ',
@@ -221,19 +221,19 @@ model_bootstrap <- function (
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
-  assert_that(is.whole(boot_it))
-  assert_that(is.number(seed))
-  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  assert_that(boot_centre == 'mean' || boot_centre == 'median')
+  validate(is_scalar_whole(boot_it))
+  validate(is_scalar_number(seed))
+  validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
+  validate(boot_centre == 'mean' || boot_centre == 'median')
   # output must be a subset of c('ale', 'model_stats', 'model_coefs')
-  assert_that(
+  validate(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
     msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
     "ale", "model_stats", or "model_coefs".')
   )
 
-  assert_that(is.list(ale_options))
-  assert_that(
+  validate(is.list(ale_options))
+  validate(
     !(
       !is.null(ale_options$p_values) &&
         length(ale_options$p_values) == 1 &&
@@ -245,8 +245,8 @@ model_bootstrap <- function (
       'function object using the procedure described in {.fun ale::create_p_funs}.'
     ))
   )
-  assert_that(is.list(tidy_options))
-  assert_that(is.list(glance_options))
+  validate(is.list(tidy_options))
+  validate(is.list(glance_options))
 
   validate_silent(silent)
 
