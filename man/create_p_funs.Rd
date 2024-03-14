@@ -10,7 +10,7 @@ create_p_funs(
   p_val_type = "approx fast",
   ...,
   parallel = parallel::detectCores(logical = FALSE),
-  model_packages = as.character(NA),
+  model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   y_col = NULL,

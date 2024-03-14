@@ -136,7 +136,6 @@ validate_y_col <- function(
 
 # Validate parallel processing inputs: parallel, model_packages.
 validated_parallel_packages <- function(parallel, model, model_packages) {
-  # validate_parallel <- function(parallel, model_packages) {
   validate(is_scalar_whole(parallel))
 
   # Validate or set model_packages for parallel processing.
@@ -144,7 +143,8 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
   # essentially, ignore the model_packages argument.
   if (parallel > 0) {
     # If model_packages are not provided, try to automatically detect one
-    if (all(is.na(model_packages))) {
+    if (is.null(model_packages)) {
+    # if (all(is.na(model_packages))) {
       # iterate through all classes of model until a predict method is identified
       predict_method <- NULL
 

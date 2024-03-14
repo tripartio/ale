@@ -215,7 +215,7 @@ create_p_funs <- function(
     p_val_type = 'approx fast',
     ...,
     parallel = parallel::detectCores(logical = FALSE),
-    model_packages = as.character(NA),
+    model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     y_col = NULL,
@@ -339,28 +339,34 @@ create_p_funs <- function(
   package_scope$rand_data <- data
   n_rows <- nrow(data)
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map has an important .options argument absent from
-  # purrr::map, map_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map_loop <- furrr::future_map
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map has an important .options argument absent from
+  # # purrr::map, map_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map_loop <- furrr::future_map
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map(...)
+  #   }
+  # }
 
   # Create progress bar iterator
   if (!silent) {
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
-  rand_ales <- map_loop(
+  rand_ales <- furrr::future_map(
+  # rand_ales <- map_loop(
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
@@ -448,10 +454,10 @@ create_p_funs <- function(
       rand_ale
     })
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
   # Normalization is based on y_preds rather than y_col:
   # * takes care of classification, survival, or other [0, 1] prediction values

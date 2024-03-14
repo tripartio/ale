@@ -164,7 +164,7 @@ model_bootstrap <- function (
     model_call_string = NULL,
     model_call_string_vars = character(),
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    model_packages = NULL,
     # y_col,
     # pred_fun,
     # pred_type,
@@ -277,21 +277,26 @@ model_bootstrap <- function (
   ale_xs <- NULL
   ale_ns <- NULL
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map2 has an important .options argument absent from
-  # purrr::map2, map2_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map2_loop <- furrr::future_map2
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map2_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map2(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map2 has an important .options argument absent from
+  # # purrr::map2, map2_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map2_loop <- furrr::future_map2
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map2_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map2(...)
+  #   }
+  # }
 
   model_call_string_vars <- c(
     'boot_data',
@@ -308,7 +313,8 @@ model_bootstrap <- function (
   }
 
   model_and_ale <-
-    map2_loop(
+    furrr::future_map2(
+    # map2_loop(
       .options = furrr::furrr_options(
         # Enable parallel-processing random seed generation
         seed = seed,
@@ -443,10 +449,10 @@ model_bootstrap <- function (
     ) |>
     transpose()
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
 
   # Bind the model and ALE data to the bootstrap tbl

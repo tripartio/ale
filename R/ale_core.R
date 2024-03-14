@@ -352,7 +352,7 @@ ale <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -486,7 +486,7 @@ ale_ixn <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    model_packages = NULL,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -575,7 +575,7 @@ ale_core <- function (
     y_col = NULL,
     ...,
     parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
@@ -846,21 +846,26 @@ ale_core <- function (
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map has an important .options argument absent from
-  # purrr::map, map_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map_loop <- furrr::future_map
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map has an important .options argument absent from
+  # # purrr::map, map_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map_loop <- furrr::future_map
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map(...)
+  #   }
+  # }
 
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
@@ -874,8 +879,8 @@ ale_core <- function (
 
     ales <-
       x_cols |>
-      # map(
-      map_loop(
+      furrr::future_map(
+      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -955,8 +960,8 @@ ale_core <- function (
 
     ales_by_var <-
       x1_cols |>
-      # map(
-      map_loop(
+      furrr::future_map(
+      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -1025,7 +1030,7 @@ ale_core <- function (
       # Discard any empty elements. This is particularly to remove the last
       # element in a full cross interaction of all variables; the last element
       # has nothing more to interact with, so is empty
-      discard(\(.x) length(.x) == 0)
+      purrr::discard(\(.x) length(.x) == 0)
 
     # Transpose ales_by_var to group data and plots together
     ales <- list(
@@ -1040,10 +1045,10 @@ ale_core <- function (
     )
   }
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
 
 

@@ -11,7 +11,7 @@ ale(
   y_col = NULL,
   ...,
   parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = as.character(NA),
+  model_packages = NULL,
   output = c("plots", "data", "stats", "conf_regions"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
