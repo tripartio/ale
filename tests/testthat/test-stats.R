@@ -28,9 +28,6 @@ test_that(
           .stat_fun(test_vals)
         })
     )
-
-    # Verify matching of the rest of the object
-    expect_snapshot(pf[c('residuals', 'residual_distribution')])
   }
 )
 
@@ -43,6 +40,7 @@ test_that(
       test_gam,
       rand_it = 10,
       p_val_type = 'precise slow',
+      output = 'rand_stats',
       silent = TRUE,
       # parallel = 0,  # disable parallelization for reproducible tests
       .testing_mode = TRUE
@@ -85,6 +83,7 @@ test_that(
       # edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
       p_val_type = 'precise slow',
+      output = 'rand_stats',
       rand_it = 10,
       silent = TRUE,
       # parallel = 0,  # disable parallelization for reproducible tests

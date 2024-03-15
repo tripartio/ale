@@ -113,6 +113,8 @@
 #' in [model_bootstrap()]; the operation is very similar.
 #' @param y_col See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()].
+#' @param output character string. If 'rand_stats', returns the raw data of the
+#' generated random statistics. If NULL (default), returns NULL.
 #' @param rand_it non-negative integer length 1. Number of times that the model
 #' should be retrained with a new random variable. The default of 1000 should
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
@@ -142,11 +144,14 @@
 #' variable ALED for the 0.05 p-value, enter `p_funs$p_to_random_value(0.05)`.
 #' A return value of 102 means that only 5% of random variables obtained an ALED
 #' greater than or equal to 102.
-#' * `rand_stats`: a tibble whose rows are each of the `rand_it` iterations of the
-#' random variable analysis and whose columns are the ALE statistics obtained for
-#' each random variable.
-#' * `residuals`: the actual `y_col` values from `data` minus the predicted
+#' * `rand_stats`: If `output = 'rand_stats'`, returns a tibble whose rows are
+#' each of the `rand_it` iterations of the random variable analysis and whose
+#' columns are the ALE statistics obtained for each random variable.
+#' If `output = NULL`, (default), returns NULL.
+#' * `residuals`: If `output = 'rand_stats'`, returns the actual `y_col` values
+#' from `data` minus the predicted
 #' values from the `model` (without random variables) on the `data`.
+#' If `output = NULL`, (default), returns NULL.
 #' `residual_distribution`: the closest estimated distribution for the `residuals`
 #' as determined by [univariateML::rml()]. This is the distribution used to generate
 #' all the random variables.
@@ -223,6 +228,7 @@ create_p_funs <- function(
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
+    output = NULL,
     rand_it = 1000,  # iterations of random variables
     seed = 0,
     silent = FALSE,
@@ -300,6 +306,16 @@ create_p_funs <- function(
   )
 
   validate(is_string(pred_type))
+
+  if (!is.null(output)) {
+    validate(
+      is_string(output),
+      output == 'rand_stats',
+      msg = cli_alert_danger(
+        '{.arg output} must be either {.str rand_stats} or NULL'
+      )
+    )
+  }
 
   validate(is_scalar_number(seed))
 
@@ -525,10 +541,13 @@ create_p_funs <- function(
   p_funs <- list(
     value_to_p = value_to_p,
     p_to_random_value = p_to_random_value,
-    rand_stats = rand_stats,
-    residuals = residuals,
     residual_distribution = residual_distribution
   )
+
+  if (!is.null(output) && output == 'rand_stats') {
+    p_funs$rand_stats <- rand_stats
+    p_funs$residuals <- residuals
+  }
 
 
   # Replace p_funs function environments with sparse environments that flush
