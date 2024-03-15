@@ -531,49 +531,11 @@ create_p_funs <- function(
   )
 
 
-  # The p_funs include a lot of unnecessary environment objects; they can grow
-  # very large.
-  # So, create new empty environments for each function with nothing but the
-  # bare minimum environment objects needed to do their jobs.
-
-  # Create template environment with bare minimum shared functionality
-  p_fun_env <- new.env(parent = emptyenv())
-
-  p_fun_env$`{`  <- base::`{`
-  p_fun_env$`&`  <- base::`&`
-  p_fun_env$`::` <- base::`::`
-  p_fun_env$`==` <- base::`==`
-  p_fun_env$`<=` <- base::`<=`
-  p_fun_env$`>=` <- base::`>=`
-  p_fun_env$`-`  <- base::`-`
-  p_fun_env$`if` <- base::`if`
-  p_fun_env$all  <- base::all
-  p_fun_env$is.numeric <- base::is.numeric
-  p_fun_env$`validate` <- validate
-  p_fun_env$`stringr::str_sub` <- stringr::str_sub
-  p_fun_env$`stats::ecdf` <- stats::ecdf
-  p_fun_env$quantile <- stats::quantile
-  p_fun_env$`stats::setNames` <- stats::setNames
-
-  # clone p_fun_env with unique .stat_fun variables
-  flush_stat_env <- function(.stat_fun) {
-    # temporarily save the unique environment variables for the current .stat_fun
-    .name_stat <- environment(.stat_fun)$.name_stat
-    .stat_vals <- environment(.stat_fun)$.stat_vals
-
-    # Clone sparse environment to the .stat_fun and restore its unique variables
-    environment(.stat_fun) <- rlang::env_clone(p_fun_env)
-    environment(.stat_fun)$.name_stat <- .name_stat
-    environment(.stat_fun)$.stat_vals <- .stat_vals
-
-    .stat_fun
-  }
-
   # Replace p_funs function environments with sparse environments that flush
   # out anything not strictly necessary
-  p_funs$value_to_p <- map(p_funs$value_to_p, flush_stat_env) |>
+  p_funs$value_to_p <- map(p_funs$value_to_p, set_p_fun_env) |>
     set_names(names(p_funs$value_to_p))
-  p_funs$p_to_random_value <- map(p_funs$p_to_random_value, flush_stat_env) |>
+  p_funs$p_to_random_value <- map(p_funs$p_to_random_value, set_p_fun_env) |>
     set_names(names(p_funs$p_to_random_value))
 
 
