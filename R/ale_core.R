@@ -50,7 +50,7 @@
 #' Parallel processing using the `{furrr}` library is enabled by default. By default,
 #' it will use all the available physical
 #' CPU cores (minus the core being used for the current R session) with the setting
-#' `parallel = parallel::detectCores(logical = FALSE) - 1`. Note that only
+#' `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only
 #' physical cores are used (not logical cores or "hyperthreading") because
 #' machine learning can only take advantage of the floating point processors on
 #' physical cores, which are absent from logical cores. Trying to use logical
@@ -58,7 +58,7 @@
 #' data transfer. If you will dedicate
 #' the entire computer to running this function (and you don't mind everything
 #' else becoming very slow while it runs), you may use all cores by setting
-#' `parallel = parallel::detectCores(logical = FALSE)`. To disable parallel
+#' `parallel = future::availableCores(logical = FALSE)`. To disable parallel
 #' processing, set `parallel = 0`.
 #'
 #'
@@ -351,7 +351,7 @@ ale <- function (
     x_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
+    parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     pred_fun = function(object, newdata, type = pred_type) {
@@ -485,7 +485,7 @@ ale_ixn <- function (
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
+    parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata, type = pred_type) {
@@ -574,7 +574,7 @@ ale_core <- function (
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
+    parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     # pred_fun = function(object, newdata) {

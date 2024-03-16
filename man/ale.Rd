@@ -10,7 +10,7 @@ ale(
   x_cols = NULL,
   y_col = NULL,
   ...,
-  parallel = parallel::detectCores(logical = FALSE) - 1,
+  parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   output = c("plots", "data", "stats", "conf_regions"),
   pred_fun = function(object, newdata, type = pred_type) {
@@ -319,7 +319,7 @@ For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
 Parallel processing using the \code{{furrr}} library is enabled by default. By default,
 it will use all the available physical
 CPU cores (minus the core being used for the current R session) with the setting
-\code{parallel = parallel::detectCores(logical = FALSE) - 1}. Note that only
+\code{parallel = future::availableCores(logical = FALSE, omit = 1)}. Note that only
 physical cores are used (not logical cores or "hyperthreading") because
 machine learning can only take advantage of the floating point processors on
 physical cores, which are absent from logical cores. Trying to use logical
@@ -327,7 +327,7 @@ cores will not speed up processing and might actually slow it down with useless
 data transfer. If you will dedicate
 the entire computer to running this function (and you don't mind everything
 else becoming very slow while it runs), you may use all cores by setting
-\code{parallel = parallel::detectCores(logical = FALSE)}. To disable parallel
+\code{parallel = future::availableCores(logical = FALSE)}. To disable parallel
 processing, set \code{parallel = 0}.
 }
 

@@ -70,7 +70,7 @@
 #' @section Parallel processing:
 #' Parallel processing using the `{furrr}` library is enabled by default to use
 #' all the available physical CPU cores with the setting
-#' `parallel = parallel::detectCores(logical = FALSE)`. Note that only
+#' `parallel = future::availableCores(logical = FALSE1)`. Note that only
 #' physical cores are used (not logical cores or "hyperthreading") because
 #' machine learning can only take advantage of the floating point processors on
 #' physical cores, which are absent from logical cores. Trying to use logical
@@ -219,7 +219,7 @@ create_p_funs <- function(
     model,
     p_val_type = 'approx fast',
     ...,
-    parallel = parallel::detectCores(logical = FALSE),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),

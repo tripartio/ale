@@ -11,7 +11,7 @@ ale_ixn(
   x2_cols = NULL,
   y_col = NULL,
   ...,
-  parallel = parallel::detectCores(logical = FALSE) - 1,
+  parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   output = c("plots", "data"),
   pred_fun = function(object, newdata, type = pred_type) {

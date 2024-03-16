@@ -163,7 +163,7 @@ model_bootstrap <- function (
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = parallel::detectCores(logical = FALSE) - 1,
+    parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     # y_col,
     # pred_fun,

@@ -9,7 +9,7 @@ create_p_funs(
   model,
   p_val_type = "approx fast",
   ...,
-  parallel = parallel::detectCores(logical = FALSE),
+  parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
@@ -19,6 +19,7 @@ create_p_funs(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
+  output = NULL,
   rand_it = 1000,
   seed = 0,
   silent = FALSE,
@@ -50,6 +51,9 @@ in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very simi
 \item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}.}
+
+\item{output}{character string. If 'rand_stats', returns the raw data of the
+generated random statistics. If NULL (default), returns NULL.}
 
 \item{rand_it}{non-negative integer length 1. Number of times that the model
 should be retrained with a new random variable. The default of 1000 should
@@ -84,11 +88,14 @@ obtained the same or higher statistic value. For example, to get the random
 variable ALED for the 0.05 p-value, enter \code{p_funs$p_to_random_value(0.05)}.
 A return value of 102 means that only 5\% of random variables obtained an ALED
 greater than or equal to 102.
-\item \code{rand_stats}: a tibble whose rows are each of the \code{rand_it} iterations of the
-random variable analysis and whose columns are the ALE statistics obtained for
-each random variable.
-\item \code{residuals}: the actual \code{y_col} values from \code{data} minus the predicted
+\item \code{rand_stats}: If \code{output = 'rand_stats'}, returns a tibble whose rows are
+each of the \code{rand_it} iterations of the random variable analysis and whose
+columns are the ALE statistics obtained for each random variable.
+If \code{output = NULL}, (default), returns NULL.
+\item \code{residuals}: If \code{output = 'rand_stats'}, returns the actual \code{y_col} values
+from \code{data} minus the predicted
 values from the \code{model} (without random variables) on the \code{data}.
+If \code{output = NULL}, (default), returns NULL.
 \code{residual_distribution}: the closest estimated distribution for the \code{residuals}
 as determined by \code{\link[univariateML:MaximumLikelihoodDistribution]{univariateML::rml()}}. This is the distribution used to generate
 all the random variables.
@@ -164,7 +171,7 @@ take to train the original model  two or three times. See the
 
 Parallel processing using the \code{{furrr}} library is enabled by default to use
 all the available physical CPU cores with the setting
-\code{parallel = parallel::detectCores(logical = FALSE)}. Note that only
+\code{parallel = future::availableCores(logical = FALSE1)}. Note that only
 physical cores are used (not logical cores or "hyperthreading") because
 machine learning can only take advantage of the floating point processors on
 physical cores, which are absent from logical cores. Trying to use logical
