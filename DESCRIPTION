@@ -1,6 +1,6 @@
 Package: ale
 Title: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)
-Version: 0.3.0.20240307
+Version: 0.3.0.20240314
 Authors@R: c(
     person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5574-7572")),
@@ -27,15 +27,13 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
-    assertthat,
     broom,
+    cli,
     dplyr,
-    ellipsis,
     furrr,
     future,
     ggplot2,
     ggpubr,
-    glue,
     grDevices,
     insight,
     labeling,
@@ -54,4 +52,6 @@ Remotes:
 URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/
 BugReports: https://github.com/tripartio/ale/issues
 Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: model_bootstrap, ale, ale_ixn
 LazyData: true

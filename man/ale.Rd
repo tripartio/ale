@@ -10,8 +10,8 @@ ale(
   x_cols = NULL,
   y_col = NULL,
   ...,
-  parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = as.character(NA),
+  parallel = future::availableCores(logical = FALSE, omit = 1),
+  model_packages = NULL,
   output = c("plots", "data", "stats", "conf_regions"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -66,7 +66,8 @@ package for your model to this vector, especially if you see such errors after
 the progress bars begin displaying (assuming you did not disable progress bars
 with \code{silent = TRUE}).}
 
-\item{output}{character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
+\item{output}{character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
+Vector of types of results to return.
 'plots' will return an ALE plot; 'data' will return the source ALE data;
 'stats' will return ALE statistics. Each option must be listed to return the
 specified component. By default, all are returned.}
@@ -183,6 +184,11 @@ for the bootstrapped \code{ale_y} value.
 Note: regardless what options are requested in the \code{output} argument, this
 \code{data} element is always returned.
 }
+\item \code{boot_data}: if \code{boot} is requested in the \code{output} argument, returns a list
+whose elements, named by each requested x variable, are each a matrix.
+If not requested (as is the default) or if \code{boot_it == 0}, returns \code{NULL}.
+Each matrix element is the \code{ale_y} value of each \code{ale_x} interval (unnamed rows)
+for each \code{boot_it} bootstrap iteration (unnamed columns).
 \item \code{stats}: if \code{stats} are requested in the \code{output} argument (as is the default),
 returns a list. If not requested, returns \code{NULL}. The returned list provides
 ALE statistics of the \code{data} element duplicated and presented from various
@@ -313,7 +319,7 @@ For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see
 Parallel processing using the \code{{furrr}} library is enabled by default. By default,
 it will use all the available physical
 CPU cores (minus the core being used for the current R session) with the setting
-\code{parallel = parallel::detectCores(logical = FALSE) - 1}. Note that only
+\code{parallel = future::availableCores(logical = FALSE, omit = 1)}. Note that only
 physical cores are used (not logical cores or "hyperthreading") because
 machine learning can only take advantage of the floating point processors on
 physical cores, which are absent from logical cores. Trying to use logical
@@ -321,7 +327,7 @@ cores will not speed up processing and might actually slow it down with useless
 data transfer. If you will dedicate
 the entire computer to running this function (and you don't mind everything
 else becoming very slow while it runs), you may use all cores by setting
-\code{parallel = parallel::detectCores(logical = FALSE)}. To disable parallel
+\code{parallel = future::availableCores(logical = FALSE)}. To disable parallel
 processing, set \code{parallel = 0}.
 }
 
@@ -407,7 +413,6 @@ ale_gam_diamonds_custom$plots |>
   patchwork::wrap_plots()
 
 }
-
 
 }
 \references{

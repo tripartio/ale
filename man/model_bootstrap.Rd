@@ -10,8 +10,8 @@ model_bootstrap(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = as.character(NA),
+  parallel = future::availableCores(logical = FALSE, omit = 1),
+  model_packages = NULL,
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
@@ -193,9 +193,6 @@ mb_gam$model_coefs
 mb_gam$ale$plots |>
   patchwork::wrap_plots()
 }
-
-
-
 
 }
 \references{

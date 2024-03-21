@@ -28,13 +28,29 @@
 #' @aliases ale-package NULL
 #'
 #'
-#' @import ggplot2
 #' @import dplyr
-#' @import purrr
+#' @import ggplot2
+#' @importFrom cli cli_abort
+#' @importFrom cli cli_alert_danger
+#' @importFrom cli cli_alert_info
+#' @importFrom purrr map
+#' @importFrom purrr map2
+#' @importFrom purrr map2_dbl
+#' @importFrom purrr map_chr
+#' @importFrom purrr map_dbl
+#' @importFrom purrr set_names
+#' @importFrom purrr transpose
 #' @importFrom rlang .data
+#' @importFrom rlang is_bool
+#' @importFrom rlang is_string
 #' @importFrom stats median
 #' @importFrom stats quantile
+#' @importFrom stats sd
+#' @importFrom stringr str_glue
 #'
 '_PACKAGE'
 
 # How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages
+
+
+

@@ -31,11 +31,6 @@
 #  @param seed See documentation for [ale()]
 #
 #
-#  @import dplyr
-#  @import ggplot2
-#  @importFrom glue glue
-#  @import purrr
-#
 plot_ale <- function(
     ale_data, x_col, y_col, y_type,
     y_summary,
@@ -52,7 +47,7 @@ plot_ale <- function(
     ) {
 
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -101,7 +96,7 @@ plot_ale <- function(
     labs(
       x = x_col,
       y = y_col,
-      alt = glue('ALE plot of {y_col} against {x_col}')
+      alt = str_glue('ALE plot of {y_col} against {x_col}')
     )
 
   # Add a secondary axis to label the percentiles
@@ -112,7 +107,7 @@ plot_ale <- function(
       # To prevent overlapping text, summarize all details only in the
       # centre label; leave the others empty
       '',  #empty
-      glue::glue(
+      str_glue(
         'p(ALER)\n',
         # Unicode ± must be replaced by \u00B1 for CRAN
         '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
@@ -123,9 +118,9 @@ plot_ale <- function(
   else {
     # without p-values, quantiles are used
     c(
-      glue::glue('{50-(median_band_pct[2]*100/2)}%'),
+      str_glue('{50-(median_band_pct[2]*100/2)}%'),
       relative_y,
-      glue::glue('{50+(median_band_pct[2]*100/2)}%')
+      str_glue('{50+(median_band_pct[2]*100/2)}%')
     )
   }
 
@@ -287,11 +282,6 @@ plot_ale <- function(
 # @param seed See documentation for [ale()]
 #
 #
-#  @import dplyr
-#  @import ggplot2
-#  @importFrom glue glue
-#  @import purrr
-#
 plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
     y_summary,  # as of 0.0.230825, this is not used at all
@@ -311,7 +301,7 @@ plot_ale_ixn <- function(
 ) {
 
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -439,7 +429,7 @@ plot_ale_ixn <- function(
       x = x1_col,
       y = x2_col,
       fill = paste0(y_col, ' interaction'),
-      alt = glue(
+      alt = str_glue(
         'ALE interaction plot of {y_col} encoded as contours of its interaction ',
         'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
       )
@@ -614,7 +604,7 @@ plot_effects <- function(
     theme_bw() +
     labs(
       y = NULL,
-      alt = glue('ALE effects plot for {y_col}')
+      alt = str_glue('ALE effects plot for {y_col}')
     ) +
   # Set the outcome (y) variable on the x axis
     scale_x_continuous(

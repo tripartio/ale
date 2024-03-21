@@ -60,10 +60,10 @@ summary(var_cars)
 With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
 
 ```{r cars_gam}
-cm <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
+cars_gam <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
                   vs + am + gear + carb + country,
                 data = var_cars)
-summary(cm)
+summary(cars_gam)
 ```
 
 Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
@@ -80,7 +80,7 @@ Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.width=7, fig.height=14}
 cars_ale <- ale(
-  var_cars, cm,
+  var_cars, cars_gam,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -97,7 +97,7 @@ We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r cars_ale_ixn, fig.width=7, fig.height=7}
 cars_ale_ixn <- ale_ixn(
-  var_cars, cm,
+  var_cars, cars_gam,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
@@ -118,7 +118,7 @@ Finally, as explained in the vignette on modelling with [small datasets](ale-sma
 ```{r cars_full, fig.width=7, fig.height=14}
 mb <- model_bootstrap(
   var_cars, 
-  cm,
+  cars_gam,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   parallel = 2,  # CRAN limit (delete this line on your own computer)
   seed = 2  # workaround to avoid random error on such a small dataset

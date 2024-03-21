@@ -50,7 +50,7 @@
 #' Parallel processing using the `{furrr}` library is enabled by default. By default,
 #' it will use all the available physical
 #' CPU cores (minus the core being used for the current R session) with the setting
-#' `parallel = parallel::detectCores(logical = FALSE) - 1`. Note that only
+#' `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only
 #' physical cores are used (not logical cores or "hyperthreading") because
 #' machine learning can only take advantage of the floating point processors on
 #' physical cores, which are absent from logical cores. Trying to use logical
@@ -58,7 +58,7 @@
 #' data transfer. If you will dedicate
 #' the entire computer to running this function (and you don't mind everything
 #' else becoming very slow while it runs), you may use all cores by setting
-#' `parallel = parallel::detectCores(logical = FALSE)`. To disable parallel
+#' `parallel = future::availableCores(logical = FALSE)`. To disable parallel
 #' processing, set `parallel = 0`.
 #'
 #'
@@ -114,7 +114,8 @@
 #' package for your model to this vector, especially if you see such errors after
 #' the progress bars begin displaying (assuming you did not disable progress bars
 #' with `silent = TRUE`).
-#' @param output character in c('plots', 'data', 'stats', 'conf_regions'). Vector of types of results to return.
+#' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
+#' Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
 #' specified component. By default, all are returned.
@@ -213,6 +214,11 @@
 #'       for the bootstrapped `ale_y` value.
 #'   Note: regardless what options are requested in the `output` argument, this
 #'   `data` element is always returned.
+#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list
+#'   whose elements, named by each requested x variable, are each a matrix.
+#'   If not requested (as is the default) or if `boot_it == 0`, returns `NULL`.
+#'   Each matrix element is the `ale_y` value of each `ale_x` interval (unnamed rows)
+#'   for each `boot_it` bootstrap iteration (unnamed columns).
 #' * `stats`: if `stats` are requested in the `output` argument (as is the default),
 #'   returns a list. If not requested, returns `NULL`. The returned list provides
 #'   ALE statistics of the `data` element duplicated and presented from various
@@ -340,17 +346,14 @@
 #'
 #' }
 #'
-#'
-#' @importFrom glue glue
-#'
 ale <- function (
     data,
     model,
     x_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
+    model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -483,8 +486,8 @@ ale_ixn <- function (
     x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
+    model_packages = NULL,
     output = c('plots', 'data'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
@@ -564,9 +567,6 @@ ale_ixn <- function (
 # @param compact_plots See documentation for [ale()]
 # @param silent See documentation for [ale()]
 #
-# @import dplyr
-# @import purrr
-# @import assertthat
 #
 #
 ale_core <- function (
@@ -575,8 +575,8 @@ ale_core <- function (
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
+    model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
     # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
@@ -608,7 +608,7 @@ ale_core <- function (
 {
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
-  ellipsis::check_dots_empty()
+  rlang::check_dots_empty()
 
   # Validate arguments
 
@@ -616,7 +616,7 @@ ale_core <- function (
   # contained in all_x__cols
 
   # Validate the dataset
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
@@ -640,42 +640,42 @@ ale_core <- function (
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
-  assert_that(is.flag(ixn))
-  if (!is.null(x_cols)) assert_that(is.character(x_cols))
-  if (!is.null(x1_cols)) assert_that(is.character(x1_cols))
-  if (!is.null(x2_cols)) assert_that(is.character(x2_cols))
+  validate(is_bool(ixn))
+  if (!is.null(x_cols)) validate(is.character(x_cols))
+  if (!is.null(x1_cols)) validate(is.character(x1_cols))
+  if (!is.null(x2_cols)) validate(is.character(x2_cols))
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
   valid_x_cols <- all_x_cols %in% names(data)
   if (!all(valid_x_cols)) {
-    stop(
-      'The following columns were not found in data: ',
-      paste0(all_x_cols[!valid_x_cols], collapse = ', ')
+    cli_abort(
+      'The following columns were not found in {.arg data}:
+      {paste0(all_x_cols[!valid_x_cols], collapse = ', ')}'
     )
   }
   # #Later: Verify valid datatypes for all x_col
   # "class(X[[x_col]]) must be logical, factor, ordered, integer, or numeric."
 
-  assert_that(
-    length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions'))) == 0,
-    msg = paste0(
-      'The value in the output argument must be one or more of ',
-      '"plots", "data", "stats", or "conf_regions".'
+  validate(
+    length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions', 'boot'))) == 0,
+    msg = cli_alert_danger(
+      'The value in the {.arg output} argument must be one or more of
+      "plots", "data", "stats", or "conf_regions".'
     )
   )
   if ('conf_regions' %in% output) {
-    assert_that(
+    validate(
       'stats' %in% output,
-      msg = paste0(
-        'If "conf_regions" is requested in the output argument, ',
+      msg = cli_alert_danger(paste0(
+        'If "conf_regions" is requested in the {.arg output} argument, ',
         'then "stats" must also be requested.'
-      )
+      ))
     )
   }
 
-  assert_that(is.string(pred_type))
+  validate(is_string(pred_type))
 
   if (!is.null(p_values)) {
     # The user wants p-values
@@ -690,40 +690,40 @@ ale_core <- function (
       )
     }
     else {  # a p_funs object should be provided
-      assert_that(
+      validate(
         # Verify that p_values is a `p_funs` object (defined by the ale package).
         p_values |> inherits('p_funs'),
         # If the object structure changes in the future, verify the version number:
         # e.g., numeric_version('0.2.0') <= numeric_version('0.2.20240111')
-        msg = glue(
-          'p_values is not a valid p-values model object.
-          See help(ale) for instructions for obtaining p-values.'
-        )
+        msg = cli_alert_danger(paste0(
+          'The value passed to {.arg p_values} is not a valid p-values model object.
+          See {.fun ale::ale} for instructions for obtaining p-values.'
+        ))
       )
     }
   }
 
-  assert_that(is.natural(x_intervals) && (x_intervals > 1))
-  assert_that(is.whole(boot_it))
-  assert_that(is.number(seed))
-  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  assert_that(
-    is.string(boot_centre) && (boot_centre %in% c('mean', 'median')),
-    msg = 'boot_centre must be one of "mean" or "median".'
+  validate(is_scalar_natural(x_intervals) && (x_intervals > 1))
+  validate(is_scalar_whole(boot_it))
+  validate(is_scalar_number(seed))
+  validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
+  validate(
+    is_string(boot_centre) && (boot_centre %in% c('mean', 'median')),
+    msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
   )
-  assert_that(
-    is.string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
-    msg = 'relative_y must be one of "median", "mean", or "zero".'
+  validate(
+    is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
+    msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
   )
   if (!is.null(y_type)) {
-    assert_that(is.string(y_type) &&
+    validate(is_string(y_type) &&
                   (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
   }
-  assert_that(is.string(pred_type))
+  validate(is_string(pred_type))
   if (!is.null(ale_xs)) {
     map(
       ale_xs,
-      \(.var) assert_that(
+      \(.var) validate(
         is.null(.var)  ||  # if the variable is present, try the next two tests
           is.numeric(.var) || is.factor(.var)
       )
@@ -732,7 +732,7 @@ ale_core <- function (
   if (!is.null(ale_ns)) {
     map(
       ale_ns,
-      \(.var) assert_that(
+      \(.var) validate(
         is.null(.var) ||  # if the variable is present, try the next test
           is.integer(.var)
       )
@@ -742,23 +742,23 @@ ale_core <- function (
   # Validate plot-related arguments.
   # If plots are not requested, then ignore these arguments.
   if ('plots' %in% output) {
-    assert_that(
+    validate(
       is.numeric(median_band_pct) &&
         length(median_band_pct) == 2 &&
         all(between(median_band_pct, 0, 1))
     )
-    assert_that(
+    validate(
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
-        (is.natural(rug_sample_size) &&
+        (is_scalar_natural(rug_sample_size) &&
            # rug sample cannot be smaller than number of intervals
            rug_sample_size > (x_intervals + 1)),
-      msg = 'rug_sample_size must be either 0 or
-        an integer larger than the number of x_intervals + 1.'
+      msg = cli_alert_danger('{.arg rug_sample_size} must be either 0 or
+        an integer larger than the number of x_intervals + 1.')
     )
-    assert_that(is.whole(min_rug_per_interval))
-    assert_that(is.natural(n_x1_int))
-    assert_that(is.natural(n_x2_int))
-    assert_that(is.natural(n_y_quant))
+    validate(is_scalar_whole(min_rug_per_interval))
+    validate(is_scalar_natural(n_x1_int))
+    validate(is_scalar_natural(n_x2_int))
+    validate(is_scalar_natural(n_y_quant))
   }
 
   validate_silent(silent)
@@ -777,7 +777,7 @@ ale_core <- function (
     } else if (y_type == 'binary') {
       y_preds
     } else {
-      stop('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
+      cli_abort('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
     }
 
   # Generate summary statistics for y for plotting
@@ -842,26 +842,32 @@ ale_core <- function (
 
   # Prepare to create ALE statistics
   ale_y_norm_fun <- NULL
-  # p_funs <- NULL
   if ('stats' %in% output) {
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map has an important .options argument absent from
-  # purrr::map, map_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit.
+  # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
+  # However, don't presume that all users will use future, so just use on.exit strategy.
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map_loop <- furrr::future_map
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map has an important .options argument absent from
+  # # purrr::map, map_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map_loop <- furrr::future_map
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map(...)
+  #   }
+  # }
 
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
@@ -875,8 +881,8 @@ ale_core <- function (
 
     ales <-
       x_cols |>
-      # map(
-      map_loop(
+      furrr::future_map(
+      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -895,13 +901,14 @@ ale_core <- function (
               data_X, model, x_col,
               pred_fun, pred_type, x_intervals,
               boot_it, seed, boot_alpha, boot_centre,
+              boot_ale_y = 'boot' %in% output,
               ale_x = ale_xs[[x_col]],
               ale_n = ale_ns[[x_col]],
               ale_y_norm_fun = ale_y_norm_fun,
               p_funs = p_values
             )
-          ale_data <- ale_data_stats$summary
-          stats    <- ale_data_stats$stats
+          ale_data  <- ale_data_stats$summary
+          stats     <- ale_data_stats$stats
 
           # Shift ale_y by appropriate relative_y
           ale_data <- ale_data |>
@@ -934,6 +941,7 @@ ale_core <- function (
 
           list(
             data = ale_data,
+            boot_data = ale_data_stats$boot_ale_y,
             stats = stats,
             plots = plot
           )
@@ -941,7 +949,9 @@ ale_core <- function (
         set_names(x_cols) |>
         transpose()
   }
-  else {  # two-way interactions
+
+  # two-way interactions
+  else {
     # Create progress bar iterator only if not in an outer loop with ale_xs
     if (!silent && is.null(ale_xs)) {
       progress_iterator <- progressr::progressor(
@@ -952,8 +962,8 @@ ale_core <- function (
 
     ales_by_var <-
       x1_cols |>
-      # map(
-      map_loop(
+      furrr::future_map(
+      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -1022,7 +1032,7 @@ ale_core <- function (
       # Discard any empty elements. This is particularly to remove the last
       # element in a full cross interaction of all variables; the last element
       # has nothing more to interact with, so is empty
-      discard(\(.x) length(.x) == 0)
+      purrr::discard(\(.x) length(.x) == 0)
 
     # Transpose ales_by_var to group data and plots together
     ales <- list(
@@ -1037,10 +1047,10 @@ ale_core <- function (
     )
   }
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
 
 

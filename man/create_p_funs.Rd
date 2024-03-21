@@ -7,9 +7,10 @@
 create_p_funs(
   data,
   model,
+  p_val_type = "approx fast",
   ...,
-  parallel = parallel::detectCores(logical = FALSE) - 1,
-  model_packages = as.character(NA),
+  parallel = future::availableCores(logical = FALSE, omit = 1),
+  model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   y_col = NULL,
@@ -18,7 +19,9 @@ create_p_funs(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
+  output = NULL,
   rand_it = 1000,
+  seed = 0,
   silent = FALSE,
   .testing_mode = FALSE
 )
@@ -27,6 +30,9 @@ create_p_funs(
 \item{data}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
+
+\item{p_val_type}{character(1). Either 'approx fast' (default) or
+'precise slow'. See details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -46,10 +52,15 @@ in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very simi
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}.}
 
+\item{output}{character string. If 'rand_stats', returns the raw data of the
+generated random statistics. If NULL (default), returns NULL.}
+
 \item{rand_it}{non-negative integer length 1. Number of times that the model
 should be retrained with a new random variable. The default of 1000 should
 give reasonably stable p-values. It can be reduced as low as 100 for faster
 test runs.}
+
+\item{seed}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 
@@ -77,11 +88,14 @@ obtained the same or higher statistic value. For example, to get the random
 variable ALED for the 0.05 p-value, enter \code{p_funs$p_to_random_value(0.05)}.
 A return value of 102 means that only 5\% of random variables obtained an ALED
 greater than or equal to 102.
-\item \code{rand_stats}: a tibble whose rows are each of the \code{rand_it} iterations of the
-random variable analysis and whose columns are the ALE statistics obtained for
-each random variable.
-\item \code{residuals}: the actual \code{y_col} values from \code{data} minus the predicted
+\item \code{rand_stats}: If \code{output = 'rand_stats'}, returns a tibble whose rows are
+each of the \code{rand_it} iterations of the random variable analysis and whose
+columns are the ALE statistics obtained for each random variable.
+If \code{output = NULL}, (default), returns NULL.
+\item \code{residuals}: If \code{output = 'rand_stats'}, returns the actual \code{y_col} values
+from \code{data} minus the predicted
 values from the \code{model} (without random variables) on the \code{data}.
+If \code{output = NULL}, (default), returns NULL.
 \code{residual_distribution}: the closest estimated distribution for the \code{residuals}
 as determined by \code{\link[univariateML:MaximumLikelihoodDistribution]{univariateML::rml()}}. This is the distribution used to generate
 all the random variables.
@@ -140,6 +154,39 @@ added.
 (from \code{stats::ecdf()}) is used to create a function to determine p-values
 according to the distribution of the random variables' ALE statistics.
 }
+
+What we have just described is the precise approach to calculating p-values.
+Because it is so slow, by default, create_p_funs() implements an approximate
+algorithm by default which trains only a few random variables up to the
+number of physical parallel processing threads available, with a minimum of
+four. To increase speed, the random variable uses only 10 ALE x intervals
+instead of the default 100.
+Although approximate p-values are much faster than precise ones, they are still somewhat
+slow: at the very quickest, they take at least the amount of time that it would
+take to train the original model  two or three times. See the
+"Parallel processing" section below for more details on the speed of computation.
+}
+
+\section{Parallel processing}{
+
+Parallel processing using the \code{{furrr}} library is enabled by default to use
+all the available physical CPU cores with the setting
+\code{parallel = future::availableCores(logical = FALSE1)}. Note that only
+physical cores are used (not logical cores or "hyperthreading") because
+machine learning can only take advantage of the floating point processors on
+physical cores, which are absent from logical cores. Trying to use logical
+cores will not speed up processing and might actually slow it down with useless
+data transfer.
+
+For exact p-values, by default 1000 random variables are trained. So, even with
+parallel processing, the procedure is very slow. However, a p_funs object
+trained with a specific model on a specific dataset can be reused as often as
+needed for the identical model-dataset pair.
+
+For approximate p-values (the default), at least four random variables are trained to give
+some minimal variation. With parallel processing, more random variables can
+be trained to increase the accuracy of the p-value estimates up to the maximum
+number of physical cores.
 }
 
 \examples{

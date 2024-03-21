@@ -10,7 +10,7 @@ test_that(
     # No bootstrap
     expect_no_error(
       ale_ixn(
-        test_cars, cars_gam,
+        test_cars, test_gam,
         x_cols = c('cyl', 'disp'),
         parallel = 2,
         silent = TRUE
@@ -20,7 +20,7 @@ test_that(
     # # With bootstrap
     # expect_no_error(
     #   ale_ixn(
-    #     test_cars, cars_gam,
+    #     test_cars, test_gam,
     #     x_cols = c('cyl', 'disp'),
     #     boot_it = 5,
     #     parallel = 2,
@@ -37,7 +37,7 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, cars_gam,
+      test_cars, test_gam,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE,
@@ -53,7 +53,7 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, cars_gam,
+      test_cars, test_gam,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
       x2_cols = c('cyl', 'disp', 'hp'),
       parallel = 0,
@@ -85,7 +85,7 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, cars_gam_binary,
+      test_cars, test_gam_binary,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE
@@ -101,7 +101,7 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, cars_gam_binary,
+      test_cars, test_gam_binary,
       x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
       x2_cols = c('cyl', 'disp', 'hp'),
       parallel = 0,

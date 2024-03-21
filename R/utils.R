@@ -75,7 +75,7 @@ var_type <- function(var) {
 # Round a numeric vector to an intuitive number of decimal places:
 # ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
 round_dp <- function(x) {
-  assert_that(is.numeric(x))
+  validate(is.numeric(x))
 
   max_x <- max(abs(x))
   dp <- dplyr::case_when(

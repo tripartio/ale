@@ -157,24 +157,14 @@
 #'   patchwork::wrap_plots()
 #' }
 #'
-#'
-#'
-#'
-#' @import dplyr
-#' @import purrr
-#' @import assertthat
-#' @importFrom stats quantile
-#' @importFrom stats median
-#' @importFrom stats sd
-#'
 model_bootstrap <- function (
     data,
     model,
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
+    model_packages = NULL,
     # y_col,
     # pred_fun,
     # pred_type,
@@ -190,9 +180,9 @@ model_bootstrap <- function (
     silent = FALSE
 ) {
   # Validate arguments
-  ellipsis::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+  rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # If model_call_string is not provided, ensure that
   # the model allows automatic manipulation.
@@ -201,62 +191,62 @@ model_bootstrap <- function (
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
 
-    assert_that(
+    validate(
       !is.character(model),
       # If there is no model_call_string and model is a character,
       # then model was probably omitted and model_call_string might was
       # mistakenly passed in the model argument position
-      msg = '"model" is a required argument.'
+      msg = cli_alert_danger('{.arg model} is a required argument.')
     )
 
-    assert_that(
+    validate(
       !is.null(model_call),
-      msg = glue::glue(
+      msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
-        'model_call_string must be provided. See help(model_bootstrap) ',
+        '{.arg model_call_string} must be provided. See {.fun ale::model_bootstrap} ',
         'for details.'
-      )
+      ))
     )
   }
   else {  # validate model_call_string
-    assert_that(is.string(model_call_string))
-    assert_that(
+    validate(is_string(model_call_string))
+    validate(
       stringr::str_detect(model_call_string, 'boot_data'),
-      msg = glue::glue(
-        'The data argument for model_call_string must be "boot_data". ',
-        'See help(model_bootstrap) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        'The {.arg data} argument for {.arg model_call_string} must be "boot_data". ',
+        'See {.fun ale::model_bootstrap} for details.'
+      ))
     )
   }
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
-  assert_that(is.whole(boot_it))
-  assert_that(is.number(seed))
-  assert_that(is.number(boot_alpha) && between(boot_alpha, 0, 1))
-  assert_that(boot_centre == 'mean' || boot_centre == 'median')
+  validate(is_scalar_whole(boot_it))
+  validate(is_scalar_number(seed))
+  validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
+  validate(boot_centre == 'mean' || boot_centre == 'median')
   # output must be a subset of c('ale', 'model_stats', 'model_coefs')
-  assert_that(
+  validate(
     length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
-    msg = 'The value in the output argument must be one or more of
-    "ale", "model_stats", or "model_coefs".'
+    msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
+    "ale", "model_stats", or "model_coefs".')
   )
 
-  assert_that(is.list(ale_options))
-  assert_that(
+  validate(is.list(ale_options))
+  validate(
     !(
       !is.null(ale_options$p_values) &&
         length(ale_options$p_values) == 1 &&
         ale_options$p_values == 'auto'
     ),
-    msg = paste0(
-      'The `ale_options` `p_values == "auto"` option is disabled for `model_bootstrap()` ',
+    msg = cli_alert_danger(paste0(
+      'The {.arg ale_options} `p_values == "auto"` option is disabled for `model_bootstrap()` ',
       'because it is far too slow. Rather, you must pass a p-values ',
-      'function object using the procedure described in `help(create_p_funs)`.'
-    )
+      'function object using the procedure described in {.fun ale::create_p_funs}.'
+    ))
   )
-  assert_that(is.list(tidy_options))
-  assert_that(is.list(glance_options))
+  validate(is.list(tidy_options))
+  validate(is.list(glance_options))
 
   validate_silent(silent)
 
@@ -287,21 +277,26 @@ model_bootstrap <- function (
   ale_xs <- NULL
   ale_ns <- NULL
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map2 has an important .options argument absent from
-  # purrr::map2, map2_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map2_loop <- furrr::future_map2
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map2_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map2(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map2 has an important .options argument absent from
+  # # purrr::map2, map2_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map2_loop <- furrr::future_map2
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map2_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map2(...)
+  #   }
+  # }
 
   model_call_string_vars <- c(
     'boot_data',
@@ -318,7 +313,8 @@ model_bootstrap <- function (
   }
 
   model_and_ale <-
-    map2_loop(
+    furrr::future_map2(
+    # map2_loop(
       .options = furrr::furrr_options(
         # Enable parallel-processing random seed generation
         seed = seed,
@@ -453,10 +449,10 @@ model_bootstrap <- function (
     ) |>
     transpose()
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
 
   # Bind the model and ALE data to the bootstrap tbl

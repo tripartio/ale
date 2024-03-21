@@ -56,6 +56,38 @@
 #' (from `stats::ecdf()`) is used to create a function to determine p-values
 #' according to the distribution of the random variables' ALE statistics.
 #'
+#' What we have just described is the precise approach to calculating p-values.
+#' Because it is so slow, by default, create_p_funs() implements an approximate
+#' algorithm by default which trains only a few random variables up to the
+#' number of physical parallel processing threads available, with a minimum of
+#' four. To increase speed, the random variable uses only 10 ALE x intervals
+#' instead of the default 100.
+#' Although approximate p-values are much faster than precise ones, they are still somewhat
+#' slow: at the very quickest, they take at least the amount of time that it would
+#' take to train the original model  two or three times. See the
+#' "Parallel processing" section below for more details on the speed of computation.
+#'
+#' @section Parallel processing:
+#' Parallel processing using the `{furrr}` library is enabled by default to use
+#' all the available physical CPU cores with the setting
+#' `parallel = future::availableCores(logical = FALSE1)`. Note that only
+#' physical cores are used (not logical cores or "hyperthreading") because
+#' machine learning can only take advantage of the floating point processors on
+#' physical cores, which are absent from logical cores. Trying to use logical
+#' cores will not speed up processing and might actually slow it down with useless
+#' data transfer.
+#'
+#' For exact p-values, by default 1000 random variables are trained. So, even with
+#' parallel processing, the procedure is very slow. However, a p_funs object
+#' trained with a specific model on a specific dataset can be reused as often as
+#' needed for the identical model-dataset pair.
+#'
+#' For approximate p-values (the default), at least four random variables are trained to give
+#' some minimal variation. With parallel processing, more random variables can
+#' be trained to increase the accuracy of the p-value estimates up to the maximum
+#' number of physical cores.
+#'
+#'
 #' @export
 #'
 #' @references Okoli, Chitu. 2023.
@@ -68,6 +100,8 @@
 #' @param model See documentation for [ale()]
 # @param model model object. The model used to train the original `training_data`.
 #  for which ALE should be calculated. See details and also documentation for [ale()].
+#' @param p_val_type character(1). Either 'approx fast' (default) or
+#' 'precise slow'. See details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel See documentation for [ale()]
 #' @param model_packages See documentation for [ale()]
@@ -79,10 +113,13 @@
 #' in [model_bootstrap()]; the operation is very similar.
 #' @param y_col See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()].
+#' @param output character string. If 'rand_stats', returns the raw data of the
+#' generated random statistics. If NULL (default), returns NULL.
 #' @param rand_it non-negative integer length 1. Number of times that the model
 #' should be retrained with a new random variable. The default of 1000 should
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
 #' test runs.
+#' @param seed See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #' @param .testing_mode logical. Internal use only.
 #'
@@ -107,11 +144,14 @@
 #' variable ALED for the 0.05 p-value, enter `p_funs$p_to_random_value(0.05)`.
 #' A return value of 102 means that only 5% of random variables obtained an ALED
 #' greater than or equal to 102.
-#' * `rand_stats`: a tibble whose rows are each of the `rand_it` iterations of the
-#' random variable analysis and whose columns are the ALE statistics obtained for
-#' each random variable.
-#' * `residuals`: the actual `y_col` values from `data` minus the predicted
+#' * `rand_stats`: If `output = 'rand_stats'`, returns a tibble whose rows are
+#' each of the `rand_it` iterations of the random variable analysis and whose
+#' columns are the ALE statistics obtained for each random variable.
+#' If `output = NULL`, (default), returns NULL.
+#' * `residuals`: If `output = 'rand_stats'`, returns the actual `y_col` values
+#' from `data` minus the predicted
 #' values from the `model` (without random variables) on the `data`.
+#' If `output = NULL`, (default), returns NULL.
 #' `residual_distribution`: the closest estimated distribution for the `residuals`
 #' as determined by [univariateML::rml()]. This is the distribution used to generate
 #' all the random variables.
@@ -174,14 +214,13 @@
 #' }
 #'
 #'
-#' @importFrom glue glue
-#'
 create_p_funs <- function(
     data,
     model,
+    p_val_type = 'approx fast',
     ...,
-    parallel = parallel::detectCores(logical = FALSE) - 1,
-    model_packages = as.character(NA),
+    parallel = future::availableCores(logical = FALSE, omit = 1),
+    model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     y_col = NULL,
@@ -189,14 +228,16 @@ create_p_funs <- function(
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
+    output = NULL,
     rand_it = 1000,  # iterations of random variables
+    seed = 0,
     silent = FALSE,
     .testing_mode = FALSE
 ) {
 
   # Validate arguments
 
-  assert_that(data |> inherits('data.frame'))
+  validate(data |> inherits('data.frame'))
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.
@@ -209,9 +250,9 @@ create_p_funs <- function(
   )
 
   # Nip in the bud rubbish results due to identical predictions
-  assert_that(
+  validate(
     !(stats::sd(y_preds) == 0),
-    msg = 'All predictions are identical. P-values cannot be created.'
+    msg = cli_alert_danger('All predictions are identical. P-values cannot be created.')
   )
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
@@ -220,30 +261,30 @@ create_p_funs <- function(
     # Automatically extract the call from the model
     model_call <- insight::get_call(model)
 
-    assert_that(
+    validate(
       !is.null(model_call),
-      msg = glue(
+      msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
-        'random_model_call_string must be provided. See help(create_p_funs) ',
+        '{.arg random_model_call_string} must be provided. See {.fun ale::create_p_funs} ',
         'for details.'
-      )
+      ))
     )
   }
   else {  # validate random_model_call_string
-    assert_that(is.string(random_model_call_string))
-    assert_that(
+    validate(is_string(random_model_call_string))
+    validate(
       stringr::str_detect(random_model_call_string, 'random_variable'),
-      msg = glue(
-        'random_model_call_string must contain a variable named random_variable. ',
-        'See help(create_p_funs) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        '{.arg random_model_call_string} must contain a variable named {.var random_variable}. ',
+        'See {.fun ale::create_p_funs} for details.'
+      ))
     )
-    assert_that(
+    validate(
       stringr::str_detect(random_model_call_string, 'rand_data'),
-      msg = glue(
-        'The data argument for random_model_call_string must be "rand_data". ',
-        'See help(create_p_funs) for details.'
-      )
+      msg = cli_alert_danger(paste0(
+        'The {.arg data} argument for {.arg random_model_call_string} must be {.str rand_data}. ',
+        'See {.fun ale::create_p_funs} for details.'
+      ))
     )
 
     # Replace 'rand_data' with the proper internal reference.
@@ -254,7 +295,7 @@ create_p_funs <- function(
       )
   }
 
-  assert_that(is.character(random_model_call_string_vars))
+  validate(is.character(random_model_call_string_vars))
 
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -264,19 +305,45 @@ create_p_funs <- function(
     model = model
   )
 
-  assert_that(is.string(pred_type))
-  assert_that(is.whole(rand_it))
-  if (!.testing_mode) {
-    # internal tests override this validation step so that tests can run faster
-    assert_that(
-      rand_it >= 100,
-      msg = paste0(
-        '`rand_it` must be an integer greater than or equal to 100.',
-        ' p-values created on fewer than 100 iterations are very unreliable.')
+  validate(is_string(pred_type))
+
+  if (!is.null(output)) {
+    validate(
+      is_string(output),
+      output == 'rand_stats',
+      msg = cli_alert_danger(
+        '{.arg output} must be either {.str rand_stats} or NULL'
+      )
     )
   }
 
+  validate(is_scalar_number(seed))
+
   validate_silent(silent)
+
+  # Validate and set rand_it based on p_val_type
+  validate(p_val_type %in% c('approx fast', 'precise slow'))
+  if (p_val_type == 'precise slow') {
+    validate(is_scalar_whole(rand_it))
+    if (!.testing_mode) {
+      # internal tests override this validation step so that tests can run faster
+      validate(
+        rand_it >= 100,
+        msg = cli_alert_danger(paste0(
+          '{.arg rand_it} must be an integer greater than or equal to 100.',
+          ' p-values created on fewer than 100 iterations are very imprecise.')
+      ))
+    }
+  }
+  else {  # p_val_type == 'approx fast'
+    # For approx p-values, set one iteration per parallel thread, min 4
+    # In this case, the original value of rand_it is completely ignored.
+    rand_it <- if (parallel <= 4) {
+      4
+    } else {
+      parallel
+    }
+  }
 
 
   # Determine the closest distribution of the residuals
@@ -288,28 +355,34 @@ create_p_funs <- function(
   package_scope$rand_data <- data
   n_rows <- nrow(data)
 
-  # Enable parallel processing and set appropriate map function.
-  # Because furrr::future_map has an important .options argument absent from
-  # purrr::map, map_loop() is created to unify these two functions.
+  # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
-    future::plan(future::multisession, workers = parallel)
-    map_loop <- furrr::future_map
-  } else {
-    # If no parallel processing, do not set future::plan(future::sequential):
-    # this might interfere with other parallel processing in a larger workflow.
-    # Just do nothing parallel.
-    map_loop <- function(..., .options = NULL) {
-      # Ignore the .options argument and pass on everything else
-      purrr::map(...)
-    }
+    original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+    on.exit(future::plan(original_parallel_plan))
   }
+  # # Enable parallel processing and set appropriate map function.
+  # # Because furrr::future_map has an important .options argument absent from
+  # # purrr::map, map_loop() is created to unify these two functions.
+  # if (parallel > 0) {
+  #   future::plan(future::multisession, workers = parallel)
+  #   map_loop <- furrr::future_map
+  # } else {
+  #   # If no parallel processing, do not set future::plan(future::sequential):
+  #   # this might interfere with other parallel processing in a larger workflow.
+  #   # Just do nothing parallel.
+  #   map_loop <- function(..., .options = NULL) {
+  #     # Ignore the .options argument and pass on everything else
+  #     purrr::map(...)
+  #   }
+  # }
 
   # Create progress bar iterator
   if (!silent) {
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
-  rand_ales <- map_loop(
+  rand_ales <- furrr::future_map(
+  # rand_ales <- map_loop(
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
@@ -322,7 +395,7 @@ create_p_funs <- function(
 
       # Generate training and test subsets with the random variable.
       # Package scope because they modify the datasets defined outside of the map function.
-      set.seed(.it)
+      set.seed(seed + .it)
 
       tmp_rand_data <- data
       tmp_rand_data$random_variable <- univariateML::rml(
@@ -355,11 +428,12 @@ create_p_funs <- function(
             assign('rand_model', eval(model_call), package_scope)
           },
           error = \(e) {
-            stop(
-              'Could not automatically detect the model call. ',
-              'You must specify the "random_model_call_string" argument. ',
-              'Here is the full error message: \n',
-              e
+            cli_abort(
+              'Could not automatically detect the model call.
+              You must specify the {.arg random_model_call_string} argument.
+              Here is the full error message:
+
+              {e}'
             )
           }
         )
@@ -368,17 +442,23 @@ create_p_funs <- function(
 
       # # Calculate ale of random variable on the test set.
       # # If calculated on the training set, p-values will be too liberal.
-      rand_ale <- ale::ale(
+      rand_ale <- ale(
         package_scope$rand_data,
         package_scope$rand_model,
         'random_variable',
-        parallel = 0,  # avoid iterative parallelization
+        parallel = 0,  # avoid recursive parallelization
+        # The approximate version can use fewer ALE x intervals for faster execution.
+        # The precise version uses the default 100 intervals.
+        x_intervals = if (p_val_type == 'approx fast') 10 else 100,
+        # Don't bootstrap even the approximate version--random variables have
+        # virtually no variation
+        # boot_it = if (p_val_type == 'approx fast') 100 else 0,
         output = 'data',
         y_col = y_col,
         pred_fun = pred_fun,
         pred_type = pred_type,
-        silent = TRUE,
-        relative_y = 'zero'
+        relative_y = 'zero',
+        silent = TRUE
       )
 
       # Increment the progress bar iterator.
@@ -390,10 +470,10 @@ create_p_funs <- function(
       rand_ale
     })
 
-  # Disable parallel processing if it had been enabled
-  if (parallel > 0) {
-    future::plan(future::sequential)
-  }
+  # # Disable parallel processing if it had been enabled
+  # if (parallel > 0) {
+  #   future::plan(future::sequential)
+  # }
 
   # Normalization is based on y_preds rather than y_col:
   # * takes care of classification, survival, or other [0, 1] prediction values
@@ -417,7 +497,7 @@ create_p_funs <- function(
     rand_stats, names(rand_stats),
     \(.stat_vals, .name_stat) {
       function(x) {
-        assertthat::assert_that(is.numeric(x))
+        validate(is.numeric(x))
 
         # For aler_min and naler_min, the p-value is the simple ECDF
         if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
@@ -436,8 +516,8 @@ create_p_funs <- function(
     rand_stats, names(rand_stats),
     \(.stat_vals, .name_stat) {
       function(p) {
-        assertthat::assert_that(is.numeric(p))
-        assertthat::assert_that(all(p >= 0 & p <= 1))
+        validate(is.numeric(p))
+        validate(all(p >= 0 & p <= 1))
 
         # Interpretation of p-value: percentage of values >= or greater than the statistic.
         # This code returns the statistic that yields the given p for this data.
@@ -461,55 +541,20 @@ create_p_funs <- function(
   p_funs <- list(
     value_to_p = value_to_p,
     p_to_random_value = p_to_random_value,
-    rand_stats = rand_stats,
-    residuals = residuals,
     residual_distribution = residual_distribution
   )
 
-
-  # The p_funs include a lot of unnecessary environment objects; they can grow
-  # very large.
-  # So, create new empty environments for each function with nothing but the
-  # bare minimum environment objects needed to do their jobs.
-
-  # Create template environment with bare minimum shared functionality
-  p_fun_env <- new.env(parent = emptyenv())
-
-  p_fun_env$`{`  <- base::`{`
-  p_fun_env$`&`  <- base::`&`
-  p_fun_env$`::` <- base::`::`
-  p_fun_env$`==` <- base::`==`
-  p_fun_env$`<=` <- base::`<=`
-  p_fun_env$`>=` <- base::`>=`
-  p_fun_env$`-`  <- base::`-`
-  p_fun_env$`if` <- base::`if`
-  p_fun_env$all  <- base::all
-  p_fun_env$is.numeric <- base::is.numeric
-  p_fun_env$`assertthat::assert_that` <- assertthat::assert_that
-  p_fun_env$`stringr::str_sub` <- stringr::str_sub
-  p_fun_env$`stats::ecdf` <- stats::ecdf
-  p_fun_env$quantile <- stats::quantile
-  p_fun_env$`stats::setNames` <- stats::setNames
-
-  # clone p_fun_env with unique .stat_fun variables
-  flush_stat_env <- function(.stat_fun) {
-    # temporarily save the unique environment variables for the current .stat_fun
-    .name_stat <- environment(.stat_fun)$.name_stat
-    .stat_vals <- environment(.stat_fun)$.stat_vals
-
-    # Clone sparse environment to the .stat_fun and restore its unique variables
-    environment(.stat_fun) <- rlang::env_clone(p_fun_env)
-    environment(.stat_fun)$.name_stat <- .name_stat
-    environment(.stat_fun)$.stat_vals <- .stat_vals
-
-    .stat_fun
+  if (!is.null(output) && output == 'rand_stats') {
+    p_funs$rand_stats <- rand_stats
+    p_funs$residuals <- residuals
   }
+
 
   # Replace p_funs function environments with sparse environments that flush
   # out anything not strictly necessary
-  p_funs$value_to_p <- map(p_funs$value_to_p, flush_stat_env) |>
+  p_funs$value_to_p <- map(p_funs$value_to_p, set_p_fun_env) |>
     set_names(names(p_funs$value_to_p))
-  p_funs$p_to_random_value <- map(p_funs$p_to_random_value, flush_stat_env) |>
+  p_funs$p_to_random_value <- map(p_funs$p_to_random_value, set_p_fun_env) |>
     set_names(names(p_funs$p_to_random_value))
 
 
@@ -578,13 +623,13 @@ ale_stats <- function(
     zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
 
-  assert_that(
+  validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
-    msg = 'Either y_vals or ale_y_norm_fun must be provided.'
+    msg = cli_alert_danger('Either {.arg y_vals} or {.arg ale_y_norm_fun} must be provided.')
   )
 
   if (!zeroed_ale) {
-    stop('Zeroed ALE required for now.')
+    cli_abort('Zeroed ALE required for now.')
   }
 
   # Remove any NA ale_y values (perhaps from bootstrapping) and corresponding ale_n
@@ -967,7 +1012,7 @@ summarize_conf_regions_in_words <- function(
     with(
       conf_region_summary[.row_num, ],
       if (exists('start_x')) { # conf_region_summary is numeric
-        stringr::str_glue(
+        str_glue(
           'From {round_dp(start_x)} to {round_dp(end_x)}, ',
           'ALE ',
           if_else(
@@ -979,7 +1024,7 @@ summarize_conf_regions_in_words <- function(
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
-        stringr::str_glue(
+        str_glue(
           'For {x}, the ALE of {round_dp(y)} ',
           if_else(
             relative_to_mid == 'overlap',
