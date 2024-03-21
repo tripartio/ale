@@ -235,24 +235,23 @@ validate_silent <- function(silent) {
 # usage is such that Shiny functions gracefully fail if the user does not have
 # any of these packages.
 validate_shiny_pkgs_installed <- function() {
-  # Suggested packages necessary for the Shiny apps but not necessarily for
+  # Suggested packages necessary for the Shiny apps but not necessary for
   # essential ale package functionality
   suggested_pkgs <- c('shiny', 'DT', 'plotly', 'shinyTree', 'shinyWidgets', 'patchwork')
 
   available_pkgs <-
     suggested_pkgs |>
-    map_lgl(\(.pkg) {
+    purrr::map_lgl(\(.pkg) {
       requireNamespace(.pkg, quietly = TRUE)
     })
 
-  assert_that(
+  validate(
     all(available_pkgs),
-    msg = paste0(
+    msg = cli_alert_danger(paste0(
       'The Shiny app functionality of this package requires installation of ',
       'the following uninstalled packages: ',
-      paste0(suggested_pkgs[!available_pkgs]
-      )
-    )
+      paste0(suggested_pkgs[!available_pkgs])
+      ))
   )
 }
 

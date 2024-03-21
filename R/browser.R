@@ -91,7 +91,6 @@ browse_ale <- function(
 ) {
   validate_shiny_pkgs_installed()
 
-  if (requireNamespace())
   ui <- shiny::fluidPage(
     aleBrowserUI(id)
   )
