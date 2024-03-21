@@ -27,6 +27,11 @@
 #' full dataset is unavailable, at least a random sample of the dataset should be
 #' provided. When provided, this optional argument is used for some visualizations,
 #' particularly for rug plots.
+#' @param ... not used. Tabs to display in the browser. Possible values from
+#' c('all', 'plots', 'stats', 'data', 'load'). If 'all' is included (default),
+#' all tabs will #' be included regardless of the other options. Otherwise, only
+#' the tabs explicitly listed are shown.
+#' @param tabs character vector. Inserted to require explicit naming of subsequent arguments.
 #' @param height,width single integer or character string. Desired height and width
 #' of the application in the user's browser window. The browser might adjust the
 #' actual values. These are expressed as CSS, with integer values defaulting in
@@ -86,13 +91,18 @@ browse_ale <- function(
     obj = NULL,
     obj_name = NULL,
     ale_dataset = NULL,
+    ...,
+    tabs = 'all',
     height = 800,
     width = '100%'
 ) {
   validate_shiny_pkgs_installed()
 
   ui <- shiny::fluidPage(
-    aleBrowserUI(id)
+    aleBrowserUI(
+      id,
+      tabs = tabs
+    )
   )
 
   server <- function(input, output, session) {
@@ -114,7 +124,7 @@ browse_ale <- function(
 
 # UI module ------------------
 
-aleBrowserUI <- function(id) {
+aleBrowserUI <- function(id, tabs = 'all') {
   validate_shiny_pkgs_installed()
 
   # Create mandatory namespace function for module UI
@@ -132,133 +142,141 @@ aleBrowserUI <- function(id) {
         '',  # no navbar title
 
         ## Plots tab --------------
-        shiny::tabPanel(
-          'Plots',
-          shiny::sidebarLayout(
+        if (any(c('all', 'plots') %in% tabs)) {
+          shiny::tabPanel(
+            'Plots',
+            shiny::sidebarLayout(
 
-            # This variable picker is so useful that it should be modularized for
-            # reuse in other components, such as the statistics tab
-            shiny::sidebarPanel(
-              shinyWidgets::pickerInput(
-                ns('plot_pick_x_cols'), 'Select the variables to plot',
-                choices = NULL,
-                multiple = TRUE,
-                options = list(`actions-box` = TRUE)
+              # This variable picker is so useful that it should be modularized for
+              # reuse in other components, such as the statistics tab
+              shiny::sidebarPanel(
+                shinyWidgets::pickerInput(
+                  ns('plot_pick_x_cols'), 'Select the variables to plot',
+                  choices = NULL,
+                  multiple = TRUE,
+                  options = list(`actions-box` = TRUE)
+                ),
+                shiny::strong('Click column headers to sort the order of variables in the plots:'),
+                DT::DTOutput(ns('plot_sort_tbl'), height = '400px'),
+                shiny::tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
+                shiny::tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
               ),
-              shiny::strong('Click column headers to sort the order of variables in the plots:'),
-              DT::DTOutput(ns('plot_sort_tbl'), height = '400px'),
-              shiny::tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
-              shiny::tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
-            ),
 
-            shiny::mainPanel(
-              shiny::uiOutput(ns('plot_placeholder')),
-              shiny::conditionalPanel(
-                ns = ns,
-                'input.plot_pick_x_cols.length == 1',
-                shiny::hr(),
-                shiny::h3('Confidence regions'),
-                shiny::em(paste0(
-                  'Confidence regions are the regions of the x variables where ',
-                  'the ALE y values have meaningful or statistically significant ',
-                  'values.'
-                )),
-                DT::DTOutput(ns('plot_conf_tbl')),
-                shiny::hr(),
-                shiny::h3('Interactive plot'),
-                shiny::em(paste0(
-                  'Unfortunately, this interactive version does not support all the features ',
-                  'of the full plot version. However, its interactive features are nonetheless ',
-                  'useful: hover your mouse over the icons on the top right to see what they do.'
-                )),
-                plotly::plotlyOutput(ns('plotly_plot')),
-              ),
-              shiny::conditionalPanel(
-                ns = ns,
-                'input.plot_pick_x_cols.length > 1',
-                shiny::hr(),
-                shiny::em(paste0(
-                  'The interactive version is only available for single plots, ',
-                  'not for multiple plots.'
-                )),
+              shiny::mainPanel(
+                shiny::uiOutput(ns('plot_placeholder')),
+                shiny::conditionalPanel(
+                  ns = ns,
+                  'input.plot_pick_x_cols.length == 1',
+                  shiny::hr(),
+                  shiny::h3('Confidence regions'),
+                  shiny::em(paste0(
+                    'Confidence regions are the regions of the x variables where ',
+                    'the ALE y values have meaningful or statistically significant ',
+                    'values.'
+                  )),
+                  DT::DTOutput(ns('plot_conf_tbl')),
+                  shiny::hr(),
+                  shiny::h3('Interactive plot'),
+                  shiny::em(paste0(
+                    'Unfortunately, this interactive version does not support all the features ',
+                    'of the full plot version. However, its interactive features are nonetheless ',
+                    'useful: hover your mouse over the icons on the top right to see what they do.'
+                  )),
+                  plotly::plotlyOutput(ns('plotly_plot')),
+                ),
+                shiny::conditionalPanel(
+                  ns = ns,
+                  'input.plot_pick_x_cols.length > 1',
+                  shiny::hr(),
+                  shiny::em(paste0(
+                    'The interactive version is only available for single plots, ',
+                    'not for multiple plots.'
+                  )),
+                )
               )
             )
           )
-        ),
+        },
 
         ## Statistics tab ------------
-        shiny::tabPanel(
-          'Statistics',
+        if (any(c('all', 'stats') %in% tabs)) {
+          shiny::tabPanel(
+            'Statistics',
 
-          shiny::verticalLayout(
-            shiny::h3('Mean statistics for all variables'),
-            DT::DTOutput(ns('stats_estimate_tbl')),
+            shiny::verticalLayout(
+              shiny::h3('Mean statistics for all variables'),
+              DT::DTOutput(ns('stats_estimate_tbl')),
 
-            shiny::h3('Statistics with bootstrapped confidence intervals'),
-            shiny::sidebarLayout(
-              shiny::sidebarPanel(
-                shiny::strong('Browse'),
-                shinyTree::shinyTree(ns('stats_boot_tree')),
+              shiny::h3('Statistics with bootstrapped confidence intervals'),
+              shiny::sidebarLayout(
+                shiny::sidebarPanel(
+                  shiny::strong('Browse'),
+                  shinyTree::shinyTree(ns('stats_boot_tree')),
+                ),
+                shiny::mainPanel(
+                  DT::DTOutput(ns('stats_boot_tbl')),
+                )
               ),
-              shiny::mainPanel(
-                DT::DTOutput(ns('stats_boot_tbl')),
-              )
-            ),
 
-            shiny::uiOutput(ns('stats_conf_header')),
-            shiny::p(shiny::em(paste0(
-              'Confidence regions are the regions of the x variables where ',
-              'the ALE y values have meaningful or statistically significant ',
-              'values.'
-            ))),
-            shiny::h4(
-              'Significant confidence regions of all variables with any ',
-              'significant regions'
-            ),
-            DT::DTOutput(ns('stats_conf_sig_tbl')),
-            shiny::h4('Confidence regions of all variables'),
-            shiny::sidebarLayout(
-              shiny::sidebarPanel(
-                shiny::strong('Browse'),
-                shinyTree::shinyTree(ns('stats_conf_tree')),
+              shiny::uiOutput(ns('stats_conf_header')),
+              shiny::p(shiny::em(paste0(
+                'Confidence regions are the regions of the x variables where ',
+                'the ALE y values have meaningful or statistically significant ',
+                'values.'
+              ))),
+              shiny::h4(
+                'Significant confidence regions of all variables with any ',
+                'significant regions'
               ),
-              shiny::mainPanel(
-                DT::DTOutput(ns('stats_conf_tbl')),
-              )
-            ),
+              DT::DTOutput(ns('stats_conf_sig_tbl')),
+              shiny::h4('Confidence regions of all variables'),
+              shiny::sidebarLayout(
+                shiny::sidebarPanel(
+                  shiny::strong('Browse'),
+                  shinyTree::shinyTree(ns('stats_conf_tree')),
+                ),
+                shiny::mainPanel(
+                  DT::DTOutput(ns('stats_conf_tbl')),
+                )
+              ),
 
-            # # Skip the effects plot for now; it's tricky because it needs y_vals
-            # h3('ALE effects plot'),
-            # plotly::plotlyOutput(ns('stats_effects_plot')),
+              # # Skip the effects plot for now; it's tricky because it needs y_vals
+              # h3('ALE effects plot'),
+              # plotly::plotlyOutput(ns('stats_effects_plot')),
 
-          )
-        ),
-
-        ## ALE data tab: free browsing of the ale object --------
-        shiny::tabPanel(
-          'ALE data',
-          shiny::h3('Browse the elements of the ale object'),
-          shiny::p(
-            'All the elements of the ale object can be browsed here ',
-            'except for those that are available in the Plots and Statistics tabs.'
-          ),
-          shiny::sidebarLayout(
-            shiny::sidebarPanel(
-              shiny::strong('Click to browse'),
-              shinyTree::shinyTree(ns('ale_tree')),
-            ),
-            shiny::mainPanel(
-              shiny::uiOutput(ns('ale_data_output'))
             )
           )
-        ),
+        },
 
-        ## Load serialized object --------
-        shiny::tabPanel(
-          'Load',
-          shiny::h3('Load a saved ale object'),
-          shiny::fileInput(ns('ale_file'), '')
-        ),
+        ## ALE data tab: free browsing of the ale object --------
+        if (any(c('all', 'data') %in% tabs)) {
+          shiny::tabPanel(
+            'ALE data',
+            shiny::h3('Browse the elements of the ale object'),
+            shiny::p(
+              'All the elements of the ale object can be browsed here ',
+              'except for those that are available in the Plots and Statistics tabs.'
+            ),
+            shiny::sidebarLayout(
+              shiny::sidebarPanel(
+                shiny::strong('Click to browse'),
+                shinyTree::shinyTree(ns('ale_tree')),
+              ),
+              shiny::mainPanel(
+                shiny::uiOutput(ns('ale_data_output'))
+              )
+            )
+          )
+        },
+
+          ## Load serialized object --------
+        if (any(c('all', 'load') %in% tabs)) {
+          shiny::tabPanel(
+            'Load',
+            shiny::h3('Load a saved ale object'),
+            shiny::fileInput(ns('ale_file'), '')
+          )
+        },
 
       )
     )
