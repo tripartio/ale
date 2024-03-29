@@ -156,7 +156,7 @@ aleBrowserUI <- function(id, tabs = 'all') {
                   multiple = TRUE,
                   options = list(`actions-box` = TRUE)
                 ),
-                shiny::strong('Click column headers to sort the order of variables in the plots:'),
+                shiny::strong('Click column headers to change the sort order of variables in the plots:'),
                 DT::DTOutput(ns('plot_sort_tbl'), height = '400px'),
                 shiny::tags$style('#plot_sort_tbl :is(th) {padding: 1;}'),
                 shiny::tags$style('#plot_sort_tbl :is(td) {padding: 0;}'),
@@ -169,29 +169,22 @@ aleBrowserUI <- function(id, tabs = 'all') {
                   'input.plot_pick_x_cols.length == 1',
                   shiny::hr(),
                   shiny::h3('Confidence regions'),
-                  shiny::em(paste0(
-                    'Confidence regions are the regions of the x variables where ',
-                    'the ALE y values have meaningful or statistically significant ',
-                    'values.'
-                  )),
+                  shiny::em(
+                    'Confidence regions are the regions of the x variables where the ALE y values have meaningful or statistically significant values.'
+                  ),
                   DT::DTOutput(ns('plot_conf_tbl')),
                   shiny::hr(),
                   shiny::h3('Interactive plot'),
-                  shiny::em(paste0(
-                    'Unfortunately, this interactive version does not support all the features ',
-                    'of the full plot version. However, its interactive features are nonetheless ',
-                    'useful: hover your mouse over the icons on the top right to see what they do.'
-                  )),
+                  shiny::em(
+                    'Unfortunately, this interactive version does not support all the features of the full plot version. However, its interactive features are nonetheless useful: hover your mouse over the icons on the top right to see what they do.'
+                  ),
                   plotly::plotlyOutput(ns('plotly_plot')),
                 ),
                 shiny::conditionalPanel(
                   ns = ns,
                   'input.plot_pick_x_cols.length > 1',
                   shiny::hr(),
-                  shiny::em(paste0(
-                    'The interactive version is only available for single plots, ',
-                    'not for multiple plots.'
-                  )),
+                  shiny::em('The interactive version is only available for single plots, not for multiple plots.'),
                 )
               )
             )
@@ -219,15 +212,10 @@ aleBrowserUI <- function(id, tabs = 'all') {
               ),
 
               shiny::uiOutput(ns('stats_conf_header')),
-              shiny::p(shiny::em(paste0(
-                'Confidence regions are the regions of the x variables where ',
-                'the ALE y values have meaningful or statistically significant ',
-                'values.'
-              ))),
-              shiny::h4(
-                'Significant confidence regions of all variables with any ',
-                'significant regions'
-              ),
+              shiny::p(shiny::em(
+                'Confidence regions are the regions of the x variables where the ALE y values have meaningful or statistically significant values.'
+              )),
+              shiny::h4('Significant confidence regions of all variables with any significant regions'),
               DT::DTOutput(ns('stats_conf_sig_tbl')),
               shiny::h4('Confidence regions of all variables'),
               shiny::sidebarLayout(
