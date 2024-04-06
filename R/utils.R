@@ -48,7 +48,7 @@
 #  * `logical` returns 'binary'
 #  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
 #  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#  * unordered `factor` returns 'multinomial'
+#  * unordered `factor` returns 'categorical'
 #  * `ordered` `factor` returns 'ordinal'
 #
 var_type <- function(var) {
@@ -62,7 +62,7 @@ var_type <- function(var) {
     class_var == 'logical' ~ 'binary',
     # var consisting only of one of any two values is considered binary
     (var |> unique() |> length()) == 2 ~ 'binary',
-    class_var == 'factor' ~ 'multinomial',
+    class_var == 'factor' ~ 'categorical',
     class_var == 'ordered' ~ 'ordinal',
     is.numeric(var) ~ 'numeric',
     # Consider dates to be numeric; they seem to work OK like that

@@ -164,7 +164,7 @@
 #' be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
 #' default of [ALEPlot::ALEPlot()], which is not shifted.
 #' @param y_type character length 1. Datatype of the y (outcome) variable.
-#' Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
+#' Must be one of c('binary', 'numeric', 'categorical', 'ordinal'). Normally
 #' determined automatically; only provide for complex non-standard models that
 #' require it.
 #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges
@@ -716,7 +716,7 @@ ale_core <- function (
   )
   if (!is.null(y_type)) {
     validate(is_string(y_type) &&
-                  (y_type %in% c('binary', 'multinomial', 'ordinal', 'numeric')))
+                  (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
   }
   validate(is_string(pred_type))
   if (!is.null(ale_xs)) {

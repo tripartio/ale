@@ -213,9 +213,9 @@ calc_ale <- function(
 
   }
 
-  else if (x_type %in% c('binary', 'ordinal', 'multinomial')) {
+  else if (x_type %in% c('binary', 'ordinal', 'categorical')) {
 
-    # If x_col is a factor (ordinal or multinomial),
+    # If x_col is a factor (ordinal or categorical),
     # reset xint to the number of levels of X[[x_col]]
     if ('factor' %in% class(X[[x_col]])) {
       if (is.null(ale_x)) {
@@ -232,7 +232,7 @@ calc_ale <- function(
 
 
     # Calculate three key variables that determine the ordering of the ale_x axis,
-    # depending on if x_type is binary, multinomial, or ordinal:
+    # depending on if x_type is binary, categorical, or ordinal:
     # * idx_ord_orig_level: new indexes of the original factor levels after they
     #     have been ordered for ALE purposes
     # * x_ordered_idx: index of x_col value according to ordered indexes
@@ -260,11 +260,11 @@ calc_ale <- function(
           sort()
 
       }
-      else if (x_type == 'multinomial') {
+      else if (x_type == 'categorical') {
 
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <-
-          # Call function to order multinomial categories
+          # Call function to order categorical categories
           idxs_kolmogorov_smirnov(X, x_col, xint, x_level_counts)
 
         # index of x_col value according to ordered indexes
@@ -574,8 +574,8 @@ calc_ale <- function(
 }
 
 
-# Sorted multinomial indexes based on Kolmogorov-Smirnov distances
-# for empirically ordering multinomial categories.
+# Sorted categorical indexes based on Kolmogorov-Smirnov distances
+# for empirically ordering categorical categories.
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,

@@ -125,7 +125,7 @@ calc_ale_ixn <- function(
   }  #end of else if (class(X[[x1_col]]) == "numeric" | class(X[[x1_col]]) == "integer") statement
 
   # else if (class(X[[x1_col]]) == "factor") {#for categorical X[[x1_col]], calculate the ALE plot
-  else if (x1_type %in% c('binary', 'ordinal', 'multinomial')) {
+  else if (x1_type %in% c('binary', 'ordinal', 'categorical')) {
 
     # If x1_col is a factor, drop any unused levels
     if ('factor' %in% class(X[[x1_col]]) ) {

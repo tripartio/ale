@@ -27,7 +27,7 @@ library(dplyr)
 
 ## `var_cars`: modified `mtcars` dataset (Motor Trend Car Road Tests)
 
-For this demonstration, we use a modified version of the built-in `mtcars` dataset so that it has binary (logical), multinomial (factor, that is, non-ordered categories), ordinal (ordered factor), discrete interval (integer), and continuous interval (numeric or double) values. This modified version, called `var_cars`, will let us test all the different basic variations of x variables. For the factor, it adds the country of the car manufacturer.
+For this demonstration, we use a modified version of the built-in `mtcars` dataset so that it has binary (logical), categorical (factor, that is, non-ordered categories), ordinal (ordered factor), discrete interval (integer), and continuous interval (numeric or double) values. This modified version, called `var_cars`, will let us test all the different basic variations of x variables. For the factor, it adds the country of the car manufacturer.
 
 The data is a tibble with 32 observations on 12 variables:
 
