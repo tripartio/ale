@@ -946,7 +946,7 @@ ale_core <- function (
           )
         }) |>
         set_names(x_cols) |>
-        transpose()
+        purrr::list_transpose(simplify = FALSE)
   }
 
   # two-way interactions

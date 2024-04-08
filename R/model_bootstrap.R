@@ -447,7 +447,7 @@ model_bootstrap <- function (
 
       }
     ) |>
-    transpose()
+    purrr::list_transpose(simplify = FALSE)
 
   # # Disable parallel processing if it had been enabled
   # if (parallel > 0) {
@@ -583,7 +583,7 @@ model_bootstrap <- function (
       ale_summary_data <-
         boot_data_ale |>
         map(\(.it) .it$data) |>   # extract data from each iteration
-        transpose()  # rearrange list to group all iterations by x_col
+        purrr::list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col
       ale_summary_data <-
         map2(
           ale_summary_data, names(ale_summary_data),
@@ -627,7 +627,7 @@ model_bootstrap <- function (
       ale_summary_stats <-
         boot_data_ale |>
         map(\(.it) .it$stats) |>   # extract stats from each iteration
-        transpose()  # rearrange list to group all iterations by x_col (term)
+        purrr::list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col (term)
 
       ale_summary_stats <-
         ale_summary_stats$estimate |>

@@ -39,7 +39,6 @@
 #' @importFrom purrr map_chr
 #' @importFrom purrr map_dbl
 #' @importFrom purrr set_names
-#' @importFrom purrr transpose
 #' @importFrom rlang .data
 #' @importFrom rlang is_bool
 #' @importFrom rlang is_string
