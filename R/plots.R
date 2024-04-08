@@ -50,6 +50,20 @@ plot_ale <- function(
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
+  # For now ensure that plots are not categorical
+  if (ncol(y_summary) > 1) {
+    # Not yet ready to create categorical plots
+    return(NULL)
+  }
+
+  # Adjust inputs according to new (202404) data structure
+  ale_data <- ale_data[[1]]  # remove extra category level
+  # convert y_summary to a vector instead of a matrix
+  y_summary <- y_summary |>
+    as.numeric() |>
+    setNames(rownames(y_summary))
+
+
   # Default relative_y is median. If it is mean or zero, then the y axis
   # must be shifted for appropriate plotting
   y_shift <- case_when(
@@ -284,7 +298,7 @@ plot_ale <- function(
 #
 plot_ale_ixn <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
-    y_summary,  # as of 0.0.230825, this is not used at all
+    y_summary,
     y_vals,
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
@@ -302,6 +316,20 @@ plot_ale_ixn <- function(
 
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
+
+
+  # For now ensure that plots are not categorical
+  if (ncol(y_summary) > 1) {
+    # Not yet ready to create categorical plots
+    return(NULL)
+  }
+
+  # Adjust inputs according to new (202404) data structure
+  ale_data <- ale_data[[1]]  # remove extra category level
+  # convert y_summary to a vector instead of a matrix
+  y_summary <- y_summary |>
+    as.numeric() |>
+    setNames(rownames(y_summary))
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis

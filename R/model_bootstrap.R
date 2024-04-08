@@ -648,7 +648,7 @@ model_bootstrap <- function (
         select('term', 'statistic', 'estimate', everything())
 
       # If an ALE p-values object was passed, calculate p-values
-      if (names(y_summary)[1] == 'p') {
+      if (rownames(y_summary)[1] == 'p') {
         ale_summary_stats <- ale_summary_stats |>
           rowwise() |>  # required to get statistic function for each row
           mutate(
@@ -707,7 +707,7 @@ model_bootstrap <- function (
           detailed_ale_stats$estimate,
           data[[y_col]],
           y_col,
-          y_summary,
+          middle_band,
           # later pass ale_options like compact_plots
           compact_plots = compact_plots
         )

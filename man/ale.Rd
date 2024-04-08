@@ -126,7 +126,7 @@ be adjusted relative to this value. 'median' is the default. 'zero' will maintai
 default of \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}, which is not shifted.}
 
 \item{y_type}{character length 1. Datatype of the y (outcome) variable.
-Must be one of c('binary', 'numeric', 'multinomial', 'ordinal'). Normally
+Must be one of c('binary', 'numeric', 'categorical', 'ordinal'). Normally
 determined automatically; only provide for complex non-standard models that
 require it.}
 

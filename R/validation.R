@@ -80,6 +80,7 @@ validate_y_preds <- function(
     pred_fun,
     model,
     data,
+    y_col,
     pred_type
 ) {
   # Validate the prediction function with the model and the dataset
@@ -98,8 +99,19 @@ validate_y_preds <- function(
     finally = NULL
   )
 
-  # Validate the resulting predictions
-  validate(is.numeric(y_preds) && length(y_preds) == nrow(data))
+  # Validate the resulting predictions and make sure the result is a matrix
+  validate(is.numeric(y_preds) && is.atomic(y_preds))
+  if (is.matrix(y_preds)) {
+    validate(nrow(y_preds) == nrow(data))
+  }
+  else {  # validate and create a single-column matrix
+    validate(length(y_preds) == nrow(data))
+
+    y_preds <- y_preds |>
+      as.numeric() |>
+      matrix(dimnames = list(NULL, y_col))
+  }
+  # validate(is.numeric(y_preds) && length(y_preds) == nrow(data))
 
   y_preds
 }

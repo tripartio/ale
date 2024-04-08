@@ -23,6 +23,7 @@
 #  @param model See documentation for [ale()]
 #  @param x_col character length 1. Name of single column in X for which ALE data is to
 #  be calculated.
+#  @param y_cats character. The categories of y. For most cases with non-categorical y, y_cats == y_col.
 #  @param pred_fun See documentation for [ale()]
 #  @param pred_type See documentation for [ale()]
 #  @param x_intervals See documentation for [ale()]
@@ -35,22 +36,22 @@
 #  @param ale_x numeric or ordinal vector. Normally generated automatically (if
 #  NULL), but if provided, the provided value will be used instead.
 #  @param ale_n integer vector. See `ale_x`
-#  @param ale_y_norm_fun function. Custom function for normalizing ale_y for
-#  statistics. If provided, saves some time since it is usually the same for all
+#  @param ale_y_norm_funs list of functions. Custom functions for normalizing ale_y for
+#  statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all
 #  all variables throughout one call to [ale()]. For now, used as a flag to
 #  determine whether statistics will be calculated or not; if NULL, statistics
 #  will not be calculated.
 #  @param p_funs See documentation for `p_values` in [ale()]
 #
 calc_ale <- function(
-    X, model, x_col,
+    X, model, x_col, y_cats,
     pred_fun, pred_type,
     x_intervals,
     boot_it, seed, boot_alpha, boot_centre,
     boot_ale_y = FALSE,
     ale_x = NULL,
     ale_n = NULL,
-    ale_y_norm_fun = NULL,
+    ale_y_norm_funs = NULL,
     p_funs = NULL
 ) {
 
@@ -168,32 +169,71 @@ calc_ale <- function(
         # Difference between low and high boundary predictions
         delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
 
+        # With categorical y, delta_pred will be a matrix.
+        # For consistency, convert all other y types (which are usually vectors) into a matrix.
+        if (!is.matrix(delta_pred)) {
+          delta_pred <- matrix(delta_pred, ncol = 1)
+        }
+
         # Generate the cumulative ale_y predictions
         cum_pred <-
           delta_pred |>
-          # list where each element is vector of x_col values in that x_int interval
-          split(boot_ale_x_int) |>
-          map_dbl(mean) |>
-          cumsum()
+          apply(2, \(.col) {
+            .col |>
+              # list where each element is vector of x_col values in that x_int interval
+              split(boot_ale_x_int) |>
+              map_dbl(mean) |>
+              cumsum()
+          })
 
         # The ale_y just created might have gaps if this data does not have
         # all the ale_x intervals. This might be the case for small bootstrapped
         # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
         # Get the numbered indexes that are actually used
-        cum_pred_idx_names <- names(cum_pred)
+        cum_pred_idx_names <- rownames(cum_pred)
 
         # Extend the ale_y to set missing ale_x intervals as NA
-        1:(length_ale_x - 1) |>
-          map_dbl(\(.i) {
-            if (.i %in% cum_pred_idx_names) {
-              cum_pred[[as.character(.i)]]
-            } else {
-              NA
-            }
-          }) |>
-          c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-          unname()
+        cum_pred |>
+          apply(2, \(.col) {
+            1:(length_ale_x - 1) |>
+              map_dbl(\(.i) {
+                if (.i %in% cum_pred_idx_names) {
+                  .col[[as.character(.i)]]
+                } else {
+                  NA
+                }
+              }) |>
+              c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+              unname()
+          })
+
+        # # Generate the cumulative ale_y predictions
+        # cum_pred <-
+        #   delta_pred |>
+        #   # list where each element is vector of x_col values in that x_int interval
+        #   split(boot_ale_x_int) |>
+        #   map_dbl(mean) |>
+        #   cumsum()
+        #
+        # # The ale_y just created might have gaps if this data does not have
+        # # all the ale_x intervals. This might be the case for small bootstrapped
+        # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+        #
+        # # Get the numbered indexes that are actually used
+        # cum_pred_idx_names <- names(cum_pred)
+        #
+        # # Extend the ale_y to set missing ale_x intervals as NA
+        # 1:(length_ale_x - 1) |>
+        #   map_dbl(\(.i) {
+        #     if (.i %in% cum_pred_idx_names) {
+        #       cum_pred[[as.character(.i)]]
+        #     } else {
+        #       NA
+        #     }
+        #   }) |>
+        #   c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+        #   unname()
 
     })
 
@@ -204,12 +244,23 @@ calc_ale <- function(
     ale_y_full <- boot_ale$ale_y[[1]]
 
     ale_y_shift <-
-      # midpoint ale_y value between each x_int interval
-      data.frame(ale_y_full[-1], ale_y_full[-length_ale_x]) |>
-      rowMeans(na.rm = TRUE) |>
-      (`*`)(n_x_int) |>
-      sum(na.rm = TRUE) |>
-      (`/`)(sum(n_x_int, na.rm = TRUE))
+      ale_y_full |>
+      apply(2, \(.col) {
+        # midpoint ale_y value between each x_int interval
+        data.frame(.col[-1], .col[-length_ale_x]) |>
+          rowMeans(na.rm = TRUE) |>
+          (`*`)(n_x_int) |>
+          sum(na.rm = TRUE) |>
+          (`/`)(sum(n_x_int, na.rm = TRUE))
+      })
+
+    # ale_y_shift <-
+    #   # midpoint ale_y value between each x_int interval
+    #   data.frame(ale_y_full[-1], ale_y_full[-length_ale_x]) |>
+    #   rowMeans(na.rm = TRUE) |>
+    #   (`*`)(n_x_int) |>
+    #   sum(na.rm = TRUE) |>
+    #   (`/`)(sum(n_x_int, na.rm = TRUE))
 
   }
 
@@ -458,25 +509,55 @@ calc_ale <- function(
   }
 
   # Center all the ale_y values
-  boot_ale$ale_y <-
-    map(
-      boot_ale$ale_y,
-      \(.y) .y - ale_y_shift
-    )
+  boot_ale$ale_y <- boot_ale$ale_y |>
+    map(\(.y) {
+      .y |>
+        # subtract ale_y_shift row by row
+        apply(1, \(.row) {
+          .row - ale_y_shift
+        })  |>
+        # result of apply is transposed, so transpose back in correct orientation
+        t()
+    })
+
+  # # Center all the ale_y values
+  # boot_ale$ale_y <-
+  #   map(
+  #     boot_ale$ale_y,
+  #     \(.y) .y - ale_y_shift
+  #   )
 
   # Create matrix of bootstrapped ale_y values
   boot_vals <- unlist(boot_ale$ale_y)
 
-  boot_mx <- matrix(
+  # After all debugging is verified, rename boot_mx to boot_array; for now, leave the name
+  boot_mx <- array(
     boot_vals,
-    nrow = length_ale_x,  # length of any ale_y vector
-    ncol = boot_it + 1  # one column for each boot_it + full dataset
+    dim = c(
+      length_ale_x,      # rows: ale_x intervals
+      ncol(ale_y_full),  # cols: one for each y category (1 for non-categorical y)
+      boot_it + 1        # depth: bootstrap iterations + full dataset
+    ),
+    dimnames = list(
+      NULL,  # no row names
+      y_cats,
+      # colnames(ale_y_full),  # names only if y is categorical
+      NULL  # no col names
+    )
   )
 
-  # When bootstrapping, remove first column: ALE on full dataset
+  # boot_mx <- matrix(
+  #   boot_vals,
+  #   nrow = length_ale_x,  # length of any ale_y vector
+  #   ncol = boot_it + 1  # one column for each boot_it + full dataset
+  # )
+
+  # When bootstrapping, remove first iteration: ALE on full dataset
   if (boot_it > 0) {
-    # drop = FALSE is necessary to maintain matrix structure even if boot_it = 1
-    boot_mx <- boot_mx[, -1, drop = FALSE]
+    # drop = FALSE is necessary to maintain array structure even if one of the dimensions is 1
+    boot_mx <- boot_mx[, , -1, drop = FALSE]
+    # # drop = FALSE is necessary to maintain matrix structure even if boot_it = 1
+    # boot_mx <- boot_mx[, -1, drop = FALSE]
   }
 
   #TODO: In the future, maybe return this boot_mx if users want it.
@@ -488,76 +569,153 @@ calc_ale <- function(
   # When boot_it = 0, all values are the same
 
   boot_summary <- if (boot_it == 0) {
-    tibble(
-      ale_y_lo = boot_vals,
-      ale_y_mean = boot_vals,
-      ale_y_median = boot_vals,
-      ale_y_hi = boot_vals,
-    )
+    boot_mx[, , 1, drop = FALSE] |>
+      apply(2, \(.col) {
+        .col <- drop(.col)
+        tibble(
+          ale_y_lo = .col,
+          ale_y_mean = .col,
+          ale_y_median = .col,
+          ale_y_hi = .col,
+        )
+      })
+    # tibble(
+    #   ale_y_lo = boot_vals,
+    #   ale_y_mean = boot_vals,
+    #   ale_y_median = boot_vals,
+    #   ale_y_hi = boot_vals,
+    # )
   } else {
     # aggregate bootstrap results
-    tibble(
-      ale_y_lo = apply(
-        boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-      ),
-      ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
-      ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
-      ale_y_hi = apply(
-        boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-      ),
-    )
+    boot_mx |>
+      apply(2, \(.col) {
+        tibble(
+          ale_y_lo = apply(
+            .col, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+          ),
+          ale_y_mean = apply(.col, 1, mean, na.rm = TRUE),
+          ale_y_median = apply(.col, 1, stats::median, na.rm = TRUE),
+          ale_y_hi = apply(
+            .col, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+          ),
+        )
+      })
+
+    # tibble(
+    #   ale_y_lo = apply(
+    #     boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+    #   ),
+    #   ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
+    #   ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
+    #   ale_y_hi = apply(
+    #     boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+    #   ),
+    # )
   }
 
   boot_summary <- boot_summary |>
-    mutate(
-      ale_x = ale_x,
-      ale_n = ale_n,
-      ale_y = case_when(
-        boot_centre == 'mean' ~ ale_y_mean,
-        boot_centre == 'median' ~ ale_y_median,
-      ),
-    ) |>
-    select('ale_x', 'ale_n', 'ale_y', everything())
+    map(\(.cat) {
+      .cat |>
+        mutate(
+          ale_x = ale_x,
+          ale_n = ale_n,
+          ale_y = case_when(
+            boot_centre == 'mean' ~ ale_y_mean,
+            boot_centre == 'median' ~ ale_y_median,
+          ),
+        ) |>
+        select('ale_x', 'ale_n', 'ale_y', everything())
+    })
+
 
   # Call ale_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
-  # Only get stats if ale_y_norm_fun is provided
-  if (!is.null(ale_y_norm_fun)) {
-    boot_stats <- apply(
-      boot_mx, 2,
-      \(.it) ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_fun, zeroed_ale = TRUE)
-    )
+  # Only get stats if ale_y_norm_funs is provided
+  if (!is.null(ale_y_norm_funs)) {
+    # Call ale_stats for each bootstrap iteration
+    boot_stats <-
+      y_cats |>
+      map(\(.cat) {
+        boot_mx[, .cat, , drop = FALSE] |>
+          apply(3, \(.it) {
+            ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_funs[[.cat]], zeroed_ale = TRUE)
+          })
+      }) |>
+      set_names(y_cats)
 
-    boot_stats <- tibble(
-      statistic = rownames(boot_stats),
-      conf.low = apply(
-        boot_stats, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-      ),
-      mean = apply(boot_stats, 1, mean, na.rm = TRUE),
-      median = apply(boot_stats, 1, stats::median, na.rm = TRUE),
-      conf.high = apply(
-        boot_stats, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-      ),
-      estimate = case_when(
-        boot_centre == 'mean' ~ mean,
-        boot_centre == 'median' ~ median,
-      ),
-    ) |>
-      select('statistic', 'estimate', everything())
+
+    # Summarize stats across all bootstrap iterations
+    boot_stats <- boot_stats |>
+      map(\(.cat) {
+        tibble(
+          statistic = rownames(.cat),
+          conf.low = apply(
+            .cat, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+          ),
+          mean = apply(.cat, 1, mean, na.rm = TRUE),
+          median = apply(.cat, 1, stats::median, na.rm = TRUE),
+          conf.high = apply(
+            .cat, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+          ),
+          estimate = case_when(
+            boot_centre == 'mean' ~ mean,
+            boot_centre == 'median' ~ median,
+          ),
+        ) |>
+          select('statistic', 'estimate', everything())
+      })
 
     # If p_funs are provided, calculate p-values
     if (!is.null(p_funs)) {
       boot_stats <- boot_stats |>
-        mutate(
-          p.value = map2_dbl(
-            .data$estimate, .data$statistic,
-            \(.stat, .stat_name) {
-              # Call the p-value function corresponding to the named statistic
-              p_funs$value_to_p[[.stat_name]](.stat)
-            })
-        ) |>
-        select('statistic', 'estimate', 'p.value', everything())
+        map(\(.cat) {
+          mutate(
+            p.value = map2_dbl(
+              .data$estimate, .data$statistic,
+              \(.stat, .stat_name) {
+                # Call the p-value function corresponding to the named statistic
+                p_funs$value_to_p[[.stat_name]](.stat)
+              })
+          ) |>
+            select('statistic', 'estimate', 'p.value', everything())
+        })
     }
+
+    # boot_stats <- apply(
+    #   boot_mx, 2,
+    #   \(.it) ale_stats(.it, ale_n, ale_y_norm_funs = ale_y_norm_funs, zeroed_ale = TRUE)
+    # )
+    #
+    # boot_stats <- tibble(
+    #   statistic = rownames(boot_stats),
+    #   conf.low = apply(
+    #     boot_stats, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
+    #   ),
+    #   mean = apply(boot_stats, 1, mean, na.rm = TRUE),
+    #   median = apply(boot_stats, 1, stats::median, na.rm = TRUE),
+    #   conf.high = apply(
+    #     boot_stats, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
+    #   ),
+    #   estimate = case_when(
+    #     boot_centre == 'mean' ~ mean,
+    #     boot_centre == 'median' ~ median,
+    #   ),
+    # ) |>
+    #   select('statistic', 'estimate', everything())
+    #
+    # # If p_funs are provided, calculate p-values
+    # if (!is.null(p_funs)) {
+    #   boot_stats <- boot_stats |>
+    #     mutate(
+    #       p.value = map2_dbl(
+    #         .data$estimate, .data$statistic,
+    #         \(.stat, .stat_name) {
+    #           # Call the p-value function corresponding to the named statistic
+    #           p_funs$value_to_p[[.stat_name]](.stat)
+    #         })
+    #     ) |>
+    #     select('statistic', 'estimate', 'p.value', everything())
+    # }
   }
 
 

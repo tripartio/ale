@@ -246,6 +246,7 @@ create_p_funs <- function(
     model = model,
     data = data,
     # data = training_data,
+    y_col = y_col,
     pred_type = pred_type
   )
 
@@ -731,20 +732,51 @@ var_summary <- function(
     p_funs = NULL,
     p_alpha = c(0.01, 0.05)
 ) {
-  # Generate summary statistics for y for plotting
-  s <- stats::quantile(
-    var_vals,
-    probs = c(
-      0.01, 0.025, 0.05, 0.1, 0.25,
-      0.5 - (median_band_pct[2] / 2),
-      0.5 - (median_band_pct[1] / 2),
-      0.5,
-      0.5 + (median_band_pct[1] / 2),
-      0.5 + (median_band_pct[2] / 2),
-      # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
-      0.75, 0.9, 0.95, 0.975, 0.99
-    )
-  )
+  # # Generate summary statistics for y for plotting
+  # quant_probs <- c(
+  #   0.01, 0.025, 0.05, 0.1, 0.25,
+  #   0.5 - (median_band_pct[2] / 2),
+  #   0.5 - (median_band_pct[1] / 2),
+  #   0.5,
+  #   0.5 + (median_band_pct[1] / 2),
+  #   0.5 + (median_band_pct[2] / 2),
+  #   # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
+  #   0.75, 0.9, 0.95, 0.975, 0.99
+  # )
+  #
+  # s <- apply(var_vals, 2, stats::quantile, quant_probs)
+
+  s <-
+    var_vals |>
+    apply(MARGIN = 2, \(.col) {
+      stats::quantile(
+        .col,
+        probs = c(
+          0.01, 0.025, 0.05, 0.1, 0.25,
+          0.5 - (median_band_pct[2] / 2),
+          0.5 - (median_band_pct[1] / 2),
+          0.5,
+          0.5 + (median_band_pct[1] / 2),
+          0.5 + (median_band_pct[2] / 2),
+          # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
+          0.75, 0.9, 0.95, 0.975, 0.99
+        )
+      )
+    })
+
+  # s <- stats::quantile(
+  #   var_vals,
+  #   probs = c(
+  #     0.01, 0.025, 0.05, 0.1, 0.25,
+  #     0.5 - (median_band_pct[2] / 2),
+  #     0.5 - (median_band_pct[1] / 2),
+  #     0.5,
+  #     0.5 + (median_band_pct[1] / 2),
+  #     0.5 + (median_band_pct[2] / 2),
+  #     # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
+  #     0.75, 0.9, 0.95, 0.975, 0.99
+  #   )
+  # )
 
   # Calculate the p-values necessary to obtain the desired joint probabilities.
   # For example, if the p_alpha is 0.05, the user wants to ensure 0.95
@@ -752,65 +784,136 @@ var_summary <- function(
   # joint probability is smaller than the untransformed p-value.
   joint_p <- 1 - sqrt(1 - p_alpha)
 
-  s <- c(
-    # Retain first half of values
-    s[1:match('25%', names(s))],
+  s <- s |>
+    apply(MARGIN = 2, \(.col) {
+      .col <- c(
+        # Retain first half of values
+        .col[1:match('25%', names(.col))],
 
-    # Create lower confidence bounds just below the midpoint
-    med_lo_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
-    } else {
-      s[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
-    },
-    med_lo = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
-    } else {
-      s[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
-    },
+        # Create lower confidence bounds just below the midpoint
+        med_lo_2 = if (!is.null(p_funs)) {
+          unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
+        } else {
+          .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
+        },
+        med_lo = if (!is.null(p_funs)) {
+          unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
+        } else {
+          .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
+        },
 
-    s[match('50%', names(s))],
+        .col[match('50%', names(.col))],
 
-    mean = mean(var_vals, na.rm = TRUE),
+        mean = mean(var_vals, na.rm = TRUE),
 
-    # Create upper confidence bounds just above the midpoint
-    med_hi = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
-    } else {
-      s[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
-    },
-    med_hi_2 = if (!is.null(p_funs)) {
-      unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
-    } else {
-      s[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
-    },
+        # Create upper confidence bounds just above the midpoint
+        med_hi = if (!is.null(p_funs)) {
+          unname(.col[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
+        } else {
+          .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
+        },
+        med_hi_2 = if (!is.null(p_funs)) {
+          unname(.col[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
+        } else {
+          .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
+        },
 
-    # Retain latter half of values
-    s[match('75%', names(s)):length(s)]
-  )
+        # Retain latter half of values
+        .col[match('75%', names(.col)):length(.col)]
+      )
+
+      # Determine the limits and average of y.
+      # min and max are needed only for plotting, but avg is needed for data.
+      # Set the plotting boundaries for the y axis
+      if (min(var_vals) >= 0 && max(var_vals) <= 1) {  # var is a probability
+        .col <- c(min = 0, .col)
+        .col <- c(.col, max = 1)
+      }
+      else {
+        .col <- c(min = .col[['1%']], .col)
+        .col <- c(.col, max = .col[['99%']])
+      }   # as of now, no treatment and no error for non-numeric y
+
+      .col
+    })
+
+  # s <- c(
+  #   # Retain first half of values
+  #   s[1:match('25%', names(s))],
+  #
+  #   # Create lower confidence bounds just below the midpoint
+  #   med_lo_2 = if (!is.null(p_funs)) {
+  #     unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
+  #   } else {
+  #     s[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
+  #   },
+  #   med_lo = if (!is.null(p_funs)) {
+  #     unname(s[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
+  #   } else {
+  #     s[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
+  #   },
+  #
+  #   s[match('50%', names(s))],
+  #
+  #   mean = mean(var_vals, na.rm = TRUE),
+  #
+  #   # Create upper confidence bounds just above the midpoint
+  #   med_hi = if (!is.null(p_funs)) {
+  #     unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
+  #   } else {
+  #     s[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
+  #   },
+  #   med_hi_2 = if (!is.null(p_funs)) {
+  #     unname(s[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
+  #   } else {
+  #     s[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
+  #   },
+  #
+  #   # Retain latter half of values
+  #   s[match('75%', names(s)):length(s)]
+  # )
 
 
-  # Determine the limits and average of y.
-  # min and max are needed only for plotting, but avg is needed for data.
-  # Set the plotting boundaries for the y axis
-  v_type <- var_type(var_vals)
-  if (v_type == 'numeric') {
-    s <- c(min = s[['1%']], s)
-    s <- c(s, max = s[['99%']])
-  } else if (v_type == 'binary' &&
-             min(var_vals) > 0 && max(var_vals) < 1) {  # var is a probability
-    s <- c(min = 0, s)
-    s <- c(s, max = 1)
-  }  # as of now, no treatment and no error for non-numeric y
+  # # Determine the limits and average of y.
+  # # min and max are needed only for plotting, but avg is needed for data.
+  # # Set the plotting boundaries for the y axis
+  # v_type <- var_type(var_vals)
+  # if (v_type == 'numeric') {
+  #   s <- c(min = s[['1%']], s)
+  #   s <- c(s, max = s[['99%']])
+  # } else if (v_type == 'binary' &&
+  #            min(var_vals) > 0 && max(var_vals) < 1) {  # var is a probability
+  #   s <- c(min = 0, s)
+  #   s <- c(s, max = 1)
+  # }  # as of now, no treatment and no error for non-numeric y
+
 
   # Encode whether the med values represent p-values or not:
   # names(s[1]) == 'p': base p-value
   # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
   s <- if (is.null(p_funs)) {
-    c(q = median_band_pct[1], s)
+    rbind(
+      q = rep(median_band_pct[1], ncol(s)),
+      s
+    )
   }
   else {
-    c(p = p_alpha[2], s)
+    rbind(
+      p = rep(p_alpha[2], ncol(s)),
+      s
+    )
   }
+
+
+  # # Encode whether the med values represent p-values or not:
+  # # names(s[1]) == 'p': base p-value
+  # # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
+  # s <- if (is.null(p_funs)) {
+  #   c(q = median_band_pct[1], s)
+  # }
+  # else {
+  #   c(p = p_alpha[2], s)
+  # }
 
   return(s)
 }
@@ -896,8 +999,8 @@ summarize_conf_regions <- function(
         mutate(
           # where is the current point relative to the median band?
           relative_to_mid = case_when(
-            .data$ale_y_hi < y_summary[['med_lo']] ~ 'below',
-            .data$ale_y_lo > y_summary[['med_hi']] ~ 'above',
+            .data$ale_y_hi < y_summary[['med_lo', 1]] ~ 'below',
+            .data$ale_y_lo > y_summary[['med_hi', 1]] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -933,7 +1036,7 @@ summarize_conf_regions <- function(
               # slope from (start_x, start_y) to (end_x, end_y)
               # normalized on scales of x and y
               ((.data$end_y - .data$start_y) /
-                 (y_summary[['max']] - y_summary[['min']])) /
+                 (y_summary[['max', 1]] - y_summary[['min', 1]])) /
                 .data$x_span,
               0
             )

@@ -626,6 +626,7 @@ ale_core <- function (
     pred_fun = pred_fun,
     model = model,
     data = data,
+    y_col = y_col,
     pred_type = pred_type
   )
 
@@ -769,14 +770,21 @@ ale_core <- function (
     y_type <- var_type(data[[y_col]])
   }
 
+  # Disable plots for categorical y
+  if (y_type == 'categorical') {
+    output <- setdiff(output, 'plots')
+  }
+
   # Get list of y values depending on y_type
   y_vals <-
     if (y_type %in% c('numeric', 'ordinal')) {
-      data[[y_col]]
-    } else if (y_type == 'binary') {
+      # y_vals assumes matrix format so that the case of categorical predictions can be handled
+      data[y_col] |> as.matrix()
+      # data[[y_col]]
+    } else if (y_type %in% c('binary', 'categorical')) {
       y_preds
     } else {
-      cli_abort('Invalid datatype for y outcome variable: must be binary, ordinal, or numeric.')
+      cli_abort('Invalid datatype for y outcome variable: must be binary, categorical, ordinal, or numeric.')
     }
 
   # Generate summary statistics for y for plotting
@@ -787,10 +795,15 @@ ale_core <- function (
     p_alpha = p_alpha
   )
 
+  # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
+  y_cats <- colnames(y_summary)
+
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
-    relative_y == 'median' ~ y_summary[['50%']],
-    relative_y == 'mean' ~ y_summary[['mean']],
+    relative_y == 'median' ~ median(y_summary['50%', ]),
+    relative_y == 'mean' ~ median(y_summary['mean', ]),
+    # relative_y == 'median' ~ y_summary[['50%']],
+    # relative_y == 'mean' ~ y_summary[['mean']],
     relative_y == 'zero' ~ 0,
   )
 
@@ -840,9 +853,14 @@ ale_core <- function (
 
 
   # Prepare to create ALE statistics
-  ale_y_norm_fun <- NULL
+  ale_y_norm_funs <- NULL
   if ('stats' %in% output) {
-    ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
+    ale_y_norm_funs <-
+      y_vals |>
+      apply(2, \(.col) {
+        create_ale_y_norm_function(.col)
+      })
+    # ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
   # Enable parallel processing and restore former parallel plan on exit.
@@ -897,23 +915,31 @@ ale_core <- function (
           # Calculate ale_data for single variables
           ale_data_stats <-
             calc_ale(
-              data_X, model, x_col,
+              data_X, model, x_col, y_cats,
               pred_fun, pred_type, x_intervals,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = 'boot' %in% output,
               ale_x = ale_xs[[x_col]],
               ale_n = ale_ns[[x_col]],
-              ale_y_norm_fun = ale_y_norm_fun,
+              ale_y_norm_funs = ale_y_norm_funs,
               p_funs = p_values
             )
+
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
           # Shift ale_y by appropriate relative_y
           ale_data <- ale_data |>
-            mutate(across(contains('ale_y'), \(.x) {
-              .x + relative_y_shift
-            }))
+            map(\(.cat) {
+              .cat |>
+                mutate(across(contains('ale_y'), \(.x) {
+                  .x + relative_y_shift
+                }))
+            })
+          # ale_data <- ale_data |>
+          #   mutate(across(contains('ale_y'), \(.x) {
+          #     .x + relative_y_shift
+          #   }))
 
           # Generate ALE plot
           plot <- NULL  # Start with a NULL plot
@@ -945,8 +971,24 @@ ale_core <- function (
             plots = plot
           )
         }) |>
-        set_names(x_cols) |>
-        purrr::list_transpose(simplify = FALSE)
+        set_names(x_cols) # |>
+        # purrr::list_transpose(simplify = FALSE)
+
+    ales <- ales |>
+      # Transpose to group by ale object element (instead of by variable)
+      purrr::list_transpose(simplify = FALSE) |>
+      # Within each element, transpose again to group by y category
+      map(\(.el) {
+        purrr::list_transpose(.el, simplify = FALSE)
+      }) |>
+      # Set empty elements (usually list()) to NULL
+      map(\(.el) {
+        if (length(.el) == 0) {
+          NULL
+        } else {
+          .el
+        }
+      })
   }
 
   # two-way interactions
@@ -1054,28 +1096,58 @@ ale_core <- function (
 
 
   if ('stats' %in% output) {
-    ales$stats <-
-      map2(
-        ales$stats, names(ales$stats),
-        \(.term_tbl, .term) {
-          .term_tbl |>
-            mutate(term = .term)
-        }) |>
-      bind_rows() |>
-      select('term', everything()) |>
-      pivot_stats()
+    ales$stats <- ales$stats |>
+      map(\(.cat) {
+        .cat |>
+          imap(\(.term_tbl, .term) {
+            .term_tbl |>
+              mutate(term = .term)
+          }) |>
+          bind_rows() |>
+          select('term', everything()) |>
+          pivot_stats()
+      })
+
+    # ales$stats <-
+    #   map2(
+    #     ales$stats, names(ales$stats),
+    #     \(.term_tbl, .term) {
+    #       .term_tbl |>
+    #         mutate(term = .term)
+    #     }) |>
+    #   bind_rows() |>
+    #   select('term', everything()) |>
+    #   pivot_stats()
 
     if ('conf_regions' %in% output) {
       # conf_regions optionally provided only if stats also requested
-      ales$conf_regions <- summarize_conf_regions(
-        ales$data,
-        y_summary,
-        sig_criterion = if (!is.null(p_values)) {
-          'p_values'
-        } else {
-          'median_band_pct'
-        }
-      )
+      sig_criterion <- if (!is.null(p_values)) {
+        'p_values'
+      } else {
+        'median_band_pct'
+      }
+
+      ales$conf_regions <-
+        y_cats |>
+        map(\(.cat) {
+          summarize_conf_regions(
+            ales$data[[.cat]],
+            y_summary[, .cat, drop = FALSE],
+            sig_criterion = sig_criterion
+          )
+        }) |>
+        set_names(y_cats)
+
+
+      # ales$conf_regions <- summarize_conf_regions(
+      #   ales$data,
+      #   y_summary,
+      #   sig_criterion = if (!is.null(p_values)) {
+      #     'p_values'
+      #   } else {
+      #     'median_band_pct'
+      #   }
+      # )
     }
 
     # Create an effects plot only if plots are requested
