@@ -574,8 +574,8 @@ calc_ale <- function(
 }
 
 
-# Sorted multinomial indexes based on Kolmogorov-Smirnov distances
-# for empirically ordering multinomial categories.
+# Sorted categorical indexes based on Kolmogorov-Smirnov distances
+# for empirically ordering categorical categories.
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,

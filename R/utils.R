@@ -48,7 +48,7 @@
 #  * `logical` returns 'binary'
 #  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
 #  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#  * unordered `factor` returns 'multinomial'
+#  * unordered `factor` returns 'categorical'
 #  * `ordered` `factor` returns 'ordinal'
 #
 var_type <- function(var) {
