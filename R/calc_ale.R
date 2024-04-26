@@ -213,9 +213,9 @@ calc_ale <- function(
 
   }
 
-  else if (x_type %in% c('binary', 'ordinal', 'multinomial')) {
+  else if (x_type %in% c('binary', 'ordinal', 'categorical')) {
 
-    # If x_col is a factor (ordinal or multinomial),
+    # If x_col is a factor (ordinal or categorical),
     # reset xint to the number of levels of X[[x_col]]
     if ('factor' %in% class(X[[x_col]])) {
       if (is.null(ale_x)) {
@@ -223,16 +223,34 @@ calc_ale <- function(
         X[[x_col]] <- droplevels(X[[x_col]])
       }
 
-      xint <- nlevels(X[[x_col]])
+      # xint <- nlevels(X[[x_col]])
     }
+
+    # # If x_col is a character vector,
+    # # reset xint to the number of unique values of X[[x_col]]
+    # if (class(X[[x_col]]) == 'character') {
+    #   xint <- X[[x_col]] |>
+    #     unique() |>
+    #     length()
+    # }
+
 
     # tabulate level counts and probabilities
     x_level_counts <- table(X[[x_col]])
     x_level_probs <- x_level_counts / sum(x_level_counts)
 
+    # browser()
+
+    # If x_type is ordinal or categorical,
+    # reset xint to the number of unique values of X[[x_col]]: length(x_level_counts)
+    if (x_type %in% c('ordinal', 'categorical')) {
+      xint <- length(x_level_counts)
+    }
+
+
 
     # Calculate three key variables that determine the ordering of the ale_x axis,
-    # depending on if x_type is binary, multinomial, or ordinal:
+    # depending on if x_type is binary, categorical, or ordinal:
     # * idx_ord_orig_level: new indexes of the original factor levels after they
     #     have been ordered for ALE purposes
     # * x_ordered_idx: index of x_col value according to ordered indexes
@@ -260,11 +278,11 @@ calc_ale <- function(
           sort()
 
       }
-      else if (x_type == 'multinomial') {
+      else if (x_type == 'categorical') {
 
         # calculate the indexes of the original levels after ordering them
         idx_ord_orig_level <-
-          # Call function to order multinomial categories
+          # Call function to order categorical categories
           idxs_kolmogorov_smirnov(X, x_col, xint, x_level_counts)
 
         # index of x_col value according to ordered indexes
@@ -272,12 +290,22 @@ calc_ale <- function(
           idx_ord_orig_level |>
           sort(index.return = TRUE) |>
           (`[[`)('ix') |>
-          (`[`)(as.numeric(X[[x_col]]))
+          (`[`)(
+            X[[x_col]] |>
+              factor() |>  # required to handle character vectors
+              as.numeric()
+          )
+          # (`[`)(as.numeric(X[[x_col]]))
+
+        # browser()
 
         # x levels sorted in ALE order
         levels_ale_order <-
-          X[[x_col]] |>
-          levels() |>
+          x_level_counts |>
+          names() |>
+          # This older code only worked for factors; the revision also works for characters
+          # X[[x_col]] |>
+          # levels() |>
           (`[`)(idx_ord_orig_level)
 
       }
@@ -362,6 +390,9 @@ calc_ale <- function(
           # sample, adjust them to be the closest valid value
           invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
           for (i in invalid_hi_idxs) {
+
+            # if (x_col == 'Business_Unit') browser()
+
             hi_idxs[i] <-
               if (hi_idxs[i] > max(X_boot_x_col_unique_idxs)) {
                 max(X_boot_x_col_unique_idxs)
@@ -369,6 +400,8 @@ calc_ale <- function(
                 min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
               }
           }
+
+          # if (x_col == 'Gender') browser()
 
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
