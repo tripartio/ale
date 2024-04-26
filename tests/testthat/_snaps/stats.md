@@ -87,7 +87,7 @@
       $residual_distribution
       Maximum likelihood estimates for the Normal model 
            mean         sd  
-      3.842e-12  3.747e-02  
+      3.695e-12  3.747e-02  
       
 
 # create_p_funs works with custom random_model_call_string
@@ -139,6 +139,6 @@
       $residual_distribution
       Maximum likelihood estimates for the Normal model 
            mean         sd  
-      3.842e-12  3.747e-02  
+      3.695e-12  3.747e-02  
       
 
