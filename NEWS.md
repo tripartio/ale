@@ -1,3 +1,34 @@
+# ale (development version)
+
+## Breaking changes
+
+## Bug fixes
+
+* Gracefully fails when the input data has missing values.
+
+## Other user-visible changes
+
+* 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
+* create_p_funs now produces two types of p-value via the `p_val_type` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
+* Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
+
+## Under the hood
+
+* Reduced dependencies by doing more with the `{rlang}` and `{cli}` packages. Reduced the imported functions to a minimum.
+* Messages now use `{cli}`.
+* Replaced `{assertthat}` with custom validation functions that adapt some `{assertthat}` code. 
+* Use helper.R test files so that some testing objects are available to the loaded package.
+* Configure `{future}` parallelization code to restore original values on exit.
+* Increased memory efficiency of p_funs objects.
+* Plotting code updated for compatibility with ggplot2 3.5.
+
+## Known issues to be addressed in a future version
+
+-   Bootstrapping is not yet supported for ALE interactions (`ale_ixn()`).
+-   ALE statistics are not yet supported for ALE interactions (`ale_ixn()`).
+-   `ale()` does not yet support multi-output model prediction types (e.g., multi-class classification and multi-time survival probabilities).
+
+
 # ale 0.3.0
 
 The most significant updates are the addition of p-values for the ALE statistics, the launching of a pkgdown website which will henceforth host the development version of the package, and parallelization of core functions with a resulting performance boost.
