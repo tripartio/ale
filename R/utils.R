@@ -60,11 +60,12 @@ var_type <- function(var) {
 
   return(case_when(
     class_var == 'logical' ~ 'binary',
-    # var consisting only of one of any two values is considered binary
-    (var |> unique() |> length()) == 2 ~ 'binary',
-    class_var == 'factor' ~ 'categorical',
-    class_var == 'ordered' ~ 'ordinal',
+    # var consisting only of one of any two values (excluding NA) is considered binary.
+    # This test must be placed before all the others to ensure that it takes precedence, no matter what the underlying datatype might be.
+    (var |> na.omit() |> unique() |> length()) == 2 ~ 'binary',
     is.numeric(var) ~ 'numeric',
+    class_var %in% c('factor', 'character') ~ 'categorical',
+    class_var == 'ordered' ~ 'ordinal',
     # Consider dates to be numeric; they seem to work OK like that
     class_var %in% c('POSIXct', 'POSIXt') ~ 'numeric',
   ))

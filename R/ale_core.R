@@ -616,6 +616,10 @@ ale_core <- function (
 
   # Validate the dataset
   validate(data |> inherits('data.frame'))
+  validate(
+    !any(is.na(data)),
+    msg = '{.arg data} must not have any missing values.'
+  )
 
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
@@ -669,8 +673,7 @@ ale_core <- function (
     validate(
       'stats' %in% output,
       msg = cli_alert_danger(paste0(
-        'If "conf_regions" is requested in the {.arg output} argument, ',
-        'then "stats" must also be requested.'
+        'If "conf_regions" is requested in the {.arg output} argument, then "stats" must also be requested.'
       ))
     )
   }

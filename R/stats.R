@@ -238,6 +238,10 @@ create_p_funs <- function(
   # Validate arguments
 
   validate(data |> inherits('data.frame'))
+  validate(
+    !any(is.na(data)),
+    msg = '{.arg data} must not have any missing values.'
+  )
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.

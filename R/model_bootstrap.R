@@ -232,6 +232,15 @@ model_bootstrap <- function (
     "ale", "model_stats", or "model_coefs".')
   )
 
+  if ('ale' %in% output) {
+    validate(
+      !any(is.na(data)),
+      msg = 'If  {.val ale} is requested in {.arg output}, then {.arg data} must not have any missing values.'
+    )
+  }
+
+
+
   validate(is.list(ale_options))
   validate(
     !(
