@@ -4,7 +4,7 @@
 #' This is a transformation of the `mtcars` dataset from R to produce a small dataset with each of the fundamental datatypes: logical, factor, ordered, integer, double, and character. Most of the transformations are obvious, but a few are noteworthy:
 #'
 #' * The row names (the car model) are saved as a character vector.
-#' * For the unordered factor, the country of the car manufacturer is obtained based on the row names (model).
+#' * For the unordered factors, the country and continent of the car manufacturer are obtained based on the row names (model).
 #' * For the ordered factor, gears 3, 4, and 5 are encoded as 'three', 'four', and 'five', respectively. The text labels make it explicit that the variable is ordinal, yet the number names make the order crystal clear.
 #'
 #' Here is the adaptation of the original description of the `mtcars` dataset:
@@ -12,7 +12,7 @@
 #' The data was extracted from the 1974 *Motor Trend* US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models).
 #'
 #' @format
-#' A tibble with 32 observations on 13 variables.
+#' A tibble with 32 observations on 14 variables.
 #'
 #' \describe{
 #'   \item{model}{\code{character}: Car model}
@@ -28,6 +28,7 @@
 #'   \item{gear}{\code{ordered}: Number of forward gears}
 #'   \item{carb}{\code{integer}: Number of carburetors}
 #'   \item{country}{\code{factor}: Country of car manufacturer}
+#'   \item{continent}{\code{factor}: Continent of car manufacturer}
 #' }
 #'
 #' @note

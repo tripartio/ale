@@ -19,15 +19,28 @@ car_country <- function(make) {
   )
 }
 
+car_continent <- function(make) {
+  case_when(
+    make %in% c(american_makes) ~ 'North America',
+    make %in% c(japanese_makes) ~ 'Asia',
+    make %in% c(italian_makes, british_makes, swedish_makes, german_makes) ~ 'Europe',
+  )
+}
+
 var_cars <-
   mtcars |>
   as_tibble(rownames = 'model') |>
   mutate(
-    country = model |>
-      stringr::str_extract('^\\S+') |>  # extract first word only to identify country
+    # extract first word only to identify the make
+    make = stringr::str_extract(model, '^\\S+'),
+    country = make |>
       car_country() |>
-      factor()
+      factor(),
+    continent = make |>
+      car_continent() |>
+      factor(),
   ) |>
+  select(-make) |>
   mutate(across(c(vs, am), as.logical)) |>
   mutate(
     gear = gear |>

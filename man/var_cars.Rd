@@ -5,7 +5,7 @@
 \alias{var_cars}
 \title{Multi-variable transformation of the mtcars dataset.}
 \format{
-A tibble with 32 observations on 13 variables.
+A tibble with 32 observations on 14 variables.
 
 \describe{
 \item{model}{\code{character}: Car model}
@@ -21,6 +21,7 @@ A tibble with 32 observations on 13 variables.
 \item{gear}{\code{ordered}: Number of forward gears}
 \item{carb}{\code{integer}: Number of carburetors}
 \item{country}{\code{factor}: Country of car manufacturer}
+\item{continent}{\code{factor}: Continent of car manufacturer}
 }
 }
 \usage{
@@ -30,7 +31,7 @@ var_cars
 This is a transformation of the \code{mtcars} dataset from R to produce a small dataset with each of the fundamental datatypes: logical, factor, ordered, integer, double, and character. Most of the transformations are obvious, but a few are noteworthy:
 \itemize{
 \item The row names (the car model) are saved as a character vector.
-\item For the unordered factor, the country of the car manufacturer is obtained based on the row names (model).
+\item For the unordered factors, the country and continent of the car manufacturer are obtained based on the row names (model).
 \item For the ordered factor, gears 3, 4, and 5 are encoded as 'three', 'four', and 'five', respectively. The text labels make it explicit that the variable is ordinal, yet the number names make the order crystal clear.
 }
 
