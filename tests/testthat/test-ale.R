@@ -82,7 +82,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      x_intervals = 50,
+      max_x_int = 50,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -152,7 +152,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      x_intervals = 50,
+      max_x_int = 50,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -213,7 +213,7 @@ test_that(
       parallel = 0,
       output = c('plots'),
       pred_type = "probs",
-      x_intervals = 50,
+      max_x_int = 50,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,

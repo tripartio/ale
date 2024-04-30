@@ -454,7 +454,7 @@ create_p_funs <- function(
         parallel = 0,  # avoid recursive parallelization
         # The approximate version can use fewer ALE x intervals for faster execution.
         # The precise version uses the default 100 intervals.
-        x_intervals = if (p_val_type == 'approx fast') 10 else 100,
+        max_x_int = if (p_val_type == 'approx fast') 10 else 100,
         # Don't bootstrap even the approximate version--random variables have
         # virtually no variation
         # boot_it = if (p_val_type == 'approx fast') 100 else 0,

@@ -23,20 +23,20 @@
 #  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
 # @param pred_fun See documentation for [ale()]
 # @param pred_type See documentation for [ale()]
-# @param x_intervals See documentation for [ale()]
+# @param max_x_int See documentation for [ale()]
 #
 calc_ale_ixn <- function(
-    X, model, x1_col, x2_col,
-    # n_row, n_col,
-    pred_fun, pred_type, x_intervals
+    X, model, x1_col, x2_col, y_cats,
+    pred_fun, pred_type,
+    max_x_int
 ) {
 
   n_row <- nrow(X)
   n_col <- ncol(X)
 
-  # shorten name internally
-  xint <- x_intervals
-  rm(x_intervals)
+  # # shorten name internally
+  # xint <- max_x_int
+  # rm(max_x_int)
 
   x1_type <- var_type(X[[x1_col]])
   x2_type <- var_type(X[[x2_col]])

@@ -143,7 +143,7 @@
 #' For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`,
 #' the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
 #' the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-#' @param x_intervals positive integer length 1. Maximum number of intervals on the x-axis
+#' @param max_x_int positive integer length 1. Maximum number of intervals on the x-axis
 #' for the ALE data for each column in `x_cols`. The number of intervals that the algorithm generates
 #' might eventually be fewer than what the user specifies if the data values for
 #' a given x value do not support that many intervals.
@@ -180,7 +180,7 @@
 #' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
 #' of this sample. To prevent down-sampling, set to `Inf`. To suppress rug plots,
 #' set to 0. When down-sampling, the rug plots maintain representativeness of the
-#' data by guaranteeing that each of the `x_intervals` intervals will retain at least
+#' data by guaranteeing that each of the `max_x_int` intervals will retain at least
 #' `min_rug_per_interval` elements; usually set to just 1 or 2.
 #' @param ale_xs,ale_ns list of ale_x and ale_n vectors. If provided, these vectors will be used to
 #' set the intervals of the ALE x axis for each variable. By default (NULL), the
@@ -360,7 +360,7 @@ ale <- function (
     pred_type = "response",
     p_values = NULL,
     p_alpha = c(0.01, 0.05),
-    x_intervals = 100,
+    max_x_int = 100,
     boot_it = 0,
     seed = 0,
     boot_alpha = 0.05,
@@ -422,7 +422,7 @@ ale <- function (
 #' @param model_packages See documentation for [ale()]
 #' @param output See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()]
-#' @param x_intervals See documentation for [ale()]
+#' @param max_x_int See documentation for [ale()]
 #' @param relative_y See documentation for [ale()]
 #' @param y_type See documentation for [ale()]
 #' @param median_band_pct See documentation for [ale()]
@@ -492,7 +492,7 @@ ale_ixn <- function (
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
-    x_intervals = 100,
+    max_x_int = 100,
     # boot_it = 0,
     # boot_alpha = 0.05,
     # boot_centre = 'mean',
@@ -550,7 +550,7 @@ ale_ixn <- function (
 # @param output See documentation for [ale()]
 # @param pred_fun,pred_type See documentation for [ale()]
 # @param p_values,p_alpha See documentation for [ale()]
-# @param x_intervals See documentation for [ale()]
+# @param max_x_int See documentation for [ale()]
 # @param boot_it See documentation for [ale()]
 # @param seed See documentation for [ale()]
 # @param boot_alpha See documentation for [ale()]
@@ -585,7 +585,7 @@ ale_core <- function (
     pred_type = "response",
     p_values = NULL,
     p_alpha = c(0.01, 0.05),
-    x_intervals = 100,
+    max_x_int = 100,
     boot_it = 0,
     seed = 0,
     boot_alpha = 0.05,
@@ -711,7 +711,7 @@ ale_core <- function (
     }
   }
 
-  validate(is_scalar_natural(x_intervals) && (x_intervals > 1))
+  validate(is_scalar_natural(max_x_int) && (max_x_int > 1))
   validate(is_scalar_whole(boot_it))
   validate(is_scalar_number(seed))
   validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
@@ -759,9 +759,9 @@ ale_core <- function (
       rug_sample_size == 0 ||  # 0 means no rug plots are desired
         (is_scalar_natural(rug_sample_size) &&
            # rug sample cannot be smaller than number of intervals
-           rug_sample_size > (x_intervals + 1)),
+           rug_sample_size > (max_x_int + 1)),
       msg = cli_alert_danger('{.arg rug_sample_size} must be either 0 or
-        an integer larger than the number of x_intervals + 1.')
+        an integer larger than the number of max_x_int + 1.')
     )
     validate(is_scalar_whole(min_rug_per_interval))
     validate(is_scalar_natural(n_x1_int))
@@ -924,7 +924,7 @@ ale_core <- function (
           ale_data_stats <-
             calc_ale(
               data_X, model, x_col, y_cats,
-              pred_fun, pred_type, x_intervals,
+              pred_fun, pred_type, max_x_int,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = 'boot' %in% output,
               ale_x = ale_xs[[x_col]],
@@ -1037,8 +1037,9 @@ ale_core <- function (
 
             ale_data <-
               calc_ale_ixn(
-                data_X, model, x1_col, x2_col,
-                pred_fun, pred_type, x_intervals
+                data_X, model, x1_col, x2_col, y_cats,
+                pred_fun, pred_type,
+                max_x_int
               )
 
             # Shift ale_y by appropriate relative_y

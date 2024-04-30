@@ -26,7 +26,7 @@
 #  @param y_cats character. The categories of y. For most cases with non-categorical y, y_cats == y_col.
 #  @param pred_fun See documentation for [ale()]
 #  @param pred_type See documentation for [ale()]
-#  @param x_intervals See documentation for [ale()]
+#  @param max_x_int See documentation for [ale()]
 #  @param boot_it See documentation for [ale()]
 #  @param seed See documentation for [ale()]
 #  @param boot_alpha See documentation for [ale()]
@@ -46,7 +46,7 @@
 calc_ale <- function(
     X, model, x_col, y_cats,
     pred_fun, pred_type,
-    x_intervals,
+    max_x_int,
     boot_it, seed, boot_alpha, boot_centre,
     boot_ale_y = FALSE,
     ale_x = NULL,
@@ -58,9 +58,9 @@ calc_ale <- function(
   n_row <- nrow(X)
   n_col <- ncol(X)
 
-  # shorten name internally
-  xint <- x_intervals
-  rm(x_intervals)
+  # # shorten name internally
+  # xint <- max_x_int
+  # rm(max_x_int)
 
   # Create bootstrap tbl
   set.seed(seed)
@@ -96,13 +96,13 @@ calc_ale <- function(
 
   if (x_type == 'numeric') {
 
-    # ale_x: xint quantile intervals of x_col values
+    # ale_x: max_x_int quantile intervals of x_col values
     if (is.null(ale_x)) {
       ale_x <- c(
         min(X[[x_col]], na.rm = TRUE),  # first value is the min
         stats::quantile(
           X[[x_col]],
-          seq(1 / xint, 1, length.out = xint),
+          seq(1 / max_x_int, 1, length.out = max_x_int),
           type = 1,
           na.rm = TRUE
         ) |>  # keep quantile type=1 for consistency with Apley & Zhu 2020
@@ -125,7 +125,8 @@ calc_ale <- function(
 
     length_ale_x <- length(ale_x)
 
-    xint <- length_ale_x - 1  # reset xint to number of unique intervals
+    # xint: number of unique intervals
+    xint <- length_ale_x - 1
 
     # Tabulate number of cases per ale_x_int
     n_x_int <-
@@ -291,7 +292,7 @@ calc_ale <- function(
     x_level_probs <- x_level_counts / sum(x_level_counts)
 
     # If x_type is ordinal or categorical,
-    # reset xint to the number of unique values of X[[x_col]]: length(x_level_counts)
+    # set xint to the number of unique values of X[[x_col]]: length(x_level_counts)
     if (x_type %in% c('ordinal', 'categorical')) {
       xint <- length(x_level_counts)
     }

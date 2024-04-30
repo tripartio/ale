@@ -60,7 +60,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      x_intervals = 50,
+      max_x_int = 50,
       relative_y = 'zero',
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
@@ -108,7 +108,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      x_intervals = 50,
+      max_x_int = 50,
       relative_y = 'zero',
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),

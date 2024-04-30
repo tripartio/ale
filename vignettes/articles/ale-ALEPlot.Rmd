@@ -291,8 +291,8 @@ yhat <- function(object, newdata, type) {
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_x_int = 500,
+#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > max_x_int + 1
 #   relative_y = 'zero'  # compatibility with ALEPlot
 # )
 # saveRDS(gbm_ale_link, file.choose())
@@ -313,8 +313,8 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_x_int = 500,
+#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > max_x_int + 1
 #   relative_y = 'zero'  # compatibility with ALEPlot
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
@@ -363,8 +363,8 @@ yhat <- function(object, newdata, type) {
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_x_int = 500,
+#   rug_sample_size = 600  # technical issue: rug_sample_size must be > max_x_int + 1
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -384,8 +384,8 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_x_int = 500,
+#   rug_sample_size = 600  # technical issue: rug_sample_size must be > max_x_int + 1
 # )
 # saveRDS(gbm_ale_ixn_prob, file.choose())
 gbm_ale_ixn_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 
