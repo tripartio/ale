@@ -169,3 +169,63 @@ test_that(
   }
 )
 
+
+# Test categorical outcomes ----------------
+
+test_that(
+  'categorical outcome default works with multiple x datatypes', {
+    skip_on_ci()
+
+    cars_ale <- ale(
+      test_cars, test_gam_categorical,
+      pred_type = 'probs',
+      parallel = 0,
+      silent = TRUE,
+      compact_plots = TRUE
+    )
+    expect_snapshot(cars_ale)
+  }
+)
+
+test_that(
+  'categorical outcome with bootstrap works with multiple x datatypes', {
+    skip_on_ci()
+
+    cars_ale <- ale(
+      test_cars, test_gam_categorical,
+      pred_type = 'probs',
+      parallel = 0,
+      boot_it = 4,
+      silent = TRUE,
+      compact_plots = TRUE
+    )
+    expect_snapshot(cars_ale)
+  }
+)
+
+test_that(
+  'categorical outcome works with every parameter set to something, with multiple x datatypes', {
+    skip_on_ci()
+
+    cars_ale <- ale(
+      test_cars, test_gam_categorical,
+      x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      parallel = 0,
+      output = c('plots'),
+      pred_type = "probs",
+      x_intervals = 50,
+      boot_it = 1,  # edge case
+      seed = 1234,
+      boot_alpha = 0.01,
+      boot_centre = 'median',
+      relative_y = 'zero',
+      y_type = 'categorical',
+      median_band_pct = c(0.01, 0.2),
+      silent = TRUE,
+      compact_plots = TRUE,
+    )
+    expect_snapshot(cars_ale)
+  }
+)
+
+
