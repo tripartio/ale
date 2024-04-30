@@ -4,7 +4,24 @@
       cars_ale
     Output
       $data
-      $data$cyl
+      $data$mpg
+      $data$mpg$model
+      # A tibble: 32 x 7
+         ale_x               ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+         <ord>               <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+       1 Duster 360              2  19.2     19.2       19.2         19.2     19.2
+       2 Camaro Z28              2  19.2     19.2       19.2         19.2     19.2
+       3 Chrysler Imperial       2  19.2     19.2       19.2         19.2     19.2
+       4 Cadillac Fleetwood      2  19.2     19.2       19.2         19.2     19.2
+       5 Lincoln Continental     2  19.2     19.2       19.2         19.2     19.2
+       6 Pontiac Firebird        2  19.2     19.2       19.2         19.2     19.2
+       7 Hornet Sportabout       2  19.2     19.2       19.2         19.2     19.2
+       8 AMC Javelin             2  19.2     19.2       19.2         19.2     19.2
+       9 Dodge Challenger        2  19.2     19.2       19.2         19.2     19.2
+      10 Merc 450SLC             2  19.2     19.2       19.2         19.2     19.2
+      # i 22 more rows
+      
+      $data$mpg$cyl
       # A tibble: 7 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -16,7 +33,7 @@
       6     8    21  19.3     19.3       19.3         19.3     19.3
       7     9     3  19.4     19.4       19.4         19.4     19.4
       
-      $data$disp
+      $data$mpg$disp
       # A tibble: 59 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -32,7 +49,7 @@
       10  95.1     1  28.6     28.6       28.6         28.6     28.6
       # i 49 more rows
       
-      $data$hp
+      $data$mpg$hp
       # A tibble: 54 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -48,7 +65,7 @@
       10  90.8     1  26.8     26.8       26.8         26.8     26.8
       # i 44 more rows
       
-      $data$drat
+      $data$mpg$drat
       # A tibble: 54 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -64,7 +81,7 @@
       10  3.06     1  20.0     20.0       20.0         20.0     20.0
       # i 44 more rows
       
-      $data$wt
+      $data$mpg$wt
       # A tibble: 61 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -80,7 +97,7 @@
       10  2.14     1 10.8     10.8       10.8         10.8     10.8 
       # i 51 more rows
       
-      $data$qsec
+      $data$mpg$qsec
       # A tibble: 62 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -96,21 +113,21 @@
       10  16.0     1  23.9     23.9       23.9         23.9     23.9
       # i 52 more rows
       
-      $data$vs
+      $data$mpg$vs
       # A tibble: 2 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    36  17.3     17.3       17.3         17.3     17.3
       2 TRUE     28  21.6     21.6       21.6         21.6     21.6
       
-      $data$am
+      $data$mpg$am
       # A tibble: 2 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    38 26.9     26.9       26.9         26.9     26.9 
       2 TRUE     26  7.94     7.94       7.94         7.94     7.94
       
-      $data$gear
+      $data$mpg$gear
       # A tibble: 3 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -118,7 +135,7 @@
       2 four     24 24.0     24.0       24.0         24.0     24.0 
       3 five     10 35.7     35.7       35.7         35.7     35.7 
       
-      $data$carb
+      $data$mpg$carb
       # A tibble: 8 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -131,56 +148,45 @@
       7     7     1  19.4     19.4       19.4         19.4     19.4
       8     8     1  19.5     19.5       19.5         19.5     19.5
       
-      $data$country
+      $data$mpg$country
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 Sweden      2 19.3     19.3       19.3         19.3     19.3 
       2 UK          2 35.2     35.2       35.2         35.2     35.2 
-      3 Japan      12 24.3     24.3       24.3         24.3     24.3 
-      4 Italy       8 17.8     17.8       17.8         17.8     17.8 
+      3 Italy       8 17.8     17.8       17.8         17.8     17.8 
+      4 Japan      12 24.3     24.3       24.3         24.3     24.3 
       5 Germany    16  9.37     9.37       9.37         9.37     9.37
       6 USA        24 22.3     22.3       22.3         22.3     22.3 
       
+      $data$mpg$continent
+      # A tibble: 3 x 7
+        ale_x         ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>         <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 North America    24  19.2     19.2       19.2         19.2     19.2
+      2 Europe           28  19.2     19.2       19.2         19.2     19.2
+      3 Asia             12  19.2     19.2       19.2         19.2     19.2
+      
+      
       
       $boot_data
-      $boot_data$cyl
       NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$hp
-      NULL
-      
-      $boot_data$drat
-      NULL
-      
-      $boot_data$wt
-      NULL
-      
-      $boot_data$qsec
-      NULL
-      
-      $boot_data$vs
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$carb
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$by_term
-      $stats$by_term$cyl
+      $stats$mpg
+      $stats$mpg$by_term
+      $stats$mpg$by_term$model
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low      mean    median conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       1.09e-16  1.09e-16  1.09e-16  1.09e-16  1.09e-16
+      2 aler_min  -9.16e-16 -9.16e-16 -9.16e-16 -9.16e-16 -9.16e-16
+      3 aler_max   1.75e-15  1.75e-15  1.75e-15  1.75e-15  1.75e-15
+      4 naled      0         0         0         0         0       
+      5 naler_min  0         0         0         0         0       
+      6 naler_max  0         0         0         0         0       
+      
+      $stats$mpg$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -191,7 +197,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   4.55     4.55    4.55    4.55      4.55  
       
-      $stats$by_term$disp
+      $stats$mpg$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -202,7 +208,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      $stats$by_term$hp
+      $stats$mpg$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -213,7 +219,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    47.0     47.0   47.0   47.0      47.0 
       
-      $stats$by_term$drat
+      $stats$mpg$by_term$drat
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -224,7 +230,7 @@
       5 naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
       6 naler_max    43.9     43.9   43.9   43.9      43.9 
       
-      $stats$by_term$wt
+      $stats$mpg$by_term$wt
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -235,7 +241,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      $stats$by_term$qsec
+      $stats$mpg$by_term$qsec
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -246,7 +252,7 @@
       5 naler_min   -43.9    -43.9  -43.9  -43.9     -43.9 
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
-      $stats$by_term$vs
+      $stats$mpg$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -257,7 +263,7 @@
       5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
       6 naler_max    21.2     21.2   21.2   21.2      21.2 
       
-      $stats$by_term$am
+      $stats$mpg$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -268,7 +274,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    34.8     34.8   34.8   34.8      34.8 
       
-      $stats$by_term$gear
+      $stats$mpg$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -279,7 +285,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      $stats$by_term$carb
+      $stats$mpg$by_term$carb
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -290,7 +296,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   4.55     4.55    4.55    4.55      4.55  
       
-      $stats$by_term$country
+      $stats$mpg$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -301,124 +307,148 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      
-      $stats$by_statistic
-      $stats$by_statistic$aled
-      # A tibble: 11 x 6
-         term    estimate conf.low   mean median conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl       0.0756   0.0756 0.0756 0.0756    0.0756
-       2 disp      6.37     6.37   6.37   6.37      6.37  
-       3 hp        7.48     7.48   7.48   7.48      7.48  
-       4 drat      2.22     2.22   2.22   2.22      2.22  
-       5 wt        7.10     7.10   7.10   7.10      7.10  
-       6 qsec      3.60     3.60   3.60   3.60      3.60  
-       7 vs        2.11     2.11   2.11   2.11      2.11  
-       8 am        9.15     9.15   9.15   9.15      9.15  
-       9 gear      8.74     8.74   8.74   8.74      8.74  
-      10 carb      0.0602   0.0602 0.0602 0.0602    0.0602
-      11 country   5.26     5.26   5.26   5.26      5.26  
-      
-      $stats$by_statistic$aler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 cyl      -0.127   -0.127   -0.127   -0.127    -0.127 
-       2 disp    -13.5    -13.5    -13.5    -13.5     -13.5   
-       3 hp      -16.9    -16.9    -16.9    -16.9     -16.9   
-       4 drat     -5.08    -5.08    -5.08    -5.08     -5.08  
-       5 wt      -27.0    -27.0    -27.0    -27.0     -27.0   
-       6 qsec     -6.29    -6.29    -6.29    -6.29     -6.29  
-       7 vs       -1.87    -1.87    -1.87    -1.87     -1.87  
-       8 am      -11.3    -11.3    -11.3    -11.3     -11.3   
-       9 gear     -9.32    -9.32    -9.32    -9.32     -9.32  
-      10 carb     -0.0728  -0.0728  -0.0728  -0.0728   -0.0728
-      11 country  -9.83    -9.83    -9.83    -9.83     -9.83  
-      
-      $stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low   mean median conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl        0.153    0.153  0.153  0.153     0.153
-       2 disp      18.4     18.4   18.4   18.4      18.4  
-       3 hp        13.5     13.5   13.5   13.5      13.5  
-       4 drat      12.2     12.2   12.2   12.2      12.2  
-       5 wt        20.4     20.4   20.4   20.4      20.4  
-       6 qsec       4.76     4.76   4.76   4.76      4.76 
-       7 vs         2.41     2.41   2.41   2.41      2.41 
-       8 am         7.71     7.71   7.71   7.71      7.71 
-       9 gear      16.5     16.5   16.5   16.5      16.5  
-      10 carb       0.260    0.260  0.260  0.260     0.260
-      11 country   16.0     16.0   16.0   16.0      16.0  
-      
-      $stats$by_statistic$naled
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl         2.06     2.06  2.06   2.06      2.06
-       2 disp       30.7     30.7  30.7   30.7      30.7 
-       3 hp         32.3     32.3  32.3   32.3      32.3 
-       4 drat       15.3     15.3  15.3   15.3      15.3 
-       5 wt         27.6     27.6  27.6   27.6      27.6 
-       6 qsec       25.6     25.6  25.6   25.6      25.6 
-       7 vs         17.0     17.0  17.0   17.0      17.0 
-       8 am         41.0     41.0  41.0   41.0      41.0 
-       9 gear       42.0     42.0  42.0   42.0      42.0 
-      10 carb        1.56     1.56  1.56   1.56      1.56
-      11 country    29.5     29.5  29.5   29.5      29.5 
-      
-      $stats$by_statistic$naler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl          0        0     0      0         0  
-       2 disp       -50      -50   -50    -50       -50  
-       3 hp         -50      -50   -50    -50       -50  
-       4 drat       -40.9    -40.9 -40.9  -40.9     -40.9
-       5 wt         -50      -50   -50    -50       -50  
-       6 qsec       -43.9    -43.9 -43.9  -43.9     -43.9
-       7 vs         -13.6    -13.6 -13.6  -13.6     -13.6
-       8 am         -50      -50   -50    -50       -50  
-       9 gear       -50      -50   -50    -50       -50  
-      10 carb         0        0     0      0         0  
-      11 country    -50      -50   -50    -50       -50  
-      
-      $stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl         4.55     4.55  4.55   4.55      4.55
-       2 disp       50       50    50     50        50   
-       3 hp         47.0     47.0  47.0   47.0      47.0 
-       4 drat       43.9     43.9  43.9   43.9      43.9 
-       5 wt         50       50    50     50        50   
-       6 qsec       28.8     28.8  28.8   28.8      28.8 
-       7 vs         21.2     21.2  21.2   21.2      21.2 
-       8 am         34.8     34.8  34.8   34.8      34.8 
-       9 gear       50       50    50     50        50   
-      10 carb        4.55     4.55  4.55   4.55      4.55
-      11 country    50       50    50     50        50   
+      $stats$mpg$by_term$continent
+      # A tibble: 6 x 6
+        statistic estimate conf.low  mean median conf.high
+        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 aled             0        0     0      0         0
+      2 aler_min         0        0     0      0         0
+      3 aler_max         0        0     0      0         0
+      4 naled            0        0     0      0         0
+      5 naler_min        0        0     0      0         0
+      6 naler_max        0        0     0      0         0
       
       
-      $stats$estimate
-      # A tibble: 11 x 7
-         term      aled aler_min aler_max naled naler_min naler_max
-         <chr>    <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl     0.0756  -0.127     0.153  2.06       0        4.55
-       2 disp    6.37   -13.5      18.4   30.7      -50       50   
-       3 hp      7.48   -16.9      13.5   32.3      -50       47.0 
-       4 drat    2.22    -5.08     12.2   15.3      -40.9     43.9 
-       5 wt      7.10   -27.0      20.4   27.6      -50       50   
-       6 qsec    3.60    -6.29      4.76  25.6      -43.9     28.8 
-       7 vs      2.11    -1.87      2.41  17.0      -13.6     21.2 
-       8 am      9.15   -11.3       7.71  41.0      -50       34.8 
-       9 gear    8.74    -9.32     16.5   42.0      -50       50   
-      10 carb    0.0602  -0.0728    0.260  1.56       0        4.55
-      11 country 5.26    -9.83     16.0   29.5      -50       50   
+      $stats$mpg$by_statistic
+      $stats$mpg$by_statistic$aled
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     1.09e-16 1.09e-16 1.09e-16 1.09e-16  1.09e-16
+       2 cyl       7.56e- 2 7.56e- 2 7.56e- 2 7.56e- 2  7.56e- 2
+       3 disp      6.37e+ 0 6.37e+ 0 6.37e+ 0 6.37e+ 0  6.37e+ 0
+       4 hp        7.48e+ 0 7.48e+ 0 7.48e+ 0 7.48e+ 0  7.48e+ 0
+       5 drat      2.22e+ 0 2.22e+ 0 2.22e+ 0 2.22e+ 0  2.22e+ 0
+       6 wt        7.10e+ 0 7.10e+ 0 7.10e+ 0 7.10e+ 0  7.10e+ 0
+       7 qsec      3.60e+ 0 3.60e+ 0 3.60e+ 0 3.60e+ 0  3.60e+ 0
+       8 vs        2.11e+ 0 2.11e+ 0 2.11e+ 0 2.11e+ 0  2.11e+ 0
+       9 am        9.15e+ 0 9.15e+ 0 9.15e+ 0 9.15e+ 0  9.15e+ 0
+      10 gear      8.74e+ 0 8.74e+ 0 8.74e+ 0 8.74e+ 0  8.74e+ 0
+      11 carb      6.02e- 2 6.02e- 2 6.02e- 2 6.02e- 2  6.02e- 2
+      12 country   5.26e+ 0 5.26e+ 0 5.26e+ 0 5.26e+ 0  5.26e+ 0
+      13 continent 0        0        0        0         0       
       
-      $stats$effects_plot
-      $stats$effects_plot[[1]]
-      $stats$effects_plot[[1]][[1]]
+      $stats$mpg$by_statistic$aler_min
+      # A tibble: 13 x 6
+         term       estimate  conf.low      mean    median conf.high
+         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model     -9.16e-16 -9.16e-16 -9.16e-16 -9.16e-16 -9.16e-16
+       2 cyl       -1.27e- 1 -1.27e- 1 -1.27e- 1 -1.27e- 1 -1.27e- 1
+       3 disp      -1.35e+ 1 -1.35e+ 1 -1.35e+ 1 -1.35e+ 1 -1.35e+ 1
+       4 hp        -1.69e+ 1 -1.69e+ 1 -1.69e+ 1 -1.69e+ 1 -1.69e+ 1
+       5 drat      -5.08e+ 0 -5.08e+ 0 -5.08e+ 0 -5.08e+ 0 -5.08e+ 0
+       6 wt        -2.70e+ 1 -2.70e+ 1 -2.70e+ 1 -2.70e+ 1 -2.70e+ 1
+       7 qsec      -6.29e+ 0 -6.29e+ 0 -6.29e+ 0 -6.29e+ 0 -6.29e+ 0
+       8 vs        -1.87e+ 0 -1.87e+ 0 -1.87e+ 0 -1.87e+ 0 -1.87e+ 0
+       9 am        -1.13e+ 1 -1.13e+ 1 -1.13e+ 1 -1.13e+ 1 -1.13e+ 1
+      10 gear      -9.32e+ 0 -9.32e+ 0 -9.32e+ 0 -9.32e+ 0 -9.32e+ 0
+      11 carb      -7.28e- 2 -7.28e- 2 -7.28e- 2 -7.28e- 2 -7.28e- 2
+      12 country   -9.83e+ 0 -9.83e+ 0 -9.83e+ 0 -9.83e+ 0 -9.83e+ 0
+      13 continent  0         0         0         0         0       
+      
+      $stats$mpg$by_statistic$aler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     1.75e-15 1.75e-15 1.75e-15 1.75e-15  1.75e-15
+       2 cyl       1.53e- 1 1.53e- 1 1.53e- 1 1.53e- 1  1.53e- 1
+       3 disp      1.84e+ 1 1.84e+ 1 1.84e+ 1 1.84e+ 1  1.84e+ 1
+       4 hp        1.35e+ 1 1.35e+ 1 1.35e+ 1 1.35e+ 1  1.35e+ 1
+       5 drat      1.22e+ 1 1.22e+ 1 1.22e+ 1 1.22e+ 1  1.22e+ 1
+       6 wt        2.04e+ 1 2.04e+ 1 2.04e+ 1 2.04e+ 1  2.04e+ 1
+       7 qsec      4.76e+ 0 4.76e+ 0 4.76e+ 0 4.76e+ 0  4.76e+ 0
+       8 vs        2.41e+ 0 2.41e+ 0 2.41e+ 0 2.41e+ 0  2.41e+ 0
+       9 am        7.71e+ 0 7.71e+ 0 7.71e+ 0 7.71e+ 0  7.71e+ 0
+      10 gear      1.65e+ 1 1.65e+ 1 1.65e+ 1 1.65e+ 1  1.65e+ 1
+      11 carb      2.60e- 1 2.60e- 1 2.60e- 1 2.60e- 1  2.60e- 1
+      12 country   1.60e+ 1 1.60e+ 1 1.60e+ 1 1.60e+ 1  1.60e+ 1
+      13 continent 0        0        0        0         0       
+      
+      $stats$mpg$by_statistic$naled
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 cyl           2.06     2.06  2.06   2.06      2.06
+       3 disp         30.7     30.7  30.7   30.7      30.7 
+       4 hp           32.3     32.3  32.3   32.3      32.3 
+       5 drat         15.3     15.3  15.3   15.3      15.3 
+       6 wt           27.6     27.6  27.6   27.6      27.6 
+       7 qsec         25.6     25.6  25.6   25.6      25.6 
+       8 vs           17.0     17.0  17.0   17.0      17.0 
+       9 am           41.0     41.0  41.0   41.0      41.0 
+      10 gear         42.0     42.0  42.0   42.0      42.0 
+      11 carb          1.56     1.56  1.56   1.56      1.56
+      12 country      29.5     29.5  29.5   29.5      29.5 
+      13 continent     0        0     0      0         0   
+      
+      $stats$mpg$by_statistic$naler_min
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model          0        0     0      0         0  
+       2 cyl            0        0     0      0         0  
+       3 disp         -50      -50   -50    -50       -50  
+       4 hp           -50      -50   -50    -50       -50  
+       5 drat         -40.9    -40.9 -40.9  -40.9     -40.9
+       6 wt           -50      -50   -50    -50       -50  
+       7 qsec         -43.9    -43.9 -43.9  -43.9     -43.9
+       8 vs           -13.6    -13.6 -13.6  -13.6     -13.6
+       9 am           -50      -50   -50    -50       -50  
+      10 gear         -50      -50   -50    -50       -50  
+      11 carb           0        0     0      0         0  
+      12 country      -50      -50   -50    -50       -50  
+      13 continent      0        0     0      0         0  
+      
+      $stats$mpg$by_statistic$naler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 cyl           4.55     4.55  4.55   4.55      4.55
+       3 disp         50       50    50     50        50   
+       4 hp           47.0     47.0  47.0   47.0      47.0 
+       5 drat         43.9     43.9  43.9   43.9      43.9 
+       6 wt           50       50    50     50        50   
+       7 qsec         28.8     28.8  28.8   28.8      28.8 
+       8 vs           21.2     21.2  21.2   21.2      21.2 
+       9 am           34.8     34.8  34.8   34.8      34.8 
+      10 gear         50       50    50     50        50   
+      11 carb          4.55     4.55  4.55   4.55      4.55
+      12 country      50       50    50     50        50   
+      13 continent     0        0     0      0         0   
+      
+      
+      $stats$mpg$estimate
+      # A tibble: 13 x 7
+         term          aled  aler_min aler_max naled naler_min naler_max
+         <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 model     1.09e-16 -9.16e-16 1.75e-15  0          0        0   
+       2 cyl       7.56e- 2 -1.27e- 1 1.53e- 1  2.06       0        4.55
+       3 disp      6.37e+ 0 -1.35e+ 1 1.84e+ 1 30.7      -50       50   
+       4 hp        7.48e+ 0 -1.69e+ 1 1.35e+ 1 32.3      -50       47.0 
+       5 drat      2.22e+ 0 -5.08e+ 0 1.22e+ 1 15.3      -40.9     43.9 
+       6 wt        7.10e+ 0 -2.70e+ 1 2.04e+ 1 27.6      -50       50   
+       7 qsec      3.60e+ 0 -6.29e+ 0 4.76e+ 0 25.6      -43.9     28.8 
+       8 vs        2.11e+ 0 -1.87e+ 0 2.41e+ 0 17.0      -13.6     21.2 
+       9 am        9.15e+ 0 -1.13e+ 1 7.71e+ 0 41.0      -50       34.8 
+      10 gear      8.74e+ 0 -9.32e+ 0 1.65e+ 1 42.0      -50       50   
+      11 carb      6.02e- 2 -7.28e- 2 2.60e- 1  1.56       0        4.55
+      12 country   5.26e+ 0 -9.83e+ 0 1.60e+ 1 29.5      -50       50   
+      13 continent 0         0        0         0          0        0   
+      
+      $stats$mpg$effects_plot
+      $stats$mpg$effects_plot[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
@@ -426,83 +456,114 @@
       
       
       $plots
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$mpg
+      $plots$mpg$model
+      $plots$mpg$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$mpg$cyl
+      $plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$hp
-      $plots$hp[[1]]
+      $plots$mpg$disp
+      $plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$drat
-      $plots$drat[[1]]
+      $plots$mpg$hp
+      $plots$mpg$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$wt
-      $plots$wt[[1]]
+      $plots$mpg$drat
+      $plots$mpg$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$qsec
-      $plots$qsec[[1]]
+      $plots$mpg$wt
+      $plots$mpg$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$vs
-      $plots$vs[[1]]
+      $plots$mpg$qsec
+      $plots$mpg$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$mpg$vs
+      $plots$mpg$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$mpg$am
+      $plots$mpg$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$carb
-      $plots$carb[[1]]
+      $plots$mpg$gear
+      $plots$mpg$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$mpg$carb
+      $plots$mpg$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
+      
+      $plots$mpg$country
+      $plots$mpg$country[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$mpg$continent
+      $plots$mpg$continent[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       
       $conf_regions
-      $conf_regions$by_term
-      $conf_regions$by_term$cyl
+      $conf_regions$mpg
+      $conf_regions$mpg$by_term
+      $conf_regions$mpg$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct     y relative_to_mid
+         <ord>               <int>  <dbl> <dbl> <ord>          
+       1 Duster 360              2 0.0312  19.2 overlap        
+       2 Camaro Z28              2 0.0312  19.2 overlap        
+       3 Chrysler Imperial       2 0.0312  19.2 overlap        
+       4 Cadillac Fleetwood      2 0.0312  19.2 overlap        
+       5 Lincoln Continental     2 0.0312  19.2 overlap        
+       6 Pontiac Firebird        2 0.0312  19.2 overlap        
+       7 Hornet Sportabout       2 0.0312  19.2 overlap        
+       8 AMC Javelin             2 0.0312  19.2 overlap        
+       9 Dodge Challenger        2 0.0312  19.2 overlap        
+      10 Merc 450SLC             2 0.0312  19.2 overlap        
+      # i 22 more rows
+      
+      $conf_regions$mpg$by_term$cyl
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1       3     7  0.667    40 0.625    19.1  19.3 0.0120 overlap        
       2       8     9  0.167    24 0.375    19.3  19.4 0.0120 above          
       
-      $conf_regions$by_term$disp
+      $conf_regions$mpg$by_term$disp
       # A tibble: 4 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -511,14 +572,14 @@
       3   274.   321.  0.117    12 0.188    19.7 20.5   0.312 above          
       4   350    472   0.304    16 0.25     14.0  7.35 -0.932 below          
       
-      $conf_regions$by_term$hp
+      $conf_regions$mpg$by_term$hp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1     52    113  0.216    30 0.469    26.0 23.4  -0.514 above          
       2    122.   335  0.753    34 0.531    19.0  3.71 -0.866 below          
       
-      $conf_regions$by_term$drat
+      $conf_regions$mpg$by_term$drat
       # A tibble: 6 x 9
         start_x end_x  x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -529,7 +590,7 @@
       5    3.53  3.93 0.181      24 0.375     15.2  18.8  0.848 below          
       6    4.06  4.98 0.411      14 0.219     20.0  31.4  1.18  above          
       
-      $conf_regions$by_term$wt
+      $conf_regions$mpg$by_term$wt
       # A tibble: 4 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -538,7 +599,7 @@
       3    2.88  3.22 0.0872     9 0.141    19.0   18.1 -0.430 below          
       4    3.41  5.45 0.517     32 0.5      20.7   39.6  1.56  above          
       
-      $conf_regions$by_term$qsec
+      $conf_regions$mpg$by_term$qsec
       # A tibble: 3 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -546,21 +607,21 @@
       2    17.8  17.8  0         1 0.0156    19.2  19.2  0     overlap        
       3    17.9  23.0  0.594    31 0.484     18.6  12.9 -0.410 below          
       
-      $conf_regions$by_term$vs
+      $conf_regions$mpg$by_term$vs
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    36 0.562  17.3 below          
       2 TRUE     28 0.438  21.6 above          
       
-      $conf_regions$by_term$am
+      $conf_regions$mpg$by_term$am
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    38 0.594 26.9  above          
       2 TRUE     26 0.406  7.94 below          
       
-      $conf_regions$by_term$gear
+      $conf_regions$mpg$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
@@ -568,26 +629,34 @@
       2 four     24 0.375 24.0  above          
       3 five     10 0.156 35.7  above          
       
-      $conf_regions$by_term$carb
+      $conf_regions$mpg$by_term$carb
       # A tibble: 2 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1       1     4  0.429    58 0.906     19.1  19.3 0.0142 overlap        
       2       5     8  0.429     6 0.0938    19.3  19.5 0.0142 above          
       
-      $conf_regions$by_term$country
+      $conf_regions$mpg$by_term$country
       # A tibble: 6 x 5
         x           n  n_pct     y relative_to_mid
         <ord>   <int>  <dbl> <dbl> <ord>          
       1 Sweden      2 0.0312 19.3  above          
       2 UK          2 0.0312 35.2  above          
-      3 Japan      12 0.188  24.3  above          
-      4 Italy       8 0.125  17.8  below          
+      3 Italy       8 0.125  17.8  below          
+      4 Japan      12 0.188  24.3  above          
       5 Germany    16 0.25    9.37 below          
       6 USA        24 0.375  22.3  above          
       
+      $conf_regions$mpg$by_term$continent
+      # A tibble: 3 x 5
+        x                 n n_pct     y relative_to_mid
+        <ord>         <int> <dbl> <dbl> <ord>          
+      1 North America    24 0.375  19.2 overlap        
+      2 Europe           28 0.438  19.2 overlap        
+      3 Asia             12 0.188  19.2 overlap        
       
-      $conf_regions$significant
+      
+      $conf_regions$mpg$significant
       # A tibble: 31 x 12
          term  x     start_x  end_x  x_span     n  n_pct     y start_y end_y   trend
          <chr> <chr>   <dbl>  <dbl>   <dbl> <int>  <dbl> <dbl>   <dbl> <dbl>   <dbl>
@@ -604,24 +673,41 @@
       # i 21 more rows
       # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$sig_criterion
+      $conf_regions$mpg$sig_criterion
       [1] "median_band_pct"
+      
       
       
       $y_col
       [1] "mpg"
       
       $x_cols
-       [1] "cyl"     "disp"    "hp"      "drat"    "wt"      "qsec"    "vs"     
-       [8] "am"      "gear"    "carb"    "country"
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
       
       $y_summary
-             q      min       1%     2.5%       5%      10%      25% med_lo_2 
-       0.05000 10.39108 10.39108 10.40000 10.88271 14.33418 15.43921 15.43921 
-        med_lo      50%     mean   med_hi med_hi_2      75%      75%      90% 
-      19.04095 19.20000 20.09462 19.28336 22.80000 22.80000 22.80000 30.31124 
-           95%    97.5%      99%      max 
-      32.14486 33.08402 33.84876 33.84876 
+                    mpg
+      q         0.05000
+      min      10.39108
+      1%       10.39108
+      2.5%     10.40000
+      5%       10.88271
+      10%      14.33418
+      25%      15.43921
+      med_lo_2 15.43921
+      med_lo   19.04095
+      50%      19.20000
+      mean     20.09462
+      med_hi   19.28336
+      med_hi_2 22.80000
+      75%      22.80000
+      75%      22.80000
+      90%      30.31124
+      95%      32.14486
+      97.5%    33.08402
+      99%      33.84876
+      max      33.84876
       
       $boot_it
       [1] 0
@@ -654,7 +740,24 @@
       cars_ale
     Output
       $data
-      $data$cyl
+      $data$mpg
+      $data$mpg$model
+      # A tibble: 32 x 7
+         ale_x               ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+         <ord>               <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+       1 Duster 360              2  19.2     19.2       19.2         19.2     19.2
+       2 Camaro Z28              2  19.2     19.2       19.2         19.2     19.2
+       3 Chrysler Imperial       2  19.2     19.2       19.2         19.2     19.2
+       4 Cadillac Fleetwood      2  19.2     19.2       19.2         19.2     19.2
+       5 Lincoln Continental     2  19.2     19.2       19.2         19.2     19.2
+       6 Pontiac Firebird        2  19.2     19.2       19.2         19.2     19.2
+       7 Hornet Sportabout       2  19.2     19.2       19.2         19.2     19.2
+       8 AMC Javelin             2  19.2     19.2       19.2         19.2     19.2
+       9 Dodge Challenger        2  19.2     19.2       19.2         19.2     19.2
+      10 Merc 450SLC             2  19.2     19.2       19.2         19.2     19.2
+      # i 22 more rows
+      
+      $data$mpg$cyl
       # A tibble: 7 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -666,7 +769,7 @@
       6     8    21  19.3     19.3       19.3         19.3     19.3
       7     9     3  19.4     19.4       19.4         19.4     19.4
       
-      $data$disp
+      $data$mpg$disp
       # A tibble: 59 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -682,7 +785,7 @@
       10  95.1     1  32.4     29.8       32.4         30.4     36.7
       # i 49 more rows
       
-      $data$hp
+      $data$mpg$hp
       # A tibble: 54 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -698,7 +801,7 @@
       10  90.8     1  24.9     21.6       24.9         26.6     26.7
       # i 44 more rows
       
-      $data$drat
+      $data$mpg$drat
       # A tibble: 54 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -714,7 +817,7 @@
       10  3.06     1  19.7     19.1       19.7         20.0     20.1
       # i 44 more rows
       
-      $data$wt
+      $data$mpg$wt
       # A tibble: 61 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -730,7 +833,7 @@
       10  2.14     1  3.11    -4.21       3.11          3.37    10.0 
       # i 51 more rows
       
-      $data$qsec
+      $data$mpg$qsec
       # A tibble: 62 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -746,21 +849,21 @@
       10  16.0     1  23.6     23.1       23.6         23.8     23.8
       # i 52 more rows
       
-      $data$vs
+      $data$mpg$vs
       # A tibble: 2 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    36  17.3     17.3       17.3         17.3     17.3
       2 TRUE     28  19.5     19.3       19.5         19.5     19.7
       
-      $data$am
+      $data$mpg$am
       # A tibble: 2 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    38  26.9     26.9       26.9         26.9     26.9
       2 TRUE     26  16.9     15.5       16.9         16.8     18.3
       
-      $data$gear
+      $data$mpg$gear
       # A tibble: 3 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -768,7 +871,7 @@
       2 four     24 17.5     14.6       17.5         18.3     19.6 
       3 five     10 28.0     26.2       28.0         28.2     29.2 
       
-      $data$carb
+      $data$mpg$carb
       # A tibble: 8 x 7
         ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -781,56 +884,45 @@
       7     7     1  19.4     19.4       19.4         19.4     19.4
       8     8     1  19.4     19.4       19.4         19.4     19.5
       
-      $data$country
+      $data$mpg$country
       # A tibble: 6 x 7
         ale_x   ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      2 19.3     19.3       19.3          19.3     19.3
-      2 UK          2 28.0     23.0       28.0          28.9     32.0
-      3 Japan      12 15.6     11.4       15.6          16.2     18.1
-      4 Italy       8 12.4      8.70      12.4          12.0     16.5
-      5 Germany    16  9.66     4.97       9.66         11.3     12.1
-      6 USA        24 17.1     12.9       17.1          18.3     19.9
+      1 Sweden      2  19.3    19.3        19.3         19.3     19.3
+      2 UK          2  28.0    23.0        28.0         28.9     32.0
+      3 Italy       8  15.0    12.1        15.0         13.7     20.5
+      4 Japan      12  18.3    14.9        18.3         17.9     21.5
+      5 Germany    16  10.5     6.69       10.5         11.2     13.3
+      6 USA        24  18.0    14.7        18.0         18.1     20.7
+      
+      $data$mpg$continent
+      # A tibble: 3 x 7
+        ale_x         ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>         <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 North America    24  19.2     19.2       19.2         19.2     19.2
+      2 Europe           28  19.2     19.2       19.2         19.2     19.2
+      3 Asia             12  19.2     19.2       19.2         19.2     19.2
+      
       
       
       $boot_data
-      $boot_data$cyl
       NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$hp
-      NULL
-      
-      $boot_data$drat
-      NULL
-      
-      $boot_data$wt
-      NULL
-      
-      $boot_data$qsec
-      NULL
-      
-      $boot_data$vs
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$carb
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$by_term
-      $stats$by_term$cyl
+      $stats$mpg
+      $stats$mpg$by_term
+      $stats$mpg$by_term$model
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low      mean    median conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       1.97e-16  1.38e-16  1.97e-16  1.65e-16  3.06e-16
+      2 aler_min  -1.63e-15 -5.09e-15 -1.63e-15 -2.78e-17 -2.78e-17
+      3 aler_max   2.64e-15  1.75e-15  2.64e-15  2.64e-15  3.88e-15
+      4 naled      0         0         0         0         0       
+      5 naler_min  0         0         0         0         0       
+      6 naler_max  0         0         0         0         0       
+      
+      $stats$mpg$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -841,7 +933,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   4.55     4.55    4.55    4.55      4.55  
       
-      $stats$by_term$disp
+      $stats$mpg$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -852,7 +944,7 @@
       5 naler_min   -28.5    -49.4  -28.5  -21.2     -11.2 
       6 naler_max    50       50     50     50        50   
       
-      $stats$by_term$hp
+      $stats$mpg$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -863,7 +955,7 @@
       5 naler_min   -42.7    -50    -42.7  -50       -22.1 
       6 naler_max    42.1     35     42.1   45.5      47.0 
       
-      $stats$by_term$drat
+      $stats$mpg$by_term$drat
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -874,7 +966,7 @@
       5 naler_min   -29.4    -43.6  -29.4  -31.8     -6.67 
       6 naler_max    27.0      7.58  27.0   31.8     48.8  
       
-      $stats$by_term$wt
+      $stats$mpg$by_term$wt
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -885,7 +977,7 @@
       5 naler_min   -50      -50    -50    -50        -50  
       6 naler_max    18.8    -42.7   18.8   33.3       43.9
       
-      $stats$by_term$qsec
+      $stats$mpg$by_term$qsec
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -896,7 +988,7 @@
       5 naler_min   -19.1    -23.8  -19.1  -19.7     -14.1 
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
-      $stats$by_term$vs
+      $stats$mpg$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -907,7 +999,7 @@
       5 naler_min  -13.6    -13.6   -13.6   -13.6     -13.6  
       6 naler_max    4.85     4.55    4.85    4.55      5.91 
       
-      $stats$by_term$am
+      $stats$mpg$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -918,7 +1010,7 @@
       5 naler_min   -15.8    -24.8  -15.8  -16.7     -8.03 
       6 naler_max    34.8     34.8   34.8   34.8     34.8  
       
-      $stats$by_term$gear
+      $stats$mpg$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -929,7 +1021,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    37.0     35     37.0   37.9      37.9 
       
-      $stats$by_term$carb
+      $stats$mpg$by_term$carb
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -940,135 +1032,159 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   4.55     4.55    4.55    4.55      4.55  
       
-      $stats$by_term$country
+      $stats$mpg$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          5.12     3.24   5.12   4.05      8.80
-      2 aler_min     -9.54   -14.2   -9.54  -7.93     -7.09
+      1 aled          4.21     2.98   4.21   3.70      6.64
+      2 aler_min     -8.65   -12.5   -8.65  -8.01     -5.87
       3 aler_max      8.78     3.82   8.78   9.68     12.8 
-      4 naled        28.6     20.2   28.6   24.3      43.2 
-      5 naler_min   -46.4    -50    -46.4  -43.9     -43.9 
+      4 naled        26.0     19.1   26.0   23.1      39.4 
+      5 naler_min   -45.8    -50    -45.8  -43.9     -41.2 
       6 naler_max    36.4     25     36.4   37.9      43.9 
       
-      
-      $stats$by_statistic
-      $stats$by_statistic$aled
-      # A tibble: 11 x 6
-         term    estimate conf.low    mean median conf.high
-         <chr>      <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-       1 cyl       0.0756   0.0756  0.0756 0.0756    0.0756
-       2 disp      6.43     5.15    6.43   5.34     10.1   
-       3 hp        7.97     4.39    7.97   6.78     12.0   
-       4 drat      1.93     1.27    1.93   1.86      2.54  
-       5 wt       11.2      6.31   11.2    9.53     17.1   
-       6 qsec      2.52     2.01    2.52   2.57      2.94  
-       7 vs        1.19     1.12    1.19   1.17      1.29  
-       8 am        5.49     4.96    5.49   5.54      6.09  
-       9 gear      6.46     5.64    6.46   6.25      7.35  
-      10 carb      0.0568   0.0532  0.0568 0.0570    0.0599
-      11 country   5.12     3.24    5.12   4.05      8.80  
-      
-      $stats$by_statistic$aler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 cyl      -0.127   -0.127   -0.127   -0.127    -0.127 
-       2 disp     -5.02   -10.5     -5.02    -3.41     -1.47  
-       3 hp      -14.7    -28.2    -14.7     -9.67     -3.76  
-       4 drat     -3.94    -6.04    -3.94    -4.15     -0.631 
-       5 wt      -27.0    -27.0    -27.0    -27.0     -27.0   
-       6 qsec     -2.95    -3.62    -2.95    -3.17     -1.90  
-       7 vs       -1.87    -1.87    -1.87    -1.87     -1.87  
-       8 am       -2.25    -3.73    -2.25    -2.37     -0.948 
-       9 gear     -9.32    -9.32    -9.32    -9.32     -9.32  
-      10 carb     -0.0728  -0.0728  -0.0728  -0.0728   -0.0728
-      11 country  -9.54   -14.2     -9.54    -7.93     -7.09  
-      
-      $stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low   mean median conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl        0.153    0.153  0.153  0.153     0.153
-       2 disp      18.4     18.4   18.4   18.4      18.4  
-       3 hp        11.3      7.11  11.3   13.3      14.4  
-       4 drat       6.86     1.42   6.86   5.65     14.8  
-       5 wt         4.49   -10.9    4.49   6.74     12.7  
-       6 qsec       4.38     3.91   4.38   4.67      4.70 
-       7 vs         0.321    0.141  0.321  0.268     0.529
-       8 am         7.71     7.71   7.71   7.71      7.71 
-       9 gear       8.76     6.99   8.76   9.05      9.97 
-      10 carb       0.212    0.170  0.212  0.212     0.255
-      11 country    8.78     3.82   8.78   9.68     12.8  
-      
-      $stats$by_statistic$naled
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl         2.06     2.06  2.06   2.06      2.06
-       2 disp       28.4     23.0  28.4   27.9      36.4 
-       3 hp         32.6     24.2  32.6   32.3      39.8 
-       4 drat       13.6      9.92 13.6   14.5      15.6 
-       5 wt         39.8     25.8  39.8   43.1      49.7 
-       6 qsec       18.3     15.2  18.3   18.4      20.7 
-       7 vs          9.79     9.66  9.79   9.66     10.3 
-       8 am         27.1     24.0  27.1   27.5      30.8 
-       9 gear       34.7     29.5  34.7   32.2      42.8 
-      10 carb        1.50     1.43  1.50   1.52      1.56
-      11 country    28.6     20.2  28.6   24.3      43.2 
-      
-      $stats$by_statistic$naler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl          0        0     0      0        0   
-       2 disp       -28.5    -49.4 -28.5  -21.2    -11.2 
-       3 hp         -42.7    -50   -42.7  -50      -22.1 
-       4 drat       -29.4    -43.6 -29.4  -31.8     -6.67
-       5 wt         -50      -50   -50    -50      -50   
-       6 qsec       -19.1    -23.8 -19.1  -19.7    -14.1 
-       7 vs         -13.6    -13.6 -13.6  -13.6    -13.6 
-       8 am         -15.8    -24.8 -15.8  -16.7     -8.03
-       9 gear       -50      -50   -50    -50      -50   
-      10 carb         0        0     0      0        0   
-      11 country    -46.4    -50   -46.4  -43.9    -43.9 
-      
-      $stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl         4.55     4.55  4.55   4.55      4.55
-       2 disp       50       50    50     50        50   
-       3 hp         42.1     35    42.1   45.5      47.0 
-       4 drat       27.0      7.58 27.0   31.8      48.8 
-       5 wt         18.8    -42.7  18.8   33.3      43.9 
-       6 qsec       28.8     28.8  28.8   28.8      28.8 
-       7 vs          4.85     4.55  4.85   4.55      5.91
-       8 am         34.8     34.8  34.8   34.8      34.8 
-       9 gear       37.0     35    37.0   37.9      37.9 
-      10 carb        4.55     4.55  4.55   4.55      4.55
-      11 country    36.4     25    36.4   37.9      43.9 
+      $stats$mpg$by_term$continent
+      # A tibble: 6 x 6
+        statistic estimate conf.low  mean median conf.high
+        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 aled             0        0     0      0         0
+      2 aler_min         0        0     0      0         0
+      3 aler_max         0        0     0      0         0
+      4 naled            0        0     0      0         0
+      5 naler_min        0        0     0      0         0
+      6 naler_max        0        0     0      0         0
       
       
-      $stats$estimate
-      # A tibble: 11 x 7
-         term       aled aler_min aler_max naled naler_min naler_max
-         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl      0.0756  -0.127     0.153  2.06       0        4.55
-       2 disp     6.43    -5.02     18.4   28.4      -28.5     50   
-       3 hp       7.97   -14.7      11.3   32.6      -42.7     42.1 
-       4 drat     1.93    -3.94      6.86  13.6      -29.4     27.0 
-       5 wt      11.2    -27.0       4.49  39.8      -50       18.8 
-       6 qsec     2.52    -2.95      4.38  18.3      -19.1     28.8 
-       7 vs       1.19    -1.87      0.321  9.79     -13.6      4.85
-       8 am       5.49    -2.25      7.71  27.1      -15.8     34.8 
-       9 gear     6.46    -9.32      8.76  34.7      -50       37.0 
-      10 carb     0.0568  -0.0728    0.212  1.50       0        4.55
-      11 country  5.12    -9.54      8.78  28.6      -46.4     36.4 
+      $stats$mpg$by_statistic
+      $stats$mpg$by_statistic$aled
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     1.97e-16 1.38e-16 1.97e-16 1.65e-16  3.06e-16
+       2 cyl       7.56e- 2 7.56e- 2 7.56e- 2 7.56e- 2  7.56e- 2
+       3 disp      6.43e+ 0 5.15e+ 0 6.43e+ 0 5.34e+ 0  1.01e+ 1
+       4 hp        7.97e+ 0 4.39e+ 0 7.97e+ 0 6.78e+ 0  1.20e+ 1
+       5 drat      1.93e+ 0 1.27e+ 0 1.93e+ 0 1.86e+ 0  2.54e+ 0
+       6 wt        1.12e+ 1 6.31e+ 0 1.12e+ 1 9.53e+ 0  1.71e+ 1
+       7 qsec      2.52e+ 0 2.01e+ 0 2.52e+ 0 2.57e+ 0  2.94e+ 0
+       8 vs        1.19e+ 0 1.12e+ 0 1.19e+ 0 1.17e+ 0  1.29e+ 0
+       9 am        5.49e+ 0 4.96e+ 0 5.49e+ 0 5.54e+ 0  6.09e+ 0
+      10 gear      6.46e+ 0 5.64e+ 0 6.46e+ 0 6.25e+ 0  7.35e+ 0
+      11 carb      5.68e- 2 5.32e- 2 5.68e- 2 5.70e- 2  5.99e- 2
+      12 country   4.21e+ 0 2.98e+ 0 4.21e+ 0 3.70e+ 0  6.64e+ 0
+      13 continent 0        0        0        0         0       
       
-      $stats$effects_plot
-      $stats$effects_plot[[1]]
-      $stats$effects_plot[[1]][[1]]
+      $stats$mpg$by_statistic$aler_min
+      # A tibble: 13 x 6
+         term       estimate  conf.low      mean    median conf.high
+         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model     -1.63e-15 -5.09e-15 -1.63e-15 -2.78e-17 -2.78e-17
+       2 cyl       -1.27e- 1 -1.27e- 1 -1.27e- 1 -1.27e- 1 -1.27e- 1
+       3 disp      -5.02e+ 0 -1.05e+ 1 -5.02e+ 0 -3.41e+ 0 -1.47e+ 0
+       4 hp        -1.47e+ 1 -2.82e+ 1 -1.47e+ 1 -9.67e+ 0 -3.76e+ 0
+       5 drat      -3.94e+ 0 -6.04e+ 0 -3.94e+ 0 -4.15e+ 0 -6.31e- 1
+       6 wt        -2.70e+ 1 -2.70e+ 1 -2.70e+ 1 -2.70e+ 1 -2.70e+ 1
+       7 qsec      -2.95e+ 0 -3.62e+ 0 -2.95e+ 0 -3.17e+ 0 -1.90e+ 0
+       8 vs        -1.87e+ 0 -1.87e+ 0 -1.87e+ 0 -1.87e+ 0 -1.87e+ 0
+       9 am        -2.25e+ 0 -3.73e+ 0 -2.25e+ 0 -2.37e+ 0 -9.48e- 1
+      10 gear      -9.32e+ 0 -9.32e+ 0 -9.32e+ 0 -9.32e+ 0 -9.32e+ 0
+      11 carb      -7.28e- 2 -7.28e- 2 -7.28e- 2 -7.28e- 2 -7.28e- 2
+      12 country   -8.65e+ 0 -1.25e+ 1 -8.65e+ 0 -8.01e+ 0 -5.87e+ 0
+      13 continent  0         0         0         0         0       
+      
+      $stats$mpg$by_statistic$aler_max
+      # A tibble: 13 x 6
+         term      estimate  conf.low     mean   median conf.high
+         <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     2.64e-15  1.75e-15 2.64e-15 2.64e-15  3.88e-15
+       2 cyl       1.53e- 1  1.53e- 1 1.53e- 1 1.53e- 1  1.53e- 1
+       3 disp      1.84e+ 1  1.84e+ 1 1.84e+ 1 1.84e+ 1  1.84e+ 1
+       4 hp        1.13e+ 1  7.11e+ 0 1.13e+ 1 1.33e+ 1  1.44e+ 1
+       5 drat      6.86e+ 0  1.42e+ 0 6.86e+ 0 5.65e+ 0  1.48e+ 1
+       6 wt        4.49e+ 0 -1.09e+ 1 4.49e+ 0 6.74e+ 0  1.27e+ 1
+       7 qsec      4.38e+ 0  3.91e+ 0 4.38e+ 0 4.67e+ 0  4.70e+ 0
+       8 vs        3.21e- 1  1.41e- 1 3.21e- 1 2.68e- 1  5.29e- 1
+       9 am        7.71e+ 0  7.71e+ 0 7.71e+ 0 7.71e+ 0  7.71e+ 0
+      10 gear      8.76e+ 0  6.99e+ 0 8.76e+ 0 9.05e+ 0  9.97e+ 0
+      11 carb      2.12e- 1  1.70e- 1 2.12e- 1 2.12e- 1  2.55e- 1
+      12 country   8.78e+ 0  3.82e+ 0 8.78e+ 0 9.68e+ 0  1.28e+ 1
+      13 continent 0         0        0        0         0       
+      
+      $stats$mpg$by_statistic$naled
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 cyl           2.06     2.06  2.06   2.06      2.06
+       3 disp         28.4     23.0  28.4   27.9      36.4 
+       4 hp           32.6     24.2  32.6   32.3      39.8 
+       5 drat         13.6      9.92 13.6   14.5      15.6 
+       6 wt           39.8     25.8  39.8   43.1      49.7 
+       7 qsec         18.3     15.2  18.3   18.4      20.7 
+       8 vs            9.79     9.66  9.79   9.66     10.3 
+       9 am           27.1     24.0  27.1   27.5      30.8 
+      10 gear         34.7     29.5  34.7   32.2      42.8 
+      11 carb          1.50     1.43  1.50   1.52      1.56
+      12 country      26.0     19.1  26.0   23.1      39.4 
+      13 continent     0        0     0      0         0   
+      
+      $stats$mpg$by_statistic$naler_min
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model          0        0     0      0        0   
+       2 cyl            0        0     0      0        0   
+       3 disp         -28.5    -49.4 -28.5  -21.2    -11.2 
+       4 hp           -42.7    -50   -42.7  -50      -22.1 
+       5 drat         -29.4    -43.6 -29.4  -31.8     -6.67
+       6 wt           -50      -50   -50    -50      -50   
+       7 qsec         -19.1    -23.8 -19.1  -19.7    -14.1 
+       8 vs           -13.6    -13.6 -13.6  -13.6    -13.6 
+       9 am           -15.8    -24.8 -15.8  -16.7     -8.03
+      10 gear         -50      -50   -50    -50      -50   
+      11 carb           0        0     0      0        0   
+      12 country      -45.8    -50   -45.8  -43.9    -41.2 
+      13 continent      0        0     0      0        0   
+      
+      $stats$mpg$by_statistic$naler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 cyl           4.55     4.55  4.55   4.55      4.55
+       3 disp         50       50    50     50        50   
+       4 hp           42.1     35    42.1   45.5      47.0 
+       5 drat         27.0      7.58 27.0   31.8      48.8 
+       6 wt           18.8    -42.7  18.8   33.3      43.9 
+       7 qsec         28.8     28.8  28.8   28.8      28.8 
+       8 vs            4.85     4.55  4.85   4.55      5.91
+       9 am           34.8     34.8  34.8   34.8      34.8 
+      10 gear         37.0     35    37.0   37.9      37.9 
+      11 carb          4.55     4.55  4.55   4.55      4.55
+      12 country      36.4     25    36.4   37.9      43.9 
+      13 continent     0        0     0      0         0   
+      
+      
+      $stats$mpg$estimate
+      # A tibble: 13 x 7
+         term          aled  aler_min aler_max naled naler_min naler_max
+         <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 model     1.97e-16 -1.63e-15 2.64e-15  0          0        0   
+       2 cyl       7.56e- 2 -1.27e- 1 1.53e- 1  2.06       0        4.55
+       3 disp      6.43e+ 0 -5.02e+ 0 1.84e+ 1 28.4      -28.5     50   
+       4 hp        7.97e+ 0 -1.47e+ 1 1.13e+ 1 32.6      -42.7     42.1 
+       5 drat      1.93e+ 0 -3.94e+ 0 6.86e+ 0 13.6      -29.4     27.0 
+       6 wt        1.12e+ 1 -2.70e+ 1 4.49e+ 0 39.8      -50       18.8 
+       7 qsec      2.52e+ 0 -2.95e+ 0 4.38e+ 0 18.3      -19.1     28.8 
+       8 vs        1.19e+ 0 -1.87e+ 0 3.21e- 1  9.79     -13.6      4.85
+       9 am        5.49e+ 0 -2.25e+ 0 7.71e+ 0 27.1      -15.8     34.8 
+      10 gear      6.46e+ 0 -9.32e+ 0 8.76e+ 0 34.7      -50       37.0 
+      11 carb      5.68e- 2 -7.28e- 2 2.12e- 1  1.50       0        4.55
+      12 country   4.21e+ 0 -8.65e+ 0 8.78e+ 0 26.0      -45.8     36.4 
+      13 continent 0         0        0         0          0        0   
+      
+      $stats$mpg$effects_plot
+      $stats$mpg$effects_plot[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
@@ -1076,83 +1192,114 @@
       
       
       $plots
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$mpg
+      $plots$mpg$model
+      $plots$mpg$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$mpg$cyl
+      $plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$hp
-      $plots$hp[[1]]
+      $plots$mpg$disp
+      $plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$drat
-      $plots$drat[[1]]
+      $plots$mpg$hp
+      $plots$mpg$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$wt
-      $plots$wt[[1]]
+      $plots$mpg$drat
+      $plots$mpg$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$qsec
-      $plots$qsec[[1]]
+      $plots$mpg$wt
+      $plots$mpg$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$vs
-      $plots$vs[[1]]
+      $plots$mpg$qsec
+      $plots$mpg$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$mpg$vs
+      $plots$mpg$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$mpg$am
+      $plots$mpg$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$carb
-      $plots$carb[[1]]
+      $plots$mpg$gear
+      $plots$mpg$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$mpg$carb
+      $plots$mpg$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
+      
+      $plots$mpg$country
+      $plots$mpg$country[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$mpg$continent
+      $plots$mpg$continent[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       
       $conf_regions
-      $conf_regions$by_term
-      $conf_regions$by_term$cyl
+      $conf_regions$mpg
+      $conf_regions$mpg$by_term
+      $conf_regions$mpg$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct     y relative_to_mid
+         <ord>               <int>  <dbl> <dbl> <ord>          
+       1 Duster 360              2 0.0312  19.2 overlap        
+       2 Camaro Z28              2 0.0312  19.2 overlap        
+       3 Chrysler Imperial       2 0.0312  19.2 overlap        
+       4 Cadillac Fleetwood      2 0.0312  19.2 overlap        
+       5 Lincoln Continental     2 0.0312  19.2 overlap        
+       6 Pontiac Firebird        2 0.0312  19.2 overlap        
+       7 Hornet Sportabout       2 0.0312  19.2 overlap        
+       8 AMC Javelin             2 0.0312  19.2 overlap        
+       9 Dodge Challenger        2 0.0312  19.2 overlap        
+      10 Merc 450SLC             2 0.0312  19.2 overlap        
+      # i 22 more rows
+      
+      $conf_regions$mpg$by_term$cyl
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1       3     7  0.667    40 0.625    19.1  19.3 0.0120 overlap        
       2       8     9  0.167    24 0.375    19.3  19.4 0.0120 above          
       
-      $conf_regions$by_term$disp
+      $conf_regions$mpg$by_term$disp
       # A tibble: 16 x 9
          start_x end_x   x_span     n  n_pct start_y end_y    trend relative_to_mid
            <dbl> <dbl>    <dbl> <int>  <dbl>   <dbl> <dbl>    <dbl> <ord>          
@@ -1173,7 +1320,7 @@
       15   397.   462. 0.163        6 0.0938    17.8  14.6  -0.843  below          
       16   471.   472  0.00273      2 0.0312    14.7  15.4   9.78   overlap        
       
-      $conf_regions$by_term$hp
+      $conf_regions$mpg$by_term$hp
       # A tibble: 10 x 9
          start_x end_x  x_span     n  n_pct start_y end_y    trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl> <dbl>    <dbl> <ord>          
@@ -1188,7 +1335,7 @@
        9    263.  264  0.00219     2 0.0312    7.56  1.14 -125.    below          
       10    334.  335  0.00378     2 0.0312   11.6  12.8    13.2   overlap        
       
-      $conf_regions$by_term$drat
+      $conf_regions$mpg$by_term$drat
       # A tibble: 25 x 9
          start_x end_x  x_span     n  n_pct start_y end_y  trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -1204,7 +1351,7 @@
       10    3.23  3.24 0.00256     3 0.0469    19.8  19.7 -0.868 overlap        
       # i 15 more rows
       
-      $conf_regions$by_term$wt
+      $conf_regions$mpg$by_term$wt
       # A tibble: 11 x 9
          start_x end_x  x_span     n  n_pct start_y end_y  trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -1220,7 +1367,7 @@
       10    5.24  5.24 0           1 0.0156   25.9  25.9    0    above          
       11    5.25  5.45 0.0514      5 0.0781   21.7  23.1    1.20 overlap        
       
-      $conf_regions$by_term$qsec
+      $conf_regions$mpg$by_term$qsec
       # A tibble: 5 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -1230,21 +1377,21 @@
       4    18.6  18.7 0.0164     5 0.0781    18.0  19.0  2.64  overlap        
       5    18.7  23.0 0.498     18 0.281     17.6  16.1 -0.127 below          
       
-      $conf_regions$by_term$vs
+      $conf_regions$mpg$by_term$vs
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    36 0.562  17.3 below          
       2 TRUE     28 0.438  19.5 above          
       
-      $conf_regions$by_term$am
+      $conf_regions$mpg$by_term$am
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    38 0.594  26.9 above          
       2 TRUE     26 0.406  16.9 below          
       
-      $conf_regions$by_term$gear
+      $conf_regions$mpg$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
@@ -1252,27 +1399,35 @@
       2 four     24 0.375 17.5  overlap        
       3 five     10 0.156 28.0  above          
       
-      $conf_regions$by_term$carb
+      $conf_regions$mpg$by_term$carb
       # A tibble: 2 x 9
         start_x end_x x_span     n  n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1       1     4  0.429    58 0.906     19.1  19.3 0.0142 overlap        
       2       5     8  0.429     6 0.0938    19.3  19.4 0.0118 above          
       
-      $conf_regions$by_term$country
+      $conf_regions$mpg$by_term$country
       # A tibble: 6 x 5
         x           n  n_pct     y relative_to_mid
         <ord>   <int>  <dbl> <dbl> <ord>          
-      1 Sweden      2 0.0312 19.3  above          
-      2 UK          2 0.0312 28.0  above          
-      3 Japan      12 0.188  15.6  below          
-      4 Italy       8 0.125  12.4  below          
-      5 Germany    16 0.25    9.66 below          
-      6 USA        24 0.375  17.1  overlap        
+      1 Sweden      2 0.0312  19.3 above          
+      2 UK          2 0.0312  28.0 above          
+      3 Italy       8 0.125   15.0 overlap        
+      4 Japan      12 0.188   18.3 overlap        
+      5 Germany    16 0.25    10.5 below          
+      6 USA        24 0.375   18.0 overlap        
+      
+      $conf_regions$mpg$by_term$continent
+      # A tibble: 3 x 5
+        x                 n n_pct     y relative_to_mid
+        <ord>         <int> <dbl> <dbl> <ord>          
+      1 North America    24 0.375  19.2 overlap        
+      2 Europe           28 0.438  19.2 overlap        
+      3 Asia             12 0.188  19.2 overlap        
       
       
-      $conf_regions$significant
-      # A tibble: 48 x 12
+      $conf_regions$mpg$significant
+      # A tibble: 46 x 12
          term  x     start_x end_x  x_span     n  n_pct     y start_y end_y    trend
          <chr> <chr>   <dbl> <dbl>   <dbl> <int>  <dbl> <dbl>   <dbl> <dbl>    <dbl>
        1 cyl   <NA>      8      9  0.167      24 0.375     NA    19.3  19.4   0.0120
@@ -1285,27 +1440,44 @@
        8 disp  <NA>    351    351  0           1 0.0156    NA    22.2  22.2   0     
        9 disp  <NA>    397.   462. 0.163       6 0.0938    NA    17.8  14.6  -0.843 
       10 hp    <NA>     52    111. 0.208      28 0.438     NA    26.0  24.3  -0.344 
-      # i 38 more rows
+      # i 36 more rows
       # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$sig_criterion
+      $conf_regions$mpg$sig_criterion
       [1] "median_band_pct"
+      
       
       
       $y_col
       [1] "mpg"
       
       $x_cols
-       [1] "cyl"     "disp"    "hp"      "drat"    "wt"      "qsec"    "vs"     
-       [8] "am"      "gear"    "carb"    "country"
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
       
       $y_summary
-             q      min       1%     2.5%       5%      10%      25% med_lo_2 
-       0.05000 10.39108 10.39108 10.40000 10.88271 14.33418 15.43921 15.43921 
-        med_lo      50%     mean   med_hi med_hi_2      75%      75%      90% 
-      19.04095 19.20000 20.09462 19.28336 22.80000 22.80000 22.80000 30.31124 
-           95%    97.5%      99%      max 
-      32.14486 33.08402 33.84876 33.84876 
+                    mpg
+      q         0.05000
+      min      10.39108
+      1%       10.39108
+      2.5%     10.40000
+      5%       10.88271
+      10%      14.33418
+      25%      15.43921
+      med_lo_2 15.43921
+      med_lo   19.04095
+      50%      19.20000
+      mean     20.09462
+      med_hi   19.28336
+      med_hi_2 22.80000
+      75%      22.80000
+      75%      22.80000
+      90%      30.31124
+      95%      32.14486
+      97.5%    33.08402
+      99%      33.84876
+      max      33.84876
       
       $boot_it
       [1] 5
@@ -1338,85 +1510,45 @@
       cars_ale
     Output
       $data
-      $data$cyl
       NULL
-      
-      $data$disp
-      NULL
-      
-      $data$am
-      NULL
-      
-      $data$gear
-      NULL
-      
-      $data$country
-      NULL
-      
       
       $boot_data
-      $boot_data$cyl
       NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$cyl
       NULL
-      
-      $stats$disp
-      NULL
-      
-      $stats$am
-      NULL
-      
-      $stats$gear
-      NULL
-      
-      $stats$country
-      NULL
-      
       
       $plots
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$mpg
+      $plots$mpg$cyl
+      $plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$mpg$disp
+      $plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$mpg$am
+      $plots$mpg$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$mpg$gear
+      $plots$mpg$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$mpg$country
+      $plots$mpg$country[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
       
       
       
@@ -1427,12 +1559,26 @@
       [1] "cyl"     "disp"    "am"      "gear"    "country"
       
       $y_summary
-             q      min       1%     2.5%       5%      10%      25% med_lo_2 
-       0.01000 10.39108 10.39108 10.40000 10.88271 14.33418 15.43921 18.07570 
-        med_lo      50%     mean   med_hi med_hi_2      75%      90%      95% 
-      19.20000 19.20000 20.09462 19.20000 20.92367 22.80000 30.31124 32.14486 
-         97.5%      99%      max 
-      33.08402 33.84876 33.84876 
+                    mpg
+      q         0.01000
+      min      10.39108
+      1%       10.39108
+      2.5%     10.40000
+      5%       10.88271
+      10%      14.33418
+      25%      15.43921
+      med_lo_2 18.07570
+      med_lo   19.20000
+      50%      19.20000
+      mean     20.09462
+      med_hi   19.20000
+      med_hi_2 20.92367
+      75%      22.80000
+      90%      30.31124
+      95%      32.14486
+      97.5%    33.08402
+      99%      33.84876
+      max      33.84876
       
       $boot_it
       [1] 1
@@ -1465,7 +1611,24 @@
       cars_ale
     Output
       $data
-      $data$mpg
+      $data$vs
+      $data$vs$model
+      # A tibble: 32 x 7
+         ale_x               ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+         <ord>               <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+       1 Duster 360              2 0.00393  0.00393    0.00393      0.00393  0.00393
+       2 Camaro Z28              2 0.00393  0.00393    0.00393      0.00393  0.00393
+       3 Chrysler Imperial       2 0.00393  0.00393    0.00393      0.00393  0.00393
+       4 Cadillac Fleetwood      2 0.00393  0.00393    0.00393      0.00393  0.00393
+       5 Lincoln Continental     2 0.00393  0.00393    0.00393      0.00393  0.00393
+       6 Pontiac Firebird        2 0.00393  0.00393    0.00393      0.00393  0.00393
+       7 Hornet Sportabout       2 0.00393  0.00393    0.00393      0.00393  0.00393
+       8 AMC Javelin             2 0.00393  0.00393    0.00393      0.00393  0.00393
+       9 Dodge Challenger        2 0.00393  0.00393    0.00393      0.00393  0.00393
+      10 Valiant                 2 0.00393  0.00393    0.00393      0.00393  0.00393
+      # i 22 more rows
+      
+      $data$vs$mpg
       # A tibble: 57 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1481,7 +1644,7 @@
       10  15.0     1 0.00393  0.00393    0.00393      0.00393  0.00393
       # i 47 more rows
       
-      $data$cyl
+      $data$vs$cyl
       # A tibble: 7 x 7
         ale_x ale_n     ale_y  ale_y_lo ale_y_mean ale_y_median  ale_y_hi
         <dbl> <int>     <dbl>     <dbl>      <dbl>        <dbl>     <dbl>
@@ -1493,7 +1656,7 @@
       6     8    21  0.00880   0.00880    0.00880      0.00880   0.00880 
       7     9     3  0.0109    0.0109     0.0109       0.0109    0.0109  
       
-      $data$disp
+      $data$vs$disp
       # A tibble: 59 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1509,7 +1672,7 @@
       10  95.1     1 0.461    0.461      0.461        0.461    0.461
       # i 49 more rows
       
-      $data$hp
+      $data$vs$hp
       # A tibble: 54 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1525,7 +1688,7 @@
       10  90.8     1 0.270    0.270      0.270        0.270    0.270 
       # i 44 more rows
       
-      $data$drat
+      $data$vs$drat
       # A tibble: 54 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1541,7 +1704,7 @@
       10  3.06     1 0.0622   0.0622     0.0622       0.0622   0.0622
       # i 44 more rows
       
-      $data$wt
+      $data$vs$wt
       # A tibble: 61 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1557,7 +1720,7 @@
       10  2.14     1 -0.0530  -0.0530    -0.0530      -0.0530  -0.0530
       # i 51 more rows
       
-      $data$qsec
+      $data$vs$qsec
       # A tibble: 62 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1573,14 +1736,14 @@
       10  16.0     1 -0.0266  -0.0266    -0.0266      -0.0266  -0.0266
       # i 52 more rows
       
-      $data$am
+      $data$vs$am
       # A tibble: 2 x 7
         ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    38  0.926    0.926      0.926        0.926    0.926
       2 TRUE     26 -1.34    -1.34      -1.34        -1.34    -1.34 
       
-      $data$gear
+      $data$vs$gear
       # A tibble: 3 x 7
         ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1588,7 +1751,7 @@
       2 four     24  0.844    0.844      0.844        0.844    0.844
       3 five     10  1.30     1.30       1.30         1.30     1.30 
       
-      $data$carb
+      $data$vs$carb
       # A tibble: 8 x 7
         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -1601,56 +1764,45 @@
       7     7     1 0.00179  0.00179    0.00179      0.00179  0.00179
       8     8     1 0.00131  0.00131    0.00131      0.00131  0.00131
       
-      $data$country
+      $data$vs$country
       # A tibble: 6 x 7
         ale_x   ale_n    ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord>   <int>    <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 Sweden      2  0.767    0.767      0.767        0.767    0.767  
       2 UK          2  0.0777   0.0777     0.0777       0.0777   0.0777 
-      3 Japan      12  0.503    0.503      0.503        0.503    0.503  
-      4 Italy       8  0.452    0.452      0.452        0.452    0.452  
+      3 Italy       8  0.452    0.452      0.452        0.452    0.452  
+      4 Japan      12  0.503    0.503      0.503        0.503    0.503  
       5 Germany    16 -0.702   -0.702     -0.702       -0.702   -0.702  
       6 USA        24  0.00573  0.00573    0.00573      0.00573  0.00573
       
+      $data$vs$continent
+      # A tibble: 3 x 7
+        ale_x         ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>         <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 North America    24 0.00393  0.00393    0.00393      0.00393  0.00393
+      2 Europe           28 0.00393  0.00393    0.00393      0.00393  0.00393
+      3 Asia             12 0.00393  0.00393    0.00393      0.00393  0.00393
+      
+      
       
       $boot_data
-      $boot_data$mpg
       NULL
-      
-      $boot_data$cyl
-      NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$hp
-      NULL
-      
-      $boot_data$drat
-      NULL
-      
-      $boot_data$wt
-      NULL
-      
-      $boot_data$qsec
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$carb
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$by_term
-      $stats$by_term$mpg
+      $stats$vs
+      $stats$vs$by_term
+      $stats$vs$by_term$model
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low      mean    median conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       7.32e-18  7.32e-18  7.32e-18  7.32e-18  7.32e-18
+      2 aler_min  -3.90e-18 -3.90e-18 -3.90e-18 -3.90e-18 -3.90e-18
+      3 aler_max   6.55e-17  6.55e-17  6.55e-17  6.55e-17  6.55e-17
+      4 naled      0         0         0         0         0       
+      5 naler_min  0         0         0         0         0       
+      6 naler_max  0         0         0         0         0       
+      
+      $stats$vs$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1661,7 +1813,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$by_term$cyl
+      $stats$vs$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1672,7 +1824,7 @@
       5 naler_min -34.4     -34.4     -34.4     -34.4     -34.4    
       6 naler_max   6.25      6.25      6.25      6.25      6.25   
       
-      $stats$by_term$disp
+      $stats$vs$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1683,7 +1835,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$hp
+      $stats$vs$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1694,7 +1846,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$drat
+      $stats$vs$by_term$drat
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1705,7 +1857,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$by_term$wt
+      $stats$vs$by_term$wt
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1716,7 +1868,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$by_term$qsec
+      $stats$vs$by_term$qsec
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1727,7 +1879,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$by_term$am
+      $stats$vs$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1738,7 +1890,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$gear
+      $stats$vs$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -1749,7 +1901,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      $stats$by_term$carb
+      $stats$vs$by_term$carb
       # A tibble: 6 x 6
         statistic   estimate   conf.low       mean     median  conf.high
         <chr>          <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -1760,7 +1912,7 @@
       5 naler_min -12.5      -12.5      -12.5      -12.5      -12.5     
       6 naler_max   1.56       1.56       1.56       1.56       1.56    
       
-      $stats$by_term$country
+      $stats$vs$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1771,124 +1923,148 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      
-      $stats$by_statistic
-      $stats$by_statistic$aled
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 mpg     0        0        0        0         0       
-       2 cyl     0.00345  0.00345  0.00345  0.00345   0.00345 
-       3 disp    0.346    0.346    0.346    0.346     0.346   
-       4 hp      0.222    0.222    0.222    0.222     0.222   
-       5 drat    0.0449   0.0449   0.0449   0.0449    0.0449  
-       6 wt      0.0963   0.0963   0.0963   0.0963    0.0963  
-       7 qsec    0.0424   0.0424   0.0424   0.0424    0.0424  
-       8 am      1.10     1.10     1.10     1.10      1.10    
-       9 gear    1.03     1.03     1.03     1.03      1.03    
-      10 carb    0.000607 0.000607 0.000607 0.000607  0.000607
-      11 country 0.353    0.353    0.353    0.353     0.353   
-      
-      $stats$by_statistic$aler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 mpg      0        0        0        0         0      
-       2 cyl     -0.00580 -0.00580 -0.00580 -0.00580  -0.00580
-       3 disp    -0.575   -0.575   -0.575   -0.575    -0.575  
-       4 hp      -0.875   -0.875   -0.875   -0.875    -0.875  
-       5 drat    -0.120   -0.120   -0.120   -0.120    -0.120  
-       6 wt      -0.139   -0.139   -0.139   -0.139    -0.139  
-       7 qsec    -0.354   -0.354   -0.354   -0.354    -0.354  
-       8 am      -1.35    -1.35    -1.35    -1.35     -1.35   
-       9 gear    -1.10    -1.10    -1.10    -1.10     -1.10   
-      10 carb    -0.00262 -0.00262 -0.00262 -0.00262  -0.00262
-      11 country -0.706   -0.706   -0.706   -0.706    -0.706  
-      
-      $stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 mpg     0        0        0        0         0       
-       2 cyl     0.00700  0.00700  0.00700  0.00700   0.00700 
-       3 disp    0.524    0.524    0.524    0.524     0.524   
-       4 hp      0.312    0.312    0.312    0.312     0.312   
-       5 drat    0.121    0.121    0.121    0.121     0.121   
-       6 wt      0.359    0.359    0.359    0.359     0.359   
-       7 qsec    0.0494   0.0494   0.0494   0.0494    0.0494  
-       8 am      0.922    0.922    0.922    0.922     0.922   
-       9 gear    1.29     1.29     1.29     1.29      1.29    
-      10 carb    0.000734 0.000734 0.000734 0.000734  0.000734
-      11 country 0.763    0.763    0.763    0.763     0.763   
-      
-      $stats$by_statistic$naled
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg         0        0     0      0         0   
-       2 cyl         9.38     9.38  9.38   9.38      9.38
-       3 disp       26.8     26.8  26.8   26.8      26.8 
-       4 hp         26.8     26.8  26.8   26.8      26.8 
-       5 drat       28.0     28.0  28.0   28.0      28.0 
-       6 wt         28.0     28.0  28.0   28.0      28.0 
-       7 qsec       18.9     18.9  18.9   18.9      18.9 
-       8 am         24.0     24.0  24.0   24.0      24.0 
-       9 gear       33.6     33.6  33.6   33.6      33.6 
-      10 carb        2.83     2.83  2.83   2.83      2.83
-      11 country    15.4     15.4  15.4   15.4      15.4 
-      
-      $stats$by_statistic$naler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg          0        0     0      0         0  
-       2 cyl        -34.4    -34.4 -34.4  -34.4     -34.4
-       3 disp       -50      -50   -50    -50       -50  
-       4 hp         -50      -50   -50    -50       -50  
-       5 drat       -50      -50   -50    -50       -50  
-       6 wt         -50      -50   -50    -50       -50  
-       7 qsec       -50      -50   -50    -50       -50  
-       8 am         -50      -50   -50    -50       -50  
-       9 gear       -50      -50   -50    -50       -50  
-      10 carb       -12.5    -12.5 -12.5  -12.5     -12.5
-      11 country    -50      -50   -50    -50       -50  
-      
-      $stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg         0        0     0      0         0   
-       2 cyl         6.25     6.25  6.25   6.25      6.25
-       3 disp        6.25     6.25  6.25   6.25      6.25
-       4 hp          6.25     6.25  6.25   6.25      6.25
-       5 drat        6.25     6.25  6.25   6.25      6.25
-       6 wt          6.25     6.25  6.25   6.25      6.25
-       7 qsec        6.25     6.25  6.25   6.25      6.25
-       8 am          6.25     6.25  6.25   6.25      6.25
-       9 gear       50       50    50     50        50   
-      10 carb        1.56     1.56  1.56   1.56      1.56
-      11 country     6.25     6.25  6.25   6.25      6.25
+      $stats$vs$by_term$continent
+      # A tibble: 6 x 6
+        statistic estimate conf.low  mean median conf.high
+        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 aled             0        0     0      0         0
+      2 aler_min         0        0     0      0         0
+      3 aler_max         0        0     0      0         0
+      4 naled            0        0     0      0         0
+      5 naler_min        0        0     0      0         0
+      6 naler_max        0        0     0      0         0
       
       
-      $stats$estimate
-      # A tibble: 11 x 7
-         term        aled aler_min aler_max naled naler_min naler_max
-         <chr>      <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg     0         0       0         0          0        0   
-       2 cyl     0.00345  -0.00580 0.00700   9.38     -34.4      6.25
-       3 disp    0.346    -0.575   0.524    26.8      -50        6.25
-       4 hp      0.222    -0.875   0.312    26.8      -50        6.25
-       5 drat    0.0449   -0.120   0.121    28.0      -50        6.25
-       6 wt      0.0963   -0.139   0.359    28.0      -50        6.25
-       7 qsec    0.0424   -0.354   0.0494   18.9      -50        6.25
-       8 am      1.10     -1.35    0.922    24.0      -50        6.25
-       9 gear    1.03     -1.10    1.29     33.6      -50       50   
-      10 carb    0.000607 -0.00262 0.000734  2.83     -12.5      1.56
-      11 country 0.353    -0.706   0.763    15.4      -50        6.25
+      $stats$vs$by_statistic
+      $stats$vs$by_statistic$aled
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     7.32e-18 7.32e-18 7.32e-18 7.32e-18  7.32e-18
+       2 mpg       0        0        0        0         0       
+       3 cyl       3.45e- 3 3.45e- 3 3.45e- 3 3.45e- 3  3.45e- 3
+       4 disp      3.46e- 1 3.46e- 1 3.46e- 1 3.46e- 1  3.46e- 1
+       5 hp        2.22e- 1 2.22e- 1 2.22e- 1 2.22e- 1  2.22e- 1
+       6 drat      4.49e- 2 4.49e- 2 4.49e- 2 4.49e- 2  4.49e- 2
+       7 wt        9.63e- 2 9.63e- 2 9.63e- 2 9.63e- 2  9.63e- 2
+       8 qsec      4.24e- 2 4.24e- 2 4.24e- 2 4.24e- 2  4.24e- 2
+       9 am        1.10e+ 0 1.10e+ 0 1.10e+ 0 1.10e+ 0  1.10e+ 0
+      10 gear      1.03e+ 0 1.03e+ 0 1.03e+ 0 1.03e+ 0  1.03e+ 0
+      11 carb      6.07e- 4 6.07e- 4 6.07e- 4 6.07e- 4  6.07e- 4
+      12 country   3.53e- 1 3.53e- 1 3.53e- 1 3.53e- 1  3.53e- 1
+      13 continent 0        0        0        0         0       
       
-      $stats$effects_plot
-      $stats$effects_plot[[1]]
-      $stats$effects_plot[[1]][[1]]
+      $stats$vs$by_statistic$aler_min
+      # A tibble: 13 x 6
+         term       estimate  conf.low      mean    median conf.high
+         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model     -3.90e-18 -3.90e-18 -3.90e-18 -3.90e-18 -3.90e-18
+       2 mpg        0         0         0         0         0       
+       3 cyl       -5.80e- 3 -5.80e- 3 -5.80e- 3 -5.80e- 3 -5.80e- 3
+       4 disp      -5.75e- 1 -5.75e- 1 -5.75e- 1 -5.75e- 1 -5.75e- 1
+       5 hp        -8.75e- 1 -8.75e- 1 -8.75e- 1 -8.75e- 1 -8.75e- 1
+       6 drat      -1.20e- 1 -1.20e- 1 -1.20e- 1 -1.20e- 1 -1.20e- 1
+       7 wt        -1.39e- 1 -1.39e- 1 -1.39e- 1 -1.39e- 1 -1.39e- 1
+       8 qsec      -3.54e- 1 -3.54e- 1 -3.54e- 1 -3.54e- 1 -3.54e- 1
+       9 am        -1.35e+ 0 -1.35e+ 0 -1.35e+ 0 -1.35e+ 0 -1.35e+ 0
+      10 gear      -1.10e+ 0 -1.10e+ 0 -1.10e+ 0 -1.10e+ 0 -1.10e+ 0
+      11 carb      -2.62e- 3 -2.62e- 3 -2.62e- 3 -2.62e- 3 -2.62e- 3
+      12 country   -7.06e- 1 -7.06e- 1 -7.06e- 1 -7.06e- 1 -7.06e- 1
+      13 continent  0         0         0         0         0       
+      
+      $stats$vs$by_statistic$aler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     6.55e-17 6.55e-17 6.55e-17 6.55e-17  6.55e-17
+       2 mpg       0        0        0        0         0       
+       3 cyl       7.00e- 3 7.00e- 3 7.00e- 3 7.00e- 3  7.00e- 3
+       4 disp      5.24e- 1 5.24e- 1 5.24e- 1 5.24e- 1  5.24e- 1
+       5 hp        3.12e- 1 3.12e- 1 3.12e- 1 3.12e- 1  3.12e- 1
+       6 drat      1.21e- 1 1.21e- 1 1.21e- 1 1.21e- 1  1.21e- 1
+       7 wt        3.59e- 1 3.59e- 1 3.59e- 1 3.59e- 1  3.59e- 1
+       8 qsec      4.94e- 2 4.94e- 2 4.94e- 2 4.94e- 2  4.94e- 2
+       9 am        9.22e- 1 9.22e- 1 9.22e- 1 9.22e- 1  9.22e- 1
+      10 gear      1.29e+ 0 1.29e+ 0 1.29e+ 0 1.29e+ 0  1.29e+ 0
+      11 carb      7.34e- 4 7.34e- 4 7.34e- 4 7.34e- 4  7.34e- 4
+      12 country   7.63e- 1 7.63e- 1 7.63e- 1 7.63e- 1  7.63e- 1
+      13 continent 0        0        0        0         0       
+      
+      $stats$vs$by_statistic$naled
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 mpg           0        0     0      0         0   
+       3 cyl           9.38     9.38  9.38   9.38      9.38
+       4 disp         26.8     26.8  26.8   26.8      26.8 
+       5 hp           26.8     26.8  26.8   26.8      26.8 
+       6 drat         28.0     28.0  28.0   28.0      28.0 
+       7 wt           28.0     28.0  28.0   28.0      28.0 
+       8 qsec         18.9     18.9  18.9   18.9      18.9 
+       9 am           24.0     24.0  24.0   24.0      24.0 
+      10 gear         33.6     33.6  33.6   33.6      33.6 
+      11 carb          2.83     2.83  2.83   2.83      2.83
+      12 country      15.4     15.4  15.4   15.4      15.4 
+      13 continent     0        0     0      0         0   
+      
+      $stats$vs$by_statistic$naler_min
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model          0        0     0      0         0  
+       2 mpg            0        0     0      0         0  
+       3 cyl          -34.4    -34.4 -34.4  -34.4     -34.4
+       4 disp         -50      -50   -50    -50       -50  
+       5 hp           -50      -50   -50    -50       -50  
+       6 drat         -50      -50   -50    -50       -50  
+       7 wt           -50      -50   -50    -50       -50  
+       8 qsec         -50      -50   -50    -50       -50  
+       9 am           -50      -50   -50    -50       -50  
+      10 gear         -50      -50   -50    -50       -50  
+      11 carb         -12.5    -12.5 -12.5  -12.5     -12.5
+      12 country      -50      -50   -50    -50       -50  
+      13 continent      0        0     0      0         0  
+      
+      $stats$vs$by_statistic$naler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 mpg           0        0     0      0         0   
+       3 cyl           6.25     6.25  6.25   6.25      6.25
+       4 disp          6.25     6.25  6.25   6.25      6.25
+       5 hp            6.25     6.25  6.25   6.25      6.25
+       6 drat          6.25     6.25  6.25   6.25      6.25
+       7 wt            6.25     6.25  6.25   6.25      6.25
+       8 qsec          6.25     6.25  6.25   6.25      6.25
+       9 am            6.25     6.25  6.25   6.25      6.25
+      10 gear         50       50    50     50        50   
+      11 carb          1.56     1.56  1.56   1.56      1.56
+      12 country       6.25     6.25  6.25   6.25      6.25
+      13 continent     0        0     0      0         0   
+      
+      
+      $stats$vs$estimate
+      # A tibble: 13 x 7
+         term          aled  aler_min aler_max naled naler_min naler_max
+         <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 model     7.32e-18 -3.90e-18 6.55e-17  0          0        0   
+       2 mpg       0         0        0         0          0        0   
+       3 cyl       3.45e- 3 -5.80e- 3 7.00e- 3  9.38     -34.4      6.25
+       4 disp      3.46e- 1 -5.75e- 1 5.24e- 1 26.8      -50        6.25
+       5 hp        2.22e- 1 -8.75e- 1 3.12e- 1 26.8      -50        6.25
+       6 drat      4.49e- 2 -1.20e- 1 1.21e- 1 28.0      -50        6.25
+       7 wt        9.63e- 2 -1.39e- 1 3.59e- 1 28.0      -50        6.25
+       8 qsec      4.24e- 2 -3.54e- 1 4.94e- 2 18.9      -50        6.25
+       9 am        1.10e+ 0 -1.35e+ 0 9.22e- 1 24.0      -50        6.25
+      10 gear      1.03e+ 0 -1.10e+ 0 1.29e+ 0 33.6      -50       50   
+      11 carb      6.07e- 4 -2.62e- 3 7.34e- 4  2.83     -12.5      1.56
+      12 country   3.53e- 1 -7.06e- 1 7.63e- 1 15.4      -50        6.25
+      13 continent 0         0        0         0          0        0   
+      
+      $stats$vs$effects_plot
+      $stats$vs$effects_plot[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
@@ -1896,82 +2072,113 @@
       
       
       $plots
-      $plots$mpg
-      $plots$mpg[[1]]
+      $plots$vs
+      $plots$vs$model
+      $plots$vs$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$vs$mpg
+      $plots$vs$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$vs$cyl
+      $plots$vs$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$hp
-      $plots$hp[[1]]
+      $plots$vs$disp
+      $plots$vs$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$drat
-      $plots$drat[[1]]
+      $plots$vs$hp
+      $plots$vs$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$wt
-      $plots$wt[[1]]
+      $plots$vs$drat
+      $plots$vs$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$qsec
-      $plots$qsec[[1]]
+      $plots$vs$wt
+      $plots$vs$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$vs$qsec
+      $plots$vs$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$vs$am
+      $plots$vs$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$carb
-      $plots$carb[[1]]
+      $plots$vs$gear
+      $plots$vs$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$vs$carb
+      $plots$vs$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
+      
+      $plots$vs$country
+      $plots$vs$country[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$vs$continent
+      $plots$vs$continent[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       
       $conf_regions
-      $conf_regions$by_term
-      $conf_regions$by_term$mpg
+      $conf_regions$vs
+      $conf_regions$vs$by_term
+      $conf_regions$vs$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct       y relative_to_mid
+         <ord>               <int>  <dbl>   <dbl> <ord>          
+       1 Duster 360              2 0.0312 0.00393 overlap        
+       2 Camaro Z28              2 0.0312 0.00393 overlap        
+       3 Chrysler Imperial       2 0.0312 0.00393 overlap        
+       4 Cadillac Fleetwood      2 0.0312 0.00393 overlap        
+       5 Lincoln Continental     2 0.0312 0.00393 overlap        
+       6 Pontiac Firebird        2 0.0312 0.00393 overlap        
+       7 Hornet Sportabout       2 0.0312 0.00393 overlap        
+       8 AMC Javelin             2 0.0312 0.00393 overlap        
+       9 Dodge Challenger        2 0.0312 0.00393 overlap        
+      10 Valiant                 2 0.0312 0.00393 overlap        
+      # i 22 more rows
+      
+      $conf_regions$vs$by_term$mpg
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <ord>          
       1    10.4  33.9      1    64     1 0.00393 0.00393     0 overlap        
       
-      $conf_regions$by_term$cyl
+      $conf_regions$vs$by_term$cyl
       # A tibble: 3 x 9
         start_x end_x x_span     n n_pct  start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>   <dbl>  <dbl> <ord>          
@@ -1979,7 +2186,7 @@
       2       6     6  0        11 0.172  0.00453 0.00453 0      overlap        
       3       7     9  0.333    29 0.453  0.00667 0.0109  0.0126 above          
       
-      $conf_regions$by_term$disp
+      $conf_regions$vs$by_term$disp
       # A tibble: 4 x 9
         start_x end_x x_span     n n_pct start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>          
@@ -1988,14 +2195,14 @@
       3   224.   321. 0.242     16 0.25    0.297  0.0374 -1.06  above          
       4   350    472  0.304     16 0.25   -0.137 -0.431  -0.952 below          
       
-      $conf_regions$by_term$hp
+      $conf_regions$vs$by_term$hp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>          
       1     52   123.  0.252    34 0.531  0.0955  0.0166 -0.309 above          
       2    149.  335   0.657    30 0.469 -0.483  -0.871  -0.582 below          
       
-      $conf_regions$by_term$drat
+      $conf_regions$vs$by_term$drat
       # A tibble: 3 x 9
         start_x end_x x_span     n  n_pct  start_y    end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>    <dbl>    <dbl>    <dbl> <ord>          
@@ -2003,7 +2210,7 @@
       2    3.21  4.43 0.546     40 0.625  -0.0117  -0.00734  0.00791 below          
       3    4.93  4.98 0.0217     2 0.0312  0.00713  0.00958  0.111   above          
       
-      $conf_regions$by_term$wt
+      $conf_regions$vs$by_term$wt
       # A tibble: 3 x 9
         start_x end_x  x_span     n  n_pct  start_y    end_y  trend relative_to_mid
           <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>    <dbl>  <dbl> <ord>          
@@ -2011,7 +2218,7 @@
       2    3.41  3.42 0.00136     2 0.0312  0.00423  0.00615 1.40   overlap        
       3    3.44  5.45 0.510      30 0.469   0.0131   0.363   0.676  above          
       
-      $conf_regions$by_term$qsec
+      $conf_regions$vs$by_term$qsec
       # A tibble: 5 x 9
         start_x end_x  x_span     n  n_pct  start_y    end_y   trend relative_to_mid
           <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>    <dbl>   <dbl> <ord>          
@@ -2021,14 +2228,14 @@
       4    19.9  19.9 0           1 0.0156  0.00443  0.00443  0      overlap        
       5    20    23.0 0.350       8 0.125  -0.00248 -0.350   -0.981  below          
       
-      $conf_regions$by_term$am
+      $conf_regions$vs$by_term$am
       # A tibble: 2 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
       1 FALSE    38 0.594  0.926 above          
       2 TRUE     26 0.406 -1.34  below          
       
-      $conf_regions$by_term$gear
+      $conf_regions$vs$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
@@ -2036,26 +2243,34 @@
       2 four     24 0.375  0.844 above          
       3 five     10 0.156  1.30  above          
       
-      $conf_regions$by_term$carb
+      $conf_regions$vs$by_term$carb
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
       1       1     3  0.286    42 0.656 0.00467 0.00371 -0.00331 overlap        
       2       4     8  0.571    22 0.344 0.00323 0.00131 -0.00331 below          
       
-      $conf_regions$by_term$country
+      $conf_regions$vs$by_term$country
       # A tibble: 6 x 5
         x           n  n_pct        y relative_to_mid
         <ord>   <int>  <dbl>    <dbl> <ord>          
       1 Sweden      2 0.0312  0.767   above          
       2 UK          2 0.0312  0.0777  above          
-      3 Japan      12 0.188   0.503   above          
-      4 Italy       8 0.125   0.452   above          
+      3 Italy       8 0.125   0.452   above          
+      4 Japan      12 0.188   0.503   above          
       5 Germany    16 0.25   -0.702   below          
       6 USA        24 0.375   0.00573 overlap        
       
+      $conf_regions$vs$by_term$continent
+      # A tibble: 3 x 5
+        x                 n n_pct       y relative_to_mid
+        <ord>         <int> <dbl>   <dbl> <ord>          
+      1 North America    24 0.375 0.00393 overlap        
+      2 Europe           28 0.438 0.00393 overlap        
+      3 Asia             12 0.188 0.00393 overlap        
       
-      $conf_regions$significant
+      
+      $conf_regions$vs$significant
       # A tibble: 27 x 12
          term  x     start_x  end_x x_span     n n_pct     y  start_y    end_y
          <chr> <chr>   <dbl>  <dbl>  <dbl> <int> <dbl> <dbl>    <dbl>    <dbl>
@@ -2072,26 +2287,41 @@
       # i 17 more rows
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
-      $conf_regions$sig_criterion
+      $conf_regions$vs$sig_criterion
       [1] "median_band_pct"
+      
       
       
       $y_col
       [1] "vs"
       
       $x_cols
-       [1] "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"      "qsec"   
-       [8] "am"      "gear"    "carb"    "country"
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
       
       $y_summary
-                  q           min            1%          2.5%            5% 
-       0.0500000000 -0.0077390395 -0.0077390395 -0.0064537889 -0.0037795412 
-                10%           25%      med_lo_2        med_lo           50% 
-      -0.0029812977 -0.0002450745 -0.0002450745  0.0032883334  0.0039348990 
-               mean        med_hi      med_hi_2           75%           75% 
-       0.4375000000  0.0062337115  0.9988786886  0.9988786886  0.9988786886 
-                90%           95%         97.5%           99%           max 
-       1.0024880627  1.0047161643  1.0058837107  1.0065370465  1.0065370465 
+                          vs
+      q         0.0500000000
+      min      -0.0077390395
+      1%       -0.0077390395
+      2.5%     -0.0064537889
+      5%       -0.0037795412
+      10%      -0.0029812977
+      25%      -0.0002450745
+      med_lo_2 -0.0002450745
+      med_lo    0.0032883334
+      50%       0.0039348990
+      mean      0.4375000000
+      med_hi    0.0062337115
+      med_hi_2  0.9988786886
+      75%       0.9988786886
+      75%       0.9988786886
+      90%       1.0024880627
+      95%       1.0047161643
+      97.5%     1.0058837107
+      99%       1.0065370465
+      max       1.0065370465
       
       $boot_it
       [1] 0
@@ -2124,7 +2354,24 @@
       cars_ale
     Output
       $data
-      $data$mpg
+      $data$vs
+      $data$vs$model
+      # A tibble: 32 x 7
+         ale_x               ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+         <ord>               <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+       1 Duster 360              2 0.00393  0.00393    0.00393      0.00393  0.00393
+       2 Camaro Z28              2 0.00393  0.00393    0.00393      0.00393  0.00393
+       3 Chrysler Imperial       2 0.00393  0.00393    0.00393      0.00393  0.00393
+       4 Cadillac Fleetwood      2 0.00393  0.00393    0.00393      0.00393  0.00393
+       5 Lincoln Continental     2 0.00393  0.00393    0.00393      0.00393  0.00393
+       6 Pontiac Firebird        2 0.00393  0.00393    0.00393      0.00393  0.00393
+       7 Hornet Sportabout       2 0.00393  0.00393    0.00393      0.00393  0.00393
+       8 AMC Javelin             2 0.00393  0.00393    0.00393      0.00393  0.00393
+       9 Dodge Challenger        2 0.00393  0.00393    0.00393      0.00393  0.00393
+      10 Valiant                 2 0.00393  0.00393    0.00393      0.00393  0.00393
+      # i 22 more rows
+      
+      $data$vs$mpg
       # A tibble: 57 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2140,7 +2387,7 @@
       10  15.0     1 0.00393  0.00393    0.00393      0.00393  0.00393
       # i 47 more rows
       
-      $data$cyl
+      $data$vs$cyl
       # A tibble: 7 x 7
         ale_x ale_n     ale_y  ale_y_lo ale_y_mean ale_y_median  ale_y_hi
         <dbl> <int>     <dbl>     <dbl>      <dbl>        <dbl>     <dbl>
@@ -2152,7 +2399,7 @@
       6     8    21  0.00880   0.00880    0.00880      0.00880   0.00880 
       7     9     3  0.0109    0.0109     0.0109       0.0109    0.0109  
       
-      $data$disp
+      $data$vs$disp
       # A tibble: 59 x 7
          ale_x ale_n ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int> <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2168,7 +2415,7 @@
       10  95.1     1 0.465    0.465      0.465        0.465    0.466
       # i 49 more rows
       
-      $data$hp
+      $data$vs$hp
       # A tibble: 54 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2184,7 +2431,7 @@
       10  90.8     1 0.260    0.246      0.260        0.267    0.269 
       # i 44 more rows
       
-      $data$drat
+      $data$vs$drat
       # A tibble: 54 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2200,7 +2447,7 @@
       10  3.06     1 0.0794   0.0637     0.0794       0.0794   0.0952
       # i 44 more rows
       
-      $data$wt
+      $data$vs$wt
       # A tibble: 61 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2216,7 +2463,7 @@
       10  2.14     1 -0.0687  -0.0919    -0.0687      -0.0585  -0.0541
       # i 51 more rows
       
-      $data$qsec
+      $data$vs$qsec
       # A tibble: 62 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
          <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2232,14 +2479,14 @@
       10  16.0     1 -0.0502  -0.0758    -0.0502      -0.0424  -0.0313
       # i 52 more rows
       
-      $data$am
+      $data$vs$am
       # A tibble: 2 x 7
         ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
       1 FALSE    38  0.926    0.926      0.926        0.926    0.926
       2 TRUE     26 -0.306   -0.447     -0.306       -0.298   -0.181
       
-      $data$gear
+      $data$vs$gear
       # A tibble: 3 x 7
         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <ord> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2247,7 +2494,7 @@
       2 four     24  0.0248   -0.227     0.0248       0.0968    0.155
       3 five     10  0.658     0.394     0.658        0.738     0.784
       
-      $data$carb
+      $data$vs$carb
       # A tibble: 8 x 7
         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
         <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
@@ -2260,56 +2507,45 @@
       7     7     1 0.00195  0.00179    0.00195      0.00179  0.00225
       8     8     1 0.00179  0.00179    0.00179      0.00179  0.00179
       
-      $data$country
+      $data$vs$country
       # A tibble: 6 x 7
-        ale_x   ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-        <ord>   <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-      1 Sweden      2  0.767     0.767     0.767        0.767     0.767
-      2 UK          2  0.445     0.147     0.445        0.462     0.715
-      3 Japan      12  0.505     0.206     0.505        0.498     0.814
-      4 Italy       8  0.526     0.300     0.526        0.545     0.718
-      5 Germany    16 -0.0337   -0.216    -0.0337      -0.0490    0.174
-      6 USA        24  0.398     0.178     0.398        0.368     0.668
+        ale_x   ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>   <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 Sweden      2  0.767   0.767       0.767        0.767    0.767
+      2 UK          2  0.445   0.147       0.445        0.462    0.715
+      3 Italy       8  0.451   0.274       0.451        0.458    0.618
+      4 Japan      12  0.430   0.221       0.430        0.423    0.651
+      5 Germany    16 -0.214  -0.328      -0.214       -0.213   -0.101
+      6 USA        24  0.218   0.0655      0.218        0.205    0.393
+      
+      $data$vs$continent
+      # A tibble: 3 x 7
+        ale_x         ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>         <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 North America    24 0.00393  0.00393    0.00393      0.00393  0.00393
+      2 Europe           28 0.00393  0.00393    0.00393      0.00393  0.00393
+      3 Asia             12 0.00393  0.00393    0.00393      0.00393  0.00393
+      
       
       
       $boot_data
-      $boot_data$mpg
       NULL
-      
-      $boot_data$cyl
-      NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$hp
-      NULL
-      
-      $boot_data$drat
-      NULL
-      
-      $boot_data$wt
-      NULL
-      
-      $boot_data$qsec
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$carb
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$by_term
-      $stats$by_term$mpg
+      $stats$vs
+      $stats$vs$by_term
+      $stats$vs$by_term$model
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low      mean    median conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       7.78e-18  5.61e-18  7.78e-18  8.46e-18  8.80e-18
+      2 aler_min  -7.16e-17 -1.13e-16 -7.16e-17 -8.37e-17 -9.76e-18
+      3 aler_max   6.03e-17  4.52e-17  6.03e-17  5.85e-17  7.83e-17
+      4 naled      0         0         0         0         0       
+      5 naler_min  0         0         0         0         0       
+      6 naler_max  0         0         0         0         0       
+      
+      $stats$vs$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2320,7 +2556,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$by_term$cyl
+      $stats$vs$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2331,7 +2567,7 @@
       5 naler_min -34.4     -34.4     -34.4     -34.4     -34.4    
       6 naler_max   6.25      6.25      6.25      6.25      6.25   
       
-      $stats$by_term$disp
+      $stats$vs$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2342,7 +2578,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$hp
+      $stats$vs$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2353,7 +2589,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$drat
+      $stats$vs$by_term$drat
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2364,7 +2600,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$by_term$wt
+      $stats$vs$by_term$wt
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2375,7 +2611,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$by_term$qsec
+      $stats$vs$by_term$qsec
       # A tibble: 6 x 6
         statistic  estimate conf.low      mean    median conf.high
         <chr>         <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
@@ -2386,7 +2622,7 @@
       5 naler_min -50       -50      -50       -50        -50     
       6 naler_max -21.9     -50      -21.9     -21.9        6.25  
       
-      $stats$by_term$am
+      $stats$vs$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2397,7 +2633,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$gear
+      $stats$vs$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2408,7 +2644,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$by_term$carb
+      $stats$vs$by_term$carb
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2419,135 +2655,159 @@
       5 naler_min -9.38     -9.38     -9.38     -9.38     -9.38    
       6 naler_max  1.56      1.56      1.56      1.56      1.56    
       
-      $stats$by_term$country
+      $stats$vs$by_term$country
       # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.379     0.236   0.379    0.348      0.575
-      2 aler_min   -0.0376   -0.220  -0.0376  -0.0529     0.170
-      3 aler_max    0.776     0.763   0.776    0.763      0.812
-      4 naled      11.7       6.25   11.7     11.7       17.2  
-      5 naler_min -21.9     -50     -21.9    -21.9        6.25 
-      6 naler_max   6.25      6.25    6.25     6.25       6.25 
+        statistic estimate conf.low    mean  median conf.high
+        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 aled         0.308    0.208   0.308   0.315     0.396
+      2 aler_min    -0.218   -0.332  -0.218  -0.216    -0.105
+      3 aler_max     0.763    0.763   0.763   0.763     0.763
+      4 naled       17.2     17.2    17.2    17.2      17.2  
+      5 naler_min  -50      -50     -50     -50       -50    
+      6 naler_max    6.25     6.25    6.25    6.25      6.25 
+      
+      $stats$vs$by_term$continent
+      # A tibble: 6 x 6
+        statistic estimate conf.low  mean median conf.high
+        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 aled             0        0     0      0         0
+      2 aler_min         0        0     0      0         0
+      3 aler_max         0        0     0      0         0
+      4 naled            0        0     0      0         0
+      5 naler_min        0        0     0      0         0
+      6 naler_max        0        0     0      0         0
       
       
-      $stats$by_statistic
-      $stats$by_statistic$aled
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 mpg     0        0        0        0         0       
-       2 cyl     0.00345  0.00345  0.00345  0.00345   0.00345 
-       3 disp    0.422    0.366    0.422    0.388     0.537   
-       4 hp      0.260    0.217    0.260    0.245     0.331   
-       5 drat    0.0518   0.0465   0.0518   0.0519    0.0569  
-       6 wt      0.0873   0.0804   0.0873   0.0884    0.0922  
-       7 qsec    0.0473   0.0243   0.0473   0.0469    0.0709  
-       8 am      0.674    0.623    0.674    0.670     0.731   
-       9 gear    0.675    0.635    0.675    0.671     0.722   
-      10 carb    0.000564 0.000535 0.000564 0.000575  0.000575
-      11 country 0.379    0.236    0.379    0.348     0.575   
+      $stats$vs$by_statistic
+      $stats$vs$by_statistic$aled
+      # A tibble: 13 x 6
+         term      estimate conf.low     mean   median conf.high
+         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model     7.78e-18 5.61e-18 7.78e-18 8.46e-18  8.80e-18
+       2 mpg       0        0        0        0         0       
+       3 cyl       3.45e- 3 3.45e- 3 3.45e- 3 3.45e- 3  3.45e- 3
+       4 disp      4.22e- 1 3.66e- 1 4.22e- 1 3.88e- 1  5.37e- 1
+       5 hp        2.60e- 1 2.17e- 1 2.60e- 1 2.45e- 1  3.31e- 1
+       6 drat      5.18e- 2 4.65e- 2 5.18e- 2 5.19e- 2  5.69e- 2
+       7 wt        8.73e- 2 8.04e- 2 8.73e- 2 8.84e- 2  9.22e- 2
+       8 qsec      4.73e- 2 2.43e- 2 4.73e- 2 4.69e- 2  7.09e- 2
+       9 am        6.74e- 1 6.23e- 1 6.74e- 1 6.70e- 1  7.31e- 1
+      10 gear      6.75e- 1 6.35e- 1 6.75e- 1 6.71e- 1  7.22e- 1
+      11 carb      5.64e- 4 5.35e- 4 5.64e- 4 5.75e- 4  5.75e- 4
+      12 country   3.08e- 1 2.08e- 1 3.08e- 1 3.15e- 1  3.96e- 1
+      13 continent 0        0        0        0         0       
       
-      $stats$by_statistic$aler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low     mean   median conf.high
-         <chr>      <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 mpg      0        0        0        0         0      
-       2 cyl     -0.00580 -0.00580 -0.00580 -0.00580  -0.00580
-       3 disp    -0.498   -1.01    -0.498   -0.426    -0.114  
-       4 hp      -0.735   -1.21    -0.735   -0.607    -0.481  
-       5 drat    -0.0424  -0.0753  -0.0424  -0.0340   -0.0239 
-       6 wt      -0.132   -0.157   -0.132   -0.130    -0.110  
-       7 qsec    -0.310   -0.398   -0.310   -0.375    -0.113  
-       8 am      -0.310   -0.450   -0.310   -0.301    -0.185  
-       9 gear    -1.10    -1.10    -1.10    -1.10     -1.10   
-      10 carb    -0.00202 -0.00214 -0.00202 -0.00214  -0.00170
-      11 country -0.0376  -0.220   -0.0376  -0.0529    0.170  
+      $stats$vs$by_statistic$aler_min
+      # A tibble: 13 x 6
+         term       estimate  conf.low      mean    median conf.high
+         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model     -7.16e-17 -1.13e-16 -7.16e-17 -8.37e-17 -9.76e-18
+       2 mpg        0         0         0         0         0       
+       3 cyl       -5.80e- 3 -5.80e- 3 -5.80e- 3 -5.80e- 3 -5.80e- 3
+       4 disp      -4.98e- 1 -1.01e+ 0 -4.98e- 1 -4.26e- 1 -1.14e- 1
+       5 hp        -7.35e- 1 -1.21e+ 0 -7.35e- 1 -6.07e- 1 -4.81e- 1
+       6 drat      -4.24e- 2 -7.53e- 2 -4.24e- 2 -3.40e- 2 -2.39e- 2
+       7 wt        -1.32e- 1 -1.57e- 1 -1.32e- 1 -1.30e- 1 -1.10e- 1
+       8 qsec      -3.10e- 1 -3.98e- 1 -3.10e- 1 -3.75e- 1 -1.13e- 1
+       9 am        -3.10e- 1 -4.50e- 1 -3.10e- 1 -3.01e- 1 -1.85e- 1
+      10 gear      -1.10e+ 0 -1.10e+ 0 -1.10e+ 0 -1.10e+ 0 -1.10e+ 0
+      11 carb      -2.02e- 3 -2.14e- 3 -2.02e- 3 -2.14e- 3 -1.70e- 3
+      12 country   -2.18e- 1 -3.32e- 1 -2.18e- 1 -2.16e- 1 -1.05e- 1
+      13 continent  0         0         0         0         0       
       
-      $stats$by_statistic$aler_max
-      # A tibble: 11 x 6
-         term     estimate  conf.low      mean    median conf.high
-         <chr>       <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 mpg      0         0         0         0         0       
-       2 cyl      0.00700   0.00700   0.00700   0.00700   0.00700 
-       3 disp     0.640     0.524     0.640     0.631     0.772   
-       4 hp       0.264     0.152     0.264     0.295     0.325   
-       5 drat     0.121     0.121     0.121     0.121     0.121   
-       6 wt       0.272     0.235     0.272     0.281     0.294   
-       7 qsec    -0.00725  -0.0448   -0.00725  -0.00455   0.0257  
-       8 am       0.922     0.922     0.922     0.922     0.922   
-       9 gear     0.654     0.390     0.654     0.734     0.780   
-      10 carb     0.000734  0.000734  0.000734  0.000734  0.000734
-      11 country  0.776     0.763     0.776     0.763     0.812   
+      $stats$vs$by_statistic$aler_max
+      # A tibble: 13 x 6
+         term       estimate  conf.low      mean    median conf.high
+         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model      6.03e-17  4.52e-17  6.03e-17  5.85e-17  7.83e-17
+       2 mpg        0         0         0         0         0       
+       3 cyl        7.00e- 3  7.00e- 3  7.00e- 3  7.00e- 3  7.00e- 3
+       4 disp       6.40e- 1  5.24e- 1  6.40e- 1  6.31e- 1  7.72e- 1
+       5 hp         2.64e- 1  1.52e- 1  2.64e- 1  2.95e- 1  3.25e- 1
+       6 drat       1.21e- 1  1.21e- 1  1.21e- 1  1.21e- 1  1.21e- 1
+       7 wt         2.72e- 1  2.35e- 1  2.72e- 1  2.81e- 1  2.94e- 1
+       8 qsec      -7.25e- 3 -4.48e- 2 -7.25e- 3 -4.55e- 3  2.57e- 2
+       9 am         9.22e- 1  9.22e- 1  9.22e- 1  9.22e- 1  9.22e- 1
+      10 gear       6.54e- 1  3.90e- 1  6.54e- 1  7.34e- 1  7.80e- 1
+      11 carb       7.34e- 4  7.34e- 4  7.34e- 4  7.34e- 4  7.34e- 4
+      12 country    7.63e- 1  7.63e- 1  7.63e- 1  7.63e- 1  7.63e- 1
+      13 continent  0         0         0         0         0       
       
-      $stats$by_statistic$naled
-      # A tibble: 11 x 6
-         term    estimate conf.low  mean median conf.high
-         <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg         0        0     0      0         0   
-       2 cyl         9.38     9.38  9.38   9.38      9.38
-       3 disp       24.1     13.1  24.1   23.8      35.7 
-       4 hp         18.8      7.31 18.8   18.6      30.6 
-       5 drat       15.6      9.86 15.6   12.2      27.1 
-       6 wt         37.2     29.9  37.2   37.1      44.5 
-       7 qsec       38.9     23.8  38.9   41.3      50   
-       8 am         24.0     24.0  24.0   24.0      24.0 
-       9 gear       30.9     26.8  30.9   26.8      41.9 
-      10 carb        2.62     2.48  2.62   2.68      2.68
-      11 country    11.7      6.25 11.7   11.7      17.2 
+      $stats$vs$by_statistic$naled
+      # A tibble: 13 x 6
+         term      estimate conf.low  mean median conf.high
+         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model         0        0     0      0         0   
+       2 mpg           0        0     0      0         0   
+       3 cyl           9.38     9.38  9.38   9.38      9.38
+       4 disp         24.1     13.1  24.1   23.8      35.7 
+       5 hp           18.8      7.31 18.8   18.6      30.6 
+       6 drat         15.6      9.86 15.6   12.2      27.1 
+       7 wt           37.2     29.9  37.2   37.1      44.5 
+       8 qsec         38.9     23.8  38.9   41.3      50   
+       9 am           24.0     24.0  24.0   24.0      24.0 
+      10 gear         30.9     26.8  30.9   26.8      41.9 
+      11 carb          2.62     2.48  2.62   2.68      2.68
+      12 country      17.2     17.2  17.2   17.2      17.2 
+      13 continent     0        0     0      0         0   
       
-      $stats$by_statistic$naler_min
-      # A tibble: 11 x 6
-         term    estimate conf.low   mean median conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 mpg         0        0      0      0         0   
-       2 cyl       -34.4    -34.4  -34.4  -34.4     -34.4 
-       3 disp      -50      -50    -50    -50       -50   
-       4 hp        -50      -50    -50    -50       -50   
-       5 drat      -50      -50    -50    -50       -50   
-       6 wt        -50      -50    -50    -50       -50   
-       7 qsec      -50      -50    -50    -50       -50   
-       8 am        -50      -50    -50    -50       -50   
-       9 gear      -50      -50    -50    -50       -50   
-      10 carb       -9.38    -9.38  -9.38  -9.38     -9.38
-      11 country   -21.9    -50    -21.9  -21.9       6.25
+      $stats$vs$by_statistic$naler_min
+      # A tibble: 13 x 6
+         term      estimate conf.low   mean median conf.high
+         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 model         0        0      0      0         0   
+       2 mpg           0        0      0      0         0   
+       3 cyl         -34.4    -34.4  -34.4  -34.4     -34.4 
+       4 disp        -50      -50    -50    -50       -50   
+       5 hp          -50      -50    -50    -50       -50   
+       6 drat        -50      -50    -50    -50       -50   
+       7 wt          -50      -50    -50    -50       -50   
+       8 qsec        -50      -50    -50    -50       -50   
+       9 am          -50      -50    -50    -50       -50   
+      10 gear        -50      -50    -50    -50       -50   
+      11 carb         -9.38    -9.38  -9.38  -9.38     -9.38
+      12 country     -50      -50    -50    -50       -50   
+      13 continent     0        0      0      0         0   
       
-      $stats$by_statistic$naler_max
-      # A tibble: 11 x 6
-         term    estimate conf.low   mean median conf.high
-         <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 mpg         0        0      0      0         0   
-       2 cyl         6.25     6.25   6.25   6.25      6.25
-       3 disp        6.25     6.25   6.25   6.25      6.25
-       4 hp          6.25     6.25   6.25   6.25      6.25
-       5 drat        6.25     6.25   6.25   6.25      6.25
-       6 wt          6.25     6.25   6.25   6.25      6.25
-       7 qsec      -21.9    -50    -21.9  -21.9       6.25
-       8 am          6.25     6.25   6.25   6.25      6.25
-       9 gear        6.25     6.25   6.25   6.25      6.25
-      10 carb        1.56     1.56   1.56   1.56      1.56
-      11 country     6.25     6.25   6.25   6.25      6.25
+      $stats$vs$by_statistic$naler_max
+      # A tibble: 13 x 6
+         term      estimate conf.low   mean median conf.high
+         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 model         0        0      0      0         0   
+       2 mpg           0        0      0      0         0   
+       3 cyl           6.25     6.25   6.25   6.25      6.25
+       4 disp          6.25     6.25   6.25   6.25      6.25
+       5 hp            6.25     6.25   6.25   6.25      6.25
+       6 drat          6.25     6.25   6.25   6.25      6.25
+       7 wt            6.25     6.25   6.25   6.25      6.25
+       8 qsec        -21.9    -50    -21.9  -21.9       6.25
+       9 am            6.25     6.25   6.25   6.25      6.25
+      10 gear          6.25     6.25   6.25   6.25      6.25
+      11 carb          1.56     1.56   1.56   1.56      1.56
+      12 country       6.25     6.25   6.25   6.25      6.25
+      13 continent     0        0      0      0         0   
       
       
-      $stats$estimate
-      # A tibble: 11 x 7
-         term        aled aler_min  aler_max naled naler_min naler_max
-         <chr>      <dbl>    <dbl>     <dbl> <dbl>     <dbl>     <dbl>
-       1 mpg     0         0        0         0         0         0   
-       2 cyl     0.00345  -0.00580  0.00700   9.38    -34.4       6.25
-       3 disp    0.422    -0.498    0.640    24.1     -50         6.25
-       4 hp      0.260    -0.735    0.264    18.8     -50         6.25
-       5 drat    0.0518   -0.0424   0.121    15.6     -50         6.25
-       6 wt      0.0873   -0.132    0.272    37.2     -50         6.25
-       7 qsec    0.0473   -0.310   -0.00725  38.9     -50       -21.9 
-       8 am      0.674    -0.310    0.922    24.0     -50         6.25
-       9 gear    0.675    -1.10     0.654    30.9     -50         6.25
-      10 carb    0.000564 -0.00202  0.000734  2.62     -9.38      1.56
-      11 country 0.379    -0.0376   0.776    11.7     -21.9       6.25
+      $stats$vs$estimate
+      # A tibble: 13 x 7
+         term          aled  aler_min  aler_max naled naler_min naler_max
+         <chr>        <dbl>     <dbl>     <dbl> <dbl>     <dbl>     <dbl>
+       1 model     7.78e-18 -7.16e-17  6.03e-17  0         0         0   
+       2 mpg       0         0         0         0         0         0   
+       3 cyl       3.45e- 3 -5.80e- 3  7.00e- 3  9.38    -34.4       6.25
+       4 disp      4.22e- 1 -4.98e- 1  6.40e- 1 24.1     -50         6.25
+       5 hp        2.60e- 1 -7.35e- 1  2.64e- 1 18.8     -50         6.25
+       6 drat      5.18e- 2 -4.24e- 2  1.21e- 1 15.6     -50         6.25
+       7 wt        8.73e- 2 -1.32e- 1  2.72e- 1 37.2     -50         6.25
+       8 qsec      4.73e- 2 -3.10e- 1 -7.25e- 3 38.9     -50       -21.9 
+       9 am        6.74e- 1 -3.10e- 1  9.22e- 1 24.0     -50         6.25
+      10 gear      6.75e- 1 -1.10e+ 0  6.54e- 1 30.9     -50         6.25
+      11 carb      5.64e- 4 -2.02e- 3  7.34e- 4  2.62     -9.38      1.56
+      12 country   3.08e- 1 -2.18e- 1  7.63e- 1 17.2     -50         6.25
+      13 continent 0         0         0         0         0         0   
       
-      $stats$effects_plot
-      $stats$effects_plot[[1]]
-      $stats$effects_plot[[1]][[1]]
+      $stats$vs$effects_plot
+      $stats$vs$effects_plot[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
@@ -2555,82 +2815,113 @@
       
       
       $plots
-      $plots$mpg
-      $plots$mpg[[1]]
+      $plots$vs
+      $plots$vs$model
+      $plots$vs$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$vs$mpg
+      $plots$vs$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$vs$cyl
+      $plots$vs$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$hp
-      $plots$hp[[1]]
+      $plots$vs$disp
+      $plots$vs$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$drat
-      $plots$drat[[1]]
+      $plots$vs$hp
+      $plots$vs$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$wt
-      $plots$wt[[1]]
+      $plots$vs$drat
+      $plots$vs$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$qsec
-      $plots$qsec[[1]]
+      $plots$vs$wt
+      $plots$vs$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$vs$qsec
+      $plots$vs$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$vs$am
+      $plots$vs$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$carb
-      $plots$carb[[1]]
+      $plots$vs$gear
+      $plots$vs$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$vs$carb
+      $plots$vs$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
+      
+      $plots$vs$country
+      $plots$vs$country[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$vs$continent
+      $plots$vs$continent[[1]]
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       
       $conf_regions
-      $conf_regions$by_term
-      $conf_regions$by_term$mpg
+      $conf_regions$vs
+      $conf_regions$vs$by_term
+      $conf_regions$vs$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct       y relative_to_mid
+         <ord>               <int>  <dbl>   <dbl> <ord>          
+       1 Duster 360              2 0.0312 0.00393 overlap        
+       2 Camaro Z28              2 0.0312 0.00393 overlap        
+       3 Chrysler Imperial       2 0.0312 0.00393 overlap        
+       4 Cadillac Fleetwood      2 0.0312 0.00393 overlap        
+       5 Lincoln Continental     2 0.0312 0.00393 overlap        
+       6 Pontiac Firebird        2 0.0312 0.00393 overlap        
+       7 Hornet Sportabout       2 0.0312 0.00393 overlap        
+       8 AMC Javelin             2 0.0312 0.00393 overlap        
+       9 Dodge Challenger        2 0.0312 0.00393 overlap        
+      10 Valiant                 2 0.0312 0.00393 overlap        
+      # i 22 more rows
+      
+      $conf_regions$vs$by_term$mpg
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <ord>          
       1    10.4  33.9      1    64     1 0.00393 0.00393     0 overlap        
       
-      $conf_regions$by_term$cyl
+      $conf_regions$vs$by_term$cyl
       # A tibble: 3 x 9
         start_x end_x x_span     n n_pct  start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>   <dbl>  <dbl> <ord>          
@@ -2638,7 +2929,7 @@
       2       6     6  0        11 0.172  0.00453 0.00453 0      overlap        
       3       7     9  0.333    29 0.453  0.00667 0.0109  0.0126 above          
       
-      $conf_regions$by_term$disp
+      $conf_regions$vs$by_term$disp
       # A tibble: 17 x 9
          start_x end_x  x_span     n  n_pct  start_y  end_y    trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>  <dbl>    <dbl> <ord>          
@@ -2660,7 +2951,7 @@
       16   460    460  0           1 0.0156  0.256    0.256  0       above          
       17   462.   472  0.0237      3 0.0469 -0.169   -0.313 -5.94    overlap        
       
-      $conf_regions$by_term$hp
+      $conf_regions$vs$by_term$hp
       # A tibble: 13 x 9
          start_x end_x  x_span     n  n_pct start_y   end_y    trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>   <dbl>   <dbl>    <dbl> <ord>          
@@ -2678,7 +2969,7 @@
       12    216.  263. 0.167       8 0.125  -0.364  -0.0815   1.67   overlap        
       13    264   335  0.251       3 0.0469 -0.464  -0.444    0.0760 below          
       
-      $conf_regions$by_term$drat
+      $conf_regions$vs$by_term$drat
       # A tibble: 16 x 9
          start_x end_x  x_span     n  n_pct  start_y    end_y   trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>    <dbl>   <dbl> <ord>          
@@ -2699,7 +2990,7 @@
       15    4.43  4.43 0           1 0.0156  0.0307   0.0307   0      overlap        
       16    4.93  4.98 0.0217      2 0.0312  0.0748   0.0392  -1.62   above          
       
-      $conf_regions$by_term$wt
+      $conf_regions$vs$by_term$wt
       # A tibble: 15 x 9
          start_x end_x  x_span     n  n_pct  start_y    end_y    trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>    <dbl>    <dbl> <ord>          
@@ -2719,7 +3010,7 @@
       14    3.84  4.07 0.0582      5 0.0781 -4.26e-3  1.71e-2  0.361   overlap        
       15    5.24  5.45 0.0545      6 0.0938  2.41e-1  2.69e-1  0.490   above          
       
-      $conf_regions$by_term$qsec
+      $conf_regions$vs$by_term$qsec
       # A tibble: 15 x 9
          start_x end_x  x_span     n  n_pct  start_y    end_y    trend relative_to_mid
            <dbl> <dbl>   <dbl> <int>  <dbl>    <dbl>    <dbl>    <dbl> <ord>          
@@ -2739,14 +3030,14 @@
       14    19.9  19.9 0.00561     2 0.0312 -0.0281  -0.0150   2.30    overlap        
       15    20    23.0 0.350       8 0.125  -0.0177  -0.371   -0.997   below          
       
-      $conf_regions$by_term$am
+      $conf_regions$vs$by_term$am
       # A tibble: 2 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
       1 FALSE    38 0.594  0.926 above          
       2 TRUE     26 0.406 -0.306 below          
       
-      $conf_regions$by_term$gear
+      $conf_regions$vs$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct       y relative_to_mid
         <ord> <int> <dbl>   <dbl> <ord>          
@@ -2754,27 +3045,35 @@
       2 four     24 0.375  0.0248 overlap        
       3 five     10 0.156  0.658  above          
       
-      $conf_regions$by_term$carb
+      $conf_regions$vs$by_term$carb
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
       1       1     3  0.286    42 0.656 0.00467 0.00371 -0.00331 overlap        
       2       4     8  0.571    22 0.344 0.00323 0.00179 -0.00248 below          
       
-      $conf_regions$by_term$country
+      $conf_regions$vs$by_term$country
       # A tibble: 6 x 5
-        x           n  n_pct       y relative_to_mid
-        <ord>   <int>  <dbl>   <dbl> <ord>          
-      1 Sweden      2 0.0312  0.767  above          
-      2 UK          2 0.0312  0.445  above          
-      3 Japan      12 0.188   0.505  above          
-      4 Italy       8 0.125   0.526  above          
-      5 Germany    16 0.25   -0.0337 overlap        
-      6 USA        24 0.375   0.398  above          
+        x           n  n_pct      y relative_to_mid
+        <ord>   <int>  <dbl>  <dbl> <ord>          
+      1 Sweden      2 0.0312  0.767 above          
+      2 UK          2 0.0312  0.445 above          
+      3 Italy       8 0.125   0.451 above          
+      4 Japan      12 0.188   0.430 above          
+      5 Germany    16 0.25   -0.214 below          
+      6 USA        24 0.375   0.218 above          
+      
+      $conf_regions$vs$by_term$continent
+      # A tibble: 3 x 5
+        x                 n n_pct       y relative_to_mid
+        <ord>         <int> <dbl>   <dbl> <ord>          
+      1 North America    24 0.375 0.00393 overlap        
+      2 Europe           28 0.438 0.00393 overlap        
+      3 Asia             12 0.188 0.00393 overlap        
       
       
-      $conf_regions$significant
-      # A tibble: 54 x 12
+      $conf_regions$vs$significant
+      # A tibble: 55 x 12
          term  x     start_x end_x  x_span     n  n_pct     y  start_y    end_y
          <chr> <chr>   <dbl> <dbl>   <dbl> <int>  <dbl> <dbl>    <dbl>    <dbl>
        1 cyl   <NA>      3      5  0.333      24 0.375     NA -0.00186  0.00240
@@ -2787,29 +3086,44 @@
        8 disp  <NA>    258.   274. 0.0390      2 0.0312    NA  0.759    0.683  
        9 disp  <NA>    277.   277. 0           1 0.0156    NA  0.647    0.647  
       10 disp  <NA>    301    304  0.00748     3 0.0469    NA  0.683    0.660  
-      # i 44 more rows
+      # i 45 more rows
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
-      $conf_regions$sig_criterion
+      $conf_regions$vs$sig_criterion
       [1] "median_band_pct"
+      
       
       
       $y_col
       [1] "vs"
       
       $x_cols
-       [1] "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"      "qsec"   
-       [8] "am"      "gear"    "carb"    "country"
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
       
       $y_summary
-                  q           min            1%          2.5%            5% 
-       0.0500000000 -0.0077390395 -0.0077390395 -0.0064537889 -0.0037795412 
-                10%           25%      med_lo_2        med_lo           50% 
-      -0.0029812977 -0.0002450745 -0.0002450745  0.0032883334  0.0039348990 
-               mean        med_hi      med_hi_2           75%           75% 
-       0.4375000000  0.0062337115  0.9988786886  0.9988786886  0.9988786886 
-                90%           95%         97.5%           99%           max 
-       1.0024880627  1.0047161643  1.0058837107  1.0065370465  1.0065370465 
+                          vs
+      q         0.0500000000
+      min      -0.0077390395
+      1%       -0.0077390395
+      2.5%     -0.0064537889
+      5%       -0.0037795412
+      10%      -0.0029812977
+      25%      -0.0002450745
+      med_lo_2 -0.0002450745
+      med_lo    0.0032883334
+      50%       0.0039348990
+      mean      0.4375000000
+      med_hi    0.0062337115
+      med_hi_2  0.9988786886
+      75%       0.9988786886
+      75%       0.9988786886
+      90%       1.0024880627
+      95%       1.0047161643
+      97.5%     1.0058837107
+      99%       1.0065370465
+      max       1.0065370465
       
       $boot_it
       [1] 4
@@ -2842,85 +3156,45 @@
       cars_ale
     Output
       $data
-      $data$cyl
       NULL
-      
-      $data$disp
-      NULL
-      
-      $data$am
-      NULL
-      
-      $data$gear
-      NULL
-      
-      $data$country
-      NULL
-      
       
       $boot_data
-      $boot_data$cyl
       NULL
-      
-      $boot_data$disp
-      NULL
-      
-      $boot_data$am
-      NULL
-      
-      $boot_data$gear
-      NULL
-      
-      $boot_data$country
-      NULL
-      
       
       $stats
-      $stats$cyl
       NULL
-      
-      $stats$disp
-      NULL
-      
-      $stats$am
-      NULL
-      
-      $stats$gear
-      NULL
-      
-      $stats$country
-      NULL
-      
       
       $plots
-      $plots$cyl
-      $plots$cyl[[1]]
+      $plots$vs
+      $plots$vs$cyl
+      $plots$vs$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$disp
-      $plots$disp[[1]]
+      $plots$vs$disp
+      $plots$vs$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$am
-      $plots$am[[1]]
+      $plots$vs$am
+      $plots$vs$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$gear
-      $plots$gear[[1]]
+      $plots$vs$gear
+      $plots$vs$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
       
-      $plots$country
-      $plots$country[[1]]
+      $plots$vs$country
+      $plots$vs$country[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
+      
       
       
       
@@ -2931,14 +3205,26 @@
       [1] "cyl"     "disp"    "am"      "gear"    "country"
       
       $y_summary
-                  q           min            1%          2.5%            5% 
-       0.0100000000 -0.0077390395 -0.0077390395 -0.0064537889 -0.0037795412 
-                10%           25%      med_lo_2        med_lo           50% 
-      -0.0029812977 -0.0002450745  0.0018895174  0.0035894218  0.0039348990 
-               mean        med_hi      med_hi_2           75%           90% 
-       0.4375000000  0.0042803761  0.9946752957  0.9988786886  1.0024880627 
-                95%         97.5%           99%           max 
-       1.0047161643  1.0058837107  1.0065370465  1.0065370465 
+                          vs
+      q         0.0100000000
+      min      -0.0077390395
+      1%       -0.0077390395
+      2.5%     -0.0064537889
+      5%       -0.0037795412
+      10%      -0.0029812977
+      25%      -0.0002450745
+      med_lo_2  0.0018895174
+      med_lo    0.0035894218
+      50%       0.0039348990
+      mean      0.4375000000
+      med_hi    0.0042803761
+      med_hi_2  0.9946752957
+      75%       0.9988786886
+      90%       1.0024880627
+      95%       1.0047161643
+      97.5%     1.0058837107
+      99%       1.0065370465
+      max       1.0065370465
       
       $boot_it
       [1] 1

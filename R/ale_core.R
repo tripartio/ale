@@ -642,6 +642,11 @@ ale_core <- function (
     model = model
   )
 
+  if (is.null(colnames(y_preds)) && ncol(y_preds) == 1) {
+    # Name the y_preds column for a single prediction vector
+    colnames(y_preds) <- y_col
+  }
+
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
   validate(is_bool(ixn))
@@ -1155,27 +1160,55 @@ ale_core <- function (
 
     # Create an effects plot only if plots are requested
     if ('plots' %in% output) {
-      ales$stats$effects_plot <- plot_effects(
-        ales$stats$estimate,
-        y_vals,
-        y_col,
-        middle_band = if (is.null(p_values)) {
-          median_band_pct
-        }
-        else {
-          # Use p-value of NALED:
-          # like median_band_pct, NALED is a percentage value, so it can be a
-          # drop-in replacement, but based on p-values.
-          median_band_pct |>
-            # p_fun functions are vectorized, so return as many NALED values
-            # as median_band_pct values are provided (2)
-            p_values$p_to_random_value$naled() |>
-            unname() |>
-            (`/`)(100)  # scale NALED from percentage to 0 to 1
-        },
-        compact_plots = compact_plots
-      )
+      ales$stats <- ales$stats |>
+        map(\(.cat) {
+          .cat$effects_plot <- plot_effects(
+            .cat$estimate,
+            y_vals,
+            y_col,
+            middle_band = if (is.null(p_values)) {
+              median_band_pct
+            } else {
+              # Use p-value of NALED:
+              # like median_band_pct, NALED is a percentage value, so it can be a
+              # drop-in replacement, but based on p-values.
+              median_band_pct |>
+                # p_fun functions are vectorized, so return as many NALED values
+                # as median_band_pct values are provided (2)
+                p_values$p_to_random_value$naled() |>
+                unname() |>
+                (`/`)(100)  # scale NALED from percentage to 0 to 1
+            },
+            compact_plots = compact_plots
+          )
+
+          .cat
+        })
     }
+
+    # # Create an effects plot only if plots are requested
+    # if ('plots' %in% output) {
+    #   ales$stats$effects_plot <- plot_effects(
+    #     ales$stats$estimate,
+    #     y_vals,
+    #     y_col,
+    #     middle_band = if (is.null(p_values)) {
+    #       median_band_pct
+    #     }
+    #     else {
+    #       # Use p-value of NALED:
+    #       # like median_band_pct, NALED is a percentage value, so it can be a
+    #       # drop-in replacement, but based on p-values.
+    #       median_band_pct |>
+    #         # p_fun functions are vectorized, so return as many NALED values
+    #         # as median_band_pct values are provided (2)
+    #         p_values$p_to_random_value$naled() |>
+    #         unname() |>
+    #         (`/`)(100)  # scale NALED from percentage to 0 to 1
+    #     },
+    #     compact_plots = compact_plots
+    #   )
+    # }
   }
 
   # Append useful output data that is shared across all variables

@@ -591,19 +591,34 @@ model_bootstrap <- function (
       # Summarize bootstrapped ALE data, grouped by variable
       ale_summary_data <-
         boot_data_ale |>
-        map(\(.it) .it$data) |>   # extract data from each iteration
-        purrr::list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col
-      ale_summary_data <-
-        map2(
-          ale_summary_data, names(ale_summary_data),
-          \(.x_col, .x_col_name) {
+        # extract data from each iteration
+        map(\(.it) .it$data) |>
+        # rearrange list to group all data and iterations by y_col category
+        purrr::list_transpose(simplify = FALSE) |>
+        # within each category, rearrange list to group all iterations by x_col
+        map(\(.cat) {
+          .cat |>
+            purrr::list_transpose(simplify = FALSE)
+        })
+      # map(\(.it) .it$data) |>   # extract data from each iteration
+        # purrr::list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col
+
+      ale_summary_data <- ale_summary_data |>
+        map(\(.cat) {
+          .cat |>
+            imap(\(.x_col, .x_col_name) {
+            # ale_summary_data <-
+      #   map2(
+      #     ale_summary_data, names(ale_summary_data),
+      #     \(.x_col, .x_col_name) {
+      #
 
             # If ale_x for .x_col is ordinal,
             # harmonize the levels across bootstrap iterations,
             # otherwise binding rows will fail
             if (is.ordered(.x_col[[1]]$ale_x)) {
-              # The levels of the full data ALE are canonical for all bootstrap iterations
-              ale_x_levels <- full_ale$data[[.x_col_name]]$ale_x
+              # The levels of the first category of the full data ALE are canonical for all bootstrap iterations
+              ale_x_levels <- full_ale$data[[1]][[.x_col_name]]$ale_x
 
               .x_col <- .x_col |>
                 map(\(.ale_tbl) {
@@ -624,12 +639,13 @@ model_bootstrap <- function (
               ) |>
               right_join(
                 tibble(
-                  ale_x = full_ale$data[[.x_col_name]]$ale_x,
-                  ale_n = full_ale$data[[.x_col_name]]$ale_n,
+                  ale_x = full_ale$data[[1]][[.x_col_name]]$ale_x,
+                  ale_n = full_ale$data[[1]][[.x_col_name]]$ale_n,
                 ),
                 by = 'ale_x'
               ) |>
               select('ale_x', 'ale_n', 'ale_y', everything())
+        })
         })
 
       # Summarize bootstrapped ALE statistics
@@ -638,23 +654,29 @@ model_bootstrap <- function (
         map(\(.it) .it$stats) |>   # extract stats from each iteration
         purrr::list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col (term)
 
-      ale_summary_stats <-
-        ale_summary_stats$estimate |>
-        bind_rows() |>
-        tidyr::pivot_longer(
-          cols = 'aled':'naler_max',
-          names_to = 'statistic',
-          values_to = 'estimate'
-        ) |>
-        summarize(
-          .by = c('term', 'statistic'),
-          conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
-          median = median(.data$estimate, na.rm = TRUE),
-          mean = mean(.data$estimate, na.rm = TRUE),
-          conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-        ) |>
-        select('term', 'statistic', 'estimate', everything())
+      ale_summary_stats <- ale_summary_stats |>
+        # ale_summary_stats$estimate |>
+        # bind_rows() |>
+        map(\(.cat) {
+          .cat |>
+            map(\(.it) .it$estimate) |>
+            bind_rows() |>
+            tidyr::pivot_longer(
+              cols = 'aled':'naler_max',
+              names_to = 'statistic',
+              values_to = 'estimate'
+            ) |>
+            summarize(
+              .by = c('term', 'statistic'),
+              conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
+              median = median(.data$estimate, na.rm = TRUE),
+              mean = mean(.data$estimate, na.rm = TRUE),
+              conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+              estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
+            ) |>
+            select('term', 'statistic', 'estimate', everything())
+        })
+
 
       # If an ALE p-values object was passed, calculate p-values
       if (rownames(y_summary)[1] == 'p') {
@@ -667,41 +689,89 @@ model_bootstrap <- function (
           select('term', 'statistic', 'estimate', 'p.value', everything())
       }
 
-      ale_conf_regions <- summarize_conf_regions(
-        ale_summary_data,
-        y_summary,
-        sig_criterion = if (!is.null(ale_options$p_values)) {
-          'p_values'
-        } else {
-          'median_band_pct'
-        }
-      )
+      ale_conf_regions <-
+        ale_summary_data |>
+        imap(\(.ale_summary_data, .cat) {
+          summarize_conf_regions(
+            .ale_summary_data,
+            y_summary[, .cat, drop = FALSE],
+            sig_criterion = if (!is.null(ale_options$p_values)) {
+              'p_values'
+            } else {
+              'median_band_pct'
+            }
+          )
+        })
 
-      detailed_ale_stats <- pivot_stats(ale_summary_stats)
+      # ale_conf_regions <-
+      #   colnames(y_summary) |>
+      #   map(\(.cat) {
+      #     summarize_conf_regions(
+      #       ale_summary_data[[.cat]],
+      #       y_summary[, .cat, drop = FALSE],
+      #       sig_criterion = if (!is.null(ale_options$p_values)) {
+      #         'p_values'
+      #       } else {
+      #         'median_band_pct'
+      #       }
+      #     )
+      #   })
+
+      detailed_ale_stats <-
+        ale_summary_stats |>
+        map(\(.cat) {
+          pivot_stats(.cat)
+        })
+      # detailed_ale_stats <- pivot_stats(ale_summary_stats)
 
       ale_summary_plots <- NULL
       # By default, produce ALE plots except if the user explicitly excluded them
       if (!('output' %in% names(ale_options)) ||  # user didn't specify precise ALE output options
           ('plot' %in% ale_options$output)) {    # or if they did, they at least requested plots
         # Produce ALE plots for each variable
-        ale_summary_plots <- map2(
-          ale_summary_data, names(ale_summary_data),
-          \(.x_col_data, .x_col_name) {
-            plot_ale(
-              .x_col_data, .x_col_name, y_col, y_type, y_summary,
-              # Temporarily buggy for binary y
-              x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
-                stats::setNames(c(.x_col_name, y_col)),
+        ale_summary_plots <-
+          ale_summary_data |>
+          map(\(.cat) {
+            .cat |>
+              imap(\(.x_col_data, .x_col_name) {
 
-              ## Later: pass ale_options() that might apply
-              compact_plots = compact_plots
+                plot_ale(
+                  list(.x_col_data),  # temporary workaround before proper S3 plots
+                  .x_col_name, y_col, y_type, y_summary,
+                  # Temporarily buggy for binary y
+                  x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
+                    stats::setNames(c(.x_col_name, y_col)),
 
-              # When y_vals is added
-              # x_y = tibble(data[[.x_col_name]], y_vals) |>
-              #   stats::setNames(c(.x_col_name, y_col)),
-            )
-          }
-        )
+                  ## Later: pass ale_options() that might apply
+                  compact_plots = compact_plots
+
+                  # When y_vals is added
+                  # x_y = tibble(data[[.x_col_name]], y_vals) |>
+                  #   stats::setNames(c(.x_col_name, y_col)),
+                ) |>
+                  pluck(1)  # temporary workaround before proper S3 plots
+              })
+            })
+
+
+        # ale_summary_plots <- map2(
+        #   ale_summary_data, names(ale_summary_data),
+        #   \(.x_col_data, .x_col_name) {
+        #     plot_ale(
+        #       .x_col_data, .x_col_name, y_col, y_type, y_summary,
+        #       # Temporarily buggy for binary y
+        #       x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
+        #         stats::setNames(c(.x_col_name, y_col)),
+        #
+        #       ## Later: pass ale_options() that might apply
+        #       compact_plots = compact_plots
+        #
+        #       # When y_vals is added
+        #       # x_y = tibble(data[[.x_col_name]], y_vals) |>
+        #       #   stats::setNames(c(.x_col_name, y_col)),
+        #     )
+        #   }
+        # )
 
         # Also produce an ALE effects plot
 
@@ -712,14 +782,19 @@ model_bootstrap <- function (
           ale_options$median_band_pct
         }
 
-        detailed_ale_stats$effects_plot <- plot_effects(
-          detailed_ale_stats$estimate,
-          data[[y_col]],
-          y_col,
-          middle_band,
-          # later pass ale_options like compact_plots
-          compact_plots = compact_plots
-        )
+        detailed_ale_stats <- detailed_ale_stats |>
+          map(\(.cat) {
+            .cat$effects_plot <- plot_effects(
+              .cat$estimate,
+              data[[y_col]],
+              y_col,
+              median_band_pct,
+              # later pass ale_options like compact_plots
+              compact_plots = compact_plots
+            )
+
+            .cat
+          })
 
       }
 

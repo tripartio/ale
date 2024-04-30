@@ -290,8 +290,6 @@ calc_ale <- function(
     x_level_counts <- table(X[[x_col]])
     x_level_probs <- x_level_counts / sum(x_level_counts)
 
-    # browser()
-
     # If x_type is ordinal or categorical,
     # reset xint to the number of unique values of X[[x_col]]: length(x_level_counts)
     if (x_type %in% c('ordinal', 'categorical')) {
@@ -347,8 +345,6 @@ calc_ale <- function(
               as.numeric()
           )
           # (`[`)(as.numeric(X[[x_col]]))
-
-        # browser()
 
         # x levels sorted in ALE order
         levels_ale_order <-
@@ -418,7 +414,6 @@ calc_ale <- function(
       map(
         boot_ale$row_idxs,
         \(.idxs) {
-
           # Initialize hi and lo X matrices with this particular bootstrap sample
           X_boot <- X[.idxs, ]
 
@@ -442,8 +437,6 @@ calc_ale <- function(
           invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
           for (i in invalid_hi_idxs) {
 
-            # if (x_col == 'Business_Unit') browser()
-
             hi_idxs[i] <-
               if (hi_idxs[i] > max(X_boot_x_col_unique_idxs)) {
                 max(X_boot_x_col_unique_idxs)
@@ -451,8 +444,6 @@ calc_ale <- function(
                 min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
               }
           }
-
-          # if (x_col == 'Gender') browser()
 
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
@@ -487,47 +478,92 @@ calc_ale <- function(
               levels_ale_order[lo_idxs]
             }
 
+          # Compute predictions, lower bounds predictions, and upper bound predictions
           pred_y  <- pred_fun(model, X_boot, pred_type)
-          pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, ], pred_type)
-          pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, ], pred_type)
+          pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, , drop = FALSE], pred_type)
+          pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, , drop = FALSE], pred_type)
+
+          # Convert single predictions to matrices for code consistency
+          if (!is.matrix(pred_y)) {
+            pred_y  <- matrix(pred_y,  ncol = 1, dimnames = list(NULL, y_cats))
+            pred_lo <- matrix(pred_lo, ncol = 1, dimnames = list(NULL, y_cats))
+            pred_hi <- matrix(pred_hi, ncol = 1, dimnames = list(NULL, y_cats))
+          }
 
           #Take the appropriate differencing and averaging for the ALE plot
 
           ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
           # individual local effects: differences between predictions with the level of
           # X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
-          delta_hi <- pred_hi - pred_y[row_idx_not_hi]
+          delta_hi <- pred_hi - pred_y[row_idx_not_hi, , drop = FALSE]
 
           ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
           # actual level minus predictions decreased by one ordinal level
-          delta_lo <- pred_y[row_idx_not_lo] - pred_lo
+          delta_lo <- pred_y[row_idx_not_lo, , drop = FALSE] - pred_lo
 
-          # Generate the cumulative ale_y predictions
-          cum_pred <-
-            c(delta_hi, delta_lo) |>
-            # list where each element is vector of x_col values in that x_int interval
-            split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
-            map_dbl(mean) |>
-            cumsum()
+          # Create and return ale_y
+          y_cats |>
+            map(\(.cat) {
+              # Generate the cumulative ale_y predictions
+              cum_pred <-
+                c(delta_hi[, .cat, drop = FALSE], delta_lo[, .cat, drop = FALSE]) |>
+                # list where each element is vector of x_col values in that x_int interval
+                split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
+                map_dbl(mean) |>
+                cumsum()
 
-            #  The ale_y just created might have gaps if this data does not have
-            # all the ale_x intervals. This might be the case for small bootstrapped
-            # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+              #  The ale_y just created might have gaps if this data does not have
+              # all the ale_x intervals. This might be the case for small bootstrapped
+              # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
-            # Get the numbered indexes that are actually used
-            cum_pred_idx_names <- names(cum_pred)
+              # Get the numbered indexes that are actually used
+              cum_pred_idx_names <- names(cum_pred)
 
-            # Extend the ale_y to set missing ale_x intervals as NA
-            1:(length_ale_x - 1) |>
-              map_dbl(\(.i) {
-                if (.i %in% cum_pred_idx_names) {
-                  cum_pred[[as.character(.i)]]
-                } else {
-                  NA
-                }
-              }) |>
-              c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-              unname()
+              # Extend the ale_y to set missing ale_x intervals as NA
+              1:(length_ale_x - 1) |>
+                map_dbl(\(.i) {
+                  if (.i %in% cum_pred_idx_names) {
+                    cum_pred[[as.character(.i)]]
+                  } else {
+                    NA
+                  }
+                }) |>
+                c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+                unname()
+            }) |>
+            unlist() |>
+            matrix(
+              ncol = length(y_cats),
+              dimnames = list(NULL, y_cats)
+            )
+
+
+          # # Generate the cumulative ale_y predictions
+          # cum_pred <-
+          #   c(delta_hi, delta_lo) |>
+          #   # list where each element is vector of x_col values in that x_int interval
+          #   split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
+          #   map_dbl(mean) |>
+          #   cumsum()
+          #
+          # #  The ale_y just created might have gaps if this data does not have
+          # # all the ale_x intervals. This might be the case for small bootstrapped
+          # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+          #
+          # # Get the numbered indexes that are actually used
+          # cum_pred_idx_names <- names(cum_pred)
+          #
+          # # Extend the ale_y to set missing ale_x intervals as NA
+          # 1:(length_ale_x - 1) |>
+          #   map_dbl(\(.i) {
+          #     if (.i %in% cum_pred_idx_names) {
+          #       cum_pred[[as.character(.i)]]
+          #     } else {
+          #       NA
+          #     }
+          #   }) |>
+          #   c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+          #   unname()
 
         }
       )
@@ -536,14 +572,19 @@ calc_ale <- function(
     # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
     # boot_ale$ale_y[[1]]
     ale_y_full <- boot_ale$ale_y[[1]]
-    ale_y_shift <- sum(ale_y_full * x_level_probs[idx_ord_orig_level],
-                       na.rm = TRUE)
+    ale_y_shift <-
+      ale_y_full |>
+      (`*`)(x_level_probs[idx_ord_orig_level] |> as.numeric()) |>
+      colSums(na.rm = TRUE)
+    # ale_y_shift <- sum(ale_y_full * x_level_probs[idx_ord_orig_level],
+    #                    na.rm = TRUE)
 
   }
 
   # Center all the ale_y values
   boot_ale$ale_y <- boot_ale$ale_y |>
     map(\(.y) {
+
       .y |>
         # subtract ale_y_shift row by row
         apply(1, \(.row) {

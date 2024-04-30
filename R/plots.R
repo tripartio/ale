@@ -75,7 +75,6 @@ plot_ale <- function(
   # Then shift all the y summary data
   y_summary <- y_summary + y_shift
 
-
   # Determine datatype of ale_x
   # Note: all non-numeric ale_x are ordered factors (ordinal)
   x_type <- var_type(ale_data$ale_x)
@@ -226,19 +225,34 @@ plot_ale <- function(
           seed = seed
         )
       )
-    }
+  }
 
-  return(
-    if (compact_plots) {
-      # Strip plot of environment or other extraneous elements
-      # https://stackoverflow.com/a/77373906/2449926
-      plot |>
+  # Temporary plot return for 202404
+  plot <- if (compact_plots) {
+    # Strip plot of environment or other extraneous elements
+    # https://stackoverflow.com/a/77373906/2449926
+    plot |>
       ggplotGrob() |>
       ggpubr::as_ggplot()
-    } else {
-      plot
-    }
-  )
+  } else {
+    plot
+  }
+
+  return_plot <- list()
+  return_plot[[y_col]] <- plot
+  return(return_plot)
+
+  # return(
+  #   if (compact_plots) {
+  #     # Strip plot of environment or other extraneous elements
+  #     # https://stackoverflow.com/a/77373906/2449926
+  #     plot |>
+  #     ggplotGrob() |>
+  #     ggpubr::as_ggplot()
+  #   } else {
+  #     plot
+  #   }
+  # )
 }
 
 

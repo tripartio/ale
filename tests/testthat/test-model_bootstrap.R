@@ -44,7 +44,10 @@ test_that(
       compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
+    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
+    # mb$ale$stats$mpg$effects_plot <- ale_plots_to_data(list(mb$ale$stats$mpg$effects_plot))
     expect_snapshot(mb)
   }
 )
@@ -65,7 +68,9 @@ test_that(
       compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
+    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     expect_snapshot(mb)
   }
 )
@@ -89,7 +94,9 @@ test_that(
       compact_plots = TRUE
     )
     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$effects_plot <- ale_plots_to_data(list(mb$ale$stats$effects_plot))
+    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     expect_snapshot(mb)
   }
 )

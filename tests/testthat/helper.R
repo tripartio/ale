@@ -40,9 +40,22 @@ test_gam_binary <- mgcv::gam(vs ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qs
 ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
+
+  # browser()
   ale_plots |>
-    purrr::map(\(.plot) ggplot2::ggplot_build(.plot)$data) |>
+    purrr::map(\(.cat) {
+      # browser()
+      .cat |>
+        purrr::map(\(.plot) {
+          # browser()
+          ggplot2::ggplot_build(.plot)$data
+        }) |>
+      purrr::set_names(names(.cat))
+      }) |>
     purrr::set_names(names(ale_plots))
+
+    # purrr::map(\(.plot) ggplot2::ggplot_build(.plot)$data) |>
+    # purrr::set_names(names(ale_plots))
 }
 
 # custom predict function ------------
