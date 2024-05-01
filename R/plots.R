@@ -496,17 +496,32 @@ plot_ale_ixn <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
-  return(
-    if (compact_plots) {
-      # Strip plot of environment or other extraneous elements
-      # https://stackoverflow.com/a/77373906/2449926
-      plot |>
-        ggplotGrob() |>
-        ggpubr::as_ggplot()
-    } else {
-      plot
-    }
-  )
+  # Temporary plot return for 202404
+  plot <- if (compact_plots) {
+    # Strip plot of environment or other extraneous elements
+    # https://stackoverflow.com/a/77373906/2449926
+    plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+  } else {
+    plot
+  }
+
+  return_plot <- list()
+  return_plot[[y_col]] <- plot
+  return(return_plot)
+
+  # return(
+  #   if (compact_plots) {
+  #     # Strip plot of environment or other extraneous elements
+  #     # https://stackoverflow.com/a/77373906/2449926
+  #     plot |>
+  #     ggplotGrob() |>
+  #     ggpubr::as_ggplot()
+  #   } else {
+  #     plot
+  #   }
+  # )
 }
 
 

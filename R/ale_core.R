@@ -836,14 +836,14 @@ ale_core <- function (
       names() |>
       setdiff(y_col)
   }
-  # Eliminate all x1_cols that are not numeric
-  # This is only temporary, until calc_ale_ixn is rewritten to recognize
-  # binary and ordinal
-  x1_cols <-
-    data |>
-    select(any_of(x1_cols)) |>
-    select(where(is.numeric)) |>
-    names()
+  # # Eliminate all x1_cols that are not numeric
+  # # This is only temporary, until calc_ale_ixn is rewritten to recognize
+  # # binary and ordinal
+  # x1_cols <-
+  #   data |>
+  #   select(any_of(x1_cols)) |>
+  #   select(where(is.numeric)) |>
+  #   names()
 
   # If x2_cols is default (NULL), set it to the names of all x variables
   if (is.null(x2_cols)) {

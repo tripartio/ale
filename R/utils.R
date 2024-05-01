@@ -44,7 +44,7 @@
 #
 #  @param var vector whose datatype is to be determined
 #
-#  @returns Returns generic datatypes of R basic vectors according to the following mapping:
+#  @return Returns generic datatypes of R basic vectors according to the following mapping:
 #  * `logical` returns 'binary'
 #  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
 #  * However, if the only values of numeric are 0 and 1, then it returns 'binary'

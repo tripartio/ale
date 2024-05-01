@@ -68,8 +68,8 @@ calc_ale <- function(
     # it: bootstrap iteration number.
     # Row 0 is the full dataset without bootstrapping
     it = 0:boot_it,
-    # row_idxs: row indexes of each bootstrap sample.
-    # Store just the indexes rather than duplicating the entire dataset
+    # row_idxs: row indices of each bootstrap sample.
+    # Store just the indices rather than duplicating the entire dataset
     #   multiple times.
     row_idxs = map(0:boot_it, \(.it) {
       if (.it == 0) {  # row 0 is the full dataset without bootstrapping
@@ -191,7 +191,7 @@ calc_ale <- function(
         # all the ale_x intervals. This might be the case for small bootstrapped
         # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
-        # Get the numbered indexes that are actually used
+        # Get the numbered indices that are actually used
         cum_pred_idx_names <- rownames(cum_pred)
 
         # Extend the ale_y to set missing ale_x intervals as NA
@@ -221,7 +221,7 @@ calc_ale <- function(
         # # all the ale_x intervals. This might be the case for small bootstrapped
         # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
         #
-        # # Get the numbered indexes that are actually used
+        # # Get the numbered indices that are actually used
         # cum_pred_idx_names <- names(cum_pred)
         #
         # # Extend the ale_y to set missing ale_x intervals as NA
@@ -287,42 +287,40 @@ calc_ale <- function(
     # }
 
 
-    # tabulate level counts and probabilities
-    x_level_counts <- table(X[[x_col]])
-    x_level_probs <- x_level_counts / sum(x_level_counts)
+    # tabulate interval counts and probabilities
+    x_int_counts <- table(X[[x_col]])
+    x_int_probs <- x_int_counts / sum(x_int_counts)
 
     # If x_type is ordinal or categorical,
-    # set xint to the number of unique values of X[[x_col]]: length(x_level_counts)
+    # set xint to the number of unique values of X[[x_col]]: length(x_int_counts)
     if (x_type %in% c('ordinal', 'categorical')) {
-      xint <- length(x_level_counts)
+      xint <- length(x_int_counts)
     }
 
 
 
-    # Calculate three key variables that determine the ordering of the ale_x axis,
-    # depending on if x_type is binary, categorical, or ordinal:
-    # * idx_ord_orig_level: new indexes of the original factor levels after they
-    #     have been ordered for ALE purposes
-    # * x_ordered_idx: index of x_col value according to ordered indexes
-    # * levels_ale_order: x levels sorted in ALE order
+    # Calculate three key variables that determine the ordering of the ale_x axis, depending on if x_type is binary, categorical, or ordinal:
+    # * idx_ord_orig_int: new indices of the original intervals or factor levels after they have been ordered for ALE purposes
+    # * x_ordered_idx: index of x_col value according to ordered indices
+    # * int_ale_order: x intervals sorted in ALE order
 
     if (is.null(ale_x)) {  # Calculate ale_x based on x_col datatype
 
       if (x_type == 'binary') {
 
-        xint <- 2  # a binary variable has only two levels, by definition
+        xint <- 2  # a binary variable has only two intervals, by definition
 
-        # calculate the indexes of the original levels after ordering them
-        idx_ord_orig_level <- c(1L, 2L)
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- c(1L, 2L)
 
-        # index of x_col value according to ordered indexes
+        # index of x_col value according to ordered indices
         x_ordered_idx <-
           X[[x_col]] |>
           as.factor() |>
           as.integer()  # becomes 2L for TRUE and 1L for FALSE
 
-        # x levels sorted in ALE order
-        levels_ale_order <-
+        # x intervals sorted in ALE order
+        int_ale_order <-
           X[[x_col]] |>
           unique() |>
           sort()
@@ -330,14 +328,14 @@ calc_ale <- function(
       }
       else if (x_type == 'categorical') {
 
-        # calculate the indexes of the original levels after ordering them
-        idx_ord_orig_level <-
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <-
           # Call function to order categorical categories
-          idxs_kolmogorov_smirnov(X, x_col, xint, x_level_counts)
+          idxs_kolmogorov_smirnov(X, x_col, xint, x_int_counts)
 
-        # index of x_col value according to ordered indexes
+        # index of x_col value according to ordered indices
         x_ordered_idx <-
-          idx_ord_orig_level |>
+          idx_ord_orig_int |>
           sort(index.return = TRUE) |>
           (`[[`)('ix') |>
           (`[`)(
@@ -347,32 +345,32 @@ calc_ale <- function(
           )
           # (`[`)(as.numeric(X[[x_col]]))
 
-        # x levels sorted in ALE order
-        levels_ale_order <-
-          x_level_counts |>
+        # x intervals sorted in ALE order
+        int_ale_order <-
+          x_int_counts |>
           names() |>
           # This older code only worked for factors; the revision also works for characters
           # X[[x_col]] |>
           # levels() |>
-          (`[`)(idx_ord_orig_level)
+          (`[`)(idx_ord_orig_int)
 
       }
       else if (x_type == 'ordinal') {
 
-        # calculate the indexes of the original levels after ordering them
-        idx_ord_orig_level <- 1:nlevels(X[[x_col]])
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- 1:nlevels(X[[x_col]])
 
-        # index of x_col value according to ordered indexes
+        # index of x_col value according to ordered indices
         x_ordered_idx <- as.integer(X[[x_col]])
 
-        # x levels sorted in ALE order
-        levels_ale_order <- levels(X[[x_col]])
+        # x intervals sorted in ALE order
+        int_ale_order <- levels(X[[x_col]])
 
       }
 
       # ale_x: xint quantile intervals of x_col values
-      ale_x <- levels_ale_order |>
-        factor(levels = levels_ale_order, ordered = TRUE)
+      ale_x <- int_ale_order |>
+        factor(levels = int_ale_order, ordered = TRUE)
 
       # ale_n: number of rows of x in each ale_x interval
       ale_n <-
@@ -391,15 +389,15 @@ calc_ale <- function(
 
     else {  # reuse values based on ale_x passed as argument
 
-      # calculate the indexes of the original levels after ordering them
-      idx_ord_orig_level <- 1:length(ale_x)
+      # calculate the indices of the original intervals after ordering them
+      idx_ord_orig_int <- 1:length(ale_x)
 
-      # x levels sorted in ALE order
-      levels_ale_order <- levels(ale_x)
+      # x intervals sorted in ALE order
+      int_ale_order <- levels(ale_x)
 
-      # index of x_col value according to ordered indexes
+      # index of x_col value according to ordered indices
       x_ordered_idx <- X[[x_col]] |>
-        ordered(levels = levels_ale_order) |>
+        ordered(levels = int_ale_order) |>
         as.integer()
 
     }
@@ -418,13 +416,13 @@ calc_ale <- function(
           # Initialize hi and lo X matrices with this particular bootstrap sample
           X_boot <- X[.idxs, ]
 
-          # X_boot_x_col_unique_idxs: unique factor indexes present in current
+          # X_boot_x_col_unique_idxs: unique factor indices present in current
           # bootstrap sample. This is necessary because for a full model outer
           # bootstrap, a random bootstrap sample might not have all the levels
           # in the full dataset.
           X_boot_x_col_unique_idxs <-
             X_boot[[x_col]] |>
-            ordered(levels = levels_ale_order) |>
+            ordered(levels = int_ale_order) |>
             as.integer() |>
             unique()
 
@@ -449,9 +447,9 @@ calc_ale <- function(
           # Assign rows that are not already at the highest level to their upper bound
           X_hi[row_idx_not_hi, x_col] <-
             if (identical(class(X_hi[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(levels_ale_order[hi_idxs])
+              as.logical(int_ale_order[hi_idxs])
             } else {
-              levels_ale_order[hi_idxs]
+              int_ale_order[hi_idxs]
             }
 
           # X_lo: X_boot with x_col values all set at the previous x_col level.
@@ -474,9 +472,9 @@ calc_ale <- function(
           # Assign rows that are not already at the lowest level to their lower bound
           X_lo[row_idx_not_lo, x_col] <-
             if (identical(class(X_lo[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(levels_ale_order[lo_idxs])
+              as.logical(int_ale_order[lo_idxs])
             } else {
-              levels_ale_order[lo_idxs]
+              int_ale_order[lo_idxs]
             }
 
           # Compute predictions, lower bounds predictions, and upper bound predictions
@@ -517,7 +515,7 @@ calc_ale <- function(
               # all the ale_x intervals. This might be the case for small bootstrapped
               # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
-              # Get the numbered indexes that are actually used
+              # Get the numbered indices that are actually used
               cum_pred_idx_names <- names(cum_pred)
 
               # Extend the ale_y to set missing ale_x intervals as NA
@@ -551,7 +549,7 @@ calc_ale <- function(
           # # all the ale_x intervals. This might be the case for small bootstrapped
           # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
           #
-          # # Get the numbered indexes that are actually used
+          # # Get the numbered indices that are actually used
           # cum_pred_idx_names <- names(cum_pred)
           #
           # # Extend the ale_y to set missing ale_x intervals as NA
@@ -575,9 +573,9 @@ calc_ale <- function(
     ale_y_full <- boot_ale$ale_y[[1]]
     ale_y_shift <-
       ale_y_full |>
-      (`*`)(x_level_probs[idx_ord_orig_level] |> as.numeric()) |>
+      (`*`)(x_int_probs[idx_ord_orig_int] |> as.numeric()) |>
       colSums(na.rm = TRUE)
-    # ale_y_shift <- sum(ale_y_full * x_level_probs[idx_ord_orig_level],
+    # ale_y_shift <- sum(ale_y_full * x_int_probs[idx_ord_orig_int],
     #                    na.rm = TRUE)
 
   }
@@ -807,16 +805,16 @@ calc_ale <- function(
 }
 
 
-# Sorted categorical indexes based on Kolmogorov-Smirnov distances
+# Sorted categorical indices based on Kolmogorov-Smirnov distances
 # for empirically ordering categorical categories.
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,
     xint,
-    x_level_counts
+    x_int_counts
   ) {
 
-  # Initialize distance matrices between pairs of levels of X[[x_col]]
+  # Initialize distance matrices between pairs of intervals of X[[x_col]]
   dist_mx <- matrix(0, xint, xint)
   cdm <- matrix(0, xint, xint)  # cumulative distance matrix
 
@@ -824,31 +822,36 @@ idxs_kolmogorov_smirnov <- function(
   for (j_col in setdiff(names(X), x_col)) {
     if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
 
-      # list of ecdf's for X[[j_col]] by levels of X[[x_col]]
-      j_by_x_groups <- split(X[[j_col]], X[[x_col]])
+      # # list of ecdf's for X[[j_col]] by intervals of X[[x_col]]
+      # j_by_x_groups <- split(X[[j_col]], X[[x_col]])
+      #
+      # # Create ecdf's, but return NA for any group that is only NA or else the code will crash
+      # x_by_j_ecdf <-
+      #   j_by_x_groups |>
+      #   map(\(.group) {
+      #
+      #     if (all(is.na(.group))) {
+      #     function(x) NA
+      #     } else {
+      #       stats::ecdf(.group)
+      #     }
+      #   })
 
-      # Create ecdf's, but return NA for any group that is only NA or else the code will crash
-      x_by_j_ecdf <-
-        j_by_x_groups |>
-        map(\(.group) {
+      # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
+      x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)
+      # x.ecdf=tapply(X[,j], X[,J], ecdf)
 
-          if (all(is.na(.group))) {
-          function(x) NA
-          } else {
-            stats::ecdf(.group)
-          }
-        })
-
-      # quantiles of X[[j_col]] for all levels of X[[x_col]] combined
-      j_quantiles <- stats::quantile(X[[j_col]],
-                                     probs = seq(0, 1, length.out = 100),
-                                     na.rm = TRUE,
-                                     names = FALSE)
+      # quantiles of X[[j_col]] for all intervals of X[[x_col]] combined
+      j_quantiles <- stats::quantile(
+        X[[j_col]],
+        probs = seq(0, 1, length.out = 100),
+        na.rm = TRUE,
+        names = FALSE
+      )
 
       for (i in 1:(xint - 1)) {
         for (k in (i + 1):xint) {
-          # Kolmogorov-Smirnov distance between X[[j_col]]
-          # for levels i and k of X[[x_col]]; always within [0, 1]
+          # Kolmogorov-Smirnov distance between X[[j_col]] for intervals i and k of X[[x_col]]; always within [0, 1]
           dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
                                      x_by_j_ecdf[[k]](j_quantiles)))
           dist_mx[k, i] <- dist_mx[i, k]
@@ -857,7 +860,7 @@ idxs_kolmogorov_smirnov <- function(
     }
     else {  # distance matrix for non-numeric j_col
       x_j_freq <- table(X[[x_col]], X[[j_col]])  #frequency table, rows of which will be compared
-      x_j_freq <- x_j_freq / as.numeric(x_level_counts)
+      x_j_freq <- x_j_freq / as.numeric(x_int_counts)
       for (i in 1:(xint-1)) {
         for (k in (i+1):xint) {
           # Dissimilarity measure always within [0, 1]
@@ -868,14 +871,14 @@ idxs_kolmogorov_smirnov <- function(
       }
     }
 
-
     cdm <- cdm + dist_mx
+
   }
 
   # Replace any NA with the maximum distance
   cdm[is.na(cdm)] <- max(cdm, na.rm = TRUE)
 
-  # Convert cumulative distance matrix to sorted indexes
+  # Convert cumulative distance matrix to sorted indices
   idxs <- cdm |>
     stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
     sort(index.return = TRUE) |>
