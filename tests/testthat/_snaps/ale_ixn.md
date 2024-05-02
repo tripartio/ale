@@ -859,9 +859,6 @@
     Output
       $data
       $data$cyl
-      $data$cyl$disp
-      NULL
-      
       $data$cyl$hp
       NULL
       
@@ -889,14 +886,6 @@
       
       $plots
       $plots$cyl
-      $plots$cyl$disp
-      $plots$cyl$disp$mpg
-      $plots$cyl$disp$mpg[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
       $plots$cyl$hp
       $plots$cyl$hp$mpg
       $plots$cyl$hp$mpg[[1]]
@@ -954,7 +943,7 @@
       [1] "cyl"     "disp"    "vs"      "gear"    "country"
       
       $x2_cols
-      [1] "cyl"  "disp" "hp"  
+      [1] "cyl" "hp" 
       
       $y_summary
                     mpg
@@ -2033,9 +2022,6 @@
     Output
       $data
       $data$cyl
-      $data$cyl$disp
-      NULL
-      
       $data$cyl$hp
       NULL
       
@@ -2063,14 +2049,6 @@
       
       $plots
       $plots$cyl
-      $plots$cyl$disp
-      $plots$cyl$disp$vs
-      $plots$cyl$disp$vs[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
       $plots$cyl$hp
       $plots$cyl$hp$vs
       $plots$cyl$hp$vs[[1]]
@@ -2128,7 +2106,7 @@
       [1] "cyl"     "disp"    "am"      "gear"    "country"
       
       $x2_cols
-      [1] "cyl"  "disp" "hp"  
+      [1] "cyl" "hp" 
       
       $y_summary
                           vs

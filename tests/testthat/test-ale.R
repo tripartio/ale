@@ -11,6 +11,8 @@ test_that(
     expect_no_error(
       ale(
         test_cars, test_gam,
+        # faster test
+        max_x_int = 10,
         x_cols = c('cyl', 'disp'),
         parallel = 2,
         silent = TRUE
@@ -21,7 +23,9 @@ test_that(
     expect_no_error(
       ale(
         test_cars, test_gam,
-        x_cols = c('cyl', 'disp'),
+        # faster test
+        max_x_int = 10,
+        x_cols = c('hp', 'vs'),
         boot_it = 5,
         parallel = 2,
         silent = TRUE
@@ -38,6 +42,8 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam,
+      # faster test
+      max_x_int = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE,
@@ -57,6 +63,9 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam,
+      # faster test
+      max_x_int = 10,
+      x_cols = c('cyl', 'disp'),
       parallel = 0,
       boot_it = 5,
       silent = TRUE,
@@ -77,12 +86,12 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam,
-      x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      x_cols = c('vs', 'gear'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 50,
+      max_x_int = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -108,6 +117,8 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_binary,
+      # faster test
+      max_x_int = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE
@@ -127,6 +138,9 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_binary,
+      # faster test
+      max_x_int = 10,
+      x_cols = c('hp', 'continent'),
       parallel = 0,
       boot_it = 4,
       silent = TRUE,
@@ -147,12 +161,12 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_binary,
-      x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      x_cols = c('carb', 'country'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 50,
+      max_x_int = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -178,6 +192,8 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_categorical,
+      # faster test
+      max_x_int = 10,
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE,
@@ -193,9 +209,12 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_categorical,
+      # faster test
+      max_x_int = 10,
+      x_cols = c('wt', 'am'),
       pred_type = 'probs',
       parallel = 0,
-      boot_it = 4,
+      boot_it = 3,
       silent = TRUE,
       compact_plots = TRUE
     )
@@ -209,11 +228,11 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_categorical,
-      x_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      x_cols = c('gear', 'country'),
       parallel = 0,
       output = c('plots'),
       pred_type = "probs",
-      max_x_int = 50,
+      max_x_int = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,

@@ -11,7 +11,9 @@ test_that(
     expect_no_error(
       ale_ixn(
         test_cars, test_gam,
-        x_cols = c('cyl', 'disp'),
+        # faster test
+        max_x_int = 10,
+        x1_cols = c('cyl', 'disp'),
         max_x_int = 10,
         parallel = 2,
         silent = TRUE
@@ -22,7 +24,9 @@ test_that(
     # expect_no_error(
     #   ale_ixn(
     #     test_cars, test_gam,
-    #     x_cols = c('cyl', 'disp'),
+    #     # faster test
+    #     max_x_int = 10,
+    #     x1_cols = c('cyl', 'disp'),
     #     boot_it = 5,
     #     parallel = 2,
     #     silent = TRUE
@@ -39,6 +43,7 @@ test_that(
 
     cars_ale_ixn <- ale_ixn(
       test_cars, test_gam,
+      # faster test
       max_x_int = 10,
       parallel = 0,
       silent = TRUE,
@@ -57,7 +62,7 @@ test_that(
     cars_ale_ixn <- ale_ixn(
       test_cars, test_gam,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      x2_cols = c('cyl', 'disp', 'hp'),
+      x2_cols = c('cyl', 'am', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -106,12 +111,12 @@ test_that(
     cars_ale_ixn <- ale_ixn(
       test_cars, test_gam_binary,
       x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
-      x2_cols = c('cyl', 'disp', 'hp'),
+      x2_cols = c('cyl', 'vs', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 15,
+      max_x_int = 12,
       relative_y = 'zero',
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),

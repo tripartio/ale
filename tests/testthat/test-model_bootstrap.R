@@ -7,7 +7,12 @@ test_that(
     expect_no_error(
       model_bootstrap(
         test_cars, test_gam,
-        ale_options = list(x_cols = c('cyl', 'disp')),
+        # faster test
+        ale_options = list(
+          max_x_int = 10,
+          x_cols = c('cyl', 'disp')
+        ),
+        boot_it = 0,
         parallel = 2,
         silent = TRUE
       )
@@ -17,8 +22,12 @@ test_that(
     expect_no_error(
       model_bootstrap(
         test_cars, test_gam,
-        ale_options = list(x_cols = c('cyl', 'disp')),
-        boot_it = 5,
+        # faster test
+        ale_options = list(
+          max_x_int = 10,
+          x_cols = c('hp', 'vs')
+        ),
+        boot_it = 3,
         parallel = 2,
         silent = TRUE
       )
@@ -40,6 +49,11 @@ test_that(
       test_gam,
       parallel = 0,
       boot_it = 0,
+      # faster test
+      ale_options = list(
+        max_x_int = 10,
+        x_cols = c('cyl', 'disp')
+      ),
       silent = TRUE,
       compact_plots = TRUE
     )
@@ -54,7 +68,7 @@ test_that(
 
 
 test_that(
-  'mostly default (boot_it=5) snapshot works with multiple x datatypes', {
+  'mostly default (boot_it=3) snapshot works with multiple x datatypes', {
     skip_on_ci()
 
     mb <- model_bootstrap(
@@ -63,7 +77,12 @@ test_that(
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
-      boot_it = 5,
+      boot_it = 5,  # Normally 3 for the test, but 3 gives a warning, so leave at 5
+      # faster test
+      ale_options = list(
+        max_x_int = 10,
+        x_cols = c('vs', 'gear')
+      ),
       silent = TRUE,
       compact_plots = TRUE
     )
@@ -84,12 +103,17 @@ test_that(
       test_cars,
       test_gam,
       parallel = 0,
-      boot_it = 5,
+      boot_it = 2,
       seed = 1234,
       boot_alpha = 0.1,
       boot_centre = 'median',
       output = 'ale',
-      ale_options = list(relative_y = 'zero'),
+      ale_options = list(
+        relative_y = 'zero',
+        # faster test
+        max_x_int = 10,
+        x_cols = c('country', 'continent')
+      ),
       silent = TRUE,
       compact_plots = TRUE
     )

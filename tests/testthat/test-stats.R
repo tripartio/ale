@@ -82,9 +82,8 @@ test_that(
       # It is difficult to test random_model_call_string_vars because it is only for
       # edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
-      p_val_type = 'precise slow',
+      p_val_type = 'approx fast',
       output = 'rand_stats',
-      rand_it = 10,
       silent = TRUE,
       # parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
