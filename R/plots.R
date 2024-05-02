@@ -318,7 +318,7 @@ plot_ale_ixn <- function(
   }
 
   # Adjust inputs according to new (202404) data structure
-  ale_data <- ale_data[[1]]  # remove extra category level
+  # ale_data <- ale_data[[1]]  # remove extra category level
   # convert y_summary to a vector instead of a matrix
   y_summary <- y_summary |>
     as.numeric() |>
@@ -399,6 +399,9 @@ plot_ale_ixn <- function(
     y_quantiles[1] <- 0
     y_quantiles[n_y_quant + 1] <- 1
   }
+
+  # browser()
+
 
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
   ale_data <- ale_data |>

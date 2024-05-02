@@ -12,6 +12,7 @@ test_that(
       ale_ixn(
         test_cars, test_gam,
         x_cols = c('cyl', 'disp'),
+        max_x_int = 10,
         parallel = 2,
         silent = TRUE
       )
@@ -38,6 +39,7 @@ test_that(
 
     cars_ale_ixn <- ale_ixn(
       test_cars, test_gam,
+      max_x_int = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE,
@@ -60,7 +62,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 50,
+      max_x_int = 12,
       relative_y = 'zero',
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
@@ -86,6 +88,7 @@ test_that(
 
     cars_ale_ixn <- ale_ixn(
       test_cars, test_gam_binary,
+      max_x_int = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE
@@ -108,7 +111,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 50,
+      max_x_int = 15,
       relative_y = 'zero',
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
