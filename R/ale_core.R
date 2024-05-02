@@ -979,15 +979,14 @@ ale_core <- function (
             plots = plot
           )
         }) |>
-        set_names(x_cols) # |>
-        # purrr::list_transpose(simplify = FALSE)
+        set_names(x_cols)
 
     ales <- ales |>
       # Transpose to group by ale object element (instead of by variable)
-      purrr::list_transpose(simplify = FALSE) |>
+      list_transpose(simplify = FALSE) |>
       # Within each element, transpose again to group by y category
       map(\(.el) {
-        purrr::list_transpose(.el, simplify = FALSE)
+        list_transpose(.el, simplify = FALSE)
       }) |>
       # Set empty elements (usually list()) to NULL
       map(\(.el) {
