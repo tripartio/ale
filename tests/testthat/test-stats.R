@@ -9,21 +9,21 @@ test_that(
     pf <- create_p_funs(
       test_cars,
       test_gam,
-      parallel = 2,
+      # parallel = 0,  # disable parallelization for testing
       silent = TRUE
     )
 
     # expect_snapshot doesn't quite work for pf$value_to_p because function environments change.
     # So, only partially test the function matches.
     expect_equal(
-      names(pf$value_to_p),
+      names(pf$value_to_p$mpg),
       c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
     )
 
     # Verify that the functions give the expected output
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
     expect_snapshot(
-      pf$value_to_p |>
+      pf$value_to_p$mpg |>
         map(\(.stat_fun) {
           .stat_fun(test_vals)
         })
@@ -42,21 +42,21 @@ test_that(
       p_val_type = 'precise slow',
       output = 'rand_stats',
       silent = TRUE,
-      # parallel = 0,  # disable parallelization for reproducible tests
+      # parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
 
     # expect_snapshot doesn't quite work for pf$value_to_p because function environments change.
     # So, only partially test the function matches.
     expect_equal(
-      names(pf$p_to_random_value),
+      names(pf$p_to_random_value$mpg),
       c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
     )
 
     # Verify that the functions give the expected output
     test_vals <- c(0, 0.001, 0.01, 0.01, 0.05, 0.1, 0.5, 1)
     expect_snapshot(
-      pf$p_to_random_value |>
+      pf$p_to_random_value$mpg |>
         map(\(.stat_fun) {
           .stat_fun(test_vals)
         })
@@ -86,14 +86,14 @@ test_that(
       output = 'rand_stats',
       rand_it = 10,
       silent = TRUE,
-      # parallel = 0,  # disable parallelization for reproducible tests
+      # parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
 
     # Verify that the functions give the expected output
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
     expect_snapshot(
-      pf$value_to_p |>
+      pf$value_to_p$mpg |>
         map(\(.stat_fun) {
           .stat_fun(test_vals)
         })
