@@ -9,7 +9,7 @@ test_that(
     pf <- create_p_funs(
       test_cars,
       test_gam,
-      # parallel = 0,  # disable parallelization for testing
+      parallel = 0,  # disable parallelization for testing
       silent = TRUE
     )
 
@@ -42,7 +42,7 @@ test_that(
       p_val_type = 'precise slow',
       output = 'rand_stats',
       silent = TRUE,
-      # parallel = 0,  # disable parallelization for testing
+      parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
 
@@ -85,7 +85,7 @@ test_that(
       p_val_type = 'approx fast',
       output = 'rand_stats',
       silent = TRUE,
-      # parallel = 0,  # disable parallelization for testing
+      parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
 

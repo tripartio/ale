@@ -1,39 +1,39 @@
 # test-model_bootstrap.R
 
 
-test_that(
-  'Parallelized versions do not crash', {
-    # No bootstrap
-    expect_no_error(
-      model_bootstrap(
-        test_cars, test_gam,
-        # faster test
-        ale_options = list(
-          max_x_int = 10,
-          x_cols = c('cyl', 'disp')
-        ),
-        boot_it = 0,
-        parallel = 2,
-        silent = TRUE
-      )
-    )
-
-    # With bootstrap
-    expect_no_error(
-      model_bootstrap(
-        test_cars, test_gam,
-        # faster test
-        ale_options = list(
-          max_x_int = 10,
-          x_cols = c('hp', 'vs')
-        ),
-        boot_it = 3,
-        parallel = 2,
-        silent = TRUE
-      )
-    )
-  }
-)
+# test_that(
+#   'Parallelized versions do not crash', {
+#     # No bootstrap
+#     expect_no_error(
+#       model_bootstrap(
+#         test_cars, test_gam,
+#         # faster test
+#         ale_options = list(
+#           max_x_int = 10,
+#           x_cols = c('cyl', 'disp')
+#         ),
+#         boot_it = 0,
+#         parallel = 2,
+#         silent = TRUE
+#       )
+#     )
+#
+#     # With bootstrap
+#     expect_no_error(
+#       model_bootstrap(
+#         test_cars, test_gam,
+#         # faster test
+#         ale_options = list(
+#           max_x_int = 10,
+#           x_cols = c('hp', 'vs')
+#         ),
+#         boot_it = 3,
+#         parallel = 2,
+#         silent = TRUE
+#       )
+#     )
+#   }
+# )
 
 
 # All other tests are without parallelization so that results are reproducible

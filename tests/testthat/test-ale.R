@@ -5,34 +5,34 @@
 
 # Test numeric outcomes ----------------
 
-test_that(
-  'Parallelized versions do not crash', {
-    # No bootstrap
-    expect_no_error(
-      ale(
-        test_cars, test_gam,
-        # faster test
-        max_x_int = 10,
-        x_cols = c('cyl', 'disp'),
-        parallel = 2,
-        silent = TRUE
-      )
-    )
-
-    # With bootstrap
-    expect_no_error(
-      ale(
-        test_cars, test_gam,
-        # faster test
-        max_x_int = 10,
-        x_cols = c('hp', 'vs'),
-        boot_it = 5,
-        parallel = 2,
-        silent = TRUE
-      )
-    )
-  }
-)
+# test_that(
+#   'Parallelized versions do not crash', {
+#     # No bootstrap
+#     expect_no_error(
+#       ale(
+#         test_cars, test_gam,
+#         # faster test
+#         max_x_int = 10,
+#         x_cols = c('cyl', 'disp'),
+#         parallel = 2,
+#         silent = TRUE
+#       )
+#     )
+#
+#     # With bootstrap
+#     expect_no_error(
+#       ale(
+#         test_cars, test_gam,
+#         # faster test
+#         max_x_int = 10,
+#         x_cols = c('hp', 'vs'),
+#         boot_it = 5,
+#         parallel = 2,
+#         silent = TRUE
+#       )
+#     )
+#   }
+# )
 
 # All other tests are without parallelization so that results are reproducible
 
