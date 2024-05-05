@@ -795,6 +795,28 @@ calc_ale <- function(
     # }
   }
 
+  if (boot_ale_y) {
+    # Transform boot_mx from an array into a list of categories where each element is the bootstrapped ALE for each x interval.
+    boot_mx <-
+      y_cats |>
+      map(\(.cat) {
+        bm <- boot_mx[, .cat, ] |>
+          # Transpose so that rows are bootstrap iterations and columns are x intervals
+          t()
+
+        # Set column names to the ale_x interval names
+        colnames(bm) <- if (is.numeric(ale_x)) {
+          round_dp(ale_x)
+        } else {
+          ale_x
+        }
+
+        bm
+      }) |>
+      set_names(y_cats)
+  }
+
+  # browser()
 
   return(list(
     summary = boot_summary,

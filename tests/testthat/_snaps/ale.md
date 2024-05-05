@@ -455,82 +455,56 @@
       $plots
       $plots$mpg
       $plots$mpg$model
-      $plots$mpg$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$cyl
-      $plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$disp
-      $plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$hp
-      $plots$mpg$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$drat
-      $plots$mpg$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$wt
-      $plots$mpg$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$qsec
-      $plots$mpg$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$vs
-      $plots$mpg$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$am
-      $plots$mpg$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$gear
-      $plots$mpg$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$carb
-      $plots$mpg$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$country
-      $plots$mpg$country[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$continent
-      $plots$mpg$continent[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -849,16 +823,12 @@
       $plots
       $plots$mpg
       $plots$mpg$cyl
-      $plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$mpg$disp
-      $plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -951,29 +921,41 @@
       cars_ale
     Output
       $data
-      NULL
+      $data$mpg
+      $data$mpg$vs
+      # A tibble: 2 x 7
+        ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 FALSE    36  1.63     1.63       1.63         1.63     1.63 
+      2 TRUE     28 -0.291   -0.291     -0.291       -0.291   -0.291
+      
+      $data$mpg$gear
+      # A tibble: 3 x 7
+        ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 three    30  1.21     1.21       1.21         1.21     1.21 
+      2 four     24 -0.137   -0.137     -0.137       -0.137   -0.137
+      3 five     10  0.940    0.940      0.940        0.940    0.940
+      
+      
       
       $boot_data
-      NULL
+      $boot_data$mpg
+      $boot_data$mpg$vs
+             FALSE       TRUE
+      [1,] 1.62847 -0.2907982
+      
+      $boot_data$mpg$gear
+              three       four     five
+      [1,] 1.205605 -0.1369928 0.939512
+      
+      
       
       $stats
       NULL
       
       $plots
-      $plots$mpg
-      $plots$mpg$vs
-      $plots$mpg$vs[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      $plots$mpg$gear
-      $plots$mpg$gear[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
+      NULL
       
       $y_col
       [1] "mpg"
@@ -1494,82 +1476,56 @@
       $plots
       $plots$vs
       $plots$vs$model
-      $plots$vs$model[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$mpg
-      $plots$vs$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$cyl
-      $plots$vs$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$disp
-      $plots$vs$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$hp
-      $plots$vs$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$drat
-      $plots$vs$drat[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$wt
-      $plots$vs$wt[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$qsec
-      $plots$vs$qsec[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$am
-      $plots$vs$am[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$gear
-      $plots$vs$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$carb
-      $plots$vs$carb[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$country
-      $plots$vs$country[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$continent
-      $plots$vs$continent[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -1887,16 +1843,12 @@
       $plots
       $plots$vs
       $plots$vs$hp
-      $plots$vs$hp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $plots$vs$continent
-      $plots$vs$continent[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -1995,29 +1947,50 @@
       cars_ale
     Output
       $data
-      NULL
+      $data$vs
+      $data$vs$carb
+      # A tibble: 6 x 7
+        ale_x ale_n     ale_y  ale_y_lo ale_y_mean ale_y_median  ale_y_hi
+        <dbl> <int>     <dbl>     <dbl>      <dbl>        <dbl>     <dbl>
+      1     1    14  6.18e-16  6.18e-16   6.18e-16     6.18e-16  6.18e-16
+      2     2    19  2.37e-16  2.37e-16   2.37e-16     2.37e-16  2.37e-16
+      3     3     9 -1.70e-16 -1.70e-16  -1.70e-16    -1.70e-16 -1.70e-16
+      4     4    16 -5.77e-16 -5.77e-16  -5.77e-16    -5.77e-16 -5.77e-16
+      5     5     2 -9.79e-16 -9.79e-16  -9.79e-16    -9.79e-16 -9.79e-16
+      6     8     4 -2.20e-15 -2.20e-15  -2.20e-15    -2.20e-15 -2.20e-15
+      
+      $data$vs$country
+      # A tibble: 6 x 7
+        ale_x   ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
+        <ord>   <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
+      1 Sweden      2  0.0920   0.0920     0.0920       0.0920   0.0920
+      2 UK          2  0.121    0.121      0.121        0.121    0.121 
+      3 Italy       8 -0.224   -0.224     -0.224       -0.224   -0.224 
+      4 Japan      12 -0.152   -0.152     -0.152       -0.152   -0.152 
+      5 Germany    16 -0.242   -0.242     -0.242       -0.242   -0.242 
+      6 USA        24 -0.252   -0.252     -0.252       -0.252   -0.252 
+      
+      
       
       $boot_data
-      NULL
+      $boot_data$vs
+      $boot_data$vs$carb
+                      1            2             3             4             5
+      [1,] 6.181434e-16 2.369998e-16 -1.700819e-16 -5.765029e-16 -9.789587e-16
+                       8
+      [1,] -2.200204e-15
+      
+      $boot_data$vs$country
+               Sweden        UK      Italy      Japan    Germany        USA
+      [1,] 0.09196439 0.1211259 -0.2241828 -0.1518087 -0.2416638 -0.2518038
+      
+      
       
       $stats
       NULL
       
       $plots
-      $plots$vs
-      $plots$vs$carb
-      $plots$vs$carb[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      $plots$vs$country
-      $plots$vs$country[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
+      NULL
       
       $y_col
       [1] "vs"
@@ -2864,6 +2837,10 @@
       12 carb    2.56e- 7 -3.01e- 7 2.17e- 7  40.3       -50      31.2
       13 country 2.80e- 1 -2.54e- 1 7.46e- 1  46.5       -50      31.2
       
+      $stats$Asia$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       $stats$Europe
       $stats$Europe$by_term
@@ -3138,6 +3115,10 @@
       11 gear    2.74e- 7 -2.93e- 7 2.58e- 7 26.8        -50      6.25
       12 carb    2.61e- 8 -1.89e- 7 9.30e- 9 10.4        -50      6.25
       13 country 4.64e- 1 -4.70e- 1 5.30e- 1 30.9        -50      6.25
+      
+      $stats$Europe$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
       
       
       $stats$`North America`
@@ -3414,10 +3395,175 @@
       12 carb    2.74e- 7 -2.26e- 7 4.90e- 7  31.8       -50     12.5 
       13 country 4.11e- 1 -3.65e- 1 5.49e- 1  35.9       -50     12.5 
       
+      $stats$`North America`$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       $plots
-      NULL
+      $plots$Asia
+      $plots$Asia$model
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$mpg
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$cyl
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$disp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$hp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$drat
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$qsec
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$vs
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$gear
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$carb
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$country
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$Europe
+      $plots$Europe$model
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$mpg
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$cyl
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$disp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$hp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$drat
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$qsec
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$vs
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$gear
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$carb
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$country
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$`North America`
+      $plots$`North America`$model
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$mpg
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$cyl
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$disp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$hp
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$drat
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$qsec
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$vs
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$gear
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$carb
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$country
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
       
       $conf_regions
       $conf_regions$Asia
@@ -3813,27 +3959,27 @@
        [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
       
       $y_summary
-                       Asia       Europe North America
-      q        5.000000e-02 5.000000e-02  5.000000e-02
-      min      0.000000e+00 0.000000e+00  0.000000e+00
-      1%       7.354191e-24 8.133360e-27  5.102801e-28
-      2.5%     1.248901e-23 1.508162e-26  1.133495e-27
-      5%       4.367285e-23 4.704169e-25  8.208768e-27
-      10%      5.542613e-22 6.644965e-24  4.293177e-25
-      25%      1.684372e-19 5.198488e-21  1.356956e-21
-      med_lo_2 1.684372e-19 5.198488e-21  1.356956e-21
-      med_lo   1.200641e-16 2.109482e-15  3.338137e-12
-      50%      1.316435e-16 3.095230e-15  7.209044e-12
-      mean     3.333333e-01 3.333333e-01  3.333333e-01
-      med_hi   3.394617e-16 1.848171e-14  3.196379e-11
-      med_hi_2 1.076098e-10 1.000000e+00  1.000000e+00
-      75%      1.076098e-10 1.000000e+00  1.000000e+00
-      75%      1.076098e-10 1.000000e+00  1.000000e+00
-      90%      1.000000e+00 1.000000e+00  1.000000e+00
-      95%      1.000000e+00 1.000000e+00  1.000000e+00
-      97.5%    1.000000e+00 1.000000e+00  1.000000e+00
-      99%      1.000000e+00 1.000000e+00  1.000000e+00
-      max      1.000000e+00 1.000000e+00  1.000000e+00
+                  continent         Asia       Europe North America
+      q        5.000000e-02 5.000000e-02 5.000000e-02  5.000000e-02
+      min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
+      1%       8.133360e-27 7.354191e-24 8.133360e-27  5.102801e-28
+      2.5%     1.508162e-26 1.248901e-23 1.508162e-26  1.133495e-27
+      5%       4.704169e-25 4.367285e-23 4.704169e-25  8.208768e-27
+      10%      6.644965e-24 5.542613e-22 6.644965e-24  4.293177e-25
+      25%      5.198488e-21 1.684372e-19 5.198488e-21  1.356956e-21
+      med_lo_2 1.356956e-21 1.684372e-19 5.198488e-21  1.356956e-21
+      med_lo   1.200641e-16 1.200641e-16 2.109482e-15  3.338137e-12
+      50%      3.095230e-15 1.316435e-16 3.095230e-15  7.209044e-12
+      mean     3.333333e-01 3.333333e-01 3.333333e-01  3.333333e-01
+      med_hi   3.196379e-11 3.394617e-16 1.848171e-14  3.196379e-11
+      med_hi_2 1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      75%      1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      75%      1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      90%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      95%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      97.5%    1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
       $boot_it
       [1] 0
@@ -4022,6 +4168,10 @@
       1 wt    5.16e- 9 -4.85e- 9 4.10e- 8  37.8       -50      30.2
       2 am    5.99e-10 -6.57e-10 5.60e-10  36.1       -50      26.6
       
+      $stats$Asia$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       $stats$Europe
       $stats$Europe$by_term
@@ -4098,6 +4248,10 @@
         <chr>    <dbl>     <dbl>     <dbl> <dbl>     <dbl>     <dbl>
       1 wt    5.06e-10 -5.72e-10 -2.69e-10 38.4     -50       -31.2 
       2 am    8.38e-14  5.77e-14  1.02e-13  3.12      3.12      3.12
+      
+      $stats$Europe$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
       
       
       $stats$`North America`
@@ -4176,10 +4330,43 @@
       1 wt    5.46e- 9 -4.08e- 8 5.42e- 9  22.1       -50     12.5 
       2 am    5.99e-10 -5.60e-10 6.57e-10  32.2       -50      6.25
       
+      $stats$`North America`$effects_plot
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
       
       
       $plots
-      NULL
+      $plots$Asia
+      $plots$Asia$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Asia$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$Europe
+      $plots$Europe$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$Europe$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
+      $plots$`North America`
+      $plots$`North America`$wt
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      $plots$`North America`$am
+        PANEL group xmin xmax ymin ymax
+      1     1    -1    0    1    0    1
+      
+      
       
       $conf_regions
       $conf_regions$Asia
@@ -4283,27 +4470,27 @@
       [1] "wt" "am"
       
       $y_summary
-                       Asia       Europe North America
-      q        5.000000e-02 5.000000e-02  5.000000e-02
-      min      0.000000e+00 0.000000e+00  0.000000e+00
-      1%       7.354191e-24 8.133360e-27  5.102801e-28
-      2.5%     1.248901e-23 1.508162e-26  1.133495e-27
-      5%       4.367285e-23 4.704169e-25  8.208768e-27
-      10%      5.542613e-22 6.644965e-24  4.293177e-25
-      25%      1.684372e-19 5.198488e-21  1.356956e-21
-      med_lo_2 1.684372e-19 5.198488e-21  1.356956e-21
-      med_lo   1.200641e-16 2.109482e-15  3.338137e-12
-      50%      1.316435e-16 3.095230e-15  7.209044e-12
-      mean     3.333333e-01 3.333333e-01  3.333333e-01
-      med_hi   3.394617e-16 1.848171e-14  3.196379e-11
-      med_hi_2 1.076098e-10 1.000000e+00  1.000000e+00
-      75%      1.076098e-10 1.000000e+00  1.000000e+00
-      75%      1.076098e-10 1.000000e+00  1.000000e+00
-      90%      1.000000e+00 1.000000e+00  1.000000e+00
-      95%      1.000000e+00 1.000000e+00  1.000000e+00
-      97.5%    1.000000e+00 1.000000e+00  1.000000e+00
-      99%      1.000000e+00 1.000000e+00  1.000000e+00
-      max      1.000000e+00 1.000000e+00  1.000000e+00
+                  continent         Asia       Europe North America
+      q        5.000000e-02 5.000000e-02 5.000000e-02  5.000000e-02
+      min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
+      1%       8.133360e-27 7.354191e-24 8.133360e-27  5.102801e-28
+      2.5%     1.508162e-26 1.248901e-23 1.508162e-26  1.133495e-27
+      5%       4.704169e-25 4.367285e-23 4.704169e-25  8.208768e-27
+      10%      6.644965e-24 5.542613e-22 6.644965e-24  4.293177e-25
+      25%      5.198488e-21 1.684372e-19 5.198488e-21  1.356956e-21
+      med_lo_2 1.356956e-21 1.684372e-19 5.198488e-21  1.356956e-21
+      med_lo   1.200641e-16 1.200641e-16 2.109482e-15  3.338137e-12
+      50%      3.095230e-15 1.316435e-16 3.095230e-15  7.209044e-12
+      mean     3.333333e-01 3.333333e-01 3.333333e-01  3.333333e-01
+      med_hi   3.196379e-11 3.394617e-16 1.848171e-14  3.196379e-11
+      med_hi_2 1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      75%      1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      75%      1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      90%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      95%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      97.5%    1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
       $boot_it
       [1] 3
@@ -4401,7 +4588,36 @@
       
       
       $boot_data
-      NULL
+      $boot_data$Asia
+      $boot_data$Asia$gear
+                 three         four          five
+      [1,] 3.04459e-05 4.624777e-05 -5.933191e-05
+      
+      $boot_data$Asia$country
+                   UK       Sweden     Japan      Italy      Germany          USA
+      [1,] -0.2539456 -0.003945577 0.2817687 -0.1686908 -0.002024089 -0.002020626
+      
+      
+      $boot_data$Europe
+      $boot_data$Europe$gear
+                   three         four         five
+      [1,] -2.926533e-07 1.813188e-07 1.830279e-07
+      
+      $boot_data$Europe$country
+                  UK    Sweden      Japan     Italy   Germany        USA
+      [1,] 0.5299413 0.5299413 -0.1843445 0.4156383 0.2012538 -0.3521407
+      
+      
+      $boot_data$`North America`
+      $boot_data$`North America`$gear
+                   three          four         five
+      [1,] -3.015325e-05 -4.642909e-05 5.914888e-05
+      
+      $boot_data$`North America`$country
+                   UK     Sweden       Japan      Italy    Germany       USA
+      [1,] -0.2759957 -0.5259957 -0.09742424 -0.2469476 -0.1992297 0.3541613
+      
+      
       
       $stats
       NULL
@@ -4416,26 +4632,26 @@
       [1] "gear"    "country"
       
       $y_summary
-                       Asia       Europe North America
-      q        1.000000e-02 1.000000e-02  1.000000e-02
-      min      0.000000e+00 0.000000e+00  0.000000e+00
-      1%       7.354191e-24 8.133360e-27  5.102801e-28
-      2.5%     1.248901e-23 1.508162e-26  1.133495e-27
-      5%       4.367285e-23 4.704169e-25  8.208768e-27
-      10%      5.542613e-22 6.644965e-24  4.293177e-25
-      25%      1.684372e-19 5.198488e-21  1.356956e-21
-      med_lo_2 4.067017e-18 9.918520e-18  3.666758e-14
-      med_lo   1.282751e-16 2.888145e-15  6.212005e-12
-      50%      1.316435e-16 3.095230e-15  7.209044e-12
-      mean     3.333333e-01 3.333333e-01  3.333333e-01
-      med_hi   1.350120e-16 3.302315e-15  8.206083e-12
-      med_hi_2 6.780462e-15 1.000000e+00  2.795619e-09
-      75%      1.076098e-10 1.000000e+00  1.000000e+00
-      90%      1.000000e+00 1.000000e+00  1.000000e+00
-      95%      1.000000e+00 1.000000e+00  1.000000e+00
-      97.5%    1.000000e+00 1.000000e+00  1.000000e+00
-      99%      1.000000e+00 1.000000e+00  1.000000e+00
-      max      1.000000e+00 1.000000e+00  1.000000e+00
+                  continent         Asia       Europe North America
+      q        1.000000e-02 1.000000e-02 1.000000e-02  1.000000e-02
+      min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
+      1%       8.133360e-27 7.354191e-24 8.133360e-27  5.102801e-28
+      2.5%     1.508162e-26 1.248901e-23 1.508162e-26  1.133495e-27
+      5%       4.704169e-25 4.367285e-23 4.704169e-25  8.208768e-27
+      10%      6.644965e-24 5.542613e-22 6.644965e-24  4.293177e-25
+      25%      5.198488e-21 1.684372e-19 5.198488e-21  1.356956e-21
+      med_lo_2 4.067017e-18 4.067017e-18 9.918520e-18  3.666758e-14
+      med_lo   1.282751e-16 1.282751e-16 2.888145e-15  6.212005e-12
+      50%      3.095230e-15 1.316435e-16 3.095230e-15  7.209044e-12
+      mean     3.333333e-01 3.333333e-01 3.333333e-01  3.333333e-01
+      med_hi   8.206083e-12 1.350120e-16 3.302315e-15  8.206083e-12
+      med_hi_2 1.000000e+00 6.780462e-15 1.000000e+00  2.795619e-09
+      75%      1.000000e+00 1.076098e-10 1.000000e+00  1.000000e+00
+      90%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      95%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      97.5%    1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
+      max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
       $boot_it
       [1] 1

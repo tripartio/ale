@@ -88,7 +88,7 @@ test_that(
       test_cars, test_gam,
       x_cols = c('vs', 'gear'),
       parallel = 0,
-      output = c('plots'),
+      output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       max_x_int = 12,
@@ -162,7 +162,7 @@ test_that(
       test_cars, test_gam_binary,
       x_cols = c('carb', 'country'),
       parallel = 0,
-      output = c('plots'),
+      output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       max_x_int = 12,
@@ -252,7 +252,7 @@ test_that(
       test_cars, test_gam_categorical,
       x_cols = c('gear', 'country'),
       parallel = 0,
-      output = c('plots'),
+      output = c('boot'),
       pred_type = "probs",
       max_x_int = 12,
       boot_it = 1,  # edge case
