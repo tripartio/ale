@@ -87,14 +87,16 @@ validate_y_preds <- function(
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
     error = \(e) {
-      cli_abort(
-        'There is an error with the predict function {.arg pred_fun} or with the
-        prediction type {.arg pred_type}.
-        See {.fun ale::ale} for how to create a custom predict function for ,
-        non-standard models. Here is the full error message:
+      if (stringr::str_detect(as.character(e), "^Error: object .* not found\n$")) {
+        cli_abort('{e}')
+      }
+      else {
+        cli_abort(
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ale::ale} for how to create a custom predict function for non-standard models. Here is the full error message:
 
         {e}'
-      )
+        )
+      }
     },
     finally = NULL
   )
