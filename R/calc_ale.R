@@ -633,6 +633,10 @@ calc_ale <- function(
     # boot_mx <- boot_mx[, -1, drop = FALSE]
   }
 
+  # browser()
+
+  rownames(boot_mx) <- levels(ale_x)
+
   #TODO: In the future, maybe return this boot_mx if users want it.
 
   #TODO: report incomplete bootstraps (with some NA values).

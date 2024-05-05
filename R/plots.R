@@ -17,8 +17,7 @@
 #  @param y_col character length 1. Name of y (output) column whose ALE data is to
 #  be plotted.
 #  @param y_type See documentation for [ale()]
-#  @param y_summary named double. Named vector of y summary statistics to be used
-#  for plotting.
+#  @param y_summary named double. Named vector of y summary statistics to be used for plotting. Unlike the direct result of var_summary(), this y_summary is the vector that represents only a single categorical class.
 #  @param ... not used. Enforces explicit naming of subsequent arguments.
 #  @param relative_y See documentation for [ale()]
 #  @param median_band_pct See documentation for [ale()]
@@ -50,18 +49,21 @@ plot_ale <- function(
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
-  # For now ensure that plots are not categorical
-  if (ncol(y_summary) > 1) {
-    # Not yet ready to create categorical plots
-    return(NULL)
-  }
+  # # For now ensure that plots are not categorical
+  # if (ncol(y_summary) > 1) {
+  #   # Not yet ready to create categorical plots
+  #   return(NULL)
+  # }
+  #
+  # # Adjust inputs according to new (202404) data structure
+  # ale_data <- ale_data[[1]]  # remove extra category level
 
-  # Adjust inputs according to new (202404) data structure
-  ale_data <- ale_data[[1]]  # remove extra category level
-  # convert y_summary to a vector instead of a matrix
-  y_summary <- y_summary |>
-    as.numeric() |>
-    setNames(rownames(y_summary))
+  # browser()
+
+  # # convert y_summary to a vector instead of a matrix
+  # y_summary <- y_summary |>
+  #   as.numeric() |>
+  #   setNames(rownames(y_summary))
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -227,33 +229,55 @@ plot_ale <- function(
       )
   }
 
-  # Temporary plot return for 202404
-  plot <- if (compact_plots) {
-    # Strip plot of environment or other extraneous elements
-    # https://stackoverflow.com/a/77373906/2449926
-    plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
-  } else {
-    plot
-  }
-
-  return_plot <- list()
-  return_plot[[y_col]] <- plot
-  return(return_plot)
-
-  # return(
-  #   if (compact_plots) {
-  #     # Strip plot of environment or other extraneous elements
-  #     # https://stackoverflow.com/a/77373906/2449926
-  #     plot |>
+  # # Temporary plot return for 202404
+  # plot <- if (compact_plots) {
+  #   # Strip plot of environment or other extraneous elements
+  #   # https://stackoverflow.com/a/77373906/2449926
+  #   plot |>
   #     ggplotGrob() |>
   #     ggpubr::as_ggplot()
-  #   } else {
-  #     plot
-  #   }
-  # )
+  # } else {
+  #   plot
+  # }
+  #
+  # return_plot <- list()
+  # return_plot[[y_col]] <- plot
+  # return(return_plot)
+
+  return(
+    if (compact_plots) {
+      # Strip plot of environment or other extraneous elements
+      # https://stackoverflow.com/a/77373906/2449926
+      plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+    } else {
+      plot
+    }
+  )
 }
+
+# # Fit a multinomial logistic regression model
+# cat_model <- nnet::multinom(Species ~ ., data=iris)
+#
+# iale <- ale(
+#   iris,
+#   cat_model,
+#   pred_type = 'probs',
+#   # output = c('data', 'stats', 'conf_regions'),
+#   boot_it = 0,
+#   # boot_it = 3,
+#   parallel = 0, silent = TRUE
+# )
+#
+# # Categorical plots
+# iale$plots |>
+#   purrr::list_transpose() |>
+#   map(\(.var) {
+#     .var |>
+#       patchwork::wrap_plots(ncol = 1) |>
+#       patchwork::plot_layout(axis_titles = 'collect_x')
+#   })
 
 
 
@@ -399,8 +423,6 @@ plot_ale_ixn <- function(
     y_quantiles[1] <- 0
     y_quantiles[n_y_quant + 1] <- 1
   }
-
-  # browser()
 
 
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting

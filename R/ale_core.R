@@ -778,10 +778,10 @@ ale_core <- function (
     y_type <- var_type(data[[y_col]])
   }
 
-  # Disable plots for categorical y
-  if (y_type == 'categorical') {
-    output <- setdiff(output, 'plots')
-  }
+  # # Disable plots for categorical y
+  # if (y_type == 'categorical') {
+  #   output <- setdiff(output, 'plots')
+  # }
 
   # Get list of y values depending on y_type
   y_vals <-
@@ -797,6 +797,7 @@ ale_core <- function (
 
   # Generate summary statistics for y for plotting
   y_summary <- var_summary(
+    var_name = y_col,
     var_vals = y_vals,
     median_band_pct = median_band_pct,
     p_funs = p_values,
@@ -804,7 +805,7 @@ ale_core <- function (
   )
 
   # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
-  y_cats <- colnames(y_summary)
+  y_cats <- colnames(y_vals)
 
   # Calculate value to add to y to shift for requested relative_y
   relative_y_shift <- case_when(
@@ -933,6 +934,8 @@ ale_core <- function (
               p_funs = p_values
             )
 
+          # browser()
+
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
@@ -949,22 +952,43 @@ ale_core <- function (
           #     .x + relative_y_shift
           #   }))
 
+          # browser()
+
           # Generate ALE plot
           plot <- NULL  # Start with a NULL plot
           if ('plots' %in% output) {  # user requested the plot
-            plot <- plot_ale(
-              ale_data, x_col, y_col, y_type,
-              y_summary,
-              relative_y = relative_y,
-              p_alpha = p_alpha,
-              median_band_pct = median_band_pct,
-              x_y = tibble(data[[x_col]], y_vals) |>
-                stats::setNames(c(x_col, y_col)),
-              rug_sample_size = rug_sample_size,
-              min_rug_per_interval = min_rug_per_interval,
-              compact_plots = compact_plots,
-              seed = seed
-            )
+            plot <-
+              ale_data |>
+              imap(\(.cat_ale_data, .cat_name) {
+                plot_ale(
+                  .cat_ale_data, x_col, y_col, y_type,
+                  y_summary[, .cat_name],
+                  relative_y = relative_y,
+                  p_alpha = p_alpha,
+                  median_band_pct = median_band_pct,
+                  x_y = tibble(data[[x_col]], y_vals[, .cat_name]) |>
+                    stats::setNames(c(x_col, y_col)),
+                  rug_sample_size = rug_sample_size,
+                  min_rug_per_interval = min_rug_per_interval,
+                  compact_plots = compact_plots,
+                  seed = seed
+                )
+              })
+
+
+            # plot <- plot_ale(
+            #   ale_data, x_col, y_col, y_type,
+            #   y_summary,
+            #   relative_y = relative_y,
+            #   p_alpha = p_alpha,
+            #   median_band_pct = median_band_pct,
+            #   x_y = tibble(data[[x_col]], y_vals) |>
+            #     stats::setNames(c(x_col, y_col)),
+            #   rug_sample_size = rug_sample_size,
+            #   min_rug_per_interval = min_rug_per_interval,
+            #   compact_plots = compact_plots,
+            #   seed = seed
+            # )
           }
 
           # Delete data if only plot was requested
@@ -980,6 +1004,8 @@ ale_core <- function (
           )
         }) |>
         set_names(x_cols)
+
+    # browser()
 
     ales <- ales |>
       # Transpose to group by ale object element (instead of by variable)

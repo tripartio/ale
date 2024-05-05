@@ -54,11 +54,13 @@ ale_plots_to_data <- function(
       .cat |>
         purrr::map(\(.plot) {
           # browser()
-          ggplot2::ggplot_build(.plot)$data
-        }) |>
-      purrr::set_names(names(.cat))
-      }) |>
-    purrr::set_names(names(ale_plots))
+          ggplot2::ggplot_build(.plot)$data[[1]]
+        })
+    })
+  #     }) |>
+    #   purrr::set_names(names(.cat))
+    #   }) |>
+    # purrr::set_names(names(ale_plots))
 
     # purrr::map(\(.plot) ggplot2::ggplot_build(.plot)$data) |>
     # purrr::set_names(names(ale_plots))

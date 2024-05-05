@@ -102,8 +102,7 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
+    # cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     expect_snapshot(cars_ale)
   }
 )
@@ -178,7 +177,7 @@ test_that(
       compact_plots = TRUE,
     )
 
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
+    # cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     expect_snapshot(cars_ale)
   }
 )
@@ -199,6 +198,19 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
+    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
+    cars_ale$stats <- cars_ale$stats |>
+      map(\(.cat) {
+        .cat$effects_plot <- .cat$effects_plot |>
+          ggplot2::ggplot_build() |>
+          (`[[`)('data') |>
+          (`[[`)(1)
+
+        .cat
+      })
+    # cars_ale$stats$mpg$effects_plot <- cars_ale$stats$mpg$effects_plot |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(cars_ale)
   }
 )
@@ -218,6 +230,16 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
+    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
+    cars_ale$stats <- cars_ale$stats |>
+      map(\(.cat) {
+        .cat$effects_plot <- .cat$effects_plot |>
+          ggplot2::ggplot_build() |>
+          (`[[`)('data') |>
+          (`[[`)(1)
+
+        .cat
+      })
     expect_snapshot(cars_ale)
   }
 )
