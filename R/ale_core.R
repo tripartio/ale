@@ -657,6 +657,11 @@ ale_core <- function (
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
+  validate(
+    !(y_col %in% all_x_cols),
+    msg = paste0('The prediction target "', y_col, '" must not be included in the list of predictors ({.arg x_cols, x1_cols, x2_cols}).')
+  )
+
   valid_x_cols <- all_x_cols %in% names(data)
   if (!all(valid_x_cols)) {
     cli_abort(
