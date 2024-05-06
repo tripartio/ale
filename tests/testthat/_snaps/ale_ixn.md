@@ -527,268 +527,206 @@
       $plots$model
       $plots$model$cyl
       $plots$model$cyl$mpg
-      $plots$model$cyl$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$disp
       $plots$model$disp$mpg
-      $plots$model$disp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$hp
       $plots$model$hp$mpg
-      $plots$model$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$drat
       $plots$model$drat$mpg
-      $plots$model$drat$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$wt
       $plots$model$wt$mpg
-      $plots$model$wt$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$qsec
       $plots$model$qsec$mpg
-      $plots$model$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$carb
       $plots$model$carb$mpg
-      $plots$model$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$cyl
       $plots$cyl$disp
       $plots$cyl$disp$mpg
-      $plots$cyl$disp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$hp
       $plots$cyl$hp$mpg
-      $plots$cyl$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$drat
       $plots$cyl$drat$mpg
-      $plots$cyl$drat$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$wt
       $plots$cyl$wt$mpg
-      $plots$cyl$wt$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$qsec
       $plots$cyl$qsec$mpg
-      $plots$cyl$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$carb
       $plots$cyl$carb$mpg
-      $plots$cyl$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$disp
       $plots$disp$hp
       $plots$disp$hp$mpg
-      $plots$disp$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$drat
       $plots$disp$drat$mpg
-      $plots$disp$drat$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$wt
       $plots$disp$wt$mpg
-      $plots$disp$wt$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$qsec
       $plots$disp$qsec$mpg
-      $plots$disp$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$carb
       $plots$disp$carb$mpg
-      $plots$disp$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$hp
       $plots$hp$drat
       $plots$hp$drat$mpg
-      $plots$hp$drat$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$wt
       $plots$hp$wt$mpg
-      $plots$hp$wt$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$qsec
       $plots$hp$qsec$mpg
-      $plots$hp$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$carb
       $plots$hp$carb$mpg
-      $plots$hp$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$drat
       $plots$drat$wt
       $plots$drat$wt$mpg
-      $plots$drat$wt$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$drat$qsec
       $plots$drat$qsec$mpg
-      $plots$drat$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$drat$carb
       $plots$drat$carb$mpg
-      $plots$drat$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$wt
       $plots$wt$qsec
       $plots$wt$qsec$mpg
-      $plots$wt$qsec$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$wt$carb
       $plots$wt$carb$mpg
-      $plots$wt$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$qsec
       $plots$qsec$carb
       $plots$qsec$carb$mpg
-      $plots$qsec$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$vs
       $plots$vs$carb
       $plots$vs$carb$mpg
-      $plots$vs$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$am
       $plots$am$carb
       $plots$am$carb$mpg
-      $plots$am$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$gear
       $plots$gear$carb
       $plots$gear$carb$mpg
-      $plots$gear$carb$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -888,50 +826,40 @@
       $plots$cyl
       $plots$cyl$hp
       $plots$cyl$hp$mpg
-      $plots$cyl$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$disp
       $plots$disp$hp
       $plots$disp$hp$mpg
-      $plots$disp$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$vs
       $plots$vs$hp
       $plots$vs$hp$mpg
-      $plots$vs$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$gear
       $plots$gear$hp
       $plots$gear$hp$mpg
-      $plots$gear$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$country
       $plots$country$hp
       $plots$country$hp$mpg
-      $plots$country$hp$mpg[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -1634,324 +1562,248 @@
       $plots$model
       $plots$model$mpg
       $plots$model$mpg$vs
-      $plots$model$mpg$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$cyl
       $plots$model$cyl$vs
-      $plots$model$cyl$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$disp
       $plots$model$disp$vs
-      $plots$model$disp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$hp
       $plots$model$hp$vs
-      $plots$model$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$drat
       $plots$model$drat$vs
-      $plots$model$drat$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$wt
       $plots$model$wt$vs
-      $plots$model$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$qsec
       $plots$model$qsec$vs
-      $plots$model$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$model$carb
       $plots$model$carb$vs
-      $plots$model$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$mpg
       $plots$mpg$cyl
       $plots$mpg$cyl$vs
-      $plots$mpg$cyl$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$disp
       $plots$mpg$disp$vs
-      $plots$mpg$disp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$hp
       $plots$mpg$hp$vs
-      $plots$mpg$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$drat
       $plots$mpg$drat$vs
-      $plots$mpg$drat$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$wt
       $plots$mpg$wt$vs
-      $plots$mpg$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$qsec
       $plots$mpg$qsec$vs
-      $plots$mpg$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$mpg$carb
       $plots$mpg$carb$vs
-      $plots$mpg$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$cyl
       $plots$cyl$disp
       $plots$cyl$disp$vs
-      $plots$cyl$disp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$hp
       $plots$cyl$hp$vs
-      $plots$cyl$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$drat
       $plots$cyl$drat$vs
-      $plots$cyl$drat$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$wt
       $plots$cyl$wt$vs
-      $plots$cyl$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$qsec
       $plots$cyl$qsec$vs
-      $plots$cyl$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$cyl$carb
       $plots$cyl$carb$vs
-      $plots$cyl$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$disp
       $plots$disp$hp
       $plots$disp$hp$vs
-      $plots$disp$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$drat
       $plots$disp$drat$vs
-      $plots$disp$drat$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$wt
       $plots$disp$wt$vs
-      $plots$disp$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$qsec
       $plots$disp$qsec$vs
-      $plots$disp$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$disp$carb
       $plots$disp$carb$vs
-      $plots$disp$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$hp
       $plots$hp$drat
       $plots$hp$drat$vs
-      $plots$hp$drat$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$wt
       $plots$hp$wt$vs
-      $plots$hp$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$qsec
       $plots$hp$qsec$vs
-      $plots$hp$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$hp$carb
       $plots$hp$carb$vs
-      $plots$hp$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$drat
       $plots$drat$wt
       $plots$drat$wt$vs
-      $plots$drat$wt$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$drat$qsec
       $plots$drat$qsec$vs
-      $plots$drat$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$drat$carb
       $plots$drat$carb$vs
-      $plots$drat$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$wt
       $plots$wt$qsec
       $plots$wt$qsec$vs
-      $plots$wt$qsec$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       $plots$wt$carb
       $plots$wt$carb$vs
-      $plots$wt$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$qsec
       $plots$qsec$carb
       $plots$qsec$carb$vs
-      $plots$qsec$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$am
       $plots$am$carb
       $plots$am$carb$vs
-      $plots$am$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$gear
       $plots$gear$carb
       $plots$gear$carb$vs
-      $plots$gear$carb$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -2051,50 +1903,40 @@
       $plots$cyl
       $plots$cyl$hp
       $plots$cyl$hp$vs
-      $plots$cyl$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$disp
       $plots$disp$hp
       $plots$disp$hp$vs
-      $plots$disp$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$am
       $plots$am$hp
       $plots$am$hp$vs
-      $plots$am$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$gear
       $plots$gear$hp
       $plots$gear$hp$vs
-      $plots$gear$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
       $plots$country
       $plots$country$hp
       $plots$country$hp$vs
-      $plots$country$hp$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       

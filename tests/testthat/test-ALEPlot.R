@@ -159,7 +159,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     map(\(.x1) {
       tibble(
         x.values = .x1$ale_x,
-        f.values = .x1$ale_y,
+        f.values = unname(.x1$ale_y),
       ) |>
         mutate(across(where(is.ordered), as.character))
     })

@@ -142,16 +142,12 @@
       $ale$plots
       $ale$plots$mpg
       $ale$plots$mpg$cyl
-      $ale$plots$mpg$cyl[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $ale$plots$mpg$disp
-      $ale$plots$mpg$disp[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -332,16 +328,12 @@
       $ale$plots
       $ale$plots$mpg
       $ale$plots$mpg$vs
-      $ale$plots$mpg$vs[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $ale$plots$mpg$gear
-      $ale$plots$mpg$gear[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       
@@ -518,16 +510,12 @@
       $ale$plots
       $ale$plots$mpg
       $ale$plots$mpg$country
-      $ale$plots$mpg$country[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       $ale$plots$mpg$continent
-      $ale$plots$mpg$continent[[1]]
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
-      
       
       
       

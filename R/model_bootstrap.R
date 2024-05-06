@@ -731,13 +731,16 @@ model_bootstrap <- function (
         # Produce ALE plots for each variable
         ale_summary_plots <-
           ale_summary_data |>
-          map(\(.cat) {
+          imap(\(.cat, .cat_name) {
             .cat |>
               imap(\(.x_col_data, .x_col_name) {
 
                 plot_ale(
-                  list(.x_col_data),  # temporary workaround before proper S3 plots
-                  .x_col_name, y_col, y_type, y_summary,
+                  .x_col_data,
+                  .x_col_name, y_col, y_type,
+                  y_summary[, .cat_name],
+                  # list(.x_col_data),  # temporary workaround before proper S3 plots
+                  # .x_col_name, y_col, y_type, y_summary,
                   # Temporarily buggy for binary y
                   x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
                     stats::setNames(c(.x_col_name, y_col)),
@@ -748,8 +751,8 @@ model_bootstrap <- function (
                   # When y_vals is added
                   # x_y = tibble(data[[.x_col_name]], y_vals) |>
                   #   stats::setNames(c(.x_col_name, y_col)),
-                ) |>
-                  pluck(1)  # temporary workaround before proper S3 plots
+                ) # |>
+                  # pluck(1)  # temporary workaround before proper S3 plots
               })
             })
 
