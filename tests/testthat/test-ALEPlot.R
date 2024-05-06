@@ -26,7 +26,7 @@ y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
 DAT <<- data.frame(y, x1, x2, x3, x4)
 
 set.seed(0)
-nnet.DAT <<- nnet::nnet(y~., data = DAT, linout = T, skip = F, size = 6,
+nnet.DAT <<- nnet::nnet(y ~ ., data = DAT, linout = T, skip = F, size = 6,
                         decay = 0.1, maxit = 1000, trace = F)
 
 # Define the predict functions
@@ -229,7 +229,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
     nnet_ale_ixn$data |>
     map(\(.x1) {
       map(.x1, \(.x2) {
-        .x2 |> arrange(ale_x1, ale_x2, ale_y)
+        .x2$y |> arrange(ale_x1, ale_x2, ale_y)
       })
     })
 
@@ -304,7 +304,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     gbm_ale_ixn$data |>
     map(\(.x1) {
       map(.x1, \(.x2) {
-        .x2 |>
+        .x2$higher_income |>
           arrange(ale_x1, ale_x2, ale_y) |>
           mutate(across(where(is.factor), as.character))
       })

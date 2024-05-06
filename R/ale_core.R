@@ -939,8 +939,6 @@ ale_core <- function (
               p_funs = p_values
             )
 
-          # browser()
-
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
@@ -956,8 +954,6 @@ ale_core <- function (
           #   mutate(across(contains('ale_y'), \(.x) {
           #     .x + relative_y_shift
           #   }))
-
-          # browser()
 
           # Generate ALE plot
           plot <- NULL  # Start with a NULL plot
@@ -1009,8 +1005,6 @@ ale_core <- function (
           )
         }) |>
         set_names(x_cols)
-
-    # browser()
 
     ales <- ales |>
       # Transpose to group by ale object element (instead of by variable)
@@ -1073,27 +1067,37 @@ ale_core <- function (
               )
 
             # Shift ale_y by appropriate relative_y
-            ale_data$ale_y <- ale_data$ale_y + relative_y_shift
+            ale_data <- ale_data |>
+              map(\(.cat) {
+                .cat$ale_y <- .cat$ale_y + relative_y_shift
+                .cat
+              })
+
+            # ale_data$ale_y <- ale_data$ale_y + relative_y_shift
 
             # Generate ALE plot
             plot <- NULL  # Start with a NULL plot
             if ('plots' %in% output) {  # user requested the plot
-              plot <- plot_ale_ixn(
-                ale_data, x1_col, x2_col, y_col, y_type,
-                y_summary,
-                y_vals,
-                relative_y = relative_y,
-                median_band_pct = median_band_pct,
-                n_x1_int = n_x1_int,
-                n_x2_int = n_x2_int,
-                n_y_quant = n_y_quant,
-                x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
-                  stats::setNames(c(x1_col, x2_col, y_col)),
-                rug_sample_size = rug_sample_size,
-                min_rug_per_interval = min_rug_per_interval,
-                compact_plots = compact_plots,
-                seed = seed
-              )
+              plot <-
+                ale_data |>
+                imap(\(.cat_ale_data, .cat_name) {
+                  plot_ale_ixn(
+                    .cat_ale_data, x1_col, x2_col, y_col, y_type,
+                    y_summary[, .cat_name],
+                    y_vals,
+                    relative_y = relative_y,
+                    median_band_pct = median_band_pct,
+                    n_x1_int = n_x1_int,
+                    n_x2_int = n_x2_int,
+                    n_y_quant = n_y_quant,
+                    x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
+                      stats::setNames(c(x1_col, x2_col, y_col)),
+                    rug_sample_size = rug_sample_size,
+                    min_rug_per_interval = min_rug_per_interval,
+                    compact_plots = compact_plots,
+                    seed = seed
+                  )
+                })
             }
 
             # Delete data if only plot was requested

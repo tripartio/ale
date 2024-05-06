@@ -335,18 +335,18 @@ plot_ale_ixn <- function(
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
 
-  # For now ensure that plots are not categorical
-  if (ncol(y_summary) > 1) {
-    # Not yet ready to create categorical plots
-    return(NULL)
-  }
+  # # For now ensure that plots are not categorical
+  # if (ncol(y_summary) > 1) {
+  #   # Not yet ready to create categorical plots
+  #   return(NULL)
+  # }
 
-  # Adjust inputs according to new (202404) data structure
-  # ale_data <- ale_data[[1]]  # remove extra category level
-  # convert y_summary to a vector instead of a matrix
-  y_summary <- y_summary |>
-    as.numeric() |>
-    setNames(rownames(y_summary))
+  # # Adjust inputs according to new (202404) data structure
+  # # ale_data <- ale_data[[1]]  # remove extra category level
+  # # convert y_summary to a vector instead of a matrix
+  # y_summary <- y_summary |>
+  #   as.numeric() |>
+  #   setNames(rownames(y_summary))
 
 
   # Default relative_y is median. If it is mean or zero, then the y axis
@@ -521,32 +521,32 @@ plot_ale_ixn <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
-  # Temporary plot return for 202404
-  plot <- if (compact_plots) {
-    # Strip plot of environment or other extraneous elements
-    # https://stackoverflow.com/a/77373906/2449926
-    plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
-  } else {
-    plot
-  }
-
-  return_plot <- list()
-  return_plot[[y_col]] <- plot
-  return(return_plot)
-
-  # return(
-  #   if (compact_plots) {
-  #     # Strip plot of environment or other extraneous elements
-  #     # https://stackoverflow.com/a/77373906/2449926
-  #     plot |>
+  # # Temporary plot return for 202404
+  # plot <- if (compact_plots) {
+  #   # Strip plot of environment or other extraneous elements
+  #   # https://stackoverflow.com/a/77373906/2449926
+  #   plot |>
   #     ggplotGrob() |>
   #     ggpubr::as_ggplot()
-  #   } else {
-  #     plot
-  #   }
-  # )
+  # } else {
+  #   plot
+  # }
+  #
+  # return_plot <- list()
+  # return_plot[[y_col]] <- plot
+  # return(return_plot)
+
+  return(
+    if (compact_plots) {
+      # Strip plot of environment or other extraneous elements
+      # https://stackoverflow.com/a/77373906/2449926
+      plot |>
+      ggplotGrob() |>
+      ggpubr::as_ggplot()
+    } else {
+      plot
+    }
+  )
 }
 
 
