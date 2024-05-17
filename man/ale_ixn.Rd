@@ -19,7 +19,7 @@ ale_ixn(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
-  x_intervals = 100,
+  max_x_int = 100,
   relative_y = "median",
   y_type = NULL,
   median_band_pct = c(0.05, 0.5),
@@ -56,7 +56,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{x_intervals}{See documentation for \code{\link[=ale]{ale()}}}
+\item{max_x_int}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{relative_y}{See documentation for \code{\link[=ale]{ale()}}}
 

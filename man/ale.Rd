@@ -20,7 +20,7 @@ ale(
   pred_type = "response",
   p_values = NULL,
   p_alpha = c(0.01, 0.05),
-  x_intervals = 100,
+  max_x_int = 100,
   boot_it = 0,
   seed = 0,
   boot_alpha = 0.05,
@@ -99,7 +99,7 @@ For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)},
 the inner band will be the median ± ALE minimum or maximum at p = 0.05 and
 the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
-\item{x_intervals}{positive integer length 1. Maximum number of intervals on the x-axis
+\item{max_x_int}{positive integer length 1. Maximum number of intervals on the x-axis
 for the ALE data for each column in \code{x_cols}. The number of intervals that the algorithm generates
 might eventually be fewer than what the user specifies if the data values for
 a given x value do not support that many intervals.}
@@ -144,7 +144,7 @@ Rug plots are normally
 down-sampled otherwise they are too slow. \code{rug_sample_size} specifies the size
 of this sample. To prevent down-sampling, set to \code{Inf}. To suppress rug plots,
 set to 0. When down-sampling, the rug plots maintain representativeness of the
-data by guaranteeing that each of the \code{x_intervals} intervals will retain at least
+data by guaranteeing that each of the \code{max_x_int} intervals will retain at least
 \code{min_rug_per_interval} elements; usually set to just 1 or 2.}
 
 \item{ale_xs, ale_ns}{list of ale_x and ale_n vectors. If provided, these vectors will be used to
