@@ -179,7 +179,7 @@ model_bootstrap <- function (
     compact_plots = FALSE,
     silent = FALSE
 ) {
-  # Validate arguments
+  # Validate arguments -------------
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   validate(data |> inherits('data.frame'))
@@ -259,6 +259,11 @@ model_bootstrap <- function (
 
   validate_silent(silent)
 
+
+  # Begin main code -------------
+
+  # Establish the environment from which this function was called. This is needed to resolve the model call later.
+  call_env <- rlang::caller_env()
 
   n_rows <- nrow(data)
 
@@ -354,7 +359,10 @@ model_bootstrap <- function (
           # Update the model to call to train on boot_data
           model_call$data <- boot_data
 
-          boot_model <- eval(model_call)
+          boot_model <- eval(
+            model_call,
+            envir = call_env  # without this, some objects in model_call might not be resolved
+          )
         }
 
         boot_glance <-
