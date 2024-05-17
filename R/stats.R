@@ -4,6 +4,8 @@
 #
 
 
+# create_p_funs -------------
+
 #' @title Create a p-value functions object that can be used to generate p-values
 #'
 #' @description
@@ -235,7 +237,7 @@ create_p_funs <- function(
     .testing_mode = FALSE
 ) {
 
-  # Validate arguments
+  ## Validate arguments --------------
 
   validate(data |> inherits('data.frame'))
   validate(
@@ -351,7 +353,13 @@ create_p_funs <- function(
   }
 
 
-  # Determine the closest distribution of the residuals
+  ## Begin main code -------------
+
+  # Establish the environment from which this function was called. This is needed to resolve the model call later.
+  call_env <- rlang::caller_env()
+
+
+    # Determine the closest distribution of the residuals
   residuals <- (data[[y_col]] - y_preds) |>
     unname()
   residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
@@ -428,6 +436,7 @@ create_p_funs <- function(
             # Update the model to call to add random_variable and to train on rand_data
             model_call$data <- package_scope$rand_data
             model_call$formula <- model_call$formula |>
+              eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved
               stats::update.formula(~ . + random_variable)
 
             assign('rand_model', eval(model_call), package_scope)
@@ -597,6 +606,7 @@ create_p_funs <- function(
 
 
 
+# ALE statistics -------------
 
 
 
@@ -745,6 +755,7 @@ create_ale_y_norm_function <- function(y_vals) {
 
 
 
+# Other statistics functions -------------
 
 
 # Provide a vector of descriptive statistics
@@ -782,6 +793,9 @@ var_summary <- function(
 
   s <- s |>
     apply(MARGIN = 2, \(.col) {
+
+      # browser()
+
       .col <- c(
         # Retain first half of values
         .col[1:match('25%', names(.col))],
@@ -832,8 +846,6 @@ var_summary <- function(
 
       .col
     })
-
-  # browser()
 
   # For categorical variables, create a summary column as the first column
   if (ncol(s) > 1) {
