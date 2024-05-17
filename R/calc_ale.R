@@ -745,15 +745,16 @@ calc_ale <- function(
     # If p_funs are provided, calculate p-values
     if (!is.null(p_funs)) {
       boot_stats <- boot_stats |>
-        map(\(.cat) {
-          mutate(
-            p.value = map2_dbl(
-              .data$estimate, .data$statistic,
-              \(.stat, .stat_name) {
-                # Call the p-value function corresponding to the named statistic
-                p_funs$value_to_p[[.stat_name]](.stat)
-              })
-          ) |>
+        imap(\(.cat_stats, .cat) {
+          .cat_stats |>
+            mutate(
+              p.value = map2_dbl(
+                .data$estimate, .data$statistic,
+                \(.stat, .stat_name) {
+                  # Call the p-value function corresponding to the named statistic
+                  p_funs$value_to_p[[.cat]][[.stat_name]](.stat)
+                })
+            ) |>
             select('statistic', 'estimate', 'p.value', everything())
         })
     }

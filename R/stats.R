@@ -791,9 +791,13 @@ var_summary <- function(
   # joint probability is smaller than the untransformed p-value.
   joint_p <- 1 - sqrt(1 - p_alpha)
 
-  s <- s |>
-    apply(MARGIN = 2, \(.col) {
+  # browser()
 
+  # s <- s |>
+  #   apply(MARGIN = 2, \(.col) {
+  s <- map(1:ncol(s), \(.col_idx) {
+
+    .col <- s[, .col_idx]
       # browser()
 
       .col <- c(
@@ -802,12 +806,14 @@ var_summary <- function(
 
         # Create lower confidence bounds just below the midpoint
         med_lo_2 = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
+          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_min(joint_p[1]))
+          # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
         } else {
           .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
         },
         med_lo = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
+          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_min(joint_p[2]))
+          # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
         } else {
           .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
         },
@@ -818,12 +824,12 @@ var_summary <- function(
 
         # Create upper confidence bounds just above the midpoint
         med_hi = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[2]))
+          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_max(joint_p[2]))
         } else {
           .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
         },
         med_hi_2 = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value$aler_max(joint_p[1]))
+          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_max(joint_p[1]))
         } else {
           .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
         },
@@ -845,7 +851,9 @@ var_summary <- function(
       }   # as of now, no treatment and no error for non-numeric y
 
       .col
-    })
+    }) |>
+    set_names(colnames(s)) |>
+    do.call(cbind, args = _)
 
   # For categorical variables, create a summary column as the first column
   if (ncol(s) > 1) {
@@ -886,6 +894,8 @@ var_summary <- function(
     )
   }
 
+
+  # browser()
 
   return(s)
 }

@@ -665,8 +665,8 @@ model_bootstrap <- function (
       ale_summary_stats <- ale_summary_stats |>
         # ale_summary_stats$estimate |>
         # bind_rows() |>
-        map(\(.cat) {
-          .cat |>
+        imap(\(.ale_summary_stats, .cat) {
+          .ale_summary_stats <- .ale_summary_stats |>
             map(\(.it) .it$estimate) |>
             bind_rows() |>
             tidyr::pivot_longer(
@@ -683,19 +683,22 @@ model_bootstrap <- function (
               estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
             ) |>
             select('term', 'statistic', 'estimate', everything())
+
+          # If an ALE p-values object was passed, calculate p-values
+          if (rownames(y_summary)[1] == 'p') {
+            .ale_summary_stats <- .ale_summary_stats |>
+              rowwise() |>  # required to get statistic function for each row
+              mutate(
+                p.value = ale_options$p_values$value_to_p[[.cat]][[.data$statistic]](.data$estimate),
+              ) |>
+              ungroup() |>  # undo rowwise()
+              select('term', 'statistic', 'estimate', 'p.value', everything())
+          }
+
+          .ale_summary_stats
         })
 
 
-      # If an ALE p-values object was passed, calculate p-values
-      if (rownames(y_summary)[1] == 'p') {
-        ale_summary_stats <- ale_summary_stats |>
-          rowwise() |>  # required to get statistic function for each row
-          mutate(
-            p.value = ale_options$p_values$value_to_p[[.data$statistic]](.data$estimate),
-          ) |>
-          ungroup() |>  # undo rowwise()
-          select('term', 'statistic', 'estimate', 'p.value', everything())
-      }
 
       ale_conf_regions <-
         ale_summary_data |>
