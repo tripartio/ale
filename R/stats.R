@@ -114,6 +114,7 @@
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars`
 #' in [model_bootstrap()]; the operation is very similar.
 #' @param y_col See documentation for [ale()]
+#' @param binary_true_value any single atomic value. If `model` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if `model` is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
 #' @param pred_fun,pred_type See documentation for [ale()].
 #' @param output character string. If 'rand_stats', returns the raw data of the
 #' generated random statistics. If NULL (default), returns NULL.
@@ -226,6 +227,7 @@ create_p_funs <- function(
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     y_col = NULL,
+    binary_true_value = TRUE,
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -243,6 +245,14 @@ create_p_funs <- function(
   validate(
     !any(is.na(data)),
     msg = '{.arg data} must not have any missing values.'
+  )
+
+  # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+  # y_col must be set before y_preds is created so that y_preds columns can be properly named.
+  y_col <- validate_y_col(
+    y_col = y_col,
+    data = data,
+    model = model
   )
 
   # Validate the prediction function with the model and the dataset
@@ -300,17 +310,11 @@ create_p_funs <- function(
         'rand_data',
         'package_scope$rand_data'
       )
+
+    model_call <- NULL  # Needed for subsequent code
   }
 
   validate(is.character(random_model_call_string_vars))
-
-  # Validate y_col.
-  # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
-  y_col <- validate_y_col(
-    y_col = y_col,
-    data = data,
-    model = model
-  )
 
   validate(is_string(pred_type))
 
@@ -358,44 +362,67 @@ create_p_funs <- function(
   # Establish the environment from which this function was called. This is needed to resolve the model call later.
   call_env <- rlang::caller_env()
 
+  if (!is.null(model_call)) {
+    # Get the predictors when model_call is automatically detected
+    model_predictors <-
+      model_call$formula |>
+      as.formula(env = call_env) |>
+      terms(data = data) |>
+      attr('term.labels')
+  }
 
-    # Determine the closest distribution of the residuals
-  residuals <- (data[[y_col]] - y_preds) |>
-    unname()
-  residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
-
-  # Create ALEs for random variables based on residual_distribution
-  package_scope$rand_data <- data
-  n_rows <- nrow(data)
 
   # Enable parallel processing and restore former parallel plan on exit
   if (parallel > 0) {
     original_parallel_plan <- future::plan(future::multisession, workers = parallel)
     on.exit(future::plan(original_parallel_plan))
   }
-  # # Enable parallel processing and set appropriate map function.
-  # # Because furrr::future_map has an important .options argument absent from
-  # # purrr::map, map_loop() is created to unify these two functions.
-  # if (parallel > 0) {
-  #   future::plan(future::multisession, workers = parallel)
-  #   map_loop <- furrr::future_map
-  # } else {
-  #   # If no parallel processing, do not set future::plan(future::sequential):
-  #   # this might interfere with other parallel processing in a larger workflow.
-  #   # Just do nothing parallel.
-  #   map_loop <- function(..., .options = NULL) {
-  #     # Ignore the .options argument and pass on everything else
-  #     purrr::map(...)
-  #   }
-  # }
 
   # Create progress bar iterator
   if (!silent) {
     progress_iterator <- progressr::progressor(steps = rand_it)
   }
 
+  # Obtain data about y_col needed for subsequent operations
+  y_type <- var_type(data[[y_col]])
+  y_cats <- colnames(y_preds)
+
+  # Calculate the residual (actual y minus predicted y)
+  residuals <- if (y_type == 'binary') {
+    # Convert actual to TRUE/FALSE, which equals 1/0
+    (data[[y_col]] == binary_true_value) - y_preds
+  }
+  else if (y_type == 'categorical') {
+    # Convert each category column to TRUE/FALSE, which equals 1/0
+    y_cat_actual <- matrix(
+      rep(NA, nrow(y_preds) * ncol(y_preds)),
+      nrow = nrow(y_preds),
+      dimnames = dimnames(y_preds)
+    )
+    for (.cat in y_cats) {
+      y_cat_actual[, .cat] <- data[[y_col]] == .cat
+    }
+
+    # To calculate a single random variable, use the average residuals across all categories for the single residual values.
+    (y_cat_actual - y_preds) |>
+      rowMeans()
+  }
+  else {
+    # For numeric or ordinal data, actuals are the raw y_col values
+    data[[y_col]] - y_preds
+  }
+
+  residuals <- unname(residuals)
+
+  # Determine the closest distribution of the residuals
+  residual_distribution <- univariateML::model_select(residuals, criterion = 'bic')
+
+  # Create ALEs for random variables based on residual_distribution
+  package_scope$rand_data <- data
+  n_rows <- nrow(data)
+
   rand_ales <- furrr::future_map(
-  # rand_ales <- map_loop(
+    # rand_ales <- map_loop(
     .options = furrr::furrr_options(
       # Enable parallel-processing random seed generation
       seed = TRUE,
@@ -428,16 +455,25 @@ create_p_funs <- function(
           random_model_call_string |>
             parse(text = _) |>
             eval()
-          )
+        )
       }
       else {  # use the automatically detected model call
         tryCatch(
           {
-            # Update the model to call to add random_variable and to train on rand_data
+            # Update the model call to add random_variable and to train on rand_data
             model_call$data <- package_scope$rand_data
-            model_call$formula <- model_call$formula |>
-              eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved
-              stats::update.formula(~ . + random_variable)
+
+            model_call$formula <-
+              paste0(
+                y_col, " ~ ",
+                paste(model_predictors, collapse = " + "),
+                ' + random_variable'
+              ) |>
+              as.formula(env = call_env)
+
+            # model_call$formula <- model_call$formula |>
+            #   eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved
+            #   stats::update.formula(~ . + random_variable)
 
             assign('rand_model', eval(model_call), package_scope)
           },
@@ -520,6 +556,9 @@ create_p_funs <- function(
     list_transpose() |>
     map(bind_rows)  # combine statistics in each group into a tibble
 
+
+  ## Create functions ---------------
+
   # Create functions that return p-values given a statistic value
   value_to_p <-
     rand_stats |>
@@ -589,6 +628,8 @@ create_p_funs <- function(
   p_funs$p_to_random_value <- p_funs$p_to_random_value |>
     map(set_p_fun_env) |>
     set_names(names(p_funs$p_to_random_value))
+
+
 
 
 
@@ -791,15 +832,11 @@ var_summary <- function(
   # joint probability is smaller than the untransformed p-value.
   joint_p <- 1 - sqrt(1 - p_alpha)
 
-  # browser()
-
   # s <- s |>
   #   apply(MARGIN = 2, \(.col) {
   s <- map(1:ncol(s), \(.col_idx) {
 
     .col <- s[, .col_idx]
-      # browser()
-
       .col <- c(
         # Retain first half of values
         .col[1:match('25%', names(.col))],
@@ -894,8 +931,6 @@ var_summary <- function(
     )
   }
 
-
-  # browser()
 
   return(s)
 }

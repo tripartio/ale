@@ -244,3 +244,55 @@
       1.524e-12  1.479e-03  
       
 
+# create_p_funs works with binary outcome
+
+    Code
+      map(pf$value_to_p$vs, function(.stat_fun) {
+        .stat_fun(test_vals)
+      })
+    Output
+      $aled
+       [1] 1 1 1 1 1 0 0 0 0 0 0
+      
+      $aler_min
+       [1] 0 0 0 0 1 1 1 1 1 1 1
+      
+      $aler_max
+       [1] 1 1 1 1 1 0 0 0 0 0 0
+      
+      $naled
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+      $naler_min
+       [1] 0 0 0 0 1 1 1 1 1 1 1
+      
+      $naler_max
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+
+# create_p_funs works with categorical outcome
+
+    Code
+      map(pf$value_to_p$Asia, function(.stat_fun) {
+        .stat_fun(test_vals)
+      })
+    Output
+      $aled
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+      $aler_min
+       [1] 0 0 0 0 1 1 1 1 1 1 1
+      
+      $aler_max
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+      $naled
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+      $naler_min
+       [1] 0 0 0 0 1 1 1 1 1 1 1
+      
+      $naler_max
+       [1] 1 1 1 1 0 0 0 0 0 0 0
+      
+

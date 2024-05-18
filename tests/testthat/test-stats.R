@@ -102,3 +102,62 @@ test_that(
     expect_snapshot(pf[c('residuals', 'residual_distribution')])
   }
 )
+
+
+test_that(
+  'create_p_funs works with binary outcome', {
+    skip_on_ci()
+
+    pf <- create_p_funs(
+      test_cars,
+      test_gam_binary,
+      parallel = 0,  # disable parallelization for testing
+      silent = TRUE
+    )
+
+    expect_equal(
+      names(pf$value_to_p$vs),
+      c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
+    )
+
+    # Verify that the functions give the expected output
+    test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
+    expect_snapshot(
+      pf$value_to_p$vs |>
+        map(\(.stat_fun) {
+          .stat_fun(test_vals)
+        })
+    )
+  }
+)
+
+test_that(
+  'create_p_funs works with categorical outcome', {
+    skip_on_ci()
+
+    pf <- create_p_funs(
+      test_cars,
+      test_gam_categorical,
+      pred_type = 'probs',
+      parallel = 0,  # disable parallelization for testing
+      silent = TRUE
+    )
+
+    # expect_snapshot doesn't quite work for pf$value_to_p because function environments change.
+    # So, only partially test the function matches.
+    expect_equal(
+      names(pf$value_to_p$Europe),
+      c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
+    )
+
+    # Verify that the functions give the expected output
+    test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
+    expect_snapshot(
+      pf$value_to_p$Asia |>
+        map(\(.stat_fun) {
+          .stat_fun(test_vals)
+        })
+    )
+  }
+)
+
