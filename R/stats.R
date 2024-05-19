@@ -4,9 +4,9 @@
 #
 
 
-# create_p_funs -------------
+# create_p_dist -------------
 
-#' @title Create a p-value functions object that can be used to generate p-values
+#' @title Create an object of the ALE statistics of a random variable that can be used to generate p-values
 #'
 #' @description
 #' Calculating p-values is not trivial for ALE statistics because ALE is
@@ -27,7 +27,7 @@
 #' * The full model call must be passed as a character string in the argument
 #' 'random_model_call_string', with two slight modifications as follows.
 #' * In the formula that specifies the model, you must add a variable named
-#' 'random_variable'. This corresponds to the random variables that [create_p_funs()]
+#' 'random_variable'. This corresponds to the random variables that [create_p_dist()]
 #' will use to estimate p-values.
 #' * The dataset on which the model is trained must be named 'rand_data'. This
 #' corresponds to the modified datasets that will be used to train the random
@@ -59,7 +59,7 @@
 #' according to the distribution of the random variables' ALE statistics.
 #'
 #' What we have just described is the precise approach to calculating p-values.
-#' Because it is so slow, by default, create_p_funs() implements an approximate
+#' Because it is so slow, by default, create_p_dist() implements an approximate
 #' algorithm by default which trains only a few random variables up to the
 #' number of physical parallel processing threads available, with a minimum of
 #' four. To increase speed, the random variable uses only 10 ALE x intervals
@@ -80,7 +80,7 @@
 #' data transfer.
 #'
 #' For exact p-values, by default 1000 random variables are trained. So, even with
-#' parallel processing, the procedure is very slow. However, a p_funs object
+#' parallel processing, the procedure is very slow. However, a p_dist object
 #' trained with a specific model on a specific dataset can be reused as often as
 #' needed for the identical model-dataset pair.
 #'
@@ -107,7 +107,7 @@
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel See documentation for [ale()]
 #' @param model_packages See documentation for [ale()]
-#' @param random_model_call_string character string. If NULL, `create_p_funs()` tries to
+#' @param random_model_call_string character string. If NULL, `create_p_dist()` tries to
 #' automatically detect and construct the call for p-values. If it cannot, the
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.
@@ -116,8 +116,7 @@
 #' @param y_col See documentation for [ale()]
 #' @param binary_true_value any single atomic value. If `model` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if `model` is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
 #' @param pred_fun,pred_type See documentation for [ale()].
-#' @param output character string. If 'rand_stats', returns the raw data of the
-#' generated random statistics. If NULL (default), returns NULL.
+#' @param output character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.
 #' @param rand_it non-negative integer length 1. Number of times that the model
 #' should be retrained with a new random variable. The default of 1000 should
 #' give reasonably stable p-values. It can be reduced as low as 100 for faster
@@ -127,7 +126,7 @@
 #' @param .testing_mode logical. Internal use only.
 #'
 #' @return
-#' The return value is a list of class `c('p_funs', 'ale', 'list'`) with an
+#' The return value is a list of class `c('p_dist', 'ale')` with an
 #' `ale_version` attribute whose value is the version of the `ale` package used to
 #' create the object. See examples for an illustration of how to inspect this list.
 #' Its elements are:
@@ -136,7 +135,7 @@
 #' the p-value (minimum 0; maximum 1) for the respective statistic based on the random variable analysis.
 #' For an input x that returns p, its interpretation is that p% of random variables
 #' obtained the same or higher statistic value. For example, to get the p-value
-#' of a NALED of 4.2, enter `p_funs$value_to_p(4.2)`. A return value of 0.03 means
+#' of a NALED of 4.2, enter `p_dist$value_to_p(4.2)`. A return value of 0.03 means
 #' that only 3% of random variables obtained a NALED greater than or equal to 4.2.
 #' * `p_to_random_value`: a list of functions named for each each available ALE statistic.
 #' These are the inverse functions of `value_to_p`. The signature is `function(p)`
@@ -144,17 +143,11 @@
 #' random variable statistic that would yield the provided p-value.
 #' For an input p that returns x, its interpretation is that p% of random variables
 #' obtained the same or higher statistic value. For example, to get the random
-#' variable ALED for the 0.05 p-value, enter `p_funs$p_to_random_value(0.05)`.
+#' variable ALED for the 0.05 p-value, enter `p_dist$p_to_random_value(0.05)`.
 #' A return value of 102 means that only 5% of random variables obtained an ALED
 #' greater than or equal to 102.
-#' * `rand_stats`: If `output = 'rand_stats'`, returns a tibble whose rows are
-#' each of the `rand_it` iterations of the random variable analysis and whose
-#' columns are the ALE statistics obtained for each random variable.
-#' If `output = NULL`, (default), returns NULL.
-#' * `residuals`: If `output = 'rand_stats'`, returns the actual `y_col` values
-#' from `data` minus the predicted
-#' values from the `model` (without random variables) on the `data`.
-#' If `output = NULL`, (default), returns NULL.
+#' * `rand_stats`: a tibble whose rows are each of the `rand_it` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
+#' * `residuals`: If `output = 'residuals'`, returns the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output = NULL`, (default), does not return these residuals.
 #' `residual_distribution`: the closest estimated distribution for the `residuals`
 #' as determined by [univariateML::rml()]. This is the distribution used to generate
 #' all the random variables.
@@ -175,7 +168,7 @@
 #' summary(gam_diamonds)
 #'
 #' # Create p-value functions
-#' pf_diamonds <- create_p_funs(
+#' pf_diamonds <- create_p_dist(
 #'   diamonds_sample,
 #'   gam_diamonds,
 #'   # only 100 iterations for a quick demo; but usually should remain at 1000
@@ -202,7 +195,7 @@
 #' # you can use 'random_model_call_string' to specify a model for the estimation
 #' # of p-values from random variables as in this example.
 #' # See details above for an explanation.
-#' pf_diamonds <- create_p_funs(
+#' pf_diamonds <- create_p_dist(
 #'   diamonds_sample,
 #'   gam_diamonds,
 #'   random_model_call_string = 'mgcv::gam(
@@ -217,7 +210,7 @@
 #' }
 #'
 #'
-create_p_funs <- function(
+create_p_dist <- function(
     data,
     model,
     p_val_type = 'approx fast',
@@ -282,7 +275,7 @@ create_p_funs <- function(
       !is.null(model_call),
       msg = cli_alert_danger(paste0(
         'The model call could not be automatically detected, so ',
-        '{.arg random_model_call_string} must be provided. See {.fun ale::create_p_funs} ',
+        '{.arg random_model_call_string} must be provided. See {.fun ale::create_p_dist} ',
         'for details.'
       ))
     )
@@ -293,14 +286,14 @@ create_p_funs <- function(
       stringr::str_detect(random_model_call_string, 'random_variable'),
       msg = cli_alert_danger(paste0(
         '{.arg random_model_call_string} must contain a variable named {.var random_variable}. ',
-        'See {.fun ale::create_p_funs} for details.'
+        'See {.fun ale::create_p_dist} for details.'
       ))
     )
     validate(
       stringr::str_detect(random_model_call_string, 'rand_data'),
       msg = cli_alert_danger(paste0(
         'The {.arg data} argument for {.arg random_model_call_string} must be {.str rand_data}. ',
-        'See {.fun ale::create_p_funs} for details.'
+        'See {.fun ale::create_p_dist} for details.'
       ))
     )
 
@@ -321,9 +314,9 @@ create_p_funs <- function(
   if (!is.null(output)) {
     validate(
       is_string(output),
-      output == 'rand_stats',
+      output == 'residuals',
       msg = cli_alert_danger(
-        '{.arg output} must be either {.str rand_stats} or NULL'
+        '{.arg output} must be either {.str residuals} or NULL'
       )
     )
   }
@@ -559,89 +552,143 @@ create_p_funs <- function(
 
   ## Create functions ---------------
 
-  # Create functions that return p-values given a statistic value
-  value_to_p <-
-    rand_stats |>
-    map(\(.cat) {  # iterate by categorical class or just by the single y_col
-      .cat |>
-        imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
-          function(x) {
-            validate(is.numeric(x))
+  # # Create functions that return p-values given a statistic value
+  # value_to_p <-
+  #   rand_stats |>
+  #   map(\(.cat) {  # iterate by categorical class or just by the single y_col
+  #     .cat |>
+  #       imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
+  #         function(x) {
+  #           validate(is.numeric(x))
+  #
+  #           # For aler_min and naler_min, the p-value is the simple ECDF
+  #           if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
+  #             stats::ecdf(.stat_vals)(x)
+  #           }
+  #           # For other statistics, the p-value is 1 - ECDF.
+  #           else {
+  #             1 - stats::ecdf(.stat_vals)(x)
+  #           }
+  #         }
+  #       })
+  #   })
+  #
+  # # Create functions that return the random statistic value given a p-value
+  # p_to_random_value <-
+  #   rand_stats |>
+  #   map(\(.cat) {  # iterate by categorical class or just by the single y_col
+  #     .cat |>
+  #       imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
+  #         function(p) {
+  #           validate(is.numeric(p))
+  #           validate(all(p >= 0 & p <= 1))
+  #
+  #           # Interpretation of p-value: percentage of values >= or greater than the statistic.
+  #           # This code returns the statistic that yields the given p for this data.
+  #
+  #           # For aler_min and naler_min, the value is the simple quantile
+  #           if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
+  #             .stat_vals |>
+  #               quantile(probs = p) |>
+  #               stats::setNames(p)
+  #           }
+  #           # For other statistics, the value is the quantile of 1 - p
+  #           else {
+  #             .stat_vals |>
+  #               quantile(probs = 1 - p) |>
+  #               stats::setNames(p)
+  #           }
+  #         }
+  #       })
+  #   })
 
-            # For aler_min and naler_min, the p-value is the simple ECDF
-            if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
-              stats::ecdf(.stat_vals)(x)
-            }
-            # For other statistics, the p-value is 1 - ECDF.
-            else {
-              1 - stats::ecdf(.stat_vals)(x)
-            }
-          }
-        })
-    })
 
-  # Create functions that return the random statistic value given a p-value
-  p_to_random_value <-
-    rand_stats |>
-    map(\(.cat) {  # iterate by categorical class or just by the single y_col
-      .cat |>
-        imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
-          function(p) {
-            validate(is.numeric(p))
-            validate(all(p >= 0 & p <= 1))
+  # p_funs <- list(
+  #   value_to_p = value_to_p,
+  #   p_to_random_value = p_to_random_value,
+  #   residual_distribution = residual_distribution
+  # )
+  #
+  # if (!is.null(output) && output == 'rand_stats') {
+  #   p_funs$rand_stats <- rand_stats
+  #   p_funs$residuals <- residuals
+  # }
+  #
+  # # Replace p_funs function environments with sparse environments that flush out anything not strictly necessary.
+  # p_funs$value_to_p <- p_funs$value_to_p |>
+  #   map(set_p_fun_env) |>
+  #   set_names(names(p_funs$value_to_p))
+  # p_funs$p_to_random_value <- p_funs$p_to_random_value |>
+  #   map(set_p_fun_env) |>
+  #   set_names(names(p_funs$p_to_random_value))
+  #
+  # # Set S3 class information for the p_funs object
+  # class(p_funs) <- c('p_funs', 'ale')
+  # attr(p_funs, 'ale_version') <- utils::packageVersion('ale')
+  #
+  # return(p_funs)
 
-            # Interpretation of p-value: percentage of values >= or greater than the statistic.
-            # This code returns the statistic that yields the given p for this data.
-
-            # For aler_min and naler_min, the value is the simple quantile
-            if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
-              .stat_vals |>
-                quantile(probs = p) |>
-                stats::setNames(p)
-            }
-            # For other statistics, the value is the quantile of 1 - p
-            else {
-              .stat_vals |>
-                quantile(probs = 1 - p) |>
-                stats::setNames(p)
-            }
-          }
-        })
-    })
-
-  p_funs <- list(
-    value_to_p = value_to_p,
-    p_to_random_value = p_to_random_value,
+  p_dist <- list(
+    rand_stats = rand_stats,
     residual_distribution = residual_distribution
   )
 
-  if (!is.null(output) && output == 'rand_stats') {
-    p_funs$rand_stats <- rand_stats
-    p_funs$residuals <- residuals
+  if (!is.null(output) && output == 'residuals') {
+    p_dist$residuals <- residuals
   }
 
+  # Set S3 class information for the p_dist object
+  class(p_dist) <- c('p_dist', 'ale')
+  attr(p_dist, 'ale_version') <- utils::packageVersion('ale')
 
-  # Replace p_funs function environments with sparse environments that flush out anything not strictly necessary.
-  p_funs$value_to_p <- p_funs$value_to_p |>
-    map(set_p_fun_env) |>
-    set_names(names(p_funs$value_to_p))
-  p_funs$p_to_random_value <- p_funs$p_to_random_value |>
-    map(set_p_fun_env) |>
-    set_names(names(p_funs$p_to_random_value))
-
-
-
-
-
-  # Set S3 class information for the p_funs object
-  class(p_funs) <- c('p_funs', 'ale')
-  attr(p_funs, 'ale_version') <- utils::packageVersion('ale')
-
-  return(p_funs)
+  return(p_dist)
 
 }
 
 
+# Return p-values given an ALE statistic value (x can be a vector)
+value_to_p <- function(
+    p_dist_cat,  # p_dist at the level of a category, not the entire p_dist object
+    stat,
+    x
+  ) {
+  validate(is.numeric(x))
+
+  # For aler_min and naler_min, the p-value is the simple ECDF
+  if (stringr::str_sub(stat, -4, -1) == '_min') {
+    stats::ecdf(p_dist_cat[[stat]])(x)
+  }
+  # For other statistics, the p-value is 1 - ECDF.
+  else {
+    1 - stats::ecdf(p_dist_cat[[stat]])(x)
+  }
+}
+
+# Return the random ALE statistic value given a p-value (or vector of p-values)
+p_to_random_value <- function(
+    p_dist_cat,  # p_dist at the level of a category, not the entire p_dist object
+    stat,
+    p
+) {
+  validate(is.numeric(p))
+  validate(all(p >= 0 & p <= 1))
+
+  # Interpretation of p-value: percentage of values >= or greater than the statistic.
+  # This code returns the statistic that yields the given p for this data.
+
+  # For aler_min and naler_min, the value is the simple quantile
+  if (stringr::str_sub(stat, -4, -1) == '_min') {
+    p_dist_cat[[stat]] |>
+      quantile(probs = p) |>
+      stats::setNames(p)
+  }
+  # For other statistics, the value is the quantile of 1 - p
+  else {
+    p_dist_cat[[stat]] |>
+      quantile(probs = 1 - p) |>
+      stats::setNames(p)
+  }
+}
 
 
 
@@ -805,9 +852,11 @@ var_summary <- function(
     var_vals,
     ...,
     median_band_pct = c(0.05, 0.5),
-    p_funs = NULL,
+    p_dist = NULL,
     p_alpha = c(0.01, 0.05)
 ) {
+  rand_stats <- p_dist$rand_stats
+
   s <-
     var_vals |>
     apply(MARGIN = 2, \(.col) {
@@ -837,60 +886,68 @@ var_summary <- function(
   s <- map(1:ncol(s), \(.col_idx) {
 
     .col <- s[, .col_idx]
-      .col <- c(
-        # Retain first half of values
-        .col[1:match('25%', names(.col))],
+    .col <- c(
+      # Retain first half of values
+      .col[1:match('25%', names(.col))],
 
-        # Create lower confidence bounds just below the midpoint
-        med_lo_2 = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_min(joint_p[1]))
-          # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
-        } else {
-          .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
-        },
-        med_lo = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_min(joint_p[2]))
-          # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
-        } else {
-          .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
-        },
+      # Create lower confidence bounds just below the midpoint
+      med_lo_2 = if (!is.null(p_dist)) {
+        (.col[['50%']] +
+           p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[1])) |>
+          unname()
+        # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
+      } else {
+        .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
+      },
+      med_lo = if (!is.null(p_dist)) {
+        (.col[['50%']] +
+           p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[2])) |>
+          unname()
+        # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
+      } else {
+        .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
+      },
 
-        .col[match('50%', names(.col))],
+      .col[match('50%', names(.col))],
 
-        mean = mean(var_vals, na.rm = TRUE),
+      mean = mean(var_vals, na.rm = TRUE),
 
-        # Create upper confidence bounds just above the midpoint
-        med_hi = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_max(joint_p[2]))
-        } else {
-          .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
-        },
-        med_hi_2 = if (!is.null(p_funs)) {
-          unname(.col[['50%']] + p_funs$p_to_random_value[[.col_idx]]$aler_max(joint_p[1]))
-        } else {
-          .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
-        },
+      # Create upper confidence bounds just above the midpoint
+      med_hi = if (!is.null(p_dist)) {
+        (.col[['50%']] +
+           p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[2])) |>
+          unname()
+      } else {
+        .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
+      },
+      med_hi_2 = if (!is.null(p_dist)) {
+        (.col[['50%']] +
+           p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[1])) |>
+          unname()
+      } else {
+        .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
+      },
 
-        # Retain latter half of values
-        .col[match('75%', names(.col)):length(.col)]
-      )
+      # Retain latter half of values
+      .col[match('75%', names(.col)):length(.col)]
+    )
 
-      # Determine the limits and average of y.
-      # min and max are needed only for plotting, but avg is needed for data.
-      # Set the plotting boundaries for the y axis
-      if (min(var_vals) >= 0 && max(var_vals) <= 1) {  # var is a probability
-        .col <- c(min = 0, .col)
-        .col <- c(.col, max = 1)
-      }
-      else {
-        .col <- c(min = .col[['1%']], .col)
-        .col <- c(.col, max = .col[['99%']])
-      }   # as of now, no treatment and no error for non-numeric y
+    # Determine the limits and average of y.
+    # min and max are needed only for plotting, but avg is needed for data.
+    # Set the plotting boundaries for the y axis
+    if (min(var_vals) >= 0 && max(var_vals) <= 1) {  # var is a probability
+      .col <- c(min = 0, .col)
+      .col <- c(.col, max = 1)
+    }
+    else {
+      .col <- c(min = .col[['1%']], .col)
+      .col <- c(.col, max = .col[['99%']])
+    }   # as of now, no treatment and no error for non-numeric y
 
-      .col
-    }) |>
-    set_names(colnames(s)) |>
-    do.call(cbind, args = _)
+    .col
+  }) |>
+  set_names(colnames(s)) |>
+  do.call(cbind, args = _)
 
   # For categorical variables, create a summary column as the first column
   if (ncol(s) > 1) {
@@ -918,7 +975,7 @@ var_summary <- function(
   # Encode whether the med values represent p-values or not:
   # names(s[1]) == 'p': base p-value
   # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
-  s <- if (is.null(p_funs)) {
+  s <- if (is.null(p_dist)) {
     rbind(
       q = rep(median_band_pct[1], ncol(s)),
       s

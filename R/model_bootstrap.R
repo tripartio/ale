@@ -35,10 +35,7 @@
 #'  an 'auto' option for creating p-values,
 #'  that option is disabled in `model_bootstrap()` because it would be far too slow:
 #'  it would involve retraining the model 1000 times the number of bootstrap iterations.
-#'  Rather, you must first create a p-values function object using the procedure
-#'  described in `help(create_p_funs)`. If the name of your p-values object is
-#'  `p_funs`, you can then request p-values each time you run `model_bootstrap()`
-#'  by passing it the argument `ale_options = list(p_values = p_funs)`.
+#'  Rather, you must first create a p-values function object using the procedure described in `help(create_p_dist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you run `model_bootstrap()` by passing it the argument `ale_options = list(p_values = p_dist)`.
 #'
 #' @export
 #'
@@ -251,7 +248,7 @@ model_bootstrap <- function (
     msg = cli_alert_danger(paste0(
       'The {.arg ale_options} `p_values == "auto"` option is disabled for `model_bootstrap()` ',
       'because it is far too slow. Rather, you must pass a p-values ',
-      'function object using the procedure described in {.fun ale::create_p_funs}.'
+      'function object using the procedure described in {.fun ale::create_p_dist}.'
     ))
   )
   validate(is.list(tidy_options))

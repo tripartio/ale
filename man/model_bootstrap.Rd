@@ -140,10 +140,7 @@ on every execution of \code{model_bootstrap()}. Although the \code{\link[=ale]{a
 an 'auto' option for creating p-values,
 that option is disabled in \code{model_bootstrap()} because it would be far too slow:
 it would involve retraining the model 1000 times the number of bootstrap iterations.
-Rather, you must first create a p-values function object using the procedure
-described in \code{help(create_p_funs)}. If the name of your p-values object is
-\code{p_funs}, you can then request p-values each time you run \code{model_bootstrap()}
-by passing it the argument \code{ale_options = list(p_values = p_funs)}.
+Rather, you must first create a p-values function object using the procedure described in \code{help(create_p_dist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you run \code{model_bootstrap()} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
 }
 \details{
 model_bootstrap.R

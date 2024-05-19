@@ -2,7 +2,7 @@
 
 export(ale)
 export(ale_ixn)
-export(create_p_funs)
+export(create_p_dist)
 export(model_bootstrap)
 import(dplyr)
 import(ggplot2)

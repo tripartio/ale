@@ -9,6 +9,7 @@
 ## Other user-visible changes
 
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
+* The structure of p_funs has been completely changed; it has now been renamed p_dist. The function create_p_funs() has been renamed create_p_dist().
 * create_p_funs now produces two types of p-value via the `p_val_type` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
 

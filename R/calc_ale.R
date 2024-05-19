@@ -41,7 +41,7 @@
 #  all variables throughout one call to [ale()]. For now, used as a flag to
 #  determine whether statistics will be calculated or not; if NULL, statistics
 #  will not be calculated.
-#  @param p_funs See documentation for `p_values` in [ale()]
+#  @param p_dist See documentation for `p_values` in [ale()]
 #
 calc_ale <- function(
     X, model, x_col, y_cats,
@@ -52,7 +52,7 @@ calc_ale <- function(
     ale_x = NULL,
     ale_n = NULL,
     ale_y_norm_funs = NULL,
-    p_funs = NULL
+    p_dist = NULL
 ) {
 
   n_row <- nrow(X)
@@ -742,8 +742,8 @@ calc_ale <- function(
           select('statistic', 'estimate', everything())
       })
 
-    # If p_funs are provided, calculate p-values
-    if (!is.null(p_funs)) {
+    # If p_dist are provided, calculate p-values
+    if (!is.null(p_dist)) {
       boot_stats <- boot_stats |>
         imap(\(.cat_stats, .cat) {
           .cat_stats |>
@@ -752,7 +752,9 @@ calc_ale <- function(
                 .data$estimate, .data$statistic,
                 \(.stat, .stat_name) {
                   # Call the p-value function corresponding to the named statistic
-                  p_funs$value_to_p[[.cat]][[.stat_name]](.stat)
+                  p_dist$rand_stats[[.cat]] |>
+                    value_to_p(.stat_name, .stat)
+                  # p_dist$value_to_p[[.cat]][[.stat_name]](.stat)
                 })
             ) |>
             select('statistic', 'estimate', 'p.value', everything())

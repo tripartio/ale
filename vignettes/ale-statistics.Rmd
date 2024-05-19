@@ -152,20 +152,20 @@ The implication of this for p-values is that the distribution of the data must b
 
 As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The {ale} package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
-To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_funs()` function generates a `p_funs` object that can be run once for a given model-dataset pair. The `p_funs` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ale()` or `model_bootstrap()` functions. For very large datasets, the process of generating the `p_funs` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_funs()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
+To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_dist()` function generates a `p_dist` object that can be run once for a given model-dataset pair. The `p_dist` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ale()` or `model_bootstrap()` functions. For very large datasets, the process of generating the `p_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_dist()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
-We now demonstrate how to create the `p_funs` object for our case.
+We now demonstrate how to create the `p_dist` object for our case.
 
-```{r p_funs}
+```{r p_dist}
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it retrains the model 1000 times,
 # # so this vignette loads a pre-created p-values object.
-# gam_math_p_funs <- create_p_funs(
+# gam_math_p_dist <- create_p_dist(
 #   math,
 #   gam_math
 # )
-# saveRDS(gam_math_p_funs, file.choose())
-gam_math_p_funs <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_funs.rds') |> 
+# saveRDS(gam_math_p_dist, file.choose())
+gam_math_p_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds') |> 
   readRDS()
 ```
 
@@ -179,8 +179,8 @@ By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be contr
 mb_gam_math <- model_bootstrap(
   math, 
   gam_math,
-  # Pass the p_funs object so that p-values will be generated
-  ale_options = list(p_values = gam_math_p_funs),
+  # Pass the p_dist object so that p-values will be generated
+  ale_options = list(p_values = gam_math_p_dist),
   # For the GAM model coefficients, show details of all variables, parametric or not
   tidy_options = list(parametric = TRUE),
   # tidy_options = list(parametric = NULL),
@@ -250,9 +250,9 @@ Of particular interest is the random variable `rand_norm`, whose average ALE app
 
 ### ALE plots without p-values
 
-Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_funs` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_funs` object. Let us run `model_bootstrap()` again, but this time, without p-values.
+Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us run `model_bootstrap()` again, but this time, without p-values.
 
-```{r model-bootstrap-without-p_funs, fig.width=7, fig.height=10}
+```{r model-bootstrap-without-p_dist, fig.width=7, fig.height=10}
 mb_gam_no_p <- model_bootstrap(
   math, 
   gam_math,
