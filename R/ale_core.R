@@ -118,7 +118,7 @@
 #' Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
 #' 'stats' will return ALE statistics. Each option must be listed to return the
-#' specified component. By default, all are returned.
+#' specified component. By default, all are returned except for 'boot'.
 #' @param pred_fun,pred_type function,character length 1. `pred_fun` is a function that
 #' returns a vector of predicted values of type `pred_type` from `model` on `data`.
 #' See details.

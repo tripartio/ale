@@ -359,7 +359,9 @@ create_p_dist <- function(
     # Get the predictors when model_call is automatically detected
     model_predictors <-
       model_call$formula |>
-      as.formula(env = call_env) |>
+      # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
+      eval(envir = call_env) |>
+      # as.formula(env = call_env) |>
       terms(data = data) |>
       attr('term.labels')
   }
@@ -857,6 +859,9 @@ var_summary <- function(
 ) {
   rand_stats <- p_dist$rand_stats
 
+  # Convert vector to matrix
+  var_vals <- as.matrix(var_vals, ncol = 1)
+
   s <-
     var_vals |>
     apply(MARGIN = 2, \(.col) {
@@ -966,8 +971,10 @@ var_summary <- function(
       var_s,
       s
     )
-    colnames(s)[1] <- var_name
   }
+
+  # The first column should always be named for the var_name, whether it is the only column or not
+  colnames(s)[1] <- var_name
 
 
 

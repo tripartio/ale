@@ -3,74 +3,29 @@
 # Functions for plotting ALE data
 
 
-# # First steps towards ale generic plot method
-# plot.ale <- function(
-#     ale_data, x_col, y_col, y_type,
-#     y_summary,
-#     ...,
-#     x_y = NULL,
-#     compact_plots = FALSE
-# ) {
-#
-#   ale_summary_plots <- NULL
-#   # By default, produce ALE plots except if the user explicitly excluded them
-#   if (!('output' %in% names(ale_options)) ||  # user didn't specify precise ALE output options
-#       ('plot' %in% ale_options$output)) {    # or if they did, they at least requested plots
-#     # Produce ALE plots for each variable
-#     ale_summary_plots <-
-#       ale_summary_data |>
-#       imap(\(.cat, .cat_name) {
-#         .cat |>
-#           imap(\(.x_col_data, .x_col_name) {
-#
-#             plot_ale(
-#               .x_col_data,
-#               .x_col_name, y_col, y_type,
-#               y_summary[, .cat_name],
-#               # list(.x_col_data),  # temporary workaround before proper S3 plots
-#               # .x_col_name, y_col, y_type, y_summary,
-#               # Temporarily buggy for binary y
-#               x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
-#                 stats::setNames(c(.x_col_name, y_col)),
-#
-#               ## Later: pass ale_options() that might apply
-#               compact_plots = compact_plots
-#
-#               # When y_vals is added
-#               # x_y = tibble(data[[.x_col_name]], y_vals) |>
-#               #   stats::setNames(c(.x_col_name, y_col)),
-#             ) # |>
-#             # pluck(1)  # temporary workaround before proper S3 plots
-#           })
-#       })
-#
-#
-#     # Also produce an ALE effects plot
-#
-#     # Retrieve median_band_pct if provided; otherwise use boot_alpha
-#     median_band_pct <- if (is.null(ale_options$median_band_pct)) {
-#       c(boot_alpha, boot_alpha)
-#     } else {
-#       ale_options$median_band_pct
-#     }
-#
-#     detailed_ale_stats <- detailed_ale_stats |>
-#       map(\(.cat) {
-#         .cat$effects_plot <- plot_effects(
-#           .cat$estimate,
-#           data[[y_col]],
-#           y_col,
-#           median_band_pct,
-#           # later pass ale_options like compact_plots
-#           compact_plots = compact_plots
-#         )
-#
-#         .cat
-#       })
-#
-#   }
-#
-# }
+# First steps towards ale generic plot method
+plot.ale <- function(
+    ale_obj,
+    # Normally, all these other arguments would be part of the new ale_Obj; for now, pass them explicitly
+    y_type, y_summary,
+    ...,
+    x_y_data = NULL,
+    compact_plots = FALSE
+) {
+  imap(ale_obj$data, \(.ale_cat_data, .cat) {
+    imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+      plot_ale(
+        ale_data = .x_col_data,
+        x_col = .x_col_name,
+        y_col = .cat,
+        y_type = y_type,
+        y_summary = y_summary[, .cat],
+        x_y = x_y_data[, c(.x_col_name, .cat)],
+        compact_plots = compact_plots,
+      )
+    })
+  })
+}
 
 
 

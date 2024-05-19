@@ -686,7 +686,11 @@ model_bootstrap <- function (
             .ale_summary_stats <- .ale_summary_stats |>
               rowwise() |>  # required to get statistic function for each row
               mutate(
-                p.value = ale_options$p_values$value_to_p[[.cat]][[.data$statistic]](.data$estimate),
+                p.value = value_to_p(
+                  ale_options$p_values$rand_stats[[.cat]],
+                  .data$statistic,
+                  .data$estimate
+                ),
               ) |>
               ungroup() |>  # undo rowwise()
               select('term', 'statistic', 'estimate', 'p.value', everything())
