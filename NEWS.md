@@ -2,13 +2,17 @@
 
 ## Breaking changes
 
+* We have deeply rethought how best to structure the objects for this package. As a result, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
+
 ## Bug fixes
 
 * Gracefully fails when the input data has missing values.
 
 ## Other user-visible changes
 
+* Categorical y outcomes are now supported. The plots
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
+* model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.
 * The structure of p_funs has been completely changed; it has now been renamed p_dist. The function create_p_funs() has been renamed create_p_dist().
 * create_p_funs now produces two types of p-value via the `p_val_type` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
