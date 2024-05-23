@@ -3,10 +3,20 @@
 # Functions for plotting ALE data
 
 
-# First steps towards ale generic plot method
-plot.ale <- function(
+#' plot method for ALE objects
+#'
+#' @param ale_obj ale object. The object of class `ale_obj` containing data to be plotted.
+#' @param y_type character(1). The type of the response variable.
+#' @param y_summary matrix. Summary statistics for the response variable.
+#' @param ... not used. Enforces explicit naming of subsequent arguments.
+#' @param x_y_data Data for the x and y variables.
+#' @param compact_plots Logical indicating if the plots should be compact.
+#'
+#' @method plot ale_obj
+#' @export
+plot.ale_obj <- function(
     ale_obj,
-    # Normally, all these other arguments would be part of the new ale_Obj; for now, pass them explicitly
+    # Normally, all these other arguments would be part of the new ale_obj; for now, pass them explicitly
     y_type, y_summary,
     ...,
     x_y_data = NULL,
