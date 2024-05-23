@@ -42,6 +42,7 @@
 #' @importFrom purrr set_names
 #' @importFrom rlang .data
 #' @importFrom rlang is_bool
+#' @importFrom rlang is_scalar_logical
 #' @importFrom rlang is_string
 #' @importFrom stats median
 #' @importFrom stats quantile
