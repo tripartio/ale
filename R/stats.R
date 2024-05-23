@@ -112,9 +112,9 @@
 #' function will fail early. In that case, a character string of the full call
 #' for the model must be provided that includes the random variable. See details.
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars`
-#' in [model_bootstrap()]; the operation is very similar.
+#' in [model_bootstrap()]; their operation is very similar.
 #' @param y_col See documentation for [ale()]
-#' @param binary_true_value any single atomic value. If `model` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if `model` is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
+#' @param binary_true_value See documentation for [model_bootstrap()]
 #' @param pred_fun,pred_type See documentation for [ale()].
 #' @param output character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.
 #' @param rand_it non-negative integer length 1. Number of times that the model
@@ -247,6 +247,8 @@ create_p_dist <- function(
     data = data,
     model = model
   )
+
+  validate(is_scalar_logical(binary_true_value))
 
   # Validate the prediction function with the model and the dataset
   # Note: y_preds will be used later in this function.

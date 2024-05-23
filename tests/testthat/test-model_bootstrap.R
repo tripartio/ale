@@ -38,8 +38,7 @@
 
 # All other tests are without parallelization so that results are reproducible
 
-# Because it is complex to save entire ggplot objects,
-# only save the core data from the plot
+# Because it is complex to save entire ggplot objects, only save the core data from the plot
 test_that(
   'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
     skip_on_ci()
@@ -73,7 +72,7 @@ test_that(
 
     mb <- model_bootstrap(
       test_cars,
-      test_gam,
+      test_gam,  # ignored because model_call_string is provided
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
@@ -126,24 +125,98 @@ test_that(
 )
 
 test_that(
-  'snapshot works without ALE, with every parameter set to something, with multiple x datatypes', {
+  'binary outcome works with multiple x datatypes', {
     skip_on_ci()
 
     mb <- model_bootstrap(
       test_cars,
-      model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country, data = boot_data)',
+      test_gam_binary,
       parallel = 0,
-      boot_it = 3,
-      seed = 12,
-      boot_alpha = 0.01,
-      boot_centre = 'median',
-      output = c('model_stats', 'model_coefs'),
-      tidy_options = list(parametric = TRUE),
-      glance_options = list(glance.gam_options_are_ignored = TRUE),
-      silent = TRUE
+      boot_it = 5,
+      # faster test
+      ale_options = list(
+        max_x_int = 10,
+        x_cols = c('cyl', 'disp')
+      ),
+      silent = TRUE,
+      compact_plots = TRUE
     )
+    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+    mb$ale$stats$vs$effects_plot <- mb$ale$stats$vs$effects_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     expect_snapshot(mb)
   }
 )
+
+# Temporarily test on iris until I can get a larger var_cars sample
+test_that(
+  'categorical outcome works on iris dataset', {
+    skip_on_ci()
+
+    test_nn_iris <- nnet::multinom(
+      Species ~ .,
+      data = iris,
+      trace = FALSE  # suppress noisy output from nnet
+    )
+
+    mb <- model_bootstrap(
+      iris,
+      test_nn_iris,
+      pred_type = 'probs',
+      parallel = 0,
+      boot_it = 5,
+      ale_options = list(
+        max_x_int = 10,
+        pred_type = 'probs'
+      ),
+      silent = TRUE,
+      compact_plots = TRUE
+    )
+    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+    mb$ale$stats <- mb$ale$stats |>
+      map(\(.cat) {
+        .cat$effects_plot <- .cat$effects_plot |>
+          ggplot2::ggplot_build() |>
+          (`[[`)('data') |>
+          (`[[`)(1)
+
+        .cat
+      })
+    expect_snapshot(mb)
+  }
+)
+
+# test_that(
+#   'categorical outcome works with multiple x datatypes', {
+#     skip_on_ci()
+#
+#     mb <- model_bootstrap(
+#       test_cars,
+#       test_nn_categorical,
+#       pred_type = 'probs',
+#       parallel = 0,
+#       boot_it = 5,
+#       # faster test
+#       ale_options = list(
+#         max_x_int = 10,
+#         pred_type = 'probs',
+#         x_cols = c('cyl', 'disp')
+#       ),
+#       silent = TRUE,
+#       compact_plots = TRUE
+#     )
+#     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
+#     mb$ale$stats <- mb$ale$stats |>
+#       map(\(.cat) {
+#         .cat$effects_plot <- .cat$effects_plot |>
+#           ggplot2::ggplot_build() |>
+#           (`[[`)('data') |>
+#           (`[[`)(1)
+#
+#         .cat
+#       })
+#     expect_snapshot(mb)
+#   }
+# )
 

@@ -12,6 +12,13 @@ model_bootstrap(
   model_call_string_vars = character(),
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
+  y_col = NULL,
+  binary_true_value = TRUE,
+  pred_fun = function(object, newdata, type = pred_type) {
+     stats::predict(object =
+    object, newdata = newdata, type = type)
+ },
+  pred_type = "response",
   boot_it = 100,
   seed = 0,
   boot_alpha = 0.05,
@@ -47,6 +54,10 @@ then this is not a concern.}
 
 \item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
 
+\item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
+
+\item{binary_true_value}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value} as \code{2}.}
+
 \item{boot_it}{integer from 0 to Inf. Number of bootstrap iterations.
 If boot_it = 0, then the model is run as normal once on the full \code{data} with
 no bootstrapping.}
@@ -80,32 +91,32 @@ statistics, see the details.}
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 }
 \value{
-list with tibbles of the following elements (depending on values requested in
-the \code{output} argument:
+list with the following elements (depending on values requested in the \code{output} argument:
 \itemize{
-\item model_stats: bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}
-\item model_coefs: bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}
-\item ale: bootstrapped ALE results
+\item \code{model_stats}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}
+\item \code{model_perf}: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
 \itemize{
-\item data: ALE data (see \code{\link[=ale]{ale()}} for details about the format)
-\item stats: ALE statistics. The same data is duplicated with different views
-that might be variously useful. The column
-\itemize{
-\item by_term: statistic, estimate, conf.low, median, mean, conf.high.
-("term" means variable name.)
-The column names are compatible with the \code{broom} package. The confidence intervals
-are based on the \code{\link[=ale]{ale()}} function defaults; they can be changed with the
-\code{ale_options} argument. The estimate is the median or the mean, depending
-on the \code{boot_centre} argument.
-\item by_statistic: term, estimate, conf.low, median, mean, conf.high.
-\item estimate: term, then one column per statistic Provided with the default
-estimate. This view does not present confidence intervals.
+\item mae: mean absolute error (bootstrap validated)
+\item mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
+\item sa_mae_mad: standardized accuracy of the MAE referenced on the MAD (bootstrap validated)
+\item rmse: root mean squared error (bootstrap validated)
+\item standard deviation (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
+\item sa_rmse_sd: standardized accuracy of the RMSE referenced on the SD (bootstrap validated)
 }
-\item plots: ALE plots (see \code{\link[=ale]{ale()}} for details about the format)
+\item \code{model_coefs}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}
+\item \code{ale}: list of bootstrapped ALE results
+\itemize{
+\item \code{data}: ALE data (see \code{\link[=ale]{ale()}} for details about the format)
+\item \code{stats}: ALE statistics. The same data is duplicated with different views that might be variously useful:
+\itemize{
+\item \code{by_term}: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the \code{broom} package. The confidence intervals are based on the \code{\link[=ale]{ale()}} function defaults; they can be changed with the \code{ale_options} argument. The estimate is the median or the mean, depending on the \code{boot_centre} argument.
+\item \code{by_statistic} : term, estimate, conf.low, median, mean, conf.high.
+\item \code{estimate}: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
 }
-\item boot_data: full bootstrap data (not returned by default)
-\item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that
-were originally passed are returned for reference.
+\item \code{plots}: ALE plots (see \code{\link[=ale]{ale()}} for details about the format)
+}
+\item \code{boot_data}: full bootstrap data (not returned by default)
+\item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that were originally passed are returned for reference.
 }
 }
 \description{

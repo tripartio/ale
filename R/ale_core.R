@@ -577,9 +577,7 @@ ale_core <- function (
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
-    # pred_fun = function(object, newdata) {
     pred_fun = function(object, newdata, type = pred_type) {
-      # stats::predict(object = object, newdata = newdata, type = pred_type)
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
@@ -621,6 +619,16 @@ ale_core <- function (
     msg = '{.arg data} must not have any missing values.'
   )
 
+  # Validate y_col.
+  # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+  y_col <- validate_y_col(
+    y_col = y_col,
+    data = data,
+    model = model
+  )
+
+  validate(is_string(pred_type))
+
   # Validate the model:
   # A valid model is one that, when passed to a predict function with a valid
   # dataset, produces a numeric vector with length equal to the number of rows
@@ -634,18 +642,11 @@ ale_core <- function (
     pred_type = pred_type
   )
 
-  # Validate y_col.
-  # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
-  y_col <- validate_y_col(
-    y_col = y_col,
-    data = data,
-    model = model
-  )
-
-  if (is.null(colnames(y_preds)) && ncol(y_preds) == 1) {
-    # Name the y_preds column for a single prediction vector
-    colnames(y_preds) <- y_col
-  }
+  ## By placing validate_y_col before validate_y_preds, this code snippet is redundant
+  # if (is.null(colnames(y_preds)) && ncol(y_preds) == 1) {
+  #   # Name the y_preds column for a single prediction vector
+  #   colnames(y_preds) <- y_col
+  # }
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
@@ -687,8 +688,6 @@ ale_core <- function (
       ))
     )
   }
-
-  validate(is_string(pred_type))
 
   if (!is.null(p_values)) {
     # The user wants p-values

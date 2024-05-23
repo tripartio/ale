@@ -190,7 +190,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ale(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       # faster test
       max_x_int = 10,
       pred_type = 'probs',
@@ -220,7 +221,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ale(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       # faster test
       max_x_int = 10,
       x_cols = c('wt', 'am'),
@@ -228,7 +230,7 @@ test_that(
       parallel = 0,
       boot_it = 3,
       silent = TRUE,
-      compact_plots = TRUE
+      # compact_plots = TRUE  # generates warnings for out-of-range values
     )
     cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     cars_ale$stats <- cars_ale$stats |>
@@ -249,7 +251,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ale(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       x_cols = c('gear', 'country'),
       parallel = 0,
       output = c('boot'),

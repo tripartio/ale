@@ -47,11 +47,11 @@ function will fail early. In that case, a character string of the full call
 for the model must be provided that includes the random variable. See details.}
 
 \item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars}
-in \code{\link[=model_bootstrap]{model_bootstrap()}}; the operation is very similar.}
+in \code{\link[=model_bootstrap]{model_bootstrap()}}; their operation is very similar.}
 
 \item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{binary_true_value}{any single atomic value. If \code{model} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if \code{model} is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value} as \code{2}.}
+\item{binary_true_value}{See documentation for \code{\link[=model_bootstrap]{model_bootstrap()}}}
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}.}
 

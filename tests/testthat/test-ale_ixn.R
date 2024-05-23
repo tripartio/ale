@@ -141,7 +141,8 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       # faster test
       max_x_int = 10,
       pred_type = 'probs',
@@ -169,7 +170,8 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       # faster test
       max_x_int = 10,
       x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
@@ -200,7 +202,8 @@ test_that(
     skip_on_ci()
 
     cars_ale_ixn <- ale_ixn(
-      test_cars, test_gam_categorical,
+      test_cars,
+      test_nn_categorical,
       x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
       x2_cols = c('cyl', 'hp'),
       parallel = 0,

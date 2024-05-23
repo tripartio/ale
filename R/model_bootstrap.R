@@ -56,6 +56,8 @@
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * pred_fun,pred_type: allows the prediction function to be called; this would
 # allow bootstrapped RMSE, MAE, cross entropy, and AUC to be calculated.
+#' @param y_col,pred_fun,pred_type See documentation for [ale()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
+#' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
 #' @param model_call_string_vars character. Character vector of names of variables
 #' included in `model_call_string` that are not columns in `data`.
 #' If any such variables exist, they must be specified here or else parallel processing
@@ -86,27 +88,25 @@
 #' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
-#' @return list with tibbles of the following elements (depending on values requested in
-#' the `output` argument:
-#' * model_stats: bootstrapped results from [broom::glance()]
-#' * model_coefs: bootstrapped results from [broom::tidy()]
-#' * ale: bootstrapped ALE results
-#'   * data: ALE data (see [ale()] for details about the format)
-#'   * stats: ALE statistics. The same data is duplicated with different views
-#'   that might be variously useful. The column
-#'     * by_term: statistic, estimate, conf.low, median, mean, conf.high.
-#'     ("term" means variable name.)
-#'     The column names are compatible with the `broom` package. The confidence intervals
-#'     are based on the [ale()] function defaults; they can be changed with the
-#'     `ale_options` argument. The estimate is the median or the mean, depending
-#'     on the `boot_centre` argument.
-#'     * by_statistic: term, estimate, conf.low, median, mean, conf.high.
-#'     * estimate: term, then one column per statistic Provided with the default
-#'     estimate. This view does not present confidence intervals.
-#'   * plots: ALE plots (see [ale()] for details about the format)
-#' * boot_data: full bootstrap data (not returned by default)
-#' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that
-#' were originally passed are returned for reference.
+#' @return list with the following elements (depending on values requested in the `output` argument:
+#' * `model_stats`: tibble of bootstrapped results from [broom::glance()]
+#' * `model_perf`: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
+#'     * mae: mean absolute error (bootstrap validated)
+#'     * mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
+#'     * sa_mae_mad: standardized accuracy of the MAE referenced on the MAD (bootstrap validated)
+#'     * rmse: root mean squared error (bootstrap validated)
+#'     * standard deviation (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
+#'     * sa_rmse_sd: standardized accuracy of the RMSE referenced on the SD (bootstrap validated)
+#' * `model_coefs`: tibble of bootstrapped results from [broom::tidy()]
+#' * `ale`: list of bootstrapped ALE results
+#'   * `data`: ALE data (see [ale()] for details about the format)
+#'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
+#'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ale()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
+#'     * `by_statistic` : term, estimate, conf.low, median, mean, conf.high.
+#'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
+#'   * `plots`: ALE plots (see [ale()] for details about the format)
+#' * `boot_data`: full bootstrap data (not returned by default)
+#' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that were originally passed are returned for reference.
 #'
 #' @examples
 #'
@@ -162,9 +162,12 @@ model_bootstrap <- function (
     model_call_string_vars = character(),
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
-    # y_col,
-    # pred_fun,
-    # pred_type,
+    y_col = NULL,
+    binary_true_value = TRUE,
+    pred_fun = function(object, newdata, type = pred_type) {
+      stats::predict(object = object, newdata = newdata, type = type)
+    },
+    pred_type = "response",
     boot_it = 100,
     seed = 0,
     boot_alpha = 0.05,
@@ -214,9 +217,69 @@ model_bootstrap <- function (
         'See {.fun ale::model_bootstrap} for details.'
       ))
     )
+
+    # Rename 'boot_data' to '.boot_data' for internal naming style
+    model_call_string <- model_call_string |>
+      stringr::str_replace_all('([^.])(boot_data)', '\\1\\.\\2')
   }
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
+
+
+  # Determine if the information for calculating performance measures can be obtained.
+
+  # Provide performance measures only for bootstrapped data
+  calculate_performance <- if (boot_it > 0) {
+    # Then try to validate pred_type, y_col, and y_preds, the necessary information.
+    # If the try-catch block does not fail, then the measures can be calculated later.
+    tryCatch(
+      {
+        validate(is_string(pred_type))
+
+        # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+        y_col <- validate_y_col(
+          y_col = y_col,
+          data = data,
+          model = model
+        )
+
+        # Obtain the predictions of y. This operation simultaneously validates pred_fun, model, and pred_type.
+        y_preds <- validate_y_preds(
+          pred_fun = pred_fun,
+          model = model,
+          data = data,
+          y_col = y_col,
+          pred_type = pred_type
+        )
+
+        validate(is_scalar_logical(binary_true_value))
+
+        y_cats <- colnames(y_preds)
+        y_type <- var_type(data[[y_col]])
+
+        # If we've made it this far, then we have all we need to calculate advanced performance metrics.
+        TRUE
+      },
+      error = \(e) {
+        if (!silent) {
+          cli_alert_info(paste0(
+            'The necessary information to calculate advanced bootstrapped performance measures was not correctly provided, so only those that are available will be calculated The error message was: \n',
+            e
+          ))
+        }
+
+        FALSE  # do not calculate performance
+      }
+    )
+  }
+  else {  # boot_it == 0
+    if (!silent) {
+      cli_alert_info('Advanced performance measures will not be calculated without bootstrapping.')
+    }
+
+    FALSE
+  }
+
 
   validate(is_scalar_whole(boot_it))
   validate(is_scalar_number(seed))
@@ -279,7 +342,7 @@ model_bootstrap <- function (
       if (.it == 0) {  # row 0 is the full dataset without bootstrapping
         1:n_rows
       } else {  # bootstrap: sample n_rows with replacement
-        sample.int(n_rows, replace = TRUE)
+        sample(n_rows, replace = TRUE)
       }
     })
     )
@@ -324,26 +387,26 @@ model_bootstrap <- function (
   }
 
   model_and_ale <-
-    furrr::future_map2(
-    # map2_loop(
-      .options = furrr::furrr_options(
-        # Enable parallel-processing random seed generation
-        seed = seed,
-        # transmit any globals and packages in model_call_string to the parallel workers
-        globals = model_call_string_vars,
-        packages = model_packages
-      ),
+    map2(
+    # furrr::future_map2(
+    #   .options = furrr::furrr_options(
+    #     # Enable parallel-processing random seed generation
+    #     seed = seed,
+    #     # transmit any globals and packages in model_call_string to the parallel workers
+    #     globals = model_call_string_vars,
+    #     packages = model_packages
+    #   ),
       .x = boot_data$it,
       .y = boot_data$row_idxs,
-      .f = \(.it, .idxs) {
+      .f = \(.it, boot_idxs) {
         # Increment progress bar iterator
         # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
         if (!silent) {
           progress_iterator()
         }
 
-        # boot_data: this particular bootstrap sample
-        boot_data <- data[.idxs, ]
+        # .boot_data: this particular bootstrap sample
+        .boot_data <- data[boot_idxs, ]
 
         # If model_call_string was provided, prefer it to automatic detection
         if (!is.null(model_call_string)) {
@@ -353,8 +416,8 @@ model_bootstrap <- function (
             eval()
         }
         else {  # use the automatically detected model call
-          # Update the model to call to train on boot_data
-          model_call$data <- boot_data
+          # Update the model to call to train on .boot_data
+          model_call$data <- .boot_data
 
           boot_model <- eval(
             model_call,
@@ -362,18 +425,120 @@ model_bootstrap <- function (
           )
         }
 
-        boot_glance <-
-          if ('model_stats' %in% output) {
-            bg <- do.call(broom::glance, list(boot_model,
-                                        unlist(glance_options)))
-            # # If we eventually add a predict function, add RMSE and MAE
-            # bg$mae <- mae(actual, predicted)
-            # bg$rmse <- rmse(actual, predicted)
+        # Initialize objects to hold model statistics
+        boot_glance <- NULL
+        boot_perf <- NULL
 
-            bg
-          } else {
-            NA
-          }
+        if ('model_stats' %in% output) {
+          boot_glance <- do.call(
+            broom::glance,
+            list(boot_model, unlist(glance_options))
+          )
+
+            # bg <- do.call(
+            #   broom::glance,
+            #   list(boot_model, unlist(glance_options))
+            # )
+
+          # Calculate bootstrap-validated model metrics if the necessary information is available.
+          # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
+          if (
+            calculate_performance &&
+            .it > 0  # skip the full model because it is not bootstrapped
+          ) {
+
+            # Obtain the out-of-bootstrap (oob) row indexes
+            oob_idxs <- setdiff(1:n_rows, boot_idxs)
+
+            # Calculate the actual values that were excluded from the current bootstrap iteration
+            actual_oob <- if (y_type == 'binary') {
+              # Convert actual to TRUE/FALSE, which equals 1/0
+              (data[oob_idxs, y_col] == binary_true_value) |>
+                as.logical()
+            }
+            else if (y_type == 'categorical') {
+              # Convert each category column to TRUE/FALSE, which equals 1/0
+              y_cat_actual <- matrix(
+                rep(NA, length(oob_idxs) * ncol(y_preds)),
+                nrow = length(oob_idxs),
+                dimnames = list(NULL, y_cats)
+              )
+              for (.cat in y_cats) {
+                y_cat_actual[, .cat] <- data[oob_idxs, y_col] == .cat
+              }
+
+              y_cat_actual
+            }
+            else {
+              # For numeric or ordinal data, actuals are the raw y_col values
+              data[oob_idxs, y_col] |>
+                pull()
+            }
+
+            # Create OOB dataset
+            data_oob <- data[oob_idxs, ] |>
+              # Set any factors with levels not in the original dataset to NA otherwise models cannot predict on unseen factor levels.
+              # This is a problem that plagues bootstrapping, which trains on only around 63.8% of the full dataset on each iteration.
+              imap(\(.col, .col_name) {
+
+                # This code will process character vectors as well as factors
+                if (is.factor(.col) || is.character(.col)) {
+                  .col <- if_else(
+                    # use unique() instead of levels(): levels() is valid only for factors
+                    .col %in% (data[boot_idxs, .col_name] |>
+                                 unlist() |>
+                                 # as.vector() |>
+                                 unique()),
+                    .col,
+                    NA
+                  )
+                }
+
+                .col
+              }) |>
+              bind_cols()
+
+            # Calculate predictions for the out-of-bootstrap test set
+            pred_oob <- pred_fun(
+              object = boot_model,
+              newdata = data_oob,
+              type = pred_type
+            )
+
+            if (y_type == 'binary') {
+
+              # Calculate AUC for probability predictions
+              boot_perf <- tibble(
+                auc = auc(
+                  actual_oob,
+                  pred_oob |> as.vector(),
+                  na.rm = TRUE
+                ) |>
+                  (`$`)('auc')
+              )
+            }
+            else if (y_type == 'categorical') {
+              # Calculate AUC for probability predictions for each category
+              boot_perf <- tibble(
+                auc = y_cats |>
+                  map_dbl(\(.cat) {
+                    auc(actual_oob[, .cat], pred_oob[, .cat], na.rm = TRUE)$auc
+                  }) |>
+                  set_names(y_cats) |>
+                  list()
+              )
+            }
+            else {
+              # Calculate MAE and RMSE for all other datatypes
+              boot_perf <- tibble(
+                mae        = mae(actual_oob, pred_oob, na.rm = TRUE),
+                sa_mae_mad = sa_mae_mad(actual_oob, pred_oob, na.rm = TRUE),
+                rmse       = rmse(actual_oob, pred_oob, na.rm = TRUE),
+                sa_rmse_sd = sa_rmse_sd(actual_oob, pred_oob, na.rm = TRUE)
+              )
+            }
+          }  # calculate_performance && .it > 0
+        }  # if ('model_stats' %in% output)
 
         boot_tidy <-
           if ('model_coefs' %in% output) {
@@ -383,11 +548,15 @@ model_bootstrap <- function (
               tidy_options$conf.int <- FALSE
             }
 
-            do.call(broom::tidy,
-                    c(list(boot_model),  # model object
-                      tidy_options))  # any parameters
+            do.call(
+              broom::tidy,
+              c(
+                list(boot_model),  # model object
+                tidy_options
+              )
+            )  # any parameters
           } else {
-            NA
+            NULL
           }
 
 
@@ -404,7 +573,7 @@ model_bootstrap <- function (
               ale_core,
               utils::modifyList(
                 list(
-                  data = boot_data,
+                  data = .boot_data,
                   model = boot_model,
                   ixn = FALSE,
                   parallel = 0,  # do not parallelize at this inner level
@@ -447,7 +616,7 @@ model_bootstrap <- function (
         }  # end:  if ('ale' %in% output)
 
         else {  # 'ale' not requested in output
-          boot_ale <- NA
+          boot_ale <- NULL
         }
 
 
@@ -455,8 +624,10 @@ model_bootstrap <- function (
           model = boot_model,
           ale = boot_ale,
           tidy = boot_tidy,
-          glance = do.call(broom::glance, list(boot_model,
-                                             unlist(glance_options)))
+          glance = boot_glance,
+          perf = boot_perf
+          # glance = do.call(broom::glance, list(boot_model,
+          #                                      unlist(glance_options)))
         )
 
       }
@@ -468,19 +639,18 @@ model_bootstrap <- function (
   #   future::plan(future::sequential)
   # }
 
-
   # Bind the model and ALE data to the bootstrap tbl
   boot_data <- boot_data |>
     mutate(
       model = model_and_ale$model,
       ale = model_and_ale$ale,
       tidy = model_and_ale$tidy,
-      glance = model_and_ale$glance
+      glance = model_and_ale$glance,
+      perf = model_and_ale$perf,
     )
 
 
   ## Summarize the bootstrapped data
-
 
   # Bootstrapped model statistics
   glance_summary <-
@@ -501,7 +671,7 @@ model_bootstrap <- function (
         bind_rows() |>
         select(-any_of(invalid_boot_model_stats)) |>
         tidyr::pivot_longer(everything()) |>
-        select('name', 'value') |>
+        # select('name', 'value') |>
         summarize(
           .by = 'name',
           conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
@@ -512,19 +682,106 @@ model_bootstrap <- function (
           estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
         ) |>
         select('name', 'estimate', everything())
-      # # If y_vals is ever added...
-      # |>
-      #   bind_rows(tibble(
-      #     name = c('sd', 'mad'),
-      #     conf.low = c(sd(y_vals), mad(y_vals)),
-      #     mean = conf.low,
-      #     median = conf.low,
-      #     conf.high = conf.low,
-      #     sd = 0,
-      #   ))
     } else {
       NULL
     }
+
+
+  model_perf <-
+    if (('model_stats' %in% output) && calculate_performance) {
+      # Calculate the overly conservative mean performance for the bootstrapped data
+      boot_perf <- boot_data |>
+        filter(it != 0) |>
+        (`[[`)('perf') |>
+        map(\(.it) {
+          .it |>
+            map(\(.measure) {
+              unlist(.measure) |>
+                as.list()
+            }) |>
+            list_transpose(simplify = FALSE)
+          #     ) |>
+          # # list_transpose() |>
+          # as_tibble()
+        }) |>
+        list_transpose(simplify = FALSE) |>
+        map(\(.cat) {
+          bind_rows(.cat) |>
+            map_dbl(\(.col) {
+              mean(.col, na.rm = TRUE)
+            })
+        }) |>
+        set_names(y_cats)
+
+      boot_0.632_perf <-
+        boot_perf |>
+        imap(\(.cat_perf, .cat) {
+          if (y_type %in% c('binary', 'categorical')) {
+
+            if (y_type == 'binary') {
+              binary_target <- data[[y_col]]  # no change
+              # Convert y_preds to a matrix for consistent code subsequently
+              y_preds <- y_preds |>
+                as.matrix(dimnames = list(NULL, .cat))
+            }
+            else {  # categorical
+              # Convert the target to TRUE for the current category only
+              binary_target <- data[[y_col]] == .cat
+            }
+
+            # Calculate the overfit performance for the full dataset
+            full_perf <- c(
+              auc = auc(
+                binary_target, y_preds[, .cat],
+                na.rm = TRUE,
+                binary_true_value = if (!is.null(binary_true_value)) {
+                  binary_true_value
+                } else {
+                  NULL
+                }
+              )$auc
+            )
+
+            boot_perf <-  c(
+              boot_perf[[.cat]]['auc']
+            )
+          }
+          else {
+
+            # browser()
+
+            # Calculate the overfit performance for the full dataset
+            full_perf <- c(
+              mae        =        mae(data[[y_col]], y_preds, na.rm = TRUE),
+              mad        =        mad(data[[y_col]], na.rm = TRUE),
+              sa_mae_mad = sa_mae_mad(data[[y_col]], y_preds, na.rm = TRUE),
+              rmse       =       rmse(data[[y_col]], y_preds, na.rm = TRUE),
+              sd         =  stats::sd(data[[y_col]], na.rm = TRUE),
+              sa_rmse_sd = sa_rmse_sd(data[[y_col]], y_preds, na.rm = TRUE)
+            )
+
+            boot_perf <- boot_perf[[1]]
+            boot_perf <- c(
+              boot_perf['mae'],
+              full_perf['mad'],        # MAD is invariant
+              boot_perf['sa_mae_mad'],
+              boot_perf['rmse'],
+              full_perf['sd'],        # SD is invariant
+              boot_perf['sa_rmse_sd']
+            )
+          }
+
+          # Apply the .632 principle to correct the bootstrap validation performance for the return value
+          (0.632 * boot_perf) + (0.368 * full_perf)
+        })
+
+      # Set the value for model_perf
+      boot_0.632_perf
+    }
+
+  else {  # (!('model_stats' %in% output) || !calculate_performance)
+    NULL
+  }
 
   # Bootstrapped model coefficient estimates
   tidy_summary <-
@@ -558,11 +815,17 @@ model_bootstrap <- function (
         )
       }
 
+      # tidy column names known to indicate categories of categorical variables
+      tidy_cat_col_names <- c('response', 'y.level', 'y.value')
+      # Identify which such columns are currently present; if any there should be only one.
+      # If none, then cat_col will be an empty character vector.
+      cat_col <- tidy_cat_col_names[tidy_cat_col_names %in% tidy_boot_data_names]
+
       # assign result for tidy_summary
       tidy_boot_data |>
-        select('term', 'estimate') |>
+        # select('y.level', 'term', 'estimate') |>
         summarize(
-          .by = 'term',
+          .by = c(any_of(cat_col), 'term'),  # If no categorical columns, only group by term
           conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
           mean = mean(.data$estimate, na.rm = TRUE),
           median = median(.data$estimate, na.rm = TRUE),
@@ -570,7 +833,22 @@ model_bootstrap <- function (
           std.error = sd(.data$estimate, na.rm = TRUE),
           estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
         ) |>
-        select('term', 'estimate', everything())
+        select(any_of(cat_col), 'term', 'estimate', everything())  # If no categorical columns, only select term
+
+
+      # # assign result for tidy_summary
+      # tidy_boot_data |>
+      #   # select('term', 'estimate') |>
+      #   summarize(
+      #     .by = 'term',
+      #     conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
+      #     mean = mean(.data$estimate, na.rm = TRUE),
+      #     median = median(.data$estimate, na.rm = TRUE),
+      #     conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
+      #     std.error = sd(.data$estimate, na.rm = TRUE),
+      #     estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
+      #   ) |>
+      #   select('term', 'estimate', everything())
     } else {
       NULL
     }
@@ -743,19 +1021,29 @@ model_bootstrap <- function (
         # Produce ALE plots for each variable
         ale_summary_plots <-
           ale_summary_data |>
-          imap(\(.cat, .cat_name) {
-            .cat |>
+          imap(\(.cat_ale_data, .cat) {
+            .cat_ale_data |>
               imap(\(.x_col_data, .x_col_name) {
 
                 plot_ale(
-                  .x_col_data,
-                  .x_col_name, y_col, y_type,
-                  y_summary[, .cat_name],
+                  ale_data = .x_col_data,
+                  x_col = .x_col_name,
+                  y_col = .cat,
+                  y_type = y_type,
+                  y_summary = y_summary[, .cat],
                   # list(.x_col_data),  # temporary workaround before proper S3 plots
-                  # .x_col_name, y_col, y_type, y_summary,
                   # Temporarily buggy for binary y
-                  x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
-                    stats::setNames(c(.x_col_name, y_col)),
+                  x_y = tibble(
+                    # x column
+                    data[[.x_col_name]],
+                    # y column
+                    if (y_type == 'categorical') {
+                      data[[y_col]] == .cat
+                    } else {
+                      data[[.cat]]
+                    }
+                  ) |>
+                    stats::setNames(c(.x_col_name, .cat)),
 
                   ## Later: pass ale_options() that might apply
                   compact_plots = compact_plots
@@ -798,17 +1086,22 @@ model_bootstrap <- function (
         }
 
         detailed_ale_stats <- detailed_ale_stats |>
-          map(\(.cat) {
-            .cat$effects_plot <- plot_effects(
-              .cat$estimate,
-              data[[y_col]],
-              y_col,
+          imap(\(.cat_ale_stats, .cat) {
+            .cat_ale_stats$effects_plot <- plot_effects(
+              .cat_ale_stats$estimate,
+              # y values
+              if (y_type == 'categorical') {
+                data[[y_col]] == .cat
+              } else {
+                data[[y_col]]
+              },
+              .cat,
               median_band_pct,
               # later pass ale_options like compact_plots
               compact_plots = compact_plots
             )
 
-            .cat
+            .cat_ale_stats
           })
 
       }
@@ -829,6 +1122,7 @@ model_bootstrap <- function (
 
   return(list(
     model_stats = glance_summary,
+    model_perf = model_perf,
     model_coefs = tidy_summary,
     ale = ale_summary,
     boot_data = if ('boot_data' %in% output) {

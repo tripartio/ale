@@ -795,18 +795,18 @@
       $rand_stats
       $rand_stats$vs
       # A tibble: 4 x 6
-            aled  aler_min aler_max naled naler_min naler_max
-           <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 2.00e-28 -4.86e-28 1.44e-27     0         0         0
-      2 7.61e-28 -2.24e-27 2.00e-27     0         0         0
-      3 5.03e-28 -1.70e-27 2.54e-27     0         0         0
-      4 1.11e-27 -2.51e-27 3.28e-27     0         0         0
+         aled aler_min aler_max naled naler_min naler_max
+        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1     0        0        0     0         0         0
+      2     0        0        0     0         0         0
+      3     0        0        0     0         0         0
+      4     0        0        0     0         0         0
       
       
       $residual_distribution
-      Maximum likelihood estimates for the Logistic model 
-       location      scale  
-      2.220e-15  1.201e-15  
+      Maximum likelihood estimates for the Uniform model 
+             min         max  
+      -3.926e-13   3.926e-13  
       
       attr(,"class")
       [1] "p_dist" "ale"   
@@ -848,9 +848,9 @@
       
       
       $residual_distribution
-      Maximum likelihood estimates for the Laplace model 
-              mu       sigma  
-      -2.147e-19   1.208e-17  
+      Maximum likelihood estimates for the Normal model 
+            mean          sd  
+      -7.759e-19   2.898e-17  
       
       attr(,"class")
       [1] "p_dist" "ale"   

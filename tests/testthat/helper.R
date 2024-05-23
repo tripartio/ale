@@ -32,7 +32,7 @@ test_gam <- mgcv::gam(
 test_gam_binary <- mgcv::gam(
   vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + am + gear + carb + country + continent,
   data = test_cars,
-  family = binomial
+  family = stats::binomial()
 )
 
 test_nn_categorical <- nnet::multinom(

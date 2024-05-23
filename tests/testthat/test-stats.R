@@ -182,7 +182,7 @@ test_that(
 
     pf <- create_p_dist(
       test_cars,
-      test_gam_categorical,
+      test_nn_categorical,
       pred_type = 'probs',
       parallel = 0,  # disable parallelization for testing
       silent = TRUE
