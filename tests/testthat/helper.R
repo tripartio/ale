@@ -31,11 +31,13 @@ test_gam <- mgcv::gam(
 
 test_gam_binary <- mgcv::gam(
   vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + am + gear + carb + country + continent,
-  data = test_cars
+  data = test_cars,
+  family = binomial
 )
 
-test_gam_categorical <- nnet::multinom(
-  continent ~ . - mpg,
+test_nn_categorical <- nnet::multinom(
+  # Remove mpg (typical target) and country (perfectly determines continent) from the model
+  continent ~ . - mpg - country,
   data = test_cars,
   trace = FALSE  # suppress noisy output from nnet
 )
