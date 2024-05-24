@@ -509,7 +509,7 @@ model_bootstrap <- function (
 
               # Calculate AUC for probability predictions
               boot_perf <- tibble(
-                auc = auc(
+                auc = aucroc(
                   actual_oob,
                   pred_oob |> as.vector(),
                   na.rm = TRUE
@@ -522,7 +522,7 @@ model_bootstrap <- function (
               boot_perf <- tibble(
                 auc = y_cats |>
                   map_dbl(\(.cat) {
-                    auc(actual_oob[, .cat], pred_oob[, .cat], na.rm = TRUE)$auc
+                    aucroc(actual_oob[, .cat], pred_oob[, .cat], na.rm = TRUE)$auc
                   }) |>
                   set_names(y_cats) |>
                   list()
@@ -731,7 +731,7 @@ model_bootstrap <- function (
 
             # Calculate the overfit performance for the full dataset
             full_perf <- c(
-              auc = auc(
+              auc = aucroc(
                 binary_target, y_preds[, .cat],
                 na.rm = TRUE,
                 binary_true_value = if (!is.null(binary_true_value)) {

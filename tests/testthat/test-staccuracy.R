@@ -13,9 +13,9 @@ test_that("rmse function works correctly", {
   expect_equal(rmse(actual_2, predicted_2), sqrt(mean((actual_2 - predicted_2)^2)))
 
   # Test for vectors containing zero
-  actual_3 <- c(0, 0, 0, 0)
+  actual_3 <- c(0, 3, 0, 0)
   predicted_3 <- c(1, -1, 1, -1)
-  expect_equal(rmse(actual_3, predicted_3), 1)
+  expect_equal(rmse(actual_3, predicted_3), sqrt(mean((actual_3 - predicted_3)^2)))
 
   # Test for vectors containing NAs with na.rm = TRUE
   actual_4 <- c(1, 2, 3, NA, 5)
@@ -72,3 +72,13 @@ test_that("mad function works correctly", {
   expect_true(is.na(mad(actual_4, na.rm = FALSE)))
 })
 
+test_that("aucroc function works correctly", {
+  set.seed(0)
+  a <- sample(c(TRUE, FALSE), 50, replace = TRUE)
+  p <- runif(50) |> round(2)
+  p[c(7, 8, 22, 35, 40, 41)] <- 0.5
+  expect_snapshot(aucroc(a, p))
+  # aucroc(a, p)$auc
+  # yardstick::roc_auc_vec(factor(a), p)
+  # pROC::roc(a, p) |> pROC::auc()
+})
