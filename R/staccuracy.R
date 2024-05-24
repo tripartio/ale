@@ -29,12 +29,16 @@ standardized_accuracy <- function(
 
 sa_mae_mad <- standardized_accuracy(mae, mad)
 
+sa_wmae_mad <- standardized_accuracy(win_mae, mad)
+
 sa_rmse_sd <- standardized_accuracy(rmse, stats::sd)
+
+sa_wrmse_sd <- standardized_accuracy(win_rmse, stats::sd)
 
 
 # Error measures ----------------
 
-#' Mean absolute error
+#' Mean absolute error (MAE)
 #'
 #' Returns the mean absolute error (MAE) of predicted values relative to the actual values.
 #'
@@ -53,6 +57,88 @@ mae <- function(actual, pred, na.rm = FALSE) {
   error_vector(actual, pred, na.rm) |>
     abs() |>
     mean()
+}
+
+
+#' Winsorize a numeric vector.
+#'
+#' Returns the input vector values with values less than or greater than the provided minimum or maximum replaced by the provided minimum or maximum, respectively.
+#'
+#' @export
+#' @rdname win-error
+#'
+#' @param x numeric vector.
+#' @param win_range numeric(2). A pair of single numeric values: the minimum and maximum allowable values for x, respectively.
+#'
+#' @returns Winsorized MAE of `actual` and `pred`. See mae() for details.
+#'
+winsorize <- function(
+    x,
+    win_range
+) {
+  validate(is.numeric(x))
+  validate(
+    is.numeric(win_range),
+    length(win_range) == 2,
+    !any(is.na(win_range)),
+    win_range[1] <= win_range[2],
+    msg = cli_alert_danger(
+      '{.var win_range} must be a numeric vector with exactly two non-missing values: a minimum and a larger maximum'
+    )
+  )
+
+  return(
+    case_when(
+      x < win_range[1] ~ win_range[1],
+      x > win_range[2] ~ win_range[2],
+      .default = x
+    )
+  )
+}
+
+
+#' Winsorized mean absolute error (WinMAE)
+#'
+#' Returns the mean absolute error (MAE) with predictions winsorized within a specified range.
+#'
+#' @export
+#' @rdname win-error
+#'
+#' @param actual numeric vector. Actual (true) values from a dataset.
+#' @param pred numeric vector. Predictions corresponding to each respective
+#' element in `actual`.
+#' @param win_range numeric(2). The minimum and maximum allowable values for the `pred` predictions. Defaults to the minimum and maximum values of the provided `actual` values.
+#' @param na.rm single logical. `TRUE` if missing values should be removed; `FALSE` if they should be retained. If `TRUE`, then if any element of either `actual`  or `pred` is missing, its paired element will be also removed.
+#'
+#' @returns Winsorized MAE of `actual` and `pred`. See mae() for details.
+#'
+win_mae <- function(
+    actual,
+    pred,
+    win_range = range(actual),
+    na.rm = FALSE
+) {
+  mae(
+    winsorize(actual, win_range),
+    pred,
+    na.rm
+  )
+}
+
+#' @export
+#' @rdname win-error
+#'
+win_rmse <- function(
+    actual,
+    pred,
+    win_range = range(actual),
+    na.rm = FALSE
+) {
+  rmse(
+    winsorize(actual, win_range),
+    pred,
+    na.rm
+  )
 }
 
 
