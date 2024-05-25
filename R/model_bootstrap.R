@@ -90,7 +90,7 @@
 #'
 #' @return list with the following elements (depending on values requested in the `output` argument:
 #' * `model_stats`: tibble of bootstrapped results from [broom::glance()]
-#' * `model_perf`: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
+#' * `boot_valid`: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
 #'     * mae: mean absolute error (bootstrap validated)
 #'     * mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
 #'     * sa_mae_mad: standardized accuracy of the MAE referenced on the MAD (bootstrap validated)
@@ -687,7 +687,7 @@ model_bootstrap <- function (
     }
 
 
-  model_perf <-
+  boot_valid <-
     if (('model_stats' %in% output) && calculate_performance) {
       # Calculate the overly conservative mean performance for the bootstrapped data
       boot_perf <- boot_data |>
@@ -775,7 +775,7 @@ model_bootstrap <- function (
           (0.632 * boot_perf) + (0.368 * full_perf)
         })
 
-      # Set the value for model_perf
+      # Set the value for boot_valid
       boot_0.632_perf
     }
 
@@ -1122,7 +1122,7 @@ model_bootstrap <- function (
 
   return(list(
     model_stats = glance_summary,
-    model_perf = model_perf,
+    boot_valid = boot_valid,
     model_coefs = tidy_summary,
     ale = ale_summary,
     boot_data = if ('boot_data' %in% output) {

@@ -94,7 +94,7 @@ statistics, see the details.}
 list with the following elements (depending on values requested in the \code{output} argument:
 \itemize{
 \item \code{model_stats}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}
-\item \code{model_perf}: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
+\item \code{boot_valid}: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
 \itemize{
 \item mae: mean absolute error (bootstrap validated)
 \item mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)

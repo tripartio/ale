@@ -11,7 +11,7 @@
       2 df.residual     12.5     12.5  12.5   12.5      12.5    NA
       3 nobs            64       64    64     64        64      NA
       
-      $model_perf
+      $boot_valid
       NULL
       
       $model_coefs
@@ -213,8 +213,8 @@
       2 df.residual     24.2     21.1  24.2   25.0      27.7  2.78
       3 nobs            64       64    64     64        64    0   
       
-      $model_perf
-      $model_perf$mpg
+      $boot_valid
+      $boot_valid$mpg
              mae        mad sa_mae_mad       rmse         sd sa_rmse_sd 
        4.3346817  4.7209389  0.5175882  8.1136844  5.9805677  0.2925820 
       
@@ -404,7 +404,7 @@
       $model_stats
       NULL
       
-      $model_perf
+      $boot_valid
       NULL
       
       $model_coefs
@@ -603,8 +603,8 @@
       2 df.residual     29.8     29.0  29.8   30.0      30.9 0.837
       3 nobs            64       64    64     64        64   0    
       
-      $model_perf
-      $model_perf$vs
+      $boot_valid
+      $boot_valid$vs
       auc 
         1 
       
@@ -810,16 +810,16 @@
       1 edf         10       10    10     10        10     0
       2 nobs       150      150   150    150       150     0
       
-      $model_perf
-      $model_perf$setosa
+      $boot_valid
+      $boot_valid$setosa
       auc 
         1 
       
-      $model_perf$versicolor
+      $boot_valid$versicolor
             auc 
       0.9984646 
       
-      $model_perf$virginica
+      $boot_valid$virginica
             auc 
       0.9988459 
       
