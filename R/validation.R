@@ -175,10 +175,9 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
 
       validate(
         !is.null(predict_method),
-        msg = cli_alert_danger(paste0(
-          '{.arg model_packages} could not be automatically determined. ',
-          'It must be specified for parallel processing.'
-        ))
+        msg = cli_alert_danger(
+          '{.arg model_packages} could not be automatically determined. It must be specified for parallel processing.'
+        )
       )
 
       model_packages <- rlang::ns_env_name(predict_method)
@@ -186,11 +185,9 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
     else {
       validate(
         is.character(model_packages),
-        msg = cli_alert_danger(paste0(
-          'If parallel processing is not disabled with `parallel = 0`, ',
-          'then {.arg model_packages} must be a character vector of the packages required ',
-          'to predict {.arg model}.'
-        ))
+        msg = cli_alert_danger(
+          'If parallel processing is not disabled with `parallel = 0`, then {.arg model_packages} must be a character vector of the packages required to predict {.arg model}.'
+        )
       )
 
       missing_packages <- setdiff(
@@ -200,8 +197,7 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
       validate(
         length(missing_packages) == 0,
         msg = cli_alert_danger(paste0(
-          'The following packages specified in the {.arg model_packages} argument ',
-          'do not seem to be installed on your system: ',
+          'The following packages specified in the {.arg model_packages} argument do not seem to be installed on your system: ',
           paste0(missing_packages, collapse = ', ')
         ))
       )
@@ -220,19 +216,13 @@ validate_silent <- function(silent) {
   if (!silent) {
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
-
       if (interactive() && !getOption("rstudio.notebook.executing")) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
-        cli_alert_info(paste0(
-          'No global progress bars were found; the {.pkg cli} progress bar has been activated. ',
-          '(This is not an error.) ',
-          'This default progress bar activation only lasts for one R session. ',
-          'See documentation on {.fun ale::ale} ',
-          'for how to permanently configure the progress bar settings ',
-          'and end these period messages.'
-        ))
+        cli_alert_info(
+          '{.pkg cli} progress bar activated for this R session. (This is not an error.) See documentation on {.fun ale::ale} to permanently configure progress bar settings and end these periodic messages.'
+        )
       }
 
     }
