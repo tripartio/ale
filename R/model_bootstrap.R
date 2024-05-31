@@ -430,10 +430,19 @@ model_bootstrap <- function (
         boot_perf <- NULL
 
         if ('model_stats' %in% output) {
-          boot_glance <- do.call(
-            broom::glance,
-            list(boot_model, unlist(glance_options))
+          # Call broom::glance; if an iteration fails for any reason, set it as missing
+          tryCatch(
+            {
+              boot_glance <- do.call(
+                broom::glance,
+                list(boot_model, unlist(glance_options))
+              )
+            },
+            error = \(e) {
+              boot_glance <- NULL
+            }
           )
+
 
             # bg <- do.call(
             #   broom::glance,
@@ -548,13 +557,22 @@ model_bootstrap <- function (
               tidy_options$conf.int <- FALSE
             }
 
-            do.call(
-              broom::tidy,
-              c(
-                list(boot_model),  # model object
-                tidy_options
-              )
-            )  # any parameters
+            # Call broom::tidy; if an iteration fails for any reason, set it as missing
+            tryCatch(
+              {
+                do.call(
+                  broom::tidy,
+                  c(
+                    list(boot_model),  # model object
+                    tidy_options
+                  )
+                )  # any parameters
+              },
+              error = \(e) {
+                NULL
+              }
+            )
+
           } else {
             NULL
           }
@@ -748,8 +766,6 @@ model_bootstrap <- function (
           }
           else {
 
-            # browser()
-
             # Calculate the overfit performance for the full dataset
             full_perf <- c(
               mae        =        mae(data[[y_col]], y_preds, na.rm = TRUE),
@@ -798,6 +814,7 @@ model_bootstrap <- function (
           -1  # else, remove nothing; analyze the unique row (it is never -1)
         )) |>
         (`[[`)('tidy') |>
+        compact() |>  # remove NULL elements from failed iterations
         bind_rows()
 
       tidy_boot_data_names <- names(tidy_boot_data)

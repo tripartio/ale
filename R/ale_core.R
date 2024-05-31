@@ -667,7 +667,7 @@ ale_core <- function (
   if (!all(valid_x_cols)) {
     cli_abort(
       'The following columns were not found in {.arg data}:
-      {paste0(all_x_cols[!valid_x_cols], collapse = ', ')}'
+      {paste0(all_x_cols[!valid_x_cols], collapse = ", ")}'
     )
   }
   # #Later: Verify valid datatypes for all x_col
