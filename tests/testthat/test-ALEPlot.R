@@ -14,6 +14,9 @@ if (!identical(Sys.getenv("NOT_CRAN"), "true")) return()
 
 # nnet -----------------
 
+original_seed <- .Random.seed
+on.exit(set.seed(original_seed))
+
 set.seed(0)
 n = 1000  # smaller dataset for more rapid execution
 x1 <- runif(n, min = 0, max = 1)

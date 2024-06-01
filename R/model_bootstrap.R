@@ -330,6 +330,8 @@ model_bootstrap <- function (
 
 
   # Create bootstrap tbl
+  original_seed <- .Random.seed
+  on.exit(set.seed(original_seed))
   set.seed(seed)
   boot_data <- tibble(
     # it: bootstrap iteration number.

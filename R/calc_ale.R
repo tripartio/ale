@@ -63,7 +63,10 @@ calc_ale <- function(
   # rm(max_x_int)
 
   # Create bootstrap tbl
+  original_seed <- .Random.seed
+  on.exit(set.seed(original_seed))
   set.seed(seed)
+
   boot_ale <- tibble(
     # it: bootstrap iteration number.
     # Row 0 is the full dataset without bootstrapping

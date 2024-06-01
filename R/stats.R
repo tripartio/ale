@@ -123,7 +123,7 @@
 #' test runs.
 #' @param seed See documentation for [ale()]
 #' @param silent See documentation for [ale()]
-#' @param .testing_mode logical. Internal use only.
+#' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
 #'
 #' @return
 #' The return value is a list of class `c('p_dist', 'ale')` with an
@@ -417,6 +417,9 @@ create_p_dist <- function(
   # Create ALEs for random variables based on residual_distribution
   package_scope$rand_data <- data
   n_rows <- nrow(data)
+
+  original_seed <- .Random.seed
+  on.exit(set.seed(original_seed))
 
   rand_ales <- furrr::future_map(
     # rand_ales <- map_loop(

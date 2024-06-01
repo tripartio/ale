@@ -629,6 +629,8 @@ rug_sample <- function(
   # rs_idxs: row indexes of the rug sample
   # First, ensure there are at least min_rug_per_interval rows
   # selected per x_interval and y_interval.
+  original_seed <- .Random.seed
+  on.exit(set.seed(original_seed))
   set.seed(seed)
   rs_idxs <-
     x_y |>
