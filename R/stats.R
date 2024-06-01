@@ -475,13 +475,19 @@ create_p_dist <- function(
             assign('rand_model', eval(model_call), package_scope)
           },
           error = \(e) {
-            cli_abort(
-              'Could not automatically detect the model call.
-              You must specify the {.arg random_model_call_string} argument.
-              Here is the full error message:
+            cli_warn(paste0(
+              'Error on iteration ', .it, ':\n',
+              e
+            ))
 
-              {e}'
-            )
+            return(NULL)
+            # cli_abort(
+            #   'Could not automatically detect the model call.
+            #   You must specify the {.arg random_model_call_string} argument.
+            #   Here is the full error message:
+            #
+            #   {e}'
+            # )
           }
         )
 
@@ -515,7 +521,10 @@ create_p_dist <- function(
       }
 
       rand_ale
-    })
+    }) |>
+    # Discard any NULL cases for iterations that might have failed for whatever reason.
+    # (see tryCatch block in the future_map function)
+    compact()
 
   # # Disable parallel processing if it had been enabled
   # if (parallel > 0) {

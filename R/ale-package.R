@@ -33,6 +33,7 @@
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
+#' @importFrom cli cli_warn
 #' @importFrom purrr list_transpose
 #' @importFrom purrr map
 #' @importFrom purrr map2

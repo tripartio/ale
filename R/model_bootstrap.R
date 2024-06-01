@@ -257,13 +257,13 @@ model_bootstrap <- function (
         y_cats <- colnames(y_preds)
         y_type <- var_type(data[[y_col]])
 
-        # If we've made it this far, then we have all we need to calculate advanced performance metrics.
+        # If we've made it this far, then we have all we need to calculate bootstrap-validated performance metrics.
         TRUE
       },
       error = \(e) {
         if (!silent) {
           cli_alert_info(paste0(
-            'The necessary information to calculate advanced bootstrapped performance measures was not correctly provided, so only those that are available will be calculated The error message was: \n',
+            'The necessary information to calculate bootstrap-validated performance measures was not correctly provided, so only those that are available will be calculated. The error message was: \n',
             e
           ))
         }
@@ -274,7 +274,7 @@ model_bootstrap <- function (
   }
   else {  # boot_it == 0
     if (!silent) {
-      cli_alert_info('Advanced performance measures will not be calculated without bootstrapping.')
+      cli_alert_info('Bootstrapping was disabled, so performance measures that require bootstrapping for reliable calculation will not be returned.')
     }
 
     FALSE
