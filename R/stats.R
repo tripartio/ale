@@ -433,33 +433,33 @@ create_p_dist <- function(
     .x = 1:rand_it,
     .f = \(.it) {
 
-      # Generate training and test subsets with the random variable.
-      # Package scope because they modify the datasets defined outside of the map function.
-      set.seed(seed + .it)
+      tryCatch(
+        {
+          # Generate training and test subsets with the random variable.
+          # Package scope because they modify the datasets defined outside of the map function.
+          set.seed(seed + .it)
 
-      tmp_rand_data <- data
-      tmp_rand_data$random_variable <- univariateML::rml(
-        n = n_rows,
-        obj = residual_distribution
-      )
-      package_scope$rand_data <- tmp_rand_data
-      rm(tmp_rand_data)
+          tmp_rand_data <- data
+          tmp_rand_data$random_variable <- univariateML::rml(
+            n = n_rows,
+            obj = residual_distribution
+          )
+          package_scope$rand_data <- tmp_rand_data
+          rm(tmp_rand_data)
 
-      # Train model with the random variable: convert model call string to an expression
+          # Train model with the random variable: convert model call string to an expression
 
-      # If random_model_call_string was provided, prefer it to automatic detection
-      if (!is.null(random_model_call_string)) {
-        assign(
-          envir = package_scope,
-          'rand_model',
-          random_model_call_string |>
-            parse(text = _) |>
-            eval()
-        )
-      }
-      else {  # use the automatically detected model call
-        tryCatch(
-          {
+          # If random_model_call_string was provided, prefer it to automatic detection
+          if (!is.null(random_model_call_string)) {
+            assign(
+              envir = package_scope,
+              'rand_model',
+              random_model_call_string |>
+                parse(text = _) |>
+                eval()
+            )
+          }
+          else {  # use the automatically detected model call
             # Update the model call to add random_variable and to train on rand_data
             model_call$data <- package_scope$rand_data
 
@@ -476,45 +476,45 @@ create_p_dist <- function(
             #   stats::update.formula(~ . + random_variable)
 
             assign('rand_model', eval(model_call), package_scope)
-          },
-          error = \(e) {
-            cli_warn(paste0(
-              'Error on iteration ', .it, ':\n',
-              e
-            ))
-
-            return(NULL)
-            # cli_abort(
-            #   'Could not automatically detect the model call.
-            #   You must specify the {.arg random_model_call_string} argument.
-            #   Here is the full error message:
-            #
-            #   {e}'
-            # )
           }
-        )
 
-      }
 
-      # # Calculate ale of random variable on the test set.
-      # # If calculated on the training set, p-values will be too liberal.
-      rand_ale <- ale(
-        package_scope$rand_data,
-        package_scope$rand_model,
-        'random_variable',
-        parallel = 0,  # avoid recursive parallelization
-        # The approximate version can use fewer ALE x intervals for faster execution.
-        # The precise version uses the default 100 intervals.
-        max_x_int = if (p_val_type == 'approx fast') 10 else 100,
-        # Don't bootstrap even the approximate version--random variables have
-        # virtually no variation
-        # boot_it = if (p_val_type == 'approx fast') 100 else 0,
-        output = 'data',
-        y_col = y_col,
-        pred_fun = pred_fun,
-        pred_type = pred_type,
-        relative_y = 'zero',
-        silent = TRUE
+          # Calculate ale of random variable on the test set.
+          # If calculated on the training set, p-values will be too liberal.
+          rand_ale <- ale(
+            package_scope$rand_data,
+            package_scope$rand_model,
+            'random_variable',
+            parallel = 0,  # avoid recursive parallelization
+            # The approximate version can use fewer ALE x intervals for faster execution.
+            # The precise version uses the default 100 intervals.
+            max_x_int = if (p_val_type == 'approx fast') 10 else 100,
+            # Don't bootstrap even the approximate version--random variables have
+            # virtually no variation
+            # boot_it = if (p_val_type == 'approx fast') 100 else 0,
+            output = 'data',
+            y_col = y_col,
+            pred_fun = pred_fun,
+            pred_type = pred_type,
+            relative_y = 'zero',
+            silent = TRUE
+          )
+        },
+        error = \(e) {
+          cli_warn(paste0(
+            'Error on iteration ', .it, ':\n',
+            e
+          ))
+
+          return(NULL)
+          # cli_abort(
+          #   'Could not automatically detect the model call.
+          #   You must specify the {.arg random_model_call_string} argument.
+          #   Here is the full error message:
+          #
+          #   {e}'
+          # )
+        }
       )
 
       # Increment the progress bar iterator.
@@ -524,10 +524,13 @@ create_p_dist <- function(
       }
 
       rand_ale
-    }) |>
-    # Discard any NULL cases for iterations that might have failed for whatever reason.
-    # (see tryCatch block in the future_map function)
-    compact()
+    })
+
+  # Discard any NULL cases for iterations that might have failed for whatever reason.
+  # (see tryCatch block in the future_map function)
+  rand_ales <- compact(rand_ales)
+  # Store the number of valid iterations
+  rand_it_ok <- length(rand_ales)
 
   # # Disable parallel processing if it had been enabled
   # if (parallel > 0) {
