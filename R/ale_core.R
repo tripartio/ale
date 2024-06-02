@@ -175,13 +175,9 @@
 #' For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`.
 #' For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band
 #' will be the median ± 2.5% and the outer band will be the median ± 25%.
-#' @param rug_sample_size,min_rug_per_interval single non-negative integer length 1.
-#' Rug plots are normally
-#' down-sampled otherwise they are too slow. `rug_sample_size` specifies the size
-#' of this sample. To prevent down-sampling, set to `Inf`. To suppress rug plots,
-#' set to 0. When down-sampling, the rug plots maintain representativeness of the
-#' data by guaranteeing that each of the `max_x_int` intervals will retain at least
+#' @param data_sample non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
 #' `min_rug_per_interval` elements; usually set to just 1 or 2.
+#' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `data_sample` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_x_int` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `data_sample` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
 #' @param ale_xs,ale_ns list of ale_x and ale_n vectors. If provided, these vectors will be used to
 #' set the intervals of the ALE x axis for each variable. By default (NULL), the
 #' function automatically calculates the ale_x intervals. `ale_xs` is normally used
@@ -264,7 +260,7 @@
 #' * Various values echoed from the original call to the [ale()] function, provided
 #'   to document the key elements used to calculate the ALE data, statistics, and plots:
 #'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `relative_y`,
-#'   `y_type`, `median_band_pct`, `rug_sample_size`. These are either the values
+#'   `y_type`, `median_band_pct`, `data_sample`. These are either the values
 #'   provided by the user or used by default if the user did not change them.
 #' * `y_summary`: summary statistics of y values used for the ALE calculation.
 #'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
@@ -368,7 +364,7 @@ ale <- function (
     relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
-    rug_sample_size = 500,
+    data_sample = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
@@ -378,6 +374,8 @@ ale <- function (
   # capture all arguments passed into `ale()` (code thanks to ChatGPT)
   args <- as.list(match.call())[-1]
   args$ixn <- FALSE  # when the user calls `ale()`, they want no interactions
+
+  args$call_env <- rlang::caller_env()
 
   do.call(ale_core, args, envir = parent.frame(1))
 }
@@ -426,7 +424,7 @@ ale <- function (
 #' @param relative_y See documentation for [ale()]
 #' @param y_type See documentation for [ale()]
 #' @param median_band_pct See documentation for [ale()]
-#' @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+#' @param data_sample,min_rug_per_interval See documentation for [ale()]
 #' @param ale_xs See documentation for [ale()]
 #' @param n_x1_int,n_x2_int positive scalar integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
@@ -499,7 +497,7 @@ ale_ixn <- function (
     relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
-    rug_sample_size = 500,
+    data_sample = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
     # ggplot_custom = NULL,
@@ -517,6 +515,8 @@ ale_ixn <- function (
   if (missing(output)) {
     args$output = c('plots', 'data')
   }
+
+  args$call_env <- rlang::caller_env()
 
   do.call(ale_core, args, envir = parent.frame(1))
 }
@@ -558,7 +558,7 @@ ale_ixn <- function (
 # @param relative_y See documentation for [ale()]
 # @param y_type See documentation for [ale()]
 # @param median_band_pct See documentation for [ale()]
-# @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
+# @param data_sample,min_rug_per_interval See documentation for [ale()]
 # @param ale_xs See documentation for [ale()]
 # @param ale_ns See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
@@ -574,6 +574,7 @@ ale_core <- function (
     x_cols = NULL, x1_cols = NULL, x2_cols = NULL,
     y_col = NULL,
     ...,
+    call_env = rlang::caller_env(),
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
@@ -591,7 +592,7 @@ ale_core <- function (
     relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
-    rug_sample_size = 500,
+    data_sample = 500,
     min_rug_per_interval = 1,
     ale_xs = NULL,
     ale_ns = NULL,
@@ -760,11 +761,11 @@ ale_core <- function (
         all(between(median_band_pct, 0, 1))
     )
     validate(
-      rug_sample_size == 0 ||  # 0 means no rug plots are desired
-        (is_scalar_natural(rug_sample_size) &&
+      data_sample == 0 ||  # 0 means no data sample or rug plots are desired
+        (is_scalar_natural(data_sample) &&
            # rug sample cannot be smaller than number of intervals
-           rug_sample_size > (max_x_int + 1)),
-      msg = cli_alert_danger('{.arg rug_sample_size} must be either 0 or
+           data_sample > (max_x_int + 1)),
+      msg = cli_alert_danger('{.arg data_sample} must be either 0 or
         an integer larger than the number of max_x_int + 1.')
     )
     validate(is_scalar_whole(min_rug_per_interval))
@@ -968,7 +969,7 @@ ale_core <- function (
                   median_band_pct = median_band_pct,
                   x_y = tibble(data[[x_col]], y_vals[, .cat_name]) |>
                     stats::setNames(c(x_col, y_col)),
-                  rug_sample_size = rug_sample_size,
+                  rug_sample_size = data_sample,
                   min_rug_per_interval = min_rug_per_interval,
                   compact_plots = compact_plots,
                   seed = seed
@@ -984,7 +985,7 @@ ale_core <- function (
             #   median_band_pct = median_band_pct,
             #   x_y = tibble(data[[x_col]], y_vals) |>
             #     stats::setNames(c(x_col, y_col)),
-            #   rug_sample_size = rug_sample_size,
+            #   rug_sample_size = data_sample,
             #   min_rug_per_interval = min_rug_per_interval,
             #   compact_plots = compact_plots,
             #   seed = seed
@@ -1091,7 +1092,7 @@ ale_core <- function (
                     n_y_quant = n_y_quant,
                     x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
                       stats::setNames(c(x1_col, x2_col, y_col)),
-                    rug_sample_size = rug_sample_size,
+                    rug_sample_size = data_sample,
                     min_rug_per_interval = min_rug_per_interval,
                     compact_plots = compact_plots,
                     seed = seed
@@ -1284,7 +1285,7 @@ ale_core <- function (
   # ales$relative_y <- relative_y
   # ales$y_type <- y_type
   # ales$median_band_pct <- median_band_pct
-  # ales$rug_sample_size <- rug_sample_size
+  # ales$data_sample <- data_sample
 
   ales$params <- params
 
