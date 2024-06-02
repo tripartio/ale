@@ -1232,40 +1232,49 @@ ale_core <- function (
   params <- c(as.list(environment()), list(...))
   params <- params[
     names(params) |>
-      setdiff(c('ales', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds'))
+      setdiff(c('ales', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds', 'call_env'))
   ]
 
   # Simplify some very large elements, especially closures that contain environments
-
-  params$data <- list(
-    name = var_name(data),
-    # If data is large, reduce it to a sample of rug_sample_size; else return the full dataset
-    sample = if (nrow(data) > rug_sample_size) {
-      set.seed(seed)
-      slice_sample(data, n = rug_sample_size)
-    } else {
-      data
-    },
-    nrow = nrow(data)
+  params$data <- params_data(
+    data = data,
+    data_name = var_name(data),
+    sample_size = data_sample,
+    seed = seed
   )
+  params$model <- params_model(model, var_name(model))
+  params$pred_fun <- params_function(pred_fun)
 
-  params$model <- list(
-    name = var_name(model),
-    call = insight::model_name(model, include_call = TRUE) |>
-      paste0(collapse = '\n'),
-    print = print(model) |>
-      capture.output() |>
-      paste0(collapse = '\n'),
-    summary = summary(model)
-  )
 
-  # browser()
-
-  params$pred_fun <- print(pred_fun) |>
-    capture.output()
-  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
-  params$pred_fun <- params$pred_fun[-length(params$pred_fun)] |>
-    paste0(collapse = '\n')
+  # # Simplify some very large elements, especially closures that contain environments
+  #
+  # params$data <- list(
+  #   name = var_name(data),
+  #   # If data is large, reduce it to a sample of data_sample; else return the full dataset
+  #   sample = if (nrow(data) > data_sample) {
+  #     set.seed(seed)
+  #     slice_sample(data, n = data_sample)
+  #   } else {
+  #     data
+  #   },
+  #   nrow = nrow(data)
+  # )
+  #
+  # params$model <- list(
+  #   name = var_name(model),
+  #   call = insight::model_name(model, include_call = TRUE) |>
+  #     paste0(collapse = '\n'),
+  #   print = print(model) |>
+  #     capture.output() |>
+  #     paste0(collapse = '\n'),
+  #   summary = summary(model)
+  # )
+  #
+  # params$pred_fun <- print(pred_fun) |>
+  #   capture.output()
+  # # Remove the last line with the environment (it is a random value and fails on snapshot testing)
+  # params$pred_fun <- params$pred_fun[-length(params$pred_fun)] |>
+  #   paste0(collapse = '\n')
 
 
 

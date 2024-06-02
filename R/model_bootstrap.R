@@ -322,10 +322,16 @@ model_bootstrap <- function (
 
   # Begin main code -------------
 
+  n_rows <- nrow(data)
+
+  # Capture all parameters used to construct the bootstraps.
+  # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function up to this point. It may be further modified by the end of the function.
+  # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
+  params <- c(as.list(environment()), list(...))
+
+
   # Establish the environment from which this function was called. This is needed to resolve the model call later.
   call_env <- rlang::caller_env()
-
-  n_rows <- nrow(data)
 
 
 
@@ -880,7 +886,7 @@ model_bootstrap <- function (
       # Extract useful details from full model ALE; will be used for plotting
       y_col <- full_ale$params$y_col
       y_type <- full_ale$params$y_type
-      y_summary <- full_ale$params$y_summary
+      # y_summary <- full_ale$params$y_summary
 
       # Remove first element (not bootstrapped) if bootstrapping is requested
       boot_data_ale <-
@@ -979,7 +985,7 @@ model_bootstrap <- function (
             select('term', 'statistic', 'estimate', everything())
 
           # If an ALE p-values object was passed, calculate p-values
-          if (rownames(y_summary)[1] == 'p') {
+          if (rownames(full_ale$params$y_summary)[1] == 'p') {
             .ale_summary_stats <- .ale_summary_stats |>
               rowwise() |>  # required to get statistic function for each row
               mutate(
@@ -1003,7 +1009,7 @@ model_bootstrap <- function (
         imap(\(.ale_summary_data, .cat) {
           summarize_conf_regions(
             .ale_summary_data,
-            y_summary[, .cat, drop = FALSE],
+            full_ale$params$y_summary[, .cat, drop = FALSE],
             sig_criterion = if (!is.null(ale_options$p_values)) {
               'p_values'
             } else {
@@ -1049,7 +1055,7 @@ model_bootstrap <- function (
                   x_col = .x_col_name,
                   y_col = .cat,
                   y_type = y_type,
-                  y_summary = y_summary[, .cat],
+                  y_summary = full_ale$params$y_summary[, .cat],
                   # list(.x_col_data),  # temporary workaround before proper S3 plots
                   # Temporarily buggy for binary y
                   x_y = tibble(
@@ -1139,22 +1145,52 @@ model_bootstrap <- function (
     }
 
 
-  return(list(
+  # Refine the parameters
+  params <- params[
+    names(params) |>
+      setdiff(c('y_preds', 'model_call'))
+  ]
+
+  # Simplify some very large elements, especially closures that contain environments
+  params$data <- params_data(
+    data = data,
+    sample_size = full_ale$params$data_sample,
+    seed = seed
+  )
+  params$model <- params_model(model)
+  params$pred_fun <- params_function(pred_fun)
+
+
+
+
+  mb <- list(
     model_stats = glance_summary,
     boot_valid = boot_valid,
     model_coefs = tidy_summary,
-    ale = ale_summary,
+    ale = if ('ale' %in% output) {
+      list(
+        # ale object of the full dataset without bootstrapping
+        single = full_ale,
+        # Bootstrapped ALE data
+        boot = ale_summary
+      )
+    } else {
+      NULL
+    },
     boot_data = if ('boot_data' %in% output) {
       boot_data
     } else {
       NULL
     },
-    boot_it = boot_it,
-    seed = seed,
-    boot_alpha = boot_alpha,
-    boot_centre = boot_centre
-    ))
+    params = params
+  )
 
+  # Set S3 class information for the model bootstrap object
+  class(mb) <- c('ale_boot')
+  attr(mb, 'ale_version') <- utils::packageVersion('ale')
+
+
+  return(mb)
 }
 
 

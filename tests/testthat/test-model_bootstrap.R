@@ -56,11 +56,11 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # mb$ale$stats$mpg$effects_plot <- ale_plots_to_data(list(mb$ale$stats$mpg$effects_plot))
+    # mb$ale$boot$stats$mpg$effects_plot <- ale_plots_to_data(list(mb$ale$boot$stats$mpg$effects_plot))
     expect_snapshot(mb)
   }
 )
@@ -85,8 +85,8 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
@@ -116,8 +116,8 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$mpg$effects_plot <- mb$ale$stats$mpg$effects_plot |>
+    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
@@ -141,8 +141,8 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats$vs$effects_plot <- mb$ale$stats$vs$effects_plot |>
+    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    mb$ale$boot$stats$vs$effects_plot <- mb$ale$boot$stats$vs$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
@@ -173,8 +173,8 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-    mb$ale$stats <- mb$ale$stats |>
+    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    mb$ale$boot$stats <- mb$ale$boot$stats |>
       map(\(.cat) {
         .cat$effects_plot <- .cat$effects_plot |>
           ggplot2::ggplot_build() |>
@@ -206,8 +206,8 @@ test_that(
 #       silent = TRUE,
 #       compact_plots = TRUE
 #     )
-#     mb$ale$plots <- ale_plots_to_data(mb$ale$plots)
-#     mb$ale$stats <- mb$ale$stats |>
+#     mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+#     mb$ale$boot$stats <- mb$ale$boot$stats |>
 #       map(\(.cat) {
 #         .cat$effects_plot <- .cat$effects_plot |>
 #           ggplot2::ggplot_build() |>

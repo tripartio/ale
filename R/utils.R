@@ -36,6 +36,56 @@
 
 
 
+# Extract key details or parameters from objects
+
+# Reduce a dataframe to a sample (retains the structure of its columns)
+params_data <- function(
+    data,
+    data_name = var_name(data),
+    sample_size = 500,
+    seed = 0
+) {
+  n_rows = nrow(data)
+
+  list(
+    name = data_name,
+    # If data is large, reduce it to a sample of sample_size; else return the full dataset
+    sample = if (n_rows > sample_size) {
+      set.seed(seed)
+      slice_sample(data, n = sample_size)
+    } else {
+      data
+    },
+    nrow = n_rows
+  )
+}
+
+
+# Reduce a model to text descriptions of its key elements
+params_model <- function(model, model_name = var_name(model)) {
+  list(
+    name = model_name,
+    call = insight::model_name(model, include_call = TRUE) |>
+      paste0(collapse = '\n'),
+    print = print(model) |>
+      capture.output() |>
+      paste0(collapse = '\n'),
+    summary = summary(model)
+  )
+}
+
+
+# Reduce a function to text descriptions of its key elements
+params_function <- function(func) {
+  pf <- print(func) |>
+    capture.output()
+  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
+  pf[-length(pf)] |>
+    paste0(collapse = '\n')
+}
+
+
+
 # Miscellaneous ------------
 
 # Round a numeric vector to an intuitive number of decimal places:

@@ -709,7 +709,7 @@
       $params$median_band_pct
       [1] 0.05 0.50
       
-      $params$rug_sample_size
+      $params$data_sample
       [1] 500
       
       $params$min_rug_per_interval
