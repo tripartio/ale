@@ -19,8 +19,11 @@
              mu      sigma  
       1.524e-12  1.479e-03  
       
+      $rand_it_ok
+      [1] 4
+      
       attr(,"class")
-      [1] "p_dist" "ale"   
+      [1] "ale_p"
       attr(,"ale_version")
       [1] '0.3.0.20240523'
 
@@ -475,15 +478,14 @@
       $plots
       NULL
       
-      $y_col
+      $params
+      $params$relative_y_shift
+      [1] 19.2
+      
+      $params$y_cats
       [1] "mpg"
       
-      $x_cols
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
-      
-      $y_summary
+      $params$y_summary
                     mpg
       p         0.05000
       min      10.39108
@@ -506,30 +508,239 @@
       99%      33.84876
       max      33.84876
       
-      $boot_it
-      [1] 3
+      $params$valid_x_cols
+      logical(0)
       
-      $seed
+      $params$all_x_cols
+      NULL
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      
+      $params$model$summary
+      
+      Family: gaussian 
+      Link function: identity 
+      
+      Formula:
+      mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          vs + am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+      (Intercept)              12.292914   0.394283  31.178 3.31e-13 ***
+      modelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** 
+      modelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  
+      modelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***
+      modelDatsun 710          -1.023754   0.671720  -1.524 0.152448    
+      modelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***
+      modelDuster 360           5.856358   2.354656   2.487 0.027927 *  
+      modelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    
+      modelFiat 128             0.350545   0.851716   0.412 0.687639    
+      modelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***
+      modelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  
+      modelHonda Civic          0.248578   1.281192   0.194 0.849286    
+      modelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** 
+      modelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***
+      modelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** 
+      modelLotus Europa         0.503454   0.547595   0.919 0.375338    
+      modelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  
+      modelMazda RX4            1.683278   0.383941   4.384 0.000814 ***
+      modelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  
+      modelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***
+      modelMerc 240D            2.099782   0.954306   2.200 0.047310 *  
+      modelMerc 280             3.881632   1.314514   2.953 0.011652 *  
+      modelMerc 280C            1.307655   1.078036   1.213 0.247615    
+      modelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***
+      modelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***
+      modelMerc 450SLC          0.840471   0.530070   1.586 0.137861    
+      modelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***
+      modelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  
+      modelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** 
+      modelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***
+      modelValiant             -2.589631   1.481974  -1.747 0.105131    
+      modelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** 
+      cyl                      -0.007195   0.003255  -2.210 0.046470 *  
+      vsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  
+      amTRUE                    3.970366   0.793027   5.007 0.000273 ***
+      gear.L                   -0.366001   1.442529  -0.254 0.803847    
+      gear.Q                    2.237590   0.852348   2.625 0.021588 *  
+      carb                      0.007848   0.004296   1.827 0.091753 .  
+      countryItaly              0.167973   0.437285   0.384 0.707356    
+      countryJapan              2.458091   0.291381   8.436 1.67e-06 ***
+      countrySweden            -1.703757   0.418113  -4.075 0.001427 ** 
+      countryUK                 0.503454   0.547595   0.919 0.375338    
+      countryUSA                3.653683   0.508735   7.182 9.02e-06 ***
+      continentEurope           6.181141   0.386846  15.978 1.13e-09 ***
+      continentNorth America    3.653683   0.508735   7.182 9.02e-06 ***
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Approximate significance of smooth terms:
+                edf Ref.df     F p-value   
+      s(disp) 2.872  3.448 2.235 0.23422   
+      s(hp)   2.890  3.513 0.911 0.46769   
+      s(drat) 2.236  2.730 0.175 0.90458   
+      s(wt)   2.097  2.573 3.721 0.04678 * 
+      s(qsec) 7.440  8.168 6.874 0.00216 **
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Rank: 79/90
+      R-sq.(adj) =      1   Deviance explained =  100%
+      GCV = 0.00012695  Scale est. = 2.4729e-05  n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x1_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "mpg"
+      
+      $params$parallel
       [1] 0
       
-      $boot_alpha
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "stats"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "response"
+      
+      $params$p_values
+      $rand_stats
+      $rand_stats$mpg
+      # A tibble: 4 x 6
+             aled  aler_min aler_max naled naler_min naler_max
+            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 0.0000612 -0.000318 0.000203 0          0         0   
+      2 0.00230   -0.00704  0.00905  0.464     -1.56      1.56
+      3 0.000537  -0.00205  0.00153  0          0         0   
+      4 0.00249   -0.00780  0.0109   0.464     -1.56      1.56
+      
+      
+      $residual_distribution
+      Maximum likelihood estimates for the Laplace model 
+             mu      sigma  
+      1.524e-12  1.479e-03  
+      
+      $rand_it_ok
+      [1] 4
+      
+      attr(,"class")
+      [1] "ale_p"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
+      [1] 3
+      
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "numeric"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] FALSE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 ---
 
@@ -583,6 +794,9 @@
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
+      
+      $rand_it_ok
+      [1] 10
       
       $residuals
                      [,1]
@@ -652,7 +866,7 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "p_dist" "ale"   
+      [1] "ale_p"
       attr(,"ale_version")
       [1] '0.3.0.20240523'
 
@@ -715,6 +929,9 @@
              mu      sigma  
       1.524e-12  1.479e-03  
       
+      $rand_it_ok
+      [1] 4
+      
       $residuals
                      [,1]
        [1,]  2.076210e-03
@@ -783,7 +1000,7 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "p_dist" "ale"   
+      [1] "ale_p"
       attr(,"ale_version")
       [1] '0.3.0.20240523'
 
@@ -808,8 +1025,11 @@
              min         max  
       -3.926e-13   3.926e-13  
       
+      $rand_it_ok
+      [1] 4
+      
       attr(,"class")
-      [1] "p_dist" "ale"   
+      [1] "ale_p"
       attr(,"ale_version")
       [1] '0.3.0.20240523'
 
@@ -852,8 +1072,11 @@
             mean          sd  
       -7.759e-19   2.898e-17  
       
+      $rand_it_ok
+      [1] 4
+      
       attr(,"class")
-      [1] "p_dist" "ale"   
+      [1] "ale_p"
       attr(,"ale_version")
       [1] '0.3.0.20240523'
 

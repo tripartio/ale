@@ -701,10 +701,10 @@ ale_core <- function (
         pred_type = pred_type
       )
     }
-    else {  # a p_dist object should be provided
+    else {  # an ale_p object should be provided
       validate(
-        # Verify that p_values is a `p_dist` object (defined by the ale package).
-        p_values |> inherits('p_dist'),
+        # Verify that p_values is a `ale_p` object (defined by the ale package).
+        p_values |> inherits('ale_p'),
         # If the object structure changes in the future, verify the version number:
         # e.g., numeric_version('0.2.0') <= numeric_version('0.2.20240111')
         msg = cli_alert_danger(paste0(
@@ -1225,23 +1225,72 @@ ale_core <- function (
 
   }
 
-  # Append useful output data that is shared across all variables
-  ales$y_col <- y_col
-  if (ixn) {
-    ales$x1_cols <- x1_cols
-    ales$x2_cols <- x2_cols
-  } else {
-    ales$x_cols <- x_cols
-  }
-  ales$y_summary <- y_summary
-  ales$boot_it <- boot_it
-  ales$seed <- seed
-  ales$boot_alpha <- boot_alpha
-  ales$boot_centre <- boot_centre
-  ales$relative_y <- relative_y
-  ales$y_type <- y_type
-  ales$median_band_pct <- median_band_pct
-  ales$rug_sample_size <- rug_sample_size
+  # Capture all parameters used to construct the ALE values.
+  # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
+  # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
+  params <- c(as.list(environment()), list(...))
+  params <- params[
+    names(params) |>
+      setdiff(c('ales', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds'))
+  ]
+
+  # Simplify some very large elements, especially closures that contain environments
+
+  params$data <- list(
+    name = var_name(data),
+    # If data is large, reduce it to a sample of rug_sample_size; else return the full dataset
+    sample = if (nrow(data) > rug_sample_size) {
+      set.seed(seed)
+      slice_sample(data, n = rug_sample_size)
+    } else {
+      data
+    },
+    nrow = nrow(data)
+  )
+
+  params$model <- list(
+    name = var_name(model),
+    call = insight::model_name(model, include_call = TRUE) |>
+      paste0(collapse = '\n'),
+    print = print(model) |>
+      capture.output() |>
+      paste0(collapse = '\n'),
+    summary = summary(model)
+  )
+
+  # browser()
+
+  params$pred_fun <- print(pred_fun) |>
+    capture.output()
+  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
+  params$pred_fun <- params$pred_fun[-length(params$pred_fun)] |>
+    paste0(collapse = '\n')
+
+
+
+  # # Append useful output data that is shared across all variables
+  # ales$y_col <- y_col
+  # if (ixn) {
+  #   ales$x1_cols <- x1_cols
+  #   ales$x2_cols <- x2_cols
+  # } else {
+  #   ales$x_cols <- x_cols
+  # }
+  # ales$y_summary <- y_summary
+  # ales$boot_it <- boot_it
+  # ales$seed <- seed
+  # ales$boot_alpha <- boot_alpha
+  # ales$boot_centre <- boot_centre
+  # ales$relative_y <- relative_y
+  # ales$y_type <- y_type
+  # ales$median_band_pct <- median_band_pct
+  # ales$rug_sample_size <- rug_sample_size
+
+  ales$params <- params
+
+  # Set S3 class information for the ale object
+  class(ales) <- c('ale')
+  attr(ales, 'ale_version') <- utils::packageVersion('ale')
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.

@@ -4,12 +4,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              51.5     51.5  51.5   51.5      51.5    NA
-      2 df.residual     12.5     12.5  12.5   12.5      12.5    NA
-      3 nobs            64       64    64     64        64      NA
+      # A tibble: 5 x 7
+        name          estimate conf.low  mean median conf.high    sd
+        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
+      1 df               51.5     51.5  51.5   51.5      51.5     NA
+      2 df.residual      12.5     12.5  12.5   12.5      12.5     NA
+      3 nobs             64       64    64     64        64       NA
+      4 adj.r.squared     1.00     1.00  1.00   1.00      1.00    NA
+      5 npar             90       90    90     90        90       NA
       
       $boot_valid
       NULL
@@ -206,12 +208,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              39.8     36.3  39.8   39.0      42.9  2.78
-      2 df.residual     24.2     21.1  24.2   25.0      27.7  2.78
-      3 nobs            64       64    64     64        64    0   
+      # A tibble: 5 x 7
+        name          estimate conf.low  mean median conf.high       sd
+        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl>    <dbl>
+      1 df               39.8     36.3  39.8   39.0      42.9  2.78e+ 0
+      2 df.residual      24.2     21.1  24.2   25.0      27.7  2.78e+ 0
+      3 nobs             64       64    64     64        64    0       
+      4 adj.r.squared     1.00     1.00  1.00   1.00      1.00 3.76e-11
+      5 npar             56.4     56    56.4   56        57    5.48e- 1
       
       $boot_valid
       $boot_valid$mpg
@@ -596,12 +600,14 @@
       mb
     Output
       $model_stats
-      # A tibble: 3 x 7
-        name        estimate conf.low  mean median conf.high    sd
-        <chr>          <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df              34.2     33.1  34.2   34.0      35.0 0.837
-      2 df.residual     29.8     29.0  29.8   30.0      30.9 0.837
-      3 nobs            64       64    64     64        64   0    
+      # A tibble: 5 x 7
+        name          estimate conf.low  mean median conf.high    sd
+        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
+      1 df                34.2     33.1  34.2   34.0      35.0 0.837
+      2 df.residual       29.8     29.0  29.8   30.0      30.9 0.837
+      3 nobs              64       64    64     64        64   0    
+      4 adj.r.squared      1        1     1      1         1   0    
+      5 npar              84.2     83.1  84.2   84        85   0.837
       
       $boot_valid
       $boot_valid$vs

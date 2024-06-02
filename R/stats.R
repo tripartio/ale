@@ -569,8 +569,6 @@ create_p_dist <- function(
     map(bind_rows)  # combine statistics in each group into a tibble
 
 
-  ## Create functions ---------------
-
   # # Create functions that return p-values given a statistic value
   # value_to_p <-
   #   rand_stats |>
@@ -647,9 +645,16 @@ create_p_dist <- function(
   #
   # return(p_funs)
 
+  # # Repeat all arguments, then set modified ones
+  # # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
+  # params <- c(as.list(environment()), list(...))
+
+
   p_dist <- list(
     rand_stats = rand_stats,
-    residual_distribution = residual_distribution
+    residual_distribution = residual_distribution,
+    rand_it_ok = rand_it_ok
+    # params = params
   )
 
   if (!is.null(output) && output == 'residuals') {
@@ -657,12 +662,14 @@ create_p_dist <- function(
   }
 
   # Set S3 class information for the p_dist object
-  class(p_dist) <- c('p_dist', 'ale')
+  class(p_dist) <- 'ale_p'
   attr(p_dist, 'ale_version') <- utils::packageVersion('ale')
 
   return(p_dist)
-
 }
+
+
+## P-value functions ---------------
 
 
 # Return p-values given an ALE statistic value (x can be a vector)

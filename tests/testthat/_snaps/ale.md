@@ -639,15 +639,17 @@
       
       
       
-      $y_col
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
+      $params$relative_y_shift
+      [1] 19.2
+      
+      $params$y_cats
       [1] "mpg"
       
-      $x_cols
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
-      
-      $y_summary
+      $params$y_summary
                     mpg
       q         0.05000
       min      10.39108
@@ -670,30 +672,217 @@
       99%      33.84876
       max      33.84876
       
-      $boot_it
+      $params$valid_x_cols
+      logical(0)
+      
+      $params$all_x_cols
+      NULL
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      
+      $params$model$summary
+      
+      Family: gaussian 
+      Link function: identity 
+      
+      Formula:
+      mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          vs + am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+      (Intercept)              12.292914   0.394283  31.178 3.31e-13 ***
+      modelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** 
+      modelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  
+      modelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***
+      modelDatsun 710          -1.023754   0.671720  -1.524 0.152448    
+      modelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***
+      modelDuster 360           5.856358   2.354656   2.487 0.027927 *  
+      modelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    
+      modelFiat 128             0.350545   0.851716   0.412 0.687639    
+      modelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***
+      modelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  
+      modelHonda Civic          0.248578   1.281192   0.194 0.849286    
+      modelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** 
+      modelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***
+      modelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** 
+      modelLotus Europa         0.503454   0.547595   0.919 0.375338    
+      modelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  
+      modelMazda RX4            1.683278   0.383941   4.384 0.000814 ***
+      modelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  
+      modelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***
+      modelMerc 240D            2.099782   0.954306   2.200 0.047310 *  
+      modelMerc 280             3.881632   1.314514   2.953 0.011652 *  
+      modelMerc 280C            1.307655   1.078036   1.213 0.247615    
+      modelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***
+      modelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***
+      modelMerc 450SLC          0.840471   0.530070   1.586 0.137861    
+      modelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***
+      modelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  
+      modelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** 
+      modelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***
+      modelValiant             -2.589631   1.481974  -1.747 0.105131    
+      modelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** 
+      cyl                      -0.007195   0.003255  -2.210 0.046470 *  
+      vsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  
+      amTRUE                    3.970366   0.793027   5.007 0.000273 ***
+      gear.L                   -0.366001   1.442529  -0.254 0.803847    
+      gear.Q                    2.237590   0.852348   2.625 0.021588 *  
+      carb                      0.007848   0.004296   1.827 0.091753 .  
+      countryItaly              0.167973   0.437285   0.384 0.707356    
+      countryJapan              2.458091   0.291381   8.436 1.67e-06 ***
+      countrySweden            -1.703757   0.418113  -4.075 0.001427 ** 
+      countryUK                 0.503454   0.547595   0.919 0.375338    
+      countryUSA                3.653683   0.508735   7.182 9.02e-06 ***
+      continentEurope           6.181141   0.386846  15.978 1.13e-09 ***
+      continentNorth America    3.653683   0.508735   7.182 9.02e-06 ***
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Approximate significance of smooth terms:
+                edf Ref.df     F p-value   
+      s(disp) 2.872  3.448 2.235 0.23422   
+      s(hp)   2.890  3.513 0.911 0.46769   
+      s(drat) 2.236  2.730 0.175 0.90458   
+      s(wt)   2.097  2.573 3.721 0.04678 * 
+      s(qsec) 7.440  8.168 6.874 0.00216 **
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Rank: 79/90
+      R-sq.(adj) =      1   Deviance explained =  100%
+      GCV = 0.00012695  Scale est. = 2.4729e-05  n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x1_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "mpg"
+      
+      $params$parallel
       [1] 0
       
-      $seed
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "response"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
       [1] 0
       
-      $boot_alpha
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "numeric"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # numeric outcome with bootstrap works with multiple x datatypes
 
@@ -861,13 +1050,17 @@
       
       
       
-      $y_col
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
+      $params$relative_y_shift
+      [1] 19.2
+      
+      $params$y_cats
       [1] "mpg"
       
-      $x_cols
-      [1] "cyl"  "disp"
-      
-      $y_summary
+      $params$y_summary
                     mpg
       q         0.05000
       min      10.39108
@@ -890,30 +1083,215 @@
       99%      33.84876
       max      33.84876
       
-      $boot_it
-      [1] 5
+      $params$valid_x_cols
+      [1] TRUE TRUE
       
-      $seed
+      $params$all_x_cols
+      [1] "cyl"  "disp"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      
+      $params$model$summary
+      
+      Family: gaussian 
+      Link function: identity 
+      
+      Formula:
+      mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          vs + am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+      (Intercept)              12.292914   0.394283  31.178 3.31e-13 ***
+      modelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** 
+      modelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  
+      modelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***
+      modelDatsun 710          -1.023754   0.671720  -1.524 0.152448    
+      modelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***
+      modelDuster 360           5.856358   2.354656   2.487 0.027927 *  
+      modelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    
+      modelFiat 128             0.350545   0.851716   0.412 0.687639    
+      modelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***
+      modelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  
+      modelHonda Civic          0.248578   1.281192   0.194 0.849286    
+      modelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** 
+      modelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***
+      modelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** 
+      modelLotus Europa         0.503454   0.547595   0.919 0.375338    
+      modelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  
+      modelMazda RX4            1.683278   0.383941   4.384 0.000814 ***
+      modelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  
+      modelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***
+      modelMerc 240D            2.099782   0.954306   2.200 0.047310 *  
+      modelMerc 280             3.881632   1.314514   2.953 0.011652 *  
+      modelMerc 280C            1.307655   1.078036   1.213 0.247615    
+      modelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***
+      modelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***
+      modelMerc 450SLC          0.840471   0.530070   1.586 0.137861    
+      modelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***
+      modelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  
+      modelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** 
+      modelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***
+      modelValiant             -2.589631   1.481974  -1.747 0.105131    
+      modelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** 
+      cyl                      -0.007195   0.003255  -2.210 0.046470 *  
+      vsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  
+      amTRUE                    3.970366   0.793027   5.007 0.000273 ***
+      gear.L                   -0.366001   1.442529  -0.254 0.803847    
+      gear.Q                    2.237590   0.852348   2.625 0.021588 *  
+      carb                      0.007848   0.004296   1.827 0.091753 .  
+      countryItaly              0.167973   0.437285   0.384 0.707356    
+      countryJapan              2.458091   0.291381   8.436 1.67e-06 ***
+      countrySweden            -1.703757   0.418113  -4.075 0.001427 ** 
+      countryUK                 0.503454   0.547595   0.919 0.375338    
+      countryUSA                3.653683   0.508735   7.182 9.02e-06 ***
+      continentEurope           6.181141   0.386846  15.978 1.13e-09 ***
+      continentNorth America    3.653683   0.508735   7.182 9.02e-06 ***
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Approximate significance of smooth terms:
+                edf Ref.df     F p-value   
+      s(disp) 2.872  3.448 2.235 0.23422   
+      s(hp)   2.890  3.513 0.911 0.46769   
+      s(drat) 2.236  2.730 0.175 0.90458   
+      s(wt)   2.097  2.573 3.721 0.04678 * 
+      s(qsec) 7.440  8.168 6.874 0.00216 **
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Rank: 79/90
+      R-sq.(adj) =      1   Deviance explained =  100%
+      GCV = 0.00012695  Scale est. = 2.4729e-05  n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "cyl"  "disp"
+      
+      $params$x1_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "mpg"
+      
+      $params$parallel
       [1] 0
       
-      $boot_alpha
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "response"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
+      [1] 5
+      
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "numeric"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # numeric outcome works with every parameter set to something, with multiple x datatypes
 
@@ -957,13 +1335,14 @@
       $plots
       NULL
       
-      $y_col
+      $params
+      $params$relative_y_shift
+      [1] 0
+      
+      $params$y_cats
       [1] "mpg"
       
-      $x_cols
-      [1] "vs"   "gear"
-      
-      $y_summary
+      $params$y_summary
                     mpg
       q         0.01000
       min      10.39108
@@ -985,30 +1364,215 @@
       99%      33.84876
       max      33.84876
       
-      $boot_it
+      $params$valid_x_cols
+      [1] TRUE TRUE
+      
+      $params$all_x_cols
+      [1] "vs"   "gear"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      
+      $params$model$summary
+      
+      Family: gaussian 
+      Link function: identity 
+      
+      Formula:
+      mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          vs + am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+      (Intercept)              12.292914   0.394283  31.178 3.31e-13 ***
+      modelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** 
+      modelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  
+      modelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***
+      modelDatsun 710          -1.023754   0.671720  -1.524 0.152448    
+      modelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***
+      modelDuster 360           5.856358   2.354656   2.487 0.027927 *  
+      modelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    
+      modelFiat 128             0.350545   0.851716   0.412 0.687639    
+      modelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***
+      modelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  
+      modelHonda Civic          0.248578   1.281192   0.194 0.849286    
+      modelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** 
+      modelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***
+      modelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** 
+      modelLotus Europa         0.503454   0.547595   0.919 0.375338    
+      modelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  
+      modelMazda RX4            1.683278   0.383941   4.384 0.000814 ***
+      modelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  
+      modelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***
+      modelMerc 240D            2.099782   0.954306   2.200 0.047310 *  
+      modelMerc 280             3.881632   1.314514   2.953 0.011652 *  
+      modelMerc 280C            1.307655   1.078036   1.213 0.247615    
+      modelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***
+      modelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***
+      modelMerc 450SLC          0.840471   0.530070   1.586 0.137861    
+      modelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***
+      modelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  
+      modelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** 
+      modelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***
+      modelValiant             -2.589631   1.481974  -1.747 0.105131    
+      modelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** 
+      cyl                      -0.007195   0.003255  -2.210 0.046470 *  
+      vsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  
+      amTRUE                    3.970366   0.793027   5.007 0.000273 ***
+      gear.L                   -0.366001   1.442529  -0.254 0.803847    
+      gear.Q                    2.237590   0.852348   2.625 0.021588 *  
+      carb                      0.007848   0.004296   1.827 0.091753 .  
+      countryItaly              0.167973   0.437285   0.384 0.707356    
+      countryJapan              2.458091   0.291381   8.436 1.67e-06 ***
+      countrySweden            -1.703757   0.418113  -4.075 0.001427 ** 
+      countryUK                 0.503454   0.547595   0.919 0.375338    
+      countryUSA                3.653683   0.508735   7.182 9.02e-06 ***
+      continentEurope           6.181141   0.386846  15.978 1.13e-09 ***
+      continentNorth America    3.653683   0.508735   7.182 9.02e-06 ***
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Approximate significance of smooth terms:
+                edf Ref.df     F p-value   
+      s(disp) 2.872  3.448 2.235 0.23422   
+      s(hp)   2.890  3.513 0.911 0.46769   
+      s(drat) 2.236  2.730 0.175 0.90458   
+      s(wt)   2.097  2.573 3.721 0.04678 * 
+      s(qsec) 7.440  8.168 6.874 0.00216 **
+      ---
+      Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      
+      Rank: 79/90
+      R-sq.(adj) =      1   Deviance explained =  100%
+      GCV = 0.00012695  Scale est. = 2.4729e-05  n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "vs"   "gear"
+      
+      $params$x1_cols
+       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
+       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "mpg"
+      
+      $params$parallel
+      [1] 0
+      
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "boot"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n  predict(object, newdata, se.fit = TRUE, type = type)$fit\n}"
+      
+      $params$pred_type
+      [1] "link"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 12
+      
+      $params$boot_it
       [1] 1
       
-      $seed
+      $params$seed
       [1] 1234
       
-      $boot_alpha
+      $params$boot_alpha
       [1] 0.01
       
-      $boot_centre
+      $params$boot_centre
       [1] "median"
       
-      $relative_y
+      $params$relative_y
       [1] "zero"
       
-      $y_type
+      $params$y_type
       [1] "numeric"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.01 0.15
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # binary outcome default works with multiple x datatypes
 
@@ -1660,15 +2224,17 @@
       
       
       
-      $y_col
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
+      $params$relative_y_shift
+      [1] 3.925673e-13
+      
+      $params$y_cats
       [1] "vs"
       
-      $x_cols
-       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
-       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
-      [13] "continent"
-      
-      $y_summary
+      $params$y_summary
                          vs
       q        5.000000e-02
       min      0.000000e+00
@@ -1691,30 +2257,212 @@
       99%      1.000000e+00
       max      1.000000e+00
       
-      $boot_it
+      $params$valid_x_cols
+      logical(0)
+      
+      $params$all_x_cols
+      NULL
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam_binary"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
+      
+      $params$model$summary
+      
+      Family: binomial 
+      Link function: logit 
+      
+      Formula:
+      vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                 Estimate Std. Error z value Pr(>|z|)
+      (Intercept)               0.000e+00  0.000e+00     NaN      NaN
+      modelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1
+      modelCamaro Z28          -4.563e-05  1.204e+08       0        1
+      modelChrysler Imperial   -8.515e-05  1.256e+08       0        1
+      modelDatsun 710           5.713e+01  7.909e+07       0        1
+      modelDodge Challenger    -2.991e-07  2.335e+07       0        1
+      modelDuster 360          -1.155e-05  8.817e+07       0        1
+      modelFerrari Dino        -9.284e+01  2.084e+08       0        1
+      modelFiat 128             1.206e-05  2.166e+07       0        1
+      modelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN
+      modelFord Pantera L      -5.713e+01  2.036e+08       0        1
+      modelHonda Civic          5.713e+01  7.704e+07       0        1
+      modelHornet 4 Drive       5.713e+01  6.786e+07       0        1
+      modelHornet Sportabout    1.251e-06  4.093e+07       0        1
+      modelLincoln Continental -8.020e-05  1.122e+08       0        1
+      modelLotus Europa         0.000e+00  0.000e+00     NaN      NaN
+      modelMaserati Bora       -9.284e+01  2.616e+08       0        1
+      modelMazda RX4            0.000e+00  0.000e+00     NaN      NaN
+      modelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1
+      modelMerc 230             7.597e-05  1.345e+08       0        1
+      modelMerc 240D            3.250e-05  8.088e+07       0        1
+      modelMerc 280             0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 280C            2.619e-05  1.662e+07       0        1
+      modelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 450SL           2.082e-05  4.016e+07       0        1
+      modelMerc 450SLC          2.397e-05  4.362e+07       0        1
+      modelPontiac Firebird    -1.741e-05  4.924e+07       0        1
+      modelPorsche 914-2       -5.713e+01  1.316e+08       0        1
+      modelToyota Corolla       5.713e+01  1.043e+08       0        1
+      modelToyota Corona        7.856e+01  1.118e+08       0        1
+      modelValiant              5.713e+01  1.139e+08       0        1
+      modelVolvo 142E           3.571e+01  2.684e+07       0        1
+      cyl                       5.068e-08  6.167e+05       0        1
+      amTRUE                   -3.571e+01  3.488e+07       0        1
+      gear.L                    6.565e+01  7.765e+07       0        1
+      gear.Q                   -8.747e+00  6.818e+07       0        1
+      carb                     -1.157e-08  7.575e+05       0        1
+      countryItaly              3.571e+01  8.901e+07       0        1
+      countryJapan              0.000e+00  0.000e+00     NaN      NaN
+      countrySweden             0.000e+00  0.000e+00     NaN      NaN
+      countryUK                 0.000e+00  0.000e+00     NaN      NaN
+      countryUSA                0.000e+00  0.000e+00     NaN      NaN
+      continentEurope           2.142e+01  3.433e+07       0        1
+      continentNorth America    2.142e+01  6.026e+07       0        1
+      
+      Approximate significance of smooth terms:
+              edf Ref.df Chi.sq p-value
+      s(disp)   1      1      0       1
+      s(hp)     1      1      0       1
+      s(drat)   1      1      0       1
+      s(wt)     1      1      0       1
+      s(qsec)   1      1      0       1
+      
+      Rank: 79/89
+      R-sq.(adj) =      1   Deviance explained =  100%
+      UBRE = 0.21875  Scale est. = 1         n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x1_cols
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "vs"
+      
+      $params$parallel
       [1] 0
       
-      $seed
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "response"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
       [1] 0
       
-      $boot_alpha
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "binary"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # binary outcome with bootstrap works with multiple x datatypes
 
@@ -1885,13 +2633,17 @@
       
       
       
-      $y_col
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
+      $params$relative_y_shift
+      [1] 3.925673e-13
+      
+      $params$y_cats
       [1] "vs"
       
-      $x_cols
-      [1] "hp"        "continent"
-      
-      $y_summary
+      $params$y_summary
                          vs
       q        5.000000e-02
       min      0.000000e+00
@@ -1914,30 +2666,210 @@
       99%      1.000000e+00
       max      1.000000e+00
       
-      $boot_it
-      [1] 4
+      $params$valid_x_cols
+      [1] TRUE TRUE
       
-      $seed
+      $params$all_x_cols
+      [1] "hp"        "continent"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam_binary"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
+      
+      $params$model$summary
+      
+      Family: binomial 
+      Link function: logit 
+      
+      Formula:
+      vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                 Estimate Std. Error z value Pr(>|z|)
+      (Intercept)               0.000e+00  0.000e+00     NaN      NaN
+      modelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1
+      modelCamaro Z28          -4.563e-05  1.204e+08       0        1
+      modelChrysler Imperial   -8.515e-05  1.256e+08       0        1
+      modelDatsun 710           5.713e+01  7.909e+07       0        1
+      modelDodge Challenger    -2.991e-07  2.335e+07       0        1
+      modelDuster 360          -1.155e-05  8.817e+07       0        1
+      modelFerrari Dino        -9.284e+01  2.084e+08       0        1
+      modelFiat 128             1.206e-05  2.166e+07       0        1
+      modelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN
+      modelFord Pantera L      -5.713e+01  2.036e+08       0        1
+      modelHonda Civic          5.713e+01  7.704e+07       0        1
+      modelHornet 4 Drive       5.713e+01  6.786e+07       0        1
+      modelHornet Sportabout    1.251e-06  4.093e+07       0        1
+      modelLincoln Continental -8.020e-05  1.122e+08       0        1
+      modelLotus Europa         0.000e+00  0.000e+00     NaN      NaN
+      modelMaserati Bora       -9.284e+01  2.616e+08       0        1
+      modelMazda RX4            0.000e+00  0.000e+00     NaN      NaN
+      modelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1
+      modelMerc 230             7.597e-05  1.345e+08       0        1
+      modelMerc 240D            3.250e-05  8.088e+07       0        1
+      modelMerc 280             0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 280C            2.619e-05  1.662e+07       0        1
+      modelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 450SL           2.082e-05  4.016e+07       0        1
+      modelMerc 450SLC          2.397e-05  4.362e+07       0        1
+      modelPontiac Firebird    -1.741e-05  4.924e+07       0        1
+      modelPorsche 914-2       -5.713e+01  1.316e+08       0        1
+      modelToyota Corolla       5.713e+01  1.043e+08       0        1
+      modelToyota Corona        7.856e+01  1.118e+08       0        1
+      modelValiant              5.713e+01  1.139e+08       0        1
+      modelVolvo 142E           3.571e+01  2.684e+07       0        1
+      cyl                       5.068e-08  6.167e+05       0        1
+      amTRUE                   -3.571e+01  3.488e+07       0        1
+      gear.L                    6.565e+01  7.765e+07       0        1
+      gear.Q                   -8.747e+00  6.818e+07       0        1
+      carb                     -1.157e-08  7.575e+05       0        1
+      countryItaly              3.571e+01  8.901e+07       0        1
+      countryJapan              0.000e+00  0.000e+00     NaN      NaN
+      countrySweden             0.000e+00  0.000e+00     NaN      NaN
+      countryUK                 0.000e+00  0.000e+00     NaN      NaN
+      countryUSA                0.000e+00  0.000e+00     NaN      NaN
+      continentEurope           2.142e+01  3.433e+07       0        1
+      continentNorth America    2.142e+01  6.026e+07       0        1
+      
+      Approximate significance of smooth terms:
+              edf Ref.df Chi.sq p-value
+      s(disp)   1      1      0       1
+      s(hp)     1      1      0       1
+      s(drat)   1      1      0       1
+      s(wt)     1      1      0       1
+      s(qsec)   1      1      0       1
+      
+      Rank: 79/89
+      R-sq.(adj) =      1   Deviance explained =  100%
+      UBRE = 0.21875  Scale est. = 1         n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "hp"        "continent"
+      
+      $params$x1_cols
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "vs"
+      
+      $params$parallel
       [1] 0
       
-      $boot_alpha
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "response"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
+      [1] 4
+      
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "binary"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # binary outcome works with every parameter set to something, with multiple x datatypes
 
@@ -1990,13 +2922,14 @@
       $plots
       NULL
       
-      $y_col
+      $params
+      $params$relative_y_shift
+      [1] 0
+      
+      $params$y_cats
       [1] "vs"
       
-      $x_cols
-      [1] "carb"    "country"
-      
-      $y_summary
+      $params$y_summary
                        vs
       q          0.010000
       min      -28.566069
@@ -2018,30 +2951,210 @@
       99%       28.566090
       max       28.566090
       
-      $boot_it
+      $params$valid_x_cols
+      [1] TRUE TRUE
+      
+      $params$all_x_cols
+      [1] "carb"    "country"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_gam_binary"
+      
+      $params$model$call
+      [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = test_cars)"
+      
+      $params$model$print
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
+      
+      $params$model$summary
+      
+      Family: binomial 
+      Link function: logit 
+      
+      Formula:
+      vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + 
+          am + gear + carb + country + continent
+      
+      Parametric coefficients:
+                                 Estimate Std. Error z value Pr(>|z|)
+      (Intercept)               0.000e+00  0.000e+00     NaN      NaN
+      modelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1
+      modelCamaro Z28          -4.563e-05  1.204e+08       0        1
+      modelChrysler Imperial   -8.515e-05  1.256e+08       0        1
+      modelDatsun 710           5.713e+01  7.909e+07       0        1
+      modelDodge Challenger    -2.991e-07  2.335e+07       0        1
+      modelDuster 360          -1.155e-05  8.817e+07       0        1
+      modelFerrari Dino        -9.284e+01  2.084e+08       0        1
+      modelFiat 128             1.206e-05  2.166e+07       0        1
+      modelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN
+      modelFord Pantera L      -5.713e+01  2.036e+08       0        1
+      modelHonda Civic          5.713e+01  7.704e+07       0        1
+      modelHornet 4 Drive       5.713e+01  6.786e+07       0        1
+      modelHornet Sportabout    1.251e-06  4.093e+07       0        1
+      modelLincoln Continental -8.020e-05  1.122e+08       0        1
+      modelLotus Europa         0.000e+00  0.000e+00     NaN      NaN
+      modelMaserati Bora       -9.284e+01  2.616e+08       0        1
+      modelMazda RX4            0.000e+00  0.000e+00     NaN      NaN
+      modelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1
+      modelMerc 230             7.597e-05  1.345e+08       0        1
+      modelMerc 240D            3.250e-05  8.088e+07       0        1
+      modelMerc 280             0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 280C            2.619e-05  1.662e+07       0        1
+      modelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN
+      modelMerc 450SL           2.082e-05  4.016e+07       0        1
+      modelMerc 450SLC          2.397e-05  4.362e+07       0        1
+      modelPontiac Firebird    -1.741e-05  4.924e+07       0        1
+      modelPorsche 914-2       -5.713e+01  1.316e+08       0        1
+      modelToyota Corolla       5.713e+01  1.043e+08       0        1
+      modelToyota Corona        7.856e+01  1.118e+08       0        1
+      modelValiant              5.713e+01  1.139e+08       0        1
+      modelVolvo 142E           3.571e+01  2.684e+07       0        1
+      cyl                       5.068e-08  6.167e+05       0        1
+      amTRUE                   -3.571e+01  3.488e+07       0        1
+      gear.L                    6.565e+01  7.765e+07       0        1
+      gear.Q                   -8.747e+00  6.818e+07       0        1
+      carb                     -1.157e-08  7.575e+05       0        1
+      countryItaly              3.571e+01  8.901e+07       0        1
+      countryJapan              0.000e+00  0.000e+00     NaN      NaN
+      countrySweden             0.000e+00  0.000e+00     NaN      NaN
+      countryUK                 0.000e+00  0.000e+00     NaN      NaN
+      countryUSA                0.000e+00  0.000e+00     NaN      NaN
+      continentEurope           2.142e+01  3.433e+07       0        1
+      continentNorth America    2.142e+01  6.026e+07       0        1
+      
+      Approximate significance of smooth terms:
+              edf Ref.df Chi.sq p-value
+      s(disp)   1      1      0       1
+      s(hp)     1      1      0       1
+      s(drat)   1      1      0       1
+      s(wt)     1      1      0       1
+      s(qsec)   1      1      0       1
+      
+      Rank: 79/89
+      R-sq.(adj) =      1   Deviance explained =  100%
+      UBRE = 0.21875  Scale est. = 1         n = 64
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "carb"    "country"
+      
+      $params$x1_cols
+       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
+       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
+      [13] "continent"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "vs"
+      
+      $params$parallel
+      [1] 0
+      
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "boot"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n  predict(object, newdata, se.fit = TRUE, type = type)$fit\n}"
+      
+      $params$pred_type
+      [1] "link"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 12
+      
+      $params$boot_it
       [1] 1
       
-      $seed
+      $params$seed
       [1] 1234
       
-      $boot_alpha
+      $params$boot_alpha
       [1] 0.01
       
-      $boot_centre
+      $params$boot_centre
       [1] "median"
       
-      $relative_y
+      $params$relative_y
       [1] "zero"
       
-      $y_type
+      $params$y_type
       [1] "binary"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.01 0.20
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # categorical outcome default works with multiple x datatypes
 
@@ -3951,14 +5064,17 @@
       
       
       
-      $y_col
-      [1] "continent"
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
       
-      $x_cols
-       [1] "model"   "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"     
-       [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
+      $params$relative_y_shift
+      [1] 5.740835e-09
       
-      $y_summary
+      $params$y_cats
+      [1] "Asia"          "Europe"        "North America"
+      
+      $params$y_summary
                   continent         Asia       Europe North America
       q        5.000000e-02 5.000000e-02 5.000000e-02  5.000000e-02
       min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
@@ -3981,30 +5097,226 @@
       99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
-      $boot_it
+      $params$valid_x_cols
+      logical(0)
+      
+      $params$all_x_cols
+      NULL
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_nn_categorical"
+      
+      $params$model$call
+      [1] "nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)"
+      
+      $params$model$print
+      [1] "Call:\nnnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope         -0.6978323                3.128224       -4.589603\nNorth America  -0.6061996               -6.251073        4.880290\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                     -5.166101      -29.075931             0.3214242\nNorth America               3.090837       -5.058915             1.7426747\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -4.058538        -0.8352329     26.785252     32.6426182\nNorth America        3.608550         0.5242024      1.030833     -0.1821547\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -7.937823        -9.299837           -2.360596\nNorth America            7.407937        -0.161573            3.032532\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                      4.978431               -3.3826953        13.4641373\nNorth America              -6.268802                0.3178893         0.5944233\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                -0.4189366     -23.100090         -30.850367\nNorth America         -1.9537571      -1.111809          -1.217713\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope             5.243789       7.930215      7.767874       6.219655\nNorth America      2.399675      -1.778932      1.121832       1.138851\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope              10.109999       20.208421        17.572116\nNorth America       -5.559264       -6.240044        -6.419172\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                     5.667871         13.9255845          -17.932960\nNorth America             -8.609473         -0.9127146           -0.343197\n              modelToyota Corona modelValiant modelVolvo 142E      cyl\nEurope                -40.777990    -16.05468      20.3875287 5.017904\nNorth America          -9.454536     20.20966       0.9107503 4.905543\n                    disp         hp       drat        wt      qsec   vsTRUE\nEurope        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907\nNorth America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925\n                   amTRUE    gear.L   gear.Q      carb\nEurope        -12.2460563 23.908015 3.735034 -3.824704\nNorth America  -0.4736867  6.133465 3.735822  1.195147\n\nResidual Deviance: 6.884234e-05 \nAIC: 156.0001 "
+      
+      $params$model$summary
+      Call:
+      nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, 
+          trace = FALSE)
+      
+      Coefficients:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe         -0.6978323                3.128224       -4.589603
+      North America  -0.6061996               -6.251073        4.880290
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     -5.166101      -29.075931             0.3214242
+      North America               3.090837       -5.058915             1.7426747
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe              -4.058538        -0.8352329     26.785252     32.6426182
+      North America        3.608550         0.5242024      1.030833     -0.1821547
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe                  -7.937823        -9.299837           -2.360596
+      North America            7.407937        -0.161573            3.032532
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      4.978431               -3.3826953        13.4641373
+      North America              -6.268802                0.3178893         0.5944233
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                -0.4189366     -23.100090         -30.850367
+      North America         -1.9537571      -1.111809          -1.217713
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe             5.243789       7.930215      7.767874       6.219655
+      North America      2.399675      -1.778932      1.121832       1.138851
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe              10.109999       20.208421        17.572116
+      North America       -5.559264       -6.240044        -6.419172
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                     5.667871         13.9255845          -17.932960
+      North America             -8.609473         -0.9127146           -0.343197
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl
+      Europe                -40.777990    -16.05468      20.3875287 5.017904
+      North America          -9.454536     20.20966       0.9107503 4.905543
+                          disp         hp       drat        wt      qsec   vsTRUE
+      Europe        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907
+      North America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925
+                         amTRUE    gear.L   gear.Q      carb
+      Europe        -12.2460563 23.908015 3.735034 -3.824704
+      North America  -0.4736867  6.133465 3.735822  1.195147
+      
+      Std. Errors:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe           74.55520                4.925472       0.3168062
+      North America    92.98653               10.552837    1831.6185559
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     0.1412629        205.2136              2209.790
+      North America              0.1865082        236.2649              2213.695
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe           3.507537e-02      1.235295e+03  5.526490e-04   7.057214e-02
+      North America    3.812350e+03      4.283689e-02  1.799515e-12   2.623825e-12
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe               0.0003488232     2.791257e-03            1233.983
+      North America        6.5813360048     1.088710e+03            1500.362
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      230.0977                0.3609665      0.2520934586
+      North America              3225.6753                0.9129595      0.0002069316
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                  468.1973   1.581225e-03       8.545624e-05
+      North America          1484.7425   4.542617e+02       6.789494e+02
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe         1.846975e-02   2.217613e-01     0.1383762    0.014852394
+      North America  2.802414e-10   8.324122e-06     0.1348679    0.002127744
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe           0.0020604573     0.004726256     3.327401e-05
+      North America    0.0009823073     0.004724229     4.145601e-05
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                      1.68827       1.107212e+03            701.2816
+      North America              59.66231       4.324660e-05            474.0771
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl     disp
+      Europe                0.02340343     21.34201    4.400218e-01 1449.655 21.86139
+      North America         5.21174721     21.35053    4.236420e-07 1343.585 50.10586
+                          hp     drat        wt     qsec    vsTRUE   amTRUE    gear.L
+      Europe        94.91485 1088.620  581.5725 370.3900  661.9915 516.5992  722.0913
+      North America 60.71104 2309.553 1535.2022 454.6264 1199.3289 938.5556 1539.2348
+                       gear.Q     carb
+      Europe         877.1183 3712.504
+      North America 1577.7870 1271.093
+      
+      Residual Deviance: 6.884234e-05 
+      AIC: 156.0001 
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+       [1] "model"   "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"     
+       [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
+      
+      $params$x1_cols
+       [1] "model"   "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"     
+       [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "continent"
+      
+      $params$parallel
       [1] 0
       
-      $seed
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "probs"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
       [1] 0
       
-      $boot_alpha
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "categorical"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # categorical outcome with bootstrap works with multiple x datatypes
 
@@ -4549,13 +5861,17 @@
       
       
       
-      $y_col
-      [1] "continent"
+      $params
+      $params$sig_criterion
+      [1] "median_band_pct"
       
-      $x_cols
-      [1] "wt" "am"
+      $params$relative_y_shift
+      [1] 5.740835e-09
       
-      $y_summary
+      $params$y_cats
+      [1] "Asia"          "Europe"        "North America"
+      
+      $params$y_summary
                   continent         Asia       Europe North America
       q        5.000000e-02 5.000000e-02 5.000000e-02  5.000000e-02
       min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
@@ -4578,30 +5894,225 @@
       99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
-      $boot_it
-      [1] 3
+      $params$valid_x_cols
+      [1] TRUE TRUE
       
-      $seed
+      $params$all_x_cols
+      [1] "wt" "am"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_nn_categorical"
+      
+      $params$model$call
+      [1] "nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)"
+      
+      $params$model$print
+      [1] "Call:\nnnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope         -0.6978323                3.128224       -4.589603\nNorth America  -0.6061996               -6.251073        4.880290\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                     -5.166101      -29.075931             0.3214242\nNorth America               3.090837       -5.058915             1.7426747\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -4.058538        -0.8352329     26.785252     32.6426182\nNorth America        3.608550         0.5242024      1.030833     -0.1821547\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -7.937823        -9.299837           -2.360596\nNorth America            7.407937        -0.161573            3.032532\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                      4.978431               -3.3826953        13.4641373\nNorth America              -6.268802                0.3178893         0.5944233\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                -0.4189366     -23.100090         -30.850367\nNorth America         -1.9537571      -1.111809          -1.217713\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope             5.243789       7.930215      7.767874       6.219655\nNorth America      2.399675      -1.778932      1.121832       1.138851\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope              10.109999       20.208421        17.572116\nNorth America       -5.559264       -6.240044        -6.419172\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                     5.667871         13.9255845          -17.932960\nNorth America             -8.609473         -0.9127146           -0.343197\n              modelToyota Corona modelValiant modelVolvo 142E      cyl\nEurope                -40.777990    -16.05468      20.3875287 5.017904\nNorth America          -9.454536     20.20966       0.9107503 4.905543\n                    disp         hp       drat        wt      qsec   vsTRUE\nEurope        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907\nNorth America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925\n                   amTRUE    gear.L   gear.Q      carb\nEurope        -12.2460563 23.908015 3.735034 -3.824704\nNorth America  -0.4736867  6.133465 3.735822  1.195147\n\nResidual Deviance: 6.884234e-05 \nAIC: 156.0001 "
+      
+      $params$model$summary
+      Call:
+      nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, 
+          trace = FALSE)
+      
+      Coefficients:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe         -0.6978323                3.128224       -4.589603
+      North America  -0.6061996               -6.251073        4.880290
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     -5.166101      -29.075931             0.3214242
+      North America               3.090837       -5.058915             1.7426747
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe              -4.058538        -0.8352329     26.785252     32.6426182
+      North America        3.608550         0.5242024      1.030833     -0.1821547
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe                  -7.937823        -9.299837           -2.360596
+      North America            7.407937        -0.161573            3.032532
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      4.978431               -3.3826953        13.4641373
+      North America              -6.268802                0.3178893         0.5944233
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                -0.4189366     -23.100090         -30.850367
+      North America         -1.9537571      -1.111809          -1.217713
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe             5.243789       7.930215      7.767874       6.219655
+      North America      2.399675      -1.778932      1.121832       1.138851
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe              10.109999       20.208421        17.572116
+      North America       -5.559264       -6.240044        -6.419172
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                     5.667871         13.9255845          -17.932960
+      North America             -8.609473         -0.9127146           -0.343197
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl
+      Europe                -40.777990    -16.05468      20.3875287 5.017904
+      North America          -9.454536     20.20966       0.9107503 4.905543
+                          disp         hp       drat        wt      qsec   vsTRUE
+      Europe        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907
+      North America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925
+                         amTRUE    gear.L   gear.Q      carb
+      Europe        -12.2460563 23.908015 3.735034 -3.824704
+      North America  -0.4736867  6.133465 3.735822  1.195147
+      
+      Std. Errors:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe           74.55520                4.925472       0.3168062
+      North America    92.98653               10.552837    1831.6185559
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     0.1412629        205.2136              2209.790
+      North America              0.1865082        236.2649              2213.695
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe           3.507537e-02      1.235295e+03  5.526490e-04   7.057214e-02
+      North America    3.812350e+03      4.283689e-02  1.799515e-12   2.623825e-12
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe               0.0003488232     2.791257e-03            1233.983
+      North America        6.5813360048     1.088710e+03            1500.362
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      230.0977                0.3609665      0.2520934586
+      North America              3225.6753                0.9129595      0.0002069316
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                  468.1973   1.581225e-03       8.545624e-05
+      North America          1484.7425   4.542617e+02       6.789494e+02
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe         1.846975e-02   2.217613e-01     0.1383762    0.014852394
+      North America  2.802414e-10   8.324122e-06     0.1348679    0.002127744
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe           0.0020604573     0.004726256     3.327401e-05
+      North America    0.0009823073     0.004724229     4.145601e-05
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                      1.68827       1.107212e+03            701.2816
+      North America              59.66231       4.324660e-05            474.0771
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl     disp
+      Europe                0.02340343     21.34201    4.400218e-01 1449.655 21.86139
+      North America         5.21174721     21.35053    4.236420e-07 1343.585 50.10586
+                          hp     drat        wt     qsec    vsTRUE   amTRUE    gear.L
+      Europe        94.91485 1088.620  581.5725 370.3900  661.9915 516.5992  722.0913
+      North America 60.71104 2309.553 1535.2022 454.6264 1199.3289 938.5556 1539.2348
+                       gear.Q     carb
+      Europe         877.1183 3712.504
+      North America 1577.7870 1271.093
+      
+      Residual Deviance: 6.884234e-05 
+      AIC: 156.0001 
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "wt" "am"
+      
+      $params$x1_cols
+       [1] "model"   "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"     
+       [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "continent"
+      
+      $params$parallel
       [1] 0
       
-      $boot_alpha
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "plots"        "data"         "stats"        "conf_regions"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "probs"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 10
+      
+      $params$boot_it
+      [1] 3
+      
+      $params$seed
+      [1] 0
+      
+      $params$boot_alpha
       [1] 0.05
       
-      $boot_centre
+      $params$boot_centre
       [1] "mean"
       
-      $relative_y
+      $params$relative_y
       [1] "median"
       
-      $y_type
+      $params$y_type
       [1] "categorical"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.05 0.50
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] FALSE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 
 # categorical outcome works with every parameter set to something, with multiple x datatypes
 
@@ -4711,13 +6222,14 @@
       $plots
       NULL
       
-      $y_col
-      [1] "continent"
+      $params
+      $params$relative_y_shift
+      [1] 0
       
-      $x_cols
-      [1] "gear"    "country"
+      $params$y_cats
+      [1] "Asia"          "Europe"        "North America"
       
-      $y_summary
+      $params$y_summary
                   continent         Asia       Europe North America
       q        1.000000e-02 1.000000e-02 1.000000e-02  1.000000e-02
       min      0.000000e+00 0.000000e+00 0.000000e+00  0.000000e+00
@@ -4739,28 +6251,223 @@
       99%      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       max      1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
-      $boot_it
+      $params$valid_x_cols
+      [1] TRUE TRUE
+      
+      $params$all_x_cols
+      [1] "gear"    "country"
+      
+      $params$data
+      $params$data$name
+      [1] "test_cars"
+      
+      $params$data$sample
+      # A tibble: 64 x 14
+         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
+         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
+       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
+       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
+       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
+       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
+       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
+       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
+       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
+       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
+       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
+      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # i 54 more rows
+      # i 2 more variables: country <fct>, continent <fct>
+      
+      $params$data$nrow
+      [1] 64
+      
+      
+      $params$model
+      $params$model$name
+      [1] "test_nn_categorical"
+      
+      $params$model$call
+      [1] "nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)"
+      
+      $params$model$print
+      [1] "Call:\nnnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, \n    trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope         -0.6978323                3.128224       -4.589603\nNorth America  -0.6061996               -6.251073        4.880290\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                     -5.166101      -29.075931             0.3214242\nNorth America               3.090837       -5.058915             1.7426747\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -4.058538        -0.8352329     26.785252     32.6426182\nNorth America        3.608550         0.5242024      1.030833     -0.1821547\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -7.937823        -9.299837           -2.360596\nNorth America            7.407937        -0.161573            3.032532\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                      4.978431               -3.3826953        13.4641373\nNorth America              -6.268802                0.3178893         0.5944233\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                -0.4189366     -23.100090         -30.850367\nNorth America         -1.9537571      -1.111809          -1.217713\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope             5.243789       7.930215      7.767874       6.219655\nNorth America      2.399675      -1.778932      1.121832       1.138851\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope              10.109999       20.208421        17.572116\nNorth America       -5.559264       -6.240044        -6.419172\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                     5.667871         13.9255845          -17.932960\nNorth America             -8.609473         -0.9127146           -0.343197\n              modelToyota Corona modelValiant modelVolvo 142E      cyl\nEurope                -40.777990    -16.05468      20.3875287 5.017904\nNorth America          -9.454536     20.20966       0.9107503 4.905543\n                    disp         hp       drat        wt      qsec   vsTRUE\nEurope        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907\nNorth America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925\n                   amTRUE    gear.L   gear.Q      carb\nEurope        -12.2460563 23.908015 3.735034 -3.824704\nNorth America  -0.4736867  6.133465 3.735822  1.195147\n\nResidual Deviance: 6.884234e-05 \nAIC: 156.0001 "
+      
+      $params$model$summary
+      Call:
+      nnet::multinom(formula = continent ~ . - mpg - country, data = test_cars, 
+          trace = FALSE)
+      
+      Coefficients:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe         -0.6978323                3.128224       -4.589603
+      North America  -0.6061996               -6.251073        4.880290
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     -5.166101      -29.075931             0.3214242
+      North America               3.090837       -5.058915             1.7426747
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe              -4.058538        -0.8352329     26.785252     32.6426182
+      North America        3.608550         0.5242024      1.030833     -0.1821547
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe                  -7.937823        -9.299837           -2.360596
+      North America            7.407937        -0.161573            3.032532
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      4.978431               -3.3826953        13.4641373
+      North America              -6.268802                0.3178893         0.5944233
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                -0.4189366     -23.100090         -30.850367
+      North America         -1.9537571      -1.111809          -1.217713
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe             5.243789       7.930215      7.767874       6.219655
+      North America      2.399675      -1.778932      1.121832       1.138851
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe              10.109999       20.208421        17.572116
+      North America       -5.559264       -6.240044        -6.419172
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                     5.667871         13.9255845          -17.932960
+      North America             -8.609473         -0.9127146           -0.343197
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl
+      Europe                -40.777990    -16.05468      20.3875287 5.017904
+      North America          -9.454536     20.20966       0.9107503 4.905543
+                          disp         hp       drat        wt      qsec   vsTRUE
+      Europe        -0.2431293  0.1144841 -12.404110 18.360237  1.098611  4.93907
+      North America  0.1800768 -0.1753383  -4.394841 -2.839968 -1.522730 13.45925
+                         amTRUE    gear.L   gear.Q      carb
+      Europe        -12.2460563 23.908015 3.735034 -3.824704
+      North America  -0.4736867  6.133465 3.735822  1.195147
+      
+      Std. Errors:
+                    (Intercept) modelCadillac Fleetwood modelCamaro Z28
+      Europe           74.55520                4.925472       0.3168062
+      North America    92.98653               10.552837    1831.6185559
+                    modelChrysler Imperial modelDatsun 710 modelDodge Challenger
+      Europe                     0.1412629        205.2136              2209.790
+      North America              0.1865082        236.2649              2213.695
+                    modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9
+      Europe           3.507537e-02      1.235295e+03  5.526490e-04   7.057214e-02
+      North America    3.812350e+03      4.283689e-02  1.799515e-12   2.623825e-12
+                    modelFord Pantera L modelHonda Civic modelHornet 4 Drive
+      Europe               0.0003488232     2.791257e-03            1233.983
+      North America        6.5813360048     1.088710e+03            1500.362
+                    modelHornet Sportabout modelLincoln Continental modelLotus Europa
+      Europe                      230.0977                0.3609665      0.2520934586
+      North America              3225.6753                0.9129595      0.0002069316
+                    modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag
+      Europe                  468.1973   1.581225e-03       8.545624e-05
+      North America          1484.7425   4.542617e+02       6.789494e+02
+                    modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C
+      Europe         1.846975e-02   2.217613e-01     0.1383762    0.014852394
+      North America  2.802414e-10   8.324122e-06     0.1348679    0.002127744
+                    modelMerc 450SE modelMerc 450SL modelMerc 450SLC
+      Europe           0.0020604573     0.004726256     3.327401e-05
+      North America    0.0009823073     0.004724229     4.145601e-05
+                    modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla
+      Europe                      1.68827       1.107212e+03            701.2816
+      North America              59.66231       4.324660e-05            474.0771
+                    modelToyota Corona modelValiant modelVolvo 142E      cyl     disp
+      Europe                0.02340343     21.34201    4.400218e-01 1449.655 21.86139
+      North America         5.21174721     21.35053    4.236420e-07 1343.585 50.10586
+                          hp     drat        wt     qsec    vsTRUE   amTRUE    gear.L
+      Europe        94.91485 1088.620  581.5725 370.3900  661.9915 516.5992  722.0913
+      North America 60.71104 2309.553 1535.2022 454.6264 1199.3289 938.5556 1539.2348
+                       gear.Q     carb
+      Europe         877.1183 3712.504
+      North America 1577.7870 1271.093
+      
+      Residual Deviance: 6.884234e-05 
+      AIC: 156.0001 
+      
+      
+      $params$ixn
+      [1] FALSE
+      
+      $params$x_cols
+      [1] "gear"    "country"
+      
+      $params$x1_cols
+       [1] "model"   "mpg"     "cyl"     "disp"    "hp"      "drat"    "wt"     
+       [8] "qsec"    "vs"      "am"      "gear"    "carb"    "country"
+      
+      $params$x2_cols
+      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
+      
+      $params$y_col
+      [1] "continent"
+      
+      $params$parallel
+      [1] 0
+      
+      $params$model_packages
+      NULL
+      
+      $params$output
+      [1] "boot"
+      
+      $params$pred_fun
+      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      
+      $params$pred_type
+      [1] "probs"
+      
+      $params$p_values
+      NULL
+      
+      $params$p_alpha
+      [1] 0.01 0.05
+      
+      $params$max_x_int
+      [1] 12
+      
+      $params$boot_it
       [1] 1
       
-      $seed
+      $params$seed
       [1] 1234
       
-      $boot_alpha
+      $params$boot_alpha
       [1] 0.01
       
-      $boot_centre
+      $params$boot_centre
       [1] "median"
       
-      $relative_y
+      $params$relative_y
       [1] "zero"
       
-      $y_type
+      $params$y_type
       [1] "categorical"
       
-      $median_band_pct
+      $params$median_band_pct
       [1] 0.01 0.20
       
-      $rug_sample_size
+      $params$rug_sample_size
       [1] 500
       
+      $params$min_rug_per_interval
+      [1] 1
+      
+      $params$ale_xs
+      NULL
+      
+      $params$ale_ns
+      NULL
+      
+      $params$n_x1_int
+      [1] 20
+      
+      $params$n_x2_int
+      [1] 20
+      
+      $params$n_y_quant
+      [1] 10
+      
+      $params$compact_plots
+      [1] TRUE
+      
+      $params$silent
+      [1] TRUE
+      
+      
+      attr(,"class")
+      [1] "ale"
+      attr(,"ale_version")
+      [1] '0.3.0.20240523'
 

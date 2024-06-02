@@ -878,9 +878,9 @@ model_bootstrap <- function (
       full_ale <- boot_data$ale[[1]]
 
       # Extract useful details from full model ALE; will be used for plotting
-      y_col <- full_ale$y_col
-      y_type <- full_ale$y_type
-      y_summary <- full_ale$y_summary
+      y_col <- full_ale$params$y_col
+      y_type <- full_ale$params$y_type
+      y_summary <- full_ale$params$y_summary
 
       # Remove first element (not bootstrapped) if bootstrapping is requested
       boot_data_ale <-
