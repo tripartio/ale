@@ -38,6 +38,43 @@
 
 # Miscellaneous ------------
 
+# Round a numeric vector to an intuitive number of decimal places:
+# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
+round_dp <- function(x) {
+  validate(is.numeric(x))
+
+  max_x <- max(abs(x))
+  dp <- dplyr::case_when(
+    max_x > 100 ~ 0,
+    max_x >  10 ~ 1,
+    max_x >   1 ~ 2,
+    .default = 3
+  )
+
+  round(x, dp)
+}
+
+# Guess the user-defined variable name of an R object
+#
+# Adapted from checkmate::vname(data) (BSD license).
+# Returns the user-defined variable name of an R object as a character string. If the parsing attempt fails in any way, returns NULL.
+var_name <- function (x, max_width = 100L)
+{
+  tryCatch(
+    {
+      x |>
+        substitute() |>
+        substitute() |>
+        eval.parent() |>
+        deparse(width.cutoff = max_width) |>
+        paste0(collapse = '\n')
+    },
+    error = \(e) NULL
+  )
+}
+
+
+
 #  Determine the datatype of a vector
 #
 #  Not exported. See @returns for details of what it does.
@@ -70,22 +107,5 @@ var_type <- function(var) {
     class_var %in% c('POSIXct', 'POSIXt') ~ 'numeric',
   ))
 
-}
-
-
-# Round a numeric vector to an intuitive number of decimal places:
-# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
-round_dp <- function(x) {
-  validate(is.numeric(x))
-
-  max_x <- max(abs(x))
-  dp <- dplyr::case_when(
-    max_x > 100 ~ 0,
-    max_x >  10 ~ 1,
-    max_x >   1 ~ 2,
-    .default = 3
-  )
-
-  round(x, dp)
 }
 
