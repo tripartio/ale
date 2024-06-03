@@ -70,7 +70,10 @@ params_model <- function(model, model_name = var_name(model)) {
     print = print(model) |>
       capture.output() |>
       paste0(collapse = '\n'),
-    summary = summary(model)
+    summary = summary(model) |>
+      print() |>
+      capture.output() |>
+      paste0(collapse = '\n')
   )
 }
 
@@ -108,7 +111,7 @@ round_dp <- function(x) {
 #
 # Adapted from checkmate::vname(data) (BSD license).
 # Returns the user-defined variable name of an R object as a character string. If the parsing attempt fails in any way, returns NULL.
-var_name <- function (x, max_width = 100L)
+var_name <- function (x, max_width = 50L)
 {
   tryCatch(
     {
@@ -117,7 +120,9 @@ var_name <- function (x, max_width = 100L)
         substitute() |>
         eval.parent() |>
         deparse(width.cutoff = max_width) |>
-        paste0(collapse = '\n')
+        # Keep only the first element of size max_width characters; discard longer names
+        (`[`)(1)
+        # paste0(collapse = '\n')
     },
     error = \(e) NULL
   )

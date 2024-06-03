@@ -28,7 +28,7 @@ ale(
   relative_y = "median",
   y_type = NULL,
   median_band_pct = c(0.05, 0.5),
-  rug_sample_size = 500,
+  data_sample = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
   ale_ns = NULL,
@@ -139,13 +139,10 @@ For plots with a second outer band, its range will be the median ± \code{median
 For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band
 will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
 
-\item{rug_sample_size, min_rug_per_interval}{single non-negative integer length 1.
-Rug plots are normally
-down-sampled otherwise they are too slow. \code{rug_sample_size} specifies the size
-of this sample. To prevent down-sampling, set to \code{Inf}. To suppress rug plots,
-set to 0. When down-sampling, the rug plots maintain representativeness of the
-data by guaranteeing that each of the \code{max_x_int} intervals will retain at least
+\item{data_sample}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ale} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.
 \code{min_rug_per_interval} elements; usually set to just 1 or 2.}
+
+\item{min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{data_sample} rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the \code{max_x_int} intervals will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{data_sample} to \code{Inf} (but that would enlarge the size of the \code{ale} object to include the entire dataset).}
 
 \item{ale_xs, ale_ns}{list of ale_x and ale_n vectors. If provided, these vectors will be used to
 set the intervals of the ALE x axis for each variable. By default (NULL), the
@@ -240,7 +237,7 @@ provided to the \code{\link[=ale]{ale()}} function, it will be used; otherwise,
 \item Various values echoed from the original call to the \code{\link[=ale]{ale()}} function, provided
 to document the key elements used to calculate the ALE data, statistics, and plots:
 \code{y_col}, \code{x_cols}, \code{boot_it}, \code{seed}, \code{boot_alpha}, \code{boot_centre}, \code{relative_y},
-\code{y_type}, \code{median_band_pct}, \code{rug_sample_size}. These are either the values
+\code{y_type}, \code{median_band_pct}, \code{data_sample}. These are either the values
 provided by the user or used by default if the user did not change them.
 \item \code{y_summary}: summary statistics of y values used for the ALE calculation.
 These statistics are based on the actual values of \code{y_col} unless if \code{y_type} is a

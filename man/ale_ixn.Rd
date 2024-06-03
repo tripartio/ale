@@ -23,7 +23,7 @@ ale_ixn(
   relative_y = "median",
   y_type = NULL,
   median_band_pct = c(0.05, 0.5),
-  rug_sample_size = 500,
+  data_sample = 500,
   min_rug_per_interval = 1,
   ale_xs = NULL,
   n_x1_int = 20,
@@ -64,7 +64,7 @@ datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
 
 \item{median_band_pct}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{rug_sample_size, min_rug_per_interval}{See documentation for \code{\link[=ale]{ale()}}}
+\item{data_sample, min_rug_per_interval}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{ale_xs}{See documentation for \code{\link[=ale]{ale()}}}
 

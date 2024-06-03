@@ -66,7 +66,7 @@ test runs.}
 
 \item{silent}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{.testing_mode}{logical. Internal use only.}
+\item{.testing_mode}{logical(1). Internal use only. Disables some data validation checks to allow for debugging.}
 }
 \value{
 The return value is a list of class \code{c('p_dist', 'ale')} with an
