@@ -596,14 +596,18 @@
       mb
     Output
       $model_stats
-      # A tibble: 5 x 7
-        name          estimate conf.low  mean median conf.high       sd
-        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl>    <dbl>
-      1 df               39.8     36.3  39.8   39.0      42.9  2.78e+ 0
-      2 df.residual      24.2     21.1  24.2   25.0      27.7  2.78e+ 0
-      3 nobs             64       64    64     64        64    0       
-      4 adj.r.squared     1.00     1.00  1.00   1.00      1.00 3.76e-11
-      5 npar             56.4     56    56.4   56        57    5.48e- 1
+      # A tibble: 9 x 7
+        name          estimate conf.low   mean median conf.high       sd
+        <chr>            <dbl>    <dbl>  <dbl>  <dbl>     <dbl>    <dbl>
+      1 df              39.8      36.3  39.8   39.0      42.9   2.78e+ 0
+      2 df.residual     24.2      21.1  24.2   25.0      27.7   2.78e+ 0
+      3 nobs            64        64    64     64        64     0       
+      4 adj.r.squared    1.00      1.00  1.00   1.00      1.00  3.76e-11
+      5 npar            56.4      56    56.4   56        57     5.48e- 1
+      6 mae              6.86      2.03  6.86   3.74     18.8   7.63e+ 0
+      7 sa_mae_mad       0.237    -1.09  0.237  0.641     0.694 8.46e- 1
+      8 rmse            12.8       4.01 12.8    6.12     37.2   1.55e+ 1
+      9 sa_rmse_sd      -0.119    -2.24 -0.119  0.537     0.562 1.35e+ 0
       
       $boot_valid
       $boot_valid$mpg
@@ -1757,7 +1761,7 @@
       mb
     Output
       $model_stats
-      # A tibble: 5 x 7
+      # A tibble: 6 x 7
         name          estimate conf.low  mean median conf.high    sd
         <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
       1 df                34.2     33.1  34.2   34.0      35.0 0.837
@@ -1765,6 +1769,7 @@
       3 nobs              64       64    64     64        64   0    
       4 adj.r.squared      1        1     1      1         1   0    
       5 npar              84.2     83.1  84.2   84        85   0.837
+      6 auc                1        1     1      1         1   0    
       
       $boot_valid
       $boot_valid$vs

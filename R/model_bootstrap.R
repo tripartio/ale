@@ -665,6 +665,9 @@ model_bootstrap <- function (
   #   future::plan(future::sequential)
   # }
 
+
+  ## Assemble bootstrapped results ------------
+
   # Bind the model and ALE data to the bootstrap tbl
   boot_data <- boot_data |>
     mutate(
@@ -675,6 +678,13 @@ model_bootstrap <- function (
       perf = model_and_ale$perf,
     )
 
+  # Identify whether to exclude the first row of boot_data.
+  # Note: do not change boot_data itself because the first row is still needed.
+  exclude_boot_data <- if (boot_it != 0) {
+    0   # if boot_it != 0, remove it == 0
+  } else {
+    -1  # else, remove nothing; analyze the unique row (it is never -1)
+  }
 
   ## Summarize the bootstrapped data
 
@@ -685,19 +695,35 @@ model_bootstrap <- function (
       # see https://stats.stackexchange.com/a/529506/81392
       invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
-      boot_data |>
-        # filter(it != 0) |>
+      # Summarize the broom::glance data
+      bg <- boot_data |>
         # only summarize rows other than the full dataset analysis (it == 0)
-        filter(.data$it != if_else(
-          boot_it != 0,
-          0,  # if boot_it != 0, remove it == 0
-          -1  # else, remove nothing; analyze the unique row (it is never -1)
-        )) |>
+        filter(.data$it != exclude_boot_data) |>
+        # # only summarize rows other than the full dataset analysis (it == 0)
+        # filter(.data$it != if_else(
+        #   boot_it != 0,
+        #   0,  # if boot_it != 0, remove it == 0
+        #   -1  # else, remove nothing; analyze the unique row (it is never -1)
+        # )) |>
         (`[[`)('glance') |>
         bind_rows() |>
         select(-any_of(invalid_boot_model_stats)) |>
-        tidyr::pivot_longer(everything()) |>
-        # select('name', 'value') |>
+        tidyr::pivot_longer(everything())
+
+      # Summarize the performance data, if available.
+      # This stage skips categorical outcomes because they have more than one value per measure, unlike the rest of these overall model statistics.
+      if (calculate_performance && y_type != 'categorical') {
+        bg <- bg |>
+          bind_rows(
+            boot_data |>
+              filter(.data$it != exclude_boot_data) |>
+              (`[[`)('perf') |>
+              bind_rows() |>
+              tidyr::pivot_longer(everything())
+          )
+      }
+
+      bg |>
         summarize(
           .by = 'name',
           conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
@@ -717,7 +743,8 @@ model_bootstrap <- function (
     if (('model_stats' %in% output) && calculate_performance) {
       # Calculate the overly conservative mean performance for the bootstrapped data
       boot_perf <- boot_data |>
-        filter(it != 0) |>
+        # only summarize rows other than the full dataset analysis (it == 0)
+        filter(.data$it != exclude_boot_data) |>
         (`[[`)('perf') |>
         map(\(.it) {
           .it |>
@@ -814,13 +841,14 @@ model_bootstrap <- function (
       # Rename some tidy outputs that do not normally report `estimate`
       tidy_boot_data <-
         boot_data |>
-        # filter(it != 0) |>
         # only summarize rows other than the full dataset analysis (it == 0)
-        filter(.data$it != if_else(
-          boot_it != 0,
-          0,  # if boot_it != 0, remove it == 0
-          -1  # else, remove nothing; analyze the unique row (it is never -1)
-        )) |>
+        filter(.data$it != exclude_boot_data) |>
+        # # only summarize rows other than the full dataset analysis (it == 0)
+        # filter(.data$it != if_else(
+        #   boot_it != 0,
+        #   0,  # if boot_it != 0, remove it == 0
+        #   -1  # else, remove nothing; analyze the unique row (it is never -1)
+        # )) |>
         (`[[`)('tidy') |>
         compact() |>  # remove NULL elements from failed iterations
         bind_rows()
