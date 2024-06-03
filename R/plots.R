@@ -3,39 +3,174 @@
 # Functions for plotting ALE data
 
 
-#' plot method for ALE objects
+#' plot method for `ale` objects
 #'
-#' @param ale_obj ale object. The object of class `ale_obj` containing data to be plotted.
-#' @param y_type character(1). The type of the response variable.
-#' @param y_summary matrix. Summary statistics for the response variable.
-#' @param ... not used. Enforces explicit naming of subsequent arguments.
-#' @param x_y_data Data for the x and y variables.
-#' @param compact_plots Logical indicating if the plots should be compact.
+#' @param ale_obj ale object. The object of class `ale` containing data to be plotted.
+#' @param character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
 #'
-#' @method plot ale_obj
+#' @method plot ale
 #' @export
-plot.ale_obj <- function(
+plot.ale <- function(
     ale_obj,
-    # Normally, all these other arguments would be part of the new ale_obj; for now, pass them explicitly
-    y_type, y_summary,
-    ...,
-    x_y_data = NULL,
-    compact_plots = FALSE
+    type = 'ale'
 ) {
-  imap(ale_obj$data, \(.ale_cat_data, .cat) {
-    imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
-      plot_ale(
-        ale_data = .x_col_data,
-        x_col = .x_col_name,
-        y_col = .cat,
-        y_type = y_type,
-        y_summary = y_summary[, .cat],
-        x_y = x_y_data[, c(.x_col_name, .cat)],
-        compact_plots = compact_plots,
-      )
-    })
-  })
+  validate(
+    type %in% c('ale', 'effects'),
+    msg = 'type must be either "ale" or "effects".'
+  )
+
+  if (type == 'ale') {
+    plots <-
+      imap(ale_obj$data, \(.ale_cat_data, .cat) {
+        imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+          plot_ale(
+            ale_data  = .x_col_data,
+            x_col     = .x_col_name,
+            y_col     = .cat,
+            y_type    = ale_obj$params$y_type,
+            y_summary = ale_obj$params$y_summary[, .cat],
+            x_y       = ale_obj$params$data$sample[, c(.x_col_name, .cat)],
+            compact_plots = ale_obj$params$compact_plots,
+          )
+        })
+      })
+
+    # Set S3 class information for the ale_plots object
+    class(plots) <- c('ale_plots')
+    attr(plots, 'ale_version') <- utils::packageVersion('ale')
+
+    return(plots)
+  }
+
+  else if (type == 'effects') {
+    eff_plot <-
+      imap(ale_obj$stats, \(.cat_stats, .cat) {
+        plot_effects(
+          estimates = .cat_stats$estimate,
+          y_vals = ale_obj$params$y_vals,
+          y_col = .cat,
+          middle_band = if (is.null(ale_obj$params$p_values)) {
+            ale_obj$params$median_band_pct
+          } else {
+            # Use p-value of NALED:
+            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values.
+            # p_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+            ale_obj$params$p_values$rand_stats[[.cat]] |>
+              p_to_random_value('naled', ale_obj$params$median_band_pct) |>
+              unname() |>
+              (`/`)(100)  # scale NALED from percentage to 0 to 1
+          },
+          compact_plots = ale_obj$params$compact_plots
+        )
+      })
+
+    # Set S3 class information for the ale_eff_plot object
+    class(eff_plot) <- c('ale_eff_plot')
+    attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
+
+    return(eff_plot)
+  }
 }
+
+
+#' plot method for `ale_boot` objects
+#'
+#' @param ale_boot_obj ale_boot object. The object of class `ale_boot` containing data to be plotted.
+#' @param character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
+#'
+#' @method plot ale_boot
+#' @export
+plot.ale_boot <- function(
+    ale_boot_obj,
+    type = 'ale'
+) {
+  validate(
+    type %in% c('ale', 'effects'),
+    msg = 'type must be either "ale" or "effects".'
+  )
+
+  if (type == 'ale') {
+    plots <- imap(ale_boot_obj$data, \(.ale_cat_data, .cat) {
+      imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+        plot_ale(
+          ale_data  = .x_col_data,
+          x_col     = .x_col_name,
+          y_col     = .cat,
+          y_type    = ale_boot_obj$ale$single$params$y_type,
+          y_summary = ale_boot_obj$ale$single$params$y_summary[, .cat],
+          x_y       = ale_boot_obj$params$data$sample[, c(.x_col_name, .cat)],
+          compact_plots = ale_boot_obj$params$compact_plots,
+        )
+      })
+    })
+
+    # Set S3 class information for the ale_plots object
+    class(plots) <- c('ale_plots')
+    attr(plots, 'ale_version') <- utils::packageVersion('ale')
+
+    return(plots)
+  }
+
+  else if (type == 'effects') {
+    eff_plot <-
+      imap(ale_boot_obj$ale$boot$stats, \(.cat_stats, .cat) {
+        plot_effects(
+          estimates = .cat_stats$estimate,
+          # y values
+          y_vals = if (ale_boot_obj$ale$single$params$y_type == 'categorical') {
+            ale_boot_obj$params$data$sample[[.cat]] == .cat
+          } else {
+            ale_boot_obj$params$data$sample[[.cat]]
+          },
+          y_col = .cat,
+          middle_band = ale_boot_obj$ale$single$params$median_band_pct,
+          compact_plots = ale_boot_obj$params$compact_plots
+        )
+      })
+
+    # Set S3 class information for the ale_eff_plot object
+    class(eff_plot) <- c('ale_eff_plot')
+    attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
+
+    return(eff_plot)
+  }
+
+}
+
+
+# #' plot method for ALE objects
+# #'
+# #' @param ale_obj ale object. The object of class `ale_obj` containing data to be plotted.
+# #' @param y_type character(1). The type of the response variable.
+# #' @param y_summary matrix. Summary statistics for the response variable.
+# #' @param ... not used. Enforces explicit naming of subsequent arguments.
+# #' @param x_y_data Data for the x and y variables.
+# #' @param compact_plots Logical indicating if the plots should be compact.
+# #'
+# #' @method plot ale_obj
+# #' @export
+# plot.ale_obj <- function(
+#     ale_obj,
+#     # Normally, all these other arguments would be part of the new ale_obj; for now, pass them explicitly
+#     y_type, y_summary,
+#     ...,
+#     x_y_data = NULL,
+#     compact_plots = FALSE
+# ) {
+#   imap(ale_obj$data, \(.ale_cat_data, .cat) {
+#     imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+#       plot_ale(
+#         ale_data = .x_col_data,
+#         x_col = .x_col_name,
+#         y_col = .cat,
+#         y_type = y_type,
+#         y_summary = y_summary[, .cat],
+#         x_y = x_y_data[, c(.x_col_name, .cat)],
+#         compact_plots = compact_plots,
+#       )
+#     })
+#   })
+# }
 
 
 
@@ -655,7 +790,6 @@ rug_sample <- function(
       select('rug_x', 'rug_y')
   )
 }
-
 
 # ALE effects plot
 plot_effects <- function(
