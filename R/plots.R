@@ -90,7 +90,7 @@ plot.ale_boot <- function(
   )
 
   if (type == 'ale') {
-    plots <- imap(ale_boot_obj$data, \(.ale_cat_data, .cat) {
+    plots <- imap(ale_boot_obj$ale$boot$data, \(.ale_cat_data, .cat) {
       imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
         plot_ale(
           ale_data  = .x_col_data,
