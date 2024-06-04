@@ -394,16 +394,10 @@ model_bootstrap <- function (
     )
   }
 
+  # Major bootstrap loop ---------
+
   model_and_ale <-
     map2(
-    # furrr::future_map2(
-    #   .options = furrr::furrr_options(
-    #     # Enable parallel-processing random seed generation
-    #     seed = seed,
-    #     # transmit any globals and packages in model_call_string to the parallel workers
-    #     globals = model_call_string_vars,
-    #     packages = model_packages
-    #   ),
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(.it, boot_idxs) {
@@ -413,49 +407,79 @@ model_bootstrap <- function (
           progress_iterator()
         }
 
-        # .boot_data: this particular bootstrap sample
-        .boot_data <- data[boot_idxs, ]
+        ## Bootstrap the model -----------
 
-        # If model_call_string was provided, prefer it to automatic detection
-        if (!is.null(model_call_string)) {
-          boot_model <-  # model generated on this particular bootstrap sample
-            model_call_string |>
-            parse(text = _) |>  # convert model call string to an expression
-            eval()
-        }
-        else {  # use the automatically detected model call
-          # Update the model to call to train on .boot_data
-          model_call$data <- .boot_data
+        .boot_model <- NULL
+        tryCatch(
+          {
+            # .boot_data: this particular bootstrap sample
+            .boot_data <- data[boot_idxs, ]
 
-          boot_model <- eval(
-            model_call,
-            envir = call_env  # without this, some objects in model_call might not be resolved
-          )
+            # If model_call_string was provided, prefer it to automatic detection
+            if (!is.null(model_call_string)) {
+              .boot_model <-  # model generated on this particular bootstrap sample
+                model_call_string |>
+                parse(text = _) |>  # convert model call string to an expression
+                eval()
+            }
+            else {  # use the automatically detected model call
+              # Update the model to call to train on .boot_data
+              model_call$data <- .boot_data
+
+              .boot_model <- eval(
+                model_call,
+                envir = call_env  # without this, some objects in model_call might not be resolved
+              )
+            }
+          },
+          error = \(e) {
+            if (.it == 0) {
+              # If the full model call fails, then abort altogether. Nothing else will probably work.
+              cli_abort(paste0(
+                'The {.arg ',
+                if (!is.null(model_call_string)) 'model_call_string' else 'model',
+                '} did not work. Ensure that it can create a valid model. Here is the full error message:\n',
+                e
+              ))
+            }
+            else {
+              .boot_model <- NULL
+            }
+          }
+        )
+
+        # If the model failed (and it's not the original full model call .it==0), then skip this iteration and go on looping
+        if (is.null(.boot_model)) {
+          return(list(
+            model = NULL,
+            ale = NULL,
+            tidy = NULL,
+            stats = NULL,
+            perf = NULL
+          ))
         }
+
+
+        ## Bootstrap statistics and performance -----------
 
         # Initialize objects to hold model statistics
-        boot_glance <- NULL
+        boot_stats <- NULL
         boot_perf <- NULL
 
         if ('model_stats' %in% output) {
           # Call broom::glance; if an iteration fails for any reason, set it as missing
           tryCatch(
             {
-              boot_glance <- do.call(
+              boot_stats <- do.call(
                 broom::glance,
-                list(boot_model, unlist(glance_options))
+                list(.boot_model, unlist(glance_options))
               )
             },
             error = \(e) {
-              boot_glance <- NULL
+              boot_stats <- NULL
             }
           )
 
-
-            # bg <- do.call(
-            #   broom::glance,
-            #   list(boot_model, unlist(glance_options))
-            # )
 
           # Calculate bootstrap-validated model metrics if the necessary information is available.
           # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
@@ -517,7 +541,7 @@ model_bootstrap <- function (
 
             # Calculate predictions for the out-of-bootstrap test set
             pred_oob <- pred_fun(
-              object = boot_model,
+              object = .boot_model,
               newdata = data_oob,
               type = pred_type
             )
@@ -557,6 +581,9 @@ model_bootstrap <- function (
           }  # calculate_performance && .it > 0
         }  # if ('model_stats' %in% output)
 
+
+        ## Bootstrap individual term coefficients ---------------
+
         boot_tidy <-
           if ('model_coefs' %in% output) {
             # Unless the user manually specified conf.int, set it to FALSE
@@ -565,13 +592,13 @@ model_bootstrap <- function (
               tidy_options$conf.int <- FALSE
             }
 
-            # Call broom::tidy; if an iteration fails for any reason, set it as missing
+            # Call broom::tidy; if an iteration fails for any reason, set it as NULL
             tryCatch(
               {
                 do.call(
                   broom::tidy,
                   c(
-                    list(boot_model),  # model object
+                    list(.boot_model),  # model object
                     tidy_options
                   )
                 )  # any parameters
@@ -586,8 +613,10 @@ model_bootstrap <- function (
           }
 
 
+        ## Bootstrap ALE --------------
+
         if ('ale' %in% output) {
-          boot_ale <-if (is.na(sum(boot_model$coefficients, na.rm = FALSE))) {
+          boot_ale <-if (is.na(sum(.boot_model$coefficients, na.rm = FALSE))) {
             # One or more coefficients are not defined.
             # This might be due to collinearity in a bootstrapped sample, which
             # yields the warning: "Coefficients: (_ not defined because of singularities)".
@@ -595,34 +624,42 @@ model_bootstrap <- function (
           } else {  # Valid model and ALE requested
 
             # Calculate ALE. Use do.call so that ale_options can be passed.
-            do.call(
-              ale_core,
-              utils::modifyList(
-                list(
-                  data = .boot_data,
-                  model = boot_model,
-                  ixn = FALSE,
-                  parallel = 0,  # do not parallelize at this inner level
-                  boot_it = 0,  # do not bootstrap at this inner level
-                  # do not generate plots or request conf_regions
-                  output = c('data', 'stats'),
-                  ale_xs = if (.it == 0) {
-                    NULL
-                  } else {
-                    ale_xs
-                  },
-                  ale_ns = if (.it == 0) {
-                    NULL
-                  } else {
-                    ale_ns
-                  },
-                  silent = TRUE  # silence inner bootstrap loop
-                ),
-                # pass all other desired options, e.g., specific x_col
-                ale_options
-              ),
-              # assure appropriate scoping with do.call()
-              envir = parent.frame(1)
+            # If an iteration fails for any reason, set it as NULL.
+            tryCatch(
+              {
+                do.call(
+                  ale_core,
+                  utils::modifyList(
+                    list(
+                      data = .boot_data,
+                      model = .boot_model,
+                      ixn = FALSE,
+                      parallel = 0,  # do not parallelize at this inner level
+                      boot_it = 0,  # do not bootstrap at this inner level
+                      # do not generate plots or request conf_regions
+                      output = c('data', 'stats'),
+                      ale_xs = if (.it == 0) {
+                        NULL
+                      } else {
+                        ale_xs
+                      },
+                      ale_ns = if (.it == 0) {
+                        NULL
+                      } else {
+                        ale_ns
+                      },
+                      silent = TRUE  # silence inner bootstrap loop
+                    ),
+                    # pass all other desired options, e.g., specific x_col
+                    ale_options
+                  ),
+                  # assure appropriate scoping with do.call()
+                  envir = parent.frame(1)
+                )
+              },
+              error = \(e) {
+                NULL
+              }
             )
           }
 
@@ -646,19 +683,22 @@ model_bootstrap <- function (
         }
 
 
-        list(
-          model = boot_model,
+        ## Exit the model_and_ale map2 loop function ----------------
+        return(list(
+          model = .boot_model,
           ale = boot_ale,
           tidy = boot_tidy,
-          glance = boot_glance,
+          stats = boot_stats,
           perf = boot_perf
-          # glance = do.call(broom::glance, list(boot_model,
-          #                                      unlist(glance_options)))
-        )
+        ))
 
       }
     ) |>
     list_transpose(simplify = FALSE)
+
+  # model_and_ale <- model_and_ale |>
+  #   list_transpose(simplify = FALSE) |> View()
+
 
   # # Disable parallel processing if it had been enabled
   # if (parallel > 0) {
@@ -666,7 +706,7 @@ model_bootstrap <- function (
   # }
 
 
-  ## Assemble bootstrapped results ------------
+  # Assemble bootstrapped results ------------
 
   # Bind the model and ALE data to the bootstrap tbl
   boot_data <- boot_data |>
@@ -674,7 +714,7 @@ model_bootstrap <- function (
       model = model_and_ale$model,
       ale = model_and_ale$ale,
       tidy = model_and_ale$tidy,
-      glance = model_and_ale$glance,
+      stats = model_and_ale$stats,
       perf = model_and_ale$perf,
     )
 
@@ -689,14 +729,14 @@ model_bootstrap <- function (
   ## Summarize the bootstrapped data
 
   # Bootstrapped model statistics
-  glance_summary <-
+  stats_summary <-
     if ('model_stats' %in% output) {
       # Model statistics for which bootstrapping is not meaningful.
       # see https://stats.stackexchange.com/a/529506/81392
       invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
       # Summarize the broom::glance data
-      bg <- boot_data |>
+      bs <- boot_data |>
         # only summarize rows other than the full dataset analysis (it == 0)
         filter(.data$it != exclude_boot_data) |>
         # # only summarize rows other than the full dataset analysis (it == 0)
@@ -705,15 +745,15 @@ model_bootstrap <- function (
         #   0,  # if boot_it != 0, remove it == 0
         #   -1  # else, remove nothing; analyze the unique row (it is never -1)
         # )) |>
-        (`[[`)('glance') |>
-        bind_rows() |>
+        (`[[`)('stats') |>
+        bind_rows() |>  # automatically removes NULL elements from failed iterations
         select(-any_of(invalid_boot_model_stats)) |>
         tidyr::pivot_longer(everything())
 
       # Summarize the performance data, if available.
       # This stage skips categorical outcomes because they have more than one value per measure, unlike the rest of these overall model statistics.
       if (calculate_performance && y_type != 'categorical') {
-        bg <- bg |>
+        bs <- bs |>
           bind_rows(
             boot_data |>
               filter(.data$it != exclude_boot_data) |>
@@ -723,7 +763,7 @@ model_bootstrap <- function (
           )
       }
 
-      bg |>
+      bs |>
         summarize(
           .by = 'name',
           conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
@@ -746,6 +786,7 @@ model_bootstrap <- function (
         # only summarize rows other than the full dataset analysis (it == 0)
         filter(.data$it != exclude_boot_data) |>
         (`[[`)('perf') |>
+        compact() |>   # remove NULL elements from failed iterations
         map(\(.it) {
           .it |>
             map(\(.measure) {
@@ -850,8 +891,8 @@ model_bootstrap <- function (
         #   -1  # else, remove nothing; analyze the unique row (it is never -1)
         # )) |>
         (`[[`)('tidy') |>
-        compact() |>  # remove NULL elements from failed iterations
-        bind_rows()
+        # compact() |>  # remove NULL elements from failed iterations
+        bind_rows()  # automatically removes NULL elements from failed iterations
 
       tidy_boot_data_names <- names(tidy_boot_data)
       if (!('estimate' %in% tidy_boot_data_names)) {
@@ -921,7 +962,8 @@ model_bootstrap <- function (
         if (boot_it == 0) {  # only one full iteration; it is valid
           boot_data$ale
         } else {  # for regular bootstraps, delete the first full model ALE
-          boot_data$ale[-1]
+          boot_data$ale[-1] |>
+            compact()  # remove NULL elements from failed iterations
         }
 
       # Summarize bootstrapped ALE data, grouped by variable
@@ -1192,7 +1234,7 @@ model_bootstrap <- function (
 
 
   mb <- list(
-    model_stats = glance_summary,
+    model_stats = stats_summary,
     boot_valid = boot_valid,
     model_coefs = tidy_summary,
     ale = if ('ale' %in% output) {
