@@ -658,7 +658,12 @@ model_bootstrap <- function (
                 )
               },
               error = \(e) {
-                NULL
+                if (.it == 0) {
+                  # Terminate early if the full model cannot produce ALE
+                  cli_abort('Could not calculate ALE:', e)
+                } else {
+                  NULL
+                }
               }
             )
           }

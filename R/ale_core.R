@@ -777,7 +777,6 @@ ale_core <- function (
   validate_silent(silent)
 
 
-
   # Determine datatype of y
   if (is.null(y_type)) {
     y_type <- var_type(data[[y_col]])
@@ -877,6 +876,7 @@ ale_core <- function (
     # ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
+
   # Enable parallel processing and restore former parallel plan on exit.
   # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
   # However, don't presume that all users will use future, so just use on.exit strategy.
@@ -912,14 +912,15 @@ ale_core <- function (
 
     ales <-
       x_cols |>
+      # map(
       furrr::future_map(
-      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
           packages = model_packages
         ),
         .f = \(x_col) {
+
           # Increment progress bar iterator only if not in an outer loop with ale_xs
           # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
           if (!silent && is.null(ale_xs)) {
@@ -1197,8 +1198,6 @@ ale_core <- function (
     if ('plots' %in% output) {
       ales$stats <- ales$stats |>
         imap(\(.cat_stats, .cat) {
-
-          # browser()
 
           .cat_stats$effects_plot <- plot_effects(
             .cat_stats$estimate,
