@@ -47,7 +47,8 @@ plot.ale <- function(
       imap(ale_obj$stats, \(.cat_stats, .cat) {
         plot_effects(
           estimates = .cat_stats$estimate,
-          y_vals = ale_obj$params$y_vals,
+          y_summary = ale_obj$params$y_summary[, .cat],
+          # y_vals = ale_obj$params$y_vals,
           y_col = .cat,
           middle_band = if (is.null(ale_obj$params$p_values)) {
             ale_obj$params$median_band_pct
@@ -117,11 +118,12 @@ plot.ale_boot <- function(
         plot_effects(
           estimates = .cat_stats$estimate,
           # y values
-          y_vals = if (ale_boot_obj$ale$single$params$y_type == 'categorical') {
-            ale_boot_obj$params$data$sample[[.cat]] == .cat
-          } else {
-            ale_boot_obj$params$data$sample[[.cat]]
-          },
+          y_summary = ale_boot_obj$ale$single$params$y_summary[, .cat],
+          # y_vals = if (ale_boot_obj$ale$single$params$y_type == 'categorical') {
+          #   ale_boot_obj$params$data$sample[[.cat]] == .cat
+          # } else {
+          #   ale_boot_obj$params$data$sample[[.cat]]
+          # },
           y_col = .cat,
           middle_band = ale_boot_obj$ale$single$params$median_band_pct,
           compact_plots = ale_boot_obj$params$compact_plots
@@ -228,8 +230,6 @@ plot_ale <- function(
   #
   # # Adjust inputs according to new (202404) data structure
   # ale_data <- ale_data[[1]]  # remove extra category level
-
-  # browser()
 
   # # convert y_summary to a vector instead of a matrix
   # y_summary <- y_summary |>
@@ -794,34 +794,36 @@ rug_sample <- function(
 # ALE effects plot
 plot_effects <- function(
     estimates,
-    y_vals,
+    y_summary,
+    # y_vals,
     y_col,
     middle_band,
     compact_plots = FALSE
 ) {
 
-  # Create deciles for NALED and NALER axis
-  norm_deciles <-
-    y_vals |>
-    quantile(seq(0, 1, 0.1)) |>
-    stats::setNames(seq(-50, 50, 10) |> paste0('%'))
-
-  # Determine key points for the middle_band: naled_band or median_band
-  middle_band_quantiles <- quantile(
-    y_vals, c(
-      # effects plot only uses the inner median band
-      0.5 - (middle_band[1] / 2),
-      0.5,
-      0.5 + (middle_band[1] / 2)
-    )
-  )
-  middle_band_lo <- middle_band_quantiles[1]
-  median_y       <- middle_band_quantiles[2]
-  middle_band_hi <- middle_band_quantiles[3]
+  # # Create deciles for NALED and NALER axis
+  # norm_deciles <-
+  #   y_vals |>
+  #   quantile(seq(0, 1, 0.1)) |>
+  #   stats::setNames(seq(-50, 50, 10) |> paste0('%'))
+  #
+  # # Determine key points for the middle_band: naled_band or median_band
+  # middle_band_quantiles <- quantile(
+  #   y_vals, c(
+  #     # effects plot only uses the inner median band
+  #     0.5 - (middle_band[1] / 2),
+  #     0.5,
+  #     0.5 + (middle_band[1] / 2)
+  #   )
+  # )
+  # middle_band_lo <- middle_band_quantiles[1]
+  # median_y       <- middle_band_quantiles[2]
+  # middle_band_hi <- middle_band_quantiles[3]
 
   # ALED and NALED should be centred not on the median, but on the middle of the
   # median band. This is visually more intuitive.
-  middle_band_mid <- (middle_band_lo + middle_band_hi) / 2
+  middle_band_mid <- (y_summary['med_lo'] + y_summary['med_hi']) / 2
+  # middle_band_mid <- (middle_band_lo + middle_band_hi) / 2
 
   # Sort estimates by ALED and convert term to an ordered factor for proper sorting.
   # NALED sometimes gives unusual values because of the normalization.
@@ -830,6 +832,15 @@ plot_effects <- function(
     arrange(.data$aled, .data$naled)
   estimates <- estimates |>
     mutate(term = factor(.data$term, ordered = TRUE, levels = .data$term))
+
+  # Extract deciles for NALED and NALER axis
+  norm_deciles <-
+    y_summary[c(
+      'min',
+      seq(10, 90, 10) |> paste0('%'),
+      'max'
+    )] |>
+    stats::setNames(seq(-50, 50, 10) |> paste0('%'))
 
   plot <-
     estimates |>
@@ -842,20 +853,22 @@ plot_effects <- function(
   # Set the outcome (y) variable on the x axis
     scale_x_continuous(
       name = paste0(y_col, ' (ALER and ALED)'),
-      # Set allowable data limits to extremes of either y_vals or ALER
+      # Set allowable data limits to extremes of either y_summary or ALER
       limits = c(
-        min(min(y_vals, estimates$aler_min)),
-        max(max(y_vals, estimates$aler_max))
+        min(y_summary['min'], estimates$aler_min),
+        max(y_summary['max'], estimates$aler_max)
+        # min(min(y_vals, estimates$aler_min)),
+        # max(max(y_vals, estimates$aler_max))
       ),
       # Regular breaks plus the median
       breaks = \(.limits) {
         # Create 4 logically placed breaks + add the median.
-        # 5 major breaks on the lower raw outcome scale counterbalances
-        # 10 decile breaks on the upper percentile scale.
+        # 5 major breaks on the lower raw outcome scale counterbalances 10 decile breaks on the upper percentile scale.
         labeling::extended(
           .limits[1], .limits[2], 4
         ) |>
-          c(median(y_vals)) |>
+          c(y_summary[['50%']]) |>
+          # c(median(y_vals)) |>
           round_dp()
       },
       # Use decile for minor breaks
@@ -866,15 +879,16 @@ plot_effects <- function(
       )
     ) +
     # Even if the ALE values are extreme, zoom in to natural Y value limits
-    coord_cartesian(xlim = range(y_vals)) +
+    coord_cartesian(xlim = c(y_summary['min'], y_summary['max'])) +
+    # coord_cartesian(xlim = range(y_vals)) +
     theme(
       panel.grid.major.x = element_line(colour = "grey75", linewidth = 0.5),
       panel.grid.minor.x = element_line(colour = "grey90", linewidth = 0.1)
     ) +
     # Plot the median band: the average ± the confidence limits
     geom_rect(
-      xmin = middle_band_lo,
-      xmax = middle_band_hi,
+      xmin = y_summary['med_lo'],
+      xmax = y_summary['med_hi'],
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'
@@ -882,8 +896,8 @@ plot_effects <- function(
     # ALER/NALER bands as error bars
     geom_errorbarh(
       aes(
-        xmin = median_y + .data$aler_min,
-        xmax = median_y + .data$aler_max
+        xmin = y_summary['50%'] + .data$aler_min,
+        xmax = y_summary['50%'] + .data$aler_max
       ),
       na.rm = TRUE,
       height = 0.25
@@ -920,7 +934,8 @@ plot_effects <- function(
     annotate(
       geom = 'label',
       # Position as far to the right as possible
-      x = max(y_vals),
+      x = y_summary['max'],
+      # x = max(y_vals),
       # Position next to variable with the least aler_max; this reduces
       # the likelihood that the annotation will overlap any data.
       y = which(estimates$aler_max == min(estimates$aler_max))[1],
