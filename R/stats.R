@@ -881,10 +881,14 @@ var_summary <- function(
     p_dist = NULL,
     p_alpha = c(0.01, 0.05)
 ) {
-  rand_stats <- p_dist$rand_stats
+  if (!is.null(p_dist)) {
+    rand_stats <- p_dist$rand_stats
+  }
 
   # Convert vector to matrix
-  var_vals <- as.matrix(var_vals, ncol = 1)
+  if (!is.matrix(var_vals)) {
+    var_vals <- as.matrix(var_vals, ncol = 1)
+  }
 
   s <-
     var_vals |>
@@ -892,14 +896,15 @@ var_summary <- function(
       stats::quantile(
         .col,
         probs = c(
-          0.01, 0.025, 0.05, 0.1, 0.25,
+          0.01, 0.025, 0.05, 0.1, 0.2, 0.25, 0.3, 0.4,
+          # Insert the median_band_pct requested percentiles. If duplicated or unnecessary, they will be removed later. If duplicated, the first occurrence will be retrieved (which is identical to any duplicates, so it doesn't matter.)
           0.5 - (median_band_pct[2] / 2),
           0.5 - (median_band_pct[1] / 2),
           0.5,
           0.5 + (median_band_pct[1] / 2),
           0.5 + (median_band_pct[2] / 2),
           # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
-          0.75, 0.9, 0.95, 0.975, 0.99
+          0.6, 0.7, 0.75, 0.8, 0.9, 0.95, 0.975, 0.99
         )
       )
     })
@@ -915,9 +920,11 @@ var_summary <- function(
   s <- map(1:ncol(s), \(.col_idx) {
 
     .col <- s[, .col_idx]
+
     .col <- c(
       # Retain first half of values
-      .col[1:match('25%', names(.col))],
+      .col[1:match('40%', names(.col))],
+      # .col[1:match('25%', names(.col))],
 
       # Create lower confidence bounds just below the midpoint
       med_lo_2 = if (!is.null(p_dist)) {
@@ -958,7 +965,8 @@ var_summary <- function(
       },
 
       # Retain latter half of values
-      .col[match('75%', names(.col)):length(.col)]
+      .col[match('60%', names(.col)):length(.col)]
+      # .col[match('75%', names(.col)):length(.col)]
     )
 
     # Determine the limits and average of y.
@@ -1001,8 +1009,6 @@ var_summary <- function(
   colnames(s)[1] <- var_name
 
 
-
-
   # Encode whether the med values represent p-values or not:
   # names(s[1]) == 'p': base p-value
   # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
@@ -1018,7 +1024,6 @@ var_summary <- function(
       s
     )
   }
-
 
   return(s)
 }
