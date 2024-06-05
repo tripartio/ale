@@ -210,10 +210,10 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
         }
       }) |>
         set_names(names(DAT[,2:5])) |>
-        purrr::compact()
+        compact()
     }) |>
     set_names(names(DAT[,2:5])) |>
-    purrr::compact()
+    compact()
 
   # Return to regular printing of plots
   dev.off() |> invisible()
@@ -283,10 +283,10 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
         }
       }) |>
         set_names(names(adult_data[,-c(3,4,15)])[c(1, 3, 11)]) |>
-        purrr::compact()
+        compact()
     }) |>
     set_names(names(adult_data[,-c(3,4,15)])[c(1, 2, 3, 8)]) |>
-    purrr::compact()
+    compact()
 
   # Return to regular printing of plots
   dev.off() |> invisible()
