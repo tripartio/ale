@@ -5,7 +5,11 @@
 
 # Mathematical operations ------------
 
-# # Calculate the mode(s) of a vector
+# # Calculate the mode(s) of an atomic object
+#' Improvements:
+#' * Validation: ensure that the object is atomic (not just a vector)
+#' * For factors, get all classes and check if any class_x is a factor or ordered
+#' * Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
 # #
 # # modes(c(1, 2, 3, 3, 4, 4, 5))
 # # modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))
@@ -27,7 +31,7 @@
 #       ordered = is.ordered(x)
 #     )
 #   } else {
-#     m <- methods::as(m, class_x)
+#     m <- m |> methods::as(class_x)
 #   }
 #
 #   # Returning the mode(s)
