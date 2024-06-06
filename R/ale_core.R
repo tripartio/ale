@@ -882,7 +882,7 @@ ale_core <- function (
   # However, don't presume that all users will use future, so just use on.exit strategy.
   if (parallel > 0) {
     original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-    on.exit(future::plan(original_parallel_plan))
+    on.exit(future::plan(original_parallel_plan), add = TRUE)
   }
   # # Enable parallel processing and set appropriate map function.
   # # Because furrr::future_map has an important .options argument absent from
@@ -1037,7 +1037,6 @@ ale_core <- function (
     ales_by_var <-
       x1_cols |>
       furrr::future_map(
-      # map_loop(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
           seed = seed,
@@ -1198,10 +1197,9 @@ ale_core <- function (
     if ('plots' %in% output) {
       ales$stats <- ales$stats |>
         imap(\(.cat_stats, .cat) {
-
           .cat_stats$effects_plot <- plot_effects(
             .cat_stats$estimate,
-            y_vals,
+            y_summary[, .cat],
             y_col,
             middle_band = if (is.null(p_values)) {
               median_band_pct

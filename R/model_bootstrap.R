@@ -1188,15 +1188,16 @@ model_bootstrap <- function (
         detailed_ale_stats <- detailed_ale_stats |>
           imap(\(.cat_ale_stats, .cat) {
             .cat_ale_stats$effects_plot <- plot_effects(
-              .cat_ale_stats$estimate,
-              # y values
-              if (y_type == 'categorical') {
-                data[[y_col]] == .cat
-              } else {
-                data[[y_col]]
-              },
-              .cat,
-              median_band_pct,
+              estimates = .cat_ale_stats$estimate,
+              y_summary = full_ale$params$y_summary[, .cat],
+              # # y values
+              # if (y_type == 'categorical') {
+              #   data[[y_col]] == .cat
+              # } else {
+              #   data[[y_col]]
+              # },
+              y_col = .cat,
+              middle_band = median_band_pct,
               # later pass ale_options like compact_plots
               compact_plots = compact_plots
             )
