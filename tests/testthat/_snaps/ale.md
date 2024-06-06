@@ -5034,11 +5034,11 @@
       
       $stats$Asia$effects_plot
         y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 2.282131e-10
-      2 2     1     2     NA lightgray       0.5        1    NA 2.282131e-10
+      1 1     1     1     NA lightgray       0.5        1    NA 6.163208e-11
+      2 2     1     2     NA lightgray       0.5        1    NA 6.163208e-11
                 xmax ymin ymax
-      1 7.171239e-09 -Inf  Inf
-      2 7.171239e-09 -Inf  Inf
+      1 1.688443e-10 -Inf  Inf
+      2 1.688443e-10 -Inf  Inf
       
       
       $stats$Europe
@@ -5119,11 +5119,11 @@
       
       $stats$Europe$effects_plot
         y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 2.282131e-10
-      2 2     1     2     NA lightgray       0.5        1    NA 2.282131e-10
+      1 1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
+      2 2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
                 xmax ymin ymax
-      1 7.171239e-09 -Inf  Inf
-      2 7.171239e-09 -Inf  Inf
+      1 8.105179e-07 -Inf  Inf
+      2 8.105179e-07 -Inf  Inf
       
       
       $stats$`North America`
@@ -5204,11 +5204,11 @@
       
       $stats$`North America`$effects_plot
         y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 2.282131e-10
-      2 2     1     2     NA lightgray       0.5        1    NA 2.282131e-10
+      1 1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
+      2 2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
                 xmax ymin ymax
-      1 7.171239e-09 -Inf  Inf
-      2 7.171239e-09 -Inf  Inf
+      1 7.384827e-09 -Inf  Inf
+      2 7.384827e-09 -Inf  Inf
       
       
       

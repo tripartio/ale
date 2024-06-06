@@ -358,10 +358,11 @@ plot_ale <- function(
     }
   }
 
-  # Add guides to show the outer median band.
+  # Add guides to show the median and the outer median band.
   # Add them late so that they superimpose most other elements.
   plot <- plot +
     geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
+    geom_hline(yintercept = y_summary[['50%']],      linetype = "solid") +
     geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
 
 
@@ -800,7 +801,6 @@ plot_effects <- function(
     middle_band,
     compact_plots = FALSE
 ) {
-
   # # Create deciles for NALED and NALER axis
   # norm_deciles <-
   #   y_vals |>
