@@ -744,12 +744,6 @@ model_bootstrap <- function (
       bs <- boot_data |>
         # only summarize rows other than the full dataset analysis (it == 0)
         filter(.data$it != exclude_boot_data) |>
-        # # only summarize rows other than the full dataset analysis (it == 0)
-        # filter(.data$it != if_else(
-        #   boot_it != 0,
-        #   0,  # if boot_it != 0, remove it == 0
-        #   -1  # else, remove nothing; analyze the unique row (it is never -1)
-        # )) |>
         (`[[`)('stats') |>
         bind_rows() |>  # automatically removes NULL elements from failed iterations
         select(-any_of(invalid_boot_model_stats)) |>
@@ -772,13 +766,13 @@ model_bootstrap <- function (
         summarize(
           .by = 'name',
           conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
-          mean = mean(.data$value, na.rm = TRUE),
           median = median(.data$value, na.rm = TRUE),
+          mean = mean(.data$value, na.rm = TRUE),
           conf.high = quantile(.data$value, 1 - (boot_alpha / 2), na.rm = TRUE),
           sd = sd(.data$value, na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
-        ) |>
-        select('name', 'estimate', everything())
+          # estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
+        ) #|>
+      # select('name', 'estimate', everything())
     } else {
       NULL
     }
@@ -889,20 +883,15 @@ model_bootstrap <- function (
         boot_data |>
         # only summarize rows other than the full dataset analysis (it == 0)
         filter(.data$it != exclude_boot_data) |>
-        # # only summarize rows other than the full dataset analysis (it == 0)
-        # filter(.data$it != if_else(
-        #   boot_it != 0,
-        #   0,  # if boot_it != 0, remove it == 0
-        #   -1  # else, remove nothing; analyze the unique row (it is never -1)
-        # )) |>
         (`[[`)('tidy') |>
         # compact() |>  # remove NULL elements from failed iterations
         bind_rows()  # automatically removes NULL elements from failed iterations
 
       tidy_boot_data_names <- names(tidy_boot_data)
+      est_is_coef <- 'estimate' %in% tidy_boot_data_names
+
       if (!('estimate' %in% tidy_boot_data_names)) {
-        # Explicitly rename some known columns that `tidy` sometimes uses
-        # instead of 'estimate'
+        # Explicitly rename some known columns that `tidy` sometimes uses instead of 'estimate'
         if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = FALSE
           tidy_boot_data$estimate <- tidy_boot_data$edf
         }
@@ -926,13 +915,26 @@ model_bootstrap <- function (
         summarize(
           .by = c(any_of(cat_col), 'term'),  # If no categorical columns, only group by term
           conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
-          mean = mean(.data$estimate, na.rm = TRUE),
           median = median(.data$estimate, na.rm = TRUE),
+          mean = mean(.data$estimate, na.rm = TRUE),
           conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
           std.error = sd(.data$estimate, na.rm = TRUE),
-          estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
+          # estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
+          sig = if_else(
+            est_is_coef,
+            conf.low * conf.high > 0,
+            NA
+          )
+          # Later, consider incorporating bayestestR::p_direction for p-values
+          # # For coefficient estimates, p.value is the probability that estimate is not zero
+          # p.value = if_else(
+          #   est_is_coef,
+          #   # non-parametric p-value
+          #   wilcox.test(.data$estimate, na.rm = TRUE)$p.value,
+          #   NA
+          # )
         ) |>
-        select(any_of(cat_col), 'term', 'estimate', everything())  # If no categorical columns, only select term
+        select(any_of(cat_col), 'term', everything())  # If no categorical columns, only select term
 
 
       # # assign result for tidy_summary
