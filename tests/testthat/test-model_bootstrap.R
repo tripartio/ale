@@ -169,6 +169,7 @@ test_that(
       boot_it = 5,
       ale_options = list(
         max_x_int = 10,
+        x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),
       silent = TRUE,

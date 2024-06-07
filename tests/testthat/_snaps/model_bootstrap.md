@@ -4,27 +4,27 @@
       mb
     Output
       $model_stats
-      # A tibble: 5 x 7
-        name          estimate conf.low  mean median conf.high    sd
-        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df               51.5     51.5  51.5   51.5      51.5     NA
-      2 df.residual      12.5     12.5  12.5   12.5      12.5     NA
-      3 nobs             64       64    64     64        64       NA
-      4 adj.r.squared     1.00     1.00  1.00   1.00      1.00    NA
-      5 npar             90       90    90     90        90       NA
+      # A tibble: 5 x 6
+        name          conf.low median  mean conf.high    sd
+        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df               51.5   51.5  51.5      51.5     NA
+      2 df.residual      12.5   12.5  12.5      12.5     NA
+      3 nobs             64     64    64        64       NA
+      4 adj.r.squared     1.00   1.00  1.00      1.00    NA
+      5 npar             90     90    90        90       NA
       
       $boot_valid
       NULL
       
       $model_coefs
       # A tibble: 5 x 7
-        term    estimate conf.low  mean median conf.high std.error
-        <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-      1 s(disp)     2.87     2.87  2.87   2.87      2.87        NA
-      2 s(hp)       2.89     2.89  2.89   2.89      2.89        NA
-      3 s(drat)     2.24     2.24  2.24   2.24      2.24        NA
-      4 s(wt)       2.10     2.10  2.10   2.10      2.10        NA
-      5 s(qsec)     7.44     7.44  7.44   7.44      7.44        NA
+        term    conf.low median  mean conf.high std.error sig  
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
+      1 s(disp)     2.87   2.87  2.87      2.87        NA NA   
+      2 s(hp)       2.89   2.89  2.89      2.89        NA NA   
+      3 s(drat)     2.24   2.24  2.24      2.24        NA NA   
+      4 s(wt)       2.10   2.10  2.10      2.10        NA NA   
+      5 s(qsec)     7.44   7.44  7.44      7.44        NA NA   
       
       $ale
       $ale$single
@@ -601,18 +601,18 @@
       mb
     Output
       $model_stats
-      # A tibble: 9 x 7
-        name          estimate conf.low   mean median conf.high       sd
-        <chr>            <dbl>    <dbl>  <dbl>  <dbl>     <dbl>    <dbl>
-      1 df              39.8      36.3  39.8   39.0      42.9   2.78e+ 0
-      2 df.residual     24.2      21.1  24.2   25.0      27.7   2.78e+ 0
-      3 nobs            64        64    64     64        64     0       
-      4 adj.r.squared    1.00      1.00  1.00   1.00      1.00  3.76e-11
-      5 npar            56.4      56    56.4   56        57     5.48e- 1
-      6 mae              6.86      2.03  6.86   3.74     18.8   7.63e+ 0
-      7 sa_mae_mad       0.237    -1.09  0.237  0.641     0.694 8.46e- 1
-      8 rmse            12.8       4.01 12.8    6.12     37.2   1.55e+ 1
-      9 sa_rmse_sd      -0.119    -2.24 -0.119  0.537     0.562 1.35e+ 0
+      # A tibble: 9 x 6
+        name          conf.low median   mean conf.high       sd
+        <chr>            <dbl>  <dbl>  <dbl>     <dbl>    <dbl>
+      1 df               36.3  39.0   39.8      42.9   2.78e+ 0
+      2 df.residual      21.1  25.0   24.2      27.7   2.78e+ 0
+      3 nobs             64    64     64        64     0       
+      4 adj.r.squared     1.00  1.00   1.00      1.00  3.76e-11
+      5 npar             56    56     56.4      57     5.48e- 1
+      6 mae               2.03  3.74   6.86     18.8   7.63e+ 0
+      7 sa_mae_mad       -1.09  0.641  0.237     0.694 8.46e- 1
+      8 rmse              4.01  6.12  12.8      37.2   1.55e+ 1
+      9 sa_rmse_sd       -2.24  0.537 -0.119     0.562 1.35e+ 0
       
       $boot_valid
       $boot_valid$mpg
@@ -622,13 +622,13 @@
       
       $model_coefs
       # A tibble: 5 x 7
-        term    estimate conf.low  mean median conf.high std.error
-        <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-      1 s(disp)     5.72     1.21  5.72   6.58      8.97      3.58
-      2 s(hp)       5.02     1.03  5.02   6.49      8.43      3.60
-      3 s(drat)     5.37     1.67  5.37   6.69      8.81      3.21
-      4 s(wt)       5.53     1.00  5.53   8.14      8.80      4.14
-      5 s(qsec)     6.76     4.27  6.76   6.70      8.54      1.83
+        term    conf.low median  mean conf.high std.error sig  
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
+      1 s(disp)     1.21   6.58  5.72      8.97      3.58 NA   
+      2 s(hp)       1.03   6.49  5.02      8.43      3.60 NA   
+      3 s(drat)     1.67   6.69  5.37      8.81      3.21 NA   
+      4 s(wt)       1.00   8.14  5.53      8.80      4.14 NA   
+      5 s(qsec)     4.27   6.70  6.76      8.54      1.83 NA   
       
       $ale
       $ale$single
@@ -1776,15 +1776,15 @@
       mb
     Output
       $model_stats
-      # A tibble: 6 x 7
-        name          estimate conf.low  mean median conf.high    sd
-        <chr>            <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 df                34.2     33.1  34.2   34.0      35.0 0.837
-      2 df.residual       29.8     29.0  29.8   30.0      30.9 0.837
-      3 nobs              64       64    64     64        64   0    
-      4 adj.r.squared      1        1     1      1         1   0    
-      5 npar              84.2     83.1  84.2   84        85   0.837
-      6 auc                1        1     1      1         1   0    
+      # A tibble: 6 x 6
+        name          conf.low median  mean conf.high    sd
+        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df                33.1   34.0  34.2      35.0 0.837
+      2 df.residual       29.0   30.0  29.8      30.9 0.837
+      3 nobs              64     64    64        64   0    
+      4 adj.r.squared      1      1     1         1   0    
+      5 npar              83.1   84    84.2      85   0.837
+      6 auc                1      1     1         1   0    
       
       $boot_valid
       $boot_valid$vs
@@ -1794,13 +1794,13 @@
       
       $model_coefs
       # A tibble: 5 x 7
-        term    estimate conf.low  mean median conf.high std.error
-        <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.00     1.00  1.00   1.00      1.00  1.43e-13
-      2 s(hp)       1.00     1.00  1.00   1.00      1.00  9.56e-14
-      3 s(drat)     1.00     1.00  1.00   1.00      1.00  6.57e-14
-      4 s(wt)       1.00     1.00  1.00   1.00      1.00  1.96e-13
-      5 s(qsec)     1.00     1.00  1.00   1.00      1.00  1.44e-13
+        term    conf.low median  mean conf.high std.error sig  
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
+      1 s(disp)     1.00   1.00  1.00      1.00  1.43e-13 NA   
+      2 s(hp)       1.00   1.00  1.00      1.00  9.56e-14 NA   
+      3 s(drat)     1.00   1.00  1.00      1.00  6.57e-14 NA   
+      4 s(wt)       1.00   1.00  1.00      1.00  1.96e-13 NA   
+      5 s(qsec)     1.00   1.00  1.00      1.00  1.44e-13 NA   
       
       $ale
       $ale$single
@@ -2386,11 +2386,11 @@
       mb
     Output
       $model_stats
-      # A tibble: 2 x 7
-        name  estimate conf.low  mean median conf.high    sd
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl> <dbl>
-      1 edf         10       10    10     10        10     0
-      2 nobs       150      150   150    150       150     0
+      # A tibble: 2 x 6
+        name  conf.low median  mean conf.high    sd
+        <chr>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 edf         10     10    10        10     0
+      2 nobs       150    150   150       150     0
       
       $boot_valid
       $boot_valid$setosa
@@ -2408,18 +2408,18 @@
       
       $model_coefs
       # A tibble: 10 x 8
-         y.level    term         estimate conf.low   mean median conf.high std.error
-         <chr>      <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
-       1 versicolor (Intercept)     37.3     14.8   37.3   18.0      82.3      31.3 
-       2 versicolor Sepal.Length   -13.2    -26.0  -13.2   -8.48     -5.87      8.96
-       3 versicolor Sepal.Width    -16.1    -52.5  -16.1   -7.22     -4.12     23.2 
-       4 versicolor Petal.Length    26.9     12.9   26.9   16.5      57.3      20.0 
-       5 versicolor Petal.Width     -1.33   -24.7   -1.33  -1.10     22.5      18.5 
-       6 virginica  (Intercept)    -55.4   -132.   -55.4  -28.0     -17.7      51.8 
-       7 virginica  Sepal.Length   -19.6    -50.9  -19.6  -11.0      -7.35     20.0 
-       8 virginica  Sepal.Width    -29.9    -84.6  -29.9   -9.78     -9.16     35.1 
-       9 virginica  Petal.Length    49.5     20.8   49.5   25.7     127.       49.5 
-      10 virginica  Petal.Width     34.6      8.57  34.6   14.6      90.7      37.3 
+         y.level    term         conf.low median   mean conf.high std.error sig  
+         <chr>      <chr>           <dbl>  <dbl>  <dbl>     <dbl>     <dbl> <lgl>
+       1 versicolor (Intercept)     14.8   18.0   37.3      82.3      31.3  TRUE 
+       2 versicolor Sepal.Length   -26.0   -8.48 -13.2      -5.87      8.96 TRUE 
+       3 versicolor Sepal.Width    -52.5   -7.22 -16.1      -4.12     23.2  TRUE 
+       4 versicolor Petal.Length    12.9   16.5   26.9      57.3      20.0  TRUE 
+       5 versicolor Petal.Width    -24.7   -1.10  -1.33     22.5      18.5  FALSE
+       6 virginica  (Intercept)   -132.   -28.0  -55.4     -17.7      51.8  TRUE 
+       7 virginica  Sepal.Length   -50.9  -11.0  -19.6      -7.35     20.0  TRUE 
+       8 virginica  Sepal.Width    -84.6   -9.78 -29.9      -9.16     35.1  TRUE 
+       9 virginica  Petal.Length    20.8   25.7   49.5     127.       49.5  TRUE 
+      10 virginica  Petal.Width      8.57  14.6   34.6      90.7      37.3  TRUE 
       
       $ale
       $ale$single
@@ -2440,37 +2440,6 @@
        9   6.5    12  0.0000299  0.0000299  0.0000299    0.0000299  0.0000299
       10   6.9    17  0.0000302  0.0000302  0.0000302    0.0000302  0.0000302
       11   7.9    13  0.0000327  0.0000327  0.0000327    0.0000327  0.0000327
-      
-      $data$setosa$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n      ale_y   ale_y_lo ale_y_mean ale_y_median   ale_y_hi
-         <dbl> <int>      <dbl>      <dbl>      <dbl>        <dbl>      <dbl>
-       1   2       1 -0.000164  -0.000164  -0.000164    -0.000164  -0.000164 
-       2   2.5    18  0.0000216  0.0000216  0.0000216    0.0000216  0.0000216
-       3   2.7    14  0.0000228  0.0000228  0.0000228    0.0000228  0.0000228
-       4   2.8    14  0.0000228  0.0000228  0.0000228    0.0000228  0.0000228
-       5   3      36  0.0000266  0.0000266  0.0000266    0.0000266  0.0000266
-       6   3.1    11  0.0000279  0.0000279  0.0000279    0.0000279  0.0000279
-       7   3.2    13  0.0000283  0.0000283  0.0000283    0.0000283  0.0000283
-       8   3.4    18  0.0000345  0.0000345  0.0000345    0.0000345  0.0000345
-       9   3.6    10  0.0000345  0.0000345  0.0000345    0.0000345  0.0000345
-      10   4.4    15  0.0000346  0.0000346  0.0000346    0.0000346  0.0000346
-      
-      $data$setosa$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1  0.636    0.636      0.636        0.636    0.636
-       2   1.4    23  0.636    0.636      0.636        0.636    0.636
-       3   1.5    13  0.636    0.636      0.636        0.636    0.636
-       4   1.7    11  0.636    0.636      0.636        0.636    0.636
-       5   3.9    13 -0.363   -0.363     -0.363       -0.363   -0.363
-       6   4.3    14 -0.363   -0.363     -0.363       -0.363   -0.363
-       7   4.6    15 -0.363   -0.363     -0.363       -0.363   -0.363
-       8   5      18 -0.363   -0.363     -0.363       -0.363   -0.363
-       9   5.3    12 -0.363   -0.363     -0.363       -0.363   -0.363
-      10   5.8    17 -0.363   -0.363     -0.363       -0.363   -0.363
-      11   6.9    13 -0.363   -0.363     -0.363       -0.363   -0.363
       
       $data$setosa$Petal.Width
       # A tibble: 10 x 7
@@ -2505,37 +2474,6 @@
       10   6.9    17  0.0496   0.0496     0.0496       0.0496   0.0496
       11   7.9    13  0.0597   0.0597     0.0597       0.0597   0.0597
       
-      $data$versicolor$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n    ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>    <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   2       1 -0.103   -0.103     -0.103       -0.103   -0.103  
-       2   2.5    18 -0.0329  -0.0329    -0.0329      -0.0329  -0.0329 
-       3   2.7    14 -0.0202  -0.0202    -0.0202      -0.0202  -0.0202 
-       4   2.8    14 -0.00521 -0.00521   -0.00521     -0.00521 -0.00521
-       5   3      36  0.0148   0.0148     0.0148       0.0148   0.0148 
-       6   3.1    11  0.0151   0.0151     0.0151       0.0151   0.0151 
-       7   3.2    13  0.0282   0.0282     0.0282       0.0282   0.0282 
-       8   3.4    18  0.0283   0.0283     0.0283       0.0283   0.0283 
-       9   3.6    10  0.0283   0.0283     0.0283       0.0283   0.0283 
-      10   4.4    15  0.0286   0.0286     0.0286       0.0286   0.0286 
-      
-      $data$versicolor$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1 -0.505   -0.505     -0.505       -0.505   -0.505 
-       2   1.4    23 -0.505   -0.505     -0.505       -0.505   -0.505 
-       3   1.5    13 -0.505   -0.505     -0.505       -0.505   -0.505 
-       4   1.7    11 -0.505   -0.505     -0.505       -0.505   -0.505 
-       5   3.9    13  0.494    0.494      0.494        0.494    0.494 
-       6   4.3    14  0.494    0.494      0.494        0.494    0.494 
-       7   4.6    15  0.458    0.458      0.458        0.458    0.458 
-       8   5      18  0.201    0.201      0.201        0.201    0.201 
-       9   5.3    12  0.127    0.127      0.127        0.127    0.127 
-      10   5.8    17  0.0595   0.0595     0.0595       0.0595   0.0595
-      11   6.9    13  0.0574   0.0574     0.0574       0.0574   0.0574
-      
       $data$versicolor$Petal.Width
       # A tibble: 10 x 7
          ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
@@ -2568,37 +2506,6 @@
        9   6.5    12 -0.0379  -0.0379    -0.0379      -0.0379  -0.0379
       10   6.9    17 -0.0496  -0.0496    -0.0496      -0.0496  -0.0496
       11   7.9    13 -0.0597  -0.0597    -0.0597      -0.0597  -0.0597
-      
-      $data$virginica$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n    ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>    <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   2       1  0.103    0.103      0.103        0.103    0.103  
-       2   2.5    18  0.0329   0.0329     0.0329       0.0329   0.0329 
-       3   2.7    14  0.0202   0.0202     0.0202       0.0202   0.0202 
-       4   2.8    14  0.00524  0.00524    0.00524      0.00524  0.00524
-       5   3      36 -0.0148  -0.0148    -0.0148      -0.0148  -0.0148 
-       6   3.1    11 -0.0151  -0.0151    -0.0151      -0.0151  -0.0151 
-       7   3.2    13 -0.0282  -0.0282    -0.0282      -0.0282  -0.0282 
-       8   3.4    18 -0.0283  -0.0283    -0.0283      -0.0283  -0.0283 
-       9   3.6    10 -0.0283  -0.0283    -0.0283      -0.0283  -0.0283 
-      10   4.4    15 -0.0286  -0.0286    -0.0286      -0.0286  -0.0286 
-      
-      $data$virginica$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1 -0.131   -0.131     -0.131       -0.131   -0.131 
-       2   1.4    23 -0.131   -0.131     -0.131       -0.131   -0.131 
-       3   1.5    13 -0.131   -0.131     -0.131       -0.131   -0.131 
-       4   1.7    11 -0.131   -0.131     -0.131       -0.131   -0.131 
-       5   3.9    13 -0.131   -0.131     -0.131       -0.131   -0.131 
-       6   4.3    14 -0.131   -0.131     -0.131       -0.131   -0.131 
-       7   4.6    15 -0.0948  -0.0948    -0.0948      -0.0948  -0.0948
-       8   5      18  0.162    0.162      0.162        0.162    0.162 
-       9   5.3    12  0.236    0.236      0.236        0.236    0.236 
-      10   5.8    17  0.304    0.304      0.304        0.304    0.304 
-      11   6.9    13  0.306    0.306      0.306        0.306    0.306 
       
       $data$virginica$Petal.Width
       # A tibble: 10 x 7
@@ -2634,28 +2541,6 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max  15.3        15.3        15.3        15.3        15.3      
       
-      $stats$setosa$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic    estimate    conf.low        mean      median   conf.high
-        <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 aled        0.0000138   0.0000138   0.0000138   0.0000138   0.0000138
-      2 aler_min   -0.000179   -0.000179   -0.000179   -0.000179   -0.000179 
-      3 aler_max    0.0000195   0.0000195   0.0000195   0.0000195   0.0000195
-      4 naled      15.4        15.4        15.4        15.4        15.4      
-      5 naler_min -50         -50         -50         -50         -50        
-      6 naler_max  15.3        15.3        15.3        15.3        15.3      
-      
-      $stats$setosa$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.451    0.451   0.451   0.451     0.451
-      2 aler_min    -0.363   -0.363  -0.363  -0.363    -0.363
-      3 aler_max     0.636    0.636   0.636   0.636     0.636
-      4 naled       39.3     39.3    39.3    39.3      39.3  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   16.7     16.7    16.7    16.7      16.7  
-      
       $stats$setosa$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
@@ -2670,68 +2555,54 @@
       
       $stats$setosa$by_statistic
       $stats$setosa$by_statistic$aled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term          estimate  conf.low      mean    median conf.high
         <chr>            <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0000176 0.0000176 0.0000176 0.0000176 0.0000176
-      2 Sepal.Width  0.0000138 0.0000138 0.0000138 0.0000138 0.0000138
-      3 Petal.Length 0.451     0.451     0.451     0.451     0.451    
-      4 Petal.Width  0.0000119 0.0000119 0.0000119 0.0000119 0.0000119
+      2 Petal.Width  0.0000119 0.0000119 0.0000119 0.0000119 0.0000119
       
       $stats$setosa$by_statistic$aler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length -0.0000996 -0.0000996 -0.0000996 -0.0000996 -0.0000996
-      2 Sepal.Width  -0.000179  -0.000179  -0.000179  -0.000179  -0.000179 
-      3 Petal.Length -0.363     -0.363     -0.363     -0.363     -0.363    
-      4 Petal.Width  -0.0000203 -0.0000203 -0.0000203 -0.0000203 -0.0000203
+      2 Petal.Width  -0.0000203 -0.0000203 -0.0000203 -0.0000203 -0.0000203
       
       $stats$setosa$by_statistic$aler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length 0.0000176  0.0000176  0.0000176  0.0000176  0.0000176 
-      2 Sepal.Width  0.0000195  0.0000195  0.0000195  0.0000195  0.0000195 
-      3 Petal.Length 0.636      0.636      0.636      0.636      0.636     
-      4 Petal.Width  0.00000988 0.00000988 0.00000988 0.00000988 0.00000988
+      2 Petal.Width  0.00000988 0.00000988 0.00000988 0.00000988 0.00000988
       
       $stats$setosa$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     22.7     22.7  22.7   22.7      22.7
-      2 Sepal.Width      15.4     15.4  15.4   15.4      15.4
-      3 Petal.Length     39.3     39.3  39.3   39.3      39.3
-      4 Petal.Width      26.4     26.4  26.4   26.4      26.4
+      2 Petal.Width      26.4     26.4  26.4   26.4      26.4
       
       $stats$setosa$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Sepal.Width       -50      -50   -50    -50       -50
-      3 Petal.Length      -50      -50   -50    -50       -50
-      4 Petal.Width       -50      -50   -50    -50       -50
+      2 Petal.Width       -50      -50   -50    -50       -50
       
       $stats$setosa$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     15.3     15.3  15.3   15.3      15.3
-      2 Sepal.Width      15.3     15.3  15.3   15.3      15.3
-      3 Petal.Length     16.7     16.7  16.7   16.7      16.7
-      4 Petal.Width      15.3     15.3  15.3   15.3      15.3
+      2 Petal.Width      15.3     15.3  15.3   15.3      15.3
       
       
       $stats$setosa$estimate
-      # A tibble: 4 x 7
+      # A tibble: 2 x 7
         term              aled   aler_min   aler_max naled naler_min naler_max
         <chr>            <dbl>      <dbl>      <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0000176 -0.0000996 0.0000176   22.7       -50      15.3
-      2 Sepal.Width  0.0000138 -0.000179  0.0000195   15.4       -50      15.3
-      3 Petal.Length 0.451     -0.363     0.636       39.3       -50      16.7
-      4 Petal.Width  0.0000119 -0.0000203 0.00000988  26.4       -50      15.3
+      2 Petal.Width  0.0000119 -0.0000203 0.00000988  26.4       -50      15.3
       
       
       $stats$versicolor
@@ -2747,28 +2618,6 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  12.7     12.7     12.7     12.7      12.7   
       
-      $stats$versicolor$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0222   0.0222   0.0222   0.0222    0.0222
-      2 aler_min   -0.103   -0.103   -0.103   -0.103    -0.103 
-      3 aler_max    0.0286   0.0286   0.0286   0.0286    0.0286
-      4 naled      22.8     22.8     22.8     22.8      22.8   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  10.7     10.7     10.7     10.7      10.7   
-      
-      $stats$versicolor$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.342    0.342   0.342   0.342     0.342
-      2 aler_min    -0.505   -0.505  -0.505  -0.505    -0.505
-      3 aler_max     0.494    0.494   0.494   0.494     0.494
-      4 naled       26.2     26.2    26.2    26.2      26.2  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   16.7     16.7    16.7    16.7      16.7  
-      
       $stats$versicolor$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
@@ -2783,68 +2632,54 @@
       
       $stats$versicolor$by_statistic
       $stats$versicolor$by_statistic$aled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0325   0.0325 0.0325 0.0325    0.0325
-      2 Sepal.Width    0.0222   0.0222 0.0222 0.0222    0.0222
-      3 Petal.Length   0.342    0.342  0.342  0.342     0.342 
-      4 Petal.Width    0.206    0.206  0.206  0.206     0.206 
+      2 Petal.Width    0.206    0.206  0.206  0.206     0.206 
       
       $stats$versicolor$by_statistic$aler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0289  -0.0289 -0.0289 -0.0289   -0.0289
-      2 Sepal.Width   -0.103   -0.103  -0.103  -0.103    -0.103 
-      3 Petal.Length  -0.505   -0.505  -0.505  -0.505    -0.505 
-      4 Petal.Width   -0.343   -0.343  -0.343  -0.343    -0.343 
+      2 Petal.Width   -0.343   -0.343  -0.343  -0.343    -0.343 
       
       $stats$versicolor$by_statistic$aler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0597   0.0597 0.0597 0.0597    0.0597
-      2 Sepal.Width    0.0286   0.0286 0.0286 0.0286    0.0286
-      3 Petal.Length   0.494    0.494  0.494  0.494     0.494 
-      4 Petal.Width    0.149    0.149  0.149  0.149     0.149 
+      2 Petal.Width    0.149    0.149  0.149  0.149     0.149 
       
       $stats$versicolor$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     32.1     32.1  32.1   32.1      32.1
-      2 Sepal.Width      22.8     22.8  22.8   22.8      22.8
-      3 Petal.Length     26.2     26.2  26.2   26.2      26.2
-      4 Petal.Width      26.7     26.7  26.7   26.7      26.7
+      2 Petal.Width      26.7     26.7  26.7   26.7      26.7
       
       $stats$versicolor$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Sepal.Width       -50      -50   -50    -50       -50
-      3 Petal.Length      -50      -50   -50    -50       -50
-      4 Petal.Width       -50      -50   -50    -50       -50
+      2 Petal.Width       -50      -50   -50    -50       -50
       
       $stats$versicolor$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     12.7     12.7  12.7   12.7      12.7
-      2 Sepal.Width      10.7     10.7  10.7   10.7      10.7
-      3 Petal.Length     16.7     16.7  16.7   16.7      16.7
-      4 Petal.Width      14.7     14.7  14.7   14.7      14.7
+      2 Petal.Width      14.7     14.7  14.7   14.7      14.7
       
       
       $stats$versicolor$estimate
-      # A tibble: 4 x 7
+      # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0325  -0.0289   0.0597  32.1       -50      12.7
-      2 Sepal.Width  0.0222  -0.103    0.0286  22.8       -50      10.7
-      3 Petal.Length 0.342   -0.505    0.494   26.2       -50      16.7
-      4 Petal.Width  0.206   -0.343    0.149   26.7       -50      14.7
+      2 Petal.Width  0.206   -0.343    0.149   26.7       -50      14.7
       
       
       $stats$virginica
@@ -2860,28 +2695,6 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  13.3     13.3     13.3     13.3      13.3   
       
-      $stats$virginica$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0223   0.0223   0.0223   0.0223    0.0223
-      2 aler_min   -0.0286  -0.0286  -0.0286  -0.0286   -0.0286
-      3 aler_max    0.103    0.103    0.103    0.103     0.103 
-      4 naled      38.5     38.5     38.5     38.5      38.5   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  14       14       14       14        14     
-      
-      $stats$virginica$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.174    0.174   0.174   0.174     0.174
-      2 aler_min    -0.131   -0.131  -0.131  -0.131    -0.131
-      3 aler_max     0.306    0.306   0.306   0.306     0.306
-      4 naled       36.1     36.1    36.1    36.1      36.1  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   16       16      16      16        16    
-      
       $stats$virginica$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
@@ -2896,68 +2709,54 @@
       
       $stats$virginica$by_statistic
       $stats$virginica$by_statistic$aled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0325   0.0325 0.0325 0.0325    0.0325
-      2 Sepal.Width    0.0223   0.0223 0.0223 0.0223    0.0223
-      3 Petal.Length   0.174    0.174  0.174  0.174     0.174 
-      4 Petal.Width    0.206    0.206  0.206  0.206     0.206 
+      2 Petal.Width    0.206    0.206  0.206  0.206     0.206 
       
       $stats$virginica$by_statistic$aler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0597  -0.0597 -0.0597 -0.0597   -0.0597
-      2 Sepal.Width   -0.0286  -0.0286 -0.0286 -0.0286   -0.0286
-      3 Petal.Length  -0.131   -0.131  -0.131  -0.131    -0.131 
-      4 Petal.Width   -0.149   -0.149  -0.149  -0.149    -0.149 
+      2 Petal.Width   -0.149   -0.149  -0.149  -0.149    -0.149 
       
       $stats$virginica$by_statistic$aler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0289   0.0289 0.0289 0.0289    0.0289
-      2 Sepal.Width    0.103    0.103  0.103  0.103     0.103 
-      3 Petal.Length   0.306    0.306  0.306  0.306     0.306 
-      4 Petal.Width    0.343    0.343  0.343  0.343     0.343 
+      2 Petal.Width    0.343    0.343  0.343  0.343     0.343 
       
       $stats$virginica$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     30.4     30.4  30.4   30.4      30.4
-      2 Sepal.Width      38.5     38.5  38.5   38.5      38.5
-      3 Petal.Length     36.1     36.1  36.1   36.1      36.1
-      4 Petal.Width      38.2     38.2  38.2   38.2      38.2
+      2 Petal.Width      38.2     38.2  38.2   38.2      38.2
       
       $stats$virginica$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Sepal.Width       -50      -50   -50    -50       -50
-      3 Petal.Length      -50      -50   -50    -50       -50
-      4 Petal.Width       -50      -50   -50    -50       -50
+      2 Petal.Width       -50      -50   -50    -50       -50
       
       $stats$virginica$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     13.3     13.3  13.3   13.3      13.3
-      2 Sepal.Width      14       14    14     14        14  
-      3 Petal.Length     16       16    16     16        16  
-      4 Petal.Width      16       16    16     16        16  
+      2 Petal.Width      16       16    16     16        16  
       
       
       $stats$virginica$estimate
-      # A tibble: 4 x 7
+      # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0325  -0.0597   0.0289  30.4       -50      13.3
-      2 Sepal.Width  0.0223  -0.0286   0.103   38.5       -50      14  
-      3 Petal.Length 0.174   -0.131    0.306   36.1       -50      16  
-      4 Petal.Width  0.206   -0.149    0.343   38.2       -50      16  
+      2 Petal.Width  0.206   -0.149    0.343   38.2       -50      16  
       
       
       
@@ -3000,10 +2799,10 @@
       max      1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       
       $params$valid_x_cols
-      logical(0)
+      [1] TRUE TRUE
       
       $params$all_x_cols
-      NULL
+      [1] "Sepal.Length" "Petal.Width" 
       
       $params$data
       $params$data$name
@@ -3184,7 +2983,7 @@
       [1] FALSE
       
       $params$x_cols
-      [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+      [1] "Sepal.Length" "Petal.Width" 
       
       $params$x1_cols
       [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
@@ -3292,37 +3091,6 @@
       10   5.3    14 NA          NA           NA           NA          NA         
       11   6.9    17 NA          NA           NA           NA          NA         
       
-      $ale$boot$data$setosa$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n      ale_y    ale_y_lo ale_y_mean ale_y_median    ale_y_hi
-         <dbl> <int>      <dbl>       <dbl>      <dbl>        <dbl>       <dbl>
-       1   2       1 -0.0000238 -0.0000417  -0.0000238  -0.0000238  -0.00000596
-       2   2.5    18  0.0000789 -0.0000367   0.0000789   0.0000371   0.000265  
-       3   2.7    14 -0.0000171 -0.0000388  -0.0000171  -0.0000171   0.00000464
-       4   2.8    14  0.0000909  0.00000581  0.0000909   0.0000382   0.000266  
-       5   3      36  0.0000744  0.00000349  0.0000744   0.00000668  0.000263  
-       6   3.1    11  0.0000970  0.00000688  0.0000970   0.0000473   0.000271  
-       7   3.2    13  0.0000815  0.00000588  0.0000815   0.0000158   0.000269  
-       8   3.4    18  0.0000901  0.00000703  0.0000901   0.0000252   0.000288  
-       9   3.6    10  0.0000546  0.0000200   0.0000546   0.0000546   0.0000893 
-      10   4.4    15  0.0000123  0.00000611  0.0000123   0.0000123   0.0000184 
-      
-      $ale$boot$data$setosa$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>  <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1  0.641    0.621      0.641        0.630    0.669
-       2   1.4    23  0.636    0.618      0.636        0.627    0.669
-       3   1.5    13  0.635    0.618      0.635        0.630    0.668
-       4   1.7    11  0.630    0.630      0.630        0.630    0.630
-       5   3.9    13 -0.373   -0.380     -0.373       -0.373   -0.366
-       6   4.3    14 -0.380   -0.380     -0.380       -0.380   -0.380
-       7   4.6    15 -0.375   -0.375     -0.375       -0.375   -0.375
-       8   5      18 -0.384   -0.393     -0.384       -0.384   -0.375
-       9   5.3    12 -0.378   -0.378     -0.378       -0.378   -0.378
-      10   5.8    17 -0.387   -0.393     -0.387       -0.387   -0.380
-      11   6.9    13 -0.384   -0.393     -0.384       -0.380   -0.379
-      
       $ale$boot$data$setosa$Petal.Width
       # A tibble: 10 x 7
          ale_x ale_n      ale_y   ale_y_lo ale_y_mean ale_y_median   ale_y_hi
@@ -3355,37 +3123,6 @@
        9   7.9    13  0.0824  -0.0205     0.0824       0.0408   0.256  
       10   5.3    14 NA       NA         NA           NA       NA      
       11   6.9    17 NA       NA         NA           NA       NA      
-      
-      $ale$boot$data$versicolor$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n      ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>      <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   2       1 -0.189     -0.251   -0.189       -0.189     -0.128  
-       2   2.5    18 -0.0576    -0.0872  -0.0576      -0.0507    -0.0399 
-       3   2.7    14 -0.0000982 -0.0137  -0.0000982   -0.0000982  0.0135 
-       4   2.8    14  0.000657  -0.00777  0.000657     0.00184    0.00707
-       5   3      36  0.0131     0.00198  0.0131       0.0145     0.0213 
-       6   3.1    11  0.0137     0.00193  0.0137       0.0161     0.0215 
-       7   3.2    13  0.0336     0.0211   0.0336       0.0338     0.0459 
-       8   3.4    18  0.0337     0.0223   0.0337       0.0328     0.0458 
-       9   3.6    10  0.0276     0.0226   0.0276       0.0276     0.0326 
-      10   4.4    15  0.0341     0.0229   0.0341       0.0341     0.0453 
-      
-      $ale$boot$data$versicolor$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n    ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>    <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1 -0.463    -0.523    -0.463       -0.471    -0.397 
-       2   1.4    23 -0.519    -0.583    -0.519       -0.509    -0.473 
-       3   1.5    13 -0.494    -0.581    -0.494       -0.493    -0.401 
-       4   1.7    11 -0.393    -0.393    -0.393       -0.393    -0.393 
-       5   3.9    13  0.471     0.416     0.471        0.471     0.526 
-       6   4.3    14  0.529     0.529     0.529        0.529     0.529 
-       7   4.6    15  0.487     0.487     0.487        0.487     0.487 
-       8   5      18  0.145     0.0305    0.145        0.145     0.259 
-       9   5.3    12  0.117     0.117     0.117        0.117     0.117 
-      10   5.8    17 -0.00476  -0.0345   -0.00476     -0.00476   0.0250
-      11   6.9    13  0.0324   -0.0330    0.0324       0.0253    0.104 
       
       $ale$boot$data$versicolor$Petal.Width
       # A tibble: 10 x 7
@@ -3420,37 +3157,6 @@
       10   5.3    14 NA       NA         NA           NA       NA      
       11   6.9    17 NA       NA         NA           NA       NA      
       
-      $ale$boot$data$virginica$Sepal.Width
-      # A tibble: 10 x 7
-         ale_x ale_n     ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>     <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   2       1  0.189     0.128     0.189        0.189     0.251  
-       2   2.5    18  0.0578    0.0405    0.0578       0.0507    0.0872 
-       3   2.7    14  0.000115 -0.0135    0.000115     0.000115  0.0137 
-       4   2.8    14 -0.000471 -0.00693  -0.000471    -0.00183   0.00830
-       5   3      36 -0.0130   -0.0213   -0.0130      -0.0143   -0.00199
-       6   3.1    11 -0.0135   -0.0215   -0.0135      -0.0157   -0.00189
-       7   3.2    13 -0.0335   -0.0459   -0.0335      -0.0338   -0.0206 
-       8   3.4    18 -0.0336   -0.0459   -0.0336      -0.0327   -0.0218 
-       9   3.6    10 -0.0275   -0.0324   -0.0275      -0.0275   -0.0226 
-      10   4.4    15 -0.0341   -0.0453   -0.0341      -0.0341   -0.0229 
-      
-      $ale$boot$data$virginica$Petal.Length
-      # A tibble: 11 x 7
-         ale_x ale_n   ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
-         <dbl> <int>   <dbl>    <dbl>      <dbl>        <dbl>    <dbl>
-       1   1       1 -0.177    -0.232    -0.177       -0.149   -0.146 
-       2   1.4    23 -0.116    -0.149    -0.116       -0.135   -0.0526
-       3   1.5    13 -0.140    -0.228    -0.140       -0.146   -0.0545
-       4   1.7    11 -0.237    -0.237    -0.237       -0.237   -0.237 
-       5   3.9    13 -0.0978   -0.146    -0.0978      -0.0978  -0.0494
-       6   4.3    14 -0.149    -0.149    -0.149       -0.149   -0.149 
-       7   4.6    15 -0.112    -0.112    -0.112       -0.112   -0.112 
-       8   5      18  0.239     0.116     0.239        0.239    0.362 
-       9   5.3    12  0.262     0.262     0.262        0.262    0.262 
-      10   5.8    17  0.391     0.355     0.391        0.391    0.428 
-      11   6.9    13  0.352     0.275     0.352        0.355    0.426 
-      
       $ale$boot$data$virginica$Petal.Width
       # A tibble: 10 x 7
          ale_x ale_n  ale_y ale_y_lo ale_y_mean ale_y_median ale_y_hi
@@ -3482,28 +3188,6 @@
       5 naler_min -50        -50          -50         -50        -50         
       6 naler_max  15.7       12.9         16          15.7       18.1       
       
-      $ale$boot$stats$setosa$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic     estimate     conf.low       median         mean   conf.high
-        <chr>            <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-      1 aled        0.00000981   0.00000459   0.00000723   0.00000981   0.0000198
-      2 aler_min   -0.0000479   -0.0000797   -0.0000426   -0.0000479   -0.0000157
-      3 aler_max    0.0000165    0.00000622   0.0000175    0.0000165    0.0000251
-      4 naled      29.4         20.1         31.5         29.4         38.8      
-      5 naler_min -50          -50          -50          -50          -50        
-      6 naler_max  15.3         12.7         14.9         15.3         19.1      
-      
-      $ale$boot$stats$setosa$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.459    0.455   0.458   0.459     0.462
-      2 aler_min    -0.381   -0.392  -0.379  -0.381    -0.375
-      3 aler_max     0.635    0.618   0.630   0.635     0.668
-      4 naled       39.4     38.7    39.4    39.4      40.5  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   16.5     14.1    16.7    16.5      19.2  
-      
       $ale$boot$stats$setosa$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic  estimate     conf.low      median      mean    conf.high
@@ -3518,68 +3202,54 @@
       
       $ale$boot$stats$setosa$by_statistic
       $ale$boot$stats$setosa$by_statistic$aled
-      # A tibble: 4 x 6
-        term           estimate   conf.low     median       mean conf.high
-        <chr>             <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
-      1 Sepal.Length 0.000288   0.00000148 0.0000398  0.000288   0.00122  
-      2 Sepal.Width  0.00000981 0.00000459 0.00000723 0.00000981 0.0000198
-      3 Petal.Length 0.459      0.455      0.458      0.459      0.462    
-      4 Petal.Width  0.00565    0.00000348 0.0000176  0.00565    0.0253   
+      # A tibble: 2 x 6
+        term         estimate   conf.low    median     mean conf.high
+        <chr>           <dbl>      <dbl>     <dbl>    <dbl>     <dbl>
+      1 Sepal.Length 0.000288 0.00000148 0.0000398 0.000288   0.00122
+      2 Petal.Width  0.00565  0.00000348 0.0000176 0.00565    0.0253 
       
       $ale$boot$stats$setosa$by_statistic$aler_min
-      # A tibble: 4 x 6
-        term           estimate   conf.low     median       mean   conf.high
-        <chr>             <dbl>      <dbl>      <dbl>      <dbl>       <dbl>
-      1 Sepal.Length -0.00236   -0.0100    -0.000175  -0.00236   -0.00000528
-      2 Sepal.Width  -0.0000479 -0.0000797 -0.0000426 -0.0000479 -0.0000157 
-      3 Petal.Length -0.381     -0.392     -0.379     -0.381     -0.375     
-      4 Petal.Width  -0.00457   -0.0203    -0.0000301 -0.00457   -0.00000538
+      # A tibble: 2 x 6
+        term         estimate conf.low     median     mean   conf.high
+        <chr>           <dbl>    <dbl>      <dbl>    <dbl>       <dbl>
+      1 Sepal.Length -0.00236  -0.0100 -0.000175  -0.00236 -0.00000528
+      2 Petal.Width  -0.00457  -0.0203 -0.0000301 -0.00457 -0.00000538
       
       $ale$boot$stats$setosa$by_statistic$aler_max
-      # A tibble: 4 x 6
-        term          estimate   conf.low    median      mean conf.high
-        <chr>            <dbl>      <dbl>     <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.00213   0.00000114 0.0000465 0.00213   0.00949  
-      2 Sepal.Width  0.0000165 0.00000622 0.0000175 0.0000165 0.0000251
-      3 Petal.Length 0.635     0.618      0.630     0.635     0.668    
-      4 Petal.Width  0.00807   0.00000291 0.0000148 0.00807   0.0362   
+      # A tibble: 2 x 6
+        term         estimate   conf.low    median    mean conf.high
+        <chr>           <dbl>      <dbl>     <dbl>   <dbl>     <dbl>
+      1 Sepal.Length  0.00213 0.00000114 0.0000465 0.00213   0.00949
+      2 Petal.Width   0.00807 0.00000291 0.0000148 0.00807   0.0362 
       
       $ale$boot$stats$setosa$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     18.6     14.8   16.7  18.6      23.1
-      2 Sepal.Width      29.4     20.1   31.5  29.4      38.8
-      3 Petal.Length     39.4     38.7   39.4  39.4      40.5
-      4 Petal.Width      30.0     24.9   26.4  30.0      39.7
+      2 Petal.Width      30.0     24.9   26.4  30.0      39.7
       
       $ale$boot$stats$setosa$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Sepal.Width       -50      -50    -50   -50       -50
-      3 Petal.Length      -50      -50    -50   -50       -50
-      4 Petal.Width       -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
       
       $ale$boot$stats$setosa$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     15.7     12.9   16    15.7      18.1
-      2 Sepal.Width      15.3     12.7   14.9  15.3      19.1
-      3 Petal.Length     16.5     14.1   16.7  16.5      19.2
-      4 Petal.Width      15.1     12.7   14.9  15.1      19.1
+      2 Petal.Width      15.1     12.7   14.9  15.1      19.1
       
       
       $ale$boot$stats$setosa$estimate
-      # A tibble: 4 x 7
-        term               aled   aler_min  aler_max naled naler_min naler_max
-        <chr>             <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.000288   -0.00236   0.00213    18.6       -50      15.7
-      2 Sepal.Width  0.00000981 -0.0000479 0.0000165  29.4       -50      15.3
-      3 Petal.Length 0.459      -0.381     0.635      39.4       -50      16.5
-      4 Petal.Width  0.00565    -0.00457   0.00807    30.0       -50      15.1
+      # A tibble: 2 x 7
+        term             aled aler_min aler_max naled naler_min naler_max
+        <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 Sepal.Length 0.000288 -0.00236  0.00213  18.6       -50      15.7
+      2 Petal.Width  0.00565  -0.00457  0.00807  30.0       -50      15.1
       
       $ale$boot$stats$setosa$effects_plot
         PANEL group xmin xmax ymin ymax
@@ -3599,28 +3269,6 @@
       5 naler_min -50      -50       -50      -50       -50     
       6 naler_max  12.8      8.61     13.2     12.8      17.7   
       
-      $ale$boot$stats$versicolor$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0259   0.0188   0.0218   0.0259    0.0407
-      2 aler_min   -0.138   -0.245   -0.124   -0.138    -0.0483
-      3 aler_max    0.0337   0.0220   0.0330   0.0337    0.0458
-      4 naled      19.9     13.9     17.4     19.9      27.4   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  12.4     10.1     12.3     12.4      14     
-      
-      $ale$boot$stats$versicolor$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.349    0.308   0.343   0.349     0.408
-      2 aler_min    -0.494   -0.582  -0.494  -0.494    -0.401
-      3 aler_max     0.514    0.422   0.519   0.514     0.599
-      4 naled       28.4     23.9    27.8    28.4      35.1  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   17.8     11.6    18.8    17.8      22.3  
-      
       $ale$boot$stats$versicolor$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low  median    mean conf.high
@@ -3635,68 +3283,54 @@
       
       $ale$boot$stats$versicolor$by_statistic
       $ale$boot$stats$versicolor$by_statistic$aled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0552  0.00515 0.0364 0.0552    0.172 
-      2 Sepal.Width    0.0259  0.0188  0.0218 0.0259    0.0407
-      3 Petal.Length   0.349   0.308   0.343  0.349     0.408 
-      4 Petal.Width    0.221   0.137   0.223  0.221     0.319 
+      1 Sepal.Length   0.0552  0.00515 0.0364 0.0552     0.172
+      2 Petal.Width    0.221   0.137   0.223  0.221      0.319
       
       $ale$boot$stats$versicolor$by_statistic$aler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  median    mean conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0505   -0.137 -0.0321 -0.0505   -0.0121
-      2 Sepal.Width   -0.138    -0.245 -0.124  -0.138    -0.0483
-      3 Petal.Length  -0.494    -0.582 -0.494  -0.494    -0.401 
-      4 Petal.Width   -0.396    -0.652 -0.400  -0.396    -0.216 
+      2 Petal.Width   -0.396    -0.652 -0.400  -0.396    -0.216 
       
       $ale$boot$stats$versicolor$by_statistic$aler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0882   0.0144 0.0660 0.0882    0.251 
-      2 Sepal.Width    0.0337   0.0220 0.0330 0.0337    0.0458
-      3 Petal.Length   0.514    0.422  0.519  0.514     0.599 
-      4 Petal.Width    0.163    0.130  0.163  0.163     0.207 
+      1 Sepal.Length   0.0882   0.0144 0.0660 0.0882     0.251
+      2 Petal.Width    0.163    0.130  0.163  0.163      0.207
       
       $ale$boot$stats$versicolor$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     31.0     25.2   31.7  31.0      35.8
-      2 Sepal.Width      19.9     13.9   17.4  19.9      27.4
-      3 Petal.Length     28.4     23.9   27.8  28.4      35.1
-      4 Petal.Width      27.3     22.0   27.8  27.3      30.1
+      2 Petal.Width      27.3     22.0   27.8  27.3      30.1
       
       $ale$boot$stats$versicolor$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Sepal.Width       -50      -50    -50   -50       -50
-      3 Petal.Length      -50      -50    -50   -50       -50
-      4 Petal.Width       -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
       
       $ale$boot$stats$versicolor$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     12.8     8.61   13.2  12.8      17.7
-      2 Sepal.Width      12.4    10.1    12.3  12.4      14  
-      3 Petal.Length     17.8    11.6    18.8  17.8      22.3
-      4 Petal.Width      15.2    11.5    15.3  15.2      18.4
+      2 Petal.Width      15.2    11.5    15.3  15.2      18.4
       
       
       $ale$boot$stats$versicolor$estimate
-      # A tibble: 4 x 7
+      # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0552  -0.0505   0.0882  31.0       -50      12.8
-      2 Sepal.Width  0.0259  -0.138    0.0337  19.9       -50      12.4
-      3 Petal.Length 0.349   -0.494    0.514   28.4       -50      17.8
-      4 Petal.Width  0.221   -0.396    0.163   27.3       -50      15.2
+      2 Petal.Width  0.221   -0.396    0.163   27.3       -50      15.2
       
       $ale$boot$stats$versicolor$effects_plot
         PANEL group xmin xmax ymin ymax
@@ -3716,28 +3350,6 @@
       5 naler_min -50      -50       -50      -50      -50      
       6 naler_max  14.3     10.8      12       14.3     20.8    
       
-      $ale$boot$stats$virginica$by_term$Sepal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0259   0.0188   0.0218   0.0259    0.0407
-      2 aler_min   -0.0337  -0.0459  -0.0331  -0.0337   -0.0221
-      3 aler_max    0.138    0.0484   0.124    0.138     0.245 
-      4 naled      41.8     35.2     45.2     41.8      46.8   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  15.7     11.6     14       15.7      22.6   
-      
-      $ale$boot$stats$virginica$by_term$Petal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.181   0.0748   0.194   0.181    0.265 
-      2 aler_min    -0.141  -0.228   -0.146  -0.141   -0.0545
-      3 aler_max     0.313   0.180    0.340   0.313    0.422 
-      4 naled       36.3    33.2     35.7    36.3     41.2   
-      5 naler_min  -50     -50      -50     -50      -50     
-      6 naler_max   15.9    11.7     15.1    15.9     21.4   
-      
       $ale$boot$stats$virginica$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low  median    mean conf.high
@@ -3752,68 +3364,54 @@
       
       $ale$boot$stats$virginica$by_statistic
       $ale$boot$stats$virginica$by_statistic$aled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0550  0.00426 0.0364 0.0550    0.172 
-      2 Sepal.Width    0.0259  0.0188  0.0218 0.0259    0.0407
-      3 Petal.Length   0.181   0.0748  0.194  0.181     0.265 
-      4 Petal.Width    0.223   0.149   0.223  0.223     0.319 
+      1 Sepal.Length   0.0550  0.00426 0.0364 0.0550     0.172
+      2 Petal.Width    0.223   0.149   0.223  0.223      0.319
       
       $ale$boot$stats$virginica$by_statistic$aler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low  median    mean conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 Sepal.Length  -0.0860  -0.251  -0.0661 -0.0860  -0.00438
-      2 Sepal.Width   -0.0337  -0.0459 -0.0331 -0.0337  -0.0221 
-      3 Petal.Length  -0.141   -0.228  -0.146  -0.141   -0.0545 
-      4 Petal.Width   -0.158   -0.207  -0.163  -0.158   -0.110  
+      1 Sepal.Length  -0.0860   -0.251 -0.0661 -0.0860  -0.00438
+      2 Petal.Width   -0.158    -0.207 -0.163  -0.158   -0.110  
       
       $ale$boot$stats$virginica$by_statistic$aler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0485   0.0110 0.0321 0.0485     0.137
-      2 Sepal.Width    0.138    0.0484 0.124  0.138      0.245
-      3 Petal.Length   0.313    0.180  0.340  0.313      0.422
-      4 Petal.Width    0.401    0.236  0.400  0.401      0.652
+      2 Petal.Width    0.401    0.236  0.400  0.401      0.652
       
       $ale$boot$stats$virginica$by_statistic$naled
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     30.8     26.0   30.5  30.8      37.0
-      2 Sepal.Width      41.8     35.2   45.2  41.8      46.8
-      3 Petal.Length     36.3     33.2   35.7  36.3      41.2
-      4 Petal.Width      37.9     35.4   37.2  37.9      42.4
+      2 Petal.Width      37.9     35.4   37.2  37.9      42.4
       
       $ale$boot$stats$virginica$by_statistic$naler_min
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Sepal.Width       -50      -50    -50   -50       -50
-      3 Petal.Length      -50      -50    -50   -50       -50
-      4 Petal.Width       -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
       
       $ale$boot$stats$virginica$by_statistic$naler_max
-      # A tibble: 4 x 6
+      # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     14.3     10.8   12    14.3      20.8
-      2 Sepal.Width      15.7     11.6   14    15.7      22.6
-      3 Petal.Length     15.9     11.7   15.1  15.9      21.4
-      4 Petal.Width      16.4     11.7   16    16.4      22.6
+      1 Sepal.Length     14.3     10.8     12  14.3      20.8
+      2 Petal.Width      16.4     11.7     16  16.4      22.6
       
       
       $ale$boot$stats$virginica$estimate
-      # A tibble: 4 x 7
+      # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0550  -0.0860   0.0485  30.8       -50      14.3
-      2 Sepal.Width  0.0259  -0.0337   0.138   41.8       -50      15.7
-      3 Petal.Length 0.181   -0.141    0.313   36.3       -50      15.9
-      4 Petal.Width  0.223   -0.158    0.401   37.9       -50      16.4
+      2 Petal.Width  0.223   -0.158    0.401   37.9       -50      16.4
       
       $ale$boot$stats$virginica$effects_plot
         PANEL group xmin xmax ymin ymax
@@ -3827,14 +3425,6 @@
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
-      $ale$boot$plots$setosa$Sepal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$plots$setosa$Petal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
       $ale$boot$plots$setosa$Petal.Width
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
@@ -3845,14 +3435,6 @@
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
-      $ale$boot$plots$versicolor$Sepal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$plots$versicolor$Petal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
       $ale$boot$plots$versicolor$Petal.Width
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
@@ -3860,14 +3442,6 @@
       
       $ale$boot$plots$virginica
       $ale$boot$plots$virginica$Sepal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$plots$virginica$Sepal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$plots$virginica$Petal.Length
         PANEL group xmin xmax ymin ymax
       1     1    -1    0    1    0    1
       
@@ -3888,21 +3462,6 @@
       2     4.8   7.9  0.861   118 0.787    0.000202  0.00275  0.00296 above          
       3     5.3   6.9  0.444    31 0.207   NA        NA       NA       overlap        
       
-      $ale$boot$conf_regions$setosa$by_term$Sepal.Width
-      # A tibble: 3 x 9
-        start_x end_x x_span     n   n_pct   start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>   <dbl>     <dbl>    <dbl>    <dbl> <ord>          
-      1     2     2   0          1 0.00667  -2.38e-5 -2.38e-5  0       below          
-      2     2.5   2.7 0.0833    32 0.213     7.89e-5 -1.71e-5 -1.15e-3 overlap        
-      3     2.8   4.4 0.667    117 0.78      9.09e-5  1.23e-5 -1.18e-4 above          
-      
-      $ale$boot$conf_regions$setosa$by_term$Petal.Length
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1     1     1.7  0.119    48  0.32   0.641  0.630 -0.0890 above          
-      2     3.9   6.9  0.508   102  0.68  -0.373 -0.384 -0.0217 below          
-      
       $ale$boot$conf_regions$setosa$by_term$Petal.Width
       # A tibble: 6 x 9
         start_x end_x x_span     n  n_pct    start_y     end_y   trend relative_to_mid
@@ -3916,18 +3475,14 @@
       
       
       $ale$boot$conf_regions$setosa$significant
-      # A tibble: 9 x 10
-        term         start_x end_x x_span     n   n_pct    start_y      end_y    trend
-        <chr>          <dbl> <dbl>  <dbl> <int>   <dbl>      <dbl>      <dbl>    <dbl>
-      1 Sepal.Length     4.3   4.3  0         1 0.00667 -0.00371   -0.00371    0      
-      2 Sepal.Length     4.8   7.9  0.861   118 0.787    0.000202   0.00275    2.96e-3
-      3 Sepal.Width      2     2    0         1 0.00667 -0.0000238 -0.0000238  0      
-      4 Sepal.Width      2.8   4.4  0.667   117 0.78     0.0000909  0.0000123 -1.18e-4
-      5 Petal.Length     1     1.7  0.119    48 0.32     0.641      0.630     -8.90e-2
-      6 Petal.Length     3.9   6.9  0.508   102 0.68    -0.373     -0.384     -2.17e-2
-      7 Petal.Width      1.1   1.1  0        12 0.08     0.0000493  0.0000493  0      
-      8 Petal.Width      1.9   1.9  0         5 0.0333  -0.0112    -0.0112     0      
-      9 Petal.Width      2.2   2.2  0        15 0.1      0.0000913  0.0000913  0      
+      # A tibble: 5 x 10
+        term         start_x end_x x_span     n   n_pct    start_y      end_y   trend
+        <chr>          <dbl> <dbl>  <dbl> <int>   <dbl>      <dbl>      <dbl>   <dbl>
+      1 Sepal.Length     4.3   4.3  0         1 0.00667 -0.00371   -0.00371   0      
+      2 Sepal.Length     4.8   7.9  0.861   118 0.787    0.000202   0.00275   0.00296
+      3 Petal.Width      1.1   1.1  0        12 0.08     0.0000493  0.0000493 0      
+      4 Petal.Width      1.9   1.9  0         5 0.0333  -0.0112    -0.0112    0      
+      5 Petal.Width      2.2   2.2  0        15 0.1      0.0000913  0.0000913 0      
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$conf_regions$setosa$sig_criterion
@@ -3947,22 +3502,6 @@
       5     6.3   6.5  0.0556    25 0.167  0.0424   0.155    2.03  above          
       6     7.9   6.9 -0.278     44 0.293  0.0824  NA       NA     overlap        
       
-      $ale$boot$conf_regions$versicolor$by_term$Sepal.Width
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct    start_y     end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>     <dbl>  <dbl> <ord>          
-      1     2     2.5 0.208     19 0.127 -0.189     -0.0576   0.632  below          
-      2     2.7   2.8 0.0417    28 0.187 -0.0000982  0.000657 0.0181 overlap        
-      3     3     4.4 0.583    103 0.687  0.0131     0.0341   0.0360 above          
-      
-      $ale$boot$conf_regions$versicolor$by_term$Petal.Length
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct  start_y   end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>   <dbl>  <dbl> <ord>          
-      1     1     1.7  0.119    48  0.32 -0.463   -0.393   0.592 below          
-      2     3.9   5.3  0.237    72  0.48  0.471    0.117  -1.49  above          
-      3     5.8   6.9  0.186    30  0.2  -0.00476  0.0324  0.200 overlap        
-      
       $ale$boot$conf_regions$versicolor$by_term$Petal.Width
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
@@ -3972,18 +3511,14 @@
       
       
       $ale$boot$conf_regions$versicolor$significant
-      # A tibble: 9 x 10
+      # A tibble: 5 x 10
         term         start_x end_x x_span     n n_pct  start_y    end_y   trend
         <chr>          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>   <dbl>
       1 Sepal.Length     5.6   5.6 0         19 0.127  0.00186  0.00186  0     
       2 Sepal.Length     5.8   5.8 0         15 0.1   -0.0617  -0.0617   0     
       3 Sepal.Length     6.3   6.5 0.0556    25 0.167  0.0424   0.155    2.03  
-      4 Sepal.Width      2     2.5 0.208     19 0.127 -0.189   -0.0576   0.632 
-      5 Sepal.Width      3     4.4 0.583    103 0.687  0.0131   0.0341   0.0360
-      6 Petal.Length     1     1.7 0.119     48 0.32  -0.463   -0.393    0.592 
-      7 Petal.Length     3.9   5.3 0.237     72 0.48   0.471    0.117   -1.49  
-      8 Petal.Width      0.1   1.5 0.583     98 0.653  0.150    0.119   -0.0529
-      9 Petal.Width      1.8   2.5 0.292     52 0.347 -0.243   -0.396   -0.526 
+      4 Petal.Width      0.1   1.5 0.583     98 0.653  0.150    0.119   -0.0529
+      5 Petal.Width      1.8   2.5 0.292     52 0.347 -0.243   -0.396   -0.526 
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$conf_regions$versicolor$sig_criterion
@@ -4003,21 +3538,6 @@
       5     6.3   6.5  0.0556    25 0.167 -0.0418  -0.155   -2.04  below          
       6     7.9   6.9 -0.278     44 0.293 -0.0848  NA       NA     overlap        
       
-      $ale$boot$conf_regions$virginica$by_term$Sepal.Width
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct   start_y     end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>   <dbl> <ord>          
-      1     2     2.5 0.208     19 0.127  0.189     0.0578   -0.632  above          
-      2     2.7   2.8 0.0417    28 0.187  0.000115 -0.000471 -0.0141 overlap        
-      3     3     4.4 0.583    103 0.687 -0.0130   -0.0341   -0.0362 below          
-      
-      $ale$boot$conf_regions$virginica$by_term$Petal.Length
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y  end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl> <dbl> <ord>          
-      1       1   4.6  0.610    90   0.6  -0.177 -0.112 0.107 below          
-      2       5   6.9  0.322    60   0.4   0.239  0.352 0.349 above          
-      
       $ale$boot$conf_regions$virginica$by_term$Petal.Width
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y  trend relative_to_mid
@@ -4027,18 +3547,14 @@
       
       
       $ale$boot$conf_regions$virginica$significant
-      # A tibble: 9 x 10
+      # A tibble: 5 x 10
         term         start_x end_x x_span     n n_pct  start_y    end_y   trend
         <chr>          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>   <dbl>
       1 Sepal.Length     5.6   5.6 0         19 0.127 -0.00219 -0.00219  0     
       2 Sepal.Length     5.8   5.8 0         15 0.1    0.0619   0.0619   0     
       3 Sepal.Length     6.3   6.5 0.0556    25 0.167 -0.0418  -0.155   -2.04  
-      4 Sepal.Width      2     2.5 0.208     19 0.127  0.189    0.0578  -0.632 
-      5 Sepal.Width      3     4.4 0.583    103 0.687 -0.0130  -0.0341  -0.0362
-      6 Petal.Length     1     4.6 0.610     90 0.6   -0.177   -0.112    0.107 
-      7 Petal.Length     5     6.9 0.322     60 0.4    0.239    0.352    0.349 
-      8 Petal.Width      0.1   1.5 0.583     98 0.653 -0.158   -0.114    0.0762
-      9 Petal.Width      1.8   2.5 0.292     52 0.347  0.251    0.401    0.516 
+      4 Petal.Width      0.1   1.5 0.583     98 0.653 -0.158   -0.114    0.0762
+      5 Petal.Width      1.8   2.5 0.292     52 0.347  0.251    0.401    0.516 
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$conf_regions$virginica$sig_criterion
@@ -4281,6 +3797,9 @@
       $params$ale_options
       $params$ale_options$max_x_int
       [1] 10
+      
+      $params$ale_options$x_cols
+      [1] "Sepal.Length" "Petal.Width" 
       
       $params$ale_options$pred_type
       [1] "probs"
