@@ -604,11 +604,11 @@ ale_core <- function (
     silent = FALSE
 )
 {
+  # Validate arguments --------------
+
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
   rlang::check_dots_empty()
-
-  # Validate arguments
 
   # If model validation is done more rigorously, also validate that y_col is not
   # contained in all_x__cols
@@ -776,6 +776,8 @@ ale_core <- function (
 
   validate_silent(silent)
 
+
+  # Prepare needed internal variables --------------
 
   # Determine datatype of y
   if (is.null(y_type)) {
