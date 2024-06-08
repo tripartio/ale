@@ -12,7 +12,13 @@
 #' @export
 plot.ale <- function(
     ale_obj,
-    type = 'ale'
+    type = 'ale',
+    ...,
+    relative_y = 'median',
+    p_alpha = c(0.01, 0.05),
+    median_band_pct = c(0.05, 0.5),
+    min_rug_per_interval = 1,
+    seed = 0
 ) {
   validate(
     type %in% c('ale', 'effects'),
@@ -31,6 +37,11 @@ plot.ale <- function(
             y_summary = ale_obj$params$y_summary[, .cat],
             x_y       = ale_obj$params$data$sample[, c(.x_col_name, .cat)],
             compact_plots = ale_obj$params$compact_plots,
+            relative_y = relative_y,
+            p_alpha = p_alpha,
+            median_band_pct = median_band_pct,
+            min_rug_per_interval = min_rug_per_interval,
+            seed = seed
           )
         })
       })
@@ -83,7 +94,12 @@ plot.ale <- function(
 #' @export
 plot.ale_boot <- function(
     ale_boot_obj,
-    type = 'ale'
+    type = 'ale',
+    relative_y = 'median',
+    p_alpha = c(0.01, 0.05),
+    median_band_pct = c(0.05, 0.5),
+    min_rug_per_interval = 1,
+    seed = 0
 ) {
   validate(
     type %in% c('ale', 'effects'),
@@ -101,6 +117,11 @@ plot.ale_boot <- function(
           y_summary = ale_boot_obj$ale$single$params$y_summary[, .cat],
           x_y       = ale_boot_obj$params$data$sample[, c(.x_col_name, .cat)],
           compact_plots = ale_boot_obj$params$compact_plots,
+          relative_y = relative_y,
+          p_alpha = p_alpha,
+          median_band_pct = median_band_pct,
+          min_rug_per_interval = min_rug_per_interval,
+          seed = seed
         )
       })
     })

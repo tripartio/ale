@@ -4,7 +4,16 @@
 \alias{plot.ale}
 \title{plot method for \code{ale} objects}
 \usage{
-\method{plot}{ale}(ale_obj, type = "ale")
+\method{plot}{ale}(
+  ale_obj,
+  type = "ale",
+  ...,
+  relative_y = "median",
+  p_alpha = c(0.01, 0.05),
+  median_band_pct = c(0.05, 0.5),
+  min_rug_per_interval = 1,
+  seed = 0
+)
 }
 \arguments{
 \item{ale_obj}{ale object. The object of class \code{ale} containing data to be plotted.}
