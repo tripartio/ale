@@ -229,7 +229,7 @@ model_bootstrap <- function (
   # Determine if the information for calculating performance measures can be obtained.
 
   # Provide performance measures only for bootstrapped data
-  calculate_performance <- if (boot_it > 0) {
+  calc_boot_valid <- if (boot_it > 0) {
     # Then try to validate pred_type, y_col, and y_preds, the necessary information.
     # If the try-catch block does not fail, then the measures can be calculated later.
     tryCatch(
@@ -252,10 +252,10 @@ model_bootstrap <- function (
           pred_type = pred_type
         )
 
-        validate(is_scalar_logical(binary_true_value))
-
         y_cats <- colnames(y_preds)
         y_type <- var_type(data[[y_col]])
+
+        validate(is.atomic(binary_true_value))
 
         # If we've made it this far, then we have all we need to calculate bootstrap-validated performance metrics.
         TRUE
@@ -364,21 +364,6 @@ model_bootstrap <- function (
     original_parallel_plan <- future::plan(future::multisession, workers = parallel)
     on.exit(future::plan(original_parallel_plan))
   }
-  # # Enable parallel processing and set appropriate map function.
-  # # Because furrr::future_map2 has an important .options argument absent from
-  # # purrr::map2, map2_loop() is created to unify these two functions.
-  # if (parallel > 0) {
-  #   future::plan(future::multisession, workers = parallel)
-  #   map2_loop <- furrr::future_map2
-  # } else {
-  #   # If no parallel processing, do not set future::plan(future::sequential):
-  #   # this might interfere with other parallel processing in a larger workflow.
-  #   # Just do nothing parallel.
-  #   map2_loop <- function(..., .options = NULL) {
-  #     # Ignore the .options argument and pass on everything else
-  #     purrr::map2(...)
-  #   }
-  # }
 
   model_call_string_vars <- c(
     'boot_data',
@@ -484,7 +469,7 @@ model_bootstrap <- function (
           # Calculate bootstrap-validated model metrics if the necessary information is available.
           # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
           if (
-            calculate_performance &&
+            calc_boot_valid &&
             .it > 0  # skip the full model because it is not bootstrapped
           ) {
 
@@ -578,7 +563,7 @@ model_bootstrap <- function (
                 sa_rmse_sd = sa_rmse_sd(actual_oob, pred_oob, na.rm = TRUE)
               )
             }
-          }  # calculate_performance && .it > 0
+          }  # calc_boot_valid && .it > 0
         }  # if ('model_stats' %in% output)
 
 
@@ -701,15 +686,6 @@ model_bootstrap <- function (
     ) |>
     list_transpose(simplify = FALSE)
 
-  # model_and_ale <- model_and_ale |>
-  #   list_transpose(simplify = FALSE) |> View()
-
-
-  # # Disable parallel processing if it had been enabled
-  # if (parallel > 0) {
-  #   future::plan(future::sequential)
-  # }
-
 
   # Assemble bootstrapped results ------------
 
@@ -741,7 +717,7 @@ model_bootstrap <- function (
       invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
       # Summarize the broom::glance data
-      bs <- boot_data |>
+      ss <- boot_data |>
         # only summarize rows other than the full dataset analysis (it == 0)
         filter(.data$it != exclude_boot_data) |>
         (`[[`)('stats') |>
@@ -750,19 +726,45 @@ model_bootstrap <- function (
         tidyr::pivot_longer(everything())
 
       # Summarize the performance data, if available.
-      # This stage skips categorical outcomes because they have more than one value per measure, unlike the rest of these overall model statistics.
-      if (calculate_performance && y_type != 'categorical') {
-        bs <- bs |>
-          bind_rows(
-            boot_data |>
-              filter(.data$it != exclude_boot_data) |>
-              (`[[`)('perf') |>
-              bind_rows() |>
-              tidyr::pivot_longer(everything())
-          )
+      if (calc_boot_valid) {
+        ps <- boot_data |>
+          filter(.data$it != exclude_boot_data) |>
+          (`[[`)('perf') |>
+          compact() |>   # remove NULL elements from failed iterations
+          map(\(.it) {
+            .it |>
+              map(\(.measure) {
+                unlist(.measure) |>
+                  as.list()
+              }) |>
+              list_transpose(simplify = FALSE)
+          }) |>
+          list_transpose(simplify = FALSE) |>
+          imap(\(.cat_boot_its, .cat) {
+            .cat_boot_its |>
+              imap(\(.metric_list, .it) {
+                .metric_list |>
+                  imap(\(.metric_val, .metric_name) {
+                    data.frame(
+                      name = if (y_type == 'categorical') {
+                        paste0(.metric_name, ' (', .cat, ')')
+                      } else {
+                        .metric_name
+                      },
+                      value = .metric_val
+                    )
+                  }) |>
+                  # necessary to unify all metrics under name and value header
+                  bind_rows()
+              })
+          }) |>
+          bind_rows()
+
+        ss <- bind_rows(ss, ps)
+
       }
 
-      bs |>
+      ss <- ss |>
         summarize(
           .by = 'name',
           conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
@@ -770,45 +772,13 @@ model_bootstrap <- function (
           mean = mean(.data$value, na.rm = TRUE),
           conf.high = quantile(.data$value, 1 - (boot_alpha / 2), na.rm = TRUE),
           sd = sd(.data$value, na.rm = TRUE),
-          # estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
-        ) #|>
-      # select('name', 'estimate', everything())
-    } else {
-      NULL
-    }
+        )
 
+      if (calc_boot_valid) {
+        ss$boot_valid <- as.double(NA)
 
-  boot_valid <-
-    if (('model_stats' %in% output) && calculate_performance) {
-      # Calculate the overly conservative mean performance for the bootstrapped data
-      boot_perf <- boot_data |>
-        # only summarize rows other than the full dataset analysis (it == 0)
-        filter(.data$it != exclude_boot_data) |>
-        (`[[`)('perf') |>
-        compact() |>   # remove NULL elements from failed iterations
-        map(\(.it) {
-          .it |>
-            map(\(.measure) {
-              unlist(.measure) |>
-                as.list()
-            }) |>
-            list_transpose(simplify = FALSE)
-          #     ) |>
-          # # list_transpose() |>
-          # as_tibble()
-        }) |>
-        list_transpose(simplify = FALSE) |>
-        map(\(.cat) {
-          bind_rows(.cat) |>
-            map_dbl(\(.col) {
-              mean(.col, na.rm = TRUE)
-            })
-        }) |>
-        set_names(y_cats)
-
-      boot_0.632_perf <-
-        boot_perf |>
-        imap(\(.cat_perf, .cat) {
+        # Calculate the overly conservative mean performance for the bootstrapped data
+        walk(y_cats, \(.cat) {
           if (y_type %in% c('binary', 'categorical')) {
 
             if (y_type == 'binary') {
@@ -827,19 +797,11 @@ model_bootstrap <- function (
               auc = aucroc(
                 binary_target, y_preds[, .cat],
                 na.rm = TRUE,
-                binary_true_value = if (!is.null(binary_true_value)) {
-                  binary_true_value
-                } else {
-                  NULL
-                }
+                binary_true_value = binary_true_value
               )$auc
             )
-
-            boot_perf <-  c(
-              boot_perf[[.cat]]['auc']
-            )
           }
-          else {
+          else {  # y_type is neither binary nor categorical (so, numeric)
 
             # Calculate the overfit performance for the full dataset
             full_perf <- c(
@@ -850,29 +812,47 @@ model_bootstrap <- function (
               sd         =  stats::sd(data[[y_col]], na.rm = TRUE),
               sa_rmse_sd = sa_rmse_sd(data[[y_col]], y_preds, na.rm = TRUE)
             )
-
-            boot_perf <- boot_perf[[1]]
-            boot_perf <- c(
-              boot_perf['mae'],
-              full_perf['mad'],        # MAD is invariant
-              boot_perf['sa_mae_mad'],
-              boot_perf['rmse'],
-              full_perf['sd'],        # SD is invariant
-              boot_perf['sa_rmse_sd']
-            )
           }
 
-          # Apply the .632 principle to correct the bootstrap validation performance for the return value
-          (0.632 * boot_perf) + (0.368 * full_perf)
-        })
+          walk(names(full_perf), \(.metric_name) {
+            .metric_name_by_cat <-  if (y_type == 'categorical') {
+              paste0(.metric_name, ' (', .cat, ')')
+            } else {
+              .metric_name
+            }
 
-      # Set the value for boot_valid
-      boot_0.632_perf
+            # Apply the .632 principle to correct the bootstrap validation performance
+            ss$boot_valid[
+              ss$name == .metric_name_by_cat
+            ] <<-  # superassignment needed within purrr function
+              # mean bootstrapped metric
+              (0.632 * ss$mean[
+                ss$name == .metric_name_by_cat
+              ]) +
+              # full model metric
+              (0.368 * full_perf[[.metric_name]])
+          })  # walk(names(full_perf), \(.metric_name)
+        })  # walk(y_cats, \(.cat)
+
+        # Return ss as result of this if block
+        ss <- ss |>
+          # When boot_valid is available, delete median and mean estimates because boot_valid is more accurate.
+          mutate(
+            across(c(median, mean), \(.col) {
+              if_else(!is.na(boot_valid), NA, .col)
+            })
+          ) |>
+          select('name', 'boot_valid', everything())
+      }  # if (calc_boot_valid)
+
+      # Return ss as result of this if block
+      ss
     }
 
-  else {  # (!('model_stats' %in% output) || !calculate_performance)
-    NULL
-  }
+    else {  # 'model_stats' not in output
+        NULL
+      }
+
 
   # Bootstrapped model coefficient estimates
   tidy_summary <-
@@ -888,8 +868,6 @@ model_bootstrap <- function (
         bind_rows()  # automatically removes NULL elements from failed iterations
 
       tidy_boot_data_names <- names(tidy_boot_data)
-      est_is_coef <- 'estimate' %in% tidy_boot_data_names
-
       if (!('estimate' %in% tidy_boot_data_names)) {
         # Explicitly rename some known columns that `tidy` sometimes uses instead of 'estimate'
         if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = FALSE
@@ -911,7 +889,6 @@ model_bootstrap <- function (
 
       # assign result for tidy_summary
       tidy_boot_data |>
-        # select('y.level', 'term', 'estimate') |>
         summarize(
           .by = c(any_of(cat_col), 'term'),  # If no categorical columns, only group by term
           conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
@@ -919,37 +896,8 @@ model_bootstrap <- function (
           mean = mean(.data$estimate, na.rm = TRUE),
           conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
           std.error = sd(.data$estimate, na.rm = TRUE),
-          # estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
-          sig = if_else(
-            est_is_coef,
-            conf.low * conf.high > 0,
-            NA
-          )
-          # Later, consider incorporating bayestestR::p_direction for p-values
-          # # For coefficient estimates, p.value is the probability that estimate is not zero
-          # p.value = if_else(
-          #   est_is_coef,
-          #   # non-parametric p-value
-          #   wilcox.test(.data$estimate, na.rm = TRUE)$p.value,
-          #   NA
-          # )
         ) |>
         select(any_of(cat_col), 'term', everything())  # If no categorical columns, only select term
-
-
-      # # assign result for tidy_summary
-      # tidy_boot_data |>
-      #   # select('term', 'estimate') |>
-      #   summarize(
-      #     .by = 'term',
-      #     conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
-      #     mean = mean(.data$estimate, na.rm = TRUE),
-      #     median = median(.data$estimate, na.rm = TRUE),
-      #     conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
-      #     std.error = sd(.data$estimate, na.rm = TRUE),
-      #     estimate = if_else(boot_centre == 'mean', .data$mean, .data$median)
-      #   ) |>
-      #   select('term', 'estimate', everything())
     } else {
       NULL
     }
@@ -992,15 +940,8 @@ model_bootstrap <- function (
         map(\(.cat) {
           .cat |>
             imap(\(.x_col, .x_col_name) {
-            # ale_summary_data <-
-      #   map2(
-      #     ale_summary_data, names(ale_summary_data),
-      #     \(.x_col, .x_col_name) {
-      #
 
-            # If ale_x for .x_col is ordinal,
-            # harmonize the levels across bootstrap iterations,
-            # otherwise binding rows will fail
+            # If ale_x for .x_col is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
             if (is.ordered(.x_col[[1]]$ale_x)) {
               # The levels of the first category of the full data ALE are canonical for all bootstrap iterations
               ale_x_levels <- full_ale$data[[1]][[.x_col_name]]$ale_x
@@ -1040,8 +981,6 @@ model_bootstrap <- function (
         list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col (term)
 
       ale_summary_stats <- ale_summary_stats |>
-        # ale_summary_stats$estimate |>
-        # bind_rows() |>
         imap(\(.ale_summary_stats, .cat) {
           .ale_summary_stats <- .ale_summary_stats |>
             map(\(.it) .it$estimate) |>
@@ -1095,26 +1034,11 @@ model_bootstrap <- function (
           )
         })
 
-      # ale_conf_regions <-
-      #   colnames(y_summary) |>
-      #   map(\(.cat) {
-      #     summarize_conf_regions(
-      #       ale_summary_data[[.cat]],
-      #       y_summary[, .cat, drop = FALSE],
-      #       sig_criterion = if (!is.null(ale_options$p_values)) {
-      #         'p_values'
-      #       } else {
-      #         'median_band_pct'
-      #       }
-      #     )
-      #   })
-
       detailed_ale_stats <-
         ale_summary_stats |>
         map(\(.cat) {
           pivot_stats(.cat)
         })
-      # detailed_ale_stats <- pivot_stats(ale_summary_stats)
 
       ale_summary_plots <- NULL
       # By default, produce ALE plots except if the user explicitly excluded them
@@ -1159,25 +1083,6 @@ model_bootstrap <- function (
             })
 
 
-        # ale_summary_plots <- map2(
-        #   ale_summary_data, names(ale_summary_data),
-        #   \(.x_col_data, .x_col_name) {
-        #     plot_ale(
-        #       .x_col_data, .x_col_name, y_col, y_type, y_summary,
-        #       # Temporarily buggy for binary y
-        #       x_y = tibble(data[[.x_col_name]], data[[y_col]]) |>
-        #         stats::setNames(c(.x_col_name, y_col)),
-        #
-        #       ## Later: pass ale_options() that might apply
-        #       compact_plots = compact_plots
-        #
-        #       # When y_vals is added
-        #       # x_y = tibble(data[[.x_col_name]], y_vals) |>
-        #       #   stats::setNames(c(.x_col_name, y_col)),
-        #     )
-        #   }
-        # )
-
         # Also produce an ALE effects plot
 
         # Retrieve median_band_pct if provided; otherwise use boot_alpha
@@ -1192,12 +1097,6 @@ model_bootstrap <- function (
             .cat_ale_stats$effects_plot <- plot_effects(
               estimates = .cat_ale_stats$estimate,
               y_summary = full_ale$params$y_summary[, .cat],
-              # # y values
-              # if (y_type == 'categorical') {
-              #   data[[y_col]] == .cat
-              # } else {
-              #   data[[y_col]]
-              # },
               y_col = .cat,
               middle_band = median_band_pct,
               # later pass ale_options like compact_plots
@@ -1217,8 +1116,8 @@ model_bootstrap <- function (
         conf_regions = ale_conf_regions
       )
     }
-  # ALE not requested
-  else {
+
+  else {  # ALE not requested
       NULL
     }
 
@@ -1239,11 +1138,8 @@ model_bootstrap <- function (
   params$pred_fun <- params_function(pred_fun)
 
 
-
-
   mb <- list(
     model_stats = stats_summary,
-    boot_valid = boot_valid,
     model_coefs = tidy_summary,
     ale = if ('ale' %in% output) {
       list(

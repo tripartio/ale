@@ -13,18 +13,15 @@
       4 adj.r.squared     1.00   1.00  1.00      1.00    NA
       5 npar             90     90    90        90       NA
       
-      $boot_valid
-      NULL
-      
       $model_coefs
-      # A tibble: 5 x 7
-        term    conf.low median  mean conf.high std.error sig  
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
-      1 s(disp)     2.87   2.87  2.87      2.87        NA NA   
-      2 s(hp)       2.89   2.89  2.89      2.89        NA NA   
-      3 s(drat)     2.24   2.24  2.24      2.24        NA NA   
-      4 s(wt)       2.10   2.10  2.10      2.10        NA NA   
-      5 s(qsec)     7.44   7.44  7.44      7.44        NA NA   
+      # A tibble: 5 x 6
+        term    conf.low median  mean conf.high std.error
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+      1 s(disp)     2.87   2.87  2.87      2.87        NA
+      2 s(hp)       2.89   2.89  2.89      2.89        NA
+      3 s(drat)     2.24   2.24  2.24      2.24        NA
+      4 s(wt)       2.10   2.10  2.10      2.10        NA
+      5 s(qsec)     7.44   7.44  7.44      7.44        NA
       
       $ale
       $ale$single
@@ -488,7 +485,7 @@
       $params$n_rows
       [1] 64
       
-      $params$calculate_performance
+      $params$calc_boot_valid
       [1] FALSE
       
       $params$data
@@ -601,34 +598,28 @@
       mb
     Output
       $model_stats
-      # A tibble: 9 x 6
-        name          conf.low median   mean conf.high       sd
-        <chr>            <dbl>  <dbl>  <dbl>     <dbl>    <dbl>
-      1 df               36.3  39.0   39.8      42.9   2.78e+ 0
-      2 df.residual      21.1  25.0   24.2      27.7   2.78e+ 0
-      3 nobs             64    64     64        64     0       
-      4 adj.r.squared     1.00  1.00   1.00      1.00  3.76e-11
-      5 npar             56    56     56.4      57     5.48e- 1
-      6 mae               2.03  3.74   6.86     18.8   7.63e+ 0
-      7 sa_mae_mad       -1.09  0.641  0.237     0.694 8.46e- 1
-      8 rmse              4.01  6.12  12.8      37.2   1.55e+ 1
-      9 sa_rmse_sd       -2.24  0.537 -0.119     0.562 1.35e+ 0
-      
-      $boot_valid
-      $boot_valid$mpg
-             mae        mad sa_mae_mad       rmse         sd sa_rmse_sd 
-       4.3346817  4.7209389  0.5175882  8.1136844  5.9805677  0.2925820 
-      
+      # A tibble: 9 x 7
+        name          boot_valid conf.low median  mean conf.high       sd
+        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl>    <dbl>
+      1 df                NA        36.3   39.0  39.8     42.9   2.78e+ 0
+      2 df.residual       NA        21.1   25.0  24.2     27.7   2.78e+ 0
+      3 nobs              NA        64     64    64       64     0       
+      4 adj.r.squared     NA         1.00   1.00  1.00     1.00  3.76e-11
+      5 npar              NA        56     56    56.4     57     5.48e- 1
+      6 mae                4.33      2.03  NA    NA       18.8   7.63e+ 0
+      7 sa_mae_mad         0.518    -1.09  NA    NA        0.694 8.46e- 1
+      8 rmse               8.11      4.01  NA    NA       37.2   1.55e+ 1
+      9 sa_rmse_sd         0.293    -2.24  NA    NA        0.562 1.35e+ 0
       
       $model_coefs
-      # A tibble: 5 x 7
-        term    conf.low median  mean conf.high std.error sig  
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
-      1 s(disp)     1.21   6.58  5.72      8.97      3.58 NA   
-      2 s(hp)       1.03   6.49  5.02      8.43      3.60 NA   
-      3 s(drat)     1.67   6.69  5.37      8.81      3.21 NA   
-      4 s(wt)       1.00   8.14  5.53      8.80      4.14 NA   
-      5 s(qsec)     4.27   6.70  6.76      8.54      1.83 NA   
+      # A tibble: 5 x 6
+        term    conf.low median  mean conf.high std.error
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+      1 s(disp)     1.21   6.58  5.72      8.97      3.58
+      2 s(hp)       1.03   6.49  5.02      8.43      3.60
+      3 s(drat)     1.67   6.69  5.37      8.81      3.21
+      4 s(wt)       1.00   8.14  5.53      8.80      4.14
+      5 s(qsec)     4.27   6.70  6.76      8.54      1.83
       
       $ale
       $ale$single
@@ -1070,7 +1061,7 @@
       $params$n_rows
       [1] 64
       
-      $params$calculate_performance
+      $params$calc_boot_valid
       [1] TRUE
       
       $params$y_type
@@ -1189,9 +1180,6 @@
       mb
     Output
       $model_stats
-      NULL
-      
-      $boot_valid
       NULL
       
       $model_coefs
@@ -1654,7 +1642,7 @@
       $params$n_rows
       [1] 64
       
-      $params$calculate_performance
+      $params$calc_boot_valid
       [1] TRUE
       
       $params$y_type
@@ -1776,31 +1764,25 @@
       mb
     Output
       $model_stats
-      # A tibble: 6 x 6
-        name          conf.low median  mean conf.high    sd
-        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
-      1 df                33.1   34.0  34.2      35.0 0.837
-      2 df.residual       29.0   30.0  29.8      30.9 0.837
-      3 nobs              64     64    64        64   0    
-      4 adj.r.squared      1      1     1         1   0    
-      5 npar              83.1   84    84.2      85   0.837
-      6 auc                1      1     1         1   0    
-      
-      $boot_valid
-      $boot_valid$vs
-      auc 
-        1 
-      
+      # A tibble: 6 x 7
+        name          boot_valid conf.low median  mean conf.high    sd
+        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df                    NA     33.1   34.0  34.2      35.0 0.837
+      2 df.residual           NA     29.0   30.0  29.8      30.9 0.837
+      3 nobs                  NA     64     64    64        64   0    
+      4 adj.r.squared         NA      1      1     1         1   0    
+      5 npar                  NA     83.1   84    84.2      85   0.837
+      6 auc                    1      1     NA    NA         1   0    
       
       $model_coefs
-      # A tibble: 5 x 7
-        term    conf.low median  mean conf.high std.error sig  
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl> <lgl>
-      1 s(disp)     1.00   1.00  1.00      1.00  1.43e-13 NA   
-      2 s(hp)       1.00   1.00  1.00      1.00  9.56e-14 NA   
-      3 s(drat)     1.00   1.00  1.00      1.00  6.57e-14 NA   
-      4 s(wt)       1.00   1.00  1.00      1.00  1.96e-13 NA   
-      5 s(qsec)     1.00   1.00  1.00      1.00  1.44e-13 NA   
+      # A tibble: 5 x 6
+        term    conf.low median  mean conf.high std.error
+        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+      1 s(disp)     1.00   1.00  1.00      1.00  1.43e-13
+      2 s(hp)       1.00   1.00  1.00      1.00  9.56e-14
+      3 s(drat)     1.00   1.00  1.00      1.00  6.57e-14
+      4 s(wt)       1.00   1.00  1.00      1.00  1.96e-13
+      5 s(qsec)     1.00   1.00  1.00      1.00  1.44e-13
       
       $ale
       $ale$single
@@ -2267,7 +2249,7 @@
       $params$n_rows
       [1] 64
       
-      $params$calculate_performance
+      $params$calc_boot_valid
       [1] TRUE
       
       $params$y_type
@@ -2386,40 +2368,29 @@
       mb
     Output
       $model_stats
-      # A tibble: 2 x 6
-        name  conf.low median  mean conf.high    sd
-        <chr>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
-      1 edf         10     10    10        10     0
-      2 nobs       150    150   150       150     0
-      
-      $boot_valid
-      $boot_valid$setosa
-      auc 
-        1 
-      
-      $boot_valid$versicolor
-            auc 
-      0.9984646 
-      
-      $boot_valid$virginica
-            auc 
-      0.9988459 
-      
+      # A tibble: 5 x 7
+        name             boot_valid conf.low median  mean conf.high      sd
+        <chr>                 <dbl>    <dbl>  <dbl> <dbl>     <dbl>   <dbl>
+      1 edf                  NA       10         10    10        10 0      
+      2 nobs                 NA      150        150   150       150 0      
+      3 auc (setosa)          1        1         NA    NA         1 0      
+      4 auc (versicolor)      0.998    0.995     NA    NA         1 0.00250
+      5 auc (virginica)       0.999    0.997     NA    NA         1 0.00139
       
       $model_coefs
-      # A tibble: 10 x 8
-         y.level    term         conf.low median   mean conf.high std.error sig  
-         <chr>      <chr>           <dbl>  <dbl>  <dbl>     <dbl>     <dbl> <lgl>
-       1 versicolor (Intercept)     14.8   18.0   37.3      82.3      31.3  TRUE 
-       2 versicolor Sepal.Length   -26.0   -8.48 -13.2      -5.87      8.96 TRUE 
-       3 versicolor Sepal.Width    -52.5   -7.22 -16.1      -4.12     23.2  TRUE 
-       4 versicolor Petal.Length    12.9   16.5   26.9      57.3      20.0  TRUE 
-       5 versicolor Petal.Width    -24.7   -1.10  -1.33     22.5      18.5  FALSE
-       6 virginica  (Intercept)   -132.   -28.0  -55.4     -17.7      51.8  TRUE 
-       7 virginica  Sepal.Length   -50.9  -11.0  -19.6      -7.35     20.0  TRUE 
-       8 virginica  Sepal.Width    -84.6   -9.78 -29.9      -9.16     35.1  TRUE 
-       9 virginica  Petal.Length    20.8   25.7   49.5     127.       49.5  TRUE 
-      10 virginica  Petal.Width      8.57  14.6   34.6      90.7      37.3  TRUE 
+      # A tibble: 10 x 7
+         y.level    term         conf.low median   mean conf.high std.error
+         <chr>      <chr>           <dbl>  <dbl>  <dbl>     <dbl>     <dbl>
+       1 versicolor (Intercept)     14.8   18.0   37.3      82.3      31.3 
+       2 versicolor Sepal.Length   -26.0   -8.48 -13.2      -5.87      8.96
+       3 versicolor Sepal.Width    -52.5   -7.22 -16.1      -4.12     23.2 
+       4 versicolor Petal.Length    12.9   16.5   26.9      57.3      20.0 
+       5 versicolor Petal.Width    -24.7   -1.10  -1.33     22.5      18.5 
+       6 virginica  (Intercept)   -132.   -28.0  -55.4     -17.7      51.8 
+       7 virginica  Sepal.Length   -50.9  -11.0  -19.6      -7.35     20.0 
+       8 virginica  Sepal.Width    -84.6   -9.78 -29.9      -9.16     35.1 
+       9 virginica  Petal.Length    20.8   25.7   49.5     127.       49.5 
+      10 virginica  Petal.Width      8.57  14.6   34.6      90.7      37.3 
       
       $ale
       $ale$single
@@ -3571,7 +3542,7 @@
       $params$n_rows
       [1] 150
       
-      $params$calculate_performance
+      $params$calc_boot_valid
       [1] TRUE
       
       $params$y_type
