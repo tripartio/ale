@@ -105,15 +105,7 @@
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel non-negative integer length 1. Number of parallel threads
 #' (workers or tasks) for parallel execution of the function. See details.
-#' @param model_packages character. Character vector of names of
-#' packages that `model` depends on that might not be obvious.
-#' The `{ale}` package should be able to automatically recognize and load most
-#' packages that are needed, but with parallel processing enabled (which is the
-#' default), some packages might not be properly loaded. If you get a strange error
-#' message that mentions something somewhere about 'future', try adding the
-#' package for your model to this vector, especially if you see such errors after
-#' the progress bars begin displaying (assuming you did not disable progress bars
-#' with `silent = TRUE`).
+#' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 #' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
 #' Vector of types of results to return.
 #' 'plots' will return an ALE plot; 'data' will return the source ALE data;
