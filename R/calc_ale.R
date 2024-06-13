@@ -2,47 +2,40 @@
 #
 
 
-#  Calculate ALE data
-#
-#  This function is not exported. It is uses tidyverse principles to rewrite
-#  [ALEPlot::ALEPlot()].
-#  This function is not usually called directly by the user. For details about
-#  arguments not documented here, see [ale()].
-#
-#  @references Apley, Daniel W., and Jingyu Zhu.
-#  "Visualizing the effects of predictor variables in black box supervised learning models."
-#  Journal of the Royal Statistical Society Series B: Statistical Methodology
-#  82.4 (2020): 1059-1086.
-#  @references Okoli, Chitu. 2023.
-#  “Statistical Inference Using Machine Learning and Classical Techniques Based
-#  on Accumulated Local Effects (ALE).”
-#  arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
-#
-#  @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
-#  column is absent.
-#  @param model See documentation for [ale()]
-#  @param x_col character length 1. Name of single column in X for which ALE data is to
-#  be calculated.
-#  @param y_cats character. The categories of y. For most cases with non-categorical y, y_cats == y_col.
-#  @param pred_fun See documentation for [ale()]
-#  @param pred_type See documentation for [ale()]
-#  @param max_x_int See documentation for [ale()]
-#  @param boot_it See documentation for [ale()]
-#  @param seed See documentation for [ale()]
-#  @param boot_alpha See documentation for [ale()]
-#  @param boot_centre See documentation for [ale()]
-#  @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values.
-#  If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
-#  @param ale_x numeric or ordinal vector. Normally generated automatically (if
-#  NULL), but if provided, the provided value will be used instead.
-#  @param ale_n integer vector. See `ale_x`
-#  @param ale_y_norm_funs list of functions. Custom functions for normalizing ale_y for
-#  statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all
-#  all variables throughout one call to [ale()]. For now, used as a flag to
-#  determine whether statistics will be calculated or not; if NULL, statistics
-#  will not be calculated.
-#  @param p_dist See documentation for `p_values` in [ale()]
-#
+#' Calculate ALE data
+#'
+#' This function is not exported. It is uses tidyverse principles to rewrite
+#' [ALEPlot::ALEPlot()].
+#' This function is not usually called directly by the user. For details about
+#' arguments not documented here, see [ale()].
+#'
+#' @references Apley, Daniel W., and Jingyu Zhu.
+#' "Visualizing the effects of predictor variables in black box supervised learning models."
+#' Journal of the Royal Statistical Society Series B: Statistical Methodology
+#' 82.4 (2020): 1059-1086.
+#' @references Okoli, Chitu. 2023.
+#' “Statistical Inference Using Machine Learning and Classical Techniques Based
+#' on Accumulated Local Effects (ALE).”
+#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#'
+#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
+#' column is absent.
+#' @param model See documentation for [ale()]
+#' @param x_col character length 1. Name of single column in X for which ALE data is to
+#' be calculated.
+#' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
+#' @param pred_fun See documentation for [ale()]
+#' @param pred_type See documentation for [ale()]
+#' @param max_x_int See documentation for [ale()]
+#' @param boot_it See documentation for [ale()]
+#' @param seed See documentation for [ale()]
+#' @param boot_alpha See documentation for [ale()]
+#' @param boot_centre See documentation for [ale()]
+#' @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values. If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
+#' @param ale_x,ale_n numeric or ordinal vector,integer vector. Normally generated automatically (if `ale_x == NULL`), but if provided, the provided values will be used instead.
+#' @param ale_y_norm_funs list of functions. Custom functions for normalizing ale_y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ale()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
+#' @param p_dist See documentation for `p_values` in [ale()]
+#'
 calc_ale <- function(
     X, model, x_col, y_cats,
     pred_fun, pred_type,
@@ -58,22 +51,15 @@ calc_ale <- function(
   n_row <- nrow(X)
   n_col <- ncol(X)
 
-  # # shorten name internally
-  # xint <- max_x_int
-  # rm(max_x_int)
-
   # Create bootstrap tbl
   original_seed <- .Random.seed
   on.exit(set.seed(original_seed))
   set.seed(seed)
 
   boot_ale <- tibble(
-    # it: bootstrap iteration number.
-    # Row 0 is the full dataset without bootstrapping
+    # it: bootstrap iteration number. Row 0 is the full dataset without bootstrapping
     it = 0:boot_it,
-    # row_idxs: row indices of each bootstrap sample.
-    # Store just the indices rather than duplicating the entire dataset
-    #   multiple times.
+    # row_idxs: row indices of each bootstrap sample. Store just the indices rather than duplicating the entire dataset multiple times.
     row_idxs = map(0:boot_it, \(.it) {
       if (.it == 0) {  # row 0 is the full dataset without bootstrapping
         1:n_row
@@ -85,10 +71,7 @@ calc_ale <- function(
   )
 
 
-  # Determine the datatype of x from ale_x unless ale_x is null;
-  # in that case, take it from x_col.
-  # It should be taken from ale_x because intermediary bootstrap runs might
-  # change the x_col values such that their datatype is ambiguous.
+  # Determine the datatype of x from ale_x unless ale_x is null; in that case, take it from x_col. It should be taken from ale_x because intermediary bootstrap runs might change the x_col values such that their datatype is ambiguous.
   x_type <- var_type(
     if (!is.null(ale_x)) {
       ale_x
@@ -113,13 +96,14 @@ calc_ale <- function(
       ) |>
         unique()  # one interval per value regardless of duplicates
 
-      # ale_n: ale_n[i] is the count of elements in X[[x_col]] whose values
-      # are between ale_x[i-1] (exclusive) and ale_x[i] (inclusive)
+      # ale_n: ale_n[i] is the count of elements in X[[x_col]] whose values are between ale_x[i-1] (exclusive) and ale_x[i] (inclusive)
       ale_n <-
         # assign each X[[x_col]] value to its interval in ale_x
-        findInterval(X[[x_col]], ale_x,
-                     # interval i includes i and all values > i-1
-                     left.open = TRUE) |>
+        findInterval(
+          X[[x_col]], ale_x,
+          # interval i includes i and all values > i-1
+          left.open = TRUE
+        ) |>
         table() |>  # count number of x in each ale_x interval
         as.integer()
 
@@ -151,9 +135,8 @@ calc_ale <- function(
       })
 
     # Bootstrap the predictions
-    #
-    # Calculate the ALE Y values for each bootstrap sample.
-    # Row 0 is the ALE Y for the full dataset.
+
+    # Calculate the ALE Y values for each bootstrap sample. Row 0 is the ALE Y for the full dataset.
     boot_ale$ale_y <-
       map(boot_ale$row_idxs, \(.idxs) {
 
@@ -173,8 +156,7 @@ calc_ale <- function(
         # Difference between low and high boundary predictions
         delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
 
-        # With categorical y, delta_pred will be a matrix.
-        # For consistency, convert all other y types (which are usually vectors) into a matrix.
+        # With categorical y, delta_pred will be a matrix. For consistency, convert all other y types (which are usually vectors) into a matrix.
         if (!is.matrix(delta_pred)) {
           delta_pred <- matrix(delta_pred, ncol = 1)
         }
@@ -190,9 +172,7 @@ calc_ale <- function(
               cumsum()
           })
 
-        # The ale_y just created might have gaps if this data does not have
-        # all the ale_x intervals. This might be the case for small bootstrapped
-        # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+        # The ale_y just created might have gaps if this data does not have all the ale_x intervals. This might be the case for small bootstrapped datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
 
         # Get the numbered indices that are actually used
         cum_pred_idx_names <- rownames(cum_pred)
@@ -211,33 +191,6 @@ calc_ale <- function(
               c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
               unname()
           })
-
-        # # Generate the cumulative ale_y predictions
-        # cum_pred <-
-        #   delta_pred |>
-        #   # list where each element is vector of x_col values in that x_int interval
-        #   split(boot_ale_x_int) |>
-        #   map_dbl(mean) |>
-        #   cumsum()
-        #
-        # # The ale_y just created might have gaps if this data does not have
-        # # all the ale_x intervals. This might be the case for small bootstrapped
-        # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-        #
-        # # Get the numbered indices that are actually used
-        # cum_pred_idx_names <- names(cum_pred)
-        #
-        # # Extend the ale_y to set missing ale_x intervals as NA
-        # 1:(length_ale_x - 1) |>
-        #   map_dbl(\(.i) {
-        #     if (.i %in% cum_pred_idx_names) {
-        #       cum_pred[[as.character(.i)]]
-        #     } else {
-        #       NA
-        #     }
-        #   }) |>
-        #   c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-        #   unname()
 
     })
 
@@ -258,20 +211,11 @@ calc_ale <- function(
           (`/`)(sum(n_x_int, na.rm = TRUE))
       })
 
-    # ale_y_shift <-
-    #   # midpoint ale_y value between each x_int interval
-    #   data.frame(ale_y_full[-1], ale_y_full[-length_ale_x]) |>
-    #   rowMeans(na.rm = TRUE) |>
-    #   (`*`)(n_x_int) |>
-    #   sum(na.rm = TRUE) |>
-    #   (`/`)(sum(n_x_int, na.rm = TRUE))
-
   }
 
   else if (x_type %in% c('binary', 'ordinal', 'categorical')) {
 
-    # If x_col is a factor (ordinal or categorical),
-    # reset xint to the number of levels of X[[x_col]]
+    # If x_col is a factor (ordinal or categorical), reset xint to the number of levels of X[[x_col]]
     if ('factor' %in% class(X[[x_col]])) {
       if (is.null(ale_x)) {
         # first drop any unused levels
@@ -386,8 +330,6 @@ calc_ale <- function(
         pull(.data$Freq)
       names(ale_n) <- levels(ale_x)
 
-
-
     } # if (is.null(ale_x))
 
     else {  # reuse values based on ale_x passed as argument
@@ -419,23 +361,18 @@ calc_ale <- function(
           # Initialize hi and lo X matrices with this particular bootstrap sample
           X_boot <- X[.idxs, ]
 
-          # X_boot_x_col_unique_idxs: unique factor indices present in current
-          # bootstrap sample. This is necessary because for a full model outer
-          # bootstrap, a random bootstrap sample might not have all the levels
-          # in the full dataset.
+          # X_boot_x_col_unique_idxs: unique factor indices present in current bootstrap sample. This is necessary because for a full model outer bootstrap, a random bootstrap sample might not have all the levels in the full dataset.
           X_boot_x_col_unique_idxs <-
             X_boot[[x_col]] |>
             ordered(levels = int_ale_order) |>
             as.integer() |>
             unique()
 
-          # X_hi: X_boot with x_col values all set at the next x_col level.
-          # Only change rows where row_idx_not_hi, since the highest level cannot go higher.
+          # X_hi: X_boot with x_col values all set at the next x_col level. Only change rows where row_idx_not_hi, since the highest level cannot go higher.
           X_hi <- X_boot
           hi_idxs <- x_ordered_idx[row_idx_not_hi] + 1
 
-          # If any hi_idxs are not within the set of values in the current bootstrap
-          # sample, adjust them to be the closest valid value
+          # If any hi_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
           invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
           for (i in invalid_hi_idxs) {
 
@@ -455,13 +392,11 @@ calc_ale <- function(
               int_ale_order[hi_idxs]
             }
 
-          # X_lo: X_boot with x_col values all set at the previous x_col level.
-          # Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
+          # X_lo: X_boot with x_col values all set at the previous x_col level. Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
           X_lo <- X_boot
           lo_idxs <- x_ordered_idx[row_idx_not_lo] - 1
 
-          # If any lo_idxs are not within the set of values in the current bootstrap
-          # sample, adjust them to be the closest valid value
+          # If any lo_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
           invalid_lo_idxs <- which(!(lo_idxs %in% X_boot_x_col_unique_idxs))
           for (i in invalid_lo_idxs) {
             lo_idxs[i] <-
@@ -495,8 +430,7 @@ calc_ale <- function(
           #Take the appropriate differencing and averaging for the ALE plot
 
           ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
-          # individual local effects: differences between predictions with the level of
-          # X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
+          # individual local effects: differences between predictions with the level of X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
           delta_hi <- pred_hi - pred_y[row_idx_not_hi, , drop = FALSE]
 
           ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
@@ -538,35 +472,6 @@ calc_ale <- function(
               ncol = length(y_cats),
               dimnames = list(NULL, y_cats)
             )
-
-
-          # # Generate the cumulative ale_y predictions
-          # cum_pred <-
-          #   c(delta_hi, delta_lo) |>
-          #   # list where each element is vector of x_col values in that x_int interval
-          #   split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
-          #   map_dbl(mean) |>
-          #   cumsum()
-          #
-          # #  The ale_y just created might have gaps if this data does not have
-          # # all the ale_x intervals. This might be the case for small bootstrapped
-          # # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-          #
-          # # Get the numbered indices that are actually used
-          # cum_pred_idx_names <- names(cum_pred)
-          #
-          # # Extend the ale_y to set missing ale_x intervals as NA
-          # 1:(length_ale_x - 1) |>
-          #   map_dbl(\(.i) {
-          #     if (.i %in% cum_pred_idx_names) {
-          #       cum_pred[[as.character(.i)]]
-          #     } else {
-          #       NA
-          #     }
-          #   }) |>
-          #   c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-          #   unname()
-
         }
       )
 
@@ -596,13 +501,6 @@ calc_ale <- function(
         t()
     })
 
-  # # Center all the ale_y values
-  # boot_ale$ale_y <-
-  #   map(
-  #     boot_ale$ale_y,
-  #     \(.y) .y - ale_y_shift
-  #   )
-
   # Create matrix of bootstrapped ale_y values
   boot_vals <- unlist(boot_ale$ale_y)
 
@@ -622,21 +520,11 @@ calc_ale <- function(
     )
   )
 
-  # boot_mx <- matrix(
-  #   boot_vals,
-  #   nrow = length_ale_x,  # length of any ale_y vector
-  #   ncol = boot_it + 1  # one column for each boot_it + full dataset
-  # )
-
   # When bootstrapping, remove first iteration: ALE on full dataset
   if (boot_it > 0) {
     # drop = FALSE is necessary to maintain array structure even if one of the dimensions is 1
     boot_mx <- boot_mx[, , -1, drop = FALSE]
-    # # drop = FALSE is necessary to maintain matrix structure even if boot_it = 1
-    # boot_mx <- boot_mx[, -1, drop = FALSE]
   }
-
-  # browser()
 
   rownames(boot_mx) <- levels(ale_x)
 
@@ -646,7 +534,7 @@ calc_ale <- function(
   # Current version silently ignores them with na.rm = TRUE
 
   # Create summary statistics of bootstrap results.
-  # When boot_it = 0, all values are the same
+  # When boot_it == 0, all values are the same
 
   boot_summary <- if (boot_it == 0) {
     boot_mx[, , 1, drop = FALSE] |>
@@ -659,13 +547,8 @@ calc_ale <- function(
           ale_y_hi = .col,
         )
       })
-    # tibble(
-    #   ale_y_lo = boot_vals,
-    #   ale_y_mean = boot_vals,
-    #   ale_y_median = boot_vals,
-    #   ale_y_hi = boot_vals,
-    # )
-  } else {
+  }
+  else {  # boot_it > 0
     # aggregate bootstrap results
     boot_mx |>
       apply(2, \(.col) {
@@ -680,18 +563,7 @@ calc_ale <- function(
           ),
         )
       })
-
-    # tibble(
-    #   ale_y_lo = apply(
-    #     boot_mx, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-    #   ),
-    #   ale_y_mean = apply(boot_mx, 1, mean, na.rm = TRUE),
-    #   ale_y_median = apply(boot_mx, 1, stats::median, na.rm = TRUE),
-    #   ale_y_hi = apply(
-    #     boot_mx, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-    #   ),
-    # )
-  }
+  }  # boot_summary <- if (boot_it == 0)
 
   boot_summary <- boot_summary |>
     map(\(.cat) {
@@ -764,42 +636,7 @@ calc_ale <- function(
         })
     }
 
-    # boot_stats <- apply(
-    #   boot_mx, 2,
-    #   \(.it) ale_stats(.it, ale_n, ale_y_norm_funs = ale_y_norm_funs, zeroed_ale = TRUE)
-    # )
-    #
-    # boot_stats <- tibble(
-    #   statistic = rownames(boot_stats),
-    #   conf.low = apply(
-    #     boot_stats, 1, stats::quantile, probs = boot_alpha / 2, na.rm = TRUE
-    #   ),
-    #   mean = apply(boot_stats, 1, mean, na.rm = TRUE),
-    #   median = apply(boot_stats, 1, stats::median, na.rm = TRUE),
-    #   conf.high = apply(
-    #     boot_stats, 1, stats::quantile, probs = 1 - boot_alpha / 2, na.rm = TRUE
-    #   ),
-    #   estimate = case_when(
-    #     boot_centre == 'mean' ~ mean,
-    #     boot_centre == 'median' ~ median,
-    #   ),
-    # ) |>
-    #   select('statistic', 'estimate', everything())
-    #
-    # # If p_funs are provided, calculate p-values
-    # if (!is.null(p_funs)) {
-    #   boot_stats <- boot_stats |>
-    #     mutate(
-    #       p.value = map2_dbl(
-    #         .data$estimate, .data$statistic,
-    #         \(.stat, .stat_name) {
-    #           # Call the p-value function corresponding to the named statistic
-    #           p_funs$value_to_p[[.stat_name]](.stat)
-    #         })
-    #     ) |>
-    #     select('statistic', 'estimate', 'p.value', everything())
-    # }
-  }
+  }  # if (!is.null(ale_y_norm_funs))
 
   if (boot_ale_y) {
     # Transform boot_mx from an array into a list of categories where each element is the bootstrapped ALE for each x interval.
@@ -822,8 +659,6 @@ calc_ale <- function(
       set_names(y_cats)
   }
 
-  # browser()
-
   return(list(
     summary = boot_summary,
     stats = boot_stats,
@@ -834,11 +669,10 @@ calc_ale <- function(
     }
   ))
 
-}
+}  # calc_ale()
 
 
-# Sorted categorical indices based on Kolmogorov-Smirnov distances
-# for empirically ordering categorical categories.
+#' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,
@@ -853,21 +687,6 @@ idxs_kolmogorov_smirnov <- function(
   # Calculate distance matrix for each of the other X columns
   for (j_col in setdiff(names(X), x_col)) {
     if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
-
-      # # list of ecdf's for X[[j_col]] by intervals of X[[x_col]]
-      # j_by_x_groups <- split(X[[j_col]], X[[x_col]])
-      #
-      # # Create ecdf's, but return NA for any group that is only NA or else the code will crash
-      # x_by_j_ecdf <-
-      #   j_by_x_groups |>
-      #   map(\(.group) {
-      #
-      #     if (all(is.na(.group))) {
-      #     function(x) NA
-      #     } else {
-      #       stats::ecdf(.group)
-      #     }
-      #   })
 
       # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
       x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)

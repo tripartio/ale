@@ -479,18 +479,15 @@ create_p_dist <- function(
           }
 
 
-          # Calculate ale of random variable on the test set.
-          # If calculated on the training set, p-values will be too liberal.
+          # Calculate ale of random variable on the test set. If calculated on the training set, p-values will be too liberal.
           rand_ale <- ale(
             package_scope$rand_data,
             package_scope$rand_model,
             'random_variable',
             parallel = 0,  # avoid recursive parallelization
-            # The approximate version can use fewer ALE x intervals for faster execution.
-            # The precise version uses the default 100 intervals.
+            # The approximate version can use fewer ALE x intervals for faster execution. The precise version uses the default 100 intervals.
             max_x_int = if (p_val_type == 'approx fast') 10 else 100,
-            # Don't bootstrap even the approximate version--random variables have
-            # virtually no variation
+            # Don't bootstrap even the approximate version--random variables have virtually no variation
             # boot_it = if (p_val_type == 'approx fast') 100 else 0,
             output = 'data',
             y_col = y_col,
@@ -507,13 +504,6 @@ create_p_dist <- function(
           ))
 
           return(NULL)
-          # cli_abort(
-          #   'Could not automatically detect the model call.
-          #   You must specify the {.arg random_model_call_string} argument.
-          #   Here is the full error message:
-          #
-          #   {e}'
-          # )
         }
       )
 
@@ -531,11 +521,6 @@ create_p_dist <- function(
   rand_ales <- compact(rand_ales)
   # Store the number of valid iterations
   rand_it_ok <- length(rand_ales)
-
-  # # Disable parallel processing if it had been enabled
-  # if (parallel > 0) {
-  #   future::plan(future::sequential)
-  # }
 
   # Normalization is based on y_preds rather than y_col:
   # * takes care of classification, survival, or other [0, 1] prediction values
@@ -724,52 +709,42 @@ p_to_random_value <- function(
 
 
 
-# Calculate statistics from ALE y values.
-#
-# Not exported. The following statistics are calculated based on a vector of ALE y values:
-#
-# * ALE deviation (ALED)
-# * Normalized ALE deviation (NALED)
-# * ALE range (ALER): range from minimum value of any `ale_y` to the
-# maximum value of any `ale_y`. This is a very simple indication of the dispersion
-# in `ale_y` values.
-# * Normalized ALE range (NALER)
-#
-# Note that if any ale_y values are missing, they will be deleted from the calculation
-# (with their corresponding ale_n).
-#
-#
-# @param ale_y numeric. Vector of ALE y values.
-# @param ale_n numeric. Vector of counts of rows in each ALE interval. Must be
-# the same length as `ale_y`.
-# @param y_vals numeric. Entire vector of y values. Needed for normalization. If
-# not provided, ale_y_norm_fun must be provided.
-# @param ale_y_norm_fun function. Result of create_ale_y_norm_function. If not
-# provided, y_vals must be provided. ale_stats could be faster if ale_y_norm_fun
-# is provided, especially in bootstrap workflows that call the same function
-# many, many times.
-# @param zeroed_ale logical. TRUE if the ale_y values are zero-based.
-# If FALSE (default), `ale_stats` will convert `ale_y` to their zeroed values,
-# but the function will run slightly slower because of this extra calculation.
-# In the current version, `ale_y` must be zeroed or else this function will fail.
-# So, zeroed_ale must always be explicitly set to `TRUE`.
-#
-# @returns Named numeric vector:
-#
-# * aled: ALE deviation (ALED)
-# * aler_min: Minimum (lower value) of the ALE range (ALER)
-# * aler_max: Maximum (upper value) of the ALE range (ALER)
-# * naled: Normalized ALE deviation (ALED)
-# * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
-# * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
-#
+#' Calculate statistics from ALE y values.
+#'
+#' Not exported. The following statistics are calculated based on a vector of ALE y values:
+#'
+#' * ALE deviation (ALED)
+#' * ALE range (ALER): range from minimum value of any ALE `y` to the maximum value of any `y`. This is a very simple indication of the dispersion in ALE `y` values.
+#' * Normalized ALE deviation (NALED)
+#' * Normalized ALE range (NALER)
+#'
+#' Note that if any ALE `y` values are missing, they will be deleted from the calculation (with their corresponding bin_n).
+#'
+#' @param y numeric. Vector of ALE y values.
+#' @param bin_n numeric. Vector of counts of rows in each ALE bin. Must be the same length as `y`.
+#' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
+#' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `ale_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
+#' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
+#' @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
+#'
+#' @returns description Named numeric vector:
+#' * aled: ALE deviation (ALED)
+#' * aler_min: Minimum (lower value) of the ALE range (ALER)
+#' * aler_max: Maximum (upper value) of the ALE range (ALER)
+#' * naled: Normalized ALE deviation (ALED)
+#' * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
+#' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
+#'
 ale_stats <- function(
-    ale_y,
-    ale_n,
+    y,  # formerly called ale_y
+    bin_n,  # formerly called ale_n
     y_vals = NULL,
     ale_y_norm_fun = NULL,
+    x_type = 'numeric',
     zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
+
+  ## Validate data -------------
 
   validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
@@ -780,10 +755,15 @@ ale_stats <- function(
     cli_abort('Zeroed ALE required for now.')
   }
 
-  # Remove any NA ale_y values (perhaps from bootstrapping) and corresponding ale_n
-  na_ale_y <- is.na(ale_y)
-  ale_y <- ale_y[!na_ale_y]
-  ale_n <- ale_n[!na_ale_y]
+  y <- as.vector(y)  # flatten from 1D matrix inputs to vector
+
+  # Remove any NA y values (perhaps from bootstrapping) and corresponding bin_n
+  na_y <- is.na(y)
+  y <- y[!na_y]
+  bin_n <- bin_n[!na_y]
+
+
+  ## Prepare internally used functions and data ---------
 
   # ALED formula.
   # Internal function because it will be reused for both ALED and NALED.
@@ -794,31 +774,53 @@ ale_stats <- function(
       (`/`)(sum(n))
   }
 
-  # Average effect in units of y
-  aled <- aled_score(ale_y, ale_n)
-
-  # Minimum negative and positive effects in units of y
-  aler <- c(min(ale_y), max(ale_y))
-
   # Normalized scores
   if (is.null(ale_y_norm_fun)) {
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
-  norm_ale_y <- ale_y_norm_fun(ale_y)
+
+
+  ## Calculate the statistics ------------
+
+  # ALER and NALER: minimum negative and positive effects in units of y
+  aler <- c(min(y), max(y))
+
+  # Normalized y for NALER
+  norm_y <- ale_y_norm_fun(y)
+
+  # Scale of NALER is -50 to +50, representing lowest and highest percentile deviations from the median
+  naler <- c(
+    min(norm_y),
+    max(norm_y)
+  )
+
+
+  # ALED and NALED: Average effect in units of y
+
+  # Create versions of y and bin_n for ALED because the originals might be changed for numeric x.
+  aled_y <- y
+  aled_bin_n <- bin_n
+
+  # For numeric x, transform the ALE x bin borders to actual bins
+  if (x_type == 'numeric') {
+    # Set the bin ALE y to the midpoint of the interval borders
+    aled_y <- (aled_y[-length(aled_y)] + aled_y[-1]) / 2
+
+    # Add the minimum points (aled_bin_n[1]) to the second bin and then delete the first bin
+    aled_bin_n[2] <- aled_bin_n[2] + aled_bin_n[1]
+    aled_bin_n <- aled_bin_n[-1]
+  }
+
+  aled <- aled_score(aled_y, aled_bin_n)
 
   # NALED scale is 0 to 100, representing equivalent average percentile effect
-  naled <- aled_score(norm_ale_y, ale_n)
-
-  # Scale is -50 to +50, representing lowest and highest percentile deviations
-  # from the median
-  # # Scale is 0 to 100, representing lowest and highest percentile effects
-  naler <- c(
-    min(norm_ale_y),
-    max(norm_ale_y)
+  naled <- aled_score(
+    ale_y_norm_fun(aled_y),
+    aled_bin_n
   )
-  # ) |>
-  #   (`+`)(50)
 
+
+  ## Return ----------
 
   return(c(
     aled = aled,
