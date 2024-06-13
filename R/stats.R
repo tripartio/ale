@@ -534,105 +534,18 @@ create_p_dist <- function(
       .rand_it$data |>
         map(\(.cat) {  # iterate by categorical class or just by the single y_col
           ale_stats(
-            ale_y = .cat$random_variable$ale_y,
-            ale_n = .cat$random_variable$ale_n,
+            y = .cat$random_variable$ale_y,
+            bin_n = .cat$random_variable$ale_n,
             ale_y_norm_fun = ale_y_norm_fun,
+            x_type = 'numeric',  # the random variables are always numeric
             zeroed_ale = TRUE
           )
         })
-
-      # ale_stats(
-      #   ale_y = .rand$data$random_variable$ale_y,
-      #   ale_n = .rand$data$random_variable$ale_n,
-      #   ale_y_norm_fun = ale_y_norm_fun,
-      #   zeroed_ale = TRUE
-      # )
     }) |>
     # bind_rows()
     # rearrange the list to group by categorical class or just by the single y_col
     list_transpose() |>
     map(bind_rows)  # combine statistics in each group into a tibble
-
-
-  # # Create functions that return p-values given a statistic value
-  # value_to_p <-
-  #   rand_stats |>
-  #   map(\(.cat) {  # iterate by categorical class or just by the single y_col
-  #     .cat |>
-  #       imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
-  #         function(x) {
-  #           validate(is.numeric(x))
-  #
-  #           # For aler_min and naler_min, the p-value is the simple ECDF
-  #           if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
-  #             stats::ecdf(.stat_vals)(x)
-  #           }
-  #           # For other statistics, the p-value is 1 - ECDF.
-  #           else {
-  #             1 - stats::ecdf(.stat_vals)(x)
-  #           }
-  #         }
-  #       })
-  #   })
-  #
-  # # Create functions that return the random statistic value given a p-value
-  # p_to_random_value <-
-  #   rand_stats |>
-  #   map(\(.cat) {  # iterate by categorical class or just by the single y_col
-  #     .cat |>
-  #       imap(\(.stat_vals, .name_stat) {  # iterate by ALE statistic
-  #         function(p) {
-  #           validate(is.numeric(p))
-  #           validate(all(p >= 0 & p <= 1))
-  #
-  #           # Interpretation of p-value: percentage of values >= or greater than the statistic.
-  #           # This code returns the statistic that yields the given p for this data.
-  #
-  #           # For aler_min and naler_min, the value is the simple quantile
-  #           if (stringr::str_sub(.name_stat, -4, -1) == '_min') {
-  #             .stat_vals |>
-  #               quantile(probs = p) |>
-  #               stats::setNames(p)
-  #           }
-  #           # For other statistics, the value is the quantile of 1 - p
-  #           else {
-  #             .stat_vals |>
-  #               quantile(probs = 1 - p) |>
-  #               stats::setNames(p)
-  #           }
-  #         }
-  #       })
-  #   })
-
-
-  # p_funs <- list(
-  #   value_to_p = value_to_p,
-  #   p_to_random_value = p_to_random_value,
-  #   residual_distribution = residual_distribution
-  # )
-  #
-  # if (!is.null(output) && output == 'rand_stats') {
-  #   p_funs$rand_stats <- rand_stats
-  #   p_funs$residuals <- residuals
-  # }
-  #
-  # # Replace p_funs function environments with sparse environments that flush out anything not strictly necessary.
-  # p_funs$value_to_p <- p_funs$value_to_p |>
-  #   map(set_p_fun_env) |>
-  #   set_names(names(p_funs$value_to_p))
-  # p_funs$p_to_random_value <- p_funs$p_to_random_value |>
-  #   map(set_p_fun_env) |>
-  #   set_names(names(p_funs$p_to_random_value))
-  #
-  # # Set S3 class information for the p_funs object
-  # class(p_funs) <- c('p_funs', 'ale')
-  # attr(p_funs, 'ale_version') <- utils::packageVersion('ale')
-  #
-  # return(p_funs)
-
-  # # Repeat all arguments, then set modified ones
-  # # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
-  # params <- c(as.list(environment()), list(...))
 
 
   p_dist <- list(

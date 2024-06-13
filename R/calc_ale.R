@@ -590,7 +590,14 @@ calc_ale <- function(
       map(\(.cat) {
         boot_mx[, .cat, , drop = FALSE] |>
           apply(3, \(.it) {
-            ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_funs[[.cat]], zeroed_ale = TRUE)
+            # ale_stats(.it, ale_n, ale_y_norm_fun = ale_y_norm_funs[[.cat]], zeroed_ale = TRUE)
+            ale_stats(
+              y = .it,
+              bin_n = ale_n,
+              ale_y_norm_fun = ale_y_norm_funs[[.cat]],
+              x_type = x_type,
+              zeroed_ale = TRUE
+            )
           })
       }) |>
       set_names(y_cats)
