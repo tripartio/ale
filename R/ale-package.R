@@ -17,7 +17,6 @@
 #' arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
 #' @author Chitu Okoli \email{Chitu.Okoli@skema.edu}
-#' @docType package
 #'
 #' @references Okoli, Chitu. 2023.
 #' “Statistical Inference Using Machine Learning and Classical Techniques Based
@@ -25,7 +24,6 @@
 #'
 #'
 #' @keywords internal
-#' @aliases ale-package NULL
 #'
 #'
 #' @import ggplot2
