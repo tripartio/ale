@@ -25,7 +25,7 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 ---
 
@@ -615,7 +615,7 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $params$p_alpha
       [1] 0.01 0.05
@@ -675,7 +675,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 ---
 
@@ -803,7 +803,7 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 ---
 
@@ -937,7 +937,7 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # create_p_dist works with binary outcome
 
@@ -966,7 +966,7 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # create_p_dist works with categorical outcome
 
@@ -1013,5 +1013,5 @@
       attr(,"class")
       [1] "ale_p"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 

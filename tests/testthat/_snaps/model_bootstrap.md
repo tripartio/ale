@@ -315,7 +315,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $ale$boot
       $ale$boot$data
@@ -590,7 +590,7 @@
       attr(,"class")
       [1] "ale_boot"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # mostly default (boot_it=3) snapshot works with multiple x datatypes
 
@@ -900,7 +900,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $ale$boot
       $ale$boot$data
@@ -1172,7 +1172,7 @@
       attr(,"class")
       [1] "ale_boot"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # ALE snapshot works with every parameter set to something, with multiple x datatypes
 
@@ -1468,7 +1468,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $ale$boot
       $ale$boot$data
@@ -1756,7 +1756,7 @@
       attr(,"class")
       [1] "ale_boot"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # binary outcome works with multiple x datatypes
 
@@ -2076,7 +2076,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $ale$boot
       $ale$boot$data
@@ -2360,7 +2360,7 @@
       attr(,"class")
       [1] "ale_boot"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # categorical outcome works on iris dataset
 
@@ -3041,7 +3041,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
       
       $ale$boot
       $ale$boot$data
@@ -3792,5 +3792,5 @@
       attr(,"class")
       [1] "ale_boot"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 

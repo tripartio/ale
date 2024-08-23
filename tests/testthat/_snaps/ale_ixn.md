@@ -968,7 +968,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # numeric outcome works with every parameter set to something, with multiple x datatypes
 
@@ -1218,7 +1218,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # binary outcome works with multiple x datatypes
 
@@ -2359,7 +2359,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # binary outcome works with every parameter set to something, with multiple x datatypes
 
@@ -2608,7 +2608,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # categorical outcome default works with multiple x datatypes
 
@@ -5338,7 +5338,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # categorical outcome with bootstrap works with multiple x datatypes
 
@@ -5862,7 +5862,7 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
 # categorical outcome works with every parameter set to something, with multiple x datatypes
 
@@ -6331,5 +6331,5 @@
       attr(,"class")
       [1] "ale"
       attr(,"ale_version")
-      [1] '0.3.0.20240602'
+      [1] '0.3.0.20240823'
 
