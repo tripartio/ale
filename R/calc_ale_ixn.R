@@ -1,30 +1,22 @@
 # calc_ale_ixn.R
 #
 
-# Calculate ALE interaction data
-#
-# This function is not exported. It is copy-pasted (with some variable name changes)
-# from [ALEPlot::ALEPlot()].
-# This function is not usually called directly by the user. For details about
-# arguments not documented here, see [ale()].
-#
-#  @author Dan Apley (source of original calculation of ALE in [ALEPlot::ALEPlot()])
-#  @references Apley, Daniel W., and Jingyu Zhu.
-#  "Visualizing the effects of predictor variables in black box supervised learning models."
-#  Journal of the Royal Statistical Society Series B: Statistical Methodology
-#  82.4 (2020): 1059-1086.
-#  @author Chitu Okoli (rewrote the code based on [ALEPlot::ALEPlot()]` from while retaining ALE calculation)
-#
-# @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
-# column is absent.
-# @param model See documentation for [ale()]
-# @param x1_col,x2_col character length 1. Name of single columns in X for which
-# ALE interaction data is to be calculated. `x1_col` can be of any standard
-#  datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
-# @param pred_fun See documentation for [ale()]
-# @param pred_type See documentation for [ale()]
-# @param max_x_int See documentation for [ale()]
-#
+#' Calculate ALE interaction data
+#'
+#' This function is not exported. It is adapted from [ALEPlot::ALEPlot()].
+#' This function is not usually called directly by the user. For details about arguments not documented here, see [ale()].
+#'
+#'  @author Dan Apley (source of original calculation of ALE in [ALEPlot::ALEPlot()])
+#'  @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
+#'  @author Chitu Okoli (completely rewrote the code based on `ALEPlot::ALEPlot()`)
+#'
+#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
+#' @param model See documentation for [ale()]
+#' @param x1_col,x2_col character(1),character(1). Name of single columns in X for which ALE interaction data is to be calculated. `x1_col` can be of any standard datatype (logical, factor, or numeric) but `x2_col` can only be numeric.
+#' @param pred_fun See documentation for [ale()]
+#' @param pred_type See documentation for [ale()]
+#' @param max_x_int See documentation for [ale()]
+#'
 calc_ale_ixn <- function(
     X, model, x1_col, x2_col, y_cats,
     pred_fun, pred_type,
@@ -78,8 +70,11 @@ calc_ale_ixn <- function(
         (`$`)(knnIndexDist) |>
         (`[`)(, 1)
 
-      # Adapted note from ALEPlot: "The matrix() command is needed, because if there is only one empty cell, not_na_delta_idx[na_nbrs] is created as a 2-length vector instead of a 1x2 matrix, which does not index dp properly"
-      dp[na_delta_idx] <- dp[matrix(not_na_delta_idx[na_nbrs,], ncol = 2)]
+      # drop = FALSE needed to prevent occasionally collapsing into a vector
+      dp[na_delta_idx] <- dp[not_na_delta_idx[na_nbrs,], drop = FALSE]
+
+      # # Adapted note from ALEPlot: "The matrix() command is needed, because if there is only one empty cell, not_na_delta_idx[na_nbrs] is created as a 2-length vector instead of a 1x2 matrix, which does not index dp properly"
+      # dp[na_delta_idx] <- dp[matrix(not_na_delta_idx[na_nbrs,], ncol = 2)]
     } # end if (nrow(na_delta_idx) > 0)
 
     dp
@@ -158,8 +153,6 @@ calc_ale_ixn <- function(
     x12_borders <- list(x1_borders, x2_borders)
 
 
-    # browser()
-
     # delta_pred: local effect for each interaction grid square.
     delta_pred <-
       # Note that (pred22 - pred12) - (pred21 - pred11) would give the same result.
@@ -191,8 +184,6 @@ calc_ale_ixn <- function(
           apply(1, cumsum) |>
           t() |>
           apply(2, cumsum)
-
-        # browser()
 
         #add a first row and first column to ale_y that are all zeros
         # Add origin row and column to ale_y: these are zero.
