@@ -52,7 +52,9 @@ adult_data <<-
 set.seed(0)
 gbm.data <<- gbm::gbm(
   higher_income ~ .,
-  data = adult_data[,-c(3,4)],
+  data = adult_data[,-c(3,4)] |>
+    # gbm::gbm() requires binary response outcomes to be numeric 0 or 1
+    mutate(higher_income = as.integer(higher_income)),
   distribution = "bernoulli",
   n.trees = 100,  # smaller model than ALEPlot example for rapid execution
   shrinkage = 0.02,
