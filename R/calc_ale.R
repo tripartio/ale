@@ -355,125 +355,124 @@ calc_ale <- function(
 
     # Calculate ale_y
     boot_ale$ale_y <-
-      map(
-        boot_ale$row_idxs,
-        \(.idxs) {
-          # Initialize hi and lo X matrices with this particular bootstrap sample
-          X_boot <- X[.idxs, ]
+      map(boot_ale$row_idxs, \(.idxs) {
 
-          # X_boot_x_col_unique_idxs: unique factor indices present in current bootstrap sample. This is necessary because for a full model outer bootstrap, a random bootstrap sample might not have all the levels in the full dataset.
-          X_boot_x_col_unique_idxs <-
-            X_boot[[x_col]] |>
-            ordered(levels = int_ale_order) |>
-            as.integer() |>
-            unique()
+        # Initialize hi and lo X matrices with this particular bootstrap sample
+        X_boot <- X[.idxs, ]
 
-          # X_hi: X_boot with x_col values all set at the next x_col level. Only change rows where row_idx_not_hi, since the highest level cannot go higher.
-          X_hi <- X_boot
-          hi_idxs <- x_ordered_idx[row_idx_not_hi] + 1
+        # X_boot_x_col_unique_idxs: unique factor indices present in current bootstrap sample. This is necessary because for a full model outer bootstrap, a random bootstrap sample might not have all the levels in the full dataset.
+        X_boot_x_col_unique_idxs <-
+          X_boot[[x_col]] |>
+          ordered(levels = int_ale_order) |>
+          as.integer() |>
+          unique()
 
-          # If any hi_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
-          invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
-          for (i in invalid_hi_idxs) {
+        # X_hi: X_boot with x_col values all set at the next x_col level. Only change rows where row_idx_not_hi, since the highest level cannot go higher.
+        X_hi <- X_boot
+        hi_idxs <- x_ordered_idx[row_idx_not_hi] + 1
 
-            hi_idxs[i] <-
-              if (hi_idxs[i] > max(X_boot_x_col_unique_idxs)) {
-                max(X_boot_x_col_unique_idxs)
-              } else {
-                min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
-              }
-          }
+        # If any hi_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
+        invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
+        for (i in invalid_hi_idxs) {
 
-          # Assign rows that are not already at the highest level to their upper bound
-          X_hi[row_idx_not_hi, x_col] <-
-            if (identical(class(X_hi[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(int_ale_order[hi_idxs])
+          hi_idxs[i] <-
+            if (hi_idxs[i] > max(X_boot_x_col_unique_idxs)) {
+              max(X_boot_x_col_unique_idxs)
             } else {
-              int_ale_order[hi_idxs]
+              min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
             }
-
-          # X_lo: X_boot with x_col values all set at the previous x_col level. Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
-          X_lo <- X_boot
-          lo_idxs <- x_ordered_idx[row_idx_not_lo] - 1
-
-          # If any lo_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
-          invalid_lo_idxs <- which(!(lo_idxs %in% X_boot_x_col_unique_idxs))
-          for (i in invalid_lo_idxs) {
-            lo_idxs[i] <-
-              if (lo_idxs[i] < min(X_boot_x_col_unique_idxs)) {
-                min(X_boot_x_col_unique_idxs)
-              } else {
-                max(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs < lo_idxs[i]])
-              }
-          }
-
-          # Assign rows that are not already at the lowest level to their lower bound
-          X_lo[row_idx_not_lo, x_col] <-
-            if (identical(class(X_lo[[x_col]]), 'logical')) {  # required coercion for logical
-              as.logical(int_ale_order[lo_idxs])
-            } else {
-              int_ale_order[lo_idxs]
-            }
-
-          # Compute predictions, lower bounds predictions, and upper bound predictions
-          pred_y  <- pred_fun(model, X_boot, pred_type)
-          pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, , drop = FALSE], pred_type)
-          pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, , drop = FALSE], pred_type)
-
-          # Convert single predictions to matrices for code consistency
-          if (!is.matrix(pred_y)) {
-            pred_y  <- matrix(pred_y,  ncol = 1, dimnames = list(NULL, y_cats))
-            pred_lo <- matrix(pred_lo, ncol = 1, dimnames = list(NULL, y_cats))
-            pred_hi <- matrix(pred_hi, ncol = 1, dimnames = list(NULL, y_cats))
-          }
-
-          #Take the appropriate differencing and averaging for the ALE plot
-
-          ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
-          # individual local effects: differences between predictions with the level of X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
-          delta_hi <- pred_hi - pred_y[row_idx_not_hi, , drop = FALSE]
-
-          ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
-          # actual level minus predictions decreased by one ordinal level
-          delta_lo <- pred_y[row_idx_not_lo, , drop = FALSE] - pred_lo
-
-          # Create and return ale_y
-          y_cats |>
-            map(\(.cat) {
-              # Generate the cumulative ale_y predictions
-              cum_pred <-
-                c(delta_hi[, .cat, drop = FALSE], delta_lo[, .cat, drop = FALSE]) |>
-                # list where each element is vector of x_col values in that x_int interval
-                split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
-                map_dbl(mean) |>
-                cumsum()
-
-              #  The ale_y just created might have gaps if this data does not have
-              # all the ale_x intervals. This might be the case for small bootstrapped
-              # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-
-              # Get the numbered indices that are actually used
-              cum_pred_idx_names <- names(cum_pred)
-
-              # Extend the ale_y to set missing ale_x intervals as NA
-              1:(length_ale_x - 1) |>
-                map_dbl(\(.i) {
-                  if (.i %in% cum_pred_idx_names) {
-                    cum_pred[[as.character(.i)]]
-                  } else {
-                    NA
-                  }
-                }) |>
-                c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-                unname()
-            }) |>
-            unlist() |>
-            matrix(
-              ncol = length(y_cats),
-              dimnames = list(NULL, y_cats)
-            )
         }
-      )
+
+        # Assign rows that are not already at the highest level to their upper bound
+        X_hi[row_idx_not_hi, x_col] <-
+          if (identical(class(X_hi[[x_col]]), 'logical')) {  # required coercion for logical
+            as.logical(int_ale_order[hi_idxs])
+          } else {
+            int_ale_order[hi_idxs]
+          }
+
+        # X_lo: X_boot with x_col values all set at the previous x_col level. Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
+        X_lo <- X_boot
+        lo_idxs <- x_ordered_idx[row_idx_not_lo] - 1
+
+        # If any lo_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
+        invalid_lo_idxs <- which(!(lo_idxs %in% X_boot_x_col_unique_idxs))
+        for (i in invalid_lo_idxs) {
+          lo_idxs[i] <-
+            if (lo_idxs[i] < min(X_boot_x_col_unique_idxs)) {
+              min(X_boot_x_col_unique_idxs)
+            } else {
+              max(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs < lo_idxs[i]])
+            }
+        }
+
+        # Assign rows that are not already at the lowest level to their lower bound
+        X_lo[row_idx_not_lo, x_col] <-
+          if (identical(class(X_lo[[x_col]]), 'logical')) {  # required coercion for logical
+            as.logical(int_ale_order[lo_idxs])
+          } else {
+            int_ale_order[lo_idxs]
+          }
+
+        # Compute predictions, lower bounds predictions, and upper bound predictions
+        pred_y  <- pred_fun(model, X_boot, pred_type)
+        pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, , drop = FALSE], pred_type)
+        pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, , drop = FALSE], pred_type)
+
+        # Convert single predictions to matrices for code consistency
+        if (!is.matrix(pred_y)) {
+          pred_y  <- matrix(pred_y,  ncol = 1, dimnames = list(NULL, y_cats))
+          pred_lo <- matrix(pred_lo, ncol = 1, dimnames = list(NULL, y_cats))
+          pred_hi <- matrix(pred_hi, ncol = 1, dimnames = list(NULL, y_cats))
+        }
+
+        #Take the appropriate differencing and averaging for the ALE plot
+
+        ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
+        # individual local effects: differences between predictions with the level of X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
+        delta_hi <- pred_hi - pred_y[row_idx_not_hi, , drop = FALSE]
+
+        ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
+        # actual level minus predictions decreased by one ordinal level
+        delta_lo <- pred_y[row_idx_not_lo, , drop = FALSE] - pred_lo
+
+        # Create and return ale_y
+        y_cats |>
+          map(\(.cat) {
+            # Generate the cumulative ale_y predictions
+            cum_pred <-
+              c(delta_hi[, .cat, drop = FALSE], delta_lo[, .cat, drop = FALSE]) |>
+              # list where each element is vector of x_col values in that x_int interval
+              split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
+              map_dbl(mean) |>
+              cumsum()
+
+            #  The ale_y just created might have gaps if this data does not have
+            # all the ale_x intervals. This might be the case for small bootstrapped
+            # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+
+            # Get the numbered indices that are actually used
+            cum_pred_idx_names <- names(cum_pred)
+
+            # Extend the ale_y to set missing ale_x intervals as NA
+            1:(length_ale_x - 1) |>
+              map_dbl(\(.i) {
+                if (.i %in% cum_pred_idx_names) {
+                  cum_pred[[as.character(.i)]]
+                } else {
+                  NA
+                }
+              }) |>
+              c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+              unname()
+          }) |>
+          unlist() |>
+          matrix(
+            ncol = length(y_cats),
+            dimnames = list(NULL, y_cats)
+          )
+        }
+      )  # boot_ale$ale_y <- map(boot_ale$row_idxs, \(.idxs) {})
 
     # Calculate centring constant so that weighted mean(ale_y) is 0.
     # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
