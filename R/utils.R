@@ -95,6 +95,10 @@ params_function <- function(func) {
 
 # Miscellaneous ------------
 
+# Inverse of %in% operator
+`%notin%` <- Negate(`%in%`)
+
+
 # Round a numeric vector to an intuitive number of decimal places:
 # ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
 round_dp <- function(x) {
