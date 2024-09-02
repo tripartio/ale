@@ -48,8 +48,24 @@ calc_ale <- function(
     p_dist = NULL
 ) {
 
+  # Set up base variables --------------
+
   n_row <- nrow(X)
-  n_col <- ncol(X)
+
+  # Determine the datatype of x from ale_x unless ale_x is null; in that case, take it from x_col. It should be taken from ale_x because intermediary bootstrap runs might change the x_col values such that their datatype is ambiguous.
+  x_type <- var_type(
+    if (!is.null(ale_x)) {
+      ale_x
+    } else {
+      X[[x_col]]
+    }
+  )
+
+  if (x_type %notin% c('numeric', 'binary', 'ordinal', 'categorical')) {
+    cli_abort(c(
+      x = "ale:::calc_ale: datatype of {.var {x_col}} not one of c('numeric', 'binary', 'ordinal', 'categorical')."
+    ))
+  }
 
   # Create bootstrap tbl
   original_seed <- .Random.seed
@@ -71,14 +87,7 @@ calc_ale <- function(
   )
 
 
-  # Determine the datatype of x from ale_x unless ale_x is null; in that case, take it from x_col. It should be taken from ale_x because intermediary bootstrap runs might change the x_col values such that their datatype is ambiguous.
-  x_type <- var_type(
-    if (!is.null(ale_x)) {
-      ale_x
-    } else {
-      X[[x_col]]
-    }
-  )
+  # Prepare ALE structure based on datatype ----------
 
   if (x_type == 'numeric') {
 
@@ -106,144 +115,38 @@ calc_ale <- function(
         ) |>
         table() |>  # count number of x in each ale_x interval
         as.integer()
-
     }
-
 
     length_ale_x <- length(ale_x)
 
-    # xint: number of unique intervals
-    xint <- length_ale_x - 1
-
     # Tabulate number of cases per ale_x_int
-    n_x_int <-
+    x_int_counts <-
       X[[x_col]] |>
       cut(breaks = ale_x, include.lowest = TRUE) |>
       as.numeric() |>
       table()
 
-    n_x_int_names <- names(n_x_int)
-
-    n_x_int <-
+    x_int_counts <-
       1:(length_ale_x - 1) |>
       map_dbl(\(.i) {
-        if (.i %in% n_x_int_names) {
-          n_x_int[[as.character(.i)]]
+        if (.i %in% names(x_int_counts)) {
+          x_int_counts[[as.character(.i)]]
         } else {
           0
         }
       })
+  }  # if (x_type == 'numeric')
 
-    # Bootstrap the predictions
+  else {  # x_type must be %in% c('binary', 'ordinal', 'categorical')
 
-    # Calculate the ALE Y values for each bootstrap sample. Row 0 is the ALE Y for the full dataset.
-    boot_ale$ale_y <-
-      map(boot_ale$row_idxs, \(.idxs) {
-
-        X_boot <- X[.idxs, ]  # this particular bootstrap sample
-
-        # boot_ale_x_int: n_row-length index vector indicating into which ale_x-bin the rows fall
-        boot_ale_x_int <- cut(X_boot[[x_col]], breaks = ale_x, include.lowest = TRUE) |>
-          as.numeric()
-
-        # X_boot with x_col set at the lower bound of the ALE interval
-        X_lo <- X_boot
-        X_lo[x_col] <- ale_x[boot_ale_x_int]
-        # X_boot with x_col set at the upper bound of the ALE interval
-        X_hi <- X_boot
-        X_hi[x_col] <- ale_x[boot_ale_x_int + 1]
-
-        # Difference between low and high boundary predictions
-        delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
-
-        # With categorical y, delta_pred will be a matrix. For consistency, convert all other y types (which are usually vectors) into a matrix.
-        if (!is.matrix(delta_pred)) {
-          delta_pred <- matrix(delta_pred, ncol = 1)
-        }
-
-        # Generate the cumulative ale_y predictions
-        cum_pred <-
-          delta_pred |>
-          apply(2, \(.col) {
-            .col |>
-              # list where each element is vector of x_col values in that x_int interval
-              split(boot_ale_x_int) |>
-              map_dbl(mean) |>
-              cumsum()
-          })
-
-        # The ale_y just created might have gaps if this data does not have all the ale_x intervals. This might be the case for small bootstrapped datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-
-        # Get the numbered indices that are actually used
-        cum_pred_idx_names <- rownames(cum_pred)
-
-        # Extend the ale_y to set missing ale_x intervals as NA
-        cum_pred |>
-          apply(2, \(.col) {
-            1:(length_ale_x - 1) |>
-              map_dbl(\(.i) {
-                if (.i %in% cum_pred_idx_names) {
-                  .col[[as.character(.i)]]
-                } else {
-                  NA
-                }
-              }) |>
-              c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-              unname()
-          })
-
-    })
-
-    ##TODO: try moving this into bootstrap iterations for fast bootstrap
-    # Calculate centring constant so that weighted mean(ale_y) is 0.
-    # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
-    # boot_ale$ale_y[[1]]
-    ale_y_full <- boot_ale$ale_y[[1]]
-
-    ale_y_shift <-
-      ale_y_full |>
-      apply(2, \(.col) {
-        # midpoint ale_y value between each x_int interval
-        data.frame(.col[-1], .col[-length_ale_x]) |>
-          rowMeans(na.rm = TRUE) |>
-          (`*`)(n_x_int) |>
-          sum(na.rm = TRUE) |>
-          (`/`)(sum(n_x_int, na.rm = TRUE))
-      })
-
-  }
-
-  else if (x_type %in% c('binary', 'ordinal', 'categorical')) {
-
-    # If x_col is a factor (ordinal or categorical), reset xint to the number of levels of X[[x_col]]
-    if ('factor' %in% class(X[[x_col]])) {
-      if (is.null(ale_x)) {
-        # first drop any unused levels
+    # If x_col is a factor (ordinal or categorical), first drop any unused levels
+    if (('factor' %in% class(X[[x_col]])) && (is.null(ale_x))) {
         X[[x_col]] <- droplevels(X[[x_col]])
-      }
-
-      # xint <- nlevels(X[[x_col]])
     }
-
-    # # If x_col is a character vector,
-    # # reset xint to the number of unique values of X[[x_col]]
-    # if (class(X[[x_col]]) == 'character') {
-    #   xint <- X[[x_col]] |>
-    #     unique() |>
-    #     length()
-    # }
-
 
     # tabulate interval counts and probabilities
     x_int_counts <- table(X[[x_col]])
     x_int_probs <- x_int_counts / sum(x_int_counts)
-
-    # If x_type is ordinal or categorical,
-    # set xint to the number of unique values of X[[x_col]]: length(x_int_counts)
-    if (x_type %in% c('ordinal', 'categorical')) {
-      xint <- length(x_int_counts)
-    }
-
 
 
     # Calculate three key variables that determine the ordering of the ale_x axis, depending on if x_type is binary, categorical, or ordinal:
@@ -254,8 +157,6 @@ calc_ale <- function(
     if (is.null(ale_x)) {  # Calculate ale_x based on x_col datatype
 
       if (x_type == 'binary') {
-
-        xint <- 2  # a binary variable has only two intervals, by definition
 
         # calculate the indices of the original intervals after ordering them
         idx_ord_orig_int <- c(1L, 2L)
@@ -278,7 +179,11 @@ calc_ale <- function(
         # calculate the indices of the original intervals after ordering them
         idx_ord_orig_int <-
           # Call function to order categorical categories
-          idxs_kolmogorov_smirnov(X, x_col, xint, x_int_counts)
+          idxs_kolmogorov_smirnov(
+            X, x_col,
+            n_bins = X[[x_col]] |> unique() |> length(),
+            x_int_counts
+          )
 
         # index of x_col value according to ordered indices
         x_ordered_idx <-
@@ -290,7 +195,6 @@ calc_ale <- function(
               factor() |>  # required to handle character vectors
               as.numeric()
           )
-          # (`[`)(as.numeric(X[[x_col]]))
 
         # x intervals sorted in ALE order
         int_ale_order <-
@@ -315,7 +219,7 @@ calc_ale <- function(
 
       }
 
-      # ale_x: xint quantile intervals of x_col values
+      # ale_x: n_bins quantile intervals of x_col values
       ale_x <- int_ale_order |>
         factor(levels = int_ale_order, ordered = TRUE)
 
@@ -344,150 +248,120 @@ calc_ale <- function(
       x_ordered_idx <- X[[x_col]] |>
         ordered(levels = int_ale_order) |>
         as.integer()
-
     }
 
     length_ale_x <- length(ale_x)
 
-    #Calculate the model predictions with the levels of X[[x_col]] increased and decreased by one
-    row_idx_not_hi <- (1:n_row)[x_ordered_idx < xint]  #indices of rows for which X[[x_col]] was not the highest level
-    row_idx_not_lo <- (1:n_row)[x_ordered_idx > 1]  #indices of rows for which X[[x_col]] was not the lowest level
+  }  # else {  # x_type must be %in% c('binary', 'ordinal', 'categorical')
 
-    # Calculate ale_y
-    boot_ale$ale_y <-
-      map(boot_ale$row_idxs, \(.idxs) {
 
-        # Initialize hi and lo X matrices with this particular bootstrap sample
-        X_boot <- X[.idxs, ]
+  # Bootstrap the predictions --------------
 
-        # X_boot_x_col_unique_idxs: unique factor indices present in current bootstrap sample. This is necessary because for a full model outer bootstrap, a random bootstrap sample might not have all the levels in the full dataset.
-        X_boot_x_col_unique_idxs <-
-          X_boot[[x_col]] |>
-          ordered(levels = int_ale_order) |>
-          as.integer() |>
-          unique()
+  # Calculate the ALE Y values for each bootstrap sample. Row 0 is the ALE Y for the full dataset.
+  boot_ale$ale_y <- map(boot_ale$row_idxs, \(.idxs) {
 
-        # X_hi: X_boot with x_col values all set at the next x_col level. Only change rows where row_idx_not_hi, since the highest level cannot go higher.
-        X_hi <- X_boot
-        hi_idxs <- x_ordered_idx[row_idx_not_hi] + 1
+    X_boot <- X[.idxs, ]  # this particular bootstrap sample
 
-        # If any hi_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
-        invalid_hi_idxs <- which(!(hi_idxs %in% X_boot_x_col_unique_idxs))
-        for (i in invalid_hi_idxs) {
+    if (x_type == 'numeric') {
+      # boot_ale_x_int: n_row-length index vector indicating into which ale_x-bin the rows fall
+      boot_ale_x_int <- cut(X_boot[[x_col]], breaks = ale_x, include.lowest = TRUE) |>
+        as.numeric()
 
-          hi_idxs[i] <-
-            if (hi_idxs[i] > max(X_boot_x_col_unique_idxs)) {
-              max(X_boot_x_col_unique_idxs)
+      # X_boot with x_col set at the lower bound of the ALE interval
+      X_lo <- X_boot
+      X_lo[x_col] <- ale_x[boot_ale_x_int]
+      # X_boot with x_col set at the upper bound of the ALE interval
+      X_hi <- X_boot
+      X_hi[x_col] <- ale_x[boot_ale_x_int + 1]
+    }
+    else {  # ordinal ALE types
+      # boot_ale_x_int: n_row-length index vector indicating into which ale_x-bin the rows fall
+      boot_ale_x_int <- x_ordered_idx
+      # boot_ale_x_int <- X_boot[[x_col]] |> as.numeric()
+
+      # X_boot with x_col set at the lower bound of the ALE interval
+      X_lo <- X_boot
+      # Initialize X_boot with x_col set at the upper bound of the ALE interval
+      X_hi <- X_boot
+      max_ale_x_idx <- ale_x |> as.integer() |> max()
+      inc_ale_x_idx <- boot_ale_x_int + 1
+      inc_ale_x_idx <- if_else(
+        inc_ale_x_idx > max_ale_x_idx,
+        max_ale_x_idx,
+        inc_ale_x_idx
+      )
+
+      X_hi[x_col] <- ale_x[inc_ale_x_idx] |>
+        # Cast imputed column into appropriate datatype.
+        # Especially necessary to cast into logical when needed.
+        as(class(X[[x_col]])[1])
+    }
+
+    # Difference between low and high boundary predictions
+    delta_pred <- pred_fun(model, X_hi, pred_type) - pred_fun(model, X_lo, pred_type)
+
+    # With categorical y, delta_pred will be a matrix. For consistency, convert all other y types (which are usually vectors) into a matrix.
+    if (!is.matrix(delta_pred)) {
+      delta_pred <- matrix(delta_pred, ncol = 1)
+    }
+
+    # Generate the cumulative ale_y predictions
+    cum_pred <-
+      delta_pred |>
+      apply(2, \(.col) {
+        .col |>
+          # list where each element is vector of x_col values in that x_int interval
+          split(boot_ale_x_int) |>
+          map_dbl(mean) |>
+          cumsum()
+      })
+
+    # The ale_y just created might have gaps if this data does not have all the ale_x intervals. This might be the case for small bootstrapped datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
+
+    # Get the numbered indices that are actually used
+    cum_pred_idx_names <- rownames(cum_pred)
+
+    # Extend the ale_y to set missing ale_x intervals as NA
+    cum_pred |>
+      apply(2, \(.col) {
+        1:(length_ale_x - 1) |>
+          map_dbl(\(.i) {
+            if (.i %in% cum_pred_idx_names) {
+              .col[[as.character(.i)]]
             } else {
-              min(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs > hi_idxs[i]])
+              NA
             }
-        }
-
-        # Assign rows that are not already at the highest level to their upper bound
-        X_hi[row_idx_not_hi, x_col] <-
-          if (identical(class(X_hi[[x_col]]), 'logical')) {  # required coercion for logical
-            as.logical(int_ale_order[hi_idxs])
-          } else {
-            int_ale_order[hi_idxs]
-          }
-
-        # X_lo: X_boot with x_col values all set at the previous x_col level. Only change rows where row_idx_not_lo, since the lowest level cannot go lower.
-        X_lo <- X_boot
-        lo_idxs <- x_ordered_idx[row_idx_not_lo] - 1
-
-        # If any lo_idxs are not within the set of values in the current bootstrap sample, adjust them to be the closest valid value
-        invalid_lo_idxs <- which(!(lo_idxs %in% X_boot_x_col_unique_idxs))
-        for (i in invalid_lo_idxs) {
-          lo_idxs[i] <-
-            if (lo_idxs[i] < min(X_boot_x_col_unique_idxs)) {
-              min(X_boot_x_col_unique_idxs)
-            } else {
-              max(X_boot_x_col_unique_idxs[X_boot_x_col_unique_idxs < lo_idxs[i]])
-            }
-        }
-
-        # Assign rows that are not already at the lowest level to their lower bound
-        X_lo[row_idx_not_lo, x_col] <-
-          if (identical(class(X_lo[[x_col]]), 'logical')) {  # required coercion for logical
-            as.logical(int_ale_order[lo_idxs])
-          } else {
-            int_ale_order[lo_idxs]
-          }
-
-        # Compute predictions, lower bounds predictions, and upper bound predictions
-        pred_y  <- pred_fun(model, X_boot, pred_type)
-        pred_lo <- pred_fun(model, X_lo[row_idx_not_lo, , drop = FALSE], pred_type)
-        pred_hi <- pred_fun(model, X_hi[row_idx_not_hi, , drop = FALSE], pred_type)
-
-        # Convert single predictions to matrices for code consistency
-        if (!is.matrix(pred_y)) {
-          pred_y  <- matrix(pred_y,  ncol = 1, dimnames = list(NULL, y_cats))
-          pred_lo <- matrix(pred_lo, ncol = 1, dimnames = list(NULL, y_cats))
-          pred_hi <- matrix(pred_hi, ncol = 1, dimnames = list(NULL, y_cats))
-        }
-
-        #Take the appropriate differencing and averaging for the ALE plot
-
-        ##n.plus-length vector of individual local effect values. They are the differences between the predictions with the level of X[[x_col]] increased by one level (in ordered levels) and the predictions with the actual level of X[[x_col]].
-        # individual local effects: differences between predictions with the level of X[[x_col]] increased by one ordered level minus the actual level of X[[x_col]].
-        delta_hi <- pred_hi - pred_y[row_idx_not_hi, , drop = FALSE]
-
-        ##n.neg-length vector of individual local effect values. They are the differences between the predictions with the actual level of X[[x_col]] and the predictions with the level of X[[x_col]] decreased (in ordered levels) by one level.
-        # actual level minus predictions decreased by one ordinal level
-        delta_lo <- pred_y[row_idx_not_lo, , drop = FALSE] - pred_lo
-
-        # Create and return ale_y
-        y_cats |>
-          map(\(.cat) {
-            # Generate the cumulative ale_y predictions
-            cum_pred <-
-              c(delta_hi[, .cat, drop = FALSE], delta_lo[, .cat, drop = FALSE]) |>
-              # list where each element is vector of x_col values in that x_int interval
-              split(c(x_ordered_idx[row_idx_not_hi], x_ordered_idx[row_idx_not_lo] - 1)) |>
-              map_dbl(mean) |>
-              cumsum()
-
-            #  The ale_y just created might have gaps if this data does not have
-            # all the ale_x intervals. This might be the case for small bootstrapped
-            # datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
-
-            # Get the numbered indices that are actually used
-            cum_pred_idx_names <- names(cum_pred)
-
-            # Extend the ale_y to set missing ale_x intervals as NA
-            1:(length_ale_x - 1) |>
-              map_dbl(\(.i) {
-                if (.i %in% cum_pred_idx_names) {
-                  cum_pred[[as.character(.i)]]
-                } else {
-                  NA
-                }
-              }) |>
-              c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
-              unname()
           }) |>
-          unlist() |>
-          matrix(
-            ncol = length(y_cats),
-            dimnames = list(NULL, y_cats)
-          )
-        }
-      )  # boot_ale$ale_y <- map(boot_ale$row_idxs, \(.idxs) {})
+          c(0, y = _) |>  # The y name is arbitrary; the pipe requires something
+          unname()
+      })
 
-    # Calculate centring constant so that weighted mean(ale_y) is 0.
-    # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
-    # boot_ale$ale_y[[1]]
-    ale_y_full <- boot_ale$ale_y[[1]]
-    ale_y_shift <-
-      ale_y_full |>
+  })  # boot_ale$ale_y <- map(boot_ale$row_idxs, \(.idxs)
+
+  ##TODO: try moving this into bootstrap iterations for fast bootstrap
+  # Calculate centring constant so that weighted mean(ale_y) is 0.
+  # Calculate once for all bootstrapped ale_y based on the ale_y of the full dataset:
+  # boot_ale$ale_y[[1]]
+  ale_y_full <- boot_ale$ale_y[[1]]
+
+  ale_y_shift <- if (x_type == 'numeric') {
+    ale_y_full |>
+      apply(2, \(.col) {
+        # midpoint ale_y value between each x_int interval
+        data.frame(.col[-1], .col[-length_ale_x]) |>
+          rowMeans(na.rm = TRUE) |>
+          (`*`)(x_int_counts) |>
+          sum(na.rm = TRUE) |>
+          (`/`)(sum(x_int_counts, na.rm = TRUE))
+      })
+  } else {
+    ale_y_full |>
       (`*`)(x_int_probs[idx_ord_orig_int] |> as.numeric()) |>
       colSums(na.rm = TRUE)
-    # ale_y_shift <- sum(ale_y_full * x_int_probs[idx_ord_orig_int],
-    #                    na.rm = TRUE)
-
   }
 
-  # Center all the ale_y values
+
+  # Center all the ale_y values -------------------
   boot_ale$ale_y <- boot_ale$ale_y |>
     map(\(.y) {
 
@@ -499,6 +373,9 @@ calc_ale <- function(
         # result of apply is transposed, so transpose back in correct orientation
         t()
     })
+
+
+  # Process bootstrapped values -----------------
 
   # Create matrix of bootstrapped ale_y values
   boot_vals <- unlist(boot_ale$ale_y)
@@ -514,7 +391,6 @@ calc_ale <- function(
     dimnames = list(
       NULL,  # no row names
       y_cats,
-      # colnames(ale_y_full),  # names only if y is categorical
       NULL  # no col names
     )
   )
@@ -563,6 +439,7 @@ calc_ale <- function(
         )
       })
   }  # boot_summary <- if (boot_it == 0)
+
 
   boot_summary <- boot_summary |>
     map(\(.cat) {
@@ -665,6 +542,9 @@ calc_ale <- function(
       set_names(y_cats)
   }
 
+
+  # Return calc_ale ----------------------
+
   return(list(
     summary = boot_summary,
     stats = boot_stats,
@@ -678,25 +558,28 @@ calc_ale <- function(
 }  # calc_ale()
 
 
+
 #' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,
-    xint,
+    n_bins,
     x_int_counts
   ) {
 
   # Initialize distance matrices between pairs of intervals of X[[x_col]]
-  dist_mx <- matrix(0, xint, xint)
-  cdm <- matrix(0, xint, xint)  # cumulative distance matrix
+  dist_mx <- matrix(0, n_bins, n_bins)
+  cdm <- matrix(0, n_bins, n_bins)  # cumulative distance matrix
 
   # Calculate distance matrix for each of the other X columns
   for (j_col in setdiff(names(X), x_col)) {
     if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
-
       # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
-      x_by_j_ecdf <- tapply(X[[j_col]], X[[x_col]], stats::ecdf)
-      # x.ecdf=tapply(X[,j], X[,J], ecdf)
+      x_by_j_ecdf <- tapply(
+        X[[j_col]],
+        X[[x_col]],
+        stats::ecdf
+      )
 
       # quantiles of X[[j_col]] for all intervals of X[[x_col]] combined
       j_quantiles <- stats::quantile(
@@ -706,8 +589,8 @@ idxs_kolmogorov_smirnov <- function(
         names = FALSE
       )
 
-      for (i in 1:(xint - 1)) {
-        for (k in (i + 1):xint) {
+      for (i in 1:(n_bins - 1)) {
+        for (k in (i + 1):n_bins) {
           # Kolmogorov-Smirnov distance between X[[j_col]] for intervals i and k of X[[x_col]]; always within [0, 1]
           dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
                                      x_by_j_ecdf[[k]](j_quantiles)))
@@ -718,8 +601,8 @@ idxs_kolmogorov_smirnov <- function(
     else {  # distance matrix for non-numeric j_col
       x_j_freq <- table(X[[x_col]], X[[j_col]])  #frequency table, rows of which will be compared
       x_j_freq <- x_j_freq / as.numeric(x_int_counts)
-      for (i in 1:(xint-1)) {
-        for (k in (i+1):xint) {
+      for (i in 1:(n_bins-1)) {
+        for (k in (i+1):n_bins) {
           # Dissimilarity measure always within [0, 1]
           dist_mx[i, k] <- sum(abs(x_j_freq[i, ] -
                                      x_j_freq[k, ])) / 2
@@ -740,6 +623,7 @@ idxs_kolmogorov_smirnov <- function(
     stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
     sort(index.return = TRUE) |>
     (`[[`)('ix')
+
 
   return(idxs)
 }
