@@ -15,7 +15,7 @@
 
 ## Other user-visible changes
 
-* Categorical y outcomes are now supported. The plots
+* Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.
 * The structure of p_funs has been completely changed; it has now been renamed p_dist. The function create_p_funs() has been renamed create_p_dist().
@@ -24,19 +24,26 @@
 
 ## Under the hood
 
+One of the most fundamental changes is not directly visible but affects how some ALE values are calculated. In certain very specific cases, the ALE values are now slightly different from those of the reference `ALEPlot` package. These are only for non-numerical variables for some prediction types other than predictions scaled on the response variable. (E.g., a binary or categorical variable for a logarithmic prediction not scaled to the same scale as the response variable.) We made this change for two reasons:
+    * We can understand our implementation and its interpretation for these edge cases much better than that of the reference `ALEPlot` implementation. These cases are not covered at all in the base ALE scientific article and they are  poorly documented in the `ALEPlot` code. We cannot help users to interpret results that we do not understand ourselves.
+    * Our implementation lets us write code that scales smoothly for interactions of arbitrary depth. In contrast, the `ALEPlot` reference implementation is not scalable: custom code must be written for each type and each degree of interaction.
+Other than for these edge cases, our implementation continues to give identical results to the reference `ALEPlot` package.
+
+Other notable changes that might not be readily visible to users:
 * Reduced dependencies by doing more with the `{rlang}` and `{cli}` packages. Reduced the imported functions to a minimum.
-* Messages now use `{cli}`.
+* Package messages, warnings, and errors now use `{cli}`.
 * Replaced `{assertthat}` with custom validation functions that adapt some `{assertthat}` code. 
 * Use helper.R test files so that some testing objects are available to the loaded package.
-* Configure `{future}` parallelization code to restore original values on exit.
-* Increased memory efficiency of p_funs objects.
+* Configured `{future}` parallelization code to restore original values on exit.
+* Configured codes that use a random seed to restore the original system seed on exit.
+* Improved memory efficiency of p_funs objects.
 * Plotting code updated for compatibility with ggplot2 3.5.
 
 ## Known issues to be addressed in a future version
 
 -   Bootstrapping is not yet supported for ALE interactions (`ale_ixn()`).
 -   ALE statistics are not yet supported for ALE interactions (`ale_ixn()`).
--   `ale()` does not yet support multi-output model prediction types (e.g., multi-class classification and multi-time survival probabilities).
+-   Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
 
 
 # ale 0.3.0

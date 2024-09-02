@@ -4,25 +4,14 @@
 
 #' Calculate ALE data
 #'
-#' This function is not exported. It is uses tidyverse principles to rewrite
-#' [ALEPlot::ALEPlot()].
-#' This function is not usually called directly by the user. For details about
-#' arguments not documented here, see [ale()].
+#' This function is not exported. It is uses tidyverse principles to rewrite [ALEPlot::ALEPlot()]. This function is not usually called directly by the user. For details about arguments not documented here, see [ale()].
 #'
-#' @references Apley, Daniel W., and Jingyu Zhu.
-#' "Visualizing the effects of predictor variables in black box supervised learning models."
-#' Journal of the Royal Statistical Society Series B: Statistical Methodology
-#' 82.4 (2020): 1059-1086.
-#' @references Okoli, Chitu. 2023.
-#' “Statistical Inference Using Machine Learning and Classical Techniques Based
-#' on Accumulated Local Effects (ALE).”
-#' arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
 #'
-#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome)
-#' column is absent.
+#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ale()]
-#' @param x_col character length 1. Name of single column in X for which ALE data is to
-#' be calculated.
+#' @param x_col character length 1. Name of single column in X for which ALE data is to be calculated.
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ale()]
 #' @param pred_type See documentation for [ale()]
