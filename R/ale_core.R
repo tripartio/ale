@@ -1053,12 +1053,30 @@ ale_core <- function (
               progress_iterator()
             }
 
-            ale_data <-
-              calc_ale_ixn(
-                data_X, model, x1_col, x2_col, y_cats,
+            ale_data_stats <-
+              calc_ale(
+                data_X, model,
+                c(x1_col, x2_col),
+                y_cats,
                 pred_fun, pred_type,
-                max_x_int
+                max_x_int,
+                boot_it, seed, boot_alpha, boot_centre,
+                boot_ale_y = 'boot' %in% output,
+                ale_xs = ale_xs[c(x1_col, x2_col)],
+                ale_ns = ale_ns[c(x1_col, x2_col)],
+                # ale_x = ale_xs[[x_col]],
+                # ale_n = ale_ns[[x_col]],
+                ale_y_norm_funs = ale_y_norm_funs,
+                p_dist = p_values
               )
+            ale_data <- ale_data_stats
+
+            # ale_data <-
+            #   calc_ale_ixn(
+            #     data_X, model, x1_col, x2_col, y_cats,
+            #     pred_fun, pred_type,
+            #     max_x_int
+            #   )
 
             # Shift ale_y by appropriate relative_y
             ale_data <- ale_data |>

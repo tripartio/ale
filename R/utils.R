@@ -99,6 +99,119 @@ params_function <- function(func) {
 `%notin%` <- Negate(`%in%`)
 
 
+# na.rm = TRUE version of adding two matrices of identical dimension
+add_mx_na.rm <- function(mx1, mx2) {
+  n_row <- nrow(mx1)
+  n_col <- ncol(mx1)
+  result <- matrix(nrow = n_row, ncol = n_col)
+
+  for (i.r in 1:n_row) {
+    for (i.c in 1:n_col) {
+      if (is.na(mx1[i.r, i.c])) {
+        # If mx1 is NA, then if mx2 is also NA, then the result is NA; otherwise it is just mx2
+        result[i.r, i.c] <- mx2[i.r, i.c]
+      } else if (is.na(mx2[i.r, i.c])) {
+        result[i.r, i.c] <- mx1[i.r, i.c]
+      } else {
+        result[i.r, i.c] <- mx1[i.r, i.c] + mx2[i.r, i.c]
+      }
+    }
+  }
+
+  return(result)
+}
+
+# (x1 <- matrix(c(NA,NA,2,2),2,2))
+# (x2 <- matrix(c(NA,3,NA,NA),2,2))
+# (x3 <- matrix(c(NA,NA,NA,NA),2,2))
+# (x4 <- matrix(c(1,2,3,4),2,2))
+#
+# add_mx_na(x1, x2)
+# add_mx_na(x1, x3)
+# add_mx_na(x1, x4)
+#
+# Reduce(add_mx_na, list(x1, x2, x3))
+
+
+# https://stackoverflow.com/a/45738946/2449926
+# rotate a matrix
+rotate_2d <- function(x, clockwise = FALSE) {
+  if (clockwise) {
+    x |>
+      apply(2, rev) |>
+      t()
+  } else {
+    x |>
+      t() |>
+      apply(2, rev)
+  }
+}
+
+
+# ChatGPT: rotate 3D array
+rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
+  # Rotate along the specified axis
+ if (axis == "x") {
+    # Rotate along the X-axis (rotate slices of x[i,,])
+    rotated_array <- array(0, dim = c(dim(x)[1], dim(x)[3], dim(x)[2]))
+    for (i in 1:dim(x)[1]) {
+      rotated_array[i,,] <- rotate_2d(x[i,,], clockwise)
+    }
+
+  } else if (axis == "y") {
+    # Rotate along the Y-axis (rotate slices of x[,i,])
+    rotated_array <- array(0, dim = c(dim(x)[3], dim(x)[2], dim(x)[1]))
+    for (i in 1:dim(x)[2]) {
+      rotated_array[,i,] <- rotate_2d(x[,i,], clockwise)
+    }
+
+  } else  if (axis == "z") {
+    # Rotate along the Z-axis (rotate slices of x[,,i])
+    rotated_array <- array(0, dim = c(dim(x)[2], dim(x)[1], dim(x)[3]))
+    for (i in 1:dim(x)[3]) {
+      rotated_array[,,i] <- rotate_2d(x[,,i], clockwise)
+    }
+
+  } else {
+    stop("Invalid axis. Choose one of 'x', 'y', or 'z'.")
+  }
+
+  return(rotated_array)
+}
+
+
+
+# # Create a 3D array (3 x 3 x 3 for example)
+# arr <- array(1:60, dim = c(5, 4, 3))
+#
+# # Rotate the array along the z-axis, clockwise
+# rotated_arr <- rotate_3d(arr, axis = "z", clockwise = TRUE)
+#
+# # Rotate the array along the x-axis, counterclockwise
+# rotated_arr <- rotate_3d(arr, axis = "x", clockwise = FALSE)
+#
+# arr
+# rotate_3d(arr, axis = "x") # 1-1; 2-3; 3-2
+# rotate_3d(arr, axis = "y") # 1-3; 2-2; 3-1
+# rotate_3d(arr, axis = "z") # 1-2; 2-1; 3-3
+#
+#
+# 1-27-53
+#
+# arr
+# arr |> rotate_3d(axis = "x") |> rotate_3d(axis = "x")
+# arr |> rotate_3d(axis = "y") |> rotate_3d(axis = "y")
+# arr |> rotate_3d(axis = "z") |> rotate_3d(axis = "z")
+# rotate_3d(arr, axis = "y") # 1-3; 2-2; 3-1
+# rotate_3d(arr, axis = "z") # 1-2; 2-1; 3-3
+#
+# arr
+# arr |> rotate_3d(axis = "x") |> rotate_3d(axis = "x") |> rotate_3d(axis = "x")
+# arr |> rotate_3d(axis = "y") |> rotate_3d(axis = "y") |> rotate_3d(axis = "y")
+# arr |> rotate_3d(axis = "z") |> rotate_3d(axis = "z") |> rotate_3d(axis = "z")
+
+
+
 # Round a numeric vector to an intuitive number of decimal places:
 # ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
 round_dp <- function(x) {
