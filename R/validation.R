@@ -2,10 +2,8 @@
 # Data validation code shared across some functions.
 
 
-# Custom version of asserthat::assert_that. This way, I skip that dependency
-# and my simplified version is lighter with only base R functions and cli.
-# Note: license of asserthat is GPL-3.
-# I guess that my customizations are sufficient to change license.
+# Custom version of asserthat::assert_that. This way, I skip that dependency and my simplified version is lighter with only base R functions and cli.
+# Note: license of asserthat is GPL-3. I guess that my customizations are sufficient to change license.
 validate <- function(..., msg = NULL)
 {
   # extract assertions from ...
@@ -13,10 +11,8 @@ validate <- function(..., msg = NULL)
 
   # Iterate through all assertions until one is FALSE (break in the for loop).
   for (assertion in asserts) {
-    # Create and overwrite result {res} of each assertion.
-    # If all are TRUE, then the final value of res will also be TRUE.
-    # break out of the for loop on the first FALSE value, so the final value
-    # of res would be FALSE.
+    # Create and overwrite result {res} of each assertion. If all are TRUE, then the final value of res will also be TRUE.
+    # break out of the for loop on the first FALSE value, so the final value of res would be FALSE.
     res <- eval(assertion, parent.frame())
 
     # Validate the assertion itself--this is purely internal validation
@@ -42,8 +38,7 @@ validate <- function(..., msg = NULL)
     }
   }
 
-  # At this point, if all assertions were TRUE, res is TRUE.
-  # Otherwise, res is FALSE with its msg corresponding to the first FALSE assertion.
+  # At this point, if all assertions were TRUE, res is TRUE. Otherwise, res is FALSE with its msg corresponding to the first FALSE assertion.
 
   if (res) {
     return(TRUE)
@@ -56,25 +51,22 @@ validate <- function(..., msg = NULL)
 
 # TRUE if x is length 1 and is either a double or an integer
 is_scalar_number <- function(x) {
-  rlang::is_scalar_double(x) || rlang::is_scalar_integer(x)
+  rlang::is_scalar_double(x) || rlang::is_scalar_integerish(x)
 }
 
 # TRUE if x is a scalar natural number (positive integer, zero excluded)
 is_scalar_natural <- function(x) {
-  rlang::is_scalar_integer(x) || x > 0
+  rlang::is_scalar_integerish(x) && x > 0
 }
 
 # TRUE if x is a scalar whole number (non-negative integer, zero included)
 is_scalar_whole <- function(x) {
-  rlang::is_scalar_integer(x) || x >= 0
+  rlang::is_scalar_integerish(x) && x >= 0
 }
 
 
 # Validate model predictions.
-# This function actually mainly validates the model argument because it ensures
-# that the model validly generates predictions from data.
-# A valid model is one that, when passed to a predict function with a valid
-# dataset, produces a numeric vector with length equal to the number of rows
+# This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows
 # in the dataset.
 validate_y_preds <- function(
     pred_fun,
@@ -108,8 +100,7 @@ validate_y_preds <- function(
 
 
 # Validate y_col.
-# If y_col is NULL and model is a standard R model type,
-# y_col can be automatically detected.
+# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
 validate_y_col <- function(
     y_col,
     data,
@@ -141,12 +132,10 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
   validate(is_scalar_whole(parallel))
 
   # Validate or set model_packages for parallel processing.
-  # If execution is not parallel, then skip all that follows;
-  # essentially, ignore the model_packages argument.
+  # If execution is not parallel, then skip all that follows; essentially, ignore the model_packages argument.
   if (parallel > 0) {
     # If model_packages are not provided, try to automatically detect one
     if (is.null(model_packages)) {
-    # if (all(is.na(model_packages))) {
       # iterate through all classes of model until a predict method is identified
       predict_method <- NULL
 
@@ -175,9 +164,7 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
       validate(
         is.character(model_packages),
         msg = cli_alert_danger(paste0(
-          'If parallel processing is not disabled with `parallel = 0`, ',
-          'then {.arg model_packages} must be a character vector of the packages required ',
-          'to predict {.arg model}.'
+          'If parallel processing is not disabled with `parallel = 0`, then {.arg model_packages} must be a character vector of the packages required to predict {.arg model}.'
         ))
       )
 
@@ -188,8 +175,7 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
       validate(
         length(missing_packages) == 0,
         msg = cli_alert_danger(paste0(
-          'The following packages specified in the {.arg model_packages} argument ',
-          'do not seem to be installed on your system: ',
+          'The following packages specified in the {.arg model_packages} argument do not seem to be installed on your system: ',
           paste0(missing_packages, collapse = ', ')
         ))
       )
@@ -214,12 +200,7 @@ validate_silent <- function(silent) {
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
         cli_alert_info(paste0(
-          'No global progress bars were found; the {.pkg cli} progress bar has been activated. ',
-          '(This is not an error.) ',
-          'This default progress bar activation only lasts for one R session. ',
-          'See documentation on {.fun ale::ale} ',
-          'for how to permanently configure the progress bar settings ',
-          'and end these period messages.'
+          'No global progress bars were found; the {.pkg cli} progress bar has been activated. (This is not an error.) This default progress bar activation only lasts for one R session. See documentation on {.fun ale::ale} for how to permanently configure the progress bar settings and end these period messages.'
         ))
       }
 
