@@ -38,6 +38,42 @@ sa_wrmse_sd <- standardized_accuracy(win_rmse, stats::sd)
 
 # Error measures ----------------
 
+
+# Calculate the error (or deviation) between two numeric vectors
+#
+# Not exported. Returns the error (or deviation) between two numeric vectors. This is a utility
+# function for other functions that need to calculate such error or deviation
+# because this function validates the inputs and handles the `na.rm` instruction.
+#
+# @param actual numeric vector. Actual (true) values from a dataset.
+# @param pred numeric vector. Predictions corresponding to each respective
+# element in `actual`.
+# @param na.rm single logical. TRUE if missing values should be removed; FALSE
+# if they should be retained. If TRUE, then if any element of either actual or
+# pred is missing, its paired element will be also removed.
+#
+# @returns Numeric vector of the same length as `actual` and `pred`. But if
+# `na.rm = TRUE`, the vector will be shortened to omit any values where either
+# actual or pred is `NA`.
+#
+error_vector <- function(actual, pred, na.rm = FALSE) {
+  # Validate inputs
+  validate(is.numeric(actual))
+  validate(is.numeric(pred))
+  validate(length(actual) == length(pred))
+  validate(is_scalar_logical(na.rm) && !is.na(na.rm))
+
+  error <- actual - pred
+
+  if (na.rm) {
+    error <- error[!is.na(error)]
+  }
+
+  return(error)
+}
+
+
+
 #' Mean absolute error (MAE)
 #'
 #' Returns the mean absolute error (MAE) of predicted values relative to the actual values.
@@ -57,6 +93,27 @@ mae <- function(actual, pred, na.rm = FALSE) {
   error_vector(actual, pred, na.rm) |>
     abs() |>
     mean()
+}
+
+
+#' Root mean squared error
+#'
+#' Returns the root mean squared error (RMSE) of predicted values relative to the actual values.
+#'
+#' @export
+#' @rdname reg-error
+#'
+#' @param actual See documentation for [mae()]
+#' @param pred See documentation for [mae()]
+#' @param na.rm See documentation for [mae()]
+#'
+#' @returns RMSE of `actual` and `pred`. If any value in `actual` or `pred` is `NA` and `na.rm = FALSE`, returns `NA`.
+#'
+rmse <- function(actual, pred, na.rm = FALSE) {
+  error_vector(actual, pred, na.rm) |>
+    (`^`)(2) |>
+    mean() |>
+    sqrt()
 }
 
 
@@ -119,8 +176,8 @@ win_mae <- function(
     na.rm = FALSE
 ) {
   mae(
-    winsorize(actual, win_range),
-    pred,
+    actual,
+    winsorize(pred, win_range),
     na.rm
   )
 }
@@ -135,51 +192,41 @@ win_rmse <- function(
     na.rm = FALSE
 ) {
   rmse(
-    winsorize(actual, win_range),
-    pred,
+    actual,
+    winsorize(pred, win_range),
     na.rm
   )
 }
 
 
-#' Root mean squared error
-#'
-#' Returns the root mean squared error (RMSE) of predicted values relative to the actual values.
-#'
-#' @export
-#' @rdname reg-error
-#'
-#' @param actual See documentation for [mae()]
-#' @param pred See documentation for [mae()]
-#' @param na.rm See documentation for [mae()]
-#'
-#' @returns RMSE of `actual` and `pred`. If any value in `actual` or `pred` is `NA` and `na.rm = FALSE`, returns `NA`.
-#'
-rmse <- function(actual, pred, na.rm = FALSE) {
-  error_vector(actual, pred, na.rm) |>
-    (`^`)(2) |>
-    mean() |>
-    sqrt()
-}
-
-
 #' Mean absolute deviation
 #'
-#' Returns the mean absolute deviation (MAD) of values relative to their mean.
+#' Returns the mean absolute deviation (MAD) of values relative to their mean. This is useful as a default benchmark for the mean absolute error (MAE), as the standard deviation (SD) is a default benchmark for the root mean square error (RMSE).
+#'
+#' NOTE: This function name overrides `stats::mad()` (median absolute deviation relative to their median). To maintain the functionality of `stats::mad()`, specify the `version` argument.
 #'
 #' @export
 #' @rdname reg-error
 #'
 #' @param x numeric vector. Values for which to calculate the mean absolute deviation.
 #' @param na.rm logical(1). TRUE if missing values should be removed; FALSE if they should be retained.
-#' @param version character(1). By default (`version = 'mean'`), `mad()` returns the mean absolute deviation (MAD) of values relative to their mean. If `version = 'median'`, it returns the `stats::mad()` function, the median absolute deviation relative to their median. Any other value gives an error.
+#' @param version character(1). By default (`version = 'mean'`), `mad()` returns the mean absolute deviation (MAD) of values relative to their mean. If `version = 'median'`, it calls the `stats::mad()` function instead, the median absolute deviation relative to their median. Any other value gives an error.
 #' @param ... Arguments to pass to `stats::mad()` if `version = 'median'`. See the `version` argument for details.
 #'
 #' @returns MAD of the `x` values. If any value of `x` is `NA` and `na.rm = FALSE`, returns `NA`.
 #'
 mad <- function(x, na.rm = FALSE, version = 'mean', ...) {
+  validate(
+    version %in% c('mean', 'median'),
+    msg = c(
+      "{.var version} must be either {.val mean} or {.val median}",
+      "x" = 'It is instead {version}.'
+    )
+  )
+
   if (version == 'mean') {
     return(
+      # MAD is MAE of values around their mean
       mae(
         actual = rep(mean(x, na.rm = na.rm), length(x)),
         pred = x,
@@ -187,14 +234,9 @@ mad <- function(x, na.rm = FALSE, version = 'mean', ...) {
       )
     )
   }
+
   else if (version == 'median') {
     return(stats::mad(x = x, na.rm = na.rm, ...))
-  }
-  else {
-    cli_abort(c(
-      "{.var version} must be either {.val mean} or {.val median}",
-      "x" = 'It is instead {version}.'
-    ))
   }
 }
 
@@ -206,18 +248,18 @@ mad <- function(x, na.rm = FALSE, version = 'mean', ...) {
 #' @export
 #' @rdname reg-error
 #'
-#' @param actual any atomic vector. Actual label values from a dataset. They must be binary; that is, there must be exactly two distinct values (other than missing values, which are allowed). The "true" or "positive" class is determined by coercing 'actual' to logical `TRUE` and `FALSE` following the rules of [as.logical()]. If this is not the intended meaning of "positive", then specify which of the two values should be considered `TRUE` with the argument `binary_true_value`.
+#' @param actual any atomic vector. Actual label values from a dataset. They must be binary; that is, there must be exactly two distinct values (other than missing values, which are allowed). The "true" or "positive" class is determined by coercing `actual` to logical `TRUE` and `FALSE` following the rules of [as.logical()]. If this is not the intended meaning of "positive", then specify which of the two values should be considered `TRUE` with the argument `binary_true_value`.
 #' @param pred numeric vector. Predictions corresponding to each respective element in `actual`. Any numeric value (not only probabilities) are permissible.
-#' @param na.rm single logical. `TRUE` if missing values should be removed; `FALSE` if they should be retained. If `TRUE`, then if any element of either `actual` or `pred` is missing, its paired element will be also removed.
-#' @param binary_true_value any single atomic value. The value of `actual` that is considered `TRUE`; any other value of `actual` is considered `FALSE`. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
-#' @param sample_size To keep the computation relatively rapid, when `actual` and `pred` are longer than `sample_size` elements, then a random sample of `sample_size` of `actual` and `pred` will be selected and the ROC and AUC will be calculated on this sample. To disable random sampling for long inputs, set `sample_size = NA`.
-#' @param seed Random seed used only if `length(actual) > sample_size`.
+#' @param na.rm logical(1). `TRUE` if missing values should be removed; `FALSE` if they should be retained. If `TRUE`, then if any element of either `actual` or `pred` is missing, its paired element will be also removed.
+#' @param binary_true_value any single atomic value. The value of `actual` that is considered `TRUE`; any other value of `actual` is considered `FALSE`. For example, if `2` means `TRUE` and `1` means `FALSE`, then set `binary_true_value = 2`.
+#' @param sample_size single positive integer. To keep the computation relatively rapid, when `actual` and `pred` are longer than `sample_size` elements, then a random sample of `sample_size` of `actual` and `pred` will be selected and the ROC and AUC will be calculated on this sample. To disable random sampling for long inputs, set `sample_size = NA`.
+#' @param seed numeric(1). Random seed used only if `length(actual) > sample_size`.
 #'
 #' @returns List with the following elements:
 #' * `roc_opt`: tibble with optimistic ROC data. "Optimistic" means that when predictions are tied, the TRUE/positive actual values are ordered before the FALSE/negative ones.
 #' * `roc_pess`: tibble with pessimistic ROC data. "Pessimistic" means that when predictions are tied, the FALSE/negative actual values are ordered before the TRUE/positive ones. Note that this difference is not merely in the sort order: when there are ties, the way that true positives, true negatives, etc. are counted is different for optimistic and pessimistic approaches. If there are no tied predictions, then `roc_opt` and `roc_pess` are identical.
 #' * `auc_opt`: area under the ROC curve for optimistic ROC.
-#' * `auc_pess`: area under the ROC curve for pessimistic ROC. If there are no tied predictions, then `auc_opt` and `auc_pess` are identical.
+#' * `auc_pess`: area under the ROC curve for pessimistic ROC.
 #' * `auc`: mean of `auc_opt` and `auc_pess`. If there are no tied predictions, then `auc_opt`, `auc_pess`, and `auc` are identical.
 #' * `ties`: `TRUE` if there are two or more tied predictions; `FALSE` if there are no ties.
 #'
@@ -226,7 +268,7 @@ aucroc <- function(
     pred,
     na.rm = FALSE,
     binary_true_value = NULL,
-    sample_size = 1000,
+    sample_size = 10000,
     seed = 0
   )
 {
@@ -382,38 +424,4 @@ aucroc <- function(
 
 }
 
-
-# Calculate the error (or deviation) between two numeric vectors
-#
-# Not exported. Returns the error (or deviation) between two numeric vectors. This is a utility
-# function for other functions that need to calculate such error or deviation
-# because this function validates the inputs and handles the `na.rm` instruction.
-#
-# @param actual numeric vector. Actual (true) values from a dataset.
-# @param pred numeric vector. Predictions corresponding to each respective
-# element in `actual`.
-# @param na.rm single logical. TRUE if missing values should be removed; FALSE
-# if they should be retained. If TRUE, then if any element of either actual or
-# pred is missing, its paired element will be also removed.
-#
-# @returns Numeric vector of the same length as `actual` and `pred`. But if
-# `na.rm = TRUE`, the vector will be shortened to omit any values where either
-# actual or pred is `NA`.
-#
-error_vector <- function(actual, pred, na.rm = FALSE) {
-  # Validate inputs
-  validate(is.numeric(actual))
-  validate(is.numeric(pred))
-  validate(length(actual) == length(pred))
-  validate(is_scalar_logical(na.rm))
-  validate(!is.na(na.rm))
-
-  error <- actual - pred
-
-  if (na.rm) {
-    error <- error[!is.na(error)]
-  }
-
-  return(error)
-}
 
