@@ -4,7 +4,7 @@
 \alias{idxs_kolmogorov_smirnov}
 \title{Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.}
 \usage{
-idxs_kolmogorov_smirnov(X, x_col, xint, x_int_counts)
+idxs_kolmogorov_smirnov(X, x_col, n_bins, x_int_counts)
 }
 \description{
 Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
