@@ -7,7 +7,7 @@
 calc_ale(
   X,
   model,
-  x_col,
+  x_cols,
   y_cats,
   pred_fun,
   pred_type,
@@ -17,20 +17,16 @@ calc_ale(
   boot_alpha,
   boot_centre,
   boot_ale_y = FALSE,
-  ale_x = NULL,
-  ale_n = NULL,
+  ale_xs = NULL,
+  ale_ns = NULL,
   ale_y_norm_funs = NULL,
   p_dist = NULL
 )
 }
 \arguments{
-\item{X}{dataframe. Data for which ALE is to be calculated. The y (outcome)
-column is absent.}
+\item{X}{dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.}
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
-
-\item{x_col}{character length 1. Name of single column in X for which ALE data is to
-be calculated.}
 
 \item{y_cats}{character. The categories of y. For most cases with non-categorical y, \code{y_cats == y_col}.}
 
@@ -50,26 +46,29 @@ be calculated.}
 
 \item{boot_ale_y}{logical(1). If \code{TRUE}, return the bootstrap matrix of ALE y values. If \code{FALSE} (default) return NULL for the \code{boot_ale_y} element of the return value.}
 
-\item{ale_x, ale_n}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{ale_x == NULL}), but if provided, the provided values will be used instead.}
-
 \item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ale_y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ale]{ale()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
 
-\item{p_dist}{See documentation for \code{p_values} in \code{\link[=ale]{ale()}}}
+\item{p_dist}{See documentation for \code{p_values} in \code{\link[=ale]{ale()}}
+
+Next steps from calc_ale_ixn() and below:
+/ If ixn_d > 1: Impute missing values
+/ cumsum across each dimension
+/ ?? Add first rows as 0?
+\itemize{
+\item If ixn_d > 1: difference away lower-order effects (I probably want to save this for composite ALE)
+\item "Extend the ale_y to set missing ale_x intervals as NA"? Is this still necessary with this current code? I think so; it should be an issue with bootstrapping.
+\item Centre ALE y (probably outside the bootstrap)
+}}
+
+\item{x_col}{character length 1. Name of single column in X for which ALE data is to be calculated.}
+
+\item{ale_x, ale_n}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{ale_x == NULL}), but if provided, the provided values will be used instead.}
 }
 \description{
-This function is not exported. It is uses tidyverse principles to rewrite
-\code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}.
-This function is not usually called directly by the user. For details about
-arguments not documented here, see \code{\link[=ale]{ale()}}.
+This function is not exported. It is uses tidyverse principles to rewrite \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}. This function is not usually called directly by the user. For details about arguments not documented here, see \code{\link[=ale]{ale()}}.
 }
 \references{
-Apley, Daniel W., and Jingyu Zhu.
-"Visualizing the effects of predictor variables in black box supervised learning models."
-Journal of the Royal Statistical Society Series B: Statistical Methodology
-82.4 (2020): 1059-1086.
+Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
 
-Okoli, Chitu. 2023.
-“Statistical Inference Using Machine Learning and Classical Techniques Based
-on Accumulated Local Effects (ALE).”
-arXiv. \url{https://doi.org/10.48550/arXiv.2310.09877}.
+Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. \url{https://doi.org/10.48550/arXiv.2310.09877}.
 }

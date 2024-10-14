@@ -46,7 +46,7 @@ prep_var_for_ale <- function(
         as.integer()
     }
 
-    length_ale_x <- length(ale_x)
+    n_bins <- length(ale_x)
 
     # Tabulate number of cases per ale_x_int
     x_int_counts <-
@@ -56,7 +56,7 @@ prep_var_for_ale <- function(
       table()
 
     x_int_counts <-
-      1:(length_ale_x - 1) |>
+      1:(n_bins - 1) |>
       map_dbl(\(.i) {
         if (.i %in% names(x_int_counts)) {
           x_int_counts[[as.character(.i)]]
@@ -191,7 +191,7 @@ prep_var_for_ale <- function(
         as.integer()
     }
 
-    length_ale_x <- length(ale_x)
+    n_bins <- length(ale_x)
 
   }  # else {  # x_type must be %in% c('binary', 'ordinal', 'categorical')
 
@@ -199,7 +199,7 @@ prep_var_for_ale <- function(
     x_type = x_type,
     ale_x = ale_x,
     ale_n = ale_n,
-    length_ale_x = length_ale_x,
+    n_bins = n_bins,
     x_int_counts = x_int_counts,
     x_int_probs = x_int_probs,
     idx_ord_orig_int = idx_ord_orig_int,
