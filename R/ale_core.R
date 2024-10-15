@@ -904,6 +904,7 @@ ale_core <- function (
       )
     }
 
+    # Loop 1D ALE ---------------
     ales <-
       x_cols |>
       # map(
@@ -1018,6 +1019,8 @@ ale_core <- function (
       })
   }
 
+  # Loop 2D ALE ---------------
+
   # two-way interactions
   else {
     # Create progress bar iterator only if not in an outer loop with ale_xs
@@ -1082,9 +1085,17 @@ ale_core <- function (
             # Shift ale_y by appropriate relative_y
             ale_data <- ale_data |>
               map(\(.cat) {
-                .cat$ale_y <- .cat$ale_y + relative_y_shift
-                .cat
+                .cat |>
+                  mutate(across(contains('ale_y'), \(.x) {
+                    .x + relative_y_shift
+                  }))
               })
+            # # Shift ale_y by appropriate relative_y
+            # ale_data <- ale_data |>
+            #   map(\(.cat) {
+            #     .cat$ale_y <- .cat$ale_y + relative_y_shift
+            #     .cat
+            #   })
 
             # ale_data$ale_y <- ale_data$ale_y + relative_y_shift
 
