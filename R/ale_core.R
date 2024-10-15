@@ -1069,7 +1069,8 @@ ale_core <- function (
                 ale_y_norm_funs = ale_y_norm_funs,
                 p_dist = p_values
               )
-            ale_data <- ale_data_stats
+            ale_data <- ale_data_stats$summary
+            stats    <- ale_data_stats$stats
 
             # ale_data <-
             #   calc_ale_ixn(
@@ -1119,6 +1120,7 @@ ale_core <- function (
 
             list(
               data = ale_data,
+              stats = stats,
               plot = plot  # + theme_bw()
             )
           }) |>
@@ -1130,11 +1132,16 @@ ale_core <- function (
       # has nothing more to interact with, so is empty
       purrr::discard(\(.x) length(.x) == 0)
 
+
     # Transpose ales_by_var to group data and plots together
     ales <- list(
       data = ales_by_var |>
         map(\(.x1) {
           map(.x1, \(.x2) .x2$data)
+        }),
+      stats = ales_by_var |>
+        map(\(.x1) {
+          map(.x1, \(.x2) .x2$stats)
         }),
       plots = ales_by_var |>
         map(\(.x1) {

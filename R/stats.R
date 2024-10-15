@@ -640,7 +640,7 @@ p_to_random_value <- function(
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
 #' @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
 #'
-#' @returns description Named numeric vector:
+#' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
 #' * aler_min: Minimum (lower value) of the ALE range (ALER)
 #' * aler_max: Maximum (upper value) of the ALE range (ALER)
@@ -742,6 +742,113 @@ ale_stats <- function(
     naled = naled,
     naler_min = naler[1],
     naler_max = naler[2]
+  ))
+}
+
+
+#' Calculate statistics from 2D ALE y values.
+#'
+#' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
+#'
+#' After these possible adjustments, the ALE y values and bin counts are passed to [ale_stats()], which calculates their statistics as an ordinal variable since the numeric variables ahve thus been discretized.
+#'
+#' Not exported.
+#'
+#'
+#' @param ale_data dataframe. ALE data
+#' @param x_cols character. Names of the x columns in `ale_data`.
+#' @param x_types character same length as `x_cols`. Variable types (output of [var_type()]) of corresponding `x_cols`.
+#' @param y_vals See documentation for [ale_stats()]
+#' @param ale_y_norm_fun See documentation for [ale_stats()]
+#' @param zeroed_ale See documentation for [ale_stats()]
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ale_stats_2D <- function(
+    ale_data,
+    x_cols,
+    x_types,
+    # bin_n,  # formerly called ale_n
+    y_vals = NULL,
+    ale_y_norm_fun = NULL,
+    zeroed_ale = FALSE
+) {
+  # ale_data=boot_summary
+
+  if ('numeric' %notin% x_types) {
+    # No need to transform anything since the order of records does not matter for ALE statistics for ordinal variables.
+    ale_y <- ale_data$.ale_y
+    ale_n <- ale_data$.ale_n
+  }
+
+  else {
+    # Convert ale_data to arrays
+    ale_y_ray <-
+      paste0(
+        '.ale_y ~ ',
+        paste0(x_cols, collapse = ' + ')
+      ) |>
+      as.formula() |>
+      xtabs(ale_data)
+    ale_n_ray <-
+      paste0(
+        '.ale_n ~ ',
+        paste0(x_cols, collapse = ' + ')
+      ) |>
+      as.formula() |>
+      xtabs(ale_data)
+
+    # The second term of the subtraction below will have values 1, x_lo:x_hi. The values of x_lo and x_hi depend on whether x is numeric.
+    if (x_types[1] == 'numeric') {
+      x1_lo <- 1
+      x1_hi <- nrow(ale_y_ray) - 1
+    } else {
+      x1_lo <- min(nrow(ale_y_ray), 2)
+      x1_hi <- nrow(ale_y_ray)
+    }
+
+    if (x_types[2] == 'numeric') {
+      x2_lo <- 1
+      x2_hi <- ncol(ale_y_ray) - 1
+    } else {
+      x2_lo <- min(ncol(ale_y_ray), 2)
+      x2_hi <- ncol(ale_y_ray)
+    }
+
+    # Calculate the midpoint values
+    mid_ale_y_ray <-
+      (ale_y_ray + ale_y_ray[
+        c(1, x1_lo:x1_hi),
+        c(1, x2_lo:x2_hi)
+        ]) / 2
+
+    # Delete the minimum for numeric variables; they are not midpoints.
+    # Shift their counts to the adjacent rows or columns.
+    if (x_types[1] == 'numeric') {
+      mid_ale_y_ray <- mid_ale_y_ray[-1, ]
+      ale_n_ray[2, ] <- ale_n_ray[2, ] + ale_n_ray[1, ]
+      ale_n_ray <- ale_n_ray[-1, ]
+    }
+    if (x_types[2] == 'numeric') {
+      mid_ale_y_ray <- mid_ale_y_ray[, -1]
+      ale_n_ray[, 2] <- ale_n_ray[, 2] + ale_n_ray[, 1]
+      ale_n_ray <- ale_n_ray[, -1]
+    }
+
+    ale_y <- mid_ale_y_ray
+    ale_n <- ale_n_ray
+  }
+
+  return(ale_stats(
+    y = ale_y,
+    bin_n = ale_n,
+    y_vals = y_vals,
+    ale_y_norm_fun = ale_y_norm_fun,
+    # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
+    x_type = 'ordered',
+    zeroed_ale = TRUE
   ))
 }
 
