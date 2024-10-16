@@ -771,6 +771,10 @@ ale_core <- function (
 
   # Prepare needed internal variables --------------
 
+  # Drop unused factor levels. This avoid all kinds of weird bugs.
+  data <- droplevels(data)
+
+
   # Determine datatype of y
   if (is.null(y_type)) {
     y_type <- var_type(data[[y_col]])
