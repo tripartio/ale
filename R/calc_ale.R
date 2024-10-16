@@ -41,7 +41,7 @@ calc_ale <- function(
 
   # Set up base variables --------------
 
-  if (ixn_3x) x_cols <- ixn_3x_cols
+  # if (ixn_3x) x_cols <- ixn_3x_cols
 
   n_row <- nrow(X)
   ixn_d <- length(x_cols)  # number of dimensions of interaction
@@ -112,14 +112,40 @@ calc_ale <- function(
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
         btit.x_vars[[it.x_col]]$bin_idxs <- cut(
           btit.X[[it.x_col]],
-          breaks = xd[[it.x_col]]$ale_x,
-          include.lowest = TRUE
+          breaks = c(
+            xd[[it.x_col]]$ale_x[1] - 1,
+            xd[[it.x_col]]$ale_x
+            # xd[[it.x_col]]$ale_x[2:xd[[it.x_col]]$n_bins]
+          )
+          # breaks = xd[[it.x_col]]$ale_x,
+          # include.lowest = TRUE
         ) |>
-          as.numeric()
+          as.integer()
+
+        # closeAllConnections()
+        # btit.X <- as_tibble(btit.X)
+        # btit.X_lo <- btit.X_hi <- btit.X
+        # browser()
+
 
         # For numeric x, align btit.X_lo to the floors of ALE bins
-        btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
-        btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs + 1]
+
+        # # This works, but results are off by one row
+        # btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs + 1]
+        # btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
+
+        btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
+        lo_idxs <- btit.x_vars[[it.x_col]]$bin_idxs - 1
+        # adjusted bin_idx cannot be < 1
+        lo_idxs <- if_else(lo_idxs < 1, 1, lo_idxs)
+        btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[lo_idxs]
+
+        # btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
+        # btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[
+        #   # adjusted bin_idx cannot be higher than the number of bins
+        #   min(btit.x_vars[[it.x_col]]$bin_idxs + 1, xd[[it.x_col]]$n_bins)
+        # ]
+
       }
       else {  # ordinal ALE types
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
@@ -143,35 +169,9 @@ calc_ale <- function(
       }
     }  #  for (it.x_col in x_cols)
 
-    ##start Comment -------------
-    # if (x_type == 'numeric') {
-    #   # btit.bin_idxs: n_row-length index vector indicating into which ale_x-bin the rows fall
-    #   btit.bin_idxs <- cut(btit.X[x_cols], breaks = ale_x, include.lowest = TRUE) |>
-    #     as.numeric()
-    #
-    #   btit.X_lo[x_col] <- ale_x[btit.bin_idxs]
-    #   btit.X_hi[x_col] <- ale_x[btit.bin_idxs + 1]
-    # }
-    # else {  # ordinal ALE types
-    #   # btit.bin_idxs: n_row-length index vector indicating into which ale_x-bin the rows fall
-    #   btit.bin_idxs <- x_ordered_idx
-    #   # btit.bin_idxs <- btit.X[[x_col]] |> as.numeric()
-    #
-    #   max_ale_x_idx <- ale_x |> as.integer() |> max()
-    #   inc_ale_x_idx <- btit.bin_idxs + 1
-    #   inc_ale_x_idx <- if_else(
-    #     inc_ale_x_idx > max_ale_x_idx,
-    #     max_ale_x_idx,
-    #     inc_ale_x_idx
-    #   )
-    #
-    #   btit.X_hi[x_col] <- ale_x[inc_ale_x_idx] |>
-    #     # Cast imputed column into appropriate datatype.
-    #     # Especially necessary to cast into logical when needed.
-    #     as(class(X[[x_col]])[1])
-    # }
-    ##end comment --------------
 
+    # closeAllConnections()
+    # browser()
 
     # Difference between low and high boundary predictions
     btit.delta_pred <- pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
@@ -191,6 +191,7 @@ calc_ale <- function(
     btit.local_eff_tbl <-
       # Start with a tbl with one row per x_col combination actually in the data
       btit.X[x_cols] |>
+      as_tibble() |>
       # btit.X_lo[x_cols] |>
       # Append the differences in predictions
       bind_cols(btit.delta_pred)
@@ -198,11 +199,12 @@ calc_ale <- function(
 
     # Append the ALE bins
     for (it.x_col in x_cols) {
-      btit.local_eff_tbl[[paste0(it.x_col, '.bin_idx')]] <-
-        btit.x_vars[[it.x_col]]$bin_idxs
-      btit.local_eff_tbl[[paste0(it.x_col, '.ale_x')]] <- xd[[it.x_col]]$ale_x[
-        btit.x_vars[[it.x_col]]$bin_idxs
-      ]
+      # btit.local_eff_tbl[[paste0(it.x_col, '.bin_idx')]] <-
+      #   btit.x_vars[[it.x_col]]$bin_idxs
+      btit.local_eff_tbl[[paste0(it.x_col, '.ale_x')]] <-
+        xd[[it.x_col]]$ale_x[
+          btit.x_vars[[it.x_col]]$bin_idxs
+        ]
       # btit.local_eff_tbl$.bin_idx <- btit.x_vars[[it.x_col]]$bin_idxs
       # btit.local_eff_tbl$.ale_x <- xd[[it.x_col]]$ale_x[
       #   btit.x_vars[[it.x_col]]$bin_idxs
@@ -269,16 +271,22 @@ calc_ale <- function(
 
     # For each category, assign elements of the array btit.local_eff_ray to their corresponding elements from the tbl btit.local_eff_tbl
     for (it.cat in y_cats) {
+      # closeAllConnections()
+      # browser()
+
       btit.local_eff_ray[
         # Use matrix subset of an array (see `?Extract`) to dynamically specify which array cells to assign.
         cbind(
           it.cat,
           btit.local_eff_tbl[x_cols] |>  # extract x_cols columns
-            # btit.local_eff_tbl[1:length(x_cols)] |>  # extract x_cols columns
-            apply(2, as.character) # convert to character for reference by dimension names
+            # convert to character for reference by dimension names
+            mutate(across(all_of(x_cols), as.character)) |>
+            as.matrix()
+            # apply(2, as.character) # convert to character for reference by dimension names
         )
       ]  <-
         btit.local_eff_tbl[, it.cat] |>
+        # btit.local_eff_tbl[, it.cat, drop = FALSE] |>
         pull()
 
       ### 1D ALE -----------------------
@@ -286,13 +294,15 @@ calc_ale <- function(
       # Generate the cumulative ale_y predictions.
       if (ixn_d == 1) {
         # For 1D ALE, set origin effect to zero; there should be no other missing values.
+        # btit.local_eff_ray[it.cat, ] <-
+        #   c(NA, btit.local_eff_ray[it.cat, 1:(ncol(btit.local_eff_ray)-1)])
         btit.local_eff_ray[it.cat, 1] <- 0
 
         btit.acc_local_eff[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
           cumsum()
       }
 
-      ### 2D ALE ---------------------------------
+      ### 2D ALE -----------------------
       else if (ixn_d == 2) {
         # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
         # (In contrast, there should be no missing values for ID ALE.)
@@ -421,17 +431,13 @@ calc_ale <- function(
     }  # for (it.cat in y_cats)
 
 
-    ## For now, code from here still assumes 2x2 interactions maximum
-
-
-
     #' Next steps from calc_ale_ixn() and below:
     #' / If ixn_d > 1: Impute missing values
     #' / cumsum across each dimension
     #' / ?? Add first rows as 0?
     #' * If ixn_d > 1: difference away lower-order effects (I probably want to save this for composite ALE)
     #' * "Extend the ale_y to set missing ale_x intervals as NA"? Is this still necessary with this current code? I think so; it should be an issue with bootstrapping.
-    #' * Centre ALE y (probably outside the bootstrap)
+    #' / Centre ALE y (probably outside the bootstrap)
 
 
     # # The ale_y just created might have gaps if this data does not have all the ale_x intervals. This might be the case for small bootstrapped datasets. So, we need to extend the ale_y to set missing ale_x intervals as NA.
@@ -460,10 +466,7 @@ calc_ale <- function(
       y = btit.acc_local_eff,
       n = btit.local_eff_tbl
     )
-
-
   })  # boot_ale$ale <- map(boot_ale$row_idxs, \(btit.row_idxs)
-
 
   # Centre the ALE values ----------------
 
@@ -511,7 +514,33 @@ calc_ale <- function(
   else if (ixn_d == 2) {
     x1 <- xd[[1]]
     x2 <- xd[[2]]
-    x12_counts <- table(X[[x_cols[[1]]]], X[[x_cols[[2]]]])
+    # x12_counts <- table(X[[x_cols[[1]]]], X[[x_cols[[2]]]])
+
+    x1_idxs <- if (x1$x_type == 'numeric') {
+      cut(
+        X[[x_cols[1]]],
+        # The lowest border break point is set to the minimum ale_x - 1.
+        # With the default right = TRUE, this forces all rows with the minimum x value into a bin of their own of which the minimum is the ceiling since min(ale_x) - 1 is always lower than the minimum.
+        breaks = c(min(x1$ale_x)-1, x1$ale_x)
+      ) |>
+        as.integer()
+    } else {
+      x1$x_ordered_idx
+    }
+    x2_idxs <- if (x2$x_type == 'numeric') {
+      cut(
+        X[[x_cols[2]]],
+        breaks = c(min(x2$ale_x)-1, x2$ale_x)
+      ) |>
+        as.integer()
+    } else {
+      x1$x_ordered_idx
+    }
+    x12_counts <- table(x1_idxs, x2_idxs)
+    rownames(x12_counts) <- x1$ale_x
+    colnames(x12_counts) <- x2$ale_x
+    # rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ale_x[-x1$n_bins] else x1$ale_x
+    # colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ale_x[-x2$n_bins] else x2$ale_x
 
     ale_y_shift <- map_dbl(y_cats, \(it.cat) {
       # composite_ale[it.cat, , ] <- ale_y_full[it.cat, , ]
@@ -531,8 +560,6 @@ calc_ale <- function(
       #   levels = xd[[2]]$ale_x
       # )
       # x12_counts <- xtabs(n ~ disp + carb, let)
-
-
 
 
       # x1$n_bins by (x2$n_bins+1) matrix of differenced ale_y values, differenced across X[[x1_col]]
@@ -604,8 +631,11 @@ calc_ale <- function(
         mutate(.it = btit.i - 1) |>
         inner_join(
           btit.ale$n |>
-            # select(all_of(x_cols), n) |>
-            mutate(across(x_cols, as.factor)),
+            mutate(across(
+              all_of(x_cols),
+              \(it.x_col) factor(it.x_col, ordered = FALSE)
+            )),
+            # mutate(across(all_of(x_cols), as.factor)),
           by = x_cols
         )
     }) |>
@@ -613,15 +643,18 @@ calc_ale <- function(
     as_tibble() |>
     # set_names(c('.cat', x_cols, '.ale_y', '.it')) |>
     rename(.ale_n = .n) |>
-    select(-y_cats) |>
+    select(-all_of(y_cats)) |>
     select('.it', everything())
 
   # Set numeric x_cols to numeric datatype
   for (it.x_col in x_cols) {
     if (xd[[it.x_col]]$x_type == 'numeric') {
-        boot_ale_tbl[[it.x_col]] <- as.numeric(boot_ale_tbl[[it.x_col]])
-      }
+      boot_ale_tbl[[it.x_col]] <- boot_ale_tbl[[it.x_col]] |>
+        # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
+        as.character() |>
+        as.numeric()
     }
+  }
 
 
   # Apply the centring
@@ -738,7 +771,10 @@ calc_ale <- function(
     # Set numeric x_cols to numeric datatype
     for (it.x_col in x_cols) {
       if (xd[[it.x_col]]$x_type == 'numeric') {
-        x_cols_xtab[[it.x_col]] <- as.numeric(x_cols_xtab[[it.x_col]])
+        x_cols_xtab[[it.x_col]] <- x_cols_xtab[[it.x_col]] |>
+          # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
+          as.character() |>
+          as.numeric()
       }
     }
 
@@ -1023,8 +1059,12 @@ idxs_kolmogorov_smirnov <- function(
       for (i in 1:(n_bins - 1)) {
         for (k in (i + 1):n_bins) {
           # Kolmogorov-Smirnov distance between X[[j_col]] for intervals i and k of X[[x_col]]; always within [0, 1]
-          dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
-                                     x_by_j_ecdf[[k]](j_quantiles)))
+          dist_mx[i, k] <- (x_by_j_ecdf[[i]](j_quantiles) -
+                              x_by_j_ecdf[[k]](j_quantiles)) |>
+                              abs() |>
+                              max()
+          # dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
+          #                            x_by_j_ecdf[[k]](j_quantiles)))
           dist_mx[k, i] <- dist_mx[i, k]
         }
       }
