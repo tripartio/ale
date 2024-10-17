@@ -14,5 +14,6 @@
 ^pkgdown$
 ^\.github$
 ^README\.Rmd$
+^R/refALEPlot\.R$
+^tests/testthat/test-ALEPlot\.R$
 ^vignettes/articles$
-^tests/testthat/test-ALEPlot.R$
