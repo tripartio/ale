@@ -115,18 +115,9 @@ calc_ale <- function(
           breaks = c(
             xd[[it.x_col]]$ale_x[1] - 1,
             xd[[it.x_col]]$ale_x
-            # xd[[it.x_col]]$ale_x[2:xd[[it.x_col]]$n_bins]
           )
-          # breaks = xd[[it.x_col]]$ale_x,
-          # include.lowest = TRUE
         ) |>
           as.integer()
-
-        # closeAllConnections()
-        # btit.X <- as_tibble(btit.X)
-        # btit.X_lo <- btit.X_hi <- btit.X
-        # browser()
-
 
         # For numeric x, align btit.X_lo to the floors of ALE bins
 
@@ -139,13 +130,6 @@ calc_ale <- function(
         # adjusted bin_idx cannot be < 1
         lo_idxs <- if_else(lo_idxs < 1, 1, lo_idxs)
         btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[lo_idxs]
-
-        # btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
-        # btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[
-        #   # adjusted bin_idx cannot be higher than the number of bins
-        #   min(btit.x_vars[[it.x_col]]$bin_idxs + 1, xd[[it.x_col]]$n_bins)
-        # ]
-
       }
       else {  # ordinal ALE types
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
@@ -170,9 +154,6 @@ calc_ale <- function(
     }  #  for (it.x_col in x_cols)
 
 
-    # closeAllConnections()
-    # browser()
-
     # Difference between low and high boundary predictions
     btit.delta_pred <- pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
 
@@ -185,13 +166,12 @@ calc_ale <- function(
       )
     }
 
-
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
     # These mean prediction differences are the "local effects" of ALE.
     btit.local_eff_tbl <-
       # Start with a tbl with one row per x_col combination actually in the data
       btit.X[x_cols] |>
-      as_tibble() |>
+      as_tibble() |>  # enable for easier debugging
       # btit.X_lo[x_cols] |>
       # Append the differences in predictions
       bind_cols(btit.delta_pred)
@@ -265,15 +245,12 @@ calc_ale <- function(
     )
     # Initialize the cumulative predictions arrays similarly
     btit.acc_local_eff <- btit.local_eff_ray
-    btit.composite_ale <- btit.local_eff_ray
+    # btit.composite_ale <- btit.local_eff_ray
 
     ## ALE per category ----------------
 
     # For each category, assign elements of the array btit.local_eff_ray to their corresponding elements from the tbl btit.local_eff_tbl
     for (it.cat in y_cats) {
-      # closeAllConnections()
-      # browser()
-
       btit.local_eff_ray[
         # Use matrix subset of an array (see `?Extract`) to dynamically specify which array cells to assign.
         cbind(
@@ -304,12 +281,30 @@ calc_ale <- function(
 
       ### 2D ALE -----------------------
       else if (ixn_d == 2) {
-        # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
-        # (In contrast, there should be no missing values for ID ALE.)
-        btit.local_eff_ray[it.cat, , ] <- add_array_na.rm(
-          btit.local_eff_ray[it.cat, , ],
-          intrapolate_2D(btit.local_eff_ray[it.cat, , ])
-        )
+        # closeAllConnections()
+        # browser()
+
+        btit.na_count <- btit.local_eff_ray[it.cat, -1, -1] |>
+          is.na() |>
+          sum()
+        if (btit.na_count > 0) {
+          # Replace missing values: necessary for calculating cumulative sums.
+          # (In contrast, there should be no missing values for ID ALE.)
+
+          # # Here, use the default ALEPlot nearest neighbours imputation
+          # environment(nn_na_delta_pred) <- environment()  # give access to all variables in current scope
+          btit.local_eff_ray[it.cat, -1, -1] <- nn_na_delta_pred(
+            btit.local_eff_ray[it.cat, , ],
+            numeric_x1 = xd[[1]]$x_type == 'numeric'
+          )
+
+          # Intrapolate missing values
+          btit.local_eff_ray[it.cat, , ] <- add_array_na.rm(
+            btit.local_eff_ray[it.cat, , ],
+            intrapolate_2D(btit.local_eff_ray[it.cat, , ])
+          )
+        }
+
 
         # Set any indeterminate missing values to zero; this includes the values in the first row and first column
         btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , ])] <- 0
@@ -527,6 +522,7 @@ calc_ale <- function(
     } else {
       x1$x_ordered_idx
     }
+
     x2_idxs <- if (x2$x_type == 'numeric') {
       cut(
         X[[x_cols[2]]],
@@ -622,6 +618,9 @@ calc_ale <- function(
 
   boot_ale_tbl <- boot_ale$ale |>
     imap(\(btit.ale, btit.i) {
+      # closeAllConnections()
+      # browser()
+
       btit.ale$y |>
         # boot_ale_tbl <- boot_ale$ale[[1]]$y |>
   #   imap(\(btit.ale, btit.i) {
@@ -629,7 +628,8 @@ calc_ale <- function(
         as.data.frame.table() |>
         set_names(c('.cat', x_cols, '.ale_y')) |>
         mutate(.it = btit.i - 1) |>
-        inner_join(
+        # With left join, missing interactions will be NA
+        left_join(
           btit.ale$n |>
             mutate(across(
               all_of(x_cols),
@@ -643,6 +643,7 @@ calc_ale <- function(
     as_tibble() |>
     # set_names(c('.cat', x_cols, '.ale_y', '.it')) |>
     rename(.ale_n = .n) |>
+    mutate(.ale_n = if_else(is.na(.ale_n), 0, .ale_n)) |>
     select(-all_of(y_cats)) |>
     select('.it', everything())
 
@@ -1026,77 +1027,210 @@ calc_ale <- function(
 
 
 
-#' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
-idxs_kolmogorov_smirnov <- function(
-    X,
+#' Compute preparatory data for ALE calculation
+#'
+#' This function is not exported. It computes data needed to calculate its ALE values.
+#'
+#' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
+#' @param x_type character(1). var_type() of x_col.
+#' @param x_vals vector. The values of x_col.
+#' @param ale_x,ale_n  See documentation for [calc_ale()]
+#' @param max_x_int See documentation for [ale()]
+#' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
+#'
+prep_var_for_ale <- function(
     x_col,
-    n_bins,
-    x_int_counts
-  ) {
+    x_type,
+    x_vals,
+    ale_x,
+    ale_n,
+    max_x_int,
+    X = NULL
+) {
+  if (x_type == 'numeric') {
 
-  # Initialize distance matrices between pairs of intervals of X[[x_col]]
-  dist_mx <- matrix(0, n_bins, n_bins)
-  cdm <- matrix(0, n_bins, n_bins)  # cumulative distance matrix
+    # ale_x: max_x_int quantile intervals of x_col values
+    if (is.null(ale_x)) {
+      ale_x <- c(
+        min(x_vals, na.rm = TRUE),  # first value is the min
+        stats::quantile(
+          x_vals,
+          # seq creates length.out + 1 bins, so set it to max_x_int - 1
+          seq(1 / (max_x_int - 1), 1, length.out = max_x_int - 1),
+          type = 1,
+          na.rm = TRUE
+        ) |>  # keep quantile type=1 for consistency with Apley & Zhu 2020
+          as.numeric()
+      ) |>
+        unique()  # one interval per value regardless of duplicates
 
-  # Calculate distance matrix for each of the other X columns
-  for (j_col in setdiff(names(X), x_col)) {
-    if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
-      # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
-      x_by_j_ecdf <- tapply(
-        X[[j_col]],
-        X[[x_col]],
-        stats::ecdf
-      )
-
-      # quantiles of X[[j_col]] for all intervals of X[[x_col]] combined
-      j_quantiles <- stats::quantile(
-        X[[j_col]],
-        probs = seq(0, 1, length.out = 100),
-        na.rm = TRUE,
-        names = FALSE
-      )
-
-      for (i in 1:(n_bins - 1)) {
-        for (k in (i + 1):n_bins) {
-          # Kolmogorov-Smirnov distance between X[[j_col]] for intervals i and k of X[[x_col]]; always within [0, 1]
-          dist_mx[i, k] <- (x_by_j_ecdf[[i]](j_quantiles) -
-                              x_by_j_ecdf[[k]](j_quantiles)) |>
-                              abs() |>
-                              max()
-          # dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
-          #                            x_by_j_ecdf[[k]](j_quantiles)))
-          dist_mx[k, i] <- dist_mx[i, k]
-        }
-      }
-    }
-    else {  # distance matrix for non-numeric j_col
-      x_j_freq <- table(X[[x_col]], X[[j_col]])  #frequency table, rows of which will be compared
-      x_j_freq <- x_j_freq / as.numeric(x_int_counts)
-      for (i in 1:(n_bins-1)) {
-        for (k in (i+1):n_bins) {
-          # Dissimilarity measure always within [0, 1]
-          dist_mx[i, k] <- sum(abs(x_j_freq[i, ] -
-                                     x_j_freq[k, ])) / 2
-          dist_mx[k, i] <- dist_mx[i, k]
-        }
-      }
+      # ale_n: ale_n[i] is the count of elements in x_vals whose values are between ale_x[i-1] (exclusive) and ale_x[i] (inclusive)
+      ale_n <-
+        # assign each x_vals value to its interval in ale_x
+        findInterval(
+          x_vals, ale_x,
+          # interval i includes i and all values > i-1
+          left.open = TRUE
+        ) |>
+        table() |>  # count number of x in each ale_x interval
+        as.integer()
     }
 
-    cdm <- cdm + dist_mx
+    n_bins <- length(ale_x)
 
-  }
+    # Tabulate number of cases per ale_x_int
+    x_int_counts <-
+      x_vals |>
+      cut(breaks = ale_x, include.lowest = TRUE) |>
+      as.numeric() |>
+      table()
 
-  # Replace any NA with the maximum distance
-  cdm[is.na(cdm)] <- max(cdm, na.rm = TRUE)
+    x_int_counts <-
+      1:(n_bins - 1) |>
+      map_dbl(\(.i) {
+        if (.i %in% names(x_int_counts)) {
+          x_int_counts[[as.character(.i)]]
+        } else {
+          0
+        }
+      })
 
-  # Convert cumulative distance matrix to sorted indices
-  idxs <- cdm |>
-    stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
-    sort(index.return = TRUE) |>
-    (`[[`)('ix')
+    # Nullify variables not used for numeric ALE variables
+    x_int_probs <- NULL
+    idx_ord_orig_int <- NULL
+    x_ordered_idx <- NULL
+    int_ale_order <- NULL
+
+  }  # if (x_type == 'numeric')
+
+  else {  # x_type must be %in% c('binary', 'ordinal', 'categorical')
+
+    # If x_col is a factor (ordinal or categorical), first drop any unused levels
+    if (('factor' %in% class(x_vals)) && (is.null(ale_x))) {
+      x_vals <- droplevels(x_vals)
+    }
+
+    # tabulate interval counts and probabilities
+    x_int_counts <- table(x_vals)
+    x_int_probs <- x_int_counts / sum(x_int_counts)
 
 
-  return(idxs)
+    # Calculate three key variables that determine the ordering of the ale_x axis, depending on if x_type is binary, categorical, or ordinal:
+    # * idx_ord_orig_int: new indices of the original intervals or factor levels after they have been ordered for ALE purposes
+    # * x_ordered_idx: index of x_col value according to ordered indices
+    # * int_ale_order: x intervals sorted in ALE order
+
+    if (is.null(ale_x)) {  # Calculate ale_x based on x_col datatype
+
+      if (x_type == 'binary') {
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- c(1L, 2L)
+
+        # index of x_col value according to ordered indices
+        x_ordered_idx <-
+          x_vals |>
+          as.factor() |>
+          as.integer()  # becomes 2L for TRUE and 1L for FALSE
+
+        # x intervals sorted in ALE order
+        int_ale_order <-
+          x_vals |>
+          unique() |>
+          sort()
+
+      }
+      else if (x_type == 'categorical') {
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <-
+          # Call function to order categorical categories
+          idxs_kolmogorov_smirnov(
+            X, x_col,
+            n_bins = x_vals |> unique() |> length(),
+            x_int_counts
+          )
+
+        # index of x_col value according to ordered indices
+        x_ordered_idx <-
+          idx_ord_orig_int |>
+          sort(index.return = TRUE) |>
+          (`[[`)('ix') |>
+          (`[`)(
+            x_vals |>
+              factor() |>  # required to handle character vectors
+              as.numeric()
+          )
+
+        # x intervals sorted in ALE order
+        int_ale_order <-
+          x_int_counts |>
+          names() |>
+          # This older code only worked for factors; the revision also works for characters
+          # x_vals |>
+          # levels() |>
+          (`[`)(idx_ord_orig_int)
+
+      }
+      else if (x_type == 'ordinal') {
+
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- 1:nlevels(x_vals)
+
+        # index of x_col value according to ordered indices
+        x_ordered_idx <- as.integer(x_vals)
+
+        # x intervals sorted in ALE order
+        int_ale_order <- levels(x_vals)
+
+      }
+
+      # ale_x: n_bins quantile intervals of x_col values
+      ale_x <- int_ale_order |>
+        factor(levels = int_ale_order, ordered = TRUE)
+
+      # ale_n: number of rows of x in each ale_x interval
+      ale_n <-
+        x_vals |>
+        table() |>
+        # Sort the table in ale_x order
+        as.data.frame() |>
+        # mutate(Var1 = factor(.data$Var1, ordered = TRUE, levels = levels(ale_x))) |>
+        mutate(x_vals = factor(.data$x_vals, ordered = TRUE, levels = levels(ale_x))) |>
+        arrange(.data$x_vals) |>
+        pull(.data$Freq)
+      names(ale_n) <- levels(ale_x)
+
+    } # if (is.null(ale_x))
+
+    else {  # reuse values based on ale_x passed as argument
+
+      # calculate the indices of the original intervals after ordering them
+      idx_ord_orig_int <- 1:length(ale_x)
+
+      # x intervals sorted in ALE order
+      int_ale_order <- levels(ale_x)
+
+      # index of x_col value according to ordered indices
+      x_ordered_idx <- x_vals |>
+        ordered(levels = int_ale_order) |>
+        as.integer()
+    }
+
+    n_bins <- length(ale_x)
+
+  }  # else {  # x_type must be %in% c('binary', 'ordinal', 'categorical')
+
+  return(list(
+    x_type = x_type,
+    ale_x = ale_x,
+    ale_n = ale_n,
+    n_bins = n_bins,
+    x_int_counts = x_int_counts,
+    x_int_probs = x_int_probs,
+    idx_ord_orig_int = idx_ord_orig_int,
+    x_ordered_idx = x_ordered_idx,
+    int_ale_order = int_ale_order
+  ))
+
 }
 
 
