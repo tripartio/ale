@@ -421,15 +421,15 @@ create_p_dist <- function(
   original_seed <- .Random.seed
   on.exit(set.seed(original_seed))
 
-  rand_ales <- furrr::future_map(
-    # rand_ales <- map_loop(
-    .options = furrr::furrr_options(
-      # Enable parallel-processing random seed generation
-      seed = TRUE,
-      # transmit any globals and packages in random_model_call_string to the parallel workers
-      globals = random_model_call_string_vars,
-      packages = model_packages
-    ),
+  rand_ales <- map(  # use for debugging
+  # rand_ales <- furrr::future_map(
+  #   .options = furrr::furrr_options(
+  #     # Enable parallel-processing random seed generation
+  #     seed = TRUE,
+  #     # transmit any globals and packages in random_model_call_string to the parallel workers
+  #     globals = random_model_call_string_vars,
+  #     packages = model_packages
+  #   ),
     .x = 1:rand_it,
     .f = \(.it) {
 
@@ -496,13 +496,16 @@ create_p_dist <- function(
             relative_y = 'zero',
             silent = TRUE
           )
+
+          # browser()
         },
         error = \(e) {
           cli_warn(paste0(
-            'Error on iteration ', .it, ':\n',
+            'Error and skipped iteration ', .it, ':\n',
             e
           ))
 
+          # End current future_map loop without any return value
           return(NULL)
         }
       )
@@ -533,6 +536,7 @@ create_p_dist <- function(
     map(\(.rand_it) {  # iterate by random ALE iteration
       .rand_it$data |>
         map(\(.cat) {  # iterate by categorical class or just by the single y_col
+          # browser()
           ale_stats(
             y = .cat$random_variable$ale_y,
             bin_n = .cat$random_variable$ale_n,

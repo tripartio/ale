@@ -911,13 +911,13 @@ ale_core <- function (
     # Loop 1D ALE ---------------
     ales <-
       x_cols |>
-      # map(
-      furrr::future_map(
-        .options = furrr::furrr_options(
-          # Enable parallel-processing random seed generation
-          seed = seed,
-          packages = model_packages
-        ),
+      map(  # for debugging
+      # furrr::future_map(
+      #   .options = furrr::furrr_options(
+      #     # Enable parallel-processing random seed generation
+      #     seed = seed,
+      #     packages = model_packages
+      #   ),
         .f = \(x_col) {
 
           # Increment progress bar iterator only if not in an outer loop with ale_xs
