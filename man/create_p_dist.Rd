@@ -32,8 +32,7 @@ create_p_dist(
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{p_val_type}{character(1). Either 'approx fast' (default) or
-'precise slow'. See details.}
+\item{p_val_type}{character(1). Either 'approx fast' (default) or 'precise slow'. See details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -151,16 +150,7 @@ added.
 according to the distribution of the random variables' ALE statistics.
 }
 
-What we have just described is the precise approach to calculating p-values.
-Because it is so slow, by default, create_p_dist() implements an approximate
-algorithm by default which trains only a few random variables up to the
-number of physical parallel processing threads available, with a minimum of
-four. To increase speed, the random variable uses only 10 ALE x intervals
-instead of the default 100.
-Although approximate p-values are much faster than precise ones, they are still somewhat
-slow: at the very quickest, they take at least the amount of time that it would
-take to train the original model  two or three times. See the
-"Parallel processing" section below for more details on the speed of computation.
+What we have just described is the precise approach to calculating p-values with the argument \code{p_val_type = 'precise slow'}. Because it is so slow, by default, create_p_dist() implements an approximate algorithm by default (\code{p_val_type = 'approx fast'}) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE x intervals instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model  two or three times. See the "Parallel processing" section below for more details on the speed of computation.
 }
 
 \section{Parallel processing}{

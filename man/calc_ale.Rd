@@ -57,7 +57,7 @@ Next steps from calc_ale_ixn() and below:
 \itemize{
 \item If ixn_d > 1: difference away lower-order effects (I probably want to save this for composite ALE)
 \item "Extend the ale_y to set missing ale_x intervals as NA"? Is this still necessary with this current code? I think so; it should be an issue with bootstrapping.
-\item Centre ALE y (probably outside the bootstrap)
+/ Centre ALE y (probably outside the bootstrap)
 }}
 
 \item{x_col}{character length 1. Name of single column in X for which ALE data is to be calculated.}

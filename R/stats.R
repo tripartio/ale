@@ -58,16 +58,7 @@
 #' (from `stats::ecdf()`) is used to create a function to determine p-values
 #' according to the distribution of the random variables' ALE statistics.
 #'
-#' What we have just described is the precise approach to calculating p-values.
-#' Because it is so slow, by default, create_p_dist() implements an approximate
-#' algorithm by default which trains only a few random variables up to the
-#' number of physical parallel processing threads available, with a minimum of
-#' four. To increase speed, the random variable uses only 10 ALE x intervals
-#' instead of the default 100.
-#' Although approximate p-values are much faster than precise ones, they are still somewhat
-#' slow: at the very quickest, they take at least the amount of time that it would
-#' take to train the original model  two or three times. See the
-#' "Parallel processing" section below for more details on the speed of computation.
+#' What we have just described is the precise approach to calculating p-values with the argument `p_val_type = 'precise slow'`. Because it is so slow, by default, create_p_dist() implements an approximate algorithm by default (`p_val_type = 'approx fast'`) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE x intervals instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model  two or three times. See the "Parallel processing" section below for more details on the speed of computation.
 #'
 #' @section Parallel processing:
 #' Parallel processing using the `{furrr}` library is enabled by default to use
@@ -102,8 +93,7 @@
 #' @param model See documentation for [ale()]
 # @param model model object. The model used to train the original `training_data`.
 #  for which ALE should be calculated. See details and also documentation for [ale()].
-#' @param p_val_type character(1). Either 'approx fast' (default) or
-#' 'precise slow'. See details.
+#' @param p_val_type character(1). Either 'approx fast' (default) or 'precise slow'. See details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel See documentation for [ale()]
 #' @param model_packages See documentation for [ale()]
@@ -431,13 +421,13 @@ create_p_dist <- function(
   #     packages = model_packages
   #   ),
     .x = 1:rand_it,
-    .f = \(.it) {
+    .f = \(it) {
 
       tryCatch(
         {
           # Generate training and test subsets with the random variable.
           # Package scope because they modify the datasets defined outside of the map function.
-          set.seed(seed + .it)
+          set.seed(seed + it)
 
           tmp_rand_data <- data
           tmp_rand_data$random_variable <- univariateML::rml(
@@ -501,7 +491,7 @@ create_p_dist <- function(
         },
         error = \(e) {
           cli_warn(paste0(
-            'Error and skipped iteration ', .it, ':\n',
+            'Error and skipped iteration ', it, ':\n',
             e
           ))
 
@@ -510,14 +500,16 @@ create_p_dist <- function(
         }
       )
 
+      # browser()
+
       # Increment the progress bar iterator.
-      # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+      # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
       if (!silent) {
         progress_iterator()
       }
 
       rand_ale
-    })
+    })  # rand_ales <- furrr::future_map(
 
   # Discard any NULL cases for iterations that might have failed for whatever reason.
   # (see tryCatch block in the future_map function)
@@ -766,10 +758,8 @@ ale_stats <- function(
 #' @param ale_y_norm_fun See documentation for [ale_stats()]
 #' @param zeroed_ale See documentation for [ale_stats()]
 #'
-#' @return
-#' @export
+#' @returns Same as [ale_stats()].
 #'
-#' @examples
 ale_stats_2D <- function(
     ale_data,
     x_cols,

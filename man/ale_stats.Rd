@@ -27,7 +27,7 @@ ale_stats(
 \item{zeroed_ale}{logical. TRUE if the ALE \code{y} values are zero-based. If \code{FALSE} (default), \code{ale_stats} will convert \code{y} to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, \code{y} must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to \code{TRUE}.}
 }
 \value{
-description Named numeric vector:
+Named numeric vector:
 \itemize{
 \item aled: ALE deviation (ALED)
 \item aler_min: Minimum (lower value) of the ALE range (ALER)
