@@ -42,6 +42,7 @@
 #' @importFrom purrr map2_dbl
 #' @importFrom purrr map_chr
 #' @importFrom purrr map_dbl
+#' @importFrom purrr pluck
 #' @importFrom purrr set_names
 #' @importFrom purrr walk
 #' @importFrom rlang .data
