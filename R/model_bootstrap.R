@@ -1137,7 +1137,7 @@ model_bootstrap <- function (
   # Simplify some very large elements, especially closures that contain environments
   params$data <- params_data(
     data = data,
-    sample_size = full_ale$params$data_sample,
+    sample_size = if ('ale' %in% output) full_ale$params$data_sample else 500,
     seed = seed
   )
   params$model <- params_model(model)

@@ -106,7 +106,7 @@ test_that(
       seed = 1234,
       boot_alpha = 0.1,
       boot_centre = 'median',
-      output = 'ale',
+      output = c("model_stats", "model_coefs"),  # exclude ALE
       ale_options = list(
         relative_y = 'zero',
         # faster test
