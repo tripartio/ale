@@ -310,7 +310,7 @@ aucroc <- function(
 
   # If even after removing missing values the vectors are still too long, then sample them.
   if (length(actual) > sample_size) {
-    original_seed <- .Random.seed
+    original_seed <- if (exists('.Random.seed')) .Random.seed else seed
     on.exit(set.seed(original_seed))
     set.seed(seed)
 

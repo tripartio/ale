@@ -408,8 +408,9 @@ create_p_dist <- function(
   package_scope$rand_data <- data
   n_rows <- nrow(data)
 
-  original_seed <- .Random.seed
+  original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
+  set.seed(seed)
 
   rand_ales <- map(  # use for debugging
   # rand_ales <- furrr::future_map(

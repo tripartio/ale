@@ -73,8 +73,6 @@ test_that("mad function works correctly", {
 })
 
 test_that("aucroc function works correctly", {
-  original_seed <- .Random.seed
-  on.exit(set.seed(original_seed))
   set.seed(0)
 
   a <- sample(c(TRUE, FALSE), 50, replace = TRUE)

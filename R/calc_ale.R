@@ -47,7 +47,7 @@ calc_ale <- function(
   ixn_d <- length(x_cols)  # number of dimensions of interaction
 
   # Create bootstrap tbl
-  original_seed <- .Random.seed
+  original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
   set.seed(seed)
 
