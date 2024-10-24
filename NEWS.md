@@ -2,7 +2,8 @@
 
 ## Breaking changes
 
-* We have deeply rethought how best to structure the objects for this package. As a result, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
+* We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scaleable. 
+* In addition to rewriting the code under the hood, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
 * We have created several S3 objects to represent different kinds of ale package objects:
     * `ale`: the core `ale` package object that holds the results of the [ale()] function.
     * `ale_boot`: results of the [model_bootstrap()] function.
@@ -15,6 +16,9 @@
 
 ## Other user-visible changes
 
+* Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
+* Bootstrapping is now supported for ALE interactions.
+* ALE statistics are now supported for interactions.
 * Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.
@@ -41,8 +45,6 @@ Other notable changes that might not be readily visible to users:
 
 ## Known issues to be addressed in a future version
 
--   Bootstrapping is not yet supported for ALE interactions (`ale_ixn()`).
--   ALE statistics are not yet supported for ALE interactions (`ale_ixn()`).
 -   Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
 
 

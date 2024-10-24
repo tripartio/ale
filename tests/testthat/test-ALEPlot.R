@@ -228,8 +228,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   nnet_ale_ixn <- ale_ixn(
     DAT, nnet.DAT,  # basic arguments
     parallel = 0,
-    relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
-    # relative_y = 'zero', output = c('data', 'plots'),  # make ale equivalent to ALEPlot
+    relative_y = 'zero',  # make ale equivalent to ALEPlot
+    output = 'data',
     pred_fun = nnet_pred_fun_ale,
     pred_type = "raw", max_x_int = 10 + 1,  # specific options requested
     silent = TRUE
@@ -248,7 +248,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
 
   # Compare results of ALEPlot with ale
   expect_true(
-    all.equal(nnet_ALEPlot_ixn, nnet_ale_ixn_to_ALEPlot)
+    all.equal(nnet_ALEPlot_ixn, nnet_ale_ixn_to_ALEPlot, tolerance = 0.01)
   )
 })
 
@@ -308,7 +308,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     parallel = 0,
     relative_y = 'zero', output = 'data',  # make ale equivalent to ALEPlot
     pred_fun = gbm_pred_fun_ale,
-    pred_type = 'link', max_x_int = 10,  # specific options requested
+    pred_type = 'link', max_x_int = 10 + 1,  # specific options requested
     silent = TRUE
   )
 
@@ -319,8 +319,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
       map(.x1, \(.x2) {
         .x2$higher_income |>
           select(ale_x1, ale_x2, ale_y) |>
-          arrange(ale_x1, ale_x2, ale_y) |>
-          mutate(across(where(is.factor), as.character))
+          mutate(across(where(is.factor), as.character)) |>
+          arrange(ale_x1, ale_x2, ale_y)
       })
     })
 

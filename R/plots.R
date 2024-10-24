@@ -642,7 +642,8 @@ plot_ale_ixn <- function(
         ordered(levels = 1:(n_y_quant - 1))
     )
 
-  if (class(ale_data$ale_x1) %in% c("numeric", "integer")) {
+  if (var_type(ale_data$ale_x1) == 'numeric') {
+    # if (class(ale_data$ale_x1) %in% c("numeric", "integer")) {
     ale_data <- ale_data |>
       mutate(
         # Set numeric x1 to quantiles; factors will be unchanged.

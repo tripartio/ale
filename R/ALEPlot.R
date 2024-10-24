@@ -7,7 +7,7 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
   x1_ceilings <- xd[[1]]$ale_x
   x2_ceilings <- xd[[2]]$ale_x
 
-  # na_delta: n_x1_int by n_x2_int matrix with missing values TRUE
+  # na_delta: xd[[1]]$n_bins by xd[[2]]$n_bins matrix with missing values TRUE
   # na_delta_idx: long matrix with row, col columns indicating indices of missing delta values
   na_delta <- is.na(dp)
   na_delta_idx <- which(na_delta, arr.ind = TRUE, useNames = TRUE)
@@ -19,29 +19,60 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
     range_x1 <- if (numeric_x1) {
       max(x1_ceilings) - min(x1_ceilings)
     } else {
-      n_x1_int - 1
+      xd[[1]]$n_bins - 1
+      # n_x1_int - 1
     }
     range_x2 <- max(x2_ceilings) - min(x2_ceilings)
 
     # Data Values of na_delta_idx and not_na_delta_idx, but normalized according to ALEPlot formulas
-    norm_na_delta <- cbind(
-      if (numeric_x1) {
-        (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1
-      } else {
-        na_delta_idx[, 1] / range_x1
-      },
-      (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
-    )
-    norm_not_na_delta <- cbind(
-      if (numeric_x1) {
-        (x1_ceilings[not_na_delta_idx[, 1]] + x1_ceilings[not_na_delta_idx[, 1]+1]) / 2 / range_x1
-      } else {
-        not_na_delta_idx[, 1] / range_x1
-      },
-      (x2_ceilings[not_na_delta_idx[, 2]] + x2_ceilings[not_na_delta_idx[, 2]+1]) / 2 / range_x2
-    )
+    if (numeric_x1) {
+      norm_na_delta <- cbind(
+        (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1,
+        (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
+      )
+      norm_not_na_delta <- cbind(
+        (x1_ceilings[not_na_delta_idx[, 1]] + x1_ceilings[not_na_delta_idx[, 1]+1]) / 2 / range_x1,
+        (x2_ceilings[not_na_delta_idx[, 2]] + x2_ceilings[not_na_delta_idx[, 2]+1]) / 2 / range_x2
+      )
+    } else {
+      norm_na_delta <- cbind(
+        na_delta_idx[, 1] / range_x1,
+        na_delta_idx[, 2] / range_x2
+      )
+      norm_not_na_delta <- cbind(
+        not_na_delta_idx[, 1] / range_x1,
+        not_na_delta_idx[, 2] / range_x2
+      )
+    }
 
+
+    # # Data Values of na_delta_idx and not_na_delta_idx, but normalized according to ALEPlot formulas
+    # norm_na_delta <- cbind(
+    #   if (numeric_x1) {
+    #     (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1
+    #   } else {
+    #     na_delta_idx[, 1] / range_x1
+    #   },
+    #   (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
+    # )
+    # norm_not_na_delta <- cbind(
+    #   if (numeric_x1) {
+    #     (x1_ceilings[not_na_delta_idx[, 1]] + x1_ceilings[not_na_delta_idx[, 1]+1]) / 2 / range_x1
+    #   } else {
+    #     not_na_delta_idx[, 1] / range_x1
+    #   },
+    #   (x2_ceilings[not_na_delta_idx[, 2]] + x2_ceilings[not_na_delta_idx[, 2]+1]) / 2 / range_x2
+    # )
+
+
+    # closeAllConnections()
+    # cat(x_cols, '\n')
     # browser()
+
+    if (any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))) {
+      closeAllConnections()
+      browser()
+    }
 
     # Use yaImpute::ann() for fast nearest non-NA neighbours of NA cells (consistency with ALEPlot)
     na_nbrs <- yaImpute::ann(

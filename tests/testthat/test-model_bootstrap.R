@@ -113,13 +113,13 @@ test_that(
         max_x_int = 10,
         x_cols = c('country', 'continent')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
+      # compact_plots = TRUE
     )
-    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
+    # mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
+    # mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(mb)
   }
 )

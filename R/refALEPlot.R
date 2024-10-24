@@ -231,15 +231,17 @@ else if (length(J) == 2) { #calculate second-order effects ALE plot
     fJ = fJ - fJ0 #K1x(K2+1) matrix
     x <- list(levs.ord, z2)
     K <- c(K1, K2)
-    image(1:K1, x[[2]], fJ, xlab=paste("x_",J[1], " (", names(X)[J[1]], ")", sep=""), ylab= paste("x_",J[2], " (", names(X)[J[2]], ")", sep=""), ylim = range(z2), yaxs = "i")
-    contour(1:K1, x[[2]], fJ, add=TRUE, drawlabels=TRUE)
-    axis(side=1, labels=x[[1]], at=1:K1, las = 3, padj=1.2) #add level names to x-axis
-    if (NA.plot == FALSE) {#plot black rectangles over the empty cell regions if NA.plot == FALSE
-      if (nrow(NA.ind) > 0) {
-        NA.ind = which(b==0, arr.ind=T, useNames = F)  #2-column matrix of row and column indices for empty cells
-        rect(xleft = NA.ind[,1]-0.5, ybottom = z2[NA.ind[,2]], xright = NA.ind[,1]+0.5, ytop = z2[NA.ind[,2]+1], col="black")
-      }
-    }#end of if (NA.plot == FALSE) statement to plot black rectangles for empty cells
+
+    # # disable plotting
+    # image(1:K1, x[[2]], fJ, xlab=paste("x_",J[1], " (", names(X)[J[1]], ")", sep=""), ylab= paste("x_",J[2], " (", names(X)[J[2]], ")", sep=""), ylim = range(z2), yaxs = "i")
+    # contour(1:K1, x[[2]], fJ, add=TRUE, drawlabels=TRUE)
+    # axis(side=1, labels=x[[1]], at=1:K1, las = 3, padj=1.2) #add level names to x-axis
+    # if (NA.plot == FALSE) {#plot black rectangles over the empty cell regions if NA.plot == FALSE
+    #   if (nrow(NA.ind) > 0) {
+    #     NA.ind = which(b==0, arr.ind=T, useNames = F)  #2-column matrix of row and column indices for empty cells
+    #     rect(xleft = NA.ind[,1]-0.5, ybottom = z2[NA.ind[,2]], xright = NA.ind[,1]+0.5, ytop = z2[NA.ind[,2]+1], col="black")
+    #   }
+    # }#end of if (NA.plot == FALSE) statement to plot black rectangles for empty cells
 
   } #end of if (class(X[,J[1]]) == "factor") statement
 
@@ -306,13 +308,15 @@ else if (length(J) == 2) { #calculate second-order effects ALE plot
   fJ = fJ - fJ0
   x <- list(z1, z2)
   K <- c(K1, K2)
-  image(x[[1]], x[[2]], fJ, xlab=paste("x_",J[1], " (", names(X)[J[1]], ")", sep=""), ylab= paste("x_",J[2], " (", names(X)[J[2]], ")", sep=""), xlim = range(z1), ylim = range(z2), xaxs = "i", yaxs = "i")
-  contour(x[[1]], x[[2]], fJ, add=TRUE, drawlabels=TRUE)
-  if (NA.plot == FALSE) {#plot black rectangles over the empty cell regions if NA.plot == FALSE
-    if (nrow(NA.ind) > 0) {
-      rect(xleft = z1[NA.ind[,1]], ybottom = z2[NA.ind[,2]], xright = z1[NA.ind[,1]+1], ytop = z2[NA.ind[,2]+1], col="black")
-    }
-  }#end of if (NA.plot == FALSE) statement to plot black rectangles for empty cells
+
+  # # disable plotting
+  # image(x[[1]], x[[2]], fJ, xlab=paste("x_",J[1], " (", names(X)[J[1]], ")", sep=""), ylab= paste("x_",J[2], " (", names(X)[J[2]], ")", sep=""), xlim = range(z1), ylim = range(z2), xaxs = "i", yaxs = "i")
+  # contour(x[[1]], x[[2]], fJ, add=TRUE, drawlabels=TRUE)
+  # if (NA.plot == FALSE) {#plot black rectangles over the empty cell regions if NA.plot == FALSE
+  #   if (nrow(NA.ind) > 0) {
+  #     rect(xleft = z1[NA.ind[,1]], ybottom = z2[NA.ind[,2]], xright = z1[NA.ind[,1]+1], ytop = z2[NA.ind[,2]+1], col="black")
+  #   }
+  # }#end of if (NA.plot == FALSE) statement to plot black rectangles for empty cells
   }  #end of else if (class(X[,J[1]]) == "numeric" | class(X[,J[1]]) == "integer") statement
 
   else print("error:  class(X[,J[1]]) must be either factor or numeric/integer")

@@ -939,6 +939,10 @@ ale_core <- function (
               p_dist = p_values
             )
 
+
+          # closeAllConnections()
+          # browser()
+
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
@@ -1060,31 +1064,36 @@ ale_core <- function (
               progress_iterator()
             }
 
-            ale_data_stats <-
-              calc_ale(
-                data_X, model,
-                c(x1_col, x2_col),
-                y_cats,
-                pred_fun, pred_type,
-                max_x_int,
-                boot_it, seed, boot_alpha, boot_centre,
-                boot_ale_y = 'boot' %in% output,
-                ale_xs = ale_xs[c(x1_col, x2_col)],
-                ale_ns = ale_ns[c(x1_col, x2_col)],
-                # ale_x = ale_xs[[x_col]],
-                # ale_n = ale_ns[[x_col]],
-                ale_y_norm_funs = ale_y_norm_funs,
-                p_dist = p_values
-              )
-            ale_data <- ale_data_stats$summary
-            stats    <- ale_data_stats$stats
+            # if (!old_ixn) {
+              ale_data_stats <-
+                calc_ale(
+                  data_X, model,
+                  c(x1_col, x2_col),
+                  y_cats,
+                  pred_fun, pred_type,
+                  max_x_int,
+                  boot_it, seed, boot_alpha, boot_centre,
+                  boot_ale_y = 'boot' %in% output,
+                  ale_xs = ale_xs[c(x1_col, x2_col)],
+                  ale_ns = ale_ns[c(x1_col, x2_col)],
+                  # ale_x = ale_xs[[x_col]],
+                  # ale_n = ale_ns[[x_col]],
+                  ale_y_norm_funs = ale_y_norm_funs,
+                  p_dist = p_values
+                )
+              ale_data <- ale_data_stats$summary
+              stats    <- ale_data_stats$stats
+            # }
+            # else {
+            #   ale_data <-
+            #     calc_ale_ixn(
+            #       data_X, model, x1_col, x2_col, y_cats,
+            #       pred_fun, pred_type,
+            #       max_x_int
+            #     )
+            #   stats <- NULL
+            # }
 
-            # ale_data <-
-            #   calc_ale_ixn(
-            #     data_X, model, x1_col, x2_col, y_cats,
-            #     pred_fun, pred_type,
-            #     max_x_int
-            #   )
 
             # Shift ale_y by appropriate relative_y
             ale_data <- ale_data |>
@@ -1277,56 +1286,6 @@ ale_core <- function (
   params$pred_fun <- params_function(pred_fun)
 
 
-  # # Simplify some very large elements, especially closures that contain environments
-  #
-  # params$data <- list(
-  #   name = var_name(data),
-  #   # If data is large, reduce it to a sample of data_sample; else return the full dataset
-  #   sample = if (nrow(data) > data_sample) {
-  #     set.seed(seed)
-  #     slice_sample(data, n = data_sample)
-  #   } else {
-  #     data
-  #   },
-  #   nrow = nrow(data)
-  # )
-  #
-  # params$model <- list(
-  #   name = var_name(model),
-  #   call = insight::model_name(model, include_call = TRUE) |>
-  #     paste0(collapse = '\n'),
-  #   print = print(model) |>
-  #     capture.output() |>
-  #     paste0(collapse = '\n'),
-  #   summary = summary(model)
-  # )
-  #
-  # params$pred_fun <- print(pred_fun) |>
-  #   capture.output()
-  # # Remove the last line with the environment (it is a random value and fails on snapshot testing)
-  # params$pred_fun <- params$pred_fun[-length(params$pred_fun)] |>
-  #   paste0(collapse = '\n')
-
-
-
-  # # Append useful output data that is shared across all variables
-  # ales$y_col <- y_col
-  # if (ixn) {
-  #   ales$x1_cols <- x1_cols
-  #   ales$x2_cols <- x2_cols
-  # } else {
-  #   ales$x_cols <- x_cols
-  # }
-  # ales$y_summary <- y_summary
-  # ales$boot_it <- boot_it
-  # ales$seed <- seed
-  # ales$boot_alpha <- boot_alpha
-  # ales$boot_centre <- boot_centre
-  # ales$relative_y <- relative_y
-  # ales$y_type <- y_type
-  # ales$median_band_pct <- median_band_pct
-  # ales$data_sample <- data_sample
-
   ales$params <- params
 
   # Set S3 class information for the ale object
@@ -1336,7 +1295,6 @@ ale_core <- function (
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
   return(ales)
-
 }
 
 

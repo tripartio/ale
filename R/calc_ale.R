@@ -106,7 +106,61 @@ calc_ale <- function(
     # Initialize btit.X_lo and btit.X_hi: btit.X with x_col set at the lower and upper bounds of the ALE bin, respectively
     btit.X_lo <- btit.X_hi <- btit.X
 
-    # Iteratively set btit.X_lo and btit.X_hi values for each x variable in the interaction set
+    ## Start comment: recursive ixn delta_pred -----------
+    # # Here's draft code towards creating recursive code for delta_pred of arbitrary dimensions.
+    # # But for lower dimensions, just hardcode it for greater execution speed.
+    #
+    # # Initialize a tibble to hold the X_hi and X_lo data
+    # it.X_hi_lo <- matrix(nrow = 2^ixn_d, ncol = 0) |>
+    #   as.data.frame() |>
+    #   as_tibble()
+    #
+    # # Loop over the number of variables to generate x columns
+    # for (i.d in 1:ixn_d) {
+    #   xi <- rep(
+    #     c('hi', 'lo'),
+    #     times = 2^(i.d - 1),
+    #     each = 2^(ixn_d - i.d)
+    #   )
+    #   it.X_hi_lo[[paste0('x', i.d)]] <- xi
+    # }
+    # names(it.X_hi_lo) <- x_cols
+    #
+    # # it.X_hi_lo$pred_tbl <- btit.X
+    #
+    # it.pred_tbl <- btit.X |>
+    #   mutate(
+    #     x1 = btit.X[['x1']][]
+    #   )
+    #
+    # # Create the 'p' column by concatenating the x variables
+    # it.X_hi_lo$pred <- do.call(paste0, it.X_hi_lo[paste0('x', 1:ixn_d)])
+    #
+    # ((1-2) - (3-4)) - ((5-6) - (7-8))
+    #
+    # # num_vars=3
+    # # idxs = 1:2^num_vars
+    # # x=idxs
+    # subtract_pairs <- function(x) {
+    #   x <- as.character(x)
+    #   len_x <- length(x)
+    #
+    #   return(
+    #     if (len_x == 2) {
+    #       str_glue('({x[1]}-{x[2]})')
+    #     } else {
+    #       str_glue('({subtract_pairs(x[1:(len_x/2)])}-{subtract_pairs(x[(len_x/2 + 1):len_x])})')
+    #     }
+    #   )
+    # }
+    #
+    # subtract_pairs(idxs) |>
+    #   parse(text = _) |>
+    #   eval()
+    ## End: recursive ixn delta_pred -----------
+
+
+    ## Iteratively set btit.X_lo and btit.X_hi values for each x variable in the interaction set ------------------
     for (it.x_col in x_cols) {
       if (xd[[it.x_col]]$x_type == 'numeric') {
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
@@ -119,38 +173,113 @@ calc_ale <- function(
         ) |>
           as.integer()
 
-        # For numeric x, align btit.X_lo to the floors of ALE bins
-        btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
-        lo_idxs <- btit.x_vars[[it.x_col]]$bin_idxs - 1
+        # For numeric x, align btit.x_vars$hi to the ceilings and btit.x_vars$lo to the floors of ALE bins
+        btit.x_vars[[it.x_col]]$hi <- xd[[it.x_col]]$ale_x[
+          btit.x_vars[[it.x_col]]$bin_idxs
+        ]
+        # btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[btit.x_vars[[it.x_col]]$bin_idxs]
+        it.lo_idxs <- btit.x_vars[[it.x_col]]$bin_idxs - 1
         # adjusted bin_idx cannot be < 1
-        lo_idxs <- if_else(lo_idxs < 1, 1, lo_idxs)
-        btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[lo_idxs]
+        it.lo_idxs <- if_else(it.lo_idxs < 1, 1, it.lo_idxs)
+        btit.x_vars[[it.x_col]]$lo <- xd[[it.x_col]]$ale_x[it.lo_idxs]
+        # btit.x_vars[[it.x_col]]$lo_idxs <- if_else(it.lo_idxs < 1, 1, it.lo_idxs)
+        # btit.X_lo[it.x_col] <- xd[[it.x_col]]$ale_x[lo_idxs]
       }
       else {  # ordinal ALE types
+        # closeAllConnections()
+        # browser()
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
         btit.x_vars[[it.x_col]]$bin_idxs <- xd[[it.x_col]]$x_ordered_idx
 
-        it.max_ale_x_idx <- xd[[it.x_col]]$ale_x |>
-          as.integer() |>
-          max()
-        it.inc_ale_x_idx <- btit.x_vars[[it.x_col]]$bin_idxs + 1
-        it.inc_ale_x_idx <- if_else(
-          it.inc_ale_x_idx > it.max_ale_x_idx,
-          it.max_ale_x_idx,
-          it.inc_ale_x_idx
+        it.dec_ale_x_idxs <- btit.x_vars[[it.x_col]]$bin_idxs - 1
+        it.dec_ale_x_idxs <- if_else(
+          it.dec_ale_x_idxs < 1,
+          1,
+          it.dec_ale_x_idxs
         )
 
-        # For non-numeric x, btit.X_lo stays at its default base level; only btit.X_hi is incremented
-        btit.X_hi[it.x_col] <- xd[[it.x_col]]$ale_x[it.inc_ale_x_idx] |>
+        btit.x_vars[[it.x_col]]$lo <- xd[[it.x_col]]$ale_x[
+          it.dec_ale_x_idxs
+        ] |>
           # Cast imputed column into appropriate datatype.
           # Especially necessary to cast into logical when needed.
           as(class(X[[it.x_col]])[1])
+        # btit.x_vars[[it.x_col]]$hi_idxs <- it.inc_ale_x_idxs
+
+        # For non-numeric x, btit.X_hi stays at its default base level; only btit.X_lo is decremented
+        btit.x_vars[[it.x_col]]$hi <- btit.X[[it.x_col]]
+
+        # it.max_ale_x_idx <- xd[[it.x_col]]$ale_x |>
+        #   as.integer() |>
+        #   max()
+        # it.inc_ale_x_idxs <- btit.x_vars[[it.x_col]]$bin_idxs + 1
+        # it.inc_ale_x_idxs <- if_else(
+        #   it.inc_ale_x_idxs > it.max_ale_x_idx,
+        #   it.max_ale_x_idx,
+        #   it.inc_ale_x_idxs
+        # )
+        #
+        # btit.x_vars[[it.x_col]]$hi <- xd[[it.x_col]]$ale_x[
+        #   it.inc_ale_x_idxs
+        # ] |>
+        #   # Cast imputed column into appropriate datatype.
+        #   # Especially necessary to cast into logical when needed.
+        #   as(class(X[[it.x_col]])[1])
+        # # btit.x_vars[[it.x_col]]$hi_idxs <- it.inc_ale_x_idxs
+        #
+        # # For non-numeric x, btit.X_lo stays at its default base level; only btit.X_hi is incremented
+        # btit.x_vars[[it.x_col]]$lo <- btit.X[[it.x_col]]
+        # # btit.x_vars[[it.x_col]]$lo_idxs <- btit.x_vars[[it.x_col]]$bin_idxs
       }
     }  #  for (it.x_col in x_cols)
 
 
-    # Difference between low and high boundary predictions
-    btit.delta_pred <- pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
+    # Hardcode the calculation of btit.delta_pred for faster execution speed.
+    btit.delta_pred <- if (ixn_d == 1) {
+      # Initialize border datasets
+      btit.X -> btit.X_hi -> btit.X_lo
+
+      # Set border datasets
+      btit.X_hi[[x_cols]] <- btit.x_vars[[x_cols]]$hi
+      btit.X_lo[[x_cols]] <- btit.x_vars[[x_cols]]$lo
+      # # Set border datasets
+      # btit.X_hi[[x_cols]] <- xd[[x_cols]]$ale_x[btit.x_vars[[x_cols]]$hi_idxs]
+      # btit.X_lo[[x_cols]] <- xd[[x_cols]]$ale_x[btit.x_vars[[x_cols]]$lo_idxs]
+
+      # Difference between low and high boundary predictions
+      pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
+    }
+    else if (ixn_d == 2) {
+      # Initialize border datasets
+      btit.X -> btit.X_hi_hi -> btit.X_hi_lo -> btit.X_lo_hi -> btit.X_lo_lo
+
+      # Set border datasets
+      btit.X_hi_hi[[x_cols[1]]] <- btit.x_vars[[x_cols[1]]]$hi
+      btit.X_hi_hi[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$hi
+      btit.X_hi_lo[[x_cols[1]]] <- btit.x_vars[[x_cols[1]]]$hi
+      btit.X_hi_lo[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$lo
+      btit.X_lo_hi[[x_cols[1]]] <- btit.x_vars[[x_cols[1]]]$lo
+      btit.X_lo_hi[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$hi
+      btit.X_lo_lo[[x_cols[1]]] <- btit.x_vars[[x_cols[1]]]$lo
+      btit.X_lo_lo[[x_cols[2]]] <- btit.x_vars[[x_cols[2]]]$lo
+      # # Set border datasets
+      # btit.X_hi_hi[[x_cols[1]]] <- xd[[x_cols[1]]]$ale_x[btit.x_vars[[x_cols[1]]]$hi_idxs]
+      # btit.X_hi_hi[[x_cols[2]]] <- xd[[x_cols[2]]]$ale_x[btit.x_vars[[x_cols[2]]]$hi_idxs]
+      # btit.X_hi_lo[[x_cols[1]]] <- xd[[x_cols[1]]]$ale_x[btit.x_vars[[x_cols[1]]]$hi_idxs]
+      # btit.X_hi_lo[[x_cols[2]]] <- xd[[x_cols[2]]]$ale_x[btit.x_vars[[x_cols[2]]]$lo_idxs]
+      # btit.X_lo_hi[[x_cols[1]]] <- xd[[x_cols[1]]]$ale_x[btit.x_vars[[x_cols[1]]]$lo_idxs]
+      # btit.X_lo_hi[[x_cols[2]]] <- xd[[x_cols[2]]]$ale_x[btit.x_vars[[x_cols[2]]]$hi_idxs]
+      # btit.X_lo_lo[[x_cols[1]]] <- xd[[x_cols[1]]]$ale_x[btit.x_vars[[x_cols[1]]]$lo_idxs]
+      # btit.X_lo_lo[[x_cols[2]]] <- xd[[x_cols[2]]]$ale_x[btit.x_vars[[x_cols[2]]]$lo_idxs]
+
+      # Difference between boundary predictions
+      (pred_fun(model, btit.X_hi_hi, pred_type) - pred_fun(model, btit.X_hi_lo, pred_type)) -
+        (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
+    }
+    else {
+      stop('Interactions beyond 2 are not yet supported.')
+    }
+
 
     # With categorical y, btit.delta_pred will be a matrix. For consistency, convert all other y types (which are usually vectors) into a matrix.
     if (!is.matrix(btit.delta_pred)) {
@@ -160,6 +289,7 @@ calc_ale <- function(
         dimnames = list(NULL, y_cats)
       )
     }
+
 
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
     # These mean prediction differences are the "local effects" of ALE.
@@ -177,7 +307,6 @@ calc_ale <- function(
           btit.x_vars[[it.x_col]]$bin_idxs
         ]
     }
-
 
       # Summarize means for each unique interaction combination of x_cols
     btit.local_eff_tbl <- btit.local_eff_tbl |>
@@ -230,57 +359,73 @@ calc_ale <- function(
         btit.local_eff_tbl[, it.cat] |>
         pull()
 
-      ### 1D ALE -----------------------
+      ### 1D ALE -----------------
 
       # Generate the cumulative ale_y predictions.
       if (ixn_d == 1) {
-        # For 1D ALE, set origin effect to zero; there should be no other missing values.
-        btit.local_eff_ray[it.cat, 1] <- 0
+        if (xd[[x_cols]]$x_type == 'numeric') {
+          # For 1D ALE, set origin effect for minimum numeric valueto zero; there should be no other missing values.
+          btit.local_eff_ray[it.cat, 1] <- 0
+        }
 
-        btit.acc_local_eff[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
-          cumsum()
+        # Accumulate the effects.
+        if (xd[[x_cols]]$x_type == 'binary') {
+          # Do not accumulate effects for binary values otherwise  the values will be invalidly duplicated.
+          btit.acc_local_eff[it.cat, ] <- btit.local_eff_ray[it.cat, ]
+        } else {
+          btit.acc_local_eff[it.cat, ] <- btit.local_eff_ray[it.cat, ] |>
+            cumsum()
+        }
+
       }
 
       ### 2D ALE -----------------------
       else if (ixn_d == 2) {
+
+        # If there are any missing values, replace them: necessary for calculating cumulative sums.
+        # (In contrast, there should be no missing values for ID ALE.)
         btit.na_count <- btit.local_eff_ray[it.cat, -1, -1] |>
           is.na() |>
           sum()
         if (btit.na_count > 0) {
-          # Replace missing values: necessary for calculating cumulative sums.
-          # (In contrast, there should be no missing values for ID ALE.)
-
-          # # Here, use the default ALEPlot nearest neighbours imputation
+          # # # Here, use the default ALEPlot nearest neighbours imputation
           # environment(nn_na_delta_pred) <- environment()  # give access to all variables in current scope
-          btit.local_eff_ray[it.cat, -1, -1] <- nn_na_delta_pred(
-            btit.local_eff_ray[it.cat, , ],
-            numeric_x1 = xd[[1]]$x_type == 'numeric'
-          )
-
-          # # Intrapolate missing values
-          # btit.local_eff_ray[it.cat, , ] <- add_array_na.rm(
+          # btit.local_eff_ray[it.cat, , ] <- nn_na_delta_pred(
+          # # btit.local_eff_ray[it.cat, -1, -1] <- nn_na_delta_pred(
           #   btit.local_eff_ray[it.cat, , ],
-          #   intrapolate_2D(btit.local_eff_ray[it.cat, , ])
+          #   numeric_x1 = xd[[1]]$x_type == 'numeric'
           # )
-        }
 
+          # Intrapolate missing values
+          btit.local_eff_ray[it.cat, , ] <- add_array_na.rm(
+            btit.local_eff_ray[it.cat, , ],
+            intrapolate_2D(btit.local_eff_ray[it.cat, , ])
+          )
+        }
 
         # Set any indeterminate missing values to zero; this includes the values in the first row and first column
         btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , ])] <- 0
+
 
         # Accumulate interaction local effects first over rows then over columns.
         # The order is arbitrary: first over columns then over rows would give identical results.
         btit.acc_local_eff[it.cat, , ] <- btit.local_eff_ray[it.cat, , ] |>
           # First accumulate over rows...
-          apply(1, \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
+          apply(1, cumsum) |>
           # apply() transposes its results when iterating over rows, so we need to transpose them back.
           t() |>
           # ... then accumulate over columns.
-          apply(2, \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) # No need to transpose again when apply() is over columns
+          apply(2, cumsum) # No need to transpose again when apply() is over columns
+          # # First accumulate over rows...
+          # apply(1, \(it.cat.ale) {
+          #   cumsum(it.cat.ale)
+          # }) |>
+          # # apply() transposes its results when iterating over rows, so we need to transpose them back.
+          # t() |>
+          # # ... then accumulate over columns.
+          # apply(2, \(it.cat.ale) {
+          #   cumsum(it.cat.ale)
+          # }) # No need to transpose again when apply() is over columns
       }
 
       ### 3D ALE ----------------------
@@ -407,24 +552,47 @@ calc_ale <- function(
 
   ## 1D ---------------
   if (ixn_d == 1) {
-    ale_y_shift  <- map_dbl(y_cats, \(it.cat) {
-      if (x1$x_type == 'numeric') {
-        ((ale_y_full[it.cat, 1:(x1$n_bins-1)] + ale_y_full[it.cat, 2:x1$n_bins]) / 2) |>
+    # For 1D ALE, there is no difference between distinct and and composite ALE.
+    # So, calculate only the offset shift. And calculate it based only on the full dataset (ale_y_full) since there is no point bootstrapping the shift.
+    ale_diff <- map(y_cats, \(it.cat) {
+      it.cat_ale <- ale_y_full[it.cat, , drop = FALSE]
+      shift <- if (x1$x_type == 'numeric') {
+        ((it.cat_ale[1:(x1$n_bins-1)] + it.cat_ale[2:x1$n_bins]) / 2) |>
           (`*`)(x1$x_int_counts) |>
           sum(na.rm = TRUE) |>
           (`/`)(sum(x1$x_int_counts, na.rm = TRUE))
       } else {
-        ale_y_full[it.cat, , drop = FALSE] |>
+        it.cat_ale |>
           (`*`)(x1$x_int_probs[x1$idx_ord_orig_int] |> as.numeric()) |>
           sum(na.rm = TRUE)
           # colSums(na.rm = TRUE)
       }
-    })
+      # if (x1$x_type == 'numeric') {
+      #   ((ale_y_full[it.cat, 1:(x1$n_bins-1)] + ale_y_full[it.cat, 2:x1$n_bins]) / 2) |>
+      #     (`*`)(x1$x_int_counts) |>
+      #     sum(na.rm = TRUE) |>
+      #     (`/`)(sum(x1$x_int_counts, na.rm = TRUE))
+      # } else {
+      #   ale_y_full[it.cat, , drop = FALSE] |>
+      #     (`*`)(x1$x_int_probs[x1$idx_ord_orig_int] |> as.numeric()) |>
+      #     sum(na.rm = TRUE)
+      #   # colSums(na.rm = TRUE)
+      # }
+
+      # return from map
+      list(
+        shift     = shift,
+        distinct  = NULL,
+        # distinct  = it.cat_ale,
+        composite = NULL
+      )
+    }) |>
+      set_names(y_cats)
   }
 
   ## 2D --------------
   else if (ixn_d == 2) {
-    ale_y_shift <- map_dbl(y_cats, \(it.cat) {
+    ale_diff <- map(y_cats, \(it.cat) {
       # composite_ale[it.cat, , ] <- ale_y_full[it.cat, , ]
       it.ale <- ale_y_full[it.cat, , ]
 
@@ -432,51 +600,68 @@ calc_ale <- function(
       # Comments here are adapted from ALEPlot.
 
       # x1$n_bins by (x2$n_bins+1) matrix of differenced ale_y values, differenced across X[[x1_col]]
-      it.row_delta <- it.ale[1:x1$n_bins, ] - it.ale[c(1, 1:(x1$n_bins-1)), ]
+      it.row_delta <- it.ale[2:x1$n_bins, , drop = FALSE] - it.ale[1:(x1$n_bins-1), , drop = FALSE]
+      # it.row_delta <- it.ale[1:x1$n_bins, ] - it.ale[c(1, 1:(x1$n_bins-1)), ]
       x12_counts.it.row_delta <-
-        x12_counts *
-        (it.row_delta[, c(1, 1:(x2$n_bins-1))] + it.row_delta[, 1:x2$n_bins]) /
+        x12_counts[-1, ] *
+        # x12_counts *
+        (it.row_delta[, c(1, 1:(x2$n_bins-1)), drop = FALSE] + it.row_delta[, 1:x2$n_bins, drop = FALSE]) /
         2
-      it.avg_row_delta <- rowSums(x12_counts.it.row_delta) / rowSums(x12_counts)
-      it.avg_row_delta[1] <- 0
-      it.row_centre_shift <- cumsum(it.avg_row_delta)
+      it.avg_row_delta <- rowSums(x12_counts.it.row_delta) / rowSums(x12_counts)[-1]
+      # it.avg_row_delta <- rowSums(x12_counts.it.row_delta) / rowSums(x12_counts)
+      it.row_centre_shift <- c(0, cumsum(it.avg_row_delta))
+      # it.avg_row_delta[1] <- 0
+      # it.row_centre_shift <- cumsum(it.avg_row_delta)
 
       # (x1$n_bins+1) by x2$n_bins matrix of differenced ale_y values, differenced across X[[x2_col]]
-      it.col_delta <- it.ale[, 1:x2$n_bins] - it.ale[, c(1, 1:(x2$n_bins-1))]
+      it.col_delta <- it.ale[, 2:x2$n_bins, drop = FALSE] - it.ale[, 1:(x2$n_bins-1), drop = FALSE]
       x12_counts.it.col_delta <-
-        x12_counts *
-        (it.col_delta[c(1, 1:(x1$n_bins-1)), ] + it.col_delta[1:x1$n_bins, ]) /
+        x12_counts[, -1] *
+        (it.col_delta[c(1, 1:(x1$n_bins-1)), , drop = FALSE] + it.col_delta[1:x1$n_bins, , drop = FALSE]) /
         2
-      it.avg_col_delta <- colSums(x12_counts.it.col_delta) / colSums(x12_counts)
-      it.avg_col_delta[1] <- 0
-      it.col_centre_shift <- cumsum(it.avg_col_delta)
+      it.avg_col_delta <- colSums(x12_counts.it.col_delta) / colSums(x12_counts)[-1]
+      it.col_centre_shift <- c(0, cumsum(it.avg_col_delta))
+      # it.col_delta <- it.ale[, 1:x2$n_bins] - it.ale[, c(1, 1:(x2$n_bins-1))]
+      # x12_counts.it.col_delta <-
+      #   x12_counts *
+      #   (it.col_delta[c(1, 1:(x1$n_bins-1)), ] + it.col_delta[1:x1$n_bins, ]) /
+      #   2
+      # it.avg_col_delta <- colSums(x12_counts.it.col_delta) / colSums(x12_counts)
+      # it.avg_col_delta[1] <- 0
+      # it.col_centre_shift <- cumsum(it.avg_col_delta)
 
-      it.ale <- it.ale -
+      it.ale_diffed <- it.ale -
         outer(it.row_centre_shift, rep(1, x2$n_bins)) -
         outer(rep(1, x1$n_bins), it.col_centre_shift)
       it.centre_shift <-
         sum(
           x12_counts *
             (
-              it.ale[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
-                it.ale[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
-                it.ale[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
-                it.ale[1:x1$n_bins, 1:x2$n_bins]
+              it.ale_diffed[c(1, 1:(x1$n_bins-1)), c(1, 1:(x2$n_bins-1))] +
+                it.ale_diffed[c(1, 1:(x1$n_bins-1)), 1:x2$n_bins] +
+                it.ale_diffed[1:x1$n_bins, c(1, 1:(x2$n_bins-1))] +
+                it.ale_diffed[1:x1$n_bins, 1:x2$n_bins]
             ) /
             4
         ) /
         sum(x12_counts)
 
-      it.centre_shift
-    })
+
+
+      # return from map
+      list(
+        shift     = it.centre_shift,
+        distinct  = it.ale_diffed,
+        composite = NULL
+      )
+    }) |>
+      set_names(y_cats)
   }
 
   ## 3D ---------------
   else if (ixn_d >= 3) {
     stop('Interactions beyond 2 are not yet supported.')
   }
-
-  # if (x_cols == 'disp') browser()
 
   boot_ale_tbl <- boot_ale$ale |>
     imap(\(btit.ale, btit.i) {
@@ -512,10 +697,34 @@ calc_ale <- function(
   }
 
 
+  # Extract the offset by which to shift to centre the ALE data
+  ale_y_shift <- map_dbl(ale_diff, \(it) it$shift)
+
+  boot_ale_tbl <- boot_ale_tbl |>
+    rename(.ale_y_composite = .ale_y)
+
+  # Append distinct ALE to boot_ale_tbl
+  boot_ale_tbl$.ale_y_distinct <- ale_diff |>
+    map(\(it.cat) {
+      it.cat$distinct
+    }) |>
+    unlist() |>
+    unname()
+
+  if ('.ale_y_distinct' %notin% names(boot_ale_tbl)) {
+    boot_ale_tbl$.ale_y_distinct <- boot_ale_tbl$.ale_y_composite
+  }
+
   # Apply the centring
   boot_ale_tbl <- boot_ale_tbl |>
     mutate(
-      .ale_y = .ale_y - ale_y_shift[.cat]
+      across(starts_with('.ale_y'), \(v.col) {
+        v.col - unname(ale_y_shift[.cat])
+      }),
+      # .ale_y = .ale_y - ale_y_shift[.cat] - 6
+      # .ale_y = .ale_y
+      # .ale_y = .ale_y + ale_y_shift[.cat]
+      .ale_y = .ale_y_distinct
     )
 
 
@@ -573,7 +782,6 @@ calc_ale <- function(
       select(-.it)
   }
   else {  # boot_it > 0
-    # browser()
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
@@ -632,12 +840,12 @@ calc_ale <- function(
   boot_stats <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-
     boot_stats <- boot_ale_tbl |>
       split(boot_ale_tbl$.cat) |>
       imap(\(it.cat_ale_data, it.cat) {
         it.cat_ale_data |>
-          split(boot_ale_tbl$.it) |>
+          split(it.cat_ale_data$.it) |>
+          # split(boot_ale_tbl$.it) |>
           map(\(btit.cat_ale_data) {
             if (ixn_d == 1) {
               ale_stats(
@@ -737,6 +945,9 @@ calc_ale <- function(
     }
   }
 
+  # Set ale_n to integer
+  boot_summary$.ale_n <- as.integer(boot_summary$.ale_n)
+
   # Temporarily restore the data structure with compatibility with older versions
   if (ixn_d == 1) {
     names(boot_summary)[2] <- 'ale_x'
@@ -744,14 +955,18 @@ calc_ale <- function(
     names(boot_summary)[[2]] <- 'ale_x1'
     names(boot_summary)[[3]] <- 'ale_x2'
   }
+
+  # closeAllConnections()
+  # browser()
+
   boot_summary <- boot_summary |>
     rename_with(~ stringr::str_sub(.x, 2), starts_with('.')) |>
+    select(-any_of(c('ale_y_composite', 'ale_y_distinct'))) |>
     split(boot_summary$.cat) |>
     map(\(it.ale_data) {
       it.ale_data |> select(-'cat')
     })
   boot_stats <- boot_stats
-
 
   return(list(
     summary = boot_summary,

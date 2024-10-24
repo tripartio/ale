@@ -228,6 +228,10 @@ calc_ale_ixn <- function(
           sum(x12_counts)
         ay <- ay - centre_shift
 
+        # closeAllConnections()
+        # browser()
+
+
         ay
       }) |>
       set_names(y_cats)
