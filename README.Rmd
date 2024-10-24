@@ -70,7 +70,7 @@ The `{ale}` package will normally run this automatically for you the first time 
 
 ## Usage
 
-We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
+We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with random effect probabilities (REPs). For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
 
 ```{r gam}
 library(ale)
@@ -99,7 +99,7 @@ For the simple demonstration, we directly create ALE data with the `ale()` funct
 ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
 
 # Plot the ALE data
-patchwork::wrap_plots(ale_gam_diamonds$plots, ncol = 2)
+patchwork::wrap_plots(ale_gam_diamonds$plots$price, ncol = 2)
 ```
 
 For an explanation of these basic features, see the [introductory vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -108,25 +108,25 @@ For an explanation of these basic features, see the [introductory vignette](http
 
 The statistical functionality of the `{ale}` package is rather slow because it typically involves 100 bootstrap iterations and sometimes a 1,000 random simulations. Even though most functions in the package implement parallel processing by default, such procedures still take some time. So, this statistical demonstration gives you downloadable objects for a rapid demonstration.
 
-First, we need to create a p-value functions object so that the ALE statistics can be properly distinguished from random effects.
+First, we need to create a random effect probability (REP) distribution object so that the ALE statistics can be properly distinguished from random effects.
 
-```{r p-funs}
-# Create p-funs object
+```{r rep}
+# Create REP distribution object
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it retrains the model 100 times,
-# # so this vignette loads a pre-created p-values object.
-# gam_diamonds_p_funs_readme <- create_p_funs(
+# # so this vignette loads a pre-created REP distribution object.
+# gam_diamonds_rep_readme <- create_rep_dist(
 #   diamonds_sample, gam_diamonds,
 #   # Normally should be default 1000, but just 100 for quicker demo
 #   rand_it = 100
 #   )
-# saveRDS(gam_diamonds_p_funs_readme, file.choose())
-gam_diamonds_p_funs_readme <- url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_funs_readme.rds') |> 
+# saveRDS(gam_diamonds_rep_readme, file.choose())
+gam_diamonds_rep_readme <- url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_funs_readme.rds') |> 
   readRDS()
 
 ```
 
-Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:
+Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with random effect probabilities (REPs):
 
 ```{r stats-ale, fig.width=7, fig.height=11}
 # Create ALE data
@@ -135,7 +135,7 @@ Now we can create bootstrapped ALE data and see some of the differences in the p
 # # so this vignette loads a pre-created ALE object.
 # ale_gam_diamonds_stats_readme <- ale(
 #   diamonds_sample, gam_diamonds,
-#   p_values = gam_diamonds_p_funs_readme,
+#   rep = gam_diamonds_rep_readme,
 #   boot_it = 100
 # )
 # saveRDS(ale_gam_diamonds_stats_readme, file.choose())

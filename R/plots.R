@@ -61,13 +61,13 @@ plot.ale <- function(
           y_summary = ale_obj$params$y_summary[, .cat],
           # y_vals = ale_obj$params$y_vals,
           y_col = .cat,
-          middle_band = if (is.null(ale_obj$params$p_values)) {
+          middle_band = if (is.null(ale_obj$params$rep)) {
             ale_obj$params$median_band_pct
           } else {
-            # Use p-value of NALED:
-            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values.
-            # p_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-            ale_obj$params$p_values$rand_stats[[.cat]] |>
+            # Use REP of NALED:
+            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on REPs.
+            # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+            ale_obj$params$rep$rand_stats[[.cat]] |>
               p_to_random_value('naled', ale_obj$params$median_band_pct) |>
               unname() |>
               (`/`)(100)  # scale NALED from percentage to 0 to 1
@@ -309,7 +309,7 @@ plot_ale <- function(
   # Add a secondary axis to label the percentiles
   # Construct secondary (right) axis label from bottom to top.
   sec_labels <- if (names(y_summary[1]) == 'p') {
-    # p-values were provided for y_summary; ALER is used
+    # REPs were provided for y_summary; ALER is used
     c(
       # To prevent overlapping text, summarize all details only in the
       # centre label; leave the others empty
@@ -323,7 +323,7 @@ plot_ale <- function(
     )
   }
   else {
-    # without p-values, quantiles are used
+    # without REPs, quantiles are used
     c(
       str_glue('{50-(median_band_pct[2]*100/2)}%'),
       relative_y,

@@ -81,10 +81,7 @@ because it is needed for the bootstrap averages. By default, it is not returned
 except if included in this \code{output} argument.
 }}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments.
-Arguments to pass to the \code{\link[=ale]{ale()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively,
-beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
-statistics, see the details.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ale]{ale()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively, beyond (or overriding) the defaults. In particular, to obtain random effect probabilities (REPs) for ALE statistics, see the details.}
 
 \item{compact_plots}{See documentation for \code{\link[=ale]{ale()}}}
 
@@ -141,21 +138,15 @@ for each model on each bootstrap sample;
 \item Calculates the mean, median, and lower and upper confidence intervals for
 each of those values across all bootstrap samples.
 }
-
-\strong{P-values}
-The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values as normal, but the
-situation is somewhat complicated with p-values for ALE statistics. The challenge
-is that the procedure for obtaining their p-values is very slow: it involves
-retraining the model 1000 times. Thus, it is not efficient to calculate p-values
-on every execution of \code{model_bootstrap()}. Although the \code{\link[=ale]{ale()}} function provides
-an 'auto' option for creating p-values,
-that option is disabled in \code{model_bootstrap()} because it would be far too slow:
-it would involve retraining the model 1000 times the number of bootstrap iterations.
-Rather, you must first create a p-values function object using the procedure described in \code{help(create_p_dist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you run \code{model_bootstrap()} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
 }
 \details{
 model_bootstrap.R
 }
+\section{Random Effect Probabilities (REPs)}{
+
+The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values. For ALE statistics, random effect probabilities (REPs) are somehat analogous to such p-values. However, the procedure for obtaining REPs is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate REPs on every execution of \code{model_bootstrap()}. Although the \code{\link[=ale]{ale()}} function provides an 'auto' option for creating REPs, that option is disabled in \code{model_bootstrap()} because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a REPs function object using the procedure described in \code{help(create_rep_dist)}. If the name of your REPs object is \code{rep_dist}, you can then request REPs each time you run \code{model_bootstrap()} by passing it the argument \code{ale_options = list(rep = rep_dist)}.
+}
+
 \examples{
 
 # attitude dataset

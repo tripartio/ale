@@ -3,17 +3,17 @@
 
 
 test_that(
-  'create_p_dist works with default inputs (approx fast) on ale()', {
+  'create_rep_dist works with default inputs (approx fast) on ale()', {
     skip_on_ci()
 
-    # pf <- create_p_dist(
+    # pf <- create_rep_dist(
     #   test_cars,
     #   test_gam,
     #   parallel = 0,  # disable parallelization for testing
     #   silent = TRUE
     # )
 
-    pf <- create_p_dist(
+    pf <- create_rep_dist(
       test_cars,
       test_gam,
       parallel = 0,  # disable parallelization for testing
@@ -25,7 +25,7 @@ test_that(
       test_cars, test_gam,
       # faster test
       max_x_int = 10,
-      p_values = pf,
+      rep = pf,
       output = 'stats',
       boot_it = 3,
       parallel = 0,
@@ -63,14 +63,14 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with precise slow', {
+  'create_rep_dist works with precise slow', {
     skip_on_ci()
 
-    pf <- create_p_dist(
+    pf <- create_rep_dist(
       test_cars,
       test_gam,
       rand_it = 10,
-      p_val_type = 'precise slow',
+      rep_speed = 'precise slow',
       output = 'residuals',
       silent = TRUE,
       parallel = 0,  # disable parallelization for testing
@@ -111,10 +111,10 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with custom random_model_call_string', {
+  'create_rep_dist works with custom random_model_call_string', {
     skip_on_ci()
 
-    pf <- create_p_dist(
+    pf <- create_rep_dist(
       test_cars,
       test_gam,
       random_model_call_string = 'mgcv::gam(
@@ -125,7 +125,7 @@ test_that(
       # It is difficult to test random_model_call_string_vars because it is only for
       # edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
-      p_val_type = 'approx fast',
+      rep_speed = 'approx fast',
       output = 'residuals',
       silent = TRUE,
       parallel = 0,  # disable parallelization for testing
@@ -149,10 +149,10 @@ test_that(
 
 
 test_that(
-  'create_p_dist works with binary outcome', {
+  'create_rep_dist works with binary outcome', {
     skip_on_ci()
 
-    pf <- create_p_dist(
+    pf <- create_rep_dist(
       test_cars,
       test_gam_binary,
       parallel = 0,  # disable parallelization for testing
@@ -177,10 +177,10 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with categorical outcome', {
+  'create_rep_dist works with categorical outcome', {
     skip_on_ci()
 
-    pf <- create_p_dist(
+    pf <- create_rep_dist(
       test_cars,
       test_nn_categorical,
       pred_type = 'probs',

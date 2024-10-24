@@ -26,16 +26,8 @@
 #' * Calculates the mean, median, and lower and upper confidence intervals for
 #'  each of those values across all bootstrap samples.
 #'
-#'  **P-values**
-#'  The [broom::tidy()] summary statistics will provide p-values as normal, but the
-#'  situation is somewhat complicated with p-values for ALE statistics. The challenge
-#'  is that the procedure for obtaining their p-values is very slow: it involves
-#'  retraining the model 1000 times. Thus, it is not efficient to calculate p-values
-#'  on every execution of `model_bootstrap()`. Although the [ale()] function provides
-#'  an 'auto' option for creating p-values,
-#'  that option is disabled in `model_bootstrap()` because it would be far too slow:
-#'  it would involve retraining the model 1000 times the number of bootstrap iterations.
-#'  Rather, you must first create a p-values function object using the procedure described in `help(create_p_dist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you run `model_bootstrap()` by passing it the argument `ale_options = list(p_values = p_dist)`.
+#' @section Random Effect Probabilities (REPs):
+#'  The [broom::tidy()] summary statistics will provide p-values. For ALE statistics, random effect probabilities (REPs) are somehat analogous to such p-values. However, the procedure for obtaining REPs is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate REPs on every execution of `model_bootstrap()`. Although the [ale()] function provides an 'auto' option for creating REPs, that option is disabled in `model_bootstrap()` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a REPs function object using the procedure described in `help(create_rep_dist)`. If the name of your REPs object is `rep_dist`, you can then request REPs each time you run `model_bootstrap()` by passing it the argument `ale_options = list(rep = rep_dist)`.
 #'
 #' @export
 #'
@@ -81,10 +73,7 @@
 #' * 'boot_data': Return full data for all bootstrap iterations. This data will always be calculated
 #' because it is needed for the bootstrap averages. By default, it is not returned
 #' except if included in this `output` argument.
-#' @param ale_options,tidy_options,glance_options list of named arguments.
-#' Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively,
-#' beyond (or overriding) the defaults. In particular, to obtain p-values for ALE
-#' statistics, see the details.
+#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain random effect probabilities (REPs) for ALE statistics, see the details.
 #' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
@@ -304,14 +293,13 @@ model_bootstrap <- function (
   validate(is.list(ale_options))
   validate(
     !(
-      !is.null(ale_options$p_values) &&
-        length(ale_options$p_values) == 1 &&
-        ale_options$p_values == 'auto'
+      !is.null(ale_options$rep) &&
+        length(ale_options$rep) == 1 &&
+        ale_options$rep == 'auto'
     ),
     msg = cli_alert_danger(paste0(
-      'The {.arg ale_options} `p_values == "auto"` option is disabled for `model_bootstrap()` ',
-      'because it is far too slow. Rather, you must pass a p-values ',
-      'function object using the procedure described in {.fun ale::create_p_dist}.'
+      'The {.arg ale_options} `rep == "auto"` option is disabled for `model_bootstrap()` ',
+      'because it is far too slow. Rather, you must pass a random effect probability (REP) distribution object using the procedure described in {.fun ale::create_rep_dist}.'
     ))
   )
   validate(is.list(tidy_options))
@@ -1006,13 +994,13 @@ model_bootstrap <- function (
             ) |>
             select('term', 'statistic', 'estimate', everything())
 
-          # If an ALE p-values object was passed, calculate p-values
+          # If an ALE REPs object was passed, calculate REPs
           if (rownames(full_ale$params$y_summary)[1] == 'p') {
             .ale_summary_stats <- .ale_summary_stats |>
               rowwise() |>  # required to get statistic function for each row
               mutate(
                 p.value = value_to_p(
-                  ale_options$p_values$rand_stats[[.cat]],
+                  ale_options$rep$rand_stats[[.cat]],
                   .data$statistic,
                   .data$estimate
                 ),
@@ -1032,8 +1020,8 @@ model_bootstrap <- function (
           summarize_conf_regions(
             .ale_summary_data,
             full_ale$params$y_summary[, .cat, drop = FALSE],
-            sig_criterion = if (!is.null(ale_options$p_values)) {
-              'p_values'
+            sig_criterion = if (!is.null(ale_options$rep)) {
+              'rep'
             } else {
               'median_band_pct'
             }

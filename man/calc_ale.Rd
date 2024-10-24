@@ -20,7 +20,7 @@ calc_ale(
   ale_xs = NULL,
   ale_ns = NULL,
   ale_y_norm_funs = NULL,
-  p_dist = NULL
+  rep_dist = NULL
 )
 }
 \arguments{
@@ -48,21 +48,11 @@ calc_ale(
 
 \item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ale_y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ale]{ale()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
 
-\item{p_dist}{See documentation for \code{p_values} in \code{\link[=ale]{ale()}}
-
-Next steps from calc_ale_ixn() and below:
-/ If ixn_d > 1: Impute missing values
-/ cumsum across each dimension
-/ ?? Add first rows as 0?
-\itemize{
-\item If ixn_d > 1: difference away lower-order effects (I probably want to save this for composite ALE)
-\item "Extend the ale_y to set missing ale_x intervals as NA"? Is this still necessary with this current code? I think so; it should be an issue with bootstrapping.
-/ Centre ALE y (probably outside the bootstrap)
-}}
+\item{rep_dist}{See documentation for \code{rep} in \code{\link[=ale]{ale()}}}
 
 \item{x_col}{character length 1. Name of single column in X for which ALE data is to be calculated.}
 
-\item{ale_x, ale_n}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{ale_x == NULL}), but if provided, the provided values will be used instead.}
+\item{ale_x, ale_n}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{ale_x == NULL}), but if provided, the provided values will be used instead. They would mainly be provided from \code{\link[=model_bootstrap]{model_bootstrap()}}.}
 }
 \description{
 This function is not exported. It is uses tidyverse principles to rewrite \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}. This function is not usually called directly by the user. For details about arguments not documented here, see \code{\link[=ale]{ale()}}.

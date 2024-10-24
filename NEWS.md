@@ -7,7 +7,8 @@
 * We have created several S3 objects to represent different kinds of ale package objects:
     * `ale`: the core `ale` package object that holds the results of the [ale()] function.
     * `ale_boot`: results of the [model_bootstrap()] function.
-    * `ale_p`: p-value data as the result of the [create_p_dist()] function.
+    * `ale_rep`: random effects probability distribution information as the result of the [create_rep_dist()] function.
+* Renamed "p-values" to "random effects probabilities (REPs)" throughout the package.
 * Renamed the `rug_sample_size` argument of ale() to `data_sample`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
 
 ## Bug fixes
@@ -22,8 +23,8 @@
 * Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.
-* The structure of p_funs has been completely changed; it has now been renamed p_dist. The function create_p_funs() has been renamed create_p_dist().
-* create_p_funs now produces two types of p-value via the `p_val_type` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
+* The structure of p_funs has been completely changed; it has now been renamed p_dist. The function create_p_funs() has been renamed create_rep_dist().
+* create_rep_dist() now produces two types of random effect probabilities (REPs) via the `rep_speed` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
 
 ## Under the hood

@@ -751,7 +751,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -1094,7 +1094,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -1318,7 +1318,7 @@
       $params$pred_type
       [1] "link"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -2143,7 +2143,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -2488,7 +2488,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -2727,7 +2727,7 @@
       $params$pred_type
       [1] "link"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -4794,7 +4794,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -5503,7 +5503,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha
@@ -5819,7 +5819,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$p_values
+      $params$rep
       NULL
       
       $params$p_alpha

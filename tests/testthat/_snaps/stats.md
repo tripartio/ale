@@ -1,4 +1,4 @@
-# create_p_dist works with default inputs (approx fast) on ale()
+# create_rep_dist works with default inputs (approx fast) on ale()
 
     Code
       pf
@@ -23,7 +23,7 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
 
@@ -587,7 +587,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$p_values
+      $params$rep
       $rand_stats
       $rand_stats$mpg
       # A tibble: 4 x 6
@@ -608,7 +608,7 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
       
@@ -698,7 +698,7 @@
        [1] 1.00 1.00 1.00 1.00 0.75 0.75 0.75 0.75 0.75 0.00 0.00
       
 
-# create_p_dist works with precise slow
+# create_rep_dist works with precise slow
 
     Code
       pf
@@ -796,7 +796,7 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
 
@@ -838,7 +838,7 @@
       1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 0.0000 0.0000 
       
 
-# create_p_dist works with custom random_model_call_string
+# create_rep_dist works with custom random_model_call_string
 
     Code
       pf
@@ -930,11 +930,11 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
 
-# create_p_dist works with binary outcome
+# create_rep_dist works with binary outcome
 
     Code
       pf
@@ -959,11 +959,11 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
 
-# create_p_dist works with categorical outcome
+# create_rep_dist works with categorical outcome
 
     Code
       pf
@@ -1006,7 +1006,7 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_p"
+      [1] "ale_rep"
       attr(,"ale_version")
       [1] '0.3.0.20240823'
 
