@@ -462,12 +462,12 @@ mb_gam_math$ale$data$public
 
 Here is the meaning of each column of `ale$data` for a categorical variable:
 
--   `ale_x`: the different categories that exist in the categorical variable.
--   `ale_n`: the number of rows for that category in the dataset provided to the function.
+-   `.bin`: the different categories that exist in the categorical variable.
+-   `.n`: the number of rows for that category in the dataset provided to the function.
 -   `ale_y`: the ALE function value calculated for that category. For bootstrapped ALE, this is the same as `ale_y_mean` by default or `ale_y_median` if the `boot_centre = 'median'` argument is specified.
 -   `ale_y_lo` and `ale_y_hi`: the lower and upper confidence intervals for the bootstrapped `ale_y` value.
 
-By default, the `ale` package centres ALE values on the median of the outcome variable; in our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE y values (weighted on `ale_n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE y approximately equals the median.
+By default, the `ale` package centres ALE values on the median of the outcome variable; in our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE y values (weighted on `.n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE y approximately equals the median.
 
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
@@ -475,7 +475,7 @@ Here is the ALE data structure for a numeric variable, `academic_ratio`:
 mb_gam_math$ale$data$academic_ratio
 ```
 
-The columns are the same as with a categorical variable, but the meaning of `ale_x` is different since there are no categories. To calculate ALE for numeric variables, the range of x values is divided into fixed intervals (by default 100, customizable with the `max_x_int` argument). If the x values have fewer than 100 distinct values in the data, then each distinct value becomes an ale_x interval. (This is often the case with smaller datasets like ours; here `academic_ratio` has only 65 distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. So, `ale_x` represents each of these x-variable intervals. The other columns mean the same thing as with categorical variables: `ale_n` is the number of rows of data in each `ale_x` interval and `ale_y` is the calculated ALE for that `ale_x` value.
+The columns are the same as with a categorical variable, but instead of `.bin`, we have `.ceil` since there are no categories. To calculate ALE for numeric variables, the range of *x* values is divided into bins (by default 100, customizable with the `max_x_int` argument). Because numeric variables often have multiple values in a bin, the ALE data stores the ceilings (upper bounds) of the bins. If the *x* values have fewer than 100 distinct values in the data, then each distinct value becomes its own bin and we record its value as the ceiling of the bin. (This is often the case with smaller datasets like ours; here `academic_ratio` has only `r nrow(mb_gam_math$ale$data$academic_ratio)` distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. The other columns mean the same thing as with categorical variables: `.n` is the number of rows of data in each bin and `.y` is the calculated ALE for the bin whose ceiling is `.ceil`.
 
 ### Bootstrap-based inference with ALE
 

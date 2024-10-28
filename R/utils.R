@@ -542,14 +542,14 @@ intrapolate_2D <- function(mx, consolidate = TRUE) {
 
 mean_array_intrap <- function(ip) {
   # Sum up all interpolations
-  sum_ip <- reduce(ip, add_array_na.rm)
+  sum_ip <- purrr::reduce(ip, add_array_na.rm)
 
   # Count all interpolations
   n_ip <- ip |>
     map(\(it.direction) {
       !is.na(it.direction)
     }) |>
-    reduce(`+`)
+    purrr::reduce(`+`)
 
   # Return the average interpolations
   return(sum_ip / n_ip)

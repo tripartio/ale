@@ -50,13 +50,10 @@ ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
 
-  # browser()
   ale_plots |>
     purrr::map(\(.cat) {
-      # browser()
       .cat |>
         purrr::map(\(.plot) {
-          # browser()
           ggplot2::ggplot_build(.plot)$data[[1]]
         })
     })

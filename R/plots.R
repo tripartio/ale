@@ -269,26 +269,38 @@ plot_ale <- function(
   # Then shift all the y summary data
   y_summary <- y_summary + y_shift
 
-  # Determine datatype of ale_x
-  # Note: all non-numeric ale_x are ordered factors (ordinal)
-  x_type <- var_type(ale_data$ale_x)
+  x_is_numeric <- names(ale_data)[1] |> endsWith('.ceil')
+  # # Determine if datatype of ale_x
+  # # Note: all non-numeric ale_x are ordered factors (ordinal)
+  # x_type <- var_type(ale_data$ale_x)
 
 
-  total_n <- sum(ale_data$ale_n)
+  total_n <- sum(ale_data$.n)
+
+  # Rename the x variable in ale_data for easier coding
+  names(ale_data)[1] <- '.x'
 
   plot <-
     ale_data |>
-    ggplot(aes(x = .data$ale_x, y = .data$ale_y)) +
+    ggplot(aes(
+      x = .data$.x,
+      # x = if (!is.null(ale_data$.ceil)) {   # numeric x
+      #   .data$.ceil
+      # } else {  # ordinal x
+      #   .data$.bin
+      # },
+      y = .data$.y
+    )) +
     theme_bw() +
     # Zoom y-axis to the range of actual Y and ALE Y values.
-    # In particular, ignore extreme ale_y_lo or ale_y_hi values, or else they
+    # In particular, ignore extreme .y_lo or .y_hi values, or else they
     # could distort the scale.
     # With this setting most plots will be on the same y_min to y_max scale;
-    # only a few with extreme ale_y values would zoom out to show these.
+    # only a few with extreme .y values would zoom out to show these.
     coord_cartesian(
       ylim = c(
-        min(y_summary[['min']], ale_data$ale_y),
-        max(y_summary[['max']], ale_data$ale_y)
+        min(y_summary[['min']], ale_data$.y),
+        max(y_summary[['max']], ale_data$.y)
       )
     ) +
     # Add a band to show the average ± the confidence limits
@@ -349,22 +361,24 @@ plot_ale <- function(
 
 
   # Differentiate numeric x (line chart) from categorical x (bar charts)
-  if (x_type == 'numeric') {
+  # if (x_type == 'numeric') {
+  # if (!is.null(ale_data$.ceil)) {   # numeric x
+  if (x_is_numeric) {
     plot <- plot +
-      geom_ribbon(aes(ymin = .data$ale_y_lo, ymax = .data$ale_y_hi),
+      geom_ribbon(aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
                   fill = 'grey85', alpha = 0.5) +
       geom_line()
   }
-  else {  # x_type is not numeric
+  else {  # x is not numeric
     plot <- plot +
       geom_col(fill = 'gray') +
-      geom_errorbar(aes(ymin = .data$ale_y_lo, ymax = .data$ale_y_hi), width = 0.05) +
+      geom_errorbar(aes(ymin = .data$.y_lo, ymax = .data$.y_hi), width = 0.05) +
       # Add labels for percentage of dataset.
       # This serves the equivalent function of rugs for numeric data.
       # Varying column width is an idea, but it usually does not work well visually.
       geom_text(
         aes(
-          label = paste0(round((.data$ale_n / total_n) * 100), '%'),
+          label = paste0(round((.data$.n / total_n) * 100), '%'),
           y = y_summary[['min']]
         ),
         size = 3,
@@ -373,7 +387,8 @@ plot_ale <- function(
       )
 
     # Rotate categorical labels if they are too long
-    if ((ale_data$ale_x |> paste(collapse = ' ') |> nchar()) > 50) {
+    # if ((ale_data$.bin |> paste(collapse = ' ') |> nchar()) > 50) {
+    if ((ale_data[[1]] |> paste(collapse = ' ') |> nchar()) > 50) {
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
@@ -389,7 +404,12 @@ plot_ale <- function(
 
   # Add rug plot if data is provided.
   # Add them late so that they superimpose most other elements.
-  if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
+  if (
+    x_is_numeric &&
+    # !is.null(ale_data$.ceil) &&   # x is numeric
+    !is.null(x_y) && rug_sample_size > 0
+  ) {
+  # if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
     rug_data <- tibble(
       rug_x = x_y[[x_col]],
       rug_y = x_y[[y_col]] + y_shift,
@@ -399,7 +419,8 @@ plot_ale <- function(
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
       rug_sample(
         rug_data,
-        ale_data$ale_x,
+        ale_data[[1]],
+        # ale_data$.ceil,
         rug_sample_size = rug_sample_size,
         min_rug_per_interval = min_rug_per_interval,
         seed = seed
@@ -415,7 +436,8 @@ plot_ale <- function(
         alpha = 0.5,
         position = position_jitter(
           # randomly jitter by 1% of the domain and range
-          width = 0.01 * diff(range(ale_data$ale_x)),
+          width = 0.01 * diff(range(ale_data[[1]])),
+          # width = 0.01 * diff(range(ale_data$.ceil)),
           height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
           seed = seed
         )
@@ -542,8 +564,7 @@ plot_ale_ixn <- function(
   #   setNames(rownames(y_summary))
 
 
-  # Default relative_y is median. If it is mean or zero, then the y axis
-  # must be shifted for appropriate plotting
+  # Default relative_y is median. If it is mean or zero, then the y axis must be shifted for appropriate plotting
   y_shift <- case_when(
     relative_y == 'median' ~ 0,  # no shift since median is the default
     relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
@@ -612,45 +633,53 @@ plot_ale_ixn <- function(
 
   if (y_type == 'binary' &&
       min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
-    # Adjust the minimum and maximum deciles to ensure all ale_y values are included
+    # Adjust the minimum and maximum deciles to ensure all .y values are included
     y_quantiles[1] <- 0
     y_quantiles[n_y_quant + 1] <- 1
   }
 
+  # Rename x1 and x2 columns for easier manipulation
+  names(ale_data)[1] <- '.x1'
+  names(ale_data)[2] <- '.x2'
 
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
   ale_data <- ale_data |>
+    # # Rename x1 and x2 columns for easier manipulation
+    # rename(
+    #   .x1 = !!x1_col,
+    #   .x2 = !!x2_col,
+    # ) |>
     mutate(
-      # Set x1_quantile to ale_x1. This is required for factor x1.
+      # Set x1_quantile to .x1. This is required for factor x1.
       # For numeric x1, this is only temporarily--it will be properly
       # configured in the next code block.
       # This lets the code be cleaner than inserting an if_else here.
-      x1_quantile = .data$ale_x1,
+      x1_quantile = .data$.x1,
 
-      # x2_quantile: divide ale_x2 into n_x2_int bins.
+      # x2_quantile: divide .x2 into n_x2_int bins.
       # ntile (the bin number) is divided by the number of bins (n_x2_int)
-      # and then scaled by max(ale_x2) to fill the range of ale_x2 values.
+      # and then scaled by max(.x2) to fill the range of .x2 values.
       # ChatGPT helped me: it works
-      x2_quantile = (((max(ale_data$ale_x2) - min(ale_data$ale_x2)) *
-                        (ntile(ale_data$ale_x2, n_x2_int) - 1) / (n_x2_int - 1))
-                     + min(ale_data$ale_x2)),
+      x2_quantile = (((max(ale_data$.x2) - min(ale_data$.x2)) *
+                        (ntile(ale_data$.x2, n_x2_int) - 1) / (n_x2_int - 1))
+                     + min(ale_data$.x2)),
 
-      # y_quantile: which of the n_y_quant in which ale_y falls
-      y_quantile = .data$ale_y |>
+      # y_quantile: which of the n_y_quant in which .y falls
+      y_quantile = .data$.y |>
         findInterval(y_quantiles) |>
         # levels must be set so that all quantiles appear in legend
         ordered(levels = 1:(n_y_quant - 1))
     )
 
-  if (var_type(ale_data$ale_x1) == 'numeric') {
-    # if (class(ale_data$ale_x1) %in% c("numeric", "integer")) {
+  if (var_type(ale_data$.x1) == 'numeric') {
+    # if (class(ale_data$.x1) %in% c("numeric", "integer")) {
     ale_data <- ale_data |>
       mutate(
         # Set numeric x1 to quantiles; factors will be unchanged.
         # See x2_quantile above for documentation of the formula.
-        x1_quantile = (((max(ale_data$ale_x1) - min(ale_data$ale_x1)) *
-                          (ntile(ale_data$ale_x1, n_x1_int) - 1) / (n_x1_int - 1))
-                       + min(ale_data$ale_x1)),
+        x1_quantile = (((max(ale_data$.x1) - min(ale_data$.x1)) *
+                          (ntile(ale_data$.x1, n_x1_int) - 1) / (n_x1_int - 1))
+                       + min(ale_data$.x1)),
       )
   }
 
@@ -710,7 +739,7 @@ plot_ale_ixn <- function(
   }
 
   # Rotate categorical labels if they are too long
-  if ((ale_data$ale_x1 |> paste(collapse = ' ') |> nchar()) > 50) {
+  if ((ale_data$.x1 |> paste(collapse = ' ') |> nchar()) > 50) {
     plot <- plot +
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
@@ -751,11 +780,9 @@ plot_ale_ixn <- function(
 # must be plotted. [rug_sample()] tries to resolve this issue by sampling
 # `rug_sample_size` rows of data at the most (only if the data has more than that
 # number of lines lines). However, to be representative, the sampling must have
-# at least min_rug_per_interval in each ale_x interval.
+# at least min_rug_per_interval in each bin.
 #
 # @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
-# @param ale_x numeric vector. ale_x intervals. Rug plots are only valid for
-# numeric x types.
 # @param rug_sample_size See documentation for [ale()]
 # @param min_rug_per_interval See documentation for [ale()]
 # @param seed See documentation for [ale()]

@@ -81,8 +81,8 @@ test_that('ale function matches output of ALEPlot with nnet', {
 
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
-    map(1:4, \(.col_idx) {
-      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = .col_idx, K = 10) |>
+    map(1:4, \(it.col_idx) {
+      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = it.col_idx, K = 10) |>
         as_tibble() |>
         select(-K)
     }) |>
@@ -107,10 +107,11 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_to_ALEPlot <-
     nnet_ale$data$y |>
-    map(\(.x1) {
+    map(\(it.x) {
       tibble(
-        x.values = .x1$ale_x,
-        f.values = .x1$ale_y,
+        x.values = it.x[[1]],
+        # x.values = it.x$.ceil,
+        f.values = it.x$.y,
       )
     })
 
@@ -129,14 +130,14 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # For this test, get only four variables: c('age', 'workclass', 'education_num', 'sex')
   # These are column indexes c(1, 2, 3, 8)
   gbm_ALEPlot <-
-    map(c(1, 2, 3, 8), \(.col_idx) {
+    map(c(1, 2, 3, 8), \(it.col_idx) {
       # # For this test, get only three variables: c('age', 'education_num', 'hours_per_week')
       # # These are column indexes c(1, 3, 11)
       # gbm_ALEPlot <-
-      #   map(c(1, 3, 11), \(.col_idx) {
+      #   map(c(1, 3, 11), \(it.col_idx) {
       ALEPlot::ALEPlot(
         adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
-        J = .col_idx,
+        J = it.col_idx,
         K = 10, NA.plot = TRUE
       ) |>
         as_tibble() |>
@@ -166,10 +167,11 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_to_ALEPlot <-
     gbm_ale$data$higher_income |>
-    map(\(.x1) {
+    map(\(it.x) {
       tibble(
-        x.values = .x1$ale_x,
-        f.values = unname(.x1$ale_y),
+        x.values = it.x[[1]],
+        # x.values = if (!is.null(it.x$.ceil)) it.x$.ceil else it.x$.bin,
+        f.values = unname(it.x$.y),
       ) |>
         mutate(across(where(is.factor), as.character))
     })
@@ -187,11 +189,11 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
 
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot_ixn <-
-    map(1:4, \(.col1_idx) {
-      map(1:4, \(.col2_idx) {
-        if (.col1_idx < .col2_idx) {
+    map(1:4, \(it.col1_idx) {
+      map(1:4, \(it.col2_idx) {
+        if (it.col1_idx < it.col2_idx) {
           ap_data <- ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot,
-                                      J = c(.col1_idx, .col2_idx), K = 10)
+                                      J = c(it.col1_idx, it.col2_idx), K = 10)
           .x1 <- ap_data$x.values[[1]]
           .x2 <- ap_data$x.values[[2]]
           .y  <- ap_data$f.values
@@ -203,12 +205,12 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
             ) |>
             as_tibble() |>
             mutate(
-              ale_x1 = as.numeric(.x1[row]),
-              ale_x2 = as.numeric(.x2[col]),
-              ale_y  = as.numeric(.y[cbind(row, col)])
+              .x1 = as.numeric(.x1[row]),
+              .x2 = as.numeric(.x2[col]),
+              .y  = as.numeric(.y[cbind(row, col)])
             ) |>
             select(-row, -col) |>
-            arrange(ale_x1, ale_x2, ale_y)
+            arrange(.x1, .x2, .y)
 
           # Remove extraneous attributes, otherwise comparison will not match
           attributes(ixn_tbl)$out.attrs <- NULL
@@ -238,11 +240,14 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_ixn_to_ALEPlot <-
     nnet_ale_ixn$data |>
-    map(\(.x1) {
-      map(.x1, \(.x2) {
-        .x2$y |>
-          select(ale_x1, ale_x2, ale_y) |>
-          arrange(ale_x1, ale_x2, ale_y)
+    map(\(it.x1) {
+      map(it.x1, \(it.x2) {
+        it.x2$y |>
+          select(1, 2, .y) |>
+          set_names(c('.x1', '.x2', '.y')) |>
+          arrange(.x1, .x2, .y)
+        # select(.x1, .x2, .y) |>
+          # arrange(.x1, .x2, .y)
       })
     })
 
@@ -259,13 +264,13 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
 
   # Create list of ALEPlot data that can be readily compared for accuracy
   gbm_ALEPlot_ixn <-
-    map(c(1, 2, 3, 8), \(.col1_idx) {
-      # map(c(1, 3, 11), \(.col1_idx) {
-      map(c(1, 3, 11), \(.col2_idx) {
-        if (.col1_idx < .col2_idx) {
+    map(c(1, 2, 3, 8), \(it.col1_idx) {
+      # map(c(1, 3, 11), \(it.col1_idx) {
+      map(c(1, 3, 11), \(it.col2_idx) {
+        if (it.col1_idx < it.col2_idx) {
           ap_data <- ALEPlot::ALEPlot(
             adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
-            J = c(.col1_idx, .col2_idx), K = 10, NA.plot = TRUE
+            J = c(it.col1_idx, it.col2_idx), K = 10, NA.plot = TRUE
           )
           .x1 <- ap_data$x.values[[1]]
           .x2 <- ap_data$x.values[[2]]
@@ -278,13 +283,13 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
             ) |>
             as_tibble() |>
             mutate(
-              ale_x1 = .x1[row],
-              # ale_x1 = as.numeric(.x1[row]),
-              ale_x2 = as.numeric(.x2[col]),
-              ale_y  = as.numeric(.y[cbind(row, col)])
+              .x1 = .x1[row],
+              # .x1 = as.numeric(.x1[row]),
+              .x2 = as.numeric(.x2[col]),
+              .y  = as.numeric(.y[cbind(row, col)])
             ) |>
             select(-row, -col) |>
-            arrange(ale_x1, ale_x2, ale_y)
+            arrange(.x1, .x2, .y)
 
           # Remove extraneous attributes, otherwise comparison will not match
           attributes(ixn_tbl)$out.attrs <- NULL
@@ -315,12 +320,15 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_ixn_to_ALEPlot <-
     gbm_ale_ixn$data |>
-    map(\(.x1) {
-      map(.x1, \(.x2) {
-        .x2$higher_income |>
-          select(ale_x1, ale_x2, ale_y) |>
+    map(\(it.x1) {
+      map(it.x1, \(it.x2) {
+        it.x2$higher_income |>
+          select(1, 2, .y) |>
           mutate(across(where(is.factor), as.character)) |>
-          arrange(ale_x1, ale_x2, ale_y)
+          set_names(c('.x1', '.x2', '.y')) |>
+          arrange(.x1, .x2, .y)
+        # select(.x1, .x2, .y) |>
+        #   arrange(.x1, .x2, .y)
       })
     })
 

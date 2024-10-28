@@ -148,12 +148,8 @@
 #' will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example,
 #' if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5
 #' percentiles.
-#' @param boot_centre character length 1 in c('mean', 'median'). When bootstrapping, the
-#' main estimate for `ale_y` is considered to be `boot_centre`. Regardless of the
-#' value specified here, both the mean and median will be available.
-#' @param relative_y character length 1 in c('median', 'mean', 'zero'). The ale_y values will
-#' be adjusted relative to this value. 'median' is the default. 'zero' will maintain the
-#' default of [ALEPlot::ALEPlot()], which is not shifted.
+#' @param boot_centre character length 1 in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param relative_y character length 1 in c('median', 'mean', 'zero'). The ALE y values will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the default of [ALEPlot::ALEPlot()], which is not shifted.
 #' @param y_type character length 1. Datatype of the y (outcome) variable.
 #' Must be one of c('binary', 'numeric', 'categorical', 'ordinal'). Normally
 #' determined automatically; only provide for complex non-standard models that
@@ -169,12 +165,7 @@
 #' @param data_sample non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
 #' `min_rug_per_interval` elements; usually set to just 1 or 2.
 #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `data_sample` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_x_int` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `data_sample` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
-#' @param ale_xs,ale_ns list of ale_x and ale_n vectors. If provided, these vectors will be used to
-#' set the intervals of the ALE x axis for each variable. By default (NULL), the
-#' function automatically calculates the ale_x intervals. `ale_xs` is normally used
-#' in advanced analyses where the ale_x intervals from a previous analysis are
-#' reused for subsequent analyses (for example, for full model bootstrapping;
-#' see the [model_bootstrap()] function).
+#' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the [model_bootstrap()] function).
 #' @param compact_plots logical length 1, default `FALSE`. When `output` includes
 #' 'plots', the returned `ggplot` objects each include the environments of the plots.
 #' This lets the user modify the plots with all the flexibility of `ggplot`, but it
@@ -189,23 +180,13 @@
 #'
 #'
 #' @return list with the following elements:
-#' * `data`: a list whose elements, named by each requested x variable, are each
-#'   a tibble with the following columns:
-#'     * `ale_x`: the values of each of the ALE x intervals or categories.
-#'     * `ale_n`: the number of rows of data in each `ale_x` interval or category.
-#'     * `ale_y`: the ALE function value calculated for that interval or category.
-#'       For bootstrapped ALE, this is the same as `ale_y_mean` by default
-#'       or `ale_y_median` if the `boot_centre = 'median'` argument is specified.
-#'       Regardless, both `ale_y_mean` and `ale_y_median` are returned as columns here.
-#'     * `ale_y_lo`, `ale_y_hi`: the lower and upper confidence intervals, respectively,
-#'       for the bootstrapped `ale_y` value.
-#'   Note: regardless what options are requested in the `output` argument, this
-#'   `data` element is always returned.
-#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list
-#'   whose elements, named by each requested x variable, are each a matrix.
-#'   If not requested (as is the default) or if `boot_it == 0`, returns `NULL`.
-#'   Each matrix element is the `ale_y` value of each `ale_x` interval (unnamed rows)
-#'   for each `boot_it` bootstrap iteration (unnamed columns).
+#' * `data`: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
+#'     * `.bin` or `.ceil`: For non-numeric x, `.bin` is the value of each of the ALE categories. For numeric x, `.ceil` is the value of the upper bound of each ALE bin. The first "bin" of numeric variables represents the minimum value.
+#'     * `.n`: the number of rows of data in each bin represented by `.bin` or `.ceil`. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
+#'     * `.y`: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if the `boot_centre = 'median'` argument is specified. Regardless, both `.y_mean` and `.y_median` are returned as columns here.
+#'     * `.y_lo`, `.y_hi`: the lower and upper confidence intervals, respectively, for the bootstrapped `.y` value.
+#'   Note: regardless what options are requested in the `output` argument, this `data` element is always returned.
+#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list whose elements, named by each requested x variable, are each a matrix. If not requested (as is the default) or if `boot_it == 0`, returns `NULL`. Each matrix element is the `.y` value of each bin ( `.bin` or `.ceil`) (unnamed rows) for each `boot_it` bootstrap iteration (unnamed columns).
 #' * `stats`: if `stats` are requested in the `output` argument (as is the default),
 #'   returns a list. If not requested, returns `NULL`. The returned list provides
 #'   ALE statistics of the `data` element duplicated and presented from various
@@ -357,8 +338,8 @@ ale <- function (
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
     min_rug_per_interval = 1,
-    ale_xs = NULL,
-    ale_ns = NULL,
+    bins = NULL,
+    ns = NULL,
     compact_plots = FALSE,
     silent = FALSE
 ) {
@@ -416,7 +397,7 @@ ale <- function (
 #' @param y_type See documentation for [ale()]
 #' @param median_band_pct See documentation for [ale()]
 #' @param data_sample,min_rug_per_interval See documentation for [ale()]
-#' @param ale_xs See documentation for [ale()]
+#' @param bins See documentation for [ale()]
 #' @param n_x1_int,n_x2_int positive scalar integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
@@ -490,7 +471,7 @@ ale_ixn <- function (
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
     min_rug_per_interval = 1,
-    ale_xs = NULL,
+    bins = NULL,
     # ggplot_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
@@ -550,8 +531,8 @@ ale_ixn <- function (
 # @param y_type See documentation for [ale()]
 # @param median_band_pct See documentation for [ale()]
 # @param data_sample,min_rug_per_interval See documentation for [ale()]
-# @param ale_xs See documentation for [ale()]
-# @param ale_ns See documentation for [ale()]
+# @param bins See documentation for [ale()]
+# @param ns See documentation for [ale()]
 # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
 # @param compact_plots See documentation for [ale()]
@@ -585,8 +566,8 @@ ale_core <- function (
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
     min_rug_per_interval = 1,
-    ale_xs = NULL,
-    ale_ns = NULL,
+    bins = NULL,
+    ns = NULL,
     # ggplot_custom = NULL,
     n_x1_int = 20,
     n_x2_int = 20,
@@ -724,18 +705,18 @@ ale_core <- function (
                   (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
   }
   validate(is_string(pred_type))
-  if (!is.null(ale_xs)) {
+  if (!is.null(bins)) {
     map(
-      ale_xs,
+      bins,
       \(.var) validate(
         is.null(.var)  ||  # if the variable is present, try the next two tests
           is.numeric(.var) || is.factor(.var)
       )
     )
   }
-  if (!is.null(ale_ns)) {
+  if (!is.null(ns)) {
     map(
-      ale_ns,
+      ns,
       \(.var) validate(
         is.null(.var) ||  # if the variable is present, try the next test
           is.integer(.var)
@@ -870,7 +851,6 @@ ale_core <- function (
       apply(2, \(.col) {
         create_ale_y_norm_function(.col)
       })
-    # ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
 
@@ -899,8 +879,8 @@ ale_core <- function (
 
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
-    # Create progress bar iterator only if not in an outer loop with ale_xs
-    if (!silent && is.null(ale_xs)) {
+    # Create progress bar iterator only if not in an outer loop with bins
+    if (!silent && is.null(bins)) {
       progress_iterator <- progressr::progressor(
         steps = length(x_cols),
         message = 'Calculating ALE'
@@ -919,9 +899,9 @@ ale_core <- function (
       #   ),
         .f = \(x_col) {
 
-          # Increment progress bar iterator only if not in an outer loop with ale_xs
+          # Increment progress bar iterator only if not in an outer loop with bins
           # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
-          if (!silent && is.null(ale_xs)) {
+          if (!silent && is.null(bins)) {
             progress_iterator()
           }
 
@@ -932,31 +912,23 @@ ale_core <- function (
               pred_fun, pred_type, max_x_int,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = 'boot' %in% output,
-              ale_x = ale_xs[[x_col]],
-              ale_n = ale_ns[[x_col]],
+              bins = bins[[x_col]],
+              ns = ns[[x_col]],
               ale_y_norm_funs = ale_y_norm_funs,
               rep_dist = rep
             )
 
-
-          # closeAllConnections()
-          # browser()
-
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
-          # Shift ale_y by appropriate relative_y
+          # Shift ALE y by appropriate relative_y
           ale_data <- ale_data |>
             map(\(.cat) {
               .cat |>
-                mutate(across(contains('ale_y'), \(.x) {
+                mutate(across(contains('.y'), \(.x) {
                   .x + relative_y_shift
                 }))
             })
-          # ale_data <- ale_data |>
-          #   mutate(across(contains('ale_y'), \(.x) {
-          #     .x + relative_y_shift
-          #   }))
 
           # Generate ALE plot
           plot <- NULL  # Start with a NULL plot
@@ -1030,8 +1002,8 @@ ale_core <- function (
 
   # two-way interactions
   else {
-    # Create progress bar iterator only if not in an outer loop with ale_xs
-    if (!silent && is.null(ale_xs)) {
+    # Create progress bar iterator only if not in an outer loop with bins
+    if (!silent && is.null(bins)) {
       progress_iterator <- progressr::progressor(
         steps = length(x1_cols) * length(x2_cols),
         message = 'Calculating ALE interactions'
@@ -1040,13 +1012,14 @@ ale_core <- function (
 
     ales_by_var <-
       x1_cols |>
-      furrr::future_map(
-        .options = furrr::furrr_options(
-          # Enable parallel-processing random seed generation
-          seed = seed,
-          # Specify packages (parallel processing does not always see them easily)
-          packages = model_packages
-        ),
+      map(  # for easier debugging
+      # furrr::future_map(
+      #   .options = furrr::furrr_options(
+      #     # Enable parallel-processing random seed generation
+      #     seed = seed,
+      #     # Specify packages (parallel processing does not always see them easily)
+      #     packages = model_packages
+      #   ),
         .f = \(x1_col) {
         # Calculate ale_data for two-way interactions
 
@@ -1057,9 +1030,9 @@ ale_core <- function (
 
         x2_cols_to_interact |>
           map(\(x2_col) {
-            # Increment progress bar iterator only if not in an outer loop with ale_xs
+            # Increment progress bar iterator only if not in an outer loop with bins
             # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
-            if (!silent && is.null(ale_xs)) {
+            if (!silent && is.null(bins)) {
               progress_iterator()
             }
 
@@ -1073,10 +1046,8 @@ ale_core <- function (
                   max_x_int,
                   boot_it, seed, boot_alpha, boot_centre,
                   boot_ale_y = 'boot' %in% output,
-                  ale_xs = ale_xs[c(x1_col, x2_col)],
-                  ale_ns = ale_ns[c(x1_col, x2_col)],
-                  # ale_x = ale_xs[[x_col]],
-                  # ale_n = ale_ns[[x_col]],
+                  bins = bins[c(x1_col, x2_col)],
+                  ns = ns[c(x1_col, x2_col)],
                   ale_y_norm_funs = ale_y_norm_funs,
                   rep_dist = rep
                 )
@@ -1094,22 +1065,14 @@ ale_core <- function (
             # }
 
 
-            # Shift ale_y by appropriate relative_y
+            # Shift ALE y by appropriate relative_y
             ale_data <- ale_data |>
               map(\(.cat) {
                 .cat |>
-                  mutate(across(contains('ale_y'), \(.x) {
+                  mutate(across(contains('.y'), \(.x) {
                     .x + relative_y_shift
                   }))
               })
-            # # Shift ale_y by appropriate relative_y
-            # ale_data <- ale_data |>
-            #   map(\(.cat) {
-            #     .cat$ale_y <- .cat$ale_y + relative_y_shift
-            #     .cat
-            #   })
-
-            # ale_data$ale_y <- ale_data$ale_y + relative_y_shift
 
             # Generate ALE plot
             plot <- NULL  # Start with a NULL plot

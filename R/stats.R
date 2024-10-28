@@ -484,8 +484,6 @@ create_rep_dist <- function(
             relative_y = 'zero',
             silent = TRUE
           )
-
-          # browser()
         },
         error = \(e) {
           cli_warn(paste0(
@@ -497,8 +495,6 @@ create_rep_dist <- function(
           return(NULL)
         }
       )
-
-      # browser()
 
       # Increment the progress bar iterator.
       # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
@@ -526,10 +522,9 @@ create_rep_dist <- function(
     map(\(.rand_it) {  # iterate by random ALE iteration
       .rand_it$data |>
         map(\(.cat) {  # iterate by categorical class or just by the single y_col
-          # browser()
           ale_stats(
-            y = .cat$random_variable$ale_y,
-            bin_n = .cat$random_variable$ale_n,
+            y = .cat$random_variable$.y,
+            bin_n = .cat$random_variable$.n,
             ale_y_norm_fun = ale_y_norm_fun,
             x_type = 'numeric',  # the random variables are always numeric
             zeroed_ale = TRUE
@@ -642,8 +637,8 @@ p_to_random_value <- function(
 #' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
 #'
 ale_stats <- function(
-    y,  # formerly called ale_y
-    bin_n,  # formerly called ale_n
+    y,
+    bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
     x_type = 'numeric',
@@ -761,7 +756,6 @@ ale_stats_2D <- function(
     ale_data,
     x_cols,
     x_types,
-    # bin_n,  # formerly called ale_n
     y_vals = NULL,
     ale_y_norm_fun = NULL,
     zeroed_ale = FALSE
@@ -770,15 +764,15 @@ ale_stats_2D <- function(
 
   if ('numeric' %notin% x_types) {
     # No need to transform anything since the order of records does not matter for ALE statistics for ordinal variables.
-    ale_y <- ale_data$.ale_y
-    ale_n <- ale_data$.ale_n
+    ale_y <- ale_data$.y
+    ale_n <- ale_data$.n
   }
 
   else {
     # Convert ale_data to arrays
     ale_y_ray <-
       paste0(
-        '.ale_y ~ ',
+        '.y ~ ',
         paste0(x_cols, collapse = ' + ')
       ) |>
       as.formula() |>
@@ -857,7 +851,7 @@ create_ale_y_norm_function <- function(y_vals) {
 
   return(
     function(ale_y) {
-      # Assign each ale_y value to its respective norm_ale_y (normalized half percentile).
+      # Assign each ALE y value to its respective norm_ale_y (normalized half percentile).
       # ale_y == 0 is assigned at the 50th percentile.
       norm_ale_y <- dplyr::case_when(
         # When ale_y is between the values right below and above the median (0),
@@ -923,9 +917,7 @@ var_summary <- function(
     })
 
   # Calculate the REPs necessary to obtain the desired joint probabilities.
-  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95
-  # confidence that aler_min < ale_y AND ale_y < aler_max. The REP for this
-  # joint probability is smaller than the untransformed REP.
+  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The REP for this joint probability is smaller than the untransformed REP.
   joint_p <- 1 - sqrt(1 - p_alpha)
 
   # s <- s |>
@@ -1114,16 +1106,16 @@ summarize_conf_regions <- function(
   # Create confidence regions for each variable (term)
   cr_by_term <-
     ale_data_list |>
-    map(\(.ale_data) {
+    map(\(it.ale_data) {
 
       # cr is the confidence regions for a single variable (term) at a time
       cr <-
-        .ale_data |>
+        it.ale_data |>
         mutate(
           # where is the current point relative to the median band?
           relative_to_mid = case_when(
-            .data$ale_y_hi < y_summary[['med_lo', 1]] ~ 'below',
-            .data$ale_y_lo > y_summary[['med_hi', 1]] ~ 'above',
+            .data$.y_hi < y_summary[['med_lo', 1]] ~ 'below',
+            .data$.y_lo > y_summary[['med_hi', 1]] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -1136,28 +1128,31 @@ summarize_conf_regions <- function(
           streak_id = cumsum(.data$new_streak)
         )
 
-      if (var_type(.ale_data$ale_x) == 'numeric') {
+
+      # if (var_type(it.ale_data$ale_x) == 'numeric') {
+      if (names(cr)[1] |> endsWith('.ceil')) {  # x is numeric
+        # Rename the x variable in cr for easier coding
+        names(cr)[1] <- '.x'
 
         cr <- cr |>
           summarize(
             .by = 'streak_id',
-            start_x = first(.data$ale_x),
-            end_x = last(.data$ale_x),
-            start_y = first(.data$ale_y),
-            end_y = last(.data$ale_y),
-            n = sum(.data$ale_n),
-            n_pct = n / sum(.ale_data$ale_n),
+            start_x = first(.data$.x),
+            end_x = last(.data$.x),
+            start_y = first(.data$.y),
+            end_y = last(.data$.y),
+            n = sum(.data$.n),
+            n_pct = n / sum(it.ale_data$.n),
             relative_to_mid = first(.data$relative_to_mid),
           ) |>
           mutate(
             # diff between start_x and end_x normalized on scale of x
             # Convert differences to numeric to handle dates and maybe other unusual types
             x_span = as.numeric(.data$end_x - .data$start_x) /
-              as.numeric(diff(range(.ale_data$ale_x))),
+              as.numeric(diff(range(it.ale_data[[1]]))),
             trend = if_else(
               .data$x_span != 0,
-              # slope from (start_x, start_y) to (end_x, end_y)
-              # normalized on scales of x and y
+              # slope from (start_x, start_y) to (end_x, end_y) normalized on scales of x and y
               ((.data$end_y - .data$start_y) /
                  (y_summary[['max', 1]] - y_summary[['min', 1]])) /
                 .data$x_span,
@@ -1172,14 +1167,17 @@ summarize_conf_regions <- function(
           )
 
       } else {  # non-numeric x
+        # Rename the x variable in cr for easier coding
+        names(cr)[1] <- 'x'
+
         cr <- cr |>
           rename(
-            x = 'ale_x',
-            n = 'ale_n',
-            y = 'ale_y',
+            # x = '.x',
+            n = '.n',
+            y = '.y',
           ) |>
           mutate(
-            n_pct = .data$n / sum(.ale_data$ale_n)
+            n_pct = .data$n / sum(it.ale_data$.n)
           ) |>
           select('x', 'n', 'n_pct', 'y', 'relative_to_mid')
       }

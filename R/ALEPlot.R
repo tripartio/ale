@@ -4,8 +4,8 @@
 
 # For missing (NA) cells in 2D interactions, replace delta_pred (dp) with the nearest valid neighbour
 nn_na_delta_pred <- function(dp, numeric_x1) {
-  x1_ceilings <- xd[[1]]$ale_x
-  x2_ceilings <- xd[[2]]$ale_x
+  x1_ceilings <- xd[[1]]$ceilings
+  x2_ceilings <- xd[[2]]$ceilings
 
   # na_delta: xd[[1]]$n_bins by xd[[2]]$n_bins matrix with missing values TRUE
   # na_delta_idx: long matrix with row, col columns indicating indices of missing delta values
@@ -64,10 +64,6 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
     #   (x2_ceilings[not_na_delta_idx[, 2]] + x2_ceilings[not_na_delta_idx[, 2]+1]) / 2 / range_x2
     # )
 
-
-    # closeAllConnections()
-    # cat(x_cols, '\n')
-    # browser()
 
     if (any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))) {
       closeAllConnections()
