@@ -149,7 +149,6 @@
 #' if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5
 #' percentiles.
 #' @param boot_centre character length 1 in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
-#' @param relative_y character length 1 in c('median', 'mean', 'zero'). The ALE y values will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the default of [ALEPlot::ALEPlot()], which is not shifted.
 #' @param y_type character length 1. Datatype of the y (outcome) variable.
 #' Must be one of c('binary', 'numeric', 'categorical', 'ordinal'). Normally
 #' determined automatically; only provide for complex non-standard models that
@@ -229,11 +228,8 @@
 #'       were used to determine statistical significance: if `rep` was
 #'       provided to the [ale()] function, it will be used; otherwise,
 #'       `median_band_pct` will be used.
-#' * Various values echoed from the original call to the [ale()] function, provided
-#'   to document the key elements used to calculate the ALE data, statistics, and plots:
-#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `relative_y`,
-#'   `y_type`, `median_band_pct`, `data_sample`. These are either the values
-#'   provided by the user or used by default if the user did not change them.
+#' * Various values echoed from the original call to the [ale()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
+#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `data_sample`. These are either the values provided by the user or used by default if the user did not change them.
 #' * `y_summary`: summary statistics of y values used for the ALE calculation.
 #'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
 #'   probability or other value that is constrained in the `[0, 1]` range. In that
@@ -333,7 +329,6 @@ ale <- function (
     seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'mean',
-    relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
@@ -393,7 +388,6 @@ ale <- function (
 #' @param output See documentation for [ale()]
 #' @param pred_fun,pred_type See documentation for [ale()]
 #' @param max_x_int See documentation for [ale()]
-#' @param relative_y See documentation for [ale()]
 #' @param y_type See documentation for [ale()]
 #' @param median_band_pct See documentation for [ale()]
 #' @param data_sample,min_rug_per_interval See documentation for [ale()]
@@ -466,7 +460,6 @@ ale_ixn <- function (
     # boot_it = 0,
     # boot_alpha = 0.05,
     # boot_centre = 'mean',
-    relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
@@ -527,7 +520,6 @@ ale_ixn <- function (
 # @param seed See documentation for [ale()]
 # @param boot_alpha See documentation for [ale()]
 # @param boot_centre See documentation for [ale()]
-# @param relative_y See documentation for [ale()]
 # @param y_type See documentation for [ale()]
 # @param median_band_pct See documentation for [ale()]
 # @param data_sample,min_rug_per_interval See documentation for [ale()]
@@ -561,7 +553,6 @@ ale_core <- function (
     seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'mean',
-    relative_y = 'median',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
     data_sample = 500,
@@ -696,10 +687,6 @@ ale_core <- function (
     is_string(boot_centre) && (boot_centre %in% c('mean', 'median')),
     msg = cli_alert_danger('{.arg boot_centre} must be one of "mean" or "median".')
   )
-  validate(
-    is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
-    msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
-  )
   if (!is.null(y_type)) {
     validate(is_string(y_type) &&
                   (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
@@ -788,15 +775,6 @@ ale_core <- function (
 
   # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
   y_cats <- colnames(y_vals)
-
-  # Calculate value to add to y to shift for requested relative_y
-  relative_y_shift <- case_when(
-    relative_y == 'median' ~ median(y_summary['50%', ]),
-    relative_y == 'mean' ~ median(y_summary['mean', ]),
-    # relative_y == 'median' ~ y_summary[['50%']],
-    # relative_y == 'mean' ~ y_summary[['mean']],
-    relative_y == 'zero' ~ 0,
-  )
 
   # Remove the Y target label; ALE calculation needs the X matrix as input;
   # Y is obtained from the model predictions.
@@ -921,15 +899,6 @@ ale_core <- function (
           ale_data  <- ale_data_stats$summary
           stats     <- ale_data_stats$stats
 
-          # Shift ALE y by appropriate relative_y
-          ale_data <- ale_data |>
-            map(\(.cat) {
-              .cat |>
-                mutate(across(contains('.y'), \(.x) {
-                  .x + relative_y_shift
-                }))
-            })
-
           # Generate ALE plot
           plot <- NULL  # Start with a NULL plot
           if ('plots' %in% output) {  # user requested the plot
@@ -939,7 +908,7 @@ ale_core <- function (
                 plot_ale(
                   .cat_ale_data, x_col, y_col, y_type,
                   y_summary[, .cat_name],
-                  relative_y = relative_y,
+                  # relative_y = relative_y,
                   p_alpha = p_alpha,
                   median_band_pct = median_band_pct,
                   x_y = tibble(data[[x_col]], y_vals[, .cat_name]) |>
@@ -973,8 +942,8 @@ ale_core <- function (
           }
 
           list(
-            data = ale_data,
-            boot_data = ale_data_stats$boot_ale_y,
+            ale = ale_data,
+            boot = ale_data_stats$boot_ale_y,
             stats = stats,
             plots = plot
           )
@@ -1065,15 +1034,6 @@ ale_core <- function (
             # }
 
 
-            # Shift ALE y by appropriate relative_y
-            ale_data <- ale_data |>
-              map(\(.cat) {
-                .cat |>
-                  mutate(across(contains('.y'), \(.x) {
-                    .x + relative_y_shift
-                  }))
-              })
-
             # Generate ALE plot
             plot <- NULL  # Start with a NULL plot
             if ('plots' %in% output) {  # user requested the plot
@@ -1084,7 +1044,7 @@ ale_core <- function (
                     .cat_ale_data, x1_col, x2_col, y_col, y_type,
                     y_summary[, .cat_name],
                     y_vals,
-                    relative_y = relative_y,
+                    # relative_y = relative_y,
                     median_band_pct = median_band_pct,
                     n_x1_int = n_x1_int,
                     n_x2_int = n_x2_int,
@@ -1105,7 +1065,7 @@ ale_core <- function (
             }
 
             list(
-              data = ale_data,
+              ale = ale_data,
               stats = stats,
               plot = plot  # + theme_bw()
             )
@@ -1119,11 +1079,11 @@ ale_core <- function (
       purrr::discard(\(.x) length(.x) == 0)
 
 
-    # Transpose ales_by_var to group data and plots together
+    # Transpose ales_by_var to group ALE data and plots together
     ales <- list(
-      data = ales_by_var |>
+      ale = ales_by_var |>
         map(\(.x1) {
-          map(.x1, \(.x2) .x2$data)
+          map(.x1, \(.x2) .x2$ale)
         }),
       stats = ales_by_var |>
         map(\(.x1) {
@@ -1179,7 +1139,7 @@ ale_core <- function (
         y_cats |>
         map(\(.cat) {
           summarize_conf_regions(
-            ales$data[[.cat]],
+            ales$ale[[.cat]],
             y_summary[, .cat, drop = FALSE],
             sig_criterion = sig_criterion
           )
@@ -1188,7 +1148,7 @@ ale_core <- function (
 
 
       # ales$conf_regions <- summarize_conf_regions(
-      #   ales$data,
+      #   ales$ale,
       #   y_summary,
       #   sig_criterion = if (!is.null(rep)) {
       #     'rep'
@@ -1228,6 +1188,11 @@ ale_core <- function (
 
   }
 
+  # closeAllConnections()
+  # browser()
+
+  # Create S3 ale object ----------------------
+
   # Capture all parameters used to construct the ALE values.
   # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
   # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
@@ -1247,16 +1212,18 @@ ale_core <- function (
   params$model <- params_model(model, var_name(model))
   params$pred_fun <- params_function(pred_fun)
 
-
-  ales$params <- params
-
-  # Set S3 class information for the ale object
-  class(ales) <- c('ale')
+  # Create ale object
+  ale_obj <- list()
+  class(ale_obj) <- c('ale')
   # attr(ales, 'ale_version') <- utils::packageVersion('ale')
+
+  ale_obj$distinct <- ales
+
+  ale_obj$params <- params
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
-  return(ales)
+  return(ale_obj)
 }
 
 

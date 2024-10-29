@@ -236,7 +236,7 @@ mb_gam_math$ale$plots |>
 
 We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey band that indicates the median ± 5% of random values. Below, we will explain what exactly the ALE range (ALER) means, but for now, we can say this:
 
-* The approximate middle of the grey band is the median of the y outcome variables in the dataset (`math_avg`, in our case). The middle tick on the right y axis indicates the exact median. (The `model_bootstrap()` function lets you centre the data on the mean or on zero if you prefer with the `relative_y` argument.)
+* The approximate middle of the grey band is the median of the y outcome variables in the dataset (`math_avg`, in our case). The middle tick on the right y axis indicates the exact median. (The `plot()` function lets you centre the data on the mean or on zero if you prefer with the `relative_y` argument.)
 * We call this grey band the "ALER band". 95% of random variables had ALE values that fully lay within the ALER band. 
 * The dashed lines above and below the ALER band expand the boundaries to where 99% of the random variables were constrained. These boundaries could be considered as demarcating an extended or outward ALER band.
 

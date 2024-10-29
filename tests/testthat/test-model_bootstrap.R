@@ -108,7 +108,6 @@ test_that(
       boot_centre = 'median',
       output = c("model_stats", "model_coefs"),  # exclude ALE
       ale_options = list(
-        relative_y = 'zero',
         # faster test
         max_x_int = 10,
         x_cols = c('country', 'continent')

@@ -24,6 +24,10 @@ plot.ale <- function(
     type %in% c('ale', 'effects'),
     msg = 'type must be either "ale" or "effects".'
   )
+  validate(
+    is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
+    msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
+  )
 
   if (type == 'ale') {
     plots <-
@@ -104,6 +108,10 @@ plot.ale_boot <- function(
   validate(
     type %in% c('ale', 'effects'),
     msg = 'type must be either "ale" or "effects".'
+  )
+  validate(
+    is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
+    msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
   )
 
   if (type == 'ale') {

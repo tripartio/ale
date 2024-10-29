@@ -68,7 +68,6 @@ test_that(
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       max_x_int = 12,
-      relative_y = 'zero',
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
       n_x1_int = 10,
@@ -117,7 +116,6 @@ test_that(
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       max_x_int = 12,
-      relative_y = 'zero',
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
       n_x1_int = 10,
@@ -178,7 +176,7 @@ test_that(
       x2_cols = c('cyl', 'am', 'hp'),
       pred_type = 'probs',
       parallel = 0,
-      # boot_it = 3,
+      boot_it = 3,
       silent = TRUE,
       compact_plots = TRUE
     )
@@ -210,11 +208,10 @@ test_that(
       output = c('boot'),
       pred_type = "probs",
       max_x_int = 12,
-      # boot_it = 1,  # edge case
+      boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
       boot_centre = 'median',
-      relative_y = 'zero',
       y_type = 'categorical',
       median_band_pct = c(0.01, 0.2),
       silent = TRUE,

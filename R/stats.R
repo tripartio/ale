@@ -478,7 +478,6 @@ create_rep_dist <- function(
             y_col = y_col,
             pred_fun = pred_fun,
             pred_type = pred_type,
-            relative_y = 'zero',
             silent = TRUE
           )
         },

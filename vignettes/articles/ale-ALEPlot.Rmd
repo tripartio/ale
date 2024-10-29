@@ -24,7 +24,7 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 
 -   It uses `ggplot2` instead of base R graphics. We consider `ggplot2` to be a more modern and versatile graphics system.
 -   It saves plots as ggplot objects to a "plots" element of the return value; it does not automatically print the plot to the screen. As we show, this lets the user manipulate the plots more flexibly.
--   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument, as we demonstrate.) We believe that such plots more easily interpretable.
+-   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument to [plot()], as we demonstrate.) We believe that such plots more easily interpretable.
 -   In addition, there are numerous design choices to simply the function interface based on [tidyverse](https://www.tidyverse.org/) design principles.
 
 One notable difference between the two packages is that the `{ale}` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
@@ -292,8 +292,7 @@ yhat <- function(object, newdata, type) {
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_x_int = 500,
-#   data_sample = 600,  # technical issue: data_sample must be > max_x_int + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   data_sample = 600  # technical issue: data_sample must be > max_x_int + 1
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -314,8 +313,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_x_int = 500,
-#   data_sample = 600,  # technical issue: data_sample must be > max_x_int + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   data_sample = 600  # technical issue: data_sample must be > max_x_int + 1
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
 gbm_ale_ixn_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
