@@ -48,7 +48,7 @@ plot.ale <- function(
 
     # Set S3 class information for the ale_plots object
     class(plots) <- c('ale_plots')
-    attr(plots, 'ale_version') <- utils::packageVersion('ale')
+    # attr(plots, 'ale_version') <- utils::packageVersion('ale')
 
     return(plots)
   }
@@ -78,7 +78,7 @@ plot.ale <- function(
 
     # Set S3 class information for the ale_eff_plot object
     class(eff_plot) <- c('ale_eff_plot')
-    attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
+    # attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
 
     return(eff_plot)
   }
@@ -128,7 +128,7 @@ plot.ale_boot <- function(
 
     # Set S3 class information for the ale_plots object
     class(plots) <- c('ale_plots')
-    attr(plots, 'ale_version') <- utils::packageVersion('ale')
+    # attr(plots, 'ale_version') <- utils::packageVersion('ale')
 
     return(plots)
   }
@@ -153,7 +153,7 @@ plot.ale_boot <- function(
 
     # Set S3 class information for the ale_eff_plot object
     class(eff_plot) <- c('ale_eff_plot')
-    attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
+    # attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
 
     return(eff_plot)
   }

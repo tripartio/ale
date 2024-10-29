@@ -113,10 +113,7 @@
 #' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
 #'
 #' @return
-#' The return value is a list of class `c('rep_dist', 'ale')` with an
-#' `ale_version` attribute whose value is the version of the `ale` package used to
-#' create the object. See examples for an illustration of how to inspect this list.
-#' Its elements are:
+#' The return value is a list of class `ale_rep`. See examples for an illustration of how to inspect this list. Its elements are:
 #' * `value_to_p`: a list of functions named for each each available ALE statistic.
 #' Each function signature is `function(x)` where x is a numeric. The function returns
 #' the random effect probability (REP) (minimum 0; maximum 1) for the respective statistic based on the random variable analysis.
@@ -549,7 +546,7 @@ create_rep_dist <- function(
 
   # Set S3 class information for the rep_dist object
   class(rep_dist) <- 'ale_rep'
-  attr(rep_dist, 'ale_version') <- utils::packageVersion('ale')
+  # attr(rep_dist, 'ale_version') <- utils::packageVersion('ale')
 
   return(rep_dist)
 }

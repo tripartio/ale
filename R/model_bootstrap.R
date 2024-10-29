@@ -1196,7 +1196,7 @@ model_bootstrap <- function (
 
   # Set S3 class information for the model bootstrap object
   class(mb) <- c('ale_boot')
-  attr(mb, 'ale_version') <- utils::packageVersion('ale')
+  # attr(mb, 'ale_version') <- utils::packageVersion('ale')
 
 
   return(mb)

@@ -1252,7 +1252,7 @@ ale_core <- function (
 
   # Set S3 class information for the ale object
   class(ales) <- c('ale')
-  attr(ales, 'ale_version') <- utils::packageVersion('ale')
+  # attr(ales, 'ale_version') <- utils::packageVersion('ale')
 
   # Always return the full list object.
   # If specific output is not desired, it is returned as NULL.
