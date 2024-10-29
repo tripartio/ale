@@ -482,8 +482,8 @@ calc_ale <- function(
       x1$x_ordered_idx
     }
     x12_counts <- table(x1_idxs, x2_idxs)
-    rownames(x12_counts) <- x1$bins
-    colnames(x12_counts) <- x2$bins
+    rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
+    colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
   }
 
   ## 1D ---------------
@@ -561,7 +561,9 @@ calc_ale <- function(
       # return from map
       list(
         shift     = it.centre_shift,
-        distinct  = it.ale_diffed,
+        distinct  = NULL,
+        # # For now, disable distinct 2D ALE because bootstrapping is not yet properly handled
+        # distinct  = it.ale_diffed,
         composite = NULL
       )
     }) |>
@@ -572,6 +574,9 @@ calc_ale <- function(
   else if (ixn_d >= 3) {
     stop('Interactions beyond 2 are not yet supported.')
   }
+
+
+  ## Apply the centring ----------------
 
   boot_ale_tbl <- boot_ale$ale |>
     imap(\(btit.ale, btit.i) {
@@ -613,6 +618,9 @@ calc_ale <- function(
 
   boot_ale_tbl <- boot_ale_tbl |>
     rename(.y_composite = .y)
+
+  # closeAllConnections()
+  # browser()
 
   # Append distinct ALE to boot_ale_tbl
   boot_ale_tbl$.y_distinct <- ale_diff |>
@@ -710,6 +718,9 @@ calc_ale <- function(
       as.data.frame.table(responseName = '.n') |>
       as_tibble()
     names(xn_counts)[1:ixn_d] <- x_cols
+
+    # closeAllConnections()
+    # browser()
 
     # Set numeric x_cols to numeric datatype
     for (it.x_col in x_cols) {
@@ -880,6 +891,24 @@ calc_ale <- function(
       it.ale_data |> select(-'.cat')
     })
   boot_stats <- boot_stats
+
+  # closeAllConnections()
+  # browser()
+
+  boot_summary <- boot_summary |>
+    map(\(it.cat) {
+      attr(it.cat, 'types') <- map(x_cols, \(it.x_col) {
+        list(
+          class = class(X[[it.x_col]]),
+          type = xd[[it.x_col]]$x_type
+        )
+      }) |>
+        set_names(x_cols)
+
+      it.cat
+    })
+
+
 
   return(list(
     summary = boot_summary,
