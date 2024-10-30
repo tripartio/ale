@@ -176,13 +176,13 @@ test_that(
     )
     mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
     mb$ale$boot$stats <- mb$ale$boot$stats |>
-      map(\(.cat) {
-        .cat$effects_plot <- .cat$effects_plot |>
+      map(\(it.cat) {
+        it.cat$effects_plot <- it.cat$effects_plot |>
           ggplot2::ggplot_build() |>
           (`[[`)('data') |>
           (`[[`)(1)
 
-        .cat
+        it.cat
       })
     expect_snapshot(mb)
   }
@@ -209,13 +209,13 @@ test_that(
 #     )
 #     mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
 #     mb$ale$boot$stats <- mb$ale$boot$stats |>
-#       map(\(.cat) {
-#         .cat$effects_plot <- .cat$effects_plot |>
+#       map(\(it.cat) {
+#         it.cat$effects_plot <- it.cat$effects_plot |>
 #           ggplot2::ggplot_build() |>
 #           (`[[`)('data') |>
 #           (`[[`)(1)
 #
-#         .cat
+#         it.cat
 #       })
 #     expect_snapshot(mb)
 #   }

@@ -569,6 +569,7 @@ ale_core <- function (
 
   # Validate y_col.
   # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+  # Note: validate_y_col() must come before validate_y_preds().
   y_col <- validate_y_col(
     y_col = y_col,
     data = data,
@@ -578,9 +579,7 @@ ale_core <- function (
   validate(is_string(pred_type))
 
   # Validate the model:
-  # A valid model is one that, when passed to a predict function with a valid
-  # dataset, produces a numeric vector with length equal to the number of rows
-  # in the dataset.
+  # A valid model is one that, when passed to a predict function with a valid  dataset, produces a numeric vector with length equal to the number of rows in the dataset.
   # Note: y_preds will be used later in this function.
   y_preds <- validate_y_preds(
     pred_fun = pred_fun,
@@ -590,12 +589,6 @@ ale_core <- function (
     pred_type = pred_type
   )
 
-  ## By placing validate_y_col before validate_y_preds, this code snippet is redundant
-  # if (is.null(colnames(y_preds)) && ncol(y_preds) == 1) {
-  #   # Name the y_preds column for a single prediction vector
-  #   colnames(y_preds) <- y_col
-  # }
-
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
   validate(is_bool(ixn))
@@ -603,8 +596,7 @@ ale_core <- function (
   if (!is.null(x1_cols)) validate(is.character(x1_cols))
   if (!is.null(x2_cols)) validate(is.character(x2_cols))
 
-  # If model validation is done more rigorously, also validate that y_col is not
-  # contained in all_x__cols
+  # If model validation is done more rigorously, also validate that y_col is not contained in all_x__cols
   all_x_cols <- c(x_cols, x1_cols, x2_cols)
   validate(
     !(y_col %in% all_x_cols),
@@ -652,8 +644,6 @@ ale_core <- function (
       validate(
         # Verify that rep is a `ale_rep` object (defined by the ale package).
         rep |> inherits('ale_rep'),
-        # If the object structure changes in the future, verify the version number:
-        # e.g., numeric_version('0.2.0') <= numeric_version('0.2.20240111')
         msg = cli_alert_danger(paste0(
           'The value passed to {.arg rep} is not a valid random effects probability (REP) object.
           See {.fun ale::ale} for instructions for obtaining REPs.'
@@ -707,8 +697,7 @@ ale_core <- function (
         (is_scalar_natural(data_sample) &&
            # rug sample cannot be smaller than number of intervals
            data_sample > (max_x_int + 1)),
-      msg = cli_alert_danger('{.arg data_sample} must be either 0 or
-        an integer larger than the number of max_x_int + 1.')
+      msg = cli_alert_danger('{.arg data_sample} must be either 0 or an integer larger than the number of max_x_int + 1.')
     )
     validate(is_scalar_whole(min_rug_per_interval))
     validate(is_scalar_natural(n_x1_int))
@@ -730,17 +719,11 @@ ale_core <- function (
     y_type <- var_type(data[[y_col]])
   }
 
-  # # Disable plots for categorical y
-  # if (y_type == 'categorical') {
-  #   output <- setdiff(output, 'plots')
-  # }
-
   # Get list of y values depending on y_type
   y_vals <-
     if (y_type %in% c('numeric', 'ordinal')) {
       # y_vals assumes matrix format so that the case of categorical predictions can be handled
       data[y_col] |> as.matrix()
-      # data[[y_col]]
     } else if (y_type %in% c('binary', 'categorical')) {
       y_preds
     } else {
@@ -780,14 +763,6 @@ ale_core <- function (
       names() |>
       setdiff(y_col)
   }
-  # # Eliminate all x1_cols that are not numeric
-  # # This is only temporary, until calc_ale_ixn is rewritten to recognize
-  # # binary and ordinal
-  # x1_cols <-
-  #   data |>
-  #   select(any_of(x1_cols)) |>
-  #   select(where(is.numeric)) |>
-  #   names()
 
   # If x2_cols is default (NULL), set it to the names of all x variables
   if (is.null(x2_cols)) {
@@ -822,22 +797,10 @@ ale_core <- function (
     original_parallel_plan <- future::plan(future::multisession, workers = parallel)
     on.exit(future::plan(original_parallel_plan), add = TRUE)
   }
-  # # Enable parallel processing and set appropriate map function.
-  # # Because furrr::future_map has an important .options argument absent from
-  # # purrr::map, map_loop() is created to unify these two functions.
-  # if (parallel > 0) {
-  #   future::plan(future::multisession, workers = parallel)
-  #   map_loop <- furrr::future_map
-  # } else {
-  #   # If no parallel processing, do not set future::plan(future::sequential):
-  #   # this might interfere with other parallel processing in a larger workflow.
-  #   # Just do nothing parallel.
-  #   map_loop <- function(..., .options = NULL) {
-  #     # Ignore the .options argument and pass on everything else
-  #     purrr::map(...)
-  #   }
-  # }
 
+  # Initialize results lists
+  ales <- NULL
+  ales_ixn <- NULL
   # Create list of ALE objects for all requested x variables
   if (!ixn) {
     # Create progress bar iterator only if not in an outer loop with bins
@@ -902,22 +865,7 @@ ale_core <- function (
                   seed = seed
                 )
               })
-
-
-            # plot <- plot_ale(
-            #   ale_data, x_col, y_col, y_type,
-            #   y_summary,
-            #   relative_y = relative_y,
-            #   p_alpha = p_alpha,
-            #   median_band_pct = median_band_pct,
-            #   x_y = tibble(data[[x_col]], y_vals) |>
-            #     stats::setNames(c(x_col, y_col)),
-            #   rug_sample_size = data_sample,
-            #   min_rug_per_interval = min_rug_per_interval,
-            #   compact_plots = compact_plots,
-            #   seed = seed
-            # )
-          }
+          }  # if ('plots' %in% output)
 
           # Delete data if only plot was requested
           if (identical(output, 'plots')) {  # No data desired
@@ -937,18 +885,20 @@ ale_core <- function (
       # Transpose to group by ale object element (instead of by variable)
       list_transpose(simplify = FALSE) |>
       # Within each element, transpose again to group by y category
-      map(\(.el) {
-        list_transpose(.el, simplify = FALSE)
+      map(\(it.el) {
+        list_transpose(it.el, simplify = FALSE)
       }) |>
       # Set empty elements (usually list()) to NULL
-      map(\(.el) {
-        if (length(.el) == 0) {
+      map(\(it.el) {
+        if (length(it.el) == 0) {
           NULL
         } else {
-          .el
+          it.el
         }
-      })
-  }
+      }) |>
+      # Transpose to troup all elements by y category
+      list_transpose(simplify = FALSE)
+  }  # if (!ixn)
 
   # Loop 2D ALE ---------------
 
@@ -1049,6 +999,7 @@ ale_core <- function (
 
             list(
               ale = ale_data,
+              boot = ale_data_stats$boot_ale_y,
               stats = stats,
               plot = plot  # + theme_bw()
             )
@@ -1056,28 +1007,31 @@ ale_core <- function (
           set_names(x2_cols_to_interact)
       }) |>
       set_names(x1_cols) |>
-      # Discard any empty elements. This is particularly to remove the last
-      # element in a full cross interaction of all variables; the last element
-      # has nothing more to interact with, so is empty
-      purrr::discard(\(.x) length(.x) == 0)
+      # Discard any empty elements. This is particularly to remove the last element in a full cross interaction of all variables; the last element has nothing more to interact with, so is empty.
+      purrr::discard(\(it.x) length(it.x) == 0)
 
+    ales_by_var <- ales_by_var |>
+      map(\(it.x1) {
+        it.x1 |>
+          map(\(it.x2) {
+            list_transpose(it.x2, simplify = FALSE)
+          })
+      }) |>
+      map(\(it.x1) {
+        list_transpose(it.x1, simplify = FALSE)
+      }) |>
+      list_transpose(simplify = FALSE) # |> View()
 
-    # Transpose ales_by_var to group ALE data and plots together
-    ales <- list(
-      ale = ales_by_var |>
-        map(\(.x1) {
-          map(.x1, \(.x2) .x2$ale)
-        }),
-      stats = ales_by_var |>
-        map(\(.x1) {
-          map(.x1, \(.x2) .x2$stats)
-        }),
-      plots = ales_by_var |>
-        map(\(.x1) {
-          map(.x1, \(.x2) .x2$plot)
-        })
-    )
-  }
+    # Transpose ales_by_var to group elements together
+    ales_ixn <- ales_by_var |>
+      map(\(it.cat) {
+        it.cat |>
+          map(\(it.x1) {
+            list_transpose(it.x1, simplify = FALSE)
+          }) |>
+          list_transpose(simplify = FALSE)
+      })
+  }  # else {  # 2D ixn
 
   # # Disable parallel processing if it had been enabled
   # if (parallel > 0) {
@@ -1085,94 +1039,127 @@ ale_core <- function (
   # }
 
 
+  # Calculate summary statistics ---------------------
 
   if ('stats' %in% output) {
-    ales$stats <- ales$stats |>
-      map(\(.cat) {
-        .cat |>
-          imap(\(.term_tbl, .term) {
-            .term_tbl |>
-              mutate(term = .term)
-          }) |>
+    if (!is.null(ales)) {
+      for (it.cat in y_cats) {
+
+        ales[[it.cat]]$stats <- ales[[it.cat]]$stats |>
+          imap(\(it.term_tbl, it.term) {
+            it.term_tbl |>
+              mutate(term = it.term)
+            }) |>
           bind_rows() |>
           select('term', everything()) |>
           pivot_stats()
-      })
 
-    # ales$stats <-
-    #   map2(
-    #     ales$stats, names(ales$stats),
-    #     \(.term_tbl, .term) {
-    #       .term_tbl |>
-    #         mutate(term = .term)
-    #     }) |>
-    #   bind_rows() |>
-    #   select('term', everything()) |>
-    #   pivot_stats()
+        if ('conf_regions' %in% output) {
+          # conf_regions optionally provided only if stats also requested
+          sig_criterion <- if (!is.null(rep)) {
+            'rep'
+          } else {
+            'median_band_pct'
+          }
 
-    if ('conf_regions' %in% output) {
-      # conf_regions optionally provided only if stats also requested
-      sig_criterion <- if (!is.null(rep)) {
-        'rep'
-      } else {
-        'median_band_pct'
-      }
+          ales[[it.cat]]$stats$conf_regions <-
+            summarize_conf_regions(
+              ales[[it.cat]]$ale,
+              y_summary[, it.cat, drop = FALSE],
+              sig_criterion = sig_criterion
+            )
+        }
 
-      ales$conf_regions <-
-        y_cats |>
-        map(\(.cat) {
-          summarize_conf_regions(
-            ales$ale[[.cat]],
-            y_summary[, .cat, drop = FALSE],
-            sig_criterion = sig_criterion
-          )
-        }) |>
-        set_names(y_cats)
-
-
-      # ales$conf_regions <- summarize_conf_regions(
-      #   ales$ale,
-      #   y_summary,
-      #   sig_criterion = if (!is.null(rep)) {
-      #     'rep'
-      #   } else {
-      #     'median_band_pct'
-      #   }
-      # )
-    }
-
-    # Create an effects plot only if plots are requested
-    if ('plots' %in% output) {
-      ales$stats <- ales$stats |>
-        imap(\(.cat_stats, .cat) {
-          .cat_stats$effects_plot <- plot_effects(
-            .cat_stats$estimate,
-            y_summary[, .cat],
+        # Create an effects plot only if plots are requested
+        if ('plots' %in% output) {
+          ales[[it.cat]]$stats$effects_plot <- plot_effects(
+            ales[[it.cat]]$stats$estimate,
+            y_summary[, it.cat, drop = FALSE],
             y_col,
             middle_band = if (is.null(rep)) {
               median_band_pct
             } else {
               # Use REP of NALED:
               # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on REPs.
-                # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-              rep$rand_stats[[.cat]] |>
+              # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+              rep$rand_stats[[it.cat]] |>
                 p_to_random_value('naled', median_band_pct) |>
-              # median_band_pct |>
-              #   rep$p_to_random_value$naled() |>
                 unname() |>
                 (`/`)(100)  # scale NALED from percentage to 0 to 1
             },
             compact_plots = compact_plots
           )
+        }  # if ('plots' %in% output)
+      }  # for (it.cat in y_cats)
+    }  # if (!is.null(ales)) {
 
-          .cat_stats
-        })
-    }
+    if (!is.null(ales_ixn)) {
+      for (it.cat in y_cats) {
+        # Iterate statistics for each x1 variable
+        for (it.x1 in names(ales_ixn[[it.cat]]$stats)) {
+          ales_ixn[[it.cat]]$stats[[it.x1]] <- ales_ixn[[it.cat]]$stats[[it.x1]] |>
+            imap(\(it.term_tbl, it.term) {
+              it.term_tbl |>
+                mutate(term = it.term)
+            }) |>
+            bind_rows() |>
+            select('term', everything()) |>
+            pivot_stats()
+
+          # Rename terms to specify both interaction variables
+          ales_ixn[[it.cat]]$stats[[it.x1]]$by_stat <- ales_ixn[[it.cat]]$stats[[it.x1]]$by_stat |>
+            map(\(it.stat_tbl) {
+              it.stat_tbl |>
+                mutate(term1 = it.x1) |>
+                rename(term2 = term) |>
+                select(term1, term2, everything())
+            })
+          ales_ixn[[it.cat]]$stats[[it.x1]]$estimate <- ales_ixn[[it.cat]]$stats[[it.x1]]$estimate |>
+            mutate(term1 = it.x1) |>
+            rename(term2 = term) |>
+            select(term1, term2, everything())
+
+          if ('conf_regions' %in% output) {
+            # conf_regions optionally provided only if stats also requested
+            sig_criterion <- if (!is.null(rep)) {
+              'rep'
+            } else {
+              'median_band_pct'
+            }
+
+            ales_ixn[[it.cat]]$stats[[it.x1]]$conf_regions <-
+              summarize_conf_regions(
+                ales_ixn[[it.cat]]$ale[[it.x1]],
+                y_summary[, it.cat, drop = FALSE],
+                sig_criterion = sig_criterion
+              )
+          }
+
+          # # Create an effects plot only if plots are requested
+          # if ('plots' %in% output) {
+          #   ales_ixn[[it.cat]]$stats[[it.x1]]$effects_plot <- plot_effects(
+          #     ales_ixn[[it.cat]]$stats[[it.x1]]$estimate,
+          #     y_summary[, it.cat, drop = FALSE],
+          #     y_col,
+          #     middle_band = if (is.null(rep)) {
+          #       median_band_pct
+          #     } else {
+          #       # Use REP of NALED:
+          #       # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on REPs.
+          #       # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+          #       rep$rand_stats[[it.cat]] |>
+          #         p_to_random_value('naled', median_band_pct) |>
+          #         unname() |>
+          #         (`/`)(100)  # scale NALED from percentage to 0 to 1
+          #     }
+          #   )
+          # }  # if ('plots' %in% output)
+        }  # for (it.x1 in names(ales_ixn[[it.cat]]$stats))
+      }  # for (it.cat in y_cats)
+    }  # if (!is.null(ales_ixn))
 
   }
 
-  # closeAllConnections()
-  # browser()
 
   # Create S3 ale object ----------------------
 
@@ -1182,7 +1169,7 @@ ale_core <- function (
   params <- c(as.list(environment()), list(...))
   params <- params[
     names(params) |>
-      setdiff(c('ales', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds', 'call_env'))
+      setdiff(c('ales', 'ales_ixn', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds', 'call_env'))
   ]
 
   # Simplify some very large elements, especially closures that contain environments
@@ -1198,14 +1185,19 @@ ale_core <- function (
   # Create ale object
   ale_obj <- list()
   class(ale_obj) <- c('ale')
-  # attr(ales, 'ale_version') <- utils::packageVersion('ale')
 
+  # Assign distinct ALE
   ale_obj$distinct <- ales
+  if (!is.null(ales_ixn)) {
+    for (it.cat in y_cats) {
+      ale_obj$distinct[[it.cat]]$ixn <- ales_ixn[[it.cat]]
+    }
+  }
 
   ale_obj$params <- params
 
   # Always return the full list object.
-  # If specific output is not desired, it is returned as NULL.
+  # If any specific output is not desired, it is returned as NULL.
   return(ale_obj)
 }
 

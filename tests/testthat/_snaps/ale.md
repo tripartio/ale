@@ -3,171 +3,170 @@
     Code
       cars_ale
     Output
-      $data
-      $data$mpg
-      $data$mpg$model
+      $distinct
+      $distinct$mpg
+      $distinct$mpg$ale
+      $distinct$mpg$ale$model
       # A tibble: 32 x 7
-         model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 Duster 360              2  23.1  23.1    23.1      23.1  23.1
-       2 Camaro Z28              2  23.3  23.3    23.3      23.3  23.3
-       3 Chrysler Imperial       2  27.7  27.7    27.7      27.7  27.7
-       4 Cadillac Fleetwood      2  22.3  22.3    22.3      22.3  22.3
-       5 Lincoln Continental     2  23.2  23.2    23.2      23.2  23.2
-       6 Pontiac Firebird        2  26.1  26.1    26.1      26.1  26.1
-       7 Hornet Sportabout       2  23.3  23.3    23.3      23.3  23.3
-       8 AMC Javelin             2  17.2  17.2    17.2      17.2  17.2
-       9 Dodge Challenger        2  19.7  19.7    19.7      19.7  19.7
-      10 Merc 450SLC             2  18.1  18.1    18.1      18.1  18.1
+         model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Duster 360              2  3.87   3.87    3.87      3.87   3.87 
+       2 Camaro Z28              2  4.08   4.08    4.08      4.08   4.08 
+       3 Chrysler Imperial       2  8.50   8.50    8.50      8.50   8.50 
+       4 Cadillac Fleetwood      2  3.11   3.11    3.11      3.11   3.11 
+       5 Lincoln Continental     2  3.98   3.98    3.98      3.98   3.98 
+       6 Pontiac Firebird        2  6.91   6.91    6.91      6.91   6.91 
+       7 Hornet Sportabout       2  4.12   4.12    4.12      4.12   4.12 
+       8 AMC Javelin             2 -1.98  -1.98   -1.98     -1.98  -1.98 
+       9 Dodge Challenger        2  0.468  0.468   0.468     0.468  0.468
+      10 Merc 450SLC             2 -1.14  -1.14   -1.14     -1.14  -1.14 
       # i 22 more rows
       
-      $data$mpg$cyl
+      $distinct$mpg$ale$cyl
       # A tibble: 7 x 7
-        cyl.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1        3     1  19.2  19.2    19.2      19.2  19.2
-      2        4    17  19.2  19.2    19.2      19.2  19.2
-      3        5     6  19.2  19.2    19.2      19.2  19.2
-      4        6    11  19.2  19.2    19.2      19.2  19.2
-      5        7     5  19.2  19.2    19.2      19.2  19.2
-      6        8    21  19.2  19.2    19.2      19.2  19.2
-      7        9     3  19.2  19.2    19.2      19.2  19.2
+        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1        3     1  0.0196   0.0196   0.0196    0.0196   0.0196 
+      2        4    17  0.0124   0.0124   0.0124    0.0124   0.0124 
+      3        5     6  0.00517  0.00517  0.00517   0.00517  0.00517
+      4        6    11 -0.00202 -0.00202 -0.00202  -0.00202 -0.00202
+      5        7     5 -0.00922 -0.00922 -0.00922  -0.00922 -0.00922
+      6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
+      7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $data$mpg$disp
+      $distinct$mpg$ale$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      70.9     1  23.9  23.9    23.9      23.9  23.9
-       2      79.0     7  23.7  23.7    23.7      23.7  23.7
-       3     120.      7  22.4  22.4    22.4      22.4  22.4
-       4     146.      7  21.5  21.5    21.5      21.5  21.5
-       5     166.      7  20.9  20.9    20.9      20.9  20.9
-       6     258.      7  18.0  18.0    18.0      18.0  18.0
-       7     300.      7  16.8  16.8    16.8      16.8  16.8
-       8     350.      7  15.5  15.5    15.5      15.5  15.5
-       9     397.      7  14.6  14.6    14.6      14.6  14.6
-      10     472       7  13.5  13.5    13.5      13.5  13.5
+       1      70.9     1  4.75  4.75    4.75      4.75  4.75
+       2      79.0     7  4.49  4.49    4.49      4.49  4.49
+       3     120.      7  3.18  3.18    3.18      3.18  3.18
+       4     146.      7  2.34  2.34    2.34      2.34  2.34
+       5     166.      7  1.68  1.68    1.68      1.68  1.68
+       6     258.      7 -1.18 -1.18   -1.18     -1.18 -1.18
+       7     300.      7 -2.40 -2.40   -2.40     -2.40 -2.40
+       8     350.      7 -3.71 -3.71   -3.71     -3.71 -3.71
+       9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
+      10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      $data$mpg$hp
+      $distinct$mpg$ale$hp
       # A tibble: 10 x 7
-         hp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     52      1  21.9  21.9    21.9      21.9  21.9
-       2     66      8  21.4  21.4    21.4      21.4  21.4
-       3     95      6  20.4  20.4    20.4      20.4  20.4
-       4    109      7  19.9  19.9    19.9      19.9  19.9
-       5    112.     7  19.8  19.8    19.8      19.8  19.8
-       6    150      8  18.6  18.6    18.6      18.6  18.6
-       7    176.     6  18.0  18.0    18.0      18.0  18.0
-       8    181.     7  17.9  17.9    17.9      17.9  17.9
-       9    245      8  17.0  17.0    17.0      17.0  17.0
-      10    335      6  16.0  16.0    16.0      16.0  16.0
+         hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1     52      1  2.66   2.66    2.66      2.66   2.66 
+       2     66      8  2.24   2.24    2.24      2.24   2.24 
+       3     95      6  1.23   1.23    1.23      1.23   1.23 
+       4    109      7  0.709  0.709   0.709     0.709  0.709
+       5    112.     7  0.603  0.603   0.603     0.603  0.603
+       6    150      8 -0.618 -0.618  -0.618    -0.618 -0.618
+       7    176.     6 -1.18  -1.18   -1.18     -1.18  -1.18 
+       8    181.     7 -1.26  -1.26   -1.26     -1.26  -1.26 
+       9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
+      10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      $data$mpg$drat
+      $distinct$mpg$ale$drat
       # A tibble: 10 x 7
-         drat.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      2.74     1  18.2  18.2    18.2      18.2  18.2
-       2      3.02     7  18.5  18.5    18.5      18.5  18.5
-       3      3.08     8  18.6  18.6    18.6      18.6  18.6
-       4      3.18     6  18.7  18.7    18.7      18.7  18.7
-       5      3.62     7  19.2  19.2    19.2      19.2  19.2
-       6      3.73     7  19.4  19.4    19.4      19.4  19.4
-       7      3.9      8  19.5  19.5    19.5      19.5  19.5
-       8      3.93     6  19.6  19.6    19.6      19.6  19.6
-       9      4.21     7  19.9  19.9    19.9      19.9  19.9
-      10      4.98     7  20.7  20.7    20.7      20.7  20.7
+         drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+             <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1      2.74     1 -0.965  -0.965  -0.965    -0.965  -0.965 
+       2      3.02     7 -0.652  -0.652  -0.652    -0.652  -0.652 
+       3      3.08     8 -0.578  -0.578  -0.578    -0.578  -0.578 
+       4      3.18     6 -0.467  -0.467  -0.467    -0.467  -0.467 
+       5      3.62     7  0.0383  0.0383  0.0383    0.0383  0.0383
+       6      3.73     7  0.165   0.165   0.165     0.165   0.165 
+       7      3.9      8  0.340   0.340   0.340     0.340   0.340 
+       8      3.93     6  0.374   0.374   0.374     0.374   0.374 
+       9      4.21     7  0.671   0.671   0.671     0.671   0.671 
+      10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      $data$mpg$wt
+      $distinct$mpg$ale$wt
       # A tibble: 10 x 7
-         wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1    1.50     1  26.1  26.1    26.1      26.1  26.1
-       2    1.94     7  24.3  24.3    24.3      24.3  24.3
-       3    2.46     7  22.0  22.0    22.0      22.0  22.0
-       4    2.79     7  20.6  20.6    20.6      20.6  20.6
-       5    3.19     7  18.9  18.9    18.9      18.9  18.9
-       6    3.44     7  17.9  17.9    17.9      17.9  17.9
-       7    3.52     7  17.6  17.6    17.6      17.6  17.6
-       8    3.73     7  16.8  16.8    16.8      16.8  16.8
-       9    4.05     7  15.6  15.6    15.6      15.6  15.6
-      10    5.45     7  10.3  10.3    10.3      10.3  10.3
+         wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1    1.50     1  6.90   6.90    6.90      6.90   6.90 
+       2    1.94     7  5.08   5.08    5.08      5.08   5.08 
+       3    2.46     7  2.80   2.80    2.80      2.80   2.80 
+       4    2.79     7  1.39   1.39    1.39      1.39   1.39 
+       5    3.19     7 -0.264 -0.264  -0.264    -0.264 -0.264
+       6    3.44     7 -1.26  -1.26   -1.26     -1.26  -1.26 
+       7    3.52     7 -1.58  -1.58   -1.58     -1.58  -1.58 
+       8    3.73     7 -2.40  -2.40   -2.40     -2.40  -2.40 
+       9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
+      10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      $data$mpg$qsec
+      $distinct$mpg$ale$qsec
       # A tibble: 10 x 7
-         qsec.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      14.5     1  11.6  11.6    11.6      11.6  11.6
-       2      15.6     7  14.4  14.4    14.4      14.4  14.4
-       3      16.7     7  16.9  16.9    16.9      16.9  16.9
-       4      17.0     7  17.6  17.6    17.6      17.6  17.6
-       5      17.4     7  18.5  18.5    18.5      18.5  18.5
-       6      18.0     7  19.7  19.7    19.7      19.7  19.7
-       7      18.6     7  20.9  20.9    20.9      20.9  20.9
-       8      18.9     7  21.5  21.5    21.5      21.5  21.5
-       9      20       7  23.7  23.7    23.7      23.7  23.7
-      10      23.0     7  29.1  29.1    29.1      29.1  29.1
+         qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1      14.5     1 -7.56  -7.56   -7.56     -7.56  -7.56 
+       2      15.6     7 -4.82  -4.82   -4.82     -4.82  -4.82 
+       3      16.7     7 -2.27  -2.27   -2.27     -2.27  -2.27 
+       4      17.0     7 -1.61  -1.61   -1.61     -1.61  -1.61 
+       5      17.4     7 -0.707 -0.707  -0.707    -0.707 -0.707
+       6      18.0     7  0.509  0.509   0.509     0.509  0.509
+       7      18.6     7  1.72   1.72    1.72      1.72   1.72 
+       8      18.9     7  2.33   2.33    2.33      2.33   2.33 
+       9      20       7  4.54   4.54    4.54      4.54   4.54 
+      10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      $data$mpg$vs
+      $distinct$mpg$ale$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36  20.8  20.8    20.8      20.8  20.8
-      2 TRUE      28  17.1  17.1    17.1      17.1  17.1
+      1 FALSE     36  1.63  1.63    1.63      1.63  1.63
+      2 TRUE      28 -2.09 -2.09   -2.09     -2.09 -2.09
       
-      $data$mpg$am
+      $distinct$mpg$ale$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38  17.6  17.6    17.6      17.6  17.6
-      2 TRUE      26  21.6  21.6    21.6      21.6  21.6
+      1 FALSE     38 -1.61 -1.61   -1.61     -1.61 -1.61
+      2 TRUE      26  2.36  2.36    2.36      2.36  2.36
       
-      $data$mpg$gear
+      $distinct$mpg$ale$gear
       # A tibble: 3 x 7
-        gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 three       30  20.4  20.4    20.4      20.4  20.4
-      2 four        24  17.4  17.4    17.4      17.4  17.4
-      3 five        10  19.9  19.9    19.9      19.9  19.9
+        gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30  1.21   1.21    1.21      1.21   1.21 
+      2 four        24 -1.79  -1.79   -1.79     -1.79  -1.79 
+      3 five        10  0.688  0.688   0.688     0.688  0.688
       
-      $data$mpg$carb
+      $distinct$mpg$ale$carb
       # A tibble: 5 x 7
-        carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1         1    14  19.2  19.2    19.2      19.2  19.2
-      2         2    19  19.2  19.2    19.2      19.2  19.2
-      3         3     9  19.2  19.2    19.2      19.2  19.2
-      4         4    16  19.2  19.2    19.2      19.2  19.2
-      5         8     6  19.2  19.2    19.2      19.2  19.2
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.0123  -0.0123  -0.0123   -0.0123  -0.0123 
+      2         2    19 -0.00441 -0.00441 -0.00441  -0.00441 -0.00441
+      3         3     9  0.00343  0.00343  0.00343   0.00343  0.00343
+      4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
+      5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      $data$mpg$country
+      $distinct$mpg$ale$country
       # A tibble: 6 x 7
-        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 Sweden          2  15.7  15.7    15.7      15.7  15.7
-      2 UK              2  17.9  17.9    17.9      17.9  17.9
-      3 Italy           8  17.6  17.6    17.6      17.6  17.6
-      4 Japan          12  19.8  19.8    19.8      19.8  19.8
-      5 Germany        16  17.4  17.4    17.4      17.4  17.4
-      6 USA            24  21.0  21.0    21.0      21.0  21.0
+        country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+        <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+      1 Sweden          2 -3.52  -3.52   -3.52     -3.52  -3.52 
+      2 UK              2 -1.31  -1.31   -1.31     -1.31  -1.31 
+      3 Italy           8 -1.65  -1.65   -1.65     -1.65  -1.65 
+      4 Japan          12  0.644  0.644   0.644     0.644  0.644
+      5 Germany        16 -1.81  -1.81   -1.81     -1.81  -1.81 
+      6 USA            24  1.84   1.84    1.84      1.84   1.84 
       
-      $data$mpg$continent
+      $distinct$mpg$ale$continent
       # A tibble: 3 x 7
-        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24  18.8  18.8    18.8      18.8  18.8
-      2 Europe           28  21.3  21.3    21.3      21.3  21.3
-      3 Asia             12  15.1  15.1    15.1      15.1  15.1
+        continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+        <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+      1 North America    24 -0.421 -0.421  -0.421    -0.421 -0.421
+      2 Europe           28  2.11   2.11    2.11      2.11   2.11 
+      3 Asia             12 -4.07  -4.07   -4.07     -4.07  -4.07 
       
       
-      
-      $boot_data
+      $distinct$mpg$boot
       NULL
       
-      $stats
-      $stats$mpg
-      $stats$mpg$by_term
-      $stats$mpg$by_term$model
+      $distinct$mpg$stats
+      $distinct$mpg$stats$by_term
+      $distinct$mpg$stats$by_term$model
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -178,7 +177,7 @@
       5 naler_min   -43.9    -43.9  -43.9  -43.9     -43.9 
       6 naler_max    37.9     37.9   37.9   37.9      37.9 
       
-      $stats$mpg$by_term$cyl
+      $distinct$mpg$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -189,7 +188,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   0        0       0       0         0     
       
-      $stats$mpg$by_term$disp
+      $distinct$mpg$stats$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -200,7 +199,7 @@
       5 naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
-      $stats$mpg$by_term$hp
+      $distinct$mpg$stats$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -211,7 +210,7 @@
       5 naler_min   -19.7    -19.7  -19.7  -19.7     -19.7 
       6 naler_max    22.7     22.7   22.7   22.7      22.7 
       
-      $stats$mpg$by_term$drat
+      $distinct$mpg$stats$by_term$drat
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -222,7 +221,7 @@
       5 naler_min   -7.58    -7.58  -7.58  -7.58     -7.58 
       6 naler_max    7.58     7.58   7.58   7.58      7.58 
       
-      $stats$mpg$by_term$wt
+      $distinct$mpg$stats$by_term$wt
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -233,7 +232,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    34.8     34.8   34.8   34.8      34.8 
       
-      $stats$mpg$by_term$qsec
+      $distinct$mpg$stats$by_term$qsec
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -244,7 +243,7 @@
       5 naler_min   -43.9    -43.9  -43.9  -43.9     -43.9 
       6 naler_max    37.9     37.9   37.9   37.9      37.9 
       
-      $stats$mpg$by_term$vs
+      $distinct$mpg$stats$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -255,7 +254,7 @@
       5 naler_min   -16.7    -16.7  -16.7  -16.7     -16.7 
       6 naler_max     7.58     7.58   7.58   7.58      7.58
       
-      $stats$mpg$by_term$am
+      $distinct$mpg$stats$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -266,7 +265,7 @@
       5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
       6 naler_max    21.2     21.2   21.2   21.2      21.2 
       
-      $stats$mpg$by_term$gear
+      $distinct$mpg$stats$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -277,7 +276,7 @@
       5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
       6 naler_max     7.58     7.58   7.58   7.58      7.58
       
-      $stats$mpg$by_term$carb
+      $distinct$mpg$stats$by_term$carb
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -288,7 +287,7 @@
       5 naler_min  0        0        0        0         0      
       6 naler_max  0        0        0        0         0      
       
-      $stats$mpg$by_term$country
+      $distinct$mpg$stats$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -299,7 +298,7 @@
       5 naler_min   -22.7    -22.7  -22.7  -22.7     -22.7 
       6 naler_max    12.1     12.1   12.1   12.1      12.1 
       
-      $stats$mpg$by_term$continent
+      $distinct$mpg$stats$by_term$continent
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -311,8 +310,8 @@
       6 naler_max    13.6     13.6   13.6   13.6      13.6 
       
       
-      $stats$mpg$by_statistic
-      $stats$mpg$by_statistic$aled
+      $distinct$mpg$stats$by_stat
+      $distinct$mpg$stats$by_stat$aled
       # A tibble: 13 x 6
          term      estimate conf.low    mean  median conf.high
          <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -330,7 +329,7 @@
       12 country    1.62     1.62    1.62    1.62      1.62   
       13 continent  1.84     1.84    1.84    1.84      1.84   
       
-      $stats$mpg$by_statistic$aler_min
+      $distinct$mpg$stats$by_stat$aler_min
       # A tibble: 13 x 6
          term      estimate conf.low    mean  median conf.high
          <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -348,7 +347,7 @@
       12 country    -3.52    -3.52   -3.52   -3.52     -3.52  
       13 continent  -4.07    -4.07   -4.07   -4.07     -4.07  
       
-      $stats$mpg$by_statistic$aler_max
+      $distinct$mpg$stats$by_stat$aler_max
       # A tibble: 13 x 6
          term      estimate conf.low   mean median conf.high
          <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -366,7 +365,7 @@
       12 country     1.84     1.84   1.84   1.84      1.84  
       13 continent   2.11     2.11   2.11   2.11      2.11  
       
-      $stats$mpg$by_statistic$naled
+      $distinct$mpg$stats$by_stat$naled
       # A tibble: 13 x 6
          term      estimate conf.low  mean median conf.high
          <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -384,7 +383,7 @@
       12 country      11.8     11.8  11.8   11.8      11.8 
       13 continent    13.9     13.9  13.9   13.9      13.9 
       
-      $stats$mpg$by_statistic$naler_min
+      $distinct$mpg$stats$by_stat$naler_min
       # A tibble: 13 x 6
          term      estimate conf.low   mean median conf.high
          <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -402,7 +401,7 @@
       12 country     -22.7    -22.7  -22.7  -22.7     -22.7 
       13 continent   -30.3    -30.3  -30.3  -30.3     -30.3 
       
-      $stats$mpg$by_statistic$naler_max
+      $distinct$mpg$stats$by_stat$naler_max
       # A tibble: 13 x 6
          term      estimate conf.low  mean median conf.high
          <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -421,7 +420,7 @@
       13 continent    13.6     13.6  13.6   13.6      13.6 
       
       
-      $stats$mpg$estimate
+      $distinct$mpg$stats$estimate
       # A tibble: 13 x 7
          term         aled aler_min aler_max naled naler_min naler_max
          <chr>       <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -439,198 +438,623 @@
       12 country   1.62     -3.52     1.84   11.8     -22.7      12.1 
       13 continent 1.84     -4.07     2.11   13.9     -30.3      13.6 
       
-      $stats$mpg$effects_plot
-      $stats$mpg$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      
-      $plots
-      $plots$mpg
-      $plots$mpg$model
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$drat
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$wt
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$qsec
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$am
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$carb
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$country
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$continent
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $conf_regions
-      $conf_regions$mpg
-      $conf_regions$mpg$by_term
-      $conf_regions$mpg$by_term$model
+      $distinct$mpg$stats$conf_regions
+      $distinct$mpg$stats$conf_regions$by_term
+      $distinct$mpg$stats$conf_regions$by_term$model
       # A tibble: 32 x 5
-         x                       n  n_pct     y relative_to_mid
-         <ord>               <int>  <dbl> <dbl> <ord>          
-       1 Duster 360              2 0.0312  23.1 above          
-       2 Camaro Z28              2 0.0312  23.3 above          
-       3 Chrysler Imperial       2 0.0312  27.7 above          
-       4 Cadillac Fleetwood      2 0.0312  22.3 above          
-       5 Lincoln Continental     2 0.0312  23.2 above          
-       6 Pontiac Firebird        2 0.0312  26.1 above          
-       7 Hornet Sportabout       2 0.0312  23.3 above          
-       8 AMC Javelin             2 0.0312  17.2 below          
-       9 Dodge Challenger        2 0.0312  19.7 above          
-      10 Merc 450SLC             2 0.0312  18.1 below          
+         x                       n  n_pct      y relative_to_mid
+         <ord>               <int>  <dbl>  <dbl> <ord>          
+       1 Duster 360              2 0.0312  3.87  below          
+       2 Camaro Z28              2 0.0312  4.08  below          
+       3 Chrysler Imperial       2 0.0312  8.50  below          
+       4 Cadillac Fleetwood      2 0.0312  3.11  below          
+       5 Lincoln Continental     2 0.0312  3.98  below          
+       6 Pontiac Firebird        2 0.0312  6.91  below          
+       7 Hornet Sportabout       2 0.0312  4.12  below          
+       8 AMC Javelin             2 0.0312 -1.98  below          
+       9 Dodge Challenger        2 0.0312  0.468 below          
+      10 Merc 450SLC             2 0.0312 -1.14  below          
       # i 22 more rows
       
-      $conf_regions$mpg$by_term$cyl
+      $distinct$mpg$stats$conf_regions$by_term$cyl
       # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1    19.2  19.2 -0.00184 overlap        
+        start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
+      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
       
-      $conf_regions$mpg$by_term$disp
-      # A tibble: 2 x 9
+      $distinct$mpg$stats$conf_regions$by_term$disp
+      # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    70.9  166.  0.237    29 0.453    23.9  20.9 -0.550 above          
-      2   258.   472   0.533    35 0.547    18.0  13.5 -0.365 below          
+      1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
       
-      $conf_regions$mpg$by_term$hp
-      # A tibble: 2 x 9
+      $distinct$mpg$stats$conf_regions$by_term$hp
+      # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1      52  112.  0.212    29 0.453    21.9  19.8 -0.415 above          
-      2     150  335   0.654    35 0.547    18.6  16.0 -0.168 below          
+      1      52   335      1    64     1    2.66 -3.19 -0.250 below          
       
-      $conf_regions$mpg$by_term$drat
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    2.74  3.18  0.193    22 0.344    18.2  18.7 0.110  below          
-      2    3.62  3.62  0         7 0.109    19.2  19.2 0      overlap        
-      3    3.73  4.98  0.557    35 0.547    19.4  20.7 0.0998 above          
-      
-      $conf_regions$mpg$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    1.50  2.79  0.327    22 0.344    26.1  20.6 -0.719 above          
-      2    3.19  5.45  0.572    42 0.656    18.9  10.3 -0.647 below          
-      
-      $conf_regions$mpg$by_term$qsec
-      # A tibble: 2 x 9
+      $distinct$mpg$stats$conf_regions$by_term$drat
+      # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    14.5  17.4  0.347    29 0.453    11.6  18.5 0.842 below          
-      2    18.0  23.0  0.587    35 0.547    19.7  29.1 0.684 above          
+      1    2.74  4.98      1    64     1  -0.965  1.47 0.104 below          
       
-      $conf_regions$mpg$by_term$vs
-      # A tibble: 2 x 5
-        x         n n_pct     y relative_to_mid
-        <ord> <int> <dbl> <dbl> <ord>          
-      1 FALSE    36 0.562  20.8 above          
-      2 TRUE     28 0.438  17.1 below          
-      
-      $conf_regions$mpg$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct     y relative_to_mid
-        <ord> <int> <dbl> <dbl> <ord>          
-      1 FALSE    38 0.594  17.6 below          
-      2 TRUE     26 0.406  21.6 above          
-      
-      $conf_regions$mpg$by_term$gear
-      # A tibble: 3 x 5
-        x         n n_pct     y relative_to_mid
-        <ord> <int> <dbl> <dbl> <ord>          
-      1 three    30 0.469  20.4 above          
-      2 four     24 0.375  17.4 below          
-      3 five     10 0.156  19.9 above          
-      
-      $conf_regions$mpg$by_term$carb
+      $distinct$mpg$stats$conf_regions$by_term$wt
       # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>   <dbl> <ord>          
-      1       1     8      1    64     1    19.2  19.2 0.00234 overlap        
+        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1    1.50  5.45      1    64     1    6.90 -8.94 -0.676 below          
       
-      $conf_regions$mpg$by_term$country
-      # A tibble: 6 x 5
-        x           n  n_pct     y relative_to_mid
-        <ord>   <int>  <dbl> <dbl> <ord>          
-      1 Sweden      2 0.0312  15.7 below          
-      2 UK          2 0.0312  17.9 below          
-      3 Italy       8 0.125   17.6 below          
-      4 Japan      12 0.188   19.8 above          
-      5 Germany    16 0.25    17.4 below          
-      6 USA        24 0.375   21.0 above          
+      $distinct$mpg$stats$conf_regions$by_term$qsec
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
+      1    14.5  23.0      1    64     1   -7.56  9.93 0.746 below          
       
-      $conf_regions$mpg$by_term$continent
+      $distinct$mpg$stats$conf_regions$by_term$vs
+      # A tibble: 2 x 5
+        x         n n_pct     y relative_to_mid
+        <ord> <int> <dbl> <dbl> <ord>          
+      1 FALSE    36 0.562  1.63 below          
+      2 TRUE     28 0.438 -2.09 below          
+      
+      $distinct$mpg$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct     y relative_to_mid
+        <ord> <int> <dbl> <dbl> <ord>          
+      1 FALSE    38 0.594 -1.61 below          
+      2 TRUE     26 0.406  2.36 below          
+      
+      $distinct$mpg$stats$conf_regions$by_term$gear
       # A tibble: 3 x 5
-        x                 n n_pct     y relative_to_mid
-        <ord>         <int> <dbl> <dbl> <ord>          
-      1 North America    24 0.375  18.8 below          
-      2 Europe           28 0.438  21.3 above          
-      3 Asia             12 0.188  15.1 below          
+        x         n n_pct      y relative_to_mid
+        <ord> <int> <dbl>  <dbl> <ord>          
+      1 three    30 0.469  1.21  below          
+      2 four     24 0.375 -1.79  below          
+      3 five     10 0.156  0.688 below          
+      
+      $distinct$mpg$stats$conf_regions$by_term$carb
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
+      1       1     8      1    64     1 -0.0123 0.0427 0.00234 below          
+      
+      $distinct$mpg$stats$conf_regions$by_term$country
+      # A tibble: 6 x 5
+        x           n  n_pct      y relative_to_mid
+        <ord>   <int>  <dbl>  <dbl> <ord>          
+      1 Sweden      2 0.0312 -3.52  below          
+      2 UK          2 0.0312 -1.31  below          
+      3 Italy       8 0.125  -1.65  below          
+      4 Japan      12 0.188   0.644 below          
+      5 Germany    16 0.25   -1.81  below          
+      6 USA        24 0.375   1.84  below          
+      
+      $distinct$mpg$stats$conf_regions$by_term$continent
+      # A tibble: 3 x 5
+        x                 n n_pct      y relative_to_mid
+        <ord>         <int> <dbl>  <dbl> <ord>          
+      1 North America    24 0.375 -0.421 below          
+      2 Europe           28 0.438  2.11  below          
+      3 Asia             12 0.188 -4.07  below          
       
       
-      $conf_regions$mpg$significant
-      # A tibble: 58 x 12
-         term  x           start_x end_x x_span     n  n_pct     y start_y end_y trend
-         <chr> <chr>         <dbl> <dbl>  <dbl> <int>  <dbl> <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster 360       NA    NA     NA     2 0.0312  23.1      NA    NA    NA
-       2 model Camaro Z28       NA    NA     NA     2 0.0312  23.3      NA    NA    NA
-       3 model Chrysler I~      NA    NA     NA     2 0.0312  27.7      NA    NA    NA
-       4 model Cadillac F~      NA    NA     NA     2 0.0312  22.3      NA    NA    NA
-       5 model Lincoln Co~      NA    NA     NA     2 0.0312  23.2      NA    NA    NA
-       6 model Pontiac Fi~      NA    NA     NA     2 0.0312  26.1      NA    NA    NA
-       7 model Hornet Spo~      NA    NA     NA     2 0.0312  23.3      NA    NA    NA
-       8 model AMC Javelin      NA    NA     NA     2 0.0312  17.2      NA    NA    NA
-       9 model Dodge Chal~      NA    NA     NA     2 0.0312  19.7      NA    NA    NA
-      10 model Merc 450SLC      NA    NA     NA     2 0.0312  18.1      NA    NA    NA
-      # i 48 more rows
+      $distinct$mpg$stats$conf_regions$significant
+      # A tibble: 55 x 12
+         term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
+         <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
+       1 model Duster 360      NA    NA     NA     2 0.0312  3.87       NA    NA    NA
+       2 model Camaro Z28      NA    NA     NA     2 0.0312  4.08       NA    NA    NA
+       3 model Chrysler ~      NA    NA     NA     2 0.0312  8.50       NA    NA    NA
+       4 model Cadillac ~      NA    NA     NA     2 0.0312  3.11       NA    NA    NA
+       5 model Lincoln C~      NA    NA     NA     2 0.0312  3.98       NA    NA    NA
+       6 model Pontiac F~      NA    NA     NA     2 0.0312  6.91       NA    NA    NA
+       7 model Hornet Sp~      NA    NA     NA     2 0.0312  4.12       NA    NA    NA
+       8 model AMC Javel~      NA    NA     NA     2 0.0312 -1.98       NA    NA    NA
+       9 model Dodge Cha~      NA    NA     NA     2 0.0312  0.468      NA    NA    NA
+      10 model Merc 450S~      NA    NA     NA     2 0.0312 -1.14       NA    NA    NA
+      # i 45 more rows
       # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$mpg$sig_criterion
+      $distinct$mpg$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
+      
+      $distinct$mpg$stats$effects_plot
+      $distinct$mpg$stats$effects_plot[[1]]
+          y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1   1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2   2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+      3   3     1     3     NA lightgray       0.5        1    NA 19.04095 19.28336
+      4   4     1     4     NA lightgray       0.5        1    NA 19.04095 19.28336
+      5   5     1     5     NA lightgray       0.5        1    NA 19.04095 19.28336
+      6   6     1     6     NA lightgray       0.5        1    NA 19.04095 19.28336
+      7   7     1     7     NA lightgray       0.5        1    NA 19.04095 19.28336
+      8   8     1     8     NA lightgray       0.5        1    NA 19.04095 19.28336
+      9   9     1     9     NA lightgray       0.5        1    NA 19.04095 19.28336
+      10 10     1    10     NA lightgray       0.5        1    NA 19.04095 19.28336
+      11 11     1    11     NA lightgray       0.5        1    NA 19.04095 19.28336
+      12 12     1    12     NA lightgray       0.5        1    NA 19.04095 19.28336
+      13 13     1    13     NA lightgray       0.5        1    NA 19.04095 19.28336
+         ymin ymax
+      1  -Inf  Inf
+      2  -Inf  Inf
+      3  -Inf  Inf
+      4  -Inf  Inf
+      5  -Inf  Inf
+      6  -Inf  Inf
+      7  -Inf  Inf
+      8  -Inf  Inf
+      9  -Inf  Inf
+      10 -Inf  Inf
+      11 -Inf  Inf
+      12 -Inf  Inf
+      13 -Inf  Inf
+      
+      $distinct$mpg$stats$effects_plot[[2]]
+             xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
+      1  19.18774 19.24267  1     1     1  0.875  1.125  black       0.5        1
+      2  19.17639 19.21956  2     1     2  1.875  2.125  black       0.5        1
+      3  18.23490 20.66888  3     1     3  2.875  3.125  black       0.5        1
+      4  17.40633 20.40561  4     1     4  3.875  4.125  black       0.5        1
+      5  16.00843 21.86350  5     1     5  4.875  5.125  black       0.5        1
+      6  15.68173 21.03917  6     1     6  5.875  6.125  black       0.5        1
+      7  17.10625 20.82847  7     1     7  6.875  7.125  black       0.5        1
+      8  15.12562 21.30676  8     1     8  7.875  8.125  black       0.5        1
+      9  17.58704 21.55740  9     1     9  8.875  9.125  black       0.5        1
+      10 10.25520 26.10222 10     1    10  9.875 10.125  black       0.5        1
+      11 11.63947 29.13272 11     1    11 10.875 11.125  black       0.5        1
+      12 12.49220 27.70004 12     1    12 11.875 12.125  black       0.5        1
+      13 13.46448 23.94577 13     1    13 12.875 13.125  black       0.5        1
+         height alpha
+      1    0.25    NA
+      2    0.25    NA
+      3    0.25    NA
+      4    0.25    NA
+      5    0.25    NA
+      6    0.25    NA
+      7    0.25    NA
+      8    0.25    NA
+      9    0.25    NA
+      10   0.25    NA
+      11   0.25    NA
+      12   0.25    NA
+      13   0.25    NA
+      
+      $distinct$mpg$stats$effects_plot[[3]]
+             xmin     xmax ymin ymax  y PANEL group colour  fill linewidth linetype
+      1  19.15779 19.16652  0.7  1.3  1     1     1     NA white       0.5        1
+      2  19.15657 19.16774  1.7  2.3  2     1     2     NA white       0.5        1
+      3  18.91176 19.41255  2.7  3.3  3     1     3     NA white       0.5        1
+      4  18.48953 19.83478  3.7  4.3  4     1     4     NA white       0.5        1
+      5  18.47670 19.84760  4.7  5.3  5     1     5     NA white       0.5        1
+      6  18.35179 19.97252  5.7  6.3  6     1     6     NA white       0.5        1
+      7  18.24614 20.07817  6.7  7.3  7     1     7     NA white       0.5        1
+      8  18.24045 20.08386  7.7  8.3  8     1     8     NA white       0.5        1
+      9  18.20446 20.11985  8.7  9.3  9     1     9     NA white       0.5        1
+      10 17.69155 20.63276  9.7 10.3 10     1    10     NA white       0.5        1
+      11 17.65179 20.67252 10.7 11.3 11     1    11     NA white       0.5        1
+      12 17.63984 20.68447 11.7 12.3 12     1    12     NA white       0.5        1
+      13 17.61542 20.70889 12.7 13.3 13     1    13     NA white       0.5        1
+         alpha
+      1     NA
+      2     NA
+      3     NA
+      4     NA
+      5     NA
+      6     NA
+      7     NA
+      8     NA
+      9     NA
+      10    NA
+      11    NA
+      12    NA
+      13    NA
+      
+      $distinct$mpg$stats$effects_plot[[4]]
+                x       label  y PANEL group colour size angle hjust vjust alpha
+      1  19.16215 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  19.16215 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  19.16215 NALED  6.1%  3     1     3  black    3     0   0.5    -1    NA
+      4  19.16215 NALED  9.8%  4     1     4  black    3     0   0.5    -1    NA
+      5  19.16215 NALED 10.8%  5     1     5  black    3     0   0.5    -1    NA
+      6  19.16215 NALED 11.8%  6     1     6  black    3     0   0.5    -1    NA
+      7  19.16215 NALED 11.6%  7     1     7  black    3     0   0.5    -1    NA
+      8  19.16215 NALED 13.9%  8     1     8  black    3     0   0.5    -1    NA
+      9  19.16215 NALED 16.7%  9     1     9  black    3     0   0.5    -1    NA
+      10 19.16215 NALED 20.1% 10     1    10  black    3     0   0.5    -1    NA
+      11 19.16215 NALED 19.2% 11     1    11  black    3     0   0.5    -1    NA
+      12 19.16215 NALED 21.4% 12     1    12  black    3     0   0.5    -1    NA
+      13 19.16215 NALED 22.8% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[5]]
+                x label     y PANEL group colour size angle hjust vjust alpha family
+      1  19.15779     (  1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2  19.15657     (  2.02     1     2  black 3.88     0   0.5   0.5    NA       
+      3  18.91176     (  3.02     1     3  black 3.88     0   0.5   0.5    NA       
+      4  18.48953     (  4.02     1     4  black 3.88     0   0.5   0.5    NA       
+      5  18.47670     (  5.02     1     5  black 3.88     0   0.5   0.5    NA       
+      6  18.35179     (  6.02     1     6  black 3.88     0   0.5   0.5    NA       
+      7  18.24614     (  7.02     1     7  black 3.88     0   0.5   0.5    NA       
+      8  18.24045     (  8.02     1     8  black 3.88     0   0.5   0.5    NA       
+      9  18.20446     (  9.02     1     9  black 3.88     0   0.5   0.5    NA       
+      10 17.69155     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA       
+      11 17.65179     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA       
+      12 17.63984     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA       
+      13 17.61542     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      12        1        1.2
+      13        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[6]]
+                x label     y PANEL group colour size angle hjust vjust alpha family
+      1  19.16652     )  1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2  19.16774     )  2.02     1     2  black 3.88     0   0.5   0.5    NA       
+      3  19.41255     )  3.02     1     3  black 3.88     0   0.5   0.5    NA       
+      4  19.83478     )  4.02     1     4  black 3.88     0   0.5   0.5    NA       
+      5  19.84760     )  5.02     1     5  black 3.88     0   0.5   0.5    NA       
+      6  19.97252     )  6.02     1     6  black 3.88     0   0.5   0.5    NA       
+      7  20.07817     )  7.02     1     7  black 3.88     0   0.5   0.5    NA       
+      8  20.08386     )  8.02     1     8  black 3.88     0   0.5   0.5    NA       
+      9  20.11985     )  9.02     1     9  black 3.88     0   0.5   0.5    NA       
+      10 20.63276     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA       
+      11 20.67252     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA       
+      12 20.68447     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA       
+      13 20.70889     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      12        1        1.2
+      13        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[7]]
+                x     label  y PANEL group colour size angle hjust vjust alpha family
+      1  19.16215 ALED 0.01  1     1     1  black    3     0   0.5     2    NA       
+      2  19.16215 ALED 0.01  2     1     2  black    3     0   0.5     2    NA       
+      3  19.16215 ALED 0.50  3     1     3  black    3     0   0.5     2    NA       
+      4  19.16215 ALED 1.35  4     1     4  black    3     0   0.5     2    NA       
+      5  19.16215 ALED 1.37  5     1     5  black    3     0   0.5     2    NA       
+      6  19.16215 ALED 1.62  6     1     6  black    3     0   0.5     2    NA       
+      7  19.16215 ALED 1.83  7     1     7  black    3     0   0.5     2    NA       
+      8  19.16215 ALED 1.84  8     1     8  black    3     0   0.5     2    NA       
+      9  19.16215 ALED 1.92  9     1     9  black    3     0   0.5     2    NA       
+      10 19.16215 ALED 2.94 10     1    10  black    3     0   0.5     2    NA       
+      11 19.16215 ALED 3.02 11     1    11  black    3     0   0.5     2    NA       
+      12 19.16215 ALED 3.04 12     1    12  black    3     0   0.5     2    NA       
+      13 19.16215 ALED 3.09 13     1    13  black    3     0   0.5     2    NA       
+         fontface lineheight
+      1         1        1.2
+      2         1        1.2
+      3         1        1.2
+      4         1        1.2
+      5         1        1.2
+      6         1        1.2
+      7         1        1.2
+      8         1        1.2
+      9         1        1.2
+      10        1        1.2
+      11        1        1.2
+      12        1        1.2
+      13        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 2     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$mpg$plots
+      $distinct$mpg$plots$model
+          x          y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1  3.8721613     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2  4.0794406     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3  8.5000402     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4  3.1111704     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5  3.9804192     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6  6.9119123     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7  4.1215429     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8 -1.9841969     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9  0.4679798     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10 -1.1437258     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11  1.6196809     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12  2.4554663     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13  2.4468018     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14 -4.5738276     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15  0.1112625     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16  4.1026102     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17 -4.8209607     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18 -3.5299716     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19  1.8974346     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20 -0.6765420     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21 -6.7073538     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22 -0.5020853     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23 -0.3009191     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24  0.1155853     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25 -6.2206500     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26 -1.4807431     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27 -3.6879539     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28 -1.7356194     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29 -6.7078017     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30  0.9204447     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31 -1.6336516     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32 -3.0079509     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax     ymin     ymax
+      1   Inf 19.04095 19.28336
+      2   Inf 19.04095 19.28336
+      3   Inf 19.04095 19.28336
+      4   Inf 19.04095 19.28336
+      5   Inf 19.04095 19.28336
+      6   Inf 19.04095 19.28336
+      7   Inf 19.04095 19.28336
+      8   Inf 19.04095 19.28336
+      9   Inf 19.04095 19.28336
+      10  Inf 19.04095 19.28336
+      11  Inf 19.04095 19.28336
+      12  Inf 19.04095 19.28336
+      13  Inf 19.04095 19.28336
+      14  Inf 19.04095 19.28336
+      15  Inf 19.04095 19.28336
+      16  Inf 19.04095 19.28336
+      17  Inf 19.04095 19.28336
+      18  Inf 19.04095 19.28336
+      19  Inf 19.04095 19.28336
+      20  Inf 19.04095 19.28336
+      21  Inf 19.04095 19.28336
+      22  Inf 19.04095 19.28336
+      23  Inf 19.04095 19.28336
+      24  Inf 19.04095 19.28336
+      25  Inf 19.04095 19.28336
+      26  Inf 19.04095 19.28336
+      27  Inf 19.04095 19.28336
+      28  Inf 19.04095 19.28336
+      29  Inf 19.04095 19.28336
+      30  Inf 19.04095 19.28336
+      31  Inf 19.04095 19.28336
+      32  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$cyl
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3  0.019560679     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4  0.012365946     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5  0.005171214     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 -0.002023519     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7 -0.009218251     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 -0.016412984     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 -0.023607716     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax     ymin     ymax
+      1  Inf 19.04095 19.28336
+      2  Inf 19.04095 19.28336
+      3  Inf 19.04095 19.28336
+      4  Inf 19.04095 19.28336
+      5  Inf 19.04095 19.28336
+      6  Inf 19.04095 19.28336
+      7  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$disp
+                 x         y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941  4.745766     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253  4.492474     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000  3.183869     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210  2.339811     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111  1.683012     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 -1.180632     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 -2.395525     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 -3.708118     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 -4.579889     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 -5.735518     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$hp
+                x          y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000  2.6634959     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000  2.2408110     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000  1.2313424     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000  0.7091351     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003  0.6026530     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000 -0.6177038     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 -1.1824912     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 -1.2556908     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 -2.1824104     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 -3.1915698     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$drat
+                x           y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533 -0.96510429     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190 -0.65230048     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000 -0.57786112     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717 -0.46702900     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000  0.03830291     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310  0.16505344     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000  0.34026017     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607  0.37427702     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875  0.67111661     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502  1.46887946     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$wt
+                x          y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275  6.9022169     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000  5.0756232     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000  2.8009090     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481  1.3941324     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 -0.2636568     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 -1.2627347     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 -1.5811792     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 -2.3982594     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 -3.5991045     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 -8.9447967     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$qsec
+                x          y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589 -7.5605292     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460 -4.8153815     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553 -2.2671247     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000 -1.6094658     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920 -0.7072453     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000  0.5088410     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333  1.7243683     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000  2.3253948     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000  4.5385133     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365  9.9327160     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$vs
+        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1  1.628470     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -2.093747     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $distinct$mpg$plots$am
+        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -1.612961     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2  2.357405     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $distinct$mpg$plots$gear
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1  1.2056051     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -1.7936735     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.6880009     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
+      $distinct$mpg$plots$carb
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 -0.012262756     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.004414592     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3  0.003433572     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4  0.011281736     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8  0.042674391     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax     ymin     ymax
+      1  Inf 19.04095 19.28336
+      2  Inf 19.04095 19.28336
+      3  Inf 19.04095 19.28336
+      4  Inf 19.04095 19.28336
+      5  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$country
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -3.5182672     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -1.3110563     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -1.6465372     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4  0.6435806     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 -1.8145102     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6  1.8391725     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      
+      $distinct$mpg$plots$continent
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.4206974     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2  2.1067606     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -4.0743800     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
       
       
       
@@ -638,8 +1062,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 19.2
+      $params$it.cat
+      [1] "mpg"
       
       $params$y_cats
       [1] "mpg"
@@ -772,9 +1196,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "numeric"
       
@@ -803,7 +1224,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -811,52 +1232,49 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # numeric outcome with bootstrap works with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$mpg
-      $data$mpg$cyl
+      $distinct
+      $distinct$mpg
+      $distinct$mpg$ale
+      $distinct$mpg$ale$cyl
       # A tibble: 7 x 7
-        cyl.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1        3     1  19.2  19.2    19.2      19.2  19.2
-      2        4    17  19.2  19.2    19.2      19.2  19.2
-      3        5     6  19.2  19.2    19.2      19.2  19.2
-      4        6    11  19.2  19.2    19.2      19.2  19.2
-      5        7     5  19.2  19.2    19.2      19.2  19.2
-      6        8    21  19.2  19.2    19.2      19.2  19.2
-      7        9     3  19.2  19.2    19.2      19.2  19.2
+        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1        3     1  0.0196   0.0196   0.0196    0.0196   0.0196 
+      2        4    17  0.0124   0.0124   0.0124    0.0124   0.0124 
+      3        5     6  0.00517  0.00517  0.00517   0.00517  0.00517
+      4        6    11 -0.00202 -0.00202 -0.00202  -0.00202 -0.00202
+      5        7     5 -0.00922 -0.00922 -0.00922  -0.00922 -0.00922
+      6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
+      7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $data$mpg$disp
+      $distinct$mpg$ale$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      70.9     1  23.9  23.9    23.9      23.9  23.9
-       2      79.0     7  23.7  23.7    23.7      23.7  23.7
-       3     120.      7  22.4  22.4    22.4      22.4  22.4
-       4     146.      7  21.5  21.5    21.5      21.5  21.5
-       5     166.      7  20.9  20.9    20.9      20.9  20.9
-       6     258.      7  18.0  18.0    18.0      18.0  18.0
-       7     300.      7  16.8  16.8    16.8      16.8  16.8
-       8     350.      7  15.5  15.5    15.5      15.5  15.5
-       9     397.      7  14.6  14.6    14.6      14.6  14.6
-      10     472       7  13.5  13.5    13.5      13.5  13.5
+       1      70.9     1  4.75  4.75    4.75      4.75  4.75
+       2      79.0     7  4.49  4.49    4.49      4.49  4.49
+       3     120.      7  3.18  3.18    3.18      3.18  3.18
+       4     146.      7  2.34  2.34    2.34      2.34  2.34
+       5     166.      7  1.68  1.68    1.68      1.68  1.68
+       6     258.      7 -1.18 -1.18   -1.18     -1.18 -1.18
+       7     300.      7 -2.40 -2.40   -2.40     -2.40 -2.40
+       8     350.      7 -3.71 -3.71   -3.71     -3.71 -3.71
+       9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
+      10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
       
-      
-      $boot_data
+      $distinct$mpg$boot
       NULL
       
-      $stats
-      $stats$mpg
-      $stats$mpg$by_term
-      $stats$mpg$by_term$cyl
+      $distinct$mpg$stats
+      $distinct$mpg$stats$by_term
+      $distinct$mpg$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -867,7 +1285,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   0        0       0       0         0     
       
-      $stats$mpg$by_term$disp
+      $distinct$mpg$stats$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -879,43 +1297,43 @@
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
       
-      $stats$mpg$by_statistic
-      $stats$mpg$by_statistic$aled
+      $distinct$mpg$stats$by_stat
+      $distinct$mpg$stats$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0112   0.0106 0.0112 0.0111    0.0117
       2 disp    3.06     2.83   3.06   2.99      3.37  
       
-      $stats$mpg$by_statistic$aler_min
+      $distinct$mpg$stats$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low    mean  median conf.high
         <chr>    <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 cyl    -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
       2 disp   -5.74    -5.74   -5.74   -5.74     -5.74  
       
-      $stats$mpg$by_statistic$aler_max
+      $distinct$mpg$stats$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0196   0.0196 0.0196 0.0196    0.0196
       2 disp    4.75     4.75   4.75   4.75      4.75  
       
-      $stats$mpg$by_statistic$naled
+      $distinct$mpg$stats$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp      22.7     21.6  22.7   21.9      24.5
       
-      $stats$mpg$by_statistic$naler_min
+      $distinct$mpg$stats$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp     -40.9    -40.9 -40.9  -40.9     -40.9
       
-      $stats$mpg$by_statistic$naler_max
+      $distinct$mpg$stats$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -923,59 +1341,150 @@
       2 disp      28.8     28.8  28.8   28.8      28.8
       
       
-      $stats$mpg$estimate
+      $distinct$mpg$stats$estimate
       # A tibble: 2 x 7
         term    aled aler_min aler_max naled naler_min naler_max
         <chr>  <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 cyl   0.0112  -0.0236   0.0196   0         0         0  
       2 disp  3.06    -5.74     4.75    22.7     -40.9      28.8
       
-      $stats$mpg$effects_plot
-      $stats$mpg$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      
-      $plots
-      $plots$mpg
-      $plots$mpg$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$mpg$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $conf_regions
-      $conf_regions$mpg
-      $conf_regions$mpg$by_term
-      $conf_regions$mpg$by_term$cyl
+      $distinct$mpg$stats$conf_regions
+      $distinct$mpg$stats$conf_regions$by_term
+      $distinct$mpg$stats$conf_regions$by_term$cyl
       # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1    19.2  19.2 -0.00184 overlap        
+        start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
+      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
       
-      $conf_regions$mpg$by_term$disp
-      # A tibble: 2 x 9
+      $distinct$mpg$stats$conf_regions$by_term$disp
+      # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    70.9  166.  0.237    29 0.453    23.9  20.9 -0.550 above          
-      2   258.   472   0.533    35 0.547    18.0  13.5 -0.365 below          
+      1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
       
       
-      $conf_regions$mpg$significant
+      $distinct$mpg$stats$conf_regions$significant
       # A tibble: 2 x 10
-        term  start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
-        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1 disp     70.9  166.  0.237    29 0.453    23.9  20.9 -0.550 above          
-      2 disp    258.   472   0.533    35 0.547    18.0  13.5 -0.365 below          
+        term  start_x end_x x_span     n n_pct start_y   end_y    trend
+        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl>
+      1 cyl       3       9      1    64     1  0.0196 -0.0236 -0.00184
+      2 disp     70.9   472      1    64     1  4.75   -5.74   -0.447  
+      # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$mpg$sig_criterion
+      $distinct$mpg$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
+      
+      $distinct$mpg$stats$effects_plot
+      $distinct$mpg$stats$effects_plot[[1]]
+        y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1 1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2 2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+        ymin ymax
+      1 -Inf  Inf
+      2 -Inf  Inf
+      
+      $distinct$mpg$stats$effects_plot[[2]]
+            xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1 19.17639 19.21956 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 13.46448 23.94577 2     1     2 1.875 2.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      
+      $distinct$mpg$stats$effects_plot[[3]]
+            xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 19.15658 19.16773  0.7  1.3 1     1     1     NA white       0.5        1
+      2 17.63105 20.69326  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      $distinct$mpg$stats$effects_plot[[4]]
+               x       label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 22.7% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[5]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.15658     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 17.63105     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[6]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.16773     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 20.69326     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[7]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 ALED 0.01 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 3.06 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$mpg$stats$effects_plot[[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$mpg$plots
+      $distinct$mpg$plots$cyl
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3  0.019560679     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4  0.012365946     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5  0.005171214     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 -0.002023519     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7 -0.009218251     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 -0.016412984     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 -0.023607716     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax     ymin     ymax
+      1  Inf 19.04095 19.28336
+      2  Inf 19.04095 19.28336
+      3  Inf 19.04095 19.28336
+      4  Inf 19.04095 19.28336
+      5  Inf 19.04095 19.28336
+      6  Inf 19.04095 19.28336
+      7  Inf 19.04095 19.28336
+      
+      $distinct$mpg$plots$disp
+                 x         y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941  4.745766     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253  4.492474     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000  3.183869     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210  2.339811     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111  1.683012     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 -1.180632     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 -2.395525     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 -3.708118     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 -4.579889     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 -5.735518     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
       
       
       
@@ -983,8 +1492,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 19.2
+      $params$it.cat
+      [1] "mpg"
       
       $params$y_cats
       [1] "mpg"
@@ -1115,9 +1624,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "numeric"
       
@@ -1146,7 +1652,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -1154,24 +1660,23 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # numeric outcome works with every parameter set to something, with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$mpg
-      $data$mpg$vs
+      $distinct
+      $distinct$mpg
+      $distinct$mpg$ale
+      $distinct$mpg$ale$vs
       # A tibble: 2 x 7
         vs.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
       1 FALSE     36 -0.0258 -0.0258 -0.0258   -0.0258 -0.0258
       2 TRUE      28 -0.233  -0.233  -0.233    -0.233  -0.233 
       
-      $data$mpg$gear
+      $distinct$mpg$ale$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1180,17 +1685,15 @@
       3 five        10  0.996   0.996   0.996     0.996   0.996 
       
       
-      
-      $boot_data
-      $boot_data$mpg
-      $boot_data$mpg$vs
+      $distinct$mpg$boot
+      $distinct$mpg$boot$vs
       # A tibble: 2 x 6
           .it vs    .y_composite    .n .y_distinct      .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
       1     1 FALSE      -0.0258    36     -0.0258 -0.0258
       2     1 TRUE       -0.233     28     -0.233  -0.233 
       
-      $boot_data$mpg$gear
+      $distinct$mpg$boot$gear
       # A tibble: 3 x 6
           .it gear  .y_composite    .n .y_distinct      .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
@@ -1199,17 +1702,15 @@
       3     1 five        0.996     10      0.996   0.996 
       
       
-      
-      $stats
+      $distinct$mpg$stats
       NULL
       
-      $plots
+      $distinct$mpg$plots
       NULL
+      
+      
       
       $params
-      $params$relative_y_shift
-      [1] 0
-      
       $params$y_cats
       [1] "mpg"
       
@@ -1339,9 +1840,6 @@
       $params$boot_centre
       [1] "median"
       
-      $params$relative_y
-      [1] "zero"
-      
       $params$y_type
       [1] "numeric"
       
@@ -1370,7 +1868,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -1378,17 +1876,16 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # binary outcome default works with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$vs
-      $data$vs$model
+      $distinct
+      $distinct$vs
+      $distinct$vs$ale
+      $distinct$vs$ale$model
       # A tibble: 32 x 7
          model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1404,116 +1901,116 @@
       10 Valiant                 2 1.03   1.03    1.03      1.03   1.03  
       # i 22 more rows
       
-      $data$vs$mpg
+      $distinct$vs$ale$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1     10.4     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2     14.4     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3     15.2     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4     16.4     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5     18.7     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6     19.8     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7     21.4     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8     22.9     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9     30.1     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10     33.9     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
       
-      $data$vs$cyl
+      $distinct$vs$ale$cyl
       # A tibble: 7 x 7
-        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1        3     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      2        4    17 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      3        5     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      4        6    11 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      5        7     5 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      6        8    21 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      7        9     3 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+        cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1        3     1 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
+      2        4    17 -1.80e-20 -1.80e-20 -1.80e-20 -1.80e-20 -1.80e-20
+      3        5     6 -1.47e-20 -1.47e-20 -1.47e-20 -1.47e-20 -1.47e-20
+      4        6    11 -5.67e-21 -5.67e-21 -5.67e-21 -5.67e-21 -5.67e-21
+      5        7     5  1.02e-20  1.02e-20  1.02e-20  1.02e-20  1.02e-20
+      6        8    21  3.01e-20  3.01e-20  3.01e-20  3.01e-20  3.01e-20
+      7        9     3  5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
       
-      $data$vs$disp
+      $distinct$vs$ale$disp
       # A tibble: 10 x 7
-         disp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1      70.9     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2      79.0     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3     120.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4     146.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5     166.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6     258.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7     300.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8     350.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9     397.      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10     472       7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1      70.9     1  4.20e-19  4.20e-19  4.20e-19  4.20e-19  4.20e-19
+       2      79.0     7  4.20e-19  4.20e-19  4.20e-19  4.20e-19  4.20e-19
+       3     120.      7  3.41e-19  3.41e-19  3.41e-19  3.41e-19  3.41e-19
+       4     146.      7  2.93e-19  2.93e-19  2.93e-19  2.93e-19  2.93e-19
+       5     166.      7  2.16e-19  2.16e-19  2.16e-19  2.16e-19  2.16e-19
+       6     258.      7  2.16e-19  2.16e-19  2.16e-19  2.16e-19  2.16e-19
+       7     300.      7 -5.99e-20 -5.99e-20 -5.99e-20 -5.99e-20 -5.99e-20
+       8     350.      7 -3.93e-19 -3.93e-19 -3.93e-19 -3.93e-19 -3.93e-19
+       9     397.      7 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19
+      10     472       7 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
-      $data$vs$hp
+      $distinct$vs$ale$hp
       # A tibble: 10 x 7
-         hp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1     52      1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2     66      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3     95      6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4    109      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5    112.     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6    150      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7    176.     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8    181.     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9    245      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10    335      6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1     52      1  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
+       2     66      8  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
+       3     95      6  2.21e-18  2.21e-18  2.21e-18  2.21e-18  2.21e-18
+       4    109      7  2.21e-18  2.21e-18  2.21e-18  2.21e-18  2.21e-18
+       5    112.     7  2.09e-18  2.09e-18  2.09e-18  2.09e-18  2.09e-18
+       6    150      8  1.09e-18  1.09e-18  1.09e-18  1.09e-18  1.09e-18
+       7    176.     6 -7.60e-19 -7.60e-19 -7.60e-19 -7.60e-19 -7.60e-19
+       8    181.     7 -1.07e-18 -1.07e-18 -1.07e-18 -1.07e-18 -1.07e-18
+       9    245      8 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18
+      10    335      6 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17
       
-      $data$vs$drat
+      $distinct$vs$ale$drat
       # A tibble: 10 x 7
-         drat.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1      2.74     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2      3.02     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3      3.08     8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4      3.18     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5      3.62     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6      3.73     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7      3.9      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8      3.93     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9      4.21     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10      4.98     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1      2.74     1 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18
+       2      3.02     7 -4.30e-18 -4.30e-18 -4.30e-18 -4.30e-18 -4.30e-18
+       3      3.08     8 -3.74e-18 -3.74e-18 -3.74e-18 -3.74e-18 -3.74e-18
+       4      3.18     6 -2.94e-18 -2.94e-18 -2.94e-18 -2.94e-18 -2.94e-18
+       5      3.62     7  1.54e-18  1.54e-18  1.54e-18  1.54e-18  1.54e-18
+       6      3.73     7  1.87e-18  1.87e-18  1.87e-18  1.87e-18  1.87e-18
+       7      3.9      8  2.71e-18  2.71e-18  2.71e-18  2.71e-18  2.71e-18
+       8      3.93     6  2.77e-18  2.77e-18  2.77e-18  2.77e-18  2.77e-18
+       9      4.21     7  2.77e-18  2.77e-18  2.77e-18  2.77e-18  2.77e-18
+      10      4.98     7  7.19e-18  7.19e-18  7.19e-18  7.19e-18  7.19e-18
       
-      $data$vs$wt
+      $distinct$vs$ale$wt
       # A tibble: 10 x 7
-         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1    1.50     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2    1.94     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3    2.46     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4    2.79     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5    3.19     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6    3.44     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7    3.52     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8    3.73     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9    4.05     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10    5.45     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1    1.50     1 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
+       2    1.94     7 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
+       3    2.46     7 -9.95e-18 -9.95e-18 -9.95e-18 -9.95e-18 -9.95e-18
+       4    2.79     7 -6.07e-18 -6.07e-18 -6.07e-18 -6.07e-18 -6.07e-18
+       5    3.19     7 -1.31e-18 -1.31e-18 -1.31e-18 -1.31e-18 -1.31e-18
+       6    3.44     7  1.80e-19  1.80e-19  1.80e-19  1.80e-19  1.80e-19
+       7    3.52     7  9.01e-19  9.01e-19  9.01e-19  9.01e-19  9.01e-19
+       8    3.73     7  5.28e-18  5.28e-18  5.28e-18  5.28e-18  5.28e-18
+       9    4.05     7  1.19e-17  1.19e-17  1.19e-17  1.19e-17  1.19e-17
+      10    5.45     7  4.12e-17  4.12e-17  4.12e-17  4.12e-17  4.12e-17
       
-      $data$vs$qsec
+      $distinct$vs$ale$qsec
       # A tibble: 10 x 7
-         qsec.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1      14.5     1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2      15.6     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3      16.7     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4      17.0     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5      17.4     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6      18.0     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7      18.6     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8      18.9     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9      20       7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10      23.0     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1      14.5     1  1.47e-17  1.47e-17  1.47e-17  1.47e-17  1.47e-17
+       2      15.6     7  8.27e-18  8.27e-18  8.27e-18  8.27e-18  8.27e-18
+       3      16.7     7  2.88e-18  2.88e-18  2.88e-18  2.88e-18  2.88e-18
+       4      17.0     7  1.51e-18  1.51e-18  1.51e-18  1.51e-18  1.51e-18
+       5      17.4     7 -7.35e-19 -7.35e-19 -7.35e-19 -7.35e-19 -7.35e-19
+       6      18.0     7 -3.88e-18 -3.88e-18 -3.88e-18 -3.88e-18 -3.88e-18
+       7      18.6     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
+       8      18.9     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
+       9      20       7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
+      10      23.0     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
       
-      $data$vs$am
+      $distinct$vs$ale$am
       # A tibble: 2 x 7
         am.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
       1 FALSE     38  0.187  0.187   0.187     0.187  0.187
       2 TRUE      26 -0.274 -0.274  -0.274    -0.274 -0.274
       
-      $data$vs$gear
+      $distinct$vs$ale$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1521,17 +2018,17 @@
       2 four        24  0.359  0.359   0.359     0.359  0.359
       3 five        10  0.559  0.559   0.559     0.559  0.559
       
-      $data$vs$carb
+      $distinct$vs$ale$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1         1    14 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      2         2    19 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      3         3     9 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      4         4    16 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      5         8     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1         1    14  4.96e-21  4.96e-21  4.96e-21  4.96e-21  4.96e-21
+      2         2    19  2.57e-21  2.57e-21  2.57e-21  2.57e-21  2.57e-21
+      3         3     9 -1.46e-21 -1.46e-21 -1.46e-21 -1.46e-21 -1.46e-21
+      4         4    16 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21
+      5         8     6 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20
       
-      $data$vs$country
+      $distinct$vs$ale$country
       # A tibble: 6 x 7
         country.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>       <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1542,7 +2039,7 @@
       5 Germany        16 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
       6 USA            24 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
       
-      $data$vs$continent
+      $distinct$vs$ale$continent
       # A tibble: 3 x 7
         continent.bin    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
         <ord>         <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -1551,14 +2048,12 @@
       3 Asia             12 -0.000214  -0.000214  -0.000214  -0.000214  -0.000214 
       
       
-      
-      $boot_data
+      $distinct$vs$boot
       NULL
       
-      $stats
-      $stats$vs
-      $stats$vs$by_term
-      $stats$vs$by_term$model
+      $distinct$vs$stats
+      $distinct$vs$stats$by_term
+      $distinct$vs$stats$by_term$model
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1569,7 +2064,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max   50       50      50      50        50    
       
-      $stats$vs$by_term$mpg
+      $distinct$vs$stats$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1580,7 +2075,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$vs$by_term$cyl
+      $distinct$vs$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1591,7 +2086,7 @@
       5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$disp
+      $distinct$vs$stats$by_term$disp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1602,7 +2097,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$hp
+      $distinct$vs$stats$by_term$hp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1613,7 +2108,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$drat
+      $distinct$vs$stats$by_term$drat
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1624,7 +2119,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$wt
+      $distinct$vs$stats$by_term$wt
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1635,7 +2130,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$qsec
+      $distinct$vs$stats$by_term$qsec
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1646,7 +2141,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$am
+      $distinct$vs$stats$by_term$am
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1657,7 +2152,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$vs$by_term$gear
+      $distinct$vs$stats$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1668,7 +2163,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$vs$by_term$carb
+      $distinct$vs$stats$by_term$carb
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1679,7 +2174,7 @@
       5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
       6 naler_max  3.12e+ 0  3.12e+ 0  3.12e+ 0  3.12e+ 0  3.12e+ 0
       
-      $stats$vs$by_term$country
+      $distinct$vs$stats$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1690,7 +2185,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$vs$by_term$continent
+      $distinct$vs$stats$by_term$continent
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -1702,8 +2197,8 @@
       6 naler_max   6.25        6.25        6.25        6.25        6.25     
       
       
-      $stats$vs$by_statistic
-      $stats$vs$by_statistic$aled
+      $distinct$vs$stats$by_stat
+      $distinct$vs$stats$by_stat$aled
       # A tibble: 13 x 6
          term      estimate conf.low     mean   median conf.high
          <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1721,7 +2216,7 @@
       12 country   7.55e- 2 7.55e- 2 7.55e- 2 7.55e- 2  7.55e- 2
       13 continent 8.03e- 5 8.03e- 5 8.03e- 5 8.03e- 5  8.03e- 5
       
-      $stats$vs$by_statistic$aler_min
+      $distinct$vs$stats$by_stat$aler_min
       # A tibble: 13 x 6
          term       estimate  conf.low      mean    median conf.high
          <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1739,7 +2234,7 @@
       12 country   -1.98e- 1 -1.98e- 1 -1.98e- 1 -1.98e- 1 -1.98e- 1
       13 continent -2.14e- 4 -2.14e- 4 -2.14e- 4 -2.14e- 4 -2.14e- 4
       
-      $stats$vs$by_statistic$aler_max
+      $distinct$vs$stats$by_stat$aler_max
       # A tibble: 13 x 6
          term      estimate conf.low     mean   median conf.high
          <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1757,7 +2252,7 @@
       12 country   3.02e- 1 3.02e- 1 3.02e- 1 3.02e- 1  3.02e- 1
       13 continent 4.94e- 5 4.94e- 5 4.94e- 5 4.94e- 5  4.94e- 5
       
-      $stats$vs$by_statistic$naled
+      $distinct$vs$stats$by_stat$naled
       # A tibble: 13 x 6
          term      estimate conf.low  mean median conf.high
          <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1775,7 +2270,7 @@
       12 country      44.5     44.5  44.5   44.5      44.5 
       13 continent    14.5     14.5  14.5   14.5      14.5 
       
-      $stats$vs$by_statistic$naler_min
+      $distinct$vs$stats$by_stat$naler_min
       # A tibble: 13 x 6
          term      estimate conf.low  mean median conf.high
          <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1793,7 +2288,7 @@
       12 country      -50      -50   -50    -50       -50  
       13 continent    -50      -50   -50    -50       -50  
       
-      $stats$vs$by_statistic$naler_max
+      $distinct$vs$stats$by_stat$naler_max
       # A tibble: 13 x 6
          term      estimate conf.low  mean median conf.high
          <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1812,7 +2307,7 @@
       13 continent     6.25     6.25  6.25   6.25      6.25
       
       
-      $stats$vs$estimate
+      $distinct$vs$stats$estimate
       # A tibble: 13 x 7
          term          aled  aler_min aler_max naled naler_min naler_max
          <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -1830,74 +2325,9 @@
       12 country   7.55e- 2 -1.98e- 1 3.02e- 1 44.5      -50        6.25
       13 continent 8.03e- 5 -2.14e- 4 4.94e- 5 14.5      -50        6.25
       
-      $stats$vs$effects_plot
-      $stats$vs$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      
-      $plots
-      $plots$vs
-      $plots$vs$model
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$mpg
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$drat
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$wt
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$qsec
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$am
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$carb
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$country
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$continent
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $conf_regions
-      $conf_regions$vs
-      $conf_regions$vs$by_term
-      $conf_regions$vs$by_term$model
+      $distinct$vs$stats$conf_regions
+      $distinct$vs$stats$conf_regions$by_term
+      $distinct$vs$stats$conf_regions$by_term$model
       # A tibble: 32 x 5
          x                       n  n_pct      y relative_to_mid
          <ord>               <int>  <dbl>  <dbl> <ord>          
@@ -1913,62 +2343,56 @@
       10 Valiant                 2 0.0312 1.03   above          
       # i 22 more rows
       
-      $conf_regions$vs$by_term$mpg
+      $distinct$vs$stats$conf_regions$by_term$mpg
       # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1 3.93e-13 3.93e-13     0 overlap        
+        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
+      1    10.4  33.9      1    64     1       0     0     0 below          
       
-      $conf_regions$vs$by_term$cyl
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>    <dbl> <ord>          
-      1       3     6  0.5      35 0.547 3.93e-13 3.93e-13 2.94e-20 below          
-      2       7     9  0.333    29 0.453 3.93e-13 3.93e-13 1.19e-19 above          
+      $distinct$vs$stats$conf_regions$by_term$cyl
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
+      1       3     9      1    64     1 -2.04e-20 5.00e-20 7.04e-20 below          
       
-      $conf_regions$vs$by_term$disp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>     <dbl> <ord>          
-      1    70.9  258.  0.467    36 0.562 3.93e-13 3.93e-13 -4.35e-19 above          
-      2   300.   472   0.429    28 0.438 3.93e-13 3.93e-13 -2.66e-18 below          
+      $distinct$vs$stats$conf_regions$by_term$disp
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
+      1    70.9   472      1    64     1 4.20e-19 -1.20e-18 -1.62e-18 below          
       
-      $conf_regions$vs$by_term$hp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>     <dbl> <ord>          
-      1     52    150  0.346    37 0.578 3.93e-13 3.93e-13 -5.20e-18 above          
-      2    176.   335  0.561    27 0.422 3.93e-13 3.93e-13 -1.99e-17 below          
+      $distinct$vs$stats$conf_regions$by_term$hp
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
+      1      52   335      1    64     1 2.89e-18 -1.19e-17 -1.48e-17 below          
       
-      $conf_regions$vs$by_term$drat
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>    <dbl> <ord>          
-      1    2.74  3.18  0.193    22 0.344 3.93e-13 3.93e-13 1.93e-17 below          
-      2    3.62  4.98  0.608    42 0.656 3.93e-13 3.93e-13 9.30e-18 above          
+      $distinct$vs$stats$conf_regions$by_term$drat
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
+      1    2.74  4.98      1    64     1 -6.66e-18 7.19e-18 1.39e-17 below          
       
-      $conf_regions$vs$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>    <dbl> <ord>          
-      1    1.50  3.19  0.428    29 0.453 3.93e-13 3.93e-13 2.76e-17 below          
-      2    3.44  5.45  0.509    35 0.547 3.93e-13 3.93e-13 8.06e-17 above          
+      $distinct$vs$stats$conf_regions$by_term$wt
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
+      1    1.50  5.45      1    64     1 -1.31e-17 4.12e-17 5.43e-17 below          
       
-      $conf_regions$vs$by_term$qsec
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>     <dbl> <ord>          
-      1    14.5  17.0  0.300    22 0.344 3.93e-13 3.93e-13 -4.40e-17 above          
-      2    17.4  23.0  0.653    42 0.656 3.93e-13 3.93e-13 -6.33e-18 below          
+      $distinct$vs$stats$conf_regions$by_term$qsec
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
+      1    14.5  23.0      1    64     1 1.47e-17 -4.87e-18 -1.96e-17 below          
       
-      $conf_regions$vs$by_term$am
+      $distinct$vs$stats$conf_regions$by_term$am
       # A tibble: 2 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
       1 FALSE    38 0.594  0.187 above          
       2 TRUE     26 0.406 -0.274 below          
       
-      $conf_regions$vs$by_term$gear
+      $distinct$vs$stats$conf_regions$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
@@ -1976,15 +2400,13 @@
       2 four     24 0.375  0.359 above          
       3 five     10 0.156  0.559 above          
       
-      $conf_regions$vs$by_term$carb
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>     <dbl> <ord>          
-      1       1     1  0        14 0.219 3.93e-13 3.93e-13  0        above          
-      2       2     3  0.143    28 0.438 3.93e-13 3.93e-13 -2.83e-20 overlap        
-      3       4     8  0.571    22 0.344 3.93e-13 3.93e-13 -2.65e-20 below          
+      $distinct$vs$stats$conf_regions$by_term$carb
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
+      1       1     8      1    64     1 4.96e-21 -2.03e-20 -2.53e-20 below          
       
-      $conf_regions$vs$by_term$country
+      $distinct$vs$stats$conf_regions$by_term$country
       # A tibble: 6 x 5
         x           n  n_pct       y relative_to_mid
         <ord>   <int>  <dbl>   <dbl> <ord>          
@@ -1995,7 +2417,7 @@
       5 Germany    16 0.25   -0.0312 below          
       6 USA        24 0.375  -0.0312 below          
       
-      $conf_regions$vs$by_term$continent
+      $distinct$vs$stats$conf_regions$by_term$continent
       # A tibble: 3 x 5
         x                 n n_pct          y relative_to_mid
         <ord>         <int> <dbl>      <dbl> <ord>          
@@ -2004,8 +2426,8 @@
       3 Asia             12 0.188 -0.000214  below          
       
       
-      $conf_regions$vs$significant
-      # A tibble: 60 x 12
+      $distinct$vs$stats$conf_regions$significant
+      # A tibble: 54 x 12
          term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
          <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
        1 model Duster 360      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
@@ -2018,11 +2440,521 @@
        8 model AMC Javel~      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
        9 model Dodge Cha~      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
       10 model Valiant         NA    NA     NA     2 0.0312 1.03        NA    NA    NA
-      # i 50 more rows
+      # i 44 more rows
       # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$vs$sig_criterion
+      $distinct$vs$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
+      
+      $distinct$vs$stats$effects_plot
+      $distinct$vs$stats$effects_plot[[1]]
+          y PANEL group colour      fill linewidth linetype alpha         xmin
+      1   1     1     1     NA lightgray       0.5        1    NA 3.925673e-13
+      2   2     1     2     NA lightgray       0.5        1    NA 3.925673e-13
+      3   3     1     3     NA lightgray       0.5        1    NA 3.925673e-13
+      4   4     1     4     NA lightgray       0.5        1    NA 3.925673e-13
+      5   5     1     5     NA lightgray       0.5        1    NA 3.925673e-13
+      6   6     1     6     NA lightgray       0.5        1    NA 3.925673e-13
+      7   7     1     7     NA lightgray       0.5        1    NA 3.925673e-13
+      8   8     1     8     NA lightgray       0.5        1    NA 3.925673e-13
+      9   9     1     9     NA lightgray       0.5        1    NA 3.925673e-13
+      10 10     1    10     NA lightgray       0.5        1    NA 3.925673e-13
+      11 11     1    11     NA lightgray       0.5        1    NA 3.925673e-13
+      12 12     1    12     NA lightgray       0.5        1    NA 3.925673e-13
+      13 13     1    13     NA lightgray       0.5        1    NA 3.925673e-13
+                 xmax ymin ymax
+      1  3.925673e-13 -Inf  Inf
+      2  3.925673e-13 -Inf  Inf
+      3  3.925673e-13 -Inf  Inf
+      4  3.925673e-13 -Inf  Inf
+      5  3.925673e-13 -Inf  Inf
+      6  3.925673e-13 -Inf  Inf
+      7  3.925673e-13 -Inf  Inf
+      8  3.925673e-13 -Inf  Inf
+      9  3.925673e-13 -Inf  Inf
+      10 3.925673e-13 -Inf  Inf
+      11 3.925673e-13 -Inf  Inf
+      12 3.925673e-13 -Inf  Inf
+      13 3.925673e-13 -Inf  Inf
+      
+      $distinct$vs$stats$effects_plot[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   3.925673e-13 3.925673e-13  1     1     1  0.875  1.125  black       0.5
+      2   3.925673e-13 3.925673e-13  2     1     2  1.875  2.125  black       0.5
+      3   3.925673e-13 3.925673e-13  3     1     3  2.875  3.125  black       0.5
+      4   3.925661e-13 3.925677e-13  4     1     4  3.875  4.125  black       0.5
+      5   3.925554e-13 3.925702e-13  5     1     5  4.875  5.125  black       0.5
+      6   3.925606e-13 3.925745e-13  6     1     6  5.875  6.125  black       0.5
+      7   3.925624e-13 3.925820e-13  7     1     7  6.875  7.125  black       0.5
+      8   3.925542e-13 3.926085e-13  8     1     8  7.875  8.125  black       0.5
+      9  -2.142090e-04 4.943285e-05  9     1     9  8.875  9.125  black       0.5
+      10 -1.977601e-01 3.018444e-01 10     1    10  9.875 10.125  black       0.5
+      11 -2.738217e-01 1.873517e-01 11     1    11 10.875 11.125  black       0.5
+      12 -9.687253e-01           NA 12     1    12 11.875 12.125  black       0.5
+      13 -4.739336e-01 5.592415e-01 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $distinct$vs$stats$effects_plot[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   3.925673e-13 3.925673e-13  0.7  1.3  1     1     1     NA white       0.5
+      2   3.925673e-13 3.925673e-13  1.7  2.3  2     1     2     NA white       0.5
+      3   3.925673e-13 3.925673e-13  2.7  3.3  3     1     3     NA white       0.5
+      4   3.925671e-13 3.925675e-13  3.7  4.3  4     1     4     NA white       0.5
+      5   3.925659e-13 3.925686e-13  4.7  5.3  5     1     5     NA white       0.5
+      6   3.925657e-13 3.925689e-13  5.7  6.3  6     1     6     NA white       0.5
+      7   3.925650e-13 3.925696e-13  6.7  7.3  7     1     7     NA white       0.5
+      8   3.925630e-13 3.925715e-13  7.7  8.3  8     1     8     NA white       0.5
+      9  -4.016419e-05 4.016419e-05  8.7  9.3  9     1     9     NA white       0.5
+      10 -3.773055e-02 3.773055e-02  9.7 10.3 10     1    10     NA white       0.5
+      11 -1.112401e-01 1.112401e-01 10.7 11.3 11     1    11     NA white       0.5
+      12 -1.513633e-01 1.513633e-01 11.7 12.3 12     1    12     NA white       0.5
+      13 -2.221564e-01 2.221564e-01 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $distinct$vs$stats$effects_plot[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  3.925673e-13 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  3.925673e-13 NALED  2.8%  2     1     2  black    3     0   0.5    -1    NA
+      3  3.925673e-13 NALED 10.2%  3     1     3  black    3     0   0.5    -1    NA
+      4  3.925673e-13 NALED 20.6%  4     1     4  black    3     0   0.5    -1    NA
+      5  3.925673e-13 NALED 20.6%  5     1     5  black    3     0   0.5    -1    NA
+      6  3.925673e-13 NALED 26.1%  6     1     6  black    3     0   0.5    -1    NA
+      7  3.925673e-13 NALED 30.2%  7     1     7  black    3     0   0.5    -1    NA
+      8  3.925673e-13 NALED 30.9%  8     1     8  black    3     0   0.5    -1    NA
+      9  3.925673e-13 NALED 14.5%  9     1     9  black    3     0   0.5    -1    NA
+      10 3.925673e-13 NALED 44.5% 10     1    10  black    3     0   0.5    -1    NA
+      11 3.925673e-13 NALED 24.0% 11     1    11  black    3     0   0.5    -1    NA
+      12 3.925673e-13 NALED 18.6% 12     1    12  black    3     0   0.5    -1    NA
+      13 3.925673e-13 NALED 26.8% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   3.925673e-13     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   3.925673e-13     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3   3.925673e-13     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4   3.925671e-13     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5   3.925659e-13     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6   3.925657e-13     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7   3.925650e-13     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8   3.925630e-13     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -4.016419e-05     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -3.773055e-02     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -1.112401e-01     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -1.513633e-01     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -2.221564e-01     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  3.925673e-13     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  3.925673e-13     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  3.925673e-13     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  3.925675e-13     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  3.925686e-13     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  3.925689e-13     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  3.925696e-13     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  3.925715e-13     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  4.016419e-05     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 3.773055e-02     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 1.112401e-01     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 1.513633e-01     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 2.221564e-01     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  3.925673e-13 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  3.925673e-13 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  3.925673e-13 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  3.925673e-13 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  3.925673e-13 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  3.925673e-13 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  3.925673e-13 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  3.925673e-13 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  3.925673e-13 ALED 0.000  9     1     9  black    3     0   0.5     2    NA
+      10 3.925673e-13 ALED 0.075 10     1    10  black    3     0   0.5     2    NA
+      11 3.925673e-13 ALED 0.222 11     1    11  black    3     0   0.5     2    NA
+      12 3.925673e-13 ALED 0.303 12     1    12  black    3     0   0.5     2    NA
+      13 3.925673e-13 ALED 0.444 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$vs$plots
+      $distinct$vs$plots$model
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1  0.03127471     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2  0.03127471     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3  0.03127471     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4  0.03127471     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5  0.03127471     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6  0.03127471     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7  0.03127471     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8  0.03127471     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9  0.03127471     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10  1.03127471     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11  1.03127471     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12  0.03127471     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13  0.03127471     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14  0.03127471     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15 -0.96872529     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16  0.03127471     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17  0.03127471     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18  0.03127471     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19  0.03127471     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20  0.03127471     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21 -0.96872529     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22 -0.96872529     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23  0.03127471     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24  0.03127471     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25 -0.96872529     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26 -0.96872529     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27  0.03048380     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28  0.03127473     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29  0.03127473     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30  0.03127473     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31  1.03127473     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32  1.03127473     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 3.925673e-13 3.925673e-13
+      2   Inf 3.925673e-13 3.925673e-13
+      3   Inf 3.925673e-13 3.925673e-13
+      4   Inf 3.925673e-13 3.925673e-13
+      5   Inf 3.925673e-13 3.925673e-13
+      6   Inf 3.925673e-13 3.925673e-13
+      7   Inf 3.925673e-13 3.925673e-13
+      8   Inf 3.925673e-13 3.925673e-13
+      9   Inf 3.925673e-13 3.925673e-13
+      10  Inf 3.925673e-13 3.925673e-13
+      11  Inf 3.925673e-13 3.925673e-13
+      12  Inf 3.925673e-13 3.925673e-13
+      13  Inf 3.925673e-13 3.925673e-13
+      14  Inf 3.925673e-13 3.925673e-13
+      15  Inf 3.925673e-13 3.925673e-13
+      16  Inf 3.925673e-13 3.925673e-13
+      17  Inf 3.925673e-13 3.925673e-13
+      18  Inf 3.925673e-13 3.925673e-13
+      19  Inf 3.925673e-13 3.925673e-13
+      20  Inf 3.925673e-13 3.925673e-13
+      21  Inf 3.925673e-13 3.925673e-13
+      22  Inf 3.925673e-13 3.925673e-13
+      23  Inf 3.925673e-13 3.925673e-13
+      24  Inf 3.925673e-13 3.925673e-13
+      25  Inf 3.925673e-13 3.925673e-13
+      26  Inf 3.925673e-13 3.925673e-13
+      27  Inf 3.925673e-13 3.925673e-13
+      28  Inf 3.925673e-13 3.925673e-13
+      29  Inf 3.925673e-13 3.925673e-13
+      30  Inf 3.925673e-13 3.925673e-13
+      31  Inf 3.925673e-13 3.925673e-13
+      32  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$mpg
+                x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1  10.37589 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2  14.41394 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3  15.20000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4  16.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5  18.70000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6  19.84566 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7  21.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      8  22.87332 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      9  30.10414 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      10 33.90000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+                 ymin         ymax
+      1  3.925673e-13 3.925673e-13
+      2  3.925673e-13 3.925673e-13
+      3  3.925673e-13 3.925673e-13
+      4  3.925673e-13 3.925673e-13
+      5  3.925673e-13 3.925673e-13
+      6  3.925673e-13 3.925673e-13
+      7  3.925673e-13 3.925673e-13
+      8  3.925673e-13 3.925673e-13
+      9  3.925673e-13 3.925673e-13
+      10 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$cyl
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3 -2.036818e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4 -1.802748e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5 -1.471149e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 -5.667883e-21     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7  1.024887e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8  3.014481e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9  5.004076e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      4  Inf 3.925673e-13 3.925673e-13
+      5  Inf 3.925673e-13 3.925673e-13
+      6  Inf 3.925673e-13 3.925673e-13
+      7  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$disp
+                 x             y PANEL group colour      fill linewidth linetype
+      1   70.92941  4.196016e-19     1    -1     NA lightgray       0.5        1
+      2   79.04253  4.196016e-19     1    -1     NA lightgray       0.5        1
+      3  120.30000  3.413913e-19     1    -1     NA lightgray       0.5        1
+      4  146.07210  2.925361e-19     1    -1     NA lightgray       0.5        1
+      5  166.13111  2.164859e-19     1    -1     NA lightgray       0.5        1
+      6  258.37592  2.164859e-19     1    -1     NA lightgray       0.5        1
+      7  300.03890 -5.994034e-20     1    -1     NA lightgray       0.5        1
+      8  350.17436 -3.925800e-19     1    -1     NA lightgray       0.5        1
+      9  397.00444 -7.032889e-19     1    -1     NA lightgray       0.5        1
+      10 472.00000 -1.200871e-18     1    -1     NA lightgray       0.5        1
+         alpha xmin xmax         ymin         ymax
+      1     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      2     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      3     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      4     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      5     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      6     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      7     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      8     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      9     NA -Inf  Inf 3.925673e-13 3.925673e-13
+      10    NA -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$hp
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000  2.889760e-18     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000  2.889760e-18     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000  2.210077e-18     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000  2.210077e-18     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003  2.093549e-18     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000  1.088972e-18     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 -7.598061e-19     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 -1.067727e-18     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 -5.590670e-18     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 -1.191873e-17     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$drat
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533 -6.659037e-18     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190 -4.302727e-18     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000 -3.739795e-18     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717 -2.935584e-18     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000  1.543837e-18     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310  1.870245e-18     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000  2.710559e-18     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607  2.765351e-18     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875  2.765351e-18     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502  7.193708e-18     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$wt
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275 -1.310579e-17     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 -1.310579e-17     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 -9.947145e-18     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 -6.067638e-18     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 -1.305634e-18     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356  1.804409e-19     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000  9.013560e-19     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000  5.281723e-18     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066  1.187452e-17     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272  4.122662e-17     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$qsec
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589  1.471858e-17     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460  8.269465e-18     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553  2.875375e-18     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000  1.506433e-18     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920 -7.347509e-19     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000 -3.883209e-18     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333 -4.867029e-18     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000 -4.867029e-18     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000 -4.867029e-18     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365 -4.867029e-18     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$am
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1  0.1873517     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -0.2738217     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$gear
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.4739336     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2  0.3593997     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.5592415     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      3 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$carb
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  4.961945e-21     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2  2.571872e-21     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3 -1.464699e-21     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4 -5.154376e-21     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8 -2.029151e-20     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      4  Inf 3.925673e-13 3.925673e-13
+      5  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$country
+        x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.19776013     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -0.19776013     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.30184442     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 -0.03122529     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 -0.03122529     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 -0.03122529     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      3 3.925673e-13 3.925673e-13
+      4 3.925673e-13 3.925673e-13
+      5 3.925673e-13 3.925673e-13
+      6 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$continent
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  4.943285e-05     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  4.943285e-05     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 -2.142090e-04     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      
       
       
       
@@ -2030,8 +2962,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 3.925673e-13
+      $params$it.cat
+      [1] "vs"
       
       $params$y_cats
       [1] "vs"
@@ -2164,9 +3096,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "binary"
       
@@ -2195,7 +3124,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -2203,32 +3132,31 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # binary outcome with bootstrap works with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$vs
-      $data$vs$hp
+      $distinct
+      $distinct$vs
+      $distinct$vs$ale
+      $distinct$vs$ale$hp
       # A tibble: 10 x 7
-         hp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1     52      1 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       2     66      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       3     95      6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       4    109      7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       5    112.     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       6    150      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       7    176.     6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       8    181.     7 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-       9    245      8 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
-      10    335      6 3.93e-13 3.93e-13 3.93e-13  3.93e-13 3.93e-13
+         hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1     52      1  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
+       2     66      8  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
+       3     95      6  2.59e-18  2.22e-18  2.59e-18  2.63e-18  2.89e-18
+       4    109      7  2.59e-18  2.22e-18  2.59e-18  2.63e-18  2.89e-18
+       5    112.     7  2.45e-18  2.05e-18  2.45e-18  2.48e-18  2.78e-18
+       6    150      8  1.63e-18  1.16e-18  1.63e-18  1.30e-18  2.64e-18
+       7    176.     6 -2.23e-19 -6.92e-19 -2.23e-19 -5.44e-19  7.90e-19
+       8    181.     7 -5.31e-19 -1.00e-18 -5.31e-19 -8.52e-19  4.83e-19
+       9    245      8 -5.05e-18 -5.52e-18 -5.05e-18 -5.38e-18 -4.04e-18
+      10    335      6 -1.14e-17 -1.19e-17 -1.14e-17 -1.17e-17 -1.04e-17
       
-      $data$vs$continent
+      $distinct$vs$ale$continent
       # A tibble: 3 x 7
         continent.bin    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
         <ord>         <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -2237,14 +3165,12 @@
       3 Asia             12 -0.000124  -0.000200  -0.000124  -0.000125  -0.0000450
       
       
-      
-      $boot_data
+      $distinct$vs$boot
       NULL
       
-      $stats
-      $stats$vs
-      $stats$vs$by_term
-      $stats$vs$by_term$hp
+      $distinct$vs$stats
+      $distinct$vs$stats$by_term
+      $distinct$vs$stats$by_term$hp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2255,7 +3181,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $stats$vs$by_term$continent
+      $distinct$vs$stats$by_term$continent
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -2267,43 +3193,43 @@
       6 naler_max -21.9       -50         -21.9       -21.9         6.25     
       
       
-      $stats$vs$by_statistic
-      $stats$vs$by_statistic$aled
+      $distinct$vs$stats$by_stat
+      $distinct$vs$stats$by_stat$aled
       # A tibble: 2 x 6
         term      estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 hp        2.78e-18 2.25e-18 2.78e-18 2.86e-18  3.18e-18
       2 continent 7.11e- 5 3.17e- 5 7.11e- 5 6.15e- 5  1.27e- 4
       
-      $stats$vs$by_statistic$aler_min
+      $distinct$vs$stats$by_stat$aler_min
       # A tibble: 2 x 6
         term       estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 hp        -1.14e-17 -1.19e-17 -1.14e-17 -1.17e-17 -1.04e-17
       2 continent -1.24e- 4 -2.00e- 4 -1.24e- 4 -1.25e- 4 -4.50e- 5
       
-      $stats$vs$by_statistic$aler_max
+      $distinct$vs$stats$by_stat$aler_max
       # A tibble: 2 x 6
         term       estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 hp         2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
       2 continent -2.47e- 5 -7.99e- 5 -2.47e- 5 -1.65e- 5  1.65e- 5
       
-      $stats$vs$by_statistic$naled
+      $distinct$vs$stats$by_stat$naled
       # A tibble: 2 x 6
         term      estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 hp            20.4     17.3  20.4   20.6      23.3
       2 continent     41.8     33.6  41.8   41.8      50  
       
-      $stats$vs$by_statistic$naler_min
+      $distinct$vs$stats$by_stat$naler_min
       # A tibble: 2 x 6
         term      estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 hp             -50      -50   -50    -50       -50
       2 continent      -50      -50   -50    -50       -50
       
-      $stats$vs$by_statistic$naler_max
+      $distinct$vs$stats$by_stat$naler_max
       # A tibble: 2 x 6
         term      estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -2311,45 +3237,22 @@
       2 continent   -21.9    -50    -21.9  -21.9       6.25
       
       
-      $stats$vs$estimate
+      $distinct$vs$stats$estimate
       # A tibble: 2 x 7
         term          aled  aler_min  aler_max naled naler_min naler_max
         <chr>        <dbl>     <dbl>     <dbl> <dbl>     <dbl>     <dbl>
       1 hp        2.78e-18 -1.14e-17  2.89e-18  20.4       -50      6.25
       2 continent 7.11e- 5 -1.24e- 4 -2.47e- 5  41.8       -50    -21.9 
       
-      $stats$vs$effects_plot
-      $stats$vs$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
+      $distinct$vs$stats$conf_regions
+      $distinct$vs$stats$conf_regions$by_term
+      $distinct$vs$stats$conf_regions$by_term$hp
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
+      1      52   335      1    64     1 2.89e-18 -1.14e-17 -1.43e-17 below          
       
-      
-      
-      
-      $plots
-      $plots$vs
-      $plots$vs$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$vs$continent
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $conf_regions
-      $conf_regions$vs
-      $conf_regions$vs$by_term
-      $conf_regions$vs$by_term$hp
-      # A tibble: 3 x 9
-        start_x end_x x_span     n n_pct  start_y    end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>    <dbl>     <dbl> <ord>          
-      1     52   150  0.346     37 0.578 3.93e-13 3.93e-13 -3.65e-18 above          
-      2    176.  181. 0.0155    13 0.203 3.93e-13 3.93e-13 -1.99e-17 overlap        
-      3    245   335  0.318     14 0.219 3.93e-13 3.93e-13 -1.99e-17 below          
-      
-      $conf_regions$vs$by_term$continent
+      $distinct$vs$stats$conf_regions$by_term$continent
       # A tibble: 3 x 5
         x                 n n_pct          y relative_to_mid
         <ord>         <int> <dbl>      <dbl> <ord>          
@@ -2358,18 +3261,119 @@
       3 Asia             12 0.188 -0.000124  below          
       
       
-      $conf_regions$vs$significant
-      # A tibble: 4 x 12
+      $distinct$vs$stats$conf_regions$significant
+      # A tibble: 3 x 12
         term      x      start_x end_x x_span     n n_pct        y   start_y     end_y
         <chr>     <chr>    <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl>
-      1 hp        <NA>        52   150  0.346    37 0.578 NA        3.93e-13  3.93e-13
-      2 hp        <NA>       245   335  0.318    14 0.219 NA        3.93e-13  3.93e-13
-      3 continent Europe      NA    NA NA        28 0.438 -7.42e-5 NA        NA       
-      4 continent Asia        NA    NA NA        12 0.188 -1.24e-4 NA        NA       
+      1 hp        <NA>        52   335      1    64 1     NA        2.89e-18 -1.14e-17
+      2 continent Europe      NA    NA     NA    28 0.438 -7.42e-5 NA        NA       
+      3 continent Asia        NA    NA     NA    12 0.188 -1.24e-4 NA        NA       
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
-      $conf_regions$vs$sig_criterion
+      $distinct$vs$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
+      
+      $distinct$vs$stats$effects_plot
+      $distinct$vs$stats$effects_plot[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 3.925673e-13
+      2 2     1     2     NA lightgray       0.5        1    NA 3.925673e-13
+                xmax ymin ymax
+      1 3.925673e-13 -Inf  Inf
+      2 3.925673e-13 -Inf  Inf
+      
+      $distinct$vs$stats$effects_plot[[2]]
+                 xmin          xmax y PANEL group  ymin  ymax colour linewidth
+      1  3.925559e-13  3.925702e-13 1     1     1 0.875 1.125  black       0.5
+      2 -1.235852e-04 -2.471830e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $distinct$vs$stats$effects_plot[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1  3.925659e-13 3.925687e-13  0.7  1.3 1     1     1     NA white       0.5
+      2 -3.553103e-05 3.553103e-05  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $distinct$vs$stats$effects_plot[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13 NALED 20.4% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 41.8% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1  3.925659e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -3.553103e-05     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.925687e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 3.553103e-05     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$vs$stats$effects_plot[[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.925673e-13 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.925673e-13 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$vs$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$vs$plots
+      $distinct$vs$plots$hp
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000  2.889760e-18     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000  2.889760e-18     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000  2.592398e-18     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000  2.592398e-18     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003  2.447953e-18     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000  1.625349e-18     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 -2.234279e-19     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 -5.313494e-19     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 -5.054290e-18     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 -1.138234e-17     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $distinct$vs$plots$continent
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 -0.0000247183     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.0000741524     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 -0.0001235852     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      
       
       
       
@@ -2377,8 +3381,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 3.925673e-13
+      $params$it.cat
+      [1] "vs"
       
       $params$y_cats
       [1] "vs"
@@ -2509,9 +3513,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "binary"
       
@@ -2540,7 +3541,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -2548,17 +3549,16 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # binary outcome works with every parameter set to something, with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$vs
-      $data$vs$carb
+      $distinct
+      $distinct$vs
+      $distinct$vs$ale
+      $distinct$vs$ale$carb
       # A tibble: 6 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2569,7 +3569,7 @@
       5         5     2 -2.84e-8 -2.84e-8 -2.84e-8  -2.84e-8 -2.84e-8
       6         8     4 -6.31e-8 -6.31e-8 -6.31e-8  -6.31e-8 -6.31e-8
       
-      $data$vs$country
+      $distinct$vs$ale$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -2581,10 +3581,8 @@
       6 USA            24 -23.8  -23.8   -23.8     -23.8  -23.8 
       
       
-      
-      $boot_data
-      $boot_data$vs
-      $boot_data$vs$carb
+      $distinct$vs$boot
+      $distinct$vs$boot$carb
       # A tibble: 6 x 6
           .it  carb .y_composite    .n .y_distinct       .y
         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
@@ -2595,7 +3593,7 @@
       5     1     5     -2.84e-8     2    -2.84e-8 -2.84e-8
       6     1     8     -6.31e-8     5    -6.31e-8 -6.31e-8
       
-      $boot_data$vs$country
+      $distinct$vs$boot$country
       # A tibble: 6 x 6
           .it country .y_composite    .n .y_distinct     .y
         <dbl> <fct>          <dbl> <dbl>       <dbl>  <dbl>
@@ -2607,17 +3605,15 @@
       6     1 USA           -23.8     24      -23.8  -23.8 
       
       
-      
-      $stats
+      $distinct$vs$stats
       NULL
       
-      $plots
+      $distinct$vs$plots
       NULL
+      
+      
       
       $params
-      $params$relative_y_shift
-      [1] 0
-      
       $params$y_cats
       [1] "vs"
       
@@ -2748,9 +3744,6 @@
       $params$boot_centre
       [1] "median"
       
-      $params$relative_y
-      [1] "zero"
-      
       $params$y_type
       [1] "binary"
       
@@ -2779,7 +3772,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -2787,17 +3780,16 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # categorical outcome default works with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$Asia
-      $data$Asia$model
+      $distinct
+      $distinct$Asia
+      $distinct$Asia$ale
+      $distinct$Asia$ale$model
       # A tibble: 32 x 7
          model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -2813,34 +3805,34 @@
       10 Merc 450SLC             2 0.0208 0.0208  0.0208    0.0208 0.0208
       # i 22 more rows
       
-      $data$Asia$mpg
+      $distinct$Asia$ale$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n            .y         .y_lo       .y_mean    .y_median   .y_hi
-            <dbl> <int>         <dbl>         <dbl>         <dbl>        <dbl>   <dbl>
-       1     10.4     1 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       2     14.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       3     15.2     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       4     16.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       5     18.7     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       6     19.8     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       7     21.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       8     22.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       9     30.1     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-      10     33.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
       
-      $data$Asia$cyl
+      $distinct$Asia$ale$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
       1        3     1  0.0000237   0.0000237   0.0000237   0.0000237   0.0000237 
       2        4    17  0.0000211   0.0000211   0.0000211   0.0000211   0.0000211 
-      3        5     6 -0.00000501 -0.00000501 -0.00000501 -0.00000501 -0.00000501
-      4        6    11 -0.00000768 -0.00000768 -0.00000768 -0.00000768 -0.00000768
+      3        5     6 -0.00000502 -0.00000502 -0.00000502 -0.00000502 -0.00000502
+      4        6    11 -0.00000769 -0.00000769 -0.00000769 -0.00000769 -0.00000769
       5        7     5 -0.0000103  -0.0000103  -0.0000103  -0.0000103  -0.0000103 
       6        8    21 -0.0000169  -0.0000169  -0.0000169  -0.0000169  -0.0000169 
       7        9     3 -0.0000169  -0.0000169  -0.0000169  -0.0000169  -0.0000169 
       
-      $data$Asia$disp
+      $distinct$Asia$ale$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2855,7 +3847,7 @@
        9     397.      7 -0.000286 -0.000286 -0.000286 -0.000286 -0.000286
       10     472       7 -0.000287 -0.000287 -0.000287 -0.000287 -0.000287
       
-      $data$Asia$hp
+      $distinct$Asia$ale$hp
       # A tibble: 10 x 7
          hp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2870,7 +3862,7 @@
        9    245      8 -0.00573 -0.00573 -0.00573  -0.00573 -0.00573
       10    335      6  0.117    0.117    0.117     0.117    0.117  
       
-      $data$Asia$drat
+      $distinct$Asia$ale$drat
       # A tibble: 10 x 7
          drat.ceil    .n           .y        .y_lo      .y_mean    .y_median     .y_hi
              <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>     <dbl>
@@ -2879,28 +3871,28 @@
        3      3.08     8 -0.00000377  -0.00000377  -0.00000377  -0.00000377   -3.77e-6
        4      3.18     6 -0.00000366  -0.00000366  -0.00000366  -0.00000366   -3.66e-6
        5      3.62     7 -0.00000358  -0.00000358  -0.00000358  -0.00000358   -3.58e-6
-       6      3.73     7 -0.00000355  -0.00000355  -0.00000355  -0.00000355   -3.55e-6
+       6      3.73     7 -0.00000356  -0.00000356  -0.00000356  -0.00000356   -3.56e-6
        7      3.9      8 -0.00000119  -0.00000119  -0.00000119  -0.00000119   -1.19e-6
-       8      3.93     6 -0.000000921 -0.000000921 -0.000000921 -0.000000921  -9.21e-7
-       9      4.21     7  0.00000163   0.00000163   0.00000163   0.00000163    1.63e-6
+       8      3.93     6 -0.000000926 -0.000000926 -0.000000926 -0.000000926  -9.26e-7
+       9      4.21     7  0.00000162   0.00000162   0.00000162   0.00000162    1.62e-6
       10      4.98     7  0.0000429    0.0000429    0.0000429    0.0000429     4.29e-5
       
-      $data$Asia$wt
+      $distinct$Asia$ale$wt
       # A tibble: 10 x 7
          wt.ceil    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
            <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-       1    1.50     1 -0.000000512 -0.000000512 -0.000000512 -0.000000512    -5.12e-7
-       2    1.94     7 -0.00000108  -0.00000108  -0.00000108  -0.00000108     -1.08e-6
+       1    1.50     1 -0.000000518 -0.000000518 -0.000000518 -0.000000518    -5.18e-7
+       2    1.94     7 -0.00000109  -0.00000109  -0.00000109  -0.00000109     -1.09e-6
        3    2.46     7 -0.00000287  -0.00000287  -0.00000287  -0.00000287     -2.87e-6
-       4    2.79     7  0.000000260  0.000000260  0.000000260  0.000000260     2.60e-7
-       5    3.19     7  0.000000591  0.000000591  0.000000591  0.000000591     5.91e-7
-       6    3.44     7  0.000000757  0.000000757  0.000000757  0.000000757     7.57e-7
-       7    3.52     7  0.000000760  0.000000760  0.000000760  0.000000760     7.60e-7
-       8    3.73     7  0.000000730  0.000000730  0.000000730  0.000000730     7.30e-7
-       9    4.05     7  0.000000848  0.000000848  0.000000848  0.000000848     8.48e-7
-      10    5.45     7  0.000000849  0.000000849  0.000000849  0.000000849     8.49e-7
+       4    2.79     7  0.000000255  0.000000255  0.000000255  0.000000255     2.55e-7
+       5    3.19     7  0.000000585  0.000000585  0.000000585  0.000000585     5.85e-7
+       6    3.44     7  0.000000752  0.000000752  0.000000752  0.000000752     7.52e-7
+       7    3.52     7  0.000000754  0.000000754  0.000000754  0.000000754     7.54e-7
+       8    3.73     7  0.000000724  0.000000724  0.000000724  0.000000724     7.24e-7
+       9    4.05     7  0.000000843  0.000000843  0.000000843  0.000000843     8.43e-7
+      10    5.45     7  0.000000843  0.000000843  0.000000843  0.000000843     8.43e-7
       
-      $data$Asia$qsec
+      $distinct$Asia$ale$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
              <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -2912,24 +3904,24 @@
        6      18.0     7  0.00000209  0.00000209  0.00000209  0.00000209  0.00000209
        7      18.6     7  0.00000209  0.00000209  0.00000209  0.00000209  0.00000209
        8      18.9     7  0.00000209  0.00000209  0.00000209  0.00000209  0.00000209
-       9      20       7  0.00000234  0.00000234  0.00000234  0.00000234  0.00000234
-      10      23.0     7  0.00000234  0.00000234  0.00000234  0.00000234  0.00000234
+       9      20       7  0.00000233  0.00000233  0.00000233  0.00000233  0.00000233
+      10      23.0     7  0.00000233  0.00000233  0.00000233  0.00000233  0.00000233
       
-      $data$Asia$vs
+      $distinct$Asia$ale$vs
       # A tibble: 2 x 7
         vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
         <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
       1 FALSE     36  0.00709  0.00709  0.00709   0.00709  0.00709
       2 TRUE      28 -0.00911 -0.00911 -0.00911  -0.00911 -0.00911
       
-      $data$Asia$am
+      $distinct$Asia$ale$am
       # A tibble: 2 x 7
         am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
         <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
       1 FALSE     38 -0.00174 -0.00174 -0.00174  -0.00174 -0.00174
       2 TRUE      26  0.00254  0.00254  0.00254   0.00254  0.00254
       
-      $data$Asia$gear
+      $distinct$Asia$ale$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2937,362 +3929,34 @@
       2 four        24  0.0896  0.0896  0.0896    0.0896  0.0896
       3 five        10 -0.484  -0.484  -0.484    -0.484  -0.484 
       
-      $data$Asia$carb
+      $distinct$Asia$ale$carb
       # A tibble: 5 x 7
         carb.ceil    .n           .y        .y_lo      .y_mean    .y_median      .y_hi
             <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>      <dbl>
-      1         1    14  0.000000167  0.000000167  0.000000167  0.000000167    1.67e-7
-      2         2    19  0.000000162  0.000000162  0.000000162  0.000000162    1.62e-7
-      3         3     9  0.000000161  0.000000161  0.000000161  0.000000161    1.61e-7
-      4         4    16 -0.00000116  -0.00000116  -0.00000116  -0.00000116    -1.16e-6
+      1         1    14  0.000000162  0.000000162  0.000000162  0.000000162    1.62e-7
+      2         2    19  0.000000156  0.000000156  0.000000156  0.000000156    1.56e-7
+      3         3     9  0.000000155  0.000000155  0.000000155  0.000000155    1.55e-7
+      4         4    16 -0.00000117  -0.00000117  -0.00000117  -0.00000117    -1.17e-6
       5         8     6  0.00000165   0.00000165   0.00000165   0.00000165     1.65e-6
       
-      $data$Asia$country
+      $distinct$Asia$ale$country
       # A tibble: 6 x 7
-        country.bin    .n            .y         .y_lo       .y_mean  .y_median   .y_hi
-        <ord>       <int>         <dbl>         <dbl>         <dbl>      <dbl>   <dbl>
-      1 UK              2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      2 Sweden          2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      3 Japan          12 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      4 Italy           8 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      5 Germany        16 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      6 USA            24 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
+        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 UK              2     0     0       0         0     0
+      2 Sweden          2     0     0       0         0     0
+      3 Japan          12     0     0       0         0     0
+      4 Italy           8     0     0       0         0     0
+      5 Germany        16     0     0       0         0     0
+      6 USA            24     0     0       0         0     0
       
       
-      $data$Europe
-      $data$Europe$model
-      # A tibble: 32 x 7
-         model.bin              .n      .y   .y_lo .y_mean .y_median   .y_hi
-         <ord>               <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1 Duster 360              2  0.537   0.537   0.537     0.537   0.537 
-       2 Camaro Z28              2  0.537   0.537   0.537     0.537   0.537 
-       3 Lincoln Continental     2  0.537   0.537   0.537     0.537   0.537 
-       4 Cadillac Fleetwood      2  0.537   0.537   0.537     0.537   0.537 
-       5 Chrysler Imperial       2  0.537   0.537   0.537     0.537   0.537 
-       6 Hornet Sportabout       2  0.537   0.537   0.537     0.537   0.537 
-       7 Pontiac Firebird        2  0.537   0.537   0.537     0.537   0.537 
-       8 AMC Javelin             2 -0.0168 -0.0168 -0.0168   -0.0168 -0.0168
-       9 Dodge Challenger        2 -0.0168 -0.0168 -0.0168   -0.0168 -0.0168
-      10 Merc 450SLC             2 -0.0167 -0.0167 -0.0167   -0.0167 -0.0167
-      # i 22 more rows
-      
-      $data$Europe$mpg
-      # A tibble: 10 x 7
-         mpg.ceil    .n            .y         .y_lo       .y_mean    .y_median   .y_hi
-            <dbl> <int>         <dbl>         <dbl>         <dbl>        <dbl>   <dbl>
-       1     10.4     1 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       2     14.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       3     15.2     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       4     16.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       5     18.7     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       6     19.8     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       7     21.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       8     22.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       9     30.1     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-      10     33.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-      
-      $data$Europe$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
-           <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-      1        3     1 -0.00000353  -0.00000353  -0.00000353  -0.00000353     -3.53e-6
-      2        4    17 -0.000000872 -0.000000872 -0.000000872 -0.000000872    -8.72e-7
-      3        5     6 -0.000000757 -0.000000757 -0.000000757 -0.000000757    -7.57e-7
-      4        6    11 -0.000000663 -0.000000663 -0.000000663 -0.000000663    -6.63e-7
-      5        7     5  0.00000195   0.00000195   0.00000195   0.00000195      1.95e-6
-      6        8    21  0.00000215   0.00000215   0.00000215   0.00000215      2.15e-6
-      7        9     3  0.00000215   0.00000215   0.00000215   0.00000215      2.15e-6
-      
-      $data$Europe$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      70.9     1  0.536  0.536   0.536     0.536  0.536
-       2      79.0     7  0.536  0.536   0.536     0.536  0.536
-       3     120.      7  0.536  0.536   0.536     0.536  0.536
-       4     146.      7  0.536  0.536   0.536     0.536  0.536
-       5     166.      7  0.536  0.536   0.536     0.536  0.536
-       6     258.      7 -0.432 -0.432  -0.432    -0.432 -0.432
-       7     300.      7 -0.432 -0.432  -0.432    -0.432 -0.432
-       8     350.      7 -0.565 -0.565  -0.565    -0.565 -0.565
-       9     397.      7 -0.567 -0.567  -0.567    -0.567 -0.567
-      10     472       7 -0.985 -0.985  -0.985    -0.985 -0.985
-      
-      $data$Europe$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1     52      1 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       2     66      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       3     95      6 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       4    109      7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       5    112.     7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       6    150      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       7    176.     6 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       8    181.     7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-       9    245      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
-      10    335      6  0.333   0.333   0.333     0.333   0.333 
-      
-      $data$Europe$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1      2.74     1  3.01e-6  3.01e-6  3.01e-6   3.01e-6  3.01e-6
-       2      3.02     7  3.00e-6  3.00e-6  3.00e-6   3.00e-6  3.00e-6
-       3      3.08     8  2.92e-6  2.92e-6  2.92e-6   2.92e-6  2.92e-6
-       4      3.18     6  2.60e-6  2.60e-6  2.60e-6   2.60e-6  2.60e-6
-       5      3.62     7  2.55e-6  2.55e-6  2.55e-6   2.55e-6  2.55e-6
-       6      3.73     7  2.55e-6  2.55e-6  2.55e-6   2.55e-6  2.55e-6
-       7      3.9      8  2.55e-6  2.55e-6  2.55e-6   2.55e-6  2.55e-6
-       8      3.93     6  2.55e-6  2.55e-6  2.55e-6   2.55e-6  2.55e-6
-       9      4.21     7  5.22e-9  5.22e-9  5.22e-9   5.22e-9  5.22e-9
-      10      4.98     7 -4.13e-5 -4.13e-5 -4.13e-5  -4.13e-5 -4.13e-5
-      
-      $data$Europe$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
-           <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-       1    1.50     1 -0.0000179 -0.0000179 -0.0000179 -0.0000179 -0.0000179
-       2    1.94     7 -0.0000173 -0.0000173 -0.0000173 -0.0000173 -0.0000173
-       3    2.46     7 -0.0000155 -0.0000155 -0.0000155 -0.0000155 -0.0000155
-       4    2.79     7 -0.0000152 -0.0000152 -0.0000152 -0.0000152 -0.0000152
-       5    3.19     7 -0.0000152 -0.0000152 -0.0000152 -0.0000152 -0.0000152
-       6    3.44     7  0.0000165  0.0000165  0.0000165  0.0000165  0.0000165
-       7    3.52     7  0.0000165  0.0000165  0.0000165  0.0000165  0.0000165
-       8    3.73     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
-       9    4.05     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
-      10    5.45     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
-      
-      $data$Europe$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n            .y         .y_lo       .y_mean  .y_median    .y_hi
-             <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>    <dbl>
-       1      14.5     1 -0.000000432  -0.000000432  -0.000000432    -4.32e-7 -4.32e-7
-       2      15.6     7 -0.000000414  -0.000000414  -0.000000414    -4.14e-7 -4.14e-7
-       3      16.7     7 -0.000000316  -0.000000316  -0.000000316    -3.16e-7 -3.16e-7
-       4      17.0     7 -0.000000311  -0.000000311  -0.000000311    -3.11e-7 -3.11e-7
-       5      17.4     7 -0.0000000845 -0.0000000845 -0.0000000845   -8.45e-8 -8.45e-8
-       6      18.0     7 -0.0000000845 -0.0000000845 -0.0000000845   -8.45e-8 -8.45e-8
-       7      18.6     7 -0.0000000842 -0.0000000842 -0.0000000842   -8.42e-8 -8.42e-8
-       8      18.9     7 -0.0000000842 -0.0000000842 -0.0000000842   -8.42e-8 -8.42e-8
-       9      20       7  0.00000111    0.00000111    0.00000111      1.11e-6  1.11e-6
-      10      23.0     7  0.00000119    0.00000119    0.00000119      1.19e-6  1.19e-6
-      
-      $data$Europe$vs
-      # A tibble: 2 x 7
-        vs.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE     36  0.000122  0.000122  0.000122  0.000122  0.000122
-      2 TRUE      28 -0.000156 -0.000156 -0.000156 -0.000156 -0.000156
-      
-      $data$Europe$am
-      # A tibble: 2 x 7
-        am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1 FALSE     38  0.00174  0.00174  0.00174   0.00174  0.00174
-      2 TRUE      26 -0.00254 -0.00254 -0.00254  -0.00254 -0.00254
-      
-      $data$Europe$gear
-      # A tibble: 3 x 7
-        gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
-        <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-      1 three       30 -0.0896 -0.0896 -0.0896   -0.0896 -0.0896
-      2 four        24 -0.0896 -0.0896 -0.0896   -0.0896 -0.0896
-      3 five        10  0.484   0.484   0.484     0.484   0.484 
-      
-      $data$Europe$carb
-      # A tibble: 5 x 7
-        carb.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
-            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1         1    14  0.00000964  0.00000964  0.00000964  0.00000964  0.00000964
-      2         2    19 -0.00000314 -0.00000314 -0.00000314 -0.00000314 -0.00000314
-      3         3     9 -0.00000314 -0.00000314 -0.00000314 -0.00000314 -0.00000314
-      4         4    16 -0.00000314 -0.00000314 -0.00000314 -0.00000314 -0.00000314
-      5         8     6 -0.00000633 -0.00000633 -0.00000633 -0.00000633 -0.00000633
-      
-      $data$Europe$country
-      # A tibble: 6 x 7
-        country.bin    .n            .y         .y_lo       .y_mean  .y_median   .y_hi
-        <ord>       <int>         <dbl>         <dbl>         <dbl>      <dbl>   <dbl>
-      1 UK              2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      2 Sweden          2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      3 Japan          12 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      4 Italy           8 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      5 Germany        16 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      6 USA            24 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      
-      
-      $data$`North America`
-      $data$`North America`$model
-      # A tibble: 32 x 7
-         model.bin              .n       .y    .y_lo  .y_mean .y_median    .y_hi
-         <ord>               <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-       1 Duster 360              2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       2 Camaro Z28              2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       3 Lincoln Continental     2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       4 Cadillac Fleetwood      2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       5 Chrysler Imperial       2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       6 Hornet Sportabout       2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       7 Pontiac Firebird        2 -0.558   -0.558   -0.558    -0.558   -0.558  
-       8 AMC Javelin             2 -0.00399 -0.00399 -0.00399  -0.00399 -0.00399
-       9 Dodge Challenger        2 -0.00399 -0.00399 -0.00399  -0.00399 -0.00399
-      10 Merc 450SLC             2 -0.00404 -0.00404 -0.00404  -0.00404 -0.00404
-      # i 22 more rows
-      
-      $data$`North America`$mpg
-      # A tibble: 10 x 7
-         mpg.ceil    .n            .y         .y_lo       .y_mean    .y_median   .y_hi
-            <dbl> <int>         <dbl>         <dbl>         <dbl>        <dbl>   <dbl>
-       1     10.4     1 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       2     14.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       3     15.2     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       4     16.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       5     18.7     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       6     19.8     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       7     21.4     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       8     22.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-       9     30.1     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-      10     33.9     7 0.00000000574 0.00000000574 0.00000000574      5.74e-9 5.74e-9
-      
-      $data$`North America`$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
-           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1        3     1 -0.0000202  -0.0000202  -0.0000202  -0.0000202  -0.0000202 
-      2        4    17 -0.0000202  -0.0000202  -0.0000202  -0.0000202  -0.0000202 
-      3        5     6  0.00000578  0.00000578  0.00000578  0.00000578  0.00000578
-      4        6    11  0.00000836  0.00000836  0.00000836  0.00000836  0.00000836
-      5        7     5  0.00000837  0.00000837  0.00000837  0.00000837  0.00000837
-      6        8    21  0.0000148   0.0000148   0.0000148   0.0000148   0.0000148 
-      7        9     3  0.0000148   0.0000148   0.0000148   0.0000148   0.0000148 
-      
-      $data$`North America`$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      70.9     1 -0.536 -0.536  -0.536    -0.536 -0.536
-       2      79.0     7 -0.536 -0.536  -0.536    -0.536 -0.536
-       3     120.      7 -0.536 -0.536  -0.536    -0.536 -0.536
-       4     146.      7 -0.536 -0.536  -0.536    -0.536 -0.536
-       5     166.      7 -0.536 -0.536  -0.536    -0.536 -0.536
-       6     258.      7  0.432  0.432   0.432     0.432  0.432
-       7     300.      7  0.432  0.432   0.432     0.432  0.432
-       8     350.      7  0.565  0.565   0.565     0.565  0.565
-       9     397.      7  0.567  0.567   0.567     0.567  0.567
-      10     472       7  0.985  0.985   0.985     0.985  0.985
-      
-      $data$`North America`$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1     52      1  0.0221  0.0221  0.0221    0.0221  0.0221
-       2     66      8  0.0221  0.0221  0.0221    0.0221  0.0221
-       3     95      6  0.0221  0.0221  0.0221    0.0221  0.0221
-       4    109      7  0.0221  0.0221  0.0221    0.0221  0.0221
-       5    112.     7  0.0221  0.0221  0.0221    0.0221  0.0221
-       6    150      8  0.0221  0.0221  0.0221    0.0221  0.0221
-       7    176.     6  0.0221  0.0221  0.0221    0.0221  0.0221
-       8    181.     7  0.0221  0.0221  0.0221    0.0221  0.0221
-       9    245      8  0.0221  0.0221  0.0221    0.0221  0.0221
-      10    335      6 -0.449  -0.449  -0.449    -0.449  -0.449 
-      
-      $data$`North America`$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n           .y        .y_lo      .y_mean    .y_median     .y_hi
-             <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>     <dbl>
-       1      2.74     1  0.000000772  0.000000772  0.000000772  0.000000772   7.72e-7
-       2      3.02     7  0.000000779  0.000000779  0.000000779  0.000000779   7.79e-7
-       3      3.08     8  0.000000865  0.000000865  0.000000865  0.000000865   8.65e-7
-       4      3.18     6  0.00000107   0.00000107   0.00000107   0.00000107    1.07e-6
-       5      3.62     7  0.00000104   0.00000104   0.00000104   0.00000104    1.04e-6
-       6      3.73     7  0.00000102   0.00000102   0.00000102   0.00000102    1.02e-6
-       7      3.9      8 -0.00000134  -0.00000134  -0.00000134  -0.00000134   -1.34e-6
-       8      3.93     6 -0.00000161  -0.00000161  -0.00000161  -0.00000161   -1.61e-6
-       9      4.21     7 -0.00000161  -0.00000161  -0.00000161  -0.00000161   -1.61e-6
-      10      4.98     7 -0.00000166  -0.00000166  -0.00000166  -0.00000166   -1.66e-6
-      
-      $data$`North America`$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
-           <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-       1    1.50     1  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
-       2    1.94     7  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
-       3    2.46     7  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
-       4    2.79     7  0.0000150  0.0000150  0.0000150  0.0000150  0.0000150
-       5    3.19     7  0.0000147  0.0000147  0.0000147  0.0000147  0.0000147
-       6    3.44     7 -0.0000172 -0.0000172 -0.0000172 -0.0000172 -0.0000172
-       7    3.52     7 -0.0000173 -0.0000173 -0.0000173 -0.0000173 -0.0000173
-       8    3.73     7 -0.0000174 -0.0000174 -0.0000174 -0.0000174 -0.0000174
-       9    4.05     7 -0.0000175 -0.0000175 -0.0000175 -0.0000175 -0.0000175
-      10    5.45     7 -0.0000175 -0.0000175 -0.0000175 -0.0000175 -0.0000175
-      
-      $data$`North America`$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
-             <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-       1      14.5     1  0.0000101   0.0000101   0.0000101   0.0000101   0.0000101 
-       2      15.6     7  0.0000100   0.0000100   0.0000100   0.0000100   0.0000100 
-       3      16.7     7 -0.00000154 -0.00000154 -0.00000154 -0.00000154 -0.00000154
-       4      17.0     7 -0.00000175 -0.00000175 -0.00000175 -0.00000175 -0.00000175
-       5      17.4     7 -0.00000199 -0.00000199 -0.00000199 -0.00000199 -0.00000199
-       6      18.0     7 -0.00000199 -0.00000199 -0.00000199 -0.00000199 -0.00000199
-       7      18.6     7 -0.00000199 -0.00000199 -0.00000199 -0.00000199 -0.00000199
-       8      18.9     7 -0.00000199 -0.00000199 -0.00000199 -0.00000199 -0.00000199
-       9      20       7 -0.00000343 -0.00000343 -0.00000343 -0.00000343 -0.00000343
-      10      23.0     7 -0.00000352 -0.00000352 -0.00000352 -0.00000352 -0.00000352
-      
-      $data$`North America`$vs
-      # A tibble: 2 x 7
-        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1 FALSE     36 -0.00721 -0.00721 -0.00721  -0.00721 -0.00721
-      2 TRUE      28  0.00927  0.00927  0.00927   0.00927  0.00927
-      
-      $data$`North America`$am
-      # A tibble: 2 x 7
-        am.bin    .n           .y        .y_lo      .y_mean    .y_median        .y_hi
-        <ord>  <int>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-      1 FALSE     38  0.000000267  0.000000267  0.000000267  0.000000267  0.000000267
-      2 TRUE      26 -0.000000376 -0.000000376 -0.000000376 -0.000000376 -0.000000376
-      
-      $data$`North America`$gear
-      # A tibble: 3 x 7
-        gear.bin    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
-        <ord>    <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-      1 three       30  0.00000107   0.00000107   0.00000107   0.00000107      1.07e-6
-      2 four        24  0.000000747  0.000000747  0.000000747  0.000000747     7.47e-7
-      3 five        10 -0.00000495  -0.00000495  -0.00000495  -0.00000495     -4.95e-6
-      
-      $data$`North America`$carb
-      # A tibble: 5 x 7
-        carb.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
-            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1         1    14 -0.00000979 -0.00000979 -0.00000979 -0.00000979 -0.00000979
-      2         2    19  0.00000299  0.00000299  0.00000299  0.00000299  0.00000299
-      3         3     9  0.00000300  0.00000300  0.00000300  0.00000300  0.00000300
-      4         4    16  0.00000432  0.00000432  0.00000432  0.00000432  0.00000432
-      5         8     6  0.00000469  0.00000469  0.00000469  0.00000469  0.00000469
-      
-      $data$`North America`$country
-      # A tibble: 6 x 7
-        country.bin    .n            .y         .y_lo       .y_mean  .y_median   .y_hi
-        <ord>       <int>         <dbl>         <dbl>         <dbl>      <dbl>   <dbl>
-      1 UK              2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      2 Sweden          2 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      3 Japan          12 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      4 Italy           8 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      5 Germany        16 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      6 USA            24 0.00000000574 0.00000000574 0.00000000574    5.74e-9 5.74e-9
-      
-      
-      
-      $boot_data
+      $distinct$Asia$boot
       NULL
       
-      $stats
-      $stats$Asia
-      $stats$Asia$by_term
-      $stats$Asia$by_term$model
+      $distinct$Asia$stats
+      $distinct$Asia$stats$by_term
+      $distinct$Asia$stats$by_term$model
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3303,7 +3967,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max   50       50      50      50        50    
       
-      $stats$Asia$by_term$mpg
+      $distinct$Asia$stats$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3314,7 +3978,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$Asia$by_term$cyl
+      $distinct$Asia$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3325,7 +3989,7 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max  31.2        31.2        31.2        31.2        31.2      
       
-      $stats$Asia$by_term$disp
+      $distinct$Asia$stats$by_term$disp
       # A tibble: 6 x 6
         statistic   estimate   conf.low       mean     median  conf.high
         <chr>          <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -3336,7 +4000,7 @@
       5 naler_min -50        -50        -50        -50        -50       
       6 naler_max  31.2       31.2       31.2       31.2       31.2     
       
-      $stats$Asia$by_term$hp
+      $distinct$Asia$stats$by_term$hp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -3347,7 +4011,7 @@
       5 naler_min -50       -50       -50       -50       -50      
       6 naler_max  31.2      31.2      31.2      31.2      31.2    
       
-      $stats$Asia$by_term$drat
+      $distinct$Asia$stats$by_term$drat
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3358,7 +4022,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max  31.2         31.2         31.2         31.2         31.2       
       
-      $stats$Asia$by_term$wt
+      $distinct$Asia$stats$by_term$wt
       # A tibble: 6 x 6
         statistic      estimate      conf.low          mean        median    conf.high
         <chr>             <dbl>         <dbl>         <dbl>         <dbl>        <dbl>
@@ -3369,7 +4033,7 @@
       5 naler_min -50           -50           -50           -50               -5   e+1
       6 naler_max  29.7          29.7          29.7          29.7              2.97e+1
       
-      $stats$Asia$by_term$qsec
+      $distinct$Asia$stats$by_term$qsec
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3380,7 +4044,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max  31.2         31.2         31.2         31.2         31.2       
       
-      $stats$Asia$by_term$vs
+      $distinct$Asia$stats$by_term$vs
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -3391,7 +4055,7 @@
       5 naler_min -50       -50       -50       -50       -50      
       6 naler_max  31.2      31.2      31.2      31.2      31.2    
       
-      $stats$Asia$by_term$am
+      $distinct$Asia$stats$by_term$am
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -3402,7 +4066,7 @@
       5 naler_min -50       -50       -50       -50       -50      
       6 naler_max  31.2      31.2      31.2      31.2      31.2    
       
-      $stats$Asia$by_term$gear
+      $distinct$Asia$stats$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3413,7 +4077,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  31.2     31.2     31.2     31.2      31.2   
       
-      $stats$Asia$by_term$carb
+      $distinct$Asia$stats$by_term$carb
       # A tibble: 6 x 6
         statistic      estimate      conf.low          mean        median    conf.high
         <chr>             <dbl>         <dbl>         <dbl>         <dbl>        <dbl>
@@ -3424,7 +4088,7 @@
       5 naler_min -50           -50           -50           -50               -5   e+1
       6 naler_max  31.2          31.2          31.2          31.2              3.12e+1
       
-      $stats$Asia$by_term$country
+      $distinct$Asia$stats$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3436,8 +4100,8 @@
       6 naler_max        0        0     0      0         0
       
       
-      $stats$Asia$by_statistic
-      $stats$Asia$by_statistic$aled
+      $distinct$Asia$stats$by_stat
+      $distinct$Asia$stats$by_stat$aled
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3455,7 +4119,7 @@
       12 carb    0.000000253 0.000000253 0.000000253 0.000000253 0.000000253
       13 country 0           0           0           0           0          
       
-      $stats$Asia$by_statistic$aler_min
+      $distinct$Asia$stats$by_stat$aler_min
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3473,7 +4137,7 @@
       12 carb    -0.00000117 -0.00000117 -0.00000117 -0.00000117 -0.00000117
       13 country  0           0           0           0           0         
       
-      $stats$Asia$by_statistic$aler_max
+      $distinct$Asia$stats$by_stat$aler_max
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3491,7 +4155,7 @@
       12 carb    0.00000165  0.00000165  0.00000165  0.00000165  0.00000165 
       13 country 0           0           0           0           0          
       
-      $stats$Asia$by_statistic$naled
+      $distinct$Asia$stats$by_stat$naled
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3509,7 +4173,7 @@
       12 carb        32.4     32.4  32.4   32.4      32.4
       13 country      0        0     0      0         0  
       
-      $stats$Asia$by_statistic$naler_min
+      $distinct$Asia$stats$by_stat$naler_min
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3527,7 +4191,7 @@
       12 carb         -50      -50   -50    -50       -50
       13 country        0        0     0      0         0
       
-      $stats$Asia$by_statistic$naler_max
+      $distinct$Asia$stats$by_stat$naler_max
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3546,7 +4210,7 @@
       13 country      0        0     0      0         0  
       
       
-      $stats$Asia$estimate
+      $distinct$Asia$stats$estimate
       # A tibble: 13 x 7
          term           aled    aler_min    aler_max naled naler_min naler_max
          <chr>         <dbl>       <dbl>       <dbl> <dbl>     <dbl>     <dbl>
@@ -3564,14 +4228,813 @@
       12 carb    0.000000253 -0.00000117 0.00000165   32.4       -50      31.2
       13 country 0            0          0             0           0       0  
       
-      $stats$Asia$effects_plot
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
+      $distinct$Asia$stats$conf_regions
+      $distinct$Asia$stats$conf_regions$by_term
+      $distinct$Asia$stats$conf_regions$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct      y relative_to_mid
+         <ord>               <int>  <dbl>  <dbl> <ord>          
+       1 Duster 360              2 0.0312 0.0209 above          
+       2 Camaro Z28              2 0.0312 0.0209 above          
+       3 Lincoln Continental     2 0.0312 0.0209 above          
+       4 Cadillac Fleetwood      2 0.0312 0.0209 above          
+       5 Chrysler Imperial       2 0.0312 0.0209 above          
+       6 Hornet Sportabout       2 0.0312 0.0209 above          
+       7 Pontiac Firebird        2 0.0312 0.0209 above          
+       8 AMC Javelin             2 0.0312 0.0208 above          
+       9 Dodge Challenger        2 0.0312 0.0208 above          
+      10 Merc 450SLC             2 0.0312 0.0208 above          
+      # i 22 more rows
+      
+      $distinct$Asia$stats$conf_regions$by_term$mpg
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
+      1    10.4  33.9      1    64     1       0     0     0 below          
+      
+      $distinct$Asia$stats$conf_regions$by_term$cyl
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
+      1       3     4  0.167    18 0.281  0.0000237   2.11e-5 -1.59e-5 above          
+      2       5     9  0.667    46 0.719 -0.00000502 -1.69e-5 -1.79e-5 below          
+      
+      $distinct$Asia$stats$conf_regions$by_term$disp
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1    70.9  300.  0.571    43 0.672  0.000112  0.000102  -1.68e-5 above          
+      2   350.   472   0.304    21 0.328 -0.000286 -0.000287  -3.18e-6 below          
+      
+      $distinct$Asia$stats$conf_regions$by_term$hp
+      # A tibble: 2 x 9
+        start_x end_x x_span     n  n_pct  start_y    end_y      trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>    <dbl>    <dbl>      <dbl> <ord>          
+      1      52   245  0.682    58 0.906  -0.00573 -0.00573 0.00000212 below          
+      2     335   335  0         6 0.0938  0.117    0.117   0          above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$drat
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
+      1    2.74  3.93  0.532    50 0.781 -0.00000377  -9.26e-7 5.35e-6 below          
+      2    4.21  4.98  0.344    14 0.219  0.00000162   4.29e-5 1.20e-4 above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$wt
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
+      1    1.50  2.46  0.244    15 0.234    -5.18e-7 -2.87e-6 -9.63e-6 below          
+      2    2.79  5.45  0.673    49 0.766     2.55e-7  8.43e-7  8.73e-7 above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$qsec
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
+      1    14.5  15.6  0.135     8 0.125 -0.00000968  -9.57e-6 7.98e-7 below          
+      2    16.7  23.0  0.733    56 0.875  0.00000187   2.33e-6 6.38e-7 above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$vs
+      # A tibble: 2 x 5
+        x         n n_pct        y relative_to_mid
+        <ord> <int> <dbl>    <dbl> <ord>          
+      1 FALSE    36 0.562  0.00709 above          
+      2 TRUE     28 0.438 -0.00911 below          
+      
+      $distinct$Asia$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct        y relative_to_mid
+        <ord> <int> <dbl>    <dbl> <ord>          
+      1 FALSE    38 0.594 -0.00174 below          
+      2 TRUE     26 0.406  0.00254 above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$gear
+      # A tibble: 3 x 5
+        x         n n_pct       y relative_to_mid
+        <ord> <int> <dbl>   <dbl> <ord>          
+      1 three    30 0.469  0.0896 above          
+      2 four     24 0.375  0.0896 above          
+      3 five     10 0.156 -0.484  below          
+      
+      $distinct$Asia$stats$conf_regions$by_term$carb
+      # A tibble: 3 x 9
+        start_x end_x x_span     n  n_pct    start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>      <dbl>    <dbl>    <dbl> <ord>          
+      1       1     3  0.286    42 0.656     1.62e-7  1.55e-7 -2.19e-8 above          
+      2       4     4  0        16 0.25     -1.17e-6 -1.17e-6  0       below          
+      3       8     8  0         6 0.0938    1.65e-6  1.65e-6  0       above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$country
+      # A tibble: 6 x 5
+        x           n  n_pct     y relative_to_mid
+        <ord>   <int>  <dbl> <dbl> <ord>          
+      1 UK          2 0.0312     0 below          
+      2 Sweden      2 0.0312     0 below          
+      3 Japan      12 0.188      0 below          
+      4 Italy       8 0.125      0 below          
+      5 Germany    16 0.25       0 below          
+      6 USA        24 0.375      0 below          
       
       
-      $stats$Europe
-      $stats$Europe$by_term
-      $stats$Europe$by_term$model
+      $distinct$Asia$stats$conf_regions$significant
+      # A tibble: 61 x 12
+         term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
+         <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
+       1 model Duster 360      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       2 model Camaro Z28      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       3 model Lincoln C~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       4 model Cadillac ~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       5 model Chrysler ~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       6 model Hornet Sp~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       7 model Pontiac F~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
+       8 model AMC Javel~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
+       9 model Dodge Cha~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
+      10 model Merc 450S~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
+      # i 51 more rows
+      # i 1 more variable: relative_to_mid <ord>
+      
+      $distinct$Asia$stats$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      $distinct$Asia$stats$effects_plot
+      $distinct$Asia$stats$effects_plot[[1]]
+          y PANEL group colour      fill linewidth linetype alpha         xmin
+      1   1     1     1     NA lightgray       0.5        1    NA 6.163208e-11
+      2   2     1     2     NA lightgray       0.5        1    NA 6.163208e-11
+      3   3     1     3     NA lightgray       0.5        1    NA 6.163208e-11
+      4   4     1     4     NA lightgray       0.5        1    NA 6.163208e-11
+      5   5     1     5     NA lightgray       0.5        1    NA 6.163208e-11
+      6   6     1     6     NA lightgray       0.5        1    NA 6.163208e-11
+      7   7     1     7     NA lightgray       0.5        1    NA 6.163208e-11
+      8   8     1     8     NA lightgray       0.5        1    NA 6.163208e-11
+      9   9     1     9     NA lightgray       0.5        1    NA 6.163208e-11
+      10 10     1    10     NA lightgray       0.5        1    NA 6.163208e-11
+      11 11     1    11     NA lightgray       0.5        1    NA 6.163208e-11
+      12 12     1    12     NA lightgray       0.5        1    NA 6.163208e-11
+      13 13     1    13     NA lightgray       0.5        1    NA 6.163208e-11
+                 xmax ymin ymax
+      1  1.688443e-10 -Inf  Inf
+      2  1.688443e-10 -Inf  Inf
+      3  1.688443e-10 -Inf  Inf
+      4  1.688443e-10 -Inf  Inf
+      5  1.688443e-10 -Inf  Inf
+      6  1.688443e-10 -Inf  Inf
+      7  1.688443e-10 -Inf  Inf
+      8  1.688443e-10 -Inf  Inf
+      9  1.688443e-10 -Inf  Inf
+      10 1.688443e-10 -Inf  Inf
+      11 1.688443e-10 -Inf  Inf
+      12 1.688443e-10 -Inf  Inf
+      13 1.688443e-10 -Inf  Inf
+      
+      $distinct$Asia$stats$effects_plot[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   9.937937e-11 9.937937e-11  1     1     1  0.875  1.125  black       0.5
+      2   9.937937e-11 9.937937e-11  2     1     2  1.875  2.125  black       0.5
+      3  -1.166107e-06 1.648486e-06  3     1     3  2.875  3.125  black       0.5
+      4  -2.871650e-06 8.428661e-07  4     1     4  3.875  4.125  black       0.5
+      5  -9.682098e-06 2.333780e-06  5     1     5  4.875  5.125  black       0.5
+      6  -3.772042e-06 4.292889e-05  6     1     6  5.875  6.125  black       0.5
+      7  -1.691820e-05 2.373237e-05  7     1     7  6.875  7.125  black       0.5
+      8  -2.865331e-04 1.125931e-04  8     1     8  7.875  8.125  black       0.5
+      9  -1.736169e-03 2.537478e-03  9     1     9  8.875  9.125  black       0.5
+      10 -9.111179e-03 7.086473e-03 10     1    10  9.875 10.125  black       0.5
+      11 -5.734913e-03 1.165822e-01 11     1    11 10.875 11.125  black       0.5
+      12 -4.836723e-01 8.956900e-02 12     1    12 11.875 12.125  black       0.5
+      13 -1.056989e+00           NA 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $distinct$Asia$stats$effects_plot[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   1.152382e-10 1.152382e-10  0.7  1.3  1     1     1     NA white       0.5
+      2   1.152382e-10 1.152382e-10  1.7  2.3  2     1     2     NA white       0.5
+      3  -1.262459e-07 1.264764e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -4.599857e-07 4.602161e-07  3.7  4.3  4     1     4     NA white       0.5
+      5  -1.625013e-06 1.625244e-06  4.7  5.3  5     1     5     NA white       0.5
+      6  -2.474162e-06 2.474392e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -7.053539e-06 7.053770e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -7.264648e-05 7.264671e-05  7.7  8.3  8     1     8     NA white       0.5
+      9  -1.030850e-03 1.030851e-03  8.7  9.3  9     1     9     NA white       0.5
+      10 -3.986141e-03 3.986141e-03  9.7 10.3 10     1    10     NA white       0.5
+      11 -5.196068e-03 5.196068e-03 10.7 11.3 11     1    11     NA white       0.5
+      12 -7.557379e-02 7.557379e-02 11.7 12.3 12     1    12     NA white       0.5
+      13 -9.393711e-02 9.393711e-02 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $distinct$Asia$stats$effects_plot[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  1.152382e-10 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  1.152382e-10 NALED 32.4%  3     1     3  black    3     0   0.5    -1    NA
+      4  1.152382e-10 NALED 36.7%  4     1     4  black    3     0   0.5    -1    NA
+      5  1.152382e-10 NALED 35.6%  5     1     5  black    3     0   0.5    -1    NA
+      6  1.152382e-10 NALED 45.4%  6     1     6  black    3     0   0.5    -1    NA
+      7  1.152382e-10 NALED 43.0%  7     1     7  black    3     0   0.5    -1    NA
+      8  1.152382e-10 NALED 37.4%  8     1     8  black    3     0   0.5    -1    NA
+      9  1.152382e-10 NALED 42.4%  9     1     9  black    3     0   0.5    -1    NA
+      10 1.152382e-10 NALED 39.5% 10     1    10  black    3     0   0.5    -1    NA
+      11 1.152382e-10 NALED 48.2% 11     1    11  black    3     0   0.5    -1    NA
+      12 1.152382e-10 NALED 34.2% 12     1    12  black    3     0   0.5    -1    NA
+      13 1.152382e-10 NALED 37.1% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Asia$stats$effects_plot[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   1.152382e-10     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   1.152382e-10     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  -1.262459e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -4.599857e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -1.625013e-06     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -2.474162e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -7.053539e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -7.264648e-05     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -1.030850e-03     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -3.986141e-03     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -5.196068e-03     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -7.557379e-02     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -9.393711e-02     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Asia$stats$effects_plot[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  1.152382e-10     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  1.264764e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  4.602161e-07     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  1.625244e-06     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  2.474392e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  7.053770e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  7.264671e-05     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  1.030851e-03     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 3.986141e-03     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 5.196068e-03     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 7.557379e-02     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 9.393711e-02     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Asia$stats$effects_plot[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  1.152382e-10 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  1.152382e-10 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  1.152382e-10 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  1.152382e-10 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  1.152382e-10 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  1.152382e-10 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  1.152382e-10 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  1.152382e-10 ALED 0.002  9     1     9  black    3     0   0.5     2    NA
+      10 1.152382e-10 ALED 0.008 10     1    10  black    3     0   0.5     2    NA
+      11 1.152382e-10 ALED 0.010 11     1    11  black    3     0   0.5     2    NA
+      12 1.152382e-10 ALED 0.151 12     1    12  black    3     0   0.5     2    NA
+      13 1.152382e-10 ALED 0.188 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Asia$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$Asia$plots
+      $distinct$Asia$plots$model
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1  0.02090896     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2  0.02090795     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3  0.02090795     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4  0.02090795     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5  0.02090793     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6  0.02090797     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7  0.02090797     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8  0.02078146     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9  0.02078145     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10  0.02078143     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11  0.02078143     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12  0.02078143     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13  0.02075669     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14  0.02075667     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15  0.02075725     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16  0.02075691     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17  0.02075692     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18  1.02048514     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19  0.02214753     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20  0.02207661     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21  0.02207661     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22  0.78257724     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23  0.78257599     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24 -0.18029505     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25 -0.18029505     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26 -0.18029507     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27 -0.18029508     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28 -0.05701053     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29 -1.05698936     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30 -1.05698936     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31 -0.05698967     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32 -0.05682827     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 6.163208e-11 1.688443e-10
+      2   Inf 6.163208e-11 1.688443e-10
+      3   Inf 6.163208e-11 1.688443e-10
+      4   Inf 6.163208e-11 1.688443e-10
+      5   Inf 6.163208e-11 1.688443e-10
+      6   Inf 6.163208e-11 1.688443e-10
+      7   Inf 6.163208e-11 1.688443e-10
+      8   Inf 6.163208e-11 1.688443e-10
+      9   Inf 6.163208e-11 1.688443e-10
+      10  Inf 6.163208e-11 1.688443e-10
+      11  Inf 6.163208e-11 1.688443e-10
+      12  Inf 6.163208e-11 1.688443e-10
+      13  Inf 6.163208e-11 1.688443e-10
+      14  Inf 6.163208e-11 1.688443e-10
+      15  Inf 6.163208e-11 1.688443e-10
+      16  Inf 6.163208e-11 1.688443e-10
+      17  Inf 6.163208e-11 1.688443e-10
+      18  Inf 6.163208e-11 1.688443e-10
+      19  Inf 6.163208e-11 1.688443e-10
+      20  Inf 6.163208e-11 1.688443e-10
+      21  Inf 6.163208e-11 1.688443e-10
+      22  Inf 6.163208e-11 1.688443e-10
+      23  Inf 6.163208e-11 1.688443e-10
+      24  Inf 6.163208e-11 1.688443e-10
+      25  Inf 6.163208e-11 1.688443e-10
+      26  Inf 6.163208e-11 1.688443e-10
+      27  Inf 6.163208e-11 1.688443e-10
+      28  Inf 6.163208e-11 1.688443e-10
+      29  Inf 6.163208e-11 1.688443e-10
+      30  Inf 6.163208e-11 1.688443e-10
+      31  Inf 6.163208e-11 1.688443e-10
+      32  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$mpg
+                x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1  10.37589 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2  14.41394 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3  15.20000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4  16.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5  18.70000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6  19.84566 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7  21.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      8  22.87332 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      9  30.10414 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      10 33.90000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+                 ymin         ymax
+      1  6.163208e-11 1.688443e-10
+      2  6.163208e-11 1.688443e-10
+      3  6.163208e-11 1.688443e-10
+      4  6.163208e-11 1.688443e-10
+      5  6.163208e-11 1.688443e-10
+      6  6.163208e-11 1.688443e-10
+      7  6.163208e-11 1.688443e-10
+      8  6.163208e-11 1.688443e-10
+      9  6.163208e-11 1.688443e-10
+      10 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$cyl
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3  2.373227e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4  2.107434e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5 -5.016197e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 -7.688292e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7 -1.030992e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 -1.691101e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 -1.691830e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 6.163208e-11 1.688443e-10
+      2  Inf 6.163208e-11 1.688443e-10
+      3  Inf 6.163208e-11 1.688443e-10
+      4  Inf 6.163208e-11 1.688443e-10
+      5  Inf 6.163208e-11 1.688443e-10
+      6  Inf 6.163208e-11 1.688443e-10
+      7  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$disp
+                 x             y PANEL group colour      fill linewidth linetype
+      1   70.92941  0.0001118492     1    -1     NA lightgray       0.5        1
+      2   79.04253  0.0001118475     1    -1     NA lightgray       0.5        1
+      3  120.30000  0.0001125924     1    -1     NA lightgray       0.5        1
+      4  146.07210  0.0001125930     1    -1     NA lightgray       0.5        1
+      5  166.13111  0.0001019306     1    -1     NA lightgray       0.5        1
+      6  258.37592  0.0001022165     1    -1     NA lightgray       0.5        1
+      7  300.03890  0.0001022290     1    -1     NA lightgray       0.5        1
+      8  350.17436 -0.0002855686     1    -1     NA lightgray       0.5        1
+      9  397.00444 -0.0002864767     1    -1     NA lightgray       0.5        1
+      10 472.00000 -0.0002865332     1    -1     NA lightgray       0.5        1
+         alpha xmin xmax         ymin         ymax
+      1     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      2     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      3     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      4     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      5     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      6     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      7     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      8     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      9     NA -Inf  Inf 6.163208e-11 1.688443e-10
+      10    NA -Inf  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$hp
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000 -0.005734183     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000 -0.005734230     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000 -0.005734913     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000 -0.005734913     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003 -0.005732834     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000 -0.005732820     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 -0.005732823     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 -0.005732823     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 -0.005732737     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000  0.116582181     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 6.163208e-11 1.688443e-10
+      2  -Inf  Inf 6.163208e-11 1.688443e-10
+      3  -Inf  Inf 6.163208e-11 1.688443e-10
+      4  -Inf  Inf 6.163208e-11 1.688443e-10
+      5  -Inf  Inf 6.163208e-11 1.688443e-10
+      6  -Inf  Inf 6.163208e-11 1.688443e-10
+      7  -Inf  Inf 6.163208e-11 1.688443e-10
+      8  -Inf  Inf 6.163208e-11 1.688443e-10
+      9  -Inf  Inf 6.163208e-11 1.688443e-10
+      10 -Inf  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$drat
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533 -3.772141e-06     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190 -3.772044e-06     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000 -3.771715e-06     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717 -3.661274e-06     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000 -3.580793e-06     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310 -3.558444e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000 -1.193606e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607 -9.264688e-07     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875  1.620801e-06     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502  4.292879e-05     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 6.163208e-11 1.688443e-10
+      2  -Inf  Inf 6.163208e-11 1.688443e-10
+      3  -Inf  Inf 6.163208e-11 1.688443e-10
+      4  -Inf  Inf 6.163208e-11 1.688443e-10
+      5  -Inf  Inf 6.163208e-11 1.688443e-10
+      6  -Inf  Inf 6.163208e-11 1.688443e-10
+      7  -Inf  Inf 6.163208e-11 1.688443e-10
+      8  -Inf  Inf 6.163208e-11 1.688443e-10
+      9  -Inf  Inf 6.163208e-11 1.688443e-10
+      10 -Inf  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$wt
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275 -5.180575e-07     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 -1.088460e-06     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 -2.871749e-06     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481  2.547043e-07     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000  5.852757e-07     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356  7.515757e-07     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000  7.539405e-07     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000  7.244094e-07     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066  8.427000e-07     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272  8.427667e-07     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 6.163208e-11 1.688443e-10
+      2  -Inf  Inf 6.163208e-11 1.688443e-10
+      3  -Inf  Inf 6.163208e-11 1.688443e-10
+      4  -Inf  Inf 6.163208e-11 1.688443e-10
+      5  -Inf  Inf 6.163208e-11 1.688443e-10
+      6  -Inf  Inf 6.163208e-11 1.688443e-10
+      7  -Inf  Inf 6.163208e-11 1.688443e-10
+      8  -Inf  Inf 6.163208e-11 1.688443e-10
+      9  -Inf  Inf 6.163208e-11 1.688443e-10
+      10 -Inf  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$qsec
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589 -9.682198e-06     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460 -9.574510e-06     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553  1.865544e-06     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000  2.076718e-06     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920  2.085567e-06     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000  2.085591e-06     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333  2.088443e-06     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000  2.088717e-06     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000  2.333668e-06     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365  2.333681e-06     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 6.163208e-11 1.688443e-10
+      2  -Inf  Inf 6.163208e-11 1.688443e-10
+      3  -Inf  Inf 6.163208e-11 1.688443e-10
+      4  -Inf  Inf 6.163208e-11 1.688443e-10
+      5  -Inf  Inf 6.163208e-11 1.688443e-10
+      6  -Inf  Inf 6.163208e-11 1.688443e-10
+      7  -Inf  Inf 6.163208e-11 1.688443e-10
+      8  -Inf  Inf 6.163208e-11 1.688443e-10
+      9  -Inf  Inf 6.163208e-11 1.688443e-10
+      10 -Inf  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$vs
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  0.007086473     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.009111179     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 6.163208e-11 1.688443e-10
+      2  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$am
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 -0.001736169     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  0.002537478     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 6.163208e-11 1.688443e-10
+      2  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$gear
+        x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1  0.08956888     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2  0.08956900     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -0.48367226     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 6.163208e-11 1.688443e-10
+      2 6.163208e-11 1.688443e-10
+      3 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$carb
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  1.615630e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2  1.559932e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3  1.553172e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4 -1.166206e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8  1.648386e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 6.163208e-11 1.688443e-10
+      2  Inf 6.163208e-11 1.688443e-10
+      3  Inf 6.163208e-11 1.688443e-10
+      4  Inf 6.163208e-11 1.688443e-10
+      5  Inf 6.163208e-11 1.688443e-10
+      
+      $distinct$Asia$plots$country
+        x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 0     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 0     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 0     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 0     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 0     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 0     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 6.163208e-11 1.688443e-10
+      2 6.163208e-11 1.688443e-10
+      3 6.163208e-11 1.688443e-10
+      4 6.163208e-11 1.688443e-10
+      5 6.163208e-11 1.688443e-10
+      6 6.163208e-11 1.688443e-10
+      
+      
+      
+      $distinct$Europe
+      $distinct$Europe$ale
+      $distinct$Europe$ale$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y   .y_lo .y_mean .y_median   .y_hi
+         <ord>               <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1 Duster 360              2  0.537   0.537   0.537     0.537   0.537 
+       2 Camaro Z28              2  0.537   0.537   0.537     0.537   0.537 
+       3 Lincoln Continental     2  0.537   0.537   0.537     0.537   0.537 
+       4 Cadillac Fleetwood      2  0.537   0.537   0.537     0.537   0.537 
+       5 Chrysler Imperial       2  0.537   0.537   0.537     0.537   0.537 
+       6 Hornet Sportabout       2  0.537   0.537   0.537     0.537   0.537 
+       7 Pontiac Firebird        2  0.537   0.537   0.537     0.537   0.537 
+       8 AMC Javelin             2 -0.0168 -0.0168 -0.0168   -0.0168 -0.0168
+       9 Dodge Challenger        2 -0.0168 -0.0168 -0.0168   -0.0168 -0.0168
+      10 Merc 450SLC             2 -0.0167 -0.0167 -0.0167   -0.0167 -0.0167
+      # i 22 more rows
+      
+      $distinct$Europe$ale$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $distinct$Europe$ale$cyl
+      # A tibble: 7 x 7
+        cyl.ceil    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
+           <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
+      1        3     1 -0.00000354  -0.00000354  -0.00000354  -0.00000354     -3.54e-6
+      2        4    17 -0.000000878 -0.000000878 -0.000000878 -0.000000878    -8.78e-7
+      3        5     6 -0.000000763 -0.000000763 -0.000000763 -0.000000763    -7.63e-7
+      4        6    11 -0.000000669 -0.000000669 -0.000000669 -0.000000669    -6.69e-7
+      5        7     5  0.00000195   0.00000195   0.00000195   0.00000195      1.95e-6
+      6        8    21  0.00000214   0.00000214   0.00000214   0.00000214      2.14e-6
+      7        9     3  0.00000214   0.00000214   0.00000214   0.00000214      2.14e-6
+      
+      $distinct$Europe$ale$disp
+      # A tibble: 10 x 7
+         disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1      70.9     1  0.536  0.536   0.536     0.536  0.536
+       2      79.0     7  0.536  0.536   0.536     0.536  0.536
+       3     120.      7  0.536  0.536   0.536     0.536  0.536
+       4     146.      7  0.536  0.536   0.536     0.536  0.536
+       5     166.      7  0.536  0.536   0.536     0.536  0.536
+       6     258.      7 -0.432 -0.432  -0.432    -0.432 -0.432
+       7     300.      7 -0.432 -0.432  -0.432    -0.432 -0.432
+       8     350.      7 -0.565 -0.565  -0.565    -0.565 -0.565
+       9     397.      7 -0.567 -0.567  -0.567    -0.567 -0.567
+      10     472       7 -0.985 -0.985  -0.985    -0.985 -0.985
+      
+      $distinct$Europe$ale$hp
+      # A tibble: 10 x 7
+         hp.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1     52      1 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       2     66      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       3     95      6 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       4    109      7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       5    112.     7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       6    150      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       7    176.     6 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       8    181.     7 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+       9    245      8 -0.0164 -0.0164 -0.0164   -0.0164 -0.0164
+      10    335      6  0.333   0.333   0.333     0.333   0.333 
+      
+      $distinct$Europe$ale$drat
+      # A tibble: 10 x 7
+         drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1      2.74     1  3.01e- 6  3.01e- 6  3.01e- 6  3.01e- 6  3.01e- 6
+       2      3.02     7  3.00e- 6  3.00e- 6  3.00e- 6  3.00e- 6  3.00e- 6
+       3      3.08     8  2.91e- 6  2.91e- 6  2.91e- 6  2.91e- 6  2.91e- 6
+       4      3.18     6  2.60e- 6  2.60e- 6  2.60e- 6  2.60e- 6  2.60e- 6
+       5      3.62     7  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6
+       6      3.73     7  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6
+       7      3.9      8  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6
+       8      3.93     6  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6  2.54e- 6
+       9      4.21     7 -5.20e-10 -5.20e-10 -5.20e-10 -5.20e-10 -5.20e-10
+      10      4.98     7 -4.13e- 5 -4.13e- 5 -4.13e- 5 -4.13e- 5 -4.13e- 5
+      
+      $distinct$Europe$ale$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
+           <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
+       1    1.50     1 -0.0000179 -0.0000179 -0.0000179 -0.0000179 -0.0000179
+       2    1.94     7 -0.0000173 -0.0000173 -0.0000173 -0.0000173 -0.0000173
+       3    2.46     7 -0.0000155 -0.0000155 -0.0000155 -0.0000155 -0.0000155
+       4    2.79     7 -0.0000152 -0.0000152 -0.0000152 -0.0000152 -0.0000152
+       5    3.19     7 -0.0000152 -0.0000152 -0.0000152 -0.0000152 -0.0000152
+       6    3.44     7  0.0000165  0.0000165  0.0000165  0.0000165  0.0000165
+       7    3.52     7  0.0000165  0.0000165  0.0000165  0.0000165  0.0000165
+       8    3.73     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
+       9    4.05     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
+      10    5.45     7  0.0000167  0.0000167  0.0000167  0.0000167  0.0000167
+      
+      $distinct$Europe$ale$qsec
+      # A tibble: 10 x 7
+         qsec.ceil    .n            .y         .y_lo       .y_mean  .y_median    .y_hi
+             <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>    <dbl>
+       1      14.5     1 -0.000000437  -0.000000437  -0.000000437    -4.37e-7 -4.37e-7
+       2      15.6     7 -0.000000420  -0.000000420  -0.000000420    -4.20e-7 -4.20e-7
+       3      16.7     7 -0.000000322  -0.000000322  -0.000000322    -3.22e-7 -3.22e-7
+       4      17.0     7 -0.000000317  -0.000000317  -0.000000317    -3.17e-7 -3.17e-7
+       5      17.4     7 -0.0000000903 -0.0000000903 -0.0000000903   -9.03e-8 -9.03e-8
+       6      18.0     7 -0.0000000903 -0.0000000903 -0.0000000903   -9.03e-8 -9.03e-8
+       7      18.6     7 -0.0000000899 -0.0000000899 -0.0000000899   -8.99e-8 -8.99e-8
+       8      18.9     7 -0.0000000899 -0.0000000899 -0.0000000899   -8.99e-8 -8.99e-8
+       9      20       7  0.00000111    0.00000111    0.00000111      1.11e-6  1.11e-6
+      10      23.0     7  0.00000119    0.00000119    0.00000119      1.19e-6  1.19e-6
+      
+      $distinct$Europe$ale$vs
+      # A tibble: 2 x 7
+        vs.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 FALSE     36  0.000122  0.000122  0.000122  0.000122  0.000122
+      2 TRUE      28 -0.000156 -0.000156 -0.000156 -0.000156 -0.000156
+      
+      $distinct$Europe$ale$am
+      # A tibble: 2 x 7
+        am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     38  0.00174  0.00174  0.00174   0.00174  0.00174
+      2 TRUE      26 -0.00254 -0.00254 -0.00254  -0.00254 -0.00254
+      
+      $distinct$Europe$ale$gear
+      # A tibble: 3 x 7
+        gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
+        <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+      1 three       30 -0.0896 -0.0896 -0.0896   -0.0896 -0.0896
+      2 four        24 -0.0896 -0.0896 -0.0896   -0.0896 -0.0896
+      3 five        10  0.484   0.484   0.484     0.484   0.484 
+      
+      $distinct$Europe$ale$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1         1    14  0.00000963  0.00000963  0.00000963  0.00000963  0.00000963
+      2         2    19 -0.00000314 -0.00000314 -0.00000314 -0.00000314 -0.00000314
+      3         3     9 -0.00000315 -0.00000315 -0.00000315 -0.00000315 -0.00000315
+      4         4    16 -0.00000315 -0.00000315 -0.00000315 -0.00000315 -0.00000315
+      5         8     6 -0.00000633 -0.00000633 -0.00000633 -0.00000633 -0.00000633
+      
+      $distinct$Europe$ale$country
+      # A tibble: 6 x 7
+        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 UK              2     0     0       0         0     0
+      2 Sweden          2     0     0       0         0     0
+      3 Japan          12     0     0       0         0     0
+      4 Italy           8     0     0       0         0     0
+      5 Germany        16     0     0       0         0     0
+      6 USA            24     0     0       0         0     0
+      
+      
+      $distinct$Europe$boot
+      NULL
+      
+      $distinct$Europe$stats
+      $distinct$Europe$stats$by_term
+      $distinct$Europe$stats$by_term$model
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3582,7 +5045,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$Europe$by_term$mpg
+      $distinct$Europe$stats$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3593,7 +5056,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$Europe$by_term$cyl
+      $distinct$Europe$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3604,7 +5067,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   6.25         6.25         6.25         6.25         6.25      
       
-      $stats$Europe$by_term$disp
+      $distinct$Europe$stats$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3615,7 +5078,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max    6.25     6.25    6.25    6.25      6.25 
       
-      $stats$Europe$by_term$hp
+      $distinct$Europe$stats$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3626,7 +5089,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$Europe$by_term$drat
+      $distinct$Europe$stats$by_term$drat
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3637,7 +5100,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   6.25         6.25         6.25         6.25         6.25      
       
-      $stats$Europe$by_term$wt
+      $distinct$Europe$stats$by_term$wt
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3648,7 +5111,7 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max   6.25        6.25        6.25        6.25        6.25     
       
-      $stats$Europe$by_term$qsec
+      $distinct$Europe$stats$by_term$qsec
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3659,7 +5122,7 @@
       5 naler_min -1.56        -1.56        -1.56        -1.56        -1.56       
       6 naler_max  6.25         6.25         6.25         6.25         6.25       
       
-      $stats$Europe$by_term$vs
+      $distinct$Europe$stats$by_term$vs
       # A tibble: 6 x 6
         statistic   estimate   conf.low       mean     median  conf.high
         <chr>          <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -3670,7 +5133,7 @@
       5 naler_min -50        -50        -50        -50        -50       
       6 naler_max   6.25       6.25       6.25       6.25       6.25    
       
-      $stats$Europe$by_term$am
+      $distinct$Europe$stats$by_term$am
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -3681,7 +5144,7 @@
       5 naler_min -50       -50       -50       -50       -50      
       6 naler_max   6.25      6.25      6.25      6.25      6.25   
       
-      $stats$Europe$by_term$gear
+      $distinct$Europe$stats$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3692,7 +5155,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max   6.25     6.25     6.25     6.25      6.25  
       
-      $stats$Europe$by_term$carb
+      $distinct$Europe$stats$by_term$carb
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3703,7 +5166,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   6.25         6.25         6.25         6.25         6.25      
       
-      $stats$Europe$by_term$country
+      $distinct$Europe$stats$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3715,8 +5178,8 @@
       6 naler_max        0        0     0      0         0
       
       
-      $stats$Europe$by_statistic
-      $stats$Europe$by_statistic$aled
+      $distinct$Europe$stats$by_stat
+      $distinct$Europe$stats$by_stat$aled
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3734,7 +5197,7 @@
       12 carb    0.00000335  0.00000335  0.00000335  0.00000335  0.00000335 
       13 country 0           0           0           0           0          
       
-      $stats$Europe$by_statistic$aler_min
+      $distinct$Europe$stats$by_stat$aler_min
       # A tibble: 13 x 6
          term        estimate     conf.low         mean       median    conf.high
          <chr>          <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3752,7 +5215,7 @@
       12 carb    -0.00000633  -0.00000633  -0.00000633  -0.00000633  -0.00000633 
       13 country  0            0            0            0            0          
       
-      $stats$Europe$by_statistic$aler_max
+      $distinct$Europe$stats$by_stat$aler_max
       # A tibble: 13 x 6
          term      estimate   conf.low       mean     median  conf.high
          <chr>        <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -3770,7 +5233,7 @@
       12 carb    0.00000963 0.00000963 0.00000963 0.00000963 0.00000963
       13 country 0          0          0          0          0         
       
-      $stats$Europe$by_statistic$naled
+      $distinct$Europe$stats$by_stat$naled
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3788,7 +5251,7 @@
       12 carb       27.4     27.4  27.4   27.4      27.4 
       13 country     0        0     0      0         0   
       
-      $stats$Europe$by_statistic$naler_min
+      $distinct$Europe$stats$by_stat$naler_min
       # A tibble: 13 x 6
          term    estimate conf.low   mean median conf.high
          <chr>      <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -3806,7 +5269,7 @@
       12 carb      -50      -50    -50    -50       -50   
       13 country     0        0      0      0         0   
       
-      $stats$Europe$by_statistic$naler_max
+      $distinct$Europe$stats$by_stat$naler_max
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3825,7 +5288,7 @@
       13 country     0        0     0      0         0   
       
       
-      $stats$Europe$estimate
+      $distinct$Europe$stats$estimate
       # A tibble: 13 x 7
          term           aled     aler_min   aler_max naled naler_min naler_max
          <chr>         <dbl>        <dbl>      <dbl> <dbl>     <dbl>     <dbl>
@@ -3843,14 +5306,812 @@
       12 carb    0.00000335  -0.00000633  0.00000963 27.4     -50         6.25
       13 country 0            0           0           0         0         0   
       
-      $stats$Europe$effects_plot
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
+      $distinct$Europe$stats$conf_regions
+      $distinct$Europe$stats$conf_regions$by_term
+      $distinct$Europe$stats$conf_regions$by_term$model
+      # A tibble: 32 x 5
+         x                       n  n_pct       y relative_to_mid
+         <ord>               <int>  <dbl>   <dbl> <ord>          
+       1 Duster 360              2 0.0312  0.537  above          
+       2 Camaro Z28              2 0.0312  0.537  above          
+       3 Lincoln Continental     2 0.0312  0.537  above          
+       4 Cadillac Fleetwood      2 0.0312  0.537  above          
+       5 Chrysler Imperial       2 0.0312  0.537  above          
+       6 Hornet Sportabout       2 0.0312  0.537  above          
+       7 Pontiac Firebird        2 0.0312  0.537  above          
+       8 AMC Javelin             2 0.0312 -0.0168 below          
+       9 Dodge Challenger        2 0.0312 -0.0168 below          
+      10 Merc 450SLC             2 0.0312 -0.0167 below          
+      # i 22 more rows
+      
+      $distinct$Europe$stats$conf_regions$by_term$mpg
+      # A tibble: 1 x 9
+        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
+      1    10.4  33.9      1    64     1       0     0     0 below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$cyl
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
+      1       3     6  0.5      35 0.547 -0.00000354  -6.69e-7 5.73e-6 below          
+      2       7     9  0.333    29 0.453  0.00000195   2.14e-6 5.86e-7 above          
+      
+      $distinct$Europe$stats$conf_regions$by_term$disp
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct start_y  end_y       trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>       <dbl> <ord>          
+      1    70.9  166.  0.237    29 0.453   0.536  0.536 -0.00000320 above          
+      2   258.   472   0.533    35 0.547  -0.432 -0.985 -1.04       below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$hp
+      # A tibble: 2 x 9
+        start_x end_x x_span     n  n_pct start_y   end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl> <ord>          
+      1      52   245  0.682    58 0.906  -0.0164 -0.0164 0.0000129 below          
+      2     335   335  0         6 0.0938  0.333   0.333  0         above          
+      
+      $distinct$Europe$stats$conf_regions$by_term$drat
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y      end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>      <dbl>    <dbl> <ord>          
+      1    2.74  3.93  0.532    50 0.781  3.01e- 6    2.54e-6 -8.76e-7 above          
+      2    4.21  4.98  0.344    14 0.219 -5.20e-10   -4.13e-5 -1.20e-4 below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$wt
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct    start_y      end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>      <dbl>   <dbl> <ord>          
+      1    1.50  3.19  0.428    29 0.453 -0.0000179 -0.0000152 6.20e-6 below          
+      2    3.44  5.45  0.509    35 0.547  0.0000165  0.0000167 3.89e-7 above          
+      
+      $distinct$Europe$stats$conf_regions$by_term$qsec
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct      start_y    end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>        <dbl>    <dbl>   <dbl> <ord>          
+      1    14.5  18.9  0.521    50 0.781 -0.000000437 -8.99e-8 6.66e-7 below          
+      2    20    23.0  0.350    14 0.219  0.00000111   1.19e-6 2.33e-7 above          
+      
+      $distinct$Europe$stats$conf_regions$by_term$vs
+      # A tibble: 2 x 5
+        x         n n_pct         y relative_to_mid
+        <ord> <int> <dbl>     <dbl> <ord>          
+      1 FALSE    36 0.562  0.000122 above          
+      2 TRUE     28 0.438 -0.000156 below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct        y relative_to_mid
+        <ord> <int> <dbl>    <dbl> <ord>          
+      1 FALSE    38 0.594  0.00174 above          
+      2 TRUE     26 0.406 -0.00254 below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$gear
+      # A tibble: 3 x 5
+        x         n n_pct       y relative_to_mid
+        <ord> <int> <dbl>   <dbl> <ord>          
+      1 three    30 0.469 -0.0896 below          
+      2 four     24 0.375 -0.0896 below          
+      3 five     10 0.156  0.484  above          
+      
+      $distinct$Europe$stats$conf_regions$by_term$carb
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
+      1       1     1  0        14 0.219  0.00000963  9.63e-6  0       above          
+      2       2     8  0.857    50 0.781 -0.00000314 -6.33e-6 -3.72e-6 below          
+      
+      $distinct$Europe$stats$conf_regions$by_term$country
+      # A tibble: 6 x 5
+        x           n  n_pct     y relative_to_mid
+        <ord>   <int>  <dbl> <dbl> <ord>          
+      1 UK          2 0.0312     0 below          
+      2 Sweden      2 0.0312     0 below          
+      3 Japan      12 0.188      0 below          
+      4 Italy       8 0.125      0 below          
+      5 Germany    16 0.25       0 below          
+      6 USA        24 0.375      0 below          
       
       
-      $stats$`North America`
-      $stats$`North America`$by_term
-      $stats$`North America`$by_term$model
+      $distinct$Europe$stats$conf_regions$significant
+      # A tibble: 60 x 12
+         term  x         start_x end_x x_span     n  n_pct       y start_y end_y trend
+         <chr> <chr>       <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl> <dbl> <dbl>
+       1 model Duster 3~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       2 model Camaro Z~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       3 model Lincoln ~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       4 model Cadillac~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       5 model Chrysler~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       6 model Hornet S~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       7 model Pontiac ~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
+       8 model AMC Jave~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
+       9 model Dodge Ch~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
+      10 model Merc 450~      NA    NA     NA     2 0.0312 -0.0167      NA    NA    NA
+      # i 50 more rows
+      # i 1 more variable: relative_to_mid <ord>
+      
+      $distinct$Europe$stats$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      $distinct$Europe$stats$effects_plot
+      $distinct$Europe$stats$effects_plot[[1]]
+          y PANEL group colour      fill linewidth linetype alpha         xmin
+      1   1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
+      2   2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
+      3   3     1     3     NA lightgray       0.5        1    NA 2.407385e-08
+      4   4     1     4     NA lightgray       0.5        1    NA 2.407385e-08
+      5   5     1     5     NA lightgray       0.5        1    NA 2.407385e-08
+      6   6     1     6     NA lightgray       0.5        1    NA 2.407385e-08
+      7   7     1     7     NA lightgray       0.5        1    NA 2.407385e-08
+      8   8     1     8     NA lightgray       0.5        1    NA 2.407385e-08
+      9   9     1     9     NA lightgray       0.5        1    NA 2.407385e-08
+      10 10     1    10     NA lightgray       0.5        1    NA 2.407385e-08
+      11 11     1    11     NA lightgray       0.5        1    NA 2.407385e-08
+      12 12     1    12     NA lightgray       0.5        1    NA 2.407385e-08
+      13 13     1    13     NA lightgray       0.5        1    NA 2.407385e-08
+                 xmax ymin ymax
+      1  8.105179e-07 -Inf  Inf
+      2  8.105179e-07 -Inf  Inf
+      3  8.105179e-07 -Inf  Inf
+      4  8.105179e-07 -Inf  Inf
+      5  8.105179e-07 -Inf  Inf
+      6  8.105179e-07 -Inf  Inf
+      7  8.105179e-07 -Inf  Inf
+      8  8.105179e-07 -Inf  Inf
+      9  8.105179e-07 -Inf  Inf
+      10 8.105179e-07 -Inf  Inf
+      11 8.105179e-07 -Inf  Inf
+      12 8.105179e-07 -Inf  Inf
+      13 8.105179e-07 -Inf  Inf
+      
+      $distinct$Europe$stats$effects_plot[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   6.769068e-07 6.769068e-07  1     1     1  0.875  1.125  black       0.5
+      2   6.769068e-07 6.769068e-07  2     1     2  1.875  2.125  black       0.5
+      3   2.396249e-07 1.864011e-06  3     1     3  2.875  3.125  black       0.5
+      4  -2.858403e-06 2.817585e-06  4     1     4  3.875  4.125  black       0.5
+      5  -5.657227e-06 1.031163e-05  5     1     5  4.875  5.125  black       0.5
+      6  -4.059021e-05 3.683255e-06  6     1     6  5.875  6.125  black       0.5
+      7  -1.720928e-05 1.737765e-05  7     1     7  6.875  7.125  black       0.5
+      8  -1.555682e-04 1.222008e-04  8     1     8  7.875  8.125  black       0.5
+      9  -2.536420e-03 1.736585e-03  9     1     9  8.875  9.125  black       0.5
+      10 -1.636691e-02 3.327444e-01 10     1    10  9.875 10.125  black       0.5
+      11 -8.956927e-02 4.836779e-01 11     1    11 10.875 11.125  black       0.5
+      12 -1.226798e+00 8.524008e-01 12     1    12 11.875 12.125  black       0.5
+      13 -9.845772e-01 5.360097e-01 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $distinct$Europe$stats$effects_plot[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   4.172959e-07 4.172959e-07  0.7  1.3  1     1     1     NA white       0.5
+      2   4.172959e-07 4.172959e-07  1.7  2.3  2     1     2     NA white       0.5
+      3   2.363588e-07 5.982329e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -4.032784e-07 1.237870e-06  3.7  4.3  4     1     4     NA white       0.5
+      5  -1.256052e-06 2.090644e-06  4.7  5.3  5     1     5     NA white       0.5
+      6  -1.839528e-06 2.674120e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -6.926203e-06 7.760795e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -6.793992e-05 6.877451e-05  7.7  8.3  8     1     8     NA white       0.5
+      9  -1.030278e-03 1.031113e-03  8.7  9.3  9     1     9     NA white       0.5
+      10 -1.483013e-02 1.483096e-02  9.7 10.3 10     1    10     NA white       0.5
+      11 -7.557415e-02 7.557498e-02 10.7 11.3 11     1    11     NA white       0.5
+      12 -1.706886e-01 1.706894e-01 11.7 12.3 12     1    12     NA white       0.5
+      13 -2.485527e-01 2.485536e-01 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $distinct$Europe$stats$effects_plot[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  4.172959e-07 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  4.172959e-07 NALED  2.6%  3     1     3  black    3     0   0.5    -1    NA
+      4  4.172959e-07 NALED 30.2%  4     1     4  black    3     0   0.5    -1    NA
+      5  4.172959e-07 NALED 27.4%  5     1     5  black    3     0   0.5    -1    NA
+      6  4.172959e-07 NALED 11.0%  6     1     6  black    3     0   0.5    -1    NA
+      7  4.172959e-07 NALED 26.1%  7     1     7  black    3     0   0.5    -1    NA
+      8  4.172959e-07 NALED 25.4%  8     1     8  black    3     0   0.5    -1    NA
+      9  4.172959e-07 NALED 24.0%  9     1     9  black    3     0   0.5    -1    NA
+      10 4.172959e-07 NALED 45.9% 10     1    10  black    3     0   0.5    -1    NA
+      11 4.172959e-07 NALED 43.2% 11     1    11  black    3     0   0.5    -1    NA
+      12 4.172959e-07 NALED 37.7% 12     1    12  black    3     0   0.5    -1    NA
+      13 4.172959e-07 NALED 25.4% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   4.172959e-07     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   4.172959e-07     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3   2.363588e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -4.032784e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -1.256052e-06     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -1.839528e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -6.926203e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -6.793992e-05     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -1.030278e-03     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -1.483013e-02     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -7.557415e-02     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -1.706886e-01     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -2.485527e-01     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  4.172959e-07     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  5.982329e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  1.237870e-06     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  2.090644e-06     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  2.674120e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  7.760795e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  6.877451e-05     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  1.031113e-03     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 1.483096e-02     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 7.557498e-02     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 1.706894e-01     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 2.485536e-01     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  4.172959e-07 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  4.172959e-07 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  4.172959e-07 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  4.172959e-07 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  4.172959e-07 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  4.172959e-07 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  4.172959e-07 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  4.172959e-07 ALED 0.002  9     1     9  black    3     0   0.5     2    NA
+      10 4.172959e-07 ALED 0.030 10     1    10  black    3     0   0.5     2    NA
+      11 4.172959e-07 ALED 0.151 11     1    11  black    3     0   0.5     2    NA
+      12 4.172959e-07 ALED 0.341 12     1    12  black    3     0   0.5     2    NA
+      13 4.172959e-07 ALED 0.497 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$Europe$plots
+      $distinct$Europe$plots$model
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1  0.53677911     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2  0.53677911     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3  0.53677911     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4  0.53677911     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5  0.53671072     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6  0.53671072     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7  0.53671072     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8 -0.01679115     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9 -0.01679123     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10 -0.01674611     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11 -0.01674611     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12 -0.01674611     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13 -0.04831154     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14 -0.22707738     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15 -0.22707638     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16 -0.22707017     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17 -0.22707018     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18 -1.22679840     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19 -0.22679851     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20 -0.22672760     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21 -0.22672760     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22 -0.98722761     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23 -0.98722761     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24 -0.02429416     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25 -0.02429416     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26 -0.02429414     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27 -0.02429413     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28 -0.14757867     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29  0.85240017     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30  0.85240017     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31 -0.14759954     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32 -0.14776047     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 2.407385e-08 8.105179e-07
+      2   Inf 2.407385e-08 8.105179e-07
+      3   Inf 2.407385e-08 8.105179e-07
+      4   Inf 2.407385e-08 8.105179e-07
+      5   Inf 2.407385e-08 8.105179e-07
+      6   Inf 2.407385e-08 8.105179e-07
+      7   Inf 2.407385e-08 8.105179e-07
+      8   Inf 2.407385e-08 8.105179e-07
+      9   Inf 2.407385e-08 8.105179e-07
+      10  Inf 2.407385e-08 8.105179e-07
+      11  Inf 2.407385e-08 8.105179e-07
+      12  Inf 2.407385e-08 8.105179e-07
+      13  Inf 2.407385e-08 8.105179e-07
+      14  Inf 2.407385e-08 8.105179e-07
+      15  Inf 2.407385e-08 8.105179e-07
+      16  Inf 2.407385e-08 8.105179e-07
+      17  Inf 2.407385e-08 8.105179e-07
+      18  Inf 2.407385e-08 8.105179e-07
+      19  Inf 2.407385e-08 8.105179e-07
+      20  Inf 2.407385e-08 8.105179e-07
+      21  Inf 2.407385e-08 8.105179e-07
+      22  Inf 2.407385e-08 8.105179e-07
+      23  Inf 2.407385e-08 8.105179e-07
+      24  Inf 2.407385e-08 8.105179e-07
+      25  Inf 2.407385e-08 8.105179e-07
+      26  Inf 2.407385e-08 8.105179e-07
+      27  Inf 2.407385e-08 8.105179e-07
+      28  Inf 2.407385e-08 8.105179e-07
+      29  Inf 2.407385e-08 8.105179e-07
+      30  Inf 2.407385e-08 8.105179e-07
+      31  Inf 2.407385e-08 8.105179e-07
+      32  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$mpg
+                x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1  10.37589 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2  14.41394 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3  15.20000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4  16.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5  18.70000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6  19.84566 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7  21.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      8  22.87332 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      9  30.10414 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      10 33.90000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+                 ymin         ymax
+      1  2.407385e-08 8.105179e-07
+      2  2.407385e-08 8.105179e-07
+      3  2.407385e-08 8.105179e-07
+      4  2.407385e-08 8.105179e-07
+      5  2.407385e-08 8.105179e-07
+      6  2.407385e-08 8.105179e-07
+      7  2.407385e-08 8.105179e-07
+      8  2.407385e-08 8.105179e-07
+      9  2.407385e-08 8.105179e-07
+      10 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$cyl
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3 -3.535310e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4 -8.780529e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5 -7.626894e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 -6.689942e-07     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7  1.945392e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8  2.140677e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9  2.140678e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 2.407385e-08 8.105179e-07
+      2  Inf 2.407385e-08 8.105179e-07
+      3  Inf 2.407385e-08 8.105179e-07
+      4  Inf 2.407385e-08 8.105179e-07
+      5  Inf 2.407385e-08 8.105179e-07
+      6  Inf 2.407385e-08 8.105179e-07
+      7  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$disp
+                 x          y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941  0.5360090     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253  0.5360090     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000  0.5360083     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210  0.5360083     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111  0.5360083     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 -0.4322501     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 -0.4322501     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 -0.5652008     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 -0.5666210     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 -0.9845779     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 2.407385e-08 8.105179e-07
+      2  -Inf  Inf 2.407385e-08 8.105179e-07
+      3  -Inf  Inf 2.407385e-08 8.105179e-07
+      4  -Inf  Inf 2.407385e-08 8.105179e-07
+      5  -Inf  Inf 2.407385e-08 8.105179e-07
+      6  -Inf  Inf 2.407385e-08 8.105179e-07
+      7  -Inf  Inf 2.407385e-08 8.105179e-07
+      8  -Inf  Inf 2.407385e-08 8.105179e-07
+      9  -Inf  Inf 2.407385e-08 8.105179e-07
+      10 -Inf  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$hp
+                x           y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000 -0.01636759     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000 -0.01636752     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000 -0.01636668     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000 -0.01636668     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003 -0.01636641     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000 -0.01636618     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 -0.01636054     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 -0.01636054     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 -0.01635879     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000  0.33274373     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 2.407385e-08 8.105179e-07
+      2  -Inf  Inf 2.407385e-08 8.105179e-07
+      3  -Inf  Inf 2.407385e-08 8.105179e-07
+      4  -Inf  Inf 2.407385e-08 8.105179e-07
+      5  -Inf  Inf 2.407385e-08 8.105179e-07
+      6  -Inf  Inf 2.407385e-08 8.105179e-07
+      7  -Inf  Inf 2.407385e-08 8.105179e-07
+      8  -Inf  Inf 2.407385e-08 8.105179e-07
+      9  -Inf  Inf 2.407385e-08 8.105179e-07
+      10 -Inf  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$drat
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533  3.006348e-06     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190  2.998684e-06     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000  2.912039e-06     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717  2.595384e-06     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000  2.543397e-06     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310  2.542455e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000  2.540534e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607  2.540534e-06     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875 -5.204015e-10     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502 -4.126711e-05     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 2.407385e-08 8.105179e-07
+      2  -Inf  Inf 2.407385e-08 8.105179e-07
+      3  -Inf  Inf 2.407385e-08 8.105179e-07
+      4  -Inf  Inf 2.407385e-08 8.105179e-07
+      5  -Inf  Inf 2.407385e-08 8.105179e-07
+      6  -Inf  Inf 2.407385e-08 8.105179e-07
+      7  -Inf  Inf 2.407385e-08 8.105179e-07
+      8  -Inf  Inf 2.407385e-08 8.105179e-07
+      9  -Inf  Inf 2.407385e-08 8.105179e-07
+      10 -Inf  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$wt
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275 -1.788619e-05     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 -1.730934e-05     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 -1.552327e-05     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 -1.523400e-05     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 -1.523378e-05     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356  1.650259e-05     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000  1.650686e-05     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000  1.669844e-05     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066  1.669919e-05     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272  1.670074e-05     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 2.407385e-08 8.105179e-07
+      2  -Inf  Inf 2.407385e-08 8.105179e-07
+      3  -Inf  Inf 2.407385e-08 8.105179e-07
+      4  -Inf  Inf 2.407385e-08 8.105179e-07
+      5  -Inf  Inf 2.407385e-08 8.105179e-07
+      6  -Inf  Inf 2.407385e-08 8.105179e-07
+      7  -Inf  Inf 2.407385e-08 8.105179e-07
+      8  -Inf  Inf 2.407385e-08 8.105179e-07
+      9  -Inf  Inf 2.407385e-08 8.105179e-07
+      10 -Inf  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$qsec
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589 -4.372820e-07     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460 -4.200503e-07     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553 -3.217546e-07     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000 -3.171869e-07     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920 -9.027353e-08     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000 -9.025696e-08     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333 -8.992084e-08     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000 -8.991858e-08     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000  1.105689e-06     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365  1.187104e-06     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 2.407385e-08 8.105179e-07
+      2  -Inf  Inf 2.407385e-08 8.105179e-07
+      3  -Inf  Inf 2.407385e-08 8.105179e-07
+      4  -Inf  Inf 2.407385e-08 8.105179e-07
+      5  -Inf  Inf 2.407385e-08 8.105179e-07
+      6  -Inf  Inf 2.407385e-08 8.105179e-07
+      7  -Inf  Inf 2.407385e-08 8.105179e-07
+      8  -Inf  Inf 2.407385e-08 8.105179e-07
+      9  -Inf  Inf 2.407385e-08 8.105179e-07
+      10 -Inf  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$vs
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  0.0001215239     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.0001562451     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 2.407385e-08 8.105179e-07
+      2  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$am
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  0.001735908     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.002537096     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 2.407385e-08 8.105179e-07
+      2  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$gear
+        x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.08956994     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -0.08956974     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.48367721     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 2.407385e-08 8.105179e-07
+      2 2.407385e-08 8.105179e-07
+      3 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$carb
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  9.634726e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2 -3.144164e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3 -3.146470e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4 -3.146570e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8 -6.334134e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 2.407385e-08 8.105179e-07
+      2  Inf 2.407385e-08 8.105179e-07
+      3  Inf 2.407385e-08 8.105179e-07
+      4  Inf 2.407385e-08 8.105179e-07
+      5  Inf 2.407385e-08 8.105179e-07
+      
+      $distinct$Europe$plots$country
+        x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 0     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 0     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 0     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 0     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 0     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 0     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 2.407385e-08 8.105179e-07
+      2 2.407385e-08 8.105179e-07
+      3 2.407385e-08 8.105179e-07
+      4 2.407385e-08 8.105179e-07
+      5 2.407385e-08 8.105179e-07
+      6 2.407385e-08 8.105179e-07
+      
+      
+      
+      $distinct$`North America`
+      $distinct$`North America`$ale
+      $distinct$`North America`$ale$model
+      # A tibble: 32 x 7
+         model.bin              .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>               <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 Duster 360              2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       2 Camaro Z28              2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       3 Lincoln Continental     2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       4 Cadillac Fleetwood      2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       5 Chrysler Imperial       2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       6 Hornet Sportabout       2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       7 Pontiac Firebird        2 -0.558   -0.558   -0.558    -0.558   -0.558  
+       8 AMC Javelin             2 -0.00399 -0.00399 -0.00399  -0.00399 -0.00399
+       9 Dodge Challenger        2 -0.00399 -0.00399 -0.00399  -0.00399 -0.00399
+      10 Merc 450SLC             2 -0.00404 -0.00404 -0.00404  -0.00404 -0.00404
+      # i 22 more rows
+      
+      $distinct$`North America`$ale$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $distinct$`North America`$ale$cyl
+      # A tibble: 7 x 7
+        cyl.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1        3     1 -0.0000202  -0.0000202  -0.0000202  -0.0000202  -0.0000202 
+      2        4    17 -0.0000202  -0.0000202  -0.0000202  -0.0000202  -0.0000202 
+      3        5     6  0.00000578  0.00000578  0.00000578  0.00000578  0.00000578
+      4        6    11  0.00000836  0.00000836  0.00000836  0.00000836  0.00000836
+      5        7     5  0.00000836  0.00000836  0.00000836  0.00000836  0.00000836
+      6        8    21  0.0000148   0.0000148   0.0000148   0.0000148   0.0000148 
+      7        9     3  0.0000148   0.0000148   0.0000148   0.0000148   0.0000148 
+      
+      $distinct$`North America`$ale$disp
+      # A tibble: 10 x 7
+         disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
+             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1      70.9     1 -0.536 -0.536  -0.536    -0.536 -0.536
+       2      79.0     7 -0.536 -0.536  -0.536    -0.536 -0.536
+       3     120.      7 -0.536 -0.536  -0.536    -0.536 -0.536
+       4     146.      7 -0.536 -0.536  -0.536    -0.536 -0.536
+       5     166.      7 -0.536 -0.536  -0.536    -0.536 -0.536
+       6     258.      7  0.432  0.432   0.432     0.432  0.432
+       7     300.      7  0.432  0.432   0.432     0.432  0.432
+       8     350.      7  0.565  0.565   0.565     0.565  0.565
+       9     397.      7  0.567  0.567   0.567     0.567  0.567
+      10     472       7  0.985  0.985   0.985     0.985  0.985
+      
+      $distinct$`North America`$ale$hp
+      # A tibble: 10 x 7
+         hp.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1     52      1  0.0221  0.0221  0.0221    0.0221  0.0221
+       2     66      8  0.0221  0.0221  0.0221    0.0221  0.0221
+       3     95      6  0.0221  0.0221  0.0221    0.0221  0.0221
+       4    109      7  0.0221  0.0221  0.0221    0.0221  0.0221
+       5    112.     7  0.0221  0.0221  0.0221    0.0221  0.0221
+       6    150      8  0.0221  0.0221  0.0221    0.0221  0.0221
+       7    176.     6  0.0221  0.0221  0.0221    0.0221  0.0221
+       8    181.     7  0.0221  0.0221  0.0221    0.0221  0.0221
+       9    245      8  0.0221  0.0221  0.0221    0.0221  0.0221
+      10    335      6 -0.449  -0.449  -0.449    -0.449  -0.449 
+      
+      $distinct$`North America`$ale$drat
+      # A tibble: 10 x 7
+         drat.ceil    .n           .y        .y_lo      .y_mean    .y_median     .y_hi
+             <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>     <dbl>
+       1      2.74     1  0.000000766  0.000000766  0.000000766  0.000000766   7.66e-7
+       2      3.02     7  0.000000773  0.000000773  0.000000773  0.000000773   7.73e-7
+       3      3.08     8  0.000000860  0.000000860  0.000000860  0.000000860   8.60e-7
+       4      3.18     6  0.00000107   0.00000107   0.00000107   0.00000107    1.07e-6
+       5      3.62     7  0.00000104   0.00000104   0.00000104   0.00000104    1.04e-6
+       6      3.73     7  0.00000102   0.00000102   0.00000102   0.00000102    1.02e-6
+       7      3.9      8 -0.00000135  -0.00000135  -0.00000135  -0.00000135   -1.35e-6
+       8      3.93     6 -0.00000161  -0.00000161  -0.00000161  -0.00000161   -1.61e-6
+       9      4.21     7 -0.00000162  -0.00000162  -0.00000162  -0.00000162   -1.62e-6
+      10      4.98     7 -0.00000166  -0.00000166  -0.00000166  -0.00000166   -1.66e-6
+      
+      $distinct$`North America`$ale$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
+           <dbl> <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
+       1    1.50     1  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
+       2    1.94     7  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
+       3    2.46     7  0.0000184  0.0000184  0.0000184  0.0000184  0.0000184
+       4    2.79     7  0.0000150  0.0000150  0.0000150  0.0000150  0.0000150
+       5    3.19     7  0.0000146  0.0000146  0.0000146  0.0000146  0.0000146
+       6    3.44     7 -0.0000173 -0.0000173 -0.0000173 -0.0000173 -0.0000173
+       7    3.52     7 -0.0000173 -0.0000173 -0.0000173 -0.0000173 -0.0000173
+       8    3.73     7 -0.0000174 -0.0000174 -0.0000174 -0.0000174 -0.0000174
+       9    4.05     7 -0.0000175 -0.0000175 -0.0000175 -0.0000175 -0.0000175
+      10    5.45     7 -0.0000175 -0.0000175 -0.0000175 -0.0000175 -0.0000175
+      
+      $distinct$`North America`$ale$qsec
+      # A tibble: 10 x 7
+         qsec.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+             <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1      14.5     1  0.0000101   0.0000101   0.0000101   0.0000101   0.0000101 
+       2      15.6     7  0.00000999  0.00000999  0.00000999  0.00000999  0.00000999
+       3      16.7     7 -0.00000154 -0.00000154 -0.00000154 -0.00000154 -0.00000154
+       4      17.0     7 -0.00000176 -0.00000176 -0.00000176 -0.00000176 -0.00000176
+       5      17.4     7 -0.00000200 -0.00000200 -0.00000200 -0.00000200 -0.00000200
+       6      18.0     7 -0.00000200 -0.00000200 -0.00000200 -0.00000200 -0.00000200
+       7      18.6     7 -0.00000200 -0.00000200 -0.00000200 -0.00000200 -0.00000200
+       8      18.9     7 -0.00000200 -0.00000200 -0.00000200 -0.00000200 -0.00000200
+       9      20       7 -0.00000344 -0.00000344 -0.00000344 -0.00000344 -0.00000344
+      10      23.0     7 -0.00000352 -0.00000352 -0.00000352 -0.00000352 -0.00000352
+      
+      $distinct$`North America`$ale$vs
+      # A tibble: 2 x 7
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 -0.00721 -0.00721 -0.00721  -0.00721 -0.00721
+      2 TRUE      28  0.00927  0.00927  0.00927   0.00927  0.00927
+      
+      $distinct$`North America`$ale$am
+      # A tibble: 2 x 7
+        am.bin    .n           .y        .y_lo      .y_mean    .y_median        .y_hi
+        <ord>  <int>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
+      1 FALSE     38  0.000000261  0.000000261  0.000000261  0.000000261  0.000000261
+      2 TRUE      26 -0.000000382 -0.000000382 -0.000000382 -0.000000382 -0.000000382
+      
+      $distinct$`North America`$ale$gear
+      # A tibble: 3 x 7
+        gear.bin    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
+        <ord>    <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
+      1 three       30  0.00000106   0.00000106   0.00000106   0.00000106      1.06e-6
+      2 four        24  0.000000742  0.000000742  0.000000742  0.000000742     7.42e-7
+      3 five        10 -0.00000496  -0.00000496  -0.00000496  -0.00000496     -4.96e-6
+      
+      $distinct$`North America`$ale$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1         1    14 -0.00000980 -0.00000980 -0.00000980 -0.00000980 -0.00000980
+      2         2    19  0.00000299  0.00000299  0.00000299  0.00000299  0.00000299
+      3         3     9  0.00000299  0.00000299  0.00000299  0.00000299  0.00000299
+      4         4    16  0.00000431  0.00000431  0.00000431  0.00000431  0.00000431
+      5         8     6  0.00000469  0.00000469  0.00000469  0.00000469  0.00000469
+      
+      $distinct$`North America`$ale$country
+      # A tibble: 6 x 7
+        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 UK              2     0     0       0         0     0
+      2 Sweden          2     0     0       0         0     0
+      3 Japan          12     0     0       0         0     0
+      4 Italy           8     0     0       0         0     0
+      5 Germany        16     0     0       0         0     0
+      6 USA            24     0     0       0         0     0
+      
+      
+      $distinct$`North America`$boot
+      NULL
+      
+      $distinct$`North America`$stats
+      $distinct$`North America`$stats$by_term
+      $distinct$`North America`$stats$by_term$model
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3861,7 +6122,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max   12.5     12.5    12.5    12.5      12.5  
       
-      $stats$`North America`$by_term$mpg
+      $distinct$`North America`$stats$by_term$mpg
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3872,7 +6133,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      $stats$`North America`$by_term$cyl
+      $distinct$`North America`$stats$by_term$cyl
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3883,7 +6144,7 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max  12.5        12.5        12.5        12.5        12.5      
       
-      $stats$`North America`$by_term$disp
+      $distinct$`North America`$stats$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3894,7 +6155,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max   12.5     12.5    12.5    12.5      12.5  
       
-      $stats$`North America`$by_term$hp
+      $distinct$`North America`$stats$by_term$hp
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3905,7 +6166,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  12.5     12.5     12.5     12.5      12.5   
       
-      $stats$`North America`$by_term$drat
+      $distinct$`North America`$stats$by_term$drat
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3916,7 +6177,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   7.81         7.81         7.81         7.81         7.81      
       
-      $stats$`North America`$by_term$wt
+      $distinct$`North America`$stats$by_term$wt
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -3927,7 +6188,7 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max  12.5        12.5        12.5        12.5        12.5      
       
-      $stats$`North America`$by_term$qsec
+      $distinct$`North America`$stats$by_term$qsec
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3938,7 +6199,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   9.38         9.38         9.38         9.38         9.38      
       
-      $stats$`North America`$by_term$vs
+      $distinct$`North America`$stats$by_term$vs
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -3949,7 +6210,7 @@
       5 naler_min -50       -50       -50       -50       -50      
       6 naler_max  12.5      12.5      12.5      12.5      12.5    
       
-      $stats$`North America`$by_term$am
+      $distinct$`North America`$stats$by_term$am
       # A tibble: 6 x 6
         statistic      estimate      conf.low          mean        median    conf.high
         <chr>             <dbl>         <dbl>         <dbl>         <dbl>        <dbl>
@@ -3960,7 +6221,7 @@
       5 naler_min -50           -50           -50           -50               -5   e+1
       6 naler_max   7.81          7.81          7.81          7.81             7.81e+0
       
-      $stats$`North America`$by_term$gear
+      $distinct$`North America`$stats$by_term$gear
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3971,7 +6232,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   7.81         7.81         7.81         7.81         7.81      
       
-      $stats$`North America`$by_term$carb
+      $distinct$`North America`$stats$by_term$carb
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -3982,7 +6243,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   9.38         9.38         9.38         9.38         9.38      
       
-      $stats$`North America`$by_term$country
+      $distinct$`North America`$stats$by_term$country
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -3994,8 +6255,8 @@
       6 naler_max        0        0     0      0         0
       
       
-      $stats$`North America`$by_statistic
-      $stats$`North America`$by_statistic$aled
+      $distinct$`North America`$stats$by_stat
+      $distinct$`North America`$stats$by_stat$aled
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -4013,7 +6274,7 @@
       12 carb    0.00000351  0.00000351  0.00000351  0.00000351  0.00000351 
       13 country 0           0           0           0           0          
       
-      $stats$`North America`$by_statistic$aler_min
+      $distinct$`North America`$stats$by_stat$aler_min
       # A tibble: 13 x 6
          term        estimate     conf.low         mean       median    conf.high
          <chr>          <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -4031,7 +6292,7 @@
       12 carb    -0.00000980  -0.00000980  -0.00000980  -0.00000980  -0.00000980 
       13 country  0            0            0            0            0          
       
-      $stats$`North America`$by_statistic$aler_max
+      $distinct$`North America`$stats$by_stat$aler_max
       # A tibble: 13 x 6
          term       estimate    conf.low        mean      median   conf.high
          <chr>         <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -4049,7 +6310,7 @@
       12 carb    0.00000469  0.00000469  0.00000469  0.00000469  0.00000469 
       13 country 0           0           0           0           0          
       
-      $stats$`North America`$by_statistic$naled
+      $distinct$`North America`$stats$by_stat$naled
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -4067,7 +6328,7 @@
       12 carb        30.3     30.3  30.3   30.3      30.3
       13 country      0        0     0      0         0  
       
-      $stats$`North America`$by_statistic$naler_min
+      $distinct$`North America`$stats$by_stat$naler_min
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -4085,7 +6346,7 @@
       12 carb         -50      -50   -50    -50       -50
       13 country        0        0     0      0         0
       
-      $stats$`North America`$by_statistic$naler_max
+      $distinct$`North America`$stats$by_stat$naler_max
       # A tibble: 13 x 6
          term    estimate conf.low  mean median conf.high
          <chr>      <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -4104,7 +6365,7 @@
       13 country     0        0     0      0         0   
       
       
-      $stats$`North America`$estimate
+      $distinct$`North America`$stats$estimate
       # A tibble: 13 x 7
          term           aled     aler_min    aler_max naled naler_min naler_max
          <chr>         <dbl>        <dbl>       <dbl> <dbl>     <dbl>     <dbl>
@@ -4122,437 +6383,9 @@
       12 carb    0.00000351  -0.00000980  0.00000469   30.3       -50      9.38
       13 country 0            0           0             0           0      0   
       
-      $stats$`North America`$effects_plot
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $plots
-      $plots$Asia
-      $plots$Asia$model
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$mpg
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$drat
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$wt
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$qsec
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$am
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$carb
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Asia$country
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      $plots$Europe
-      $plots$Europe$model
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$mpg
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$drat
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$wt
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$qsec
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$am
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$carb
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$Europe$country
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      $plots$`North America`
-      $plots$`North America`$model
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$mpg
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$hp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$drat
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$wt
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$qsec
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$am
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$carb
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $plots$`North America`$country
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $conf_regions
-      $conf_regions$Asia
-      $conf_regions$Asia$by_term
-      $conf_regions$Asia$by_term$model
-      # A tibble: 32 x 5
-         x                       n  n_pct      y relative_to_mid
-         <ord>               <int>  <dbl>  <dbl> <ord>          
-       1 Duster 360              2 0.0312 0.0209 above          
-       2 Camaro Z28              2 0.0312 0.0209 above          
-       3 Lincoln Continental     2 0.0312 0.0209 above          
-       4 Cadillac Fleetwood      2 0.0312 0.0209 above          
-       5 Chrysler Imperial       2 0.0312 0.0209 above          
-       6 Hornet Sportabout       2 0.0312 0.0209 above          
-       7 Pontiac Firebird        2 0.0312 0.0209 above          
-       8 AMC Javelin             2 0.0312 0.0208 above          
-       9 Dodge Challenger        2 0.0312 0.0208 above          
-      10 Merc 450SLC             2 0.0312 0.0208 above          
-      # i 22 more rows
-      
-      $conf_regions$Asia$by_term$mpg
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct       start_y     end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>         <dbl>     <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1 0.00000000574   5.74e-9     0 above          
-      
-      $conf_regions$Asia$by_term$cyl
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1       3     4  0.167    18 0.281  0.0000237   2.11e-5 -1.59e-5 above          
-      2       5     9  0.667    46 0.719 -0.00000501 -1.69e-5 -1.79e-5 below          
-      
-      $conf_regions$Asia$by_term$disp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
-      1    70.9  300.  0.571    43 0.672  0.000112  0.000102  -1.68e-5 above          
-      2   350.   472   0.304    21 0.328 -0.000286 -0.000287  -3.18e-6 below          
-      
-      $conf_regions$Asia$by_term$hp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n  n_pct  start_y    end_y      trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>    <dbl>    <dbl>      <dbl> <ord>          
-      1      52   245  0.682    58 0.906  -0.00573 -0.00573 0.00000212 below          
-      2     335   335  0         6 0.0938  0.117    0.117   0          above          
-      
-      $conf_regions$Asia$by_term$drat
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
-      1    2.74  3.93  0.532    50 0.781 -0.00000377  -9.21e-7 5.35e-6 below          
-      2    4.21  4.98  0.344    14 0.219  0.00000163   4.29e-5 1.20e-4 above          
-      
-      $conf_regions$Asia$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1    1.50  2.46  0.244    15 0.234    -5.12e-7 -2.87e-6 -9.63e-6 below          
-      2    2.79  5.45  0.673    49 0.766     2.60e-7  8.49e-7  8.73e-7 above          
-      
-      $conf_regions$Asia$by_term$qsec
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
-      1    14.5  15.6  0.135     8 0.125 -0.00000968  -9.57e-6 7.98e-7 below          
-      2    16.7  23.0  0.733    56 0.875  0.00000187   2.34e-6 6.38e-7 above          
-      
-      $conf_regions$Asia$by_term$vs
-      # A tibble: 2 x 5
-        x         n n_pct        y relative_to_mid
-        <ord> <int> <dbl>    <dbl> <ord>          
-      1 FALSE    36 0.562  0.00709 above          
-      2 TRUE     28 0.438 -0.00911 below          
-      
-      $conf_regions$Asia$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct        y relative_to_mid
-        <ord> <int> <dbl>    <dbl> <ord>          
-      1 FALSE    38 0.594 -0.00174 below          
-      2 TRUE     26 0.406  0.00254 above          
-      
-      $conf_regions$Asia$by_term$gear
-      # A tibble: 3 x 5
-        x         n n_pct       y relative_to_mid
-        <ord> <int> <dbl>   <dbl> <ord>          
-      1 three    30 0.469  0.0896 above          
-      2 four     24 0.375  0.0896 above          
-      3 five     10 0.156 -0.484  below          
-      
-      $conf_regions$Asia$by_term$carb
-      # A tibble: 3 x 9
-        start_x end_x x_span     n  n_pct    start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>      <dbl>    <dbl>    <dbl> <ord>          
-      1       1     3  0.286    42 0.656     1.67e-7  1.61e-7 -2.19e-8 above          
-      2       4     4  0        16 0.25     -1.16e-6 -1.16e-6  0       below          
-      3       8     8  0         6 0.0938    1.65e-6  1.65e-6  0       above          
-      
-      $conf_regions$Asia$by_term$country
-      # A tibble: 6 x 5
-        x           n  n_pct             y relative_to_mid
-        <ord>   <int>  <dbl>         <dbl> <ord>          
-      1 UK          2 0.0312 0.00000000574 above          
-      2 Sweden      2 0.0312 0.00000000574 above          
-      3 Japan      12 0.188  0.00000000574 above          
-      4 Italy       8 0.125  0.00000000574 above          
-      5 Germany    16 0.25   0.00000000574 above          
-      6 USA        24 0.375  0.00000000574 above          
-      
-      
-      $conf_regions$Asia$significant
-      # A tibble: 61 x 12
-         term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
-         <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster 360      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       2 model Camaro Z28      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       3 model Lincoln C~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       4 model Cadillac ~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       5 model Chrysler ~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       6 model Hornet Sp~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       7 model Pontiac F~      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
-       8 model AMC Javel~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
-       9 model Dodge Cha~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
-      10 model Merc 450S~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
-      # i 51 more rows
-      # i 1 more variable: relative_to_mid <ord>
-      
-      $conf_regions$Asia$sig_criterion
-      [1] "median_band_pct"
-      
-      
-      $conf_regions$Europe
-      $conf_regions$Europe$by_term
-      $conf_regions$Europe$by_term$model
-      # A tibble: 32 x 5
-         x                       n  n_pct       y relative_to_mid
-         <ord>               <int>  <dbl>   <dbl> <ord>          
-       1 Duster 360              2 0.0312  0.537  above          
-       2 Camaro Z28              2 0.0312  0.537  above          
-       3 Lincoln Continental     2 0.0312  0.537  above          
-       4 Cadillac Fleetwood      2 0.0312  0.537  above          
-       5 Chrysler Imperial       2 0.0312  0.537  above          
-       6 Hornet Sportabout       2 0.0312  0.537  above          
-       7 Pontiac Firebird        2 0.0312  0.537  above          
-       8 AMC Javelin             2 0.0312 -0.0168 below          
-       9 Dodge Challenger        2 0.0312 -0.0168 below          
-      10 Merc 450SLC             2 0.0312 -0.0167 below          
-      # i 22 more rows
-      
-      $conf_regions$Europe$by_term$mpg
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct       start_y     end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>         <dbl>     <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1 0.00000000574   5.74e-9     0 below          
-      
-      $conf_regions$Europe$by_term$cyl
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
-      1       3     6  0.5      35 0.547 -0.00000353  -6.63e-7 5.73e-6 below          
-      2       7     9  0.333    29 0.453  0.00000195   2.15e-6 5.86e-7 above          
-      
-      $conf_regions$Europe$by_term$disp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct start_y  end_y       trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>       <dbl> <ord>          
-      1    70.9  166.  0.237    29 0.453   0.536  0.536 -0.00000320 above          
-      2   258.   472   0.533    35 0.547  -0.432 -0.985 -1.04       below          
-      
-      $conf_regions$Europe$by_term$hp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n  n_pct start_y   end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl> <ord>          
-      1      52   245  0.682    58 0.906  -0.0164 -0.0164 0.0000129 below          
-      2     335   335  0         6 0.0938  0.333   0.333  0         above          
-      
-      $conf_regions$Europe$by_term$drat
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1    2.74  3.93  0.532    50 0.781     3.01e-6  2.55e-6 -8.76e-7 above          
-      2    4.21  4.98  0.344    14 0.219     5.22e-9 -4.13e-5 -1.20e-4 below          
-      
-      $conf_regions$Europe$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct    start_y      end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>      <dbl>   <dbl> <ord>          
-      1    1.50  3.19  0.428    29 0.453 -0.0000179 -0.0000152 6.20e-6 below          
-      2    3.44  5.45  0.509    35 0.547  0.0000165  0.0000167 3.89e-7 above          
-      
-      $conf_regions$Europe$by_term$qsec
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct      start_y    end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>        <dbl>    <dbl>   <dbl> <ord>          
-      1    14.5  18.9  0.521    50 0.781 -0.000000432 -8.42e-8 6.66e-7 below          
-      2    20    23.0  0.350    14 0.219  0.00000111   1.19e-6 2.33e-7 above          
-      
-      $conf_regions$Europe$by_term$vs
-      # A tibble: 2 x 5
-        x         n n_pct         y relative_to_mid
-        <ord> <int> <dbl>     <dbl> <ord>          
-      1 FALSE    36 0.562  0.000122 above          
-      2 TRUE     28 0.438 -0.000156 below          
-      
-      $conf_regions$Europe$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct        y relative_to_mid
-        <ord> <int> <dbl>    <dbl> <ord>          
-      1 FALSE    38 0.594  0.00174 above          
-      2 TRUE     26 0.406 -0.00254 below          
-      
-      $conf_regions$Europe$by_term$gear
-      # A tibble: 3 x 5
-        x         n n_pct       y relative_to_mid
-        <ord> <int> <dbl>   <dbl> <ord>          
-      1 three    30 0.469 -0.0896 below          
-      2 four     24 0.375 -0.0896 below          
-      3 five     10 0.156  0.484  above          
-      
-      $conf_regions$Europe$by_term$carb
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1       1     1  0        14 0.219  0.00000964  9.64e-6  0       above          
-      2       2     8  0.857    50 0.781 -0.00000314 -6.33e-6 -3.72e-6 below          
-      
-      $conf_regions$Europe$by_term$country
-      # A tibble: 6 x 5
-        x           n  n_pct             y relative_to_mid
-        <ord>   <int>  <dbl>         <dbl> <ord>          
-      1 UK          2 0.0312 0.00000000574 below          
-      2 Sweden      2 0.0312 0.00000000574 below          
-      3 Japan      12 0.188  0.00000000574 below          
-      4 Italy       8 0.125  0.00000000574 below          
-      5 Germany    16 0.25   0.00000000574 below          
-      6 USA        24 0.375  0.00000000574 below          
-      
-      
-      $conf_regions$Europe$significant
-      # A tibble: 60 x 12
-         term  x         start_x end_x x_span     n  n_pct       y start_y end_y trend
-         <chr> <chr>       <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster 3~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       2 model Camaro Z~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       3 model Lincoln ~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       4 model Cadillac~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       5 model Chrysler~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       6 model Hornet S~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       7 model Pontiac ~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
-       8 model AMC Jave~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
-       9 model Dodge Ch~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
-      10 model Merc 450~      NA    NA     NA     2 0.0312 -0.0167      NA    NA    NA
-      # i 50 more rows
-      # i 1 more variable: relative_to_mid <ord>
-      
-      $conf_regions$Europe$sig_criterion
-      [1] "median_band_pct"
-      
-      
-      $conf_regions$`North America`
-      $conf_regions$`North America`$by_term
-      $conf_regions$`North America`$by_term$model
+      $distinct$`North America`$stats$conf_regions
+      $distinct$`North America`$stats$conf_regions$by_term
+      $distinct$`North America`$stats$conf_regions$by_term$model
       # A tibble: 32 x 5
          x                       n  n_pct        y relative_to_mid
          <ord>               <int>  <dbl>    <dbl> <ord>          
@@ -4568,97 +6401,97 @@
       10 Merc 450SLC             2 0.0312 -0.00404 below          
       # i 22 more rows
       
-      $conf_regions$`North America`$by_term$mpg
+      $distinct$`North America`$stats$conf_regions$by_term$mpg
       # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct       start_y     end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>         <dbl>     <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1 0.00000000574   5.74e-9     0 overlap        
+        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
+      1    10.4  33.9      1    64     1       0     0     0 below          
       
-      $conf_regions$`North America`$by_term$cyl
+      $distinct$`North America`$stats$conf_regions$by_term$cyl
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
       1       3     4  0.167    18 0.281 -0.0000202   -2.02e-5 4.08e-9 below          
       2       5     9  0.667    46 0.719  0.00000578   1.48e-5 1.35e-5 above          
       
-      $conf_regions$`North America`$by_term$disp
+      $distinct$`North America`$stats$conf_regions$by_term$disp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y     trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>     <dbl> <ord>          
       1    70.9  166.  0.237    29 0.453  -0.536 -0.536 0.0000450 below          
       2   258.   472   0.533    35 0.547   0.432  0.985 1.04      above          
       
-      $conf_regions$`North America`$by_term$hp
+      $distinct$`North America`$stats$conf_regions$by_term$hp
       # A tibble: 2 x 9
         start_x end_x x_span     n  n_pct start_y   end_y      trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl>      <dbl> <ord>          
       1      52   245  0.682    58 0.906   0.0221  0.0221 -0.0000150 above          
       2     335   335  0         6 0.0938 -0.449  -0.449   0         below          
       
-      $conf_regions$`North America`$by_term$drat
+      $distinct$`North America`$stats$conf_regions$by_term$drat
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1    2.74  3.73  0.443    36 0.562     7.72e-7  1.02e-6  5.65e-7 above          
-      2    3.9   4.98  0.483    28 0.438    -1.34e-6 -1.66e-6 -6.52e-7 below          
+      1    2.74  3.73  0.443    36 0.562     7.66e-7  1.02e-6  5.65e-7 above          
+      2    3.9   4.98  0.483    28 0.438    -1.35e-6 -1.66e-6 -6.52e-7 below          
       
-      $conf_regions$`North America`$by_term$wt
+      $distinct$`North America`$stats$conf_regions$by_term$wt
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct    start_y     end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>     <dbl>    <dbl> <ord>          
-      1    1.50  3.19  0.428    29 0.453  0.0000184   1.47e-5 -8.78e-6 above          
-      2    3.44  5.45  0.509    35 0.547 -0.0000172  -1.75e-5 -5.68e-7 below          
+      1    1.50  3.19  0.428    29 0.453  0.0000184   1.46e-5 -8.78e-6 above          
+      2    3.44  5.45  0.509    35 0.547 -0.0000173  -1.75e-5 -5.68e-7 below          
       
-      $conf_regions$`North America`$by_term$qsec
+      $distinct$`North America`$stats$conf_regions$by_term$qsec
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1    14.5  15.6  0.135     8 0.125  0.0000101   1.00e-5 -9.25e-7 above          
+      1    14.5  15.6  0.135     8 0.125  0.0000101   9.99e-6 -9.25e-7 above          
       2    16.7  23.0  0.733    56 0.875 -0.00000154 -3.52e-6 -2.70e-6 below          
       
-      $conf_regions$`North America`$by_term$vs
+      $distinct$`North America`$stats$conf_regions$by_term$vs
       # A tibble: 2 x 5
         x         n n_pct        y relative_to_mid
         <ord> <int> <dbl>    <dbl> <ord>          
       1 FALSE    36 0.562 -0.00721 below          
       2 TRUE     28 0.438  0.00927 above          
       
-      $conf_regions$`North America`$by_term$am
+      $distinct$`North America`$stats$conf_regions$by_term$am
       # A tibble: 2 x 5
         x         n n_pct            y relative_to_mid
         <ord> <int> <dbl>        <dbl> <ord>          
-      1 FALSE    38 0.594  0.000000267 above          
-      2 TRUE     26 0.406 -0.000000376 below          
+      1 FALSE    38 0.594  0.000000261 above          
+      2 TRUE     26 0.406 -0.000000382 below          
       
-      $conf_regions$`North America`$by_term$gear
+      $distinct$`North America`$stats$conf_regions$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct            y relative_to_mid
         <ord> <int> <dbl>        <dbl> <ord>          
-      1 three    30 0.469  0.00000107  above          
-      2 four     24 0.375  0.000000747 above          
-      3 five     10 0.156 -0.00000495  below          
+      1 three    30 0.469  0.00000106  above          
+      2 four     24 0.375  0.000000742 above          
+      3 five     10 0.156 -0.00000496  below          
       
-      $conf_regions$`North America`$by_term$carb
+      $distinct$`North America`$stats$conf_regions$by_term$carb
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
-      1       1     1  0        14 0.219 -0.00000979  -9.79e-6 0       below          
+      1       1     1  0        14 0.219 -0.00000980  -9.80e-6 0       below          
       2       2     8  0.857    50 0.781  0.00000299   4.69e-6 1.98e-6 above          
       
-      $conf_regions$`North America`$by_term$country
+      $distinct$`North America`$stats$conf_regions$by_term$country
       # A tibble: 6 x 5
-        x           n  n_pct             y relative_to_mid
-        <ord>   <int>  <dbl>         <dbl> <ord>          
-      1 UK          2 0.0312 0.00000000574 overlap        
-      2 Sweden      2 0.0312 0.00000000574 overlap        
-      3 Japan      12 0.188  0.00000000574 overlap        
-      4 Italy       8 0.125  0.00000000574 overlap        
-      5 Germany    16 0.25   0.00000000574 overlap        
-      6 USA        24 0.375  0.00000000574 overlap        
+        x           n  n_pct     y relative_to_mid
+        <ord>   <int>  <dbl> <dbl> <ord>          
+      1 UK          2 0.0312     0 below          
+      2 Sweden      2 0.0312     0 below          
+      3 Japan      12 0.188      0 below          
+      4 Italy       8 0.125      0 below          
+      5 Germany    16 0.25       0 below          
+      6 USA        24 0.375      0 below          
       
       
-      $conf_regions$`North America`$significant
-      # A tibble: 53 x 12
+      $distinct$`North America`$stats$conf_regions$significant
+      # A tibble: 60 x 12
          term  x        start_x end_x x_span     n  n_pct        y start_y end_y trend
          <chr> <chr>      <dbl> <dbl>  <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl> <dbl>
        1 model Duster ~      NA    NA     NA     2 0.0312 -0.558        NA    NA    NA
@@ -4671,11 +6504,519 @@
        8 model AMC Jav~      NA    NA     NA     2 0.0312 -0.00399      NA    NA    NA
        9 model Dodge C~      NA    NA     NA     2 0.0312 -0.00399      NA    NA    NA
       10 model Merc 45~      NA    NA     NA     2 0.0312 -0.00404      NA    NA    NA
-      # i 43 more rows
+      # i 50 more rows
       # i 1 more variable: relative_to_mid <ord>
       
-      $conf_regions$`North America`$sig_criterion
+      $distinct$`North America`$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
+      
+      $distinct$`North America`$stats$effects_plot
+      $distinct$`North America`$stats$effects_plot[[1]]
+          y PANEL group colour      fill linewidth linetype alpha         xmin
+      1   1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
+      2   2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
+      3   3     1     3     NA lightgray       0.5        1    NA 1.178115e-10
+      4   4     1     4     NA lightgray       0.5        1    NA 1.178115e-10
+      5   5     1     5     NA lightgray       0.5        1    NA 1.178115e-10
+      6   6     1     6     NA lightgray       0.5        1    NA 1.178115e-10
+      7   7     1     7     NA lightgray       0.5        1    NA 1.178115e-10
+      8   8     1     8     NA lightgray       0.5        1    NA 1.178115e-10
+      9   9     1     9     NA lightgray       0.5        1    NA 1.178115e-10
+      10 10     1    10     NA lightgray       0.5        1    NA 1.178115e-10
+      11 11     1    11     NA lightgray       0.5        1    NA 1.178115e-10
+      12 12     1    12     NA lightgray       0.5        1    NA 1.178115e-10
+      13 13     1    13     NA lightgray       0.5        1    NA 1.178115e-10
+                 xmax ymin ymax
+      1  7.384827e-09 -Inf  Inf
+      2  7.384827e-09 -Inf  Inf
+      3  7.384827e-09 -Inf  Inf
+      4  7.384827e-09 -Inf  Inf
+      5  7.384827e-09 -Inf  Inf
+      6  7.384827e-09 -Inf  Inf
+      7  7.384827e-09 -Inf  Inf
+      8  7.384827e-09 -Inf  Inf
+      9  7.384827e-09 -Inf  Inf
+      10 7.384827e-09 -Inf  Inf
+      11 7.384827e-09 -Inf  Inf
+      12 7.384827e-09 -Inf  Inf
+      13 7.384827e-09 -Inf  Inf
+      
+      $distinct$`North America`$stats$effects_plot[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   5.740835e-09 5.740835e-09  1     1     1  0.875  1.125  black       0.5
+      2   5.740835e-09 5.740835e-09  2     1     2  1.875  2.125  black       0.5
+      3  -3.759327e-07 2.668859e-07  3     1     3  2.875  3.125  black       0.5
+      4  -1.655936e-06 1.071631e-06  4     1     4  3.875  4.125  black       0.5
+      5  -4.952244e-06 1.065031e-06  5     1     5  4.875  5.125  black       0.5
+      6  -3.515044e-06 1.012522e-05  6     1     6  5.875  6.125  black       0.5
+      7  -9.790548e-06 4.691489e-06  7     1     7  6.875  7.125  black       0.5
+      8  -2.019122e-05 1.478336e-05  8     1     8  7.875  8.125  black       0.5
+      9  -1.753776e-05 1.840999e-05  9     1     9  8.875  9.125  black       0.5
+      10 -7.207991e-03 9.267430e-03 10     1    10  9.875 10.125  black       0.5
+      11 -4.493259e-01 2.210178e-02 11     1    11 10.875 11.125  black       0.5
+      12 -5.576881e-01 2.063207e-01 12     1    12 11.875 12.125  black       0.5
+      13 -5.361209e-01 9.848645e-01 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $distinct$`North America`$stats$effects_plot[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   3.751319e-09 3.751319e-09  0.7  1.3  1     1     1     NA white       0.5
+      2   3.751319e-09 3.751319e-09  1.7  2.3  2     1     2     NA white       0.5
+      3  -1.513035e-07 1.588062e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -5.120893e-07 5.195919e-07  3.7  4.3  4     1     4     NA white       0.5
+      5  -7.709339e-07 7.784365e-07  4.7  5.3  5     1     5     NA white       0.5
+      6  -1.715528e-06 1.723030e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -1.751467e-06 1.758969e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -6.352364e-06 6.359867e-06  7.7  8.3  8     1     8     NA white       0.5
+      9  -7.753912e-06 7.761415e-06  8.7  9.3  9     1     9     NA white       0.5
+      10 -4.054494e-03 4.054502e-03  9.7 10.3 10     1    10     NA white       0.5
+      11 -2.002661e-02 2.002662e-02 10.7 11.3 11     1    11     NA white       0.5
+      12 -1.226154e-01 1.226154e-01 11.7 12.3 12     1    12     NA white       0.5
+      13 -2.486146e-01 2.486146e-01 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $distinct$`North America`$stats$effects_plot[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  3.751319e-09 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  3.751319e-09 NALED 25.0%  3     1     3  black    3     0   0.5    -1    NA
+      4  3.751319e-09 NALED 26.3%  4     1     4  black    3     0   0.5    -1    NA
+      5  3.751319e-09 NALED 14.4%  5     1     5  black    3     0   0.5    -1    NA
+      6  3.751319e-09 NALED 40.5%  6     1     6  black    3     0   0.5    -1    NA
+      7  3.751319e-09 NALED 30.3%  7     1     7  black    3     0   0.5    -1    NA
+      8  3.751319e-09 NALED 25.3%  8     1     8  black    3     0   0.5    -1    NA
+      9  3.751319e-09 NALED 33.0%  9     1     9  black    3     0   0.5    -1    NA
+      10 3.751319e-09 NALED 33.6% 10     1    10  black    3     0   0.5    -1    NA
+      11 3.751319e-09 NALED 16.0% 11     1    11  black    3     0   0.5    -1    NA
+      12 3.751319e-09 NALED 26.6% 12     1    12  black    3     0   0.5    -1    NA
+      13 3.751319e-09 NALED 33.6% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   3.751319e-09     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   3.751319e-09     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  -1.513035e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -5.120893e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -7.709339e-07     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -1.715528e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -1.751467e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -6.352364e-06     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -7.753912e-06     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -4.054494e-03     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -2.002661e-02     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -1.226154e-01     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -2.486146e-01     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  3.751319e-09     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  1.588062e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  5.195919e-07     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  7.784365e-07     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  1.723030e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  1.758969e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  6.359867e-06     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  7.761415e-06     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 4.054502e-03     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 2.002662e-02     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 1.226154e-01     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 2.486146e-01     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  3.751319e-09 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  3.751319e-09 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  3.751319e-09 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  3.751319e-09 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  3.751319e-09 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  3.751319e-09 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  3.751319e-09 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  3.751319e-09 ALED 0.000  9     1     9  black    3     0   0.5     2    NA
+      10 3.751319e-09 ALED 0.008 10     1    10  black    3     0   0.5     2    NA
+      11 3.751319e-09 ALED 0.040 11     1    11  black    3     0   0.5     2    NA
+      12 3.751319e-09 ALED 0.245 12     1    12  black    3     0   0.5     2    NA
+      13 3.751319e-09 ALED 0.497 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$`North America`$plots
+      $distinct$`North America`$plots$model
+          x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1 -0.557688075     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2 -0.557687061     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3 -0.557687061     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4 -0.557687061     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5 -0.557618652     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6 -0.557618685     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7 -0.557618687     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8 -0.003990304     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9 -0.003990229     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10 -0.004035322     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11 -0.004035322     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12 -0.004035322     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13  0.027554854     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14  0.206320713     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15  0.206319132     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16  0.206313261     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17  0.206313261     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18  0.206313261     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19  0.204650982     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20  0.204650982     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21  0.204650982     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22  0.204650366     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23  0.204651617     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24  0.204589209     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25  0.204589209     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26  0.204589209     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27  0.204589209     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28  0.204589200     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29  0.204589198     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30  0.204589198     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31  0.204589207     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32  0.204588736     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 1.178115e-10 7.384827e-09
+      2   Inf 1.178115e-10 7.384827e-09
+      3   Inf 1.178115e-10 7.384827e-09
+      4   Inf 1.178115e-10 7.384827e-09
+      5   Inf 1.178115e-10 7.384827e-09
+      6   Inf 1.178115e-10 7.384827e-09
+      7   Inf 1.178115e-10 7.384827e-09
+      8   Inf 1.178115e-10 7.384827e-09
+      9   Inf 1.178115e-10 7.384827e-09
+      10  Inf 1.178115e-10 7.384827e-09
+      11  Inf 1.178115e-10 7.384827e-09
+      12  Inf 1.178115e-10 7.384827e-09
+      13  Inf 1.178115e-10 7.384827e-09
+      14  Inf 1.178115e-10 7.384827e-09
+      15  Inf 1.178115e-10 7.384827e-09
+      16  Inf 1.178115e-10 7.384827e-09
+      17  Inf 1.178115e-10 7.384827e-09
+      18  Inf 1.178115e-10 7.384827e-09
+      19  Inf 1.178115e-10 7.384827e-09
+      20  Inf 1.178115e-10 7.384827e-09
+      21  Inf 1.178115e-10 7.384827e-09
+      22  Inf 1.178115e-10 7.384827e-09
+      23  Inf 1.178115e-10 7.384827e-09
+      24  Inf 1.178115e-10 7.384827e-09
+      25  Inf 1.178115e-10 7.384827e-09
+      26  Inf 1.178115e-10 7.384827e-09
+      27  Inf 1.178115e-10 7.384827e-09
+      28  Inf 1.178115e-10 7.384827e-09
+      29  Inf 1.178115e-10 7.384827e-09
+      30  Inf 1.178115e-10 7.384827e-09
+      31  Inf 1.178115e-10 7.384827e-09
+      32  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$mpg
+                x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1  10.37589 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2  14.41394 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3  15.20000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4  16.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5  18.70000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6  19.84566 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7  21.40000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      8  22.87332 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      9  30.10414 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      10 33.90000 0     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+                 ymin         ymax
+      1  1.178115e-10 7.384827e-09
+      2  1.178115e-10 7.384827e-09
+      3  1.178115e-10 7.384827e-09
+      4  1.178115e-10 7.384827e-09
+      5  1.178115e-10 7.384827e-09
+      6  1.178115e-10 7.384827e-09
+      7  1.178115e-10 7.384827e-09
+      8  1.178115e-10 7.384827e-09
+      9  1.178115e-10 7.384827e-09
+      10 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$cyl
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3 -2.019696e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4 -2.019628e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5  5.778886e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6  8.357286e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7  8.364525e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8  1.477033e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9  1.477762e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.178115e-10 7.384827e-09
+      2  Inf 1.178115e-10 7.384827e-09
+      3  Inf 1.178115e-10 7.384827e-09
+      4  Inf 1.178115e-10 7.384827e-09
+      5  Inf 1.178115e-10 7.384827e-09
+      6  Inf 1.178115e-10 7.384827e-09
+      7  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$disp
+                 x          y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 -0.5361209     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 -0.5361209     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 -0.5361209     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 -0.5361208     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 -0.5361102     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592  0.4321479     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890  0.4321479     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436  0.5654864     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444  0.5669075     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000  0.9848645     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 1.178115e-10 7.384827e-09
+      2  -Inf  Inf 1.178115e-10 7.384827e-09
+      3  -Inf  Inf 1.178115e-10 7.384827e-09
+      4  -Inf  Inf 1.178115e-10 7.384827e-09
+      5  -Inf  Inf 1.178115e-10 7.384827e-09
+      6  -Inf  Inf 1.178115e-10 7.384827e-09
+      7  -Inf  Inf 1.178115e-10 7.384827e-09
+      8  -Inf  Inf 1.178115e-10 7.384827e-09
+      9  -Inf  Inf 1.178115e-10 7.384827e-09
+      10 -Inf  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$hp
+                x           y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000  0.02210177     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000  0.02210175     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000  0.02210160     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000  0.02210160     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003  0.02209924     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000  0.02209900     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939  0.02209336     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733  0.02209336     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000  0.02209152     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 -0.44932591     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 1.178115e-10 7.384827e-09
+      2  -Inf  Inf 1.178115e-10 7.384827e-09
+      3  -Inf  Inf 1.178115e-10 7.384827e-09
+      4  -Inf  Inf 1.178115e-10 7.384827e-09
+      5  -Inf  Inf 1.178115e-10 7.384827e-09
+      6  -Inf  Inf 1.178115e-10 7.384827e-09
+      7  -Inf  Inf 1.178115e-10 7.384827e-09
+      8  -Inf  Inf 1.178115e-10 7.384827e-09
+      9  -Inf  Inf 1.178115e-10 7.384827e-09
+      10 -Inf  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$drat
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533  7.657930e-07     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190  7.733596e-07     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000  8.596756e-07     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717  1.065890e-06     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000  1.037397e-06     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310  1.015989e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000 -1.346928e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607 -1.614065e-06     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875 -1.620281e-06     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502 -1.661677e-06     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 1.178115e-10 7.384827e-09
+      2  -Inf  Inf 1.178115e-10 7.384827e-09
+      3  -Inf  Inf 1.178115e-10 7.384827e-09
+      4  -Inf  Inf 1.178115e-10 7.384827e-09
+      5  -Inf  Inf 1.178115e-10 7.384827e-09
+      6  -Inf  Inf 1.178115e-10 7.384827e-09
+      7  -Inf  Inf 1.178115e-10 7.384827e-09
+      8  -Inf  Inf 1.178115e-10 7.384827e-09
+      9  -Inf  Inf 1.178115e-10 7.384827e-09
+      10 -Inf  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$wt
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275  1.840425e-05     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000  1.839780e-05     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000  1.839502e-05     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481  1.497930e-05     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000  1.464851e-05     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 -1.725417e-05     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 -1.726080e-05     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 -1.742285e-05     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 -1.754189e-05     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 -1.754351e-05     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 1.178115e-10 7.384827e-09
+      2  -Inf  Inf 1.178115e-10 7.384827e-09
+      3  -Inf  Inf 1.178115e-10 7.384827e-09
+      4  -Inf  Inf 1.178115e-10 7.384827e-09
+      5  -Inf  Inf 1.178115e-10 7.384827e-09
+      6  -Inf  Inf 1.178115e-10 7.384827e-09
+      7  -Inf  Inf 1.178115e-10 7.384827e-09
+      8  -Inf  Inf 1.178115e-10 7.384827e-09
+      9  -Inf  Inf 1.178115e-10 7.384827e-09
+      10 -Inf  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$qsec
+                x             y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589  1.011948e-05     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460  9.994560e-06     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553 -1.543789e-06     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000 -1.759531e-06     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920 -1.995293e-06     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000 -1.995334e-06     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333 -1.998522e-06     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000 -1.998799e-06     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000 -3.439357e-06     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365 -3.520784e-06     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 1.178115e-10 7.384827e-09
+      2  -Inf  Inf 1.178115e-10 7.384827e-09
+      3  -Inf  Inf 1.178115e-10 7.384827e-09
+      4  -Inf  Inf 1.178115e-10 7.384827e-09
+      5  -Inf  Inf 1.178115e-10 7.384827e-09
+      6  -Inf  Inf 1.178115e-10 7.384827e-09
+      7  -Inf  Inf 1.178115e-10 7.384827e-09
+      8  -Inf  Inf 1.178115e-10 7.384827e-09
+      9  -Inf  Inf 1.178115e-10 7.384827e-09
+      10 -Inf  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$vs
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 -0.007207997     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  0.009267424     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.178115e-10 7.384827e-09
+      2  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$am
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  2.611450e-07     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -3.816735e-07     1     2     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.178115e-10 7.384827e-09
+      2  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$gear
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  1.059290e-06     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  7.417149e-07     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 -4.957985e-06     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.178115e-10 7.384827e-09
+      2  Inf 1.178115e-10 7.384827e-09
+      3  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$carb
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 -9.796289e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2  2.988171e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3  2.991153e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4  4.312776e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8  4.685748e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.178115e-10 7.384827e-09
+      2  Inf 1.178115e-10 7.384827e-09
+      3  Inf 1.178115e-10 7.384827e-09
+      4  Inf 1.178115e-10 7.384827e-09
+      5  Inf 1.178115e-10 7.384827e-09
+      
+      $distinct$`North America`$plots$country
+        x y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 0     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 0     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 0     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 0     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 0     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 0     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 1.178115e-10 7.384827e-09
+      2 1.178115e-10 7.384827e-09
+      3 1.178115e-10 7.384827e-09
+      4 1.178115e-10 7.384827e-09
+      5 1.178115e-10 7.384827e-09
+      6 1.178115e-10 7.384827e-09
+      
       
       
       
@@ -4683,8 +7024,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 5.740835e-09
+      $params$it.cat
+      [1] "North America"
       
       $params$y_cats
       [1] "Asia"          "Europe"        "North America"
@@ -4815,9 +7156,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "categorical"
       
@@ -4846,7 +7184,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -4854,32 +7192,31 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # categorical outcome with bootstrap works with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$Asia
-      $data$Asia$wt
+      $distinct
+      $distinct$Asia
+      $distinct$Asia$ale
+      $distinct$Asia$ale$wt
       # A tibble: 10 x 7
          wt.ceil    .n           .y        .y_lo      .y_mean    .y_median       .y_hi
            <dbl> <int>        <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-       1    1.50     1 -0.000000512 -0.000000512 -0.000000512 -0.000000512    -5.12e-7
-       2    1.94     7 -0.000000648 -0.000000892 -0.000000648 -0.000000522    -5.13e-7
-       3    2.46     7 -0.00000150  -0.00000244  -0.00000150  -0.00000150     -5.62e-7
-       4    2.79     7  0.00000462   0.00000335   0.00000462   0.00000375      6.64e-6
-       5    3.19     7  0.00000478   0.00000375   0.00000478   0.00000379      6.64e-6
-       6    3.44     7  0.00000482   0.00000376   0.00000482   0.00000391      6.66e-6
-       7    3.52     7  0.00000482   0.00000376   0.00000482   0.00000391      6.66e-6
-       8    3.73     7  0.00000481   0.00000374   0.00000481   0.00000388      6.67e-6
-       9    4.05     7  0.00000490   0.00000391   0.00000490   0.00000393      6.70e-6
-      10    5.45     7  0.00000490   0.00000391   0.00000490   0.00000393      6.70e-6
+       1    1.50     1 -0.000000518 -0.000000518 -0.000000518 -0.000000518    -5.18e-7
+       2    1.94     7 -0.000000654 -0.000000897 -0.000000654 -0.000000527    -5.19e-7
+       3    2.46     7 -0.00000151  -0.00000244  -0.00000151  -0.00000151     -5.68e-7
+       4    2.79     7  0.00000462   0.00000334   0.00000462   0.00000374      6.63e-6
+       5    3.19     7  0.00000477   0.00000375   0.00000477   0.00000379      6.63e-6
+       6    3.44     7  0.00000482   0.00000376   0.00000482   0.00000390      6.65e-6
+       7    3.52     7  0.00000482   0.00000376   0.00000482   0.00000390      6.65e-6
+       8    3.73     7  0.00000480   0.00000373   0.00000480   0.00000388      6.66e-6
+       9    4.05     7  0.00000489   0.00000391   0.00000489   0.00000393      6.69e-6
+      10    5.45     7  0.00000489   0.00000391   0.00000489   0.00000393      6.69e-6
       
-      $data$Asia$am
+      $distinct$Asia$ale$am
       # A tibble: 2 x 7
         am.bin    .n        .y    .y_lo   .y_mean .y_median    .y_hi
         <ord>  <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
@@ -4887,62 +7224,12 @@
       2 TRUE      26 -0.000314 -0.00173 -0.000314  -0.00171  0.00229
       
       
-      $data$Europe
-      $data$Europe$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n          .y      .y_lo     .y_mean   .y_median        .y_hi
-           <dbl> <int>       <dbl>      <dbl>       <dbl>       <dbl>        <dbl>
-       1    1.50     1 -0.0000179  -0.0000179 -0.0000179  -0.0000179  -0.0000179  
-       2    1.94     7 -0.0000177  -0.0000179 -0.0000177  -0.0000179  -0.0000175  
-       3    2.46     7 -0.0000169  -0.0000178 -0.0000169  -0.0000169  -0.0000159  
-       4    2.79     7 -0.0000167  -0.0000177 -0.0000167  -0.0000166  -0.0000159  
-       5    3.19     7 -0.0000167  -0.0000177 -0.0000167  -0.0000166  -0.0000159  
-       6    3.44     7 -0.00000735 -0.0000152 -0.00000735 -0.00000750  0.000000588
-       7    3.52     7 -0.00000735 -0.0000152 -0.00000735 -0.00000749  0.000000588
-       8    3.73     7 -0.00000713 -0.0000149 -0.00000713 -0.00000736  0.000000849
-       9    4.05     7 -0.00000713 -0.0000149 -0.00000713 -0.00000736  0.000000850
-      10    5.45     7 -0.00000713 -0.0000149 -0.00000713 -0.00000736  0.000000853
-      
-      $data$Europe$am
-      # A tibble: 2 x 7
-        am.bin    .n       .y    .y_lo  .y_mean .y_median   .y_hi
-        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
-      1 FALSE     38 0.00168   0.00165 0.00168    0.00166 0.00173
-      2 TRUE      26 0.000314 -0.00229 0.000314   0.00171 0.00173
-      
-      
-      $data$`North America`
-      $data$`North America`$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n         .y       .y_lo    .y_mean  .y_median     .y_hi
-           <dbl> <int>      <dbl>       <dbl>      <dbl>      <dbl>     <dbl>
-       1    1.50     1 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
-       2    1.94     7 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
-       3    2.46     7 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
-       4    2.79     7 0.0000121   0.00000994 0.0000121  0.0000122  0.0000143
-       5    3.19     7 0.0000120   0.00000994 0.0000120  0.0000122  0.0000139
-       6    3.44     7 0.00000255 -0.00000723 0.00000255 0.00000360 0.0000114
-       7    3.52     7 0.00000254 -0.00000723 0.00000254 0.00000360 0.0000114
-       8    3.73     7 0.00000234 -0.00000750 0.00000234 0.00000350 0.0000112
-       9    4.05     7 0.00000225 -0.00000753 0.00000225 0.00000345 0.0000110
-      10    5.45     7 0.00000225 -0.00000754 0.00000225 0.00000345 0.0000110
-      
-      $data$`North America`$am
-      # A tibble: 2 x 7
-        am.bin    .n            .y        .y_lo       .y_mean    .y_median       .y_hi
-        <ord>  <int>         <dbl>        <dbl>         <dbl>        <dbl>       <dbl>
-      1 FALSE     38 -0.000000124  -0.000000291 -0.000000124  -0.000000172     8.56e-8
-      2 TRUE      26  0.0000000427 -0.000000372  0.0000000427  0.000000267     2.67e-7
-      
-      
-      
-      $boot_data
+      $distinct$Asia$boot
       NULL
       
-      $stats
-      $stats$Asia
-      $stats$Asia$by_term
-      $stats$Asia$by_term$wt
+      $distinct$Asia$stats
+      $distinct$Asia$stats$by_term
+      $distinct$Asia$stats$by_term$wt
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median     conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>         <dbl>
@@ -4953,7 +7240,7 @@
       5 naler_min -50          -50          -50          -50          -50          
       6 naler_max  31.2         31.2         31.2         31.2         31.2        
       
-      $stats$Asia$by_term$am
+      $distinct$Asia$stats$by_term$am
       # A tibble: 6 x 6
         statistic   estimate  conf.low       mean    median conf.high
         <chr>          <dbl>     <dbl>      <dbl>     <dbl>     <dbl>
@@ -4965,43 +7252,43 @@
       6 naler_max -22.9      -50       -22.9      -50        27.2    
       
       
-      $stats$Asia$by_statistic
-      $stats$Asia$by_statistic$aled
+      $distinct$Asia$stats$by_stat
+      $distinct$Asia$stats$by_stat$aled
       # A tibble: 2 x 6
         term    estimate   conf.low       mean     median  conf.high
         <chr>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 wt    0.00000364 0.00000272 0.00000364 0.00000300 0.00000511
       2 am    0.00180    0.00169    0.00180    0.00172    0.00199   
       
-      $stats$Asia$by_statistic$aler_min
+      $distinct$Asia$stats$by_stat$aler_min
       # A tibble: 2 x 6
         term     estimate    conf.low        mean      median    conf.high
         <chr>       <dbl>       <dbl>       <dbl>       <dbl>        <dbl>
       1 wt    -0.00000151 -0.00000244 -0.00000151 -0.00000151 -0.000000568
       2 am    -0.00171    -0.00174    -0.00171    -0.00174    -0.00166    
       
-      $stats$Asia$by_statistic$aler_max
+      $distinct$Asia$stats$by_stat$aler_max
       # A tibble: 2 x 6
         term     estimate    conf.low        mean      median  conf.high
         <chr>       <dbl>       <dbl>       <dbl>       <dbl>      <dbl>
       1 wt     0.00000489  0.00000391  0.00000489  0.00000393 0.00000669
       2 am    -0.000284   -0.00170    -0.000284   -0.00165    0.00229   
       
-      $stats$Asia$by_statistic$naled
+      $distinct$Asia$stats$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 wt        35.6     34.8  35.6   35.4      36.6
       2 am        47.5     42.8  47.5   50        50  
       
-      $stats$Asia$by_statistic$naler_min
+      $distinct$Asia$stats$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 wt         -50      -50   -50    -50       -50
       2 am         -50      -50   -50    -50       -50
       
-      $stats$Asia$by_statistic$naler_max
+      $distinct$Asia$stats$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -5009,14 +7296,45 @@
       2 am       -22.9    -50   -22.9  -50        27.2
       
       
-      $stats$Asia$estimate
+      $distinct$Asia$stats$estimate
       # A tibble: 2 x 7
         term        aled    aler_min    aler_max naled naler_min naler_max
         <chr>      <dbl>       <dbl>       <dbl> <dbl>     <dbl>     <dbl>
       1 wt    0.00000364 -0.00000151  0.00000489  35.6       -50      31.2
       2 am    0.00180    -0.00171    -0.000284    47.5       -50     -22.9
       
-      $stats$Asia$effects_plot
+      $distinct$Asia$stats$conf_regions
+      $distinct$Asia$stats$conf_regions$by_term
+      $distinct$Asia$stats$conf_regions$by_term$wt
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
+      1    1.50  2.46  0.244    15 0.234    -5.18e-7 -1.51e-6 -4.04e-6 below          
+      2    2.79  5.45  0.673    49 0.766     4.62e-6  4.89e-6  4.08e-7 above          
+      
+      $distinct$Asia$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct         y relative_to_mid
+        <ord> <int> <dbl>     <dbl> <ord>          
+      1 FALSE    38 0.594 -0.00168  below          
+      2 TRUE     26 0.406 -0.000314 overlap        
+      
+      
+      $distinct$Asia$stats$conf_regions$significant
+      # A tibble: 3 x 12
+        term  x     start_x end_x x_span     n n_pct        y      start_y       end_y
+        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>        <dbl>       <dbl>
+      1 wt    <NA>     1.50  2.46  0.244    15 0.234 NA       -0.000000518 -0.00000151
+      2 wt    <NA>     2.79  5.45  0.673    49 0.766 NA        0.00000462   0.00000489
+      3 am    FALSE   NA    NA    NA        38 0.594 -0.00168 NA           NA         
+      # i 2 more variables: trend <dbl>, relative_to_mid <ord>
+      
+      $distinct$Asia$stats$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      $distinct$Asia$stats$effects_plot
+      $distinct$Asia$stats$effects_plot[[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
       1 1     1     1     NA lightgray       0.5        1    NA 6.163208e-11
       2 2     1     2     NA lightgray       0.5        1    NA 6.163208e-11
@@ -5024,192 +7342,75 @@
       1 1.688443e-10 -Inf  Inf
       2 1.688443e-10 -Inf  Inf
       
+      $distinct$Asia$stats$effects_plot[[2]]
+                 xmin          xmax y PANEL group  ymin  ymax colour linewidth
+      1 -1.505301e-06  4.890619e-06 1     1     1 0.875 1.125  black       0.5
+      2 -1.710566e-03 -2.841382e-04 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
       
-      $stats$Europe
-      $stats$Europe$by_term
-      $stats$Europe$by_term$wt
-      # A tibble: 6 x 6
-        statistic     estimate     conf.low         mean       median     conf.high
-        <chr>            <dbl>        <dbl>        <dbl>        <dbl>         <dbl>
-      1 aled        0.0000119    0.00000789   0.0000119    0.0000120    0.0000159  
-      2 aler_min   -0.0000179   -0.0000179   -0.0000179   -0.0000179   -0.0000179  
-      3 aler_max   -0.00000714  -0.0000149   -0.00000714  -0.00000737   0.000000848
-      4 naled      42.3         27.9         42.3         50           50          
-      5 naler_min -50          -50          -50          -50          -50          
-      6 naler_max -31.2        -50          -31.2        -50            3.44       
+      $distinct$Asia$stats$effects_plot[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -1.820109e-06 1.820339e-06  0.7  1.3 1     1     1     NA white       0.5
+      2 -9.013290e-04 9.013292e-04  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
-      $stats$Europe$by_term$am
-      # A tibble: 6 x 6
-        statistic   estimate  conf.low       mean  median conf.high
-        <chr>          <dbl>     <dbl>      <dbl>   <dbl>     <dbl>
-      1 aled        0.00180    0.00169   0.00180  0.00172   0.00199
-      2 aler_min    0.000284  -0.00229   0.000284 0.00165   0.00170
-      3 aler_max    0.00171    0.00166   0.00171  0.00174   0.00174
-      4 naled      12.2        6.25     12.2      6.25     23.1    
-      5 naler_min -12.5      -47.2     -12.5      6.25      6.25   
-      6 naler_max   6.25       6.25      6.25     6.25      6.25   
+      $distinct$Asia$stats$effects_plot[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 1.152382e-10 NALED 35.6% 1     1     1  black    3     0   0.5    -1    NA
+      2 1.152382e-10 NALED 47.5% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
       
+      $distinct$Asia$stats$effects_plot[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -1.820109e-06     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -9.013290e-04     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
       
-      $stats$Europe$by_statistic
-      $stats$Europe$by_statistic$aled
-      # A tibble: 2 x 6
-        term   estimate   conf.low      mean    median conf.high
-        <chr>     <dbl>      <dbl>     <dbl>     <dbl>     <dbl>
-      1 wt    0.0000119 0.00000789 0.0000119 0.0000120 0.0000159
-      2 am    0.00180   0.00169    0.00180   0.00172   0.00199  
+      $distinct$Asia$stats$effects_plot[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 1.820339e-06     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 9.013292e-04     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
       
-      $stats$Europe$by_statistic$aler_min
-      # A tibble: 2 x 6
-        term    estimate   conf.low       mean     median  conf.high
-        <chr>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-      1 wt    -0.0000179 -0.0000179 -0.0000179 -0.0000179 -0.0000179
-      2 am     0.000284  -0.00229    0.000284   0.00165    0.00170  
+      $distinct$Asia$stats$effects_plot[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 1.152382e-10 ALED 0.000 1     1     1  black    3     0   0.5     2    NA
+      2 1.152382e-10 ALED 0.002 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
       
-      $stats$Europe$by_statistic$aler_max
-      # A tibble: 2 x 6
-        term     estimate   conf.low        mean      median   conf.high
-        <chr>       <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
-      1 wt    -0.00000714 -0.0000149 -0.00000714 -0.00000737 0.000000848
-      2 am     0.00171     0.00166    0.00171     0.00174    0.00174    
-      
-      $stats$Europe$by_statistic$naled
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 wt        42.3    27.9   42.3  50         50  
-      2 am        12.2     6.25  12.2   6.25      23.1
-      
-      $stats$Europe$by_statistic$naler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 wt       -50      -50   -50   -50       -50   
-      2 am       -12.5    -47.2 -12.5   6.25      6.25
-      
-      $stats$Europe$by_statistic$naler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low   mean median conf.high
-        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 wt      -31.2    -50    -31.2  -50         3.44
-      2 am        6.25     6.25   6.25   6.25      6.25
-      
-      
-      $stats$Europe$estimate
-      # A tibble: 2 x 7
-        term       aled   aler_min    aler_max naled naler_min naler_max
-        <chr>     <dbl>      <dbl>       <dbl> <dbl>     <dbl>     <dbl>
-      1 wt    0.0000119 -0.0000179 -0.00000714  42.3     -50      -31.2 
-      2 am    0.00180    0.000284   0.00171     12.2     -12.5      6.25
-      
-      $stats$Europe$effects_plot
-        y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
-      2 2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
-                xmax ymin ymax
-      1 8.105179e-07 -Inf  Inf
-      2 8.105179e-07 -Inf  Inf
-      
-      
-      $stats$`North America`
-      $stats$`North America`$by_term
-      $stats$`North America`$by_term$wt
-      # A tibble: 6 x 6
-        statistic    estimate     conf.low        mean      median  conf.high
-        <chr>           <dbl>        <dbl>       <dbl>       <dbl>      <dbl>
-      1 aled       0.0000111    0.00000921  0.0000111   0.0000100   0.0000138
-      2 aler_min   0.00000225  -0.00000754  0.00000225  0.00000344  0.0000110
-      3 aler_max   0.0000184    0.0000184   0.0000184   0.0000184   0.0000184
-      4 naled     17.8         10.4        17.8        11.5        30.6      
-      5 naler_min -9.90       -47.0        -9.90        9.38       10.9      
-      6 naler_max 12.5         12.5        12.5        12.5        12.5      
-      
-      $stats$`North America`$by_term$am
-      # A tibble: 6 x 6
-        statistic      estimate      conf.low          mean        median    conf.high
-        <chr>             <dbl>         <dbl>         <dbl>         <dbl>        <dbl>
-      1 aled        0.000000240   0.000000212   0.000000240   0.000000222      2.83e-7
-      2 aler_min   -0.000000297  -0.000000405  -0.000000297  -0.000000303     -1.84e-7
-      3 aler_max    0.000000205   0.000000102   0.000000205   0.000000261      2.61e-7
-      4 naled      30.2          25.3          30.2          32.9              3.29e+1
-      5 naler_min -50           -50           -50           -50               -5   e+1
-      6 naler_max   7.81          7.81          7.81          7.81             7.81e+0
-      
-      
-      $stats$`North America`$by_statistic
-      $stats$`North America`$by_statistic$aled
-      # A tibble: 2 x 6
-        term     estimate    conf.low        mean      median   conf.high
-        <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 wt    0.0000111   0.00000921  0.0000111   0.0000100   0.0000138  
-      2 am    0.000000240 0.000000212 0.000000240 0.000000222 0.000000283
-      
-      $stats$`North America`$by_statistic$aler_min
-      # A tibble: 2 x 6
-        term      estimate     conf.low         mean       median    conf.high
-        <chr>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-      1 wt     0.00000225  -0.00000754   0.00000225   0.00000344   0.0000110  
-      2 am    -0.000000297 -0.000000405 -0.000000297 -0.000000303 -0.000000184
-      
-      $stats$`North America`$by_statistic$aler_max
-      # A tibble: 2 x 6
-        term     estimate    conf.low        mean      median   conf.high
-        <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 wt    0.0000184   0.0000184   0.0000184   0.0000184   0.0000184  
-      2 am    0.000000205 0.000000102 0.000000205 0.000000261 0.000000261
-      
-      $stats$`North America`$by_statistic$naled
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 wt        17.8     10.4  17.8   11.5      30.6
-      2 am        30.2     25.3  30.2   32.9      32.9
-      
-      $stats$`North America`$by_statistic$naler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low   mean median conf.high
-        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 wt       -9.90    -47.0  -9.90   9.38      10.9
-      2 am      -50       -50   -50    -50        -50  
-      
-      $stats$`North America`$by_statistic$naler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 wt       12.5     12.5  12.5   12.5      12.5 
-      2 am        7.81     7.81  7.81   7.81      7.81
-      
-      
-      $stats$`North America`$estimate
-      # A tibble: 2 x 7
-        term         aled     aler_min    aler_max naled naler_min naler_max
-        <chr>       <dbl>        <dbl>       <dbl> <dbl>     <dbl>     <dbl>
-      1 wt    0.0000111    0.00000225  0.0000184    17.8     -9.90     12.5 
-      2 am    0.000000240 -0.000000297 0.000000205  30.2    -50         7.81
-      
-      $stats$`North America`$effects_plot
-        y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
-      2 2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
-                xmax ymin ymax
-      1 7.384827e-09 -Inf  Inf
-      2 7.384827e-09 -Inf  Inf
+      $distinct$Asia$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
       
       
-      $plots
-      $plots$Asia
-      $plots$Asia$wt
+      $distinct$Asia$plots
+      $distinct$Asia$plots$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 -5.123167e-07     1    -1     NA lightgray       0.5        1    NA
-      2  1.935000 -6.484846e-07     1    -1     NA lightgray       0.5        1    NA
-      3  2.465000 -1.499660e-06     1    -1     NA lightgray       0.5        1    NA
-      4  2.790481  4.621874e-06     1    -1     NA lightgray       0.5        1    NA
-      5  3.190000  4.776970e-06     1    -1     NA lightgray       0.5        1    NA
-      6  3.439356  4.823032e-06     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000  4.823042e-06     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000  4.808802e-06     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066  4.896169e-06     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272  4.896261e-06     1    -1     NA lightgray       0.5        1    NA
+      1  1.498275 -5.180575e-07     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 -6.542254e-07     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 -1.505401e-06     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481  4.616133e-06     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000  4.771229e-06     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356  4.817292e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000  4.817301e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000  4.803061e-06     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066  4.890428e-06     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272  4.890520e-06     1    -1     NA lightgray       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 6.163208e-11 1.688443e-10
       2  -Inf  Inf 6.163208e-11 1.688443e-10
@@ -5222,28 +7423,227 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $plots$Asia$am
+      $distinct$Asia$plots$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1 -0.0016808994     1     1     NA lightgray       0.5        1    NA -Inf
-      2 2 -0.0003137931     1     2     NA lightgray       0.5        1    NA -Inf
+      1 1 -0.0016809051     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -0.0003137989     1     2     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 6.163208e-11 1.688443e-10
       2  Inf 6.163208e-11 1.688443e-10
       
       
-      $plots$Europe
-      $plots$Europe$wt
+      
+      $distinct$Europe
+      $distinct$Europe$ale
+      $distinct$Europe$ale$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y      .y_lo     .y_mean   .y_median        .y_hi
+           <dbl> <int>       <dbl>      <dbl>       <dbl>       <dbl>        <dbl>
+       1    1.50     1 -0.0000179  -0.0000179 -0.0000179  -0.0000179  -0.0000179  
+       2    1.94     7 -0.0000177  -0.0000179 -0.0000177  -0.0000179  -0.0000175  
+       3    2.46     7 -0.0000169  -0.0000178 -0.0000169  -0.0000169  -0.0000160  
+       4    2.79     7 -0.0000167  -0.0000177 -0.0000167  -0.0000166  -0.0000159  
+       5    3.19     7 -0.0000167  -0.0000177 -0.0000167  -0.0000166  -0.0000159  
+       6    3.44     7 -0.00000736 -0.0000152 -0.00000736 -0.00000750  0.000000582
+       7    3.52     7 -0.00000735 -0.0000152 -0.00000735 -0.00000749  0.000000583
+       8    3.73     7 -0.00000714 -0.0000149 -0.00000714 -0.00000737  0.000000843
+       9    4.05     7 -0.00000714 -0.0000149 -0.00000714 -0.00000737  0.000000844
+      10    5.45     7 -0.00000714 -0.0000149 -0.00000714 -0.00000737  0.000000848
+      
+      $distinct$Europe$ale$am
+      # A tibble: 2 x 7
+        am.bin    .n       .y    .y_lo  .y_mean .y_median   .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
+      1 FALSE     38 0.00168   0.00165 0.00168    0.00166 0.00173
+      2 TRUE      26 0.000314 -0.00229 0.000314   0.00171 0.00173
+      
+      
+      $distinct$Europe$boot
+      NULL
+      
+      $distinct$Europe$stats
+      $distinct$Europe$stats$by_term
+      $distinct$Europe$stats$by_term$wt
+      # A tibble: 6 x 6
+        statistic     estimate     conf.low         mean       median     conf.high
+        <chr>            <dbl>        <dbl>        <dbl>        <dbl>         <dbl>
+      1 aled        0.0000119    0.00000789   0.0000119    0.0000120    0.0000159  
+      2 aler_min   -0.0000179   -0.0000179   -0.0000179   -0.0000179   -0.0000179  
+      3 aler_max   -0.00000714  -0.0000149   -0.00000714  -0.00000737   0.000000848
+      4 naled      42.3         27.9         42.3         50           50          
+      5 naler_min -50          -50          -50          -50          -50          
+      6 naler_max -31.2        -50          -31.2        -50            3.44       
+      
+      $distinct$Europe$stats$by_term$am
+      # A tibble: 6 x 6
+        statistic   estimate  conf.low       mean  median conf.high
+        <chr>          <dbl>     <dbl>      <dbl>   <dbl>     <dbl>
+      1 aled        0.00180    0.00169   0.00180  0.00172   0.00199
+      2 aler_min    0.000284  -0.00229   0.000284 0.00165   0.00170
+      3 aler_max    0.00171    0.00166   0.00171  0.00174   0.00174
+      4 naled      12.2        6.25     12.2      6.25     23.1    
+      5 naler_min -12.5      -47.2     -12.5      6.25      6.25   
+      6 naler_max   6.25       6.25      6.25     6.25      6.25   
+      
+      
+      $distinct$Europe$stats$by_stat
+      $distinct$Europe$stats$by_stat$aled
+      # A tibble: 2 x 6
+        term   estimate   conf.low      mean    median conf.high
+        <chr>     <dbl>      <dbl>     <dbl>     <dbl>     <dbl>
+      1 wt    0.0000119 0.00000789 0.0000119 0.0000120 0.0000159
+      2 am    0.00180   0.00169    0.00180   0.00172   0.00199  
+      
+      $distinct$Europe$stats$by_stat$aler_min
+      # A tibble: 2 x 6
+        term    estimate   conf.low       mean     median  conf.high
+        <chr>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
+      1 wt    -0.0000179 -0.0000179 -0.0000179 -0.0000179 -0.0000179
+      2 am     0.000284  -0.00229    0.000284   0.00165    0.00170  
+      
+      $distinct$Europe$stats$by_stat$aler_max
+      # A tibble: 2 x 6
+        term     estimate   conf.low        mean      median   conf.high
+        <chr>       <dbl>      <dbl>       <dbl>       <dbl>       <dbl>
+      1 wt    -0.00000714 -0.0000149 -0.00000714 -0.00000737 0.000000848
+      2 am     0.00171     0.00166    0.00171     0.00174    0.00174    
+      
+      $distinct$Europe$stats$by_stat$naled
+      # A tibble: 2 x 6
+        term  estimate conf.low  mean median conf.high
+        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 wt        42.3    27.9   42.3  50         50  
+      2 am        12.2     6.25  12.2   6.25      23.1
+      
+      $distinct$Europe$stats$by_stat$naler_min
+      # A tibble: 2 x 6
+        term  estimate conf.low  mean median conf.high
+        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 wt       -50      -50   -50   -50       -50   
+      2 am       -12.5    -47.2 -12.5   6.25      6.25
+      
+      $distinct$Europe$stats$by_stat$naler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low   mean median conf.high
+        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 wt      -31.2    -50    -31.2  -50         3.44
+      2 am        6.25     6.25   6.25   6.25      6.25
+      
+      
+      $distinct$Europe$stats$estimate
+      # A tibble: 2 x 7
+        term       aled   aler_min    aler_max naled naler_min naler_max
+        <chr>     <dbl>      <dbl>       <dbl> <dbl>     <dbl>     <dbl>
+      1 wt    0.0000119 -0.0000179 -0.00000714  42.3     -50      -31.2 
+      2 am    0.00180    0.000284   0.00171     12.2     -12.5      6.25
+      
+      $distinct$Europe$stats$conf_regions
+      $distinct$Europe$stats$conf_regions$by_term
+      $distinct$Europe$stats$conf_regions$by_term$wt
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
+      1    1.50  3.19  0.428    29 0.453 -0.0000179   -1.67e-5 2.66e-6 below          
+      2    3.44  5.45  0.509    35 0.547 -0.00000736  -7.14e-6 4.36e-7 overlap        
+      
+      $distinct$Europe$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct        y relative_to_mid
+        <ord> <int> <dbl>    <dbl> <ord>          
+      1 FALSE    38 0.594 0.00168  above          
+      2 TRUE     26 0.406 0.000314 overlap        
+      
+      
+      $distinct$Europe$stats$conf_regions$significant
+      # A tibble: 2 x 12
+        term  x     start_x end_x x_span     n n_pct        y    start_y      end_y
+        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>      <dbl>      <dbl>
+      1 wt    <NA>     1.50  3.19  0.428    29 0.453 NA       -0.0000179 -0.0000167
+      2 am    FALSE   NA    NA    NA        38 0.594  0.00168 NA         NA        
+      # i 2 more variables: trend <dbl>, relative_to_mid <ord>
+      
+      $distinct$Europe$stats$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      $distinct$Europe$stats$effects_plot
+      $distinct$Europe$stats$effects_plot[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
+      2 2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
+                xmax ymin ymax
+      1 8.105179e-07 -Inf  Inf
+      2 8.105179e-07 -Inf  Inf
+      
+      $distinct$Europe$stats$effects_plot[[2]]
+                 xmin          xmax y PANEL group  ymin  ymax colour linewidth
+      1 -1.720928e-05 -6.460279e-06 1     1     1 0.875 1.125  black       0.5
+      2  2.849662e-04  1.711184e-03 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $distinct$Europe$stats$effects_plot[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -5.536648e-06 6.371240e-06  0.7  1.3 1     1     1     NA white       0.5
+      2            NA 9.017216e-04  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $distinct$Europe$stats$effects_plot[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 4.172959e-07 NALED 42.3% 1     1     1  black    3     0   0.5    -1    NA
+      2 4.172959e-07 NALED 12.2% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -5.536648e-06     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2            NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 6.371240e-06     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 9.017216e-04     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 4.172959e-07 ALED 0.000 1     1     1  black    3     0   0.5     2    NA
+      2 4.172959e-07 ALED 0.002 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$Europe$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$Europe$plots
+      $distinct$Europe$plots$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 -1.788045e-05     1    -1     NA lightgray       0.5        1    NA
-      2  1.935000 -1.774123e-05     1    -1     NA lightgray       0.5        1    NA
-      3  2.465000 -1.688656e-05     1    -1     NA lightgray       0.5        1    NA
-      4  2.790481 -1.674135e-05     1    -1     NA lightgray       0.5        1    NA
-      5  3.190000 -1.674132e-05     1    -1     NA lightgray       0.5        1    NA
-      6  3.439356 -7.353407e-06     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000 -7.348464e-06     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000 -7.134201e-06     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066 -7.133558e-06     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272 -7.131445e-06     1    -1     NA lightgray       0.5        1    NA
+      1  1.498275 -1.788619e-05     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 -1.774697e-05     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 -1.689230e-05     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 -1.674709e-05     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 -1.674706e-05     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 -7.359148e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 -7.354205e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 -7.139942e-06     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 -7.139299e-06     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 -7.137186e-06     1    -1     NA lightgray       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 2.407385e-08 8.105179e-07
       2  -Inf  Inf 2.407385e-08 8.105179e-07
@@ -5256,28 +7656,226 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $plots$Europe$am
+      $distinct$Europe$plots$am
         x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1 0.0016810401     1     1     NA lightgray       0.5        1    NA -Inf
-      2 2 0.0003137676     1     2     NA lightgray       0.5        1    NA -Inf
+      1 1 0.0016810344     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 0.0003137619     1     2     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 2.407385e-08 8.105179e-07
       2  Inf 2.407385e-08 8.105179e-07
       
       
-      $plots$`North America`
-      $plots$`North America`$wt
+      
+      $distinct$`North America`
+      $distinct$`North America`$ale
+      $distinct$`North America`$ale$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n         .y       .y_lo    .y_mean  .y_median     .y_hi
+           <dbl> <int>      <dbl>       <dbl>      <dbl>      <dbl>     <dbl>
+       1    1.50     1 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
+       2    1.94     7 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
+       3    2.46     7 0.0000184   0.0000184  0.0000184  0.0000184  0.0000184
+       4    2.79     7 0.0000121   0.00000994 0.0000121  0.0000122  0.0000143
+       5    3.19     7 0.0000120   0.00000993 0.0000120  0.0000122  0.0000139
+       6    3.44     7 0.00000254 -0.00000723 0.00000254 0.00000360 0.0000114
+       7    3.52     7 0.00000254 -0.00000724 0.00000254 0.00000359 0.0000114
+       8    3.73     7 0.00000234 -0.00000751 0.00000234 0.00000349 0.0000112
+       9    4.05     7 0.00000225 -0.00000754 0.00000225 0.00000344 0.0000110
+      10    5.45     7 0.00000225 -0.00000754 0.00000225 0.00000344 0.0000110
+      
+      $distinct$`North America`$ale$am
+      # A tibble: 2 x 7
+        am.bin    .n            .y        .y_lo       .y_mean    .y_median       .y_hi
+        <ord>  <int>         <dbl>        <dbl>         <dbl>        <dbl>       <dbl>
+      1 FALSE     38 -0.000000129  -0.000000297 -0.000000129  -0.000000178     7.99e-8
+      2 TRUE      26  0.0000000370 -0.000000377  0.0000000370  0.000000261     2.61e-7
+      
+      
+      $distinct$`North America`$boot
+      NULL
+      
+      $distinct$`North America`$stats
+      $distinct$`North America`$stats$by_term
+      $distinct$`North America`$stats$by_term$wt
+      # A tibble: 6 x 6
+        statistic    estimate     conf.low        mean      median  conf.high
+        <chr>           <dbl>        <dbl>       <dbl>       <dbl>      <dbl>
+      1 aled       0.0000111    0.00000921  0.0000111   0.0000100   0.0000138
+      2 aler_min   0.00000225  -0.00000754  0.00000225  0.00000344  0.0000110
+      3 aler_max   0.0000184    0.0000184   0.0000184   0.0000184   0.0000184
+      4 naled     17.8         10.4        17.8        11.5        30.6      
+      5 naler_min -9.90       -47.0        -9.90        9.38       10.9      
+      6 naler_max 12.5         12.5        12.5        12.5        12.5      
+      
+      $distinct$`North America`$stats$by_term$am
+      # A tibble: 6 x 6
+        statistic      estimate      conf.low          mean        median    conf.high
+        <chr>             <dbl>         <dbl>         <dbl>         <dbl>        <dbl>
+      1 aled        0.000000240   0.000000212   0.000000240   0.000000222      2.83e-7
+      2 aler_min   -0.000000297  -0.000000405  -0.000000297  -0.000000303     -1.84e-7
+      3 aler_max    0.000000205   0.000000102   0.000000205   0.000000261      2.61e-7
+      4 naled      30.2          25.3          30.2          32.9              3.29e+1
+      5 naler_min -50           -50           -50           -50               -5   e+1
+      6 naler_max   7.81          7.81          7.81          7.81             7.81e+0
+      
+      
+      $distinct$`North America`$stats$by_stat
+      $distinct$`North America`$stats$by_stat$aled
+      # A tibble: 2 x 6
+        term     estimate    conf.low        mean      median   conf.high
+        <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1 wt    0.0000111   0.00000921  0.0000111   0.0000100   0.0000138  
+      2 am    0.000000240 0.000000212 0.000000240 0.000000222 0.000000283
+      
+      $distinct$`North America`$stats$by_stat$aler_min
+      # A tibble: 2 x 6
+        term      estimate     conf.low         mean       median    conf.high
+        <chr>        <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
+      1 wt     0.00000225  -0.00000754   0.00000225   0.00000344   0.0000110  
+      2 am    -0.000000297 -0.000000405 -0.000000297 -0.000000303 -0.000000184
+      
+      $distinct$`North America`$stats$by_stat$aler_max
+      # A tibble: 2 x 6
+        term     estimate    conf.low        mean      median   conf.high
+        <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1 wt    0.0000184   0.0000184   0.0000184   0.0000184   0.0000184  
+      2 am    0.000000205 0.000000102 0.000000205 0.000000261 0.000000261
+      
+      $distinct$`North America`$stats$by_stat$naled
+      # A tibble: 2 x 6
+        term  estimate conf.low  mean median conf.high
+        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 wt        17.8     10.4  17.8   11.5      30.6
+      2 am        30.2     25.3  30.2   32.9      32.9
+      
+      $distinct$`North America`$stats$by_stat$naler_min
+      # A tibble: 2 x 6
+        term  estimate conf.low   mean median conf.high
+        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 wt       -9.90    -47.0  -9.90   9.38      10.9
+      2 am      -50       -50   -50    -50        -50  
+      
+      $distinct$`North America`$stats$by_stat$naler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low  mean median conf.high
+        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+      1 wt       12.5     12.5  12.5   12.5      12.5 
+      2 am        7.81     7.81  7.81   7.81      7.81
+      
+      
+      $distinct$`North America`$stats$estimate
+      # A tibble: 2 x 7
+        term         aled     aler_min    aler_max naled naler_min naler_max
+        <chr>       <dbl>        <dbl>       <dbl> <dbl>     <dbl>     <dbl>
+      1 wt    0.0000111    0.00000225  0.0000184    17.8     -9.90     12.5 
+      2 am    0.000000240 -0.000000297 0.000000205  30.2    -50         7.81
+      
+      $distinct$`North America`$stats$conf_regions
+      $distinct$`North America`$stats$conf_regions$by_term
+      $distinct$`North America`$stats$conf_regions$by_term$wt
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct    start_y     end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>     <dbl>    <dbl> <ord>          
+      1    1.50  3.19  0.428    29 0.453 0.0000184    1.20e-5 -1.50e-5 above          
+      2    3.44  5.45  0.509    35 0.547 0.00000254   2.25e-6 -5.80e-7 overlap        
+      
+      $distinct$`North America`$stats$conf_regions$by_term$am
+      # A tibble: 2 x 5
+        x         n n_pct             y relative_to_mid
+        <ord> <int> <dbl>         <dbl> <ord>          
+      1 FALSE    38 0.594 -0.000000129  overlap        
+      2 TRUE     26 0.406  0.0000000370 overlap        
+      
+      
+      $distinct$`North America`$stats$conf_regions$significant
+      # A tibble: 1 x 12
+        term  x     start_x end_x x_span     n n_pct     y   start_y    end_y    trend
+        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl> <dbl>     <dbl>    <dbl>    <dbl>
+      1 wt    <NA>     1.50  3.19  0.428    29 0.453    NA 0.0000184  1.20e-5 -1.50e-5
+      # i 1 more variable: relative_to_mid <ord>
+      
+      $distinct$`North America`$stats$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      $distinct$`North America`$stats$effects_plot
+      $distinct$`North America`$stats$effects_plot[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
+      2 2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
+                xmax ymin ymax
+      1 7.384827e-09 -Inf  Inf
+      2 7.384827e-09 -Inf  Inf
+      
+      $distinct$`North America`$stats$effects_plot[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -2.916337e-07 2.108208e-07 1     1     1 0.875 1.125  black       0.5
+      2  2.252407e-06 1.840999e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $distinct$`North America`$stats$effects_plot[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -1.162697e-07 1.237723e-07  0.7  1.3 1     1     1     NA white       0.5
+      2            NA 5.541961e-06  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $distinct$`North America`$stats$effects_plot[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.751319e-09 NALED 30.2% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.751319e-09 NALED 17.8% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -1.162697e-07     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2            NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 1.237723e-07     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 5.541961e-06     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.751319e-09 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.751319e-09 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $distinct$`North America`$stats$effects_plot[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $distinct$`North America`$plots
+      $distinct$`North America`$plots$wt
                 x            y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 1.840999e-05     1    -1     NA lightgray       0.5        1    NA
-      2  1.935000 1.840694e-05     1    -1     NA lightgray       0.5        1    NA
-      3  2.465000 1.840344e-05     1    -1     NA lightgray       0.5        1    NA
-      4  2.790481 1.213670e-05     1    -1     NA lightgray       0.5        1    NA
-      5  3.190000 1.198158e-05     1    -1     NA lightgray       0.5        1    NA
-      6  3.439356 2.547597e-06     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000 2.542644e-06     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000 2.342622e-06     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066 2.254612e-06     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272 2.252407e-06     1    -1     NA lightgray       0.5        1    NA
+      1  1.498275 1.840425e-05     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 1.840120e-05     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 1.839770e-05     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 1.213096e-05     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 1.197583e-05     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 2.541857e-06     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 2.536903e-06     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 2.336881e-06     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 2.248871e-06     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 2.246666e-06     1    -1     NA lightgray       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 1.178115e-10 7.384827e-09
       2  -Inf  Inf 1.178115e-10 7.384827e-09
@@ -5290,102 +7888,14 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $plots$`North America`$am
+      $distinct$`North America`$plots$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1 -1.235125e-07     1     1     NA lightgray       0.5        1    NA -Inf
-      2 2  4.269966e-08     1     2     NA lightgray       0.5        1    NA -Inf
+      1 1 -1.292533e-07     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  3.695882e-08     1     2     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 1.178115e-10 7.384827e-09
       2  Inf 1.178115e-10 7.384827e-09
       
-      
-      
-      $conf_regions
-      $conf_regions$Asia
-      $conf_regions$Asia$by_term
-      $conf_regions$Asia$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>    <dbl>    <dbl> <ord>          
-      1    1.50  2.46  0.244    15 0.234    -5.12e-7 -1.50e-6 -4.04e-6 below          
-      2    2.79  5.45  0.673    49 0.766     4.62e-6  4.90e-6  4.08e-7 above          
-      
-      $conf_regions$Asia$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct         y relative_to_mid
-        <ord> <int> <dbl>     <dbl> <ord>          
-      1 FALSE    38 0.594 -0.00168  below          
-      2 TRUE     26 0.406 -0.000314 overlap        
-      
-      
-      $conf_regions$Asia$significant
-      # A tibble: 3 x 12
-        term  x     start_x end_x x_span     n n_pct        y      start_y       end_y
-        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>        <dbl>       <dbl>
-      1 wt    <NA>     1.50  2.46  0.244    15 0.234 NA       -0.000000512 -0.00000150
-      2 wt    <NA>     2.79  5.45  0.673    49 0.766 NA        0.00000462   0.00000490
-      3 am    FALSE   NA    NA    NA        38 0.594 -0.00168 NA           NA         
-      # i 2 more variables: trend <dbl>, relative_to_mid <ord>
-      
-      $conf_regions$Asia$sig_criterion
-      [1] "median_band_pct"
-      
-      
-      $conf_regions$Europe
-      $conf_regions$Europe$by_term
-      $conf_regions$Europe$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct     start_y     end_y   trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>       <dbl>     <dbl>   <dbl> <ord>          
-      1    1.50  3.19  0.428    29 0.453 -0.0000179   -1.67e-5 2.66e-6 below          
-      2    3.44  5.45  0.509    35 0.547 -0.00000735  -7.13e-6 4.36e-7 overlap        
-      
-      $conf_regions$Europe$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct        y relative_to_mid
-        <ord> <int> <dbl>    <dbl> <ord>          
-      1 FALSE    38 0.594 0.00168  above          
-      2 TRUE     26 0.406 0.000314 overlap        
-      
-      
-      $conf_regions$Europe$significant
-      # A tibble: 2 x 12
-        term  x     start_x end_x x_span     n n_pct        y    start_y      end_y
-        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>      <dbl>      <dbl>
-      1 wt    <NA>     1.50  3.19  0.428    29 0.453 NA       -0.0000179 -0.0000167
-      2 am    FALSE   NA    NA    NA        38 0.594  0.00168 NA         NA        
-      # i 2 more variables: trend <dbl>, relative_to_mid <ord>
-      
-      $conf_regions$Europe$sig_criterion
-      [1] "median_band_pct"
-      
-      
-      $conf_regions$`North America`
-      $conf_regions$`North America`$by_term
-      $conf_regions$`North America`$by_term$wt
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct    start_y     end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>      <dbl>     <dbl>    <dbl> <ord>          
-      1    1.50  3.19  0.428    29 0.453 0.0000184    1.20e-5 -1.50e-5 above          
-      2    3.44  5.45  0.509    35 0.547 0.00000255   2.25e-6 -5.80e-7 overlap        
-      
-      $conf_regions$`North America`$by_term$am
-      # A tibble: 2 x 5
-        x         n n_pct             y relative_to_mid
-        <ord> <int> <dbl>         <dbl> <ord>          
-      1 FALSE    38 0.594 -0.000000124  overlap        
-      2 TRUE     26 0.406  0.0000000427 overlap        
-      
-      
-      $conf_regions$`North America`$significant
-      # A tibble: 1 x 12
-        term  x     start_x end_x x_span     n n_pct     y   start_y    end_y    trend
-        <chr> <chr>   <dbl> <dbl>  <dbl> <int> <dbl> <dbl>     <dbl>    <dbl>    <dbl>
-      1 wt    <NA>     1.50  3.19  0.428    29 0.453    NA 0.0000184  1.20e-5 -1.50e-5
-      # i 1 more variable: relative_to_mid <ord>
-      
-      $conf_regions$`North America`$sig_criterion
-      [1] "median_band_pct"
       
       
       
@@ -5393,8 +7903,8 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$relative_y_shift
-      [1] 5.740835e-09
+      $params$it.cat
+      [1] "North America"
       
       $params$y_cats
       [1] "Asia"          "Europe"        "North America"
@@ -5524,9 +8034,6 @@
       $params$boot_centre
       [1] "mean"
       
-      $params$relative_y
-      [1] "median"
-      
       $params$y_type
       [1] "categorical"
       
@@ -5563,17 +8070,16 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 
 # categorical outcome works with every parameter set to something, with multiple x datatypes
 
     Code
       cars_ale
     Output
-      $data
-      $data$Asia
-      $data$Asia$gear
+      $distinct
+      $distinct$Asia
+      $distinct$Asia$ale
+      $distinct$Asia$ale$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -5581,7 +8087,7 @@
       2 four        24 -0.177  -0.177  -0.177    -0.177  -0.177 
       3 five        10 -0.177  -0.177  -0.177    -0.177  -0.177 
       
-      $data$Asia$country
+      $distinct$Asia$ale$country
       # A tibble: 6 x 7
         country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -5593,52 +8099,8 @@
       6 USA            24     0     0       0         0     0
       
       
-      $data$Europe
-      $data$Europe$gear
-      # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30 0.0104 0.0104  0.0104    0.0104 0.0104
-      2 four        24 0.177  0.177   0.177     0.177  0.177 
-      3 five        10 0.176  0.176   0.176     0.176  0.176 
-      
-      $data$Europe$country
-      # A tibble: 6 x 7
-        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 UK              2     0     0       0         0     0
-      2 Sweden          2     0     0       0         0     0
-      3 Japan          12     0     0       0         0     0
-      4 Italy           8     0     0       0         0     0
-      5 Germany        16     0     0       0         0     0
-      6 USA            24     0     0       0         0     0
-      
-      
-      $data$`North America`
-      $data$`North America`$gear
-      # A tibble: 3 x 7
-        gear.bin    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
-        <ord>    <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 three       30  0.00000100  0.00000100  0.00000100  0.00000100  0.00000100
-      2 four        24 -0.00000210 -0.00000210 -0.00000210 -0.00000210 -0.00000210
-      3 five        10  0.000693    0.000693    0.000693    0.000693    0.000693  
-      
-      $data$`North America`$country
-      # A tibble: 6 x 7
-        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 UK              2     0     0       0         0     0
-      2 Sweden          2     0     0       0         0     0
-      3 Japan          12     0     0       0         0     0
-      4 Italy           8     0     0       0         0     0
-      5 Germany        16     0     0       0         0     0
-      6 USA            24     0     0       0         0     0
-      
-      
-      
-      $boot_data
-      $boot_data$Asia
-      $boot_data$Asia$gear
+      $distinct$Asia$boot
+      $distinct$Asia$boot$gear
       # A tibble: 3 x 6
           .it gear  .y_composite    .n .y_distinct      .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
@@ -5646,7 +8108,7 @@
       2     1 four       -0.177     24     -0.177  -0.177 
       3     1 five       -0.177     10     -0.177  -0.177 
       
-      $boot_data$Asia$country
+      $distinct$Asia$boot$country
       # A tibble: 6 x 6
           .it country .y_composite    .n .y_distinct    .y
         <dbl> <fct>          <dbl> <dbl>       <dbl> <dbl>
@@ -5658,8 +8120,37 @@
       6     1 USA                0    24           0     0
       
       
-      $boot_data$Europe
-      $boot_data$Europe$gear
+      $distinct$Asia$stats
+      NULL
+      
+      $distinct$Asia$plots
+      NULL
+      
+      
+      $distinct$Europe
+      $distinct$Europe$ale
+      $distinct$Europe$ale$gear
+      # A tibble: 3 x 7
+        gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30 0.0104 0.0104  0.0104    0.0104 0.0104
+      2 four        24 0.177  0.177   0.177     0.177  0.177 
+      3 five        10 0.176  0.176   0.176     0.176  0.176 
+      
+      $distinct$Europe$ale$country
+      # A tibble: 6 x 7
+        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 UK              2     0     0       0         0     0
+      2 Sweden          2     0     0       0         0     0
+      3 Japan          12     0     0       0         0     0
+      4 Italy           8     0     0       0         0     0
+      5 Germany        16     0     0       0         0     0
+      6 USA            24     0     0       0         0     0
+      
+      
+      $distinct$Europe$boot
+      $distinct$Europe$boot$gear
       # A tibble: 3 x 6
           .it gear  .y_composite    .n .y_distinct     .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>  <dbl>
@@ -5667,7 +8158,7 @@
       2     1 four        0.177     24      0.177  0.177 
       3     1 five        0.176     10      0.176  0.176 
       
-      $boot_data$Europe$country
+      $distinct$Europe$boot$country
       # A tibble: 6 x 6
           .it country .y_composite    .n .y_distinct    .y
         <dbl> <fct>          <dbl> <dbl>       <dbl> <dbl>
@@ -5679,8 +8170,37 @@
       6     1 USA                0    24           0     0
       
       
-      $boot_data$`North America`
-      $boot_data$`North America`$gear
+      $distinct$Europe$stats
+      NULL
+      
+      $distinct$Europe$plots
+      NULL
+      
+      
+      $distinct$`North America`
+      $distinct$`North America`$ale
+      $distinct$`North America`$ale$gear
+      # A tibble: 3 x 7
+        gear.bin    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+        <ord>    <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+      1 three       30  0.00000100  0.00000100  0.00000100  0.00000100  0.00000100
+      2 four        24 -0.00000210 -0.00000210 -0.00000210 -0.00000210 -0.00000210
+      3 five        10  0.000693    0.000693    0.000693    0.000693    0.000693  
+      
+      $distinct$`North America`$ale$country
+      # A tibble: 6 x 7
+        country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 UK              2     0     0       0         0     0
+      2 Sweden          2     0     0       0         0     0
+      3 Japan          12     0     0       0         0     0
+      4 Italy           8     0     0       0         0     0
+      5 Germany        16     0     0       0         0     0
+      6 USA            24     0     0       0         0     0
+      
+      
+      $distinct$`North America`$boot
+      $distinct$`North America`$boot$gear
       # A tibble: 3 x 6
           .it gear  .y_composite    .n .y_distinct          .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>       <dbl>
@@ -5688,7 +8208,7 @@
       2     1 four   -0.00000210    24 -0.00000210 -0.00000210
       3     1 five    0.000693      10  0.000693    0.000693  
       
-      $boot_data$`North America`$country
+      $distinct$`North America`$boot$country
       # A tibble: 6 x 6
           .it country .y_composite    .n .y_distinct    .y
         <dbl> <fct>          <dbl> <dbl>       <dbl> <dbl>
@@ -5700,17 +8220,15 @@
       6     1 USA                0    24           0     0
       
       
-      
-      $stats
+      $distinct$`North America`$stats
       NULL
       
-      $plots
+      $distinct$`North America`$plots
       NULL
+      
+      
       
       $params
-      $params$relative_y_shift
-      [1] 0
-      
       $params$y_cats
       [1] "Asia"          "Europe"        "North America"
       
@@ -5840,9 +8358,6 @@
       $params$boot_centre
       [1] "median"
       
-      $params$relative_y
-      [1] "zero"
-      
       $params$y_type
       [1] "categorical"
       
@@ -5871,7 +8386,7 @@
       [1] 10
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -5879,6 +8394,4 @@
       
       attr(,"class")
       [1] "ale"
-      attr(,"ale_version")
-      [1] '0.3.0.20240823'
 

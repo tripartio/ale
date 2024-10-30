@@ -46,13 +46,12 @@ test_that(
       max_x_int = 10,
       parallel = 0,
       silent = TRUE,
-      compact_plots = TRUE,
+      # compact_plots = TRUE,
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats$mpg$effects_plot <- cars_ale$stats$mpg$effects_plot |>
+    cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
+    cars_ale$distinct$mpg$stats$effects_plot <- cars_ale$distinct$mpg$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
   }
 )
@@ -69,13 +68,12 @@ test_that(
       parallel = 0,
       boot_it = 5,
       silent = TRUE,
-      compact_plots = TRUE,
+      # compact_plots = TRUE,
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats$mpg$effects_plot <- cars_ale$stats$mpg$effects_plot |>
+    cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
+    cars_ale$distinct$mpg$stats$effects_plot <- cars_ale$distinct$mpg$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
   }
 )
@@ -99,9 +97,9 @@ test_that(
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
       silent = TRUE,
-      compact_plots = TRUE
+      # compact_plots = TRUE
     )
-    # cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
+    # cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
     expect_snapshot(cars_ale)
   }
 )
@@ -119,13 +117,12 @@ test_that(
       max_x_int = 10,
       parallel = 0,
       silent = TRUE,
-      compact_plots = TRUE
+      # compact_plots = TRUE
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats$vs$effects_plot <- cars_ale$stats$vs$effects_plot |>
+    cars_ale$distinct$vs$plots <- ale_plots_to_data(cars_ale$distinct$vs$plots)
+    cars_ale$distinct$vs$stats$effects_plot <- cars_ale$distinct$vs$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
   }
 )
@@ -142,13 +139,12 @@ test_that(
       parallel = 0,
       boot_it = 4,
       silent = TRUE,
-      compact_plots = TRUE
+      # compact_plots = TRUE
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats$vs$effects_plot <- cars_ale$stats$vs$effects_plot |>
+    cars_ale$distinct$vs$plots <- ale_plots_to_data(cars_ale$distinct$vs$plots)
+    cars_ale$distinct$vs$stats$effects_plot <- cars_ale$distinct$vs$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # cars_ale$stats$effects_plot <- ale_plots_to_data(list(cars_ale$stats$effects_plot))
     expect_snapshot(cars_ale)
   }
 )
@@ -172,10 +168,9 @@ test_that(
       y_type = 'binary',
       median_band_pct = c(0.01, 0.2),
       silent = TRUE,
-      compact_plots = TRUE,
+      # compact_plots = TRUE,
     )
 
-    # cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
     expect_snapshot(cars_ale)
   }
 )
@@ -190,26 +185,21 @@ test_that(
     cars_ale <- ale(
       test_cars,
       test_nn_categorical,
-      # faster test
       max_x_int = 10,
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE,
-      compact_plots = TRUE
+      # compact_plots = TRUE
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats <- cars_ale$stats |>
-      map(\(.cat) {
-        .cat$effects_plot <- .cat$effects_plot |>
+    cars_ale$distinct <- cars_ale$distinct |>
+      map(\(it.cat) {
+        it.cat$plots <- ale_plots_to_data(it.cat$plots)
+        it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
           ggplot2::ggplot_build() |>
-          (`[[`)('data') |>
-          (`[[`)(1)
+          (`[[`)('data')
 
-        .cat
+        it.cat
       })
-    # cars_ale$stats$mpg$effects_plot <- cars_ale$stats$mpg$effects_plot |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(cars_ale)
   }
 )
@@ -230,15 +220,14 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE  # generates warnings for out-of-range values
     )
-    cars_ale$plots <- ale_plots_to_data(cars_ale$plots)
-    cars_ale$stats <- cars_ale$stats |>
-      map(\(.cat) {
-        .cat$effects_plot <- .cat$effects_plot |>
+    cars_ale$distinct <- cars_ale$distinct |>
+      map(\(it.cat) {
+        it.cat$plots <- ale_plots_to_data(it.cat$plots)
+        it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
           ggplot2::ggplot_build() |>
-          (`[[`)('data') |>
-          (`[[`)(1)
+          (`[[`)('data')
 
-        .cat
+        it.cat
       })
     expect_snapshot(cars_ale)
   }
@@ -263,7 +252,7 @@ test_that(
       y_type = 'categorical',
       median_band_pct = c(0.01, 0.2),
       silent = TRUE,
-      compact_plots = TRUE,
+      # compact_plots = TRUE,
     )
     expect_snapshot(cars_ale)
   }

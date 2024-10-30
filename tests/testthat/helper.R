@@ -16,10 +16,10 @@ test_cars <- var_cars |>
   dplyr::bind_rows(
     var_cars |>
       dplyr::mutate(
-        dplyr::across(dplyr::where(is.double), \(.dbl) .dbl * dbl_jitter)) |>
+        dplyr::across(dplyr::where(is.double), \(it.dbl) it.dbl * dbl_jitter)) |>
       dplyr::mutate(dplyr::across(
         dplyr::where(is.integer),
-        \(.int) dplyr::if_else(.int > 1, .int + int_jitter, .int)
+        \(it.int) dplyr::if_else(it.int > 1, it.int + int_jitter, it.int)
       ))
   )
 rm(dbl_jitter)
@@ -50,20 +50,18 @@ ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
 
+  # browser()
   ale_plots |>
-    purrr::map(\(.cat) {
-      .cat |>
-        purrr::map(\(.plot) {
-          ggplot2::ggplot_build(.plot)$data[[1]]
-        })
+    purrr::map(\(it.plot) {
+      ggplot2::ggplot_build(it.plot)$data[[1]]
     })
-  #     }) |>
-    #   purrr::set_names(names(.cat))
-    #   }) |>
-    # purrr::set_names(names(ale_plots))
-
-    # purrr::map(\(.plot) ggplot2::ggplot_build(.plot)$data) |>
-    # purrr::set_names(names(ale_plots))
+  # ale_plots |>
+  #   purrr::map(\(it.cat) {
+  #     it.cat |>
+  #       purrr::map(\(it.plot) {
+  #         ggplot2::ggplot_build(it.plot)$data[[1]]
+  #       })
+  #   })
 }
 
 # custom predict function ------------
