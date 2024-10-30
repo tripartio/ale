@@ -106,11 +106,7 @@
 #' @param parallel non-negative integer length 1. Number of parallel threads
 #' (workers or tasks) for parallel execution of the function. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
-#' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot').
-#' Vector of types of results to return.
-#' 'plots' will return an ALE plot; 'data' will return the source ALE data;
-#' 'stats' will return ALE statistics. Each option must be listed to return the
-#' specified component. By default, all are returned except for 'boot'.
+#' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot'). Vector of types of results to return. 'plots' will return an ALE plot; 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.
 #' @param pred_fun,pred_type function,character length 1. `pred_fun` is a function that
 #' returns a vector of predicted values of type `pred_type` from `model` on `data`.
 #' See details.
@@ -193,13 +189,13 @@
 #'     * `by_term`: a list named by each requested x variable, each of whose elements
 #'       is a tibble with the following columns:
 #'         * `statistic`: the ALE statistic specified in the row (see
-#'           the `by_statistic` element below).
+#'           the `by_stat` element below).
 #'         * `estimate`: the bootstrapped `mean` or `median` of the `statistic`,
 #'           depending on the `boot_centre` argument to the [ale()] function.
 #'           Regardless, both `mean` and `median` are returned as columns here.
 #'         * `conf.low`, `conf.high`: the lower and upper confidence intervals,
 #'           respectively, for the bootstrapped `estimate`.
-#'     * `by_statistic`: list named by each of the following ALE statistics:
+#'     * `by_stat`: list named by each of the following ALE statistics:
 #'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`. See
 #'      `vignette('ale-statistics')` for details.
 #'     * `estimate`: a tibble whose data consists of the `estimate` values from the
@@ -208,26 +204,14 @@
 #'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`.
 #'     * `effects_plot`: a `ggplot` object which is the ALE effects plot for all the
 #'       x variables.
+#'     * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),  returns a list. If not requested, returns `NULL`. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the `data` element. The list has the following elements:
+#'         * `by_term`: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See `vignette('ale-statistics')` for details about confidence regions.)
+#'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row.
+#'         * `sig_criterion`: a length-one character vector that reports which values were used to determine statistical significance: if `rep` was provided to the [ale()] function, it will be used; otherwise, `median_band_pct` will be used.
 #' * `plots`: if `plots` are requested in the `output` argument (as is the default),
 #'   returns a list whose elements, named by each requested x variable, are each
 #'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
 #'   If `plots` is not included in `output`, this element is `NULL`.
-#' * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),
-#'   returns a list. If not requested, returns `NULL`. The returned list provides
-#'   summaries of the confidence regions of the relevant ALE statistics of the `data`
-#'   element.
-#'   The list has the following elements:
-#'     * `by_term`: a list named by each requested x variable, each of whose elements
-#'       is a tibble with the relevant data for the confidence regions.
-#'       (See `vignette('ale-statistics')` for details about confidence regions.)
-#'     * `significant`: a tibble that summarizes the `by_term` to only show confidence
-#'       regions that are statistically significant. Its columns are those from
-#'       `by_term` plus a `term` column to specify which x variable is indicated
-#'       by the respective row.
-#'     * `sig_criterion`: a length-one character vector that reports which values
-#'       were used to determine statistical significance: if `rep` was
-#'       provided to the [ale()] function, it will be used; otherwise,
-#'       `median_band_pct` will be used.
 #' * Various values echoed from the original call to the [ale()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
 #'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `data_sample`. These are either the values provided by the user or used by default if the user did not change them.
 #' * `y_summary`: summary statistics of y values used for the ALE calculation.
@@ -434,9 +418,9 @@ ale <- function (
 #' # Print interaction plots
 #' ale_ixn_gam_diamonds$plots |>
 #'   # extract list of x1 ALE outputs
-#'   purrr::walk(\(.x1) {
-#'     # plot all x2 plots in each .x1 element
-#'     patchwork::wrap_plots(.x1) |>
+#'   purrr::walk(\(it.x1) {
+#'     # plot all x2 plots in each it.x1 element
+#'     patchwork::wrap_plots(it.x1) |>
 #'       print()
 #'   })
 #' }
@@ -640,8 +624,7 @@ ale_core <- function (
   validate(
     length(setdiff(output, c('plots', 'data', 'stats', 'conf_regions', 'boot'))) == 0,
     msg = cli_alert_danger(
-      'The value in the {.arg output} argument must be one or more of
-      "plots", "data", "stats", or "conf_regions".'
+      'The value in the {.arg output} argument must be one or more of "plots", "data", "stats", or "conf_regions".'
     )
   )
   if ('conf_regions' %in% output) {
@@ -695,18 +678,18 @@ ale_core <- function (
   if (!is.null(bins)) {
     map(
       bins,
-      \(.var) validate(
-        is.null(.var)  ||  # if the variable is present, try the next two tests
-          is.numeric(.var) || is.factor(.var)
+      \(it.var) validate(
+        is.null(it.var)  ||  # if the variable is present, try the next two tests
+          is.numeric(it.var) || is.factor(it.var)
       )
     )
   }
   if (!is.null(ns)) {
     map(
       ns,
-      \(.var) validate(
-        is.null(.var) ||  # if the variable is present, try the next test
-          is.integer(.var)
+      \(it.var) validate(
+        is.null(it.var) ||  # if the variable is present, try the next test
+          is.integer(it.var)
       )
     )
   }
@@ -826,8 +809,8 @@ ale_core <- function (
   if ('stats' %in% output) {
     ale_y_norm_funs <-
       y_vals |>
-      apply(2, \(.col) {
-        create_ale_y_norm_function(.col)
+      apply(2, \(it.col) {
+        create_ale_y_norm_function(it.col)
       })
   }
 
@@ -904,14 +887,14 @@ ale_core <- function (
           if ('plots' %in% output) {  # user requested the plot
             plot <-
               ale_data |>
-              imap(\(.cat_ale_data, .cat_name) {
+              imap(\(it.cat_ale_data, it.cat_name) {
                 plot_ale(
-                  .cat_ale_data, x_col, y_col, y_type,
-                  y_summary[, .cat_name],
+                  it.cat_ale_data, x_col, y_col, y_type,
+                  y_summary[, it.cat_name],
                   # relative_y = relative_y,
                   p_alpha = p_alpha,
                   median_band_pct = median_band_pct,
-                  x_y = tibble(data[[x_col]], y_vals[, .cat_name]) |>
+                  x_y = tibble(data[[x_col]], y_vals[, it.cat_name]) |>
                     stats::setNames(c(x_col, y_col)),
                   rug_sample_size = data_sample,
                   min_rug_per_interval = min_rug_per_interval,
@@ -1039,10 +1022,10 @@ ale_core <- function (
             if ('plots' %in% output) {  # user requested the plot
               plot <-
                 ale_data |>
-                imap(\(.cat_ale_data, .cat_name) {
+                imap(\(it.cat_ale_data, it.cat_name) {
                   plot_ale_ixn(
-                    .cat_ale_data, x1_col, x2_col, y_col, y_type,
-                    y_summary[, .cat_name],
+                    it.cat_ale_data, x1_col, x2_col, y_col, y_type,
+                    y_summary[, it.cat_name],
                     y_vals,
                     # relative_y = relative_y,
                     median_band_pct = median_band_pct,

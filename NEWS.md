@@ -2,7 +2,7 @@
 
 ## Breaking changes
 
-* We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scaleable. 
+* We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scalable. 
 * In addition to rewriting the code under the hood, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
 * We have created several S3 objects to represent different kinds of ale package objects:
     * `ale`: the core `ale` package object that holds the results of the [ale()] function.
@@ -47,6 +47,7 @@ Other notable changes that might not be readily visible to users:
 ## Known issues to be addressed in a future version
 
 -   Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
+-   Effects plots for interactions have not yet been implemented.
 
 
 # ale 0.3.0

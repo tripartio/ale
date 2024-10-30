@@ -174,7 +174,7 @@ ale_stats_2D <- function(
       xtabs(ale_data)
     ale_n_ray <-
       paste0(
-        '.ale_n ~ ',
+        '.n ~ ',
         paste0(x_cols, collapse = ' + ')
       ) |>
       as.formula() |>
@@ -451,7 +451,7 @@ pivot_stats <- function(long_stats) {
           select(-'term')  # remove superfluous column
       }),
 
-    by_statistic = long_stats |>
+    by_stat = long_stats |>
       split(~ statistic) |>
       # split() sort statistics alphabetically; revert to the original provided order of statistics
       (`[`)(unique(long_stats$statistic)) |>

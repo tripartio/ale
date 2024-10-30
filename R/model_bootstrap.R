@@ -91,7 +91,7 @@
 #'   * `data`: ALE data (see [ale()] for details about the format)
 #'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
 #'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ale()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
-#'     * `by_statistic` : term, estimate, conf.low, median, mean, conf.high.
+#'     * `by_stat` : term, estimate, conf.low, median, mean, conf.high.
 #'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
 #'   * `plots`: ALE plots (see [ale()] for details about the format)
 #' * `boot_data`: full bootstrap data (not returned by default)
@@ -1143,12 +1143,16 @@ model_bootstrap <- function (
 
       }
 
+      if (!is.null(detailed_ale_stats)) {
+        detailed_ale_stats$conf_regions <- ale_conf_regions
+      }
+
       # Return ALE results
       list(
         data = ale_summary_data,
         stats = detailed_ale_stats,
-        plots = ale_summary_plots,
-        conf_regions = ale_conf_regions
+        plots = ale_summary_plots
+        # conf_regions = ale_conf_regions
       )
     }
 
