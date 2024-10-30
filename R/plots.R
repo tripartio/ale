@@ -877,6 +877,9 @@ plot_effects <- function(
   # median_y       <- middle_band_quantiles[2]
   # middle_band_hi <- middle_band_quantiles[3]
 
+  # Set y_summary to only one category set of values
+  y_summary <- y_summary[, 1]
+
   # ALED and NALED should be centred not on the median, but on the middle of the
   # median band. This is visually more intuitive.
   middle_band_mid <- (y_summary['med_lo'] + y_summary['med_hi']) / 2
