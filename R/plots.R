@@ -31,15 +31,15 @@ plot.ale <- function(
 
   if (type == 'ale') {
     plots <-
-      imap(ale_obj$data, \(.ale_cat_data, .cat) {
-        imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+      imap(ale_obj$data, \(it.ale_cat_data, it.cat) {
+        imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
           plot_ale(
-            ale_data  = .x_col_data,
-            x_col     = .x_col_name,
-            y_col     = .cat,
+            ale_data  = it.x_col_data,
+            x_col     = it.x_col_name,
+            y_col     = it.cat,
             y_type    = ale_obj$params$y_type,
-            y_summary = ale_obj$params$y_summary[, .cat],
-            x_y       = ale_obj$params$data$sample[, c(.x_col_name, .cat)],
+            y_summary = ale_obj$params$y_summary[, it.cat],
+            x_y       = ale_obj$params$data$sample[, c(it.x_col_name, it.cat)],
             compact_plots = ale_obj$params$compact_plots,
             relative_y = relative_y,
             p_alpha = p_alpha,
@@ -59,19 +59,19 @@ plot.ale <- function(
 
   else if (type == 'effects') {
     eff_plot <-
-      imap(ale_obj$stats, \(.cat_stats, .cat) {
+      imap(ale_obj$stats, \(it.cat_stats, it.cat) {
         plot_effects(
-          estimates = .cat_stats$estimate,
-          y_summary = ale_obj$params$y_summary[, .cat],
+          estimates = it.cat_stats$estimate,
+          y_summary = ale_obj$params$y_summary[, it.cat],
           # y_vals = ale_obj$params$y_vals,
-          y_col = .cat,
+          y_col = it.cat,
           middle_band = if (is.null(ale_obj$params$rep)) {
             ale_obj$params$median_band_pct
           } else {
             # Use REP of NALED:
             # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on REPs.
             # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-            ale_obj$params$rep$rand_stats[[.cat]] |>
+            ale_obj$params$rep$rand_stats[[it.cat]] |>
               p_to_random_value('naled', ale_obj$params$median_band_pct) |>
               unname() |>
               (`/`)(100)  # scale NALED from percentage to 0 to 1
@@ -115,15 +115,15 @@ plot.ale_boot <- function(
   )
 
   if (type == 'ale') {
-    plots <- imap(ale_boot_obj$ale$boot$data, \(.ale_cat_data, .cat) {
-      imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+    plots <- imap(ale_boot_obj$ale$boot$data, \(it.ale_cat_data, it.cat) {
+      imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
         plot_ale(
-          ale_data  = .x_col_data,
-          x_col     = .x_col_name,
-          y_col     = .cat,
+          ale_data  = it.x_col_data,
+          x_col     = it.x_col_name,
+          y_col     = it.cat,
           y_type    = ale_boot_obj$ale$single$params$y_type,
-          y_summary = ale_boot_obj$ale$single$params$y_summary[, .cat],
-          x_y       = ale_boot_obj$params$data$sample[, c(.x_col_name, .cat)],
+          y_summary = ale_boot_obj$ale$single$params$y_summary[, it.cat],
+          x_y       = ale_boot_obj$params$data$sample[, c(it.x_col_name, it.cat)],
           compact_plots = ale_boot_obj$params$compact_plots,
           relative_y = relative_y,
           p_alpha = p_alpha,
@@ -143,17 +143,17 @@ plot.ale_boot <- function(
 
   else if (type == 'effects') {
     eff_plot <-
-      imap(ale_boot_obj$ale$boot$stats, \(.cat_stats, .cat) {
+      imap(ale_boot_obj$ale$boot$stats, \(it.cat_stats, it.cat) {
         plot_effects(
-          estimates = .cat_stats$estimate,
+          estimates = it.cat_stats$estimate,
           # y values
-          y_summary = ale_boot_obj$ale$single$params$y_summary[, .cat],
+          y_summary = ale_boot_obj$ale$single$params$y_summary[, it.cat],
           # y_vals = if (ale_boot_obj$ale$single$params$y_type == 'categorical') {
-          #   ale_boot_obj$params$data$sample[[.cat]] == .cat
+          #   ale_boot_obj$params$data$sample[[it.cat]] == it.cat
           # } else {
-          #   ale_boot_obj$params$data$sample[[.cat]]
+          #   ale_boot_obj$params$data$sample[[it.cat]]
           # },
-          y_col = .cat,
+          y_col = it.cat,
           middle_band = ale_boot_obj$ale$single$params$median_band_pct,
           compact_plots = ale_boot_obj$params$compact_plots
         )
@@ -188,15 +188,15 @@ plot.ale_boot <- function(
 #     x_y_data = NULL,
 #     compact_plots = FALSE
 # ) {
-#   imap(ale_obj$data, \(.ale_cat_data, .cat) {
-#     imap(.ale_cat_data, \(.x_col_data, .x_col_name) {
+#   imap(ale_obj$data, \(it.ale_cat_data, it.cat) {
+#     imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
 #       plot_ale(
-#         ale_data = .x_col_data,
-#         x_col = .x_col_name,
-#         y_col = .cat,
+#         ale_data = it.x_col_data,
+#         x_col = it.x_col_name,
+#         y_col = it.cat,
 #         y_type = y_type,
-#         y_summary = y_summary[, .cat],
-#         x_y = x_y_data[, c(.x_col_name, .cat)],
+#         y_summary = y_summary[, it.cat],
+#         x_y = x_y_data[, c(it.x_col_name, it.cat)],
 #         compact_plots = compact_plots,
 #       )
 #     })
@@ -496,8 +496,8 @@ plot_ale <- function(
 # # Categorical plots
 # iale$plots |>
 #   purrr::list_transpose() |>
-#   map(\(.var) {
-#     .var |>
+#   map(\(it.var) {
+#     it.var |>
 #       patchwork::wrap_plots(ncol = 1) |>
 #       patchwork::plot_layout(axis_titles = 'collect_x')
 #   })
@@ -921,11 +921,15 @@ plot_effects <- function(
         # max(max(y_vals, estimates$aler_max))
       ),
       # Regular breaks plus the median
-      breaks = \(.limits) {
+      breaks = \(it.limits) {
         # Create 4 logically placed breaks + add the median.
         # 5 major breaks on the lower raw outcome scale counterbalances 10 decile breaks on the upper percentile scale.
+
+        # closeAllConnections()
+        # browser()
+
         labeling::extended(
-          .limits[1], .limits[2], 4
+          it.limits[1], it.limits[2], 4
         ) |>
           c(y_summary[['50%']]) |>
           # c(median(y_vals)) |>
