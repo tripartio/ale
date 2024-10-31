@@ -957,13 +957,15 @@ ale_core <- function (
               stats    <- ale_data_stats$stats
             # }
             # else {
-            #   ale_data <-
+            #   ale_data_stats <-
             #     calc_ale_ixn(
             #       data_X, model, x1_col, x2_col, y_cats,
             #       pred_fun, pred_type,
             #       max_x_int
             #     )
-            #   stats <- NULL
+            #
+            #   ale_data <- ale_data_stats$y
+            #   stats    <- NULL
             # }
 
 

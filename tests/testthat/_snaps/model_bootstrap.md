@@ -182,9 +182,6 @@
       
       
       $params
-      $params$it.cat
-      [1] "mpg"
-      
       $params$y_cats
       [1] "mpg"
       
@@ -600,9 +597,6 @@
       
       
       $params
-      $params$it.cat
-      [1] "mpg"
-      
       $params$y_cats
       [1] "mpg"
       
@@ -1171,9 +1165,6 @@
       
       
       $params
-      $params$it.cat
-      [1] "mpg"
-      
       $params$y_cats
       [1] "mpg"
       
@@ -1896,9 +1887,6 @@
       
       
       $params
-      $params$it.cat
-      [1] "vs"
-      
       $params$y_cats
       [1] "vs"
       
@@ -2724,9 +2712,6 @@
       
       
       $params
-      $params$it.cat
-      [1] "virginica"
-      
       $params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       

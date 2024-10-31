@@ -563,9 +563,9 @@ calc_ale <- function(
       # return from map
       list(
         shift     = it.centre_shift,
-        distinct  = NULL,
+        distinct  = it.ale_diffed,
         # # For now, disable distinct 2D ALE because bootstrapping is not yet properly handled
-        # distinct  = it.ale_diffed,
+        # distinct  = NULL,
         composite = NULL
       )
     }) |>
@@ -614,27 +614,52 @@ calc_ale <- function(
     }
   }
 
-
-  # Extract the offset by which to shift to centre the ALE data
-  ale_y_shift <- map_dbl(ale_diff, \(it) it$shift)
-
+  # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
     rename(.y_composite = .y)
 
   # closeAllConnections()
   # browser()
 
-  # Append distinct ALE to boot_ale_tbl
-  boot_ale_tbl$.y_distinct <- ale_diff |>
-    map(\(it.cat) {
-      it.cat$distinct
+  if (ixn_d == 2) {
+    # Calculate the difference between composite and distinct ALE on the full dataset
+    diff_composite_distinct <- map(y_cats, \(it.cat) {
+      as.numeric(ale_y_full[it.cat, , ]) -       # composite ALE
+        as.numeric(ale_diff[[it.cat]]$distinct)  # distinct ALE
     }) |>
-    unlist() |>
-    unname()
+      set_names(y_cats)
 
+    # Extend diff_composite_distinct for all bootstrap iterations and flatten to a single vector
+    diff_composite_distinct <- diff_composite_distinct |>
+      map(\(it.cat) {
+        # Replicate boot_it + 1 times: all bootstrap iterations plus the full dataset
+        rep.int(it.cat, boot_it + 1)
+      }) |>
+      unlist()  # |> # flatten in order of y_cats
+    # as.numeric()  # remove names
+
+
+    # Calculate distinct ALE from bootstrapped .y_composite in boot_ale_tbl.
+    boot_ale_tbl$.y_distinct <- boot_ale_tbl$.y_composite -
+      as.numeric(diff_composite_distinct)  # remove names
+
+    # # Append distinct ALE to boot_ale_tbl
+    # boot_ale_tbl$.y_distinct <- ale_diff |>
+    #   map(\(it.cat) {
+    #     it.cat$distinct
+    #   }) |>
+    #   unlist() |>
+    #   unname()
+
+  }
+
+  # When there is no distinct ALE, then composite ALE is the same
   if ('.y_distinct' %notin% names(boot_ale_tbl)) {
     boot_ale_tbl$.y_distinct <- boot_ale_tbl$.y_composite
   }
+
+  # Extract the offset by which to shift to centre the ALE data
+  ale_y_shift <- map_dbl(ale_diff, \(it) it$shift)
 
   # Apply the centring
   boot_ale_tbl <- boot_ale_tbl |>
@@ -720,9 +745,6 @@ calc_ale <- function(
       as.data.frame.table(responseName = '.n') |>
       as_tibble()
     names(xn_counts)[1:ixn_d] <- x_cols
-
-    # closeAllConnections()
-    # browser()
 
     # Set numeric x_cols to numeric datatype
     for (it.x_col in x_cols) {
@@ -893,9 +915,6 @@ calc_ale <- function(
       it.ale_data |> select(-'.cat')
     })
   boot_stats <- boot_stats
-
-  # closeAllConnections()
-  # browser()
 
   boot_summary <- boot_summary |>
     map(\(it.cat) {

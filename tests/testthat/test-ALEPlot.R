@@ -106,7 +106,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_to_ALEPlot <-
-    nnet_ale$data$y |>
+    nnet_ale$distinct$y$ale |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],
@@ -166,7 +166,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_to_ALEPlot <-
-    gbm_ale$data$higher_income |>
+    gbm_ale$distinct$higher_income$ale |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],
@@ -238,15 +238,18 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_ixn_to_ALEPlot <-
-    nnet_ale_ixn$data |>
+    nnet_ale_ixn$distinct$y$ixn$ale |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
-        it.x2$y |>
+        it.x2 <- it.x2 |>
           select(1, 2, .y) |>
           set_names(c('.x1', '.x2', '.y')) |>
           arrange(.x1, .x2, .y)
-        # select(.x1, .x2, .y) |>
-          # arrange(.x1, .x2, .y)
+
+        # Strip incomparable attributes
+        attr(it.x2, 'types') <- NULL
+
+        it.x2
       })
     })
 
@@ -318,16 +321,19 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_ixn_to_ALEPlot <-
-    gbm_ale_ixn$data |>
+    gbm_ale_ixn$distinct$higher_income$ixn$ale |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
-        it.x2$higher_income |>
+        it.x2 <- it.x2 |>
           select(1, 2, .y) |>
           mutate(across(where(is.factor), as.character)) |>
           set_names(c('.x1', '.x2', '.y')) |>
           arrange(.x1, .x2, .y)
-        # select(.x1, .x2, .y) |>
-        #   arrange(.x1, .x2, .y)
+
+        # Strip incomparable attributes
+        attr(it.x2, 'types') <- NULL
+
+        it.x2
       })
     })
 

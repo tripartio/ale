@@ -49,8 +49,13 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE,
     )
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
+
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
@@ -77,8 +82,12 @@ test_that(
       compact_plots = TRUE
     )
 
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
@@ -97,8 +106,13 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
+
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
@@ -125,8 +139,12 @@ test_that(
       compact_plots = TRUE
     )
 
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
@@ -148,17 +166,13 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
-    # cars_ale$stats <- cars_ale$stats |>
-    #   map(\(.cat) {
-    #     .cat$effects_plot <- .cat$effects_plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data') |>
-    #       (`[[`)(1)
-    #
-    #     .cat
-    #   })
+
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
@@ -180,17 +194,13 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    cars_ale_ixn$plots <- cars_ale_ixn$plots |>
-      map(\(.x1) ale_plots_to_data(.x1))
-    # cars_ale$stats <- cars_ale$stats |>
-    #   map(\(.cat) {
-    #     .cat$effects_plot <- .cat$effects_plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data') |>
-    #       (`[[`)(1)
-    #
-    #     .cat
-    #   })
+
+    for (it.cat in names(cars_ale_ixn$distinct)) {
+      cars_ale_ixn$distinct[[it.cat]]$ixn$plot <-
+        cars_ale_ixn$distinct[[it.cat]]$ixn$plot |>
+        map(\(it.x1) ale_plots_to_data(it.x1))
+    }
+
     expect_snapshot(cars_ale_ixn)
   }
 )
