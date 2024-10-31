@@ -1062,9 +1062,6 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$it.cat
-      [1] "mpg"
-      
       $params$y_cats
       [1] "mpg"
       
@@ -1491,9 +1488,6 @@
       $params
       $params$sig_criterion
       [1] "median_band_pct"
-      
-      $params$it.cat
-      [1] "mpg"
       
       $params$y_cats
       [1] "mpg"
@@ -2962,9 +2956,6 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$it.cat
-      [1] "vs"
-      
       $params$y_cats
       [1] "vs"
       
@@ -3380,9 +3371,6 @@
       $params
       $params$sig_criterion
       [1] "median_band_pct"
-      
-      $params$it.cat
-      [1] "vs"
       
       $params$y_cats
       [1] "vs"
@@ -7024,9 +7012,6 @@
       $params$sig_criterion
       [1] "median_band_pct"
       
-      $params$it.cat
-      [1] "North America"
-      
       $params$y_cats
       [1] "Asia"          "Europe"        "North America"
       
@@ -7902,9 +7887,6 @@
       $params
       $params$sig_criterion
       [1] "median_band_pct"
-      
-      $params$it.cat
-      [1] "North America"
       
       $params$y_cats
       [1] "Asia"          "Europe"        "North America"

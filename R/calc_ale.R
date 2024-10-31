@@ -4,7 +4,9 @@
 
 #' Calculate ALE data
 #'
-#' This function is not exported. It is uses tidyverse principles to rewrite [ALEPlot::ALEPlot()]. This function is not usually called directly by the user. For details about arguments not documented here, see [ale()].
+#' This function is not exported. It is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
+#'
+#' For details about arguments not documented here, see [ale()].
 #'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.

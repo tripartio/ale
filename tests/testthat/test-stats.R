@@ -6,13 +6,6 @@ test_that(
   'create_rep_dist works with default inputs (approx fast) on ale()', {
     skip_on_ci()
 
-    # pf <- create_rep_dist(
-    #   test_cars,
-    #   test_gam,
-    #   parallel = 0,  # disable parallelization for testing
-    #   silent = TRUE
-    # )
-
     pf <- create_rep_dist(
       test_cars,
       test_gam,
@@ -32,13 +25,6 @@ test_that(
       silent = TRUE,
     )
     expect_snapshot(cars_ale)
-
-    # # expect_snapshot doesn't quite work for pf$value_to_p because function environments change.
-    # # So, only partially test the function matches.
-    # expect_equal(
-    #   names(pf$value_to_p$mpg),
-    #   c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max")
-    # )
 
     # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)

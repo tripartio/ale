@@ -380,8 +380,8 @@ create_rep_dist <- function(
       nrow = nrow(y_preds),
       dimnames = dimnames(y_preds)
     )
-    for (.cat in y_cats) {
-      y_cat_actual[, .cat] <- data[[y_col]] == .cat
+    for (it.cat in y_cats) {
+      y_cat_actual[, it.cat] <- data[[y_col]] == it.cat
     }
 
     # To calculate a single random variable, use the average residuals across all categories for the single residual values.
@@ -515,12 +515,12 @@ create_rep_dist <- function(
 
   rand_stats <-
     rand_ales |>
-    map(\(.rand_it) {  # iterate by random ALE iteration
-      .rand_it$data |>
-        map(\(.cat) {  # iterate by categorical class or just by the single y_col
+    map(\(it.rand) {  # iterate by random ALE iteration
+      it.rand$distinct |>
+        map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
           ale_stats(
-            y = .cat$random_variable$.y,
-            bin_n = .cat$random_variable$.n,
+            y = it.rand.cat$ale$random_variable$.y,
+            bin_n = it.rand.cat$ale$random_variable$.n,
             ale_y_norm_fun = ale_y_norm_fun,
             x_type = 'numeric',  # the random variables are always numeric
             zeroed_ale = TRUE
@@ -536,7 +536,6 @@ create_rep_dist <- function(
     rand_stats = rand_stats,
     residual_distribution = residual_distribution,
     rand_it_ok = rand_it_ok
-    # params = params
   )
 
   if (!is.null(output) && output == 'residuals') {

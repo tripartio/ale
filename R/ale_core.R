@@ -1169,7 +1169,7 @@ ale_core <- function (
   params <- c(as.list(environment()), list(...))
   params <- params[
     names(params) |>
-      setdiff(c('ales', 'ales_ixn', 'ales_by_var', 'ale_y_norm_funs', 'data_X', 'y_vals', 'y_preds', 'call_env'))
+      setdiff(c('ales', 'ales_ixn', 'ales_by_var', 'ale_y_norm_funs', 'call_env', 'data_X', 'it.cat', 'y_vals', 'y_preds'))
   ]
 
   # Simplify some very large elements, especially closures that contain environments
