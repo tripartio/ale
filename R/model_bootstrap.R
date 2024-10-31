@@ -924,19 +924,21 @@ model_bootstrap <- function (
       ale_summary_data <-
         boot_data_ale |>
         # extract data from each iteration
-        map(\(it) it$data) |>
+        map(\(it) {
+          it$distinct |>
+            map(\(it.cat) {
+              it.cat$ale
+              })
+          }) |>
         # rearrange list to group all data and iterations by y_col category
         list_transpose(simplify = FALSE) |>
-        # within each category, rearrange list to group all iterations by x_col
         map(\(it.cat) {
-          it.cat |>
-            list_transpose(simplify = FALSE)
+          list_transpose(it.cat, simplify = FALSE)
         })
-      # map(\(it) it$data) |>   # extract data from each iteration
-        # list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col
+
 
       ale_summary_data <- ale_summary_data |>
-        map(\(it.cat) {
+        imap(\(it.cat, it.cat_name) {
           it.cat |>
             imap(\(it.x_col, it.x_col_name) {
               it.x_col_is_ordinal <- names(it.x_col[[1]])[1] |> endsWith('.bin')
@@ -947,7 +949,7 @@ model_bootstrap <- function (
                 # if (is.ordered(it.x_col[[1]]$ale_x)) {
                 # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
                 # Note: column 1 is the x column
-                bin_levels <- full_ale$data[[1]][[it.x_col_name]][[1]]
+                bin_levels <- full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]]
                 # bin_levels <- full_ale$data[[1]][[it.x_col_name]]$.bin
 
                 it.x_col <- it.x_col |>
@@ -981,13 +983,14 @@ model_bootstrap <- function (
                 ) |>
                 right_join(
                   tibble(
-                    .x = full_ale$data[[1]][[it.x_col_name]][[1]],
+                    # bins or ceilings
+                    .x = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]],
                     # .x = if (it.x_col_is_ordinal) {
                     #   full_ale$data[[1]][[it.x_col_name]]$.bin
                     # } else {
                     #   full_ale$data[[1]][[it.x_col_name]]$.ceil
                     # },
-                    .n = full_ale$data[[1]][[it.x_col_name]]$.n,
+                    .n = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]]$.n,
                   ),
                   by = '.x'
                 ) |>
@@ -1012,13 +1015,16 @@ model_bootstrap <- function (
       # Summarize bootstrapped ALE statistics
       ale_summary_stats <-
         boot_data_ale |>
-        map(\(it) it$stats) |>   # extract stats from each iteration
-        list_transpose(simplify = FALSE)  # rearrange list to group all iterations by x_col (term)
-
-      ale_summary_stats <- ale_summary_stats |>
-        imap(\(it.ale_summary_stats, it.cat) {
-          it.ale_summary_stats <- it.ale_summary_stats |>
-            map(\(it) it$estimate) |>
+        # extract data from each iteration
+        map(\(it) {
+          it$distinct |>
+            map(\(it.cat) {
+              it.cat$stats$estimate
+            })
+        }) |>
+        list_transpose(simplify = FALSE) |>
+        imap(\(it.cat_estimate_btits, it.cat) {
+          it.cat_estimate_btits <- it.cat_estimate_btits |>
             bind_rows() |>
             tidyr::pivot_longer(
               cols = 'aled':'naler_max',
@@ -1037,7 +1043,7 @@ model_bootstrap <- function (
 
           # If an ALE REPs object was passed, calculate REPs
           if (rownames(full_ale$params$y_summary)[1] == 'p') {
-            it.ale_summary_stats <- it.ale_summary_stats |>
+            it.cat_estimate_btits <- it.cat_estimate_btits |>
               rowwise() |>  # required to get statistic function for each row
               mutate(
                 p.value = value_to_p(
@@ -1050,9 +1056,8 @@ model_bootstrap <- function (
               select('term', 'statistic', 'estimate', 'p.value', everything())
           }
 
-          it.ale_summary_stats
+          it.cat_estimate_btits
         })
-
 
 
       ale_conf_regions <-
@@ -1144,16 +1149,19 @@ model_bootstrap <- function (
       }
 
       if (!is.null(detailed_ale_stats)) {
-        detailed_ale_stats$conf_regions <- ale_conf_regions
+        for (it.cat in names(detailed_ale_stats)) {
+          detailed_ale_stats[[it.cat]]$conf_regions <- ale_conf_regions[[it.cat]]
+        }
       }
 
       # Return ALE results
       list(
-        data = ale_summary_data,
+        ale = ale_summary_data,
         stats = detailed_ale_stats,
         plots = ale_summary_plots
-        # conf_regions = ale_conf_regions
-      )
+      ) |>
+        # Place categories on top level
+        list_transpose(simplify = FALSE)
     }
 
   else {  # ALE not requested
@@ -1176,20 +1184,32 @@ model_bootstrap <- function (
   params$model <- params_model(model)
   params$pred_fun <- params_function(pred_fun)
 
+  ale_results <- if ('ale' %in% output) {
+    # Start with ale object of the full dataset without bootstrapping
+    ar <- list(single = full_ale)
+
+    for (it.cat in names(ale_summary)) {
+      if (boot_it == 0) {
+        ar$single$distinct[[it.cat]]$stats$conf_regions <-
+          ale_summary[[it.cat]]$stats$conf_regions
+        ar$single$distinct[[it.cat]]$stats$effects_plot <-
+          ale_summary[[it.cat]]$stats$effects_plot
+        ar$single$distinct[[it.cat]]$plots <-
+          ale_summary[[it.cat]]$plots
+      } else {
+        ar$boot$distinct[[it.cat]] <- ale_summary[[it.cat]]
+      }
+    }
+
+    ar
+  } else {
+    NULL
+  }
 
   mb <- list(
     model_stats = stats_summary,
     model_coefs = tidy_summary,
-    ale = if ('ale' %in% output) {
-      list(
-        # ale object of the full dataset without bootstrapping
-        single = full_ale,
-        # Bootstrapped ALE data
-        boot = ale_summary
-      )
-    } else {
-      NULL
-    },
+    ale = ale_results,
     boot_data = if ('boot_data' %in% output) {
       boot_data
     } else {

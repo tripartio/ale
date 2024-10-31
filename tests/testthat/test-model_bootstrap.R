@@ -48,7 +48,6 @@ test_that(
       test_gam,
       parallel = 0,
       boot_it = 0,
-      # faster test
       ale_options = list(
         max_x_int = 10,
         x_cols = c('cyl', 'disp')
@@ -56,11 +55,10 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
+    mb$ale$single$distinct$mpg$plots <- ale_plots_to_data(mb$ale$single$distinct$mpg$plots)
+    mb$ale$single$distinct$mpg$stats$effects_plot <- mb$ale$single$distinct$mpg$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # mb$ale$boot$stats$mpg$effects_plot <- ale_plots_to_data(list(mb$ale$boot$stats$mpg$effects_plot))
     expect_snapshot(mb)
   }
 )
@@ -85,10 +83,11 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
+    mb$ale$boot$distinct$mpg$plots <- ale_plots_to_data(mb$ale$boot$distinct$mpg$plots)
+    mb$ale$boot$distinct$mpg$stats$effects_plot <- mb$ale$boot$distinct$mpg$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
+    expect_snapshot(mb)
     expect_snapshot(mb)
   }
 )
@@ -107,18 +106,8 @@ test_that(
       boot_alpha = 0.1,
       boot_centre = 'median',
       output = c("model_stats", "model_coefs"),  # exclude ALE
-      ale_options = list(
-        # faster test
-        max_x_int = 10,
-        x_cols = c('country', 'continent')
-      ),
       silent = TRUE
-      # compact_plots = TRUE
     )
-    # mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    # mb$ale$boot$stats$mpg$effects_plot <- mb$ale$boot$stats$mpg$effects_plot |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(mb)
   }
 )
@@ -140,8 +129,8 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    mb$ale$boot$stats$vs$effects_plot <- mb$ale$boot$stats$vs$effects_plot |>
+    mb$ale$boot$distinct$vs$plots <- ale_plots_to_data(mb$ale$boot$distinct$vs$plots)
+    mb$ale$boot$distinct$vs$stats$effects_plot <- mb$ale$boot$distinct$vs$stats$effects_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
@@ -174,13 +163,12 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-    mb$ale$boot$stats <- mb$ale$boot$stats |>
+    mb$ale$boot$distinct <- mb$ale$boot$distinct |>
       map(\(it.cat) {
-        it.cat$effects_plot <- it.cat$effects_plot |>
+        it.cat$plots <- ale_plots_to_data(it.cat$plots)
+        it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
           ggplot2::ggplot_build() |>
-          (`[[`)('data') |>
-          (`[[`)(1)
+          (`[[`)('data')
 
         it.cat
       })
@@ -188,36 +176,5 @@ test_that(
   }
 )
 
-# test_that(
-#   'categorical outcome works with multiple x datatypes', {
-#     skip_on_ci()
-#
-#     mb <- model_bootstrap(
-#       test_cars,
-#       test_nn_categorical,
-#       pred_type = 'probs',
-#       parallel = 0,
-#       boot_it = 5,
-#       # faster test
-#       ale_options = list(
-#         max_x_int = 10,
-#         pred_type = 'probs',
-#         x_cols = c('cyl', 'disp')
-#       ),
-#       silent = TRUE,
-#       compact_plots = TRUE
-#     )
-#     mb$ale$boot$plots <- ale_plots_to_data(mb$ale$boot$plots)
-#     mb$ale$boot$stats <- mb$ale$boot$stats |>
-#       map(\(it.cat) {
-#         it.cat$effects_plot <- it.cat$effects_plot |>
-#           ggplot2::ggplot_build() |>
-#           (`[[`)('data') |>
-#           (`[[`)(1)
-#
-#         it.cat
-#       })
-#     expect_snapshot(mb)
-#   }
-# )
+
 
