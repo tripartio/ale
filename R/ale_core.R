@@ -874,7 +874,7 @@ ale_core <- function (
 
           list(
             ale = ale_data,
-            boot = ale_data_stats$boot_ale_y,
+            boot_data = ale_data_stats$boot_ale_y,
             stats = stats,
             plots = plot
           )
@@ -999,7 +999,7 @@ ale_core <- function (
 
             list(
               ale = ale_data,
-              boot = ale_data_stats$boot_ale_y,
+              boot_data = ale_data_stats$boot_ale_y,
               stats = stats,
               plot = plot  # + theme_bw()
             )
@@ -1074,7 +1074,7 @@ ale_core <- function (
         if ('plots' %in% output) {
           ales[[it.cat]]$stats$effects_plot <- plot_effects(
             ales[[it.cat]]$stats$estimate,
-            y_summary[, it.cat, drop = FALSE],
+            y_summary[, it.cat],
             y_col,
             middle_band = if (is.null(rep)) {
               median_band_pct

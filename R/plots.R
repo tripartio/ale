@@ -247,6 +247,8 @@ plot_ale <- function(
     seed = 0
     ) {
 
+  ## Prepare data for plotting -----------------------
+
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
@@ -266,16 +268,42 @@ plot_ale <- function(
   #   setNames(rownames(y_summary))
 
 
-  # Default relative_y is median. If it is mean or zero, then the y axis
-  # must be shifted for appropriate plotting
+  # closeAllConnections()
+  # browser()
+
+  # # Default relative_y is median. If it is mean or zero, then the y axis
+  # # must be shifted for appropriate plotting
+  # y_shift <- case_when(
+  #   relative_y == 'median' ~ 0,  # no shift since median is the default
+  #   relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
+  #   relative_y == 'zero' ~ -y_summary[['50%']],
+  # )
+  #
+  # # Then shift all the y summary data
+  # y_summary <- y_summary + y_shift
+
+  # Shift ale_data and y_summary by relative_y.
+  # Calculate shift amount
   y_shift <- case_when(
-    relative_y == 'median' ~ 0,  # no shift since median is the default
-    relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
-    relative_y == 'zero' ~ -y_summary[['50%']],
+    relative_y == 'median' ~ y_summary[['50%']],
+    relative_y == 'mean' ~ y_summary[['mean']],
+    relative_y == 'zero' ~ 0,
   )
 
-  # Then shift all the y summary data
-  y_summary <- y_summary + y_shift
+  # Shift all y data for plotting
+  ale_data <- ale_data |>
+    mutate(across(
+      starts_with('.y'),
+      \(col.y) col.y + y_shift
+    ))
+
+  # Shift the x_y y data for rug plots
+  x_y[[2]] <- x_y[[2]] - y_summary[['50%']] + y_shift
+
+  # Centre the y summary data on y_shift (it was originally centred on the median)
+  y_summary <- y_summary - y_summary[['50%']] + y_shift
+
+
 
   x_is_numeric <- names(ale_data)[1] |> endsWith('.ceil')
   # # Determine if datatype of ale_x
@@ -288,6 +316,7 @@ plot_ale <- function(
   # Rename the x variable in ale_data for easier coding
   names(ale_data)[1] <- '.x'
 
+  ## Create base plot --------------------
   plot <-
     ale_data |>
     ggplot(aes(
@@ -368,7 +397,8 @@ plot_ale <- function(
     )
 
 
-  # Differentiate numeric x (line chart) from categorical x (bar charts)
+  ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
+
   # if (x_type == 'numeric') {
   # if (!is.null(ale_data$.ceil)) {   # numeric x
   if (x_is_numeric) {
@@ -381,8 +411,7 @@ plot_ale <- function(
     plot <- plot +
       geom_col(fill = 'gray') +
       geom_errorbar(aes(ymin = .data$.y_lo, ymax = .data$.y_hi), width = 0.05) +
-      # Add labels for percentage of dataset.
-      # This serves the equivalent function of rugs for numeric data.
+      # Add labels for percentage of dataset. This serves the equivalent function of rugs for numeric data.
       # Varying column width is an idea, but it usually does not work well visually.
       geom_text(
         aes(
@@ -410,7 +439,7 @@ plot_ale <- function(
     geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
 
 
-  # Add rug plot if data is provided.
+  ## Add rug plot if data is provided ------------
   # Add them late so that they superimpose most other elements.
   if (
     x_is_numeric &&
@@ -418,10 +447,13 @@ plot_ale <- function(
     !is.null(x_y) && rug_sample_size > 0
   ) {
   # if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
-    rug_data <- tibble(
-      rug_x = x_y[[x_col]],
-      rug_y = x_y[[y_col]] + y_shift,
-    )
+    rug_data <- x_y
+    names(rug_data) <- c('rug_x', 'rug_y')
+
+    # tibble(
+    #   rug_x = x_y[[x_col]],
+    #   rug_y = x_y[[y_col]] + y_shift,
+    # )
 
     # If the data is too big, down-sample or else rug plots are too slow
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
@@ -466,6 +498,8 @@ plot_ale <- function(
   # return_plot <- list()
   # return_plot[[y_col]] <- plot
   # return(return_plot)
+
+  ## Return plot --------------
 
   return(
     if (compact_plots) {
@@ -554,6 +588,8 @@ plot_ale_ixn <- function(
     seed = 0
 ) {
 
+  ## Prepare data for plotting -----------------------
+
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
@@ -572,15 +608,37 @@ plot_ale_ixn <- function(
   #   setNames(rownames(y_summary))
 
 
-  # Default relative_y is median. If it is mean or zero, then the y axis must be shifted for appropriate plotting
+  # Shift ale_data and y_summary by relative_y.
+  # Calculate shift amount
   y_shift <- case_when(
-    relative_y == 'median' ~ 0,  # no shift since median is the default
-    relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
-    relative_y == 'zero' ~ -y_summary[['50%']],
+    relative_y == 'median' ~ y_summary[['50%']],
+    relative_y == 'mean' ~ y_summary[['mean']],
+    relative_y == 'zero' ~ 0,
   )
 
-  # Then shift all the y values data
-  y_vals <- y_vals + y_shift
+  # Shift all y data for plotting
+  ale_data <- ale_data |>
+    mutate(across(
+      starts_with('.y'),
+      \(col.y) col.y + y_shift
+    ))
+  y_vals <- y_vals - y_summary[['50%']] + y_shift
+
+  # Shift the x1_x2_y y data for rug plots
+  x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
+
+  # Centre the y summary data on y_shift (it was originally centred on the median)
+  y_summary <- y_summary - y_summary[['50%']] + y_shift
+
+  # # Default relative_y is median. If it is mean or zero, then the y axis must be shifted for appropriate plotting
+  # y_shift <- case_when(
+  #   relative_y == 'median' ~ 0,  # no shift since median is the default
+  #   relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
+  #   relative_y == 'zero' ~ -y_summary[['50%']],
+  # )
+  #
+  # # Then shift all the y values data
+  # y_vals <- y_vals + y_shift
 
 
   # If n_y_quant is odd, internally make it even for quantile creation below
@@ -803,6 +861,7 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
+  names(x_y) <- c('rug_x', 'rug_y')
 
   # Only sample small datasets
   if (nrow(x_y) <= rug_sample_size) {
@@ -877,8 +936,8 @@ plot_effects <- function(
   # median_y       <- middle_band_quantiles[2]
   # middle_band_hi <- middle_band_quantiles[3]
 
-  # Set y_summary to only one category set of values
-  y_summary <- y_summary[, 1]
+  # # Set y_summary to only one category set of values
+  # y_summary <- y_summary[, 1]
 
   # ALED and NALED should be centred not on the median, but on the middle of the
   # median band. This is visually more intuitive.
