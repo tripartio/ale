@@ -100,7 +100,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
     # output = c('data', 'plots'), boot_it = 0,
     # specific options requested by ALEPlot example
     pred_type = "raw", pred_fun = nnet_pred_fun_ale,
-    max_x_int = 10 + 1,
+    max_num_bins = 10 + 1,
     silent = TRUE
   )
 
@@ -159,7 +159,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
     output = 'data', boot_it = 0,
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
-    max_x_int = 10 + 1,
+    max_num_bins = 10 + 1,
     silent = TRUE
   ) |>
     suppressMessages()
@@ -236,7 +236,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
     parallel = 0,
     output = 'data',
     pred_fun = nnet_pred_fun_ale,
-    pred_type = "raw", max_x_int = 10 + 1,  # specific options requested
+    pred_type = "raw", max_num_bins = 10 + 1,  # specific options requested
     silent = TRUE
   )
 
@@ -329,7 +329,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
     parallel = 0,
     output = 'data',
     pred_fun = gbm_pred_fun_ale,
-    pred_type = 'link', max_x_int = 10 + 1,  # specific options requested
+    pred_type = 'link', max_num_bins = 10 + 1,  # specific options requested
     silent = TRUE
   )
 

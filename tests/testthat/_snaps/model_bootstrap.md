@@ -271,7 +271,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -404,7 +404,7 @@
       [1] "ale"         "model_stats" "model_coefs"
       
       $params$ale_options
-      $params$ale_options$max_x_int
+      $params$ale_options$max_num_bins
       [1] 10
       
       $params$ale_options$x_cols
@@ -783,7 +783,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -1053,7 +1053,7 @@
       [1] "ale"         "model_stats" "model_coefs"
       
       $params$ale_options
-      $params$ale_options$max_x_int
+      $params$ale_options$max_num_bins
       [1] 10
       
       $params$ale_options$x_cols
@@ -1562,7 +1562,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -1842,7 +1842,7 @@
       [1] "ale"         "model_stats" "model_coefs"
       
       $params$ale_options
-      $params$ale_options$max_x_int
+      $params$ale_options$max_num_bins
       [1] 10
       
       $params$ale_options$x_cols
@@ -2542,7 +2542,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -3256,7 +3256,7 @@
       [1] "ale"         "model_stats" "model_coefs"
       
       $params$ale_options
-      $params$ale_options$max_x_int
+      $params$ale_options$max_num_bins
       [1] 10
       
       $params$ale_options$x_cols

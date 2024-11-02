@@ -11,9 +11,9 @@
 #     expect_no_error(
 #       ale_ixn(
 #         test_cars, test_gam,
-#         max_x_int = 10,
+#         max_num_bins = 10,
 #         x1_cols = c('cyl', 'disp'),
-#         max_x_int = 10,
+#         max_num_bins = 10,
 #         parallel = 2,
 #         silent = TRUE
 #       )
@@ -23,7 +23,7 @@
 #     # expect_no_error(
 #     #   ale_ixn(
 #     #     test_cars, test_gam,
-#     #     max_x_int = 10,
+#     #     max_num_bins = 10,
 #     #     x1_cols = c('cyl', 'disp'),
 #     #     boot_it = 5,
 #     #     parallel = 2,
@@ -42,7 +42,7 @@ test_that(
     cars_ale_ixn <- ale(
       test_cars, test_gam,
       complete_d = 2,
-      max_x_int = 10,
+      max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE,
@@ -74,7 +74,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 12,
+      max_num_bins = 12,
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
       # n_x1_int = 10,
@@ -104,7 +104,7 @@ test_that(
     cars_ale_ixn <- ale(
       test_cars, test_gam_binary,
       complete_d = 2,
-      max_x_int = 10,
+      max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
       compact_plots = TRUE
@@ -136,7 +136,7 @@ test_that(
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 12,
+      max_num_bins = 12,
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
       # n_x1_int = 10,
@@ -166,7 +166,7 @@ test_that(
       test_cars,
       test_nn_categorical,
       complete_d = 2,
-      max_x_int = 10,
+      max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE,
@@ -190,7 +190,7 @@ test_that(
     cars_ale_ixn <- ale(
       test_cars,
       test_nn_categorical,
-      max_x_int = 10,
+      max_num_bins = 10,
       list(
         list('cyl', 'disp', 'vs', 'gear', 'country'),
         list('cyl', 'am', 'hp')
@@ -230,7 +230,7 @@ test_that(
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",
-      max_x_int = 12,
+      max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,

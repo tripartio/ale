@@ -17,7 +17,7 @@ test_that(
     cars_ale <- ale(
       test_cars, test_gam,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       rep = pf,
       output = 'stats',
       boot_it = 3,

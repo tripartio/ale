@@ -675,7 +675,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -1474,7 +1474,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -1787,7 +1787,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 12
       
       $params$boot_it
@@ -2514,7 +2514,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -3032,7 +3032,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -3310,7 +3310,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 12
       
       $params$boot_it
@@ -5178,7 +5178,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -5832,7 +5832,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 10
       
       $params$boot_it
@@ -6154,7 +6154,7 @@
       $params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_x_int
+      $params$max_num_bins
       [1] 12
       
       $params$boot_it

@@ -9,7 +9,7 @@
 #         test_cars, test_gam,
 #         # faster test
 #         ale_options = list(
-#           max_x_int = 10,
+#           max_num_bins = 10,
 #           x_cols = c('cyl', 'disp')
 #         ),
 #         boot_it = 0,
@@ -24,7 +24,7 @@
 #         test_cars, test_gam,
 #         # faster test
 #         ale_options = list(
-#           max_x_int = 10,
+#           max_num_bins = 10,
 #           x_cols = c('hp', 'vs')
 #         ),
 #         boot_it = 3,
@@ -49,7 +49,7 @@ test_that(
       parallel = 0,
       boot_it = 0,
       ale_options = list(
-        max_x_int = 10,
+        max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE,
@@ -88,7 +88,7 @@ test_that(
       boot_it = 5,  # Normally 3 for the test, but 3 gives a warning, so leave at 5
       # faster test
       ale_options = list(
-        max_x_int = 10,
+        max_num_bins = 10,
         x_cols = c('vs', 'gear')
       ),
       silent = TRUE,
@@ -140,7 +140,7 @@ test_that(
       boot_it = 5,
       # faster test
       ale_options = list(
-        max_x_int = 10,
+        max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE
@@ -185,7 +185,7 @@ test_that(
       parallel = 0,
       boot_it = 5,
       ale_options = list(
-        max_x_int = 10,
+        max_num_bins = 10,
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),

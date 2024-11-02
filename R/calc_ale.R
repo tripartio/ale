@@ -17,7 +17,7 @@
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ale()]
 #' @param pred_type See documentation for [ale()]
-#' @param max_x_int See documentation for [ale()]
+#' @param max_num_bins See documentation for [ale()]
 #' @param boot_it See documentation for [ale()]
 #' @param seed See documentation for [ale()]
 #' @param boot_alpha See documentation for [ale()]
@@ -32,7 +32,7 @@ calc_ale <- function(
     x_cols,
     y_cats,
     pred_fun, pred_type,
-    max_x_int,
+    max_num_bins,
     boot_it, seed, boot_alpha, boot_centre,
     boot_ale_y = FALSE,
     bins = NULL,
@@ -88,7 +88,7 @@ calc_ale <- function(
       x_vals = X[[it.x_col]],
       bins = bins[[it.x_col]],
       n = ns[[it.x_col]],
-      max_x_int,
+      max_num_bins,
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
   }) |>
@@ -974,7 +974,7 @@ calc_ale <- function(
 #' @param x_type character(1). var_type() of x_col.
 #' @param x_vals vector. The values of x_col.
 #' @param bins,n  See documentation for [calc_ale()]
-#' @param max_x_int See documentation for [ale()]
+#' @param max_num_bins See documentation for [ale()]
 #' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
 #'
 prep_var_for_ale <- function(
@@ -983,19 +983,19 @@ prep_var_for_ale <- function(
     x_vals,
     bins,
     n,
-    max_x_int,
+    max_num_bins,
     X = NULL
 ) {
   if (x_type == 'numeric') {
 
-    # ceilings: max_x_int quantile intervals of x_col values
+    # ceilings: max_num_bins quantile intervals of x_col values
     if (is.null(bins)) {
       ceilings <- c(
         min(x_vals, na.rm = TRUE),  # first value is the min
         stats::quantile(
           x_vals,
-          # seq creates length.out + 1 bins, so set it to max_x_int - 1
-          seq(1 / (max_x_int - 1), 1, length.out = max_x_int - 1),
+          # seq creates length.out + 1 bins, so set it to max_num_bins - 1
+          seq(1 / (max_num_bins - 1), 1, length.out = max_num_bins - 1),
           type = 1,
           na.rm = TRUE
         ) |>  # keep quantile type=1 for consistency with Apley & Zhu 2020

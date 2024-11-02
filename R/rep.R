@@ -464,7 +464,7 @@ create_rep_dist <- function(
             'random_variable',
             parallel = 0,  # avoid recursive parallelization
             # The approximate version can use fewer ALE x intervals for faster execution. The precise version uses the default 100 intervals.
-            max_x_int = if (rep_speed == 'approx fast') 10 else 100,
+            max_num_bins = if (rep_speed == 'approx fast') 10 else 100,
             # Don't bootstrap even the approximate version--random variables have virtually no variation
             # boot_it = if (rep_speed == 'approx fast') 100 else 0,
             output = 'data',

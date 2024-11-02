@@ -11,7 +11,7 @@
 #       ale(
 #         test_cars, test_gam,
 #         # faster test
-#         max_x_int = 10,
+#         max_num_bins = 10,
 #         x_cols = c('cyl', 'disp'),
 #         parallel = 2,
 #         silent = TRUE
@@ -23,7 +23,7 @@
 #       ale(
 #         test_cars, test_gam,
 #         # faster test
-#         max_x_int = 10,
+#         max_num_bins = 10,
 #         x_cols = c('hp', 'vs'),
 #         boot_it = 5,
 #         parallel = 2,
@@ -42,7 +42,7 @@ test_that(
     cars_ale <- ale(
       test_cars, test_gam,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
       # compact_plots = TRUE,
@@ -77,7 +77,7 @@ test_that(
     cars_ale <- ale(
       test_cars, test_gam,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
       parallel = 0,
       boot_it = 5,
@@ -110,7 +110,7 @@ test_that(
       output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 12,
+      max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -135,7 +135,7 @@ test_that(
     cars_ale <- ale(
       test_cars, test_gam_binary,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
       # compact_plots = TRUE
@@ -162,7 +162,7 @@ test_that(
     cars_ale <- ale(
       test_cars, test_gam_binary,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       x_cols = c('hp', 'continent'),
       parallel = 0,
       boot_it = 4,
@@ -195,7 +195,7 @@ test_that(
       output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      max_x_int = 12,
+      max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
@@ -220,7 +220,7 @@ test_that(
     cars_ale <- ale(
       test_cars,
       test_nn_categorical,
-      max_x_int = 10,
+      max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE,
@@ -263,7 +263,7 @@ test_that(
       test_cars,
       test_nn_categorical,
       # faster test
-      max_x_int = 10,
+      max_num_bins = 10,
       x_cols = c('wt', 'am'),
       pred_type = 'probs',
       parallel = 0,
@@ -301,7 +301,7 @@ test_that(
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",
-      max_x_int = 12,
+      max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,

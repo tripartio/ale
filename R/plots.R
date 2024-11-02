@@ -916,7 +916,7 @@ plot_ale_ixn <- function(
 #
 rug_sample <- function(
     x_y,
-    max_x_int,
+    max_num_bins,
     y_intervals = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
@@ -933,7 +933,7 @@ rug_sample <- function(
     mutate(
       row = row_number(),
       # Specify intervals for each x- and y-axis value
-      x_interval = findInterval(.data$rug_x, max_x_int |> sort()),
+      x_interval = findInterval(.data$rug_x, max_num_bins |> sort()),
       # Note: if y_intervals = NULL, then the intervals are all 0 and the code still works
       y_interval = findInterval(.data$rug_y, y_intervals |> sort()),
     ) |>
