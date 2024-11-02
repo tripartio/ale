@@ -11,7 +11,6 @@
 #     expect_no_error(
 #       ale_ixn(
 #         test_cars, test_gam,
-#         # faster test
 #         max_x_int = 10,
 #         x1_cols = c('cyl', 'disp'),
 #         max_x_int = 10,
@@ -24,7 +23,6 @@
 #     # expect_no_error(
 #     #   ale_ixn(
 #     #     test_cars, test_gam,
-#     #     # faster test
 #     #     max_x_int = 10,
 #     #     x1_cols = c('cyl', 'disp'),
 #     #     boot_it = 5,
@@ -41,9 +39,9 @@ test_that(
   'numeric outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars, test_gam,
-      # faster test
+      complete_d = 2,
       max_x_int = 10,
       parallel = 0,
       silent = TRUE,
@@ -64,10 +62,14 @@ test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars, test_gam,
-      x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      x2_cols = c('cyl', 'am', 'hp'),
+      list(
+        list('cyl', 'disp', 'vs', 'gear', 'country'),
+        list('cyl', 'am', 'hp')
+      ),
+      # x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
+      # x2_cols = c('cyl', 'am', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -75,9 +77,9 @@ test_that(
       max_x_int = 12,
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
-      n_x1_int = 10,
-      n_x2_int = 25,
-      n_y_quant = 5,
+      # n_x1_int = 10,
+      # n_x2_int = 25,
+      # n_y_quant = 5,
       silent = TRUE,
       compact_plots = TRUE
     )
@@ -99,8 +101,9 @@ test_that(
   'binary outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars, test_gam_binary,
+      complete_d = 2,
       max_x_int = 10,
       parallel = 0,
       silent = TRUE,
@@ -121,10 +124,14 @@ test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars, test_gam_binary,
-      x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
-      x2_cols = c('cyl', 'hp'),
+      list(
+        list('cyl', 'disp', 'am', 'gear', 'country'),
+        list('cyl', 'hp')
+      ),
+      # x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      # x2_cols = c('cyl', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -132,11 +139,10 @@ test_that(
       max_x_int = 12,
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
-      n_x1_int = 10,
-      n_x2_int = 25,
-      n_y_quant = 5,
-      silent = TRUE,
-      compact_plots = TRUE
+      # n_x1_int = 10,
+      # n_x2_int = 25,
+      # n_y_quant = 5,
+      silent = TRUE
     )
 
     for (it.cat in names(cars_ale_ixn$distinct)) {
@@ -156,10 +162,10 @@ test_that(
   'categorical outcome default works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars,
       test_nn_categorical,
-      # faster test
+      complete_d = 2,
       max_x_int = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -181,13 +187,16 @@ test_that(
   'categorical outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars,
       test_nn_categorical,
-      # faster test
       max_x_int = 10,
-      x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      x2_cols = c('cyl', 'am', 'hp'),
+      list(
+        list('cyl', 'disp', 'vs', 'gear', 'country'),
+        list('cyl', 'am', 'hp')
+      ),
+      # x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
+      # x2_cols = c('cyl', 'am', 'hp'),
       pred_type = 'probs',
       parallel = 0,
       boot_it = 3,
@@ -209,11 +218,15 @@ test_that(
   'categorical outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale_ixn(
+    cars_ale_ixn <- ale(
       test_cars,
       test_nn_categorical,
-      x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
-      x2_cols = c('cyl', 'hp'),
+      list(
+        list('cyl', 'disp', 'am', 'gear', 'country'),
+        list('cyl', 'hp')
+      ),
+      # x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
+      # x2_cols = c('cyl', 'hp'),
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",

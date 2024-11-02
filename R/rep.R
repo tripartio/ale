@@ -60,14 +60,7 @@
 #' What we have just described is the precise approach to calculating REPs with the argument `rep_speed = 'precise slow'`. Because it is so slow, by default, create_rep_dist() implements an approximate algorithm by default (`rep_speed = 'approx fast'`) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE x intervals instead of the default 100. Although approximate REPs are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model  two or three times. See the "Parallel processing" section below for more details on the speed of computation.
 #'
 #' @section Parallel processing:
-#' Parallel processing using the `{furrr}` library is enabled by default to use
-#' all the available physical CPU cores with the setting
-#' `parallel = future::availableCores(logical = FALSE1)`. Note that only
-#' physical cores are used (not logical cores or "hyperthreading") because
-#' machine learning can only take advantage of the floating point processors on
-#' physical cores, which are absent from logical cores. Trying to use logical
-#' cores will not speed up processing and might actually slow it down with useless
-#' data transfer.
+#' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
 #'
 #' For exact REPs, by default 1000 random variables are trained. So, even with
 #' parallel processing, the procedure is very slow. However, a rep_dist object

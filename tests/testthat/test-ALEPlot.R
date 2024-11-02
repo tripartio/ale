@@ -227,8 +227,12 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   # Return to regular printing of plots
   dev.off() |> invisible()
 
-  nnet_ale_ixn <- ale_ixn(
+  nnet_ale_ixn <- ale(
     DAT, nnet.DAT,  # basic arguments
+    x_cols = list(
+      list(c('x1', 'x2', 'x3')),
+      list(c('x2', 'x3', 'x4'))
+    ),
     parallel = 0,
     output = 'data',
     pred_fun = nnet_pred_fun_ale,
@@ -308,10 +312,20 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
   # Return to regular printing of plots
   dev.off() |> invisible()
 
-  gbm_ale_ixn <- ale_ixn(
+  gbm_ale_ixn <- ale(
     adult_data, gbm.data,  # basic arguments
-    c('age', 'workclass', 'education_num', 'sex'),
-    c('age', 'education_num', 'hours_per_week'),
+    list(
+      c('age', 'education_num'),
+      c('age', 'hours_per_week'),
+      c('workclass', 'education_num'),
+      c('workclass', 'hours_per_week'),
+      c('education_num', 'hours_per_week'),
+      c('sex', 'hours_per_week')
+    ),
+    # list(
+    #   list('age', 'workclass', 'education_num', 'sex'),
+    #   list('age', 'education_num', 'hours_per_week')
+    # ),
     parallel = 0,
     output = 'data',
     pred_fun = gbm_pred_fun_ale,

@@ -53,6 +53,15 @@ validate <- function(..., msg = NULL)
   }
 }
 
+# TRUE if all root elements of a list are character strings
+is_all_characters <- function(x) {
+  if (is.list(x)) {
+    all(purrr::map_lgl(x, is_all_characters))
+  } else {
+    is.character(x)
+  }
+}
+
 
 # TRUE if x is length 1 and is either a double or an integer
 is_scalar_number <- function(x) {

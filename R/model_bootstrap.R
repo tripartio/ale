@@ -370,13 +370,13 @@ model_bootstrap <- function (
   # Major bootstrap loop ---------
 
   model_and_ale <-
-    # map2(
-    furrr::future_map2(
-      .options = furrr::furrr_options(
-        # Enable parallel-processing random seed generation
-        seed = seed,
-        packages = model_packages
-      ),
+    map2(
+    # furrr::future_map2(
+    #   .options = furrr::furrr_options(
+    #     # Enable parallel-processing random seed generation
+    #     seed = seed,
+    #     packages = model_packages
+    #   ),
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(it, boot_idxs) {
@@ -607,12 +607,13 @@ model_bootstrap <- function (
             tryCatch(
               {
                 do.call(
-                  ale_core,
+                  ale,
+                  # ale_core,
                   utils::modifyList(
                     list(
                       data = .boot_data,
                       model = .boot_model,
-                      ixn = FALSE,
+                      # ixn = FALSE,
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
                       # do not generate plots or request conf_regions
@@ -1081,72 +1082,72 @@ model_bootstrap <- function (
         })
 
       ale_summary_plots <- NULL
-      # By default, produce ALE plots except if the user explicitly excluded them
-      if (!('output' %in% names(ale_options)) ||  # user didn't specify precise ALE output options
-          ('plot' %in% ale_options$output)) {    # or if they did, they at least requested plots
-        # Produce ALE plots for each variable
-        ale_summary_plots <-
-          ale_summary_data |>
-          imap(\(it.cat_ale_data, it.cat) {
-            it.cat_ale_data |>
-              imap(\(it.x_col_data, it.x_col_name) {
-
-                plot_ale(
-                  ale_data = it.x_col_data,
-                  x_col = it.x_col_name,
-                  y_col = it.cat,
-                  y_type = y_type,
-                  y_summary = full_ale$params$y_summary[, it.cat],
-                  # list(it.x_col_data),  # temporary workaround before proper S3 plots
-                  # Temporarily buggy for binary y
-                  x_y = tibble(
-                    # x column
-                    data[[it.x_col_name]],
-                    # y column
-                    if (y_type == 'categorical') {
-                      data[[y_col]] == it.cat
-                    } else {
-                      data[[it.cat]]
-                    }
-                  ) |>
-                    stats::setNames(c(it.x_col_name, it.cat)),
-
-                  ## Later: pass ale_options() that might apply
-                  compact_plots = compact_plots
-
-                  # When y_vals is added
-                  # x_y = tibble(data[[it.x_col_name]], y_vals) |>
-                  #   stats::setNames(c(it.x_col_name, y_col)),
-                ) # |>
-                  # pluck(1)  # temporary workaround before proper S3 plots
-              })
-            })
-
-
-        # Also produce an ALE effects plot
-
-        # Retrieve median_band_pct if provided; otherwise use boot_alpha
-        median_band_pct <- if (is.null(ale_options$median_band_pct)) {
-          c(boot_alpha, boot_alpha)
-        } else {
-          ale_options$median_band_pct
-        }
-
-        detailed_ale_stats <- detailed_ale_stats |>
-          imap(\(it.cat_ale_stats, it.cat) {
-            it.cat_ale_stats$effects_plot <- plot_effects(
-              estimates = it.cat_ale_stats$estimate,
-              y_summary = full_ale$params$y_summary[, it.cat],
-              y_col = it.cat,
-              middle_band = median_band_pct,
-              # later pass ale_options like compact_plots
-              compact_plots = compact_plots
-            )
-
-            it.cat_ale_stats
-          })
-
-      }
+      # # By default, produce ALE plots except if the user explicitly excluded them
+      # if (!('output' %in% names(ale_options)) ||  # user didn't specify precise ALE output options
+      #     ('plot' %in% ale_options$output)) {    # or if they did, they at least requested plots
+      #   # Produce ALE plots for each variable
+      #   ale_summary_plots <-
+      #     ale_summary_data |>
+      #     imap(\(it.cat_ale_data, it.cat) {
+      #       it.cat_ale_data |>
+      #         imap(\(it.x_col_data, it.x_col_name) {
+      #
+      #           plot_ale(
+      #             ale_data = it.x_col_data,
+      #             x_col = it.x_col_name,
+      #             y_col = it.cat,
+      #             y_type = y_type,
+      #             y_summary = full_ale$params$y_summary[, it.cat],
+      #             # list(it.x_col_data),  # temporary workaround before proper S3 plots
+      #             # Temporarily buggy for binary y
+      #             x_y = tibble(
+      #               # x column
+      #               data[[it.x_col_name]],
+      #               # y column
+      #               if (y_type == 'categorical') {
+      #                 data[[y_col]] == it.cat
+      #               } else {
+      #                 data[[it.cat]]
+      #               }
+      #             ) |>
+      #               stats::setNames(c(it.x_col_name, it.cat)),
+      #
+      #             ## Later: pass ale_options() that might apply
+      #             compact_plots = compact_plots
+      #
+      #             # When y_vals is added
+      #             # x_y = tibble(data[[it.x_col_name]], y_vals) |>
+      #             #   stats::setNames(c(it.x_col_name, y_col)),
+      #           ) # |>
+      #             # pluck(1)  # temporary workaround before proper S3 plots
+      #         })
+      #       })
+      #
+      #
+      #   # Also produce an ALE effects plot
+      #
+      #   # Retrieve median_band_pct if provided; otherwise use boot_alpha
+      #   median_band_pct <- if (is.null(ale_options$median_band_pct)) {
+      #     c(boot_alpha, boot_alpha)
+      #   } else {
+      #     ale_options$median_band_pct
+      #   }
+      #
+      #   detailed_ale_stats <- detailed_ale_stats |>
+      #     imap(\(it.cat_ale_stats, it.cat) {
+      #       it.cat_ale_stats$effects_plot <- plot_effects(
+      #         estimates = it.cat_ale_stats$estimate,
+      #         y_summary = full_ale$params$y_summary[, it.cat],
+      #         y_col = it.cat,
+      #         middle_band = median_band_pct,
+      #         # later pass ale_options like compact_plots
+      #         compact_plots = compact_plots
+      #       )
+      #
+      #       it.cat_ale_stats
+      #     })
+      #
+      # }
 
       if (!is.null(detailed_ale_stats)) {
         for (it.cat in names(detailed_ale_stats)) {
@@ -1157,8 +1158,8 @@ model_bootstrap <- function (
       # Return ALE results
       list(
         ale = ale_summary_data,
-        stats = detailed_ale_stats,
-        plots = ale_summary_plots
+        stats = detailed_ale_stats
+        # plots = ale_summary_plots
       ) |>
         # Place categories on top level
         list_transpose(simplify = FALSE)
@@ -1192,10 +1193,10 @@ model_bootstrap <- function (
       if (boot_it == 0) {
         ar$single$distinct[[it.cat]]$stats$conf_regions <-
           ale_summary[[it.cat]]$stats$conf_regions
-        ar$single$distinct[[it.cat]]$stats$effects_plot <-
-          ale_summary[[it.cat]]$stats$effects_plot
-        ar$single$distinct[[it.cat]]$plots <-
-          ale_summary[[it.cat]]$plots
+        # ar$single$distinct[[it.cat]]$stats$effects_plot <-
+        #   ale_summary[[it.cat]]$stats$effects_plot
+        # ar$single$distinct[[it.cat]]$plots <-
+        #   ale_summary[[it.cat]]$plots
       } else {
         ar$boot$distinct[[it.cat]] <- ale_summary[[it.cat]]
       }

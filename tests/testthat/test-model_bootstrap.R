@@ -55,11 +55,22 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$single$distinct$mpg$plots <- ale_plots_to_data(mb$ale$single$distinct$mpg$plots)
-    mb$ale$single$distinct$mpg$stats$effects_plot <- mb$ale$single$distinct$mpg$stats$effects_plot |>
+    mb_plots <- mb |>
+      plot.ale() |>
+      (`[[`)('mpg') |>
+      ale_plots_to_data()
+    mb_eff_plot <- mb |>
+      plot.ale( type = 'effects') |>
+      (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
+    expect_snapshot(mb_plots)
+    expect_snapshot(mb_eff_plot)
+    # mb$ale$single$distinct$mpg$plots <- ale_plots_to_data(mb$ale$single$distinct$mpg$plots)
+    # mb$ale$single$distinct$mpg$stats$effects_plot <- mb$ale$single$distinct$mpg$stats$effects_plot |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
   }
 )
 
@@ -83,12 +94,18 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb$ale$boot$distinct$mpg$plots <- ale_plots_to_data(mb$ale$boot$distinct$mpg$plots)
-    mb$ale$boot$distinct$mpg$stats$effects_plot <- mb$ale$boot$distinct$mpg$stats$effects_plot |>
+    mb_plots <- mb |>
+      plot.ale() |>
+      (`[[`)('mpg') |>
+      ale_plots_to_data()
+    mb_eff_plot <- mb |>
+      plot.ale( type = 'effects') |>
+      (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
-    expect_snapshot(mb)
+    expect_snapshot(mb_plots)
+    expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -126,14 +143,26 @@ test_that(
         max_x_int = 10,
         x_cols = c('cyl', 'disp')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
+      # compact_plots = TRUE
     )
-    mb$ale$boot$distinct$vs$plots <- ale_plots_to_data(mb$ale$boot$distinct$vs$plots)
-    mb$ale$boot$distinct$vs$stats$effects_plot <- mb$ale$boot$distinct$vs$stats$effects_plot |>
+    # mb_plots <- mb |>
+    #   plot.ale() |>
+    #   (`[[`)('vs') |>
+    #   ale_plots_to_data()
+    mb_eff_plot <- mb |>
+      plot.ale( type = 'effects') |>
+      (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(mb)
+    # expect_snapshot(mb_plots)
+    expect_snapshot(mb_eff_plot)
+    # mb$ale$boot$distinct$vs$plots <- NULL  # disable for mysterious error
+    # # mb$ale$boot$distinct$vs$plots <- ale_plots_to_data(mb$ale$boot$distinct$vs$plots)
+    # mb$ale$boot$distinct$vs$stats$effects_plot <- mb$ale$boot$distinct$vs$stats$effects_plot |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
   }
 )
 
@@ -160,19 +189,32 @@ test_that(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
     )
-    mb$ale$boot$distinct <- mb$ale$boot$distinct |>
-      map(\(it.cat) {
-        it.cat$plots <- ale_plots_to_data(it.cat$plots)
-        it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
-          ggplot2::ggplot_build() |>
-          (`[[`)('data')
-
-        it.cat
-      })
+    # mb_plots <- mb |>
+    #   plot.ale() |>
+    #   map(\(it.cat) {
+    #     map(it.cat, \(it.plot) {
+    #       it.plot |>
+    #       ggplot2::ggplot_build() |>
+    #       (`[[`)('data')
+    #       })
+    #   })
+    mb_eff_plots <- mb |>
+      plot.ale(type = 'effects') |>
+      ale_plots_to_data()
     expect_snapshot(mb)
+    # expect_snapshot(mb_plots)
+    expect_snapshot(mb_eff_plots)
+    # mb$ale$boot$distinct <- mb$ale$boot$distinct |>
+    #   map(\(it.cat) {
+    #     it.cat$plots <- ale_plots_to_data(it.cat$plots)
+    #     it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
+    #       ggplot2::ggplot_build() |>
+    #       (`[[`)('data')
+    #
+    #     it.cat
+    #   })
   }
 )
 

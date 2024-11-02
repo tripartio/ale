@@ -56,9 +56,6 @@
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
       
-      $distinct$mpg$boot_data
-      NULL
-      
       $distinct$mpg$stats
       $distinct$mpg$stats$by_term
       $distinct$mpg$stats$by_term$cyl
@@ -162,26 +159,13 @@
       [1] "median_band_pct"
       
       
-      $distinct$mpg$stats$effects_plot
-      $distinct$mpg$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      $distinct$mpg$plots
-      $distinct$mpg$plots$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $distinct$mpg$plots$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
       
       
       
       $params
+      $params$max_d
+      [1] 1
+      
       $params$y_cats
       [1] "mpg"
       
@@ -212,12 +196,6 @@
       97.5%    33.08402
       99%      33.84876
       max      33.84876
-      
-      $params$valid_x_cols
-      [1] TRUE TRUE
-      
-      $params$all_x_cols
-      [1] "cyl"  "disp"
       
       $params$data
       $params$data$name
@@ -258,22 +236,19 @@
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
       
       
-      $params$ixn
-      [1] FALSE
-      
       $params$x_cols
+      $params$x_cols[[1]]
       [1] "cyl"  "disp"
       
-      $params$x1_cols
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      $params$x_cols[[2]]
+      list()
       
-      $params$x2_cols
-      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
       
       $params$y_col
       [1] "mpg"
+      
+      $params$complete_d
+      NULL
       
       $params$parallel
       [1] 0
@@ -328,15 +303,6 @@
       
       $params$ns
       NULL
-      
-      $params$n_x1_int
-      [1] 20
-      
-      $params$n_x2_int
-      [1] 20
-      
-      $params$n_y_quant
-      [1] 10
       
       $params$compact_plots
       [1] FALSE
@@ -461,6 +427,124 @@
       attr(,"class")
       [1] "ale_boot"
 
+---
+
+    Code
+      mb_plots
+    Output
+      $cyl
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 3 19.21956     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 4 19.21237     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3 5 19.20517     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4 6 19.19798     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5 7 19.19078     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6 8 19.18359     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7 9 19.17639     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      7 19.04095 19.28336
+      
+      $disp
+                 x        y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 23.94577     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 23.69247     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 22.38387     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 21.53981     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 20.88301     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 18.01937     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 16.80447     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 15.49188     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 14.62011     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 13.46448     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1 1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2 2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+        ymin ymax
+      1 -Inf  Inf
+      2 -Inf  Inf
+      
+      [[2]]
+            xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1 19.17639 19.21956 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 13.46448 23.94577 2     1     2 1.875 2.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      
+      [[3]]
+            xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 19.15657 19.16774  0.7  1.3 1     1     1     NA white       0.5        1
+      2 17.61542 20.70889  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      [[4]]
+               x       label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 22.8% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[5]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.15657     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 17.61542     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[6]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.16774     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 20.70889     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[7]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 ALED 0.01 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 3.09 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+
 # mostly default (boot_it=3) snapshot works with multiple x datatypes
 
     Code
@@ -510,9 +594,6 @@
       2 four        24  4.80  4.80    4.80      4.80  4.80
       3 five        10 16.5  16.5    16.5      16.5  16.5 
       
-      
-      $distinct$mpg$boot_data
-      NULL
       
       $distinct$mpg$stats
       $distinct$mpg$stats$by_term
@@ -591,12 +672,12 @@
       2 gear   8.74    -9.32    16.5   42.0     -50        50  
       
       
-      $distinct$mpg$plots
-      NULL
-      
       
       
       $params
+      $params$max_d
+      [1] 1
+      
       $params$y_cats
       [1] "mpg"
       
@@ -627,12 +708,6 @@
       97.5%    33.08402
       99%      33.84876
       max      33.84876
-      
-      $params$valid_x_cols
-      [1] TRUE TRUE
-      
-      $params$all_x_cols
-      [1] "vs"   "gear"
       
       $params$data
       $params$data$name
@@ -673,22 +748,19 @@
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + \n    am + gear + carb + country\n\nParametric coefficients:\n               Estimate Std. Error t value Pr(>|t|)    \n(Intercept)    19.64786    3.33355   5.894 6.34e-05 ***\ncyl             0.04677    0.06007   0.779  0.45077    \nvsTRUE          4.28286    3.23083   1.326  0.20880    \namTRUE        -18.96725    8.15253  -2.327  0.03762 *  \ngear.L         18.22445    6.22375   2.928  0.01224 *  \ngear.Q         -1.00953    2.46769  -0.409  0.68943    \ncarb            0.04754    0.07684   0.619  0.54729    \ncountryItaly    8.44447    4.55655   1.853  0.08771 .  \ncountryJapan   14.91304    4.64570   3.210  0.00719 ** \ncountrySweden   9.96746    6.11246   1.631  0.12801    \ncountryUK      25.80436    7.11442   3.627  0.00328 ** \ncountryUSA     12.96145    4.64796   2.789  0.01592 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df      F  p-value    \ns(disp) 7.806  8.336  9.739 0.000227 ***\ns(hp)   9.000  9.000 16.482 1.43e-05 ***\ns(drat) 8.129  8.559 14.226 0.000118 ***\ns(wt)   8.546  8.811 24.849 6.85e-06 ***\ns(qsec) 6.085  6.998 42.072  < 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.037197  Scale est. = 0.0072272  n = 64"
       
       
-      $params$ixn
-      [1] FALSE
-      
       $params$x_cols
+      $params$x_cols[[1]]
       [1] "vs"   "gear"
       
-      $params$x1_cols
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      $params$x_cols[[2]]
+      list()
       
-      $params$x2_cols
-      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
       
       $params$y_col
       [1] "mpg"
+      
+      $params$complete_d
+      NULL
       
       $params$parallel
       [1] 0
@@ -743,15 +815,6 @@
       
       $params$ns
       NULL
-      
-      $params$n_x1_int
-      [1] 20
-      
-      $params$n_x2_int
-      [1] 20
-      
-      $params$n_y_quant
-      [1] 10
       
       $params$compact_plots
       [1] FALSE
@@ -859,12 +922,6 @@
       1 vs     5.75    -5.36     6.24  31.7     -32.8      30.5
       2 gear  25.4    -30.1     25.1   40.8     -47.6      40.8
       
-      $ale$boot$distinct$mpg$stats$effects_plot
-      $ale$boot$distinct$mpg$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
       $ale$boot$distinct$mpg$stats$conf_regions
       $ale$boot$distinct$mpg$stats$conf_regions$by_term
       $ale$boot$distinct$mpg$stats$conf_regions$by_term$vs
@@ -895,16 +952,6 @@
       $ale$boot$distinct$mpg$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
       
-      
-      
-      $ale$boot$distinct$mpg$plots
-      $ale$boot$distinct$mpg$plots$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$mpg$plots$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
       
       
       
@@ -1032,570 +1079,96 @@
 ---
 
     Code
-      mb
+      mb_plots
     Output
-      $model_stats
-      # A tibble: 9 x 7
-        name          boot_valid conf.low median  mean conf.high       sd
-        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl>    <dbl>
-      1 df                NA        36.3   39.0  39.8     42.9   2.78e+ 0
-      2 df.residual       NA        21.1   25.0  24.2     27.7   2.78e+ 0
-      3 nobs              NA        64     64    64       64     0       
-      4 adj.r.squared     NA         1.00   1.00  1.00     1.00  3.76e-11
-      5 npar              NA        56     56    56.4     57     5.48e- 1
-      6 mae                4.33      2.03  NA    NA       18.8   7.63e+ 0
-      7 sa_mae_mad         0.518    -1.09  NA    NA        0.694 8.46e- 1
-      8 rmse               8.11      4.01  NA    NA       37.2   1.55e+ 1
-      9 sa_rmse_sd         0.293    -2.24  NA    NA        0.562 1.35e+ 0
+      $vs
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 13.90176     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 25.38374     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $gear
+        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 44.338416     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -5.913318     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -8.165295     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1 1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2 2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+        ymin ymax
+      1 -Inf  Inf
+      2 -Inf  Inf
+      
+      [[2]]
+             xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1  13.84237 25.44313 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 -10.93142       NA 2     1     2 1.875 2.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      
+      [[3]]
+             xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 16.285558 22.03875  0.7  1.3 1     1     1     NA white       0.5        1
+      2  6.483868 31.84044  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      [[4]]
+               x       label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED 31.7% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 40.8% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[5]]
+                x label    y PANEL group colour size angle hjust vjust alpha family
+      1 16.285558     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2  6.483868     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[6]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 22.03875     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 31.84044     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[7]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 ALED  5.8 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 25.4 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
-      $model_coefs
-      # A tibble: 5 x 6
-        term    conf.low median  mean conf.high std.error
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.21   6.58  5.72      8.97      3.58
-      2 s(hp)       1.03   6.49  5.02      8.43      3.60
-      3 s(drat)     1.67   6.69  5.37      8.81      3.21
-      4 s(wt)       1.00   8.14  5.53      8.80      4.14
-      5 s(qsec)     4.27   6.70  6.76      8.54      1.83
-      
-      $ale
-      $ale$single
-      $distinct
-      $distinct$mpg
-      $distinct$mpg$ale
-      $distinct$mpg$ale$vs
-      # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36 -1.87 -1.87   -1.87     -1.87 -1.87
-      2 TRUE      28  2.41  2.41    2.41      2.41  2.41
-      
-      $distinct$mpg$ale$gear
-      # A tibble: 3 x 7
-        gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 three       30 -9.32 -9.32   -9.32     -9.32 -9.32
-      2 four        24  4.80  4.80    4.80      4.80  4.80
-      3 five        10 16.5  16.5    16.5      16.5  16.5 
-      
-      
-      $distinct$mpg$boot_data
-      NULL
-      
-      $distinct$mpg$stats
-      $distinct$mpg$stats$by_term
-      $distinct$mpg$stats$by_term$vs
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.11     2.11   2.11   2.11      2.11
-      2 aler_min     -1.87    -1.87  -1.87  -1.87     -1.87
-      3 aler_max      2.41     2.41   2.41   2.41      2.41
-      4 naled        17.0     17.0   17.0   17.0      17.0 
-      5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
-      6 naler_max    21.2     21.2   21.2   21.2      21.2 
-      
-      $distinct$mpg$stats$by_term$gear
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          8.74     8.74   8.74   8.74      8.74
-      2 aler_min     -9.32    -9.32  -9.32  -9.32     -9.32
-      3 aler_max     16.5     16.5   16.5   16.5      16.5 
-      4 naled        42.0     42.0   42.0   42.0      42.0 
-      5 naler_min   -50      -50    -50    -50       -50   
-      6 naler_max    50       50     50     50        50   
-      
-      
-      $distinct$mpg$stats$by_stat
-      $distinct$mpg$stats$by_stat$aled
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs        2.11     2.11  2.11   2.11      2.11
-      2 gear      8.74     8.74  8.74   8.74      8.74
-      
-      $distinct$mpg$stats$by_stat$aler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs       -1.87    -1.87 -1.87  -1.87     -1.87
-      2 gear     -9.32    -9.32 -9.32  -9.32     -9.32
-      
-      $distinct$mpg$stats$by_stat$aler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs        2.41     2.41  2.41   2.41      2.41
-      2 gear     16.5     16.5  16.5   16.5      16.5 
-      
-      $distinct$mpg$stats$by_stat$naled
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs        17.0     17.0  17.0   17.0      17.0
-      2 gear      42.0     42.0  42.0   42.0      42.0
-      
-      $distinct$mpg$stats$by_stat$naler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs       -13.6    -13.6 -13.6  -13.6     -13.6
-      2 gear     -50      -50   -50    -50       -50  
-      
-      $distinct$mpg$stats$by_stat$naler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low  mean median conf.high
-        <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 vs        21.2     21.2  21.2   21.2      21.2
-      2 gear      50       50    50     50        50  
-      
-      
-      $distinct$mpg$stats$estimate
-      # A tibble: 2 x 7
-        term   aled aler_min aler_max naled naler_min naler_max
-        <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 vs     2.11    -1.87     2.41  17.0     -13.6      21.2
-      2 gear   8.74    -9.32    16.5   42.0     -50        50  
-      
-      
-      $distinct$mpg$plots
-      NULL
-      
-      
-      
-      $params
-      $params$y_cats
-      [1] "mpg"
-      
-      $params$y_summary
-                    mpg
-      q         0.05000
-      min      10.39108
-      1%       10.39108
-      2.5%     10.40000
-      5%       10.88271
-      10%      14.33418
-      20%      15.16500
-      25%      15.43921
-      30%      15.79628
-      40%      17.83840
-      med_lo_2 15.43921
-      med_lo   19.04095
-      50%      19.20000
-      mean     20.09462
-      med_hi   19.28336
-      med_hi_2 22.80000
-      60%      21.00000
-      70%      21.51193
-      75%      22.80000
-      80%      24.48680
-      90%      30.31124
-      95%      32.14486
-      97.5%    33.08402
-      99%      33.84876
-      max      33.84876
-      
-      $params$valid_x_cols
-      [1] TRUE TRUE
-      
-      $params$all_x_cols
-      [1] "vs"   "gear"
-      
-      $params$data
-      $params$data$name
-      [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
-      
-      $params$data$sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
-      # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
-      
-      $params$data$nrow
-      [1] 64
-      
-      
-      $params$model
-      $params$model$name
-      [1] "structure(list(coefficients = c(\"(Intercept)\" = 19.6478580845116, "
-      
-      $params$model$call
-      [1] "mgcv::gam(formula = mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + \n    s(qsec) + vs + am + gear + carb + country, data = .boot_data)"
-      
-      $params$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + \n    am + gear + carb + country\n\nEstimated degrees of freedom:\n7.81 9.00 8.13 8.55 6.08  total = 51.57 \n\nGCV score: 0.03719706     "
-      
-      $params$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + \n    am + gear + carb + country\n\nParametric coefficients:\n               Estimate Std. Error t value Pr(>|t|)    \n(Intercept)    19.64786    3.33355   5.894 6.34e-05 ***\ncyl             0.04677    0.06007   0.779  0.45077    \nvsTRUE          4.28286    3.23083   1.326  0.20880    \namTRUE        -18.96725    8.15253  -2.327  0.03762 *  \ngear.L         18.22445    6.22375   2.928  0.01224 *  \ngear.Q         -1.00953    2.46769  -0.409  0.68943    \ncarb            0.04754    0.07684   0.619  0.54729    \ncountryItaly    8.44447    4.55655   1.853  0.08771 .  \ncountryJapan   14.91304    4.64570   3.210  0.00719 ** \ncountrySweden   9.96746    6.11246   1.631  0.12801    \ncountryUK      25.80436    7.11442   3.627  0.00328 ** \ncountryUSA     12.96145    4.64796   2.789  0.01592 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df      F  p-value    \ns(disp) 7.806  8.336  9.739 0.000227 ***\ns(hp)   9.000  9.000 16.482 1.43e-05 ***\ns(drat) 8.129  8.559 14.226 0.000118 ***\ns(wt)   8.546  8.811 24.849 6.85e-06 ***\ns(qsec) 6.085  6.998 42.072  < 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.037197  Scale est. = 0.0072272  n = 64"
-      
-      
-      $params$ixn
-      [1] FALSE
-      
-      $params$x_cols
-      [1] "vs"   "gear"
-      
-      $params$x1_cols
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
-      
-      $params$x2_cols
-      [1] "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
-      
-      $params$y_col
-      [1] "mpg"
-      
-      $params$parallel
-      [1] 0
-      
-      $params$model_packages
-      NULL
-      
-      $params$output
-      [1] "data"  "stats"
-      
-      $params$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
-      
-      $params$pred_type
-      [1] "response"
-      
-      $params$rep
-      NULL
-      
-      $params$p_alpha
-      [1] 0.01 0.05
-      
-      $params$max_x_int
-      [1] 10
-      
-      $params$boot_it
-      [1] 0
-      
-      $params$seed
-      [1] 0
-      
-      $params$boot_alpha
-      [1] 0.05
-      
-      $params$boot_centre
-      [1] "mean"
-      
-      $params$y_type
-      [1] "numeric"
-      
-      $params$median_band_pct
-      [1] 0.05 0.50
-      
-      $params$data_sample
-      [1] 500
-      
-      $params$min_rug_per_interval
-      [1] 1
-      
-      $params$bins
-      NULL
-      
-      $params$ns
-      NULL
-      
-      $params$n_x1_int
-      [1] 20
-      
-      $params$n_x2_int
-      [1] 20
-      
-      $params$n_y_quant
-      [1] 10
-      
-      $params$compact_plots
-      [1] FALSE
-      
-      $params$silent
-      [1] TRUE
-      
-      
-      attr(,"class")
-      [1] "ale"
-      
-      $ale$boot
-      $ale$boot$distinct
-      $ale$boot$distinct$mpg
-      $ale$boot$distinct$mpg$ale
-      $ale$boot$distinct$mpg$ale$vs
-      # A tibble: 2 x 7
-        vs.bin    .n    .y   .y_lo .y_mean .y_median  .y_hi
-        <ord>  <int> <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
-      1 FALSE     36 -5.30 -11.1     -5.30     -5.06 -0.192
-      2 TRUE      28  6.18   0.213    6.18      6.51 13.3  
-      
-      $ale$boot$distinct$mpg$ale$gear
-      # A tibble: 3 x 7
-        gear.bin    .n    .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30  25.1   3.97    25.1      7.77 82.9  
-      2 four        24 -25.1 -88.0    -25.1     -8.94 -4.09 
-      3 five        10 -27.4 -88.0    -27.4    -10.3  -0.412
-      
-      
-      $ale$boot$distinct$mpg$stats
-      $ale$boot$distinct$mpg$stats$by_term
-      $ale$boot$distinct$mpg$stats$by_term$vs
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          5.75    0.463   5.70   5.75    12.1  
-      2 aler_min     -5.36  -11.1    -5.06  -5.36    -0.459
-      3 aler_max      6.24    0.480   6.51   6.24    13.3  
-      4 naled        31.7     4.44   32.7   31.7     48.3  
-      5 naler_min   -32.8   -49.7   -37.5  -32.8     -4.18 
-      6 naler_max    30.5     4.06   33.3   30.5     46.6  
-      
-      $ale$boot$distinct$mpg$stats$by_term$gear
-      # A tibble: 6 x 6
-        statistic estimate conf.low median  mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 aled          25.4     4.11   6.74  25.4     85.3 
-      2 aler_min     -30.1   -89.9  -10.3  -30.1     -5.46
-      3 aler_max      25.1     3.97   7.77  25.1     82.9 
-      4 naled         40.8    31.5   39.0   40.8     50   
-      5 naler_min    -47.6   -50    -50    -47.6    -39.4 
-      6 naler_max     40.8    34.4   34.8   40.8     50   
-      
-      
-      $ale$boot$distinct$mpg$stats$by_stat
-      $ale$boot$distinct$mpg$stats$by_stat$aled
-      # A tibble: 2 x 6
-        term  estimate conf.low median  mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 vs        5.75    0.463   5.70  5.75      12.1
-      2 gear     25.4     4.11    6.74 25.4       85.3
-      
-      $ale$boot$distinct$mpg$stats$by_stat$aler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low median   mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 vs       -5.36    -11.1  -5.06  -5.36    -0.459
-      2 gear    -30.1     -89.9 -10.3  -30.1     -5.46 
-      
-      $ale$boot$distinct$mpg$stats$by_stat$aler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low median  mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 vs        6.24    0.480   6.51  6.24      13.3
-      2 gear     25.1     3.97    7.77 25.1       82.9
-      
-      $ale$boot$distinct$mpg$stats$by_stat$naled
-      # A tibble: 2 x 6
-        term  estimate conf.low median  mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 vs        31.7     4.44   32.7  31.7      48.3
-      2 gear      40.8    31.5    39.0  40.8      50  
-      
-      $ale$boot$distinct$mpg$stats$by_stat$naler_min
-      # A tibble: 2 x 6
-        term  estimate conf.low median  mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 vs       -32.8    -49.7  -37.5 -32.8     -4.18
-      2 gear     -47.6    -50    -50   -47.6    -39.4 
-      
-      $ale$boot$distinct$mpg$stats$by_stat$naler_max
-      # A tibble: 2 x 6
-        term  estimate conf.low median  mean conf.high
-        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 vs        30.5     4.06   33.3  30.5      46.6
-      2 gear      40.8    34.4    34.8  40.8      50  
-      
-      
-      $ale$boot$distinct$mpg$stats$estimate
-      # A tibble: 2 x 7
-        term   aled aler_min aler_max naled naler_min naler_max
-        <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 vs     5.75    -5.36     6.24  31.7     -32.8      30.5
-      2 gear  25.4    -30.1     25.1   40.8     -47.6      40.8
-      
-      $ale$boot$distinct$mpg$stats$effects_plot
-      $ale$boot$distinct$mpg$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      $ale$boot$distinct$mpg$stats$conf_regions
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term$vs
-      # A tibble: 2 x 5
-        x         n n_pct     y relative_to_mid
-        <ord> <int> <dbl> <dbl> <ord>          
-      1 FALSE    36 0.562 -5.30 below          
-      2 TRUE     28 0.438  6.18 below          
-      
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term$gear
-      # A tibble: 3 x 5
-        x         n n_pct     y relative_to_mid
-        <ord> <int> <dbl> <dbl> <ord>          
-      1 three    30 0.469  25.1 overlap        
-      2 four     24 0.375 -25.1 below          
-      3 five     10 0.156 -27.4 below          
-      
-      
-      $ale$boot$distinct$mpg$stats$conf_regions$significant
-      # A tibble: 4 x 6
-        term  x         n n_pct      y relative_to_mid
-        <chr> <chr> <int> <dbl>  <dbl> <ord>          
-      1 vs    FALSE    36 0.562  -5.30 below          
-      2 vs    TRUE     28 0.438   6.18 below          
-      3 gear  four     24 0.375 -25.1  below          
-      4 gear  five     10 0.156 -27.4  below          
-      
-      $ale$boot$distinct$mpg$stats$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
-      
-      $ale$boot$distinct$mpg$plots
-      $ale$boot$distinct$mpg$plots$vs
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$mpg$plots$gear
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
-      
-      
-      
-      
-      $boot_data
-      NULL
-      
-      $params
-      $params$n_rows
-      [1] 64
-      
-      $params$calc_boot_valid
-      [1] TRUE
-      
-      $params$y_type
-      [1] "numeric"
-      
-      $params$y_cats
-      [1] "mpg"
-      
-      $params$data
-      $params$data$name
-      [1] "data"
-      
-      $params$data$sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
-      # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
-      
-      $params$data$nrow
-      [1] 64
-      
-      
-      $params$model
-      $params$model$name
-      [1] "model"
-      
-      $params$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
-      
-      $params$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
-      
-      $params$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
-      
-      
-      $params$model_call_string
-      [1] "mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +\n                vs + am + gear + carb + country, data = .boot_data)"
-      
-      $params$model_call_string_vars
-      character(0)
-      
-      $params$parallel
-      [1] 0
-      
-      $params$model_packages
-      NULL
-      
-      $params$y_col
-      [1] "mpg"
-      
-      $params$binary_true_value
-      [1] TRUE
-      
-      $params$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
-      
-      $params$pred_type
-      [1] "response"
-      
-      $params$boot_it
-      [1] 5
-      
-      $params$seed
-      [1] 0
-      
-      $params$boot_alpha
-      [1] 0.05
-      
-      $params$boot_centre
-      [1] "mean"
-      
-      $params$output
-      [1] "ale"         "model_stats" "model_coefs"
-      
-      $params$ale_options
-      $params$ale_options$max_x_int
-      [1] 10
-      
-      $params$ale_options$x_cols
-      [1] "vs"   "gear"
-      
-      
-      $params$tidy_options
-      list()
-      
-      $params$glance_options
-      list()
-      
-      $params$compact_plots
-      [1] TRUE
-      
-      $params$silent
-      [1] TRUE
-      
-      
-      attr(,"class")
-      [1] "ale_boot"
 
 # ALE snapshot works with every parameter set to something, with multiple x datatypes
 
@@ -1801,9 +1374,6 @@
       10     472       7 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
       
-      $distinct$vs$boot_data
-      NULL
-      
       $distinct$vs$stats
       $distinct$vs$stats$by_term
       $distinct$vs$stats$by_term$cyl
@@ -1881,12 +1451,12 @@
       2 disp  3.78e-19 -1.20e-18 4.20e-19  20.6     -50        6.25
       
       
-      $distinct$vs$plots
-      NULL
-      
       
       
       $params
+      $params$max_d
+      [1] 1
+      
       $params$y_cats
       [1] "vs"
       
@@ -1917,12 +1487,6 @@
       97.5%    1.000000e+00
       99%      1.000000e+00
       max      1.000000e+00
-      
-      $params$valid_x_cols
-      [1] TRUE TRUE
-      
-      $params$all_x_cols
-      [1] "cyl"  "disp"
       
       $params$data
       $params$data$name
@@ -1963,22 +1527,19 @@
       [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               0.000e+00  0.000e+00     NaN      NaN\nmodelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1\nmodelCamaro Z28          -4.563e-05  1.204e+08       0        1\nmodelChrysler Imperial   -8.515e-05  1.256e+08       0        1\nmodelDatsun 710           5.713e+01  7.909e+07       0        1\nmodelDodge Challenger    -2.991e-07  2.335e+07       0        1\nmodelDuster 360          -1.155e-05  8.817e+07       0        1\nmodelFerrari Dino        -9.284e+01  2.084e+08       0        1\nmodelFiat 128             1.206e-05  2.166e+07       0        1\nmodelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN\nmodelFord Pantera L      -5.713e+01  2.036e+08       0        1\nmodelHonda Civic          5.713e+01  7.704e+07       0        1\nmodelHornet 4 Drive       5.713e+01  6.786e+07       0        1\nmodelHornet Sportabout    1.251e-06  4.093e+07       0        1\nmodelLincoln Continental -8.020e-05  1.122e+08       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -9.284e+01  2.616e+08       0        1\nmodelMazda RX4            0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1\nmodelMerc 230             7.597e-05  1.345e+08       0        1\nmodelMerc 240D            3.250e-05  8.088e+07       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C            2.619e-05  1.662e+07       0        1\nmodelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 450SL           2.082e-05  4.016e+07       0        1\nmodelMerc 450SLC          2.397e-05  4.362e+07       0        1\nmodelPontiac Firebird    -1.741e-05  4.924e+07       0        1\nmodelPorsche 914-2       -5.713e+01  1.316e+08       0        1\nmodelToyota Corolla       5.713e+01  1.043e+08       0        1\nmodelToyota Corona        7.856e+01  1.118e+08       0        1\nmodelValiant              5.713e+01  1.139e+08       0        1\nmodelVolvo 142E           3.571e+01  2.684e+07       0        1\ncyl                       5.068e-08  6.167e+05       0        1\namTRUE                   -3.571e+01  3.488e+07       0        1\ngear.L                    6.565e+01  7.765e+07       0        1\ngear.Q                   -8.747e+00  6.818e+07       0        1\ncarb                     -1.157e-08  7.575e+05       0        1\ncountryItaly              3.571e+01  8.901e+07       0        1\ncountryJapan              0.000e+00  0.000e+00     NaN      NaN\ncountrySweden             0.000e+00  0.000e+00     NaN      NaN\ncountryUK                 0.000e+00  0.000e+00     NaN      NaN\ncountryUSA                0.000e+00  0.000e+00     NaN      NaN\ncontinentEurope           2.142e+01  3.433e+07       0        1\ncontinentNorth America    2.142e+01  6.026e+07       0        1\n\nApproximate significance of smooth terms:\n        edf Ref.df Chi.sq p-value\ns(disp)   1      1      0       1\ns(hp)     1      1      0       1\ns(drat)   1      1      0       1\ns(wt)     1      1      0       1\ns(qsec)   1      1      0       1\n\nRank: 79/89\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.21875  Scale est. = 1         n = 64"
       
       
-      $params$ixn
-      [1] FALSE
-      
       $params$x_cols
+      $params$x_cols[[1]]
       [1] "cyl"  "disp"
       
-      $params$x1_cols
-       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
-       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      $params$x_cols[[2]]
+      list()
       
-      $params$x2_cols
-      [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "carb"
       
       $params$y_col
       [1] "vs"
+      
+      $params$complete_d
+      NULL
       
       $params$parallel
       [1] 0
@@ -2033,15 +1594,6 @@
       
       $params$ns
       NULL
-      
-      $params$n_x1_int
-      [1] 20
-      
-      $params$n_x2_int
-      [1] 20
-      
-      $params$n_y_quant
-      [1] 10
       
       $params$compact_plots
       [1] FALSE
@@ -2161,12 +1713,6 @@
       1 cyl   4.36e-13 -9.87e-13 6.76e-13  21.6       -40      6.27
       2 disp  1.79e-16 -2.94e-16 4.04e-16  22.2       -40      6.27
       
-      $ale$boot$distinct$vs$stats$effects_plot
-      $ale$boot$distinct$vs$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
       $ale$boot$distinct$vs$stats$conf_regions
       $ale$boot$distinct$vs$stats$conf_regions$by_term
       $ale$boot$distinct$vs$stats$conf_regions$by_term$cyl
@@ -2195,16 +1741,6 @@
       $ale$boot$distinct$vs$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
       
-      
-      
-      $ale$boot$distinct$vs$plots
-      $ale$boot$distinct$vs$plots$cyl
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$vs$plots$disp
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
       
       
       
@@ -2320,7 +1856,7 @@
       list()
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -2328,6 +1864,74 @@
       
       attr(,"class")
       [1] "ale_boot"
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 3.925673e-13
+      2 2     1     2     NA lightgray       0.5        1    NA 3.925673e-13
+                xmax ymin ymax
+      1 3.925673e-13 -Inf  Inf
+      2 3.925673e-13 -Inf  Inf
+      
+      [[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1  3.922733e-13 3.929712e-13 1     1     1 0.875 1.125  black       0.5
+      2 -5.946162e-13 1.068658e-12 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      [[3]]
+               xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 3.92478e-13 3.926565e-13  0.7  1.3 1     1     1     NA white       0.5
+      2 1.74724e-13 6.104106e-13  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      [[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13 NALED 22.2% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 21.6% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      [[5]]
+                  x label    y PANEL group colour size angle hjust vjust alpha family
+      1 3.92478e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 1.74724e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.926565e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 6.104106e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      [[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.925673e-13 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.925673e-13 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
 
 # categorical outcome works on iris dataset
 
@@ -2393,9 +1997,6 @@
       8              2.2    15  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
       9              2.5    14  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
       
-      
-      $distinct$setosa$boot_data
-      NULL
       
       $distinct$setosa$stats
       $distinct$setosa$stats$by_term
@@ -2474,9 +2075,6 @@
       2 Petal.Width  0.0000115  -0.0000201 0.0000108  26.8       -50      15.3
       
       
-      $distinct$setosa$plots
-      NULL
-      
       
       $distinct$versicolor
       $distinct$versicolor$ale
@@ -2509,9 +2107,6 @@
       8              2.2    15 -0.387  -0.387  -0.387    -0.387  -0.387 
       9              2.5    14 -0.387  -0.387  -0.387    -0.387  -0.387 
       
-      
-      $distinct$versicolor$boot_data
-      NULL
       
       $distinct$versicolor$stats
       $distinct$versicolor$stats$by_term
@@ -2590,9 +2185,6 @@
       2 Petal.Width  0.203   -0.387    0.168   25.8       -50      14.7
       
       
-      $distinct$versicolor$plots
-      NULL
-      
       
       $distinct$virginica
       $distinct$virginica$ale
@@ -2625,9 +2217,6 @@
       8              2.2    15  0.387   0.387   0.387     0.387   0.387 
       9              2.5    14  0.387   0.387   0.387     0.387   0.387 
       
-      
-      $distinct$virginica$boot_data
-      NULL
       
       $distinct$virginica$stats
       $distinct$virginica$stats$by_term
@@ -2706,12 +2295,12 @@
       2 Petal.Width  0.203   -0.168    0.387   39.0       -50      16  
       
       
-      $distinct$virginica$plots
-      NULL
-      
       
       
       $params
+      $params$max_d
+      [1] 1
+      
       $params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
@@ -2742,12 +2331,6 @@
       97.5%    1.000000e+00 1.000000e+00 9.999999e-01 1.000000e+00
       99%      1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       max      1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
-      
-      $params$valid_x_cols
-      [1] TRUE TRUE
-      
-      $params$all_x_cols
-      [1] "Sepal.Length" "Petal.Width" 
       
       $params$data
       $params$data$name
@@ -2924,20 +2507,19 @@
       [1] "Call:\nnnet::multinom(formula = Species ~ ., data = list(c(5.1, 4.9, \n4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, \n5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, \n5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, \n4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, \n5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, \n6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, \n5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, \n5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, \n6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, \n5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, \n6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, \n6.5, 6.2, 5.9), c(3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, \n3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, \n3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, \n3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, \n3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, \n2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, \n3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, \n2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, \n3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, \n3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, \n3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, \n3.2, 3.3, 3, 2.5, 3, 3.4, 3), c(1.4, 1.4, 1.3, 1.5, 1.4, 1.7, \n1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, \n1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, \n1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, \n1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, \n4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, \n4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, \n4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, \n4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, \n5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, \n4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, \n5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, \n5.1), c(0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, \n0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, \n0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, \n0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, \n1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, \n1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, \n1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, \n1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, \n1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, \n1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, \n1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, \n1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8), c(1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nStd. Errors:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    34.97116     89.89215    157.0415     60.19170    45.48852\nvirginica     35.76649     89.91153    157.1196     60.46753    45.93406\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
       
       
-      $params$ixn
-      [1] FALSE
-      
       $params$x_cols
+      $params$x_cols[[1]]
       [1] "Sepal.Length" "Petal.Width" 
       
-      $params$x1_cols
-      [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+      $params$x_cols[[2]]
+      list()
       
-      $params$x2_cols
-      [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
       
       $params$y_col
       [1] "Species"
+      
+      $params$complete_d
+      NULL
       
       $params$parallel
       [1] 0
@@ -2992,15 +2574,6 @@
       
       $params$ns
       NULL
-      
-      $params$n_x1_int
-      [1] 20
-      
-      $params$n_x2_int
-      [1] 20
-      
-      $params$n_y_quant
-      [1] 10
       
       $params$compact_plots
       [1] FALSE
@@ -3122,12 +2695,6 @@
       1 Sepal.Length 0.000351 -0.00269  0.00217  25.2       -50      15.9
       2 Petal.Width  0.00744  -0.00573  0.0139   31.7       -50      15.3
       
-      $ale$boot$distinct$setosa$stats$effects_plot
-      $ale$boot$distinct$setosa$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
       $ale$boot$distinct$setosa$stats$conf_regions
       $ale$boot$distinct$setosa$stats$conf_regions$by_term
       $ale$boot$distinct$setosa$stats$conf_regions$by_term$Sepal.Length
@@ -3166,16 +2733,6 @@
       $ale$boot$distinct$setosa$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
       
-      
-      
-      $ale$boot$distinct$setosa$plots
-      $ale$boot$distinct$setosa$plots$Sepal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$setosa$plots$Petal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
       
       
       
@@ -3287,12 +2844,6 @@
       1 Sepal.Length 0.0505  -0.0508   0.0830  32.7       -50      12.8
       2 Petal.Width  0.207   -0.387    0.179   26.0       -50      14.9
       
-      $ale$boot$distinct$versicolor$stats$effects_plot
-      $ale$boot$distinct$versicolor$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
       $ale$boot$distinct$versicolor$stats$conf_regions
       $ale$boot$distinct$versicolor$stats$conf_regions$by_term
       $ale$boot$distinct$versicolor$stats$conf_regions$by_term$Sepal.Length
@@ -3325,16 +2876,6 @@
       $ale$boot$distinct$versicolor$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
       
-      
-      
-      $ale$boot$distinct$versicolor$plots
-      $ale$boot$distinct$versicolor$plots$Sepal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$versicolor$plots$Petal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
       
       
       
@@ -3446,12 +2987,6 @@
       1 Sepal.Length 0.0503  -0.0806   0.0486  29.9       -50      14.3
       2 Petal.Width  0.210   -0.173    0.392   38.9       -50      16.4
       
-      $ale$boot$distinct$virginica$stats$effects_plot
-      $ale$boot$distinct$virginica$stats$effects_plot[[1]]
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      
       $ale$boot$distinct$virginica$stats$conf_regions
       $ale$boot$distinct$virginica$stats$conf_regions$by_term
       $ale$boot$distinct$virginica$stats$conf_regions$by_term$Sepal.Length
@@ -3484,16 +3019,6 @@
       $ale$boot$distinct$virginica$stats$conf_regions$sig_criterion
       [1] "median_band_pct"
       
-      
-      
-      $ale$boot$distinct$virginica$plots
-      $ale$boot$distinct$virginica$plots$Sepal.Length
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
-      
-      $ale$boot$distinct$virginica$plots$Petal.Width
-        PANEL group xmin xmax ymin ymax
-      1     1    -1    0    1    0    1
       
       
       
@@ -3748,7 +3273,7 @@
       list()
       
       $params$compact_plots
-      [1] TRUE
+      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -3756,4 +3281,34 @@
       
       attr(,"class")
       [1] "ale_boot"
+
+---
+
+    Code
+      mb_eff_plots
+    Output
+      $setosa
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 4.215968e-09
+      2 2     1     2     NA lightgray       0.5        1    NA 4.215968e-09
+                xmax ymin ymax
+      1 2.193143e-08 -Inf  Inf
+      2 2.193143e-08 -Inf  Inf
+      
+      $versicolor
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 1.690351e-05
+      2 2     1     2     NA lightgray       0.5        1    NA 1.690351e-05
+                xmax ymin ymax
+      1 0.0002494482 -Inf  Inf
+      2 0.0002494482 -Inf  Inf
+      
+      $virginica
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 6.333628e-06
+      2 2     1     2     NA lightgray       0.5        1    NA 6.333628e-06
+                xmax ymin ymax
+      1 4.101349e-05 -Inf  Inf
+      2 4.101349e-05 -Inf  Inf
+      
 

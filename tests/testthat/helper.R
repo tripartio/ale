@@ -49,19 +49,10 @@ test_nn_categorical <- nnet::multinom(
 ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
-
-  # browser()
   ale_plots |>
     purrr::map(\(it.plot) {
       ggplot2::ggplot_build(it.plot)$data[[1]]
     })
-  # ale_plots |>
-  #   purrr::map(\(it.cat) {
-  #     it.cat |>
-  #       purrr::map(\(it.plot) {
-  #         ggplot2::ggplot_build(it.plot)$data[[1]]
-  #       })
-  #   })
 }
 
 # custom predict function ------------

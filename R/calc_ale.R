@@ -384,7 +384,14 @@ calc_ale <- function(
         }
 
         # Set any indeterminate missing values to zero; this includes the values in the first row and first column
-        btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , ])] <- 0
+        # btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , ])] <- 0
+        # Extract the current it.cat slice
+        it.cat_slice <- btit.local_eff_ray[it.cat, , , drop = FALSE]
+        # Replace NAs with 0 in the slice
+        it.cat_slice[is.na(it.cat_slice)] <- 0
+        # Assign the modified slice back to the original array
+        btit.local_eff_ray[it.cat, , ] <- it.cat_slice
+
 
 
         # Accumulate interaction local effects first over rows then over columns.
@@ -436,6 +443,10 @@ calc_ale <- function(
 
     }  # for (it.cat in y_cats)
 
+    # closeAllConnections()
+    # browser()
+
+
     # Return the result of a bootstrap iteration
     list(
       y = btit.acc_local_eff,
@@ -481,8 +492,9 @@ calc_ale <- function(
       ) |>
         as.integer()
     } else {
-      x1$x_ordered_idx
+      x2$x_ordered_idx
     }
+    # if (x2$x_type == 'binary') browser()
     x12_counts <- table(x1_idxs, x2_idxs)
     rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
     colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
@@ -617,9 +629,6 @@ calc_ale <- function(
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
     rename(.y_composite = .y)
-
-  # closeAllConnections()
-  # browser()
 
   if (ixn_d == 2) {
     # Calculate the difference between composite and distinct ALE on the full dataset
@@ -930,16 +939,25 @@ calc_ale <- function(
     })
 
 
+  rtn_list <- list(summary = boot_summary)
+  if (!is.null(ale_y_norm_funs)) {
+    rtn_list$stats <- boot_stats
+  }
+  if (boot_ale_y) {
+    rtn_list$boot_ale_y <- boot_ale_tbl
+  }
 
-  return(list(
-    summary = boot_summary,
-    stats = boot_stats,
-    boot_ale_y = if (boot_ale_y) {
-      boot_ale_tbl
-    } else {
-      NULL
-    }
-  ))
+  return(rtn_list)
+
+  # return(list(
+  #   summary = boot_summary,
+  #   stats = boot_stats,
+  #   boot_ale_y = if (boot_ale_y) {
+  #     boot_ale_tbl
+  #   } else {
+  #     NULL
+  #   }
+  # ))
 
 }  # calc_ale()
 
