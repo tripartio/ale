@@ -292,7 +292,7 @@ yhat <- function(object, newdata, type) {
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_num_bins = 500,
-#   data_sample = 600  # technical issue: data_sample must be > max_num_bins + 1
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -313,7 +313,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_num_bins = 500,
-#   data_sample = 600  # technical issue: data_sample must be > max_num_bins + 1
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_ixn_link, file.choose())
 gbm_ale_ixn_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
@@ -362,7 +362,7 @@ yhat <- function(object, newdata, type) {
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_num_bins = 500,
-#   data_sample = 600  # technical issue: data_sample must be > max_num_bins + 1
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -383,7 +383,7 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #   data, gbm.data,
 #   pred_fun = yhat,
 #   max_num_bins = 500,
-#   data_sample = 600  # technical issue: data_sample must be > max_num_bins + 1
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_ixn_prob, file.choose())
 gbm_ale_ixn_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 

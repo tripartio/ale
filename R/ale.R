@@ -93,9 +93,9 @@
 #' For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`.
 #' For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band
 #' will be the median ± 2.5% and the outer band will be the median ± 25%.
-#' @param data_sample non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
+#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
 #' `min_rug_per_interval` elements; usually set to just 1 or 2.
-#' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `data_sample` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `data_sample` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
+#' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
 #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the [model_bootstrap()] function).
 #' @param compact_plots logical length 1, default `FALSE`. When `output` includes
 #' 'plots', the returned `ggplot` objects each include the environments of the plots.
@@ -149,7 +149,7 @@
 #'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
 #'   If `plots` is not included in `output`, this element is `NULL`.
 #' * Various values echoed from the original call to the [ale()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
-#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `data_sample`. These are either the values provided by the user or used by default if the user did not change them.
+#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `sample_size`. These are either the values provided by the user or used by default if the user did not change them.
 #' * `y_summary`: summary statistics of y values used for the ALE calculation.
 #'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
 #'   probability or other value that is constrained in the `[0, 1]` range. In that
@@ -252,7 +252,7 @@ ale <- function (
     boot_centre = 'mean',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
-    data_sample = 500,
+    sample_size = 500,
     min_rug_per_interval = 1,
     bins = NULL,
     ns = NULL,
@@ -305,10 +305,10 @@ ale <- function (
 # # @param boot_centre See documentation for [ale()]
 # # @param y_type See documentation for [ale()]
 # # @param median_band_pct See documentation for [ale()]
-# # @param data_sample,min_rug_per_interval See documentation for [ale()]
+# # @param sample_size,min_rug_per_interval See documentation for [ale()]
 # # @param bins See documentation for [ale()]
 # # @param ns See documentation for [ale()]
-# # @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
+# # @param n_x1_bins,n_x2_bins See documentation for [ale_ixn()]
 # # @param n_y_quant See documentation for [ale_ixn()]
 # # @param compact_plots See documentation for [ale()]
 # # @param silent See documentation for [ale()]
@@ -338,13 +338,13 @@ ale <- function (
 #     boot_centre = 'mean',
 #     y_type = NULL,
 #     median_band_pct = c(0.05, 0.5),
-#     data_sample = 500,
+#     sample_size = 500,
 #     min_rug_per_interval = 1,
 #     bins = NULL,
 #     ns = NULL,
 #     # ggplot_custom = NULL,
-#     n_x1_int = 20,
-#     n_x2_int = 20,
+#     n_x1_bins = 20,
+#     n_x2_bins = 20,
 #     n_y_quant = 10,
 #     compact_plots = FALSE,
 #     silent = FALSE
@@ -528,15 +528,15 @@ ale <- function (
         all(between(median_band_pct, 0, 1))
     )
     validate(
-      data_sample == 0 ||  # 0 means no data sample or rug plots are desired
-        (is_scalar_natural(data_sample) &&
+      sample_size == 0 ||  # 0 means no data sample or rug plots are desired
+        (is_scalar_natural(sample_size) &&
            # rug sample cannot be smaller than number of intervals
-           data_sample > (max_num_bins + 1)),
-      msg = cli_alert_danger('{.arg data_sample} must be either 0 or an integer larger than the number of max_num_bins + 1.')
+           sample_size > (max_num_bins + 1)),
+      msg = cli_alert_danger('{.arg sample_size} must be either 0 or an integer larger than the number of max_num_bins + 1.')
     )
     validate(is_scalar_whole(min_rug_per_interval))
-    # validate(is_scalar_natural(n_x1_int))
-    # validate(is_scalar_natural(n_x2_int))
+    # validate(is_scalar_natural(n_x1_bins))
+    # validate(is_scalar_natural(n_x2_bins))
     # validate(is_scalar_natural(n_y_quant))
   }
 
@@ -727,8 +727,6 @@ ale <- function (
     ]
   }
 
-  # browser()
-
   # Establish max_d (maximum dimnsions) variable for params
   valid_d <- x_cols |>
     purrr::map_lgl(\(it.x_col_d) {
@@ -820,8 +818,6 @@ ale <- function (
           progress_iterator()
         }
 
-        # browser()
-
         # Calculate ale_data for single variables
         ale_results <-
           calc_ale(
@@ -836,15 +832,8 @@ ale <- function (
           ) |>
           list_transpose(simplify = FALSE)
 
-        # closeAllConnections()
-        # browser()
-
         ale_results |>
           imap(\(it.cat_ar, it.cat_name) {
-            # closeAllConnections()
-            # browser()
-
-
             it.rtn <- list(
               cat = it.cat_name,
               x_cols = list(it.x_cols),
@@ -1036,7 +1025,7 @@ ale <- function (
   #           plot <-
   #             ale_data |>
   #             imap(\(it.cat_ale_data, it.cat_name) {
-  #               plot_ale(
+  #               plot_ale_1D(
   #                 it.cat_ale_data, x_col, y_col, y_type,
   #                 y_summary[, it.cat_name],
   #                 # relative_y = relative_y,
@@ -1044,7 +1033,7 @@ ale <- function (
   #                 median_band_pct = median_band_pct,
   #                 x_y = tibble(data[[x_col]], y_vals[, it.cat_name]) |>
   #                   stats::setNames(c(x_col, y_col)),
-  #                 rug_sample_size = data_sample,
+  #                 rug_sample_size = sample_size,
   #                 min_rug_per_interval = min_rug_per_interval,
   #                 compact_plots = compact_plots,
   #                 seed = seed
@@ -1162,18 +1151,18 @@ ale <- function (
   #             plot <-
   #               ale_data |>
   #               imap(\(it.cat_ale_data, it.cat_name) {
-  #                 plot_ale_ixn(
+  #                 plot_ale_2D(
   #                   it.cat_ale_data, x1_col, x2_col, y_col, y_type,
   #                   y_summary[, it.cat_name],
   #                   y_vals,
   #                   # relative_y = relative_y,
   #                   median_band_pct = median_band_pct,
-  #                   n_x1_int = n_x1_int,
-  #                   n_x2_int = n_x2_int,
+  #                   n_x1_bins = n_x1_bins,
+  #                   n_x2_bins = n_x2_bins,
   #                   n_y_quant = n_y_quant,
   #                   x1_x2_y = tibble(data[[x1_col]], data[[x2_col]], y_vals) |>
   #                     stats::setNames(c(x1_col, x2_col, y_col)),
-  #                   rug_sample_size = data_sample,
+  #                   rug_sample_size = sample_size,
   #                   min_rug_per_interval = min_rug_per_interval,
   #                   compact_plots = compact_plots,
   #                   seed = seed
@@ -1381,8 +1370,9 @@ ale <- function (
   # Simplify some very large elements, especially closures that contain environments
   params$data <- params_data(
     data = data,
+    y_vals = y_vals,
     data_name = var_name(data),
-    sample_size = data_sample,
+    sample_size = sample_size,
     seed = seed
   )
   params$model <- params_model(model, var_name(model))
@@ -1451,9 +1441,9 @@ ale <- function (
 #' @param max_num_bins See documentation for [ale()]
 #' @param y_type See documentation for [ale()]
 #' @param median_band_pct See documentation for [ale()]
-#' @param data_sample,min_rug_per_interval See documentation for [ale()]
+#' @param sample_size,min_rug_per_interval See documentation for [ale()]
 #' @param bins See documentation for [ale()]
-#' @param n_x1_int,n_x2_int positive scalar integer. Number of intervals
+#' @param n_x1_bins,n_x2_bins positive scalar integer. Number of intervals
 #' for the x1 or x2 axes respectively for interaction plot. These values are
 #' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive scalar integer. Number of intervals over which the range
@@ -1523,12 +1513,12 @@ ale_ixn <- function (
     # boot_centre = 'mean',
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
-    data_sample = 500,
+    sample_size = 500,
     min_rug_per_interval = 1,
     bins = NULL,
     # ggplot_custom = NULL,
-    n_x1_int = 20,
-    n_x2_int = 20,
+    n_x1_bins = 20,
+    n_x2_bins = 20,
     n_y_quant = 10,
     compact_plots = FALSE,
     silent = FALSE

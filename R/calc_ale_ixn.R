@@ -193,10 +193,6 @@ calc_ale_ixn <- function(
         # Now subtract the lower-order ALE effects from this interaction ale_y.
         # Comments here are adapted from ALEPlot.
 
-        # closeAllConnections()
-        # browser()
-
-
         # n_x1_int by (n_x2_int+1) matrix of differenced ale_y values, differenced across X[[x1_col]]
         row_delta <- ay[2:(n_x1_int+1), ] - ay[1:n_x1_int, ]
         x12_counts.row_delta <-

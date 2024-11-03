@@ -1092,7 +1092,7 @@ model_bootstrap <- function (
       #       it.cat_ale_data |>
       #         imap(\(it.x_col_data, it.x_col_name) {
       #
-      #           plot_ale(
+      #           plot_ale_1D(
       #             ale_data = it.x_col_data,
       #             x_col = it.x_col_name,
       #             y_col = it.cat,
@@ -1179,7 +1179,8 @@ model_bootstrap <- function (
   # Simplify some very large elements, especially closures that contain environments
   params$data <- params_data(
     data = data,
-    sample_size = if ('ale' %in% output) full_ale$params$data_sample else 500,
+    y_vals = y_vals,
+    sample_size = if ('ale' %in% output) full_ale$params$sample_size else 500,
     seed = seed
   )
   params$model <- params_model(model)

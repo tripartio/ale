@@ -20,7 +20,6 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
       max(x1_ceilings) - min(x1_ceilings)
     } else {
       xd[[1]]$n_bins - 1
-      # n_x1_int - 1
     }
     range_x2 <- max(x2_ceilings) - min(x2_ceilings)
 

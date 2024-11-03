@@ -5,13 +5,25 @@
 
 #' plot method for `ale` objects
 #'
+#' #' @description
+#' For the 2D plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
+#' * The middle quantile is the first confidence interval of `median_band_pct` (`median_band_pct[1]`) around the median.
+#' This middle quantile is special because it generally represents no meaningful interaction.
+#' * The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
+#'
+#' There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If `n_y_quant` is even, then a middle quantile will be added to it. If `n_y_quant` is odd, then the number specified will be used, including the middle quantile.
+#'
+
+#'
 #' @param ale_obj ale object. The object of class `ale` containing data to be plotted.
 #' @param type character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
 #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `rep` are provided. If `rep` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
 #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `rep` are not provided. If `rep` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
-#' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows otherwise they can be very slow for large datasets. By default, their size is the `data_sample` size from the `ale_obj` parameters. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf`.
+#' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows otherwise they can be very slow for large datasets. By default, their size is the `sample_size` size from the `ale_obj` parameters. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf`.
+#' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
+#' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
 #' @param seed See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
@@ -26,8 +38,11 @@ plot.ale <- function(
     relative_y = 'median',
     p_alpha = c(0.01, 0.05),
     median_band_pct = c(0.05, 0.5),
-    rug_sample_size = obj$params$data_sample,
+    rug_sample_size = obj$params$sample_size,
     min_rug_per_interval = 1,
+    n_x1_bins = NULL,
+    n_x2_bins = NULL,
+    n_y_quant = 10,
     seed = 0,
     silent = FALSE
 ) {
@@ -60,8 +75,8 @@ plot.ale <- function(
 
     # The default value for rug_sample_size assumes an ale object. So, ensure that a valid value is assigned for ale_boot objects.
     if (is.null(rug_sample_size)) {
-      rug_sample_size <- if (!is.null(obj$params$data_sample)) {
-        obj$params$data_sample
+      rug_sample_size <- if (!is.null(obj$params$sample_size)) {
+        obj$params$sample_size
       } else {
         500
       }
@@ -69,16 +84,16 @@ plot.ale <- function(
   }
 
   if (type == 'ale') {
-    plots <-
+    plots_1D <-
       imap(obj$distinct, \(it.cat_data, it.cat_name) {
         imap(it.cat_data$ale, \(it.x_col_ale_data, it.x_col_name) {
-          plot_ale(
+          plot_ale_1D(
             ale_data  = it.x_col_ale_data,
             x_col     = it.x_col_name,
             y_col     = obj$params$y_col,
             y_type    = obj$params$y_type,
             y_summary = obj$params$y_summary[, it.cat_name],
-            x_y       = obj$params$data$sample[, c(it.x_col_name, obj$params$y_col)],
+            x_y       = obj$params$data$data_sample[, c(it.x_col_name, obj$params$y_col)],
             relative_y = relative_y,
             p_alpha = p_alpha,
             median_band_pct = median_band_pct,
@@ -89,11 +104,68 @@ plot.ale <- function(
         })
       })
 
-    # Set S3 class information for the ale_plots object
-    class(plots) <- c('ale_plots')
-    # attr(plots, 'ale_version') <- utils::packageVersion('ale')
+    if (obj$params$max_d >= 2) {
+      plots_2D <-
+        imap(obj$distinct, \(it.cat_data, it.cat_name) {
+          imap(it.cat_data$ixn$ale, \(it.x1_ales, it.x1_col_name) {
+            imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
+              plot_ale_2D(
+                ale_data  = it.x1_x2_ale,
+                x1_col    = it.x1_col_name,
+                x2_col    = it.x2_col_name,
+                y_col     = obj$params$y_col,
+                y_type    = obj$params$y_type,
+                y_summary = obj$params$y_summary[, it.cat_name],
+                y_vals    = obj$params$data$y_vals_sample[, it.cat_name],
+                n_x1_bins = if (is.null(n_x1_bins)) {
+                  attributes(it.x1_x2_ale)$x[[1]]$n_bins
+                } else {
+                  20
+                },
+                n_x2_bins = if (is.null(n_x2_bins)) {
+                  attributes(it.x1_x2_ale)$x[[2]]$n_bins
+                } else {
+                  20
+                },
+                n_y_quant = n_y_quant,
+                x1_x2_y = obj$params$data$data_sample[
+                  , c(it.x1_col_name, it.x2_col_name, obj$params$y_col)
+                ],
+                relative_y = relative_y,
+                p_alpha = p_alpha,
+                median_band_pct = median_band_pct,
+                rug_sample_size = rug_sample_size,
+                min_rug_per_interval = min_rug_per_interval,
+                seed = seed
+              )
+            })
+          })
+        })
+    }
 
-    return(plots)
+
+    # Create S3 ale_plots object ----------------------
+
+    # Capture all parameters used to construct the plot.
+    params <- c(as.list(environment()), list(...))
+    # Create list of objects to delete
+    temp_objs <- c(
+      'plots_1D', 'plots_2D', 'obj'
+    )
+    params <- params[names(params) |> setdiff(temp_objs)]
+    params$max_d <- obj$params$max_d
+
+    # Create ale_plots object
+    # ale_obj <- list()
+    ale_plots_obj <- list()
+    ale_plots_obj$distinct$plots <- plots_1D
+    if (params$max_d >= 2) {
+      ale_plots_obj$distinct$ixn$plots <- plots_2D
+    }
+    ale_plots_obj$params <- params
+    class(ale_plots_obj) <- c('ale_plots')
+
+    return(ale_plots_obj)
   }
 
   else if (type == 'effects') {
@@ -170,7 +242,7 @@ plot.ale_boot <- function(
 #'   if (type == 'ale') {
 #'     plots <- imap(ale_boot_obj$ale$boot$data, \(it.ale_cat_data, it.cat) {
 #'       imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
-#'         plot_ale(
+#'         plot_ale_1D(
 #'           ale_data  = it.x_col_data,
 #'           x_col     = it.x_col_name,
 #'           y_col     = it.cat,
@@ -243,7 +315,7 @@ plot.ale_boot <- function(
 # ) {
 #   imap(ale_obj$data, \(it.ale_cat_data, it.cat) {
 #     imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
-#       plot_ale(
+#       plot_ale_1D(
 #         ale_data = it.x_col_data,
 #         x_col = it.x_col_name,
 #         y_col = it.cat,
@@ -285,7 +357,7 @@ plot.ale_boot <- function(
 #  @param seed See documentation for [ale()]
 #
 #
-plot_ale <- function(
+plot_ale_1D <- function(
     ale_data, x_col, y_col, y_type,
     y_summary,
     ...,
@@ -331,8 +403,6 @@ plot_ale <- function(
   #
   # # Then shift all the y summary data
   # y_summary <- y_summary + y_shift
-
-  # browser()
 
   # Shift ale_data and y_summary by relative_y.
   # Calculate shift amount
@@ -440,10 +510,6 @@ plot_ale <- function(
     if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
     y_summary[['med_hi_2']]
   )
-
-  # print(x_col)
-  # print(ale_data)
-  # browser()
 
   plot <- plot +
     scale_y_continuous(
@@ -621,17 +687,17 @@ plot_ale <- function(
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for [ale()]
 # @param median_band_pct See documentation for [ale()]
-# @param n_x1_int,n_x2_int See documentation for [ale_ixn()]
+# @param n_x1_bins,n_x2_bins See documentation for [ale_ixn()]
 # @param n_y_quant See documentation for [ale_ixn()]
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
 # If provided, used to generate rug plots.
-#@param data See documentation for `plot_ale`
+#@param data See documentation for `plot_ale_1D`
 # @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
 # @param compact_plots See documentation for [ale()]
 # @param seed See documentation for [ale()]
 #
 #
-plot_ale_ixn <- function(
+plot_ale_2D <- function(
     ale_data, x1_col, x2_col, y_col, y_type,
     y_summary,
     y_vals,
@@ -640,7 +706,7 @@ plot_ale_ixn <- function(
     relative_y = 'median',
     p_alpha = c(0.01, 0.05),
     median_band_pct = c(0.05, 0.5),
-    n_x1_int = 20, n_x2_int = 20, n_y_quant = 10,
+    n_x1_bins = 20, n_x2_bins = 20, n_y_quant = 10,
     x1_x2_y = NULL,
     # data = NULL,
     rug_sample_size = 500,
@@ -683,7 +749,8 @@ plot_ale_ixn <- function(
       starts_with('.y'),
       \(col.y) col.y + y_shift
     ))
-  y_vals <- y_vals - y_summary[['50%']] + y_shift
+  y_summary <- y_summary - y_summary[['50%']] + y_shift
+  # y_vals <- y_vals - y_summary[['50%']] + y_shift
 
   # Shift the x1_x2_y y data for rug plots
   x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
@@ -759,8 +826,9 @@ plot_ale_ixn <- function(
     (`[`)(-n_y_quant)  # delete final superfluous element
 
   if (y_type == 'binary' &&
-      min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
-    # Adjust the minimum and maximum deciles to ensure all .y values are included
+      y_summary[['min']] > 0 && y_summary[['max']] < 1) {  # y is a probability
+      # min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
+      # Adjust the minimum and maximum deciles to ensure all .y values are included
     y_quantiles[1] <- 0
     y_quantiles[n_y_quant + 1] <- 1
   }
@@ -783,12 +851,12 @@ plot_ale_ixn <- function(
       # This lets the code be cleaner than inserting an if_else here.
       x1_quantile = .data$.x1,
 
-      # x2_quantile: divide .x2 into n_x2_int bins.
-      # ntile (the bin number) is divided by the number of bins (n_x2_int)
+      # x2_quantile: divide .x2 into n_x2_bins bins.
+      # ntile (the bin number) is divided by the number of bins (n_x2_bins)
       # and then scaled by max(.x2) to fill the range of .x2 values.
       # ChatGPT helped me: it works
       x2_quantile = (((max(ale_data$.x2) - min(ale_data$.x2)) *
-                        (ntile(ale_data$.x2, n_x2_int) - 1) / (n_x2_int - 1))
+                        (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
                      + min(ale_data$.x2)),
 
       # y_quantile: which of the n_y_quant in which .y falls
@@ -805,7 +873,7 @@ plot_ale_ixn <- function(
         # Set numeric x1 to quantiles; factors will be unchanged.
         # See x2_quantile above for documentation of the formula.
         x1_quantile = (((max(ale_data$.x1) - min(ale_data$.x1)) *
-                          (ntile(ale_data$.x1, n_x1_int) - 1) / (n_x1_int - 1))
+                          (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
                        + min(ale_data$.x1)),
       )
   }

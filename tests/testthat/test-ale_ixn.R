@@ -77,8 +77,8 @@ test_that(
       max_num_bins = 12,
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
-      # n_x1_int = 10,
-      # n_x2_int = 25,
+      # n_x1_bins = 10,
+      # n_x2_bins = 25,
       # n_y_quant = 5,
       silent = TRUE,
       compact_plots = TRUE
@@ -139,8 +139,8 @@ test_that(
       max_num_bins = 12,
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
-      # n_x1_int = 10,
-      # n_x2_int = 25,
+      # n_x1_bins = 10,
+      # n_x2_bins = 25,
       # n_y_quant = 5,
       silent = TRUE
     )

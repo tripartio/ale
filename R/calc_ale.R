@@ -443,10 +443,6 @@ calc_ale <- function(
 
     }  # for (it.cat in y_cats)
 
-    # closeAllConnections()
-    # browser()
-
-
     # Return the result of a bootstrap iteration
     list(
       y = btit.acc_local_eff,
@@ -494,7 +490,7 @@ calc_ale <- function(
     } else {
       x2$x_ordered_idx
     }
-    # if (x2$x_type == 'binary') browser()
+
     x12_counts <- table(x1_idxs, x2_idxs)
     rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
     colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
@@ -927,10 +923,11 @@ calc_ale <- function(
 
   boot_summary <- boot_summary |>
     map(\(it.cat) {
-      attr(it.cat, 'types') <- map(x_cols, \(it.x_col) {
+      attr(it.cat, 'x') <- map(x_cols, \(it.x_col) {
         list(
           class = class(X[[it.x_col]]),
-          type = xd[[it.x_col]]$x_type
+          type = xd[[it.x_col]]$x_type,
+          n_bins = xd[[it.x_col]]$n_bins
         )
       }) |>
         set_names(x_cols)

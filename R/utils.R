@@ -45,23 +45,40 @@
 # Reduce a dataframe to a sample (retains the structure of its columns)
 params_data <- function(
     data,
+    y_vals,
     data_name = var_name(data),
     sample_size = 500,
     seed = 0
 ) {
   n_rows = nrow(data)
 
+  # If data is large, reduce it to a sample of sample_size; else return the full dataset
+  if (n_rows > sample_size) {
+    set.seed(seed)
+    sample_rows <- sample(1:n_rows, sample_size)
+
+    data <- data[sample_rows, ]
+    y_vals <- y_vals[sample_rows]
+  }
+
   list(
     name = data_name,
-    # If data is large, reduce it to a sample of sample_size; else return the full dataset
-    sample = if (n_rows > sample_size) {
-      set.seed(seed)
-      slice_sample(data, n = sample_size)
-    } else {
-      data
-    },
+    data_sample = data,
+    y_vals_sample = y_vals,
     nrow = n_rows
   )
+
+  # list(
+  #   name = data_name,
+  #   # If data is large, reduce it to a sample of sample_size; else return the full dataset
+  #   sample = if (n_rows > sample_size) {
+  #     set.seed(seed)
+  #     slice_sample(data, n = sample_size)
+  #   } else {
+  #     data
+  #   },
+  #   nrow = n_rows
+  # )
 }
 
 

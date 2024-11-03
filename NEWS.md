@@ -9,7 +9,10 @@
     * `ale_boot`: results of the [model_bootstrap()] function.
     * `ale_rep`: random effects probability distribution information as the result of the [create_rep_dist()] function.
 * Renamed "p-values" to "random effects probabilities (REPs)" throughout the package.
-* Renamed the `rug_sample_size` argument of ale() to `data_sample`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
+* Renamed the `rug_sample_size` argument of ale() to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
+* [ale_ixn()] has been eliminated and now both 1D and 2D ALE are calculated with the [ale()] function.
+* [ale()] no longer produces plots. ALE plots are now created as `ale_plot` objects that create all possible plots from the ALE data from `ale` or `ale_boot` objects. Thus, serializing `ale` objects now avoids the problems of environment bloat of the included `ggplot` objects.
+
 
 ## Bug fixes
 
