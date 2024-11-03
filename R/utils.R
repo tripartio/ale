@@ -843,6 +843,12 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
 # Inverse of %in% operator
 `%notin%` <- Negate(`%in%`)
 
+# Concatenate two character vectors
+`%+%` <- function(cv1, cv2) {
+  paste0(cv1, cv2)
+}
+
+
 
 
 
