@@ -28,7 +28,8 @@
       $distinct
       $distinct$mpg
       $distinct$mpg$ale
-      $distinct$mpg$ale$cyl
+      $distinct$mpg$ale[[1]]
+      $distinct$mpg$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -40,7 +41,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $distinct$mpg$ale$disp
+      $distinct$mpg$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -56,9 +57,11 @@
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
       
+      
       $distinct$mpg$stats
-      $distinct$mpg$stats$by_term
-      $distinct$mpg$stats$by_term$cyl
+      $distinct$mpg$stats[[1]]
+      $distinct$mpg$stats[[1]]$by_term
+      $distinct$mpg$stats[[1]]$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -69,7 +72,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   0        0       0       0         0     
       
-      $distinct$mpg$stats$by_term$disp
+      $distinct$mpg$stats[[1]]$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -81,43 +84,43 @@
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
       
-      $distinct$mpg$stats$by_stat
-      $distinct$mpg$stats$by_stat$aled
+      $distinct$mpg$stats[[1]]$by_stat
+      $distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0112   0.0112 0.0112 0.0112    0.0112
       2 disp    3.09     3.09   3.09   3.09      3.09  
       
-      $distinct$mpg$stats$by_stat$aler_min
+      $distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low    mean  median conf.high
         <chr>    <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 cyl    -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
       2 disp   -5.74    -5.74   -5.74   -5.74     -5.74  
       
-      $distinct$mpg$stats$by_stat$aler_max
+      $distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0196   0.0196 0.0196 0.0196    0.0196
       2 disp    4.75     4.75   4.75   4.75      4.75  
       
-      $distinct$mpg$stats$by_stat$naled
+      $distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp      22.8     22.8  22.8   22.8      22.8
       
-      $distinct$mpg$stats$by_stat$naler_min
+      $distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp     -40.9    -40.9 -40.9  -40.9     -40.9
       
-      $distinct$mpg$stats$by_stat$naler_max
+      $distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -125,29 +128,29 @@
       2 disp      28.8     28.8  28.8   28.8      28.8
       
       
-      $distinct$mpg$stats$estimate
+      $distinct$mpg$stats[[1]]$estimate
       # A tibble: 2 x 7
         term    aled aler_min aler_max naled naler_min naler_max
         <chr>  <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 cyl   0.0112  -0.0236   0.0196   0         0         0  
       2 disp  3.09    -5.74     4.75    22.8     -40.9      28.8
       
-      $distinct$mpg$stats$conf_regions
-      $distinct$mpg$stats$conf_regions$by_term
-      $distinct$mpg$stats$conf_regions$by_term$cyl
+      $distinct$mpg$stats[[1]]$conf_regions
+      $distinct$mpg$stats[[1]]$conf_regions$by_term
+      $distinct$mpg$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
       1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
       
-      $distinct$mpg$stats$conf_regions$by_term$disp
+      $distinct$mpg$stats[[1]]$conf_regions$by_term$disp
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
       
       
-      $distinct$mpg$stats$conf_regions$significant
+      $distinct$mpg$stats[[1]]$conf_regions$significant
       # A tibble: 2 x 10
         term  start_x end_x x_span     n n_pct start_y   end_y    trend
         <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl>
@@ -155,8 +158,9 @@
       2 disp     70.9   472      1    64     1  4.75   -5.74   -0.447  
       # i 1 more variable: relative_to_mid <ord>
       
-      $distinct$mpg$stats$conf_regions$sig_criterion
+      $distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       
@@ -672,14 +676,15 @@
       $distinct
       $distinct$mpg
       $distinct$mpg$ale
-      $distinct$mpg$ale$vs
+      $distinct$mpg$ale[[1]]
+      $distinct$mpg$ale[[1]]$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36 -1.87 -1.87   -1.87     -1.87 -1.87
       2 TRUE      28  2.41  2.41    2.41      2.41  2.41
       
-      $distinct$mpg$ale$gear
+      $distinct$mpg$ale[[1]]$gear
       # A tibble: 3 x 7
         gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -688,9 +693,11 @@
       3 five        10 16.5  16.5    16.5      16.5  16.5 
       
       
+      
       $distinct$mpg$stats
-      $distinct$mpg$stats$by_term
-      $distinct$mpg$stats$by_term$vs
+      $distinct$mpg$stats[[1]]
+      $distinct$mpg$stats[[1]]$by_term
+      $distinct$mpg$stats[[1]]$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -701,7 +708,7 @@
       5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
       6 naler_max    21.2     21.2   21.2   21.2      21.2 
       
-      $distinct$mpg$stats$by_term$gear
+      $distinct$mpg$stats[[1]]$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -713,43 +720,43 @@
       6 naler_max    50       50     50     50        50   
       
       
-      $distinct$mpg$stats$by_stat
-      $distinct$mpg$stats$by_stat$aled
+      $distinct$mpg$stats[[1]]$by_stat
+      $distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        2.11     2.11  2.11   2.11      2.11
       2 gear      8.74     8.74  8.74   8.74      8.74
       
-      $distinct$mpg$stats$by_stat$aler_min
+      $distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs       -1.87    -1.87 -1.87  -1.87     -1.87
       2 gear     -9.32    -9.32 -9.32  -9.32     -9.32
       
-      $distinct$mpg$stats$by_stat$aler_max
+      $distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        2.41     2.41  2.41   2.41      2.41
       2 gear     16.5     16.5  16.5   16.5      16.5 
       
-      $distinct$mpg$stats$by_stat$naled
+      $distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        17.0     17.0  17.0   17.0      17.0
       2 gear      42.0     42.0  42.0   42.0      42.0
       
-      $distinct$mpg$stats$by_stat$naler_min
+      $distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs       -13.6    -13.6 -13.6  -13.6     -13.6
       2 gear     -50      -50   -50    -50       -50  
       
-      $distinct$mpg$stats$by_stat$naler_max
+      $distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -757,12 +764,13 @@
       2 gear      50       50    50     50        50  
       
       
-      $distinct$mpg$stats$estimate
+      $distinct$mpg$stats[[1]]$estimate
       # A tibble: 2 x 7
         term   aled aler_min aler_max naled naler_min naler_max
         <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 vs     2.11    -1.87     2.41  17.0     -13.6      21.2
       2 gear   8.74    -9.32    16.5   42.0     -50        50  
+      
       
       
       
@@ -990,14 +998,15 @@
       $ale$boot$distinct
       $ale$boot$distinct$mpg
       $ale$boot$distinct$mpg$ale
-      $ale$boot$distinct$mpg$ale$vs
+      $ale$boot$distinct$mpg$ale[[1]]
+      $ale$boot$distinct$mpg$ale[[1]]$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y   .y_lo .y_mean .y_median  .y_hi
         <ord>  <int> <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
       1 FALSE     36 -5.30 -11.1     -5.30     -5.06 -0.192
       2 TRUE      28  6.18   0.213    6.18      6.51 13.3  
       
-      $ale$boot$distinct$mpg$ale$gear
+      $ale$boot$distinct$mpg$ale[[1]]$gear
       # A tibble: 3 x 7
         gear.bin    .n    .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1006,9 +1015,11 @@
       3 five        10 -27.4 -88.0    -27.4    -10.3  -0.412
       
       
+      
       $ale$boot$distinct$mpg$stats
-      $ale$boot$distinct$mpg$stats$by_term
-      $ale$boot$distinct$mpg$stats$by_term$vs
+      $ale$boot$distinct$mpg$stats[[1]]
+      $ale$boot$distinct$mpg$stats[[1]]$by_term
+      $ale$boot$distinct$mpg$stats[[1]]$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low median   mean conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -1019,7 +1030,7 @@
       5 naler_min   -32.8   -49.7   -37.5  -32.8     -4.18 
       6 naler_max    30.5     4.06   33.3   30.5     46.6  
       
-      $ale$boot$distinct$mpg$stats$by_term$gear
+      $ale$boot$distinct$mpg$stats[[1]]$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low median  mean conf.high
         <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -1031,43 +1042,43 @@
       6 naler_max     40.8    34.4   34.8   40.8     50   
       
       
-      $ale$boot$distinct$mpg$stats$by_stat
-      $ale$boot$distinct$mpg$stats$by_stat$aled
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 vs        5.75    0.463   5.70  5.75      12.1
       2 gear     25.4     4.11    6.74 25.4       85.3
       
-      $ale$boot$distinct$mpg$stats$by_stat$aler_min
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low median   mean conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 vs       -5.36    -11.1  -5.06  -5.36    -0.459
       2 gear    -30.1     -89.9 -10.3  -30.1     -5.46 
       
-      $ale$boot$distinct$mpg$stats$by_stat$aler_max
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 vs        6.24    0.480   6.51  6.24      13.3
       2 gear     25.1     3.97    7.77 25.1       82.9
       
-      $ale$boot$distinct$mpg$stats$by_stat$naled
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 vs        31.7     4.44   32.7  31.7      48.3
       2 gear      40.8    31.5    39.0  40.8      50  
       
-      $ale$boot$distinct$mpg$stats$by_stat$naler_min
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 vs       -32.8    -49.7  -37.5 -32.8     -4.18
       2 gear     -47.6    -50    -50   -47.6    -39.4 
       
-      $ale$boot$distinct$mpg$stats$by_stat$naler_max
+      $ale$boot$distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -1075,23 +1086,23 @@
       2 gear      40.8    34.4    34.8  40.8      50  
       
       
-      $ale$boot$distinct$mpg$stats$estimate
+      $ale$boot$distinct$mpg$stats[[1]]$estimate
       # A tibble: 2 x 7
         term   aled aler_min aler_max naled naler_min naler_max
         <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 vs     5.75    -5.36     6.24  31.7     -32.8      30.5
       2 gear  25.4    -30.1     25.1   40.8     -47.6      40.8
       
-      $ale$boot$distinct$mpg$stats$conf_regions
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term$vs
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions$by_term
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions$by_term$vs
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    36 0.562 -5.30 below          
       2 TRUE     28 0.438  6.18 below          
       
-      $ale$boot$distinct$mpg$stats$conf_regions$by_term$gear
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
@@ -1100,7 +1111,7 @@
       3 five     10 0.156 -27.4 below          
       
       
-      $ale$boot$distinct$mpg$stats$conf_regions$significant
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions$significant
       # A tibble: 4 x 6
         term  x         n n_pct      y relative_to_mid
         <chr> <chr> <int> <dbl>  <dbl> <ord>          
@@ -1109,8 +1120,9 @@
       3 gear  four     24 0.375 -25.1  below          
       4 gear  five     10 0.156 -27.4  below          
       
-      $ale$boot$distinct$mpg$stats$conf_regions$sig_criterion
+      $ale$boot$distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       
@@ -1559,7 +1571,8 @@
       $distinct
       $distinct$vs
       $distinct$vs$ale
-      $distinct$vs$ale$cyl
+      $distinct$vs$ale[[1]]
+      $distinct$vs$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1571,7 +1584,7 @@
       6        8    21  3.01e-20  3.01e-20  3.01e-20  3.01e-20  3.01e-20
       7        9     3  5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
       
-      $distinct$vs$ale$disp
+      $distinct$vs$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1587,9 +1600,11 @@
       10     472       7 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
       
+      
       $distinct$vs$stats
-      $distinct$vs$stats$by_term
-      $distinct$vs$stats$by_term$cyl
+      $distinct$vs$stats[[1]]
+      $distinct$vs$stats[[1]]$by_term
+      $distinct$vs$stats[[1]]$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1600,7 +1615,7 @@
       5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $distinct$vs$stats$by_term$disp
+      $distinct$vs$stats[[1]]$by_term$disp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1612,43 +1627,43 @@
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
       
-      $distinct$vs$stats$by_stat
-      $distinct$vs$stats$by_stat$aled
+      $distinct$vs$stats[[1]]$by_stat
+      $distinct$vs$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low     mean   median conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   1.74e-20 1.74e-20 1.74e-20 1.74e-20  1.74e-20
       2 disp  3.78e-19 3.78e-19 3.78e-19 3.78e-19  3.78e-19
       
-      $distinct$vs$stats$by_stat$aler_min
+      $distinct$vs$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term   estimate  conf.low      mean    median conf.high
         <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 cyl   -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
       2 disp  -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
-      $distinct$vs$stats$by_stat$aler_max
+      $distinct$vs$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low     mean   median conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   5.00e-20 5.00e-20 5.00e-20 5.00e-20  5.00e-20
       2 disp  4.20e-19 4.20e-19 4.20e-19 4.20e-19  4.20e-19
       
-      $distinct$vs$stats$by_stat$naled
+      $distinct$vs$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl       10.2     10.2  10.2   10.2      10.2
       2 disp      20.6     20.6  20.6   20.6      20.6
       
-      $distinct$vs$stats$by_stat$naler_min
+      $distinct$vs$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl      -20.3    -20.3 -20.3  -20.3     -20.3
       2 disp     -50      -50   -50    -50       -50  
       
-      $distinct$vs$stats$by_stat$naler_max
+      $distinct$vs$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1656,12 +1671,13 @@
       2 disp      6.25     6.25  6.25   6.25      6.25
       
       
-      $distinct$vs$stats$estimate
+      $distinct$vs$stats[[1]]$estimate
       # A tibble: 2 x 7
         term      aled  aler_min aler_max naled naler_min naler_max
         <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 cyl   1.74e-20 -2.04e-20 5.00e-20  10.2     -20.3      6.25
       2 disp  3.78e-19 -1.20e-18 4.20e-19  20.6     -50        6.25
+      
       
       
       
@@ -1889,7 +1905,8 @@
       $ale$boot$distinct
       $ale$boot$distinct$vs
       $ale$boot$distinct$vs$ale
-      $ale$boot$distinct$vs$ale$cyl
+      $ale$boot$distinct$vs$ale[[1]]
+      $ale$boot$distinct$vs$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
@@ -1901,7 +1918,7 @@
       6        8    21 -6.44e-13 -2.90e-12 -6.44e-13 -4.55e-19 6.56e-16
       7        9     3 -9.87e-13 -4.44e-12 -9.87e-13 -7.65e-19 1.03e-15
       
-      $ale$boot$distinct$vs$ale$disp
+      $ale$boot$distinct$vs$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1917,9 +1934,11 @@
       10     350.      7 NA        NA        NA        NA        NA       
       
       
+      
       $ale$boot$distinct$vs$stats
-      $ale$boot$distinct$vs$stats$by_term
-      $ale$boot$distinct$vs$stats$by_term$cyl
+      $ale$boot$distinct$vs$stats[[1]]
+      $ale$boot$distinct$vs$stats[[1]]$by_term
+      $ale$boot$distinct$vs$stats[[1]]$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low    median      mean conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1930,7 +1949,7 @@
       5 naler_min -4   e+ 1 -5   e+ 1 -5   e+ 1 -4   e+ 1 -5.00e+ 0
       6 naler_max  6.27e+ 0  7.35e- 1  7.35e+ 0  6.27e+ 0  8.72e+ 0
       
-      $ale$boot$distinct$vs$stats$by_term$disp
+      $ale$boot$distinct$vs$stats[[1]]$by_term$disp
       # A tibble: 6 x 6
         statistic  estimate  conf.low    median      mean conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1942,43 +1961,43 @@
       6 naler_max  6.27e+ 0  7.35e- 1  7.35e+ 0  6.27e+ 0  8.72e+ 0
       
       
-      $ale$boot$distinct$vs$stats$by_stat
-      $ale$boot$distinct$vs$stats$by_stat$aled
+      $ale$boot$distinct$vs$stats[[1]]$by_stat
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low   median     mean conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   4.36e-13 3.10e-20 7.58e-19 4.36e-13  1.96e-12
       2 disp  1.79e-16 5.23e-20 9.37e-17 1.79e-16  4.30e-16
       
-      $ale$boot$distinct$vs$stats$by_stat$aler_min
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term   estimate  conf.low    median      mean conf.high
         <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 cyl   -9.87e-13 -4.44e-12 -2.63e-18 -9.87e-13 -8.01e-20
       2 disp  -2.94e-16 -6.85e-16 -2.16e-16 -2.94e-16 -9.88e-20
       
-      $ale$boot$distinct$vs$stats$by_stat$aler_max
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low   median     mean conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   6.76e-13 4.26e-20 7.37e-19 6.76e-13  3.04e-12
       2 disp  4.04e-16 1.07e-19 1.01e-16 4.04e-16  1.05e-15
       
-      $ale$boot$distinct$vs$stats$by_stat$naled
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 cyl       21.6     1.99   27.6  21.6      31.4
       2 disp      22.2     2.13   26.2  22.2      35.2
       
-      $ale$boot$distinct$vs$stats$by_stat$naler_min
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 cyl        -40      -50    -50   -40     -5.00
       2 disp       -40      -50    -50   -40     -5.00
       
-      $ale$boot$distinct$vs$stats$by_stat$naler_max
+      $ale$boot$distinct$vs$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low median  mean conf.high
         <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -1986,23 +2005,23 @@
       2 disp      6.27    0.735   7.35  6.27      8.72
       
       
-      $ale$boot$distinct$vs$stats$estimate
+      $ale$boot$distinct$vs$stats[[1]]$estimate
       # A tibble: 2 x 7
         term      aled  aler_min aler_max naled naler_min naler_max
         <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 cyl   4.36e-13 -9.87e-13 6.76e-13  21.6       -40      6.27
       2 disp  1.79e-16 -2.94e-16 4.04e-16  22.2       -40      6.27
       
-      $ale$boot$distinct$vs$stats$conf_regions
-      $ale$boot$distinct$vs$stats$conf_regions$by_term
-      $ale$boot$distinct$vs$stats$conf_regions$by_term$cyl
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
       1       3     4  0.167    18 0.281 1.13e-12  5.78e-13 -3.29e-12 overlap        
       2       5     9  0.667    46 0.719 3.27e-19 -9.87e-13 -1.48e-12 below          
       
-      $ale$boot$distinct$vs$stats$conf_regions$by_term$disp
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term$disp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
@@ -2010,7 +2029,7 @@
       2   166.   350.  0.459    28 0.438 NA        NA        NA        overlap        
       
       
-      $ale$boot$distinct$vs$stats$conf_regions$significant
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions$significant
       # A tibble: 2 x 10
         term  start_x end_x x_span     n n_pct   start_y     end_y     trend
         <chr>   <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl>
@@ -2018,8 +2037,9 @@
       2 disp     70.9   472  1        36 0.562 -1.99e-16  2.16e-16  4.15e-16
       # i 1 more variable: relative_to_mid <ord>
       
-      $ale$boot$distinct$vs$stats$conf_regions$sig_criterion
+      $ale$boot$distinct$vs$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       
@@ -2315,7 +2335,8 @@
       $distinct
       $distinct$setosa
       $distinct$setosa$ale
-      $distinct$setosa$ale$Sepal.Length
+      $distinct$setosa$ale[[1]]
+      $distinct$setosa$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -2330,7 +2351,7 @@
        9               6.9    17  0.00000761  0.00000761    7.61e-6   7.61e-6  7.61e-6
       10               7.9    13  0.0000101   0.0000101     1.01e-5   1.01e-5  1.01e-5
       
-      $distinct$setosa$ale$Petal.Width
+      $distinct$setosa$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n          .y       .y_lo     .y_mean  .y_median    .y_hi
                    <dbl> <int>       <dbl>       <dbl>       <dbl>      <dbl>    <dbl>
@@ -2345,9 +2366,11 @@
       9              2.5    14  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
       
       
+      
       $distinct$setosa$stats
-      $distinct$setosa$stats$by_term
-      $distinct$setosa$stats$by_term$Sepal.Length
+      $distinct$setosa$stats[[1]]
+      $distinct$setosa$stats[[1]]$by_term
+      $distinct$setosa$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -2358,7 +2381,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max  15.3         15.3         15.3         15.3         15.3       
       
-      $distinct$setosa$stats$by_term$Petal.Width
+      $distinct$setosa$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -2370,43 +2393,43 @@
       6 naler_max  15.3        15.3        15.3        15.3        15.3      
       
       
-      $distinct$setosa$stats$by_stat
-      $distinct$setosa$stats$by_stat$aled
+      $distinct$setosa$stats[[1]]$by_stat
+      $distinct$setosa$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length 0.00000990 0.00000990 0.00000990 0.00000990 0.00000990
       2 Petal.Width  0.0000115  0.0000115  0.0000115  0.0000115  0.0000115 
       
-      $distinct$setosa$stats$by_stat$aler_min
+      $distinct$setosa$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length -0.0000635 -0.0000635 -0.0000635 -0.0000635 -0.0000635
       2 Petal.Width  -0.0000201 -0.0000201 -0.0000201 -0.0000201 -0.0000201
       
-      $distinct$setosa$stats$by_stat$aler_max
+      $distinct$setosa$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term          estimate  conf.low      mean    median conf.high
         <chr>            <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0000101 0.0000101 0.0000101 0.0000101 0.0000101
       2 Petal.Width  0.0000108 0.0000108 0.0000108 0.0000108 0.0000108
       
-      $distinct$setosa$stats$by_stat$naled
+      $distinct$setosa$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     18.9     18.9  18.9   18.9      18.9
       2 Petal.Width      26.8     26.8  26.8   26.8      26.8
       
-      $distinct$setosa$stats$by_stat$naler_min
+      $distinct$setosa$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$setosa$stats$by_stat$naler_max
+      $distinct$setosa$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2414,7 +2437,7 @@
       2 Petal.Width      15.3     15.3  15.3   15.3      15.3
       
       
-      $distinct$setosa$stats$estimate
+      $distinct$setosa$stats[[1]]$estimate
       # A tibble: 2 x 7
         term               aled   aler_min  aler_max naled naler_min naler_max
         <chr>             <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
@@ -2423,9 +2446,11 @@
       
       
       
+      
       $distinct$versicolor
       $distinct$versicolor$ale
-      $distinct$versicolor$ale$Sepal.Length
+      $distinct$versicolor$ale[[1]]
+      $distinct$versicolor$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2440,7 +2465,7 @@
        9               6.9    17  0.0471   0.0471   0.0471    0.0471   0.0471 
       10               7.9    13  0.0572   0.0572   0.0572    0.0572   0.0572 
       
-      $distinct$versicolor$ale$Petal.Width
+      $distinct$versicolor$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2455,9 +2480,11 @@
       9              2.5    14 -0.387  -0.387  -0.387    -0.387  -0.387 
       
       
+      
       $distinct$versicolor$stats
-      $distinct$versicolor$stats$by_term
-      $distinct$versicolor$stats$by_term$Sepal.Length
+      $distinct$versicolor$stats[[1]]
+      $distinct$versicolor$stats[[1]]$by_term
+      $distinct$versicolor$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2468,7 +2495,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  12.7     12.7     12.7     12.7      12.7   
       
-      $distinct$versicolor$stats$by_term$Petal.Width
+      $distinct$versicolor$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2480,43 +2507,43 @@
       6 naler_max   14.7     14.7    14.7    14.7      14.7  
       
       
-      $distinct$versicolor$stats$by_stat
-      $distinct$versicolor$stats$by_stat$aled
+      $distinct$versicolor$stats[[1]]$by_stat
+      $distinct$versicolor$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
       2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
       
-      $distinct$versicolor$stats$by_stat$aler_min
+      $distinct$versicolor$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0301  -0.0301 -0.0301 -0.0301   -0.0301
       2 Petal.Width   -0.387   -0.387  -0.387  -0.387    -0.387 
       
-      $distinct$versicolor$stats$by_stat$aler_max
+      $distinct$versicolor$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0572   0.0572 0.0572 0.0572    0.0572
       2 Petal.Width    0.168    0.168  0.168  0.168     0.168 
       
-      $distinct$versicolor$stats$by_stat$naled
+      $distinct$versicolor$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     34.4     34.4  34.4   34.4      34.4
       2 Petal.Width      25.8     25.8  25.8   25.8      25.8
       
-      $distinct$versicolor$stats$by_stat$naler_min
+      $distinct$versicolor$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$versicolor$stats$by_stat$naler_max
+      $distinct$versicolor$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2524,7 +2551,7 @@
       2 Petal.Width      14.7     14.7  14.7   14.7      14.7
       
       
-      $distinct$versicolor$stats$estimate
+      $distinct$versicolor$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -2533,9 +2560,11 @@
       
       
       
+      
       $distinct$virginica
       $distinct$virginica$ale
-      $distinct$virginica$ale$Sepal.Length
+      $distinct$virginica$ale[[1]]
+      $distinct$virginica$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2550,7 +2579,7 @@
        9               6.9    17 -0.0471  -0.0471  -0.0471   -0.0471  -0.0471 
       10               7.9    13 -0.0572  -0.0572  -0.0572   -0.0572  -0.0572 
       
-      $distinct$virginica$ale$Petal.Width
+      $distinct$virginica$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2565,9 +2594,11 @@
       9              2.5    14  0.387   0.387   0.387     0.387   0.387 
       
       
+      
       $distinct$virginica$stats
-      $distinct$virginica$stats$by_term
-      $distinct$virginica$stats$by_term$Sepal.Length
+      $distinct$virginica$stats[[1]]
+      $distinct$virginica$stats[[1]]$by_term
+      $distinct$virginica$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2578,7 +2609,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  13.3     13.3     13.3     13.3      13.3   
       
-      $distinct$virginica$stats$by_term$Petal.Width
+      $distinct$virginica$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2590,43 +2621,43 @@
       6 naler_max   16       16      16      16        16    
       
       
-      $distinct$virginica$stats$by_stat
-      $distinct$virginica$stats$by_stat$aled
+      $distinct$virginica$stats[[1]]$by_stat
+      $distinct$virginica$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
       2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
       
-      $distinct$virginica$stats$by_stat$aler_min
+      $distinct$virginica$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0572  -0.0572 -0.0572 -0.0572   -0.0572
       2 Petal.Width   -0.168   -0.168  -0.168  -0.168    -0.168 
       
-      $distinct$virginica$stats$by_stat$aler_max
+      $distinct$virginica$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0301   0.0301 0.0301 0.0301    0.0301
       2 Petal.Width    0.387    0.387  0.387  0.387     0.387 
       
-      $distinct$virginica$stats$by_stat$naled
+      $distinct$virginica$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     28.2     28.2  28.2   28.2      28.2
       2 Petal.Width      39.0     39.0  39.0   39.0      39.0
       
-      $distinct$virginica$stats$by_stat$naler_min
+      $distinct$virginica$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$virginica$stats$by_stat$naler_max
+      $distinct$virginica$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2634,12 +2665,13 @@
       2 Petal.Width      16       16    16     16        16  
       
       
-      $distinct$virginica$stats$estimate
+      $distinct$virginica$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0286  -0.0572   0.0301  28.2       -50      13.3
       2 Petal.Width  0.203   -0.168    0.387   39.0       -50      16  
+      
       
       
       
@@ -3089,7 +3121,8 @@
       $ale$boot$distinct
       $ale$boot$distinct$setosa
       $ale$boot$distinct$setosa$ale
-      $ale$boot$distinct$setosa$ale$Sepal.Length
+      $ale$boot$distinct$setosa$ale[[1]]
+      $ale$boot$distinct$setosa$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -3104,7 +3137,7 @@
        9               6.9    17 -0.00000471 -0.00000471   -4.71e-6  -4.71e-6 -4.71e-6
       10               7.9    13  0.00270     0.0000342     2.70e-3   7.83e-5  9.83e-3
       
-      $ale$boot$distinct$setosa$ale$Petal.Width
+      $ale$boot$distinct$setosa$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n          .y       .y_lo     .y_mean  .y_median    .y_hi
                    <dbl> <int>       <dbl>       <dbl>       <dbl>      <dbl>    <dbl>
@@ -3119,9 +3152,11 @@
       9              2.5    14 -0.00563    -0.0255     -0.00563       8.21e-6  1.46e-4
       
       
+      
       $ale$boot$distinct$setosa$stats
-      $ale$boot$distinct$setosa$stats$by_term
-      $ale$boot$distinct$setosa$stats$by_term$Sepal.Length
+      $ale$boot$distinct$setosa$stats[[1]]
+      $ale$boot$distinct$setosa$stats[[1]]$by_term
+      $ale$boot$distinct$setosa$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic   estimate    conf.low      median       mean   conf.high
         <chr>          <dbl>       <dbl>       <dbl>      <dbl>       <dbl>
@@ -3132,7 +3167,7 @@
       5 naler_min -50        -50         -50         -50        -50        
       6 naler_max  15.9       12.9        16          15.9       19.2      
       
-      $ale$boot$distinct$setosa$stats$by_term$Petal.Width
+      $ale$boot$distinct$setosa$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic  estimate     conf.low      median      mean    conf.high
         <chr>         <dbl>        <dbl>       <dbl>     <dbl>        <dbl>
@@ -3144,43 +3179,43 @@
       6 naler_max  15.3      12.7         14.9        15.3      19.1       
       
       
-      $ale$boot$distinct$setosa$stats$by_stat
-      $ale$boot$distinct$setosa$stats$by_stat$aled
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate   conf.low    median     mean conf.high
         <chr>           <dbl>      <dbl>     <dbl>    <dbl>     <dbl>
       1 Sepal.Length 0.000351 0.0000110  0.0000707 0.000351   0.00143
       2 Petal.Width  0.00744  0.00000338 0.0000173 0.00744    0.0333 
       
-      $ale$boot$distinct$setosa$stats$by_stat$aler_min
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low     median     mean   conf.high
         <chr>           <dbl>    <dbl>      <dbl>    <dbl>       <dbl>
       1 Sepal.Length -0.00269  -0.0111 -0.000491  -0.00269 -0.0000186 
       2 Petal.Width  -0.00573  -0.0255 -0.0000309 -0.00573 -0.00000545
       
-      $ale$boot$distinct$setosa$stats$by_stat$aler_max
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate   conf.low    median    mean conf.high
         <chr>           <dbl>      <dbl>     <dbl>   <dbl>     <dbl>
       1 Sepal.Length  0.00217 0.0000333  0.0000559 0.00217   0.00957
       2 Petal.Width   0.0139  0.00000306 0.0000159 0.0139    0.0624 
       
-      $ale$boot$distinct$setosa$stats$by_stat$naled
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     25.2     17.8   20.8  25.2      44.2
       2 Petal.Width      31.7     27.0   30.0  31.7      38.8
       
-      $ale$boot$distinct$setosa$stats$by_stat$naler_min
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
       2 Petal.Width       -50      -50    -50   -50       -50
       
-      $ale$boot$distinct$setosa$stats$by_stat$naler_max
+      $ale$boot$distinct$setosa$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -3188,16 +3223,16 @@
       2 Petal.Width      15.3     12.7   14.9  15.3      19.1
       
       
-      $ale$boot$distinct$setosa$stats$estimate
+      $ale$boot$distinct$setosa$stats[[1]]$estimate
       # A tibble: 2 x 7
         term             aled aler_min aler_max naled naler_min naler_max
         <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.000351 -0.00269  0.00217  25.2       -50      15.9
       2 Petal.Width  0.00744  -0.00573  0.0139   31.7       -50      15.3
       
-      $ale$boot$distinct$setosa$stats$conf_regions
-      $ale$boot$distinct$setosa$stats$conf_regions$by_term
-      $ale$boot$distinct$setosa$stats$conf_regions$by_term$Sepal.Length
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions$by_term
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions$by_term$Sepal.Length
       # A tibble: 5 x 9
         start_x end_x x_span     n  n_pct     start_y    end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>       <dbl>    <dbl>   <dbl> <ord>          
@@ -3207,7 +3242,7 @@
       4     6.5   6.9  0.111    29 0.193  -0.00000471 -4.71e-6 0       below          
       5     7.9   7.9  0        13 0.0867  0.00270     2.70e-3 0       above          
       
-      $ale$boot$distinct$setosa$stats$conf_regions$by_term$Petal.Width
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions$by_term$Petal.Width
       # A tibble: 5 x 9
         start_x end_x x_span     n  n_pct     start_y    end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>  <dbl>       <dbl>    <dbl>   <dbl> <ord>          
@@ -3218,7 +3253,7 @@
       5     2.5   2.5 0         14 0.0933 -0.00563    -5.63e-3 0       overlap        
       
       
-      $ale$boot$distinct$setosa$stats$conf_regions$significant
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions$significant
       # A tibble: 6 x 10
         term         start_x end_x x_span     n  n_pct     start_y       end_y   trend
         <chr>          <dbl> <dbl>  <dbl> <int>  <dbl>       <dbl>       <dbl>   <dbl>
@@ -3230,15 +3265,17 @@
       6 Petal.Width      1.6   2.2  0.25     50 0.333   0.0000159   0.0000595  1.74e-4
       # i 1 more variable: relative_to_mid <ord>
       
-      $ale$boot$distinct$setosa$stats$conf_regions$sig_criterion
+      $ale$boot$distinct$setosa$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       
       
       $ale$boot$distinct$versicolor
       $ale$boot$distinct$versicolor$ale
-      $ale$boot$distinct$versicolor$ale$Sepal.Length
+      $ale$boot$distinct$versicolor$ale[[1]]
+      $ale$boot$distinct$versicolor$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
                      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
@@ -3253,7 +3290,7 @@
        9               6.9    17  0.248     0.248     0.248     0.248     0.248  
       10               7.9    13  0.0748   -0.0210    0.0748    0.0378    0.233  
       
-      $ale$boot$distinct$versicolor$ale$Petal.Width
+      $ale$boot$distinct$versicolor$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -3268,9 +3305,11 @@
       9              2.5    14 -0.387  -0.478  -0.387    -0.380  -0.287 
       
       
+      
       $ale$boot$distinct$versicolor$stats
-      $ale$boot$distinct$versicolor$stats$by_term
-      $ale$boot$distinct$versicolor$stats$by_term$Sepal.Length
+      $ale$boot$distinct$versicolor$stats[[1]]
+      $ale$boot$distinct$versicolor$stats[[1]]$by_term
+      $ale$boot$distinct$versicolor$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate  conf.low   median     mean conf.high
         <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
@@ -3281,7 +3320,7 @@
       5 naler_min -50      -50       -50      -50       -50     
       6 naler_max  12.8      8.61     13.2     12.8      17.7   
       
-      $ale$boot$distinct$versicolor$stats$by_term$Petal.Width
+      $ale$boot$distinct$versicolor$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low  median    mean conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3293,43 +3332,43 @@
       6 naler_max   14.9     10.8    15.3    14.9      19.0  
       
       
-      $ale$boot$distinct$versicolor$stats$by_stat
-      $ale$boot$distinct$versicolor$stats$by_stat$aled
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0505  0.00510 0.0299 0.0505     0.155
       2 Petal.Width    0.207   0.161   0.204  0.207      0.240
       
-      $ale$boot$distinct$versicolor$stats$by_stat$aler_min
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low  median    mean conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0508   -0.137 -0.0290 -0.0508   -0.0119
       2 Petal.Width   -0.387    -0.478 -0.380  -0.387    -0.287 
       
-      $ale$boot$distinct$versicolor$stats$by_stat$aler_max
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0830   0.0158 0.0596 0.0830     0.231
       2 Petal.Width    0.179    0.140  0.169  0.179      0.213
       
-      $ale$boot$distinct$versicolor$stats$by_stat$naled
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     32.7     26.3   34.9  32.7      36.0
       2 Petal.Width      26.0     22.9   26.5  26.0      27.8
       
-      $ale$boot$distinct$versicolor$stats$by_stat$naler_min
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
       2 Petal.Width       -50      -50    -50   -50       -50
       
-      $ale$boot$distinct$versicolor$stats$by_stat$naler_max
+      $ale$boot$distinct$versicolor$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -3337,16 +3376,16 @@
       2 Petal.Width      14.9    10.8    15.3  14.9      19.0
       
       
-      $ale$boot$distinct$versicolor$stats$estimate
+      $ale$boot$distinct$versicolor$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0505  -0.0508   0.0830  32.7       -50      12.8
       2 Petal.Width  0.207   -0.387    0.179   26.0       -50      14.9
       
-      $ale$boot$distinct$versicolor$stats$conf_regions
-      $ale$boot$distinct$versicolor$stats$conf_regions$by_term
-      $ale$boot$distinct$versicolor$stats$conf_regions$by_term$Sepal.Length
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term$Sepal.Length
       # A tibble: 5 x 9
         start_x end_x x_span     n   n_pct   start_y     end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>   <dbl>     <dbl>     <dbl> <dbl> <ord>          
@@ -3356,7 +3395,7 @@
       4     6.3   6.9  0.167    48 0.32     0.143     0.248    0.630 above          
       5     7.9   7.9  0        13 0.0867   0.0748    0.0748   0     overlap        
       
-      $ale$boot$distinct$versicolor$stats$conf_regions$by_term$Petal.Width
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term$Petal.Width
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
@@ -3364,7 +3403,7 @@
       2     1.6   2.5  0.375    64 0.427 -0.0878 -0.387 -0.797  below          
       
       
-      $ale$boot$distinct$versicolor$stats$conf_regions$significant
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$significant
       # A tibble: 4 x 10
         term  start_x end_x x_span     n n_pct start_y   end_y   trend relative_to_mid
         <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>   <dbl> <ord>          
@@ -3373,15 +3412,17 @@
       3 Peta~     0.1   1.4  0.542    86 0.573  0.160   0.176   0.0304 above          
       4 Peta~     1.6   2.5  0.375    64 0.427 -0.0878 -0.387  -0.797  below          
       
-      $ale$boot$distinct$versicolor$stats$conf_regions$sig_criterion
+      $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       
       
       $ale$boot$distinct$virginica
       $ale$boot$distinct$virginica$ale
-      $ale$boot$distinct$virginica$ale$Sepal.Length
+      $ale$boot$distinct$virginica$ale[[1]]
+      $ale$boot$distinct$virginica$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n        .y    .y_lo   .y_mean .y_median     .y_hi
                      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>     <dbl>
@@ -3396,7 +3437,7 @@
        9               6.9    17 -0.248    -0.248   -0.248    -0.248    -0.248   
       10               7.9    13 -0.0775   -0.234   -0.0775   -0.0378    0.0112  
       
-      $ale$boot$distinct$virginica$ale$Petal.Width
+      $ale$boot$distinct$virginica$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -3411,9 +3452,11 @@
       9              2.5    14  0.392   0.288   0.392     0.395   0.478 
       
       
+      
       $ale$boot$distinct$virginica$stats
-      $ale$boot$distinct$virginica$stats$by_term
-      $ale$boot$distinct$virginica$stats$by_term$Sepal.Length
+      $ale$boot$distinct$virginica$stats[[1]]
+      $ale$boot$distinct$virginica$stats[[1]]$by_term
+      $ale$boot$distinct$virginica$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate  conf.low   median     mean conf.high
         <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
@@ -3424,7 +3467,7 @@
       5 naler_min -50      -50       -50      -50      -50      
       6 naler_max  14.3     10.8      12       14.3     20.8    
       
-      $ale$boot$distinct$virginica$stats$by_term$Petal.Width
+      $ale$boot$distinct$virginica$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low  median    mean conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -3436,43 +3479,43 @@
       6 naler_max   16.4     11.7    16      16.4      22.6  
       
       
-      $ale$boot$distinct$virginica$stats$by_stat
-      $ale$boot$distinct$virginica$stats$by_stat$aled
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0503  0.00399 0.0299 0.0503     0.155
       2 Petal.Width    0.210   0.161   0.222  0.210      0.240
       
-      $ale$boot$distinct$virginica$stats$by_stat$aler_min
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low  median    mean conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0806   -0.231 -0.0597 -0.0806  -0.00480
       2 Petal.Width   -0.173    -0.210 -0.169  -0.173   -0.140  
       
-      $ale$boot$distinct$virginica$stats$by_stat$aler_max
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low median   mean conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0486   0.0108 0.0290 0.0486     0.137
       2 Petal.Width    0.392    0.288  0.395  0.392      0.478
       
-      $ale$boot$distinct$virginica$stats$by_stat$naled
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length     29.9     26.2   28.6  29.9      36.3
       2 Petal.Width      38.9     35.6   39.0  38.9      41.5
       
-      $ale$boot$distinct$virginica$stats$by_stat$naler_min
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
       1 Sepal.Length      -50      -50    -50   -50       -50
       2 Petal.Width       -50      -50    -50   -50       -50
       
-      $ale$boot$distinct$virginica$stats$by_stat$naler_max
+      $ale$boot$distinct$virginica$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low median  mean conf.high
         <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
@@ -3480,16 +3523,16 @@
       2 Petal.Width      16.4     11.7     16  16.4      22.6
       
       
-      $ale$boot$distinct$virginica$stats$estimate
+      $ale$boot$distinct$virginica$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0503  -0.0806   0.0486  29.9       -50      14.3
       2 Petal.Width  0.210   -0.173    0.392   38.9       -50      16.4
       
-      $ale$boot$distinct$virginica$stats$conf_regions
-      $ale$boot$distinct$virginica$stats$conf_regions$by_term
-      $ale$boot$distinct$virginica$stats$conf_regions$by_term$Sepal.Length
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions$by_term
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions$by_term$Sepal.Length
       # A tibble: 4 x 9
         start_x end_x x_span     n   n_pct   start_y   end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int>   <dbl>     <dbl>   <dbl>  <dbl> <ord>          
@@ -3498,7 +3541,7 @@
       3     6     6.9  0.25     64 0.427   -0.000700 -0.248  -0.988 below          
       4     7.9   7.9  0        13 0.0867  -0.0775   -0.0775  0     overlap        
       
-      $ale$boot$distinct$virginica$stats$conf_regions$by_term$Petal.Width
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions$by_term$Petal.Width
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
@@ -3506,7 +3549,7 @@
       2     1.6   2.5  0.375    64 0.427  0.0878  0.392 0.812   above          
       
       
-      $ale$boot$distinct$virginica$stats$conf_regions$significant
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions$significant
       # A tibble: 4 x 10
         term         start_x end_x x_span     n n_pct   start_y   end_y    trend
         <chr>          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>   <dbl>    <dbl>
@@ -3516,8 +3559,9 @@
       4 Petal.Width      1.6   2.5  0.375    64 0.427  0.0878    0.392   0.812  
       # i 1 more variable: relative_to_mid <ord>
       
-      $ale$boot$distinct$virginica$stats$conf_regions$sig_criterion
+      $ale$boot$distinct$virginica$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
+      
       
       
       

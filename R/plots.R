@@ -86,7 +86,7 @@ plot.ale <- function(
   if (type == 'ale') {
     plots_1D <-
       imap(obj$distinct, \(it.cat_data, it.cat_name) {
-        imap(it.cat_data$ale, \(it.x_col_ale_data, it.x_col_name) {
+        imap(it.cat_data$ale[[1]], \(it.x_col_ale_data, it.x_col_name) {
           plot_ale_1D(
             ale_data  = it.x_col_ale_data,
             x_col     = it.x_col_name,
@@ -107,7 +107,7 @@ plot.ale <- function(
     if (obj$params$max_d >= 2) {
       plots_2D <-
         imap(obj$distinct, \(it.cat_data, it.cat_name) {
-          imap(it.cat_data$ixn$ale, \(it.x1_ales, it.x1_col_name) {
+          imap(it.cat_data$ale[[2]], \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
@@ -158,9 +158,9 @@ plot.ale <- function(
     # Create ale_plots object
     # ale_obj <- list()
     ale_plots_obj <- list()
-    ale_plots_obj$distinct$plots <- plots_1D
+    ale_plots_obj$distinct$plots[[1]] <- plots_1D
     if (params$max_d >= 2) {
-      ale_plots_obj$distinct$ixn$plots <- plots_2D
+      ale_plots_obj$distinct$plots[[2]] <- plots_2D
     }
     ale_plots_obj$params <- params
     class(ale_plots_obj) <- c('ale_plots')
@@ -172,7 +172,7 @@ plot.ale <- function(
     eff_plot <-
       imap(obj$distinct, \(it.cat_data, it.cat_name) {
         plot_effects(
-          estimates = it.cat_data$stats$estimate,
+          estimates = it.cat_data$stats[[1]]$estimate,
           y_summary = obj$params$y_summary[, it.cat_name],
           # y_vals = obj$params$y_vals,
           y_col = it.cat_name,
@@ -656,7 +656,7 @@ plot_ale_1D <- function(
 #
 # # Categorical plots
 # iale$plots |>
-#   purrr::list_transpose() |>
+#   purrr::list_transpose(simplify = FALSE) |>
 #   map(\(it.var) {
 #     it.var |>
 #       patchwork::wrap_plots(ncol = 1) |>

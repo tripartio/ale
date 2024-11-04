@@ -461,7 +461,10 @@ intrapolate_2D <- function(mx, consolidate = TRUE) {
         if (length(it.diag) >= 3) {
           # Extract the values of the diagonal and intrapolate missing values
           it.diag_vals <- it.diag |>
-            list_transpose() |>
+            # Transpose the diagonal so that the values become their own vector.
+            # The "simplify = NA" argument here is essential to convert value from a list to a vector:
+            # "simplify = FALSE" retains a vector; "simplify = TRUE" crashes (probably due to missing values)
+            list_transpose(simplify = NA) |>
             pluck('value')
           it.diag_ip <- it.diag_vals |>
             intrapolate_1D()
@@ -679,7 +682,7 @@ extract_3D_diags <- function(ray) {
 #' set.seed(2)
 #' arr <- array(1:60, dim = c(5, 4, 3))
 #' arr[sample(1:60, 20)] <- NA
-#' arr_na
+#' arr
 #' intrapolate_3D(arr)
 #'
 intrapolate_3D <- function(ray, consolidate = TRUE) {
@@ -752,7 +755,7 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
     intrapolate_2D(ray[i.r, , ], consolidate = FALSE)
   }) |>
     # Unpack the list and transpose back into dim_ray dimensions
-    list_transpose() |>
+    list_transpose(simplify = FALSE) |>
     map(\(it.direction) {
       it.direction |>
         simplify2array() |>
@@ -763,7 +766,7 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
     intrapolate_2D(ray[, i.c, ], consolidate = FALSE)
   }) |>
     # Unpack the list and transpose back into dim_ray dimensions
-    list_transpose() |>
+    list_transpose(simplify = FALSE) |>
     map(\(it.direction) {
       it.direction |>
         simplify2array() |>
@@ -774,7 +777,7 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
     intrapolate_2D(ray[, , i.d], consolidate = FALSE)
   }) |>
     # Unpack the list and transpose back into dim_ray dimensions
-    list_transpose() |>
+    list_transpose(simplify = FALSE) |>
     map(\(it.direction) {
       it.direction |>
         simplify2array()  # no need to permute the depth further

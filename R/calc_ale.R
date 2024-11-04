@@ -303,6 +303,7 @@ calc_ale <- function(
       dim = c(
         length(y_cats),  # The first dimension is the categories
         xd |>
+         # list_transpose(simplify = FALSE) |>
          list_transpose() |>
          pluck('n_bins')
       ),
@@ -313,7 +314,7 @@ calc_ale <- function(
             if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins
           })
         # xd |>
-        #   list_transpose() |>
+        #   list_transpose(simplify = FALSE) |>
         #   pluck('bin') |>
         #   unname()
       )

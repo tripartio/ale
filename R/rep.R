@@ -512,8 +512,8 @@ create_rep_dist <- function(
       it.rand$distinct |>
         map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
           ale_stats(
-            y = it.rand.cat$ale$random_variable$.y,
-            bin_n = it.rand.cat$ale$random_variable$.n,
+            y = it.rand.cat$ale[[1]]$random_variable$.y,
+            bin_n = it.rand.cat$ale[[1]]$random_variable$.n,
             ale_y_norm_fun = ale_y_norm_fun,
             x_type = 'numeric',  # the random variables are always numeric
             zeroed_ale = TRUE
@@ -521,7 +521,7 @@ create_rep_dist <- function(
         })
     }) |>
     # rearrange the list to group by categorical class or just by the single y_col
-    list_transpose() |>
+    list_transpose(simplify = FALSE) |>
     map(bind_rows)  # combine statistics in each group into a tibble
 
 

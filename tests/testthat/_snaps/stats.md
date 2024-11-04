@@ -33,7 +33,8 @@
       $distinct
       $distinct$mpg
       $distinct$mpg$ale
-      $distinct$mpg$ale$model
+      $distinct$mpg$ale[[1]]
+      $distinct$mpg$ale[[1]]$model
       # A tibble: 32 x 7
          model.bin              .n      .y   .y_lo .y_mean .y_median  .y_hi
          <ord>               <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -49,7 +50,7 @@
       10 Merc 450SLC             2 -33.3   -38.2   -33.3    -37.5    -24.9 
       # i 22 more rows
       
-      $distinct$mpg$ale$cyl
+      $distinct$mpg$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -61,7 +62,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $distinct$mpg$ale$disp
+      $distinct$mpg$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -76,7 +77,7 @@
        9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      $distinct$mpg$ale$hp
+      $distinct$mpg$ale[[1]]$hp
       # A tibble: 10 x 7
          hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -91,7 +92,7 @@
        9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
       10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      $distinct$mpg$ale$drat
+      $distinct$mpg$ale[[1]]$drat
       # A tibble: 10 x 7
          drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -106,7 +107,7 @@
        9      4.21     7  0.671   0.671   0.671     0.671   0.671 
       10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      $distinct$mpg$ale$wt
+      $distinct$mpg$ale[[1]]$wt
       # A tibble: 10 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -121,7 +122,7 @@
        9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
       10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      $distinct$mpg$ale$qsec
+      $distinct$mpg$ale[[1]]$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -136,21 +137,21 @@
        9      20       7  4.54   4.54    4.54      4.54   4.54 
       10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      $distinct$mpg$ale$vs
+      $distinct$mpg$ale[[1]]$vs
       # A tibble: 2 x 7
         vs.bin    .n     .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <int>  <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
       1 FALSE     36  0.112  0.0775   0.112    0.0775  0.176 
       2 TRUE      28 -0.144 -0.226   -0.144   -0.0997 -0.0997
       
-      $distinct$mpg$ale$am
+      $distinct$mpg$ale[[1]]$am
       # A tibble: 2 x 7
         am.bin    .n      .y  .y_lo .y_mean .y_median  .y_hi
         <ord>  <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
       1 FALSE     38 -0.0805 -0.249 -0.0805   -0.150  0.148 
       2 TRUE      26 -0.340  -0.956 -0.340    -0.0859 0.0592
       
-      $distinct$mpg$ale$gear
+      $distinct$mpg$ale[[1]]$gear
       # A tibble: 3 x 7
         gear.bin    .n      .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -158,7 +159,7 @@
       2 four        24 -1.13   -1.38  -1.13     -1.04   -0.950
       3 five        10  0.820   0.658  0.820     0.757   1.04 
       
-      $distinct$mpg$ale$carb
+      $distinct$mpg$ale[[1]]$carb
       # A tibble: 5 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -168,7 +169,7 @@
       4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
       5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      $distinct$mpg$ale$country
+      $distinct$mpg$ale[[1]]$country
       # A tibble: 6 x 7
         country.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
         <ord>       <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -179,7 +180,7 @@
       5 Germany        16 6.88   5.24    6.88     7.41    8.05
       6 USA            24 8.83   7.52    8.83     9.16    9.88
       
-      $distinct$mpg$ale$continent
+      $distinct$mpg$ale[[1]]$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -188,9 +189,11 @@
       3 Asia             12 -1.84  -2.89   -1.84     -2.20  -0.474
       
       
+      
       $distinct$mpg$stats
-      $distinct$mpg$stats$by_term
-      $distinct$mpg$stats$by_term$model
+      $distinct$mpg$stats[[1]]
+      $distinct$mpg$stats[[1]]$by_term
+      $distinct$mpg$stats[[1]]$by_term$model
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
@@ -201,7 +204,7 @@
       5 naler_min   -50          0 -50      -50    -50         -50  
       6 naler_max    18.2        0   4.70    18.2    7.58       40.7
       
-      $distinct$mpg$stats$by_term$cyl
+      $distinct$mpg$stats[[1]]$by_term$cyl
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -212,7 +215,7 @@
       5 naler_min   0         1      0       0       0         0     
       6 naler_max   0         0.75   0       0       0         0     
       
-      $distinct$mpg$stats$by_term$disp
+      $distinct$mpg$stats[[1]]$by_term$disp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -223,7 +226,7 @@
       5 naler_min   -40.9        0   -40.9  -40.9  -40.9     -40.9 
       6 naler_max    28.8        0    28.8   28.8   28.8      28.8 
       
-      $distinct$mpg$stats$by_term$hp
+      $distinct$mpg$stats[[1]]$by_term$hp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -234,7 +237,7 @@
       5 naler_min   -19.7        0   -19.7  -19.7  -19.7     -19.7 
       6 naler_max    22.7        0    22.7   22.7   22.7      22.7 
       
-      $distinct$mpg$stats$by_term$drat
+      $distinct$mpg$stats[[1]]$by_term$drat
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -245,7 +248,7 @@
       5 naler_min   -7.58        0   -7.58  -7.58  -7.58     -7.58 
       6 naler_max    7.58        0    7.58   7.58   7.58      7.58 
       
-      $distinct$mpg$stats$by_term$wt
+      $distinct$mpg$stats[[1]]$by_term$wt
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -256,7 +259,7 @@
       5 naler_min   -50          0   -50    -50    -50       -50   
       6 naler_max    34.8        0    34.8   34.8   34.8      34.8 
       
-      $distinct$mpg$stats$by_term$qsec
+      $distinct$mpg$stats[[1]]$by_term$qsec
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -267,7 +270,7 @@
       5 naler_min   -43.9        0   -43.9  -43.9  -43.9     -43.9 
       6 naler_max    37.9        0    37.9   37.9   37.9      37.9 
       
-      $distinct$mpg$stats$by_term$vs
+      $distinct$mpg$stats[[1]]$by_term$vs
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
@@ -278,7 +281,7 @@
       5 naler_min   -1.52     0.75  -4.32   -1.52   0         0     
       6 naler_max    4.55     0      4.55    4.55   4.55      4.55  
       
-      $distinct$mpg$stats$by_term$am
+      $distinct$mpg$stats[[1]]$by_term$am
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -289,7 +292,7 @@
       5 naler_min  -4.04      0      -7.42  -4.04   -4.55     -0.227 
       6 naler_max   1.52      0.75   -4.09   1.52    4.55      4.55  
       
-      $distinct$mpg$stats$by_term$gear
+      $distinct$mpg$stats[[1]]$by_term$gear
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -300,7 +303,7 @@
       5 naler_min   -8.59        0  -10.5   -8.59  -7.58     -7.58 
       6 naler_max    7.58        0    7.58   7.58   7.58      7.58 
       
-      $distinct$mpg$stats$by_term$carb
+      $distinct$mpg$stats[[1]]$by_term$carb
       # A tibble: 6 x 7
         statistic estimate p.value conf.low     mean   median conf.high
         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -311,7 +314,7 @@
       5 naler_min  0          1     0        0        0         0      
       6 naler_max  0          0.75  0        0        0         0      
       
-      $distinct$mpg$stats$by_term$country
+      $distinct$mpg$stats[[1]]$by_term$country
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>   <dbl>     <dbl>
@@ -322,7 +325,7 @@
       5 naler_min    2.53        1   -4.32   2.53   0          11.5 
       6 naler_max   36.9         0   35     36.9   37.9        37.9 
       
-      $distinct$mpg$stats$by_term$continent
+      $distinct$mpg$stats[[1]]$by_term$continent
       # A tibble: 6 x 7
         statistic estimate p.value conf.low     mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>    <dbl>   <dbl>     <dbl>
@@ -334,8 +337,8 @@
       6 naler_max   1.52      0.75   -6.97    1.52     4.55      7.42 
       
       
-      $distinct$mpg$stats$by_stat
-      $distinct$mpg$stats$by_stat$aled
+      $distinct$mpg$stats[[1]]$by_stat
+      $distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -353,7 +356,7 @@
       12 country    7.25          0  5.77     7.25     7.84      8.24   
       13 continent  0.812         0  0.542    0.812    0.738     1.14   
       
-      $distinct$mpg$stats$by_stat$aler_min
+      $distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -371,7 +374,7 @@
       12 country     0.506        1  -0.316    0.506    0.0123    1.75  
       13 continent  -1.84         0  -2.89    -1.84    -2.20     -0.474 
       
-      $distinct$mpg$stats$by_stat$aler_max
+      $distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -389,7 +392,7 @@
       12 country     8.83         0   7.52   8.83   9.16      9.88  
       13 continent   0.0305       0  -0.685  0.0305 0.129     0.663 
       
-      $distinct$mpg$stats$by_stat$naled
+      $distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -407,7 +410,7 @@
       12 country      33.6     0       30.5  33.6   35.2      35.4 
       13 continent     7.73    0        6.04  7.73   7.39      9.73
       
-      $distinct$mpg$stats$by_stat$naler_min
+      $distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -425,7 +428,7 @@
       12 country       2.53    1       -4.32   2.53   0       11.5  
       13 continent   -14.1     0      -19.5  -14.1  -16.7     -6.59 
       
-      $distinct$mpg$stats$by_stat$naler_max
+      $distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -444,7 +447,7 @@
       13 continent     1.52    0.75    -6.97  1.52   4.55      7.42
       
       
-      $distinct$mpg$stats$estimate
+      $distinct$mpg$stats[[1]]$estimate
       # A tibble: 13 x 7
          term          aled aler_min aler_max naled naler_min naler_max
          <chr>        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -461,6 +464,7 @@
       11 carb       0.00841  -0.0123   0.0427  0         0         0   
       12 country    7.25      0.506    8.83   33.6       2.53     36.9 
       13 continent  0.812    -1.84     0.0305  7.73    -14.1       1.52
+      
       
       
       

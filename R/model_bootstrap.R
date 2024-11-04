@@ -902,7 +902,7 @@ model_bootstrap <- function (
       NULL
     }
 
-  # Bootstrapped ALE data with plot
+  # Bootstrapped ALE data
   ale_summary <-
     if ('ale' %in% output) {
       full_ale <- boot_data$ale[[1]]
@@ -928,15 +928,15 @@ model_bootstrap <- function (
         map(\(it) {
           it$distinct |>
             map(\(it.cat) {
-              it.cat$ale
-              })
+              it.cat$ale[[1]]
+              # it.cat$ale
+            })
           }) |>
         # rearrange list to group all data and iterations by y_col category
         list_transpose(simplify = FALSE) |>
         map(\(it.cat) {
           list_transpose(it.cat, simplify = FALSE)
         })
-
 
       ale_summary_data <- ale_summary_data |>
         imap(\(it.cat, it.cat_name) {
@@ -950,7 +950,8 @@ model_bootstrap <- function (
                 # if (is.ordered(it.x_col[[1]]$ale_x)) {
                 # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
                 # Note: column 1 is the x column
-                bin_levels <- full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]]
+                bin_levels <- full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]]
+                # bin_levels <- full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]]
                 # bin_levels <- full_ale$data[[1]][[it.x_col_name]]$.bin
 
                 it.x_col <- it.x_col |>
@@ -985,13 +986,10 @@ model_bootstrap <- function (
                 right_join(
                   tibble(
                     # bins or ceilings
-                    .x = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]],
-                    # .x = if (it.x_col_is_ordinal) {
-                    #   full_ale$data[[1]][[it.x_col_name]]$.bin
-                    # } else {
-                    #   full_ale$data[[1]][[it.x_col_name]]$.ceil
-                    # },
-                    .n = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]]$.n,
+                    .x = full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]],
+                    .n = full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]]$.n,
+                    # .x = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]][[1]],
+                    # .n = full_ale$distinct[[it.cat_name]]$ale[[it.x_col_name]]$.n,
                   ),
                   by = '.x'
                 ) |>
@@ -1020,7 +1018,8 @@ model_bootstrap <- function (
         map(\(it) {
           it$distinct |>
             map(\(it.cat) {
-              it.cat$stats$estimate
+              it.cat$stats[[1]]$estimate
+              # it.cat$stats$estimate
             })
         }) |>
         list_transpose(simplify = FALSE) |>
@@ -1059,7 +1058,6 @@ model_bootstrap <- function (
 
           it.cat_estimate_btits
         })
-
 
       ale_conf_regions <-
         ale_summary_data |>
@@ -1192,14 +1190,23 @@ model_bootstrap <- function (
 
     for (it.cat in names(ale_summary)) {
       if (boot_it == 0) {
-        ar$single$distinct[[it.cat]]$stats$conf_regions <-
+        ar$single$distinct[[it.cat]]$stats[[1]]$conf_regions <-
+          # ar$single$distinct[[it.cat]]$stats$conf_regions <-
           ale_summary[[it.cat]]$stats$conf_regions
         # ar$single$distinct[[it.cat]]$stats$effects_plot <-
         #   ale_summary[[it.cat]]$stats$effects_plot
         # ar$single$distinct[[it.cat]]$plots <-
         #   ale_summary[[it.cat]]$plots
       } else {
-        ar$boot$distinct[[it.cat]] <- ale_summary[[it.cat]]
+        ar$boot$distinct <- ale_summary |>
+          map(\(it.cat) {
+            it.cat |>
+              map(\(it.el) {
+                # Demote each element (ale, stats, etc.) to the [[1]] index (1D ALE)
+                list(it.el)
+              })
+          })
+        # ar$boot$distinct[[it.cat]] <- ale_summary[[it.cat]]
       }
     }
 

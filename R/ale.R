@@ -895,7 +895,8 @@ ale <- function (
         setdiff(c('cat', 'x_cols', 'ale_d'))
     ]
 
-    ale_struc$distinct[[it.cat]] <- it.ar_1D
+    ale_struc$distinct[[it.cat]][[1]] <- it.ar_1D
+    # ale_struc$distinct[[it.cat]] <- it.ar_1D
 
     # Assign 2D ALE results to ale_struc
     if (length(x_cols[[2]]) >= 2) {
@@ -934,7 +935,9 @@ ale <- function (
         }
       }
 
-      ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc    }
+      ale_struc$distinct[[it.cat]][[2]] <- ale_2D_struc
+      # ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc
+    }  # if (length(x_cols[[2]]) >= 2)
 
 
 
@@ -1226,7 +1229,8 @@ ale <- function (
       if (length(x_cols[[1]]) >= 1) {
       # if (!is.null(ales_1D)) {
 
-        ale_struc$distinct[[it.cat]]$stats <- ale_struc$distinct[[it.cat]]$stats |>
+        ale_struc$distinct[[it.cat]][[1]]$stats <-
+          ale_struc$distinct[[it.cat]][[1]]$stats |>
           # ales_1D[[it.cat]]$stats <- ales_1D[[it.cat]]$stats |>
             imap(\(it.term_tbl, it.term) {
             it.term_tbl |>
@@ -1244,10 +1248,10 @@ ale <- function (
             'median_band_pct'
           }
 
-          ale_struc$distinct[[it.cat]]$stats$conf_regions <-
+          ale_struc$distinct[[it.cat]][[1]]$stats$conf_regions <-
             # ales_1D[[it.cat]]$stats$conf_regions <-
             summarize_conf_regions(
-              ale_struc$distinct[[it.cat]]$ale,
+              ale_struc$distinct[[it.cat]][[1]]$ale,
               y_summary[, it.cat, drop = FALSE],
               sig_criterion = sig_criterion
             )
@@ -1280,9 +1284,9 @@ ale <- function (
       # if (!is.null(ales_2D)) {
       # for (it.cat in y_cats) {
         # Iterate statistics for each x1 variable
-        for (it.x1 in names(ale_struc$distinct[[it.cat]]$ixn$stats)) {
-          ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]] <-
-            ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]] |>
+        for (it.x1 in names(ale_struc$distinct[[it.cat]][[2]]$stats)) {
+          ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] <-
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] |>
             imap(\(it.term_tbl, it.term) {
               it.term_tbl |>
                 mutate(term = it.term)
@@ -1292,8 +1296,8 @@ ale <- function (
             pivot_stats()
 
           # Rename terms to specify both interaction variables
-          ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]]$by_stat <-
-            ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]]$by_stat |>
+          ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$by_stat <-
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$by_stat |>
             map(\(it.stat_tbl) {
               it.stat_tbl |>
                 mutate(term1 = it.x1) |>
@@ -1301,8 +1305,8 @@ ale <- function (
                 select(term1, term2, everything())
             })
 
-          ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]]$estimate <-
-            ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]]$estimate |>
+          ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
             mutate(term1 = it.x1) |>
             rename(term2 = term) |>
             select(term1, term2, everything())
@@ -1315,9 +1319,9 @@ ale <- function (
               'median_band_pct'
             }
 
-            ale_struc$distinct[[it.cat]]$ixn$stats[[it.x1]]$conf_regions <-
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
               summarize_conf_regions(
-                ale_struc$distinct[[it.cat]]$ixn$ale[[it.x1]],
+                ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
                 y_summary[, it.cat, drop = FALSE],
                 sig_criterion = sig_criterion
               )
@@ -1345,7 +1349,7 @@ ale <- function (
         }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
 
       # Transpose stats result order in the list
-      ale_struc$distinct[[it.cat]]$ixn$stats <- ale_struc$distinct[[it.cat]]$ixn$stats |>
+      ale_struc$distinct[[it.cat]][[2]]$stats <- ale_struc$distinct[[it.cat]][[2]]$stats |>
         list_transpose(simplify = FALSE)
 
       }  # if (length(x_cols[[2]]) >= 1) {
@@ -1353,6 +1357,9 @@ ale <- function (
 
   }
 
+  # Transpose the ALE elements with the ALE dimension
+  ale_struc$distinct <- ale_struc$distinct |>
+    map(\(it.cat) list_transpose(it.cat, simplify = FALSE))
 
   # Create S3 ale object ----------------------
 
