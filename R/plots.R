@@ -15,7 +15,7 @@
 #'
 
 #'
-#' @param ale_obj ale object. The object of class `ale` containing data to be plotted.
+#' @param x ale object. The object of class `ale` containing data to be plotted.
 #' @param type character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
@@ -32,7 +32,7 @@
 #' @export
 #'
 plot.ale <- function(
-    obj,
+    x,
     type = 'ale',
     ...,
     relative_y = 'median',
@@ -46,6 +46,10 @@ plot.ale <- function(
     seed = 0,
     silent = FALSE
 ) {
+  # Rename the required x argument internally to obj
+  obj <- x
+  rm(x)
+
   validate(
     obj |> inherits('ale') || obj |> inherits('ale_boot'),
     msg = '{.arg obj} must be a {.cls ale} or {.cls ale_boot} object.'
@@ -87,20 +91,25 @@ plot.ale <- function(
     plots_1D <-
       imap(obj$distinct, \(it.cat_data, it.cat_name) {
         imap(it.cat_data$ale[[1]], \(it.x_col_ale_data, it.x_col_name) {
-          plot_ale_1D(
-            ale_data  = it.x_col_ale_data,
-            x_col     = it.x_col_name,
-            y_col     = obj$params$y_col,
-            y_type    = obj$params$y_type,
-            y_summary = obj$params$y_summary[, it.cat_name],
-            x_y       = obj$params$data$data_sample[, c(it.x_col_name, obj$params$y_col)],
-            relative_y = relative_y,
-            p_alpha = p_alpha,
-            median_band_pct = median_band_pct,
-            rug_sample_size = rug_sample_size,
-            min_rug_per_interval = min_rug_per_interval,
-            seed = seed
-          )
+          if (!is.null(it.x_col_ale_data)) {
+            plot_ale_1D(
+              ale_data  = it.x_col_ale_data,
+              x_col     = it.x_col_name,
+              y_col     = obj$params$y_col,
+              y_type    = obj$params$y_type,
+              y_summary = obj$params$y_summary[, it.cat_name],
+              x_y       = obj$params$data$data_sample[, c(it.x_col_name, obj$params$y_col)],
+              relative_y = relative_y,
+              p_alpha = p_alpha,
+              median_band_pct = median_band_pct,
+              rug_sample_size = rug_sample_size,
+              min_rug_per_interval = min_rug_per_interval,
+              seed = seed
+            )
+          }
+          else {
+            NULL
+          }
         })
       })
 
@@ -155,14 +164,39 @@ plot.ale <- function(
     params <- params[names(params) |> setdiff(temp_objs)]
     params$max_d <- obj$params$max_d
 
+    # browser()
+
+
     # Create ale_plots object
-    # ale_obj <- list()
     ale_plots_obj <- list()
-    ale_plots_obj$distinct$plots[[1]] <- plots_1D
-    if (params$max_d >= 2) {
-      ale_plots_obj$distinct$plots[[2]] <- plots_2D
-    }
+
+    # # Add and transpose the 1D and 2D plots
+    # ale_plots_obj$distinct$plots[[1]] <- plots_1D
+    # if (params$max_d >= 2) {
+    #   ale_plots_obj$distinct$plots[[2]] <- plots_2D
+    # }
+
+    # Add the 1D and 2D plots
+    ale_plots_obj$distinct <-
+      # Iterate by y category
+      obj$params$y_cats |>
+      map(\(it.cat) {
+        rtn_list <- list(
+          plots = list(plots_1D[[it.cat]])
+            # ale_plots_obj$distinct$plots[[1]][[it.cat]],
+            # ale_plots_obj$distinct$plots[[2]][[it.cat]]
+        )
+
+        if (params$max_d >= 2) {
+          rtn_list$plots[[2]] <- plots_2D[[it.cat]]
+        }
+
+        rtn_list
+      }) |>
+      set_names(obj$params$y_cats)
+
     ale_plots_obj$params <- params
+
     class(ale_plots_obj) <- c('ale_plots')
 
     return(ale_plots_obj)
@@ -202,131 +236,17 @@ plot.ale <- function(
 
 #' plot method for `ale_boot` objects
 #'
-#' @param obj ale_boot object.
+#' @param x ale_boot object.
 #' @param ... Arguments passed to [plot.ale()]
 #'
 #' @method plot ale_boot
 #' @export
 plot.ale_boot <- function(
-    obj,
+    x,
     ...
 ) {
-  plot.ale(obj, ...)
+  plot.ale(x, ...)
 }
-
-#' #' plot method for `ale_boot` objects
-#' #'
-#' #' @param ale_boot_obj ale_boot object. The object of class `ale_boot` containing data to be plotted.
-#' #' @param character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
-#' #'
-#' #' @method plot ale_boot
-#' #' @export
-#' plot.ale_boot <- function(
-#'     ale_boot_obj,
-#'     type = 'ale',
-#'     relative_y = 'median',
-#'     p_alpha = c(0.01, 0.05),
-#'     median_band_pct = c(0.05, 0.5),
-#'     min_rug_per_interval = 1,
-#'     seed = 0
-#' ) {
-#'   validate(
-#'     type %in% c('ale', 'effects'),
-#'     msg = 'type must be either "ale" or "effects".'
-#'   )
-#'   validate(
-#'     is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
-#'     msg = cli_alert_danger('{.arg relative_y} must be one of "median", "mean", or "zero".')
-#'   )
-#'
-#'   if (type == 'ale') {
-#'     plots <- imap(ale_boot_obj$ale$boot$data, \(it.ale_cat_data, it.cat) {
-#'       imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
-#'         plot_ale_1D(
-#'           ale_data  = it.x_col_data,
-#'           x_col     = it.x_col_name,
-#'           y_col     = it.cat,
-#'           y_type    = ale_boot_obj$ale$single$params$y_type,
-#'           y_summary = ale_boot_obj$ale$single$params$y_summary[, it.cat],
-#'           x_y       = ale_boot_obj$params$data$sample[, c(it.x_col_name, it.cat)],
-#'           compact_plots = ale_boot_obj$params$compact_plots,
-#'           relative_y = relative_y,
-#'           p_alpha = p_alpha,
-#'           median_band_pct = median_band_pct,
-#'           min_rug_per_interval = min_rug_per_interval,
-#'           seed = seed
-#'         )
-#'       })
-#'     })
-#'
-#'     # Set S3 class information for the ale_plots object
-#'     class(plots) <- c('ale_plots')
-#'     # attr(plots, 'ale_version') <- utils::packageVersion('ale')
-#'
-#'     return(plots)
-#'   }
-#'
-#'   else if (type == 'effects') {
-#'     eff_plot <-
-#'       imap(ale_boot_obj$ale$boot$stats, \(it.cat_stats, it.cat) {
-#'         plot_effects(
-#'           estimates = it.cat_stats$estimate,
-#'           # y values
-#'           y_summary = ale_boot_obj$ale$single$params$y_summary[, it.cat],
-#'           # y_vals = if (ale_boot_obj$ale$single$params$y_type == 'categorical') {
-#'           #   ale_boot_obj$params$data$sample[[it.cat]] == it.cat
-#'           # } else {
-#'           #   ale_boot_obj$params$data$sample[[it.cat]]
-#'           # },
-#'           y_col = it.cat,
-#'           middle_band = ale_boot_obj$ale$single$params$median_band_pct,
-#'           compact_plots = ale_boot_obj$params$compact_plots
-#'         )
-#'       })
-#'
-#'     # Set S3 class information for the ale_eff_plot object
-#'     class(eff_plot) <- c('ale_eff_plot')
-#'     # attr(eff_plot, 'ale_version') <- utils::packageVersion('ale')
-#'
-#'     return(eff_plot)
-#'   }
-#'
-#' }
-
-
-# #' plot method for ALE objects
-# #'
-# #' @param ale_obj ale object. The object of class `ale_obj` containing data to be plotted.
-# #' @param y_type character(1). The type of the response variable.
-# #' @param y_summary matrix. Summary statistics for the response variable.
-# #' @param ... not used. Enforces explicit naming of subsequent arguments.
-# #' @param x_y_data Data for the x and y variables.
-# #' @param compact_plots Logical indicating if the plots should be compact.
-# #'
-# #' @method plot ale_obj
-# #' @export
-# plot.ale_obj <- function(
-#     ale_obj,
-#     # Normally, all these other arguments would be part of the new ale_obj; for now, pass them explicitly
-#     y_type, y_summary,
-#     ...,
-#     x_y_data = NULL,
-#     compact_plots = FALSE
-# ) {
-#   imap(ale_obj$data, \(it.ale_cat_data, it.cat) {
-#     imap(it.ale_cat_data, \(it.x_col_data, it.x_col_name) {
-#       plot_ale_1D(
-#         ale_data = it.x_col_data,
-#         x_col = it.x_col_name,
-#         y_col = it.cat,
-#         y_type = y_type,
-#         y_summary = y_summary[, it.cat],
-#         x_y = x_y_data[, c(it.x_col_name, it.cat)],
-#         compact_plots = compact_plots,
-#       )
-#     })
-#   })
-# }
 
 
 
@@ -720,6 +640,9 @@ plot_ale_2D <- function(
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
+# if (attr(ale_data, 'x')[[2]]$type != 'numeric') browser()
+
+
 
   # # For now ensure that plots are not categorical
   # if (ncol(y_summary) > 1) {
@@ -825,8 +748,10 @@ plot_ale_2D <- function(
   }) |>
     (`[`)(-n_y_quant)  # delete final superfluous element
 
-  if (y_type == 'binary' &&
-      y_summary[['min']] > 0 && y_summary[['max']] < 1) {  # y is a probability
+  if (
+    y_type == 'binary' &&
+    y_summary[['min']] > 0 && y_summary[['max']] < 1
+  ) {  # y is a probability
       # min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
       # Adjust the minimum and maximum deciles to ensure all .y values are included
     y_quantiles[1] <- 0
@@ -837,46 +762,61 @@ plot_ale_2D <- function(
   names(ale_data)[1] <- '.x1'
   names(ale_data)[2] <- '.x2'
 
+  # browser()
+
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
-  ale_data <- ale_data |>
-    # # Rename x1 and x2 columns for easier manipulation
-    # rename(
-    #   .x1 = !!x1_col,
-    #   .x2 = !!x2_col,
-    # ) |>
-    mutate(
-      # Set x1_quantile to .x1. This is required for factor x1.
-      # For numeric x1, this is only temporarily--it will be properly
-      # configured in the next code block.
-      # This lets the code be cleaner than inserting an if_else here.
-      x1_quantile = .data$.x1,
+  ale_data$y_quantile <- ale_data$.y |>
+    findInterval(y_quantiles) |>
+    # levels must be set so that all quantiles appear in legend
+    ordered(levels = 1:(n_y_quant - 1))
 
-      # x2_quantile: divide .x2 into n_x2_bins bins.
-      # ntile (the bin number) is divided by the number of bins (n_x2_bins)
-      # and then scaled by max(.x2) to fill the range of .x2 values.
-      # ChatGPT helped me: it works
-      x2_quantile = (((max(ale_data$.x2) - min(ale_data$.x2)) *
-                        (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
-                     + min(ale_data$.x2)),
-
-      # y_quantile: which of the n_y_quant in which .y falls
-      y_quantile = .data$.y |>
-        findInterval(y_quantiles) |>
-        # levels must be set so that all quantiles appear in legend
-        ordered(levels = 1:(n_y_quant - 1))
-    )
-
-  if (var_type(ale_data$.x1) == 'numeric') {
-    # if (class(ale_data$.x1) %in% c("numeric", "integer")) {
-    ale_data <- ale_data |>
-      mutate(
-        # Set numeric x1 to quantiles; factors will be unchanged.
-        # See x2_quantile above for documentation of the formula.
-        x1_quantile = (((max(ale_data$.x1) - min(ale_data$.x1)) *
-                          (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
-                       + min(ale_data$.x1)),
-      )
+  ale_data$x1_quantile <- if (attr(ale_data, 'x')[[1]]$type == 'numeric') {
+    # ntile (the bin number) is divided by the number of bins (n_x1_bins) and then scaled by max(.x1) to fill the range of .x1 values.
+    (((max(ale_data$.x1) - min(ale_data$.x1)) *
+        (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
+     + min(ale_data$.x1))
+  } else {
+    ale_data$.x1
   }
+  ale_data$x2_quantile <- if (attr(ale_data, 'x')[[2]]$type == 'numeric') {
+    (((max(ale_data$.x2) - min(ale_data$.x2)) *
+        (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
+     + min(ale_data$.x2))
+  } else {
+    ale_data$.x2
+  }
+
+  # ale_data <- ale_data |>
+  #   mutate(
+  #     # Set x1_quantile to .x1. This is required for factor x1.
+  #     # For numeric x1, this is only temporarily--it will be properly configured in the next code block. This lets the code be cleaner than inserting an if_else here.
+  #     x1_quantile = .data$.x1,
+  #
+  #     # x2_quantile: divide .x2 into n_x2_bins bins.
+  #     # ntile (the bin number) is divided by the number of bins (n_x2_bins) and then scaled by max(.x2) to fill the range of .x2 values.
+  #     x2_quantile = (((max(ale_data$.x2) - min(ale_data$.x2)) *
+  #                       (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
+  #                    + min(ale_data$.x2)),
+  #
+  #     # y_quantile: which of the n_y_quant in which .y falls
+  #     y_quantile = .data$.y |>
+  #       findInterval(y_quantiles) |>
+  #       # levels must be set so that all quantiles appear in legend
+  #       ordered(levels = 1:(n_y_quant - 1))
+  #   )
+  #
+  # if (var_type(ale_data$.x1) == 'numeric') {
+  #   # if (class(ale_data$.x1) %in% c("numeric", "integer")) {
+  #   ale_data <- ale_data |>
+  #     mutate(
+  #       # Set numeric x1 to quantiles; factors will be unchanged.
+  #       # See x2_quantile above for documentation of the formula.
+  #       x1_quantile = (((max(ale_data$.x1) - min(ale_data$.x1)) *
+  #                         (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
+  #                      + min(ale_data$.x1)),
+  #     )
+  # }
+
 
   plot <-
     ale_data |>
