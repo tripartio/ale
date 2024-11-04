@@ -8,6 +8,7 @@
     * `ale`: the core `ale` package object that holds the results of the [ale()] function.
     * `ale_boot`: results of the [model_bootstrap()] function.
     * `ale_rep`: random effects probability distribution information as the result of the [create_rep_dist()] function.
+* With the extensive rewrite, we no longer depend on {ALEPlot} code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
 * Renamed "p-values" to "random effects probabilities (REPs)" throughout the package.
 * Renamed the `rug_sample_size` argument of ale() to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
 * [ale_ixn()] has been eliminated and now both 1D and 2D ALE are calculated with the [ale()] function.

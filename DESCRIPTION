@@ -3,11 +3,10 @@ Title: Interpretable Machine Learning and Statistical Inference with Accumulated
 Version: 0.3.0.20240823
 Authors@R: c(
     person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-5574-7572")),
-    person("Dan", "Apley", role = "cph", comment = "The current code for calculating ALE interaction values is copied with few changes from Dan Apley's ALEPlot package. We gratefully acknowledge his open-source contribution. However, he was not directly involved in the development of this ale package.")
+           comment = c(ORCID = "0000-0001-5574-7572"))
 	)
-Description: Accumulated Local Effects (ALE) were initially developed as a model-agnostic approach for global explanations of the results of black-box machine learning algorithms. ALE has a key advantage over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values represent a clean functional decomposition of the model. As such, ALE values are not affected by the presence or absence of interactions among variables in a mode. Moreover, its computation is relatively rapid. This package rewrites the original code from the 'ALEPlot' package for calculating ALE data and it completely reimplements the plotting of ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference. For more details, see Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <arXiv:2310.09877>. <doi:10.48550/arXiv.2310.09877>.
-License: GPL-2
+Description: Accumulated Local Effects (ALE) were initially developed as a model-agnostic approach for global explanations of the results of black-box machine learning algorithms. ALE has a key advantage over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values represent a clean functional decomposition of the model. As such, ALE values are not affected by the presence or absence of interactions among variables in a mode. Moreover, its computation is relatively rapid. This package reimplements the algorithms for calculating ALE data and develops highly interpretable visualizations for plotting these ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference. For more details, see Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <arXiv:2310.09877>. <doi:10.48550/arXiv.2310.09877>.
+License: MIT + file LICENSE
 Language: en-ca
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

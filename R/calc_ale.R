@@ -994,9 +994,10 @@ prep_var_for_ale <- function(
           x_vals,
           # seq creates length.out + 1 bins, so set it to max_num_bins - 1
           seq(1 / (max_num_bins - 1), 1, length.out = max_num_bins - 1),
+          # keep quantile type = 1 for consistency with Apley & Zhu 2020
           type = 1,
           na.rm = TRUE
-        ) |>  # keep quantile type=1 for consistency with Apley & Zhu 2020
+        ) |>
           as.numeric()
       ) |>
         unique()  # one interval per value regardless of duplicates
