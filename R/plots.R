@@ -164,9 +164,6 @@ plot.ale <- function(
     params <- params[names(params) |> setdiff(temp_objs)]
     params$max_d <- obj$params$max_d
 
-    # browser()
-
-
     # Create ale_plots object
     ale_plots_obj <- list()
 
@@ -640,10 +637,6 @@ plot_ale_2D <- function(
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-# if (attr(ale_data, 'x')[[2]]$type != 'numeric') browser()
-
-
-
   # # For now ensure that plots are not categorical
   # if (ncol(y_summary) > 1) {
   #   # Not yet ready to create categorical plots
@@ -676,7 +669,10 @@ plot_ale_2D <- function(
   # y_vals <- y_vals - y_summary[['50%']] + y_shift
 
   # Shift the x1_x2_y y data for rug plots
-  x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
+  if (y_type == 'numeric') {
+    x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
+  }
+  # x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
 
   # Centre the y summary data on y_shift (it was originally centred on the median)
   y_summary <- y_summary - y_summary[['50%']] + y_shift
@@ -761,8 +757,6 @@ plot_ale_2D <- function(
   # Rename x1 and x2 columns for easier manipulation
   names(ale_data)[1] <- '.x1'
   names(ale_data)[2] <- '.x2'
-
-  # browser()
 
   # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
   ale_data$y_quantile <- ale_data$.y |>

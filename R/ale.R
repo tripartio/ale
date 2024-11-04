@@ -1300,14 +1300,14 @@ ale <- function (
             map(\(it.stat_tbl) {
               it.stat_tbl |>
                 mutate(term1 = it.x1) |>
-                rename(term2 = .data$term) |>
+                rename(term2 = term) |>
                 select('term1', 'term2', everything())
             })
 
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
             ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
             mutate(term1 = it.x1) |>
-            rename(term2 = .data$term) |>
+            rename(term2 = term) |>
             select('term1', 'term2', everything())
 
           if ('conf_regions' %in% output) {

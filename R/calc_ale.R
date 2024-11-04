@@ -626,7 +626,7 @@ calc_ale <- function(
 
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
-    rename(.y_composite = .data$.y)
+    rename(.y_composite = .y)
 
   if (ixn_d == 2) {
     # Calculate the difference between composite and distinct ALE on the full dataset
@@ -734,7 +734,7 @@ calc_ale <- function(
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
-        .by = c(.data$.cat, all_of(x_cols)),
+        .by = c(.cat, all_of(x_cols)),
         .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
         .y_mean   = mean(.data$.y, na.rm = TRUE),
         .y_median = median(.data$.y, na.rm = TRUE),
