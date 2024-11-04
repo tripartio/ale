@@ -3,7 +3,11 @@
 
 
 # For missing (NA) cells in 2D interactions, replace delta_pred (dp) with the nearest valid neighbour
-nn_na_delta_pred <- function(dp, numeric_x1) {
+nn_na_delta_pred <- function(dp, xd) {
+  # Hack to silence R-CMD-CHECK
+  knnIndexDist <- NULL
+
+  # nn_na_delta_pred <- function(dp, numeric_x1) {
   x1_ceilings <- xd[[1]]$ceilings
   x2_ceilings <- xd[[2]]$ceilings
 
@@ -16,15 +20,17 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
     # not_na_delta_idx: long matrix with row, col columns indicating indices WITHOUT missing delta values
     not_na_delta_idx <- which(!na_delta, arr.ind = TRUE, useNames = TRUE)
 
-    range_x1 <- if (numeric_x1) {
-      max(x1_ceilings) - min(x1_ceilings)
+    range_x1 <- if (xd[[1]]$x_type == 'numeric') {
+      # range_x1 <- if (numeric_x1) {
+        max(x1_ceilings) - min(x1_ceilings)
     } else {
       xd[[1]]$n_bins - 1
     }
     range_x2 <- max(x2_ceilings) - min(x2_ceilings)
 
     # Data Values of na_delta_idx and not_na_delta_idx, but normalized according to ALEPlot formulas
-    if (numeric_x1) {
+    if (xd[[1]]$x_type == 'numeric') {
+      # if (numeric_x1) {
       norm_na_delta <- cbind(
         (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1,
         (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
@@ -91,6 +97,11 @@ nn_na_delta_pred <- function(dp, numeric_x1) {
 
 
 #' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
+#'
+#' @param X X data
+#' @param x_col character
+#' @param n_bins integer
+#' @param x_int_counts bin sizes
 idxs_kolmogorov_smirnov <- function(
     X,
     x_col,

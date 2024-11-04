@@ -170,15 +170,15 @@ ale_stats_2D <- function(
         '.y ~ ',
         paste0(x_cols, collapse = ' + ')
       ) |>
-      as.formula() |>
-      xtabs(ale_data)
+      stats::as.formula() |>
+      stats::xtabs(ale_data)
     ale_n_ray <-
       paste0(
         '.n ~ ',
         paste0(x_cols, collapse = ' + ')
       ) |>
-      as.formula() |>
-      xtabs(ale_data)
+      stats::as.formula() |>
+      stats::xtabs(ale_data)
 
     # The second term of the subtraction below will have values 1, x_lo:x_hi. The values of x_lo and x_hi depend on whether x is numeric.
     if (x_types[1] == 'numeric') {

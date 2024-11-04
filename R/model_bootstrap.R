@@ -839,7 +839,7 @@ model_bootstrap <- function (
           # When boot_valid is available, delete median and mean estimates because boot_valid is more accurate.
           mutate(
             across(c(median, mean), \(it.col) {
-              if_else(!is.na(boot_valid), NA, it.col)
+              if_else(!is.na(.data$boot_valid), NA, it.col)
             })
           ) |>
           select('name', 'boot_valid', everything())

@@ -340,8 +340,8 @@ create_rep_dist <- function(
       model_call$formula |>
       # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
       eval(envir = call_env) |>
-      # as.formula(env = call_env) |>
-      terms(data = data) |>
+      # stats::as.formula(env = call_env) |>
+      stats::terms(data = data) |>
       attr('term.labels')
   }
 
@@ -447,7 +447,7 @@ create_rep_dist <- function(
                 paste(model_predictors, collapse = " + "),
                 ' + random_variable'
               ) |>
-              as.formula(env = call_env)
+              stats::as.formula(env = call_env)
 
             # model_call$formula <- model_call$formula |>
             #   eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved

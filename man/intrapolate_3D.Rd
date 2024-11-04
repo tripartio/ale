@@ -28,7 +28,7 @@ This intrapolation algorithm replaces internal missing values in a three-dimensi
 set.seed(2)
 arr <- array(1:60, dim = c(5, 4, 3))
 arr[sample(1:60, 20)] <- NA
-arr_na
+arr
 intrapolate_3D(arr)
 
 }

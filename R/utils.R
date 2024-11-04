@@ -42,7 +42,15 @@
 
 # Extract key details or parameters from objects --------------
 
-# Reduce a dataframe to a sample (retains the structure of its columns)
+#' Reduce a dataframe to a sample (retains the structure of its columns)
+#'
+#' @param data input dataframe
+#' @param y_vals y values, y predictions, or a sample thereof
+#' @param data_name name of the data argument
+#' @param sample_size size of data to sample
+#' @param seed random seed
+#'
+#' @return a list
 params_data <- function(
     data,
     y_vals,
@@ -89,11 +97,11 @@ params_model <- function(model, model_name = var_name(model)) {
     call = insight::model_name(model, include_call = TRUE) |>
       paste0(collapse = '\n'),
     print = print(model) |>
-      capture.output() |>
+      utils::capture.output() |>
       paste0(collapse = '\n'),
     summary = summary(model) |>
       print() |>
-      capture.output() |>
+      utils::capture.output() |>
       paste0(collapse = '\n')
   )
 }
@@ -102,7 +110,7 @@ params_model <- function(model, model_name = var_name(model)) {
 # Reduce a function to text descriptions of its key elements
 params_function <- function(func) {
   pf <- print(func) |>
-    capture.output()
+    utils::capture.output()
   # Remove the last line with the environment (it is a random value and fails on snapshot testing)
   pf[-length(pf)] |>
     paste0(collapse = '\n')
@@ -123,18 +131,18 @@ params_function <- function(func) {
 #'
 #' @return numeric vector whose length is number of columns of `mx`, whose values are the sums of each column of `mx`.
 #'
-#' @examples
-#' set.seed(1)
-#' mx <- matrix(
-#'   sample(1:6, 24, replace = TRUE),
-#'   nrow = 4
-#' )
-#' # Randomly set some values as missing
-#' mx[sample(1:24, 12)] <- NA
-#' mx
-#' col_sums(mx, na.rm = FALSE)
-#' col_sums(mx, na.rm = TRUE)
-#'
+# @examples
+# set.seed(1)
+# mx <- matrix(
+#   sample(1:6, 24, replace = TRUE),
+#   nrow = 4
+# )
+# # Randomly set some values as missing
+# mx[sample(1:24, 12)] <- NA
+# mx
+# col_sums(mx, na.rm = FALSE)
+# col_sums(mx, na.rm = TRUE)
+#
 col_sums <- function(mx, na.rm = FALSE, dims = 1) {
   cs <- colSums(x = mx, na.rm = na.rm, dims = dims)
 
@@ -157,15 +165,15 @@ col_sums <- function(mx, na.rm = FALSE, dims = 1) {
 #'
 #' @return An array or matrix of the same dimensions as `ary1` and `ary2` whose values are the sums of `ary1` and `ary2` in each corresponding element.
 #'
-#' @examples
-#' (x1 <- matrix(c(NA,NA,2,2),2,2))
-#' (x2 <- matrix(c(NA,3,NA,NA),2,2))
-#' (x3 <- matrix(c(NA,NA,NA,NA),2,2))
-#' (x4 <- matrix(c(1,2,3,4),2,2))
-#'
-#' add_array_na.rm(x1, x2)
-#' add_array_na.rm(x1, x3)
-#' add_array_na.rm(x1, x4)
+# @examples
+# (x1 <- matrix(c(NA,NA,2,2),2,2))
+# (x2 <- matrix(c(NA,3,NA,NA),2,2))
+# (x3 <- matrix(c(NA,NA,NA,NA),2,2))
+# (x4 <- matrix(c(1,2,3,4),2,2))
+#
+# add_array_na.rm(x1, x2)
+# add_array_na.rm(x1, x3)
+# add_array_na.rm(x1, x4)
 #'
 #' Reduce(add_array_na.rm, list(x1, x2, x3))
 #'
@@ -816,7 +824,7 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
 
   # Show only interpolations; set everything else to NA
   ip <- ip |>
-    list_flatten() |>
+    purrr::list_flatten() |>
     map(\(it.direction) {
       it.direction <- it.direction + na_ray
     })
@@ -894,19 +902,19 @@ var_name <- function (x, max_width = 50L)
 
 
 
-#  Determine the datatype of a vector
-#
-#  Not exported. See @returns for details of what it does.
-#
-#  @param var vector whose datatype is to be determined
-#
-#  @return Returns generic datatypes of R basic vectors according to the following mapping:
-#  * `logical` returns 'binary'
-#  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
-#  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#  * unordered `factor` returns 'categorical'
-#  * `ordered` `factor` returns 'ordinal'
-#
+#' Determine the datatype of a vector
+#'
+#' @param var vector whose datatype is to be determined
+#'
+#' Not exported. See @returns for details of what it does.
+#'
+#' @returns  Returns generic datatypes of R basic vectors according to the following mapping:
+#'  * `logical` returns 'binary'
+#'  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
+#'  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
+#'  * unordered `factor` returns 'categorical'
+#'  * `ordered` `factor` returns 'ordinal'
+#'
 var_type <- function(var) {
 
   # If var has more than one class, use only the first (predominant) one.

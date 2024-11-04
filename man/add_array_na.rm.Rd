@@ -13,20 +13,9 @@ add_array_na.rm(ary1, ary2, na.rm = TRUE)
 }
 \value{
 An array or matrix of the same dimensions as \code{ary1} and \code{ary2} whose values are the sums of \code{ary1} and \code{ary2} in each corresponding element.
+
+Reduce(add_array_na.rm, list(x1, x2, x3))
 }
 \description{
 Array or matrix addition in base R sets all sums in an element position to NA if any element in that position is NA in either of the arrays being added. In contrast, this function ignores NA values by default in its addition.
-}
-\examples{
-(x1 <- matrix(c(NA,NA,2,2),2,2))
-(x2 <- matrix(c(NA,3,NA,NA),2,2))
-(x3 <- matrix(c(NA,NA,NA,NA),2,2))
-(x4 <- matrix(c(1,2,3,4),2,2))
-
-add_array_na.rm(x1, x2)
-add_array_na.rm(x1, x3)
-add_array_na.rm(x1, x4)
-
-Reduce(add_array_na.rm, list(x1, x2, x3))
-
 }

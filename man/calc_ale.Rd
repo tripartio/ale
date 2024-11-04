@@ -11,14 +11,14 @@ calc_ale(
   y_cats,
   pred_fun,
   pred_type,
-  max_x_int,
+  max_num_bins,
   boot_it,
   seed,
   boot_alpha,
   boot_centre,
   boot_ale_y = FALSE,
-  ale_xs = NULL,
-  ale_ns = NULL,
+  bins = NULL,
+  ns = NULL,
   ale_y_norm_funs = NULL,
   rep_dist = NULL
 )
@@ -28,13 +28,15 @@ calc_ale(
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
 
+\item{x_cols}{character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.}
+
 \item{y_cats}{character. The categories of y. For most cases with non-categorical y, \code{y_cats == y_col}.}
 
 \item{pred_fun}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{pred_type}{See documentation for \code{\link[=ale]{ale()}}}
 
-\item{max_x_int}{See documentation for \code{\link[=ale]{ale()}}}
+\item{max_num_bins}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{boot_it}{See documentation for \code{\link[=ale]{ale()}}}
 
@@ -46,16 +48,17 @@ calc_ale(
 
 \item{boot_ale_y}{logical(1). If \code{TRUE}, return the bootstrap matrix of ALE y values. If \code{FALSE} (default) return NULL for the \code{boot_ale_y} element of the return value.}
 
-\item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ale_y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ale]{ale()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
+\item{bins, ns}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{bins == NULL}), but if provided, the provided values will be used instead. They would mainly be provided from \code{\link[=model_bootstrap]{model_bootstrap()}}.}
+
+\item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ale]{ale()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
 
 \item{rep_dist}{See documentation for \code{rep} in \code{\link[=ale]{ale()}}}
-
-\item{x_col}{character length 1. Name of single column in X for which ALE data is to be calculated.}
-
-\item{ale_x, ale_n}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{ale_x == NULL}), but if provided, the provided values will be used instead. They would mainly be provided from \code{\link[=model_bootstrap]{model_bootstrap()}}.}
 }
 \description{
-This function is not exported. It is uses tidyverse principles to rewrite \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}. This function is not usually called directly by the user. For details about arguments not documented here, see \code{\link[=ale]{ale()}}.
+This function is not exported. It is a complete reimplementation of the ALE algorithm relative to the reference in \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
+}
+\details{
+For details about arguments not documented here, see \code{\link[=ale]{ale()}}.
 }
 \references{
 Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.

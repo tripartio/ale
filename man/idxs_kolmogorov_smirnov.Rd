@@ -6,6 +6,15 @@
 \usage{
 idxs_kolmogorov_smirnov(X, x_col, n_bins, x_int_counts)
 }
+\arguments{
+\item{X}{X data}
+
+\item{x_col}{character}
+
+\item{n_bins}{integer}
+
+\item{x_int_counts}{bin sizes}
+}
 \description{
 Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
 }

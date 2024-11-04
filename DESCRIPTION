@@ -15,6 +15,7 @@ Suggests:
     ALEPlot,
     knitr,
     mgcv,
+    nnet,
     patchwork,
     readr,
     rmarkdown,

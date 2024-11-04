@@ -19,16 +19,3 @@ numeric vector whose length is number of columns of \code{mx}, whose values are 
 \description{
 Adaptation of \code{\link[base:colSums]{base::colSums()}} that, when all values in a column are NA, sets the sum to NA rather than zero as \code{\link[base:colSums]{base::colSums()}} does. Calls \code{\link[base:colSums]{base::colSums()}} internally.
 }
-\examples{
-set.seed(1)
-mx <- matrix(
-  sample(1:6, 24, replace = TRUE),
-  nrow = 4
-)
-# Randomly set some values as missing
-mx[sample(1:24, 12)] <- NA
-mx
-col_sums(mx, na.rm = FALSE)
-col_sums(mx, na.rm = TRUE)
-
-}

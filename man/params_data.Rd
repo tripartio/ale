@@ -7,9 +7,30 @@
 \item Validation: ensure that the object is atomic (not just a vector)
 \item For factors, get all classes and check if any class_x is a factor or ordered
 \item Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
+Reduce a dataframe to a sample (retains the structure of its columns)
 }}
 \usage{
-params_data(data, data_name = var_name(data), sample_size = 500, seed = 0)
+params_data(
+  data,
+  y_vals,
+  data_name = var_name(data),
+  sample_size = 500,
+  seed = 0
+)
+}
+\arguments{
+\item{data}{input dataframe}
+
+\item{y_vals}{y values, y predictions, or a sample thereof}
+
+\item{data_name}{name of the data argument}
+
+\item{sample_size}{size of data to sample}
+
+\item{seed}{random seed}
+}
+\value{
+a list
 }
 \description{
 Improvements:
@@ -17,5 +38,6 @@ Improvements:
 \item Validation: ensure that the object is atomic (not just a vector)
 \item For factors, get all classes and check if any class_x is a factor or ordered
 \item Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
+Reduce a dataframe to a sample (retains the structure of its columns)
 }
 }

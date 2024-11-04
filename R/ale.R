@@ -878,7 +878,7 @@ ale <- function (
   for (it.cat in y_cats) {
     # Assign 1D ALE results to ale_struc
     it.ales_1D <- ales[[it.cat]] |>
-      filter(ale_d == 1)
+      filter(.data$ale_d == 1)
 
     it.ar_1D <- 1:nrow(it.ales_1D) |>
       map(\(i.1D) {
@@ -901,7 +901,7 @@ ale <- function (
     # Assign 2D ALE results to ale_struc
     if (length(x_cols[[2]]) >= 2) {
       it.ales_2D <- ales[[it.cat]] |>
-        filter(ale_d == 2)
+        filter(.data$ale_d == 2)
 
       it.ar_2D <- 1:nrow(it.ales_2D) |>
         map(\(i.2D) {
@@ -959,9 +959,8 @@ ale <- function (
     #       # # Delete the temporary concatenated 'x_col_1|x_col_2' names
     #       # set_names(NULL) |>
     #       # # Delete the x_col_1|x_col_2 level
-    #       # list_flatten()
-    #   }) |>
-    #   maps
+    #       # purrr::list_flatten()
+    #   })
 
   }
 
@@ -1301,15 +1300,15 @@ ale <- function (
             map(\(it.stat_tbl) {
               it.stat_tbl |>
                 mutate(term1 = it.x1) |>
-                rename(term2 = term) |>
-                select(term1, term2, everything())
+                rename(term2 = .data$term) |>
+                select('term1', 'term2', everything())
             })
 
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
             ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
             mutate(term1 = it.x1) |>
-            rename(term2 = term) |>
-            select(term1, term2, everything())
+            rename(term2 = .data$term) |>
+            select('term1', 'term2', everything())
 
           if ('conf_regions' %in% output) {
             # conf_regions optionally provided only if stats also requested
@@ -1405,143 +1404,5 @@ ale <- function (
   return(ale_obj)
 }
 
-
-
-#' @title Create and return ALE interaction data, statistics, and plots
-#'
-#' @description
-#' This is the central function that manages the creation of ALE data and plots
-#' for two-way ALE interactions. For simple one-way ALE, see [ale()].
-#' See documentation there for functionality shared between both functions.
-#'
-#' For details, see the introductory vignette for this package or the details and examples below.
-#'
-#' For the plots, `n_y_quant` is the number of quantiles into which to
-#' divide the predicted variable (y). The middle quantiles are grouped specially:
-#'
-#' * The middle quantile is the first confidence interval of `median_band_pct`
-#' (`median_band_pct[1]`) around the median.
-#' This middle quantile is special because it generally represents no meaningful
-#' interaction.
-#' * The quantiles above and below the middle are extended from the borders of
-#' the middle quantile to the regular borders of the other quantiles.
-#'
-#' There will always be an odd number of quantiles: the special middle quantile
-#' plus an equal number of quantiles on each side of it. If n_y_quant is even,
-#' then a middle quantile will be added to it. If n_y_quant is odd, then the
-#' number specified will be used, including the middle quantile.
-#'
-#'
-#' @param data See documentation for [ale()]
-#' @param model See documentation for [ale()]
-#' @param x1_cols,x2_cols character. Vectors of column names from `data` for which
-#'  two-way interaction ALE data is to be calculated. ALE data will be calculated
-#'  for each x1 column interacting with each x2 column. x1_cols can be of any standard
-#'  datatype (logical, factor, or numeric) but x2_cols can only be numeric. If
-#'  `ixn` is TRUE, then both values must be provided.
-#' @param y_col See documentation for [ale()]
-#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel See documentation for [ale()]
-#' @param model_packages See documentation for [ale()]
-#' @param output See documentation for [ale()]
-#' @param pred_fun,pred_type See documentation for [ale()]
-#' @param max_num_bins See documentation for [ale()]
-#' @param y_type See documentation for [ale()]
-#' @param median_band_pct See documentation for [ale()]
-#' @param sample_size,min_rug_per_interval See documentation for [ale()]
-#' @param bins See documentation for [ale()]
-#' @param n_x1_bins,n_x2_bins positive scalar integer. Number of intervals
-#' for the x1 or x2 axes respectively for interaction plot. These values are
-#' ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
-#' @param n_y_quant positive scalar integer. Number of intervals over which the range
-#' of y values is divided for the colour bands of the interaction plot. See details.
-#' @param compact_plots See documentation for [ale()]
-#' @param silent See documentation for [ale()]
-#'
-#' @return list of ALE interaction data tibbles and plots.
-#' The list has two levels of depth:
-#' * The first level is named by the x1 variables.
-#' * Within each x1 variable list, the second level is named by the x2 variables.
-#' * Within each x1-x2 list element, the data or plot is returned as requested in
-#' the `output` argument.
-# * Within each list element, the data, plots, and stats are returned as requested in
-# the `output` argument.
-#'
-#' @examples
-#'
-# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-#' set.seed(0)
-#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
-#'
-#' # Create a GAM model with flexible curves to predict diamond price
-#' # Smooth all numeric variables and include all other variables
-#' gam_diamonds <- mgcv::gam(
-#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-#'     cut + color + clarity,
-#'   data = diamonds_sample
-#' )
-#' summary(gam_diamonds)
-#'
-#' \donttest{
-#' # ALE two-way interactions
-#' ale_ixn_gam_diamonds <- ale_ixn(
-#'   diamonds_sample, gam_diamonds,
-#'   parallel = 2  # CRAN limit (delete this line on your own computer)
-#' )
-#'
-#' # Print interaction plots
-#' ale_ixn_gam_diamonds$plots |>
-#'   # extract list of x1 ALE outputs
-#'   purrr::walk(\(it.x1) {
-#'     # plot all x2 plots in each it.x1 element
-#'     patchwork::wrap_plots(it.x1) |>
-#'       print()
-#'   })
-#' }
-#'
-#'
-#' @export
-#'
-ale_ixn <- function (
-    data, model,
-    x1_cols = NULL, x2_cols = NULL,
-    y_col = NULL,
-    ...,
-    parallel = future::availableCores(logical = FALSE, omit = 1),
-    model_packages = NULL,
-    output = c('plots', 'data'),
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
-    pred_type = "response",
-    max_num_bins = 100,
-    # boot_it = 0,
-    # boot_alpha = 0.05,
-    # boot_centre = 'mean',
-    y_type = NULL,
-    median_band_pct = c(0.05, 0.5),
-    sample_size = 500,
-    min_rug_per_interval = 1,
-    bins = NULL,
-    # ggplot_custom = NULL,
-    n_x1_bins = 20,
-    n_x2_bins = 20,
-    n_y_quant = 10,
-    compact_plots = FALSE,
-    silent = FALSE
-) {
-  # capture all arguments passed into [ale_ixn()] (code thanks to ChatGPT)
-  args <- as.list(match.call())[-1]
-  args$ixn <- TRUE  # when the user calls [ale_ixn()], they want interactions
-
-  # stats not yet enabled for ale_ixn
-  if (missing(output)) {
-    args$output = c('plots', 'data')
-  }
-
-  args$call_env <- rlang::caller_env()
-
-  do.call(ale_core, args, envir = parent.frame(1))
-}
 
 

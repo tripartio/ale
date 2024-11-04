@@ -13,7 +13,7 @@
 #'
 #' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ale()]
-#' @param x_col character length 1. Name of single column in X for which ALE data is to be calculated.
+#' @param x_cols character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ale()]
 #' @param pred_type See documentation for [ale()]
@@ -200,7 +200,7 @@ calc_ale <- function(
         ] |>
           # Cast imputed column into appropriate datatype.
           # Especially necessary to cast into logical when needed.
-          as(class(X[[it.x_col]])[1])
+          methods::as(class(X[[it.x_col]])[1])
 
         # For non-numeric x, btit.X_hi stays at its default base level; only btit.X_lo is decremented
         btit.x_vars[[it.x_col]]$hi <- btit.X[[it.x_col]]
@@ -374,7 +374,8 @@ calc_ale <- function(
           # btit.local_eff_ray[it.cat, , ] <- nn_na_delta_pred(
           # # btit.local_eff_ray[it.cat, -1, -1] <- nn_na_delta_pred(
           #   btit.local_eff_ray[it.cat, , ],
-          #   numeric_x1 = xd[[1]]$x_type == 'numeric'
+          #   xd = xd
+          # #   numeric_x1 = xd[[1]]$x_type == 'numeric'
           # )
 
           # Intrapolate missing values
@@ -607,8 +608,8 @@ calc_ale <- function(
     }) |>
     bind_rows() |>
     as_tibble() |>
-    # rename(.ale_n = .n) |>
-    mutate(.n = if_else(is.na(.n), 0, .n)) |>
+    # rename(.ale_n = .data$.n) |>
+    mutate(.n = if_else(is.na(.data$.n), 0, .data$.n)) |>
     # mutate(.ale_n = if_else(is.na(.ale_n), 0, .ale_n)) |>
     select(-all_of(y_cats)) |>
     select('.it', everything())
@@ -625,7 +626,7 @@ calc_ale <- function(
 
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
-    rename(.y_composite = .y)
+    rename(.y_composite = .data$.y)
 
   if (ixn_d == 2) {
     # Calculate the difference between composite and distinct ALE on the full dataset
@@ -671,9 +672,9 @@ calc_ale <- function(
   boot_ale_tbl <- boot_ale_tbl |>
     mutate(
       across(starts_with('.y'), \(v.col) {
-        v.col - unname(ale_y_shift[.cat])
+        v.col - unname(ale_y_shift[.data$.cat])
       }),
-      .y = .y_distinct
+      .y = .data$.y_distinct
     )
 
 
@@ -722,22 +723,22 @@ calc_ale <- function(
   boot_summary <- if (boot_it == 0) {
     boot_ale_tbl |>
       mutate(
-        .y_lo = .y,
-        .y_mean = .y,
-        .y_median = .y,
-        .y_hi = .y,
+        .y_lo = .data$.y,
+        .y_mean = .data$.y,
+        .y_median = .data$.y,
+        .y_hi = .data$.y,
       ) |>
-      select(-.it)
+      select(-'.it')
   }
   else {  # boot_it > 0
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
-        .by = c(.cat, all_of(x_cols)),
-        .y_lo     = stats::quantile(.y, probs = boot_alpha / 2, na.rm = TRUE),
-        .y_mean   = mean(.y, na.rm = TRUE),
-        .y_median = median(.y, na.rm = TRUE),
-        .y_hi     = stats::quantile(.y, probs = 1 - boot_alpha / 2, na.rm = TRUE),
+        .by = c(.data$.cat, all_of(x_cols)),
+        .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
+        .y_mean   = mean(.data$.y, na.rm = TRUE),
+        .y_median = median(.data$.y, na.rm = TRUE),
+        .y_hi     = stats::quantile(.data$.y, probs = 1 - boot_alpha / 2, na.rm = TRUE),
       )
 
     xn_counts <- if (ixn_d == 1) {
@@ -870,7 +871,7 @@ calc_ale <- function(
       split(boot_ale_tbl$.cat) |>
       map(\(it.cat_boot) {
         # Remove the extraneous .cat column
-        select(it.cat_boot, -.cat)
+        select(it.cat_boot, -'.cat')
       })
   }
 

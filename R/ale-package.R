@@ -33,6 +33,7 @@
 #' @importFrom rlang is_bool
 #' @importFrom rlang is_scalar_logical
 #' @importFrom rlang is_string
+#' @importFrom rlang `:=`
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd
