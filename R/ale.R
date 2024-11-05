@@ -419,7 +419,7 @@ ale <- function (
   # Verify that complete_d is assigned a valid value if x_cols is Null
   if (is.null(x_cols)) {
     validate(
-      complete_d %in% c(1, 2),
+      all(complete_d %in% c(1, 2)),
       msg = 'If {.arg x_cols} is {.val NULL}, then {.arg complete_d} must have a value of {.val 1, 2, or c(1, 2)}.'
     )
   }
@@ -709,7 +709,7 @@ ale <- function (
   # Remove inverted 2D x_cols that might have been automatically created
   if (
     x_col_spec == '2D' ||
-    (!is.null(complete_d) && complete_d >= 2)
+    (!is.null(complete_d) && max(complete_d) >= 2)
     ) {
     x_cols[[2]] <- x_cols[[2]][
       # This logical index is the non-duplicate indexes
@@ -1348,8 +1348,18 @@ ale <- function (
         }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
 
       # Transpose stats result order in the list
-      ale_struc$distinct[[it.cat]][[2]]$stats <- ale_struc$distinct[[it.cat]][[2]]$stats |>
+      ale_struc$distinct[[it.cat]][[2]]$stats <-
+        ale_struc$distinct[[it.cat]][[2]]$stats |>
         list_transpose(simplify = FALSE)
+
+      # Consolidate 2D stats
+      ale_struc$distinct[[it.cat]][[2]]$stats$by_stat <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$by_stat |>
+        list_transpose(simplify = FALSE) |>
+        map(\(it.stat) bind_rows(it.stat))
+      ale_struc$distinct[[it.cat]][[2]]$stats$estimate <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$estimate |>
+        bind_rows()
 
       }  # if (length(x_cols[[2]]) >= 1) {
     }  # for (it.cat in y_cats)
