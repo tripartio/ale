@@ -1310,21 +1310,22 @@ ale <- function (
             rename(term2 = term) |>
             select('term1', 'term2', everything())
 
-          if ('conf_regions' %in% output) {
-            # conf_regions optionally provided only if stats also requested
-            sig_criterion <- if (!is.null(rep)) {
-              'rep'
-            } else {
-              'median_band_pct'
-            }
-
-            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
-              summarize_conf_regions(
-                ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
-                y_summary[, it.cat, drop = FALSE],
-                sig_criterion = sig_criterion
-              )
-          }
+          # ## Disable 2D conf_regions until they can be verified and corrected
+          # if ('conf_regions' %in% output) {
+          #   # conf_regions optionally provided only if stats also requested
+          #   sig_criterion <- if (!is.null(rep)) {
+          #     'rep'
+          #   } else {
+          #     'median_band_pct'
+          #   }
+          #
+          #   ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
+          #     summarize_conf_regions(
+          #       ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
+          #       y_summary[, it.cat, drop = FALSE],
+          #       sig_criterion = sig_criterion
+          #     )
+          # }
 
           # # Create an effects plot only if plots are requested
           # if ('plots' %in% output) {
