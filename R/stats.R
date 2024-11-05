@@ -497,6 +497,9 @@ summarize_conf_regions <- function(
     y_summary,  # result of var_summary(y_vals)
     sig_criterion  # string either 'rep' or 'median_band_pct'
   ) {
+  # Create zeroed version of y_summary to correspond to zeroed ALE y values.
+  # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
+  y_zeroed_summary <- y_summary[, 1] - y_summary[['50%', 1]]
 
   # Create confidence regions for each variable (term)
   cr_by_term <-
@@ -509,8 +512,10 @@ summarize_conf_regions <- function(
         mutate(
           # where is the current point relative to the median band?
           relative_to_mid = case_when(
-            .data$.y_hi < y_summary[['med_lo', 1]] ~ 'below',
-            .data$.y_lo > y_summary[['med_hi', 1]] ~ 'above',
+            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+            # .data$.y_hi < y_summary[['med_lo', 1]] ~ 'below',
+            # .data$.y_lo > y_summary[['med_hi', 1]] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -549,8 +554,9 @@ summarize_conf_regions <- function(
               .data$x_span != 0,
               # slope from (start_x, start_y) to (end_x, end_y) normalized on scales of x and y
               ((.data$end_y - .data$start_y) /
-                 (y_summary[['max', 1]] - y_summary[['min', 1]])) /
-                .data$x_span,
+                 (y_zeroed_summary['max'] - y_zeroed_summary['min'])) /
+                 # (y_summary[['max', 1]] - y_summary[['min', 1]])) /
+              .data$x_span,
               0
             )
           ) |>
@@ -610,8 +616,6 @@ summarize_conf_regions <- function(
       'relative_to_mid'
     )
 
-
-
   return(
     list(
       by_term = cr_by_term,
@@ -620,6 +624,7 @@ summarize_conf_regions <- function(
     )
   )
 }  # summarize_conf_regions()
+
 
 # Receives a confidence region summary tibble and then converts its essential
 # contents in words.
