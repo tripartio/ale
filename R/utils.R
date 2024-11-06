@@ -851,33 +851,6 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
 
 # Miscellaneous ------------
 
-# Inverse of %in% operator
-`%notin%` <- Negate(`%in%`)
-
-# Concatenate two character vectors
-`%+%` <- function(cv1, cv2) {
-  paste0(cv1, cv2)
-}
-
-
-
-
-
-# Round a numeric vector to an intuitive number of decimal places:
-# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
-round_dp <- function(x) {
-  validate(is.numeric(x))
-
-  max_x <- max(abs(x))
-  dp <- dplyr::case_when(
-    max_x > 100 ~ 0,
-    max_x >  10 ~ 1,
-    max_x >   1 ~ 2,
-    .default = 3
-  )
-
-  round(x, dp)
-}
 
 # Guess the user-defined variable name of an R object
 #
@@ -902,37 +875,4 @@ var_name <- function (x, max_width = 50L)
 
 
 
-#' Determine the datatype of a vector
-#'
-#' @param var vector whose datatype is to be determined
-#'
-#' Not exported. See @returns for details of what it does.
-#'
-#' @returns  Returns generic datatypes of R basic vectors according to the following mapping:
-#'  * `logical` returns 'binary'
-#'  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
-#'  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#'  * unordered `factor` returns 'categorical'
-#'  * `ordered` `factor` returns 'ordinal'
-#'
-var_type <- function(var) {
-
-  # If var has more than one class, use only the first (predominant) one.
-  # This is particularly needed for ordered factors, whose class is
-  # c('ordered', 'factor')
-  class_var <- class(var)[1]
-
-  return(case_when(
-    class_var == 'logical' ~ 'binary',
-    # var consisting only of one of any two values (excluding NA) is considered binary.
-    # This test must be placed before all the others to ensure that it takes precedence, no matter what the underlying datatype might be.
-    (var |> na.omit() |> unique() |> length()) == 2 ~ 'binary',
-    is.numeric(var) ~ 'numeric',
-    class_var %in% c('factor', 'character') ~ 'categorical',
-    class_var == 'ordered' ~ 'ordinal',
-    # Consider dates to be numeric; they seem to work OK like that
-    class_var %in% c('POSIXct', 'POSIXt') ~ 'numeric',
-  ))
-
-}
 

@@ -33,6 +33,33 @@
 #   }
 # )
 
+
+# # Build a test based on this diverse variable selection or something like it
+# cars_ale_ixn <- ale(
+#   test_cars, test_gam,
+#   x_cols = list(
+#     'model',
+#     'cyl',
+#     c('hp', 'drat'),
+#     'model',
+#     c('hp', 'drat'),
+#     c('wt', 'qsec'),
+#     c('wt', 'hp'),
+#     c('wt', 'drat'),
+#     c('qsec', 'wt'),
+#     # c('vs', 'gear', 'country'),
+#     'vs'
+#   ),
+#   max_num_bins = 10,
+#   parallel = 0,
+#   # boot_it = 3,
+#   # output = c("data"),
+#   output = c("plots", "data", "stats", "conf_regions", "boot"),
+#   silent = TRUE,
+# )
+
+
+
 # All other tests are without parallelization so that results are reproducible
 
 test_that(
