@@ -19,8 +19,8 @@
 #' @param type character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
-#' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `rep` are provided. If `rep` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `rep` are not provided. If `rep` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
+#' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
+#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows otherwise they can be very slow for large datasets. By default, their size is the `sample_size` size from the `ale_obj` parameters. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf`.
 #' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
@@ -207,13 +207,13 @@ plot.ale <- function(
           y_summary = obj$params$y_summary[, it.cat_name],
           # y_vals = obj$params$y_vals,
           y_col = it.cat_name,
-          middle_band = if (is.null(obj$params$rep)) {
+          middle_band = if (is.null(obj$params$p_values)) {
             obj$params$median_band_pct
           } else {
-            # Use REP of NALED:
-            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on REPs.
-            # rep_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-            obj$params$rep$rand_stats[[it.cat_name]] |>
+            # Use p_value of NALED:
+            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
+            # p_dist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+            obj$params$p_values$rand_stats[[it.cat_name]] |>
               p_to_random_value('naled', obj$params$median_band_pct) |>
               unname() |>
               (`/`)(100)  # scale NALED from percentage to 0 to 1
@@ -400,7 +400,7 @@ plot_ale_1D <- function(
   # Add a secondary axis to label the percentiles
   # Construct secondary (right) axis label from bottom to top.
   sec_labels <- if (names(y_summary[1]) == 'p') {
-    # REPs were provided for y_summary; ALER is used
+    # p-values were provided for y_summary; ALER is used
     c(
       # To prevent overlapping text, summarize all details only in the
       # centre label; leave the others empty
@@ -414,7 +414,7 @@ plot_ale_1D <- function(
     )
   }
   else {
-    # without REPs, quantiles are used
+    # without p-values, quantiles are used
     c(
       str_glue('{50-(median_band_pct[2]*100/2)}%'),
       relative_y,

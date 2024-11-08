@@ -20,7 +20,7 @@ calc_ale(
   bins = NULL,
   ns = NULL,
   ale_y_norm_funs = NULL,
-  rep_dist = NULL
+  p_dist = NULL
 )
 }
 \arguments{
@@ -52,7 +52,7 @@ calc_ale(
 
 \item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ale]{ale()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
 
-\item{rep_dist}{See documentation for \code{rep} in \code{\link[=ale]{ale()}}}
+\item{p_dist}{See documentation for \code{p_values} in \code{\link[=ale]{ale()}}}
 }
 \description{
 This function is not exported. It is a complete reimplementation of the ALE algorithm relative to the reference in \code{\link[ALEPlot:ALEPlot]{ALEPlot::ALEPlot()}}. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.

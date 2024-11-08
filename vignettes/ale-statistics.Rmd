@@ -136,42 +136,39 @@ gam_math <- gam(
 gam_math
 ```
 
-### Create random effect probability (REP) distribution objects
+### Create p-value distribution objects
 
-Before we bootstrap the model to create ALE and other data, there is an important preliminary step when our goal is to analyze ALE statistics. As with any statistics calculated on a dataset, there is some randomness to the statistic values that the procedure will give us. To quantify this randomness, we want to obtain random effect probabilities (REPs) for these statistics. A REP is a number from 0 to 1 that indicates the probability that a given statistic value would occur by random chance. So, high REPs mean that the statistic value is likely to be random whereas low REPs (typically lower than 0.05 by convention) mean that the statistic probably represents a reliable value, not obtained merely by chance. REPs are very similar in meaning and interpretation to p-values. However, whereas p-values indicate the probability that a null hypothesis is true, a REP is an indicator of the likelihood that a random variable would have a similar effect.
+Before we bootstrap the model to create ALE and other data, there is an important preliminary step when our goal is to analyze ALE statistics. As with any statistics calculated on a dataset, there is some randomness to the statistic values that the procedure will give us. To quantify this randomness, we want to obtain p-values for these statistics. P-values for most standard statistics are based on the assumption that these statistics fit some distribution or another (e.g., Student's *t*, $\chi^2$, etc.). With these distributional assumptions, p-values can be calculated very quickly. However, a key characteristic of ALE is that there are no distributional assumptions: ALE data is a description of a model's characterization of the data given to it. Accordingly, ALE statistics do not assume any distribution, either. 
 
-P-values for most standard statistics are based on the assumption that these statistics fit some distribution or another (e.g., Student's *t*, $\chi^2$, etc.). With these distributional assumptions, p-values can be calculated very quickly. However, a key characteristic of ALE is that there are no distributional assumptions: ALE data is a description of a model's characterization of the data given to it. Accordingly, ALE statistics do not assume any distribution, either. 
-
-The implication of this for REPs is that the distribution of the data must be discovered by simulation rather than calculated based on distributional assumptions. The procedure for calculating REPs is the following:
+The implication of this for p-values is that the distribution of the data must be discovered by simulation rather than calculated based on distributional assumptions. The procedure for calculating p-values is the following:
 
 * A random variable is added to the dataset.
 * The model is retrained with all variables including this new random variable.
 * ALE statistics are calculated for the random variable.
 * This procedure is repeated 1,000 times or so to get 1,000 statistic values from the 1,000 random  variables.
-* REPs are calculated based on the frequency of times that the random variables obtain specific statistic values.
+* p-values are calculated based on the frequency of times that the random variables obtain specific statistic values.
 
 As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The {ale} package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
-To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_rep_dist()` function generates a `rep_dist` object that can be run once for a given model-dataset pair. The `rep_dist` object contains functions that can generate REPs based on statistics for any variable from the same model-dataset pair. It generates these REPs when passed to the `ale()` or `model_bootstrap()` functions. For very large datasets, the process of generating the `rep_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_rep_dist()` function will not allow fewer than 100 iterations, otherwise the REPs thus generated would be meaningless.)
+To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_dist()` function generates a `p_dist` object that can be run once for a given model-dataset pair. The `p_dist` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ale()` or `model_bootstrap()` functions. For very large datasets, the process of generating the `p_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_dist()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
-We now demonstrate how to create the `rep_dist` object for our case.
+We now demonstrate how to create the `p_dist` object for our case.
 
-```{r rep_dist}
+```{r p_dist}
 # # To generate the code, uncomment the following lines.
-# # But it is slow because it retrains the model 1000 times,
-# # so this vignette loads a pre-created REPs object.
-# gam_math_rep_dist <- create_rep_dist(
+# # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ale_p object.
+# gam_math_p_dist <- create_p_dist(
 #   math,
 #   gam_math
 # )
-# saveRDS(gam_math_rep_dist, file.choose())
-gam_math_rep_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds') |> 
+# saveRDS(gam_math_p_dist, file.choose())
+gam_math_p_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds') |> 
   readRDS()
 ```
 
 We can now proceed to bootstrap the model for ALE analysis.
 
-### Bootstrap the model with REPs
+### Bootstrap the model with p-values
 
 By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `model_bootstrap()` function speeds of the process significantly through parallel processing (implemented by default), but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
@@ -179,8 +176,8 @@ By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be contr
 mb_gam_math <- model_bootstrap(
   math, 
   gam_math,
-  # Pass the rep_dist object so that REPs will be generated
-  ale_options = list(rep = gam_math_rep_dist),
+  # Pass the p_dist object so that p-values will be generated
+  ale_options = list(p_values = gam_math_p_dist),
   # For the GAM model coefficients, show details of all variables, parametric or not
   tidy_options = list(parametric = TRUE),
   # tidy_options = list(parametric = NULL),
@@ -227,7 +224,7 @@ This initial analysis highlights two limitations of classical hypothesis-testing
 
 ALE was developed to graphically display the relationship between predictor variables in a model and the outcome regardless of the nature of the model. Thus, before we proceed to describe our extension of effect size measures based on ALE, let us first briefly examine the ALE plots for each variable.
 
-### ALE plots with REPs
+### ALE plots with p-values
 
 ```{r all-ALE-plots, fig.width=7, fig.height=10}
 mb_gam_math$ale$plots |> 
@@ -240,7 +237,7 @@ We can see that most variables seem to have some sort of mean effect across vari
 * We call this grey band the "ALER band". 95% of random variables had ALE values that fully lay within the ALER band. 
 * The dashed lines above and below the ALER band expand the boundaries to where 99% of the random variables were constrained. These boundaries could be considered as demarcating an extended or outward ALER band.
 
-The idea is that if the ALE values of any predictor variable falls fully within the ALER band, then it has no greater effect than 95% of purely random variables. Moreover, to consider any effect in the ALE plot to be statistically significant (that is, non-random), there should be no overlap between the bootstrapped confidence regions of a predictor variable and the ALER band. (For the threshold REPs, We use the conventional defaults of 0.05 for 95% confidence and 0.01 for 99% confidence, but the value can be changed with the `p_alpha` argument.)
+The idea is that if the ALE values of any predictor variable falls fully within the ALER band, then it has no greater effect than 95% of purely random variables. Moreover, to consider any effect in the ALE plot to be statistically significant (that is, non-random), there should be no overlap between the bootstrapped confidence regions of a predictor variable and the ALER band. (For the threshold p-values, We use the conventional defaults of 0.05 for 95% confidence and 0.01 for 99% confidence, but the value can be changed with the `p_alpha` argument.)
 
 For categorical variables (`public` and `high_minority` above), the confidence interval bars for all categories overlap the ALER band. The confidence interval bars indicate two useful pieces of information to us. When we compare them to the ALER band, their overlap or lack thereof tells us about the practical significance of the category. When we compare the confidence bars of one category with those of others, it allows us to assess if the category has a statistically significant effect that is different from that of the other categories; this is equivalent to the regular interpretation of coefficients for GAM and other GLM models. In both cases, the confidence interval bars of the TRUE and FALSE categories overlap each other, indicating that there is no statistically significant difference between categories. Whereas the coefficient table above based on classic statistics indicated this conclusion for `public`, it indicated that `high_minority` had a statistically significant effect; our ALE analysis indicates that `high_minority` does not. In addition, each confidence interval band overlaps the ALER band, indicating that none of the effects is meaningfully different from random results, either.
 
@@ -248,11 +245,11 @@ For numeric variables, the confidence regions overlap the ALER band for most of 
 
 Of particular interest is the random variable `rand_norm`, whose average ALE appears to show some sort of pattern. However, we note that the 95% confidence intervals we use mean that if we were to retry the analysis for twenty different random seeds, we would expect at least one of the random variables to partially escape the bounds of the ALER band. We will return below to the implications of random variables in ALE analysis.
 
-### ALE plots without REPs
+### ALE plots without p-values
 
-Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `rep_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `rep_dist` object. Let us run `model_bootstrap()` again, but this time, without REPs.
+Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us run `model_bootstrap()` again, but this time, without p-values.
 
-```{r model-bootstrap-without-rep_dist, fig.width=7, fig.height=10}
+```{r model-bootstrap-without-p_dist, fig.width=7, fig.height=10}
 mb_gam_no_p <- model_bootstrap(
   math, 
   gam_math,
@@ -267,11 +264,11 @@ mb_gam_no_p$ale$plots |>
   patchwork::wrap_plots(ncol = 2)
 ```
 
-In the absence of REPs, the {ale} packages uses alternate visualizations to offer meaningful results, but with somewhat different interpretations of the middle grey band. Without REPs, we do not have any point of reference for the ALER statistics, so we use percentiles around the median as the reference. The middle grey band here indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% around the median by default, but the value can be changed with the `median_band_pct` argument.) For further reference, the outer dashed lines indicate the interquartile range of the outcome values, that is, the 25th and 75th percentiles.
+In the absence of p-values, the {ale} packages uses alternate visualizations to offer meaningful results, but with somewhat different interpretations of the middle grey band. Without p-values, we do not have any point of reference for the ALER statistics, so we use percentiles around the median as the reference. The middle grey band here indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% around the median by default, but the value can be changed with the `median_band_pct` argument.) For further reference, the outer dashed lines indicate the interquartile range of the outcome values, that is, the 25th and 75th percentiles.
 
-We can see that in this case, the 5% median band is much narrower than the 5% ALER band when REPs are calculated, though they might be more similar for a different dataset. This should give us pause to skipping the calculation of REPs, since we might be overly lax in interpreting apparent relationships as meaningful whereas the ALER band indicates that they might not be that different from what random variables might produce.
+We can see that in this case, the 5% median band is much narrower than the 5% ALER band when p-values are calculated, though they might be more similar for a different dataset. This should give us pause to skipping the calculation of p-values, since we might be overly lax in interpreting apparent relationships as meaningful whereas the ALER band indicates that they might not be that different from what random variables might produce.
 
-For most of the rest of this article, we will only analyze the results with ALER bands generated from REPs, though we will briefly revisit median bands without REPs.
+For most of the rest of this article, we will only analyze the results with ALER bands generated from p-values, though we will briefly revisit median bands without p-values.
 
 ### ALE effect size measures on the scale of the y outcome variable
 
@@ -288,7 +285,7 @@ This plot is unusual, so it requires some explanation:
 -   On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks default to five units each from 5 to 20, evenly spaced.
 -   On the top, the outcome variable is expressed as percentiles ranging from 0 (the minimum outcome value in the dataset) to 100 (the maximum). It is divided into 10 deciles of 10% each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
 -   Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slightly lighter align with the percentiles (upper axis).
--   The vertical grey band in the middle is the NALED band. Its width is the 0.05 REP of the NALED (explained below). That is, 95% of random variables had a NALED equal or smaller than that width.
+-   The vertical grey band in the middle is the NALED band. Its width is the 0.05 p_value of the NALED (explained below). That is, 95% of random variables had a NALED equal or smaller than that width.
 -   The variables on the horizontal axis are sorted by decreasing ALED and then NALED value (explained below).
 
 Although it is somewhat confusing to have two axes, the percentiles are a direct transformation of the raw outcome values. The first two base ALE effect size measures below are in units of the outcome variable while their normalized versions are in percentiles of the outcome. Thus, the same plot can display the two kinds of measures simultaneously. Referring to this plot can help understand each of the measures, which we proceed to explain in detail.
@@ -399,7 +396,7 @@ NALED produces a score that ranges from 0 to 100%. It is essentially the ALED ex
 
 ### The median band and random variables
 
-When we do not have REPs, the NALED is particularly helpful in comparing the practical relevance of variables against our threshold for the median band by which we consider that a variable needs to shift the outcome on average by more than 5% of the median values. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r mb_gam_math$ale$stats$by_term$public$estimate['naled'] |> round(1)` just barely crosses our threshold.
+When we do not have p-values, the NALED is particularly helpful in comparing the practical relevance of variables against our threshold for the median band by which we consider that a variable needs to shift the outcome on average by more than 5% of the median values. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r mb_gam_math$ale$stats$by_term$public$estimate['naled'] |> round(1)` just barely crosses our threshold.
 
 It is particularly striking to note the ALE effect size measures for the random `rand_norm`:
 
@@ -414,9 +411,9 @@ mb_gam_math$ale$stats$by_term$rand_norm
 
 `rand_norm` has a NALED of `r mb_gam_math$ale$stats$by_term$rand_norm$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have some numeric value or the other. However, by setting our default value for the median band at 5%, we effectively exclude `rand_norm` from serious consideration. In informal tests with several different random seeds, the random variables never exceeded this 5% threshold. Setting the median band too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r mb_gam_math$ale$stats$by_term$discrim$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
 
-We realize that 5% as a threshold for the median band is rather arbitrary, inspired by traditional $\alpha$ = 0.05 for statistical significance and confidence intervals. A proper analysis should use REPs, as most of this article does. However, our initial analyses here show that 5% seems to be an effective choice for excluding a purely random variable from consideration, even for quick initial analyses.
+We realize that 5% as a threshold for the median band is rather arbitrary, inspired by traditional $\alpha$ = 0.05 for statistical significance and confidence intervals. A proper analysis should use p-values, as most of this article does. However, our initial analyses here show that 5% seems to be an effective choice for excluding a purely random variable from consideration, even for quick initial analyses.
 
-We return to using REPs for the rest of this article.
+We return to using p-values for the rest of this article.
 
 ### Interpretation of normalized ALE effect sizes
 
@@ -437,11 +434,11 @@ In general, regardless of the values of ALE statistics, we should always visuall
 
 A common question for interpreting effect sizes is, "How strong does an effect need to be to be considered 'strong' or 'weak'?" On one hand, we refuse to offer general guidelines for how "strong" is "strong". The simple answer is that it depends entirely on the applied context. It is not meaningful to try to propose numerical values for statistics that are supposed to be useful for all applied contexts.
 
-On the other hand, we do consider it very important to delineate the threshold between random effects and non-random effects. It is always important to distinguish between a weak but real effect from one that is just a statistical artifact due to random chance. For that, we can offer some general guidelines based on whether or not we have REPs.
+On the other hand, we do consider it very important to delineate the threshold between random effects and non-random effects. It is always important to distinguish between a weak but real effect from one that is just a statistical artifact due to random chance. For that, we can offer some general guidelines based on whether or not we have p-values.
 
-When we have REPs for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 REP ALER minimum of a random variable and greater than the 0.05 REP maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `{ale}` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER REP threshold. 
+When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p_value ALER minimum of a random variable and greater than the 0.05 p_value maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `{ale}` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p_value threshold. 
 
-In the absence of REPs, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, the average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sensitive to exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
+In the absence of p-values, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, the average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sensitive to exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
 
 In general, if NALED \< 5%, NALER minimum \> –5%, and NALER maximum \< +5%, the input variable has no meaningful effect. All other cases are worth inspecting the ALE plots for careful interpretation:
 -   NALED \> 5% means a meaningful average effect.

@@ -141,22 +141,22 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
+      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 overlap        
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$disp
-      # A tibble: 1 x 9
+      # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
+      1    70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
+      2   258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       
       $distinct$mpg$stats[[1]]$conf_regions$significant
       # A tibble: 2 x 10
-        term  start_x end_x x_span     n n_pct start_y   end_y    trend
-        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl>
-      1 cyl       3       9      1    64     1  0.0196 -0.0236 -0.00184
-      2 disp     70.9   472      1    64     1  4.75   -5.74   -0.447  
-      # i 1 more variable: relative_to_mid <ord>
+        term  start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
+        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1 disp     70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
+      2 disp    258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
@@ -336,7 +336,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -945,7 +945,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -1100,25 +1100,26 @@
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    36 0.562 -5.30 below          
-      2 TRUE     28 0.438  6.18 below          
+      2 TRUE     28 0.438  6.18 above          
       
       $ale$boot$distinct$mpg$stats[[1]]$conf_regions$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
-      1 three    30 0.469  25.1 overlap        
+      1 three    30 0.469  25.1 above          
       2 four     24 0.375 -25.1 below          
       3 five     10 0.156 -27.4 below          
       
       
       $ale$boot$distinct$mpg$stats[[1]]$conf_regions$significant
-      # A tibble: 4 x 6
+      # A tibble: 5 x 6
         term  x         n n_pct      y relative_to_mid
         <chr> <chr> <int> <dbl>  <dbl> <ord>          
       1 vs    FALSE    36 0.562  -5.30 below          
-      2 vs    TRUE     28 0.438   6.18 below          
-      3 gear  four     24 0.375 -25.1  below          
-      4 gear  five     10 0.156 -27.4  below          
+      2 vs    TRUE     28 0.438   6.18 above          
+      3 gear  three    30 0.469  25.1  above          
+      4 gear  four     24 0.375 -25.1  below          
+      5 gear  five     10 0.156 -27.4  below          
       
       $ale$boot$distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
@@ -1852,7 +1853,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -2015,26 +2016,32 @@
       $ale$boot$distinct$vs$stats[[1]]$conf_regions
       $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term
       $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term$cyl
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1       3     4  0.167    18 0.281 1.13e-12  5.78e-13 -3.29e-12 overlap        
-      2       5     9  0.667    46 0.719 3.27e-19 -9.87e-13 -1.48e-12 below          
+      # A tibble: 4 x 9
+        start_x end_x x_span     n  n_pct   start_y     end_y     trend
+          <dbl> <dbl>  <dbl> <int>  <dbl>     <dbl>     <dbl>     <dbl>
+      1       3     3    0       1 0.0156  1.13e-12  1.13e-12  0       
+      2       4     4    0      17 0.266   5.78e-13  5.78e-13  0       
+      3       5     5    0       6 0.0938  3.27e-19  3.27e-19  0       
+      4       6     9    0.5    40 0.625  -9.05e-14 -9.87e-13 -1.79e-12
+      # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$distinct$vs$stats[[1]]$conf_regions$by_term$disp
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
-      1    70.9  472   1        36 0.562 -1.99e-16  2.16e-16  4.15e-16 below          
-      2   166.   350.  0.459    28 0.438 NA        NA        NA        overlap        
+      # A tibble: 3 x 9
+        start_x end_x x_span     n  n_pct   start_y     end_y     trend
+          <dbl> <dbl>  <dbl> <int>  <dbl>     <dbl>     <dbl>     <dbl>
+      1    70.9  70.9  0         1 0.0156 -1.99e-16 -1.99e-16  0       
+      2    79.0 146.   0.167    21 0.328  -5.55e-16 -3.68e-16  1.12e-15
+      3   397.  350.  -0.117    42 0.656   2.01e-16 NA        NA       
+      # i 1 more variable: relative_to_mid <ord>
       
       
       $ale$boot$distinct$vs$stats[[1]]$conf_regions$significant
-      # A tibble: 2 x 10
-        term  start_x end_x x_span     n n_pct   start_y     end_y     trend
-        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl>
-      1 cyl       5       9  0.667    46 0.719  3.27e-19 -9.87e-13 -1.48e-12
-      2 disp     70.9   472  1        36 0.562 -1.99e-16  2.16e-16  4.15e-16
+      # A tibble: 3 x 10
+        term  start_x end_x x_span     n  n_pct   start_y     end_y    trend
+        <chr>   <dbl> <dbl>  <dbl> <int>  <dbl>     <dbl>     <dbl>    <dbl>
+      1 cyl       3      3   0         1 0.0156  1.13e-12  1.13e-12 0       
+      2 cyl       5      5   0         6 0.0938  3.27e-19  3.27e-19 0       
+      3 disp     79.0  146.  0.167    21 0.328  -5.55e-16 -3.68e-16 1.12e-15
       # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$distinct$vs$stats[[1]]$conf_regions$sig_criterion
@@ -3068,7 +3075,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -3386,14 +3393,13 @@
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term$Sepal.Length
-      # A tibble: 5 x 9
-        start_x end_x x_span     n   n_pct   start_y     end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int>   <dbl>     <dbl>     <dbl> <dbl> <ord>          
-      1     4.3   4.3  0         1 0.00667 -0.0580   -0.0580   0     overlap        
-      2     4.9   5.7  0.222    72 0.48    -0.0885   -0.0254   0.284 below          
-      3     6     6    0        16 0.107    0.000669  0.000669 0     overlap        
-      4     6.3   6.9  0.167    48 0.32     0.143     0.248    0.630 above          
-      5     7.9   7.9  0        13 0.0867   0.0748    0.0748   0     overlap        
+      # A tibble: 4 x 9
+        start_x end_x x_span     n   n_pct   start_y   end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int>   <dbl>     <dbl>   <dbl> <dbl> <ord>          
+      1     4.3   4.3  0         1 0.00667 -0.0580   -0.0580 0     overlap        
+      2     4.9   5.7  0.222    72 0.48    -0.0885   -0.0254 0.284 below          
+      3     6     6.9  0.25     64 0.427    0.000669  0.248  0.988 above          
+      4     7.9   7.9  0        13 0.0867   0.0748    0.0748 0     overlap        
       
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$by_term$Petal.Width
       # A tibble: 2 x 9
@@ -3405,12 +3411,13 @@
       
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$significant
       # A tibble: 4 x 10
-        term  start_x end_x x_span     n n_pct start_y   end_y   trend relative_to_mid
-        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>   <dbl> <ord>          
-      1 Sepa~     4.9   5.7  0.222    72 0.48  -0.0885 -0.0254  0.284  below          
-      2 Sepa~     6.3   6.9  0.167    48 0.32   0.143   0.248   0.630  above          
-      3 Peta~     0.1   1.4  0.542    86 0.573  0.160   0.176   0.0304 above          
-      4 Peta~     1.6   2.5  0.375    64 0.427 -0.0878 -0.387  -0.797  below          
+        term         start_x end_x x_span     n n_pct   start_y   end_y   trend
+        <chr>          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>   <dbl>   <dbl>
+      1 Sepal.Length     4.9   5.7  0.222    72 0.48  -0.0885   -0.0254  0.284 
+      2 Sepal.Length     6     6.9  0.25     64 0.427  0.000669  0.248   0.988 
+      3 Petal.Width      0.1   1.4  0.542    86 0.573  0.160     0.176   0.0304
+      4 Petal.Width      1.6   2.5  0.375    64 0.427 -0.0878   -0.387  -0.797 
+      # i 1 more variable: relative_to_mid <ord>
       
       $ale$boot$distinct$versicolor$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"

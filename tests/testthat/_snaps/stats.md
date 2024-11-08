@@ -1,7 +1,7 @@
-# create_rep_dist works with default inputs (approx fast) on ale()
+# create_p_dist works with default inputs (approx fast) on ale()
 
     Code
-      pf
+      pd
     Output
       $rand_stats
       $rand_stats$mpg
@@ -23,7 +23,7 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
 
 ---
 
@@ -641,7 +641,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       $rand_stats
       $rand_stats$mpg
       # A tibble: 4 x 6
@@ -662,7 +662,7 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
       
       $params$p_alpha
       [1] 0.01 0.05
@@ -714,7 +714,7 @@
 
     Code
       set_names(map(stats_names, function(.stat) {
-        value_to_p(pf$rand_stats$mpg, .stat, test_vals)
+        value_to_p(pd$rand_stats$mpg, .stat, test_vals)
       }), stats_names)
     Output
       $aled
@@ -736,10 +736,10 @@
        [1] 1.00 1.00 1.00 1.00 0.75 0.75 0.75 0.75 0.75 0.00 0.00
       
 
-# create_rep_dist works with precise slow
+# create_p_dist works with precise slow
 
     Code
-      pf
+      pd
     Output
       $rand_stats
       $rand_stats$mpg
@@ -767,7 +767,7 @@
       [1] 10
       
       $residuals
-                     [,1]
+                      mpg
        [1,]  2.076210e-03
        [2,] -2.146996e-03
        [3,] -4.072358e-03
@@ -834,13 +834,13 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
 
 ---
 
     Code
       set_names(map(stats_names, function(.stat) {
-        p_to_random_value(pf$rand_stats$mpg, .stat, test_p)
+        p_to_random_value(pd$rand_stats$mpg, .stat, test_p)
       }), stats_names)
     Output
       $aled
@@ -874,10 +874,10 @@
       1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 0.0000 0.0000 
       
 
-# create_rep_dist works with custom random_model_call_string
+# create_p_dist works with custom random_model_call_string
 
     Code
-      pf
+      pd
     Output
       $rand_stats
       $rand_stats$mpg
@@ -899,7 +899,7 @@
       [1] 4
       
       $residuals
-                     [,1]
+                      mpg
        [1,]  2.076210e-03
        [2,] -2.146996e-03
        [3,] -4.072358e-03
@@ -966,12 +966,12 @@
       [64,] -4.463587e-04
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
 
-# create_rep_dist works with binary outcome
+# create_p_dist works with binary outcome
 
     Code
-      pf
+      pd
     Output
       $rand_stats
       $rand_stats$vs
@@ -993,12 +993,12 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
 
-# create_rep_dist works with categorical outcome
+# create_p_dist works with categorical outcome
 
     Code
-      pf
+      pd
     Output
       $rand_stats
       $rand_stats$Asia
@@ -1038,5 +1038,5 @@
       [1] 4
       
       attr(,"class")
-      [1] "ale_rep"
+      [1] "ale_p"
 

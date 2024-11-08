@@ -444,15 +444,15 @@
       # A tibble: 32 x 5
          x                       n  n_pct      y relative_to_mid
          <ord>               <int>  <dbl>  <dbl> <ord>          
-       1 Duster 360              2 0.0312  3.87  below          
-       2 Camaro Z28              2 0.0312  4.08  below          
-       3 Chrysler Imperial       2 0.0312  8.50  below          
-       4 Cadillac Fleetwood      2 0.0312  3.11  below          
-       5 Lincoln Continental     2 0.0312  3.98  below          
-       6 Pontiac Firebird        2 0.0312  6.91  below          
-       7 Hornet Sportabout       2 0.0312  4.12  below          
+       1 Duster 360              2 0.0312  3.87  above          
+       2 Camaro Z28              2 0.0312  4.08  above          
+       3 Chrysler Imperial       2 0.0312  8.50  above          
+       4 Cadillac Fleetwood      2 0.0312  3.11  above          
+       5 Lincoln Continental     2 0.0312  3.98  above          
+       6 Pontiac Firebird        2 0.0312  6.91  above          
+       7 Hornet Sportabout       2 0.0312  4.12  above          
        8 AMC Javelin             2 0.0312 -1.98  below          
-       9 Dodge Challenger        2 0.0312  0.468 below          
+       9 Dodge Challenger        2 0.0312  0.468 above          
       10 Merc 450SLC             2 0.0312 -1.14  below          
       # i 22 more rows
       
@@ -460,43 +460,49 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
+      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 overlap        
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$disp
-      # A tibble: 1 x 9
+      # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
+      1    70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
+      2   258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$hp
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1      52   335      1    64     1    2.66 -3.19 -0.250 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct start_y  end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>  <dbl> <ord>          
+      1      52  112.  0.212    29 0.453   2.66   0.603 -0.415 above          
+      2     150  335   0.654    35 0.547  -0.618 -3.19  -0.168 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$drat
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    2.74  4.98      1    64     1  -0.965  1.47 0.104 below          
+      # A tibble: 3 x 9
+        start_x end_x x_span     n n_pct start_y   end_y  trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>          
+      1    2.74  3.18  0.193    22 0.344 -0.965  -0.467  0.110  below          
+      2    3.62  3.62  0         7 0.109  0.0383  0.0383 0      overlap        
+      3    3.73  4.98  0.557    35 0.547  0.165   1.47   0.0998 above          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$wt
-      # A tibble: 1 x 9
+      # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    1.50  5.45      1    64     1    6.90 -8.94 -0.676 below          
+      1    1.50  2.79  0.327    22 0.344   6.90   1.39 -0.719 above          
+      2    3.19  5.45  0.572    42 0.656  -0.264 -8.94 -0.647 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$qsec
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    14.5  23.0      1    64     1   -7.56  9.93 0.746 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct start_y  end_y trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl> <dbl> <ord>          
+      1    14.5  17.4  0.347    29 0.453  -7.56  -0.707 0.842 below          
+      2    18.0  23.0  0.587    35 0.547   0.509  9.93  0.684 above          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$vs
       # A tibble: 2 x 5
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
-      1 FALSE    36 0.562  1.63 below          
+      1 FALSE    36 0.562  1.63 above          
       2 TRUE     28 0.438 -2.09 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$am
@@ -504,21 +510,21 @@
         x         n n_pct     y relative_to_mid
         <ord> <int> <dbl> <dbl> <ord>          
       1 FALSE    38 0.594 -1.61 below          
-      2 TRUE     26 0.406  2.36 below          
+      2 TRUE     26 0.406  2.36 above          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$gear
       # A tibble: 3 x 5
         x         n n_pct      y relative_to_mid
         <ord> <int> <dbl>  <dbl> <ord>          
-      1 three    30 0.469  1.21  below          
+      1 three    30 0.469  1.21  above          
       2 four     24 0.375 -1.79  below          
-      3 five     10 0.156  0.688 below          
+      3 five     10 0.156  0.688 above          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$carb
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y  end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>  <dbl>   <dbl> <ord>          
-      1       1     8      1    64     1 -0.0123 0.0427 0.00234 below          
+      1       1     8      1    64     1 -0.0123 0.0427 0.00234 overlap        
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$country
       # A tibble: 6 x 5
@@ -527,21 +533,21 @@
       1 Sweden      2 0.0312 -3.52  below          
       2 UK          2 0.0312 -1.31  below          
       3 Italy       8 0.125  -1.65  below          
-      4 Japan      12 0.188   0.644 below          
+      4 Japan      12 0.188   0.644 above          
       5 Germany    16 0.25   -1.81  below          
-      6 USA        24 0.375   1.84  below          
+      6 USA        24 0.375   1.84  above          
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$continent
       # A tibble: 3 x 5
         x                 n n_pct      y relative_to_mid
         <ord>         <int> <dbl>  <dbl> <ord>          
       1 North America    24 0.375 -0.421 below          
-      2 Europe           28 0.438  2.11  below          
+      2 Europe           28 0.438  2.11  above          
       3 Asia             12 0.188 -4.07  below          
       
       
       $distinct$mpg$stats[[1]]$conf_regions$significant
-      # A tibble: 55 x 12
+      # A tibble: 58 x 12
          term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
          <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
        1 model Duster 360      NA    NA     NA     2 0.0312  3.87       NA    NA    NA
@@ -554,7 +560,7 @@
        8 model AMC Javel~      NA    NA     NA     2 0.0312 -1.98       NA    NA    NA
        9 model Dodge Cha~      NA    NA     NA     2 0.0312  0.468      NA    NA    NA
       10 model Merc 450S~      NA    NA     NA     2 0.0312 -1.14       NA    NA    NA
-      # i 45 more rows
+      # i 48 more rows
       # i 1 more variable: relative_to_mid <ord>
       
       $distinct$mpg$stats[[1]]$conf_regions$sig_criterion
@@ -740,7 +746,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -1141,22 +1147,22 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 below          
+      1       3     9      1    64     1  0.0196 -0.0236 -0.00184 overlap        
       
       $distinct$mpg$stats[[1]]$conf_regions$by_term$disp
-      # A tibble: 1 x 9
+      # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
-      1    70.9   472      1    64     1    4.75 -5.74 -0.447 below          
+      1    70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
+      2   258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       
       $distinct$mpg$stats[[1]]$conf_regions$significant
       # A tibble: 2 x 10
-        term  start_x end_x x_span     n n_pct start_y   end_y    trend
-        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl>
-      1 cyl       3       9      1    64     1  0.0196 -0.0236 -0.00184
-      2 disp     70.9   472      1    64     1  4.75   -5.74   -0.447  
-      # i 1 more variable: relative_to_mid <ord>
+        term  start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
+        <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
+      1 disp     70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
+      2 disp    258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       $distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
@@ -1339,7 +1345,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -1682,7 +1688,7 @@
       $params$pred_type
       [1] "link"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -2201,43 +2207,49 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1       0     0     0 below          
+      1    10.4  33.9      1    64     1       0     0     0 overlap        
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$cyl
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
-      1       3     9      1    64     1 -2.04e-20 5.00e-20 7.04e-20 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>    <dbl> <ord>          
+      1       3     6  0.5      35 0.547 -2.04e-20 -5.67e-21 2.94e-20 below          
+      2       7     9  0.333    29 0.453  1.02e-20  5.00e-20 1.19e-19 above          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$disp
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1    70.9   472      1    64     1 4.20e-19 -1.20e-18 -1.62e-18 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1    70.9  258.  0.467    36 0.562  4.20e-19  2.16e-19 -4.35e-19 above          
+      2   300.   472   0.429    28 0.438 -5.99e-20 -1.20e-18 -2.66e-18 below          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$hp
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1      52   335      1    64     1 2.89e-18 -1.19e-17 -1.48e-17 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1     52    150  0.346    37 0.578  2.89e-18  1.09e-18 -5.20e-18 above          
+      2    176.   335  0.561    27 0.422 -7.60e-19 -1.19e-17 -1.99e-17 below          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$drat
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
-      1    2.74  4.98      1    64     1 -6.66e-18 7.19e-18 1.39e-17 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>    <dbl> <ord>          
+      1    2.74  3.18  0.193    22 0.344 -6.66e-18 -2.94e-18 1.93e-17 below          
+      2    3.62  4.98  0.608    42 0.656  1.54e-18  7.19e-18 9.30e-18 above          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$wt
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct   start_y    end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>    <dbl>    <dbl> <ord>          
-      1    1.50  5.45      1    64     1 -1.31e-17 4.12e-17 5.43e-17 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y    trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>    <dbl> <ord>          
+      1    1.50  3.19  0.428    29 0.453 -1.31e-17 -1.31e-18 2.76e-17 below          
+      2    3.44  5.45  0.509    35 0.547  1.80e-19  4.12e-17 8.06e-17 above          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$qsec
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1    14.5  23.0      1    64     1 1.47e-17 -4.87e-18 -1.96e-17 below          
+      # A tibble: 2 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1    14.5  17.0  0.300    22 0.344  1.47e-17  1.51e-18 -4.40e-17 above          
+      2    17.4  23.0  0.653    42 0.656 -7.35e-19 -4.87e-18 -6.33e-18 below          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$am
       # A tibble: 2 x 5
@@ -2255,10 +2267,12 @@
       3 five     10 0.156  0.559 above          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$carb
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1       1     8      1    64     1 4.96e-21 -2.03e-20 -2.53e-20 below          
+      # A tibble: 3 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1       1     1  0        14 0.219  4.96e-21  4.96e-21  0        above          
+      2       2     3  0.143    28 0.438  2.57e-21 -1.46e-21 -2.83e-20 overlap        
+      3       4     8  0.571    22 0.344 -5.15e-21 -2.03e-20 -2.65e-20 below          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$country
       # A tibble: 6 x 5
@@ -2281,7 +2295,7 @@
       
       
       $distinct$vs$stats[[1]]$conf_regions$significant
-      # A tibble: 54 x 12
+      # A tibble: 60 x 12
          term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
          <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
        1 model Duster 360      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
@@ -2294,7 +2308,7 @@
        8 model AMC Javel~      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
        9 model Dodge Cha~      NA    NA     NA     2 0.0312 0.0313      NA    NA    NA
       10 model Valiant         NA    NA     NA     2 0.0312 1.03        NA    NA    NA
-      # i 44 more rows
+      # i 50 more rows
       # i 1 more variable: relative_to_mid <ord>
       
       $distinct$vs$stats[[1]]$conf_regions$sig_criterion
@@ -2480,7 +2494,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -2865,10 +2879,12 @@
       $distinct$vs$stats[[1]]$conf_regions
       $distinct$vs$stats[[1]]$conf_regions$by_term
       $distinct$vs$stats[[1]]$conf_regions$by_term$hp
-      # A tibble: 1 x 9
-        start_x end_x x_span     n n_pct  start_y     end_y     trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl> <ord>          
-      1      52   335      1    64     1 2.89e-18 -1.14e-17 -1.43e-17 below          
+      # A tibble: 3 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1     52   150  0.346     37 0.578  2.89e-18  1.63e-18 -3.65e-18 above          
+      2    176.  181. 0.0155    13 0.203 -2.23e-19 -5.31e-19 -1.99e-17 overlap        
+      3    245   335  0.318     14 0.219 -5.05e-18 -1.14e-17 -1.99e-17 below          
       
       $distinct$vs$stats[[1]]$conf_regions$by_term$continent
       # A tibble: 3 x 5
@@ -2880,12 +2896,13 @@
       
       
       $distinct$vs$stats[[1]]$conf_regions$significant
-      # A tibble: 3 x 12
+      # A tibble: 4 x 12
         term      x      start_x end_x x_span     n n_pct        y   start_y     end_y
         <chr>     <chr>    <dbl> <dbl>  <dbl> <int> <dbl>    <dbl>     <dbl>     <dbl>
-      1 hp        <NA>        52   335      1    64 1     NA        2.89e-18 -1.14e-17
-      2 continent Europe      NA    NA     NA    28 0.438 -7.42e-5 NA        NA       
-      3 continent Asia        NA    NA     NA    12 0.188 -1.24e-4 NA        NA       
+      1 hp        <NA>        52   150  0.346    37 0.578 NA        2.89e-18  1.63e-18
+      2 hp        <NA>       245   335  0.318    14 0.219 NA       -5.05e-18 -1.14e-17
+      3 continent Europe      NA    NA NA        28 0.438 -7.42e-5 NA        NA       
+      4 continent Asia        NA    NA NA        12 0.188 -1.24e-4 NA        NA       
       # i 2 more variables: trend <dbl>, relative_to_mid <ord>
       
       $distinct$vs$stats[[1]]$conf_regions$sig_criterion
@@ -3069,7 +3086,7 @@
       $params$pred_type
       [1] "response"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -3418,7 +3435,7 @@
       $params$pred_type
       [1] "link"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -3936,7 +3953,7 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1       0     0     0 below          
+      1    10.4  33.9      1    64     1       0     0     0 overlap        
       
       $distinct$Asia$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 2 x 9
@@ -4014,16 +4031,16 @@
       # A tibble: 6 x 5
         x           n  n_pct     y relative_to_mid
         <ord>   <int>  <dbl> <dbl> <ord>          
-      1 UK          2 0.0312     0 below          
-      2 Sweden      2 0.0312     0 below          
-      3 Japan      12 0.188      0 below          
-      4 Italy       8 0.125      0 below          
-      5 Germany    16 0.25       0 below          
-      6 USA        24 0.375      0 below          
+      1 UK          2 0.0312     0 overlap        
+      2 Sweden      2 0.0312     0 overlap        
+      3 Japan      12 0.188      0 overlap        
+      4 Italy       8 0.125      0 overlap        
+      5 Germany    16 0.25       0 overlap        
+      6 USA        24 0.375      0 overlap        
       
       
       $distinct$Asia$stats[[1]]$conf_regions$significant
-      # A tibble: 61 x 12
+      # A tibble: 54 x 12
          term  x          start_x end_x x_span     n  n_pct      y start_y end_y trend
          <chr> <chr>        <dbl> <dbl>  <dbl> <int>  <dbl>  <dbl>   <dbl> <dbl> <dbl>
        1 model Duster 360      NA    NA     NA     2 0.0312 0.0209      NA    NA    NA
@@ -4036,7 +4053,7 @@
        8 model AMC Javel~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
        9 model Dodge Cha~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
       10 model Merc 450S~      NA    NA     NA     2 0.0312 0.0208      NA    NA    NA
-      # i 51 more rows
+      # i 44 more rows
       # i 1 more variable: relative_to_mid <ord>
       
       $distinct$Asia$stats[[1]]$conf_regions$sig_criterion
@@ -4509,7 +4526,7 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1       0     0     0 below          
+      1    10.4  33.9      1    64     1       0     0     0 overlap        
       
       $distinct$Europe$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 2 x 9
@@ -4533,11 +4550,12 @@
       2     335   335  0         6 0.0938  0.333   0.333  0         above          
       
       $distinct$Europe$stats[[1]]$conf_regions$by_term$drat
-      # A tibble: 2 x 9
-        start_x end_x x_span     n n_pct   start_y      end_y    trend relative_to_mid
-          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>      <dbl>    <dbl> <ord>          
-      1    2.74  3.93  0.532    50 0.781  3.01e- 6    2.54e-6 -8.76e-7 above          
-      2    4.21  4.98  0.344    14 0.219 -5.20e-10   -4.13e-5 -1.20e-4 below          
+      # A tibble: 3 x 9
+        start_x end_x x_span     n n_pct   start_y     end_y     trend relative_to_mid
+          <dbl> <dbl>  <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl> <ord>          
+      1    2.74  3.93  0.532    50 0.781  3.01e- 6  2.54e- 6  -8.76e-7 above          
+      2    4.21  4.21  0         7 0.109 -5.20e-10 -5.20e-10   0       overlap        
+      3    4.98  4.98  0         7 0.109 -4.13e- 5 -4.13e- 5   0       below          
       
       $distinct$Europe$stats[[1]]$conf_regions$by_term$wt
       # A tibble: 2 x 9
@@ -4550,7 +4568,7 @@
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct      start_y    end_y   trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>        <dbl>    <dbl>   <dbl> <ord>          
-      1    14.5  18.9  0.521    50 0.781 -0.000000437 -8.99e-8 6.66e-7 below          
+      1    14.5  18.9  0.521    50 0.781 -0.000000437 -8.99e-8 6.66e-7 overlap        
       2    20    23.0  0.350    14 0.219  0.00000111   1.19e-6 2.33e-7 above          
       
       $distinct$Europe$stats[[1]]$conf_regions$by_term$vs
@@ -4586,16 +4604,16 @@
       # A tibble: 6 x 5
         x           n  n_pct     y relative_to_mid
         <ord>   <int>  <dbl> <dbl> <ord>          
-      1 UK          2 0.0312     0 below          
-      2 Sweden      2 0.0312     0 below          
-      3 Japan      12 0.188      0 below          
-      4 Italy       8 0.125      0 below          
-      5 Germany    16 0.25       0 below          
-      6 USA        24 0.375      0 below          
+      1 UK          2 0.0312     0 overlap        
+      2 Sweden      2 0.0312     0 overlap        
+      3 Japan      12 0.188      0 overlap        
+      4 Italy       8 0.125      0 overlap        
+      5 Germany    16 0.25       0 overlap        
+      6 USA        24 0.375      0 overlap        
       
       
       $distinct$Europe$stats[[1]]$conf_regions$significant
-      # A tibble: 60 x 12
+      # A tibble: 52 x 12
          term  x         start_x end_x x_span     n  n_pct       y start_y end_y trend
          <chr> <chr>       <dbl> <dbl>  <dbl> <int>  <dbl>   <dbl>   <dbl> <dbl> <dbl>
        1 model Duster 3~      NA    NA     NA     2 0.0312  0.537       NA    NA    NA
@@ -4608,7 +4626,7 @@
        8 model AMC Jave~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
        9 model Dodge Ch~      NA    NA     NA     2 0.0312 -0.0168      NA    NA    NA
       10 model Merc 450~      NA    NA     NA     2 0.0312 -0.0167      NA    NA    NA
-      # i 50 more rows
+      # i 42 more rows
       # i 1 more variable: relative_to_mid <ord>
       
       $distinct$Europe$stats[[1]]$conf_regions$sig_criterion
@@ -5081,7 +5099,7 @@
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y end_y trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl> <dbl> <ord>          
-      1    10.4  33.9      1    64     1       0     0     0 below          
+      1    10.4  33.9      1    64     1       0     0     0 overlap        
       
       $distinct$`North America`$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 2 x 9
@@ -5158,16 +5176,16 @@
       # A tibble: 6 x 5
         x           n  n_pct     y relative_to_mid
         <ord>   <int>  <dbl> <dbl> <ord>          
-      1 UK          2 0.0312     0 below          
-      2 Sweden      2 0.0312     0 below          
-      3 Japan      12 0.188      0 below          
-      4 Italy       8 0.125      0 below          
-      5 Germany    16 0.25       0 below          
-      6 USA        24 0.375      0 below          
+      1 UK          2 0.0312     0 overlap        
+      2 Sweden      2 0.0312     0 overlap        
+      3 Japan      12 0.188      0 overlap        
+      4 Italy       8 0.125      0 overlap        
+      5 Germany    16 0.25       0 overlap        
+      6 USA        24 0.375      0 overlap        
       
       
       $distinct$`North America`$stats[[1]]$conf_regions$significant
-      # A tibble: 60 x 12
+      # A tibble: 53 x 12
          term  x        start_x end_x x_span     n  n_pct        y start_y end_y trend
          <chr> <chr>      <dbl> <dbl>  <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl> <dbl>
        1 model Duster ~      NA    NA     NA     2 0.0312 -0.558        NA    NA    NA
@@ -5180,7 +5198,7 @@
        8 model AMC Jav~      NA    NA     NA     2 0.0312 -0.00399      NA    NA    NA
        9 model Dodge C~      NA    NA     NA     2 0.0312 -0.00399      NA    NA    NA
       10 model Merc 45~      NA    NA     NA     2 0.0312 -0.00404      NA    NA    NA
-      # i 50 more rows
+      # i 43 more rows
       # i 1 more variable: relative_to_mid <ord>
       
       $distinct$`North America`$stats[[1]]$conf_regions$sig_criterion
@@ -5365,7 +5383,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -6098,7 +6116,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha
@@ -6499,7 +6517,7 @@
       $params$pred_type
       [1] "probs"
       
-      $params$rep
+      $params$p_values
       NULL
       
       $params$p_alpha

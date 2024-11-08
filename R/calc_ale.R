@@ -25,7 +25,7 @@
 #' @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values. If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
 #' @param bins,ns numeric or ordinal vector,integer vector. Normally generated automatically (if `bins == NULL`), but if provided, the provided values will be used instead. They would mainly be provided from [model_bootstrap()].
 #' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ale()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
-#' @param rep_dist See documentation for `rep` in [ale()]
+#' @param p_dist See documentation for `p_values` in [ale()]
 #'
 calc_ale <- function(
     X, model,
@@ -38,7 +38,7 @@ calc_ale <- function(
     bins = NULL,
     ns = NULL,
     ale_y_norm_funs = NULL,
-    rep_dist = NULL
+    p_dist = NULL
 ) {
 
   # Set up base variables --------------
@@ -844,8 +844,8 @@ calc_ale <- function(
           select('statistic', 'estimate', everything())
       })
 
-    # If rep_dist is provided, calculate REPs
-    if (!is.null(rep_dist)) {
+    # If p_dist is provided, calculate p-values
+    if (!is.null(p_dist)) {
       boot_stats <- boot_stats |>
         imap(\(it.cat_stats, it.cat) {
           it.cat_stats |>
@@ -853,8 +853,8 @@ calc_ale <- function(
               p.value = map2_dbl(
                 .data$estimate, .data$statistic,
                 \(it.stat, it.stat_name) {
-                  # Call the REP function corresponding to the named statistic
-                  rep_dist$rand_stats[[it.cat]] |>
+                  # Call the p_value function corresponding to the named statistic
+                  p_dist$rand_stats[[it.cat]] |>
                     value_to_p(it.stat_name, it.stat)
                 })
             ) |>

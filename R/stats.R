@@ -280,11 +280,11 @@ var_summary <- function(
     var_vals,
     ...,
     median_band_pct = c(0.05, 0.5),
-    rep_dist = NULL,
+    p_dist = NULL,
     p_alpha = c(0.01, 0.05)
 ) {
-  if (!is.null(rep_dist)) {
-    rand_stats <- rep_dist$rand_stats
+  if (!is.null(p_dist)) {
+    rand_stats <- p_dist$rand_stats
   }
 
   # Convert vector to matrix
@@ -311,8 +311,8 @@ var_summary <- function(
       )
     })
 
-  # Calculate the REPs necessary to obtain the desired joint probabilities.
-  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The REP for this joint probability is smaller than the untransformed REP.
+  # Calculate the p-values necessary to obtain the desired joint probabilities.
+  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
   joint_p <- 1 - sqrt(1 - p_alpha)
 
   # s <- s |>
@@ -327,19 +327,17 @@ var_summary <- function(
       # .col[1:match('25%', names(.col))],
 
       # Create lower confidence bounds just below the midpoint
-      med_lo_2 = if (!is.null(rep_dist)) {
+      med_lo_2 = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[1])) |>
           unname()
-        # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[1]))
       } else {
         .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
       },
-      med_lo = if (!is.null(rep_dist)) {
+      med_lo = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[2])) |>
           unname()
-        # unname(.col[['50%']] + p_funs$p_to_random_value$aler_min(joint_p[2]))
       } else {
         .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
       },
@@ -349,14 +347,14 @@ var_summary <- function(
       mean = mean(var_vals, na.rm = TRUE),
 
       # Create upper confidence bounds just above the midpoint
-      med_hi = if (!is.null(rep_dist)) {
+      med_hi = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[2])) |>
           unname()
       } else {
         .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
       },
-      med_hi_2 = if (!is.null(rep_dist)) {
+      med_hi_2 = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[1])) |>
           unname()
@@ -409,10 +407,10 @@ var_summary <- function(
   colnames(s)[1] <- var_name
 
 
-  # Encode whether the med values represent REPs or not:
-  # names(s[1]) == 'p': base REP
-  # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by REPs)
-  s <- if (is.null(rep_dist)) {
+  # Encode whether the med values represent p-values or not:
+  # names(s[1]) == 'p': base p_value
+  # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
+  s <- if (is.null(p_dist)) {
     rbind(
       q = rep(median_band_pct[1], ncol(s)),
       s
@@ -495,7 +493,7 @@ pivot_stats <- function(long_stats) {
 summarize_conf_regions <- function(
     ale_data_list,  # list of ale_data elements
     y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'rep' or 'median_band_pct'
+    sig_criterion  # string either 'p_values' or 'median_band_pct'
   ) {
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
