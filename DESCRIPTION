@@ -32,6 +32,7 @@ Imports:
     grDevices,
     insight,
     labeling,
+    patchwork,
     progressr,
     purrr,
     rlang,

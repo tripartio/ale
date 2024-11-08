@@ -246,6 +246,76 @@ plot.ale_boot <- function(
 }
 
 
+#' Print method for ale_plots object
+#'
+#' Print an ale_plots object.
+#'
+#' @param x An object of class `ale_plots`.
+#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' @param ... Additional arguments (currently not used).
+#'
+#' @return Invisibly returns `x`.
+#'
+#' @examples
+#' \dontrun{
+#' my_object <- structure(list(name = "Example", value = 42), class = "my_class")
+#' print(my_object)
+#' }
+#'
+#' @export
+print.ale_plots <- function(x, max_print = 20L, ...) {
+  count_1D <- x$distinct |>
+    purrr::map_int(\(it.cat) length(it.cat$plots[[1]]))
+
+  count_2D <- if (x$params$max_d >= 2) {
+    x$distinct |>
+      purrr::map_int(\(it.cat) {
+        it.cat$plots[[2]] |>
+          purrr::map_int(length) |>
+          sum()
+      })
+  } else {
+    0L
+  }
+
+  count_plots <- count_1D + count_2D
+
+  cat(
+    str_glue("'ale_plots' object with {count_1D} 1D and {count_2D} 2D ALE plots."),
+    "\n"
+  )
+
+  if ((0 < count_1D) && (count_1D <= max_print)) {
+    x$distinct |>
+      purrr::walk(\(it.cat) {
+        it.cat$plots[[1]] |>
+          patchwork::wrap_plots() |>
+          patchwork:::print.patchwork()
+      })
+  } else {
+    cli_alert_info(
+      "With more than {max_print} 1D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
+    )
+  }
+
+  if ((0 < count_2D) && (count_2D <= max_print)) {
+    x$distinct |>
+      walk(\(it.cat) {
+        it.cat$plots[[2]] |>
+          purrr::list_flatten() |>
+          patchwork::wrap_plots() |>
+          patchwork:::print.patchwork()
+      })
+  } else {
+    cli_alert_info(
+      "With more than {max_print} 2D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
+    )
+  }
+
+  invisible(x)
+}
+
+
 
 #  Plot ALE data
 #
