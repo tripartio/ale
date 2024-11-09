@@ -328,7 +328,12 @@ create_p_dist <- function(
   residuals <- unname(residuals)
 
   # Determine the closest distribution of the residuals
-  residual_distribution <- univariateML::model_select(residuals)
+  suppressWarnings({
+    # univariateML::model_select() often generates warnings without a specific class, so silently suppress them so that they don't propagate to the ale package
+    residual_distribution <- univariateML::model_select(residuals)
+  })
+
+
 
   # Create ALEs for random variables based on residual_distribution
   package_scope$rand_data <- data
