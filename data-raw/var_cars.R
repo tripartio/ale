@@ -1,16 +1,14 @@
 ## create var_cars dataset
 
-library(dplyr)
-
 # Create a function to determine the country of origin of a car based on its make
-car_country <- function(make) {
-  american_makes <- c("AMC", "Cadillac", "Camaro", "Chrysler", "Dodge", "Duster", "Ford", "Hornet", "Lincoln", "Pontiac", "Valiant")
-  japanese_makes <- c("Datsun", "Honda", "Mazda", "Toyota")
-  italian_makes <- c("Ferrari", "Fiat", "Maserati")
-  british_makes <- c("Lotus")
-  swedish_makes <- c("Volvo")
-  german_makes <- c("Merc", "Porsche")
+american_makes <- c("AMC", "Cadillac", "Camaro", "Chrysler", "Dodge", "Duster", "Ford", "Hornet", "Lincoln", "Pontiac", "Valiant")
+japanese_makes <- c("Datsun", "Honda", "Mazda", "Toyota")
+italian_makes <- c("Ferrari", "Fiat", "Maserati")
+british_makes <- c("Lotus")
+swedish_makes <- c("Volvo")
+german_makes <- c("Merc", "Porsche")
 
+car_country <- function(make) {
   case_when(
     make %in% american_makes ~ 'USA',
     make %in% japanese_makes ~ 'Japan',
@@ -21,13 +19,26 @@ car_country <- function(make) {
   )
 }
 
+car_continent <- function(make) {
+  case_when(
+    make %in% c(american_makes) ~ 'North America',
+    make %in% c(japanese_makes) ~ 'Asia',
+    make %in% c(italian_makes, british_makes, swedish_makes, german_makes) ~ 'Europe',
+  )
+}
+
 var_cars <-
   mtcars |>
-  as_tibble(rownames = 'make') |>
-  # retain only first word as the make without the car model
+  as_tibble(rownames = 'model') |>
   mutate(
-    make = stringr::str_extract(make, "^\\S+") |> factor(),
-    country = car_country(make) |> factor()
+    # extract first word only to identify the make
+    make = stringr::str_extract(model, '^\\S+'),
+    country = make |>
+      car_country() |>
+      factor(),
+    continent = make |>
+      car_continent() |>
+      factor(),
   ) |>
   select(-make) |>
   mutate(across(c(vs, am), as.logical)) |>
