@@ -30,7 +30,6 @@ Imports:
     ggplot2,
     grDevices,
     insight,
-    labeling,
     patchwork,
     progressr,
     purrr,

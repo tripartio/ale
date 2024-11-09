@@ -998,6 +998,19 @@ plot_effects <- function(
     y_col,
     middle_band
 ) {
+  # Essential functionality of labeling::extended or scales::breaks_extended()
+  nice_breaks <- function(limits, n) {
+    range <- diff(limits)
+    raw_step <- range / (n - 1)
+
+    # Round step size to a "nice" number
+    magnitude <- 10^floor(log10(raw_step))
+    nice_step <- c(1, 2, 5, 10) * magnitude
+    step <- nice_step[which.min(abs(nice_step - raw_step))]
+
+    seq(floor(limits[1] / step) * step, ceiling(limits[2] / step) * step, by = step)
+  }
+
   # # Create deciles for NALED and NALER axis
   # norm_deciles <-
   #   y_vals |>
@@ -1064,11 +1077,8 @@ plot_effects <- function(
       breaks = \(it.limits) {
         # Create 4 logically placed breaks + add the median.
         # 5 major breaks on the lower raw outcome scale counterbalances 10 decile breaks on the upper percentile scale.
-        labeling::extended(
-          it.limits[1], it.limits[2], 4
-        ) |>
+        nice_breaks(c(it.limits[1], it.limits[2]), 4) |>
           c(y_summary[['50%']]) |>
-          # c(median(y_vals)) |>
           round_dp()
       },
       # Use decile for minor breaks
