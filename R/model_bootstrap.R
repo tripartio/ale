@@ -142,6 +142,8 @@
 #' patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 #' }
 #'
+#' @import staccuracy
+#'
 model_bootstrap <- function (
     data,
     model,
