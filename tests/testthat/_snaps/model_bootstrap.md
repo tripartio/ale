@@ -12,7 +12,7 @@
       3 nobs             64     64    64        64       NA
       4 adj.r.squared     1.00   1.00  1.00      1.00    NA
       5 npar             90     90    90        90       NA
-
+      
       $model_coefs
       # A tibble: 5 x 6
         term    conf.low median  mean conf.high std.error
@@ -1003,10 +1003,9 @@
       $ale$single$params$boot_centre
       [1] "mean"
       
-
       $ale$single$params$y_type
       [1] "numeric"
-
+      
       $ale$single$params$median_band_pct
       [1] 0.05 0.50
       
@@ -2363,7 +2362,7 @@
       3 auc (setosa)          1        1         NA    NA         1 0      
       4 auc (versicolor)      0.998    0.995     NA    NA         1 0.00250
       5 auc (virginica)       0.999    0.997     NA    NA         1 0.00139
-
+      
       $model_coefs
       # A tibble: 10 x 7
          y.level    term         conf.low median   mean conf.high std.error
