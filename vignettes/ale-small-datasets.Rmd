@@ -98,33 +98,38 @@ ale_lm_attitude_simple <- ale(
 )
 
 # Print all plots
-ale_lm_attitude_simple$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+lm_attitude_simple_plots <- plot(ale_lm_attitude_simple)
+lm_attitude_simple_1D_plots <- lm_attitude_simple_plots$distinct$rating$plots[[1]]
+patchwork::wrap_plots(lm_attitude_simple_1D_plots, ncol = 2)
 ```
 
 This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.
 
 What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
 
-We can use `ale_ixn()` to visualize the possible existence of any interactions:
+We can also use `ale()` to visualize the possible existence of any interactions by specifying `complete_d = 2` to calculate all 2D interactions:
 
-```{r lm_ixn, fig.width=7, fig.height=7}
-ale_lm_attitude_ixn <- ale_ixn(
+```{r lm_2D, fig.width=7, fig.height=7}
+ale_lm_attitude_2D <- ale(
   attitude, lm_attitude,
+  complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
+# Create ale_plots object
+attitude_plots <- plot(ale_lm_attitude_2D)
+attitude_2D_plots <- attitude_plots$distinct$rating$plots[[2]]
 # Print plots
-ale_lm_attitude_ixn$plots |>
+attitude_2D_plots |>
   # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {  
+  purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2) |> 
       print()
   })
 ```
 
-This is a powerful use-case for the `ale` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not continue exploring them.
+This is a powerful use-case for the `ale` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not explore them further.
 
 ## Full model bootstrapping
 
@@ -172,8 +177,9 @@ mb_lm$model_coefs
 Here we can visualize the results of the ALE plots.
 
 ```{r lm_full_ale, fig.width=7, fig.height=7}
-mb_lm$ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+mb_lm_plots <- plot(mb_lm)
+mb_lm_1D_plots <- mb_lm_plots$distinct$rating$plots[[1]]
+patchwork::wrap_plots(mb_lm_1D_plots, ncol = 2)
 ```
 
 The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
@@ -208,8 +214,9 @@ ale_gam_attitude_simple <- ale(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-ale_gam_attitude_simple$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+gam_attitude_simple_plots <- plot(ale_gam_attitude_simple)
+gam_attitude_simple_1D_plots <- gam_attitude_simple_plots$distinct$rating$plots[[1]]
+patchwork::wrap_plots(gam_attitude_simple_1D_plots, ncol = 2)
 ```
 
 Compared to the OLS results above, the GAM results provide quite a surprise concerning the shape of the effect of employees' perceptions that their department is too critical--it seems that both low criticism and very high criticism negatively affect ratings. However, before trying to interpret these results, we must remember that results that are not bootstrapped are simply not reliable. So, let us see what bootstrapping will give us.
@@ -229,8 +236,9 @@ mb_gam$model_coefs
 ```
 
 ```{r gam_full_ale, fig.width=7, fig.height=7}
-mb_gam$ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+mb_gam_plots <- plot(mb_gam)
+mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots[[1]]
+patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 ```
 
 The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.

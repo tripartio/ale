@@ -227,8 +227,9 @@ ALE was developed to graphically display the relationship between predictor vari
 ### ALE plots with p-values
 
 ```{r all-ALE-plots, fig.width=7, fig.height=10}
-mb_gam_math$ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+mb_gam_plots <- plot(mb_gam_math)
+mb_gam_1D_plots <- mb_gam_plots$distinct$math_avg$plots[[1]]
+patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 ```
 
 We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey band that indicates the median ± 5% of random values. Below, we will explain what exactly the ALE range (ALER) means, but for now, we can say this:
@@ -260,8 +261,9 @@ mb_gam_no_p <- model_bootstrap(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-mb_gam_no_p$ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+mb_no_p_plots <- plot(mb_gam_no_p)
+mb_no_p_1D_plots <- mb_no_p_plots$distinct$math_avg$plots[[1]]
+patchwork::wrap_plots(mb_no_p_1D_plots, ncol = 2)
 ```
 
 In the absence of p-values, the {ale} packages uses alternate visualizations to offer meaningful results, but with somewhat different interpretations of the middle grey band. Without p-values, we do not have any point of reference for the ALER statistics, so we use percentiles around the median as the reference. The middle grey band here indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% around the median by default, but the value can be changed with the `median_band_pct` argument.) For further reference, the outer dashed lines indicate the interquartile range of the outcome values, that is, the 25th and 75th percentiles.
@@ -275,6 +277,7 @@ For most of the rest of this article, we will only analyze the results with ALER
 Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated when `ale` is executed and both statistics and plots are requested (which is the case by default) and is accessible with the To focus on all the measures for a specific variable, we can access the `ale$stats$effects_plot` element:
 
 ```{r ALE-effects-plot, fig.width=8, fig.height=6}
+mb_gam_plots$distinct$math_avg$plots
 mb_gam_math$ale$stats$effects_plot
 ```
 
@@ -309,7 +312,7 @@ ALER shows the extreme values of a variable's effect on the outcome. In the effe
 Let's focus on `public`. Here is its ALE plot:
 
 ```{r ALE-plot-for-public-1}
-mb_gam_math$ale$plots$public
+mb_gam_1D_plots$public
 ```
 
 
@@ -317,7 +320,7 @@ mb_gam_math$ale$plots$public
 Here are the effect size measures for the categorical `public`:
 
 ```{r ALE stats for public}
-mb_gam_math$ale$stats$by_term$public
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$by_term$public
 ```
 
 We see there that `public` has an ALER of [`r c(mb_gam_math$ale$stats$by_term$public$estimate['aler_min'], mb_gam_math$ale$stats$by_term$public$estimate['aler_max']) |> round(2)`]. When we consider that the median math score in the dataset is `r math$math_avg |> median() |> round(1)`, this ALER indicates that the minimum of any ALE y value for `public` (when `public == TRUE`) is `r mb_gam_math$ale$stats$by_term$public$estimate['aler_min'] |> round(2)` below the median. This is shown at the `r (math$math_avg |> median() + mb_gam_math$ale$stats$by_term$public$estimate['aler_min']) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r mb_gam_math$ale$stats$by_term$public$estimate['aler_max'] |> round(2)` above the median, shown at the `r (math$math_avg |> median() + mb_gam_math$ale$stats$by_term$public$estimate['aler_max']) |> round(1)` point above.
@@ -327,13 +330,13 @@ The unit for ALER is the same unit as the outcome variable; in our case, that is
 For contrast, let us look at a numeric variable, `academic_ratio`:
 
 ```{r ALE-plot-forl-academic_ratio-1}
-mb_gam_math$ale$plots$academic_ratio
+mb_gam_1D_plots$academic_ratio
 ```
 
 Here are its ALE effect size measures:
 
 ```{r ALE stats for academic_ratio}
-mb_gam_math$ale$stats$by_term$academic_ratio
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$by_term$academic_ratio
 ```
 
 The ALER for `academic_ratio` is considerably broader with `r mb_gam_math$ale$stats$by_term$academic_ratio$estimate['aler_min'] |> round(2)` below and `r mb_gam_math$ale$stats$by_term$academic_ratio$estimate['aler_max'] |> round(2)` above the median.
@@ -401,12 +404,12 @@ When we do not have p-values, the NALED is particularly helpful in comparing the
 It is particularly striking to note the ALE effect size measures for the random `rand_norm`:
 
 ```{r math-rand_norm-ALE-plot, fig.width=3.5, fig.height=3}
-mb_gam_math$ale$plots$rand_norm
+mb_gam_1D_plots$rand_norm
 ```
 
 
 ```{r ALE stats for rand_norm}
-mb_gam_math$ale$stats$by_term$rand_norm
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$by_term$rand_norm
 ```
 
 `rand_norm` has a NALED of `r mb_gam_math$ale$stats$by_term$rand_norm$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have some numeric value or the other. However, by setting our default value for the median band at 5%, we effectively exclude `rand_norm` from serious consideration. In informal tests with several different random seeds, the random variables never exceeded this 5% threshold. Setting the median band too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r mb_gam_math$ale$stats$by_term$discrim$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
@@ -454,7 +457,7 @@ Although effect sizes are valuable in summarizing the global effects of each var
 To understand how bootstrapped ALE can be used for statistical inference, we must understand the structure of ALE data. Let's begin simple with a binary variable with just two categories, `public`:
 
 ```{r ale data for public}
-mb_gam_math$ale$data$public
+mb_gam_math$ale$boot$distinct$math_avg$ale[[1]]$public
 ```
 
 Here is the meaning of each column of `ale$data` for a categorical variable:
@@ -469,7 +472,7 @@ By default, the `ale` package centres ALE values on the median of the outcome va
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
 ```{r ale data for academic_ratio}
-mb_gam_math$ale$data$academic_ratio
+mb_gam_math$ale$boot$distinct$math_avg$ale[[1]]$academic_ratio
 ```
 
 The columns are the same as with a categorical variable, but instead of `.bin`, we have `.ceil` since there are no categories. To calculate ALE for numeric variables, the range of *x* values is divided into bins (by default 100, customizable with the `max_num_bins` argument). Because numeric variables often have multiple values in a bin, the ALE data stores the ceilings (upper bounds) of the bins. If the *x* values have fewer than 100 distinct values in the data, then each distinct value becomes its own bin and we record its value as the ceiling of the bin. (This is often the case with smaller datasets like ours; here `academic_ratio` has only `r nrow(mb_gam_math$ale$data$academic_ratio)` distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. The other columns mean the same thing as with categorical variables: `.n` is the number of rows of data in each bin and `.y` is the calculated ALE for the bin whose ceiling is `.ceil`.
@@ -481,13 +484,13 @@ In a bootstrapped ALE plot, values within the confidence intervals are statistic
 We can see this, for example, with the plot of `mean_ses`:
 
 ```{r ALE-plot-for-mean_ses}
-mb_gam_math$ale$plots$mean_ses
+mb_gam_1D_plots$mean_ses
 ```
 
 It might not always be easy to tell from a plot which regions are relevant, so the results of statistical significance are summarized with the `ale$conf_regions$by_term` element, which can be accessed for each variable from its `by_term` element:
 
 ```{r conf_regions for mean_ses}
-mb_gam_math$ale$conf_regions$by_term$mean_ses
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$by_term$mean_ses
 ```
 
 For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance band, they overlap the band, or they are all above the band. Here are the summary components:
@@ -506,7 +509,8 @@ These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below th
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
 ```{r text conf_regions for mean_ses}
-ale:::summarize_conf_regions_in_words(mb_gam_math$ale$conf_regions$by_term$mean_ses)
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$conf_regions$by_term$mean_ses |> 
+  ale:::summarize_conf_regions_in_words()
 ```
 
 While the wording is rather mechanical, it nonetheless illustrates the potential value of being able to summarize the inferentially relevant conclusions in tabular form.
@@ -514,13 +518,13 @@ While the wording is rather mechanical, it nonetheless illustrates the potential
 Confidence region summary tables are available not only for numeric but also for categorical variables, as we see with `public`. Here is its ALE plot again:
 
 ```{r ALE-plot-for-public-2}
-mb_gam_math$ale$plots$public
+mb_gam_1D_plots$public
 ```
 
 And here is its confidence regions summary table:
 
 ```{r conf_regions for public}
-mb_gam_math$ale$conf_regions$by_term$public
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$conf_regions$by_term$public
 ```
 
 Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `n_pct` of the respective category and `relative_to_mid` as before to indicate whether the indicated category is below, overlaps with, or is above the ALER band.
@@ -530,13 +534,13 @@ Again with the help of `ale:::summarize_conf_regions_in_words`, these results te
 Again, our random variable `rand_norm` is particularly interesting. Here is its ALE plot:
 
 ```{r ALE-plot-for-rand_norm}
-mb_gam_math$ale$plots$rand_norm
+mb_gam_1D_plots$rand_norm
 ```
 
 And here is its confidence regions summary table:
 
 ```{r conf_regions for rand_norm}
-mb_gam_math$ale$conf_regions$by_term$rand_norm
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$conf_regions$by_term$rand_norm
 ```
 
 Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 12 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
@@ -544,14 +548,14 @@ Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the me
 We can conveniently summarize all the confidence regions from all variables that are statistically significant or meaningful by accessing the `conf_regions$significant` element:
 
 ```{r significant conf_regions}
-mb_gam_math$ale$conf_regions$significant
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$conf_regions$significant
 ```
 
 This summary focuses only on the x variables that have meaningful ALE regions anywhere in their domain. We can also conveniently isolate which variables have any such meaningful region by extracting the unique values in the `term` column:
 
 
 ```{r variables with significant conf_regions}
-mb_gam_math$ale$conf_regions$significant$term |> 
+mb_gam_math$ale$boot$distinct$math_avg$stats[[1]]$conf_regions$significant$term |> 
   unique()
 ```
 

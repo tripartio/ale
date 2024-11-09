@@ -85,8 +85,9 @@ cars_ale <- ale(
 )
 
 # Print all plots
-cars_ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+cars_plots <- plot(cars_ale)
+cars_1D_plots <- cars_plots$distinct$mpg$plots[[1]]
+patchwork::wrap_plots(cars_1D_plots, ncol = 2)
 ```
 
 We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
@@ -95,18 +96,21 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 
 We can also generate and plot the ALE data for all two-way interactions.
 
-```{r cars_ale_ixn, fig.width=7, fig.height=7}
-cars_ale_ixn <- ale_ixn(
+```{r cars_ale_2D, fig.width=7, fig.height=7}
+cars_ale_2D <- ale(
   var_cars, cars_gam,
+  complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print plots
-cars_ale_ixn$plots |>
+cars_2D_plots <- plot(cars_ale_2D)
+cars_2D_plots <- cars_2D_plots$distinct$mpg$plots[[2]]
+cars_2D_plots |>
   # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {  
+  purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2) |> 
       print()
   })
 ```
@@ -124,8 +128,9 @@ mb <- model_bootstrap(
   seed = 2  # workaround to avoid random error on such a small dataset
 )
 
-mb$ale$plots |> 
-  patchwork::wrap_plots(ncol = 2)
+mb_plots <- plot(mb)
+mb_1D_plots <- mb_plots$distinct$mpg$plots[[1]]
+patchwork::wrap_plots(mb_1D_plots, ncol = 2)
 ```
 
 (By default, `model_bootstrap()` creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) 
