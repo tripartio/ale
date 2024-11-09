@@ -614,21 +614,12 @@ model_bootstrap <- function (
                     list(
                       data = .boot_data,
                       model = .boot_model,
-                      # ixn = FALSE,
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
                       # do not generate plots or request conf_regions
                       output = c('data', 'stats'),
-                      bins = if (it == 0) {
-                        NULL
-                      } else {
-                        bins
-                      },
-                      ns = if (it == 0) {
-                        NULL
-                      } else {
-                        ns
-                      },
+                      bins = if (it == 0) NULL else bins,
+                      ns = if (it == 0) NULL else ns,
                       silent = TRUE  # silence inner bootstrap loop
                     ),
                     # pass all other desired options, e.g., specific x_col
@@ -641,7 +632,10 @@ model_bootstrap <- function (
               error = \(e) {
                 if (it == 0) {
                   # Terminate early if the full model cannot produce ALE
-                  cli_abort('Could not calculate ALE:', e)
+                  # browser()
+                  cli_alert_danger('Could not calculate ALE:\n')
+                  print(e)
+                  stop()
                 } else {
                   NULL
                 }

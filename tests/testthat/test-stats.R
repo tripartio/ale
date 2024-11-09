@@ -9,14 +9,14 @@ test_that(
     pd <- create_p_dist(
       test_cars,
       test_gam,
-      parallel = 0,  # disable parallelization for testing
+      # disable parallelization for testing
+      parallel = 0,
       silent = TRUE
     )
     expect_snapshot(unclass(pd))
 
     cars_ale <- ale(
       test_cars, test_gam,
-      # faster test
       max_num_bins = 10,
       p_values = pd,
       output = 'stats',

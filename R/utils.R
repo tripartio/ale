@@ -9,7 +9,7 @@
 #' Improvements:
 #' * Validation: ensure that the object is atomic (not just a vector)
 #' * For factors, get all classes and check if any class_x is a factor or ordered
-#' * Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
+#' * Add arguments to return a unique mode with options to sort: occurrence order, lexicographical
 # #
 # # modes(c(1, 2, 3, 3, 4, 4, 5))
 # # modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))

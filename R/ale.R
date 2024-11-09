@@ -688,6 +688,8 @@ ale <- function (
     bind_rows()
 
 
+  # Organize results -------------
+
   # Organize by categories
   ales <- ales |>
     split(ales$cat)
@@ -719,11 +721,11 @@ ale <- function (
     # ale_struc$distinct[[it.cat]] <- it.ar_1D
 
     # Assign 2D ALE results to ale_struc
-    if (length(x_cols[[2]]) >= 2) {
-      it.ales_2D <- ales[[it.cat]] |>
+    if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
+        it.ales_2D <- ales[[it.cat]] |>
         filter(.data$ale_d == 2)
 
-      it.ar_2D <- 1:nrow(it.ales_2D) |>
+        it.ar_2D <- 1:nrow(it.ales_2D) |>
         map(\(i.2D) {
           it.ales_2D[i.2D, ] |>
             as.list() |>
@@ -757,9 +759,11 @@ ale <- function (
 
       ale_struc$distinct[[it.cat]][[2]] <- ale_2D_struc
       # ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc
-    }  # if (length(x_cols[[2]]) >= 2)
+    }  # if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 2) {
 
   }
+
+  # browser()
 
 
 
@@ -795,7 +799,8 @@ ale <- function (
         }  # if ('conf_regions' %in% output)
       }  # if (length(x_cols[[1]]) >= 1) {
 
-      if (length(x_cols[[2]]) >= 1) {
+      if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
+        # if (length(x_cols[[2]]) >= 1) {
         # Iterate statistics for each x1 variable
         for (it.x1 in names(ale_struc$distinct[[it.cat]][[2]]$stats)) {
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] <-

@@ -5,35 +5,32 @@
 
 # Test numeric outcomes ----------------
 
-# test_that(
-#   'Parallelized versions do not crash', {
-#     # No bootstrap
-#     expect_no_error(
-#       ale(
-#         test_cars, test_gam,
-#         complete_d = 2,
-#         max_num_bins = 10,
-#         x1_cols = c('cyl', 'disp'),
-#         max_num_bins = 10,
-#         parallel = 2,
-#         silent = TRUE
-#       )
-#     )
-#
-#     # # With bootstrap
-#     # expect_no_error(
-#     #   ale(
-#     #     test_cars, test_gam,
-#     #     complete_d = 2,
-#     #     max_num_bins = 10,
-#     #     x1_cols = c('cyl', 'disp'),
-#     #     boot_it = 5,
-#     #     parallel = 2,
-#     #     silent = TRUE
-#     #   )
-#     # )
-#   }
-# )
+test_that(
+  'Parallelized versions do not crash', {
+    # No bootstrap
+    expect_no_error(
+      ale(
+        test_cars, test_gam,
+        x_cols = list(list('cyl'), list('disp')),
+        max_num_bins = 10,
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+
+    # With bootstrap
+    expect_no_error(
+      ale(
+        test_cars, test_gam,
+        x_cols = list(list('cyl'), list('disp')),
+        max_num_bins = 10,
+        boot_it = 5,
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+  }
+)
 
 # All other tests are without parallelization so that results are reproducible
 
@@ -107,7 +104,10 @@ test_that(
 
     cars_2D <- ale(
       test_cars, test_gam_binary,
-      complete_d = 2,
+      list(
+        list('cyl', 'disp', 'gear', 'country'),
+        list('cyl', 'am', 'hp')
+      ),
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE
@@ -172,7 +172,10 @@ test_that(
     cars_2D <- ale(
       test_cars,
       test_nn_categorical,
-      complete_d = 2,
+      list(
+        list('cyl', 'disp', 'gear', 'country'),
+        list('cyl', 'am', 'hp')
+      ),
       max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -200,7 +203,7 @@ test_that(
       test_nn_categorical,
       max_num_bins = 10,
       list(
-        list('cyl', 'disp', 'vs', 'gear', 'country'),
+        list('cyl', 'disp', 'gear', 'country'),
         list('cyl', 'am', 'hp')
       ),
       # x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),

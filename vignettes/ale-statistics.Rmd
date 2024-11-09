@@ -173,17 +173,21 @@ We can now proceed to bootstrap the model for ALE analysis.
 By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `model_bootstrap()` function speeds of the process significantly through parallel processing (implemented by default), but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
 ```{r model bootstrap}
-mb_gam_math <- model_bootstrap(
-  math, 
-  gam_math,
-  # Pass the p_dist object so that p-values will be generated
-  ale_options = list(p_values = gam_math_p_dist),
-  # For the GAM model coefficients, show details of all variables, parametric or not
-  tidy_options = list(parametric = TRUE),
-  # tidy_options = list(parametric = NULL),
-  boot_it = 40,  # 100 by default but reduced here for a faster demonstration
-  parallel = 2  # CRAN limit (delete this line on your own computer for faster speed)
-)
+# # To generate the code, uncomment the following lines.
+# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
+# mb_gam_math <- model_bootstrap(
+#   math, 
+#   gam_math,
+#   # Pass the p_dist object so that p-values will be generated
+#   ale_options = list(p_values = gam_math_p_dist),
+#   # For the GAM model coefficients, show details of all variables, parametric or not
+#   tidy_options = list(parametric = TRUE),
+#   # tidy_options = list(parametric = NULL),
+#   boot_it = 40  # 100 by default but reduced here for a faster demonstration
+# )
+# saveRDS(mb_gam_math, file.choose())
+mb_gam_math <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.rds') |> 
+  readRDS()
 ```
 
 We can see the bootstrapped values of various overall model statistics by printing the `model_stats` element of the model bootstrap object:
@@ -251,15 +255,19 @@ Of particular interest is the random variable `rand_norm`, whose average ALE app
 Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us run `model_bootstrap()` again, but this time, without p-values.
 
 ```{r model-bootstrap-without-p_dist, fig.width=7, fig.height=10}
-mb_gam_no_p <- model_bootstrap(
-  math, 
-  gam_math,
-  # For the GAM model coefficients, show details of all variables, parametric or not
-  tidy_options = list(parametric = TRUE),
-  # tidy_options = list(parametric = NULL),
-  boot_it = 40,  # 100 by default but reduced here for a faster demonstration
-  parallel = 2  # CRAN limit (delete this line on your own computer)
-)
+# # To generate the code, uncomment the following lines.
+# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
+# mb_gam_no_p <- model_bootstrap(
+#   math, 
+#   gam_math,
+#   # For the GAM model coefficients, show details of all variables, parametric or not
+#   tidy_options = list(parametric = TRUE),
+#   # tidy_options = list(parametric = NULL),
+#   boot_it = 40  # 100 by default but reduced here for a faster demonstration
+# )
+# saveRDS(mb_gam_no_p, file.choose())
+mb_gam_no_p <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.rds') |> 
+  readRDS()
 
 mb_no_p_plots <- plot(mb_gam_no_p)
 mb_no_p_1D_plots <- mb_no_p_plots$distinct$math_avg$plots[[1]]
@@ -277,8 +285,9 @@ For most of the rest of this article, we will only analyze the results with ALER
 Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated when `ale` is executed and both statistics and plots are requested (which is the case by default) and is accessible with the To focus on all the measures for a specific variable, we can access the `ale$stats$effects_plot` element:
 
 ```{r ALE-effects-plot, fig.width=8, fig.height=6}
-mb_gam_plots$distinct$math_avg$plots
-mb_gam_math$ale$stats$effects_plot
+# mb_gam_plots$distinct$math_avg$stats$effects
+mb_gam_math |> 
+  plot(type = 'effects')
 ```
 
 This plot is unusual, so it requires some explanation:

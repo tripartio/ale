@@ -32,7 +32,6 @@ ale(
   min_rug_per_interval = 1,
   bins = NULL,
   ns = NULL,
-  compact_plots = FALSE,
   silent = FALSE
 )
 }
@@ -85,25 +84,13 @@ require it.}
 
 \item{median_band_pct}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are not provided. If \code{p_values} are provided, then \code{median_band_pct} is ignored. The inner band range will be the median value of y ± \code{median_band_pct[1]/2}. For plots with a second outer band, its range will be the median ± \code{median_band_pct[2]/2}. For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
 
-\item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ale} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.
-\code{min_rug_per_interval} elements; usually set to just 1 or 2.}
+\item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ale} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.}
 
 \item{min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{sample_size} rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the \code{max_num_bins} intervals will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{sample_size} to \code{Inf} (but that would enlarge the size of the \code{ale} object to include the entire dataset).}
 
 \item{bins, ns}{list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the \code{\link[=model_bootstrap]{model_bootstrap()}} function).}
 
-\item{compact_plots}{logical length 1, default \code{FALSE}. When \code{output} includes
-'plots', the returned \code{ggplot} objects each include the environments of the plots.
-This lets the user modify the plots with all the flexibility of \code{ggplot}, but it
-can result in very large return objects (sometimes even hundreds of megabytes
-large). To compact the plots to their bare minimum, set \code{compact_plots = TRUE}.
-However, returned plots will not be easily modifiable, so this should only be
-used if you do not want to subsequently modify the plots.}
-
-\item{silent}{logical length 1, default \code{FALSE.} If \code{TRUE}, do not display any
-non-essential messages during execution (such as progress bars).
-Regardless, any warnings and errors will always display. See details for how
-to enable progress bars.}
+\item{silent}{logical length 1, default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.}
 }
 \value{
 list with the following elements:

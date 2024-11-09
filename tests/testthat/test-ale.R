@@ -4,34 +4,32 @@
 
 # Test numeric outcomes ----------------
 
-# test_that(
-#   'Parallelized versions do not crash', {
-#     # No bootstrap
-#     expect_no_error(
-#       ale(
-#         test_cars, test_gam,
-#         # faster test
-#         max_num_bins = 10,
-#         x_cols = c('cyl', 'disp'),
-#         parallel = 2,
-#         silent = TRUE
-#       )
-#     )
-#
-#     # With bootstrap
-#     expect_no_error(
-#       ale(
-#         test_cars, test_gam,
-#         # faster test
-#         max_num_bins = 10,
-#         x_cols = c('hp', 'vs'),
-#         boot_it = 5,
-#         parallel = 2,
-#         silent = TRUE
-#       )
-#     )
-#   }
-# )
+test_that(
+  'Parallelized versions do not crash', {
+    # No bootstrap
+    expect_no_error(
+      ale(
+        test_cars, test_gam,
+        max_num_bins = 10,
+        x_cols = c('cyl', 'disp'),
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+
+    # With bootstrap
+    expect_no_error(
+      ale(
+        test_cars, test_gam,
+        max_num_bins = 10,
+        x_cols = c('hp', 'vs'),
+        boot_it = 5,
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+  }
+)
 
 
 # # Build a test based on this diverse variable selection or something like it
@@ -68,7 +66,6 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam,
-      # faster test
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
@@ -100,7 +97,6 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam,
-      # faster test
       max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
       parallel = 0,
@@ -154,7 +150,6 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_binary,
-      # faster test
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
@@ -178,7 +173,6 @@ test_that(
 
     cars_ale <- ale(
       test_cars, test_gam_binary,
-      # faster test
       max_num_bins = 10,
       x_cols = c('hp', 'continent'),
       parallel = 0,
@@ -274,7 +268,6 @@ test_that(
     cars_ale <- ale(
       test_cars,
       test_nn_categorical,
-      # faster test
       max_num_bins = 10,
       x_cols = c('wt', 'am'),
       pred_type = 'probs',

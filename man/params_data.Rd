@@ -6,7 +6,7 @@
 \itemize{
 \item Validation: ensure that the object is atomic (not just a vector)
 \item For factors, get all classes and check if any class_x is a factor or ordered
-\item Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
+\item Add arguments to return a unique mode with options to sort: occurrence order, lexicographical
 Reduce a dataframe to a sample (retains the structure of its columns)
 }}
 \usage{
@@ -37,7 +37,7 @@ Improvements:
 \itemize{
 \item Validation: ensure that the object is atomic (not just a vector)
 \item For factors, get all classes and check if any class_x is a factor or ordered
-\item Add arguments to return a unique mode with options to sort: occurrence order, lexigraphical
+\item Add arguments to return a unique mode with options to sort: occurrence order, lexicographical
 Reduce a dataframe to a sample (retains the structure of its columns)
 }
 }
