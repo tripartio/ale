@@ -118,6 +118,7 @@ plot.ale <- function(
         imap(obj$distinct, \(it.cat_data, it.cat_name) {
           imap(it.cat_data$ale[[2]], \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
+              # browser()
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
                 x1_col    = it.x1_col_name,
@@ -246,13 +247,13 @@ plot.ale_boot <- function(
 }
 
 
-#' Print method for ale_plots object
+#' Plot method for ale_plots object
 #'
-#' Print an ale_plots object.
+#' Plot an `ale_plots` object.
 #'
 #' @param x An object of class `ale_plots`.
 #' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
-#' @param ... Additional arguments (currently not used).
+#' @param ... Arguments to pass to [patchwork::wrap_plots()]
 #'
 #' @return Invisibly returns `x`.
 #'
@@ -263,7 +264,12 @@ plot.ale_boot <- function(
 #' }
 #'
 #' @export
-print.ale_plots <- function(x, max_print = 20L, ...) {
+#'
+plot.ale_plots <- function(
+    x,
+    max_print = 20L,
+    ...
+) {
   count_1D <- x$distinct |>
     purrr::map_int(\(it.cat) length(it.cat$plots[[1]]))
 
@@ -290,7 +296,8 @@ print.ale_plots <- function(x, max_print = 20L, ...) {
       purrr::walk(\(it.cat) {
         it.cat$plots[[1]] |>
           patchwork::wrap_plots() |>
-          patchwork:::print.patchwork()
+          print(...)
+        # patchwork:::print.patchwork(...)
       })
   } else {
     cli_alert_info(
@@ -304,7 +311,8 @@ print.ale_plots <- function(x, max_print = 20L, ...) {
         it.cat$plots[[2]] |>
           purrr::list_flatten() |>
           patchwork::wrap_plots() |>
-          patchwork:::print.patchwork()
+          print(...)
+        # patchwork:::print.patchwork(...)
       })
   } else {
     cli_alert_info(
@@ -313,6 +321,22 @@ print.ale_plots <- function(x, max_print = 20L, ...) {
   }
 
   invisible(x)
+}  # plot.ale_plots()
+
+
+#' Print method for ale_plots object
+#'
+#' Print an ale_plots object by calling plot().
+#'
+#' @param x An object of class `ale_plots`.
+#' @param max See documentation for [plot.ale_plots()]
+#' @param ... Additional arguments (currently not used).
+#'
+#' @return Invisibly returns `x`.
+#'
+#' @export
+print.ale_plots <- function(x, max = 20L, ...) {
+  plot.ale_plots(x, max = max, ...)
 }
 
 
@@ -628,28 +652,6 @@ plot_ale_1D <- function(
   )
 }
 
-# # Fit a multinomial logistic regression model
-# cat_model <- nnet::multinom(Species ~ ., data=iris)
-#
-# iale <- ale(
-#   iris,
-#   cat_model,
-#   pred_type = 'probs',
-#   # output = c('data', 'stats', 'conf_regions'),
-#   boot_it = 0,
-#   # boot_it = 3,
-#   parallel = 0, silent = TRUE
-# )
-#
-# # Categorical plots
-# iale$plots |>
-#   purrr::list_transpose(simplify = FALSE) |>
-#   map(\(it.var) {
-#     it.var |>
-#       patchwork::wrap_plots(ncol = 1) |>
-#       patchwork::plot_layout(axis_titles = 'collect_x')
-#   })
-
 
 
 # Plot ALE data
@@ -674,8 +676,8 @@ plot_ale_1D <- function(
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for [ale()]
 # @param median_band_pct See documentation for [ale()]
-# @param n_x1_bins,n_x2_bins See documentation for [ale_ixn()]
-# @param n_y_quant See documentation for [ale_ixn()]
+# @param n_x1_bins,n_x2_bins See documentation for [plot.ale()]
+# @param n_y_quant See documentation for [plot.ale()]
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
 # If provided, used to generate rug plots.
 #@param data See documentation for `plot_ale_1D`
@@ -763,6 +765,7 @@ plot_ale_2D <- function(
     n_y_quant <- n_y_quant + 1
   }
 
+  # browser()
   # Create quantiles for y
   y_quantiles <-
     y_vals |>

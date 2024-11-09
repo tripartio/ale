@@ -60,13 +60,15 @@ params_data <- function(
 ) {
   n_rows = nrow(data)
 
+  # browser()
+
   # If data is large, reduce it to a sample of sample_size; else return the full dataset
   if (n_rows > sample_size) {
     set.seed(seed)
     sample_rows <- sample(1:n_rows, sample_size)
 
     data <- data[sample_rows, ]
-    y_vals <- y_vals[sample_rows]
+    y_vals <- y_vals[sample_rows, , drop = FALSE]
   }
 
   list(

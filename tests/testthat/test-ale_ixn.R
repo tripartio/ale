@@ -9,8 +9,9 @@
 #   'Parallelized versions do not crash', {
 #     # No bootstrap
 #     expect_no_error(
-#       ale_ixn(
+#       ale(
 #         test_cars, test_gam,
+#         complete_d = 2,
 #         max_num_bins = 10,
 #         x1_cols = c('cyl', 'disp'),
 #         max_num_bins = 10,
@@ -21,8 +22,9 @@
 #
 #     # # With bootstrap
 #     # expect_no_error(
-#     #   ale_ixn(
+#     #   ale(
 #     #     test_cars, test_gam,
+#     #     complete_d = 2,
 #     #     max_num_bins = 10,
 #     #     x1_cols = c('cyl', 'disp'),
 #     #     boot_it = 5,
@@ -39,7 +41,7 @@ test_that(
   'numeric outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars, test_gam,
       complete_d = 2,
       max_num_bins = 10,
@@ -47,15 +49,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -63,7 +65,7 @@ test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars, test_gam,
       list(
         list('cyl', 'disp', 'vs', 'gear', 'country'),
@@ -84,15 +86,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -103,7 +105,7 @@ test_that(
   'binary outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars, test_gam_binary,
       complete_d = 2,
       max_num_bins = 10,
@@ -111,15 +113,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -127,7 +129,7 @@ test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars, test_gam_binary,
       list(
         list('cyl', 'disp', 'am', 'gear', 'country'),
@@ -148,15 +150,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -167,7 +169,7 @@ test_that(
   'categorical outcome default works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars,
       test_nn_categorical,
       complete_d = 2,
@@ -177,15 +179,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -193,7 +195,7 @@ test_that(
   'categorical outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars,
       test_nn_categorical,
       max_num_bins = 10,
@@ -209,15 +211,15 @@ test_that(
       silent = TRUE
     )
 
-    car_ixn_plots <- plot(cars_ale_ixn)
-    for (it.cat in names(car_ixn_plots$distinct)) {
-      car_ixn_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_ixn_plots$distinct[[it.cat]]$plots[[2]] |>
+    car_2D_plots <- plot(cars_2D)
+    for (it.cat in names(car_2D_plots$distinct)) {
+      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(cars_ale_ixn)
-    expect_snapshot(car_ixn_plots)
+    expect_snapshot(unclass(cars_2D))
+    expect_snapshot(unclass(car_2D_plots))
   }
 )
 
@@ -225,7 +227,7 @@ test_that(
   'categorical outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale_ixn <- ale(
+    cars_2D <- ale(
       test_cars,
       test_nn_categorical,
       list(
@@ -246,7 +248,7 @@ test_that(
       median_band_pct = c(0.01, 0.2),
       silent = TRUE
     )
-    expect_snapshot(cars_ale_ixn)
+    expect_snapshot(unclass(cars_2D))
   }
 )
 

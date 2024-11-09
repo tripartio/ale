@@ -1,6 +1,6 @@
-##' ale_core.R
+##' ale.R
 #'
-#' Core functions for the ale package: ale, ale_ixn, and ale_core
+#' Core function for the ale package
 #'
 
 
@@ -172,27 +172,26 @@
 #' \donttest{
 #'
 #' # Simple ALE without bootstrapping
-#' ale_gam_diamonds <- ale(
-#'   diamonds_sample, gam_diamonds,
-#'   parallel = 2  # CRAN limit (delete this line on your own computer)
-#' )
+#' ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
 #'
 #' # Plot the ALE data
-#' ale_gam_diamonds$plots |>
-#'   patchwork::wrap_plots()
+#' diamonds_plots <- plot(ale_gam_diamonds)
+#' diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+#' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 #'
 #' # Bootstrapped ALE
 #' # This can be slow, since bootstrapping runs the algorithm boot_it times
 #'
 #' # Create ALE with 100 bootstrap samples
 #' ale_gam_diamonds_boot <- ale(
-#'   diamonds_sample, gam_diamonds, boot_it = 100,
-#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#'   diamonds_sample, gam_diamonds,
+#'   boot_it = 100
 #' )
 #'
 #' # Bootstrapped ALEs print with confidence intervals
-#' ale_gam_diamonds_boot$plots |>
-#'   patchwork::wrap_plots()
+#' diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
+#' diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots[[1]]
+#' patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
 #'
 #'
 #' # If the predict function you want is non-standard, you may define a
@@ -203,13 +202,13 @@
 #'
 #' ale_gam_diamonds_custom <- ale(
 #'   diamonds_sample, gam_diamonds,
-#'   pred_fun = custom_predict, pred_type = 'link',
-#'   parallel = 2  # CRAN limit (delete this line on your own computer)
+#'   pred_fun = custom_predict, pred_type = 'link'
 #' )
 #'
 #' # Plot the ALE data
-#' ale_gam_diamonds_custom$plots |>
-#'   patchwork::wrap_plots()
+#' diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
+#' diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots[[1]]
+#' patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
 #'
 #' }
 #'

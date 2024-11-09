@@ -102,11 +102,15 @@
 #' )
 #'
 #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
-#' ale_gam_diamonds$plots |>
-#'   patchwork::wrap_plots()
+#' diamonds_plots <- plot(ale_gam_diamonds)
+#' diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+#' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 #'
 #'
-#' # For non-standard models that give errors with the default settings, you can use 'random_model_call_string' to specify a model for the estimation of p-values from random variables as in this example. See details above for an explanation.
+#' # For non-standard models that give errors with the default settings,
+#' you can use 'random_model_call_string' to specify a model for the estimation
+#' of p-values from random variables as in this example.
+#' See details above for an explanation.
 #' pd_diamonds <- create_p_dist(
 #'   diamonds_sample,
 #'   gam_diamonds,

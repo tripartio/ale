@@ -1,7 +1,7 @@
 # mostly default (boot_it=0) snapshot works with multiple x datatypes
 
     Code
-      mb
+      unclass(mb)
     Output
       $model_stats
       # A tibble: 5 x 6
@@ -25,11 +25,11 @@
       
       $ale
       $ale$single
-      $distinct
-      $distinct$mpg
-      $distinct$mpg$ale
-      $distinct$mpg$ale[[1]]
-      $distinct$mpg$ale[[1]]$cyl
+      $ale$single$distinct
+      $ale$single$distinct$mpg
+      $ale$single$distinct$mpg$ale
+      $ale$single$distinct$mpg$ale[[1]]
+      $ale$single$distinct$mpg$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -41,7 +41,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $distinct$mpg$ale[[1]]$disp
+      $ale$single$distinct$mpg$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -58,10 +58,10 @@
       
       
       
-      $distinct$mpg$stats
-      $distinct$mpg$stats[[1]]
-      $distinct$mpg$stats[[1]]$by_term
-      $distinct$mpg$stats[[1]]$by_term$cyl
+      $ale$single$distinct$mpg$stats
+      $ale$single$distinct$mpg$stats[[1]]
+      $ale$single$distinct$mpg$stats[[1]]$by_term
+      $ale$single$distinct$mpg$stats[[1]]$by_term$cyl
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -72,7 +72,7 @@
       5 naler_min   0        0       0       0         0     
       6 naler_max   0        0       0       0         0     
       
-      $distinct$mpg$stats[[1]]$by_term$disp
+      $ale$single$distinct$mpg$stats[[1]]$by_term$disp
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -84,43 +84,43 @@
       6 naler_max    28.8     28.8   28.8   28.8      28.8 
       
       
-      $distinct$mpg$stats[[1]]$by_stat
-      $distinct$mpg$stats[[1]]$by_stat$aled
+      $ale$single$distinct$mpg$stats[[1]]$by_stat
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0112   0.0112 0.0112 0.0112    0.0112
       2 disp    3.09     3.09   3.09   3.09      3.09  
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low    mean  median conf.high
         <chr>    <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 cyl    -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
       2 disp   -5.74    -5.74   -5.74   -5.74     -5.74  
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low   mean median conf.high
         <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 cyl     0.0196   0.0196 0.0196 0.0196    0.0196
       2 disp    4.75     4.75   4.75   4.75      4.75  
       
-      $distinct$mpg$stats[[1]]$by_stat$naled
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp      22.8     22.8  22.8   22.8      22.8
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl        0        0     0      0         0  
       2 disp     -40.9    -40.9 -40.9  -40.9     -40.9
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -128,22 +128,22 @@
       2 disp      28.8     28.8  28.8   28.8      28.8
       
       
-      $distinct$mpg$stats[[1]]$estimate
+      $ale$single$distinct$mpg$stats[[1]]$estimate
       # A tibble: 2 x 7
         term    aled aler_min aler_max naled naler_min naler_max
         <chr>  <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
       1 cyl   0.0112  -0.0236   0.0196   0         0         0  
       2 disp  3.09    -5.74     4.75    22.8     -40.9      28.8
       
-      $distinct$mpg$stats[[1]]$conf_regions
-      $distinct$mpg$stats[[1]]$conf_regions$by_term
-      $distinct$mpg$stats[[1]]$conf_regions$by_term$cyl
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions$by_term
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions$by_term$cyl
       # A tibble: 1 x 9
         start_x end_x x_span     n n_pct start_y   end_y    trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>          
       1       3     9      1    64     1  0.0196 -0.0236 -0.00184 overlap        
       
-      $distinct$mpg$stats[[1]]$conf_regions$by_term$disp
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions$by_term$disp
       # A tibble: 2 x 9
         start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
           <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
@@ -151,14 +151,14 @@
       2   258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
       
-      $distinct$mpg$stats[[1]]$conf_regions$significant
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions$significant
       # A tibble: 2 x 10
         term  start_x end_x x_span     n n_pct start_y end_y  trend relative_to_mid
         <chr>   <dbl> <dbl>  <dbl> <int> <dbl>   <dbl> <dbl>  <dbl> <ord>          
       1 disp     70.9  166.  0.237    29 0.453    4.75  1.68 -0.550 above          
       2 disp    258.   472   0.533    35 0.547   -1.18 -5.74 -0.365 below          
       
-      $distinct$mpg$stats[[1]]$conf_regions$sig_criterion
+      $ale$single$distinct$mpg$stats[[1]]$conf_regions$sig_criterion
       [1] "median_band_pct"
       
       
@@ -166,14 +166,14 @@
       
       
       
-      $params
-      $params$max_d
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      $params$y_cats
+      $ale$single$params$y_cats
       [1] "mpg"
       
-      $params$y_summary
+      $ale$single$params$y_summary
                     mpg
       q         0.05000
       min      10.39108
@@ -201,11 +201,11 @@
       99%      33.84876
       max      33.84876
       
-      $params$data
-      $params$data$name
+      $ale$single$params$data
+      $ale$single$params$data$name
       [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
       
-      $params$data$data_sample
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 14
          model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
          <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
@@ -222,7 +222,7 @@
       # i 54 more rows
       # i 2 more variables: country <fct>, continent <fct>
       
-      $params$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -289,101 +289,99 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      $params$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      $params$model
-      $params$model$name
+      $ale$single$params$model
+      $ale$single$params$model$name
       [1] "structure(list(coefficients = c(\"(Intercept)\" = 12.2929140338384, "
       
-      $params$model$call
+      $ale$single$params$model$call
       [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), cyl = c(6L, 6L, 4L, 6L, 8L, 6L, 8L, 4L, \n    4L, 6L, 6L, 8L, 8L, 8L, 8L, 8L, 8L, 4L, 4L, 4L, 4L, 8L, 8L, \n    8L, 8L, 4L, 4L, 4L, 8L, 6L, 8L, 4L, 6L, 5L, 5L, 5L, 9L, 6L, \n    8L, 4L, 4L, 7L, 6L, 7L, 9L, 8L, 7L, 7L, 9L, 4L, 4L, 5L, 5L, \n    8L, 8L, 8L, 8L, 3L, 4L, 4L, 8L, 6L, 7L, 5L), disp = c(160, \n    160, 108, 258, 360, 225, 360, 146.7, 140.8, 167.6, 167.6, \n    275.8, 275.8, 275.8, 472, 460, 440, 78.7, 75.7, 71.1, 120.1, \n    318, 304, 350, 400, 79, 120.3, 95.1, 351, 145, 301, 121, \n    161.269431040436, 159.249627722055, 107.723787623215, 258.375923354896, \n    362.939096087962, 223.657568689669, 362.868405731767, 148.004677238088, \n    141.252806583643, 168.032790275149, 166.131107578607, 274.178155755145, \n    274.01588704695, 276.831618022164, 470.905939099938, 462.482541063987, \n    439.97975333035, 79.0425315320082, 76.4447458275734, 70.9294100251556, \n    120.76642342161, 320.764725269834, 302.249826529399, 351.061716362601, \n    397.004440767691, 78.6322086565895, 120.02599050666, 94.1744684136682, \n    350.174363458632, 146.072103452589, 300.03890096006, 120.95663387944\n    ), hp = c(110, 110, 93, 110, 175, 105, 245, 62, 95, 123, \n    123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, \n    245, 175, 66, 91, 113, 264, 175, 335, 109, 110.8727338403, \n    109.484119058913, 92.7621504533244, 110.160277399374, 176.428727264982, \n    104.373532055179, 246.952109456342, 62.5513973330706, 95.305515805725, \n    123.317620547991, 121.92199422535, 178.941508469637, 178.835604309104, \n    180.673282247968, 204.524825244676, 216.160318105994, 229.989416513592, \n    66.287256430909, 52.5115823386237, 64.8440457332647, 97.5382437293604, \n    151.304115693318, 149.136427563848, 245.743201453821, 173.689442835865, \n    65.6927312827203, 90.7927276484296, 111.900262152939, 263.37900841333, \n    176.293917960022, 333.930338277807, 108.960934651727), drat = c(3.9, \n    3.9, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92, \n    3.07, 3.07, 3.07, 2.93, 3, 3.23, 4.08, 4.93, 4.22, 3.7, 2.76, \n    3.15, 3.73, 3.08, 4.08, 4.43, 3.77, 4.22, 3.62, 3.54, 4.11, \n    3.93094238161063, 3.88170967572508, 3.84015354027203, 3.08448776718248, \n    3.17571709076967, 2.74353284259327, 3.23557661777493, 3.72281703482308, \n    3.93260654693097, 3.93012254104167, 3.88564404360466, 3.05194683889882, \n    3.05014058460528, 3.08148320278479, 2.92320847788733, 3.01619048519991, \n    3.22985137103871, 4.09775767027438, 4.97850194095029, 4.20987496914426, \n    3.72053094637766, 2.78399572875705, 3.13186497884081, 3.74131486295001, \n    3.05693419391122, 4.06100520656817, 4.41990970859937, 3.73330963112018, \n    4.21007354357671, 3.64676561723016, 3.52869670896549, 4.10852698549172\n    ), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, 3.57, 3.19, \n    3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, 5.345, 2.2, \n    1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, 1.935, 2.14, \n    1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, 2.86151674813067, \n    2.31406654894315, 3.21968447126353, 3.46808469595164, 3.43935638962779, \n    3.59844502350669, 3.21837028213702, 3.16013026092667, 3.44888304622024, \n    3.40985089540817, 4.0460663303968, 3.70587113373866, 3.79413892720733, \n    5.23783089041244, 5.45327239724144, 5.34475404897891, 2.20957521436363, \n    1.63088856686302, 1.83059729108524, 2.47867804941107, 3.55060324826986, \n    3.41522419121212, 3.8516485452354, 3.81620518687943, 1.92599143987976, \n    2.13512568316087, 1.49827519148139, 3.16254339647824, 2.79048087285291, \n    3.5586009183635, 2.77900365442019), qsec = c(16.46, 17.02, \n    18.61, 19.44, 17.02, 20.22, 15.84, 20, 22.9, 18.3, 18.9, \n    17.4, 17.6, 18, 17.98, 17.82, 17.42, 19.47, 18.52, 19.9, \n    20.01, 16.87, 17.3, 15.41, 17.05, 18.9, 16.7, 16.9, 14.5, \n    15.5, 14.6, 18.6, 16.5905927182849, 16.9401791489336, 18.5624045154448, \n    19.4683253876712, 17.1589539317142, 20.0993601729115, 15.9662098521978, \n    20.1778701074421, 22.973645388959, 18.347255740067, 18.7343552102367, \n    17.297679152065, 17.4861479768902, 18.0673282247968, 17.9383236970697, \n    17.9161714820875, 17.4191984159425, 19.5547406471182, 18.7022020175252, \n    19.8522540014149, 20.1210335775722, 17.0166695449751, 17.2004013123638, \n    15.4567458547077, 16.9223142877228, 18.812009412779, 16.6619621069096, \n    16.7355259326077, 14.4658925075503, 15.6146041621733, 14.5533819070328, \n    18.5933338029552), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), am = c(TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE), gear = structure(c(2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, \n    1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, \n    1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, \n    3L, 3L, 2L), levels = c(\"three\", \"four\", \"five\"), class = c(\"ordered\", \n    \"factor\")), carb = c(4L, 4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, \n    4L, 4L, 3L, 3L, 3L, 4L, 4L, 4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, \n    2L, 1L, 2L, 2L, 4L, 6L, 8L, 2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, \n    2L, 2L, 5L, 4L, 2L, 4L, 3L, 3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, \n    2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 7L, 3L), country = structure(c(3L, \n    3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 6L, 6L, \n    6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, 2L, 2L, \n    4L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n    6L, 6L, 6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, \n    2L, 2L, 4L), levels = c(\"Germany\", \"Italy\", \"Japan\", \"Sweden\", \n    \"UK\", \"USA\"), class = \"factor\"), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\")), row.names = c(NA, -64L), class = c(\"tbl_df\", \n    \"tbl\", \"data.frame\")))"
       
-      $params$model$print
+      $ale$single$params$model$print
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
       
-      $params$model$summary
+      $ale$single$params$model$summary
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
       
       
-      $params$x_cols
-      $params$x_cols[[1]]
+      $ale$single$params$x_cols
+      $ale$single$params$x_cols[[1]]
       [1] "cyl"  "disp"
       
-      $params$x_cols[[2]]
+      $ale$single$params$x_cols[[2]]
       list()
       
       
-      $params$y_col
+      $ale$single$params$y_col
       [1] "mpg"
       
-      $params$complete_d
+      $ale$single$params$complete_d
       NULL
       
-      $params$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      $params$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      $params$output
+      $ale$single$params$output
       [1] "data"  "stats"
       
-      $params$pred_fun
+      $ale$single$params$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
       
-      $params$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      $params$p_values
+      $ale$single$params$p_values
       NULL
       
-      $params$p_alpha
+      $ale$single$params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      $params$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      $params$seed
+      $ale$single$params$seed
       [1] 0
       
-      $params$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      $params$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      $params$y_type
+      $ale$single$params$y_type
       [1] "numeric"
       
-      $params$median_band_pct
+      $ale$single$params$median_band_pct
       [1] 0.05 0.50
       
-      $params$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
-      $params$min_rug_per_interval
+      $ale$single$params$min_rug_per_interval
       [1] 1
       
-      $params$bins
+      $ale$single$params$bins
       NULL
       
-      $params$ns
+      $ale$single$params$ns
       NULL
       
-      $params$compact_plots
+      $ale$single$params$compact_plots
       [1] FALSE
       
-      $params$silent
+      $ale$single$params$silent
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
       
       
       $boot_data
@@ -562,15 +560,54 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale_boot"
 
 ---
 
     Code
       mb_plots
     Output
-      list()
+      $cyl
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 3 19.21956     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 4 19.21237     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3 5 19.20517     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4 6 19.19798     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5 7 19.19078     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6 8 19.18359     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7 9 19.17639     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      7 19.04095 19.28336
+      
+      $disp
+                 x        y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 23.94577     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 23.69247     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 22.38387     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 21.53981     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 20.88301     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 18.01937     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 16.80447     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 15.49188     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 14.62011     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 13.46448     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
 
 ---
 
@@ -645,7 +682,7 @@
 # mostly default (boot_it=3) snapshot works with multiple x datatypes
 
     Code
-      mb
+      unclass(mb)
     Output
       $model_stats
       # A tibble: 9 x 7
@@ -673,18 +710,18 @@
       
       $ale
       $ale$single
-      $distinct
-      $distinct$mpg
-      $distinct$mpg$ale
-      $distinct$mpg$ale[[1]]
-      $distinct$mpg$ale[[1]]$vs
+      $ale$single$distinct
+      $ale$single$distinct$mpg
+      $ale$single$distinct$mpg$ale
+      $ale$single$distinct$mpg$ale[[1]]
+      $ale$single$distinct$mpg$ale[[1]]$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36 -1.87 -1.87   -1.87     -1.87 -1.87
       2 TRUE      28  2.41  2.41    2.41      2.41  2.41
       
-      $distinct$mpg$ale[[1]]$gear
+      $ale$single$distinct$mpg$ale[[1]]$gear
       # A tibble: 3 x 7
         gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -694,10 +731,10 @@
       
       
       
-      $distinct$mpg$stats
-      $distinct$mpg$stats[[1]]
-      $distinct$mpg$stats[[1]]$by_term
-      $distinct$mpg$stats[[1]]$by_term$vs
+      $ale$single$distinct$mpg$stats
+      $ale$single$distinct$mpg$stats[[1]]
+      $ale$single$distinct$mpg$stats[[1]]$by_term
+      $ale$single$distinct$mpg$stats[[1]]$by_term$vs
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -708,7 +745,7 @@
       5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
       6 naler_max    21.2     21.2   21.2   21.2      21.2 
       
-      $distinct$mpg$stats[[1]]$by_term$gear
+      $ale$single$distinct$mpg$stats[[1]]$by_term$gear
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -720,43 +757,43 @@
       6 naler_max    50       50     50     50        50   
       
       
-      $distinct$mpg$stats[[1]]$by_stat
-      $distinct$mpg$stats[[1]]$by_stat$aled
+      $ale$single$distinct$mpg$stats[[1]]$by_stat
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        2.11     2.11  2.11   2.11      2.11
       2 gear      8.74     8.74  8.74   8.74      8.74
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs       -1.87    -1.87 -1.87  -1.87     -1.87
       2 gear     -9.32    -9.32 -9.32  -9.32     -9.32
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        2.41     2.41  2.41   2.41      2.41
       2 gear     16.5     16.5  16.5   16.5      16.5 
       
-      $distinct$mpg$stats[[1]]$by_stat$naled
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs        17.0     17.0  17.0   17.0      17.0
       2 gear      42.0     42.0  42.0   42.0      42.0
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 vs       -13.6    -13.6 -13.6  -13.6     -13.6
       2 gear     -50      -50   -50    -50       -50  
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -764,7 +801,7 @@
       2 gear      50       50    50     50        50  
       
       
-      $distinct$mpg$stats[[1]]$estimate
+      $ale$single$distinct$mpg$stats[[1]]$estimate
       # A tibble: 2 x 7
         term   aled aler_min aler_max naled naler_min naler_max
         <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -775,14 +812,14 @@
       
       
       
-      $params
-      $params$max_d
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      $params$y_cats
+      $ale$single$params$y_cats
       [1] "mpg"
       
-      $params$y_summary
+      $ale$single$params$y_summary
                     mpg
       q         0.05000
       min      10.39108
@@ -810,11 +847,11 @@
       99%      33.84876
       max      33.84876
       
-      $params$data
-      $params$data$name
+      $ale$single$params$data
+      $ale$single$params$data$name
       [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
       
-      $params$data$data_sample
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 14
          model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
          <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
@@ -831,7 +868,7 @@
       # i 54 more rows
       # i 2 more variables: country <fct>, continent <fct>
       
-      $params$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -898,101 +935,99 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      $params$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      $params$model
-      $params$model$name
+      $ale$single$params$model
+      $ale$single$params$model$name
       [1] "structure(list(coefficients = c(\"(Intercept)\" = 19.6478580845116, "
       
-      $params$model$call
+      $ale$single$params$model$call
       [1] "mgcv::gam(formula = mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + \n    s(qsec) + vs + am + gear + carb + country, data = .boot_data)"
       
-      $params$model$print
+      $ale$single$params$model$print
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + \n    am + gear + carb + country\n\nEstimated degrees of freedom:\n7.81 9.00 8.13 8.55 6.08  total = 51.57 \n\nGCV score: 0.03719706     "
       
-      $params$model$summary
+      $ale$single$params$model$summary
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + \n    am + gear + carb + country\n\nParametric coefficients:\n               Estimate Std. Error t value Pr(>|t|)    \n(Intercept)    19.64786    3.33355   5.894 6.34e-05 ***\ncyl             0.04677    0.06007   0.779  0.45077    \nvsTRUE          4.28286    3.23083   1.326  0.20880    \namTRUE        -18.96725    8.15253  -2.327  0.03762 *  \ngear.L         18.22445    6.22375   2.928  0.01224 *  \ngear.Q         -1.00953    2.46769  -0.409  0.68943    \ncarb            0.04754    0.07684   0.619  0.54729    \ncountryItaly    8.44447    4.55655   1.853  0.08771 .  \ncountryJapan   14.91304    4.64570   3.210  0.00719 ** \ncountrySweden   9.96746    6.11246   1.631  0.12801    \ncountryUK      25.80436    7.11442   3.627  0.00328 ** \ncountryUSA     12.96145    4.64796   2.789  0.01592 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df      F  p-value    \ns(disp) 7.806  8.336  9.739 0.000227 ***\ns(hp)   9.000  9.000 16.482 1.43e-05 ***\ns(drat) 8.129  8.559 14.226 0.000118 ***\ns(wt)   8.546  8.811 24.849 6.85e-06 ***\ns(qsec) 6.085  6.998 42.072  < 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.037197  Scale est. = 0.0072272  n = 64"
       
       
-      $params$x_cols
-      $params$x_cols[[1]]
+      $ale$single$params$x_cols
+      $ale$single$params$x_cols[[1]]
       [1] "vs"   "gear"
       
-      $params$x_cols[[2]]
+      $ale$single$params$x_cols[[2]]
       list()
       
       
-      $params$y_col
+      $ale$single$params$y_col
       [1] "mpg"
       
-      $params$complete_d
+      $ale$single$params$complete_d
       NULL
       
-      $params$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      $params$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      $params$output
+      $ale$single$params$output
       [1] "data"  "stats"
       
-      $params$pred_fun
+      $ale$single$params$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
       
-      $params$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      $params$p_values
+      $ale$single$params$p_values
       NULL
       
-      $params$p_alpha
+      $ale$single$params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      $params$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      $params$seed
+      $ale$single$params$seed
       [1] 0
       
-      $params$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      $params$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      $params$y_type
+      $ale$single$params$y_type
       [1] "numeric"
       
-      $params$median_band_pct
+      $ale$single$params$median_band_pct
       [1] 0.05 0.50
       
-      $params$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
-      $params$min_rug_per_interval
+      $ale$single$params$min_rug_per_interval
       [1] 1
       
-      $params$bins
+      $ale$single$params$bins
       NULL
       
-      $params$ns
+      $ale$single$params$ns
       NULL
       
-      $params$compact_plots
+      $ale$single$params$compact_plots
       [1] FALSE
       
-      $params$silent
+      $ale$single$params$silent
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
       
       $ale$boot
       $ale$boot$distinct
@@ -1313,15 +1348,30 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale_boot"
 
 ---
 
     Code
       mb_plots
     Output
-      list()
+      $vs
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 13.90176     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 25.38374     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $gear
+        x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 44.338416     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -5.913318     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -8.165295     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
 
 ---
 
@@ -1396,7 +1446,7 @@
 # ALE snapshot works with every parameter set to something, with multiple x datatypes
 
     Code
-      mb
+      unclass(mb)
     Output
       $model_stats
       # A tibble: 9 x 7
@@ -1421,9 +1471,6 @@
       3 s(drat)     1.00   1.00  1.00      1.00 0.00000487
       4 s(wt)       1.30   4.00  4.00      6.70 4.24      
       5 s(qsec)     1.35   4.50  4.50      7.65 4.95      
-      
-      $ale
-      NULL
       
       $boot_data
       NULL
@@ -1538,13 +1585,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale_boot"
 
 # binary outcome works with multiple x datatypes
 
     Code
-      mb
+      unclass(mb)
     Output
       $model_stats
       # A tibble: 6 x 7
@@ -1569,11 +1614,11 @@
       
       $ale
       $ale$single
-      $distinct
-      $distinct$vs
-      $distinct$vs$ale
-      $distinct$vs$ale[[1]]
-      $distinct$vs$ale[[1]]$cyl
+      $ale$single$distinct
+      $ale$single$distinct$vs
+      $ale$single$distinct$vs$ale
+      $ale$single$distinct$vs$ale[[1]]
+      $ale$single$distinct$vs$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1585,7 +1630,7 @@
       6        8    21  3.01e-20  3.01e-20  3.01e-20  3.01e-20  3.01e-20
       7        9     3  5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
       
-      $distinct$vs$ale[[1]]$disp
+      $ale$single$distinct$vs$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1602,10 +1647,10 @@
       
       
       
-      $distinct$vs$stats
-      $distinct$vs$stats[[1]]
-      $distinct$vs$stats[[1]]$by_term
-      $distinct$vs$stats[[1]]$by_term$cyl
+      $ale$single$distinct$vs$stats
+      $ale$single$distinct$vs$stats[[1]]
+      $ale$single$distinct$vs$stats[[1]]$by_term
+      $ale$single$distinct$vs$stats[[1]]$by_term$cyl
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1616,7 +1661,7 @@
       5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      $distinct$vs$stats[[1]]$by_term$disp
+      $ale$single$distinct$vs$stats[[1]]$by_term$disp
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1628,43 +1673,43 @@
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
       
-      $distinct$vs$stats[[1]]$by_stat
-      $distinct$vs$stats[[1]]$by_stat$aled
+      $ale$single$distinct$vs$stats[[1]]$by_stat
+      $ale$single$distinct$vs$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term  estimate conf.low     mean   median conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   1.74e-20 1.74e-20 1.74e-20 1.74e-20  1.74e-20
       2 disp  3.78e-19 3.78e-19 3.78e-19 3.78e-19  3.78e-19
       
-      $distinct$vs$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$vs$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term   estimate  conf.low      mean    median conf.high
         <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 cyl   -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
       2 disp  -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
-      $distinct$vs$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$vs$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term  estimate conf.low     mean   median conf.high
         <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 cyl   5.00e-20 5.00e-20 5.00e-20 5.00e-20  5.00e-20
       2 disp  4.20e-19 4.20e-19 4.20e-19 4.20e-19  4.20e-19
       
-      $distinct$vs$stats[[1]]$by_stat$naled
+      $ale$single$distinct$vs$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl       10.2     10.2  10.2   10.2      10.2
       2 disp      20.6     20.6  20.6   20.6      20.6
       
-      $distinct$vs$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$vs$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 cyl      -20.3    -20.3 -20.3  -20.3     -20.3
       2 disp     -50      -50   -50    -50       -50  
       
-      $distinct$vs$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$vs$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term  estimate conf.low  mean median conf.high
         <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1672,7 +1717,7 @@
       2 disp      6.25     6.25  6.25   6.25      6.25
       
       
-      $distinct$vs$stats[[1]]$estimate
+      $ale$single$distinct$vs$stats[[1]]$estimate
       # A tibble: 2 x 7
         term      aled  aler_min aler_max naled naler_min naler_max
         <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -1683,14 +1728,14 @@
       
       
       
-      $params
-      $params$max_d
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      $params$y_cats
+      $ale$single$params$y_cats
       [1] "vs"
       
-      $params$y_summary
+      $ale$single$params$y_summary
                          vs
       q        5.000000e-02
       min      0.000000e+00
@@ -1718,11 +1763,11 @@
       99%      1.000000e+00
       max      1.000000e+00
       
-      $params$data
-      $params$data$name
+      $ale$single$params$data
+      $ale$single$params$data$name
       [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
       
-      $params$data$data_sample
+      $ale$single$params$data$data_sample
       # A tibble: 64 x 14
          model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
          <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
@@ -1739,7 +1784,7 @@
       # i 54 more rows
       # i 2 more variables: country <fct>, continent <fct>
       
-      $params$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                       vs
        [1,] 3.925673e-13
        [2,] 3.925673e-13
@@ -1806,101 +1851,99 @@
       [63,] 3.925672e-13
       [64,] 1.000000e+00
       
-      $params$data$nrow
+      $ale$single$params$data$nrow
       [1] 64
       
       
-      $params$model
-      $params$model$name
+      $ale$single$params$model
+      $ale$single$params$model$name
       [1] "structure(list(coefficients = c(\"(Intercept)\" = 0, "
       
-      $params$model$call
+      $ale$single$params$model$call
       [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = structure(list(model = c(\"Mazda RX4\", \n    \"Mazda RX4 Wag\", \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \n    \"Valiant\", \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \n    \"Merc 280C\", \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), cyl = c(6L, 6L, 4L, 6L, 8L, 6L, 8L, 4L, \n    4L, 6L, 6L, 8L, 8L, 8L, 8L, 8L, 8L, 4L, 4L, 4L, 4L, 8L, 8L, \n    8L, 8L, 4L, 4L, 4L, 8L, 6L, 8L, 4L, 6L, 5L, 5L, 5L, 9L, 6L, \n    8L, 4L, 4L, 7L, 6L, 7L, 9L, 8L, 7L, 7L, 9L, 4L, 4L, 5L, 5L, \n    8L, 8L, 8L, 8L, 3L, 4L, 4L, 8L, 6L, 7L, 5L), disp = c(160, \n    160, 108, 258, 360, 225, 360, 146.7, 140.8, 167.6, 167.6, \n    275.8, 275.8, 275.8, 472, 460, 440, 78.7, 75.7, 71.1, 120.1, \n    318, 304, 350, 400, 79, 120.3, 95.1, 351, 145, 301, 121, \n    161.269431040436, 159.249627722055, 107.723787623215, 258.375923354896, \n    362.939096087962, 223.657568689669, 362.868405731767, 148.004677238088, \n    141.252806583643, 168.032790275149, 166.131107578607, 274.178155755145, \n    274.01588704695, 276.831618022164, 470.905939099938, 462.482541063987, \n    439.97975333035, 79.0425315320082, 76.4447458275734, 70.9294100251556, \n    120.76642342161, 320.764725269834, 302.249826529399, 351.061716362601, \n    397.004440767691, 78.6322086565895, 120.02599050666, 94.1744684136682, \n    350.174363458632, 146.072103452589, 300.03890096006, 120.95663387944\n    ), hp = c(110, 110, 93, 110, 175, 105, 245, 62, 95, 123, \n    123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, \n    245, 175, 66, 91, 113, 264, 175, 335, 109, 110.8727338403, \n    109.484119058913, 92.7621504533244, 110.160277399374, 176.428727264982, \n    104.373532055179, 246.952109456342, 62.5513973330706, 95.305515805725, \n    123.317620547991, 121.92199422535, 178.941508469637, 178.835604309104, \n    180.673282247968, 204.524825244676, 216.160318105994, 229.989416513592, \n    66.287256430909, 52.5115823386237, 64.8440457332647, 97.5382437293604, \n    151.304115693318, 149.136427563848, 245.743201453821, 173.689442835865, \n    65.6927312827203, 90.7927276484296, 111.900262152939, 263.37900841333, \n    176.293917960022, 333.930338277807, 108.960934651727), drat = c(3.9, \n    3.9, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92, \n    3.07, 3.07, 3.07, 2.93, 3, 3.23, 4.08, 4.93, 4.22, 3.7, 2.76, \n    3.15, 3.73, 3.08, 4.08, 4.43, 3.77, 4.22, 3.62, 3.54, 4.11, \n    3.93094238161063, 3.88170967572508, 3.84015354027203, 3.08448776718248, \n    3.17571709076967, 2.74353284259327, 3.23557661777493, 3.72281703482308, \n    3.93260654693097, 3.93012254104167, 3.88564404360466, 3.05194683889882, \n    3.05014058460528, 3.08148320278479, 2.92320847788733, 3.01619048519991, \n    3.22985137103871, 4.09775767027438, 4.97850194095029, 4.20987496914426, \n    3.72053094637766, 2.78399572875705, 3.13186497884081, 3.74131486295001, \n    3.05693419391122, 4.06100520656817, 4.41990970859937, 3.73330963112018, \n    4.21007354357671, 3.64676561723016, 3.52869670896549, 4.10852698549172\n    ), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, 3.57, 3.19, \n    3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, 5.345, 2.2, \n    1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, 1.935, 2.14, \n    1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, 2.86151674813067, \n    2.31406654894315, 3.21968447126353, 3.46808469595164, 3.43935638962779, \n    3.59844502350669, 3.21837028213702, 3.16013026092667, 3.44888304622024, \n    3.40985089540817, 4.0460663303968, 3.70587113373866, 3.79413892720733, \n    5.23783089041244, 5.45327239724144, 5.34475404897891, 2.20957521436363, \n    1.63088856686302, 1.83059729108524, 2.47867804941107, 3.55060324826986, \n    3.41522419121212, 3.8516485452354, 3.81620518687943, 1.92599143987976, \n    2.13512568316087, 1.49827519148139, 3.16254339647824, 2.79048087285291, \n    3.5586009183635, 2.77900365442019), qsec = c(16.46, 17.02, \n    18.61, 19.44, 17.02, 20.22, 15.84, 20, 22.9, 18.3, 18.9, \n    17.4, 17.6, 18, 17.98, 17.82, 17.42, 19.47, 18.52, 19.9, \n    20.01, 16.87, 17.3, 15.41, 17.05, 18.9, 16.7, 16.9, 14.5, \n    15.5, 14.6, 18.6, 16.5905927182849, 16.9401791489336, 18.5624045154448, \n    19.4683253876712, 17.1589539317142, 20.0993601729115, 15.9662098521978, \n    20.1778701074421, 22.973645388959, 18.347255740067, 18.7343552102367, \n    17.297679152065, 17.4861479768902, 18.0673282247968, 17.9383236970697, \n    17.9161714820875, 17.4191984159425, 19.5547406471182, 18.7022020175252, \n    19.8522540014149, 20.1210335775722, 17.0166695449751, 17.2004013123638, \n    15.4567458547077, 16.9223142877228, 18.812009412779, 16.6619621069096, \n    16.7355259326077, 14.4658925075503, 15.6146041621733, 14.5533819070328, \n    18.5933338029552), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), am = c(TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE), gear = structure(c(2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, \n    1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, \n    1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, \n    3L, 3L, 2L), levels = c(\"three\", \"four\", \"five\"), class = c(\"ordered\", \n    \"factor\")), carb = c(4L, 4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, \n    4L, 4L, 3L, 3L, 3L, 4L, 4L, 4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, \n    2L, 1L, 2L, 2L, 4L, 6L, 8L, 2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, \n    2L, 2L, 5L, 4L, 2L, 4L, 3L, 3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, \n    2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 7L, 3L), country = structure(c(3L, \n    3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 6L, 6L, \n    6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, 2L, 2L, \n    4L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n    6L, 6L, 6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, \n    2L, 2L, 4L), levels = c(\"Germany\", \"Italy\", \"Japan\", \"Sweden\", \n    \"UK\", \"USA\"), class = \"factor\"), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\")), row.names = c(NA, -64L), class = c(\"tbl_df\", \n    \"tbl\", \"data.frame\")))"
       
-      $params$model$print
+      $ale$single$params$model$print
       [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
       
-      $params$model$summary
+      $ale$single$params$model$summary
       [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               0.000e+00  0.000e+00     NaN      NaN\nmodelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1\nmodelCamaro Z28          -4.563e-05  1.204e+08       0        1\nmodelChrysler Imperial   -8.515e-05  1.256e+08       0        1\nmodelDatsun 710           5.713e+01  7.909e+07       0        1\nmodelDodge Challenger    -2.991e-07  2.335e+07       0        1\nmodelDuster 360          -1.155e-05  8.817e+07       0        1\nmodelFerrari Dino        -9.284e+01  2.084e+08       0        1\nmodelFiat 128             1.206e-05  2.166e+07       0        1\nmodelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN\nmodelFord Pantera L      -5.713e+01  2.036e+08       0        1\nmodelHonda Civic          5.713e+01  7.704e+07       0        1\nmodelHornet 4 Drive       5.713e+01  6.786e+07       0        1\nmodelHornet Sportabout    1.251e-06  4.093e+07       0        1\nmodelLincoln Continental -8.020e-05  1.122e+08       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -9.284e+01  2.616e+08       0        1\nmodelMazda RX4            0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1\nmodelMerc 230             7.597e-05  1.345e+08       0        1\nmodelMerc 240D            3.250e-05  8.088e+07       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C            2.619e-05  1.662e+07       0        1\nmodelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 450SL           2.082e-05  4.016e+07       0        1\nmodelMerc 450SLC          2.397e-05  4.362e+07       0        1\nmodelPontiac Firebird    -1.741e-05  4.924e+07       0        1\nmodelPorsche 914-2       -5.713e+01  1.316e+08       0        1\nmodelToyota Corolla       5.713e+01  1.043e+08       0        1\nmodelToyota Corona        7.856e+01  1.118e+08       0        1\nmodelValiant              5.713e+01  1.139e+08       0        1\nmodelVolvo 142E           3.571e+01  2.684e+07       0        1\ncyl                       5.068e-08  6.167e+05       0        1\namTRUE                   -3.571e+01  3.488e+07       0        1\ngear.L                    6.565e+01  7.765e+07       0        1\ngear.Q                   -8.747e+00  6.818e+07       0        1\ncarb                     -1.157e-08  7.575e+05       0        1\ncountryItaly              3.571e+01  8.901e+07       0        1\ncountryJapan              0.000e+00  0.000e+00     NaN      NaN\ncountrySweden             0.000e+00  0.000e+00     NaN      NaN\ncountryUK                 0.000e+00  0.000e+00     NaN      NaN\ncountryUSA                0.000e+00  0.000e+00     NaN      NaN\ncontinentEurope           2.142e+01  3.433e+07       0        1\ncontinentNorth America    2.142e+01  6.026e+07       0        1\n\nApproximate significance of smooth terms:\n        edf Ref.df Chi.sq p-value\ns(disp)   1      1      0       1\ns(hp)     1      1      0       1\ns(drat)   1      1      0       1\ns(wt)     1      1      0       1\ns(qsec)   1      1      0       1\n\nRank: 79/89\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.21875  Scale est. = 1         n = 64"
       
       
-      $params$x_cols
-      $params$x_cols[[1]]
+      $ale$single$params$x_cols
+      $ale$single$params$x_cols[[1]]
       [1] "cyl"  "disp"
       
-      $params$x_cols[[2]]
+      $ale$single$params$x_cols[[2]]
       list()
       
       
-      $params$y_col
+      $ale$single$params$y_col
       [1] "vs"
       
-      $params$complete_d
+      $ale$single$params$complete_d
       NULL
       
-      $params$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      $params$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      $params$output
+      $ale$single$params$output
       [1] "data"  "stats"
       
-      $params$pred_fun
+      $ale$single$params$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
       
-      $params$pred_type
+      $ale$single$params$pred_type
       [1] "response"
       
-      $params$p_values
+      $ale$single$params$p_values
       NULL
       
-      $params$p_alpha
+      $ale$single$params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      $params$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      $params$seed
+      $ale$single$params$seed
       [1] 0
       
-      $params$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      $params$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      $params$y_type
+      $ale$single$params$y_type
       [1] "binary"
       
-      $params$median_band_pct
+      $ale$single$params$median_band_pct
       [1] 0.05 0.50
       
-      $params$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
-      $params$min_rug_per_interval
+      $ale$single$params$min_rug_per_interval
       [1] 1
       
-      $params$bins
+      $ale$single$params$bins
       NULL
       
-      $params$ns
+      $ale$single$params$ns
       NULL
       
-      $params$compact_plots
+      $ale$single$params$compact_plots
       [1] FALSE
       
-      $params$silent
+      $ale$single$params$silent
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
       
       $ale$boot
       $ale$boot$distinct
@@ -2236,8 +2279,6 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale_boot"
 
 ---
 
@@ -2310,7 +2351,7 @@
 # categorical outcome works on iris dataset
 
     Code
-      mb
+      unclass(mb)
     Output
       $model_stats
       # A tibble: 5 x 7
@@ -2339,11 +2380,11 @@
       
       $ale
       $ale$single
-      $distinct
-      $distinct$setosa
-      $distinct$setosa$ale
-      $distinct$setosa$ale[[1]]
-      $distinct$setosa$ale[[1]]$Sepal.Length
+      $ale$single$distinct
+      $ale$single$distinct$setosa
+      $ale$single$distinct$setosa$ale
+      $ale$single$distinct$setosa$ale[[1]]
+      $ale$single$distinct$setosa$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -2358,7 +2399,7 @@
        9               6.9    17  0.00000761  0.00000761    7.61e-6   7.61e-6  7.61e-6
       10               7.9    13  0.0000101   0.0000101     1.01e-5   1.01e-5  1.01e-5
       
-      $distinct$setosa$ale[[1]]$Petal.Width
+      $ale$single$distinct$setosa$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n          .y       .y_lo     .y_mean  .y_median    .y_hi
                    <dbl> <int>       <dbl>       <dbl>       <dbl>      <dbl>    <dbl>
@@ -2374,10 +2415,10 @@
       
       
       
-      $distinct$setosa$stats
-      $distinct$setosa$stats[[1]]
-      $distinct$setosa$stats[[1]]$by_term
-      $distinct$setosa$stats[[1]]$by_term$Sepal.Length
+      $ale$single$distinct$setosa$stats
+      $ale$single$distinct$setosa$stats[[1]]
+      $ale$single$distinct$setosa$stats[[1]]$by_term
+      $ale$single$distinct$setosa$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -2388,7 +2429,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max  15.3         15.3         15.3         15.3         15.3       
       
-      $distinct$setosa$stats[[1]]$by_term$Petal.Width
+      $ale$single$distinct$setosa$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -2400,43 +2441,43 @@
       6 naler_max  15.3        15.3        15.3        15.3        15.3      
       
       
-      $distinct$setosa$stats[[1]]$by_stat
-      $distinct$setosa$stats[[1]]$by_stat$aled
+      $ale$single$distinct$setosa$stats[[1]]$by_stat
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length 0.00000990 0.00000990 0.00000990 0.00000990 0.00000990
       2 Petal.Width  0.0000115  0.0000115  0.0000115  0.0000115  0.0000115 
       
-      $distinct$setosa$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term           estimate   conf.low       mean     median  conf.high
         <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
       1 Sepal.Length -0.0000635 -0.0000635 -0.0000635 -0.0000635 -0.0000635
       2 Petal.Width  -0.0000201 -0.0000201 -0.0000201 -0.0000201 -0.0000201
       
-      $distinct$setosa$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term          estimate  conf.low      mean    median conf.high
         <chr>            <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
       1 Sepal.Length 0.0000101 0.0000101 0.0000101 0.0000101 0.0000101
       2 Petal.Width  0.0000108 0.0000108 0.0000108 0.0000108 0.0000108
       
-      $distinct$setosa$stats[[1]]$by_stat$naled
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     18.9     18.9  18.9   18.9      18.9
       2 Petal.Width      26.8     26.8  26.8   26.8      26.8
       
-      $distinct$setosa$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$setosa$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$setosa$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2444,7 +2485,7 @@
       2 Petal.Width      15.3     15.3  15.3   15.3      15.3
       
       
-      $distinct$setosa$stats[[1]]$estimate
+      $ale$single$distinct$setosa$stats[[1]]$estimate
       # A tibble: 2 x 7
         term               aled   aler_min  aler_max naled naler_min naler_max
         <chr>             <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
@@ -2454,10 +2495,10 @@
       
       
       
-      $distinct$versicolor
-      $distinct$versicolor$ale
-      $distinct$versicolor$ale[[1]]
-      $distinct$versicolor$ale[[1]]$Sepal.Length
+      $ale$single$distinct$versicolor
+      $ale$single$distinct$versicolor$ale
+      $ale$single$distinct$versicolor$ale[[1]]
+      $ale$single$distinct$versicolor$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2472,7 +2513,7 @@
        9               6.9    17  0.0471   0.0471   0.0471    0.0471   0.0471 
       10               7.9    13  0.0572   0.0572   0.0572    0.0572   0.0572 
       
-      $distinct$versicolor$ale[[1]]$Petal.Width
+      $ale$single$distinct$versicolor$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2488,10 +2529,10 @@
       
       
       
-      $distinct$versicolor$stats
-      $distinct$versicolor$stats[[1]]
-      $distinct$versicolor$stats[[1]]$by_term
-      $distinct$versicolor$stats[[1]]$by_term$Sepal.Length
+      $ale$single$distinct$versicolor$stats
+      $ale$single$distinct$versicolor$stats[[1]]
+      $ale$single$distinct$versicolor$stats[[1]]$by_term
+      $ale$single$distinct$versicolor$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2502,7 +2543,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  12.7     12.7     12.7     12.7      12.7   
       
-      $distinct$versicolor$stats[[1]]$by_term$Petal.Width
+      $ale$single$distinct$versicolor$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2514,43 +2555,43 @@
       6 naler_max   14.7     14.7    14.7    14.7      14.7  
       
       
-      $distinct$versicolor$stats[[1]]$by_stat
-      $distinct$versicolor$stats[[1]]$by_stat$aled
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
       2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
       
-      $distinct$versicolor$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0301  -0.0301 -0.0301 -0.0301   -0.0301
       2 Petal.Width   -0.387   -0.387  -0.387  -0.387    -0.387 
       
-      $distinct$versicolor$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0572   0.0572 0.0572 0.0572    0.0572
       2 Petal.Width    0.168    0.168  0.168  0.168     0.168 
       
-      $distinct$versicolor$stats[[1]]$by_stat$naled
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     34.4     34.4  34.4   34.4      34.4
       2 Petal.Width      25.8     25.8  25.8   25.8      25.8
       
-      $distinct$versicolor$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$versicolor$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$versicolor$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2558,7 +2599,7 @@
       2 Petal.Width      14.7     14.7  14.7   14.7      14.7
       
       
-      $distinct$versicolor$stats[[1]]$estimate
+      $ale$single$distinct$versicolor$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -2568,10 +2609,10 @@
       
       
       
-      $distinct$virginica
-      $distinct$virginica$ale
-      $distinct$virginica$ale[[1]]
-      $distinct$virginica$ale[[1]]$Sepal.Length
+      $ale$single$distinct$virginica
+      $ale$single$distinct$virginica$ale
+      $ale$single$distinct$virginica$ale[[1]]
+      $ale$single$distinct$virginica$ale[[1]]$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2586,7 +2627,7 @@
        9               6.9    17 -0.0471  -0.0471  -0.0471   -0.0471  -0.0471 
       10               7.9    13 -0.0572  -0.0572  -0.0572   -0.0572  -0.0572 
       
-      $distinct$virginica$ale[[1]]$Petal.Width
+      $ale$single$distinct$virginica$ale[[1]]$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2602,10 +2643,10 @@
       
       
       
-      $distinct$virginica$stats
-      $distinct$virginica$stats[[1]]
-      $distinct$virginica$stats[[1]]$by_term
-      $distinct$virginica$stats[[1]]$by_term$Sepal.Length
+      $ale$single$distinct$virginica$stats
+      $ale$single$distinct$virginica$stats[[1]]
+      $ale$single$distinct$virginica$stats[[1]]$by_term
+      $ale$single$distinct$virginica$stats[[1]]$by_term$Sepal.Length
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2616,7 +2657,7 @@
       5 naler_min -50      -50      -50      -50       -50     
       6 naler_max  13.3     13.3     13.3     13.3      13.3   
       
-      $distinct$virginica$stats[[1]]$by_term$Petal.Width
+      $ale$single$distinct$virginica$stats[[1]]$by_term$Petal.Width
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2628,43 +2669,43 @@
       6 naler_max   16       16      16      16        16    
       
       
-      $distinct$virginica$stats[[1]]$by_stat
-      $distinct$virginica$stats[[1]]$by_stat$aled
+      $ale$single$distinct$virginica$stats[[1]]$by_stat
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$aled
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
       2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
       
-      $distinct$virginica$stats[[1]]$by_stat$aler_min
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$aler_min
       # A tibble: 2 x 6
         term         estimate conf.low    mean  median conf.high
         <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
       1 Sepal.Length  -0.0572  -0.0572 -0.0572 -0.0572   -0.0572
       2 Petal.Width   -0.168   -0.168  -0.168  -0.168    -0.168 
       
-      $distinct$virginica$stats[[1]]$by_stat$aler_max
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$aler_max
       # A tibble: 2 x 6
         term         estimate conf.low   mean median conf.high
         <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
       1 Sepal.Length   0.0301   0.0301 0.0301 0.0301    0.0301
       2 Petal.Width    0.387    0.387  0.387  0.387     0.387 
       
-      $distinct$virginica$stats[[1]]$by_stat$naled
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$naled
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length     28.2     28.2  28.2   28.2      28.2
       2 Petal.Width      39.0     39.0  39.0   39.0      39.0
       
-      $distinct$virginica$stats[[1]]$by_stat$naler_min
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$naler_min
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
       1 Sepal.Length      -50      -50   -50    -50       -50
       2 Petal.Width       -50      -50   -50    -50       -50
       
-      $distinct$virginica$stats[[1]]$by_stat$naler_max
+      $ale$single$distinct$virginica$stats[[1]]$by_stat$naler_max
       # A tibble: 2 x 6
         term         estimate conf.low  mean median conf.high
         <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2672,7 +2713,7 @@
       2 Petal.Width      16       16    16     16        16  
       
       
-      $distinct$virginica$stats[[1]]$estimate
+      $ale$single$distinct$virginica$stats[[1]]$estimate
       # A tibble: 2 x 7
         term           aled aler_min aler_max naled naler_min naler_max
         <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -2683,14 +2724,14 @@
       
       
       
-      $params
-      $params$max_d
+      $ale$single$params
+      $ale$single$params$max_d
       [1] 1
       
-      $params$y_cats
+      $ale$single$params$y_cats
       [1] "setosa"     "versicolor" "virginica" 
       
-      $params$y_summary
+      $ale$single$params$y_summary
                     Species       setosa   versicolor    virginica
       q        5.000000e-02 5.000000e-02 5.000000e-02 5.000000e-02
       min      0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00
@@ -2718,11 +2759,11 @@
       99%      1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       max      1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       
-      $params$data
-      $params$data$name
+      $ale$single$params$data
+      $ale$single$params$data$name
       [1] "structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, "
       
-      $params$data$data_sample
+      $ale$single$params$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
       2            4.9         3.0          1.4         0.2     setosa
@@ -2875,7 +2916,7 @@
       149          6.2         3.4          5.4         2.3  virginica
       150          5.9         3.0          5.1         1.8  virginica
       
-      $params$data$y_vals_sample
+      $ale$single$params$data$y_vals_sample
                 setosa   versicolor    virginica
       1   1.000000e+00 1.526406e-09 2.716417e-36
       2   9.999996e-01 3.536476e-07 2.883729e-32
@@ -3028,101 +3069,99 @@
       149 6.009635e-17 4.504137e-06 9.999955e-01
       150 2.726745e-14 2.243538e-02 9.775646e-01
       
-      $params$data$nrow
+      $ale$single$params$data$nrow
       [1] 150
       
       
-      $params$model
-      $params$model$name
+      $ale$single$params$model
+      $ale$single$params$model$name
       [1] "structure(list(n = c(5, 0, 3), nunits = 9L, nconn = c(0, "
       
-      $params$model$call
+      $ale$single$params$model$call
       [1] "nnet::multinom(formula = Species ~ ., data = structure(list(Sepal.Length = c(5.1, \n4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, \n5.8, 5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, \n5.2, 5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, \n5, 4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, \n6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, \n5.8, 6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, \n5.5, 5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, \n5, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, \n4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, \n6, 6.9, 5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, \n6.4, 6.3, 6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, \n6.7, 6.3, 6.5, 6.2, 5.9), Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, \n3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, \n3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, \n4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, \n3, 3.8, 3.2, 3.7, 3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, \n2.9, 2.7, 2, 3, 2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, \n2.5, 2.8, 2.9, 3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, \n3.1, 2.3, 3, 2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, \n3.3, 2.7, 3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, \n2.8, 3.2, 3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, \n3, 2.8, 3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, \n3.1, 2.7, 3.2, 3.3, 3, 2.5, 3, 3.4, 3), Petal.Length = c(1.4, \n1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, \n1.2, 1.5, 1.3, 1.4, 1.7, 1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, \n1.5, 1.4, 1.6, 1.6, 1.5, 1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, \n1.3, 1.3, 1.3, 1.6, 1.9, 1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, \n4, 4.6, 4.5, 4.7, 3.3, 4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, \n4.5, 4.1, 4.5, 3.9, 4.8, 4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, \n3.5, 3.8, 3.7, 3.9, 5.1, 4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, \n4, 3.3, 4.2, 4.2, 4.2, 4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, \n4.5, 6.3, 5.8, 6.1, 5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, \n5, 5.7, 4.9, 6.7, 4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, \n5.6, 5.1, 5.6, 6.1, 5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, \n5.2, 5, 5.2, 5.4, 5.1), Petal.Width = c(0.2, 0.2, 0.2, 0.2, 0.2, \n0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, \n0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, \n0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, \n0.4, 0.3, 0.2, 0.2, 0.2, 0.2, 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, \n1, 1.3, 1.4, 1, 1.5, 1, 1.4, 1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, \n1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, \n1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, \n1.3, 1.1, 1.3, 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, \n2, 1.9, 2.1, 2, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, \n2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, \n1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8\n), Species = structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, 3L, 3L, 3L, \n3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, \n3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, \n3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L), levels = c(\"setosa\", \n\"versicolor\", \"virginica\"), class = \"factor\")), row.names = c(NA, \n150L), class = \"data.frame\"), trace = FALSE)"
       
-      $params$model$print
+      $ale$single$params$model$print
       [1] "Call:\nnnet::multinom(formula = Species ~ ., data = list(c(5.1, 4.9, \n4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, \n5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, \n5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, \n4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, \n5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, \n6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, \n5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, \n5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, \n6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, \n5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, \n6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, \n6.5, 6.2, 5.9), c(3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, \n3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, \n3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, \n3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, \n3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, \n2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, \n3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, \n2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, \n3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, \n3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, \n3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, \n3.2, 3.3, 3, 2.5, 3, 3.4, 3), c(1.4, 1.4, 1.3, 1.5, 1.4, 1.7, \n1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, \n1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, \n1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, \n1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, \n4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, \n4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, \n4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, \n4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, \n5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, \n4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, \n5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, \n5.1), c(0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, \n0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, \n0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, \n0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, \n1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, \n1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, \n1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, \n1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, \n1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, \n1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, \n1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, \n1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8), c(1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
       
-      $params$model$summary
+      $ale$single$params$model$summary
       [1] "Call:\nnnet::multinom(formula = Species ~ ., data = list(c(5.1, 4.9, \n4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, \n5.7, 5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, \n5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, \n4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5, 7, 6.4, 6.9, 5.5, 6.5, \n5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7, 5.6, 5.8, \n6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, \n5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, \n5.7, 5.7, 6.2, 5.1, 5.7, 6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, \n6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, \n5.6, 7.7, 6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, \n6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, \n6.5, 6.2, 5.9), c(3.5, 3, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, \n3.1, 3.7, 3.4, 3, 3, 4, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, \n3.3, 3.4, 3, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, \n3.5, 3.6, 3, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3, 3.8, 3.2, 3.7, \n3.3, 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2, 3, \n2.2, 2.9, 2.9, 3.1, 3, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, \n3, 2.8, 3, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3, 3.4, 3.1, 2.3, 3, \n2.5, 2.6, 3, 2.6, 2.3, 2.7, 3, 2.9, 2.9, 2.5, 2.8, 3.3, 2.7, \n3, 2.9, 3, 3, 2.5, 2.9, 2.5, 3.6, 3.2, 2.7, 3, 2.5, 2.8, 3.2, \n3, 3.8, 2.6, 2.2, 3.2, 2.8, 2.8, 2.7, 3.3, 3.2, 2.8, 3, 2.8, \n3, 2.8, 3.8, 2.8, 2.8, 2.6, 3, 3.4, 3.1, 3, 3.1, 3.1, 3.1, 2.7, \n3.2, 3.3, 3, 2.5, 3, 3.4, 3), c(1.4, 1.4, 1.3, 1.5, 1.4, 1.7, \n1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.1, 1.2, 1.5, 1.3, 1.4, 1.7, \n1.5, 1.7, 1.5, 1, 1.7, 1.9, 1.6, 1.6, 1.5, 1.4, 1.6, 1.6, 1.5, \n1.5, 1.4, 1.5, 1.2, 1.3, 1.4, 1.3, 1.5, 1.3, 1.3, 1.3, 1.6, 1.9, \n1.4, 1.6, 1.4, 1.5, 1.4, 4.7, 4.5, 4.9, 4, 4.6, 4.5, 4.7, 3.3, \n4.6, 3.9, 3.5, 4.2, 4, 4.7, 3.6, 4.4, 4.5, 4.1, 4.5, 3.9, 4.8, \n4, 4.9, 4.7, 4.3, 4.4, 4.8, 5, 4.5, 3.5, 3.8, 3.7, 3.9, 5.1, \n4.5, 4.5, 4.7, 4.4, 4.1, 4, 4.4, 4.6, 4, 3.3, 4.2, 4.2, 4.2, \n4.3, 3, 4.1, 6, 5.1, 5.9, 5.6, 5.8, 6.6, 4.5, 6.3, 5.8, 6.1, \n5.1, 5.3, 5.5, 5, 5.1, 5.3, 5.5, 6.7, 6.9, 5, 5.7, 4.9, 6.7, \n4.9, 5.7, 6, 4.8, 4.9, 5.6, 5.8, 6.1, 6.4, 5.6, 5.1, 5.6, 6.1, \n5.6, 5.5, 4.8, 5.4, 5.6, 5.1, 5.1, 5.9, 5.7, 5.2, 5, 5.2, 5.4, \n5.1), c(0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, \n0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, \n0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, \n0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2, \n1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1, 1.3, 1.4, 1, 1.5, 1, 1.4, \n1.3, 1.4, 1.5, 1, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, \n1.7, 1.5, 1, 1.1, 1, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, \n1.2, 1.4, 1.2, 1, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3, 2.5, 1.9, 2.1, \n1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2, 1.9, 2.1, 2, 2.4, 2.3, \n1.8, 2.2, 2.3, 1.5, 2.3, 2, 2, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, \n1.6, 1.9, 2, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, \n1.9, 2.3, 2.5, 2.3, 1.9, 2, 2.3, 1.8), c(1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, \n2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, \n3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), trace = FALSE)\n\nCoefficients:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    18.69037    -5.458424   -8.707401     14.24477   -3.097684\nvirginica    -23.83628    -7.923634  -15.370769     23.65978   15.135301\n\nStd. Errors:\n           (Intercept) Sepal.Length Sepal.Width Petal.Length Petal.Width\nversicolor    34.97116     89.89215    157.0415     60.19170    45.48852\nvirginica     35.76649     89.91153    157.1196     60.46753    45.93406\n\nResidual Deviance: 11.89973 \nAIC: 31.89973 "
       
       
-      $params$x_cols
-      $params$x_cols[[1]]
+      $ale$single$params$x_cols
+      $ale$single$params$x_cols[[1]]
       [1] "Sepal.Length" "Petal.Width" 
       
-      $params$x_cols[[2]]
+      $ale$single$params$x_cols[[2]]
       list()
       
       
-      $params$y_col
+      $ale$single$params$y_col
       [1] "Species"
       
-      $params$complete_d
+      $ale$single$params$complete_d
       NULL
       
-      $params$parallel
+      $ale$single$params$parallel
       [1] 0
       
-      $params$model_packages
+      $ale$single$params$model_packages
       NULL
       
-      $params$output
+      $ale$single$params$output
       [1] "data"  "stats"
       
-      $params$pred_fun
+      $ale$single$params$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
       
-      $params$pred_type
+      $ale$single$params$pred_type
       [1] "probs"
       
-      $params$p_values
+      $ale$single$params$p_values
       NULL
       
-      $params$p_alpha
+      $ale$single$params$p_alpha
       [1] 0.01 0.05
       
-      $params$max_num_bins
+      $ale$single$params$max_num_bins
       [1] 10
       
-      $params$boot_it
+      $ale$single$params$boot_it
       [1] 0
       
-      $params$seed
+      $ale$single$params$seed
       [1] 0
       
-      $params$boot_alpha
+      $ale$single$params$boot_alpha
       [1] 0.05
       
-      $params$boot_centre
+      $ale$single$params$boot_centre
       [1] "mean"
       
-      $params$y_type
+      $ale$single$params$y_type
       [1] "categorical"
       
-      $params$median_band_pct
+      $ale$single$params$median_band_pct
       [1] 0.05 0.50
       
-      $params$sample_size
+      $ale$single$params$sample_size
       [1] 500
       
-      $params$min_rug_per_interval
+      $ale$single$params$min_rug_per_interval
       [1] 1
       
-      $params$bins
+      $ale$single$params$bins
       NULL
       
-      $params$ns
+      $ale$single$params$ns
       NULL
       
-      $params$compact_plots
+      $ale$single$params$compact_plots
       [1] FALSE
       
-      $params$silent
+      $ale$single$params$silent
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
       
       $ale$boot
       $ale$boot$distinct
@@ -3983,8 +4022,6 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale_boot"
 
 ---
 

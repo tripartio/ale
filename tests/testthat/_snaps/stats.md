@@ -1,7 +1,7 @@
 # create_p_dist works with default inputs (approx fast) on ale()
 
     Code
-      pd
+      unclass(pd)
     Output
       $rand_stats
       $rand_stats$mpg
@@ -22,13 +22,11 @@
       $rand_it_ok
       [1] 4
       
-      attr(,"class")
-      [1] "ale_p"
 
 ---
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$mpg
@@ -707,15 +705,13 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
-      set_names(map(stats_names, function(.stat) {
+      unclass(set_names(map(stats_names, function(.stat) {
         value_to_p(pd$rand_stats$mpg, .stat, test_vals)
-      }), stats_names)
+      }), stats_names))
     Output
       $aled
        [1] 1 1 1 1 1 0 0 0 0 0 0
@@ -739,7 +735,7 @@
 # create_p_dist works with precise slow
 
     Code
-      pd
+      unclass(pd)
     Output
       $rand_stats
       $rand_stats$mpg
@@ -833,15 +829,13 @@
       [63,] -8.025594e-04
       [64,] -4.463587e-04
       
-      attr(,"class")
-      [1] "ale_p"
 
 ---
 
     Code
-      set_names(map(stats_names, function(.stat) {
+      unclass(set_names(map(stats_names, function(.stat) {
         p_to_random_value(pd$rand_stats$mpg, .stat, test_p)
-      }), stats_names)
+      }), stats_names))
     Output
       $aled
                  0        0.001         0.01         0.01         0.05          0.1 
@@ -877,7 +871,7 @@
 # create_p_dist works with custom random_model_call_string
 
     Code
-      pd
+      unclass(pd)
     Output
       $rand_stats
       $rand_stats$mpg
@@ -965,13 +959,11 @@
       [63,] -8.025594e-04
       [64,] -4.463587e-04
       
-      attr(,"class")
-      [1] "ale_p"
 
 # create_p_dist works with binary outcome
 
     Code
-      pd
+      unclass(pd)
     Output
       $rand_stats
       $rand_stats$vs
@@ -992,13 +984,11 @@
       $rand_it_ok
       [1] 4
       
-      attr(,"class")
-      [1] "ale_p"
 
 # create_p_dist works with categorical outcome
 
     Code
-      pd
+      unclass(pd)
     Output
       $rand_stats
       $rand_stats$Asia
@@ -1037,6 +1027,4 @@
       $rand_it_ok
       [1] 4
       
-      attr(,"class")
-      [1] "ale_p"
 

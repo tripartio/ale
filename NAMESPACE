@@ -2,6 +2,7 @@
 
 S3method(plot,ale)
 S3method(plot,ale_boot)
+S3method(plot,ale_plots)
 S3method(print,ale)
 S3method(print,ale_plots)
 export(ale)

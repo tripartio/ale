@@ -35,7 +35,7 @@
 
 
 # # Build a test based on this diverse variable selection or something like it
-# cars_ale_ixn <- ale(
+# cars_1D_2D <- ale(
 #   test_cars, test_gam,
 #   x_cols = list(
 #     'model',
@@ -74,9 +74,7 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE,
     )
-    car_plots <- cars_ale |>
-      plot.ale() |>
-      (`[[`)('mpg') |>
+    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot.ale( type = 'effects') |>
@@ -91,9 +89,9 @@ test_that(
     # cars_ale$distinct$mpg$stats$effects_plot <- cars_ale$distinct$mpg$stats$effects_plot |>
     #   ggplot2::ggplot_build() |>
     #   (`[[`)('data')
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plot)
+    expect_snapshot(unclass(car_eff_plot))
   }
 )
 
@@ -111,18 +109,16 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE,
     )
-    car_plots <- cars_ale |>
-      plot.ale() |>
-      (`[[`)('mpg') |>
+    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot.ale( type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plot)
+    expect_snapshot(unclass(car_eff_plot))
   }
 )
 
@@ -148,7 +144,7 @@ test_that(
       # compact_plots = TRUE
     )
     # cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
   }
 )
 
@@ -167,18 +163,16 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE
     )
-    # car_plots <- cars_ale |>
-    #   plot.ale() |>
-    #   (`[[`)('vs') |>
-    #   ale_plots_to_data()
+    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+      ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot.ale( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(cars_ale)
-    # expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plot)
+    expect_snapshot(unclass(cars_ale))
+    expect_snapshot(car_plots)
+    expect_snapshot(unclass(car_eff_plot))
   }
 )
 
@@ -196,18 +190,16 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE
     )
-    # car_plots <- cars_ale |>
-    #   plot.ale() |>
-    #   (`[[`)('vs') |>
+    # car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
     #   ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot.ale( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
     # expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plot)
+    expect_snapshot(unclass(car_eff_plot))
   }
 )
 
@@ -233,7 +225,7 @@ test_that(
       # compact_plots = TRUE,
     )
 
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
   }
 )
 
@@ -265,9 +257,9 @@ test_that(
     car_eff_plots <- cars_ale |>
       plot.ale(type = 'effects') |>
       ale_plots_to_data()
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
     # expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plots)
+    expect_snapshot(unclass(car_eff_plots))
 
     # cars_ale$distinct <- cars_ale$distinct |>
     #   map(\(it.cat) {
@@ -278,7 +270,7 @@ test_that(
     #
     #     it.cat
     #   })
-    # expect_snapshot(cars_ale)
+    # expect_snapshot(unclass(cars_ale))
   }
 )
 
@@ -301,9 +293,9 @@ test_that(
    car_eff_plots <- cars_ale |>
       plot.ale(type = 'effects') |>
       ale_plots_to_data()
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
     # expect_snapshot(car_plots)
-    expect_snapshot(car_eff_plots)
+    expect_snapshot(unclass(car_eff_plots))
     # cars_ale$distinct <- cars_ale$distinct |>
     #   map(\(it.cat) {
     #     it.cat$plots <- ale_plots_to_data(it.cat$plots)
@@ -313,7 +305,7 @@ test_that(
     #
     #     it.cat
     #   })
-    # expect_snapshot(cars_ale)
+    # expect_snapshot(unclass(cars_ale))
   }
 )
 
@@ -338,7 +330,7 @@ test_that(
       silent = TRUE,
       # compact_plots = TRUE,
     )
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
   }
 )
 

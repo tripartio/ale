@@ -12,7 +12,7 @@ test_that(
       parallel = 0,  # disable parallelization for testing
       silent = TRUE
     )
-    expect_snapshot(pd)
+    expect_snapshot(unclass(pd))
 
     cars_ale <- ale(
       test_cars, test_gam,
@@ -24,27 +24,27 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    expect_snapshot(cars_ale)
+    expect_snapshot(unclass(cars_ale))
 
     # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
     stats_names <- pd$rand_stats$mpg |>
       names()
 
-    expect_snapshot(
+    expect_snapshot(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
           value_to_p(pd$rand_stats$mpg, .stat, test_vals)
         }) |>
         set_names(stats_names)
-    )
+    ))
 
-    # expect_snapshot(
+    # expect_snapshot(unclass(
     #   pd$value_to_p$mpg |>
     #     map(\(.stat_fun) {
     #       .stat_fun(test_vals)
     #     })
-    # )
+    # ))
   }
 )
 
@@ -62,7 +62,7 @@ test_that(
       parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
-    expect_snapshot(pd)
+    expect_snapshot(unclass(pd))
 
     # # expect_snapshot doesn't quite work for pd$value_to_p because function environments change.
     # # So, only partially test the function matches.
@@ -76,23 +76,23 @@ test_that(
     stats_names <- pd$rand_stats$mpg |>
       names()
 
-    expect_snapshot(
+    expect_snapshot(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
           p_to_random_value(pd$rand_stats$mpg, .stat, test_p)
         }) |>
         set_names(stats_names)
-    )
+    ))
 
-    # expect_snapshot(
+    # expect_snapshot(unclass(
     #   pd$p_to_random_value$mpg |>
     #     map(\(.stat_fun) {
     #       .stat_fun(test_vals)
     #     })
-    # )
+    # ))
 
     # # Verify matching of the rest of the object
-    # expect_snapshot(pd[c('residuals', 'residual_distribution')])
+    # expect_snapshot(unclass(pd[c('residuals', 'residual_distribution')]))
   }
 )
 
@@ -117,19 +117,19 @@ test_that(
       parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
     )
-    expect_snapshot(pd)
+    expect_snapshot(unclass(pd))
 
     # # Verify that the functions give the expected output
     # test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
-    # expect_snapshot(
+    # expect_snapshot(unclass(
     #   pd$value_to_p$mpg |>
     #     map(\(.stat_fun) {
     #       .stat_fun(test_vals)
     #     })
-    # )
+    # ))
     #
     # # Verify matching of the rest of the object
-    # expect_snapshot(pd[c('residuals', 'residual_distribution')])
+    # expect_snapshot(unclass(pd[c('residuals', 'residual_distribution')]))
   }
 )
 
@@ -144,7 +144,7 @@ test_that(
       parallel = 0,  # disable parallelization for testing
       silent = TRUE
     )
-    expect_snapshot(pd)
+    expect_snapshot(unclass(pd))
 
     # expect_equal(
     #   names(pd$value_to_p$vs),
@@ -153,12 +153,12 @@ test_that(
     #
     # # Verify that the functions give the expected output
     # test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
-    # expect_snapshot(
+    # expect_snapshot(unclass(
     #   pd$value_to_p$vs |>
     #     map(\(.stat_fun) {
     #       .stat_fun(test_vals)
     #     })
-    # )
+    # ))
   }
 )
 
@@ -173,7 +173,7 @@ test_that(
       parallel = 0,  # disable parallelization for testing
       silent = TRUE
     )
-    expect_snapshot(pd)
+    expect_snapshot(unclass(pd))
 
     # # expect_snapshot doesn't quite work for pd$value_to_p because function environments change.
     # # So, only partially test the function matches.
@@ -184,12 +184,12 @@ test_that(
     #
     # # Verify that the functions give the expected output
     # test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
-    # expect_snapshot(
+    # expect_snapshot(unclass(
     #   pd$value_to_p$Asia |>
     #     map(\(.stat_fun) {
     #       .stat_fun(test_vals)
     #     })
-    # )
+    # ))
   }
 )
 

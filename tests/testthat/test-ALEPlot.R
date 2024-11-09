@@ -183,7 +183,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
 })
 
 
-test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
+test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   # Dump plots into a temp PDF file so they don't print
   pdf(file = nullfile())
 
@@ -227,7 +227,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   # Return to regular printing of plots
   dev.off() |> invisible()
 
-  nnet_ale_ixn <- ale(
+  nnet_2D <- ale(
     DAT, nnet.DAT,  # basic arguments
     x_cols = list(
       list(c('x1', 'x2', 'x3')),
@@ -241,8 +241,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
-  nnet_ale_ixn_to_ALEPlot <-
-    nnet_ale_ixn$distinct$y$ale[[2]] |>
+  nnet_2D_to_ALEPlot <-
+    nnet_2D$distinct$y$ale[[2]] |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
         it.x2 <- it.x2 |>
@@ -259,12 +259,12 @@ test_that('ale_ixn function matches output of ALEPlot interactions with nnet', {
 
   # Compare results of ALEPlot with ale
   expect_true(
-    all.equal(nnet_ALEPlot_ixn, nnet_ale_ixn_to_ALEPlot, tolerance = 0.01)
+    all.equal(nnet_ALEPlot_ixn, nnet_2D_to_ALEPlot, tolerance = 0.01)
   )
 })
 
 
-test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
+test_that('2D ALE matches output of ALEPlot interactions with gbm', {
   # Dump plots into a temp PDF file so they don't print
   pdf(file = nullfile())
 
@@ -312,7 +312,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
   # Return to regular printing of plots
   dev.off() |> invisible()
 
-  gbm_ale_ixn <- ale(
+  gbm_2D <- ale(
     adult_data, gbm.data,  # basic arguments
     list(
       c('age', 'education_num'),
@@ -334,8 +334,8 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
   )
 
   # Convert ale results to version that can be readily compared with ALEPlot
-  gbm_ale_ixn_to_ALEPlot <-
-    gbm_ale_ixn$distinct$higher_income$ale[[2]] |>
+  gbm_2D_to_ALEPlot <-
+    gbm_2D$distinct$higher_income$ale[[2]] |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
         it.x2 <- it.x2 |>
@@ -353,7 +353,7 @@ test_that('ale_ixn function matches output of ALEPlot interactions with gbm', {
 
   # Compare results of ALEPlot with ale
   expect_true(
-    all.equal(gbm_ALEPlot_ixn, gbm_ale_ixn_to_ALEPlot)
+    all.equal(gbm_ALEPlot_ixn, gbm_2D_to_ALEPlot)
   )
 })
 

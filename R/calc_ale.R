@@ -251,6 +251,10 @@ calc_ale <- function(
         dimnames = list(NULL, y_cats)
       )
     }
+    else if (is.null(colnames(btit.delta_pred))) {
+      # This captures some odd model cases
+      colnames(btit.delta_pred) <- y_cats
+    }
 
 
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
@@ -274,6 +278,9 @@ calc_ale <- function(
         ]
       }
     }
+
+    # closeAllConnections()
+    # browser()
 
     # Summarize means for each unique interaction combination of x_cols
     btit.local_eff_tbl <- btit.local_eff_tbl |>

@@ -16,7 +16,6 @@ Suggests:
     knitr,
     mgcv,
     nnet,
-    patchwork,
     readr,
     rmarkdown,
     testthat (>= 3.0.0)

@@ -4,12 +4,12 @@
 \alias{print.ale_plots}
 \title{Print method for ale_plots object}
 \usage{
-\method{print}{ale_plots}(x, max_print = 20L, ...)
+\method{print}{ale_plots}(x, max = 20L, ...)
 }
 \arguments{
 \item{x}{An object of class \code{ale_plots}.}
 
-\item{max_print}{integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.}
+\item{max}{See documentation for \code{\link[=plot.ale_plots]{plot.ale_plots()}}}
 
 \item{...}{Additional arguments (currently not used).}
 }
@@ -17,12 +17,5 @@
 Invisibly returns \code{x}.
 }
 \description{
-Print an ale_plots object.
-}
-\examples{
-\dontrun{
-my_object <- structure(list(name = "Example", value = 42), class = "my_class")
-print(my_object)
-}
-
+Print an ale_plots object by calling plot().
 }

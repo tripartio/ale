@@ -20,6 +20,8 @@
 
 ## Other user-visible changes
 
+* `print()` and `plot()` methods have been added to the `ale_plots` object.
+* A `print()` method has been added to the `ale` object.
 * Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
 * Bootstrapping is now supported for ALE interactions.
 * ALE statistics are now supported for interactions.

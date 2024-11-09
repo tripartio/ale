@@ -1,7 +1,7 @@
 # numeric outcome works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$mpg
@@ -792,20 +792,289 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
       car_plots
     Output
-      list()
+      $model
+          x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1   1 23.07216     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2   2 23.27944     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3   3 27.70004     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4   4 22.31117     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5   5 23.18042     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6   6 26.11191     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+      7   7 23.32154     1     7     NA lightgray       0.5        1    NA -Inf  Inf
+      8   8 17.21580     1     8     NA lightgray       0.5        1    NA -Inf  Inf
+      9   9 19.66798     1     9     NA lightgray       0.5        1    NA -Inf  Inf
+      10 10 18.05627     1    10     NA lightgray       0.5        1    NA -Inf  Inf
+      11 11 20.81968     1    11     NA lightgray       0.5        1    NA -Inf  Inf
+      12 12 21.65547     1    12     NA lightgray       0.5        1    NA -Inf  Inf
+      13 13 21.64680     1    13     NA lightgray       0.5        1    NA -Inf  Inf
+      14 14 14.62617     1    14     NA lightgray       0.5        1    NA -Inf  Inf
+      15 15 19.31126     1    15     NA lightgray       0.5        1    NA -Inf  Inf
+      16 16 23.30261     1    16     NA lightgray       0.5        1    NA -Inf  Inf
+      17 17 14.37904     1    17     NA lightgray       0.5        1    NA -Inf  Inf
+      18 18 15.67003     1    18     NA lightgray       0.5        1    NA -Inf  Inf
+      19 19 21.09743     1    19     NA lightgray       0.5        1    NA -Inf  Inf
+      20 20 18.52346     1    20     NA lightgray       0.5        1    NA -Inf  Inf
+      21 21 12.49265     1    21     NA lightgray       0.5        1    NA -Inf  Inf
+      22 22 18.69791     1    22     NA lightgray       0.5        1    NA -Inf  Inf
+      23 23 18.89908     1    23     NA lightgray       0.5        1    NA -Inf  Inf
+      24 24 19.31559     1    24     NA lightgray       0.5        1    NA -Inf  Inf
+      25 25 12.97935     1    25     NA lightgray       0.5        1    NA -Inf  Inf
+      26 26 17.71926     1    26     NA lightgray       0.5        1    NA -Inf  Inf
+      27 27 15.51205     1    27     NA lightgray       0.5        1    NA -Inf  Inf
+      28 28 17.46438     1    28     NA lightgray       0.5        1    NA -Inf  Inf
+      29 29 12.49220     1    29     NA lightgray       0.5        1    NA -Inf  Inf
+      30 30 20.12044     1    30     NA lightgray       0.5        1    NA -Inf  Inf
+      31 31 17.56635     1    31     NA lightgray       0.5        1    NA -Inf  Inf
+      32 32 16.19205     1    32     NA lightgray       0.5        1    NA -Inf  Inf
+             ymin     ymax
+      1  19.04095 19.28336
+      2  19.04095 19.28336
+      3  19.04095 19.28336
+      4  19.04095 19.28336
+      5  19.04095 19.28336
+      6  19.04095 19.28336
+      7  19.04095 19.28336
+      8  19.04095 19.28336
+      9  19.04095 19.28336
+      10 19.04095 19.28336
+      11 19.04095 19.28336
+      12 19.04095 19.28336
+      13 19.04095 19.28336
+      14 19.04095 19.28336
+      15 19.04095 19.28336
+      16 19.04095 19.28336
+      17 19.04095 19.28336
+      18 19.04095 19.28336
+      19 19.04095 19.28336
+      20 19.04095 19.28336
+      21 19.04095 19.28336
+      22 19.04095 19.28336
+      23 19.04095 19.28336
+      24 19.04095 19.28336
+      25 19.04095 19.28336
+      26 19.04095 19.28336
+      27 19.04095 19.28336
+      28 19.04095 19.28336
+      29 19.04095 19.28336
+      30 19.04095 19.28336
+      31 19.04095 19.28336
+      32 19.04095 19.28336
+      
+      $cyl
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 3 19.21956     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 4 19.21237     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3 5 19.20517     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4 6 19.19798     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5 7 19.19078     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6 8 19.18359     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7 9 19.17639     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      7 19.04095 19.28336
+      
+      $disp
+                 x        y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 23.94577     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 23.69247     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 22.38387     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 21.53981     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 20.88301     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 18.01937     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 16.80447     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 15.49188     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 14.62011     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 13.46448     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
+      $hp
+                x        y PANEL group colour      fill linewidth linetype alpha xmin
+      1   52.0000 21.86350     1    -1     NA lightgray       0.5        1    NA -Inf
+      2   66.0000 21.44081     1    -1     NA lightgray       0.5        1    NA -Inf
+      3   95.0000 20.43134     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  109.0000 19.90914     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  111.9003 19.80265     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  150.0000 18.58230     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  176.2939 18.01751     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  180.6733 17.94431     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  245.0000 17.01759     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 335.0000 16.00843     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax     ymin     ymax
+      1   Inf 19.04095 19.28336
+      2   Inf 19.04095 19.28336
+      3   Inf 19.04095 19.28336
+      4   Inf 19.04095 19.28336
+      5   Inf 19.04095 19.28336
+      6   Inf 19.04095 19.28336
+      7   Inf 19.04095 19.28336
+      8   Inf 19.04095 19.28336
+      9   Inf 19.04095 19.28336
+      10  Inf 19.04095 19.28336
+      
+      $drat
+                x        y PANEL group colour      fill linewidth linetype alpha xmin
+      1  2.743533 18.23490     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  3.016190 18.54770     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  3.080000 18.62214     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  3.175717 18.73297     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  3.620000 19.23830     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  3.733310 19.36505     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  3.900000 19.54026     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  3.932607 19.57428     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  4.209875 19.87112     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 4.978502 20.66888     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax     ymin     ymax
+      1   Inf 19.04095 19.28336
+      2   Inf 19.04095 19.28336
+      3   Inf 19.04095 19.28336
+      4   Inf 19.04095 19.28336
+      5   Inf 19.04095 19.28336
+      6   Inf 19.04095 19.28336
+      7   Inf 19.04095 19.28336
+      8   Inf 19.04095 19.28336
+      9   Inf 19.04095 19.28336
+      10  Inf 19.04095 19.28336
+      
+      $wt
+                x        y PANEL group colour      fill linewidth linetype alpha xmin
+      1  1.498275 26.10222     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  1.935000 24.27562     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  2.465000 22.00091     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  2.790481 20.59413     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  3.190000 18.93634     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  3.439356 17.93727     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  3.520000 17.61882     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  3.730000 16.80174     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  4.046066 15.60090     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 5.453272 10.25520     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax     ymin     ymax
+      1   Inf 19.04095 19.28336
+      2   Inf 19.04095 19.28336
+      3   Inf 19.04095 19.28336
+      4   Inf 19.04095 19.28336
+      5   Inf 19.04095 19.28336
+      6   Inf 19.04095 19.28336
+      7   Inf 19.04095 19.28336
+      8   Inf 19.04095 19.28336
+      9   Inf 19.04095 19.28336
+      10  Inf 19.04095 19.28336
+      
+      $qsec
+                x        y PANEL group colour      fill linewidth linetype alpha xmin
+      1  14.46589 11.63947     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  15.61460 14.38462     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  16.73553 16.93288     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  17.02000 17.59053     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  17.41920 18.49275     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  17.98000 19.70884     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  18.59333 20.92437     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  18.90000 21.52539     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  20.00000 23.73851     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 22.97365 29.13272     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax     ymin     ymax
+      1   Inf 19.04095 19.28336
+      2   Inf 19.04095 19.28336
+      3   Inf 19.04095 19.28336
+      4   Inf 19.04095 19.28336
+      5   Inf 19.04095 19.28336
+      6   Inf 19.04095 19.28336
+      7   Inf 19.04095 19.28336
+      8   Inf 19.04095 19.28336
+      9   Inf 19.04095 19.28336
+      10  Inf 19.04095 19.28336
+      
+      $vs
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 20.82847     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 17.10625     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $am
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 17.58704     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 21.55740     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      
+      $gear
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 20.40561     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 17.40633     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 19.88800     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
+      $carb
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 19.18774     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 19.19559     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 19.20343     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 19.21128     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5 8 19.24267     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      
+      $country
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 15.68173     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 17.88894     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 17.55346     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 19.84358     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 17.38549     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 21.03917     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      
+      $continent
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 18.77930     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 21.30676     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 15.12562     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      
 
 ---
 
     Code
-      car_eff_plot
+      unclass(car_eff_plot)
     Output
       [[1]]
           y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
@@ -1029,7 +1298,7 @@
 # numeric outcome with bootstrap works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$mpg
@@ -1391,20 +1660,59 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
       car_plots
     Output
-      list()
+      $cyl
+        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 3 19.21956     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 4 19.21237     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      3 5 19.20517     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      4 6 19.19798     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      5 7 19.19078     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      6 8 19.18359     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+      7 9 19.17639     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
+            ymin     ymax
+      1 19.04095 19.28336
+      2 19.04095 19.28336
+      3 19.04095 19.28336
+      4 19.04095 19.28336
+      5 19.04095 19.28336
+      6 19.04095 19.28336
+      7 19.04095 19.28336
+      
+      $disp
+                 x        y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 23.94577     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 23.69247     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 22.38387     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 21.53981     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 20.88301     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 18.01937     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 16.80447     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 15.49188     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 14.62011     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 13.46448     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax     ymin     ymax
+      1  -Inf  Inf 19.04095 19.28336
+      2  -Inf  Inf 19.04095 19.28336
+      3  -Inf  Inf 19.04095 19.28336
+      4  -Inf  Inf 19.04095 19.28336
+      5  -Inf  Inf 19.04095 19.28336
+      6  -Inf  Inf 19.04095 19.28336
+      7  -Inf  Inf 19.04095 19.28336
+      8  -Inf  Inf 19.04095 19.28336
+      9  -Inf  Inf 19.04095 19.28336
+      10 -Inf  Inf 19.04095 19.28336
+      
 
 ---
 
     Code
-      car_eff_plot
+      unclass(car_eff_plot)
     Output
       [[1]]
         y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
@@ -1474,7 +1782,7 @@
 # numeric outcome works with every parameter set to something, with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$mpg
@@ -1734,13 +2042,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 # binary outcome default works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$vs
@@ -2540,13 +2846,18 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
-      car_eff_plot
+      car_plots
+    Output
+      list()
+
+---
+
+    Code
+      unclass(car_eff_plot)
     Output
       [[1]]
           y PANEL group colour      fill linewidth linetype alpha         xmin
@@ -2768,7 +3079,7 @@
 # binary outcome with bootstrap works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$vs
@@ -3132,13 +3443,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
-      car_eff_plot
+      unclass(car_eff_plot)
     Output
       [[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
@@ -3206,7 +3515,7 @@
 # binary outcome works with every parameter set to something, with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$vs
@@ -3481,13 +3790,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 # categorical outcome default works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$Asia
@@ -5429,13 +5736,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
-      car_eff_plots
+      unclass(car_eff_plots)
     Output
       $Asia
           y PANEL group colour      fill linewidth linetype alpha         xmin
@@ -5531,7 +5836,7 @@
 # categorical outcome with bootstrap works with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$Asia
@@ -6162,13 +6467,11 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 
 ---
 
     Code
-      car_eff_plots
+      unclass(car_eff_plots)
     Output
       $Asia
         y PANEL group colour      fill linewidth linetype alpha         xmin
@@ -6198,7 +6501,7 @@
 # categorical outcome works with every parameter set to something, with multiple x datatypes
 
     Code
-      cars_ale
+      unclass(cars_ale)
     Output
       $distinct
       $distinct$Asia
@@ -6563,6 +6866,4 @@
       [1] TRUE
       
       
-      attr(,"class")
-      [1] "ale"
 

@@ -166,8 +166,7 @@ summary(gam_attitude)
 mb_gam <- model_bootstrap(
   attitude,
   gam_attitude,
-  boot_it = 4,
-  parallel = 2  # CRAN limit (delete this line on your own computer)
+  boot_it = 4
 )
 
 # If the model is not standard, supply model_call_string with
@@ -180,8 +179,7 @@ mb_gam <- model_bootstrap(
       raises + s(critical) + advance,
     data = boot_data
   )',
-  boot_it = 4,
-  parallel = 2  # CRAN limit (delete this line on your own computer)
+  boot_it = 4
 )
 
 # Model statistics and coefficients
@@ -189,8 +187,9 @@ mb_gam$model_stats
 mb_gam$model_coefs
 
 # Plot ALE
-mb_gam$ale$plots |>
-  patchwork::wrap_plots()
+mb_gam_plots <- plot(mb_gam)
+mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots[[1]]
+patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 }
 
 }

@@ -55,16 +55,15 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb_plots <- mb |>
-      plot.ale() |>
-      (`[[`)('mpg') |>
+    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     mb_eff_plot <- mb |>
       plot.ale( type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(mb)
+    mb$ale$single <- unclass(mb$ale$single)
+    expect_snapshot(unclass(mb))
     expect_snapshot(mb_plots)
     expect_snapshot(mb_eff_plot)
     # mb$ale$single$distinct$mpg$plots <- ale_plots_to_data(mb$ale$single$distinct$mpg$plots)
@@ -94,16 +93,15 @@ test_that(
       silent = TRUE,
       compact_plots = TRUE
     )
-    mb_plots <- mb |>
-      plot.ale() |>
-      (`[[`)('mpg') |>
+    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     mb_eff_plot <- mb |>
       plot.ale( type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(mb)
+    mb$ale$single <- unclass(mb$ale$single)
+    expect_snapshot(unclass(mb))
     expect_snapshot(mb_plots)
     expect_snapshot(mb_eff_plot)
   }
@@ -125,7 +123,8 @@ test_that(
       output = c("model_stats", "model_coefs"),  # exclude ALE
       silent = TRUE
     )
-    expect_snapshot(mb)
+    mb$ale$single <- unclass(mb$ale$single)
+    expect_snapshot(unclass(mb))
   }
 )
 
@@ -146,16 +145,15 @@ test_that(
       silent = TRUE
       # compact_plots = TRUE
     )
-    # mb_plots <- mb |>
-    #   plot.ale() |>
-    #   (`[[`)('vs') |>
-    #   ale_plots_to_data()
+    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
+      ale_plots_to_data()
     mb_eff_plot <- mb |>
       plot.ale( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    expect_snapshot(mb)
+    mb$ale$single <- unclass(mb$ale$single)
+    expect_snapshot(unclass(mb))
     # expect_snapshot(mb_plots)
     expect_snapshot(mb_eff_plot)
     # mb$ale$boot$distinct$vs$plots <- NULL  # disable for mysterious error
@@ -203,7 +201,8 @@ test_that(
     mb_eff_plots <- mb |>
       plot.ale(type = 'effects') |>
       ale_plots_to_data()
-    expect_snapshot(mb)
+    mb$ale$single <- unclass(mb$ale$single)
+    expect_snapshot(unclass(mb))
     # expect_snapshot(mb_plots)
     expect_snapshot(mb_eff_plots)
     # mb$ale$boot$distinct <- mb$ale$boot$distinct |>
