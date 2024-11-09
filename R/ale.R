@@ -78,20 +78,9 @@
 #' require it.
 #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
-#' `min_rug_per_interval` elements; usually set to just 1 or 2.
 #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
 #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the [model_bootstrap()] function).
-#' @param compact_plots logical length 1, default `FALSE`. When `output` includes
-#' 'plots', the returned `ggplot` objects each include the environments of the plots.
-#' This lets the user modify the plots with all the flexibility of `ggplot`, but it
-#' can result in very large return objects (sometimes even hundreds of megabytes
-#' large). To compact the plots to their bare minimum, set `compact_plots = TRUE`.
-#' However, returned plots will not be easily modifiable, so this should only be
-#' used if you do not want to subsequently modify the plots.
-#' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any
-#' non-essential messages during execution (such as progress bars).
-#' Regardless, any warnings and errors will always display. See details for how
-#' to enable progress bars.
+#' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
 #'
 #'
 #' @return list with the following elements:
@@ -239,7 +228,6 @@ ale <- function (
     min_rug_per_interval = 1,
     bins = NULL,
     ns = NULL,
-    compact_plots = FALSE,
     silent = FALSE
 )
 {

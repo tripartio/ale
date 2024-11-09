@@ -698,9 +698,6 @@
       $params$ns
       NULL
       
-      $params$compact_plots
-      [1] FALSE
-      
       $params$silent
       [1] TRUE
       

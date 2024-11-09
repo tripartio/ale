@@ -72,7 +72,6 @@ test_that(
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
-      # compact_plots = TRUE,
     )
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -107,7 +106,6 @@ test_that(
       parallel = 0,
       boot_it = 5,
       silent = TRUE,
-      # compact_plots = TRUE,
     )
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -141,7 +139,6 @@ test_that(
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
       silent = TRUE,
-      # compact_plots = TRUE
     )
     # cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
     expect_snapshot(unclass(cars_ale))
@@ -161,7 +158,6 @@ test_that(
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
-      # compact_plots = TRUE
     )
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -188,7 +184,6 @@ test_that(
       parallel = 0,
       boot_it = 4,
       silent = TRUE,
-      # compact_plots = TRUE
     )
     # car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
     #   ale_plots_to_data()
@@ -222,7 +217,6 @@ test_that(
       y_type = 'binary',
       median_band_pct = c(0.01, 0.2),
       silent = TRUE,
-      # compact_plots = TRUE,
     )
 
     expect_snapshot(unclass(cars_ale))
@@ -243,7 +237,6 @@ test_that(
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE,
-      # compact_plots = TRUE
     )
     # car_plots <- cars_ale |>
     #   plot.ale() |>
@@ -288,7 +281,6 @@ test_that(
       parallel = 0,
       boot_it = 3,
       silent = TRUE,
-      # compact_plots = TRUE  # generates warnings for out-of-range values
     )
    car_eff_plots <- cars_ale |>
       plot.ale(type = 'effects') |>
@@ -328,7 +320,6 @@ test_that(
       y_type = 'categorical',
       median_band_pct = c(0.01, 0.2),
       silent = TRUE,
-      # compact_plots = TRUE,
     )
     expect_snapshot(unclass(cars_ale))
   }

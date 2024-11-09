@@ -52,8 +52,7 @@ test_that(
         max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -90,8 +89,7 @@ test_that(
         max_num_bins = 10,
         x_cols = c('vs', 'gear')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -143,7 +141,6 @@ test_that(
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE
-      # compact_plots = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()

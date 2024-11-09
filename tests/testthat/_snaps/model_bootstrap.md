@@ -375,9 +375,6 @@
       $ale$single$params$ns
       NULL
       
-      $ale$single$params$compact_plots
-      [1] FALSE
-      
       $ale$single$params$silent
       [1] TRUE
       
@@ -552,9 +549,6 @@
       
       $params$glance_options
       list()
-      
-      $params$compact_plots
-      [1] TRUE
       
       $params$silent
       [1] TRUE
@@ -1021,9 +1015,6 @@
       $ale$single$params$ns
       NULL
       
-      $ale$single$params$compact_plots
-      [1] FALSE
-      
       $ale$single$params$silent
       [1] TRUE
       
@@ -1341,9 +1332,6 @@
       $params$glance_options
       list()
       
-      $params$compact_plots
-      [1] TRUE
-      
       $params$silent
       [1] TRUE
       
@@ -1577,9 +1565,6 @@
       
       $params$glance_options
       list()
-      
-      $params$compact_plots
-      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -1937,9 +1922,6 @@
       $ale$single$params$ns
       NULL
       
-      $ale$single$params$compact_plots
-      [1] FALSE
-      
       $ale$single$params$silent
       [1] TRUE
       
@@ -2271,9 +2253,6 @@
       
       $params$glance_options
       list()
-      
-      $params$compact_plots
-      [1] FALSE
       
       $params$silent
       [1] TRUE
@@ -3155,9 +3134,6 @@
       $ale$single$params$ns
       NULL
       
-      $ale$single$params$compact_plots
-      [1] FALSE
-      
       $ale$single$params$silent
       [1] TRUE
       
@@ -4014,9 +3990,6 @@
       
       $params$glance_options
       list()
-      
-      $params$compact_plots
-      [1] FALSE
       
       $params$silent
       [1] TRUE

@@ -27,7 +27,6 @@ Imports:
     furrr,
     future,
     ggplot2,
-    ggpubr,
     grDevices,
     insight,
     labeling,

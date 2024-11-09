@@ -74,7 +74,6 @@
 #' because it is needed for the bootstrap averages. By default, it is not returned
 #' except if included in this `output` argument.
 #' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.
-#' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
 #' @return list with the following elements (depending on values requested in the `output` argument:
@@ -166,7 +165,6 @@ model_bootstrap <- function (
     ale_options = list(),
     tidy_options = list(),
     glance_options = list(),
-    compact_plots = FALSE,
     silent = FALSE
 ) {
   # Validate arguments -------------
@@ -1114,7 +1112,6 @@ model_bootstrap <- function (
       #               stats::setNames(c(it.x_col_name, it.cat)),
       #
       #             ## Later: pass ale_options() that might apply
-      #             compact_plots = compact_plots
       #
       #             # When y_vals is added
       #             # x_y = tibble(data[[it.x_col_name]], y_vals) |>
@@ -1140,9 +1137,7 @@ model_bootstrap <- function (
       #         estimates = it.cat_ale_stats$estimate,
       #         y_summary = full_ale$params$y_summary[, it.cat],
       #         y_col = it.cat,
-      #         middle_band = median_band_pct,
-      #         # later pass ale_options like compact_plots
-      #         compact_plots = compact_plots
+      #         middle_band = median_band_pct
       #       )
       #
       #       it.cat_ale_stats
