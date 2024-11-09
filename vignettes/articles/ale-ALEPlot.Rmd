@@ -288,7 +288,7 @@ yhat <- function(object, newdata, type) {
 # Generate ALE data for all variables
 
 # # To generate the code, uncomment the following lines.
-# # But it is slow because it calculates ALE for all variables,
+# # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_link <- ale(
 #   # data[,-c(3,4)], gbm.data,
@@ -303,7 +303,7 @@ gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_link)
-gbm_1D_link_plots <- gbm_link_plots$distinct$y$plots[[1]]
+gbm_1D_link_plots <- gbm_link_plots$distinct$higher_income$plots[[1]]
 patchwork::wrap_plots(gbm_1D_link_plots, ncol = 2)
 ```
 
@@ -311,7 +311,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 
 ```{r ale 2D link, fig.width=7, fig.height=5}
 # # To generate the code, uncomment the following lines.
-# # But it is slow because it calculates ALE for all variables,
+# # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_2D_link <- ale(
 #   # data[,-c(3,4)], gbm.data,
@@ -327,12 +327,12 @@ gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_2D_link)
-gbm_link_2D_plots <- gbm_link_plots$distinct$y$plots[[2]]
+gbm_link_2D_plots <- gbm_link_plots$distinct$higher_income$plots[[2]]
 gbm_link_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2) |> 
       print()
   })
 ```
@@ -380,8 +380,8 @@ gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_prob)
-gbm_2D_prob_plots <- gbm_prob_plots$distinct$y$plots[[2]]
-patchwork::wrap_plots(gbm_2D_prob_plots, ncol = 2)
+gbm_1D_prob_plots <- gbm_prob_plots$distinct$higher_income$plots[[1]]
+patchwork::wrap_plots(gbm_1D_prob_plots, ncol = 2)
 ```
 
 Finally, we again generate two-way interactions, this time based on probabilities instead of on log odds. However, probabilities might not be the best choice for indicating interactions because, as we see from the rugs in the one-way ALE plots, the GBM model heavily concentrates its probabilities in the extremes near 0 and 1. Thus, the plots' suggestions of strong interactions are likely exaggerated. In this case, the log odds ALEs shown above are probably more relevant.
@@ -404,12 +404,12 @@ gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_2D_prob)
-gbm_prob_2D_plots <- gbm_prob_plots$distinct$y$plots[[2]]
+gbm_prob_2D_plots <- gbm_prob_plots$distinct$higher_income$plots[[2]]
 gbm_prob_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2) |> 
       print()
   })
 ```
