@@ -237,8 +237,7 @@ ale <- function (
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  # If model validation is done more rigorously, also validate that y_col is not
-  # contained in all_x__cols
+  # If model validation is done more rigorously, also validate that y_col is not contained in all_x__cols
 
   # Validate the dataset
   validate(data |> inherits('data.frame'))
@@ -401,6 +400,11 @@ ale <- function (
   }
 
   validate_silent(silent)
+
+  # # Possible future compatibility option with ALEPlot
+  # if (ALEPlot_compatibility && !requireNamespace("yaImpute", quietly = TRUE)) {
+  #   cli_abort("Package 'yaImpute' is needed for imputation of missing interactions by nearest neighbours. Please install it.")
+  # }
 
 
   # Prepare needed internal variables --------------

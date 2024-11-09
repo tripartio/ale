@@ -7,7 +7,10 @@ nn_na_delta_pred <- function(dp, xd) {
   # Hack to silence R-CMD-CHECK
   knnIndexDist <- NULL
 
-  # nn_na_delta_pred <- function(dp, numeric_x1) {
+  if (!requireNamespace("yaImpute", quietly = TRUE)) {
+    cli_abort("Package {.pkg yaImpute} is needed for imputation of missing interactions by nearest neighbours. Please install it.")
+  }
+
   x1_ceilings <- xd[[1]]$ceilings
   x2_ceilings <- xd[[2]]$ceilings
 
@@ -108,7 +111,6 @@ idxs_kolmogorov_smirnov <- function(
     n_bins,
     x_int_counts
 ) {
-
   # Initialize distance matrices between pairs of intervals of X[[x_col]]
   dist_mx <- matrix(0, n_bins, n_bins)
   cdm <- matrix(0, n_bins, n_bins)  # cumulative distance matrix
@@ -158,7 +160,6 @@ idxs_kolmogorov_smirnov <- function(
     }
 
     cdm <- cdm + dist_mx
-
   }
 
   # Replace any NA with the maximum distance
@@ -169,7 +170,6 @@ idxs_kolmogorov_smirnov <- function(
     stats::cmdscale(k = 1) |>   # one-dimensional MDS representation of dist_mx
     sort(index.return = TRUE) |>
     (`[[`)('ix')
-
 
   return(idxs)
 }
