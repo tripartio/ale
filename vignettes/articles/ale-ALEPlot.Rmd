@@ -24,7 +24,7 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 
 -   It uses `ggplot2` instead of base R graphics. We consider `ggplot2` to be a more modern and versatile graphics system.
 -   It saves plots as ggplot objects to a "plots" element of the return value; it does not automatically print the plot to the screen. As we show, this lets the user manipulate the plots more flexibly.
--   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument, as we demonstrate.) We believe that such plots more easily interpretable.
+-   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument to [plot()], as we demonstrate.) We believe that such plots more easily interpretable.
 -   In addition, there are numerous design choices to simply the function interface based on [tidyverse](https://www.tidyverse.org/) design principles.
 
 One notable difference between the two packages is that the `{ale}` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
@@ -47,7 +47,6 @@ We begin with the second code example directly from the `{ALEPlot}` package. (We
 ## R code for Example 2
 ## Load relevant packages
 library(ALEPlot)
-library(nnet)
 
 ## Generate some data and fit a neural network supervised learning model
 set.seed(0)  # not in the original, but added for reproducibility
@@ -59,8 +58,10 @@ x4 <- runif(n, min = 0, max = 1)
 y = 4*x1 + 3.87*x2^2 + 2.97*exp(-5+10*x3)/(1+exp(-5+10*x3))+
 13.86*(x1-0.5)*(x2-0.5)+ rnorm(n, 0, 1)
 DAT <- data.frame(y, x1, x2, x3, x4)
-nnet.DAT <- nnet(y~., data = DAT, linout = T, skip = F, size = 6,
-decay = 0.1, maxit = 1000, trace = F)
+nnet.DAT <- nnet::nnet(
+  y~., data = DAT, linout = T, skip = F, size = 6,
+  decay = 0.1, maxit = 1000, trace = F
+)
 ```
 
 For the demonstration, `x1` has a linear relationship with `y`, `x2` and `x3` have non-linear relationships, and `x4` is a random variable with no relationship with `y`. `x1` and `x2` interact with each other in their relationship with `y`.
@@ -160,7 +161,9 @@ Since the plots are saved as a list, they can easily be printed out all at once:
 
 ```{r ale nnet one-way plots, fig.width=7, fig.height=5}
 # Print plots
-patchwork::wrap_plots(nn_ale$plots)
+nn_plots <- plot(nn_ale)
+nn_1D_plots <- nn_plots$distinct$y$plots[[1]]
+patchwork::wrap_plots(nn_1D_plots, ncol = 2)
 ```
 
 The `{ale}` package plots have various features that enhance interpretability:
@@ -170,31 +173,31 @@ The `{ale}` package plots have various features that enhance interpretability:
 -   Similarly, there are 25% and 75% percentile markers to show the middle 50% of the y values. Any ALE y value beyond these bands indicates that the x variable is so strong that it alone at the values indicated can shift the y value by that much.
 -   Rug plots indicate the distribution of the data so that outliers are not over-interpreted.
 
-It might not be clear that the previous plots display exactly the same data as those shown above from `ALEPlot`. To make the comparison clearer, we can recalculate the ALEs on a zero-centred scale:
+It might not be clear that the previous plots display exactly the same data as those shown above from `ALEPlot`. To make the comparison clearer, we can plot the ALEs on a zero-centred scale:
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
-# Zero-centred ALE
-nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw", relative_y = 'zero')
-
-patchwork::wrap_plots(nn_ale$plots)
+# Zero-centred ALE plots
+nn_plots_zero <- plot(nn_ale, relative_y = 'zero')
+nn_1D_plots_zero <- nn_plots_zero$distinct$y$plots[[1]]
+patchwork::wrap_plots(nn_1D_plots_zero)
 ```
 
 With these zero-centred plots, the full range of y values and the rug plots give some context that aids interpretation. (If the rugs look slightly different, it is because they are randomly jittered to avoid overplotting.)
 
-The `{ale}` also produces interaction plots. Unlike `ALEPlot`, it does so with a separate dedicated function, `ale_ixn()`. By default, it calculates all possible two-way interactions between all variables in the data.
+The `{ale}` also produces interaction plots; see the [introductory vignette](https://tripartio.github.io/ale/articles/ale-intro.html) for details on how they are specified and created. 
 
-Because the variables interact with each other, the output data structure is a two-layer list, so the print code is slightly more complicated. However, the sample code we provide here using functions from the `purrr` package for iterating through lists and `patchwork` package for arranging plots are reusable in any application.
-
-```{r ale nnet ixn, fig.width=7, fig.height=5}
+```{r ale nnet 2D, fig.width=7, fig.height=5}
 # Create and plot interactions
-nn_ale_ixn <- ale_ixn(DAT, nnet.DAT, pred_type = "raw")
+nn_ale_2D <- ale(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
 
 # Print plots
-nn_ale_ixn$plots |>
+nn_plots <- plot(nn_ale_2D)
+nn_2D_plots <- nn_plots$distinct$y$plots[[2]]
+nn_2D_plots |>
   # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {  
+  purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2, nrow = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
       print()
   })
 ```
@@ -291,42 +294,45 @@ yhat <- function(object, newdata, type) {
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   max_num_bins = 500,
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
   readRDS()
 
 # Print plots
-patchwork::wrap_plots(gbm_ale_link$plots, ncol = 2)
+gbm_link_plots <- plot(gbm_ale_link)
+gbm_1D_link_plots <- gbm_link_plots$distinct$y$plots[[1]]
+patchwork::wrap_plots(gbm_1D_link_plots, ncol = 2)
 ```
 
 Now we generate ALE data for all two-way interactions and then plot them. Again, note the interaction between `age` and `hours_per_week`. The interaction is minimal except for the extremely high cases of hours per week.
 
-```{r ale ixn link, fig.width=7, fig.height=5}
+```{r ale 2D link, fig.width=7, fig.height=5}
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_ixn_link <- ale_ixn(
+# gbm_ale_2D_link <- ale(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
+#   complete_d = 2,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600,  # technical issue: rug_sample_size must be > x_intervals + 1
-#   relative_y = 'zero'  # compatibility with ALEPlot
+#   max_num_bins = 500,
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
-# saveRDS(gbm_ale_ixn_link, file.choose())
-gbm_ale_ixn_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_link.rds') |> 
+# saveRDS(gbm_ale_2D_link, file.choose())
+gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_link.rds') |> 
   readRDS()
 
 # Print plots
-gbm_ale_ixn_link$plots |>
+gbm_link_plots <- plot(gbm_ale_2D_link)
+gbm_link_2D_plots <- gbm_link_plots$distinct$y$plots[[2]]
+gbm_link_2D_plots |>
   # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {  
+  purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
       print()
   })
 ```
@@ -334,7 +340,7 @@ gbm_ale_ixn_link$plots |>
 In some of these plots, we can see some white spots. These are the interaction zones where there is no data in the dataset to calculate the existence of an interaction. For example, let's focus on the interactions of `age` with `education_num`:
 
 ```{r ale age x education_num}
-gbm_ale_ixn_link[["plots"]][["age"]][["education_num"]]
+gbm_link_2D_plots$age$education_num
 ```
 
 Here, the grey zones in the majority of the plot indicate that there are minimal interaction effects for most of the data range. However, in the small interacting zone of people younger than 30 years old or so with 14 to 16 years of education, we see that the likelihood of higher income is around 0.9 times lower than average. For the several white zones, there is no data in the dataset to support an estimate. For example, there is no one 35 to 45 years old with 15 years of education and there is no one 49 to 60 years old with 14 years of education; so, the model can say nothing about such interactions.
@@ -349,8 +355,10 @@ As we can see, the shapes of the plots are similar, but the y axes are more easi
 # Custom predict function that returns predicted probabilities
 yhat <- function(object, newdata, type) {
   as.numeric(
-    predict(object, newdata,  n.trees = 6000,
-            type="response")  # return predicted probabilities
+    predict(
+      object, newdata,  n.trees = 6000, 
+      type = "response"  # return predicted probabilities
+    )
   )
 }
 
@@ -363,40 +371,45 @@ yhat <- function(object, newdata, type) {
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_num_bins = 500,
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
   readRDS()
 
 # Print plots
-patchwork::wrap_plots(gbm_ale_prob$plots, ncol = 2)
+gbm_prob_plots <- plot(gbm_ale_prob)
+gbm_2D_prob_plots <- gbm_prob_plots$distinct$y$plots[[2]]
+patchwork::wrap_plots(gbm_2D_prob_plots, ncol = 2)
 ```
 
 Finally, we again generate two-way interactions, this time based on probabilities instead of on log odds. However, probabilities might not be the best choice for indicating interactions because, as we see from the rugs in the one-way ALE plots, the GBM model heavily concentrates its probabilities in the extremes near 0 and 1. Thus, the plots' suggestions of strong interactions are likely exaggerated. In this case, the log odds ALEs shown above are probably more relevant.
 
-```{r ale ixn prob, fig.width=7, fig.height=5}
+```{r ale 2D prob, fig.width=7, fig.height=5}
 # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_ixn_prob <- ale_ixn(
+# gbm_ale_2D_prob <- ale(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
+#   complete_d = 2,
 #   pred_fun = yhat,
-#   x_intervals = 500,
-#   rug_sample_size = 600  # technical issue: rug_sample_size must be > x_intervals + 1
+#   max_num_bins = 500,
+#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
 # )
-# saveRDS(gbm_ale_ixn_prob, file.choose())
-gbm_ale_ixn_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_ixn_prob.rds') |> 
+# saveRDS(gbm_ale_2D_prob, file.choose())
+gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_prob.rds') |> 
   readRDS()
 
 # Print plots
-gbm_ale_ixn_prob$plots |>
+gbm_prob_plots <- plot(gbm_ale_2D_prob)
+gbm_prob_2D_plots <- gbm_prob_plots$distinct$y$plots[[2]]
+gbm_prob_2D_plots |>
   # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {  
+  purrr::walk(\(it.x1) {  
     # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2) |> 
+    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
       print()
   })
 ```

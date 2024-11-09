@@ -50,6 +50,10 @@ diamonds <- ggplot2::diamonds |>
     depth_pct = depth
   )
 
+# Optional: sample 1000 rows so that the code executes faster.
+set.seed(0)
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+
 summary(diamonds)
 ```
 
@@ -124,18 +128,32 @@ ale_gam_diamonds <- ale(
 
 By default, most core functions in the `{ale}` package use parallel processing. However, this requires explicit specification of the packages used to build the model, specified with the `model_packages` argument. (If parallelization is disabled with `parallel = 0`, then `model_packages` is not required.) See `help(ale)` for more details.
 
-To access the plot for a specific variable, we can call it by its variable name as an element of the `plots` element. These are `ggplot` objects, so they are easy to manipulate. For example, to access and print the `carat` ALE plot, we simply call `ale_gam_diamonds$plots$carat` :
+To access the plot for a specific variable, we must first create an ale_plots object by calling the `plot()` method on the `ale` object which generates `ggplot` objects with the full flexibility of {ggplot2}:
+
+```{r create-plots}
+# Print a plot by entering its reference
+diamonds_plots <- plot(ale_gam_diamonds)
+```
+
+The plots object is somewhat complex, so it is easier to work with by using the following code to simplify it. (A future version of the ale package should simplify working directly with `ale_plots` objects.) 
+
+```{r simplify-1D-plots}
+# Extract one-way ALE plots from the ale_plots object
+diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+```
+
+The diamonds_1D_plots object is now simply a list of all the 1D ALE plots. The desired variable plot can now be easily plotted by printing its reference by name.  For example, to access and print the `carat` ALE plot, we simply refer to `diamonds_1D_plots$carat`:
 
 ```{r print-carat, fig.width=3.5, fig.width=4}
 # Print a plot by entering its reference
-ale_gam_diamonds$plots$carat
+diamonds_1D_plots$carat
 ```
 
-To iterate the list and plot all the ALE plots, we provide here some demonstration code using the `patchwork` package for arranging multiple plots in a common plot grid using `patchwork::wrap_plots()`. We need to pass the list of plots to the `grobs` argument and we can specify that we want two plots per row with the `ncol` argument.
+To iterate the list and plot all the ALE plots, we can use the `patchwork` package to arrange multiple plots in a common plot grid using `patchwork::wrap_plots()`. We need to pass the list of plots to the `grobs` argument and we can specify that we want two plots per row with the `ncol` argument.
 
 ```{r print-ale_simple, fig.width=7, fig.height=11}
 # Print all plots
-patchwork::wrap_plots(ale_gam_diamonds$plots, ncol = 2)
+patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 ```
 
 ## Bootstrapped ALE
@@ -163,44 +181,53 @@ ale_gam_diamonds_boot <- ale(
 )
 
 # Bootstrapping produces confidence intervals
-patchwork::wrap_plots(ale_gam_diamonds_boot$plots, ncol = 2)
+boot_plots <- plot(ale_gam_diamonds_boot)
+boot_1D_plots <- boot_plots$distinct$price$plots[[1]]
+patchwork::wrap_plots(boot_1D_plots, ncol = 2)
 ```
 
 In this case, the bootstrapped results are mostly similar to single (non-bootstrapped) ALE result. In principle, we should always bootstrap the results and trust only in bootstrapped results. The most unusual result is that values of `x_length` (the length of the diamond) from 6.2 mm or so and higher are associated with lower diamond prices. When we compare this with the `y_width` value (width of the diamond), we suspect that when both the length and width (that is, the size) of a diamond become increasingly large, the price increases so much more rapidly with the width than with the length that the width has an inordinately high effect that is tempered by a decreased effect of the length at those high values. This would be worth further exploration for real analysis, but here we are just introducing the key features of the package.
 
 ## ALE interactions
 
-Another advantage of ALE is that it provides data for two-way interactions between variables. This is implemented with the `ale_ixn()` function. Like the `ale()` function, `ale_ixn()` similarly requires an input dataset and a model object. By default, it generates ALE data and plots on all possible pairs of input variables used for the model. However, an ALE interaction requires at least one of the variables to be numeric. So, `ale_ixn()` has a notion of x1 and x2 variables; the x1 variable must be numeric whereas the x2 can be of any input datatype. To change the default options (e.g., to calculate interactions for only certain pairs of variables), see details in the help file for the function: `help(ale_ixn)`.
+Another advantage of ALE is that it provides data for two-way interactions between variables. This is also implemented with the `ale()` function. When the `complete_d` argument is set to `2`, then if no variables are specified for `x_cols`, `ale()` generates ALE data on all possible pairs of input variables used for the model. To change the default options (e.g., to calculate interactions for only certain pairs of variables), see details in the help file for the function: `help(ale)`.
 
-```{r ale_ixn}
+```{r ale_2D}
 # ALE two-way interactions
-ale_ixn_gam_diamonds <- ale_ixn(
+ale_2D_gam_diamonds <- ale(
   diamonds, gam_diamonds,
-  parallel = 2  # CRAN limit (delete this line on your own computer)
+  complete_d = 2,
+  parallel = 0  # CRAN limit (delete this line on your own computer)
 )
 
 ```
 
-Like the `ale()` function, the `ale_ixn()` returns a list with one element per input x1 variable, as well as a `.common_data` element with details about the outcome (y) variable. However, in this case, each variable's element consists of a list of all the x2 variables for which the x1 interaction is calculated. Each x2 element then has two elements: the ALE data for that variable and a `ggplot` plot object that plots that ALE data. In the interaction plots, the x1 variable is always shown on the x axis and the x2 variable on the y axis.
+The `plot()` method similarly creates 2D ALE plots from the `ale` object. However, the structure is slightly more complex because of the two levels of interacting variables in the output data. As before, we first create plots from the `ale` object and then we extract the 2D plots from this `ale_plots` object:
 
-Again, we provide here some demonstration code to plot all the ALE plots. It is a little more complex this time because of the two levels of interacting variables in the output data, so we use the `purrr` package to iterate the list structure. `purrr::walk()` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(.x1) {...}` where `.x1` in our case represents each individual element of `ale_ixn_gam_diamonds$plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `patchwork::wrap_plots()`, as before.
+```{r simplify-2D-plots}
+# Extract two-way ALE plots from the ale_plots object
+diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
+diamonds_2D_plots <- diamonds_2D_plots$distinct$price$plots[[2]]
+```
 
-```{r print-all-ale_ixn, fig.width=7, fig.height=7}
+Because of the 2D interactions, this `diamonds_2D_plots` is a two-level list of the 2D ALE plots: the first level is the first variable in the interaction and the second level is a list of the interacting variables. So, we use the `purrr` package to iterate the list structure to print the 2D plots. `purrr::walk()` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(it.x1) {...}` where `it.x1` in our case represents each individual element of `diamonds_2D_plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `patchwork::wrap_plots()`, as before.
+
+```{r print-all-2D, fig.width=7, fig.height=7}
 # Print all interaction plots
-ale_ixn_gam_diamonds$plots |>
-  # extract list of x1 ALE outputs
-  purrr::walk(\(.x1) {
-    # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(.x1, ncol = 2) |>
+diamonds_2D_plots |>
+  # extract list of x1 ALE interactions groups
+  purrr::walk(\(it.x1) {
+    # plot all x2 plots in each it.x1 element
+    patchwork::wrap_plots(it.x1, ncol = 2) |>
       print()
   })
 
 ```
 
-Because we are printing all plots together with the same `patchwork::wrap_plots()` statement, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. For example, we can print the interaction plot between carat and depth by referring to it thus: `ale_ixn_gam_diamonds$plots$carat$depth`.
+Because we are printing all plots together with the same `patchwork::wrap_plots()` statement, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. For example, we can print the interaction plot between carat and depth by referring to it thus: `diamonds_2D_plots$carat$depth`.
 
 ```{r print-specific-ixn, fig.width=5, fig.height=3}
-ale_ixn_gam_diamonds$plots$carat$depth
+diamonds_2D_plots$carat$depth
 ```
 
 This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band (the median band), which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.

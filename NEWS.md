@@ -2,6 +2,60 @@
 
 We have added a **Shiny app that can be used to browse the `ale` data object**. It is accessed with the new `browse_ale()` function. It is implemented as a [Shiny module](https://mastering-shiny.org/scaling-modules.html) with `aleBrowserUI()` as the UI function and `aleBrowserServer()` as the corresponding server function. So, it can be embedded in other Shiny apps or in dynamic [Quarto](https://quarto.org/docs/interactive/shiny/) or [R Markdown](https://bookdown.org/yihui/rmarkdown/shiny-embedded.html) documents.
 
+## Breaking changes
+
+* We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scalable. 
+* In addition to rewriting the code under the hood, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
+* We have created several S3 objects to represent different kinds of ale package objects:
+    * `ale`: the core `ale` package object that holds the results of the [ale()] function.
+    * `ale_boot`: results of the [model_bootstrap()] function.
+    * `ale_p`: p-value distribution information as the result of the [create_p_dist()] function.
+* With the extensive rewrite, we no longer depend on {ALEPlot} code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
+* Renamed the `rug_sample_size` argument of ale() to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
+* [ale_ixn()] has been eliminated and now both 1D and 2D ALE are calculated with the [ale()] function.
+* [ale()] no longer produces plots. ALE plots are now created as `ale_plot` objects that create all possible plots from the ALE data from `ale` or `ale_boot` objects. Thus, serializing `ale` objects now avoids the problems of environment bloat of the included `ggplot` objects.
+
+
+## Bug fixes
+
+* Gracefully fails when the input data has missing values.
+
+## Other user-visible changes
+
+* `print()` and `plot()` methods have been added to the `ale_plots` object.
+* A `print()` method has been added to the `ale` object.
+* Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
+* Bootstrapping is now supported for ALE interactions.
+* ALE statistics are now supported for interactions.
+* Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
+* 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
+* model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.
+* The structure of `p_funs` has been completely changed; it has now been converted to an object named `ale_p` and the functions are separated from the object as internal functions. The function create_p_funs() has been renamed create_p_dist().
+* create_p_dist() now produces two types of p-values via the `p_speed` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
+* Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
+
+## Under the hood
+
+One of the most fundamental changes is not directly visible but affects how some ALE values are calculated. In certain very specific cases, the ALE values are now slightly different from those of the reference `ALEPlot` package. These are only for non-numerical variables for some prediction types other than predictions scaled on the response variable. (E.g., a binary or categorical variable for a logarithmic prediction not scaled to the same scale as the response variable.) We made this change for two reasons:
+    * We can understand our implementation and its interpretation for these edge cases much better than that of the reference `ALEPlot` implementation. These cases are not covered at all in the base ALE scientific article and they are  poorly documented in the `ALEPlot` code. We cannot help users to interpret results that we do not understand ourselves.
+    * Our implementation lets us write code that scales smoothly for interactions of arbitrary depth. In contrast, the `ALEPlot` reference implementation is not scalable: custom code must be written for each type and each degree of interaction.
+Other than for these edge cases, our implementation continues to give identical results to the reference `ALEPlot` package.
+
+Other notable changes that might not be readily visible to users:
+* Reduced dependencies by doing more with the `{rlang}` and `{cli}` packages. Reduced the imported functions to a minimum.
+* Package messages, warnings, and errors now use `{cli}`.
+* Replaced `{assertthat}` with custom validation functions that adapt some `{assertthat}` code. 
+* Use helper.R test files so that some testing objects are available to the loaded package.
+* Configured `{future}` parallelization code to restore original values on exit.
+* Configured codes that use a random seed to restore the original system seed on exit.
+* Improved memory efficiency of `ale_p` objects.
+* Plotting code updated for compatibility with ggplot2 3.5.
+
+## Known issues to be addressed in a future version
+
+-   Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
+-   Effects plots for interactions have not yet been implemented.
+
 # ale 0.3.0
 
 The most significant updates are the addition of p-values for the ALE statistics, the launching of a pkgdown website which will henceforth host the development version of the package, and parallelization of core functions with a resulting performance boost.
