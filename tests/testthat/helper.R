@@ -50,7 +50,7 @@ ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
   ale_plots |>
-    purrr::map(\(it.plot) {
+    purrr::imap(\(it.plot, it.plot_name) {
       ggplot2::ggplot_build(it.plot)$data[[1]]
     })
 }

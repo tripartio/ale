@@ -32,31 +32,6 @@ test_that(
 )
 
 
-# # Build a test based on this diverse variable selection or something like it
-# cars_1D_2D <- ale(
-#   test_cars, test_gam,
-#   x_cols = list(
-#     'model',
-#     'cyl',
-#     c('hp', 'drat'),
-#     'model',
-#     c('hp', 'drat'),
-#     c('wt', 'qsec'),
-#     c('wt', 'hp'),
-#     c('wt', 'drat'),
-#     c('qsec', 'wt'),
-#     # c('vs', 'gear', 'country'),
-#     'vs'
-#   ),
-#   max_num_bins = 10,
-#   parallel = 0,
-#   # boot_it = 3,
-#   # output = c("data"),
-#   output = c("plots", "data", "stats", "conf_regions", "boot"),
-#   silent = TRUE,
-# )
-
-
 
 # All other tests are without parallelization so that results are reproducible
 
@@ -77,14 +52,6 @@ test_that(
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-
-    # cars_ale$distinct$mpg$stats$effects_plot <- cars_ale$distinct$mpg$stats$effects_plot |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
-    # cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
-    # cars_ale$distinct$mpg$stats$effects_plot <- cars_ale$distinct$mpg$stats$effects_plot |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
@@ -136,10 +103,10 @@ test_that(
       median_band_pct = c(0.01, 0.15),
       silent = TRUE,
     )
-    # cars_ale$distinct$mpg$plots <- ale_plots_to_data(cars_ale$distinct$mpg$plots)
     expect_snapshot(unclass(cars_ale))
   }
 )
+
 
 
 # Test binary outcomes ----------------
@@ -179,15 +146,15 @@ test_that(
       boot_it = 4,
       silent = TRUE,
     )
-    # car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
-    #   ale_plots_to_data()
+    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+      ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot.ale( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
+    expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -232,32 +199,17 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    # car_plots <- cars_ale |>
-    #   plot.ale() |>
-    #   map(\(it.cat) {
-    #     map(it.cat, \(it.plot) {
-    #       it.plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data')
-    #       })
-    #   })
+    car_plots <- plot(cars_ale)$distinct |>
+      imap(\(it.cat, it.cat_name) {
+        it.cat$plots[[1]] |>
+          ale_plots_to_data()
+      })
     car_eff_plots <- cars_ale |>
       plot.ale(type = 'effects') |>
       ale_plots_to_data()
     expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
+    expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plots))
-
-    # cars_ale$distinct <- cars_ale$distinct |>
-    #   map(\(it.cat) {
-    #     it.cat$plots <- ale_plots_to_data(it.cat$plots)
-    #     it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data')
-    #
-    #     it.cat
-    #   })
-    # expect_snapshot(unclass(cars_ale))
   }
 )
 
@@ -275,22 +227,20 @@ test_that(
       boot_it = 3,
       silent = TRUE,
     )
-   car_eff_plots <- cars_ale |>
+    car_plots <- plot(cars_ale)$distinct |>
+      imap(\(it.cat, it.cat_name) {
+        it.cat$plots[[1]] |>
+          ale_plots_to_data()
+      })
+    car_eff_plots <- cars_ale |>
+      plot.ale(type = 'effects') |>
+      ale_plots_to_data()
+    car_eff_plots <- cars_ale |>
       plot.ale(type = 'effects') |>
       ale_plots_to_data()
     expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
+    expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plots))
-    # cars_ale$distinct <- cars_ale$distinct |>
-    #   map(\(it.cat) {
-    #     it.cat$plots <- ale_plots_to_data(it.cat$plots)
-    #     it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data')
-    #
-    #     it.cat
-    #   })
-    # expect_snapshot(unclass(cars_ale))
   }
 )
 

@@ -95,7 +95,8 @@ plot.ale <- function(
             plot_ale_1D(
               ale_data  = it.x_col_ale_data,
               x_col     = it.x_col_name,
-              y_col     = obj$params$y_col,
+              y_col     = it.cat_name,
+              # y_col     = obj$params$y_col,
               y_type    = obj$params$y_type,
               y_summary = obj$params$y_summary[, it.cat_name],
               x_y       = obj$params$data$data_sample[, c(it.x_col_name, obj$params$y_col)],
@@ -118,7 +119,6 @@ plot.ale <- function(
         imap(obj$distinct, \(it.cat_data, it.cat_name) {
           imap(it.cat_data$ale[[2]], \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
-              # browser()
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
                 x1_col    = it.x1_col_name,
@@ -520,6 +520,14 @@ plot_ale_1D <- function(
     y_summary[['med_hi_2']]
   )
 
+  # print(x_col)
+  # print(y_col)
+  # print(ale_data)
+  # browser()
+
+  # if (x_col == 'mpg') browser()
+
+
   plot <- plot +
     scale_y_continuous(
       sec.axis = sec_axis(
@@ -603,9 +611,14 @@ plot_ale_1D <- function(
       rug_data
     }
 
+    # if (x_col == 'mpg') browser()
+
     plot <- plot +
       geom_rug(
-        aes(x = .data$rug_x, y = .data$rug_y),
+        aes(
+          x = .data$rug_x,
+          y = if (y_type == 'numeric') .data$rug_y else NA_real_
+        ),
         data = rug_data,
         # Omit y-axis (left, l) rug plot for non-numeric y
         sides = if (y_type == 'numeric') 'bl' else 'b',
@@ -613,12 +626,17 @@ plot_ale_1D <- function(
         position = position_jitter(
           # randomly jitter by 1% of the domain and range
           width = 0.01 * diff(range(ale_data[[1]])),
-          # width = 0.01 * diff(range(ale_data$.ceil)),
-          height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
+          # Specify only for numeric y_type, or else strange, late bugs pop up
+          height = if (y_type == 'numeric') {
+            0.01 * (y_summary[['max']] - y_summary[['min']])
+          } else {
+            0
+          },
           seed = seed
         )
       )
   }
+
 
   ## Return plot --------------
 
@@ -736,7 +754,6 @@ plot_ale_2D <- function(
     n_y_quant <- n_y_quant + 1
   }
 
-  # browser()
   # Create quantiles for y
   y_quantiles <-
     y_vals |>

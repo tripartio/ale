@@ -59,17 +59,23 @@ test_that(
 )
 
 test_that(
-  'numeric outcome works with every parameter set to something, with multiple x datatypes', {
+  'numeric outcome works with every parameter set to something, with mixed 1D-2D x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_1D_2D <- ale(
       test_cars, test_gam,
-      list(
-        list('cyl', 'disp', 'vs', 'gear', 'country'),
-        list('cyl', 'am', 'hp')
+      x_cols = list(
+        'model',
+        'cyl',
+        c('hp', 'drat'),
+        'model',
+        c('hp', 'drat'),
+        c('wt', 'qsec'),
+        c('wt', 'hp'),
+        c('wt', 'drat'),
+        c('qsec', 'wt'),
+        'vs'
       ),
-      # x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      # x2_cols = c('cyl', 'am', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -77,21 +83,20 @@ test_that(
       max_num_bins = 12,
       y_type = 'numeric',
       median_band_pct = c(0.01, 0.15),
-      # n_x1_bins = 10,
-      # n_x2_bins = 25,
-      # n_y_quant = 5,
       silent = TRUE
     )
 
-    car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    cars_1D_2D_plots <- plot(cars_1D_2D)
+    cars_1D_2D_plots <- cars_1D_2D_plots$distinct$mpg$plots[[1]] |>
+      ale_plots_to_data()
+    for (it.cat in names(cars_1D_2D_plots$distinct)) {
+      cars_1D_2D_plots$distinct[[it.cat]]$plots[[2]] <-
+        cars_1D_2D_plots$distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
-    expect_snapshot(unclass(cars_2D))
-    expect_snapshot(unclass(car_2D_plots))
+    expect_snapshot(unclass(cars_1D_2D))
+    expect_snapshot(unclass(cars_1D_2D_plots))
   }
 )
 
@@ -135,8 +140,6 @@ test_that(
         list('cyl', 'disp', 'am', 'gear', 'country'),
         list('cyl', 'hp')
       ),
-      # x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
-      # x2_cols = c('cyl', 'hp'),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -144,9 +147,6 @@ test_that(
       max_num_bins = 12,
       y_type = 'binary',
       median_band_pct = c(0.01, 0.25),
-      # n_x1_bins = 10,
-      # n_x2_bins = 25,
-      # n_y_quant = 5,
       silent = TRUE
     )
 
@@ -206,8 +206,6 @@ test_that(
         list('cyl', 'disp', 'gear', 'country'),
         list('cyl', 'am', 'hp')
       ),
-      # x1_cols = c('cyl', 'disp', 'vs', 'gear', 'country'),
-      # x2_cols = c('cyl', 'am', 'hp'),
       pred_type = 'probs',
       parallel = 0,
       boot_it = 3,
@@ -237,8 +235,6 @@ test_that(
         list('cyl', 'disp', 'am', 'gear', 'country'),
         list('cyl', 'hp')
       ),
-      # x1_cols = c('cyl', 'disp', 'am', 'gear', 'country'),
-      # x2_cols = c('cyl', 'hp'),
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",
