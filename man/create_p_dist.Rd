@@ -145,9 +145,9 @@ patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 
 # For non-standard models that give errors with the default settings,
-you can use 'random_model_call_string' to specify a model for the estimation
-of p-values from random variables as in this example.
-See details above for an explanation.
+# you can use 'random_model_call_string' to specify a model for the estimation
+# of p-values from random variables as in this example.
+# See details above for an explanation.
 pd_diamonds <- create_p_dist(
   diamonds_sample,
   gam_diamonds,

@@ -15,12 +15,3 @@ A list whose elements each represent one diagonal of \code{mx}. Each diagonal el
 \description{
 Extracts all diagonals from a matrix in the NWSE direction (upper left down to lower right).
 }
-\examples{
-x <- matrix(
-  sample(1:6, 35, replace = TRUE),
-  nrow = 5
-)
-x
-extract_2D_diags(x)
-
-}

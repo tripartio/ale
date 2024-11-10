@@ -336,8 +336,8 @@ x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
 #'
 #' @return numeric vector of the same length as the input `v` with internal missing values linearly intrapolated.
 #'
-#' @examples
-#' intrapolate_1D(c(NA, NA, 1, NA, 5, NA, NA, 1, NA))
+# @examples
+# intrapolate_1D(c(NA, NA, 1, NA, 5, NA, NA, 1, NA))
 #'
 intrapolate_1D <- function(v) {
   v_length <- length(v)
@@ -390,13 +390,13 @@ intrapolate_1D <- function(v) {
 #'
 #' @return A list whose elements each represent one diagonal of `mx`. Each diagonal element is a list of two elements: `coords` is a numeric vector pair of row-column coordinates; `values` is the value of the diagonal at the coordinate give by `coords`.
 #'
-#' @examples
-#' x <- matrix(
-#'   sample(1:6, 35, replace = TRUE),
-#'   nrow = 5
-#' )
-#' x
-#' extract_2D_diags(x)
+# @examples
+# x <- matrix(
+#   sample(1:6, 35, replace = TRUE),
+#   nrow = 5
+# )
+# x
+# extract_2D_diags(x)
 #'
 extract_2D_diags <- function(mx) {
   i.r <- 1
@@ -437,19 +437,19 @@ extract_2D_diags <- function(mx) {
 #'
 #' @returns If `consolidate = TRUE` (default), returns a numeric matrix of the same dimensions as the input `mx` with internal missing values linearly intrapolated. If `consolidate = FALSE`, returns a list of intrapolations for missing values from each of the four directions (rows, columns, NWSE diagonal, and SWNE diagonal).
 #'
-#' @examples
-#' set.seed(1)
-#' x <- matrix(
-#'   sample(1:6, 35, replace = TRUE),
-#'   nrow = 5
-#' )
-#' x
-#'
-#' # Add some random missing values
-#' x[sample(1:35,15)] <- NA
-#' x
-#'
-#' intrapolate_2D(x)
+# @examples
+# set.seed(1)
+# x <- matrix(
+#   sample(1:6, 35, replace = TRUE),
+#   nrow = 5
+# )
+# x
+#
+# # Add some random missing values
+# x[sample(1:35,15)] <- NA
+# x
+#
+# intrapolate_2D(x)
 #'
 intrapolate_2D <- function(mx, consolidate = TRUE) {
   # Internal function to extract the NWSE diagonals of a matrix then apply 1D intrapolation on each of them.
@@ -597,9 +597,9 @@ mean_array_intrap <- function(ip) {
 #'
 #' @return A list whose elements each represent one diagonal of `ray`. Each diagonal element is a list of two elements: `origin` is the 3D coordinates (row, column, depth) of the first element of the diagonal; `values` is a vector of the diagonal that starts from `origin`.
 #'
-#' @examples
-#' arr <- array(1:60, 5:3)
-#' extract_3D_diags(arr)
+# @examples
+# arr <- array(1:60, 5:3)
+# extract_3D_diags(arr)
 #'
 extract_3D_diags <- function(ray) {
   find_diag <- function(r, c, d) {
@@ -688,12 +688,12 @@ extract_3D_diags <- function(ray) {
 #'
 #' @returns If `consolidate = TRUE` (default), returns a numeric array of the same dimensions as the input `ray` with internal missing values linearly intrapolated. If `consolidate = FALSE`, returns a list of intrapolations for missing values from each slice and diagonal direction.
 #'
-#' @examples
-#' set.seed(2)
-#' arr <- array(1:60, dim = c(5, 4, 3))
-#' arr[sample(1:60, 20)] <- NA
-#' arr
-#' intrapolate_3D(arr)
+# @examples
+# set.seed(2)
+# arr <- array(1:60, dim = c(5, 4, 3))
+# arr[sample(1:60, 20)] <- NA
+# arr
+# intrapolate_3D(arr)
 #'
 intrapolate_3D <- function(ray, consolidate = TRUE) {
 

@@ -329,14 +329,14 @@ plot.ale_plots <- function(
 #' Print an ale_plots object by calling plot().
 #'
 #' @param x An object of class `ale_plots`.
-#' @param max See documentation for [plot.ale_plots()]
+#' @param max_print See documentation for [plot.ale_plots()]
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
 #' @export
-print.ale_plots <- function(x, max = 20L, ...) {
-  plot.ale_plots(x, max = max, ...)
+print.ale_plots <- function(x, max_print = 20L, ...) {
+  plot.ale_plots(x, max_print = max_print, ...)
 }
 
 

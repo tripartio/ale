@@ -9,7 +9,7 @@
 #' For details about arguments not documented here, see [ale()].
 #'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. doi:10.48550/arXiv.2310.09877.
 #'
 #' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ale()]
@@ -633,7 +633,7 @@ calc_ale <- function(
 
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
-    rename(.y_composite = .y)
+    rename(.y_composite = '.y')
 
   if (ixn_d == 2) {
     # Calculate the difference between composite and distinct ALE on the full dataset
@@ -716,7 +716,7 @@ calc_ale <- function(
   # When bootstrapping, remove first iteration: ALE on full dataset
   if (boot_it > 0) {
     boot_ale_tbl <- boot_ale_tbl |>
-      filter(.it != 0)
+      filter('.it' != 0)
   }
 
   #TODO: In the future, maybe return this boot_ray if users want it.
@@ -741,7 +741,7 @@ calc_ale <- function(
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
-        .by = c(.cat, all_of(x_cols)),
+        .by = c('.cat', all_of(x_cols)),
         .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
         .y_mean   = mean(.data$.y, na.rm = TRUE),
         .y_median = median(.data$.y, na.rm = TRUE),

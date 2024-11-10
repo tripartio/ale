@@ -20,7 +20,3 @@ For example, the vector \code{c(NA, NA, 1, NA, 5, NA, NA, 1, NA)} will be intrap
 
 Note: because intrapolation requires at least three elements (left bound, missing value, right bound), an input vector of less than three will be returned unchanged.
 }
-\examples{
-intrapolate_1D(c(NA, NA, 1, NA, 5, NA, NA, 1, NA))
-
-}

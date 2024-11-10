@@ -15,8 +15,3 @@ A list whose elements each represent one diagonal of \code{ray}. Each diagonal e
 \description{
 Extracts all diagonals from a 3D array in the FNWBSE direction (front upper left down to back lower right).
 }
-\examples{
-arr <- array(1:60, 5:3)
-extract_3D_diags(arr)
-
-}
