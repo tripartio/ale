@@ -22,18 +22,3 @@ This intrapolation algorithm replaces internal missing values in a matrix. It do
 \item When there is no intrapolation available from any of the four directions, the missing value remains missing.
 }
 }
-\examples{
-set.seed(1)
-x <- matrix(
-  sample(1:6, 35, replace = TRUE),
-  nrow = 5
-)
-x
-
-# Add some random missing values
-x[sample(1:35,15)] <- NA
-x
-
-intrapolate_2D(x)
-
-}

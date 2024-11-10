@@ -632,13 +632,13 @@ ale <- function (
       x_cols[[2]],
       x_cols[[1]]
     ) |>
-    map(  # for debugging
-      # furrr::future_map(
-      #   .options = furrr::furrr_options(
-      #     # Enable parallel-processing random seed generation
-      #     seed = seed,
-      #     packages = model_packages
-      #   ),
+    # map(  # for debugging
+      furrr::future_map(
+        .options = furrr::furrr_options(
+          # Enable parallel-processing random seed generation
+          seed = seed,
+          packages = model_packages
+        ),
       .f = \(it.x_cols) {
         # Increment progress bar iterator only if not in an outer loop with bins
         # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
@@ -819,14 +819,14 @@ ale <- function (
             map(\(it.stat_tbl) {
               it.stat_tbl |>
                 mutate(term1 = it.x1) |>
-                rename(term2 = term) |>
+                rename(term2 = 'term') |>
                 select('term1', 'term2', everything())
             })
 
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
             ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
             mutate(term1 = it.x1) |>
-            rename(term2 = term) |>
+            rename(term2 = 'term') |>
             select('term1', 'term2', everything())
 
           # ## Disable 2D conf_regions until they can be verified and corrected

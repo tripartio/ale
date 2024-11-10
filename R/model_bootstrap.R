@@ -369,13 +369,13 @@ model_bootstrap <- function (
   # Major bootstrap loop ---------
 
   model_and_ale <-
-    map2(
-    # furrr::future_map2(
-    #   .options = furrr::furrr_options(
-    #     # Enable parallel-processing random seed generation
-    #     seed = seed,
-    #     packages = model_packages
-    #   ),
+    # map2(
+    furrr::future_map2(
+      .options = furrr::furrr_options(
+        # Enable parallel-processing random seed generation
+        seed = seed,
+        packages = model_packages
+      ),
       .x = boot_data$it,
       .y = boot_data$row_idxs,
       .f = \(it, boot_idxs) {
