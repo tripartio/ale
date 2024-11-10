@@ -108,9 +108,9 @@
 #'
 #'
 #' # For non-standard models that give errors with the default settings,
-#' you can use 'random_model_call_string' to specify a model for the estimation
-#' of p-values from random variables as in this example.
-#' See details above for an explanation.
+#' # you can use 'random_model_call_string' to specify a model for the estimation
+#' # of p-values from random variables as in this example.
+#' # See details above for an explanation.
 #' pd_diamonds <- create_p_dist(
 #'   diamonds_sample,
 #'   gam_diamonds,
@@ -343,15 +343,15 @@ create_p_dist <- function(
   on.exit(set.seed(original_seed))
   set.seed(seed)
 
-  rand_ales <- map(  # use for debugging
-  # rand_ales <- furrr::future_map(
-  #   .options = furrr::furrr_options(
-  #     # Enable parallel-processing random seed generation
-  #     seed = TRUE,
-  #     # transmit any globals and packages in random_model_call_string to the parallel workers
-  #     globals = random_model_call_string_vars,
-  #     packages = model_packages
-  #   ),
+  # rand_ales <- map(  # use for debugging
+  rand_ales <- furrr::future_map(
+    .options = furrr::furrr_options(
+      # Enable parallel-processing random seed generation
+      seed = TRUE,
+      # transmit any globals and packages in random_model_call_string to the parallel workers
+      globals = random_model_call_string_vars,
+      packages = model_packages
+    ),
     .x = 1:rand_it,
     .f = \(it) {
 
