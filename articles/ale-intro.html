@@ -5,75 +5,52 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="ale">
 <title>Introduction to the ale package • ale</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to the ale package">
-<meta property="og:description" content="ale">
-<meta property="og:image" content="https://tripartio.github.io/ale/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to the ale package">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20241110</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a>
-    <a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a>
-    <a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a>
-    <a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a>
-    <a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/ale-ALEPlot.html">Comparison between ALEPlot and ale packages</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/tripartio/ale/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tripartio/ale/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -88,7 +65,7 @@ Okoli</h4>
             
             <h4 data-toc-skip class="date">October 24, 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/HEAD/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
       <div class="d-none name"><code>ale-intro.Rmd</code></div>
     </div>
 
@@ -153,6 +130,10 @@ invalid entries where the length (x), width (y), or depth (z) is 0.</p>
 <span>    z_depth <span class="op">=</span> <span class="va">z</span>,</span>
 <span>    depth_pct <span class="op">=</span> <span class="va">depth</span></span>
 <span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optional: sample 1000 rows so that the code executes faster.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">diamonds_sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      carat               cut        color       clarity       depth_pct    </span></span>
@@ -375,24 +356,37 @@ the packages used to build the model, specified with the
 <code>model_packages</code> argument. (If parallelization is disabled
 with <code>parallel = 0</code>, then <code>model_packages</code> is not
 required.) See <code><a href="../reference/ale.html">help(ale)</a></code> for more details.</p>
-<p>To access the plot for a specific variable, we can call it by its
-variable name as an element of the <code>plots</code> element. These are
-<code>ggplot</code> objects, so they are easy to manipulate. For
-example, to access and print the <code>carat</code> ALE plot, we simply
-call <code>ale_gam_diamonds$plots$carat</code> :</p>
+<p>To access the plot for a specific variable, we must first create an
+ale_plots object by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method on the
+<code>ale</code> object which generates <code>ggplot</code> objects with
+the full flexibility of {ggplot2}:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
-<span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-carat-1.png" width="384"></p>
-<p>To iterate the list and plot all the ALE plots, we provide here some
-demonstration code using the <code>patchwork</code> package for
-arranging multiple plots in a common plot grid using
-<code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>. We need to pass the list of plots
-to the <code>grobs</code> argument and we can specify that we want two
-plots per row with the <code>ncol</code> argument.</p>
+<span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></code></pre></div>
+<p>The plots object is somewhat complex, so it is easier to work with by
+using the following code to simplify it. (A future version of the ale
+package should simplify working directly with <code>ale_plots</code>
+objects.)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract one-way ALE plots from the ale_plots object</span></span>
+<span><span class="va">diamonds_1D_plots</span> <span class="op">&lt;-</span> <span class="va">diamonds_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<p>The diamonds_1D_plots object is now simply a list of all the 1D ALE
+plots. The desired variable plot can now be easily plotted by printing
+its reference by name. For example, to access and print the
+<code>carat</code> ALE plot, we simply refer to
+<code>diamonds_1D_plots$carat</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
+<span><span class="va">diamonds_1D_plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/print-carat-1.png" width="384"></p>
+<p>To iterate the list and plot all the ALE plots, we can use the
+<code>patchwork</code> package to arrange multiple plots in a common
+plot grid using <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>. We need to pass
+the list of plots to the <code>grobs</code> argument and we can specify
+that we want two plots per row with the <code>ncol</code> argument.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">diamonds_1D_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" width="672"></p>
 </div>
 <div class="section level2">
@@ -415,7 +409,7 @@ will demonstrate bootstrapping on a small subset of the test data. This
 will run much faster as the speed of the ALE algorithm depends on the
 size of the dataset. So, let us take a random sample of 200 rows of the
 test set.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bootstraping is rather slow, so create a smaller subset of new data for demonstration</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">new_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>, <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -428,7 +422,7 @@ development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
 beyond 100 iterations. However, so that this introduction runs faster,
 we demonstrate it here with only 10 iterations.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds_small_test</span>, <span class="va">gam_diamonds</span>, </span>
@@ -438,7 +432,9 @@ we demonstrate it here with only 10 iterations.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">$</span><span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">boot_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span></span>
+<span><span class="va">boot_1D_plots</span> <span class="op">&lt;-</span> <span class="va">boot_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">boot_1D_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE result. In principle, we should always bootstrap
@@ -458,63 +454,63 @@ the key features of the package.</p>
 <h2 id="ale-interactions">ALE interactions<a class="anchor" aria-label="anchor" href="#ale-interactions"></a>
 </h2>
 <p>Another advantage of ALE is that it provides data for two-way
-interactions between variables. This is implemented with the
-<code><a href="../reference/ale_ixn.html">ale_ixn()</a></code> function. Like the <code><a href="../reference/ale.html">ale()</a></code> function,
-<code><a href="../reference/ale_ixn.html">ale_ixn()</a></code> similarly requires an input dataset and a model
-object. By default, it generates ALE data and plots on all possible
-pairs of input variables used for the model. However, an ALE interaction
-requires at least one of the variables to be numeric. So,
-<code><a href="../reference/ale_ixn.html">ale_ixn()</a></code> has a notion of x1 and x2 variables; the x1
-variable must be numeric whereas the x2 can be of any input datatype. To
-change the default options (e.g., to calculate interactions for only
-certain pairs of variables), see details in the help file for the
-function: <code><a href="../reference/ale_ixn.html">help(ale_ixn)</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+interactions between variables. This is also implemented with the
+<code><a href="../reference/ale.html">ale()</a></code> function. When the <code>complete_d</code> argument
+is set to <code>2</code>, then if no variables are specified for
+<code>x_cols</code>, <code><a href="../reference/ale.html">ale()</a></code> generates ALE data on all
+possible pairs of input variables used for the model. To change the
+default options (e.g., to calculate interactions for only certain pairs
+of variables), see details in the help file for the function:
+<code><a href="../reference/ale.html">help(ale)</a></code>.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
-<span><span class="va">ale_ixn_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale_ixn.html">ale_ixn</a></span><span class="op">(</span></span>
+<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
 <span>  <span class="va">diamonds</span>, <span class="va">gam_diamonds</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span>  complete_d <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="fl">0</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Like the <code><a href="../reference/ale.html">ale()</a></code> function, the <code><a href="../reference/ale_ixn.html">ale_ixn()</a></code>
-returns a list with one element per input x1 variable, as well as a
-<code>.common_data</code> element with details about the outcome (y)
-variable. However, in this case, each variable’s element consists of a
-list of all the x2 variables for which the x1 interaction is calculated.
-Each x2 element then has two elements: the ALE data for that variable
-and a <code>ggplot</code> plot object that plots that ALE data. In the
-interaction plots, the x1 variable is always shown on the x axis and the
-x2 variable on the y axis.</p>
-<p>Again, we provide here some demonstration code to plot all the ALE
-plots. It is a little more complex this time because of the two levels
-of interacting variables in the output data, so we use the
-<code>purrr</code> package to iterate the list structure.
+<p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method similarly creates 2D ALE plots from
+the <code>ale</code> object. However, the structure is slightly more
+complex because of the two levels of interacting variables in the output
+data. As before, we first create plots from the <code>ale</code> object
+and then we extract the 2D plots from this <code>ale_plots</code>
+object:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract two-way ALE plots from the ale_plots object</span></span>
+<span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
+<span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="va">diamonds_2D_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<p>Because of the 2D interactions, this <code>diamonds_2D_plots</code>
+is a two-level list of the 2D ALE plots: the first level is the first
+variable in the interaction and the second level is a list of the
+interacting variables. So, we use the <code>purrr</code> package to
+iterate the list structure to print the 2D plots.
 <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::walk()</a></code> takes a list as its first argument and then
 we specify an anonymous function for what we want to do with each
 element of the list. We specify the anonymous function as
-<code>\(.x1) {...}</code> where <code>.x1</code> in our case represents
-each individual element of <code>ale_ixn_gam_diamonds$plots</code> in
+<code>\(it.x1) {...}</code> where <code>it.x1</code> in our case
+represents each individual element of <code>diamonds_2D_plots</code> in
 turn, that is, a sublist of plots with which the x1 variable interacts.
 We print the plots of all the x1 interactions as a combined grid of
 plots with <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, as before.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all interaction plots</span></span>
-<span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">.x1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
-<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">diamonds_2D_plots</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># extract list of x1 ALE interactions groups</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">it.x1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># plot all x2 plots in each it.x1 element</span></span>
+<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">it.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-all-ale_ixn-1.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-2.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-3.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-4.png" width="672"><img src="ale-intro_files/figure-html/print-all-ale_ixn-5.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-2.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-3.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-4.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-5.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-6.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-7.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-8.png" width="672"></p>
 <p>Because we are printing all plots together with the same
 <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code> statement, some of them might
 appear vertically distorted because each plot is forced to be of the
 same height. For more fine-tuned presentation, we would need to refer to
 a specific plot. For example, we can print the interaction plot between
 carat and depth by referring to it thus:
-<code>ale_ixn_gam_diamonds$plots$carat$depth</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_ixn_gam_diamonds</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">carat</span><span class="op">$</span><span class="va">depth</span></span></code></pre></div>
+<code>diamonds_2D_plots$carat$depth</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span><span class="op">$</span><span class="va">carat</span><span class="op">$</span><span class="va">depth</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
 because there are none here. This is expressed in the graphs by the ALE
@@ -532,28 +528,26 @@ ALE interaction plots look like in the presence of interactions, see the
 comparison vignette</a>, which explains the interaction plots in more
 detail.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Chitu Okoli.</p>
+  <p>Developed by Chitu Okoli.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
