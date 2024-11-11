@@ -389,14 +389,14 @@ bootstraps.</p>
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.</span></span>
 <span><span class="co"># mb_gam_math &lt;- model_bootstrap(</span></span>
-<span><span class="co">#   math, </span></span>
+<span><span class="co">#   math,</span></span>
 <span><span class="co">#   gam_math,</span></span>
 <span><span class="co">#   # Pass the p_dist object so that p-values will be generated</span></span>
 <span><span class="co">#   ale_options = list(p_values = gam_math_p_dist),</span></span>
 <span><span class="co">#   # For the GAM model coefficients, show details of all variables, parametric or not</span></span>
 <span><span class="co">#   tidy_options = list(parametric = TRUE),</span></span>
 <span><span class="co">#   # tidy_options = list(parametric = NULL),</span></span>
-<span><span class="co">#   boot_it = 40  # 100 by default but reduced here for a faster demonstration</span></span>
+<span><span class="co">#   boot_it = 100  # default</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(mb_gam_math, file.choose())</span></span>
 <span><span class="va">mb_gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -409,15 +409,15 @@ bootstrap object:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low  median    mean conf.high     sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>       30.2    40.9    41.5      53.6   7.07  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>      106.    119.    119.      130.    7.07  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>       29.5    42.3    42.6      58.0   7.78  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>      102.    118.    117.      131.    7.78  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>      160     160     160       160     0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.844   0.894   0.892     0.930 0.023<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.844   0.896   0.895     0.938 0.024<span style="text-decoration: underline;">9</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       66      66      66        66     0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae                1.34     1.35   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         1.92  0.173 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.729    0.595  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.758 0.041<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse               1.69     1.70   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         2.55  0.224 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.727    0.600  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.742 0.040<span style="text-decoration: underline;">0</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae                1.35     1.25   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         2.13  0.211 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.726    0.541  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.754 0.051<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse               1.71     1.58   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         2.77  0.294 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.724    0.574  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.748 0.052<span style="text-decoration: underline;">8</span></span></span></code></pre></div>
 <p>The names of the columns follow the <code>broom</code> package
 conventions:</p>
 <ul>
@@ -450,9 +450,9 @@ of the model bootstrap object:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   term              conf.low median   mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)         11.9   12.7   12.7      13.7       0.483</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> publicTRUE          -<span style="color: #BB0000;">1.84</span>  -<span style="color: #BB0000;">0.644</span> -<span style="color: #BB0000;">0.683</span>     0.241     0.618</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> high_minorityTRUE   -<span style="color: #BB0000;">0.142</span>  1.02   1.02      1.88      0.663</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)         11.7   12.7   12.7      13.6       0.484</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> publicTRUE          -<span style="color: #BB0000;">2.02</span>  -<span style="color: #BB0000;">0.652</span> -<span style="color: #BB0000;">0.689</span>     0.415     0.637</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> high_minorityTRUE   -<span style="color: #BB0000;">0.318</span>  1.05   1.03      2.32      0.676</span></span></code></pre></div>
 <p>In this vignette, we cannot go into the details of how GAM models
 work (you can learn more with <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM" class="external-link">Noam Ross’s excellent tutorial</a>). However,
 for our model illustration here, the estimates for the parametric
@@ -482,7 +482,7 @@ both negative. We can filter the results on this criterion:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low median  mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)     11.9   12.7  12.7      13.7     0.483</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)     11.7   12.7  12.7      13.6     0.484</span></span></code></pre></div>
 <p>The statistical significance of the <code>estimate</code> (EDF) of
 the smooth terms is meaningless here because EDF cannot go below 1.0.
 Thus, even the random term <code>s(rand_norm)</code> appears to be
@@ -753,21 +753,21 @@ element.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">public</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   statistic estimate p.value  conf.low median   mean conf.high</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.354     0     0.005<span style="text-decoration: underline;">48</span>  0.314  0.354   0.907  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">0.323</span>     0.2  -<span style="color: #BB0000;">0.808</span>   -<span style="color: #BB0000;">0.276</span> -<span style="color: #BB0000;">0.323</span>  -<span style="color: #BB0000;">0.004</span><span style="color: #BB0000; text-decoration: underline;">77</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     0.398     0     0.006<span style="text-decoration: underline;">45</span>  0.356  0.398   1.03   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        4.96      0     0        3.75   4.96   11.7    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">4.30</span>      0.4 -<span style="color: #BB0000;">10.7</span>     -<span style="color: #BB0000;">3.41</span>  -<span style="color: #BB0000;">4.30</span>    0      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    5.79      0.4   0        5.31   5.79   14.6</span></span></code></pre></div>
-<p>We see there that <code>public</code> has an ALER of [-0.32, 0.4].
+<span><span class="co">#&gt;   statistic estimate p.value conf.low median   mean conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.375     0     0.018<span style="text-decoration: underline;">4</span>  0.332  0.375    0.968 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">0.344</span>     0.2  -<span style="color: #BB0000;">0.846</span>  -<span style="color: #BB0000;">0.320</span> -<span style="color: #BB0000;">0.344</span>   -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     0.421     0     0.017<span style="text-decoration: underline;">4</span>  0.369  0.421    1.20  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        5.03      0     0       4.72   5.03    11.7   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">4.26</span>      0.4 -<span style="color: #BB0000;">11.2</span>    -<span style="color: #BB0000;">3.41</span>  -<span style="color: #BB0000;">4.26</span>     0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    6.07      0.4   0       5.62   6.07    17.8</span></span></code></pre></div>
+<p>We see there that <code>public</code> has an ALER of [-0.34, 0.42].
 When we consider that the median math score in the dataset is 12.9, this
 ALER indicates that the minimum of any ALE y value for
-<code>public</code> (when <code>public == TRUE</code>) is -0.32 below
+<code>public</code> (when <code>public == TRUE</code>) is -0.34 below
 the median. This is shown at the 12.6 mark in the plot above. The
-maximum (<code>public == FALSE</code>) is 0.4 above the median, shown at
-the 13.3 point above.</p>
+maximum (<code>public == FALSE</code>) is 0.42 above the median, shown
+at the 13.3 point above.</p>
 <p>The unit for ALER is the same unit as the outcome variable; in our
 case, that is <code>math_avg</code> ranging from 2 to 20. No matter what
 the average ALE values might be, the ALER quickly shows the minimum and
@@ -783,14 +783,14 @@ maximum effects of any value of the x variable on the y variable.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   statistic estimate p.value conf.low  median    mean conf.high</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.667       0    0.375   0.655   0.667     1.02 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">4.18</span>        0   -<span style="color: #BB0000;">7.76</span>   -<span style="color: #BB0000;">4.29</span>   -<span style="color: #BB0000;">4.18</span>     -<span style="color: #BB0000;">0.905</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     1.84        0    0.862   1.74    1.84      3.36 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        8.69        0    4.18    8.76    8.69     14.1  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">33.7</span>         0  -<span style="color: #BB0000;">48.2</span>   -<span style="color: #BB0000;">40.4</span>   -<span style="color: #BB0000;">33.7</span>      -<span style="color: #BB0000;">6.80</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   25.4         0   12.9    24.5    25.4      39.7</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.708       0    0.350   0.693   0.708     1.21 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">4.18</span>        0   -<span style="color: #BB0000;">8.10</span>   -<span style="color: #BB0000;">4.51</span>   -<span style="color: #BB0000;">4.18</span>     -<span style="color: #BB0000;">0.581</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     1.99        0    0.862   1.97    1.99      3.32 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        8.93        0    4.18    8.71    8.93     14.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">33.4</span>         0  -<span style="color: #BB0000;">48.8</span>   -<span style="color: #BB0000;">39.4</span>   -<span style="color: #BB0000;">33.4</span>      -<span style="color: #BB0000;">5.23</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   27.0         0   10.9    27.2    27.0      39.6</span></span></code></pre></div>
 <p>The ALER for <code>academic_ratio</code> is considerably broader with
--4.18 below and 1.84 above the median.</p>
+-4.18 below and 1.99 above the median.</p>
 </div>
 <div class="section level4">
 <h4 id="ale-deviation-aled">ALE deviation (ALED)<a class="anchor" aria-label="anchor" href="#ale-deviation-aled"></a>
@@ -817,13 +817,13 @@ is the number of rows of data in the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
 ALE x interval.</p>
 <p>Based on its ALED, we can say that the average effect on math scores
-of whether a school is in the public or Catholic sector is 0.35 (again,
+of whether a school is in the public or Catholic sector is 0.38 (again,
 out of a range from 2 to 20). In the effects plot above, the ALED is
 indicated by a white box bounded by parentheses ( and ). As it is
 centred on the median, we can readily see that the average effect of
 school sector barely exceeds the limits of the ALER band, indicating
 that it barely exceeds our threshold of practical relevance. The average
-effect for ratio of academic track students is slightly higher at 0.67.
+effect for ratio of academic track students is slightly higher at 0.71.
 We can see on the plot that it slightly exceeds the ALER band on both
 sides, indicating its slightly stronger effect. We will comment on the
 values of other variables when we discuss the normalized versions of
@@ -901,14 +901,14 @@ calculate
 <p>ALER shows the extreme values of a variable’s effect on the outcome.
 In the effects plot above, it is indicated by the extreme ends of the
 horizontal bars for each variable. We see there that <code>public</code>
-has an ALER of -0.32, 0.4. When we consider that the median math score
+has an ALER of -0.34, 0.42. When we consider that the median math score
 in the dataset is 12.9, this ALER indicates that the minimum of any ALE
 y value for <code>public</code> (when <code>public == TRUE</code>) is
--0.32 below the median. This is shown at the 12.6 mark in the plot
-above. The maximum (<code>public == FALSE</code>) is 0.4 above the
+-0.34 below the median. This is shown at the 12.6 mark in the plot
+above. The maximum (<code>public == FALSE</code>) is 0.42 above the
 median, shown at the 13.3 point above. The ALER for
 <code>academic_ratio</code> is considerably broader with -4.18 below and
-1.84 above the median.</p>
+1.99 above the median.</p>
 <p>The result of this transformation is that NALER values can be
 interpreted as percentile effects of y below or above the median, which
 is centred at 0%. Their numbers represent the limits of the effect of
@@ -918,12 +918,12 @@ the raw scale below, the NALER limits are represented by exactly the
 same points as the ALER limits; only the scale changes. The scale for
 ALER and ALED is the lower scale of the raw outcomes; the scale for
 NALER and NALED is the upper scale of percentiles.</p>
-<p>So, with a NALER of -4.3, 5.79, the minimum of any ALE value for
+<p>So, with a NALER of -4.26, 6.07, the minimum of any ALE value for
 <code>public</code> (<code>public == TRUE</code>) shifts math scores by
 -4 percentile y points whereas the maximum
 (<code>public == FALSE</code>) shifts math scores by 6 percentile
-points. Academic track ratio has a NALER of -33.7, 25.42, ranging from
--34 to 25 percentile points of math scores.</p>
+points. Academic track ratio has a NALER of -33.44, 26.98, ranging from
+-33 to 27 percentile points of math scores.</p>
 </div>
 <div class="section level4">
 <h4 id="normalized-aled-naled">Normalized ALED (NALED)<a class="anchor" aria-label="anchor" href="#normalized-aled-naled"></a>
@@ -939,7 +939,7 @@ the ALED expressed in percentiles, that is, the average effect of a
 variable over its full domain of values. So, the NALED of public school
 status of 5 indicates that its average effect on math scores spans the
 middle 5 percent of scores. Academic ratio has an average effect
-expressed in NALED of 8.7% of scores.</p>
+expressed in NALED of 8.9% of scores.</p>
 </div>
 </div>
 <div class="section level3">
@@ -961,12 +961,12 @@ the random <code>rand_norm</code>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   statistic estimate p.value conf.low  median    mean conf.high</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.350       0    0.115   0.340   0.350     0.546</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">1.31</span>        0   -<span style="color: #BB0000;">2.90</span>   -<span style="color: #BB0000;">1.04</span>   -<span style="color: #BB0000;">1.31</span>     -<span style="color: #BB0000;">0.327</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     1.68        0    0.383   1.65    1.68      2.95 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        4.85        0    1.37    4.69    4.85      7.87 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">14.5</span>         0  -<span style="color: #BB0000;">29.4</span>   -<span style="color: #BB0000;">11.8</span>   -<span style="color: #BB0000;">14.5</span>      -<span style="color: #BB0000;">4.89</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   23.8         0    5.56   24.7    23.8      39.5</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.358       0    0.108   0.351   0.358     0.577</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">1.32</span>        0   -<span style="color: #BB0000;">3.33</span>   -<span style="color: #BB0000;">1.18</span>   -<span style="color: #BB0000;">1.32</span>     -<span style="color: #BB0000;">0.167</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     1.62        0    0.315   1.64    1.62      2.81 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        4.80        0    1.43    4.58    4.80      8.20 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">14.3</span>         0  -<span style="color: #BB0000;">33.4</span>   -<span style="color: #BB0000;">13.8</span>   -<span style="color: #BB0000;">14.3</span>      -<span style="color: #BB0000;">3.75</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   22.8         0    3.12   24.5    22.8      37.8</span></span></code></pre></div>
 <p><code>rand_norm</code> has a NALED of 4.8. It might be surprising
 that a purely random value has any “effect size” to speak of, but
 statistically, it must have some numeric value or the other. However, by
@@ -976,8 +976,8 @@ tests with several different random seeds, the random variables never
 exceeded this 5% threshold. Setting the median band too low at a value
 like 1% would not have excluded the random variable, but 5% seems like a
 nice balance. Thus, the effect of a variable like the discrimination
-climate score (discrim, 4.8) should probably not be considered
-practically meaningful.</p>
+climate score (discrim, 5) should probably not be considered practically
+meaningful.</p>
 <p>We realize that 5% as a threshold for the median band is rather
 arbitrary, inspired by traditional
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
@@ -1093,8 +1093,8 @@ simple with a binary variable with just two categories,
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 7</span></span></span>
 <span><span class="co">#&gt;   public.bin    .n     .y  .y_lo .y_mean .y_median .y_hi</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE         70  0.379 -<span style="color: #BB0000;">0.139</span>   0.379     0.356 1.03 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> TRUE          90 -<span style="color: #BB0000;">0.305</span> -<span style="color: #BB0000;">0.808</span>  -<span style="color: #BB0000;">0.305</span>    -<span style="color: #BB0000;">0.276</span> 0.102</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE         70  0.383 -<span style="color: #BB0000;">0.219</span>   0.383     0.356 1.20 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> TRUE          90 -<span style="color: #BB0000;">0.306</span> -<span style="color: #BB0000;">0.846</span>  -<span style="color: #BB0000;">0.306</span>    -<span style="color: #BB0000;">0.308</span> 0.196</span></span></code></pre></div>
 <p>Here is the meaning of each column of <code>ale$data</code> for a
 categorical variable:</p>
 <ul>
@@ -1129,16 +1129,16 @@ median.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 63 × 7</span></span></span>
 <span><span class="co">#&gt;    academic_ratio.ceil    .n     .y .y_lo .y_mean .y_median   .y_hi</span></span>
 <span><span class="co">#&gt;                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                0        1 -<span style="color: #BB0000;">5.42</span>  -<span style="color: #BB0000;">7.87</span>  -<span style="color: #BB0000;">5.42</span>     -<span style="color: #BB0000;">5.79</span>  -<span style="color: #BB0000;">2.78</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                0.05     2 -<span style="color: #BB0000;">2.49</span>  -<span style="color: #BB0000;">3.91</span>  -<span style="color: #BB0000;">2.49</span>     -<span style="color: #BB0000;">2.70</span>  -<span style="color: #BB0000;">0.832</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                0.09     1 -<span style="color: #BB0000;">1.41</span>  -<span style="color: #BB0000;">2.83</span>  -<span style="color: #BB0000;">1.41</span>     -<span style="color: #BB0000;">1.31</span>  -<span style="color: #BB0000;">0.148</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                0.1      2 -<span style="color: #BB0000;">1.16</span>  -<span style="color: #BB0000;">1.90</span>  -<span style="color: #BB0000;">1.16</span>     -<span style="color: #BB0000;">1.28</span>  -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">6</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                0.13     1 -<span style="color: #BB0000;">0.571</span> -<span style="color: #BB0000;">1.53</span>  -<span style="color: #BB0000;">0.571</span>    -<span style="color: #BB0000;">0.699</span>  0.903 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                0.14     2 -<span style="color: #BB0000;">0.751</span> -<span style="color: #BB0000;">1.65</span>  -<span style="color: #BB0000;">0.751</span>    -<span style="color: #BB0000;">0.889</span>  0.773 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                0.17     1 -<span style="color: #BB0000;">0.659</span> -<span style="color: #BB0000;">1.24</span>  -<span style="color: #BB0000;">0.659</span>    -<span style="color: #BB0000;">0.716</span>  0.169 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                0.18     4 -<span style="color: #BB0000;">0.501</span> -<span style="color: #BB0000;">1.24</span>  -<span style="color: #BB0000;">0.501</span>    -<span style="color: #BB0000;">0.484</span>  0.811 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                0.19     3 -<span style="color: #BB0000;">0.466</span> -<span style="color: #BB0000;">1.20</span>  -<span style="color: #BB0000;">0.466</span>    -<span style="color: #BB0000;">0.490</span>  0.747 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                0.2      3 -<span style="color: #BB0000;">0.433</span> -<span style="color: #BB0000;">1.17</span>  -<span style="color: #BB0000;">0.433</span>    -<span style="color: #BB0000;">0.438</span>  0.585 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                0        1 -<span style="color: #BB0000;">5.45</span>  -<span style="color: #BB0000;">8.13</span>  -<span style="color: #BB0000;">5.45</span>     -<span style="color: #BB0000;">5.37</span>  -<span style="color: #BB0000;">1.82</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                0.05     2 -<span style="color: #BB0000;">2.46</span>  -<span style="color: #BB0000;">3.96</span>  -<span style="color: #BB0000;">2.46</span>     -<span style="color: #BB0000;">2.60</span>  -<span style="color: #BB0000;">0.549</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                0.09     1 -<span style="color: #BB0000;">1.40</span>  -<span style="color: #BB0000;">2.68</span>  -<span style="color: #BB0000;">1.40</span>     -<span style="color: #BB0000;">1.38</span>  -<span style="color: #BB0000;">0.435</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                0.1      2 -<span style="color: #BB0000;">1.28</span>  -<span style="color: #BB0000;">2.34</span>  -<span style="color: #BB0000;">1.28</span>     -<span style="color: #BB0000;">1.29</span>  -<span style="color: #BB0000;">0.076</span><span style="color: #BB0000; text-decoration: underline;">7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                0.13     1 -<span style="color: #BB0000;">0.613</span> -<span style="color: #BB0000;">1.61</span>  -<span style="color: #BB0000;">0.613</span>    -<span style="color: #BB0000;">0.600</span>  0.387 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                0.14     2 -<span style="color: #BB0000;">0.755</span> -<span style="color: #BB0000;">1.58</span>  -<span style="color: #BB0000;">0.755</span>    -<span style="color: #BB0000;">0.852</span>  0.702 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                0.17     1 -<span style="color: #BB0000;">0.700</span> -<span style="color: #BB0000;">1.48</span>  -<span style="color: #BB0000;">0.700</span>    -<span style="color: #BB0000;">0.746</span>  0.311 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                0.18     4 -<span style="color: #BB0000;">0.573</span> -<span style="color: #BB0000;">1.36</span>  -<span style="color: #BB0000;">0.573</span>    -<span style="color: #BB0000;">0.592</span>  0.790 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                0.19     3 -<span style="color: #BB0000;">0.513</span> -<span style="color: #BB0000;">1.26</span>  -<span style="color: #BB0000;">0.513</span>    -<span style="color: #BB0000;">0.502</span>  0.649 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                0.2      3 -<span style="color: #BB0000;">0.530</span> -<span style="color: #BB0000;">1.34</span>  -<span style="color: #BB0000;">0.530</span>    -<span style="color: #BB0000;">0.539</span>  0.543 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 53 more rows</span></span></span></code></pre></div>
 <p>The columns are the same as with a categorical variable, but instead
 of <code>.bin</code>, we have <code>.ceil</code> since there are no
@@ -1180,12 +1180,12 @@ for each variable from its <code>by_term</code> element:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   statistic estimate p.value conf.low median   mean conf.high</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled          1.17       0    0.735   1.14   1.17      1.79</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min     -<span style="color: #BB0000;">6.97</span>       0  -<span style="color: #BB0000;">10.4</span>    -<span style="color: #BB0000;">7.13</span>  -<span style="color: #BB0000;">6.97</span>     -<span style="color: #BB0000;">3.39</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max      2.76       0    1.19    2.71   2.76      4.34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        14.1        0    9.63   13.9   14.1      21.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">45.9</span>        0  -<span style="color: #BB0000;">50</span>     -<span style="color: #BB0000;">46.9</span>  -<span style="color: #BB0000;">45.9</span>     -<span style="color: #BB0000;">34.3</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    34.0        0   13.0    36.2   34.0      44.4</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled          1.15       0    0.760   1.15   1.15      1.55</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min     -<span style="color: #BB0000;">6.98</span>       0  -<span style="color: #BB0000;">10.2</span>    -<span style="color: #BB0000;">7.22</span>  -<span style="color: #BB0000;">6.98</span>     -<span style="color: #BB0000;">3.34</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max      2.79       0    1.46    2.74   2.79      4.86</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        13.6        0    9.47   13.7   13.6      17.9 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">45.9</span>        0  -<span style="color: #BB0000;">50</span>     -<span style="color: #BB0000;">47.5</span>  -<span style="color: #BB0000;">45.9</span>     -<span style="color: #BB0000;">33.1</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    34.2        0   18.0    35.6   34.2      44.4</span></span></code></pre></div>
 <p>For numeric variables, the confidence regions summary has one row for
 each consecutive sequence of x values that have the same status: all
 values in the region are below the middle irrelevance band, they overlap
@@ -1199,7 +1199,7 @@ corresponds to <code>start_x</code> while <code>end_y</code> corresponds
 to <code>end_x</code>.</li>
 <li>
 <code>n</code> is the number of data elements in the sequence;
-<code>n_pct</code> is the percentage of total data elements out of the
+<code>pct</code> is the percentage of total data elements out of the
 total number.</li>
 <li>
 <code>x_span</code> is the length of x of the sequence that has the
@@ -1221,10 +1221,10 @@ means that y has the same value at its start and end points–this is
 always the case if there is only one point in the indicated
 sequence.</li>
 <li>
-<strong><code>relative_to_mid</code></strong> is the key information
-here. It indicates if all the values in sequence from
-<code>start_x</code> to <code>end_x</code> are below, overlapping, or
-above the ALER band:
+<strong><code>mid_bar</code></strong> is the key information here.
+It indicates if all the values in sequence from <code>start_x</code> to
+<code>end_x</code> are below, overlapping, or above the middle ALER
+band:
 <ul>
 <li>below: the higher limit of the confidence interval of ALE y
 (<code>ale_y_hi</code>) is below the lower limit of the ALER band.</li>
@@ -1247,13 +1247,14 @@ least partially overlaps the ALER band.</li>
 regions briefly exceeded the ALER band.-</p>
 <p>Interestingly, most of the text of the previous paragraph was
 generated automatically by an internal (unexported function)
-<code>ale:::summarize_conf_regions_in_words</code>. (Since the function
-is not exported, you must use <code>ale:::</code> with three colons, not
-just two, if you want to access it.)</p>
+<code>ale:::summarize_conf_regions_1D_in_words</code>. (Since the
+function is not exported, you must use <code>ale:::</code> with three
+colons, not just two, if you want to access it.)</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">mean_ses</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_in_words</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "From -1.19 to -0.347, ALE is below the median band from -7.93 to -0.884. From -0.335 to 0.121, ALE overlaps the median band from -0.744 to 0.769. From 0.128 to 0.354, ALE is above the median band from 0.849 to 0.872. From 0.36 to 0.456, ALE overlaps the median band from 0.708 to 0.84. From 0.498 to 0.498, ALE is above the median band from 1.04 to 1.04. From 0.522 to 0.522, ALE overlaps the median band from 1.24 to 1.24. From 0.523 to 0.523, ALE is above the median band from 1.33 to 1.33. From 0.535 to 0.535, ALE overlaps the median band from 1.19 to 1.19. From 0.569 to 0.831, ALE is above the median band from 1.54 to 2.01."</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">'mean_ses'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_1D_in_words</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "From -1.19 to -0.368, ALE is below the median band from -7.83 to -1.06. From -0.347 to 0.163, ALE overlaps the median band from -0.829 to 0.972. From 0.179 to 0.179, ALE is above the median band from 1.11 to 1.11. From 0.188 to 0.188, ALE overlaps the median band from 1.07 to 1.07. From 0.218 to 0.312, ALE is above the median band from 1.23 to 0.981. From 0.316 to 0.316, ALE overlaps the median band from 0.852 to 0.852. From 0.333 to 0.333, ALE is above the median band from 0.876 to 0.876. From 0.334 to 0.535, ALE overlaps the median band from 0.796 to 1.12. From 0.569 to 0.759, ALE is above the median band from 1.51 to 2.85. From 0.831 to 0.831, ALE overlaps the median band from 1.86 to 1.86."</span></span></code></pre></div>
 <p>While the wording is rather mechanical, it nonetheless illustrates
 the potential value of being able to summarize the inferentially
 relevant conclusions in tabular form.</p>
@@ -1265,22 +1266,25 @@ Here is its ALE plot again:</p>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-2-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">public</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
-<span><span class="co">#&gt;   x         n n_pct      y relative_to_mid</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE    70 0.438  0.379 overlap        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> TRUE     90 0.562 -<span style="color: #BB0000;">0.305</span> overlap</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">'public'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 12</span></span></span>
+<span><span class="co">#&gt;   term   x     start_x end_x x_span_pct     n   pct      y start_y end_y trend</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> public FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    70  43.8  0.383      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> public TRUE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    90  56.2 -<span style="color: #BB0000;">0.306</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
 <p>Since we have categories here, there is no start or end positions and
 there is no trend. We instead have each <code>x</code> category and its
 single ALE <code>y</code> value, with the <code>n</code> and
-<code>n_pct</code> of the respective category and
-<code>relative_to_mid</code> as before to indicate whether the indicated
-category is below, overlaps with, or is above the ALER band.</p>
+<code>pct</code> of the respective category and <code>mid_bar</code> as
+before to indicate whether the indicated category is below, overlaps
+with, or is above the ALER band.</p>
 <p>Again with the help of
-<code>ale:::summarize_conf_regions_in_words</code>, these results tell
-us that, for <code>public</code>, for FALSE, the ALE of 13.3 overlaps
-the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER band.</p>
+<code>ale:::summarize_conf_regions_1D_in_words()</code>, these results
+tell us that, for <code>public</code>, for FALSE, the ALE of 13.3
+overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER
+band.</p>
 <p>Again, our random variable <code>rand_norm</code> is particularly
 interesting. Here is its ALE plot:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
@@ -1288,15 +1292,13 @@ interesting. Here is its ALE plot:</p>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-rand_norm-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span><span class="op">$</span><span class="va">rand_norm</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 9</span></span></span>
-<span><span class="co">#&gt;   start_x end_x x_span     n  n_pct start_y  end_y  trend relative_to_mid</span></span>
-<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   -<span style="color: #BB0000;">2.40</span>  1.39 0.757    149 0.931   -<span style="color: #BB0000;">1.16</span>   0.506  0.148 overlap        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    1.62  1.71 0.018<span style="text-decoration: underline;">1</span>     3 0.018<span style="text-decoration: underline;">8</span>   1.34   1.42   0.274 above          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    1.73  1.73 0          2 0.012<span style="text-decoration: underline;">5</span>   1.49   1.49   0     overlap        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    2.01  2.01 0          2 0.012<span style="text-decoration: underline;">5</span>   1.41   1.41   0     above          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    2.21  2.61 0.080<span style="text-decoration: underline;">0</span>     4 0.025    0.654 -<span style="color: #BB0000;">0.263</span> -<span style="color: #BB0000;">0.770</span> overlap</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">by_term</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">'rand_norm'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 12</span></span></span>
+<span><span class="co">#&gt;   term    x     start_x end_x x_span_pct     n   pct     y start_y  end_y  trend</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rand_n… <span style="color: #BB0000;">NA</span>      -<span style="color: #BB0000;">2.40</span>  2.61        100   160   100    <span style="color: #BB0000;">NA</span>   -<span style="color: #BB0000;">1.35</span> -<span style="color: #BB0000;">0.416</span> 0.062<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
 <p>Despite any apparent pattern, we see that from -2.4 to 2.61, ALE
 overlaps the median band from 12 to 12.8. So, despite the random highs
 and lows in the bootstrap confidence interval, there is no reason to
@@ -1307,29 +1309,22 @@ variables that are statistically significant or meaningful by accessing
 the <code>conf_regions$significant</code> element:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 12</span></span></span>
-<span><span class="co">#&gt;    term        x      start_x    end_x x_span     n   n_pct     y start_y  end_y</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> size        <span style="color: #BB0000;">NA</span>     2.40<span style="color: #949494;">e</span>+3  2.40<span style="color: #949494;">e</span>+3 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   1.49   1.49 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> size        <span style="color: #BB0000;">NA</span>     2.65<span style="color: #949494;">e</span>+3  2.65<span style="color: #949494;">e</span>+3 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   1.94   1.94 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> academic_r… <span style="color: #BB0000;">NA</span>     0   <span style="color: #949494;"> </span>    5   <span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 0.05       3 0.018<span style="text-decoration: underline;">8</span>     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">5.42</span>  -<span style="color: #BB0000;">2.49</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> academic_r… <span style="color: #BB0000;">NA</span>     9.5 <span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  1   <span style="color: #949494;">e</span>+0 0.050<span style="text-decoration: underline;">0</span>    16 0.1        <span style="color: #BB0000;">NA</span>   1.31   1.82 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> female_rat… <span style="color: #BB0000;">NA</span>     0   <span style="color: #949494;"> </span>    0   <span style="color: #949494;"> </span>   0         19 0.119      <span style="color: #BB0000;">NA</span>   1.41   1.41 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> mean_ses    <span style="color: #BB0000;">NA</span>    -<span style="color: #BB0000;">1.19</span><span style="color: #949494;">e</span>+0 -<span style="color: #BB0000;">3.47</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.417     34 0.212      <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">7.93</span>  -<span style="color: #BB0000;">0.884</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> mean_ses    <span style="color: #BB0000;">NA</span>     1.28<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  3.54<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.112     31 0.194      <span style="color: #BB0000;">NA</span>   0.849  0.872</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> mean_ses    <span style="color: #BB0000;">NA</span>     4.98<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  4.98<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   1.04   1.04 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mean_ses    <span style="color: #BB0000;">NA</span>     5.23<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  5.23<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          1 0.006<span style="text-decoration: underline;">25</span>    <span style="color: #BB0000;">NA</span>   1.33   1.33 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> mean_ses    <span style="color: #BB0000;">NA</span>     5.69<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  8.31<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.130     14 0.087<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   1.54   2.01 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> minority_r… <span style="color: #BB0000;">NA</span>     0   <span style="color: #949494;"> </span>    6.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 0.063<span style="text-decoration: underline;">8</span>    54 0.338      <span style="color: #BB0000;">NA</span>   1.64   0.799</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> minority_r… <span style="color: #BB0000;">NA</span>     8.51<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>  8.51<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 0          1 0.006<span style="text-decoration: underline;">25</span>    <span style="color: #BB0000;">NA</span>   0.800  0.800</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> minority_r… <span style="color: #BB0000;">NA</span>     3.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  3.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">1.11</span>  -<span style="color: #BB0000;">1.11</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> minority_r… <span style="color: #BB0000;">NA</span>     4.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  4.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          1 0.006<span style="text-decoration: underline;">25</span>    <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">0.965</span> -<span style="color: #BB0000;">0.965</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> minority_r… <span style="color: #BB0000;">NA</span>     4.23<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  5.61<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0.138      9 0.056<span style="text-decoration: underline;">2</span>     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">1.26</span>  -<span style="color: #BB0000;">2.19</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> minority_r… <span style="color: #BB0000;">NA</span>     6.52<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  6.52<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">1.64</span>  -<span style="color: #BB0000;">1.64</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> minority_r… <span style="color: #BB0000;">NA</span>     9.79<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  1   <span style="color: #949494;">e</span>+0 0.021<span style="text-decoration: underline;">3</span>     8 0.05       <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">3.27</span>  -<span style="color: #BB0000;">3.71</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> rand_norm   <span style="color: #BB0000;">NA</span>     1.62<span style="color: #949494;">e</span>+0  1.71<span style="color: #949494;">e</span>+0 0.018<span style="text-decoration: underline;">1</span>     3 0.018<span style="text-decoration: underline;">8</span>     <span style="color: #BB0000;">NA</span>   1.34   1.42 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> rand_norm   <span style="color: #BB0000;">NA</span>     2.01<span style="color: #949494;">e</span>+0  2.01<span style="color: #949494;">e</span>+0 0          2 0.012<span style="text-decoration: underline;">5</span>     <span style="color: #BB0000;">NA</span>   1.41   1.41 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: trend &lt;dbl&gt;, relative_to_mid &lt;ord&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 12</span></span></span>
+<span><span class="co">#&gt;    term      x      start_x    end_x x_span_pct     n   pct     y start_y  end_y</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> size      <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">2</span>403      2.40<span style="color: #949494;">e</span>+3       0        2  1.25    <span style="color: #BB0000;">NA</span>   1.45   1.45 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> size      <span style="color: #BB0000;">NA</span>    <span style="text-decoration: underline;">2</span>650      2.65<span style="color: #949494;">e</span>+3       0        2  1.25    <span style="color: #BB0000;">NA</span>   1.87   1.87 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> academic… <span style="color: #BB0000;">NA</span>       0      9   <span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>       9        4  2.5     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">5.45</span>  -<span style="color: #BB0000;">1.40</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> academic… <span style="color: #BB0000;">NA</span>       0.96   1   <span style="color: #949494;">e</span>+0       4.00    14  8.75    <span style="color: #BB0000;">NA</span>   1.54   1.93 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> mean_ses  <span style="color: #BB0000;">NA</span>      -<span style="color: #BB0000;">1.19</span>  -<span style="color: #BB0000;">3.68</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>      40.6     33 20.6     <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">7.83</span>  -<span style="color: #BB0000;">1.06</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> mean_ses  <span style="color: #BB0000;">NA</span>       0.179  1.79<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>       0        2  1.25    <span style="color: #BB0000;">NA</span>   1.11   1.11 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> mean_ses  <span style="color: #BB0000;">NA</span>       0.218  3.12<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>       4.66    11  6.88    <span style="color: #BB0000;">NA</span>   1.23   0.981</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> mean_ses  <span style="color: #BB0000;">NA</span>       0.333  3.33<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>       0        2  1.25    <span style="color: #BB0000;">NA</span>   0.876  0.876</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mean_ses  <span style="color: #BB0000;">NA</span>       0.569  7.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>       9.41    13  8.12    <span style="color: #BB0000;">NA</span>   1.51   2.85 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> minority… <span style="color: #BB0000;">NA</span>       0      5.71<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span>       5.71    52 32.5     <span style="color: #BB0000;">NA</span>   1.63   0.972</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> minority… <span style="color: #BB0000;">NA</span>       0.409  5.61<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>      15.2     11  6.88    <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">1.15</span>  -<span style="color: #BB0000;">2.11</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> minority… <span style="color: #BB0000;">NA</span>       0.955  1   <span style="color: #949494;">e</span>+0       4.48     9  5.62    <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">2.20</span>  -<span style="color: #BB0000;">3.82</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: trend &lt;dbl&gt;, mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
 <p>This summary focuses only on the x variables that have meaningful ALE
 regions anywhere in their domain. We can also conveniently isolate which
 variables have any such meaningful region by extracting the unique
@@ -1337,8 +1332,7 @@ values in the <code>term</code> column:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math_stats</span><span class="op">$</span><span class="va">conf_regions</span><span class="op">$</span><span class="va">significant</span><span class="op">$</span><span class="va">term</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "size"           "academic_ratio" "female_ratio"   "mean_ses"      </span></span>
-<span><span class="co">#&gt; [5] "minority_ratio" "rand_norm"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "size"           "academic_ratio" "mean_ses"       "minority_ratio"</span></span></code></pre></div>
 <p>This is especially useful for analyses with dozens of variables; we
 can thus quickly isolate and focus on the most meaningful ones.</p>
 </div>

@@ -64,13 +64,14 @@
 </ul></div>
 <div class="section level3">
 <h3 id="other-user-visible-changes-development-version">Other user-visible changes<a class="anchor" aria-label="anchor" href="#other-user-visible-changes-development-version"></a></h3>
-<ul><li>With the creation of <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods, eliminated the <code>compact_plots</code> to <code><a href="../reference/ale.html">ale()</a></code>.</li>
+<ul><li>Confidence regions for 1D ALE are now reported more compactly.</li>
+<li>With the creation of <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods, eliminated the <code>compact_plots</code> to <code><a href="../reference/ale.html">ale()</a></code>.</li>
 <li>
 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods have been added to the <code>ale_plots</code> object.</li>
 <li>A <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method has been added to the <code>ale</code> object.</li>
 <li>Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)</li>
 <li>Bootstrapping is now supported for ALE interactions.</li>
-<li>ALE statistics are now supported for interactions.</li>
+<li>ALE statistics are now supported for interactions, including confidence regions.</li>
 <li>Categorical y outcomes are now supported. The plots, though, only plot one category at a time.</li>
 <li>‘boot_data’ is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.</li>
 <li>model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.</li>
