@@ -627,6 +627,29 @@ summarize_conf_regions_2D <- function(
     y_summary,  # result of var_summary(y_vals)
     sig_criterion  # string either 'p_values' or 'median_band_pct'
 ) {
+  # Create terciles of a numeric vector
+  terciles <- function(x) {
+    tryCatch(
+      # cut() crashes if there are duplicate quantiles but is preferred otherise because of its pretty printing
+      {
+        cut(
+          x,
+          breaks = quantile(x, probs = c(0, 1/3, 2/3, 1)),
+          include.lowest = TRUE
+        )
+      },
+      # if cut() crashes, fall back on the more robust .bincode() without pretty printing
+      error = \(e) {
+        .bincode(
+          x,
+          breaks = quantile(x, probs = c(0, 1/3, 2/3, 1)),
+          include.lowest = TRUE
+        )
+      }
+    )
+  }
+
+
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
   y_zeroed_summary <- y_summary[, 1] - y_summary[['50%', 1]]
@@ -639,6 +662,8 @@ summarize_conf_regions_2D <- function(
     ale_data_list |>
     map(\(it.ale_data) {
       x1_x2_names <- names(it.ale_data)[1:2]
+
+      # if (x1_x2_names[1] == 'education_num.ceil' && x1_x2_names[2] == 'relationship.bin') browser()
 
       # cr is the confidence regions for a single 2D interaction at a time
       cr <-
@@ -659,57 +684,83 @@ summarize_conf_regions_2D <- function(
           y = '.y'
         )
 
-      # Initialize cr_groups, used only if one or both x variables is non-numeric
-      cr_groups <- character()
-
       # Group numeric x variables into quantiles of three (terciles), if available
       if ((x1_x2_names[1] |> endsWith('.ceil'))) {
         # Use .bincode() instead of cut() to give evenly spread terciles, even if some tertiles are duplicated. Otherwise, cut() crashes with duplicated tertiles.
         # https://stackoverflow.com/a/26305952/2449926
-        cr$.n1 <- .bincode(
-          cr[[1]],
-          breaks = quantile(cr[[1]], probs = c(0, 1/3, 2/3, 1)),
-          include.lowest = TRUE
-        )
-        cr_groups <- c(cr_groups, '.n1')
+        cr$x1 <- terciles(cr[[1]])
       }
-      if ((x1_x2_names[2] |> endsWith('.ceil'))) {
-        cr$.n2 <- .bincode(
-          cr[[2]],
-          breaks = quantile(cr[[2]], probs = c(0, 1/3, 2/3, 1)),
-          include.lowest = TRUE
-        )
-        cr_groups <- c(cr_groups, '.n2')
+      # Simply rename non-numeric columns as x1 or x2
+      else if ((x1_x2_names[1] |> endsWith('.bin'))) {
+        names(cr)[1] <- 'x1'
       }
 
-      # Rename ordinal x variables for easier coding
-      if ((x1_x2_names[1] |> endsWith('.bin'))) {
-        names(cr)[1] <- '.o1'
-        cr_groups <- c(cr_groups, '.o1')
+      # Repeat for x2
+      if ((x1_x2_names[2] |> endsWith('.ceil'))) {
+        cr$x2 <- terciles(cr[[2]])
       }
-      if ((x1_x2_names[2] |> endsWith('.bin'))) {
-        names(cr)[2] <- '.o2'
-        cr_groups <- c(cr_groups, '.o2')
+      else if ((x1_x2_names[2] |> endsWith('.bin'))) {
+        names(cr)[2] <- 'x2'
       }
+
+      # # Initialize cr_groups, used only if one or both x variables is non-numeric
+      # cr_groups <- character()
+      #
+      # # Group numeric x variables into quantiles of three (terciles), if available
+      # if ((x1_x2_names[1] |> endsWith('.ceil'))) {
+      #   # Use .bincode() instead of cut() to give evenly spread terciles, even if some tertiles are duplicated. Otherwise, cut() crashes with duplicated tertiles.
+      #   # https://stackoverflow.com/a/26305952/2449926
+      #   cr$.n1 <- .bincode(
+      #     cr[[1]],
+      #     breaks = quantile(cr[[1]], probs = c(0, 1/3, 2/3, 1)),
+      #     include.lowest = TRUE
+      #   )
+      #   cr_groups <- c(cr_groups, '.n1')
+      # }
+      # if ((x1_x2_names[2] |> endsWith('.ceil'))) {
+      #   cr$.n2 <- .bincode(
+      #     cr[[2]],
+      #     breaks = quantile(cr[[2]], probs = c(0, 1/3, 2/3, 1)),
+      #     include.lowest = TRUE
+      #   )
+      #   cr_groups <- c(cr_groups, '.n2')
+      # }
+      #
+      # # Rename ordinal x variables for easier coding
+      # if ((x1_x2_names[1] |> endsWith('.bin'))) {
+      #   names(cr)[1] <- '.o1'
+      #   cr_groups <- c(cr_groups, '.o1')
+      # }
+      # if ((x1_x2_names[2] |> endsWith('.bin'))) {
+      #   names(cr)[2] <- '.o2'
+      #   cr_groups <- c(cr_groups, '.o2')
+      # }
+
+      # browser()
 
       cr <- cr |>
         summarize(
-          .by = all_of(c(cr_groups, 'mid_bar')),
+          .by = c('x1', 'x2', 'mid_bar'),
+          # .by = all_of(c(cr_groups, 'mid_bar')),
           n   = sum(.data$n),
           pct = (n / total_n) * 100,
           y   = mean(.data$y),
+        ) |>
+        # Convert x data columns uniformly to character format
+        mutate(
+          across(all_of(c('x1', 'x2')), as.character)
         )
 
       # Rename the x variables with their original variable names
       x1_x2_names <- x1_x2_names |>
         stringr::str_remove("\\.bin$|\\.ceil$")
 
-      # Convert x data columns uniformly to character format
-      cr[[1]] <- as.character(cr[[1]])
-      cr[[2]] <- as.character(cr[[2]])
-
-      # Rename the x data columns consistently
-      names(cr)[1:2] <- c('x1', 'x2')
+      # # Convert x data columns uniformly to character format
+      # cr[[1]] <- as.character(cr[[1]])
+      # cr[[2]] <- as.character(cr[[2]])
+#
+#       # Rename the x data columns consistently
+#       names(cr)[1:2] <- c('x1', 'x2')
 
       # Return value for map function
       cr |>

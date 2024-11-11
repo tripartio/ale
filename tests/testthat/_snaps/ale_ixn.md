@@ -2395,18 +2395,18 @@
       $distinct$mpg$stats[[2]]$conf_regions
       $distinct$mpg$stats[[2]]$conf_regions$by_term
       # A tibble: 928 x 8
-         term1 x1    term2 x2             mid_bar     n   pct         y
-         <chr> <chr> <chr> <chr>          <ord>   <int> <dbl>     <dbl>
-       1 model [3,5] cyl   Fiat X1-9      overlap     2  3.12 -4.78e-15
-       2 model [3,5] cyl   Toyota Corona  overlap     2  3.12 -5.13e-15
-       3 model [3,5] cyl   Porsche 914-2  overlap     2  3.12 -6.52e-16
-       4 model [3,5] cyl   Merc 240D      overlap     2  3.12  2.01e-15
-       5 model [3,5] cyl   Merc 230       overlap     2  3.12  3.79e-15
-       6 model [3,5] cyl   Lotus Europa   overlap     2  3.12  1.12e-15
-       7 model [3,5] cyl   Volvo 142E     overlap     2  3.12  2.64e-15
-       8 model [3,5] cyl   Honda Civic    overlap     2  3.12  1.12e-15
-       9 model [3,5] cyl   Toyota Corolla overlap     2  3.12 -3.58e-15
-      10 model [3,5] cyl   Fiat 128       overlap     2  3.12 -5.09e-15
+         term1 x1             term2 x2    mid_bar     n   pct         y
+         <chr> <chr>          <chr> <chr> <ord>   <int> <dbl>     <dbl>
+       1 model Fiat X1-9      cyl   [3,5] overlap     2  3.12 -4.78e-15
+       2 model Toyota Corona  cyl   [3,5] overlap     2  3.12 -5.13e-15
+       3 model Porsche 914-2  cyl   [3,5] overlap     2  3.12 -6.52e-16
+       4 model Merc 240D      cyl   [3,5] overlap     2  3.12  2.01e-15
+       5 model Merc 230       cyl   [3,5] overlap     2  3.12  3.79e-15
+       6 model Lotus Europa   cyl   [3,5] overlap     2  3.12  1.12e-15
+       7 model Volvo 142E     cyl   [3,5] overlap     2  3.12  2.64e-15
+       8 model Honda Civic    cyl   [3,5] overlap     2  3.12  1.12e-15
+       9 model Toyota Corolla cyl   [3,5] overlap     2  3.12 -3.58e-15
+      10 model Fiat 128       cyl   [3,5] overlap     2  3.12 -5.09e-15
       # i 918 more rows
       
       $distinct$mpg$stats[[2]]$conf_regions$significant
