@@ -107,11 +107,6 @@ a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
 library(ale)
-#> 
-#> Attaching package: 'ale'
-#> The following object is masked from 'package:stats':
-#> 
-#>     mad
 
 # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
 set.seed(0)
@@ -136,7 +131,7 @@ For the simple demonstration, we directly create ALE data with the
 # Create ALE data
 ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
 
-# Plot the ALE data5
+# Plot the ALE data
 diamonds_plots <- plot(ale_gam_diamonds)
 diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
 patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
