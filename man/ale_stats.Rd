@@ -4,14 +4,7 @@
 \alias{ale_stats}
 \title{Calculate statistics from ALE y values.}
 \usage{
-ale_stats(
-  y,
-  bin_n,
-  y_vals = NULL,
-  ale_y_norm_fun = NULL,
-  x_type = "numeric",
-  zeroed_ale = FALSE
-)
+ale_stats(y, bin_n, y_vals = NULL, ale_y_norm_fun = NULL, x_type = "numeric")
 }
 \arguments{
 \item{y}{numeric. Vector of ALE y values.}
@@ -23,8 +16,6 @@ ale_stats(
 \item{ale_y_norm_fun}{function. Result of \code{create_ale_y_norm_function()}. If not provided, \code{y_vals} must be provided. \code{ale_stats()} could be faster if \code{ale_y_norm_fun} is provided, especially in bootstrap workflows that call the same function many, many times.}
 
 \item{x_type}{character(1). Datatype of the x variable on which the ALE y is based. Values are the result of \code{var_type()}. Used to determine how to correctly calculate ALE, so if the value is not the default \code{"numeric"}, then it must be set correctly.}
-
-\item{zeroed_ale}{logical. TRUE if the ALE \code{y} values are zero-based. If \code{FALSE} (default), \code{ale_stats} will convert \code{y} to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, \code{y} must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to \code{TRUE}.}
 }
 \value{
 Named numeric vector:

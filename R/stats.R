@@ -21,7 +21,7 @@
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
 #' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `ale_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
-#' @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
+# @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -36,8 +36,8 @@ ale_stats <- function(
     bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    x_type = 'numeric',
-    zeroed_ale = FALSE  # temporary until non-zeroed is implemented
+    x_type = 'numeric' #,
+    # zeroed_ale = FALSE  # temporary until non-zeroed is implemented
 ) {
 
   ## Validate data -------------
@@ -47,9 +47,9 @@ ale_stats <- function(
     msg = cli_alert_danger('Either {.arg y_vals} or {.arg ale_y_norm_fun} must be provided.')
   )
 
-  if (!zeroed_ale) {
-    cli_abort('Zeroed ALE required for now.')
-  }
+  # if (!zeroed_ale) {
+  #   cli_abort('Zeroed ALE required for now.')
+  # }
 
   y <- as.vector(y)  # flatten from 1D matrix inputs to vector
 
@@ -143,7 +143,7 @@ ale_stats <- function(
 #' @param x_types character same length as `x_cols`. Variable types (output of [var_type()]) of corresponding `x_cols`.
 #' @param y_vals See documentation for [ale_stats()]
 #' @param ale_y_norm_fun See documentation for [ale_stats()]
-#' @param zeroed_ale See documentation for [ale_stats()]
+# @param zeroed_ale See documentation for [ale_stats()]
 #'
 #' @returns Same as [ale_stats()].
 #'
@@ -152,8 +152,8 @@ ale_stats_2D <- function(
     x_cols,
     x_types,
     y_vals = NULL,
-    ale_y_norm_fun = NULL,
-    zeroed_ale = FALSE
+    ale_y_norm_fun = NULL #,
+    # zeroed_ale = FALSE
 ) {
   # ale_data=boot_summary
 
@@ -227,8 +227,8 @@ ale_stats_2D <- function(
     y_vals = y_vals,
     ale_y_norm_fun = ale_y_norm_fun,
     # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
-    x_type = 'ordered',
-    zeroed_ale = TRUE
+    x_type = 'ordered' #,
+    # zeroed_ale = TRUE
   ))
 }  # ale_stats_2D()
 

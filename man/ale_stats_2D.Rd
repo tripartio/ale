@@ -4,14 +4,7 @@
 \alias{ale_stats_2D}
 \title{Calculate statistics from 2D ALE y values.}
 \usage{
-ale_stats_2D(
-  ale_data,
-  x_cols,
-  x_types,
-  y_vals = NULL,
-  ale_y_norm_fun = NULL,
-  zeroed_ale = FALSE
-)
+ale_stats_2D(ale_data, x_cols, x_types, y_vals = NULL, ale_y_norm_fun = NULL)
 }
 \arguments{
 \item{ale_data}{dataframe. ALE data}
@@ -23,8 +16,6 @@ ale_stats_2D(
 \item{y_vals}{See documentation for \code{\link[=ale_stats]{ale_stats()}}}
 
 \item{ale_y_norm_fun}{See documentation for \code{\link[=ale_stats]{ale_stats()}}}
-
-\item{zeroed_ale}{See documentation for \code{\link[=ale_stats]{ale_stats()}}}
 }
 \value{
 Same as \code{\link[=ale_stats]{ale_stats()}}.

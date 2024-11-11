@@ -806,8 +806,8 @@ calc_ale <- function(
                 bin_n = btit.cat_ale_data$.n,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
                 y_vals = NULL,
-                x_type = xd[[1]]$x_type,
-                zeroed_ale = TRUE
+                x_type = xd[[1]]$x_type # ,
+                # zeroed_ale = TRUE
               )
             }
             else if (ixn_d == 2) {
@@ -816,8 +816,8 @@ calc_ale <- function(
                 x_cols = x_cols,
                 x_types = x_types,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
-                y_vals = NULL,
-                zeroed_ale = FALSE
+                y_vals = NULL #,
+                # zeroed_ale = FALSE
               )            }
             else {
               stop('Statistics not yet supported for higher than 2 dimensions.')
