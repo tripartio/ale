@@ -207,14 +207,21 @@ ale_stats_2D <- function(
     # Delete the minimum for numeric variables; they are not midpoints.
     # Shift their counts to the adjacent rows or columns.
     if (x_types[1] == 'numeric') {
-      mid_ale_y_ray <- mid_ale_y_ray[-1, ]
+      mid_ale_y_ray <- mid_ale_y_ray[-1, , drop = FALSE]
       ale_n_ray[2, ] <- ale_n_ray[2, ] + ale_n_ray[1, ]
-      ale_n_ray <- ale_n_ray[-1, ]
+      ale_n_ray <- ale_n_ray[-1, , drop = FALSE]
     }
     if (x_types[2] == 'numeric') {
-      mid_ale_y_ray <- mid_ale_y_ray[, -1]
+
+      # if (x_cols[1] == 'capital_gain' && x_cols[2] == 'capital_loss') {
+      #   closeAllConnections()
+      #   browser()
+      # }
+      # cat(x_cols, '\n')
+
+      mid_ale_y_ray <- mid_ale_y_ray[, -1, drop = FALSE]
       ale_n_ray[, 2] <- ale_n_ray[, 2] + ale_n_ray[, 1]
-      ale_n_ray <- ale_n_ray[, -1]
+      ale_n_ray <- ale_n_ray[, -1, drop = FALSE]
     }
 
     ale_y <- mid_ale_y_ray
