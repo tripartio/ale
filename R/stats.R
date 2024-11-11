@@ -682,7 +682,9 @@ summarize_conf_regions_2D <- function(
 
       # Group numeric x variables into quantiles of three (terciles), if available
       if ((x1_x2_names[1] |> endsWith('.ceil'))) {
-        cr$.n1 <- cut(
+        # Use .bincode() instead of cut() to give evenly spread terciles, even if some tertiles are duplicated. Otherwise, cut() crashes with duplicated tertiles.
+        # https://stackoverflow.com/a/26305952/2449926
+        cr$.n1 <- .bincode(
           cr[[1]],
           breaks = quantile(cr[[1]], probs = c(0, 1/3, 2/3, 1)),
           include.lowest = TRUE
@@ -690,7 +692,7 @@ summarize_conf_regions_2D <- function(
         cr_groups <- c(cr_groups, '.n1')
       }
       if ((x1_x2_names[2] |> endsWith('.ceil'))) {
-        cr$.n2 <- cut(
+        cr$.n2 <- .bincode(
           cr[[2]],
           breaks = quantile(cr[[2]], probs = c(0, 1/3, 2/3, 1)),
           include.lowest = TRUE
