@@ -771,6 +771,8 @@ ale <- function (
 
   if ('stats' %in% output) {
     for (it.cat in y_cats) {
+
+      # 1D ALE statistics
       if (length(x_cols[[1]]) >= 1) {
         ale_struc$distinct[[it.cat]][[1]]$stats <-
           ale_struc$distinct[[it.cat]][[1]]$stats |>
@@ -790,8 +792,10 @@ ale <- function (
             'median_band_pct'
           }
 
+          # browser()
+
           ale_struc$distinct[[it.cat]][[1]]$stats$conf_regions <-
-            summarize_conf_regions(
+            summarize_conf_regions_1D(
               ale_struc$distinct[[it.cat]][[1]]$ale,
               y_summary[, it.cat, drop = FALSE],
               sig_criterion = sig_criterion
@@ -799,8 +803,8 @@ ale <- function (
         }  # if ('conf_regions' %in% output)
       }  # if (length(x_cols[[1]]) >= 1) {
 
+      # 2D ALE statistics
       if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
-        # if (length(x_cols[[2]]) >= 1) {
         # Iterate statistics for each x1 variable
         for (it.x1 in names(ale_struc$distinct[[it.cat]][[2]]$stats)) {
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] <-
@@ -829,31 +833,32 @@ ale <- function (
             rename(term2 = 'term') |>
             select('term1', 'term2', everything())
 
-          # ## Disable 2D conf_regions until they can be verified and corrected
-          # if ('conf_regions' %in% output) {
-          #   # conf_regions optionally provided only if stats also requested
-          #   sig_criterion <- if (!is.null(p_values)) {
-          #     'p_values'
-          #   } else {
-          #     'median_band_pct'
-          #   }
-          #
-          #   ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
-          #     summarize_conf_regions(
-          #       ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
-          #       y_summary[, it.cat, drop = FALSE],
-          #       sig_criterion = sig_criterion
-          #     )
-          # }
+          if ('conf_regions' %in% output) {
+            # conf_regions optionally provided only if stats also requested
+            sig_criterion <- if (!is.null(p_values)) {
+              'p_values'
+            } else {
+              'median_band_pct'
+            }
+
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
+              summarize_conf_regions_2D(
+                ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
+                y_summary[, it.cat, drop = FALSE],
+                sig_criterion = sig_criterion
+              )
+          }
 
         }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
+
+        # browser()
 
       # Transpose stats result order in the list
       ale_struc$distinct[[it.cat]][[2]]$stats <-
         ale_struc$distinct[[it.cat]][[2]]$stats |>
         list_transpose(simplify = FALSE)
 
-      # Consolidate 2D stats
+      # Consolidate 2D stats into more convenient formats
       ale_struc$distinct[[it.cat]][[2]]$stats$by_stat <-
         ale_struc$distinct[[it.cat]][[2]]$stats$by_stat |>
         list_transpose(simplify = FALSE) |>
@@ -861,6 +866,17 @@ ale <- function (
       ale_struc$distinct[[it.cat]][[2]]$stats$estimate <-
         ale_struc$distinct[[it.cat]][[2]]$stats$estimate |>
         bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions |>
+        list_transpose(simplify = FALSE)
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term |>
+        bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant |>
+        bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion[[1]]
 
       }  # if (length(x_cols[[2]]) >= 1) {
     }  # for (it.cat in y_cats)

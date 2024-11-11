@@ -176,14 +176,14 @@ By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be contr
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
 # mb_gam_math <- model_bootstrap(
-#   math, 
+#   math,
 #   gam_math,
 #   # Pass the p_dist object so that p-values will be generated
 #   ale_options = list(p_values = gam_math_p_dist),
 #   # For the GAM model coefficients, show details of all variables, parametric or not
 #   tidy_options = list(parametric = TRUE),
 #   # tidy_options = list(parametric = NULL),
-#   boot_it = 40  # 100 by default but reduced here for a faster demonstration
+#   boot_it = 100  # default
 # )
 # saveRDS(mb_gam_math, file.choose())
 mb_gam_math <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.rds') |> 
@@ -512,21 +512,22 @@ mb_gam_math_stats$by_term$mean_ses
 For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance band, they overlap the band, or they are all above the band. Here are the summary components:
 
 -   `start_x` is the first and `end_x` is the last x value in the sequence. `start_y` is the y value that corresponds to `start_x` while `end_y` corresponds to `end_x`.
--   `n` is the number of data elements in the sequence; `n_pct` is the percentage of total data elements out of the total number.
+-   `n` is the number of data elements in the sequence; `pct` is the percentage of total data elements out of the total number.
 -   `x_span` is the length of x of the sequence that has the same confidence status. However, so that it may be comparable across variables with different units of x, `x_span` is expressed as a percentage of the full domain of x values.
 -   `trend` is the average slope from the point `(start_x, start_y)` to `(end_x, end_y)`. Because only the start and end points are used to calculate `trend`, it does not reflect any ups and downs that might occur between those two points. Since the various x values in a dataset are on different scales, the scales of the x and y values in calculating the `trend` are normalized on a scale of 100 each so that the trends for all variables are directly comparable. A positive `trend` means that, on average, y increases with x; a negative `trend` means that, on average, y decreases with x; a zero `trend` means that y has the same value at its start and end points--this is always the case if there is only one point in the indicated sequence.
--   **`relative_to_mid`** is the key information here. It indicates if all the values in sequence from `start_x` to `end_x` are below, overlapping, or above the ALER band:
+-   **`mid_bar`** is the key information here. It indicates if all the values in sequence from `start_x` to `end_x` are below, overlapping, or above the middle ALER band:
     -   below: the higher limit of the confidence interval of ALE y (`ale_y_hi`) is below the lower limit of the ALER band.
     -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the ALER band.
     -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the ALER band.
 
 These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the median band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the median band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the median band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the median band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the median band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the median band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the median band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.-
 
-Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
+Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_1D_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
 ```{r text conf_regions for mean_ses}
-mb_gam_math_stats$conf_regions$by_term$mean_ses |> 
-  ale:::summarize_conf_regions_in_words()
+mb_gam_math_stats$conf_regions$by_term |> 
+  filter(term == 'mean_ses') |> 
+  ale:::summarize_conf_regions_1D_in_words()
 ```
 
 While the wording is rather mechanical, it nonetheless illustrates the potential value of being able to summarize the inferentially relevant conclusions in tabular form.
@@ -540,12 +541,13 @@ mb_gam_1D_plots$public
 And here is its confidence regions summary table:
 
 ```{r conf_regions for public}
-mb_gam_math_stats$conf_regions$by_term$public
+mb_gam_math_stats$conf_regions$by_term |> 
+  filter(term == 'public')
 ```
 
-Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `n_pct` of the respective category and `relative_to_mid` as before to indicate whether the indicated category is below, overlaps with, or is above the ALER band.
+Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `pct` of the respective category and `mid_bar` as before to indicate whether the indicated category is below, overlaps with, or is above the ALER band.
 
-Again with the help of `ale:::summarize_conf_regions_in_words`, these results tell us that, for `public`, for FALSE, the ALE of 13.3 overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER band.
+Again with the help of `ale:::summarize_conf_regions_1D_in_words()`, these results tell us that, for `public`, for FALSE, the ALE of 13.3 overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER band.
 
 Again, our random variable `rand_norm` is particularly interesting. Here is its ALE plot:
 
@@ -556,7 +558,8 @@ mb_gam_1D_plots$rand_norm
 And here is its confidence regions summary table:
 
 ```{r conf_regions for rand_norm}
-mb_gam_math_stats$conf_regions$by_term$rand_norm
+mb_gam_math_stats$conf_regions$by_term |> 
+  filter(term == 'rand_norm')
 ```
 
 Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 12 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.

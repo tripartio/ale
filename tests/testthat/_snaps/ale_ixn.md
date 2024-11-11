@@ -2392,11 +2392,40 @@
       10 model carb  2.17e-15 -1.96e-15 4.51e-15     0         0         0
       # i 68 more rows
       
+      $distinct$mpg$stats[[2]]$conf_regions
+      $distinct$mpg$stats[[2]]$conf_regions$by_term
+      # A tibble: 928 x 8
+         term1 x1    term2 x2             mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>          <ord>   <int> <dbl>     <dbl>
+       1 model [3,5] cyl   Fiat X1-9      overlap     2  3.12 -4.78e-15
+       2 model [3,5] cyl   Toyota Corona  overlap     2  3.12 -5.13e-15
+       3 model [3,5] cyl   Porsche 914-2  overlap     2  3.12 -6.52e-16
+       4 model [3,5] cyl   Merc 240D      overlap     2  3.12  2.01e-15
+       5 model [3,5] cyl   Merc 230       overlap     2  3.12  3.79e-15
+       6 model [3,5] cyl   Lotus Europa   overlap     2  3.12  1.12e-15
+       7 model [3,5] cyl   Volvo 142E     overlap     2  3.12  2.64e-15
+       8 model [3,5] cyl   Honda Civic    overlap     2  3.12  1.12e-15
+       9 model [3,5] cyl   Toyota Corolla overlap     2  3.12 -3.58e-15
+      10 model [3,5] cyl   Fiat 128       overlap     2  3.12 -5.09e-15
+      # i 918 more rows
+      
+      $distinct$mpg$stats[[2]]$conf_regions$significant
+      # A tibble: 0 x 8
+      # i 8 variables: term1 <chr>, x1 <chr>, term2 <chr>, x2 <chr>, mid_bar <ord>,
+      #   n <int>, pct <dbl>, y <dbl>
+      
+      $distinct$mpg$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
       
       $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
       $params$max_d
       [1] 2
       
@@ -14614,11 +14643,51 @@
       10 country am    7.82e- 2 -2.14e- 1 4.68e- 2  15.8       -50      6.25
       11 country hp    5.12e-10 -3.11e- 9 4.38e- 9  21.3       -50      6.25
       
+      $distinct$vs$stats[[2]]$conf_regions
+      $distinct$vs$stats[[2]]$conf_regions$by_term
+      # A tibble: 93 x 8
+         term1 x1    term2 x2        mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5] am    FALSE     below       7 10.9  -7.39e-12
+       2 cyl   (5,7] am    FALSE     above      10 15.6   5.38e-12
+       3 cyl   (7,9] am    FALSE     above      21 32.8   1.02e-11
+       4 cyl   [3,5] am    TRUE      above      17 26.6   1.03e-11
+       5 cyl   (5,7] am    TRUE      below       6  9.38 -4.46e-11
+       6 cyl   (7,9] am    TRUE      below       3  4.69 -9.98e-11
+       7 cyl   [3,5] hp    [52,110]  overlap    20 31.2  -1.12e-25
+       8 cyl   (5,7] hp    [52,110]  overlap     2  3.12 -1.05e-25
+       9 cyl   [3,5] hp    (110,176] overlap     4  6.25 -9.90e-26
+      10 cyl   (5,7] hp    (110,176] overlap    10 15.6  -4.37e-26
+      # i 83 more rows
+      
+      $distinct$vs$stats[[2]]$conf_regions$significant
+      # A tibble: 72 x 8
+         term1 x1         term2 x2    mid_bar     n   pct         y
+         <chr> <chr>      <chr> <chr> <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5]      am    FALSE below       7 10.9  -7.39e-12
+       2 cyl   (5,7]      am    FALSE above      10 15.6   5.38e-12
+       3 cyl   (7,9]      am    FALSE above      21 32.8   1.02e-11
+       4 cyl   [3,5]      am    TRUE  above      17 26.6   1.03e-11
+       5 cyl   (5,7]      am    TRUE  below       6  9.38 -4.46e-11
+       6 cyl   (7,9]      am    TRUE  below       3  4.69 -9.98e-11
+       7 disp  [70.9,146] am    FALSE above       4  6.25  9.10e-11
+       8 disp  (146,300]  am    FALSE below      16 25    -2.34e-11
+       9 disp  (300,472]  am    FALSE below      18 28.1  -1.75e-10
+      10 disp  [70.9,146] am    TRUE  below      18 28.1  -1.58e-10
+      # i 62 more rows
+      
+      $distinct$vs$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
       
       $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
       $params$max_d
       [1] 2
       
@@ -17833,6 +17902,43 @@
       10 country am    0        0        0        0           0       0  
       11 country hp    0        0        0        0           0       0  
       
+      $distinct$Asia$stats[[2]]$conf_regions
+      $distinct$Asia$stats[[2]]$conf_regions$by_term
+      # A tibble: 97 x 8
+         term1 x1    term2 x2        mid_bar     n   pct        y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>    <dbl>
+       1 cyl   [3,5] am    FALSE     below       7 10.9  -0.00300
+       2 cyl   (5,7] am    FALSE     below      10 15.6  -0.0146 
+       3 cyl   (7,9] am    FALSE     above      21 32.8   0.0107 
+       4 cyl   [3,5] am    TRUE      above      17 26.6   0.0330 
+       5 cyl   (5,7] am    TRUE      above       6  9.38  0.0336 
+       6 cyl   (7,9] am    TRUE      above       3  4.69  0.0336 
+       7 cyl   [3,5] hp    [52,110]  below      13 20.3  -0.00538
+       8 cyl   [3,5] hp    [52,110]  above       7 10.9   0.0570 
+       9 cyl   (5,7] hp    [52,110]  below       2  3.12 -0.00509
+      10 cyl   [3,5] hp    (110,176] below       4  6.25 -0.00599
+      # i 87 more rows
+      
+      $distinct$Asia$stats[[2]]$conf_regions$significant
+      # A tibble: 63 x 8
+         term1 x1    term2 x2        mid_bar     n   pct        y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>    <dbl>
+       1 cyl   [3,5] am    FALSE     below       7 10.9  -0.00300
+       2 cyl   (5,7] am    FALSE     below      10 15.6  -0.0146 
+       3 cyl   (7,9] am    FALSE     above      21 32.8   0.0107 
+       4 cyl   [3,5] am    TRUE      above      17 26.6   0.0330 
+       5 cyl   (5,7] am    TRUE      above       6  9.38  0.0336 
+       6 cyl   (7,9] am    TRUE      above       3  4.69  0.0336 
+       7 cyl   [3,5] hp    [52,110]  below      13 20.3  -0.00538
+       8 cyl   [3,5] hp    [52,110]  above       7 10.9   0.0570 
+       9 cyl   (5,7] hp    [52,110]  below       2  3.12 -0.00509
+      10 cyl   [3,5] hp    (110,176] below       4  6.25 -0.00599
+      # i 53 more rows
+      
+      $distinct$Asia$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
@@ -18295,6 +18401,43 @@
        9 country cyl   0         0        0       0            0      0   
       10 country am    0         0        0       0            0      0   
       11 country hp    0         0        0       0            0      0   
+      
+      $distinct$Europe$stats[[2]]$conf_regions
+      $distinct$Europe$stats[[2]]$conf_regions$by_term
+      # A tibble: 103 x 8
+         term1 x1    term2 x2       mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>    <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5] am    FALSE    below       7 10.9  -0.0165  
+       2 cyl   (5,7] am    FALSE    below      10 15.6  -0.0269  
+       3 cyl   (7,9] am    FALSE    above      21 32.8   0.00300 
+       4 cyl   [3,5] am    TRUE     above      13 20.3   0.0100  
+       5 cyl   [3,5] am    TRUE     below       4  6.25 -0.0336  
+       6 cyl   (5,7] am    TRUE     below       6  9.38 -0.0336  
+       7 cyl   (7,9] am    TRUE     below       3  4.69 -0.0336  
+       8 cyl   [3,5] hp    [52,110] below      12 18.8  -0.00151 
+       9 cyl   [3,5] hp    [52,110] above       8 12.5   0.0168  
+      10 cyl   (5,7] hp    [52,110] above       2  3.12  0.000378
+      # i 93 more rows
+      
+      $distinct$Europe$stats[[2]]$conf_regions$significant
+      # A tibble: 69 x 8
+         term1 x1    term2 x2       mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>    <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5] am    FALSE    below       7 10.9  -0.0165  
+       2 cyl   (5,7] am    FALSE    below      10 15.6  -0.0269  
+       3 cyl   (7,9] am    FALSE    above      21 32.8   0.00300 
+       4 cyl   [3,5] am    TRUE     above      13 20.3   0.0100  
+       5 cyl   [3,5] am    TRUE     below       4  6.25 -0.0336  
+       6 cyl   (5,7] am    TRUE     below       6  9.38 -0.0336  
+       7 cyl   (7,9] am    TRUE     below       3  4.69 -0.0336  
+       8 cyl   [3,5] hp    [52,110] below      12 18.8  -0.00151 
+       9 cyl   [3,5] hp    [52,110] above       8 12.5   0.0168  
+      10 cyl   (5,7] hp    [52,110] above       2  3.12  0.000378
+      # i 59 more rows
+      
+      $distinct$Europe$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
       
       
       
@@ -18759,11 +18902,51 @@
       10 country am    0         0        0        0           0       0  
       11 country hp    0         0        0        0           0       0  
       
+      $distinct$`North America`$stats[[2]]$conf_regions
+      $distinct$`North America`$stats[[2]]$conf_regions$by_term
+      # A tibble: 104 x 8
+         term1 x1    term2 x2        mid_bar     n   pct            y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>        <dbl>
+       1 cyl   [3,5] am    FALSE     below       7 10.9  -0.0104     
+       2 cyl   (5,7] am    FALSE     below      10 15.6  -0.0104     
+       3 cyl   (7,9] am    FALSE     above      21 32.8   0.00914    
+       4 cyl   [3,5] am    TRUE      above      13 20.3   0.0208     
+       5 cyl   [3,5] am    TRUE      below       4  6.25 -0.000000412
+       6 cyl   (5,7] am    TRUE      below       6  9.38 -0.00000293 
+       7 cyl   (7,9] am    TRUE      below       3  4.69 -0.00000214 
+       8 cyl   [3,5] hp    [52,110]  above      20 31.2   0.0288     
+       9 cyl   (5,7] hp    [52,110]  above       2  3.12  0.00561    
+      10 cyl   [3,5] hp    (110,176] above       4  6.25  0.00307    
+      # i 94 more rows
+      
+      $distinct$`North America`$stats[[2]]$conf_regions$significant
+      # A tibble: 70 x 8
+         term1 x1    term2 x2        mid_bar     n   pct            y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>        <dbl>
+       1 cyl   [3,5] am    FALSE     below       7 10.9  -0.0104     
+       2 cyl   (5,7] am    FALSE     below      10 15.6  -0.0104     
+       3 cyl   (7,9] am    FALSE     above      21 32.8   0.00914    
+       4 cyl   [3,5] am    TRUE      above      13 20.3   0.0208     
+       5 cyl   [3,5] am    TRUE      below       4  6.25 -0.000000412
+       6 cyl   (5,7] am    TRUE      below       6  9.38 -0.00000293 
+       7 cyl   (7,9] am    TRUE      below       3  4.69 -0.00000214 
+       8 cyl   [3,5] hp    [52,110]  above      20 31.2   0.0288     
+       9 cyl   (5,7] hp    [52,110]  above       2  3.12  0.00561    
+      10 cyl   [3,5] hp    (110,176] above       4  6.25  0.00307    
+      # i 60 more rows
+      
+      $distinct$`North America`$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
       
       $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
       $params$max_d
       [1] 2
       
@@ -22389,6 +22572,43 @@
       10 country am    0       0        0         0        0         0   
       11 country hp    0       0        0         0        0         0   
       
+      $distinct$Asia$stats[[2]]$conf_regions
+      $distinct$Asia$stats[[2]]$conf_regions$by_term
+      # A tibble: 105 x 8
+         term1 x1    term2 x2       mid_bar     n   pct        y
+         <chr> <chr> <chr> <chr>    <ord>   <int> <dbl>    <dbl>
+       1 cyl   [3,5] am    FALSE    overlap     7 10.9   0.00734
+       2 cyl   (5,7] am    FALSE    overlap    10 15.6   0.00789
+       3 cyl   (7,9] am    FALSE    above      18 28.1   0.0131 
+       4 cyl   (7,9] am    FALSE    overlap     3  4.69  0.0154 
+       5 cyl   [3,5] am    TRUE     overlap    13 20.3   0.0102 
+       6 cyl   [3,5] am    TRUE     above       4  6.25  0.0434 
+       7 cyl   (5,7] am    TRUE     above       6  9.38  0.0382 
+       8 cyl   (7,9] am    TRUE     above       3  4.69  0.0382 
+       9 cyl   [3,5] hp    [52,110] below      13 20.3  -0.00530
+      10 cyl   [3,5] hp    [52,110] overlap     7 10.9   0.0104 
+      # i 95 more rows
+      
+      $distinct$Asia$stats[[2]]$conf_regions$significant
+      # A tibble: 35 x 8
+         term1 x1    term2 x2        mid_bar     n   pct        y
+         <chr> <chr> <chr> <chr>     <ord>   <int> <dbl>    <dbl>
+       1 cyl   (7,9] am    FALSE     above      18 28.1   0.0131 
+       2 cyl   [3,5] am    TRUE      above       4  6.25  0.0434 
+       3 cyl   (5,7] am    TRUE      above       6  9.38  0.0382 
+       4 cyl   (7,9] am    TRUE      above       3  4.69  0.0382 
+       5 cyl   [3,5] hp    [52,110]  below      13 20.3  -0.00530
+       6 cyl   (5,7] hp    [52,110]  below       2  3.12 -0.00514
+       7 cyl   [3,5] hp    (110,176] below       2  3.12 -0.00512
+       8 cyl   (5,7] hp    (110,176] below       7 10.9  -0.00515
+       9 cyl   (7,9] hp    (110,176] below       7 10.9  -0.00518
+      10 cyl   (7,9] hp    (176,335] below      17 26.6  -0.0732 
+      # i 25 more rows
+      
+      $distinct$Asia$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
@@ -22851,6 +23071,43 @@
        9 country cyl   0        0        0        0          0        0   
       10 country am    0        0        0        0          0        0   
       11 country hp    0        0        0        0          0        0   
+      
+      $distinct$Europe$stats[[2]]$conf_regions
+      $distinct$Europe$stats[[2]]$conf_regions$by_term
+      # A tibble: 111 x 8
+         term1 x1    term2 x2       mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>    <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5] am    FALSE    overlap     7 10.9  -0.0122  
+       2 cyl   (5,7] am    FALSE    overlap    10 15.6  -0.0183  
+       3 cyl   (7,9] am    FALSE    overlap    21 32.8  -0.0108  
+       4 cyl   [3,5] am    TRUE     overlap    13 20.3  -0.00215 
+       5 cyl   [3,5] am    TRUE     below       4  6.25 -0.0382  
+       6 cyl   (5,7] am    TRUE     below       6  9.38 -0.0382  
+       7 cyl   (7,9] am    TRUE     below       3  4.69 -0.0382  
+       8 cyl   [3,5] hp    [52,110] overlap    15 23.4   0.00516 
+       9 cyl   [3,5] hp    [52,110] above       5  7.81  0.000369
+      10 cyl   (5,7] hp    [52,110] above       2  3.12  0.000326
+      # i 101 more rows
+      
+      $distinct$Europe$stats[[2]]$conf_regions$significant
+      # A tibble: 38 x 8
+         term1 x1         term2 x2        mid_bar     n   pct         y
+         <chr> <chr>      <chr> <chr>     <ord>   <int> <dbl>     <dbl>
+       1 cyl   [3,5]      am    TRUE      below       4  6.25 -0.0382  
+       2 cyl   (5,7]      am    TRUE      below       6  9.38 -0.0382  
+       3 cyl   (7,9]      am    TRUE      below       3  4.69 -0.0382  
+       4 cyl   [3,5]      hp    [52,110]  above       5  7.81  0.000369
+       5 cyl   (5,7]      hp    [52,110]  above       2  3.12  0.000326
+       6 cyl   [3,5]      hp    (110,176] above       2  3.12  0.000332
+       7 cyl   (5,7]      hp    (110,176] above       7 10.9   0.000348
+       8 cyl   (7,9]      hp    (110,176] above       7 10.9   0.000324
+       9 cyl   (7,9]      hp    (176,335] above       9 14.1   0.000295
+      10 disp  [70.9,153] cyl   [3,5]     below       3  4.69 -0.000520
+      # i 28 more rows
+      
+      $distinct$Europe$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
       
       
       
@@ -23315,11 +23572,51 @@
       10 country am    0        0        0         0         0        0   
       11 country hp    0        0        0         0         0        0   
       
+      $distinct$`North America`$stats[[2]]$conf_regions
+      $distinct$`North America`$stats[[2]]$conf_regions$by_term
+      # A tibble: 105 x 8
+         term1 x1    term2 x2       mid_bar     n   pct           y
+         <chr> <chr> <chr> <chr>    <ord>   <int> <dbl>       <dbl>
+       1 cyl   [3,5] am    FALSE    overlap     7 10.9  -0.00260   
+       2 cyl   (5,7] am    FALSE    overlap     6  9.38 -0.00519   
+       3 cyl   (5,7] am    FALSE    below       4  6.25 -0.00000175
+       4 cyl   (7,9] am    FALSE    overlap    21 32.8   0.00228   
+       5 cyl   [3,5] am    TRUE     overlap    17 26.6   0.00346   
+       6 cyl   (5,7] am    TRUE     overlap     6  9.38 -0.00000319
+       7 cyl   (7,9] am    TRUE     overlap     3  4.69 -0.00000299
+       8 cyl   [3,5] hp    [52,110] overlap    15 23.4   0.0168    
+       9 cyl   [3,5] hp    [52,110] above       5  7.81  0.00483   
+      10 cyl   (5,7] hp    [52,110] above       2  3.12  0.00504   
+      # i 95 more rows
+      
+      $distinct$`North America`$stats[[2]]$conf_regions$significant
+      # A tibble: 22 x 8
+         term1 x1         term2 x2        mid_bar     n   pct           y
+         <chr> <chr>      <chr> <chr>     <ord>   <int> <dbl>       <dbl>
+       1 cyl   (5,7]      am    FALSE     below       4  6.25 -0.00000175
+       2 cyl   [3,5]      hp    [52,110]  above       5  7.81  0.00483   
+       3 cyl   (5,7]      hp    [52,110]  above       2  3.12  0.00504   
+       4 cyl   [3,5]      hp    (110,176] above       2  3.12  0.00493   
+       5 cyl   (5,7]      hp    (110,176] above       8 12.5   0.00504   
+       6 cyl   (7,9]      hp    (110,176] above       7 10.9   0.00491   
+       7 cyl   (5,7]      hp    (176,335] above       3  4.69  0.00491   
+       8 cyl   (7,9]      hp    (176,335] above      14 21.9   0.0952    
+       9 disp  [70.9,153] cyl   [3,5]     below      12 18.8  -0.00427   
+      10 disp  (153,300]  cyl   [3,5]     below       3  4.69 -0.00370   
+      # i 12 more rows
+      
+      $distinct$`North America`$stats[[2]]$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
       
       
       
       
       $params
+      $params$sig_criterion
+      [1] "median_band_pct"
+      
       $params$max_d
       [1] 2
       

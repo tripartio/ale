@@ -20,13 +20,13 @@
 
 ## Other user-visible changes
 
-
+* Confidence regions for 1D ALE are now reported more compactly.
 *   With the creation of `plot()` methods, eliminated the `compact_plots` to `ale()`. 
 * `print()` and `plot()` methods have been added to the `ale_plots` object.
 * A `print()` method has been added to the `ale` object.
 * Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
 * Bootstrapping is now supported for ALE interactions.
-* ALE statistics are now supported for interactions.
+* ALE statistics are now supported for interactions, including confidence regions.
 * Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * model_bootstrap() has added various model performance measures that are validated using bootstrap validation with the .632 correction.

@@ -1057,7 +1057,7 @@ model_bootstrap <- function (
       ale_conf_regions <-
         ale_summary_data |>
         imap(\(it.ale_summary_data, it.cat) {
-          summarize_conf_regions(
+          summarize_conf_regions_1D(
             it.ale_summary_data,
             full_ale$params$y_summary[, it.cat, drop = FALSE],
             sig_criterion = if (!is.null(ale_options$p_values)) {

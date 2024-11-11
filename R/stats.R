@@ -436,10 +436,10 @@ pivot_stats <- function(long_stats) {
       # split() sort terms alphabetically; revert to the original provided order of terms
       (`[`)(unique(long_stats$term)) |>
       # Name each element on each row by its corresponding statistic
-      map(\(.term_tbl) {
-        .row_names <- .term_tbl[['statistic']]
+      map(\(it.term_tbl) {
+        .row_names <- it.term_tbl[['statistic']]
 
-        .term_tbl |>
+        it.term_tbl |>
           # Name each element on each row
           map(\(.col) {
             names(.col) <- .row_names
@@ -490,11 +490,11 @@ pivot_stats <- function(long_stats) {
 
 
 # Summarize overlapping confidence regions
-summarize_conf_regions <- function(
+summarize_conf_regions_1D <- function(
     ale_data_list,  # list of ale_data elements
     y_summary,  # result of var_summary(y_vals)
     sig_criterion  # string either 'p_values' or 'median_band_pct'
-  ) {
+) {
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
   y_zeroed_summary <- y_summary[, 1] - y_summary[['50%', 1]]
@@ -503,13 +503,16 @@ summarize_conf_regions <- function(
   cr_by_term <-
     ale_data_list |>
     map(\(it.ale_data) {
+      x_name <- names(it.ale_data)[1] |>
+        stringr::str_remove("\\.bin$|\\.ceil$")
+
 
       # cr is the confidence regions for a single variable (term) at a time
       cr <-
         it.ale_data |>
         mutate(
           # where is the current point relative to the median band?
-          relative_to_mid = case_when(
+          mid_bar = case_when(
             .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
             .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
             # .data$.y_hi < y_summary[['med_lo', 1]] ~ 'below',
@@ -517,10 +520,10 @@ summarize_conf_regions <- function(
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
-          # new_streak == TRUE if current row has different relative_to_mid from previous row
-          new_streak = .data$relative_to_mid != lag(
-            .data$relative_to_mid,
-            default = first(.data$relative_to_mid)
+          # new_streak == TRUE if current row has different mid_bar from previous row
+          new_streak = .data$mid_bar != lag(
+            .data$mid_bar,
+            default = first(.data$mid_bar)
           ),
           # unique ID for each consecutive streak
           streak_id = cumsum(.data$new_streak)
@@ -540,29 +543,29 @@ summarize_conf_regions <- function(
             start_y = first(.data$.y),
             end_y = last(.data$.y),
             n = sum(.data$.n),
-            n_pct = n / sum(it.ale_data$.n),
-            relative_to_mid = first(.data$relative_to_mid),
+            pct = (n / sum(it.ale_data$.n)) * 100,
+            mid_bar = first(.data$mid_bar),
           ) |>
           mutate(
-            # diff between start_x and end_x normalized on scale of x
+            # diff between start_x and end_x as percentage of the domain of x
             # Convert differences to numeric to handle dates and maybe other unusual types
-            x_span = as.numeric(.data$end_x - .data$start_x) /
-              as.numeric(diff(range(it.ale_data[[1]]))),
+            x_span_pct = (as.numeric(.data$end_x - .data$start_x) /
+              as.numeric(diff(range(it.ale_data[[1]])))) *
+              100,
             trend = if_else(
-              .data$x_span != 0,
+              .data$x_span_pct != 0,
               # slope from (start_x, start_y) to (end_x, end_y) normalized on scales of x and y
               ((.data$end_y - .data$start_y) /
                  (y_zeroed_summary['max'] - y_zeroed_summary['min'])) /
-                 # (y_summary[['max', 1]] - y_summary[['min', 1]])) /
-              .data$x_span,
+                (.data$x_span_pct / 100),
               0
             )
           ) |>
           select(
-            'start_x', 'end_x', 'x_span',
-            'n', 'n_pct',
+            'start_x', 'end_x', 'x_span_pct',
             'start_y', 'end_y', 'trend',
-            'relative_to_mid'
+            'mid_bar',
+            'n', 'pct'
           )
 
       } else {  # non-numeric x
@@ -576,43 +579,53 @@ summarize_conf_regions <- function(
             y = '.y',
           ) |>
           mutate(
-            n_pct = .data$n / sum(it.ale_data$.n)
+            pct = (.data$n / sum(it.ale_data$.n)) * 100,
+            # Convert x column from ordinal to character for consistency across terms
+            x = as.character(x),
           ) |>
-          select('x', 'n', 'n_pct', 'y', 'relative_to_mid')
+          select('x', 'y', 'mid_bar', 'n', 'pct')
       }
 
-      cr
+      cr |>
+        mutate(
+          term = x_name
+        )
 
     }) |>
-    set_names(names(ale_data_list))
-
-
-  # Highlight which confidence regions are statistically significant
-  sig_conf_regions <- map2(
-    cr_by_term, names(cr_by_term),
-    \(.conf_tbl, .term) {
-      .conf_tbl$term <- .term
-
-      if ('x' %in% names(.conf_tbl)) {
-        # Convert x column from ordinal to character for consistency across terms
-        .conf_tbl$x <- as.character(.conf_tbl$x)
-      }
-
-      .conf_tbl
-    }
-  ) |>
+    set_names(names(ale_data_list)) |>
     bind_rows() |>
-    filter(.data$relative_to_mid != 'overlap') |>
     # https://bard.google.com/chat/ea68c7b9e8437179
     select(
       'term',
-      # any_of is used because categorical variables do not have 'start_x', 'end_x', 'x_span'
+      # any_of is used because categorical variables do not have 'start_x', 'end_x', 'x_span_pct'
       # while numeric values do not have 'x'
-      any_of(c('x', 'start_x', 'end_x', 'x_span')),
-      'n', 'n_pct',
+      any_of(c('x', 'start_x', 'end_x', 'x_span_pct')),
+      'n', 'pct',
       any_of(c('y', 'start_y', 'end_y', 'trend')),
-      'relative_to_mid'
+      'mid_bar'
     )
+
+  # browser()
+
+
+  # Highlight which confidence regions are statistically significant
+  # sig_conf_regions <- map2(
+  #   cr_by_term, names(cr_by_term),
+  #   \(it.conf_tbl, it.term) {
+  #     it.conf_tbl$term <- it.term
+  #
+  #     if ('x' %in% names(it.conf_tbl)) {
+  #       # Convert x column from ordinal to character for consistency across terms
+  #       it.conf_tbl$x <- as.character(it.conf_tbl$x)
+  #     }
+  #
+  #     it.conf_tbl
+  #   }
+  # ) |>
+  #   bind_rows() |>
+
+  sig_conf_regions <- cr_by_term |>
+    filter(.data$mid_bar != 'overlap')
 
   return(
     list(
@@ -621,16 +634,162 @@ summarize_conf_regions <- function(
       sig_criterion = sig_criterion
     )
   )
-}  # summarize_conf_regions()
+}  # summarize_conf_regions_1D()
+
+
+# Summarize overlapping confidence regions for 2D ALE
+summarize_conf_regions_2D <- function(
+    ale_data_list,  # list of ale_data elements
+    y_summary,  # result of var_summary(y_vals)
+    sig_criterion  # string either 'p_values' or 'median_band_pct'
+) {
+  # Create zeroed version of y_summary to correspond to zeroed ALE y values.
+  # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
+  y_zeroed_summary <- y_summary[, 1] - y_summary[['50%', 1]]
+
+  # The total n is the total of any of the ALE data .n counts; just pick the first one
+  total_n <- sum(ale_data_list[[1]]$.n)
+
+  # Create confidence regions for each variable (term)
+  cr_by_term <-
+    ale_data_list |>
+    map(\(it.ale_data) {
+      x1_x2_names <- names(it.ale_data)[1:2]
+
+      # cr is the confidence regions for a single 2D interaction at a time
+      cr <-
+        it.ale_data |>
+        filter(.data$.n != 0) |>
+        mutate(
+          # where is the current point relative to the median band?
+          mid_bar = case_when(
+            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+            # .data$.y_hi < y_summary[['med_lo', 1]] ~ 'below',
+            # .data$.y_lo > y_summary[['med_hi', 1]] ~ 'above',
+            .default = 'overlap'
+          ) |>
+            factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
+        ) |>
+        select(-c('.y_lo':'.y_hi')) |>
+        rename(
+          n = .n,
+          y = .y
+        )
+
+      # Initialize cr_groups, used only if one or both x variables is non-numeric
+      cr_groups <- character()
+
+      # Group numeric x variables into quantiles of three (terciles), if available
+      if ((x1_x2_names[1] |> endsWith('.ceil'))) {
+        cr$.n1 <- cut(
+          cr[[1]],
+          breaks = quantile(cr[[1]], probs = c(0, 1/3, 2/3, 1)),
+          include.lowest = TRUE
+        )
+        cr_groups <- c(cr_groups, '.n1')
+      }
+      if ((x1_x2_names[2] |> endsWith('.ceil'))) {
+        cr$.n2 <- cut(
+          cr[[2]],
+          breaks = quantile(cr[[2]], probs = c(0, 1/3, 2/3, 1)),
+          include.lowest = TRUE
+        )
+        cr_groups <- c(cr_groups, '.n2')
+      }
+
+      # Rename ordinal x variables for easier coding
+      if ((x1_x2_names[1] |> endsWith('.bin'))) {
+        names(cr)[1] <- '.o1'
+        cr_groups <- c(cr_groups, '.o1')
+      }
+      if ((x1_x2_names[2] |> endsWith('.bin'))) {
+        names(cr)[2] <- '.o2'
+        cr_groups <- c(cr_groups, '.o2')
+      }
+
+      cr <- cr |>
+        summarize(
+          .by = all_of(c(cr_groups, 'mid_bar')),
+          n   = sum(.data$n),
+          pct = (n / total_n) * 100,
+          y   = mean(.data$y),
+          # n_below = sum(mid_bar == 'below'),
+          # n_overlap = sum(mid_bar == 'overlap'),
+          # n_above = sum(mid_bar == 'above'),
+          # pct_below = (n_below / total_n) * 100,
+          # pct_overlap = (n_overlap / total_n) * 100,
+          # pct_above = (n_above / total_n) * 100,
+        )
+
+      # Rename the x variables with their original variable names
+      x1_x2_names <- x1_x2_names |>
+        stringr::str_remove("\\.bin$|\\.ceil$")
+      # names(cr)[1] <- x1_x2_names[1]
+      # names(cr)[2] <- x1_x2_names[2]
+
+
+      # Convert x data columns uniformly to character format
+      cr[[1]] <- as.character(cr[[1]])
+      cr[[2]] <- as.character(cr[[2]])
+
+      # Rename the x data columns consistently
+      names(cr)[1:2] <- c('x1', 'x2')
+
+      cr |>
+        mutate(
+          term1 = x1_x2_names[1],
+          term2 = x1_x2_names[2],
+        ) |>
+        select('term1', 'x1', 'term2', 'x2', everything())
+
+
+    }) |>
+    set_names(names(ale_data_list)) |>
+    bind_rows()
+
+  # browser()
+
+  # Highlight which confidence regions are statistically significant
+  sig_conf_regions <- cr_by_term |>
+    # map(\(it.conf_tbl) {
+    #   # browser()
+    #   x1_x2_names <- names(it.conf_tbl)[1:2]
+    #   # Convert x data columns uniformly to character format
+    #   it.conf_tbl[[1]] <- as.character(it.conf_tbl[[1]])
+    #   it.conf_tbl[[2]] <- as.character(it.conf_tbl[[2]])
+    #
+    #   # Rename the x data columns consistently
+    #   names(it.conf_tbl)[1:2] <- c('x1', 'x2')
+    #
+    #   it.conf_tbl |>
+    #     mutate(
+    #       term1 = x1_x2_names[1],
+    #       term2 = x1_x2_names[2],
+    #     ) |>
+    #     select('term1', 'x1', 'term2', 'x2', everything())
+    # }) |>
+    filter(.data$mid_bar != 'overlap')
+
+
+  return(
+    list(
+      by_term = cr_by_term,
+      significant = sig_conf_regions,
+      sig_criterion = sig_criterion
+    )
+  )
+}  # summarize_conf_regions_1D()
 
 
 # Receives a confidence region summary tibble and then converts its essential
 # contents in words.
-summarize_conf_regions_in_words <- function(
+summarize_conf_regions_1D_in_words <- function(
     conf_region_summary,
     band_type = 'median'
 ) {
   map_chr(1:nrow(conf_region_summary), \(.row_num) {
+    # browser()
     with(
       conf_region_summary[.row_num, ],
       if (exists('start_x')) { # conf_region_summary is numeric
@@ -638,9 +797,9 @@ summarize_conf_regions_in_words <- function(
           'From {round_dp(start_x)} to {round_dp(end_x)}, ',
           'ALE ',
           if_else(
-            relative_to_mid == 'overlap',
+            mid_bar == 'overlap',
             'overlaps',
-            paste0('is ', relative_to_mid)
+            paste0('is ', mid_bar)
           ),
           ' the {band_type} band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
@@ -649,9 +808,9 @@ summarize_conf_regions_in_words <- function(
         str_glue(
           'For {x}, the ALE of {round_dp(y)} ',
           if_else(
-            relative_to_mid == 'overlap',
+            mid_bar == 'overlap',
             'overlaps',
-            paste0('is ', relative_to_mid)
+            paste0('is ', mid_bar)
           ),
           ' the {band_type} band.'
         )
