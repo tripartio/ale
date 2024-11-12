@@ -94,6 +94,19 @@ params_data <- function(
 
 # Reduce a model to text descriptions of its key elements
 params_model <- function(model, model_name = var_name(model)) {
+  # Some calls to summary(model) crash, so wrap in tryCatch
+  model_summary <- tryCatch(
+    {
+      summary(model) |>
+        print() |>
+        utils::capture.output() |>
+        paste0(collapse = '\n')
+    },
+    error = \(e) {
+      e
+    }
+  )
+
   list(
     name = model_name,
     call = insight::model_name(model, include_call = TRUE) |>
@@ -101,10 +114,7 @@ params_model <- function(model, model_name = var_name(model)) {
     print = print(model) |>
       utils::capture.output() |>
       paste0(collapse = '\n'),
-    summary = summary(model) |>
-      print() |>
-      utils::capture.output() |>
-      paste0(collapse = '\n')
+    summary = model_summary
   )
 }
 
