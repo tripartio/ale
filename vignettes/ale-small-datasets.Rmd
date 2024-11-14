@@ -1,7 +1,7 @@
 ---
 title: "Analyzing small datasets (fewer than 2000 rows) with ALE"
 author: "Chitu Okoli"
-date: "November 14, 2024"
+date: "January 9, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Analyzing small datasets (fewer than 2000 rows) with ALE}
@@ -28,14 +28,6 @@ We begin by loading the necessary libraries.
 ```{r load libraries}
 library(ale)
 ```
-
-```{r allow max future size, include=FALSE}
-# Resolution to https://forum.posit.co/t/the-total-size-of-the-x-globals-exported-for-future-expression-in-r-cmd-check-only-on-ubuntu-latest-devel/194864
-# Remove limit for future sizes to stop complaints by ubuntu-latest (devel) https://future.futureverse.org/reference/future.options.html#options-for-controlling-futures-1
-options(future.globals.maxSize = +Inf)
-```
-
-
 
 ## attitude dataset
 
