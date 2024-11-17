@@ -248,8 +248,14 @@ create_ale_y_norm_function <- function(y_vals) {
   centred_y <- y_vals - stats::median(y_vals)
 
   # Find the values right below and right above median y (0 for centred_y)
-  pre_median  <- max(centred_y[centred_y < 0])  # Value right below the median
-  post_median <- min(centred_y[centred_y > 0]) # Value right above the median
+  # Value right below the median
+  pre_median  <- if (median(centred_y) != 0) max(centred_y[centred_y < 0]) else 0
+  # Value right above the median
+  post_median <- if (median(centred_y) != 0) min(centred_y[centred_y > 0]) else 0
+
+  # # Find the values right below and right above median y (0 for centred_y)
+  # pre_median  <- max(centred_y[centred_y < 0])  # Value right below the median
+  # post_median <- min(centred_y[centred_y > 0]) # Value right above the median
 
   return(
     function(ale_y) {

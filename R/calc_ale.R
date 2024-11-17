@@ -365,7 +365,7 @@ calc_ale <- function(
             cumsum()
         }
 
-      }
+      }  # if (ixn_d == 1) {
 
       ### 2D ALE -----------------------
       else if (ixn_d == 2) {
@@ -412,7 +412,7 @@ calc_ale <- function(
           t() |>
           # ... then accumulate over columns.
           apply(2, cumsum) # No need to transpose again when apply() is over columns
-      }
+      }  # else if (ixn_d == 2) {
 
       ### 3D ALE ----------------------
       else if (ixn_d == 3) {

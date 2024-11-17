@@ -452,8 +452,8 @@ ale <- function (
   if ('stats' %in% output) {
     ale_y_norm_funs <-
       y_vals |>
-      apply(2, \(it.col) {
-        create_ale_y_norm_function(it.col)
+      apply(2, \(it.cat) {
+        create_ale_y_norm_function(it.cat)
       })
   }
 
@@ -763,8 +763,6 @@ ale <- function (
 
   }
 
-  # browser()
-
 
 
   # Calculate summary statistics ---------------------
@@ -791,8 +789,6 @@ ale <- function (
           } else {
             'median_band_pct'
           }
-
-          # browser()
 
           ale_struc$distinct[[it.cat]][[1]]$stats$conf_regions <-
             summarize_conf_regions_1D(
@@ -850,8 +846,6 @@ ale <- function (
           }
 
         }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
-
-        # browser()
 
       # Transpose stats result order in the list
       ale_struc$distinct[[it.cat]][[2]]$stats <-
