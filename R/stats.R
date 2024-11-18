@@ -212,13 +212,6 @@ ale_stats_2D <- function(
       ale_n_ray <- ale_n_ray[-1, , drop = FALSE]
     }
     if (x_types[2] == 'numeric') {
-
-      # if (x_cols[1] == 'capital_gain' && x_cols[2] == 'capital_loss') {
-      #   closeAllConnections()
-      #   browser()
-      # }
-      # cat(x_cols, '\n')
-
       mid_ale_y_ray <- mid_ale_y_ray[, -1, drop = FALSE]
       ale_n_ray[, 2] <- ale_n_ray[, 2] + ale_n_ray[, 1]
       ale_n_ray <- ale_n_ray[, -1, drop = FALSE]
@@ -249,9 +242,17 @@ create_ale_y_norm_function <- function(y_vals) {
 
   # Find the values right below and right above median y (0 for centred_y)
   # Value right below the median
-  pre_median  <- if (median(centred_y) != 0) max(centred_y[centred_y < 0]) else 0
+  pre_median  <- if (median(centred_y) != max(centred_y)) {
+    max(centred_y[centred_y < 0])
+  } else {
+    0
+  }
   # Value right above the median
-  post_median <- if (median(centred_y) != 0) min(centred_y[centred_y > 0]) else 0
+  post_median <- if (median(centred_y) != min(centred_y)) {
+    min(centred_y[centred_y > 0])
+  } else {
+    0
+  }
 
   # # Find the values right below and right above median y (0 for centred_y)
   # pre_median  <- max(centred_y[centred_y < 0])  # Value right below the median
@@ -641,7 +642,9 @@ summarize_conf_regions_2D <- function(
         cut(
           x,
           breaks = quantile(x, probs = c(0, 1/3, 2/3, 1)),
-          include.lowest = TRUE
+          include.lowest = TRUE,
+          # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+          right = TRUE
         )
       },
       # if cut() crashes, fall back on the more robust .bincode() without pretty printing
@@ -668,8 +671,6 @@ summarize_conf_regions_2D <- function(
     ale_data_list |>
     map(\(it.ale_data) {
       x1_x2_names <- names(it.ale_data)[1:2]
-
-      # if (x1_x2_names[1] == 'education_num.ceil' && x1_x2_names[2] == 'relationship.bin') browser()
 
       # cr is the confidence regions for a single 2D interaction at a time
       cr <-
@@ -741,8 +742,6 @@ summarize_conf_regions_2D <- function(
       #   names(cr)[2] <- '.o2'
       #   cr_groups <- c(cr_groups, '.o2')
       # }
-
-      # browser()
 
       cr <- cr |>
         summarize(

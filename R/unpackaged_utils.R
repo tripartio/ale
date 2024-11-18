@@ -83,36 +83,7 @@ is_scalar_whole <- function(x) {
 
 
 
-## Miscellaneous -----------------
-
-# Inverse of %in% operator
-`%notin%` <- Negate(`%in%`)
-
-# Concatenate two character vectors
-`%+%` <- function(cv1, cv2) {
-  paste0(cv1, cv2)
-}
-
-
-
-
-
-# Round a numeric vector to an intuitive number of decimal places:
-# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
-round_dp <- function(x) {
-  validate(is.numeric(x))
-
-  max_x <- max(abs(x))
-  dp <- dplyr::case_when(
-    max_x > 100 ~ 0,
-    max_x >  10 ~ 1,
-    max_x >   1 ~ 2,
-    .default = 3
-  )
-
-  round(x, dp)
-}
-
+## Data types ------------------
 
 #' Determine the datatype of a vector
 #'
@@ -147,3 +118,60 @@ var_type <- function(var) {
   ))
 
 }
+
+#' Cast (convert) the class of an object
+#'
+#' Currently assumes that the result object will ahve only one class.
+#'
+#' @param x An R object
+#' @param new_class character(1). A single class to which to convert `x`.
+#'
+#' @return `x` converted to class `new_class`.
+#'
+cast <- function(x, new_class) {
+  # Attempt S3 coercion by looking for an as.<new_class>() function
+  coerce_fun_name <- paste0("as.", new_class)
+
+  if (exists(coerce_fun_name, mode = "function")) {
+    # Retrieve the coercion function
+    coerce_fun <- get(coerce_fun_name, mode = "function")
+    # Apply the function to x
+    return(coerce_fun(x))
+  } else {
+    # If S3 method doesn't exist, try S4 coercion using methods::as()
+    return(methods::as(x, new_class))
+  }
+}
+
+
+## Miscellaneous -----------------
+
+# Inverse of %in% operator
+`%notin%` <- Negate(`%in%`)
+
+# Concatenate two character vectors
+`%+%` <- function(cv1, cv2) {
+  paste0(cv1, cv2)
+}
+
+
+
+
+
+# Round a numeric vector to an intuitive number of decimal places:
+# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
+round_dp <- function(x) {
+  validate(is.numeric(x))
+
+  max_x <- max(abs(x))
+  dp <- dplyr::case_when(
+    max_x > 100 ~ 0,
+    max_x >  10 ~ 1,
+    max_x >   1 ~ 2,
+    .default = 3
+  )
+
+  round(x, dp)
+}
+
+

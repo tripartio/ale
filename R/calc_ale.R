@@ -171,7 +171,9 @@ calc_ale <- function(
           breaks = c(
             xd[[it.x_col]]$ceilings[1] - 1,
             xd[[it.x_col]]$ceilings
-          )
+          ),
+          # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+          right = TRUE
         ) |>
           as.integer()
 
@@ -279,9 +281,6 @@ calc_ale <- function(
       }
     }
 
-    # closeAllConnections()
-    # browser()
-
     # Summarize means for each unique interaction combination of x_cols
     btit.local_eff_tbl <- btit.local_eff_tbl |>
       summarize(
@@ -318,7 +317,8 @@ calc_ale <- function(
         list(y_cats),
         xd |>
           map(\(it.x_col) {
-            if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins
+            (if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins) |>
+              as.character()
           })
         # xd |>
         #   list_transpose(simplify = FALSE) |>
@@ -476,7 +476,9 @@ calc_ale <- function(
       X[[x_cols[1]]],
       # The lowest border break point is set to the minimum ceiling - 1.
       # With the default right = TRUE, this forces all rows with the minimum x value into a bin of their own of which the minimum is the ceiling since min(ceiling) - 1 is always lower than the minimum.
-      breaks = c(min(x1$ceilings)-1, x1$ceilings)
+      breaks = c(min(x1$ceilings)-1, x1$ceilings),
+      # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+      right = TRUE
     ) |>
       as.integer()
   } else {
@@ -493,7 +495,9 @@ calc_ale <- function(
     x2_idxs <- if (x2$x_type == 'numeric') {
       cut(
         X[[x_cols[2]]],
-        breaks = c(min(x2$ceilings)-1, x2$ceilings)
+        breaks = c(min(x2$ceilings)-1, x2$ceilings),
+        # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+        right = TRUE
       ) |>
         as.integer()
     } else {
@@ -627,7 +631,9 @@ calc_ale <- function(
       boot_ale_tbl[[it.x_col]] <- boot_ale_tbl[[it.x_col]] |>
         # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
         as.character() |>
-        as.numeric()
+        # Cast to the precise original class (e.g., Date)
+        cast(xd[[it.x_col]]$ceilings |> class())
+      # as.numeric()
     }
   }
 
@@ -930,11 +936,13 @@ calc_ale <- function(
     })
   boot_stats <- boot_stats
 
+  # Add attributes to ALE tibble that describe the column characteristics
   boot_summary <- boot_summary |>
     map(\(it.cat) {
       attr(it.cat, 'x') <- map(x_cols, \(it.x_col) {
         list(
-          class = class(X[[it.x_col]]),
+          class = class(data[[it.x_col]]),  # original class before any internal transformations
+          # class = class(X[[it.x_col]]),
           type = xd[[it.x_col]]$x_type,
           n_bins = xd[[it.x_col]]$n_bins
         )
@@ -1027,7 +1035,12 @@ prep_var_for_ale <- function(
     # Tabulate number of cases per bin, with first minimum bin merged into the second bin
     x_int_counts <-
       x_vals |>
-      cut(breaks = ceilings, include.lowest = TRUE) |>
+      cut(
+        breaks = ceilings,
+        include.lowest = TRUE,
+        # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+        right = TRUE
+      ) |>
       as.numeric() |>
       table()
 

@@ -117,7 +117,9 @@ idxs_kolmogorov_smirnov <- function(
 
   # Calculate distance matrix for each of the other X columns
   for (j_col in setdiff(names(X), x_col)) {
-    if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
+    # distance matrix for numeric j_col
+    if (is.numeric(X[[j_col]])) {  # Don't use var_type or dates will crash
+    # if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
       # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
       x_by_j_ecdf <- tapply(
         X[[j_col]],
