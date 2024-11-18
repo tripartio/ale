@@ -143,7 +143,7 @@ var_type <- function(var) {
     class_var %in% c('factor', 'character') ~ 'categorical',
     class_var == 'ordered' ~ 'ordinal',
     # Consider dates to be numeric; they seem to work OK like that
-    class_var %in% c('POSIXct', 'POSIXt') ~ 'numeric',
+    class_var %in% c('POSIXct', 'POSIXlt', 'POSIXt', 'Date') ~ 'numeric',
   ))
 
 }
