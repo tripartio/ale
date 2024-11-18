@@ -11,9 +11,11 @@
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. doi:10.48550/arXiv.2310.09877.
 #'
-#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
+#' @param data See documentation for [ale()]
+# @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ale()]
 #' @param x_cols character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.
+#' @param y_col character(1). Name of the target y column.
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ale()]
 #' @param pred_type See documentation for [ale()]
@@ -28,8 +30,9 @@
 #' @param p_dist See documentation for `p_values` in [ale()]
 #'
 calc_ale <- function(
-    X, model,
+    data, model,
     x_cols,
+    y_col,
     y_cats,
     pred_fun, pred_type,
     max_num_bins,
@@ -42,6 +45,10 @@ calc_ale <- function(
 ) {
 
   # Set up base variables --------------
+
+  # Internally, mostly work with just the X columns
+  X <- data |>
+    select(-all_of(y_col))
 
   # if (ixn_3x) x_cols <- ixn_3x_cols
 

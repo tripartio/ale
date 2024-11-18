@@ -5,9 +5,10 @@
 \title{Calculate ALE data}
 \usage{
 calc_ale(
-  X,
+  data,
   model,
   x_cols,
+  y_col,
   y_cats,
   pred_fun,
   pred_type,
@@ -24,11 +25,13 @@ calc_ale(
 )
 }
 \arguments{
-\item{X}{dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.}
+\item{data}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{model}{See documentation for \code{\link[=ale]{ale()}}}
 
 \item{x_cols}{character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.}
+
+\item{y_col}{character(1). Name of the target y column.}
 
 \item{y_cats}{character. The categories of y. For most cases with non-categorical y, \code{y_cats == y_col}.}
 

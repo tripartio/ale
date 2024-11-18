@@ -441,11 +441,11 @@ ale <- function (
   # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
   y_cats <- colnames(y_vals)
 
-  # Remove the Y target label; ALE calculation needs the X matrix as input;
-  # Y is obtained from the model predictions.
-  data_X <-
-    data |>
-    select(-any_of(y_col))
+  # # Remove the Y target label; ALE calculation needs the X matrix as input;
+  # # Y is obtained from the model predictions.
+  # data_X <-
+  #   data |>
+  #   select(-any_of(y_col))
 
   # Prepare to create ALE statistics
   ale_y_norm_funs <- NULL
@@ -633,12 +633,12 @@ ale <- function (
       x_cols[[1]]
     ) |>
     # map(  # for debugging
-      furrr::future_map(
-        .options = furrr::furrr_options(
-          # Enable parallel-processing random seed generation
-          seed = seed,
-          packages = model_packages
-        ),
+    furrr::future_map(
+      .options = furrr::furrr_options(
+        # Enable parallel-processing random seed generation
+        seed = seed,
+        packages = model_packages
+      ),
       .f = \(it.x_cols) {
         # Increment progress bar iterator only if not in an outer loop with bins
         # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
@@ -649,7 +649,8 @@ ale <- function (
         # Calculate ale_data for single variables
         ale_results <-
           calc_ale(
-            data_X, model, it.x_cols, y_cats,
+            data, model, it.x_cols, y_col, y_cats,
+            # data_X, model, it.x_cols, y_cats,
             pred_fun, pred_type, max_num_bins,
             boot_it, seed, boot_alpha, boot_centre,
             boot_ale_y = 'boot' %in% output,
@@ -891,7 +892,7 @@ ale <- function (
   it_objs <- names(params)[  # iterators
     names(params) |> stringr::str_detect('^it\\.')
   ]
-  temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'data_X', 'dup_x_cols_2', 'it.cat', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_col_spec', 'y_vals', 'y_preds')
+  temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_col_spec', 'y_vals', 'y_preds')
   params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
   # Simplify some very large elements, especially closures that contain environments
