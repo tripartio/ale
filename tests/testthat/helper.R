@@ -43,6 +43,17 @@ test_nn_categorical <- nnet::multinom(
   trace = FALSE  # suppress noisy output from nnet
 )
 
+test_ale <- ale(
+  test_cars, test_gam,
+  x_cols = list(
+    'wt',
+    'model',
+    c('hp', 'drat')
+  ),
+  parallel = 0,
+  silent = TRUE
+)
+
 
 
 # Returns list of ALE plots converted to ggplot data format ---------------
