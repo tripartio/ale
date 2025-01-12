@@ -54,6 +54,7 @@ Other notable changes that might not be readily visible to users:
 * Configured code that uses a random seed to restore the original system seed on exit.
 * Improved memory efficiency of `ale_p` objects.
 * Plotting code updated for compatibility with `{ggplot2}` 3.5.
+* Added testing code coverage with `{covr}`.
 
 ## Known issues to be addressed in a future version
 

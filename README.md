@@ -10,6 +10,8 @@ status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/pa
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale)
 <!-- badges: end -->
 
 Accumulated Local Effects (ALE) were initially developed as a
