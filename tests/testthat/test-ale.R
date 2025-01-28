@@ -5,16 +5,32 @@
 # Test numeric outcomes ----------------
 
 test_that(
-  'Parallelized versions do not crash', {
+  # 'Parallelized versions do not crash', {
+  #   # No bootstrap
+  #   expect_no_error(
+  #     ale(
+  #       test_cars, test_gam,
+  #       max_num_bins = 10,
+  #       x_cols = c('cyl', 'disp'),
+  #       parallel = 2,
+  #       silent = TRUE
+  #     )
+  #   )
+  'Print parallelized ale', {
     # No bootstrap
-    expect_no_error(
-      ale(
-        test_cars, test_gam,
-        max_num_bins = 10,
-        x_cols = c('cyl', 'disp'),
-        parallel = 2,
-        silent = TRUE
-      )
+    pll_ale <- ale(
+      test_cars, test_gam,
+      max_num_bins = 10,
+      x_cols = c('cyl', 'disp'),
+      parallel = 2,
+      silent = TRUE
+    )
+
+    # Test the print.ale() method
+    expect_equal(
+      print(pll_ale) |>
+        capture.output(),
+      "'ale' object of the test_gam model on a 64x13 dataset."
     )
 
     # With bootstrap
