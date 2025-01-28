@@ -299,7 +299,8 @@ plot.ale_plots <- function(
           print(...)
         # patchwork:::print.patchwork(...)
       })
-  } else {
+  }
+  else if (count_1D > max_print) {
     cli_alert_info(
       "With more than {max_print} 1D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
     )
@@ -314,7 +315,8 @@ plot.ale_plots <- function(
           print(...)
         # patchwork:::print.patchwork(...)
       })
-  } else {
+  }
+  else if (count_2D > max_print) {
     cli_alert_info(
       "With more than {max_print} 2D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
     )
