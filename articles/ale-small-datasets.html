@@ -102,9 +102,7 @@ more than 2000 rows are nonetheless “small”, and so probably need the
 techniques mentioned in this vignette.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
-<span><span class="co">#&gt;   object 'type_sum.accel' not found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="attitude-dataset">attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
@@ -543,22 +541,22 @@ bootstrapping will give us.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low median   mean conf.high      sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.5    4.62  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.6    4.62  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.45  15.5   15.6      21.8    4.62  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>       30     30     30        30      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1      0.067<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.00   0.067<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        34.4   11.3   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.341   -<span style="color: #BB0000;">0.596</span> <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.505 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              14.9      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        42.4   14.0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.366   -<span style="color: #BB0000;">0.870</span> <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.563</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">$</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low median  mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     1.20   4.78  5.17      8.99      3.58</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     1.26   4.84  4.24      6.94      2.26</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     1.20   4.55  4.92      8.98      3.34</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     1.97   4.56  4.49      7.12      2.19</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam</span><span class="op">)</span></span>
 <span><span class="va">mb_gam_1D_plots</span> <span class="op">&lt;-</span> <span class="va">mb_gam_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">rating</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
@@ -669,15 +667,15 @@ for a non-standard model object type:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low median   mean conf.high      sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.5    4.62  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.6    4.62  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.45  15.5   15.6      21.8    4.62  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>       30     30     30        30      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1      0.067<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.00   0.067<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        34.4   11.3   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.341   -<span style="color: #BB0000;">0.596</span> <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.505 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              14.9      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        42.4   14.0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.366   -<span style="color: #BB0000;">0.870</span> <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.563</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
 <p>Everything else works as usual.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
