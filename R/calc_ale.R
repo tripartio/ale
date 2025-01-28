@@ -9,11 +9,13 @@
 #' For details about arguments not documented here, see [ale()].
 #'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. doi:10.48550/arXiv.2310.09877.
 #'
-#' @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
+#' @param data See documentation for [ale()]
+# @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ale()]
 #' @param x_cols character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.
+#' @param y_col character(1). Name of the target y column.
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
 #' @param pred_fun See documentation for [ale()]
 #' @param pred_type See documentation for [ale()]
@@ -28,8 +30,9 @@
 #' @param p_dist See documentation for `p_values` in [ale()]
 #'
 calc_ale <- function(
-    X, model,
+    data, model,
     x_cols,
+    y_col,
     y_cats,
     pred_fun, pred_type,
     max_num_bins,
@@ -42,6 +45,10 @@ calc_ale <- function(
 ) {
 
   # Set up base variables --------------
+
+  # Internally, mostly work with just the X columns
+  X <- data |>
+    select(-all_of(y_col))
 
   # if (ixn_3x) x_cols <- ixn_3x_cols
 
@@ -171,7 +178,9 @@ calc_ale <- function(
           breaks = c(
             xd[[it.x_col]]$ceilings[1] - 1,
             xd[[it.x_col]]$ceilings
-          )
+          ),
+          # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+          right = TRUE
         ) |>
           as.integer()
 
@@ -279,9 +288,6 @@ calc_ale <- function(
       }
     }
 
-    # closeAllConnections()
-    # browser()
-
     # Summarize means for each unique interaction combination of x_cols
     btit.local_eff_tbl <- btit.local_eff_tbl |>
       summarize(
@@ -318,7 +324,8 @@ calc_ale <- function(
         list(y_cats),
         xd |>
           map(\(it.x_col) {
-            if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins
+            (if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins) |>
+              as.character()
           })
         # xd |>
         #   list_transpose(simplify = FALSE) |>
@@ -365,7 +372,7 @@ calc_ale <- function(
             cumsum()
         }
 
-      }
+      }  # if (ixn_d == 1) {
 
       ### 2D ALE -----------------------
       else if (ixn_d == 2) {
@@ -412,7 +419,7 @@ calc_ale <- function(
           t() |>
           # ... then accumulate over columns.
           apply(2, cumsum) # No need to transpose again when apply() is over columns
-      }
+      }  # else if (ixn_d == 2) {
 
       ### 3D ALE ----------------------
       else if (ixn_d == 3) {
@@ -476,7 +483,9 @@ calc_ale <- function(
       X[[x_cols[1]]],
       # The lowest border break point is set to the minimum ceiling - 1.
       # With the default right = TRUE, this forces all rows with the minimum x value into a bin of their own of which the minimum is the ceiling since min(ceiling) - 1 is always lower than the minimum.
-      breaks = c(min(x1$ceilings)-1, x1$ceilings)
+      breaks = c(min(x1$ceilings)-1, x1$ceilings),
+      # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+      right = TRUE
     ) |>
       as.integer()
   } else {
@@ -493,7 +502,9 @@ calc_ale <- function(
     x2_idxs <- if (x2$x_type == 'numeric') {
       cut(
         X[[x_cols[2]]],
-        breaks = c(min(x2$ceilings)-1, x2$ceilings)
+        breaks = c(min(x2$ceilings)-1, x2$ceilings),
+        # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+        right = TRUE
       ) |>
         as.integer()
     } else {
@@ -627,13 +638,15 @@ calc_ale <- function(
       boot_ale_tbl[[it.x_col]] <- boot_ale_tbl[[it.x_col]] |>
         # factors from table() must be first converted to character; otherwise, direct conversion to numeric converts to their integer positions.
         as.character() |>
-        as.numeric()
+        # Cast to the precise original class (e.g., Date)
+        cast(xd[[it.x_col]]$ceilings |> class())
+      # as.numeric()
     }
   }
 
   # By default, the ALE y calculated so far is composite y
   boot_ale_tbl <- boot_ale_tbl |>
-    rename(.y_composite = .y)
+    rename(.y_composite = '.y')
 
   if (ixn_d == 2) {
     # Calculate the difference between composite and distinct ALE on the full dataset
@@ -716,7 +729,7 @@ calc_ale <- function(
   # When bootstrapping, remove first iteration: ALE on full dataset
   if (boot_it > 0) {
     boot_ale_tbl <- boot_ale_tbl |>
-      filter(.it != 0)
+      filter('.it' != 0)
   }
 
   #TODO: In the future, maybe return this boot_ray if users want it.
@@ -741,7 +754,7 @@ calc_ale <- function(
     # aggregate bootstrap results
     bsumm <- boot_ale_tbl |>
       summarize(
-        .by = c(.cat, all_of(x_cols)),
+        .by = c('.cat', all_of(x_cols)),
         .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
         .y_mean   = mean(.data$.y, na.rm = TRUE),
         .y_median = median(.data$.y, na.rm = TRUE),
@@ -806,8 +819,8 @@ calc_ale <- function(
                 bin_n = btit.cat_ale_data$.n,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
                 y_vals = NULL,
-                x_type = xd[[1]]$x_type,
-                zeroed_ale = TRUE
+                x_type = xd[[1]]$x_type # ,
+                # zeroed_ale = TRUE
               )
             }
             else if (ixn_d == 2) {
@@ -816,8 +829,8 @@ calc_ale <- function(
                 x_cols = x_cols,
                 x_types = x_types,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
-                y_vals = NULL,
-                zeroed_ale = FALSE
+                y_vals = NULL #,
+                # zeroed_ale = FALSE
               )            }
             else {
               stop('Statistics not yet supported for higher than 2 dimensions.')
@@ -930,11 +943,13 @@ calc_ale <- function(
     })
   boot_stats <- boot_stats
 
+  # Add attributes to ALE tibble that describe the column characteristics
   boot_summary <- boot_summary |>
     map(\(it.cat) {
       attr(it.cat, 'x') <- map(x_cols, \(it.x_col) {
         list(
-          class = class(X[[it.x_col]]),
+          class = class(data[[it.x_col]]),  # original class before any internal transformations
+          # class = class(X[[it.x_col]]),
           type = xd[[it.x_col]]$x_type,
           n_bins = xd[[it.x_col]]$n_bins
         )
@@ -1027,7 +1042,12 @@ prep_var_for_ale <- function(
     # Tabulate number of cases per bin, with first minimum bin merged into the second bin
     x_int_counts <-
       x_vals |>
-      cut(breaks = ceilings, include.lowest = TRUE) |>
+      cut(
+        breaks = ceilings,
+        include.lowest = TRUE,
+        # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
+        right = TRUE
+      ) |>
       as.numeric() |>
       table()
 

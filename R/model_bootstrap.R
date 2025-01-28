@@ -74,7 +74,6 @@
 #' because it is needed for the bootstrap averages. By default, it is not returned
 #' except if included in this `output` argument.
 #' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.
-#' @param compact_plots See documentation for [ale()]
 #' @param silent See documentation for [ale()]
 #'
 #' @return list with the following elements (depending on values requested in the `output` argument:
@@ -142,6 +141,8 @@
 #' patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 #' }
 #'
+#' @import staccuracy
+#'
 model_bootstrap <- function (
     data,
     model,
@@ -164,7 +165,6 @@ model_bootstrap <- function (
     ale_options = list(),
     tidy_options = list(),
     glance_options = list(),
-    compact_plots = FALSE,
     silent = FALSE
 ) {
   # Validate arguments -------------
@@ -206,9 +206,10 @@ model_bootstrap <- function (
       ))
     )
 
-    # Rename 'boot_data' to '.boot_data' for internal naming style
+    # Rename 'boot_data' to 'btit.data' for internal naming style
     model_call_string <- model_call_string |>
-      stringr::str_replace_all('([^.])(boot_data)', '\\1\\.\\2')
+      stringr::str_replace_all('([^.])(boot_data)', '\\1btit.data')
+    # stringr::str_replace_all('([^.])(boot_data)', '\\1it\\.\\2')
   }
 
   model_packages <- validated_parallel_packages(parallel, model, model_packages)
@@ -369,49 +370,49 @@ model_bootstrap <- function (
   # Major bootstrap loop ---------
 
   model_and_ale <-
-    map2(
-    # furrr::future_map2(
-    #   .options = furrr::furrr_options(
-    #     # Enable parallel-processing random seed generation
-    #     seed = seed,
-    #     packages = model_packages
-    #   ),
+    # map2(
+    furrr::future_map2(
+      .options = furrr::furrr_options(
+        # Enable parallel-processing random seed generation
+        seed = seed,
+        packages = model_packages
+      ),
       .x = boot_data$it,
       .y = boot_data$row_idxs,
-      .f = \(it, boot_idxs) {
+      .f = \(btit, btit.idxs) {
         # Increment progress bar iterator
-        # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
+        # Do not skip iterations (e.g., btit %% 10 == 0): inaccurate with parallelization
         if (!silent) {
           progress_iterator()
         }
 
         ## Bootstrap the model -----------
 
-        .boot_model <- NULL
+        btit.model <- NULL
         tryCatch(
           {
-            # .boot_data: this particular bootstrap sample
-            .boot_data <- data[boot_idxs, ]
+            # btit.data: this particular bootstrap sample
+            btit.data <- data[btit.idxs, ]
 
             # If model_call_string was provided, prefer it to automatic detection
             if (!is.null(model_call_string)) {
-              .boot_model <-  # model generated on this particular bootstrap sample
+              btit.model <-  # model generated on this particular bootstrap sample
                 model_call_string |>
                 parse(text = _) |>  # convert model call string to an expression
                 eval()
             }
             else {  # use the automatically detected model call
-              # Update the model to call to train on .boot_data
-              model_call$data <- .boot_data
+              # Update the model to call to train on btit.data
+              model_call$data <- btit.data
 
-              .boot_model <- eval(
+              btit.model <- eval(
                 model_call,
                 envir = call_env  # without this, some objects in model_call might not be resolved
               )
             }
           },
           error = \(e) {
-            if (it == 0) {
+            if (btit == 0) {
               # If the full model call fails, then abort altogether. Nothing else will probably work.
               cli_abort(paste0(
                 'The {.arg ',
@@ -421,13 +422,13 @@ model_bootstrap <- function (
               ))
             }
             else {
-              .boot_model <- NULL
+              btit.model <- NULL
             }
           }
         )
 
-        # If the model failed (and it's not the original full model call it==0), then skip this iteration and go on looping
-        if (is.null(.boot_model)) {
+        # If the model failed (and it's not the original full model call btit==0), then skip this iteration and go on looping
+        if (is.null(btit.model)) {
           return(list(
             model = NULL,
             ale = NULL,
@@ -450,7 +451,7 @@ model_bootstrap <- function (
             {
               boot_stats <- do.call(
                 broom::glance,
-                list(.boot_model, unlist(glance_options))
+                list(btit.model, unlist(glance_options))
               )
             },
             error = \(e) {
@@ -463,11 +464,11 @@ model_bootstrap <- function (
           # According to the .632 theory, since the bootstrapped model is trained on average on only 63.2% of distinct original rows, the on average 36.8% of rows left are used to test the bootstrap model predictions.
           if (
             calc_boot_valid &&
-            it > 0  # skip the full model because it is not bootstrapped
+            btit > 0  # skip the full model because it is not bootstrapped
           ) {
 
             # Obtain the out-of-bootstrap (oob) row indexes
-            oob_idxs <- setdiff(1:n_rows, boot_idxs)
+            oob_idxs <- setdiff(1:n_rows, btit.idxs)
 
             # Calculate the actual values that were excluded from the current bootstrap iteration
             actual_oob <- if (y_type == 'binary') {
@@ -506,7 +507,7 @@ model_bootstrap <- function (
                 if (is.factor(it.col) || is.character(it.col)) {
                   it.col <- if_else(
                     # use unique() instead of levels(): levels() is valid only for factors
-                    it.col %in% (data[boot_idxs, it.col_name] |>
+                    it.col %in% (data[btit.idxs, it.col_name] |>
                                  unlist() |>
                                  # as.vector() |>
                                  unique()),
@@ -521,7 +522,7 @@ model_bootstrap <- function (
 
             # Calculate predictions for the out-of-bootstrap test set
             pred_oob <- pred_fun(
-              object = .boot_model,
+              object = btit.model,
               newdata = data_oob,
               type = pred_type
             )
@@ -558,7 +559,7 @@ model_bootstrap <- function (
                 sa_rmse_sd = sa_rmse_sd(actual_oob, pred_oob, na.rm = TRUE)
               )
             }
-          }  # calc_boot_valid && it > 0
+          }  # calc_boot_valid && btit > 0
         }  # if ('model_stats' %in% output)
 
 
@@ -578,7 +579,7 @@ model_bootstrap <- function (
                 do.call(
                   broom::tidy,
                   c(
-                    list(.boot_model),  # model object
+                    list(btit.model),  # model object
                     tidy_options
                   )
                 )  # any parameters
@@ -596,7 +597,7 @@ model_bootstrap <- function (
         ## Bootstrap ALE --------------
 
         if ('ale' %in% output) {
-          boot_ale <-if (is.na(sum(.boot_model$coefficients, na.rm = FALSE))) {
+          boot_ale <-if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
             # One or more coefficients are not defined.
             # This might be due to collinearity in a bootstrapped sample, which
             # yields the warning: "Coefficients: (_ not defined because of singularities)".
@@ -612,23 +613,14 @@ model_bootstrap <- function (
                   # ale_core,
                   utils::modifyList(
                     list(
-                      data = .boot_data,
-                      model = .boot_model,
-                      # ixn = FALSE,
+                      data = btit.data,
+                      model = btit.model,
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
                       # do not generate plots or request conf_regions
                       output = c('data', 'stats'),
-                      bins = if (it == 0) {
-                        NULL
-                      } else {
-                        bins
-                      },
-                      ns = if (it == 0) {
-                        NULL
-                      } else {
-                        ns
-                      },
+                      bins = if (btit == 0) NULL else bins,
+                      ns = if (btit == 0) NULL else ns,
                       silent = TRUE  # silence inner bootstrap loop
                     ),
                     # pass all other desired options, e.g., specific x_col
@@ -639,9 +631,12 @@ model_bootstrap <- function (
                 )
               },
               error = \(e) {
-                if (it == 0) {
+                if (btit == 0) {
                   # Terminate early if the full model cannot produce ALE
-                  cli_abort('Could not calculate ALE:', e)
+                  # browser()
+                  cli_alert_danger('Could not calculate ALE:\n')
+                  print(e)
+                  stop()
                 } else {
                   NULL
                 }
@@ -649,8 +644,8 @@ model_bootstrap <- function (
             )
           }
 
-          # From full dataset (it == 0), calculate common bins for all subsequent iterations
-          if (it == 0) {
+          # From full dataset (btit == 0), calculate common bins for all subsequent iterations
+          if (btit == 0) {
             # Super-assignment needed to set bins and ns for all iterations, not just the current one
             bins <<-
               boot_ale$data |>
@@ -676,7 +671,7 @@ model_bootstrap <- function (
 
         ## Exit the model_and_ale map2 loop function ----------------
         return(list(
-          model = .boot_model,
+          model = btit.model,
           ale = boot_ale,
           tidy = boot_tidy,
           stats = boot_stats,
@@ -1063,7 +1058,7 @@ model_bootstrap <- function (
       ale_conf_regions <-
         ale_summary_data |>
         imap(\(it.ale_summary_data, it.cat) {
-          summarize_conf_regions(
+          summarize_conf_regions_1D(
             it.ale_summary_data,
             full_ale$params$y_summary[, it.cat, drop = FALSE],
             sig_criterion = if (!is.null(ale_options$p_values)) {
@@ -1112,7 +1107,6 @@ model_bootstrap <- function (
       #               stats::setNames(c(it.x_col_name, it.cat)),
       #
       #             ## Later: pass ale_options() that might apply
-      #             compact_plots = compact_plots
       #
       #             # When y_vals is added
       #             # x_y = tibble(data[[it.x_col_name]], y_vals) |>
@@ -1138,9 +1132,7 @@ model_bootstrap <- function (
       #         estimates = it.cat_ale_stats$estimate,
       #         y_summary = full_ale$params$y_summary[, it.cat],
       #         y_col = it.cat,
-      #         middle_band = median_band_pct,
-      #         # later pass ale_options like compact_plots
-      #         compact_plots = compact_plots
+      #         middle_band = median_band_pct
       #       )
       #
       #       it.cat_ale_stats

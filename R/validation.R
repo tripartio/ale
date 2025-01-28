@@ -32,7 +32,15 @@ validate_y_preds <- function(
   )
 
   # Validate the resulting predictions and make sure the result is a matrix
-  validate(is.numeric(y_preds) && is.atomic(y_preds))
+  validate(
+    is.atomic(y_preds),
+    msg = 'The model predictions must be atomic (that is, not a list object type).'
+  )
+  validate(
+    var_type(y_preds) == 'numeric',
+    msg = 'The model predictions must be numeric (but not binary).'
+  )
+  # validate(is.numeric(y_preds) && is.atomic(y_preds))
   if (is.matrix(y_preds)) {
     validate(nrow(y_preds) == nrow(data))
   }

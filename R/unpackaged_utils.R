@@ -83,6 +83,67 @@ is_scalar_whole <- function(x) {
 
 
 
+## Data types ------------------
+
+#' Determine the datatype of a vector
+#'
+#' @param var vector whose datatype is to be determined
+#'
+#' Not exported. See @returns for details of what it does.
+#'
+#' @returns  Returns generic datatypes of R basic vectors according to the following mapping:
+#'  * `logical` returns 'binary'
+#'  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
+#'  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
+#'  * unordered `factor` returns 'categorical'
+#'  * `ordered` `factor` returns 'ordinal'
+#'
+var_type <- function(var) {
+
+  # If var has more than one class, use only the first (predominant) one.
+  # This is particularly needed for ordered factors, whose class is
+  # c('ordered', 'factor')
+  class_var <- class(var)[1]
+
+  return(case_when(
+    class_var == 'logical' ~ 'binary',
+    # var consisting only of one of any two values (excluding NA) is considered binary.
+    # This test must be placed before all the others to ensure that it takes precedence, no matter what the underlying datatype might be.
+    (var |> na.omit() |> unique() |> length()) == 2 ~ 'binary',
+    is.numeric(var) ~ 'numeric',
+    class_var %in% c('factor', 'character') ~ 'categorical',
+    class_var == 'ordered' ~ 'ordinal',
+    # Consider dates to be numeric; they seem to work OK like that
+    class_var %in% c('POSIXct', 'POSIXlt', 'POSIXt', 'Date') ~ 'numeric',
+  ))
+
+}
+
+#' Cast (convert) the class of an object
+#'
+#' Currently assumes that the result object will have only one class.
+#'
+#' @param x An R object
+#' @param new_class character(1). A single class to which to convert `x`.
+#'
+#' @return `x` converted to class `new_class`.
+#'
+cast <- function(x, new_class) {
+  # Attempt S3 coercion by looking for an as.<new_class>() function
+  coerce_fun_name <- paste0("as.", new_class)
+
+  if (exists(coerce_fun_name, mode = "function")) {
+    # Retrieve the coercion function
+    coerce_fun <- get(coerce_fun_name, mode = "function")
+    # Apply the function to x
+    return(coerce_fun(x))
+  } else {
+    # If S3 method doesn't exist, try S4 coercion using methods::as()
+    return(methods::as(x, new_class))
+  }
+}
+
+
 ## Miscellaneous -----------------
 
 # Inverse of %in% operator
@@ -114,36 +175,3 @@ round_dp <- function(x) {
 }
 
 
-#' Determine the datatype of a vector
-#'
-#' @param var vector whose datatype is to be determined
-#'
-#' Not exported. See @returns for details of what it does.
-#'
-#' @returns  Returns generic datatypes of R basic vectors according to the following mapping:
-#'  * `logical` returns 'binary'
-#'  * `numeric` values (e.g., `integer` and `double`) return 'numeric'
-#'  * However, if the only values of numeric are 0 and 1, then it returns 'binary'
-#'  * unordered `factor` returns 'categorical'
-#'  * `ordered` `factor` returns 'ordinal'
-#'
-var_type <- function(var) {
-
-  # If var has more than one class, use only the first (predominant) one.
-  # This is particularly needed for ordered factors, whose class is
-  # c('ordered', 'factor')
-  class_var <- class(var)[1]
-
-  return(case_when(
-    class_var == 'logical' ~ 'binary',
-    # var consisting only of one of any two values (excluding NA) is considered binary.
-    # This test must be placed before all the others to ensure that it takes precedence, no matter what the underlying datatype might be.
-    (var |> na.omit() |> unique() |> length()) == 2 ~ 'binary',
-    is.numeric(var) ~ 'numeric',
-    class_var %in% c('factor', 'character') ~ 'categorical',
-    class_var == 'ordered' ~ 'ordinal',
-    # Consider dates to be numeric; they seem to work OK like that
-    class_var %in% c('POSIXct', 'POSIXt') ~ 'numeric',
-  ))
-
-}

@@ -95,7 +95,8 @@ plot.ale <- function(
             plot_ale_1D(
               ale_data  = it.x_col_ale_data,
               x_col     = it.x_col_name,
-              y_col     = obj$params$y_col,
+              y_col     = it.cat_name,
+              # y_col     = obj$params$y_col,
               y_type    = obj$params$y_type,
               y_summary = obj$params$y_summary[, it.cat_name],
               x_y       = obj$params$data$data_sample[, c(it.x_col_name, obj$params$y_col)],
@@ -118,7 +119,6 @@ plot.ale <- function(
         imap(obj$distinct, \(it.cat_data, it.cat_name) {
           imap(it.cat_data$ale[[2]], \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
-              # browser()
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
                 x1_col    = it.x1_col_name,
@@ -329,14 +329,14 @@ plot.ale_plots <- function(
 #' Print an ale_plots object by calling plot().
 #'
 #' @param x An object of class `ale_plots`.
-#' @param max See documentation for [plot.ale_plots()]
+#' @param max_print See documentation for [plot.ale_plots()]
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
 #' @export
-print.ale_plots <- function(x, max = 20L, ...) {
-  plot.ale_plots(x, max = max, ...)
+print.ale_plots <- function(x, max_print = 20L, ...) {
+  plot.ale_plots(x, max_print = max_print, ...)
 }
 
 
@@ -364,7 +364,6 @@ print.ale_plots <- function(x, max = 20L, ...) {
 #@param data dataframe. If provided, used to generate rug plots. Must at least
 #contain columns x_col and y_col; any other columns are not used.
 #  @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
-#  @param compact_plots See documentation for [ale()]
 #  @param seed See documentation for [ale()]
 #
 #
@@ -379,7 +378,6 @@ plot_ale_1D <- function(
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
-    compact_plots = FALSE,
     seed = 0
     ) {
 
@@ -522,6 +520,14 @@ plot_ale_1D <- function(
     y_summary[['med_hi_2']]
   )
 
+  # print(x_col)
+  # print(y_col)
+  # print(ale_data)
+  # browser()
+
+  # if (x_col == 'mpg') browser()
+
+
   plot <- plot +
     scale_y_continuous(
       sec.axis = sec_axis(
@@ -605,9 +611,14 @@ plot_ale_1D <- function(
       rug_data
     }
 
+    # if (x_col == 'mpg') browser()
+
     plot <- plot +
       geom_rug(
-        aes(x = .data$rug_x, y = .data$rug_y),
+        aes(
+          x = .data$rug_x,
+          y = if (y_type == 'numeric') .data$rug_y else NA_real_
+        ),
         data = rug_data,
         # Omit y-axis (left, l) rug plot for non-numeric y
         sides = if (y_type == 'numeric') 'bl' else 'b',
@@ -615,41 +626,21 @@ plot_ale_1D <- function(
         position = position_jitter(
           # randomly jitter by 1% of the domain and range
           width = 0.01 * diff(range(ale_data[[1]])),
-          # width = 0.01 * diff(range(ale_data$.ceil)),
-          height = 0.01 * (y_summary[['max']] - y_summary[['min']]),
+          # Specify only for numeric y_type, or else strange, late bugs pop up
+          height = if (y_type == 'numeric') {
+            0.01 * (y_summary[['max']] - y_summary[['min']])
+          } else {
+            0
+          },
           seed = seed
         )
       )
   }
 
-  # # Temporary plot return for 202404
-  # plot <- if (compact_plots) {
-  #   # Strip plot of environment or other extraneous elements
-  #   # https://stackoverflow.com/a/77373906/2449926
-  #   plot |>
-  #     ggplotGrob() |>
-  #     ggpubr::as_ggplot()
-  # } else {
-  #   plot
-  # }
-  #
-  # return_plot <- list()
-  # return_plot[[y_col]] <- plot
-  # return(return_plot)
 
   ## Return plot --------------
 
-  return(
-    if (compact_plots) {
-      # Strip plot of environment or other extraneous elements
-      # https://stackoverflow.com/a/77373906/2449926
-      plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
-    } else {
-      plot
-    }
-  )
+  return(plot)
 }
 
 
@@ -682,7 +673,6 @@ plot_ale_1D <- function(
 # If provided, used to generate rug plots.
 #@param data See documentation for `plot_ale_1D`
 # @param rug_sample_size,min_rug_per_interval See documentation for [ale()]
-# @param compact_plots See documentation for [ale()]
 # @param seed See documentation for [ale()]
 #
 #
@@ -700,7 +690,6 @@ plot_ale_2D <- function(
     # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
-    compact_plots = FALSE,
     seed = 0
 ) {
 
@@ -765,7 +754,6 @@ plot_ale_2D <- function(
     n_y_quant <- n_y_quant + 1
   }
 
-  # browser()
   # Create quantiles for y
   y_quantiles <-
     y_vals |>
@@ -946,32 +934,7 @@ plot_ale_2D <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
-  # # Temporary plot return for 202404
-  # plot <- if (compact_plots) {
-  #   # Strip plot of environment or other extraneous elements
-  #   # https://stackoverflow.com/a/77373906/2449926
-  #   plot |>
-  #     ggplotGrob() |>
-  #     ggpubr::as_ggplot()
-  # } else {
-  #   plot
-  # }
-  #
-  # return_plot <- list()
-  # return_plot[[y_col]] <- plot
-  # return(return_plot)
-
-  return(
-    if (compact_plots) {
-      # Strip plot of environment or other extraneous elements
-      # https://stackoverflow.com/a/77373906/2449926
-      plot |>
-      ggplotGrob() |>
-      ggpubr::as_ggplot()
-    } else {
-      plot
-    }
-  )
+  return(plot)
 }
 
 
@@ -1050,9 +1013,21 @@ plot_effects <- function(
     y_summary,
     # y_vals,
     y_col,
-    middle_band,
-    compact_plots = FALSE
+    middle_band
 ) {
+  # Essential functionality of labeling::extended or scales::breaks_extended()
+  nice_breaks <- function(limits, n) {
+    range <- diff(limits)
+    raw_step <- range / (n - 1)
+
+    # Round step size to a "nice" number
+    magnitude <- 10^floor(log10(raw_step))
+    nice_step <- c(1, 2, 5, 10) * magnitude
+    step <- nice_step[which.min(abs(nice_step - raw_step))]
+
+    seq(floor(limits[1] / step) * step, ceiling(limits[2] / step) * step, by = step)
+  }
+
   # # Create deciles for NALED and NALER axis
   # norm_deciles <-
   #   y_vals |>
@@ -1119,11 +1094,8 @@ plot_effects <- function(
       breaks = \(it.limits) {
         # Create 4 logically placed breaks + add the median.
         # 5 major breaks on the lower raw outcome scale counterbalances 10 decile breaks on the upper percentile scale.
-        labeling::extended(
-          it.limits[1], it.limits[2], 4
-        ) |>
+        nice_breaks(c(it.limits[1], it.limits[2]), 4) |>
           c(y_summary[['50%']]) |>
-          # c(median(y_vals)) |>
           round_dp()
       },
       # Use decile for minor breaks
@@ -1200,15 +1172,5 @@ plot_effects <- function(
       label.size = 0
     )
 
-  return(
-    if (compact_plots) {
-      # Strip plot of environment or other extraneous elements
-      # https://stackoverflow.com/a/77373906/2449926
-      plot |>
-        ggplotGrob() |>
-        ggpubr::as_ggplot()
-    } else {
-      plot
-    }
-  )
+  return(plot)
 }

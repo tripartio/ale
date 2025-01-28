@@ -1,39 +1,37 @@
 # test-model_bootstrap.R
 
 
-# test_that(
-#   'Parallelized versions do not crash', {
-#     # No bootstrap
-#     expect_no_error(
-#       model_bootstrap(
-#         test_cars, test_gam,
-#         # faster test
-#         ale_options = list(
-#           max_num_bins = 10,
-#           x_cols = c('cyl', 'disp')
-#         ),
-#         boot_it = 0,
-#         parallel = 2,
-#         silent = TRUE
-#       )
-#     )
-#
-#     # With bootstrap
-#     expect_no_error(
-#       model_bootstrap(
-#         test_cars, test_gam,
-#         # faster test
-#         ale_options = list(
-#           max_num_bins = 10,
-#           x_cols = c('hp', 'vs')
-#         ),
-#         boot_it = 3,
-#         parallel = 2,
-#         silent = TRUE
-#       )
-#     )
-#   }
-# )
+test_that(
+  'Parallelized versions do not crash', {
+    # No bootstrap
+    expect_no_error(
+      model_bootstrap(
+        test_cars, test_gam,
+        ale_options = list(
+          max_num_bins = 10,
+          x_cols = c('cyl', 'disp')
+        ),
+        boot_it = 0,
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+
+    # With bootstrap
+    expect_no_error(
+      model_bootstrap(
+        test_cars, test_gam,
+        ale_options = list(
+          max_num_bins = 10,
+          x_cols = c('hp', 'vs')
+        ),
+        boot_it = 3,
+        parallel = 2,
+        silent = TRUE
+      )
+    )
+  }
+)
 
 
 # All other tests are without parallelization so that results are reproducible
@@ -52,8 +50,7 @@ test_that(
         max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -85,13 +82,11 @@ test_that(
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
       boot_it = 5,  # Normally 3 for the test, but 3 gives a warning, so leave at 5
-      # faster test
       ale_options = list(
         max_num_bins = 10,
         x_cols = c('vs', 'gear')
       ),
-      silent = TRUE,
-      compact_plots = TRUE
+      silent = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
@@ -137,13 +132,11 @@ test_that(
       test_gam_binary,
       parallel = 0,
       boot_it = 5,
-      # faster test
       ale_options = list(
         max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE
-      # compact_plots = TRUE
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()

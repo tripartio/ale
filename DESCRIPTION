@@ -1,6 +1,6 @@
 Package: ale
 Title: Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)
-Version: 0.3.0.20241109
+Version: 0.3.0.20241118
 Authors@R: c(
     person("Chitu", "Okoli", , "Chitu.Okoli@skema.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5574-7572"))
@@ -13,17 +13,26 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Suggests: 
     ALEPlot,
+<<<<<<< HEAD
     DT,
+=======
+    gbm,
+>>>>>>> main
     knitr,
     mgcv,
     nnet,
     plotly,
     readr,
     rmarkdown,
+<<<<<<< HEAD
     shiny,
     shinyTree,
     shinyWidgets,
     testthat (>= 3.0.0)
+=======
+    testthat (>= 3.0.0),
+    yaImpute
+>>>>>>> main
 VignetteBuilder: knitr
 Imports: 
     broom,
@@ -32,19 +41,18 @@ Imports:
     furrr,
     future,
     ggplot2,
-    ggpubr,
     grDevices,
     insight,
-    labeling,
+    methods,
     patchwork,
     progressr,
     purrr,
     rlang,
+    staccuracy,
     stats,
     stringr,
     tidyr,
-    univariateML,
-    yaImpute
+    univariateML
 Depends: 
     R (>= 3.5.0)
 Remotes: 

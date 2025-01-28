@@ -4,12 +4,12 @@
 \alias{print.ale_plots}
 \title{Print method for ale_plots object}
 \usage{
-\method{print}{ale_plots}(x, max = 20L, ...)
+\method{print}{ale_plots}(x, max_print = 20L, ...)
 }
 \arguments{
 \item{x}{An object of class \code{ale_plots}.}
 
-\item{max}{See documentation for \code{\link[=plot.ale_plots]{plot.ale_plots()}}}
+\item{max_print}{See documentation for \code{\link[=plot.ale_plots]{plot.ale_plots()}}}
 
 \item{...}{Additional arguments (currently not used).}
 }

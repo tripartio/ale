@@ -108,9 +108,9 @@
 #'
 #'
 #' # For non-standard models that give errors with the default settings,
-#' you can use 'random_model_call_string' to specify a model for the estimation
-#' of p-values from random variables as in this example.
-#' See details above for an explanation.
+#' # you can use 'random_model_call_string' to specify a model for the estimation
+#' # of p-values from random variables as in this example.
+#' # See details above for an explanation.
 #' pd_diamonds <- create_p_dist(
 #'   diamonds_sample,
 #'   gam_diamonds,
@@ -328,7 +328,12 @@ create_p_dist <- function(
   residuals <- unname(residuals)
 
   # Determine the closest distribution of the residuals
-  residual_distribution <- univariateML::model_select(residuals)
+  suppressWarnings({
+    # univariateML::model_select() often generates warnings without a specific class, so silently suppress them so that they don't propagate to the ale package
+    residual_distribution <- univariateML::model_select(residuals)
+  })
+
+
 
   # Create ALEs for random variables based on residual_distribution
   package_scope$rand_data <- data
@@ -338,34 +343,48 @@ create_p_dist <- function(
   on.exit(set.seed(original_seed))
   set.seed(seed)
 
-  rand_ales <- map(  # use for debugging
-  # rand_ales <- furrr::future_map(
-  #   .options = furrr::furrr_options(
-  #     # Enable parallel-processing random seed generation
-  #     seed = TRUE,
-  #     # transmit any globals and packages in random_model_call_string to the parallel workers
-  #     globals = random_model_call_string_vars,
-  #     packages = model_packages
-  #   ),
+  # rand_ales <- map(  # use for debugging
+  rand_ales <- furrr::future_map(
+    .options = furrr::furrr_options(
+      # Enable parallel-processing random seed generation
+      seed = TRUE,
+      # transmit any globals and packages in random_model_call_string to the parallel workers
+      globals = random_model_call_string_vars,
+      packages = model_packages
+    ),
     .x = 1:rand_it,
     .f = \(it) {
 
+      it.rand_ale <- NULL
+      # Generate training and test subsets with the random variable.
+      # Package scope because they modify the datasets defined outside of the map function.
+      set.seed(seed + it)
+
+      tmp_rand_data <- data
       tryCatch(
         {
-          # Generate training and test subsets with the random variable.
-          # Package scope because they modify the datasets defined outside of the map function.
-          set.seed(seed + it)
-
-          tmp_rand_data <- data
           tmp_rand_data$random_variable <- univariateML::rml(
             n = n_rows,
             obj = residual_distribution
           )
-          package_scope$rand_data <- tmp_rand_data
-          rm(tmp_rand_data)
+        },
+        error = \(e) {
+          cli_warn(paste0(
+            'Error generating random distribution; skipped iteration ', it, ':\n',
+            e
+          ))
 
-          # Train model with the random variable: convert model call string to an expression
+          # End current future_map loop without any return value
+          return(NULL)
+        }
+      )
+      package_scope$rand_data <- tmp_rand_data
+      rm(tmp_rand_data)
 
+      # Train model with the random variable: convert model call string to an expression
+
+      tryCatch(
+        {
           # If random_model_call_string was provided, prefer it to automatic detection
           if (!is.null(random_model_call_string)) {
             assign(
@@ -394,10 +413,22 @@ create_p_dist <- function(
 
             assign('rand_model', eval(model_call), package_scope)
           }
+        },
+        error = \(e) {
+          cli_warn(paste0(
+            'Error creating random model; skipped iteration ', it, ':\n',
+            e
+          ))
 
+          # End current future_map loop without any return value
+          return(NULL)
+        }
+      )
 
+      tryCatch(
+        {
           # Calculate ale of random variable on the test set. If calculated on the training set, p-values will be too liberal.
-          rand_ale <- ale(
+          it.rand_ale <- ale(
             package_scope$rand_data,
             package_scope$rand_model,
             'random_variable',
@@ -415,7 +446,7 @@ create_p_dist <- function(
         },
         error = \(e) {
           cli_warn(paste0(
-            'Error and skipped iteration ', it, ':\n',
+            'Error calculating ALE; skipped iteration ', it, ':\n',
             e
           ))
 
@@ -430,7 +461,7 @@ create_p_dist <- function(
         progress_iterator()
       }
 
-      rand_ale
+      it.rand_ale
     })  # rand_ales <- furrr::future_map(
 
   # Discard any NULL cases for iterations that might have failed for whatever reason.
@@ -438,6 +469,11 @@ create_p_dist <- function(
   rand_ales <- compact(rand_ales)
   # Store the number of valid iterations
   rand_it_ok <- length(rand_ales)
+
+  if (rand_it_ok == 0) {
+    cli_abort('No random p-value distributions could be created.')
+    return(NULL)
+  }
 
   # Normalization is based on y_preds rather than y_col:
   # * takes care of classification, survival, or other [0, 1] prediction values
@@ -454,8 +490,8 @@ create_p_dist <- function(
             y = it.rand.cat$ale[[1]]$random_variable$.y,
             bin_n = it.rand.cat$ale[[1]]$random_variable$.n,
             ale_y_norm_fun = ale_y_norm_fun,
-            x_type = 'numeric',  # the random variables are always numeric
-            zeroed_ale = TRUE
+            x_type = 'numeric' #,  # the random variables are always numeric
+            # zeroed_ale = TRUE
           )
         })
     }) |>

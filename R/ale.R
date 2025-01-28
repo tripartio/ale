@@ -78,20 +78,9 @@
 #' require it.
 #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ale` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
-#' `min_rug_per_interval` elements; usually set to just 1 or 2.
 #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ale` object to include the entire dataset).
 #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the [model_bootstrap()] function).
-#' @param compact_plots logical length 1, default `FALSE`. When `output` includes
-#' 'plots', the returned `ggplot` objects each include the environments of the plots.
-#' This lets the user modify the plots with all the flexibility of `ggplot`, but it
-#' can result in very large return objects (sometimes even hundreds of megabytes
-#' large). To compact the plots to their bare minimum, set `compact_plots = TRUE`.
-#' However, returned plots will not be easily modifiable, so this should only be
-#' used if you do not want to subsequently modify the plots.
-#' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any
-#' non-essential messages during execution (such as progress bars).
-#' Regardless, any warnings and errors will always display. See details for how
-#' to enable progress bars.
+#' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
 #'
 #'
 #' @return list with the following elements:
@@ -126,7 +115,7 @@
 #'       x variables.
 #'     * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),  returns a list. If not requested, returns `NULL`. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the `data` element. The list has the following elements:
 #'         * `by_term`: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See `vignette('ale-statistics')` for details about confidence regions.)
-#'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row.
+#'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row. For 2D interactions, numeric values are grouped in terciles (quantiles of three) and the `x1` or `x2` reports these terciles as an interval. However, in some cases where terciles cannot be cleanly formed because of the distribution of the data, the numeric terciles might be indicated with the numbers 1, 2, or 3 without specifying the actual numeric interval values.
 #'         * `sig_criterion`: a length-one character vector that reports which values were used to determine statistical significance: if `p_values` was provided to the [ale()] function, it will be used; otherwise, `median_band_pct` will be used.
 #' * `plots`: if `plots` are requested in the `output` argument (as is the default),
 #'   returns a list whose elements, named by each requested x variable, are each
@@ -239,7 +228,6 @@ ale <- function (
     min_rug_per_interval = 1,
     bins = NULL,
     ns = NULL,
-    compact_plots = FALSE,
     silent = FALSE
 )
 {
@@ -249,8 +237,7 @@ ale <- function (
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  # If model validation is done more rigorously, also validate that y_col is not
-  # contained in all_x__cols
+  # If model validation is done more rigorously, also validate that y_col is not contained in all_x__cols
 
   # Validate the dataset
   validate(data |> inherits('data.frame'))
@@ -414,6 +401,11 @@ ale <- function (
 
   validate_silent(silent)
 
+  # # Possible future compatibility option with ALEPlot
+  # if (ALEPlot_compatibility && !requireNamespace("yaImpute", quietly = TRUE)) {
+  #   cli_abort("Package 'yaImpute' is needed for imputation of missing interactions by nearest neighbours. Please install it.")
+  # }
+
 
   # Prepare needed internal variables --------------
 
@@ -449,19 +441,19 @@ ale <- function (
   # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
   y_cats <- colnames(y_vals)
 
-  # Remove the Y target label; ALE calculation needs the X matrix as input;
-  # Y is obtained from the model predictions.
-  data_X <-
-    data |>
-    select(-any_of(y_col))
+  # # Remove the Y target label; ALE calculation needs the X matrix as input;
+  # # Y is obtained from the model predictions.
+  # data_X <-
+  #   data |>
+  #   select(-any_of(y_col))
 
   # Prepare to create ALE statistics
   ale_y_norm_funs <- NULL
   if ('stats' %in% output) {
     ale_y_norm_funs <-
       y_vals |>
-      apply(2, \(it.col) {
-        create_ale_y_norm_function(it.col)
+      apply(2, \(it.cat) {
+        create_ale_y_norm_function(it.cat)
       })
   }
 
@@ -640,13 +632,13 @@ ale <- function (
       x_cols[[2]],
       x_cols[[1]]
     ) |>
-    map(  # for debugging
-      # furrr::future_map(
-      #   .options = furrr::furrr_options(
-      #     # Enable parallel-processing random seed generation
-      #     seed = seed,
-      #     packages = model_packages
-      #   ),
+    # map(  # for debugging
+    furrr::future_map(
+      .options = furrr::furrr_options(
+        # Enable parallel-processing random seed generation
+        seed = seed,
+        packages = model_packages
+      ),
       .f = \(it.x_cols) {
         # Increment progress bar iterator only if not in an outer loop with bins
         # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
@@ -657,7 +649,8 @@ ale <- function (
         # Calculate ale_data for single variables
         ale_results <-
           calc_ale(
-            data_X, model, it.x_cols, y_cats,
+            data, model, it.x_cols, y_col, y_cats,
+            # data_X, model, it.x_cols, y_cats,
             pred_fun, pred_type, max_num_bins,
             boot_it, seed, boot_alpha, boot_centre,
             boot_ale_y = 'boot' %in% output,
@@ -696,6 +689,8 @@ ale <- function (
     bind_rows()
 
 
+  # Organize results -------------
+
   # Organize by categories
   ales <- ales |>
     split(ales$cat)
@@ -727,11 +722,11 @@ ale <- function (
     # ale_struc$distinct[[it.cat]] <- it.ar_1D
 
     # Assign 2D ALE results to ale_struc
-    if (length(x_cols[[2]]) >= 2) {
-      it.ales_2D <- ales[[it.cat]] |>
+    if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
+        it.ales_2D <- ales[[it.cat]] |>
         filter(.data$ale_d == 2)
 
-      it.ar_2D <- 1:nrow(it.ales_2D) |>
+        it.ar_2D <- 1:nrow(it.ales_2D) |>
         map(\(i.2D) {
           it.ales_2D[i.2D, ] |>
             as.list() |>
@@ -765,7 +760,7 @@ ale <- function (
 
       ale_struc$distinct[[it.cat]][[2]] <- ale_2D_struc
       # ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc
-    }  # if (length(x_cols[[2]]) >= 2)
+    }  # if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 2) {
 
   }
 
@@ -775,6 +770,8 @@ ale <- function (
 
   if ('stats' %in% output) {
     for (it.cat in y_cats) {
+
+      # 1D ALE statistics
       if (length(x_cols[[1]]) >= 1) {
         ale_struc$distinct[[it.cat]][[1]]$stats <-
           ale_struc$distinct[[it.cat]][[1]]$stats |>
@@ -795,7 +792,7 @@ ale <- function (
           }
 
           ale_struc$distinct[[it.cat]][[1]]$stats$conf_regions <-
-            summarize_conf_regions(
+            summarize_conf_regions_1D(
               ale_struc$distinct[[it.cat]][[1]]$ale,
               y_summary[, it.cat, drop = FALSE],
               sig_criterion = sig_criterion
@@ -803,7 +800,8 @@ ale <- function (
         }  # if ('conf_regions' %in% output)
       }  # if (length(x_cols[[1]]) >= 1) {
 
-      if (length(x_cols[[2]]) >= 1) {
+      # 2D ALE statistics
+      if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
         # Iterate statistics for each x1 variable
         for (it.x1 in names(ale_struc$distinct[[it.cat]][[2]]$stats)) {
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] <-
@@ -822,32 +820,31 @@ ale <- function (
             map(\(it.stat_tbl) {
               it.stat_tbl |>
                 mutate(term1 = it.x1) |>
-                rename(term2 = term) |>
+                rename(term2 = 'term') |>
                 select('term1', 'term2', everything())
             })
 
           ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
             ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
             mutate(term1 = it.x1) |>
-            rename(term2 = term) |>
+            rename(term2 = 'term') |>
             select('term1', 'term2', everything())
 
-          # ## Disable 2D conf_regions until they can be verified and corrected
-          # if ('conf_regions' %in% output) {
-          #   # conf_regions optionally provided only if stats also requested
-          #   sig_criterion <- if (!is.null(p_values)) {
-          #     'p_values'
-          #   } else {
-          #     'median_band_pct'
-          #   }
-          #
-          #   ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
-          #     summarize_conf_regions(
-          #       ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
-          #       y_summary[, it.cat, drop = FALSE],
-          #       sig_criterion = sig_criterion
-          #     )
-          # }
+          if ('conf_regions' %in% output) {
+            # conf_regions optionally provided only if stats also requested
+            sig_criterion <- if (!is.null(p_values)) {
+              'p_values'
+            } else {
+              'median_band_pct'
+            }
+
+            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
+              summarize_conf_regions_2D(
+                ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
+                y_summary[, it.cat, drop = FALSE],
+                sig_criterion = sig_criterion
+              )
+          }
 
         }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
 
@@ -856,7 +853,7 @@ ale <- function (
         ale_struc$distinct[[it.cat]][[2]]$stats |>
         list_transpose(simplify = FALSE)
 
-      # Consolidate 2D stats
+      # Consolidate 2D stats into more convenient formats
       ale_struc$distinct[[it.cat]][[2]]$stats$by_stat <-
         ale_struc$distinct[[it.cat]][[2]]$stats$by_stat |>
         list_transpose(simplify = FALSE) |>
@@ -864,6 +861,17 @@ ale <- function (
       ale_struc$distinct[[it.cat]][[2]]$stats$estimate <-
         ale_struc$distinct[[it.cat]][[2]]$stats$estimate |>
         bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions |>
+        list_transpose(simplify = FALSE)
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term |>
+        bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant |>
+        bind_rows()
+      ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion <-
+        ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion[[1]]
 
       }  # if (length(x_cols[[2]]) >= 1) {
     }  # for (it.cat in y_cats)
@@ -884,7 +892,7 @@ ale <- function (
   it_objs <- names(params)[  # iterators
     names(params) |> stringr::str_detect('^it\\.')
   ]
-  temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'data_X', 'dup_x_cols_2', 'it.cat', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_col_spec', 'y_vals', 'y_preds')
+  temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_col_spec', 'y_vals', 'y_preds')
   params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
   # Simplify some very large elements, especially closures that contain environments
