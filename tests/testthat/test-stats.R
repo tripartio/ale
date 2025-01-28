@@ -3,7 +3,7 @@
 
 
 test_that(
-  'create_p_dist works with default inputs (approx fast) on ale()', {
+  'create_p_dist works with default inputs (approx fast) on ALE()', {
     skip_on_ci()
 
     pd <- create_p_dist(
@@ -15,7 +15,7 @@ test_that(
     )
     expect_snapshot(unclass(pd))
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam,
       max_num_bins = 10,
       p_values = pd,

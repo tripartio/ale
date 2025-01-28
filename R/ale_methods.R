@@ -1,11 +1,13 @@
 # ale_methods.R
 # S3 methods for the ale object
 
-#' Print Method for ale object
+#' @name print.ALE
+#' @title print Method for ALE object
 #'
-#' Print an ale object.
+#' @description
+#' Print an ALE object.
 #'
-#' @param x An object of class `ale`.
+#' @param x An object of class `ALE`.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
@@ -16,15 +18,20 @@
 #' print(my_object)
 #' }
 #'
-#' @export
-print.ale <- function(x, ...) {
-  # browser()
+#' @method print ALE
+S7::method(print, ALE) <- function(x, ...) {
+# print.ale <- function(x, ...) {
 
   cat(
-    "'ale' object of the ", x$params$model$name, " model on a ",
-    x$params$data$nrow , "x", length(x$params$data$data_sample) - 1, " dataset.\n",
+    "'ALE' object of the ", x@params$model$name, " model on a ",
+    x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset.\n",
     sep = ''
   )
+  # cat(
+  #   "'ale' object of the ", x$params$model$name, " model on a ",
+  #   x$params$data$nrow , "x", length(x$params$data$data_sample) - 1, " dataset.\n",
+  #   sep = ''
+  # )
 
   invisible(x)
 }

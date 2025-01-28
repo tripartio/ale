@@ -8,7 +8,7 @@ test_that(
   # 'Parallelized versions do not crash', {
   #   # No bootstrap
   #   expect_no_error(
-  #     ale(
+  #     ALE(
   #       test_cars, test_gam,
   #       max_num_bins = 10,
   #       x_cols = c('cyl', 'disp'),
@@ -18,7 +18,7 @@ test_that(
   #   )
   'Print parallelized ale', {
     # No bootstrap
-    pll_ale <- ale(
+    pll_ale <- ALE(
       test_cars, test_gam,
       max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
@@ -26,16 +26,16 @@ test_that(
       silent = TRUE
     )
 
-    # Test the print.ale() method
+    # Test the print.ALE() method
     expect_equal(
       print(pll_ale) |>
         capture.output(),
-      "'ale' object of the test_gam model on a 64x13 dataset."
+      "'ALE' object of the test_gam model on a 64x13 dataset."
     )
 
     # With bootstrap
     expect_no_error(
-      ale(
+      ALE(
         test_cars, test_gam,
         max_num_bins = 10,
         x_cols = c('hp', 'vs'),
@@ -55,7 +55,7 @@ test_that(
   'numeric outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam,
       max_num_bins = 10,
       parallel = 0,
@@ -64,7 +64,7 @@ test_that(
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
-      plot.ale( type = 'effects') |>
+      plot(type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -78,7 +78,7 @@ test_that(
   'numeric outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam,
       max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
@@ -89,7 +89,7 @@ test_that(
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
-      plot.ale( type = 'effects') |>
+      plot(type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -103,7 +103,7 @@ test_that(
   'numeric outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam,
       x_cols = c('vs', 'gear'),
       parallel = 0,
@@ -125,13 +125,13 @@ test_that(
 
 
 
-# Test binary outcomes ----------------
+Test binary outcomes ----------------
 
 test_that(
   'binary outcome default works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam_binary,
       max_num_bins = 10,
       parallel = 0,
@@ -140,7 +140,7 @@ test_that(
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
-      plot.ale( type = 'effects') |>
+      plot( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -154,7 +154,7 @@ test_that(
   'binary outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam_binary,
       max_num_bins = 10,
       x_cols = c('hp', 'continent'),
@@ -165,7 +165,7 @@ test_that(
     car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
-      plot.ale( type = 'effects') |>
+      plot( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -179,7 +179,7 @@ test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars, test_gam_binary,
       x_cols = c('carb', 'country'),
       parallel = 0,
@@ -207,7 +207,7 @@ test_that(
   'categorical outcome default works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars,
       test_nn_categorical,
       max_num_bins = 10,
@@ -221,7 +221,7 @@ test_that(
           ale_plots_to_data()
       })
     car_eff_plots <- cars_ale |>
-      plot.ale(type = 'effects') |>
+      plot(type = 'effects') |>
       ale_plots_to_data()
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
@@ -233,7 +233,7 @@ test_that(
   'categorical outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars,
       test_nn_categorical,
       max_num_bins = 10,
@@ -249,10 +249,10 @@ test_that(
           ale_plots_to_data()
       })
     car_eff_plots <- cars_ale |>
-      plot.ale(type = 'effects') |>
+      plot(type = 'effects') |>
       ale_plots_to_data()
     car_eff_plots <- cars_ale |>
-      plot.ale(type = 'effects') |>
+      plot(type = 'effects') |>
       ale_plots_to_data()
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
@@ -264,7 +264,7 @@ test_that(
   'categorical outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_ale <- ale(
+    cars_ale <- ALE(
       test_cars,
       test_nn_categorical,
       x_cols = c('gear', 'country'),

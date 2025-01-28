@@ -4,14 +4,14 @@
 
 * We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scalable. 
 * In addition to rewriting the code under the hood, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
-* We have created several S3 objects to represent different kinds of ale package objects:
-    * `ale`: the core `{ale}` package object that holds the results of the `ale()` function.
+* We have created several S7 objects to represent different kinds of `{ale}` package objects:
+    * `ALE`: the core `{ale}` package object that holds ALE data for a model.
     * `ale_boot`: results of the `model_bootstrap()` function.
     * `ale_p`: p-value distribution information as the result of the `create_p_dist()` function.
 * With the extensive rewrite, we no longer depend on `{ALEPlot}` code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
-* Renamed the `rug_sample_size` argument of `ale()` to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
+* Renamed the `rug_sample_size` argument of the `ALE` constructor to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
 * `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ale()` function.
-* `ale()` no longer produces plots directly. ALE plots are now created as `ale_plot` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ale` or `ale_boot` objects. Thus, serializing `ale` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
+* The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ale_plot` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ale_boot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
 
 
 ## Bug fixes
@@ -23,7 +23,7 @@
 * Confidence regions for 1D ALE are now reported more compactly.
 * With the creation of `plot()` methods, eliminated the `compact_plots` to `ale()`. 
 * `print()` and `plot()` methods have been added to the `ale_plots` object.
-* A `print()` method has been added to the `ale` object.
+* A `print()` method has been added to the `ALE` object.
 * Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
 * Bootstrapping is now supported for ALE interactions.
 * ALE statistics are now supported for interactions, including confidence regions.

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ```
 
-This vignette demonstrates using the `ale` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
+This vignette demonstrates using the `{ale}` package on small datasets, as is often the case with statistical inference. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette goes beyond those details to discuss issues unique to small datasets.
 
 ## What is a "small" dataset?
 
@@ -63,7 +63,7 @@ str(attitude)
 summary(attitude)
 ```
 
-We first run ALE analysis on this dataset as if it were a valid regular dataset, even though it is too small for a proper training-test split. This is a small-scale demonstration mainly to demonstrate that `ale` package is valid for analyzing even small datasets, not just the large datasets typically used for machine learning.
+We first run ALE analysis on this dataset as if it were a valid regular dataset, even though it is too small for a proper training-test split. This is a small-scale demonstration mainly to demonstrate that `{ale}` package is valid for analyzing even small datasets, not just the large datasets typically used for machine learning.
 
 ## ALE for ordinary least squares regression (multiple linear regression)
 
@@ -77,7 +77,7 @@ lm_attitude <- lm(rating ~ ., data = attitude)
 summary(lm_attitude)
 ```
 
-At the very least, the `ale` is useful for visualizing the effects of model variables.
+At the very least, the `{ale}` package is useful for visualizing the effects of model variables.
 
 Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
 
@@ -89,10 +89,10 @@ progressr::handlers('cli')
 
 If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
 
-Note that for now, we run `ale` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
+Note that for now, we run `ALE()` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple, fig.width=7, fig.height=7}
-ale_lm_attitude_simple <- ale(
+ale_lm_attitude_simple <- ALE(
   attitude, lm_attitude,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
@@ -107,10 +107,10 @@ This visualization confirms what we see in the model coefficients above: complai
 
 What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
 
-We can also use `ale()` to visualize the possible existence of any interactions by specifying `complete_d = 2` to calculate all 2D interactions:
+We can also use `ALE()` to visualize the possible existence of any interactions by specifying `complete_d = 2` to calculate all 2D interactions:
 
 ```{r lm_2D, fig.width=7, fig.height=7}
-ale_lm_attitude_2D <- ale(
+ale_lm_attitude_2D <- ALE(
   attitude, lm_attitude,
   complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
@@ -129,11 +129,11 @@ attitude_2D_plots |>
   })
 ```
 
-This is a powerful use-case for the `ale` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not explore them further.
+This is a powerful use-case for the `{ale}` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not explore them further.
 
 ## Full model bootstrapping
 
-We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets whose models have been properly trained and evaluated on separate subsets before ALE analysis, `ale()` bootstraps the ALE results of the final deployment model on the full dataset. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped, not just the ALE data from a single deployment model. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
+We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets whose models have been properly trained and evaluated on separate subsets before ALE analysis, `ALE()` bootstraps the ALE results of the final deployment model on the full dataset. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped, not just the ALE data from a single deployment model. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
 
 The `model_bootstrap()` function automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
 
@@ -153,7 +153,7 @@ mb_lm <- model_bootstrap(
 )
 ```
 
-By default, `model_bootstrap()` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance()`) and bootstrapped model coefficients (provided through `broom::tidy()`). Any of the default options for `broom::glance()`, `broom::tidy()`, and `ale()` can be customized, along with defaults for `model_bootstrap()`, such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
+By default, `model_bootstrap()` creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance()`) and bootstrapped model coefficients (provided through `broom::tidy()`). Any of the default options for `broom::glance()`, `broom::tidy()`, and `ALE()` can be customized, along with defaults for `model_bootstrap()`, such as the number of bootstrap iterations. You can consult the help file for these details with `help(model_bootstrap)`.
 
 `model_bootstrap()` returns a list with the following elements (depending on values requested in the `output` argument:
 
@@ -209,7 +209,7 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
 ```{r gam_simple, fig.width=7, fig.height=7}
-ale_gam_attitude_simple <- ale(
+ale_gam_attitude_simple <- ALE(
   attitude, gam_attitude,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )

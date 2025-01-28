@@ -29,7 +29,7 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 
 One notable difference between the two packages is that the `{ale}` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
 
-In each section here, we cover an example from `{ALEPlot}` and then reimplement it with `ale`.
+In each section here, we cover an example from `{ALEPlot}` and then reimplement it with `{ale}`.
 
 We begin by loading the necessary libraries.
 
@@ -148,7 +148,7 @@ To create the model, we invoke the `{ale}` which returns a list with various ALE
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw")
+nn_ale <- ALE(DAT, nnet.DAT, pred_type = "raw")
 ```
 
 Here are some notable differences compared to `ALEPlot`:
@@ -188,7 +188,7 @@ The `{ale}` also produces interaction plots; see the [introductory vignette](htt
 
 ```{r ale nnet 2D, fig.width=7, fig.height=5}
 # Create and plot interactions
-nn_ale_2D <- ale(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
+nn_ale_2D <- ALE(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
 
 # Print plots
 nn_plots <- plot(nn_ale_2D)
@@ -290,7 +290,7 @@ yhat <- function(object, newdata, type) {
 # # To generate the code, uncomment the following lines.
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_link <- ale(
+# gbm_ale_link <- ALE(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
@@ -313,7 +313,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 # # To generate the code, uncomment the following lines.
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_2D_link <- ale(
+# gbm_ale_2D_link <- ALE(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   complete_d = 2,
@@ -367,7 +367,7 @@ yhat <- function(object, newdata, type) {
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_prob <- ale(
+# gbm_ale_prob <- ALE(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   pred_fun = yhat,
@@ -390,7 +390,7 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_2D_prob <- ale(
+# gbm_ale_2D_prob <- ALE(
 #   # data[,-c(3,4)], gbm.data,
 #   data, gbm.data,
 #   complete_d = 2,

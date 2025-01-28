@@ -4,13 +4,9 @@
 #'
 #' @author Chitu Okoli \email{Chitu.Okoli@skema.edu}
 #' @docType package
-#'
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
-#'
-#'
-#' @keywords internal
 #' @aliases ale-package NULL
 #'
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
 #' @import dplyr
 #' @import ggplot2
@@ -39,9 +35,9 @@
 #' @importFrom stats sd
 #' @importFrom stringr str_glue
 #'
+#' @keywords internal
 '_PACKAGE'
 
 # How to document the package: https://roxygen2.r-lib.org/articles/rd-other.html#packages
-
 
 

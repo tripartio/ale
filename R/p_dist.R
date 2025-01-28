@@ -9,8 +9,7 @@
 #' @title Create an object of the ALE statistics of a random variable that can be used to generate p-values
 #'
 #' @description
-#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `ale` package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the `ale` package is model-agnostic (that is, it works with any kind of R model), the [ale()] function cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the ale function
-#' correctly manipulate its model object:
+#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `{ale}` package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the `{ale}` package is model-agnostic (that is, it works with any kind of R model), the [ALE()] constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALE()` constructor correctly manipulate its model object:
 #'
 #' * The full model call must be passed as a character string in the argument 'random_model_call_string', with two slight modifications as follows.
 #' * In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that [create_p_dist()] will use to estimate p-values.
@@ -19,7 +18,7 @@
 #' See the example below for how this is implemented.
 #'
 #' @section Approach to calculating p-values:
-#' The `ale` package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
+#' The `{ale}` package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
 #' * The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
 #' * The closest distribution of the residuals is detected with `univariateML::model_select()`.
 #' * 1000 new models are trained by generating a random variable each time with `univariateML::rml()` and then training a new model with that random variable added.
@@ -43,21 +42,21 @@
 #'
 #'
 #'
-#' @param data See documentation for [ale()]
-#' @param model See documentation for [ale()]
+#' @param data See documentation for [ALE()]
+#' @param model See documentation for [ALE()]
 #' @param p_speed character(1). Either 'approx fast' (default) or 'precise slow'. See details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel See documentation for [ale()]
-#' @param model_packages See documentation for [ale()]
+#' @param parallel See documentation for [ALE()]
+#' @param model_packages See documentation for [ALE()]
 #' @param random_model_call_string character string. If NULL, `create_p_dist()` tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [model_bootstrap()]; their operation is very similar.
-#' @param y_col See documentation for [ale()]
+#' @param y_col See documentation for [ALE()]
 #' @param binary_true_value See documentation for [model_bootstrap()]
-#' @param pred_fun,pred_type See documentation for [ale()].
+#' @param pred_fun,pred_type See documentation for [ALE()].
 #' @param output character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.
 #' @param rand_it non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.
-#' @param seed See documentation for [ale()]
-#' @param silent See documentation for [ale()]
+#' @param seed See documentation for [ALE()]
+#' @param silent See documentation for [ALE()]
 #' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
 #'
 #' @return
@@ -95,7 +94,7 @@
 #' # In RStudio: View(pd_diamonds)
 #'
 #' # Calculate ALEs with p-values
-#' ale_gam_diamonds <- ale(
+#' ale_gam_diamonds <- ALE(
 #'   diamonds_sample,
 #'   gam_diamonds,
 #'   p_values = pd_diamonds
@@ -428,7 +427,7 @@ create_p_dist <- function(
       tryCatch(
         {
           # Calculate ale of random variable on the test set. If calculated on the training set, p-values will be too liberal.
-          it.rand_ale <- ale(
+          it.rand_ale <- ALE(
             package_scope$rand_data,
             package_scope$rand_model,
             'random_variable',

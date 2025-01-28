@@ -55,7 +55,7 @@ test_that(
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     mb_eff_plot <- mb |>
-      plot.ale( type = 'effects') |>
+      plot.ALE( type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -91,7 +91,7 @@ test_that(
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     mb_eff_plot <- mb |>
-      plot.ale( type = 'effects') |>
+      plot.ALE( type = 'effects') |>
       (`[[`)('mpg') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -141,7 +141,7 @@ test_that(
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     mb_eff_plot <- mb |>
-      plot.ale( type = 'effects') |>
+      plot.ALE( type = 'effects') |>
       (`[[`)('vs') |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
@@ -183,7 +183,7 @@ test_that(
       silent = TRUE
     )
     # mb_plots <- mb |>
-    #   plot.ale() |>
+    #   plot.ALE() |>
     #   map(\(it.cat) {
     #     map(it.cat, \(it.plot) {
     #       it.plot |>
@@ -192,7 +192,7 @@ test_that(
     #       })
     #   })
     mb_eff_plots <- mb |>
-      plot.ale(type = 'effects') |>
+      plot.ALE(type = 'effects') |>
       ale_plots_to_data()
     mb$ale$single <- unclass(mb$ale$single)
     expect_snapshot(unclass(mb))

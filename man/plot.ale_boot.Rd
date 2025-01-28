@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{ale_boot object.}
 
-\item{...}{Arguments passed to \code{\link[=plot.ale]{plot.ale()}}}
+\item{...}{Arguments passed to \code{\link[=plot.ALE]{plot.ALE()}}}
 }
 \description{
 plot method for \code{ale_boot} objects

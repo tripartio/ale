@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+This vignette demonstrates how `{ale}` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
 We begin by loading the necessary libraries.
 
@@ -57,7 +57,7 @@ summary(var_cars)
 
 ## Modelling with ALE and GAM
 
-With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
+With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `{ale}` package.
 
 ```{r cars_gam}
 cars_gam <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
@@ -79,7 +79,7 @@ If you forget to do that, the `{ale}` package will do it automatically for you w
 Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.width=7, fig.height=14}
-cars_ale <- ale(
+cars_ale <- ALE(
   var_cars, cars_gam,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
@@ -90,14 +90,14 @@ cars_1D_plots <- cars_plots$distinct$mpg$plots[[1]]
 patchwork::wrap_plots(cars_1D_plots, ncol = 2)
 ```
 
-We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
+We can see that `ALE()` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
 
 The numeric predictors have rug plots that indicate in which ranges of the x (predictor) and y (`mpg`) values data actually exists in the dataset.  This helps us to not over-interpret regions where data is sparse. Since column charts are on a discrete scale, they cannot rug plots. Instead, the percentage of data represented by each column is displayed.
 
 We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r cars_ale_2D, fig.width=7, fig.height=7}
-cars_ale_2D <- ale(
+cars_ale_2D <- ALE(
   var_cars, cars_gam,
   complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)

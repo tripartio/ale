@@ -28,35 +28,35 @@ create_p_dist(
 )
 }
 \arguments{
-\item{data}{See documentation for \code{\link[=ale]{ale()}}}
+\item{data}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{model}{See documentation for \code{\link[=ale]{ale()}}}
+\item{model}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{p_speed}{character(1). Either 'approx fast' (default) or 'precise slow'. See details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{See documentation for \code{\link[=ale]{ale()}}}
+\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
+\item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{random_model_call_string}{character string. If NULL, \code{create_p_dist()} tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
 
 \item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=model_bootstrap]{model_bootstrap()}}; their operation is very similar.}
 
-\item{y_col}{See documentation for \code{\link[=ale]{ale()}}}
+\item{y_col}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{binary_true_value}{See documentation for \code{\link[=model_bootstrap]{model_bootstrap()}}}
 
-\item{pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}.}
+\item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}.}
 
 \item{output}{character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.}
 
 \item{rand_it}{non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.}
 
-\item{seed}{See documentation for \code{\link[=ale]{ale()}}}
+\item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{silent}{See documentation for \code{\link[=ale]{ale()}}}
+\item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{.testing_mode}{logical(1). Internal use only. Disables some data validation checks to allow for debugging.}
 }
@@ -70,8 +70,7 @@ The return value is an object of class \code{ale_p}. See examples for an illustr
 }
 }
 \description{
-ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the \code{ale} package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{\link[=ale]{ale()}} function cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the ale function
-correctly manipulate its model object:
+ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the \code{{ale}} package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the \code{{ale}} package is model-agnostic (that is, it works with any kind of R model), the \code{\link[=ALE]{ALE()}} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALE()} constructor correctly manipulate its model object:
 \itemize{
 \item The full model call must be passed as a character string in the argument 'random_model_call_string', with two slight modifications as follows.
 \item In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that \code{\link[=create_p_dist]{create_p_dist()}} will use to estimate p-values.
@@ -82,7 +81,7 @@ See the example below for how this is implemented.
 }
 \section{Approach to calculating p-values}{
 
-The \code{ale} package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the \code{rand_it} argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
+The \code{{ale}} package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the \code{rand_it} argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
 \itemize{
 \item The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
 \item The closest distribution of the residuals is detected with \code{univariateML::model_select()}.
@@ -132,7 +131,7 @@ str(pd_diamonds)
 # In RStudio: View(pd_diamonds)
 
 # Calculate ALEs with p-values
-ale_gam_diamonds <- ale(
+ale_gam_diamonds <- ALE(
   diamonds_sample,
   gam_diamonds,
   p_values = pd_diamonds

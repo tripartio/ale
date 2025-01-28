@@ -33,7 +33,7 @@ model_bootstrap(
 \arguments{
 \item{data}{dataframe. Dataset that will be bootstrapped.}
 
-\item{model}{See documentation for \code{\link[=ale]{ale()}}}
+\item{model}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -49,11 +49,11 @@ If any such variables exist, they must be specified here or else parallel proces
 will produce an error. If parallelization is disabled with \code{parallel = 0},
 then this is not a concern.}
 
-\item{parallel}{See documentation for \code{\link[=ale]{ale()}}}
+\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{model_packages}{See documentation for \code{\link[=ale]{ale()}}}
+\item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ale]{ale()}}. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
+\item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
 
 \item{binary_true_value}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value} as \code{2}.}
 
@@ -68,7 +68,7 @@ bootstrap samples are generated each time on the same data.}
 1 - boot_alpha. For example, the default 0.05 will give a 95\% confidence
 interval, that is, from the 2.5\% to the 97.5\% percentile.}
 
-\item{boot_centre}{See See documentation for \code{\link[=ale]{ale()}}}
+\item{boot_centre}{See See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{output}{character vector. Which types of bootstraps to calculate and return:
 \itemize{
@@ -80,9 +80,9 @@ because it is needed for the bootstrap averages. By default, it is not returned
 except if included in this \code{output} argument.
 }}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ale]{ale()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.}
 
-\item{silent}{See documentation for \code{\link[=ale]{ale()}}}
+\item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
 list with the following elements (depending on values requested in the \code{output} argument:
@@ -100,14 +100,14 @@ list with the following elements (depending on values requested in the \code{out
 \item \code{model_coefs}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}
 \item \code{ale}: list of bootstrapped ALE results
 \itemize{
-\item \code{data}: ALE data (see \code{\link[=ale]{ale()}} for details about the format)
+\item \code{data}: ALE data (see \code{\link[=ALE]{ALE()}} for details about the format)
 \item \code{stats}: ALE statistics. The same data is duplicated with different views that might be variously useful:
 \itemize{
-\item \code{by_term}: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the \code{broom} package. The confidence intervals are based on the \code{\link[=ale]{ale()}} function defaults; they can be changed with the \code{ale_options} argument. The estimate is the median or the mean, depending on the \code{boot_centre} argument.
+\item \code{by_term}: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the \code{broom} package. The confidence intervals are based on the \code{\link[=ALE]{ALE()}} function defaults; they can be changed with the \code{ale_options} argument. The estimate is the median or the mean, depending on the \code{boot_centre} argument.
 \item \code{by_stat} : term, estimate, conf.low, median, mean, conf.high.
 \item \code{estimate}: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
 }
-\item \code{plots}: ALE plots (see \code{\link[=ale]{ale()}} for details about the format)
+\item \code{plots}: ALE plots (see \code{\link[=ALE]{ALE()}} for details about the format)
 }
 \item \code{boot_data}: full bootstrap data (not returned by default)
 \item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that were originally passed are returned for reference.
@@ -115,9 +115,9 @@ list with the following elements (depending on values requested in the \code{out
 }
 \description{
 No modelling results, with or without ALE, should be considered reliable without
-being bootstrapped. For large datasets, normally the model provided to \code{\link[=ale]{ale()}}
+being bootstrapped. For large datasets, normally the model provided to \code{\link[=ALE]{ALE()}}
 is the final deployment model that has been validated and evaluated on
-training and testing on subsets; that is why \code{\link[=ale]{ale()}} is calculated on the full
+training and testing on subsets; that is why \code{\link[=ALE]{ALE()}} is calculated on the full
 dataset. However, when a dataset is too small to be subdivided into training
 and test sets for a standard machine learning process, then the entire model
 should be bootstrapped. That is, multiple models should be trained, one on
@@ -141,7 +141,7 @@ model_bootstrap.R
 }
 \section{p-values}{
 
-The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values on every execution of \code{model_bootstrap()}. Although the \code{\link[=ale]{ale()}} function provides an 'auto' option for creating p-values, that option is disabled in \code{model_bootstrap()} because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in \code{help(create_p_dist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you run \code{model_bootstrap()} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
+The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values on every execution of \code{model_bootstrap()}. Although the \code{\link[=ALE]{ALE()}} function provides an 'auto' option for creating p-values, that option is disabled in \code{model_bootstrap()} because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in \code{help(create_p_dist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you run \code{model_bootstrap()} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
 }
 
 \examples{

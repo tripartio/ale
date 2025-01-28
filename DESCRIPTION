@@ -36,6 +36,7 @@ Imports:
     progressr,
     purrr,
     rlang,
+    S7,
     staccuracy,
     stats,
     stringr,

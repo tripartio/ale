@@ -9,7 +9,7 @@ test_that(
   'Parallelized versions do not crash', {
     # No bootstrap
     expect_no_error(
-      ale(
+      ALE(
         test_cars, test_gam,
         x_cols = list(list('cyl'), list('disp')),
         max_num_bins = 10,
@@ -20,7 +20,7 @@ test_that(
 
     # With bootstrap
     expect_no_error(
-      ale(
+      ALE(
         test_cars, test_gam,
         x_cols = list(list('cyl'), list('disp')),
         max_num_bins = 10,
@@ -38,7 +38,7 @@ test_that(
   'numeric outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars, test_gam,
       complete_d = 2,
       max_num_bins = 10,
@@ -62,7 +62,7 @@ test_that(
   'numeric outcome works with every parameter set to something, with mixed 1D-2D x datatypes', {
     skip_on_ci()
 
-    cars_1D_2D <- ale(
+    cars_1D_2D <- ALE(
       test_cars, test_gam,
       x_cols = list(
         'model',
@@ -107,7 +107,7 @@ test_that(
   'binary outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars, test_gam_binary,
       list(
         list('cyl', 'disp', 'gear', 'country'),
@@ -134,7 +134,7 @@ test_that(
   'binary outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars, test_gam_binary,
       list(
         list('cyl', 'disp', 'am', 'gear', 'country'),
@@ -169,7 +169,7 @@ test_that(
   'categorical outcome default works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
       list(
@@ -198,7 +198,7 @@ test_that(
   'categorical outcome with bootstrap works with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
       max_num_bins = 10,
@@ -228,7 +228,7 @@ test_that(
   'categorical outcome works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    cars_2D <- ale(
+    cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
       list(

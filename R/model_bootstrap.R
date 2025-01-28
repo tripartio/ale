@@ -6,9 +6,9 @@
 #'
 #' @description
 #' No modelling results, with or without ALE, should be considered reliable without
-#' being bootstrapped. For large datasets, normally the model provided to [ale()]
+#' being bootstrapped. For large datasets, normally the model provided to [ALE()]
 #' is the final deployment model that has been validated and evaluated on
-#' training and testing on subsets; that is why [ale()] is calculated on the full
+#' training and testing on subsets; that is why [ALE()] is calculated on the full
 #' dataset. However, when a dataset is too small to be subdivided into training
 #' and test sets for a standard machine learning process, then the entire model
 #' should be bootstrapped. That is, multiple models should be trained, one on
@@ -27,7 +27,7 @@
 #'  each of those values across all bootstrap samples.
 #'
 #' @section p-values:
-#'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values on every execution of `model_bootstrap()`. Although the [ale()] function provides an 'auto' option for creating p-values, that option is disabled in `model_bootstrap()` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(create_p_dist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you run `model_bootstrap()` by passing it the argument `ale_options = list(p_values = p_dist)`.
+#'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values on every execution of `model_bootstrap()`. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled in `model_bootstrap()` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(create_p_dist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you run `model_bootstrap()` by passing it the argument `ale_options = list(p_values = p_dist)`.
 #'
 #' @export
 #'
@@ -37,7 +37,7 @@
 #'
 #'
 #' @param data dataframe. Dataset that will be bootstrapped.
-#' @param model See documentation for [ale()]
+#' @param model See documentation for [ALE()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param model_call_string character string. If NULL, [model_bootstrap()] tries to
 #' automatically detect and construct the call for bootstrapped datasets. If it cannot, the
@@ -48,15 +48,15 @@
 # * y_col: name of y column in data. This would allow SD and MAD to be calculated.
 # * pred_fun,pred_type: allows the prediction function to be called; this would
 # allow bootstrapped RMSE, MAE, cross entropy, and AUC to be calculated.
-#' @param y_col,pred_fun,pred_type See documentation for [ale()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
+#' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
 #' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
 #' @param model_call_string_vars character. Character vector of names of variables
 #' included in `model_call_string` that are not columns in `data`.
 #' If any such variables exist, they must be specified here or else parallel processing
 #' will produce an error. If parallelization is disabled with `parallel = 0`,
 #' then this is not a concern.
-#' @param parallel See documentation for [ale()]
-#' @param model_packages See documentation for [ale()]
+#' @param parallel See documentation for [ALE()]
+#' @param model_packages See documentation for [ALE()]
 #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
 #' If boot_it = 0, then the model is run as normal once on the full `data` with
 #' no bootstrapping.
@@ -65,7 +65,7 @@
 #' @param boot_alpha numeric. The confidence level for the bootstrap confidence intervals is
 #' 1 - boot_alpha. For example, the default 0.05 will give a 95% confidence
 #' interval, that is, from the 2.5% to the 97.5% percentile.
-#' @param boot_centre See See documentation for [ale()]
+#' @param boot_centre See See documentation for [ALE()]
 #' @param output character vector. Which types of bootstraps to calculate and return:
 #' * 'ale': Calculate and return bootstrapped ALE data and plot.
 #' * 'model_stats': Calculate and return bootstrapped overall model statistics.
@@ -73,8 +73,8 @@
 #' * 'boot_data': Return full data for all bootstrap iterations. This data will always be calculated
 #' because it is needed for the bootstrap averages. By default, it is not returned
 #' except if included in this `output` argument.
-#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ale()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.
-#' @param silent See documentation for [ale()]
+#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.
+#' @param silent See documentation for [ALE()]
 #'
 #' @return list with the following elements (depending on values requested in the `output` argument:
 #' * `model_stats`: tibble of bootstrapped results from [broom::glance()]
@@ -87,12 +87,12 @@
 #'     * sa_rmse_sd: standardized accuracy of the RMSE referenced on the SD (bootstrap validated)
 #' * `model_coefs`: tibble of bootstrapped results from [broom::tidy()]
 #' * `ale`: list of bootstrapped ALE results
-#'   * `data`: ALE data (see [ale()] for details about the format)
+#'   * `data`: ALE data (see [ALE()] for details about the format)
 #'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
-#'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ale()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
+#'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ALE()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
 #'     * `by_stat` : term, estimate, conf.low, median, mean, conf.high.
 #'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
-#'   * `plots`: ALE plots (see [ale()] for details about the format)
+#'   * `plots`: ALE plots (see [ALE()] for details about the format)
 #' * `boot_data`: full bootstrap data (not returned by default)
 #' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that were originally passed are returned for reference.
 #'

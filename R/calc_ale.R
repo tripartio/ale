@@ -6,28 +6,28 @@
 #'
 #' This function is not exported. It is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
 #'
-#' For details about arguments not documented here, see [ale()].
+#' For details about arguments not documented here, see [ALE()].
 #'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. doi:10.48550/arXiv.2310.09877.
 #'
-#' @param data See documentation for [ale()]
+#' @param data See documentation for [ALE()]
 # @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
-#' @param model See documentation for [ale()]
+#' @param model See documentation for [ALE()]
 #' @param x_cols character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.
 #' @param y_col character(1). Name of the target y column.
 #' @param y_cats character. The categories of y. For most cases with non-categorical y, `y_cats == y_col`.
-#' @param pred_fun See documentation for [ale()]
-#' @param pred_type See documentation for [ale()]
-#' @param max_num_bins See documentation for [ale()]
-#' @param boot_it See documentation for [ale()]
-#' @param seed See documentation for [ale()]
-#' @param boot_alpha See documentation for [ale()]
-#' @param boot_centre See documentation for [ale()]
+#' @param pred_fun See documentation for [ALE()]
+#' @param pred_type See documentation for [ALE()]
+#' @param max_num_bins See documentation for [ALE()]
+#' @param boot_it See documentation for [ALE()]
+#' @param seed See documentation for [ALE()]
+#' @param boot_alpha See documentation for [ALE()]
+#' @param boot_centre See documentation for [ALE()]
 #' @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values. If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
 #' @param bins,ns numeric or ordinal vector,integer vector. Normally generated automatically (if `bins == NULL`), but if provided, the provided values will be used instead. They would mainly be provided from [model_bootstrap()].
-#' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ale()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
-#' @param p_dist See documentation for `p_values` in [ale()]
+#' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ALE()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
+#' @param p_dist See documentation for `p_values` in [ALE()]
 #'
 calc_ale <- function(
     data, model,
@@ -995,7 +995,7 @@ calc_ale <- function(
 #' @param x_type character(1). var_type() of x_col.
 #' @param x_vals vector. The values of x_col.
 #' @param bins,n  See documentation for [calc_ale()]
-#' @param max_num_bins See documentation for [ale()]
+#' @param max_num_bins See documentation for [ALE()]
 #' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
 #'
 prep_var_for_ale <- function(
