@@ -121,7 +121,7 @@ var_type <- function(var) {
 
 #' Cast (convert) the class of an object
 #'
-#' Currently assumes that the result object will ahve only one class.
+#' Currently assumes that the result object will have only one class.
 #'
 #' @param x An R object
 #' @param new_class character(1). A single class to which to convert `x`.

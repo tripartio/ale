@@ -15,5 +15,5 @@ cast(x, new_class)
 \code{x} converted to class \code{new_class}.
 }
 \description{
-Currently assumes that the result object will ahve only one class.
+Currently assumes that the result object will have only one class.
 }
