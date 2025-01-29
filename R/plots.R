@@ -49,9 +49,9 @@ S7::method(plot, ALE) <- function(
   rm(x)
 
   validate(
-    obj |> S7::S7_inherits(ALE) || obj |> inherits('ale_boot'),
+    obj |> S7::S7_inherits(ALE) || obj |> S7::S7_inherits(ModelBoot),
     # obj |> inherits('ale') || obj |> inherits('ale_boot'),
-    msg = '{.arg obj} must be a {.cls ale} or {.cls ale_boot} object.'
+    msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
   )
   validate(
     type %in% c('ale', 'effects'),
@@ -62,18 +62,20 @@ S7::method(plot, ALE) <- function(
     msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
   )
 
-  if (obj |> inherits('ale_boot')) {
+  if (obj |> S7::S7_inherits(ModelBoot)) {
+    # if (obj |> inherits('ale_boot')) {
     # Adapt ale_boot object to behave like a regular ale object
-    if (!is.null(obj$ale$boot)) {
+    # browser()
+    if (!is.null(obj@ale$boot)) {
       # Prefer plots based on the bootstrapped object, if available
-      alt_obj <- obj$ale$boot
-      alt_obj@params <- obj$ale$single$params
+      alt_obj <- obj@ale$boot
+      alt_obj@params <- obj@ale$single@params
 
       obj <- alt_obj
     }
     else {
       # Use the single object--it is simply an ale object already
-      obj <- obj$ale$single
+      obj <- obj@ale$single
     }
 
     # The default value for rug_sample_size assumes an ale object. So, ensure that a valid value is assigned for ale_boot objects.
@@ -231,19 +233,36 @@ S7::method(plot, ALE) <- function(
 
 
 
-#' plot method for `ale_boot` objects
+#' @name plot.ModelBoot
+#' @title plot method for `ModelBoot` objects
 #'
-#' @param x ale_boot object.
+#' @param x ModelBoot object.
 #' @param ... Arguments passed to [plot.ALE()]
 #'
-#' @method plot ale_boot
-#' @export
-plot.ale_boot <- function(
+#' @method plot ModelBoot
+S7::method(plot, ModelBoot) <- function(
+    # plot.ale_boot <- function(
     x,
     ...
 ) {
-  plot.ALE(x, ...)
+  getS3method("plot", "ale::ALE")(x, ...)
 }
+
+
+
+# #' plot method for `ale_boot` objects
+# #'
+# #' @param x ale_boot object.
+# #' @param ... Arguments passed to [plot.ALE()]
+# #'
+# #' @method plot ale_boot
+# #' @export
+# plot.ale_boot <- function(
+#     x,
+#     ...
+# ) {
+#   plot.ALE(x, ...)
+# }
 
 
 #' Plot method for ale_plots object

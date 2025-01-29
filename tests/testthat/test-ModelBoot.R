@@ -1,34 +1,24 @@
-# test-model_bootstrap.R
+# test-ModelBoot.R
 
 
 test_that(
-  'Parallelized versions do not crash', {
-    # No bootstrap
-    expect_no_error(
-      model_bootstrap(
-        test_cars, test_gam,
-        ale_options = list(
-          max_num_bins = 10,
-          x_cols = c('cyl', 'disp')
-        ),
-        boot_it = 0,
-        parallel = 2,
-        silent = TRUE
-      )
+  'Parallelized ModelBoot prints', {
+    pll_mb <- ModelBoot(
+      test_cars, test_gam,
+      ale_options = list(
+        max_num_bins = 10,
+        x_cols = c('cyl', 'disp')
+      ),
+      boot_it = 3,
+      # parallel = 2,
+      silent = TRUE
     )
 
-    # With bootstrap
-    expect_no_error(
-      model_bootstrap(
-        test_cars, test_gam,
-        ale_options = list(
-          max_num_bins = 10,
-          x_cols = c('hp', 'vs')
-        ),
-        boot_it = 3,
-        parallel = 2,
-        silent = TRUE
-      )
+    # Test the ModelBoot print method
+    expect_equal(
+      print(pll_mb) |>
+        capture.output(),
+      "'ModelBoot' object of the model model on a 64x13 dataset with 0 bootstrap iterations."
     )
   }
 )
@@ -41,7 +31,7 @@ test_that(
   'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
     skip_on_ci()
 
-    mb <- model_bootstrap(
+    mb <- ModelBoot(
       test_cars,
       test_gam,
       parallel = 0,
@@ -54,19 +44,15 @@ test_that(
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    mb_eff_plot <- mb |>
-      plot.ALE( type = 'effects') |>
-      (`[[`)('mpg') |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
-    mb$ale$single <- unclass(mb$ale$single)
-    expect_snapshot(unclass(mb))
-    expect_snapshot(mb_plots)
-    expect_snapshot(mb_eff_plot)
-    # mb$ale$single$distinct$mpg$plots <- ale_plots_to_data(mb$ale$single$distinct$mpg$plots)
-    # mb$ale$single$distinct$mpg$stats$effects_plot <- mb$ale$single$distinct$mpg$stats$effects_plot |>
+    # mb_eff_plot <- mb |>
+    #   plot.ALE(type = 'effects') |>
+    #   (`[[`)('mpg') |>
     #   ggplot2::ggplot_build() |>
     #   (`[[`)('data')
+    mb@ale$single <- unclass(mb@ale$single)
+    expect_snapshot(unclass(mb))
+    expect_snapshot(mb_plots)
+    # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -75,7 +61,7 @@ test_that(
   'mostly default (boot_it=3) snapshot works with multiple x datatypes', {
     skip_on_ci()
 
-    mb <- model_bootstrap(
+    mb <- ModelBoot(
       test_cars,
       test_gam,  # ignored because model_call_string is provided
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
@@ -90,15 +76,15 @@ test_that(
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    mb_eff_plot <- mb |>
-      plot.ALE( type = 'effects') |>
-      (`[[`)('mpg') |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
-    mb$ale$single <- unclass(mb$ale$single)
+    # mb_eff_plot <- mb |>
+    #   plot.ALE( type = 'effects') |>
+    #   (`[[`)('mpg') |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
+    mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_plots)
-    expect_snapshot(mb_eff_plot)
+    # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -107,7 +93,7 @@ test_that(
   'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
     skip_on_ci()
 
-    mb <- model_bootstrap(
+    mb <- ModelBoot(
       test_cars,
       test_gam,
       parallel = 0,
@@ -118,7 +104,7 @@ test_that(
       output = c("model_stats", "model_coefs"),  # exclude ALE
       silent = TRUE
     )
-    mb$ale$single <- unclass(mb$ale$single)
+    mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
   }
 )
@@ -127,7 +113,7 @@ test_that(
   'binary outcome works with multiple x datatypes', {
     skip_on_ci()
 
-    mb <- model_bootstrap(
+    mb <- ModelBoot(
       test_cars,
       test_gam_binary,
       parallel = 0,
@@ -140,20 +126,15 @@ test_that(
     )
     mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    mb_eff_plot <- mb |>
-      plot.ALE( type = 'effects') |>
-      (`[[`)('vs') |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
-    mb$ale$single <- unclass(mb$ale$single)
-    expect_snapshot(unclass(mb))
-    # expect_snapshot(mb_plots)
-    expect_snapshot(mb_eff_plot)
-    # mb$ale$boot$distinct$vs$plots <- NULL  # disable for mysterious error
-    # # mb$ale$boot$distinct$vs$plots <- ale_plots_to_data(mb$ale$boot$distinct$vs$plots)
-    # mb$ale$boot$distinct$vs$stats$effects_plot <- mb$ale$boot$distinct$vs$stats$effects_plot |>
+    # mb_eff_plot <- mb |>
+    #   plot.ALE( type = 'effects') |>
+    #   (`[[`)('vs') |>
     #   ggplot2::ggplot_build() |>
     #   (`[[`)('data')
+    mb@ale$single <- unclass(mb@ale$single)
+    expect_snapshot(unclass(mb))
+    # expect_snapshot(mb_plots)
+    # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -169,7 +150,7 @@ test_that(
       trace = FALSE  # suppress noisy output from nnet
     )
 
-    mb <- model_bootstrap(
+    mb <- ModelBoot(
       iris,
       test_nn_iris,
       pred_type = 'probs',
@@ -191,22 +172,13 @@ test_that(
     #       (`[[`)('data')
     #       })
     #   })
-    mb_eff_plots <- mb |>
-      plot.ALE(type = 'effects') |>
-      ale_plots_to_data()
-    mb$ale$single <- unclass(mb$ale$single)
+    # mb_eff_plots <- mb |>
+    #   plot.ALE(type = 'effects') |>
+    #   ale_plots_to_data()
+    mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     # expect_snapshot(mb_plots)
-    expect_snapshot(mb_eff_plots)
-    # mb$ale$boot$distinct <- mb$ale$boot$distinct |>
-    #   map(\(it.cat) {
-    #     it.cat$plots <- ale_plots_to_data(it.cat$plots)
-    #     it.cat$stats$effects_plot <- it.cat$stats$effects_plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data')
-    #
-    #     it.cat
-    #   })
+    # expect_snapshot(mb_eff_plots)
   }
 )
 

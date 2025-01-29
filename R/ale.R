@@ -1,8 +1,9 @@
-##' ale.R
-#'
-#' Core function for the ale package
-#'
+# ALE.R
+#
+# Core object of the ale package
 
+
+# ALE object ------------------
 
 ALE <- S7::new_class(
   'ALE',
@@ -11,10 +12,10 @@ ALE <- S7::new_class(
     params   = S7::class_list
   ),
 
-  #' @title Create and return ALE data, statistics, and plots
+  #' @title ALE data and statistics that describe a trained model
   #'
   #' @description
-  #' `ALE()` is the central function that manages the creation of ALE data. For details, see the introductory vignette for this package or the details and examples below.
+  #' An `ALE` object contains ALE data and statistics. For details, see [vignette('ale-intro')] or the details and examples below.
   #'
   #' @section Custom predict function:
   #' The calculation of ALE requires modifying several values of the original `data`. Thus, `ALE()` needs direct access to a `predict` function that work on `model`. By default, `ALE()` uses a generic default `predict` function of the form `predict(object, newdata, type)` with the default prediction type of 'response'. If, however, the desired prediction values are not generated with that format, the user must specify what they want. Most of the time, the only modification needed is to change the prediction type to some other value by setting the `pred_type` argument (e.g., to 'prob' to generated classification probabilities). But if the desired predictions need a different function signature, then the user must create a custom prediction function and pass it to `pred_fun`. The requirements for this custom function are:
@@ -32,7 +33,7 @@ ALE <- S7::new_class(
   #'
   #'
   #' @section ALE statistics:
-  #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`.
+  #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see [vignette('ale-statistics')].
   #'
   #'
   #' @section Parallel processing:
@@ -86,7 +87,7 @@ ALE <- S7::new_class(
   #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
   #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
   #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ALE` object to include the entire dataset).
-  #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the [model_bootstrap()] function).
+  #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
   #' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
   #'
   #'
@@ -937,5 +938,5 @@ ALE <- S7::new_class(
       distinct = ale_struc$distinct,
       params = params
     )
-  }
-)
+  }  # ALE constructor
+)  # ALE

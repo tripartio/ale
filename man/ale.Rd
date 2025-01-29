@@ -2,7 +2,7 @@
 % Please edit documentation in R/ALE.R
 \name{ALE}
 \alias{ALE}
-\title{Create and return ALE data, statistics, and plots}
+\title{ALE data and statistics that describe a trained model}
 \usage{
 ALE(
   data,
@@ -88,7 +88,7 @@ require it.}
 
 \item{min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{sample_size} rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the \code{max_num_bins} intervals will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{sample_size} to \code{Inf} (but that would enlarge the size of the \code{ALE} object to include the entire dataset).}
 
-\item{bins, ns}{list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see the \code{\link[=model_bootstrap]{model_bootstrap()}} function).}
+\item{bins, ns}{list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see \code{\link[=ModelBoot]{ModelBoot()}}).}
 
 \item{silent}{logical length 1, default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.}
 }
@@ -166,12 +166,7 @@ arguments to understand how these are determined.
 }
 }
 \description{
-\code{ALE()} is the central function that manages the creation of ALE data. For details, see the introductory vignette for this package or the details and examples below.
-}
-\details{
-ale.R
-
-Core function for the ale package
+An \code{ALE} object contains ALE data and statistics. For details, see \link{vignette('ale-intro')} or the details and examples below.
 }
 \section{Custom predict function}{
 
@@ -194,7 +189,7 @@ You can see an example below of a custom prediction function.
 
 \section{ALE statistics}{
 
-For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \code{vignette('ale-statistics')}.
+For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \link{vignette('ale-statistics')}.
 }
 
 \section{Parallel processing}{

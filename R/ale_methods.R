@@ -1,5 +1,5 @@
-# ale_methods.R
-# S3 methods for the ale object
+# ALE_methods.R
+# S7 methods for the ALE object
 
 #' @name print.ALE
 #' @title print Method for ALE object
@@ -13,10 +13,9 @@
 #' @return Invisibly returns `x`.
 #'
 #' @examples
-#' \dontrun{
-#' my_object <- structure(list(name = "Example", value = 42), class = "my_class")
-#' print(my_object)
-#' }
+#' lm_cars <- stats::lm(mpg ~ ., mtcars)
+#' ale_cars <- ALE(mtcars, lm_cars, parallel = 0)
+#' print(ale_cars)
 #'
 #' @method print ALE
 S7::method(print, ALE) <- function(x, ...) {
@@ -35,3 +34,5 @@ S7::method(print, ALE) <- function(x, ...) {
 
   invisible(x)
 }
+
+

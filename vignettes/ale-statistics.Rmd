@@ -121,7 +121,7 @@ If you forget to do that, the `{ale}` package will do it automatically for you w
 
 ## Full model bootstrap
 
-Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.html), we will carry out full model bootstrapping using the `model_bootstrap()` function. 
+Now we create a model and compute statistics on it. Because this is a [relatively small dataset](ale-small-datasets.html), we will carry out full model bootstrapping with a `ModelBoot` object. 
 
 First, we create a generalized additive model (GAM) so that we can capture non-linear relationships in the data.
 
@@ -150,7 +150,7 @@ The implication of this for p-values is that the distribution of the data must b
 
 As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The {ale} package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
-To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_dist()` function generates a `p_dist` object that can be run once for a given model-dataset pair. The `p_dist` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `model_bootstrap()` functions. For very large datasets, the process of generating the `p_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_dist()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
+To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_dist()` function generates a `p_dist` object that can be run once for a given model-dataset pair. The `p_dist` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `p_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_dist()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
 We now demonstrate how to create the `p_dist` object for our case.
 
@@ -170,12 +170,12 @@ We can now proceed to bootstrap the model for ALE analysis.
 
 ### Bootstrap the model with p-values
 
-By default, `model_bootstrap()` runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `model_bootstrap()` function speeds of the process significantly through parallel processing (implemented by default), but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
+By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `ModelBoot()` constructor speeds up the process significantly through parallel processing (implemented by default), but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
 ```{r model bootstrap}
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
-# mb_gam_math <- model_bootstrap(
+# mb_gam_math <- ModelBoot(
 #   math,
 #   gam_math,
 #   # Pass the p_dist object so that p-values will be generated
@@ -199,8 +199,8 @@ mb_gam_math$model_stats
 The names of the columns follow the `broom` package conventions:
 
 -   `name` is the specific overall model statistic described in the row.
--   `estimate` is the bootstrapped estimate of the statistic. It is the same as the bootstrap `mean` by default, though it can be set to the `median` with the `boot_centre` argument of `model_bootstrap()`. Regardless, both the `mean` and `median` estimates are always returned. The `estimate` column is provided for convenience since that is a standard name in the `broom` package.
--   `conf.low` and `conf.high` are the lower and upper confidence intervals respectively. `model_bootstrap()` defaults to a 95% confidence interval; this can be changed by setting the `boot_alpha` argument (the default is 0.05 for a 95% confidence interval).
+-   `estimate` is the bootstrapped estimate of the statistic. It is the same as the bootstrap `mean` by default, though it can be set to the `median` with the `boot_centre` argument of the `ModelBoot()` constructor. Regardless, both the `mean` and `median` estimates are always returned. The `estimate` column is provided for convenience since that is a standard name in the `broom` package.
+-   `conf.low` and `conf.high` are the lower and upper confidence intervals respectively. `ModelBoot` defaults to a 95% confidence interval; this can be changed by setting the `boot_alpha` argument of its constructor (the default is 0.05 for a 95% confidence interval).
 -   `sd` is the standard deviation of the bootstrapped estimate.
 
 Our focus, however, in this vignette is on the effects of individual variables. These are available in the `model_coefs` element of the model bootstrap object:
@@ -252,12 +252,12 @@ Of particular interest is the random variable `rand_norm`, whose average ALE app
 
 ### ALE plots without p-values
 
-Before we continue, let us take a brief detour to see what we get if we run `model_bootstrap()` without passing it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us run `model_bootstrap()` again, but this time, without p-values.
+Before we continue, let us take a brief detour to see what we get if we create a `ModelBoot` object without giving it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us create another `ModelBoot` object, but this time, one without p-values.
 
 ```{r model-bootstrap-without-p_dist, fig.width=7, fig.height=10}
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
-# mb_gam_no_p <- model_bootstrap(
+# mb_gam_no_p <- ModelBoot(
 #   math, 
 #   gam_math,
 #   # For the GAM model coefficients, show details of all variables, parametric or not

@@ -42,11 +42,11 @@ create_p_dist(
 
 \item{random_model_call_string}{character string. If NULL, \code{create_p_dist()} tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
 
-\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=model_bootstrap]{model_bootstrap()}}; their operation is very similar.}
+\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=ModelBoot]{ModelBoot()}}; their operation is very similar.}
 
 \item{y_col}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{binary_true_value}{See documentation for \code{\link[=model_bootstrap]{model_bootstrap()}}}
+\item{binary_true_value}{See documentation for \code{\link[=ModelBoot]{ModelBoot()}}}
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}.}
 

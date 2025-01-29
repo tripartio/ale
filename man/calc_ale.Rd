@@ -51,7 +51,7 @@ calc_ale(
 
 \item{boot_ale_y}{logical(1). If \code{TRUE}, return the bootstrap matrix of ALE y values. If \code{FALSE} (default) return NULL for the \code{boot_ale_y} element of the return value.}
 
-\item{bins, ns}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{bins == NULL}), but if provided, the provided values will be used instead. They would mainly be provided from \code{\link[=model_bootstrap]{model_bootstrap()}}.}
+\item{bins, ns}{numeric or ordinal vector,integer vector. Normally generated automatically (if \code{bins == NULL}), but if provided, the provided values will be used instead. They would mainly be provided from \code{\link[=ModelBoot]{ModelBoot()}}.}
 
 \item{ale_y_norm_funs}{list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to \code{\link[=ALE]{ALE()}}. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.}
 

@@ -10,6 +10,7 @@
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import staccuracy
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info

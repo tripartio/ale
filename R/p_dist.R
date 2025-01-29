@@ -49,9 +49,9 @@
 #' @param parallel See documentation for [ALE()]
 #' @param model_packages See documentation for [ALE()]
 #' @param random_model_call_string character string. If NULL, `create_p_dist()` tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
-#' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [model_bootstrap()]; their operation is very similar.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
 #' @param y_col See documentation for [ALE()]
-#' @param binary_true_value See documentation for [model_bootstrap()]
+#' @param binary_true_value See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()].
 #' @param output character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.
 #' @param rand_it non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.
