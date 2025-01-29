@@ -47,9 +47,9 @@ test_that(
     )
 
     car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    for (it.cat in names(car_2D_plots@distinct)) {
+      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -87,16 +87,17 @@ test_that(
     )
 
     cars_1D_2D_plots <- plot(cars_1D_2D)
-    cars_1D_2D_plots <- cars_1D_2D_plots$distinct$mpg$plots[[1]] |>
+    cars_1D_2D_plots <- cars_1D_2D_plots@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    for (it.cat in names(cars_1D_2D_plots$distinct)) {
-      cars_1D_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        cars_1D_2D_plots$distinct[[it.cat]]$plots[[2]] |>
-        map(\(it.x1) ale_plots_to_data(it.x1))
-    }
+    # for (it.cat in names(cars_1D_2D_plots$distinct)) {
+    #   cars_1D_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+    #     cars_1D_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+    #     map(\(it.x1) ale_plots_to_data(it.x1))
+    # }
 
     expect_snapshot(unclass(cars_1D_2D))
-    expect_snapshot(unclass(cars_1D_2D_plots))
+    expect_snapshot(cars_1D_2D_plots)
+    # expect_snapshot(unclass(cars_1D_2D_plots))
   }
 )
 
@@ -119,9 +120,9 @@ test_that(
     )
 
     car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    for (it.cat in names(car_2D_plots@distinct)) {
+      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -151,9 +152,9 @@ test_that(
     )
 
     car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    for (it.cat in names(car_2D_plots@distinct)) {
+      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -183,9 +184,9 @@ test_that(
     )
 
     car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    for (it.cat in names(car_2D_plots@distinct)) {
+      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -213,9 +214,9 @@ test_that(
     )
 
     car_2D_plots <- plot(cars_2D)
-    for (it.cat in names(car_2D_plots$distinct)) {
-      car_2D_plots$distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots$distinct[[it.cat]]$plots[[2]] |>
+    for (it.cat in names(car_2D_plots@distinct)) {
+      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
+        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 

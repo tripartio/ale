@@ -36,3 +36,21 @@ S7::method(print, ALE) <- function(x, ...) {
 }
 
 
+
+
+#' @name plot.ALE
+#' @title plot method for `ALE` objects
+#'
+#' @description
+#' This plot method simply calls the constructer for an `ALEPlots` object.
+#'
+#' @param x ALE object.
+#' @param ... Arguments passed to [ALEPlots()]
+#'
+#' @method plot ALE
+S7::method(plot, ALE) <- function(
+    x,
+    ...
+) {
+  ALEPlots(x, ...)
+}

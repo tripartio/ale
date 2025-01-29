@@ -116,7 +116,7 @@ ale_lm_attitude_2D <- ALE(
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
-# Create ale_plots object
+# Create an ALEPlots object
 attitude_plots <- plot(ale_lm_attitude_2D)
 attitude_2D_plots <- attitude_plots$distinct$rating$plots[[2]]
 # Print plots

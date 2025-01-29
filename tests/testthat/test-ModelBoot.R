@@ -18,7 +18,7 @@ test_that(
     expect_equal(
       print(pll_mb) |>
         capture.output(),
-      "'ModelBoot' object of the model model on a 64x13 dataset with 0 bootstrap iterations."
+      "'ModelBoot' object of the model model on a 64x13 dataset with 3 bootstrap iterations."
     )
   }
 )
@@ -42,7 +42,7 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     # mb_eff_plot <- mb |>
     #   plot.ALE(type = 'effects') |>
@@ -74,7 +74,7 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     # mb_eff_plot <- mb |>
     #   plot.ALE( type = 'effects') |>
@@ -124,7 +124,7 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)$distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     # mb_eff_plot <- mb |>
     #   plot.ALE( type = 'effects') |>

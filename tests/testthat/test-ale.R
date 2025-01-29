@@ -38,7 +38,7 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot(type = 'effects') |>
@@ -63,7 +63,7 @@ test_that(
       boot_it = 5,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot(type = 'effects') |>
@@ -102,7 +102,7 @@ test_that(
 
 
 
-Test binary outcomes ----------------
+# Test binary outcomes ----------------
 
 test_that(
   'binary outcome default works with multiple x datatypes', {
@@ -114,7 +114,7 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot( type = 'effects') |>
@@ -139,7 +139,7 @@ test_that(
       boot_it = 4,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
     car_eff_plot <- cars_ale |>
       plot( type = 'effects') |>
@@ -192,7 +192,7 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct |>
+    car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
         it.cat$plots[[1]] |>
           ale_plots_to_data()
@@ -220,7 +220,7 @@ test_that(
       boot_it = 3,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)$distinct |>
+    car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
         it.cat$plots[[1]] |>
           ale_plots_to_data()

@@ -29,3 +29,24 @@ S7::method(print, ModelBoot) <- function(x, ...) {
 
   invisible(x)
 }
+
+
+
+#' @name plot.ModelBoot
+#' @title plot method for `ModelBoot` objects
+#'
+#' @description
+#' This plot method simply calls the constructer for an `ALEPlots` object.
+#'
+#' @param x ModelBoot object.
+#' @param ... Arguments passed to [ALEPlots()]
+#'
+#' @method plot ModelBoot
+S7::method(plot, ModelBoot) <- function(
+    x,
+    ...
+) {
+  ALEPlots(x, ...)
+  # getS3method("plot", "ale::ALE")(x, ...)
+}
+

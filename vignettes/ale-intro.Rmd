@@ -128,17 +128,17 @@ ale_gam_diamonds <- ALE(
 
 By default, most core functions in the `{ale}` package use parallel processing. However, this requires explicit specification of the packages used to build the model, specified with the `model_packages` argument. (If parallelization is disabled with `parallel = 0`, then `model_packages` is not required.) See `help(ale)` for more details.
 
-To access the plot for a specific variable, we must first create an `ale_plots` object by calling the `plot()` method on the `ALE` object which generates `ggplot` objects with the full flexibility of {ggplot2}:
+To access the plot for a specific variable, we must first create an `ALEPlots` object by calling the `plot()` method on the `ALE` object which generates `ggplot` objects with the full flexibility of {ggplot2}:
 
 ```{r create-plots}
 # Print a plot by entering its reference
 diamonds_plots <- plot(ale_gam_diamonds)
 ```
 
-The plots object is somewhat complex, so it is easier to work with by using the following code to simplify it. (A future version of the ale package should simplify working directly with `ale_plots` objects.) 
+The `ALEPlots` object is somewhat complex, so it is easier to work with by using the following code to simplify it. (A future version of the `{ale}` package should simplify working directly with `ALEPlots` objects.) 
 
 ```{r simplify-1D-plots}
-# Extract one-way ALE plots from the ale_plots object
+# Extract one-way ALE plots from the ALEPlots object
 diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
 ```
 
@@ -202,10 +202,10 @@ ale_2D_gam_diamonds <- ALE(
 
 ```
 
-The `plot()` method similarly creates 2D ALE plots from the `ALE` object. However, the structure is slightly more complex because of the two levels of interacting variables in the output data. As before, we first create plots from the `ALE` object and then we extract the 2D plots from this `ale_plots` object:
+The `plot()` method similarly creates 2D ALE plots from the `ALE` object. However, the structure is slightly more complex because of the two levels of interacting variables in the output data. As before, we first create plots from the `ALE` object and then we extract the 2D plots from this `ALEPlots` object:
 
 ```{r simplify-2D-plots}
-# Extract two-way ALE plots from the ale_plots object
+# Extract two-way ALE plots from the ALEPlots object
 diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
 diamonds_2D_plots <- diamonds_2D_plots$distinct$price$plots[[2]]
 ```
