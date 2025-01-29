@@ -150,14 +150,14 @@ The implication of this for p-values is that the distribution of the data must b
 
 As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The {ale} package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
-To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), the `create_p_dist()` function generates a `p_dist` object that can be run once for a given model-dataset pair. The `p_dist` object contains functions that can generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `p_dist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `create_p_dist()` function will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
+To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), we can create a `ALEpDist` object that can be run once for a given model-dataset pair. The `ALEpDist` object is used ton generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `ALEpDist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `ALEpDist()` constructor will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
-We now demonstrate how to create the `p_dist` object for our case.
+We now demonstrate how to create the `ALEpDist` object for our case.
 
-```{r p_dist}
+```{r ALEpDist}
 # # To generate the code, uncomment the following lines.
-# # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ale_p object.
-# gam_math_p_dist <- create_p_dist(
+# # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.
+# gam_math_p_dist <- ALEpDist(
 #   math,
 #   gam_math
 # )
@@ -178,7 +178,7 @@ By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be cont
 # mb_gam_math <- ModelBoot(
 #   math,
 #   gam_math,
-#   # Pass the p_dist object so that p-values will be generated
+#   # Pass the ALEpDist object so that p-values will be generated
 #   ale_options = list(p_values = gam_math_p_dist),
 #   # For the GAM model coefficients, show details of all variables, parametric or not
 #   tidy_options = list(parametric = TRUE),
@@ -252,9 +252,9 @@ Of particular interest is the random variable `rand_norm`, whose average ALE app
 
 ### ALE plots without p-values
 
-Before we continue, let us take a brief detour to see what we get if we create a `ModelBoot` object without giving it a `p_dist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `p_dist` object. Let us create another `ModelBoot` object, but this time, one without p-values.
+Before we continue, let us take a brief detour to see what we get if we create a `ModelBoot` object without giving it a `ALEpDist` object. This might be because we forget to do so, or because we want to see quick results without the slow process of first generating a `ALEpDist` object. Let us create another `ModelBoot` object, but this time, one without p-values.
 
-```{r model-bootstrap-without-p_dist, fig.width=7, fig.height=10}
+```{r model-bootstrap-without-p, fig.width=7, fig.height=10}
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
 # mb_gam_no_p <- ModelBoot(

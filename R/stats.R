@@ -298,7 +298,8 @@ var_summary <- function(
     p_alpha = c(0.01, 0.05)
 ) {
   if (!is.null(p_dist)) {
-    rand_stats <- p_dist$rand_stats
+    rand_stats <- p_dist@rand_stats
+    # rand_stats <- p_dist$rand_stats
   }
 
   # Convert vector to matrix

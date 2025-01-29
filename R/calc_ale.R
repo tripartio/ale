@@ -874,7 +874,8 @@ calc_ale <- function(
                 .data$estimate, .data$statistic,
                 \(it.stat, it.stat_name) {
                   # Call the p_value function corresponding to the named statistic
-                  p_dist$rand_stats[[it.cat]] |>
+                  p_dist@rand_stats[[it.cat]] |>
+                    # p_dist$rand_stats[[it.cat]] |>
                     value_to_p(it.stat_name, it.stat)
                 })
             ) |>

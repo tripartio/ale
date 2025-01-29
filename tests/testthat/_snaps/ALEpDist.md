@@ -1,10 +1,21 @@
-# create_p_dist works with default inputs (approx fast) on ale()
+# ALEpDist works with default inputs (approx fast) on ALE()
 
     Code
       unclass(pd)
     Output
-      $rand_stats
-      $rand_stats$mpg
+      <object>
+      attr(,"S7_class")
+      <ale::ALEpDist> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output, rand_it, seed, silent, .testing_mode) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ rand_stats           : <list>            
+       $ residual_distribution: S3<univariateML>  
+       $ rand_it_ok           : <integer>         
+       $ residuals            : <double> or <NULL>
+      attr(,"rand_stats")
+      attr(,"rand_stats")$mpg
       # A tibble: 4 x 6
              aled  aler_min aler_max naled naler_min naler_max
             <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -13,26 +24,32 @@
       3 0.000514  -0.00206  0.00152  0          0         0   
       4 0.00233   -0.00774  0.0109   0.366     -1.56      1.56
       
-      
-      $residual_distribution
+      attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      
-      $rand_it_ok
+      attr(,"rand_it_ok")
       [1] 4
-      
 
 ---
 
     Code
       unclass(cars_ale)
     Output
-      $distinct
-      $distinct$mpg
-      $distinct$mpg$ale
-      $distinct$mpg$ale[[1]]
-      $distinct$mpg$ale[[1]]$model
+      <object>
+      attr(,"S7_class")
+      <ale::ALE> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, x_cols, y_col, ..., complete_d, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ distinct: <list>
+       $ params  : <list>
+      attr(,"distinct")
+      attr(,"distinct")$mpg
+      attr(,"distinct")$mpg$ale
+      attr(,"distinct")$mpg$ale[[1]]
+      attr(,"distinct")$mpg$ale[[1]]$model
       # A tibble: 32 x 7
          model.bin              .n     .y   .y_lo .y_mean .y_median .y_hi
          <ord>               <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -48,7 +65,7 @@
       10 Merc 450SLC             2 -25.6  -42.0    -25.6     -29.1  -3.06
       # i 22 more rows
       
-      $distinct$mpg$ale[[1]]$cyl
+      attr(,"distinct")$mpg$ale[[1]]$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -60,7 +77,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      $distinct$mpg$ale[[1]]$disp
+      attr(,"distinct")$mpg$ale[[1]]$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -75,7 +92,7 @@
        9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      $distinct$mpg$ale[[1]]$hp
+      attr(,"distinct")$mpg$ale[[1]]$hp
       # A tibble: 10 x 7
          hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -90,7 +107,7 @@
        9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
       10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      $distinct$mpg$ale[[1]]$drat
+      attr(,"distinct")$mpg$ale[[1]]$drat
       # A tibble: 10 x 7
          drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -105,7 +122,7 @@
        9      4.21     7  0.671   0.671   0.671     0.671   0.671 
       10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      $distinct$mpg$ale[[1]]$wt
+      attr(,"distinct")$mpg$ale[[1]]$wt
       # A tibble: 10 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -120,7 +137,7 @@
        9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
       10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      $distinct$mpg$ale[[1]]$qsec
+      attr(,"distinct")$mpg$ale[[1]]$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -135,21 +152,21 @@
        9      20       7  4.54   4.54    4.54      4.54   4.54 
       10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      $distinct$mpg$ale[[1]]$vs
+      attr(,"distinct")$mpg$ale[[1]]$vs
       # A tibble: 2 x 7
         vs.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36  0.414 -0.217   0.414     0.129 1.53 
       2 TRUE      28 -0.532 -1.95   -0.532    -0.166 0.269
       
-      $distinct$mpg$ale[[1]]$am
+      attr(,"distinct")$mpg$ale[[1]]$am
       # A tibble: 2 x 7
         am.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -0.490 -1.53   -0.490   -0.307  0.236
       2 TRUE      26  0.487 -0.533   0.487    0.0668 2.22 
       
-      $distinct$mpg$ale[[1]]$gear
+      attr(,"distinct")$mpg$ale[[1]]$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -157,7 +174,7 @@
       2 four        24 -1.16  -1.76    -1.16     -1.07  -0.698
       3 five        10  0.521 -0.0278   0.521     0.571  0.985
       
-      $distinct$mpg$ale[[1]]$carb
+      attr(,"distinct")$mpg$ale[[1]]$carb
       # A tibble: 5 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -167,7 +184,7 @@
       4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
       5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      $distinct$mpg$ale[[1]]$country
+      attr(,"distinct")$mpg$ale[[1]]$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -178,7 +195,7 @@
       5 Germany        16  3.11  -1.52    3.11      3.59   6.92
       6 USA            24  5.52   1.98    5.52      5.41   9.27
       
-      $distinct$mpg$ale[[1]]$continent
+      attr(,"distinct")$mpg$ale[[1]]$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
@@ -188,10 +205,10 @@
       
       
       
-      $distinct$mpg$stats
-      $distinct$mpg$stats[[1]]
-      $distinct$mpg$stats[[1]]$by_term
-      $distinct$mpg$stats[[1]]$by_term$model
+      attr(,"distinct")$mpg$stats
+      attr(,"distinct")$mpg$stats[[1]]
+      attr(,"distinct")$mpg$stats[[1]]$by_term
+      attr(,"distinct")$mpg$stats[[1]]$by_term$model
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -202,7 +219,7 @@
       5 naler_min   -48.5        0 -50      -48.5  -50       -44.4 
       6 naler_max    27.7        0  -3.45    27.7   33.3      49.1 
       
-      $distinct$mpg$stats[[1]]$by_term$cyl
+      attr(,"distinct")$mpg$stats[[1]]$by_term$cyl
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -213,7 +230,7 @@
       5 naler_min   0          1     0       0       0         0     
       6 naler_max   0          0.5   0       0       0         0     
       
-      $distinct$mpg$stats[[1]]$by_term$disp
+      attr(,"distinct")$mpg$stats[[1]]$by_term$disp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -224,7 +241,7 @@
       5 naler_min   -40.9        0   -40.9  -40.9  -40.9     -40.9 
       6 naler_max    28.8        0    28.8   28.8   28.8      28.8 
       
-      $distinct$mpg$stats[[1]]$by_term$hp
+      attr(,"distinct")$mpg$stats[[1]]$by_term$hp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -235,7 +252,7 @@
       5 naler_min   -19.7        0   -19.7  -19.7  -19.7     -19.7 
       6 naler_max    22.7        0    22.7   22.7   22.7      22.7 
       
-      $distinct$mpg$stats[[1]]$by_term$drat
+      attr(,"distinct")$mpg$stats[[1]]$by_term$drat
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -246,7 +263,7 @@
       5 naler_min   -7.58        0   -7.58  -7.58  -7.58     -7.58 
       6 naler_max    7.58        0    7.58   7.58   7.58      7.58 
       
-      $distinct$mpg$stats[[1]]$by_term$wt
+      attr(,"distinct")$mpg$stats[[1]]$by_term$wt
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -257,7 +274,7 @@
       5 naler_min   -50          0   -50    -50    -50       -50   
       6 naler_max    34.8        0    34.8   34.8   34.8      34.8 
       
-      $distinct$mpg$stats[[1]]$by_term$qsec
+      attr(,"distinct")$mpg$stats[[1]]$by_term$qsec
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -268,7 +285,7 @@
       5 naler_min   -43.9        0   -43.9  -43.9  -43.9     -43.9 
       6 naler_max    37.9        0    37.9   37.9   37.9      37.9 
       
-      $distinct$mpg$stats[[1]]$by_term$vs
+      attr(,"distinct")$mpg$stats[[1]]$by_term$vs
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -279,7 +296,7 @@
       5 naler_min   -5.30        0  -15.8   -5.30  -2.27     0     
       6 naler_max    3.03        0   -3.86   3.03   4.55     7.35  
       
-      $distinct$mpg$stats[[1]]$by_term$am
+      attr(,"distinct")$mpg$stats[[1]]$by_term$am
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -290,7 +307,7 @@
       5 naler_min   -5.68        0  -13.2   -5.68  -6.82      3.75 
       6 naler_max    4.17        0   -5.95   4.17   0.758    20.1  
       
-      $distinct$mpg$stats[[1]]$by_term$gear
+      attr(,"distinct")$mpg$stats[[1]]$by_term$gear
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
@@ -301,7 +318,7 @@
       5 naler_min  -10.2         0  -13.5   -10.2   -9.85     -7.58 
       6 naler_max    6.06        0    4.55    6.06   6.06      7.58 
       
-      $distinct$mpg$stats[[1]]$by_term$carb
+      attr(,"distinct")$mpg$stats[[1]]$by_term$carb
       # A tibble: 6 x 7
         statistic estimate p.value conf.low     mean   median conf.high
         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -312,7 +329,7 @@
       5 naler_min  0           1    0        0        0         0      
       6 naler_max  0           0.5  0        0        0         0      
       
-      $distinct$mpg$stats[[1]]$by_term$country
+      attr(,"distinct")$mpg$stats[[1]]$by_term$country
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -323,7 +340,7 @@
       5 naler_min   -7.20        0   -22.0  -7.20  -6.82       7.01
       6 naler_max   28.4         0    13.4  28.4   31.8       37.7 
       
-      $distinct$mpg$stats[[1]]$by_term$continent
+      attr(,"distinct")$mpg$stats[[1]]$by_term$continent
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -335,8 +352,8 @@
       6 naler_max    4.55        0   -3.86    4.55    4.55      13.0 
       
       
-      $distinct$mpg$stats[[1]]$by_stat
-      $distinct$mpg$stats[[1]]$by_stat$aled
+      attr(,"distinct")$mpg$stats[[1]]$by_stat
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$aled
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -354,7 +371,7 @@
       12 country    4.44          0  1.72     4.44     4.24      7.48   
       13 continent  0.914         0  0.422    0.914    0.707     1.76   
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_min
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$aler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -372,7 +389,7 @@
       12 country    -0.999        0  -3.38    -0.999   -0.859     1.15  
       13 continent  -2.17         0  -3.91    -2.17    -1.80     -1.07  
       
-      $distinct$mpg$stats[[1]]$by_stat$aler_max
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$aler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -390,7 +407,7 @@
       12 country     5.53         0   1.98   5.53   5.41      9.27  
       13 continent   0.685        0  -0.217  0.685  0.452     1.98  
       
-      $distinct$mpg$stats[[1]]$by_stat$naled
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$naled
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -408,7 +425,7 @@
       12 country      24.4      0      12.5  24.4   25.7      34.0 
       13 continent     7.88     0       3.66  7.88   7.10     13.4 
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_min
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$naler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -426,7 +443,7 @@
       12 country      -7.20       0   -22.0   -7.20  -6.82      7.01
       13 continent   -16.3        0   -29.1  -16.3  -13.6      -8.03
       
-      $distinct$mpg$stats[[1]]$by_stat$naler_max
+      attr(,"distinct")$mpg$stats[[1]]$by_stat$naler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -445,7 +462,7 @@
       13 continent     4.55     0      -3.86  4.55  4.55      13.0 
       
       
-      $distinct$mpg$stats[[1]]$estimate
+      attr(,"distinct")$mpg$stats[[1]]$estimate
       # A tibble: 13 x 7
          term          aled aler_min aler_max naled naler_min naler_max
          <chr>        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -466,15 +483,14 @@
       
       
       
-      
-      $params
-      $params$max_d
+      attr(,"params")
+      attr(,"params")$max_d
       [1] 1
       
-      $params$y_cats
+      attr(,"params")$y_cats
       [1] "mpg"
       
-      $params$y_summary
+      attr(,"params")$y_summary
                     mpg
       p         0.05000
       min      10.39108
@@ -502,11 +518,11 @@
       99%      33.84876
       max      33.84876
       
-      $params$data
-      $params$data$name
+      attr(,"params")$data
+      attr(,"params")$data$name
       [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
       
-      $params$data$data_sample
+      attr(,"params")$data$data_sample
       # A tibble: 64 x 14
          model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
          <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
@@ -523,7 +539,7 @@
       # i 54 more rows
       # i 2 more variables: country <fct>, continent <fct>
       
-      $params$data$y_vals_sample
+      attr(,"params")$data$y_vals_sample
                  mpg
        [1,] 21.00000
        [2,] 21.00000
@@ -590,124 +606,123 @@
       [63,] 14.95210
       [64,] 21.39233
       
-      $params$data$nrow
+      attr(,"params")$data$nrow
       [1] 64
       
       
-      $params$model
-      $params$model$name
+      attr(,"params")$model
+      attr(,"params")$model$name
       [1] "test_gam"
       
-      $params$model$call
+      attr(,"params")$model$call
       [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
       
-      $params$model$print
+      attr(,"params")$model$print
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
       
-      $params$model$summary
+      attr(,"params")$model$summary
       [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
       
       
-      $params$x_cols
-      $params$x_cols[[1]]
+      attr(,"params")$x_cols
+      attr(,"params")$x_cols[[1]]
        [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
        [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
       [13] "continent"
       
-      $params$x_cols[[2]]
+      attr(,"params")$x_cols[[2]]
       list()
       
       
-      $params$y_col
+      attr(,"params")$y_col
       [1] "mpg"
       
-      $params$complete_d
+      attr(,"params")$complete_d
       [1] 1
       
-      $params$parallel
+      attr(,"params")$parallel
       [1] 0
       
-      $params$model_packages
+      attr(,"params")$model_packages
       NULL
       
-      $params$output
+      attr(,"params")$output
       [1] "stats"
       
-      $params$pred_fun
+      attr(,"params")$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
       
-      $params$pred_type
+      attr(,"params")$pred_type
       [1] "response"
       
-      $params$p_values
-      $rand_stats
-      $rand_stats$mpg
-      # A tibble: 4 x 6
-             aled  aler_min aler_max naled naler_min naler_max
-            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.0000560 -0.000317 0.000205 0          0         0   
-      2 0.00239   -0.00711  0.00898  0.537     -1.56      1.56
-      3 0.000514  -0.00206  0.00152  0          0         0   
-      4 0.00233   -0.00774  0.0109   0.366     -1.56      1.56
+      attr(,"params")$p_values
+      <ale::ALEpDist>
+       @ rand_stats           :List of 1
+       .. $ mpg: tibble [4 x 6] (S3: tbl_df/tbl/data.frame)
+       ..  ..$ aled     : num [1:4] 0.000056 0.002385 0.000514 0.002325
+       ..  ..$ aler_min : num [1:4] -0.000317 -0.007115 -0.002059 -0.007737
+       ..  ..$ aler_max : num [1:4] 0.000205 0.008979 0.001518 0.010923
+       ..  ..$ naled    : num [1:4] 0 0.537 0 0.366
+       ..  ..$ naler_min: num [1:4] 0 -1.56 0 -1.56
+       ..  ..$ naler_max: num [1:4] 0 1.56 0 1.56
+       @ residual_distribution: 'univariateML' Named num [1:2] 1.52e-12 1.48e-03
+       .. - attr(*, "logLik")= num 309
+       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
+       .. - attr(*, "n")= int 64
+       .. - attr(*, "model")= chr "Laplace"
+       .. - attr(*, "density")= chr "extraDistr::dlaplace"
+       .. - attr(*, "support")= num [1:2] -Inf Inf
+       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
+       .. - attr(*, "default")= num [1:2] 0 1
+       .. - attr(*, "continuous")= logi TRUE
+       @ rand_it_ok           : int 4
+       @ residuals            : NULL
       
-      
-      $residual_distribution
-      Maximum likelihood estimates for the Laplace model 
-             mu      sigma  
-      1.524e-12  1.479e-03  
-      
-      $rand_it_ok
-      [1] 4
-      
-      attr(,"class")
-      [1] "ale_p"
-      
-      $params$p_alpha
+      attr(,"params")$p_alpha
       [1] 0.01 0.05
       
-      $params$max_num_bins
+      attr(,"params")$max_num_bins
       [1] 10
       
-      $params$boot_it
+      attr(,"params")$boot_it
       [1] 3
       
-      $params$seed
+      attr(,"params")$seed
       [1] 0
       
-      $params$boot_alpha
+      attr(,"params")$boot_alpha
       [1] 0.05
       
-      $params$boot_centre
+      attr(,"params")$boot_centre
       [1] "mean"
       
-      $params$y_type
+      attr(,"params")$y_type
       [1] "numeric"
       
-      $params$median_band_pct
+      attr(,"params")$median_band_pct
       [1] 0.05 0.50
       
-      $params$sample_size
+      attr(,"params")$sample_size
       [1] 500
       
-      $params$min_rug_per_interval
+      attr(,"params")$min_rug_per_interval
       [1] 1
       
-      $params$bins
+      attr(,"params")$bins
       NULL
       
-      $params$ns
+      attr(,"params")$ns
       NULL
       
-      $params$silent
+      attr(,"params")$silent
       [1] TRUE
-      
       
 
 ---
 
     Code
       unclass(set_names(map(stats_names, function(.stat) {
-        value_to_p(pd$rand_stats$mpg, .stat, test_vals)
+        value_to_p(pd@rand_stats$mpg, .stat, test_vals)
       }), stats_names))
     Output
       $aled
@@ -729,13 +744,24 @@
        [1] 1.0 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.0 0.0
       
 
-# create_p_dist works with precise slow
+# ALEpDist works with precise slow
 
     Code
       unclass(pd)
     Output
-      $rand_stats
-      $rand_stats$mpg
+      <object>
+      attr(,"S7_class")
+      <ale::ALEpDist> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output, rand_it, seed, silent, .testing_mode) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ rand_stats           : <list>            
+       $ residual_distribution: S3<univariateML>  
+       $ rand_it_ok           : <integer>         
+       $ residuals            : <double> or <NULL>
+      attr(,"rand_stats")
+      attr(,"rand_stats")$mpg
       # A tibble: 10 x 6
               aled  aler_min aler_max naled naler_min naler_max
              <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -750,16 +776,13 @@
        9 0.00261   -0.0127   0.00767  0.610     -1.56      1.56
       10 0.00377   -0.0137   0.0119   0.757     -1.56      1.56
       
-      
-      $residual_distribution
+      attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      
-      $rand_it_ok
+      attr(,"rand_it_ok")
       [1] 10
-      
-      $residuals
+      attr(,"residuals")
                       mpg
        [1,]  2.076210e-03
        [2,] -2.146996e-03
@@ -825,13 +848,12 @@
       [62,]  4.459260e-04
       [63,] -8.025594e-04
       [64,] -4.463587e-04
-      
 
 ---
 
     Code
       unclass(set_names(map(stats_names, function(.stat) {
-        p_to_random_value(pd$rand_stats$mpg, .stat, test_p)
+        p_to_random_value(pd@rand_stats$mpg, .stat, test_p)
       }), stats_names))
     Output
       $aled
@@ -865,13 +887,24 @@
       1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 0.0000 
       
 
-# create_p_dist works with custom random_model_call_string
+# ALEpDist works with custom random_model_call_string
 
     Code
       unclass(pd)
     Output
-      $rand_stats
-      $rand_stats$mpg
+      <object>
+      attr(,"S7_class")
+      <ale::ALEpDist> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output, rand_it, seed, silent, .testing_mode) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ rand_stats           : <list>            
+       $ residual_distribution: S3<univariateML>  
+       $ rand_it_ok           : <integer>         
+       $ residuals            : <double> or <NULL>
+      attr(,"rand_stats")
+      attr(,"rand_stats")$mpg
       # A tibble: 4 x 6
            aled aler_min aler_max naled naler_min naler_max
           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -880,16 +913,13 @@
       3 0.0352   -0.141    0.104   1.76     -1.56      3.12
       4 0.0212   -0.0706   0.0997  1.56     -1.56      3.12
       
-      
-      $residual_distribution
+      attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      
-      $rand_it_ok
+      attr(,"rand_it_ok")
       [1] 4
-      
-      $residuals
+      attr(,"residuals")
                       mpg
        [1,]  2.076210e-03
        [2,] -2.146996e-03
@@ -955,15 +985,25 @@
       [62,]  4.459260e-04
       [63,] -8.025594e-04
       [64,] -4.463587e-04
-      
 
-# create_p_dist works with binary outcome
+# ALEpDist works with binary outcome
 
     Code
       unclass(pd)
     Output
-      $rand_stats
-      $rand_stats$vs
+      <object>
+      attr(,"S7_class")
+      <ale::ALEpDist> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output, rand_it, seed, silent, .testing_mode) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ rand_stats           : <list>            
+       $ residual_distribution: S3<univariateML>  
+       $ rand_it_ok           : <integer>         
+       $ residuals            : <double> or <NULL>
+      attr(,"rand_stats")
+      attr(,"rand_stats")$vs
       # A tibble: 4 x 6
          aled aler_min aler_max naled naler_min naler_max
         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -972,23 +1012,31 @@
       3     0        0        0     0         0         0
       4     0        0        0     0         0         0
       
-      
-      $residual_distribution
+      attr(,"residual_distribution")
       Maximum likelihood estimates for the Uniform model 
              min         max  
       -3.926e-13   3.926e-13  
-      
-      $rand_it_ok
+      attr(,"rand_it_ok")
       [1] 4
-      
 
-# create_p_dist works with categorical outcome
+# ALEpDist works with categorical outcome
 
     Code
       unclass(pd)
     Output
-      $rand_stats
-      $rand_stats$Asia
+      <object>
+      attr(,"S7_class")
+      <ale::ALEpDist> class
+      @ parent     : <S7_object>
+      @ constructor: function(data, model, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output, rand_it, seed, silent, .testing_mode) {...}
+      @ validator  : <NULL>
+      @ properties :
+       $ rand_stats           : <list>            
+       $ residual_distribution: S3<univariateML>  
+       $ rand_it_ok           : <integer>         
+       $ residuals            : <double> or <NULL>
+      attr(,"rand_stats")
+      attr(,"rand_stats")$Asia
       # A tibble: 4 x 6
          aled aler_min aler_max naled naler_min naler_max
         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -997,7 +1045,7 @@
       3     0        0        0     0         0         0
       4     0        0        0     0         0         0
       
-      $rand_stats$Europe
+      attr(,"rand_stats")$Europe
       # A tibble: 4 x 6
          aled aler_min aler_max naled naler_min naler_max
         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -1006,7 +1054,7 @@
       3     0        0        0     0         0         0
       4     0        0        0     0         0         0
       
-      $rand_stats$`North America`
+      attr(,"rand_stats")$`North America`
       # A tibble: 4 x 6
          aled aler_min aler_max naled naler_min naler_max
         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -1015,13 +1063,10 @@
       3     0        0        0     0         0         0
       4     0        0        0     0         0         0
       
-      
-      $residual_distribution
+      attr(,"residual_distribution")
       Maximum likelihood estimates for the Normal model 
             mean          sd  
       -7.759e-19   2.898e-17  
-      
-      $rand_it_ok
+      attr(,"rand_it_ok")
       [1] 4
-      
 

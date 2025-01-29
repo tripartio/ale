@@ -3,10 +3,10 @@
 
 
 test_that(
-  'create_p_dist works with default inputs (approx fast) on ALE()', {
+  'ALEpDist works with default inputs (approx fast) on ALE()', {
     skip_on_ci()
 
-    pd <- create_p_dist(
+    pd <- ALEpDist(
       test_cars,
       test_gam,
       # disable parallelization for testing
@@ -28,13 +28,13 @@ test_that(
 
     # Verify that value_to_p() gives the expected output (verify p_to_random_value() in the next test)
     test_vals <- c(-4, -2, -0.1, -0.05, 0, 0.05, 0.1, 0.5, 1, 2, 4)
-    stats_names <- pd$rand_stats$mpg |>
+    stats_names <- pd@rand_stats$mpg |>
       names()
 
     expect_snapshot(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
-          value_to_p(pd$rand_stats$mpg, .stat, test_vals)
+          value_to_p(pd@rand_stats$mpg, .stat, test_vals)
         }) |>
         set_names(stats_names)
     ))
@@ -49,10 +49,10 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with precise slow', {
+  'ALEpDist works with precise slow', {
     skip_on_ci()
 
-    pd <- create_p_dist(
+    pd <- ALEpDist(
       test_cars,
       test_gam,
       rand_it = 10,
@@ -73,13 +73,13 @@ test_that(
 
     # Verify that p_to_random_value() gives the expected output (verified value_to_p() in the previous test)
     test_p <- c(0, 0.001, 0.01, 0.01, 0.05, 0.1, 0.5, 1)
-    stats_names <- pd$rand_stats$mpg |>
+    stats_names <- pd@rand_stats$mpg |>
       names()
 
     expect_snapshot(unclass(
       stats_names |>  # iterate the statistics by name
         map(\(.stat) {
-          p_to_random_value(pd$rand_stats$mpg, .stat, test_p)
+          p_to_random_value(pd@rand_stats$mpg, .stat, test_p)
         }) |>
         set_names(stats_names)
     ))
@@ -97,10 +97,10 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with custom random_model_call_string', {
+  'ALEpDist works with custom random_model_call_string', {
     skip_on_ci()
 
-    pd <- create_p_dist(
+    pd <- ALEpDist(
       test_cars,
       test_gam,
       random_model_call_string = 'mgcv::gam(
@@ -135,10 +135,10 @@ test_that(
 
 
 test_that(
-  'create_p_dist works with binary outcome', {
+  'ALEpDist works with binary outcome', {
     skip_on_ci()
 
-    pd <- create_p_dist(
+    pd <- ALEpDist(
       test_cars,
       test_gam_binary,
       parallel = 0,  # disable parallelization for testing
@@ -163,10 +163,10 @@ test_that(
 )
 
 test_that(
-  'create_p_dist works with categorical outcome', {
+  'ALEpDist works with categorical outcome', {
     skip_on_ci()
 
-    pd <- create_p_dist(
+    pd <- ALEpDist(
       test_cars,
       test_nn_categorical,
       pred_type = 'probs',

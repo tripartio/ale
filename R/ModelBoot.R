@@ -29,7 +29,7 @@ ModelBoot <- S7::new_class(
   #' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
   #'
   #' @section p-values:
-  #'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a `ModelBoot` object is created. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled when creating a `ModelBoot` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(create_p_dist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you create a `ModelBoot` by passing it the argument `ale_options = list(p_values = p_dist)`.
+  #'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a `ModelBoot` object is created. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled when creating a `ModelBoot` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(-ALEpDist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you create a `ModelBoot` by passing it the argument `ale_options = list(p_values = p_dist)`.
   #'
   #' @export
   #'
@@ -1038,7 +1038,7 @@ ModelBoot <- S7::new_class(
               ) |>
               select('term', 'statistic', 'estimate', everything())
 
-            # If an ale_p object was passed, calculate p-values
+            # If an ALEpDist object was passed, calculate p-values
             if (rownames(full_ale@params$y_summary)[1] == 'p') {
             # if (rownames(full_ale$params$y_summary)[1] == 'p') {
               it.cat_estimate_btits <- it.cat_estimate_btits |>
