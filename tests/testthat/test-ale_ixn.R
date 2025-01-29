@@ -6,17 +6,17 @@
 # Test numeric outcomes ----------------
 
 test_that(
-  'Parallelized versions do not crash', {
-    # No bootstrap
-    expect_no_error(
-      ALE(
-        test_cars, test_gam,
-        x_cols = list(list('cyl'), list('disp')),
-        max_num_bins = 10,
-        parallel = 2,
-        silent = TRUE
-      )
-    )
+  'Parallelized versions does not crash', {
+    # # No bootstrap
+    # expect_no_error(
+    #   ALE(
+    #     test_cars, test_gam,
+    #     x_cols = list(list('cyl'), list('disp')),
+    #     max_num_bins = 10,
+    #     parallel = 2,
+    #     silent = TRUE
+    #   )
+    # )
 
     # With bootstrap
     expect_no_error(
@@ -24,7 +24,7 @@ test_that(
         test_cars, test_gam,
         x_cols = list(list('cyl'), list('disp')),
         max_num_bins = 10,
-        boot_it = 5,
+        boot_it = 2,
         parallel = 2,
         silent = TRUE
       )

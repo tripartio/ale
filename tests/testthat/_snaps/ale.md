@@ -710,7 +710,7 @@
 ---
 
     Code
-      car_plots
+      car_1D_plots
     Output
       $model
           x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -1575,7 +1575,7 @@
 ---
 
     Code
-      car_plots
+      car_1D_plots
     Output
       $cyl
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -2683,9 +2683,296 @@
 ---
 
     Code
-      car_plots
+      car_1D_plots
     Output
-      list()
+      $model
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1   1  0.03127471     1     1     NA lightgray       0.5        1    NA -Inf
+      2   2  0.03127471     1     2     NA lightgray       0.5        1    NA -Inf
+      3   3  0.03127471     1     3     NA lightgray       0.5        1    NA -Inf
+      4   4  0.03127471     1     4     NA lightgray       0.5        1    NA -Inf
+      5   5  0.03127471     1     5     NA lightgray       0.5        1    NA -Inf
+      6   6  0.03127471     1     6     NA lightgray       0.5        1    NA -Inf
+      7   7  0.03127471     1     7     NA lightgray       0.5        1    NA -Inf
+      8   8  0.03127471     1     8     NA lightgray       0.5        1    NA -Inf
+      9   9  0.03127471     1     9     NA lightgray       0.5        1    NA -Inf
+      10 10  1.03127471     1    10     NA lightgray       0.5        1    NA -Inf
+      11 11  1.03127471     1    11     NA lightgray       0.5        1    NA -Inf
+      12 12  0.03127471     1    12     NA lightgray       0.5        1    NA -Inf
+      13 13  0.03127471     1    13     NA lightgray       0.5        1    NA -Inf
+      14 14  0.03127471     1    14     NA lightgray       0.5        1    NA -Inf
+      15 15 -0.96872529     1    15     NA lightgray       0.5        1    NA -Inf
+      16 16  0.03127471     1    16     NA lightgray       0.5        1    NA -Inf
+      17 17  0.03127471     1    17     NA lightgray       0.5        1    NA -Inf
+      18 18  0.03127471     1    18     NA lightgray       0.5        1    NA -Inf
+      19 19  0.03127471     1    19     NA lightgray       0.5        1    NA -Inf
+      20 20  0.03127471     1    20     NA lightgray       0.5        1    NA -Inf
+      21 21 -0.96872529     1    21     NA lightgray       0.5        1    NA -Inf
+      22 22 -0.96872529     1    22     NA lightgray       0.5        1    NA -Inf
+      23 23  0.03127471     1    23     NA lightgray       0.5        1    NA -Inf
+      24 24  0.03127471     1    24     NA lightgray       0.5        1    NA -Inf
+      25 25 -0.96872529     1    25     NA lightgray       0.5        1    NA -Inf
+      26 26 -0.96872529     1    26     NA lightgray       0.5        1    NA -Inf
+      27 27  0.03048380     1    27     NA lightgray       0.5        1    NA -Inf
+      28 28  0.03127473     1    28     NA lightgray       0.5        1    NA -Inf
+      29 29  0.03127473     1    29     NA lightgray       0.5        1    NA -Inf
+      30 30  0.03127473     1    30     NA lightgray       0.5        1    NA -Inf
+      31 31  1.03127473     1    31     NA lightgray       0.5        1    NA -Inf
+      32 32  1.03127473     1    32     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 3.925673e-13 3.925673e-13
+      2   Inf 3.925673e-13 3.925673e-13
+      3   Inf 3.925673e-13 3.925673e-13
+      4   Inf 3.925673e-13 3.925673e-13
+      5   Inf 3.925673e-13 3.925673e-13
+      6   Inf 3.925673e-13 3.925673e-13
+      7   Inf 3.925673e-13 3.925673e-13
+      8   Inf 3.925673e-13 3.925673e-13
+      9   Inf 3.925673e-13 3.925673e-13
+      10  Inf 3.925673e-13 3.925673e-13
+      11  Inf 3.925673e-13 3.925673e-13
+      12  Inf 3.925673e-13 3.925673e-13
+      13  Inf 3.925673e-13 3.925673e-13
+      14  Inf 3.925673e-13 3.925673e-13
+      15  Inf 3.925673e-13 3.925673e-13
+      16  Inf 3.925673e-13 3.925673e-13
+      17  Inf 3.925673e-13 3.925673e-13
+      18  Inf 3.925673e-13 3.925673e-13
+      19  Inf 3.925673e-13 3.925673e-13
+      20  Inf 3.925673e-13 3.925673e-13
+      21  Inf 3.925673e-13 3.925673e-13
+      22  Inf 3.925673e-13 3.925673e-13
+      23  Inf 3.925673e-13 3.925673e-13
+      24  Inf 3.925673e-13 3.925673e-13
+      25  Inf 3.925673e-13 3.925673e-13
+      26  Inf 3.925673e-13 3.925673e-13
+      27  Inf 3.925673e-13 3.925673e-13
+      28  Inf 3.925673e-13 3.925673e-13
+      29  Inf 3.925673e-13 3.925673e-13
+      30  Inf 3.925673e-13 3.925673e-13
+      31  Inf 3.925673e-13 3.925673e-13
+      32  Inf 3.925673e-13 3.925673e-13
+      
+      $mpg
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1  10.37589 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      2  14.41394 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      3  15.20000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      4  16.40000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      5  18.70000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      6  19.84566 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      7  21.40000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      8  22.87332 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      9  30.10414 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      10 33.90000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $cyl
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      4  Inf 3.925673e-13 3.925673e-13
+      5  Inf 3.925673e-13 3.925673e-13
+      6  Inf 3.925673e-13 3.925673e-13
+      7  Inf 3.925673e-13 3.925673e-13
+      
+      $disp
+                 x            y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 3.925669e-13     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 3.925666e-13     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 3.925661e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $hp
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000 3.925702e-13     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000 3.925702e-13     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000 3.925695e-13     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000 3.925695e-13     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003 3.925694e-13     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000 3.925684e-13     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 3.925665e-13     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 3.925662e-13     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 3.925617e-13     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 3.925554e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $drat
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1  2.743533 3.925606e-13     1    -1     NA lightgray       0.5        1    NA
+      2  3.016190 3.925630e-13     1    -1     NA lightgray       0.5        1    NA
+      3  3.080000 3.925635e-13     1    -1     NA lightgray       0.5        1    NA
+      4  3.175717 3.925643e-13     1    -1     NA lightgray       0.5        1    NA
+      5  3.620000 3.925688e-13     1    -1     NA lightgray       0.5        1    NA
+      6  3.733310 3.925691e-13     1    -1     NA lightgray       0.5        1    NA
+      7  3.900000 3.925700e-13     1    -1     NA lightgray       0.5        1    NA
+      8  3.932607 3.925700e-13     1    -1     NA lightgray       0.5        1    NA
+      9  4.209875 3.925700e-13     1    -1     NA lightgray       0.5        1    NA
+      10 4.978502 3.925745e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $wt
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275 3.925542e-13     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 3.925542e-13     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 3.925573e-13     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 3.925612e-13     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 3.925660e-13     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 3.925682e-13     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 3.925726e-13     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 3.925792e-13     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 3.926085e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $qsec
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1  14.46589 3.925820e-13     1    -1     NA lightgray       0.5        1    NA
+      2  15.61460 3.925755e-13     1    -1     NA lightgray       0.5        1    NA
+      3  16.73553 3.925702e-13     1    -1     NA lightgray       0.5        1    NA
+      4  17.02000 3.925688e-13     1    -1     NA lightgray       0.5        1    NA
+      5  17.41920 3.925665e-13     1    -1     NA lightgray       0.5        1    NA
+      6  17.98000 3.925634e-13     1    -1     NA lightgray       0.5        1    NA
+      7  18.59333 3.925624e-13     1    -1     NA lightgray       0.5        1    NA
+      8  18.90000 3.925624e-13     1    -1     NA lightgray       0.5        1    NA
+      9  20.00000 3.925624e-13     1    -1     NA lightgray       0.5        1    NA
+      10 22.97365 3.925624e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $am
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1  0.1873517     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -0.2738217     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      
+      $gear
+        x          y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.4739336     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2  0.3593997     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.5592415     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      3 3.925673e-13 3.925673e-13
+      
+      $carb
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 2 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 3 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 4 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 8 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      4  Inf 3.925673e-13 3.925673e-13
+      5  Inf 3.925673e-13 3.925673e-13
+      
+      $country
+        x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
+      1 1 -0.19776013     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -0.19776013     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3  0.30184442     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      4 4 -0.03122529     1     4     NA lightgray       0.5        1    NA -Inf  Inf
+      5 5 -0.03122529     1     5     NA lightgray       0.5        1    NA -Inf  Inf
+      6 6 -0.03122529     1     6     NA lightgray       0.5        1    NA -Inf  Inf
+                ymin         ymax
+      1 3.925673e-13 3.925673e-13
+      2 3.925673e-13 3.925673e-13
+      3 3.925673e-13 3.925673e-13
+      4 3.925673e-13 3.925673e-13
+      5 3.925673e-13 3.925673e-13
+      6 3.925673e-13 3.925673e-13
+      
+      $continent
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  4.943285e-05     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2  4.943285e-05     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 -2.142090e-04     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      
 
 ---
 
@@ -3276,9 +3563,42 @@
 ---
 
     Code
-      car_plots
+      car_1D_plots
     Output
-      list()
+      $hp
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1   52.0000 3.925702e-13     1    -1     NA lightgray       0.5        1    NA
+      2   66.0000 3.925702e-13     1    -1     NA lightgray       0.5        1    NA
+      3   95.0000 3.925695e-13     1    -1     NA lightgray       0.5        1    NA
+      4  109.0000 3.925695e-13     1    -1     NA lightgray       0.5        1    NA
+      5  111.9003 3.925694e-13     1    -1     NA lightgray       0.5        1    NA
+      6  150.0000 3.925686e-13     1    -1     NA lightgray       0.5        1    NA
+      7  176.2939 3.925668e-13     1    -1     NA lightgray       0.5        1    NA
+      8  180.6733 3.925665e-13     1    -1     NA lightgray       0.5        1    NA
+      9  245.0000 3.925620e-13     1    -1     NA lightgray       0.5        1    NA
+      10 335.0000 3.925556e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+      $continent
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1  1.647679e-05     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 -2.307049e-05     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 -8.898096e-05     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      
 
 ---
 
@@ -5329,8 +5649,9 @@
     Code
       car_plots
     Output
-      $Asia
-      $Asia$model
+      $oneD
+      $oneD$Asia
+      $oneD$Asia$model
           x           y PANEL group colour      fill linewidth linetype alpha xmin
       1   1  0.02090896     1     1     NA lightgray       0.5        1    NA -Inf
       2   2  0.02090795     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5398,7 +5719,7 @@
       31  Inf 6.163208e-11 1.688443e-10
       32  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$mpg
+      $oneD$Asia$mpg
                 x            y PANEL group colour      fill linewidth linetype alpha
       1  10.37589 9.937937e-11     1    -1     NA lightgray       0.5        1    NA
       2  14.41394 9.937937e-11     1    -1     NA lightgray       0.5        1    NA
@@ -5422,7 +5743,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$cyl
+      $oneD$Asia$cyl
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 3  2.373237e-05     1    -1     NA lightgray       0.5        1    NA -Inf
       2 4  2.107443e-05     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -5440,7 +5761,7 @@
       6  Inf 6.163208e-11 1.688443e-10
       7  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$disp
+      $oneD$Asia$disp
                  x             y PANEL group colour      fill linewidth linetype
       1   70.92941  0.0001118493     1    -1     NA lightgray       0.5        1
       2   79.04253  0.0001118476     1    -1     NA lightgray       0.5        1
@@ -5464,7 +5785,7 @@
       9     NA -Inf  Inf 6.163208e-11 1.688443e-10
       10    NA -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$hp
+      $oneD$Asia$hp
                 x            y PANEL group colour      fill linewidth linetype alpha
       1   52.0000 -0.005734183     1    -1     NA lightgray       0.5        1    NA
       2   66.0000 -0.005734230     1    -1     NA lightgray       0.5        1    NA
@@ -5488,7 +5809,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$drat
+      $oneD$Asia$drat
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  2.743533 -3.772042e-06     1    -1     NA lightgray       0.5        1    NA
       2  3.016190 -3.771945e-06     1    -1     NA lightgray       0.5        1    NA
@@ -5512,7 +5833,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$wt
+      $oneD$Asia$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  1.498275 -5.179581e-07     1    -1     NA lightgray       0.5        1    NA
       2  1.935000 -1.088361e-06     1    -1     NA lightgray       0.5        1    NA
@@ -5536,7 +5857,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$qsec
+      $oneD$Asia$qsec
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  14.46589 -9.682098e-06     1    -1     NA lightgray       0.5        1    NA
       2  15.61460 -9.574411e-06     1    -1     NA lightgray       0.5        1    NA
@@ -5560,7 +5881,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$vs
+      $oneD$Asia$vs
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  0.007086473     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -0.009111179     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5568,7 +5889,7 @@
       1  Inf 6.163208e-11 1.688443e-10
       2  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$am
+      $oneD$Asia$am
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 -0.001736169     1     1     NA lightgray       0.5        1    NA -Inf
       2 2  0.002537478     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5576,7 +5897,7 @@
       1  Inf 6.163208e-11 1.688443e-10
       2  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$gear
+      $oneD$Asia$gear
         x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
       1 1  0.08956888     1     1     NA lightgray       0.5        1    NA -Inf  Inf
       2 2  0.08956900     1     2     NA lightgray       0.5        1    NA -Inf  Inf
@@ -5586,7 +5907,7 @@
       2 6.163208e-11 1.688443e-10
       3 6.163208e-11 1.688443e-10
       
-      $Asia$carb
+      $oneD$Asia$carb
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  1.616624e-07     1    -1     NA lightgray       0.5        1    NA -Inf
       2 2  1.560926e-07     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -5600,7 +5921,7 @@
       4  Inf 6.163208e-11 1.688443e-10
       5  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$country
+      $oneD$Asia$country
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 9.937937e-11     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 9.937937e-11     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5617,8 +5938,8 @@
       6  Inf 6.163208e-11 1.688443e-10
       
       
-      $Europe
-      $Europe$model
+      $oneD$Europe
+      $oneD$Europe$model
           x           y PANEL group colour      fill linewidth linetype alpha xmin
       1   1  0.53677979     1     1     NA lightgray       0.5        1    NA -Inf
       2   2  0.53677979     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5686,7 +6007,7 @@
       31  Inf 2.407385e-08 8.105179e-07
       32  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$mpg
+      $oneD$Europe$mpg
                 x            y PANEL group colour      fill linewidth linetype alpha
       1  10.37589 6.769068e-07     1    -1     NA lightgray       0.5        1    NA
       2  14.41394 6.769068e-07     1    -1     NA lightgray       0.5        1    NA
@@ -5710,7 +6031,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$cyl
+      $oneD$Europe$cyl
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 3 -2.858403e-06     1    -1     NA lightgray       0.5        1    NA -Inf
       2 4 -2.011461e-07     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -5728,7 +6049,7 @@
       6  Inf 2.407385e-08 8.105179e-07
       7  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$disp
+      $oneD$Europe$disp
                  x          y PANEL group colour      fill linewidth linetype alpha
       1   70.92941  0.5360097     1    -1     NA lightgray       0.5        1    NA
       2   79.04253  0.5360097     1    -1     NA lightgray       0.5        1    NA
@@ -5752,7 +6073,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$hp
+      $oneD$Europe$hp
                 x           y PANEL group colour      fill linewidth linetype alpha
       1   52.0000 -0.01636691     1    -1     NA lightgray       0.5        1    NA
       2   66.0000 -0.01636684     1    -1     NA lightgray       0.5        1    NA
@@ -5776,7 +6097,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$drat
+      $oneD$Europe$drat
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  2.743533  3.683255e-06     1    -1     NA lightgray       0.5        1    NA
       2  3.016190  3.675591e-06     1    -1     NA lightgray       0.5        1    NA
@@ -5800,7 +6121,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$wt
+      $oneD$Europe$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  1.498275 -1.720928e-05     1    -1     NA lightgray       0.5        1    NA
       2  1.935000 -1.663243e-05     1    -1     NA lightgray       0.5        1    NA
@@ -5824,7 +6145,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$qsec
+      $oneD$Europe$qsec
                 x            y PANEL group colour      fill linewidth linetype alpha
       1  14.46589 2.396249e-07     1    -1     NA lightgray       0.5        1    NA
       2  15.61460 2.568565e-07     1    -1     NA lightgray       0.5        1    NA
@@ -5848,7 +6169,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$vs
+      $oneD$Europe$vs
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  0.0001222008     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -0.0001555682     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5856,7 +6177,7 @@
       1  Inf 2.407385e-08 8.105179e-07
       2  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$am
+      $oneD$Europe$am
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  0.001736585     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -0.002536420     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5864,7 +6185,7 @@
       1  Inf 2.407385e-08 8.105179e-07
       2  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$gear
+      $oneD$Europe$gear
         x           y PANEL group colour      fill linewidth linetype alpha xmin xmax
       1 1 -0.08956927     1     1     NA lightgray       0.5        1    NA -Inf  Inf
       2 2 -0.08956907     1     2     NA lightgray       0.5        1    NA -Inf  Inf
@@ -5874,7 +6195,7 @@
       2 2.407385e-08 8.105179e-07
       3 2.407385e-08 8.105179e-07
       
-      $Europe$carb
+      $oneD$Europe$carb
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  1.031163e-05     1    -1     NA lightgray       0.5        1    NA -Inf
       2 2 -2.467257e-06     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -5888,7 +6209,7 @@
       4  Inf 2.407385e-08 8.105179e-07
       5  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$country
+      $oneD$Europe$country
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 6.769068e-07     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 6.769068e-07     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5905,8 +6226,8 @@
       6  Inf 2.407385e-08 8.105179e-07
       
       
-      $`North America`
-      $`North America`$model
+      $oneD$`North America`
+      $oneD$`North America`$model
           x            y PANEL group colour      fill linewidth linetype alpha xmin
       1   1 -0.557688069     1     1     NA lightgray       0.5        1    NA -Inf
       2   2 -0.557687055     1     2     NA lightgray       0.5        1    NA -Inf
@@ -5974,7 +6295,7 @@
       31  Inf 1.178115e-10 7.384827e-09
       32  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$mpg
+      $oneD$`North America`$mpg
                 x            y PANEL group colour      fill linewidth linetype alpha
       1  10.37589 5.740835e-09     1    -1     NA lightgray       0.5        1    NA
       2  14.41394 5.740835e-09     1    -1     NA lightgray       0.5        1    NA
@@ -5998,7 +6319,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$cyl
+      $oneD$`North America`$cyl
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 3 -2.019122e-05     1    -1     NA lightgray       0.5        1    NA -Inf
       2 4 -2.019054e-05     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -6016,7 +6337,7 @@
       6  Inf 1.178115e-10 7.384827e-09
       7  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$disp
+      $oneD$`North America`$disp
                  x          y PANEL group colour      fill linewidth linetype alpha
       1   70.92941 -0.5361209     1    -1     NA lightgray       0.5        1    NA
       2   79.04253 -0.5361209     1    -1     NA lightgray       0.5        1    NA
@@ -6040,7 +6361,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$hp
+      $oneD$`North America`$hp
                 x           y PANEL group colour      fill linewidth linetype alpha
       1   52.0000  0.02210178     1    -1     NA lightgray       0.5        1    NA
       2   66.0000  0.02210176     1    -1     NA lightgray       0.5        1    NA
@@ -6064,7 +6385,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$drat
+      $oneD$`North America`$drat
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  2.743533  7.715338e-07     1    -1     NA lightgray       0.5        1    NA
       2  3.016190  7.791004e-07     1    -1     NA lightgray       0.5        1    NA
@@ -6088,7 +6409,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$wt
+      $oneD$`North America`$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  1.498275  1.840999e-05     1    -1     NA lightgray       0.5        1    NA
       2  1.935000  1.840354e-05     1    -1     NA lightgray       0.5        1    NA
@@ -6112,7 +6433,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$qsec
+      $oneD$`North America`$qsec
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  14.46589  1.012522e-05     1    -1     NA lightgray       0.5        1    NA
       2  15.61460  1.000030e-05     1    -1     NA lightgray       0.5        1    NA
@@ -6136,7 +6457,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$vs
+      $oneD$`North America`$vs
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 -0.007207991     1     1     NA lightgray       0.5        1    NA -Inf
       2 2  0.009267430     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6144,7 +6465,7 @@
       1  Inf 1.178115e-10 7.384827e-09
       2  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$am
+      $oneD$`North America`$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  2.668859e-07     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -3.759327e-07     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6152,7 +6473,7 @@
       1  Inf 1.178115e-10 7.384827e-09
       2  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$gear
+      $oneD$`North America`$gear
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  1.065031e-06     1     1     NA lightgray       0.5        1    NA -Inf
       2 2  7.474557e-07     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6162,7 +6483,7 @@
       2  Inf 1.178115e-10 7.384827e-09
       3  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$carb
+      $oneD$`North America`$carb
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 -9.790548e-06     1    -1     NA lightgray       0.5        1    NA -Inf
       2 2  2.993911e-06     1    -1     NA lightgray       0.5        1    NA -Inf
@@ -6176,7 +6497,7 @@
       4  Inf 1.178115e-10 7.384827e-09
       5  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$country
+      $oneD$`North America`$country
         x            y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 5.740835e-09     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 5.740835e-09     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6193,13 +6514,10 @@
       6  Inf 1.178115e-10 7.384827e-09
       
       
-
----
-
-    Code
-      unclass(car_eff_plots)
-    Output
-      $Asia
+      
+      $eff
+      $eff$Asia
+      $eff$Asia[[1]]
           y PANEL group colour      fill linewidth linetype alpha         xmin
       1   1     1     1     NA lightgray       0.5        1    NA 6.163208e-11
       2   2     1     2     NA lightgray       0.5        1    NA 6.163208e-11
@@ -6229,7 +6547,195 @@
       12 1.688443e-10 -Inf  Inf
       13 1.688443e-10 -Inf  Inf
       
-      $Europe
+      $eff$Asia[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   9.937937e-11 9.937937e-11  1     1     1  0.875  1.125  black       0.5
+      2   9.937937e-11 9.937937e-11  2     1     2  1.875  2.125  black       0.5
+      3  -1.166107e-06 1.648486e-06  3     1     3  2.875  3.125  black       0.5
+      4  -2.871650e-06 8.428661e-07  4     1     4  3.875  4.125  black       0.5
+      5  -9.682098e-06 2.333780e-06  5     1     5  4.875  5.125  black       0.5
+      6  -3.772042e-06 4.292889e-05  6     1     6  5.875  6.125  black       0.5
+      7  -1.691820e-05 2.373237e-05  7     1     7  6.875  7.125  black       0.5
+      8  -2.865331e-04 1.125931e-04  8     1     8  7.875  8.125  black       0.5
+      9  -1.736169e-03 2.537478e-03  9     1     9  8.875  9.125  black       0.5
+      10 -9.111179e-03 7.086473e-03 10     1    10  9.875 10.125  black       0.5
+      11 -5.734913e-03 1.165822e-01 11     1    11 10.875 11.125  black       0.5
+      12 -4.836723e-01 8.956900e-02 12     1    12 11.875 12.125  black       0.5
+      13 -1.056989e+00           NA 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $eff$Asia[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   1.152382e-10 1.152382e-10  0.7  1.3  1     1     1     NA white       0.5
+      2   1.152382e-10 1.152382e-10  1.7  2.3  2     1     2     NA white       0.5
+      3  -1.262459e-07 1.264764e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -4.599857e-07 4.602161e-07  3.7  4.3  4     1     4     NA white       0.5
+      5  -1.625013e-06 1.625244e-06  4.7  5.3  5     1     5     NA white       0.5
+      6  -2.474162e-06 2.474392e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -7.053539e-06 7.053770e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -7.264648e-05 7.264671e-05  7.7  8.3  8     1     8     NA white       0.5
+      9  -1.030850e-03 1.030851e-03  8.7  9.3  9     1     9     NA white       0.5
+      10 -3.986141e-03 3.986141e-03  9.7 10.3 10     1    10     NA white       0.5
+      11 -5.196068e-03 5.196068e-03 10.7 11.3 11     1    11     NA white       0.5
+      12 -7.557379e-02 7.557379e-02 11.7 12.3 12     1    12     NA white       0.5
+      13 -9.393711e-02 9.393711e-02 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $eff$Asia[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  1.152382e-10 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  1.152382e-10 NALED 32.4%  3     1     3  black    3     0   0.5    -1    NA
+      4  1.152382e-10 NALED 36.7%  4     1     4  black    3     0   0.5    -1    NA
+      5  1.152382e-10 NALED 35.6%  5     1     5  black    3     0   0.5    -1    NA
+      6  1.152382e-10 NALED 45.4%  6     1     6  black    3     0   0.5    -1    NA
+      7  1.152382e-10 NALED 43.0%  7     1     7  black    3     0   0.5    -1    NA
+      8  1.152382e-10 NALED 37.4%  8     1     8  black    3     0   0.5    -1    NA
+      9  1.152382e-10 NALED 42.4%  9     1     9  black    3     0   0.5    -1    NA
+      10 1.152382e-10 NALED 39.5% 10     1    10  black    3     0   0.5    -1    NA
+      11 1.152382e-10 NALED 48.2% 11     1    11  black    3     0   0.5    -1    NA
+      12 1.152382e-10 NALED 34.2% 12     1    12  black    3     0   0.5    -1    NA
+      13 1.152382e-10 NALED 37.1% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Asia[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   1.152382e-10     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   1.152382e-10     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  -1.262459e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -4.599857e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -1.625013e-06     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -2.474162e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -7.053539e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -7.264648e-05     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -1.030850e-03     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -3.986141e-03     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -5.196068e-03     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -7.557379e-02     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -9.393711e-02     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Asia[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  1.152382e-10     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  1.264764e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  4.602161e-07     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  1.625244e-06     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  2.474392e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  7.053770e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  7.264671e-05     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  1.030851e-03     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 3.986141e-03     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 5.196068e-03     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 7.557379e-02     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 9.393711e-02     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Asia[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  1.152382e-10 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  1.152382e-10 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  1.152382e-10 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  1.152382e-10 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  1.152382e-10 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  1.152382e-10 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  1.152382e-10 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  1.152382e-10 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  1.152382e-10 ALED 0.002  9     1     9  black    3     0   0.5     2    NA
+      10 1.152382e-10 ALED 0.008 10     1    10  black    3     0   0.5     2    NA
+      11 1.152382e-10 ALED 0.010 11     1    11  black    3     0   0.5     2    NA
+      12 1.152382e-10 ALED 0.151 12     1    12  black    3     0   0.5     2    NA
+      13 1.152382e-10 ALED 0.188 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Asia[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$Europe
+      $eff$Europe[[1]]
           y PANEL group colour      fill linewidth linetype alpha         xmin
       1   1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
       2   2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
@@ -6259,7 +6765,195 @@
       12 8.105179e-07 -Inf  Inf
       13 8.105179e-07 -Inf  Inf
       
-      $`North America`
+      $eff$Europe[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   6.769068e-07 6.769068e-07  1     1     1  0.875  1.125  black       0.5
+      2   6.769068e-07 6.769068e-07  2     1     2  1.875  2.125  black       0.5
+      3   2.396249e-07 1.864011e-06  3     1     3  2.875  3.125  black       0.5
+      4  -2.858403e-06 2.817585e-06  4     1     4  3.875  4.125  black       0.5
+      5  -5.657227e-06 1.031163e-05  5     1     5  4.875  5.125  black       0.5
+      6  -4.059021e-05 3.683255e-06  6     1     6  5.875  6.125  black       0.5
+      7  -1.720928e-05 1.737765e-05  7     1     7  6.875  7.125  black       0.5
+      8  -1.555682e-04 1.222008e-04  8     1     8  7.875  8.125  black       0.5
+      9  -2.536420e-03 1.736585e-03  9     1     9  8.875  9.125  black       0.5
+      10 -1.636691e-02 3.327444e-01 10     1    10  9.875 10.125  black       0.5
+      11 -8.956927e-02 4.836779e-01 11     1    11 10.875 11.125  black       0.5
+      12 -1.226798e+00 8.524008e-01 12     1    12 11.875 12.125  black       0.5
+      13 -9.845772e-01 5.360097e-01 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $eff$Europe[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   4.172959e-07 4.172959e-07  0.7  1.3  1     1     1     NA white       0.5
+      2   4.172959e-07 4.172959e-07  1.7  2.3  2     1     2     NA white       0.5
+      3   2.363588e-07 5.982329e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -4.032784e-07 1.237870e-06  3.7  4.3  4     1     4     NA white       0.5
+      5  -1.256052e-06 2.090644e-06  4.7  5.3  5     1     5     NA white       0.5
+      6  -1.839528e-06 2.674120e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -6.926203e-06 7.760795e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -6.793992e-05 6.877451e-05  7.7  8.3  8     1     8     NA white       0.5
+      9  -1.030278e-03 1.031113e-03  8.7  9.3  9     1     9     NA white       0.5
+      10 -1.483013e-02 1.483096e-02  9.7 10.3 10     1    10     NA white       0.5
+      11 -7.557415e-02 7.557498e-02 10.7 11.3 11     1    11     NA white       0.5
+      12 -1.706886e-01 1.706894e-01 11.7 12.3 12     1    12     NA white       0.5
+      13 -2.485527e-01 2.485536e-01 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $eff$Europe[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  4.172959e-07 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  4.172959e-07 NALED  2.6%  3     1     3  black    3     0   0.5    -1    NA
+      4  4.172959e-07 NALED 30.2%  4     1     4  black    3     0   0.5    -1    NA
+      5  4.172959e-07 NALED 27.4%  5     1     5  black    3     0   0.5    -1    NA
+      6  4.172959e-07 NALED 11.0%  6     1     6  black    3     0   0.5    -1    NA
+      7  4.172959e-07 NALED 26.1%  7     1     7  black    3     0   0.5    -1    NA
+      8  4.172959e-07 NALED 25.4%  8     1     8  black    3     0   0.5    -1    NA
+      9  4.172959e-07 NALED 24.0%  9     1     9  black    3     0   0.5    -1    NA
+      10 4.172959e-07 NALED 45.9% 10     1    10  black    3     0   0.5    -1    NA
+      11 4.172959e-07 NALED 43.2% 11     1    11  black    3     0   0.5    -1    NA
+      12 4.172959e-07 NALED 37.7% 12     1    12  black    3     0   0.5    -1    NA
+      13 4.172959e-07 NALED 25.4% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Europe[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   4.172959e-07     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   4.172959e-07     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3   2.363588e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -4.032784e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -1.256052e-06     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -1.839528e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -6.926203e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -6.793992e-05     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -1.030278e-03     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -1.483013e-02     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -7.557415e-02     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -1.706886e-01     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -2.485527e-01     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Europe[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  4.172959e-07     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  5.982329e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  1.237870e-06     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  2.090644e-06     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  2.674120e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  7.760795e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  6.877451e-05     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  1.031113e-03     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 1.483096e-02     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 7.557498e-02     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 1.706894e-01     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 2.485536e-01     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Europe[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  4.172959e-07 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  4.172959e-07 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  4.172959e-07 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  4.172959e-07 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  4.172959e-07 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  4.172959e-07 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  4.172959e-07 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  4.172959e-07 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  4.172959e-07 ALED 0.002  9     1     9  black    3     0   0.5     2    NA
+      10 4.172959e-07 ALED 0.030 10     1    10  black    3     0   0.5     2    NA
+      11 4.172959e-07 ALED 0.151 11     1    11  black    3     0   0.5     2    NA
+      12 4.172959e-07 ALED 0.341 12     1    12  black    3     0   0.5     2    NA
+      13 4.172959e-07 ALED 0.497 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$Europe[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$`North America`
+      $eff$`North America`[[1]]
           y PANEL group colour      fill linewidth linetype alpha         xmin
       1   1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
       2   2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
@@ -6288,6 +6982,194 @@
       11 7.384827e-09 -Inf  Inf
       12 7.384827e-09 -Inf  Inf
       13 7.384827e-09 -Inf  Inf
+      
+      $eff$`North America`[[2]]
+                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
+      1   5.740835e-09 5.740835e-09  1     1     1  0.875  1.125  black       0.5
+      2   5.740835e-09 5.740835e-09  2     1     2  1.875  2.125  black       0.5
+      3  -3.759327e-07 2.668859e-07  3     1     3  2.875  3.125  black       0.5
+      4  -1.655936e-06 1.071631e-06  4     1     4  3.875  4.125  black       0.5
+      5  -4.952244e-06 1.065031e-06  5     1     5  4.875  5.125  black       0.5
+      6  -3.515044e-06 1.012522e-05  6     1     6  5.875  6.125  black       0.5
+      7  -9.790548e-06 4.691489e-06  7     1     7  6.875  7.125  black       0.5
+      8  -2.019122e-05 1.478336e-05  8     1     8  7.875  8.125  black       0.5
+      9  -1.753776e-05 1.840999e-05  9     1     9  8.875  9.125  black       0.5
+      10 -7.207991e-03 9.267430e-03 10     1    10  9.875 10.125  black       0.5
+      11 -4.493259e-01 2.210178e-02 11     1    11 10.875 11.125  black       0.5
+      12 -5.576881e-01 2.063207e-01 12     1    12 11.875 12.125  black       0.5
+      13 -5.361209e-01 9.848645e-01 13     1    13 12.875 13.125  black       0.5
+         linetype height alpha
+      1         1   0.25    NA
+      2         1   0.25    NA
+      3         1   0.25    NA
+      4         1   0.25    NA
+      5         1   0.25    NA
+      6         1   0.25    NA
+      7         1   0.25    NA
+      8         1   0.25    NA
+      9         1   0.25    NA
+      10        1   0.25    NA
+      11        1   0.25    NA
+      12        1   0.25    NA
+      13        1   0.25    NA
+      
+      $eff$`North America`[[3]]
+                  xmin         xmax ymin ymax  y PANEL group colour  fill linewidth
+      1   3.751319e-09 3.751319e-09  0.7  1.3  1     1     1     NA white       0.5
+      2   3.751319e-09 3.751319e-09  1.7  2.3  2     1     2     NA white       0.5
+      3  -1.513035e-07 1.588062e-07  2.7  3.3  3     1     3     NA white       0.5
+      4  -5.120893e-07 5.195919e-07  3.7  4.3  4     1     4     NA white       0.5
+      5  -7.709339e-07 7.784365e-07  4.7  5.3  5     1     5     NA white       0.5
+      6  -1.715528e-06 1.723030e-06  5.7  6.3  6     1     6     NA white       0.5
+      7  -1.751467e-06 1.758969e-06  6.7  7.3  7     1     7     NA white       0.5
+      8  -6.352364e-06 6.359867e-06  7.7  8.3  8     1     8     NA white       0.5
+      9  -7.753912e-06 7.761415e-06  8.7  9.3  9     1     9     NA white       0.5
+      10 -4.054494e-03 4.054502e-03  9.7 10.3 10     1    10     NA white       0.5
+      11 -2.002661e-02 2.002662e-02 10.7 11.3 11     1    11     NA white       0.5
+      12 -1.226154e-01 1.226154e-01 11.7 12.3 12     1    12     NA white       0.5
+      13 -2.486146e-01 2.486146e-01 12.7 13.3 13     1    13     NA white       0.5
+         linetype alpha
+      1         1    NA
+      2         1    NA
+      3         1    NA
+      4         1    NA
+      5         1    NA
+      6         1    NA
+      7         1    NA
+      8         1    NA
+      9         1    NA
+      10        1    NA
+      11        1    NA
+      12        1    NA
+      13        1    NA
+      
+      $eff$`North America`[[4]]
+                    x       label  y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09 NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA
+      2  3.751319e-09 NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA
+      3  3.751319e-09 NALED 25.0%  3     1     3  black    3     0   0.5    -1    NA
+      4  3.751319e-09 NALED 26.3%  4     1     4  black    3     0   0.5    -1    NA
+      5  3.751319e-09 NALED 14.4%  5     1     5  black    3     0   0.5    -1    NA
+      6  3.751319e-09 NALED 40.5%  6     1     6  black    3     0   0.5    -1    NA
+      7  3.751319e-09 NALED 30.3%  7     1     7  black    3     0   0.5    -1    NA
+      8  3.751319e-09 NALED 25.3%  8     1     8  black    3     0   0.5    -1    NA
+      9  3.751319e-09 NALED 33.0%  9     1     9  black    3     0   0.5    -1    NA
+      10 3.751319e-09 NALED 33.6% 10     1    10  black    3     0   0.5    -1    NA
+      11 3.751319e-09 NALED 16.0% 11     1    11  black    3     0   0.5    -1    NA
+      12 3.751319e-09 NALED 26.6% 12     1    12  black    3     0   0.5    -1    NA
+      13 3.751319e-09 NALED 33.6% 13     1    13  black    3     0   0.5    -1    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$`North America`[[5]]
+                     x label     y PANEL group colour size angle hjust vjust alpha
+      1   3.751319e-09     (  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2   3.751319e-09     (  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  -1.513035e-07     (  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  -5.120893e-07     (  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  -7.709339e-07     (  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  -1.715528e-06     (  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  -1.751467e-06     (  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  -6.352364e-06     (  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  -7.753912e-06     (  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 -4.054494e-03     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 -2.002661e-02     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 -1.226154e-01     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 -2.486146e-01     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$`North America`[[6]]
+                    x label     y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09     )  1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2  3.751319e-09     )  2.02     1     2  black 3.88     0   0.5   0.5    NA
+      3  1.588062e-07     )  3.02     1     3  black 3.88     0   0.5   0.5    NA
+      4  5.195919e-07     )  4.02     1     4  black 3.88     0   0.5   0.5    NA
+      5  7.784365e-07     )  5.02     1     5  black 3.88     0   0.5   0.5    NA
+      6  1.723030e-06     )  6.02     1     6  black 3.88     0   0.5   0.5    NA
+      7  1.758969e-06     )  7.02     1     7  black 3.88     0   0.5   0.5    NA
+      8  6.359867e-06     )  8.02     1     8  black 3.88     0   0.5   0.5    NA
+      9  7.761415e-06     )  9.02     1     9  black 3.88     0   0.5   0.5    NA
+      10 4.054502e-03     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA
+      11 2.002662e-02     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA
+      12 1.226154e-01     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA
+      13 2.486146e-01     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$`North America`[[7]]
+                    x      label  y PANEL group colour size angle hjust vjust alpha
+      1  3.751319e-09 ALED 0.000  1     1     1  black    3     0   0.5     2    NA
+      2  3.751319e-09 ALED 0.000  2     1     2  black    3     0   0.5     2    NA
+      3  3.751319e-09 ALED 0.000  3     1     3  black    3     0   0.5     2    NA
+      4  3.751319e-09 ALED 0.000  4     1     4  black    3     0   0.5     2    NA
+      5  3.751319e-09 ALED 0.000  5     1     5  black    3     0   0.5     2    NA
+      6  3.751319e-09 ALED 0.000  6     1     6  black    3     0   0.5     2    NA
+      7  3.751319e-09 ALED 0.000  7     1     7  black    3     0   0.5     2    NA
+      8  3.751319e-09 ALED 0.000  8     1     8  black    3     0   0.5     2    NA
+      9  3.751319e-09 ALED 0.000  9     1     9  black    3     0   0.5     2    NA
+      10 3.751319e-09 ALED 0.008 10     1    10  black    3     0   0.5     2    NA
+      11 3.751319e-09 ALED 0.040 11     1    11  black    3     0   0.5     2    NA
+      12 3.751319e-09 ALED 0.245 12     1    12  black    3     0   0.5     2    NA
+      13 3.751319e-09 ALED 0.497 13     1    13  black    3     0   0.5     2    NA
+         family fontface lineheight
+      1                1        1.2
+      2                1        1.2
+      3                1        1.2
+      4                1        1.2
+      5                1        1.2
+      6                1        1.2
+      7                1        1.2
+      8                1        1.2
+      9                1        1.2
+      10               1        1.2
+      11               1        1.2
+      12               1        1.2
+      13               1        1.2
+      
+      $eff$`North America`[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
       
 
 # categorical outcome with bootstrap works with multiple x datatypes
@@ -6913,8 +7795,9 @@
     Code
       car_plots
     Output
-      $Asia
-      $Asia$wt
+      $oneD
+      $oneD$Asia
+      $oneD$Asia$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  1.498275 -5.179581e-07     1    -1     NA lightgray       0.5        1    NA
       2  1.935000 -1.084556e-06     1    -1     NA lightgray       0.5        1    NA
@@ -6938,7 +7821,7 @@
       9  -Inf  Inf 6.163208e-11 1.688443e-10
       10 -Inf  Inf 6.163208e-11 1.688443e-10
       
-      $Asia$am
+      $oneD$Asia$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 -0.0009985209     1     1     NA lightgray       0.5        1    NA -Inf
       2 2  0.0014612457     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6947,8 +7830,8 @@
       2  Inf 6.163208e-11 1.688443e-10
       
       
-      $Europe
-      $Europe$wt
+      $oneD$Europe
+      $oneD$Europe$wt
                 x             y PANEL group colour      fill linewidth linetype alpha
       1  1.498275 -1.720928e-05     1    -1     NA lightgray       0.5        1    NA
       2  1.935000 -1.663691e-05     1    -1     NA lightgray       0.5        1    NA
@@ -6972,7 +7855,7 @@
       9  -Inf  Inf 2.407385e-08 8.105179e-07
       10 -Inf  Inf 2.407385e-08 8.105179e-07
       
-      $Europe$am
+      $oneD$Europe$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1  0.0009992137     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -0.0014604854     1     2     NA lightgray       0.5        1    NA -Inf
@@ -6981,8 +7864,8 @@
       2  Inf 2.407385e-08 8.105179e-07
       
       
-      $`North America`
-      $`North America`$wt
+      $oneD$`North America`
+      $oneD$`North America`$wt
                 x            y PANEL group colour      fill linewidth linetype alpha
       1  1.498275 1.840999e-05     1    -1     NA lightgray       0.5        1    NA
       2  1.935000 1.840421e-05     1    -1     NA lightgray       0.5        1    NA
@@ -7006,7 +7889,7 @@
       9  -Inf  Inf 1.178115e-10 7.384827e-09
       10 -Inf  Inf 1.178115e-10 7.384827e-09
       
-      $`North America`$am
+      $oneD$`North America`$am
         x             y PANEL group colour      fill linewidth linetype alpha xmin
       1 1 -1.010542e-08     1     1     NA lightgray       0.5        1    NA -Inf
       2 2 -7.757158e-08     1     2     NA lightgray       0.5        1    NA -Inf
@@ -7015,13 +7898,10 @@
       2  Inf 1.178115e-10 7.384827e-09
       
       
-
----
-
-    Code
-      unclass(car_eff_plots)
-    Output
-      $Asia
+      
+      $eff
+      $eff$Asia
+      $eff$Asia[[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
       1 1     1     1     NA lightgray       0.5        1    NA 6.163208e-11
       2 2     1     2     NA lightgray       0.5        1    NA 6.163208e-11
@@ -7029,7 +7909,63 @@
       1 1.688443e-10 -Inf  Inf
       2 1.688443e-10 -Inf  Inf
       
-      $Europe
+      $eff$Asia[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -2.955445e-06 1.213088e-06 1     1     1 0.875 1.125  black       0.5
+      2 -1.729340e-03 2.192065e-03 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $eff$Asia[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -6.963435e-07 6.965739e-07  0.7  1.3 1     1     1     NA white       0.5
+      2 -1.115233e-03 1.115233e-03  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $eff$Asia[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 1.152382e-10 NALED 39.0% 1     1     1  black    3     0   0.5    -1    NA
+      2 1.152382e-10 NALED 43.4% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Asia[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -6.963435e-07     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -1.115233e-03     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Asia[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 6.965739e-07     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 1.115233e-03     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Asia[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 1.152382e-10 ALED 0.000 1     1     1  black    3     0   0.5     2    NA
+      2 1.152382e-10 ALED 0.002 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Asia[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$Europe
+      $eff$Europe[[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
       1 1     1     1     NA lightgray       0.5        1    NA 2.407385e-08
       2 2     1     2     NA lightgray       0.5        1    NA 2.407385e-08
@@ -7037,13 +7973,125 @@
       1 8.105179e-07 -Inf  Inf
       2 8.105179e-07 -Inf  Inf
       
-      $`North America`
+      $eff$Europe[[2]]
+                 xmin          xmax y PANEL group  ymin  ymax colour linewidth
+      1 -1.720928e-05 -7.391668e-07 1     1     1 0.875 1.125  black       0.5
+      2 -2.191331e-03  1.730060e-03 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $eff$Europe[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -5.591553e-06 6.426144e-06  0.7  1.3 1     1     1     NA white       0.5
+      2 -1.114823e-03 1.115658e-03  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $eff$Europe[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 4.172959e-07 NALED 44.0% 1     1     1  black    3     0   0.5    -1    NA
+      2 4.172959e-07 NALED 21.6% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Europe[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -5.591553e-06     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -1.114823e-03     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Europe[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 6.426144e-06     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 1.115658e-03     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Europe[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 4.172959e-07 ALED 0.000 1     1     1  black    3     0   0.5     2    NA
+      2 4.172959e-07 ALED 0.002 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$Europe[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$`North America`
+      $eff$`North America`[[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
       1 1     1     1     NA lightgray       0.5        1    NA 1.178115e-10
       2 2     1     2     NA lightgray       0.5        1    NA 1.178115e-10
                 xmax ymin ymax
       1 7.384827e-09 -Inf  Inf
       2 7.384827e-09 -Inf  Inf
+      
+      $eff$`North America`[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -1.973927e-07 1.097157e-07 1     1     1 0.875 1.125  black       0.5
+      2  2.088255e-07 1.840999e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $eff$`North America`[[3]]
+                xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -8.14319e-08 8.893454e-08  0.7  1.3 1     1     1     NA white       0.5
+      2           NA 6.036289e-06  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $eff$`North America`[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.751319e-09 NALED 33.2% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.751319e-09 NALED 21.8% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$`North America`[[5]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 -8.14319e-08     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2           NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$`North America`[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 8.893454e-08     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 6.036289e-06     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$`North America`[[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.751319e-09 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.751319e-09 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$`North America`[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
       
 
 # categorical outcome works with every parameter set to something, with multiple x datatypes

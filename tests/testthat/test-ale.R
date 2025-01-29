@@ -38,15 +38,22 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)
+    car_1D_plots <- car_plots@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    car_eff_plot <- cars_ale |>
-      plot(type = 'effects') |>
-      (`[[`)('mpg') |>
+    car_eff_plot <- car_plots@distinct$mpg$eff_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # car_eff_plot <- cars_ale |>
+    #   plot(type = 'effects') |>
+    #   (`[[`)('mpg') |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
-    expect_snapshot(car_plots)
+    expect_snapshot(car_1D_plots)
+    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -63,15 +70,22 @@ test_that(
       boot_it = 5,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)
+    car_1D_plots <- car_plots@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    car_eff_plot <- cars_ale |>
-      plot(type = 'effects') |>
-      (`[[`)('mpg') |>
+    car_eff_plot <- car_plots@distinct$mpg$eff_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # car_eff_plot <- cars_ale |>
+    #   plot(type = 'effects') |>
+    #   (`[[`)('mpg') |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
-    expect_snapshot(car_plots)
+    expect_snapshot(car_1D_plots)
+    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -114,15 +128,22 @@ test_that(
       parallel = 0,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)
+    car_1D_plots <- car_plots@distinct$vs$plots[[1]] |>
       ale_plots_to_data()
-    car_eff_plot <- cars_ale |>
-      plot( type = 'effects') |>
-      (`[[`)('vs') |>
+    car_eff_plot <- car_plots@distinct$vs$eff_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # car_eff_plot <- cars_ale |>
+    #   plot( type = 'effects') |>
+    #   (`[[`)('vs') |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
-    expect_snapshot(car_plots)
+    expect_snapshot(car_1D_plots)
+    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -139,15 +160,22 @@ test_that(
       boot_it = 4,
       silent = TRUE,
     )
-    car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    car_plots <- plot(cars_ale)
+    car_1D_plots <- car_plots@distinct$vs$plots[[1]] |>
       ale_plots_to_data()
-    car_eff_plot <- cars_ale |>
-      plot( type = 'effects') |>
-      (`[[`)('vs') |>
+    car_eff_plot <- car_plots@distinct$vs$eff_plot |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # car_eff_plot <- cars_ale |>
+    #   plot( type = 'effects') |>
+    #   (`[[`)('vs') |>
+    #   ggplot2::ggplot_build() |>
+    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
-    expect_snapshot(car_plots)
+    expect_snapshot(car_1D_plots)
+    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -194,15 +222,28 @@ test_that(
     )
     car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
-        it.cat$plots[[1]] |>
-          ale_plots_to_data()
-      })
-    car_eff_plots <- cars_ale |>
-      plot(type = 'effects') |>
-      ale_plots_to_data()
+        list(
+          oneD = it.cat$plots[[1]] |>
+            ale_plots_to_data(),
+          eff = it.cat$eff_plot |>
+            ggplot2::ggplot_build() |>
+            (`[[`)('data')
+        )
+      }) |>
+      list_transpose(simplify = FALSE)
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    expect_snapshot(unclass(car_eff_plots))
+    # car_plots <- plot(cars_ale)@distinct |>
+    #   imap(\(it.cat, it.cat_name) {
+    #     it.cat$plots[[1]] |>
+    #       ale_plots_to_data()
+    #   })
+    # car_eff_plots <- cars_ale |>
+    #   plot(type = 'effects') |>
+    #   ale_plots_to_data()
+    # expect_snapshot(unclass(cars_ale))
+    # expect_snapshot(car_plots)
+    # expect_snapshot(unclass(car_eff_plots))
   }
 )
 
@@ -222,18 +263,31 @@ test_that(
     )
     car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
-        it.cat$plots[[1]] |>
-          ale_plots_to_data()
-      })
-    car_eff_plots <- cars_ale |>
-      plot(type = 'effects') |>
-      ale_plots_to_data()
-    car_eff_plots <- cars_ale |>
-      plot(type = 'effects') |>
-      ale_plots_to_data()
+        list(
+          oneD = it.cat$plots[[1]] |>
+            ale_plots_to_data(),
+          eff = it.cat$eff_plot |>
+            ggplot2::ggplot_build() |>
+            (`[[`)('data')
+        )
+      }) |>
+      list_transpose(simplify = FALSE)
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    expect_snapshot(unclass(car_eff_plots))
+    # car_plots <- plot(cars_ale)@distinct |>
+    #   imap(\(it.cat, it.cat_name) {
+    #     it.cat$plots[[1]] |>
+    #       ale_plots_to_data()
+    #   })
+    # car_eff_plots <- cars_ale |>
+    #   plot(type = 'effects') |>
+    #   ale_plots_to_data()
+    # car_eff_plots <- cars_ale |>
+    #   plot(type = 'effects') |>
+    #   ale_plots_to_data()
+    # expect_snapshot(unclass(cars_ale))
+    # expect_snapshot(car_plots)
+    # expect_snapshot(unclass(car_eff_plots))
   }
 )
 

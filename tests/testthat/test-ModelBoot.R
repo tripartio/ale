@@ -42,17 +42,27 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)
+    mb_1D_plots <- mb_plots@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    # mb_eff_plot <- mb |>
-    #   plot.ALE(type = 'effects') |>
-    #   (`[[`)('mpg') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
+    mb_eff_plot <- mb_plots@distinct$mpg$eff_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
-    expect_snapshot(mb_plots)
-    # expect_snapshot(mb_eff_plot)
+    expect_snapshot(mb_1D_plots)
+    expect_snapshot(mb_eff_plot)
+    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # # mb_eff_plot <- mb |>
+    # #   plot.ALE(type = 'effects') |>
+    # #   (`[[`)('mpg') |>
+    # #   ggplot2::ggplot_build() |>
+    # #   (`[[`)('data')
+    # mb@ale$single <- unclass(mb@ale$single)
+    # expect_snapshot(unclass(mb))
+    # expect_snapshot(mb_plots)
+    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -74,17 +84,27 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)
+    mb_1D_plots <- mb_plots@distinct$mpg$plots[[1]] |>
       ale_plots_to_data()
-    # mb_eff_plot <- mb |>
-    #   plot.ALE( type = 'effects') |>
-    #   (`[[`)('mpg') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
+    mb_eff_plot <- mb_plots@distinct$mpg$eff_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
-    expect_snapshot(mb_plots)
-    # expect_snapshot(mb_eff_plot)
+    expect_snapshot(mb_1D_plots)
+    expect_snapshot(mb_eff_plot)
+    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # # mb_eff_plot <- mb |>
+    # #   plot.ALE( type = 'effects') |>
+    # #   (`[[`)('mpg') |>
+    # #   ggplot2::ggplot_build() |>
+    # #   (`[[`)('data')
+    # mb@ale$single <- unclass(mb@ale$single)
+    # expect_snapshot(unclass(mb))
+    # expect_snapshot(mb_plots)
+    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -124,17 +144,27 @@ test_that(
       ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    mb_plots <- plot(mb)
+    mb_1D_plots <- mb_plots@distinct$vs$plots[[1]] |>
       ale_plots_to_data()
-    # mb_eff_plot <- mb |>
-    #   plot.ALE( type = 'effects') |>
-    #   (`[[`)('vs') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
+    mb_eff_plot <- mb_plots@distinct$vs$eff_plot |>
+      ggplot2::ggplot_build() |>
+      (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
-    # expect_snapshot(mb_plots)
-    # expect_snapshot(mb_eff_plot)
+    expect_snapshot(mb_1D_plots)
+    expect_snapshot(mb_eff_plot)
+    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    #   ale_plots_to_data()
+    # # mb_eff_plot <- mb |>
+    # #   plot.ALE( type = 'effects') |>
+    # #   (`[[`)('vs') |>
+    # #   ggplot2::ggplot_build() |>
+    # #   (`[[`)('data')
+    # mb@ale$single <- unclass(mb@ale$single)
+    # expect_snapshot(unclass(mb))
+    # # expect_snapshot(mb_plots)
+    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -163,22 +193,37 @@ test_that(
       ),
       silent = TRUE
     )
-    # mb_plots <- mb |>
-    #   plot.ALE() |>
-    #   map(\(it.cat) {
-    #     map(it.cat, \(it.plot) {
-    #       it.plot |>
-    #       ggplot2::ggplot_build() |>
-    #       (`[[`)('data')
-    #       })
-    #   })
-    # mb_eff_plots <- mb |>
-    #   plot.ALE(type = 'effects') |>
-    #   ale_plots_to_data()
+    mb_plots <- plot(mb)@distinct |>
+      imap(\(it.cat, it.cat_name) {
+        list(
+          oneD = it.cat$plots[[1]] |>
+            ale_plots_to_data(),
+          eff = it.cat$eff_plot |>
+            ggplot2::ggplot_build() |>
+            (`[[`)('data')
+        )
+      }) |>
+      list_transpose(simplify = FALSE)
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
-    # expect_snapshot(mb_plots)
-    # expect_snapshot(mb_eff_plots)
+    expect_snapshot(mb_plots)
+
+    # # mb_plots <- mb |>
+    # #   plot.ALE() |>
+    # #   map(\(it.cat) {
+    # #     map(it.cat, \(it.plot) {
+    # #       it.plot |>
+    # #       ggplot2::ggplot_build() |>
+    # #       (`[[`)('data')
+    # #       })
+    # #   })
+    # # mb_eff_plots <- mb |>
+    # #   plot.ALE(type = 'effects') |>
+    # #   ale_plots_to_data()
+    # mb@ale$single <- unclass(mb@ale$single)
+    # expect_snapshot(unclass(mb))
+    # # expect_snapshot(mb_plots)
+    # # expect_snapshot(mb_eff_plots)
   }
 )
 

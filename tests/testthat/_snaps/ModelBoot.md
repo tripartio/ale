@@ -563,7 +563,7 @@
 ---
 
     Code
-      mb_plots
+      mb_1D_plots
     Output
       $cyl
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -606,6 +606,76 @@
       8  -Inf  Inf 19.04095 19.28336
       9  -Inf  Inf 19.04095 19.28336
       10 -Inf  Inf 19.04095 19.28336
+      
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1 1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2 2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+        ymin ymax
+      1 -Inf  Inf
+      2 -Inf  Inf
+      
+      [[2]]
+            xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1 19.17639 19.21956 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 13.46448 23.94577 2     1     2 1.875 2.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      
+      [[3]]
+            xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 19.15657 19.16774  0.7  1.3 1     1     1     NA white       0.5        1
+      2 17.61542 20.70889  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      [[4]]
+               x       label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 22.8% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[5]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.15657     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 17.61542     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[6]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 19.16774     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 20.70889     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[7]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 ALED 0.01 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 3.09 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
 
 # mostly default (boot_it=3) snapshot works with multiple x datatypes
@@ -1151,7 +1221,7 @@
 ---
 
     Code
-      mb_plots
+      mb_1D_plots
     Output
       $vs
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
@@ -1170,6 +1240,76 @@
       1 19.04095 19.28336
       2 19.04095 19.28336
       3 19.04095 19.28336
+      
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha     xmin     xmax
+      1 1     1     1     NA lightgray       0.5        1    NA 19.04095 19.28336
+      2 2     1     2     NA lightgray       0.5        1    NA 19.04095 19.28336
+        ymin ymax
+      1 -Inf  Inf
+      2 -Inf  Inf
+      
+      [[2]]
+             xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1 17.326251 21.60911 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2  9.876782       NA 2     1     2 1.875 2.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      
+      [[3]]
+            xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 18.10817 20.21614  0.7  1.3 1     1     1     NA white       0.5        1
+      2 14.79190 23.53241  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      [[4]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED 17% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 42% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[5]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 18.10817     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 14.79190     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[6]]
+               x label    y PANEL group colour size angle hjust vjust alpha family
+      1 20.21614     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 23.53241     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[7]]
+               x     label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 ALED 2.11 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 8.74 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+               x y PANEL group colour  fill size angle hjust vjust alpha family
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+                                                                     label
+      1 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
 
 # ALE snapshot works with every parameter set to something, with multiple x datatypes
@@ -1865,6 +2005,122 @@
       
       attr(,"params")$silent
       [1] TRUE
+      
+
+---
+
+    Code
+      mb_1D_plots
+    Output
+      $cyl
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925673e-13 3.925673e-13
+      2  Inf 3.925673e-13 3.925673e-13
+      3  Inf 3.925673e-13 3.925673e-13
+      4  Inf 3.925673e-13 3.925673e-13
+      5  Inf 3.925673e-13 3.925673e-13
+      6  Inf 3.925673e-13 3.925673e-13
+      7  Inf 3.925673e-13 3.925673e-13
+      
+      $disp
+                 x            y PANEL group colour      fill linewidth linetype alpha
+      1   70.92941 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 3.925669e-13     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 3.925666e-13     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 3.925661e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925673e-13 3.925673e-13
+      2  -Inf  Inf 3.925673e-13 3.925673e-13
+      3  -Inf  Inf 3.925673e-13 3.925673e-13
+      4  -Inf  Inf 3.925673e-13 3.925673e-13
+      5  -Inf  Inf 3.925673e-13 3.925673e-13
+      6  -Inf  Inf 3.925673e-13 3.925673e-13
+      7  -Inf  Inf 3.925673e-13 3.925673e-13
+      8  -Inf  Inf 3.925673e-13 3.925673e-13
+      9  -Inf  Inf 3.925673e-13 3.925673e-13
+      10 -Inf  Inf 3.925673e-13 3.925673e-13
+      
+
+---
+
+    Code
+      mb_eff_plot
+    Output
+      [[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 3.925673e-13
+      2 2     1     2     NA lightgray       0.5        1    NA 3.925673e-13
+                xmax ymin ymax
+      1 3.925673e-13 -Inf  Inf
+      2 3.925673e-13 -Inf  Inf
+      
+      [[2]]
+                xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5        1
+      2 3.925661e-13 3.925677e-13 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      [[3]]
+                xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
+      2 3.925671e-13 3.925675e-13  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      [[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13 NALED 10.2% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 20.6% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      [[5]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 3.925671e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      [[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 3.925675e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      [[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.925673e-13 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.925673e-13 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      [[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
       
 
 # categorical outcome works on iris dataset
@@ -3095,5 +3351,351 @@
       
       attr(,"params")$silent
       [1] TRUE
+      
+
+---
+
+    Code
+      mb_plots
+    Output
+      $oneD
+      $oneD$setosa
+      $oneD$setosa$Sepal.Length
+           x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1  4.3 -6.353303e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9 -3.966071e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1  4.080285e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4  4.104362e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7  7.086307e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0  7.147701e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3  7.261248e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5  7.296126e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9  7.615127e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9  1.014319e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 4.215968e-09 2.193143e-08
+      2   Inf 4.215968e-09 2.193143e-08
+      3   Inf 4.215968e-09 2.193143e-08
+      4   Inf 4.215968e-09 2.193143e-08
+      5   Inf 4.215968e-09 2.193143e-08
+      6   Inf 4.215968e-09 2.193143e-08
+      7   Inf 4.215968e-09 2.193143e-08
+      8   Inf 4.215968e-09 2.193143e-08
+      9   Inf 4.215968e-09 2.193143e-08
+      10  Inf 4.215968e-09 2.193143e-08
+      
+      $oneD$setosa$Petal.Width
+          x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 0.1 -2.004268e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2 -1.936915e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6 -4.424730e-06     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3  1.067232e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4  1.073964e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6  1.076269e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 4.215968e-09 2.193143e-08
+      2  Inf 4.215968e-09 2.193143e-08
+      3  Inf 4.215968e-09 2.193143e-08
+      4  Inf 4.215968e-09 2.193143e-08
+      5  Inf 4.215968e-09 2.193143e-08
+      6  Inf 4.215968e-09 2.193143e-08
+      7  Inf 4.215968e-09 2.193143e-08
+      8  Inf 4.215968e-09 2.193143e-08
+      9  Inf 4.215968e-09 2.193143e-08
+      
+      
+      $oneD$versicolor
+      $oneD$versicolor$Sepal.Length
+           x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1  4.3 -0.030030014     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9 -0.026183687     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1 -0.026191732     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4 -0.025971699     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7 -0.025893629     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0  0.001670126     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3  0.034771450     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5  0.035432981     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9  0.047143368     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9  0.057273904     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 1.690351e-05 0.0002494482
+      2   Inf 1.690351e-05 0.0002494482
+      3   Inf 1.690351e-05 0.0002494482
+      4   Inf 1.690351e-05 0.0002494482
+      5   Inf 1.690351e-05 0.0002494482
+      6   Inf 1.690351e-05 0.0002494482
+      7   Inf 1.690351e-05 0.0002494482
+      8   Inf 1.690351e-05 0.0002494482
+      9   Inf 1.690351e-05 0.0002494482
+      10  Inf 1.690351e-05 0.0002494482
+      
+      $oneD$versicolor$Petal.Width
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1 0.1  0.16762887     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2  0.16762820     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6  0.16761325     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3  0.16756167     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4  0.14946319     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6 -0.04149649     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9 -0.38175427     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2 -0.38671924     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5 -0.38675325     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 1.690351e-05 0.0002494482
+      2  Inf 1.690351e-05 0.0002494482
+      3  Inf 1.690351e-05 0.0002494482
+      4  Inf 1.690351e-05 0.0002494482
+      5  Inf 1.690351e-05 0.0002494482
+      6  Inf 1.690351e-05 0.0002494482
+      7  Inf 1.690351e-05 0.0002494482
+      8  Inf 1.690351e-05 0.0002494482
+      9  Inf 1.690351e-05 0.0002494482
+      
+      
+      $oneD$virginica
+      $oneD$virginica$Sepal.Length
+           x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1  4.3  0.030154280     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9  0.026248386     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1  0.026248385     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4  0.026028327     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7  0.025947275     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0 -0.001616541     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3 -0.034717979     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5 -0.035379544     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9 -0.047090251     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9 -0.057223314     1    -1     NA lightgray       0.5        1    NA -Inf
+         xmax         ymin         ymax
+      1   Inf 6.333628e-06 4.101349e-05
+      2   Inf 6.333628e-06 4.101349e-05
+      3   Inf 6.333628e-06 4.101349e-05
+      4   Inf 6.333628e-06 4.101349e-05
+      5   Inf 6.333628e-06 4.101349e-05
+      6   Inf 6.333628e-06 4.101349e-05
+      7   Inf 6.333628e-06 4.101349e-05
+      8   Inf 6.333628e-06 4.101349e-05
+      9   Inf 6.333628e-06 4.101349e-05
+      10  Inf 6.333628e-06 4.101349e-05
+      
+      $oneD$virginica$Petal.Width
+          x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1 0.1 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3 -0.16751161     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4 -0.14941319     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6  0.04154646     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9  0.38180424     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2  0.38676921     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5  0.38680322     1    -1     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 6.333628e-06 4.101349e-05
+      2  Inf 6.333628e-06 4.101349e-05
+      3  Inf 6.333628e-06 4.101349e-05
+      4  Inf 6.333628e-06 4.101349e-05
+      5  Inf 6.333628e-06 4.101349e-05
+      6  Inf 6.333628e-06 4.101349e-05
+      7  Inf 6.333628e-06 4.101349e-05
+      8  Inf 6.333628e-06 4.101349e-05
+      9  Inf 6.333628e-06 4.101349e-05
+      
+      
+      
+      $eff
+      $eff$setosa
+      $eff$setosa[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 4.215968e-09
+      2 2     1     2     NA lightgray       0.5        1    NA 4.215968e-09
+                xmax ymin ymax
+      1 2.193143e-08 -Inf  Inf
+      2 2.193143e-08 -Inf  Inf
+      
+      $eff$setosa[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -6.353303e-05 1.014319e-05 1     1     1 0.875 1.125  black       0.5
+      2 -2.004268e-05 1.076269e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $eff$setosa[[3]]
+                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -4.938218e-06 4.964365e-06  0.7  1.3 1     1     1     NA white       0.5
+      2 -5.725693e-06 5.751840e-06  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $eff$setosa[[4]]
+                  x       label y PANEL group colour size angle hjust vjust alpha
+      1 1.30737e-08 NALED 18.9% 1     1     1  black    3     0   0.5    -1    NA
+      2 1.30737e-08 NALED 26.8% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$setosa[[5]]
+                    x label    y PANEL group colour size angle hjust vjust alpha
+      1 -4.938218e-06     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -5.725693e-06     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$setosa[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 4.964365e-06     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 5.751840e-06     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$setosa[[7]]
+                  x  label y PANEL group colour size angle hjust vjust alpha family
+      1 1.30737e-08 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 1.30737e-08 ALED 0 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$setosa[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$versicolor
+      $eff$versicolor[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 1.690351e-05
+      2 2     1     2     NA lightgray       0.5        1    NA 1.690351e-05
+                xmax ymin ymax
+      1 0.0002494482 -Inf  Inf
+      2 0.0002494482 -Inf  Inf
+      
+      $eff$versicolor[[2]]
+               xmin      xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.03003001 0.0572739 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.38675325 0.1676289 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $eff$versicolor[[3]]
+               xmin       xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -0.01416849 0.01443484  0.7  1.3 1     1     1     NA white       0.5
+      2 -0.10120636 0.10147271  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $eff$versicolor[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 0.0001331758 NALED 34.4% 1     1     1  black    3     0   0.5    -1    NA
+      2 0.0001331758 NALED 25.8% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$versicolor[[5]]
+                  x label    y PANEL group colour size angle hjust vjust alpha family
+      1 -0.01416849     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 -0.10120636     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$versicolor[[6]]
+                 x label    y PANEL group colour size angle hjust vjust alpha family
+      1 0.01443484     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 0.10147271     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$versicolor[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 0.0001331758 ALED 0.029 1     1     1  black    3     0   0.5     2    NA
+      2 0.0001331758 ALED 0.203 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$versicolor[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      $eff$virginica
+      $eff$virginica[[1]]
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 6.333628e-06
+      2 2     1     2     NA lightgray       0.5        1    NA 6.333628e-06
+                xmax ymin ymax
+      1 4.101349e-05 -Inf  Inf
+      2 4.101349e-05 -Inf  Inf
+      
+      $eff$virginica[[2]]
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.05722331 0.03015428 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.16754810 0.38680322 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $eff$virginica[[3]]
+              xmin       xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 -0.0142811 0.01432845  0.7  1.3 1     1     1     NA white       0.5        1
+      2 -0.1013124 0.10135977  1.7  2.3 2     1     2     NA white       0.5        1
+        alpha
+      1    NA
+      2    NA
+      
+      $eff$virginica[[4]]
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 2.367356e-05 NALED 28.2% 1     1     1  black    3     0   0.5    -1    NA
+      2 2.367356e-05 NALED 39.0% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$virginica[[5]]
+                 x label    y PANEL group colour size angle hjust vjust alpha family
+      1 -0.0142811     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 -0.1013124     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$virginica[[6]]
+                 x label    y PANEL group colour size angle hjust vjust alpha family
+      1 0.01432845     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 0.10135977     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $eff$virginica[[7]]
+                   x      label y PANEL group colour size angle hjust vjust alpha
+      1 2.367356e-05 ALED 0.029 1     1     1  black    3     0   0.5     2    NA
+      2 2.367356e-05 ALED 0.203 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $eff$virginica[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
       
 
