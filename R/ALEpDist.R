@@ -111,7 +111,7 @@ ALEpDist <- S7::new_class(
   #'
   #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
   #' diamonds_plots <- plot(ale_gam_diamonds)
-  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
   #'
   #'
@@ -495,8 +495,8 @@ ALEpDist <- S7::new_class(
         it.rand@distinct |>
           map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
             ale_stats(
-              y = it.rand.cat$ale[[1]]$random_variable$.y,
-              bin_n = it.rand.cat$ale[[1]]$random_variable$.n,
+              y = it.rand.cat$ale$d1$random_variable$.y,
+              bin_n = it.rand.cat$ale$d1$random_variable$.n,
               ale_y_norm_fun = ale_y_norm_fun,
               x_type = 'numeric' #,  # the random variables are always numeric
               # zeroed_ale = TRUE

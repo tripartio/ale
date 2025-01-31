@@ -128,7 +128,7 @@ ModelBoot <- S7::new_class(
   #'
   #' # Plot ALE
   #' mb_gam_plots <- plot(mb_gam)
-  #' mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots[[1]]
+  #' mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots$d1
   #' patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
   #' }
   #'
@@ -635,20 +635,17 @@ ModelBoot <- S7::new_class(
             if (btit == 0) {
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
 
-              # closeAllConnections()
-              # browser()
-
               bins <<-
                 boot_ale@distinct |>
                 map(\(it.cat) {
-                  it.cat$ale[[1]] |>
+                  it.cat$ale$d1 |>
                     map(\(it.x) it.x[[1]])
                 })
 
               ns <<-
                 boot_ale@distinct |>
                 map(\(it.cat) {
-                  it.cat$ale[[1]] |>
+                  it.cat$ale$d1 |>
                     map(\(it.x) it.x$.n)
                 })
 
@@ -906,6 +903,7 @@ ModelBoot <- S7::new_class(
     # Bootstrapped ALE data
     ale_summary <-
       if ('ale' %in% output) {
+        # browser()
         full_ale <- boot_data$ale[[1]]
 
         # Remove first element (not bootstrapped) if bootstrapping is requested
@@ -925,7 +923,7 @@ ModelBoot <- S7::new_class(
             it@distinct |>
               # it$distinct |>
               map(\(it.cat) {
-                it.cat$ale[[1]]
+                it.cat$ale$d1
                 # it.cat$ale
               })
           }) |>
@@ -939,6 +937,7 @@ ModelBoot <- S7::new_class(
           imap(\(it.cat, it.cat_name) {
             it.cat |>
               imap(\(it.x_col, it.x_col_name) {
+                # browser()
                 it.x_col_is_ordinal <- names(it.x_col[[1]])[1] |> endsWith('.bin')
                 # it.x_col_is_ordinal <- !is.null(it.x_col[[1]]$.bin)
 
@@ -947,8 +946,8 @@ ModelBoot <- S7::new_class(
                   # if (is.ordered(it.x_col[[1]]$ale_x)) {
                   # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
                   # Note: column 1 is the x column
-                  bin_levels <- full_ale@distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]]
-                  # bin_levels <- full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]]
+                  bin_levels <- full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]]
+                  # bin_levels <- full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]]
 .
                   it.x_col <- it.x_col |>
                     map(\(it.ale_tbl) {
@@ -982,10 +981,10 @@ ModelBoot <- S7::new_class(
                   right_join(
                     tibble(
                       # bins or ceilings
-                      .x = full_ale@distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]],
-                      .n = full_ale@distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]]$.n,
-                      # .x = full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]][[1]],
-                      # .n = full_ale$distinct[[it.cat_name]]$ale[[1]][[it.x_col_name]]$.n,
+                      .x = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]],
+                      .n = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]]$.n,
+                      # .x = full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]],
+                      # .n = full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]]$.n,
                     ),
                     by = '.x'
                   ) |>
@@ -1015,7 +1014,7 @@ ModelBoot <- S7::new_class(
             it@distinct |>
               # it$distinct |>
               map(\(it.cat) {
-                it.cat$stats[[1]]$estimate
+                it.cat$stats$d1$estimate
                 # it.cat$stats$estimate
               })
           }) |>
@@ -1122,15 +1121,15 @@ ModelBoot <- S7::new_class(
 
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {
-          ar$single@distinct[[it.cat]]$stats[[1]]$conf_regions <-
-            # ar$single$distinct[[it.cat]]$stats[[1]]$conf_regions <-
+          ar$single@distinct[[it.cat]]$stats$d1$conf_regions <-
+            # ar$single$distinct[[it.cat]]$stats$d1$conf_regions <-
             ale_summary[[it.cat]]$stats$conf_regions
         } else {
           ar$boot$distinct <- ale_summary |>
             map(\(it.cat) {
               it.cat |>
                 map(\(it.el) {
-                  # Demote each element (ale, stats, etc.) to the [[1]] index (1D ALE)
+                  # Demote each element (ale, stats, etc.) to the d1 element (1D ALE)
                   list(it.el)
                 })
             })

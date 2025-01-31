@@ -86,7 +86,7 @@ cars_ale <- ALE(
 
 # Print all plots
 cars_plots <- plot(cars_ale)
-cars_1D_plots <- cars_plots$distinct$mpg$plots[[1]]
+cars_1D_plots <- cars_plots$distinct$mpg$plots$d1
 patchwork::wrap_plots(cars_1D_plots, ncol = 2)
 ```
 
@@ -105,7 +105,7 @@ cars_ale_2D <- ALE(
 
 # Print plots
 cars_2D_plots <- plot(cars_ale_2D)
-cars_2D_plots <- cars_2D_plots$distinct$mpg$plots[[2]]
+cars_2D_plots <- cars_2D_plots$distinct$mpg$plots$d2
 cars_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -129,7 +129,7 @@ mb <- ModelBoot(
 )
 
 mb_plots <- plot(mb)
-mb_1D_plots <- mb_plots$distinct$mpg$plots[[1]]
+mb_1D_plots <- mb_plots$distinct$mpg$plots$d1
 patchwork::wrap_plots(mb_1D_plots, ncol = 2)
 ```
 

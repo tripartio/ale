@@ -22,6 +22,7 @@ test_that(
     expect_no_error(
       ALE(
         test_cars, test_gam,
+        # interact cyl by disp
         x_cols = list(list('cyl'), list('disp')),
         max_num_bins = 10,
         boot_it = 2,
@@ -48,8 +49,8 @@ test_that(
 
     car_2D_plots <- plot(cars_2D)
     for (it.cat in names(car_2D_plots@distinct)) {
-      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+      car_2D_plots@distinct[[it.cat]]$plots$d2 <-
+        car_2D_plots@distinct[[it.cat]]$plots$d2 |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -87,11 +88,11 @@ test_that(
     )
 
     cars_1D_2D_plots <- plot(cars_1D_2D)
-    cars_1D_2D_plots <- cars_1D_2D_plots@distinct$mpg$plots[[1]] |>
+    cars_1D_2D_plots <- cars_1D_2D_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
     # for (it.cat in names(cars_1D_2D_plots$distinct)) {
-    #   cars_1D_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-    #     cars_1D_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+    #   cars_1D_2D_plots@distinct[[it.cat]]$plots$d2 <-
+    #     cars_1D_2D_plots@distinct[[it.cat]]$plots$d2 |>
     #     map(\(it.x1) ale_plots_to_data(it.x1))
     # }
 
@@ -121,8 +122,8 @@ test_that(
 
     car_2D_plots <- plot(cars_2D)
     for (it.cat in names(car_2D_plots@distinct)) {
-      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+      car_2D_plots@distinct[[it.cat]]$plots$d2 <-
+        car_2D_plots@distinct[[it.cat]]$plots$d2 |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -153,8 +154,8 @@ test_that(
 
     car_2D_plots <- plot(cars_2D)
     for (it.cat in names(car_2D_plots@distinct)) {
-      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+      car_2D_plots@distinct[[it.cat]]$plots$d2 <-
+        car_2D_plots@distinct[[it.cat]]$plots$d2 |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -185,8 +186,8 @@ test_that(
 
     car_2D_plots <- plot(cars_2D)
     for (it.cat in names(car_2D_plots@distinct)) {
-      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+      car_2D_plots@distinct[[it.cat]]$plots$d2 <-
+        car_2D_plots@distinct[[it.cat]]$plots$d2 |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 
@@ -215,8 +216,8 @@ test_that(
 
     car_2D_plots <- plot(cars_2D)
     for (it.cat in names(car_2D_plots@distinct)) {
-      car_2D_plots@distinct[[it.cat]]$plots[[2]] <-
-        car_2D_plots@distinct[[it.cat]]$plots[[2]] |>
+      car_2D_plots@distinct[[it.cat]]$plots$d2 <-
+        car_2D_plots@distinct[[it.cat]]$plots$d2 |>
         map(\(it.x1) ale_plots_to_data(it.x1))
     }
 

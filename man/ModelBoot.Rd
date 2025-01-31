@@ -165,7 +165,7 @@ mb_gam$model_coefs
 
 # Plot ALE
 mb_gam_plots <- plot(mb_gam)
-mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots[[1]]
+mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots$d1
 patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 }
 

@@ -39,12 +39,12 @@ test_that(
       silent = TRUE,
     )
     car_plots <- plot(cars_ale)
-    car_1D_plots <- car_plots@distinct$mpg$plots[[1]] |>
+    car_1D_plots <- car_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
-    car_eff_plot <- car_plots@distinct$mpg$eff_plot |>
+    car_eff_plot <- car_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # car_eff_plot <- cars_ale |>
     #   plot(type = 'effects') |>
@@ -71,12 +71,12 @@ test_that(
       silent = TRUE,
     )
     car_plots <- plot(cars_ale)
-    car_1D_plots <- car_plots@distinct$mpg$plots[[1]] |>
+    car_1D_plots <- car_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
-    car_eff_plot <- car_plots@distinct$mpg$eff_plot |>
+    car_eff_plot <- car_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # car_eff_plot <- cars_ale |>
     #   plot(type = 'effects') |>
@@ -129,12 +129,12 @@ test_that(
       silent = TRUE,
     )
     car_plots <- plot(cars_ale)
-    car_1D_plots <- car_plots@distinct$vs$plots[[1]] |>
+    car_1D_plots <- car_plots@distinct$vs$plots$d1 |>
       ale_plots_to_data()
-    car_eff_plot <- car_plots@distinct$vs$eff_plot |>
+    car_eff_plot <- car_plots@distinct$vs$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # car_eff_plot <- cars_ale |>
     #   plot( type = 'effects') |>
@@ -161,12 +161,12 @@ test_that(
       silent = TRUE,
     )
     car_plots <- plot(cars_ale)
-    car_1D_plots <- car_plots@distinct$vs$plots[[1]] |>
+    car_1D_plots <- car_plots@distinct$vs$plots$d1 |>
       ale_plots_to_data()
-    car_eff_plot <- car_plots@distinct$vs$eff_plot |>
+    car_eff_plot <- car_plots@distinct$vs$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots[[1]] |>
+    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # car_eff_plot <- cars_ale |>
     #   plot( type = 'effects') |>
@@ -223,9 +223,9 @@ test_that(
     car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
         list(
-          oneD = it.cat$plots[[1]] |>
+          d1 = it.cat$plots$d1 |>
             ale_plots_to_data(),
-          eff = it.cat$eff_plot |>
+          eff = it.cat$plots$eff |>
             ggplot2::ggplot_build() |>
             (`[[`)('data')
         )
@@ -235,7 +235,7 @@ test_that(
     expect_snapshot(car_plots)
     # car_plots <- plot(cars_ale)@distinct |>
     #   imap(\(it.cat, it.cat_name) {
-    #     it.cat$plots[[1]] |>
+    #     it.cat$plots$d1 |>
     #       ale_plots_to_data()
     #   })
     # car_eff_plots <- cars_ale |>
@@ -264,9 +264,9 @@ test_that(
     car_plots <- plot(cars_ale)@distinct |>
       imap(\(it.cat, it.cat_name) {
         list(
-          oneD = it.cat$plots[[1]] |>
+          d1 = it.cat$plots$d1 |>
             ale_plots_to_data(),
-          eff = it.cat$eff_plot |>
+          eff = it.cat$plots$eff |>
             ggplot2::ggplot_build() |>
             (`[[`)('data')
         )
@@ -276,7 +276,7 @@ test_that(
     expect_snapshot(car_plots)
     # car_plots <- plot(cars_ale)@distinct |>
     #   imap(\(it.cat, it.cat_name) {
-    #     it.cat$plots[[1]] |>
+    #     it.cat$plots$d1 |>
     #       ale_plots_to_data()
     #   })
     # car_eff_plots <- cars_ale |>

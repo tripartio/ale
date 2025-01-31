@@ -71,6 +71,7 @@ ALEPlots <- S7::new_class(
     if (obj |> S7::S7_inherits(ModelBoot)) {
       # if (obj |> inherits('ale_boot')) {
       # Adapt ale_boot object to behave like a regular ale object
+      # browser()
       if (!is.null(obj@ale$boot)) {
         # Prefer plots based on the bootstrapped object, if available
         alt_obj <- obj@ale$boot
@@ -93,62 +94,73 @@ ALEPlots <- S7::new_class(
       }
     }
 
+    # browser()
+
+    # Initialize plot lists
+    plots_1D <- NULL
+    plots_2D <- NULL
+    eff_plot <- NULL
+
     # if (type == 'ale') {
-    plots_1D <-
-      imap(obj@distinct, \(it.cat_data, it.cat_name) {
-        imap(it.cat_data$ale[[1]], \(it.x_col_ale_data, it.x_col_name) {
-          if (!is.null(it.x_col_ale_data)) {
-            plot_ale_1D(
-              ale_data  = it.x_col_ale_data,
-              x_col     = it.x_col_name,
-              y_col     = it.cat_name,
-              # y_col     = obj@params$y_col,
-              y_type    = obj@params$y_type,
-              y_summary = obj@params$y_summary[, it.cat_name],
-              x_y       = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
-              relative_y = relative_y,
-              p_alpha = p_alpha,
-              median_band_pct = median_band_pct,
-              rug_sample_size = rug_sample_size,
-              min_rug_per_interval = min_rug_per_interval,
-              seed = seed
-            )
-          }
-          else {
-            NULL
-          }
+    if (length(obj@params$x_cols$d1) >= 1) {
+      # There is at least 1 1D ALE data element
+      plots_1D <-
+        imap(obj@distinct, \(it.cat_data, it.cat_name) {
+          imap(it.cat_data$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
+            if (!is.null(it.x_col_ale_data)) {
+              plot_ale_1D(
+                ale_data  = it.x_col_ale_data,
+                x_col     = it.x_col_name,
+                y_col     = it.cat_name,
+                # y_col     = obj@params$y_col,
+                y_type    = obj@params$y_type,
+                y_summary = obj@params$y_summary[, it.cat_name],
+                x_y       = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
+                relative_y = relative_y,
+                p_alpha = p_alpha,
+                median_band_pct = median_band_pct,
+                rug_sample_size = rug_sample_size,
+                min_rug_per_interval = min_rug_per_interval,
+                seed = seed
+              )
+            }
+            else {
+              NULL
+            }
+          })
         })
-      })
 
-    # create a 1D effects plot if 1D estimate data is available
-    eff_plot <- if (!is.null(obj@distinct[[1]]$stats[[1]][[1]])) {
-      imap(obj@distinct, \(it.cat_data, it.cat_name) {
-        plot_effects(
-          estimates = it.cat_data$stats[[1]]$estimate,
-          y_summary = obj@params$y_summary[, it.cat_name],
-          y_col = it.cat_name,
-          middle_band = if (is.null(obj@params$p_values)) {
-            obj@params$median_band_pct
-          } else {
-            # Use p_value of NALED:
-            # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
-            # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-            obj@params$p_values$rand_stats[[it.cat_name]] |>
-              p_to_random_value('naled', obj@params$median_band_pct) |>
-              unname() |>
-              (`/`)(100)  # scale NALED from percentage to 0 to 1
-          }
-        )
-      })
-    } else {
-      NULL
+      # browser()
+
+      # Create a 1D effects plot when 1D stats are available
+      if ('stats' %in% obj@params$output) {
+        eff_plot <-
+          imap(obj@distinct, \(it.cat_data, it.cat_name) {
+            # browser()
+            plot_effects(
+              estimates = it.cat_data$stats$d1$estimate,
+              y_summary = obj@params$y_summary[, it.cat_name],
+              y_col = it.cat_name,
+              middle_band = if (is.null(obj@params$p_values)) {
+                obj@params$median_band_pct
+              } else {
+                # Use p_value of NALED:
+                # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
+                # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+                obj@params$p_values$rand_stats[[it.cat_name]] |>
+                  p_to_random_value('naled', obj@params$median_band_pct) |>
+                  unname() |>
+                  (`/`)(100)  # scale NALED from percentage to 0 to 1
+              }
+            )
+          })
+      }
     }
-
 
     if (obj@params$max_d >= 2) {
       plots_2D <-
         imap(obj@distinct, \(it.cat_data, it.cat_name) {
-          imap(it.cat_data$ale[[2]], \(it.x1_ales, it.x1_col_name) {
+          imap(it.cat_data$ale$d2, \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
@@ -202,15 +214,19 @@ ALEPlots <- S7::new_class(
       # Iterate by y category
       obj@params$y_cats |>
       map(\(it.cat) {
+        # browser()
+        # Always add a d1 plot list, even if it is NULL
         rtn_list <- list(
-          plots = list(plots_1D[[it.cat]])
+          plots = list(d1 = plots_1D[[it.cat]])
         )
 
         if (params$max_d >= 2) {
-          rtn_list$plots[[2]] <- plots_2D[[it.cat]]
+          rtn_list$plots$d2 <- plots_2D[[it.cat]]
         }
 
-        rtn_list$eff_plot <- eff_plot[[it.cat]]
+        # Always add the effects plot, even if it is NULL
+        rtn_list$plots$eff <- eff_plot[[it.cat]]
+        # rtn_list$eff_plot <- eff_plot[[it.cat]]
 
         rtn_list
       }) |>
@@ -235,7 +251,7 @@ ALEPlots <- S7::new_class(
     #   eff_plot <-
     #     imap(obj@distinct, \(it.cat_data, it.cat_name) {
     #       plot_effects(
-    #         estimates = it.cat_data$stats[[1]]$estimate,
+    #         estimates = it.cat_data$stats$d1$estimate,
     #         y_summary = obj@params$y_summary[, it.cat_name],
     #         y_col = it.cat_name,
     #         middle_band = if (is.null(obj@params$p_values)) {
@@ -291,12 +307,12 @@ S7::method(plot, ALEPlots) <- function(
     ...
 ) {
   count_1D <- x@distinct |>
-    purrr::map_int(\(it.cat) length(it.cat$plots[[1]]))
+    purrr::map_int(\(it.cat) length(it.cat$plots$d1))
 
   count_2D <- if (x@params$max_d >= 2) {
     x@distinct |>
       purrr::map_int(\(it.cat) {
-        it.cat$plots[[2]] |>
+        it.cat$plots$d2 |>
           purrr::map_int(length) |>
           sum()
       })
@@ -314,7 +330,7 @@ S7::method(plot, ALEPlots) <- function(
   if ((0 < count_1D) && (count_1D <= max_print)) {
     x@distinct |>
       purrr::walk(\(it.cat) {
-        it.cat$plots[[1]] |>
+        it.cat$plots$d1 |>
           patchwork::wrap_plots() |>
           print(...)
         # patchwork:::print.patchwork(...)
@@ -329,7 +345,7 @@ S7::method(plot, ALEPlots) <- function(
   if ((0 < count_2D) && (count_2D <= max_print)) {
     x@distinct |>
       walk(\(it.cat) {
-        it.cat$plots[[2]] |>
+        it.cat$plots$d2 |>
           purrr::list_flatten() |>
           patchwork::wrap_plots() |>
           print(...)

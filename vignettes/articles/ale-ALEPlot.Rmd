@@ -162,7 +162,7 @@ Since the plots are saved as a list, they can easily be printed out all at once:
 ```{r ale nnet one-way plots, fig.width=7, fig.height=5}
 # Print plots
 nn_plots <- plot(nn_ale)
-nn_1D_plots <- nn_plots$distinct$y$plots[[1]]
+nn_1D_plots <- nn_plots$distinct$y$plots$d1
 patchwork::wrap_plots(nn_1D_plots, ncol = 2)
 ```
 
@@ -178,7 +178,7 @@ It might not be clear that the previous plots display exactly the same data as t
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE plots
 nn_plots_zero <- plot(nn_ale, relative_y = 'zero')
-nn_1D_plots_zero <- nn_plots_zero$distinct$y$plots[[1]]
+nn_1D_plots_zero <- nn_plots_zero$distinct$y$plots$d1
 patchwork::wrap_plots(nn_1D_plots_zero)
 ```
 
@@ -192,7 +192,7 @@ nn_ale_2D <- ALE(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
 
 # Print plots
 nn_plots <- plot(nn_ale_2D)
-nn_2D_plots <- nn_plots$distinct$y$plots[[2]]
+nn_2D_plots <- nn_plots$distinct$y$plots$d2
 nn_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -303,7 +303,7 @@ gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_link)
-gbm_1D_link_plots <- gbm_link_plots$distinct$higher_income$plots[[1]]
+gbm_1D_link_plots <- gbm_link_plots$distinct$higher_income$plots$d1
 patchwork::wrap_plots(gbm_1D_link_plots, ncol = 2)
 ```
 
@@ -327,7 +327,7 @@ gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_2D_link)
-gbm_link_2D_plots <- gbm_link_plots$distinct$higher_income$plots[[2]]
+gbm_link_2D_plots <- gbm_link_plots$distinct$higher_income$plots$d2
 gbm_link_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -380,7 +380,7 @@ gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_prob)
-gbm_1D_prob_plots <- gbm_prob_plots$distinct$higher_income$plots[[1]]
+gbm_1D_prob_plots <- gbm_prob_plots$distinct$higher_income$plots$d1
 patchwork::wrap_plots(gbm_1D_prob_plots, ncol = 2)
 ```
 
@@ -404,7 +404,7 @@ gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_2D_prob)
-gbm_prob_2D_plots <- gbm_prob_plots$distinct$higher_income$plots[[2]]
+gbm_prob_2D_plots <- gbm_prob_plots$distinct$higher_income$plots$d2
 gbm_prob_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  

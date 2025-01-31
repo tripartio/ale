@@ -173,7 +173,7 @@ ALE <- S7::new_class(
   #'
   #' # Plot the ALE data
   #' diamonds_plots <- plot(ale_gam_diamonds)
-  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
   #'
   #' # Bootstrapped ALE
@@ -187,7 +187,7 @@ ALE <- S7::new_class(
   #'
   #' # Bootstrapped ALEs print with confidence intervals
   #' diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
-  #' diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots[[1]]
+  #' diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
   #'
   #'
@@ -204,7 +204,7 @@ ALE <- S7::new_class(
   #'
   #' # Plot the ALE data
   #' diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
-  #' diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots[[1]]
+  #' diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
   #'
   #' }
@@ -471,13 +471,16 @@ ALE <- S7::new_class(
 
     ## Establish x_cols ---------------
 
+    # browser()
+
+
     # Convert x_cols into a list of specific variables and interactions.
-    # x_cols[[1]] is the 1D ALE; x_cols[[2]] is the 2D ALE, and so on.
+    # x_cols$d1 is the 1D ALE; x_cols$d2 is the 2D ALE, and so on.
     if (is.null(x_cols)) {
       # By default, calculate 1D ALE for all variables in data
       x_col_spec <- 'complete'
 
-      x_cols[[1]] <- if (1 %in% complete_d) {
+      x_cols$d1 <- if (1 %in% complete_d) {
         # list(
         names(data) |> setdiff(y_col)
         # )
@@ -485,7 +488,7 @@ ALE <- S7::new_class(
         list()
       }
 
-      x_cols[[2]] <- if (2 %in% complete_d) {
+      x_cols$d2 <- if (2 %in% complete_d) {
         # All 2D combinations of x variables; redundancies will be cleaned up below
         tidyr::expand_grid(
           names(data) |> setdiff(y_col),
@@ -500,7 +503,7 @@ ALE <- S7::new_class(
     # # Result: c('a', 'b', 'c', 'd', 'e', 'f')
     else if (is.character(x_cols)) {
       x_col_spec <- '1D'
-      x_cols <- list(x_cols)
+      x_cols <- list(d1 = x_cols)
     }
     else {
       # Convert valid list specifications
@@ -530,7 +533,10 @@ ALE <- S7::new_class(
           }
         }
 
-        x_cols <- list(ale_1D_spec, ale_2D_spec)
+        x_cols <- list(
+          d1 = ale_1D_spec,
+          d2 = ale_2D_spec
+        )
       }
       # Pairs of interactions are specified (only for 2D ALE)
       # list(
@@ -540,14 +546,14 @@ ALE <- S7::new_class(
       # # Result: 2-way interactions: ac, ad, ae, bc, bd, be
       else if (
         length(x_cols) == 2 &&
-        is.list(x_cols[[1]]) && is.list(x_cols[[1]])
+        is.list(x_cols[[1]]) && is.list(x_cols[[2]])
       ) {
         x_col_spec <- '2D'
         x_cols <- list(
           # No 1D ALE in this specification
-          list(),
+          d1 = list(),
           # 2nd element is 2D ALE specification; redundancies will be cleaned up below
-          tidyr::expand_grid(
+          d2 = tidyr::expand_grid(
             unlist(x_cols[[1]]),
             unlist(x_cols[[2]])
           ) |>
@@ -557,37 +563,36 @@ ALE <- S7::new_class(
       else {
         cli_abort(c(x = 'Invalid specification for {.arg x_cols}. See help("ale") for details.'))
       }
-
     }
+
+    # browser()
 
     # If there is only 1D ALE, assign the 2D to be an empty list
     if (length(x_cols) == 1) {
-      x_cols[[2]] <- list()
+      x_cols$d2 <- list()
     }
 
     ### Remove redundancies in x_cols ---------------
 
-    # print(x_cols)
-
     # Always remove straight duplicates
-    x_cols[[1]] <- unique(x_cols[[1]])
-    x_cols[[2]] <- unique(x_cols[[2]])
+    x_cols$d1 <- unique(x_cols$d1)
+    x_cols$d2 <- unique(x_cols$d2)
 
     # Always remove any possible duplicated 2D x_cols
-    dup_x_cols_2 <- x_cols[[2]] |>
+    dup_x_cols_2 <- x_cols$d2 |>
       unlist(use.names = FALSE) |>
       unique() |>
       map(\(it.x) c(it.x, it.x))
-    x_cols[[2]] <- x_cols[[2]] |> setdiff(dup_x_cols_2)
+    x_cols$d2 <- x_cols$d2 |> setdiff(dup_x_cols_2)
 
     # Remove inverted 2D x_cols that might have been automatically created
     if (
       x_col_spec == '2D' ||
       (!is.null(complete_d) && max(complete_d) >= 2)
     ) {
-      x_cols[[2]] <- x_cols[[2]][
+      x_cols$d2 <- x_cols$d2[
         # This logical index is the non-duplicate indexes
-        x_cols[[2]] |>
+        x_cols$d2 |>
           # Sort the pairs and concatenate them with '|'...
           purrr::map_chr(\(it.pair) {
             it.pair |>
@@ -601,7 +606,7 @@ ALE <- S7::new_class(
       ]
     }
 
-    # Establish max_d (maximum dimnsions) variable for params
+    # Establish max_d (maximum dimensions) variable for params
     valid_d <- x_cols |>
       purrr::map_lgl(\(it.x_col_d) {
         length(it.x_col_d) > 0
@@ -609,7 +614,6 @@ ALE <- S7::new_class(
     max_d <- (1:length(x_cols)) |>
       (`[`)(valid_d) |>
       max()
-
 
     ## Prepare loops ---------------------
 
@@ -626,12 +630,14 @@ ALE <- S7::new_class(
     if (!silent && is.null(bins)) {
       progress_iterator <- progressr::progressor(
         # The number of steps is the number of elements in each ALE dimension requested.
-        steps = length(x_cols[[1]]) +
-          (if (length(x_cols) > 1) length(x_cols[[2]]) else 0),
+        steps = length(x_cols$d1) +
+          (if (length(x_cols) > 1) length(x_cols$d2) else 0),
         # steps = length(x_cols),
         message = 'Calculating ALE'
       )
     }
+
+    # browser()
 
     # Loop to generate ALE data ---------------
     ales <-
@@ -639,8 +645,8 @@ ALE <- S7::new_class(
       c(
         # Process 2D ALE first because it is slower than 1D ALE.
         # This helps the progress bar be more conservative, rather overly opimistic as it would be if 1D ALE were processed first.
-        x_cols[[2]],
-        x_cols[[1]]
+        x_cols$d2,
+        x_cols$d1
       ) |>
       # map(  # for debugging
       furrr::future_map(
@@ -670,6 +676,10 @@ ALE <- S7::new_class(
               p_dist = p_values
             ) |>
             list_transpose(simplify = FALSE)
+
+          # closeAllConnections()
+          # browser()
+
 
           ale_results |>
             imap(\(it.cat_ar, it.cat_name) {
@@ -728,11 +738,11 @@ ALE <- S7::new_class(
           setdiff(c('cat', 'x_cols', 'ale_d'))
       ]
 
-      ale_struc$distinct[[it.cat]][[1]] <- it.ar_1D
+      ale_struc$distinct[[it.cat]]$d1 <- it.ar_1D
       # ale_struc$distinct[[it.cat]] <- it.ar_1D
 
       # Assign 2D ALE results to ale_struc
-      if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
+      if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {
         it.ales_2D <- ales[[it.cat]] |>
           filter(.data$ale_d == 2)
 
@@ -757,10 +767,10 @@ ALE <- S7::new_class(
         ]
 
         ale_2D_struc <- list()
-        # it.2D_x_cols <- names(it.ar_2D[[1]]) |>
+        # it.2D_x_cols <- names(it.ar_2D$d1) |>
         #   stringr::str_split('\\|')
         for (it.el in names(it.ar_2D)) {
-          for (it.2D_x_cols in x_cols[[2]]) {
+          for (it.2D_x_cols in x_cols$d2) {
             ale_2D_struc[[it.el]][[it.2D_x_cols[1]]][[it.2D_x_cols[2]]] <-
               it.ar_2D[[it.el]][[
                 paste0(it.2D_x_cols[1], '|', it.2D_x_cols[2])
@@ -768,9 +778,9 @@ ALE <- S7::new_class(
           }
         }
 
-        ale_struc$distinct[[it.cat]][[2]] <- ale_2D_struc
+        ale_struc$distinct[[it.cat]]$d2 <- ale_2D_struc
         # ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc
-      }  # if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 2) {
+      }  # if (length(x_cols) >= 2 && length(x_cols$d2) >= 2) {
 
     }
 
@@ -782,9 +792,9 @@ ALE <- S7::new_class(
       for (it.cat in y_cats) {
 
         # 1D ALE statistics
-        if (length(x_cols[[1]]) >= 1) {
-          ale_struc$distinct[[it.cat]][[1]]$stats <-
-            ale_struc$distinct[[it.cat]][[1]]$stats |>
+        if (length(x_cols$d1) >= 1) {
+          ale_struc$distinct[[it.cat]]$d1$stats <-
+            ale_struc$distinct[[it.cat]]$d1$stats |>
             imap(\(it.term_tbl, it.term) {
               it.term_tbl |>
                 mutate(term = it.term)
@@ -801,21 +811,21 @@ ALE <- S7::new_class(
               'median_band_pct'
             }
 
-            ale_struc$distinct[[it.cat]][[1]]$stats$conf_regions <-
+            ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
               summarize_conf_regions_1D(
-                ale_struc$distinct[[it.cat]][[1]]$ale,
+                ale_struc$distinct[[it.cat]]$d1$ale,
                 y_summary[, it.cat, drop = FALSE],
                 sig_criterion = sig_criterion
               )
           }  # if ('conf_regions' %in% output)
-        }  # if (length(x_cols[[1]]) >= 1) {
+        }  # if (length(x_cols$d1) >= 1) {
 
         # 2D ALE statistics
-        if (length(x_cols) >= 2 && length(x_cols[[2]]) >= 1) {
+        if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {
           # Iterate statistics for each x1 variable
-          for (it.x1 in names(ale_struc$distinct[[it.cat]][[2]]$stats)) {
-            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] <-
-              ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]] |>
+          for (it.x1 in names(ale_struc$distinct[[it.cat]]$d2$stats)) {
+            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]] <-
+              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]] |>
               imap(\(it.term_tbl, it.term) {
                 it.term_tbl |>
                   mutate(term = it.term)
@@ -825,8 +835,8 @@ ALE <- S7::new_class(
               pivot_stats()
 
             # Rename terms to specify both interaction variables
-            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$by_stat <-
-              ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$by_stat |>
+            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$by_stat <-
+              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$by_stat |>
               map(\(it.stat_tbl) {
                 it.stat_tbl |>
                   mutate(term1 = it.x1) |>
@@ -834,8 +844,8 @@ ALE <- S7::new_class(
                   select('term1', 'term2', everything())
               })
 
-            ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate <-
-              ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$estimate |>
+            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$estimate <-
+              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$estimate |>
               mutate(term1 = it.x1) |>
               rename(term2 = 'term') |>
               select('term1', 'term2', everything())
@@ -848,9 +858,9 @@ ALE <- S7::new_class(
                 'median_band_pct'
               }
 
-              ale_struc$distinct[[it.cat]][[2]]$stats[[it.x1]]$conf_regions <-
+              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$conf_regions <-
                 summarize_conf_regions_2D(
-                  ale_struc$distinct[[it.cat]][[2]]$ale[[it.x1]],
+                  ale_struc$distinct[[it.cat]]$d2$ale[[it.x1]],
                   y_summary[, it.cat, drop = FALSE],
                   sig_criterion = sig_criterion
                 )
@@ -859,31 +869,31 @@ ALE <- S7::new_class(
           }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
 
           # Transpose stats result order in the list
-          ale_struc$distinct[[it.cat]][[2]]$stats <-
-            ale_struc$distinct[[it.cat]][[2]]$stats |>
+          ale_struc$distinct[[it.cat]]$d2$stats <-
+            ale_struc$distinct[[it.cat]]$d2$stats |>
             list_transpose(simplify = FALSE)
 
           # Consolidate 2D stats into more convenient formats
-          ale_struc$distinct[[it.cat]][[2]]$stats$by_stat <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$by_stat |>
+          ale_struc$distinct[[it.cat]]$d2$stats$by_stat <-
+            ale_struc$distinct[[it.cat]]$d2$stats$by_stat |>
             list_transpose(simplify = FALSE) |>
             map(\(it.stat) bind_rows(it.stat))
-          ale_struc$distinct[[it.cat]][[2]]$stats$estimate <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$estimate |>
+          ale_struc$distinct[[it.cat]]$d2$stats$estimate <-
+            ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
             bind_rows()
-          ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions |>
+          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
             list_transpose(simplify = FALSE)
-          ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$by_term |>
+          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term <-
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term |>
             bind_rows()
-          ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$significant |>
+          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant <-
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant |>
             bind_rows()
-          ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion <-
-            ale_struc$distinct[[it.cat]][[2]]$stats$conf_regions$sig_criterion[[1]]
+          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion <-
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion[[1]]
 
-        }  # if (length(x_cols[[2]]) >= 1) {
+        }  # if (length(x_cols$d2) >= 1) {
       }  # for (it.cat in y_cats)
 
     }

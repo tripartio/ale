@@ -139,7 +139,7 @@ ale_gam_diamonds <- ALE(
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 

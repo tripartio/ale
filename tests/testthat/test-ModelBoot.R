@@ -43,16 +43,16 @@ test_that(
       silent = TRUE
     )
     mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$mpg$plots[[1]] |>
+    mb_1D_plots <- mb_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$mpg$eff_plot |>
+    mb_eff_plot <- mb_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # # mb_eff_plot <- mb |>
     # #   plot.ALE(type = 'effects') |>
@@ -85,16 +85,16 @@ test_that(
       silent = TRUE
     )
     mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$mpg$plots[[1]] |>
+    mb_1D_plots <- mb_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$mpg$eff_plot |>
+    mb_eff_plot <- mb_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # # mb_eff_plot <- mb |>
     # #   plot.ALE( type = 'effects') |>
@@ -145,16 +145,16 @@ test_that(
       silent = TRUE
     )
     mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$vs$plots[[1]] |>
+    mb_1D_plots <- mb_plots@distinct$vs$plots$d1 |>
       ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$vs$eff_plot |>
+    mb_eff_plot <- mb_plots@distinct$vs$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots[[1]] |>
+    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
     #   ale_plots_to_data()
     # # mb_eff_plot <- mb |>
     # #   plot.ALE( type = 'effects') |>
@@ -196,9 +196,9 @@ test_that(
     mb_plots <- plot(mb)@distinct |>
       imap(\(it.cat, it.cat_name) {
         list(
-          oneD = it.cat$plots[[1]] |>
+          oneD = it.cat$plots$d1 |>
             ale_plots_to_data(),
-          eff = it.cat$eff_plot |>
+          eff = it.cat$plots$eff |>
             ggplot2::ggplot_build() |>
             (`[[`)('data')
         )

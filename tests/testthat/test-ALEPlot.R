@@ -108,7 +108,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_to_ALEPlot <-
-    nnet_ale@distinct$y$ale[[1]] |>
+    nnet_ale@distinct$y$ale$d1 |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],
@@ -170,7 +170,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_to_ALEPlot <-
-    gbm_ale@distinct$higher_income$ale[[1]] |>
+    gbm_ale@distinct$higher_income$ale$d1 |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],
@@ -248,7 +248,7 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_2D_to_ALEPlot <-
-    nnet_2D@distinct$y$ale[[2]] |>
+    nnet_2D@distinct$y$ale$d2 |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
         it.x2 <- it.x2 |>
@@ -339,7 +339,7 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
 
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_2D_to_ALEPlot <-
-    gbm_2D@distinct$higher_income$ale[[2]] |>
+    gbm_2D@distinct$higher_income$ale$d2 |>
     map(\(it.x1) {
       map(it.x1, \(it.x2) {
         it.x2 <- it.x2 |>

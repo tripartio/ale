@@ -231,7 +231,7 @@ ale_gam_diamonds <- ALE(diamonds_sample, gam_diamonds)
 
 # Plot the ALE data
 diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
+diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 # Bootstrapped ALE
@@ -245,7 +245,7 @@ ale_gam_diamonds_boot <- ALE(
 
 # Bootstrapped ALEs print with confidence intervals
 diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
-diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots[[1]]
+diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
 
 
@@ -262,7 +262,7 @@ ale_gam_diamonds_custom <- ALE(
 
 # Plot the ALE data
 diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
-diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots[[1]]
+diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
 
 }

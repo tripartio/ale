@@ -48,8 +48,8 @@
       attr(,"distinct")
       attr(,"distinct")$mpg
       attr(,"distinct")$mpg$ale
-      attr(,"distinct")$mpg$ale[[1]]
-      attr(,"distinct")$mpg$ale[[1]]$model
+      attr(,"distinct")$mpg$ale$d1
+      attr(,"distinct")$mpg$ale$d1$model
       # A tibble: 32 x 7
          model.bin              .n     .y   .y_lo .y_mean .y_median .y_hi
          <ord>               <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -65,7 +65,7 @@
       10 Merc 450SLC             2 -25.6  -42.0    -25.6     -29.1  -3.06
       # i 22 more rows
       
-      attr(,"distinct")$mpg$ale[[1]]$cyl
+      attr(,"distinct")$mpg$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -77,7 +77,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      attr(,"distinct")$mpg$ale[[1]]$disp
+      attr(,"distinct")$mpg$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -92,7 +92,7 @@
        9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      attr(,"distinct")$mpg$ale[[1]]$hp
+      attr(,"distinct")$mpg$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -107,7 +107,7 @@
        9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
       10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      attr(,"distinct")$mpg$ale[[1]]$drat
+      attr(,"distinct")$mpg$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -122,7 +122,7 @@
        9      4.21     7  0.671   0.671   0.671     0.671   0.671 
       10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      attr(,"distinct")$mpg$ale[[1]]$wt
+      attr(,"distinct")$mpg$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -137,7 +137,7 @@
        9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
       10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      attr(,"distinct")$mpg$ale[[1]]$qsec
+      attr(,"distinct")$mpg$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -152,21 +152,21 @@
        9      20       7  4.54   4.54    4.54      4.54   4.54 
       10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      attr(,"distinct")$mpg$ale[[1]]$vs
+      attr(,"distinct")$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36  0.414 -0.217   0.414     0.129 1.53 
       2 TRUE      28 -0.532 -1.95   -0.532    -0.166 0.269
       
-      attr(,"distinct")$mpg$ale[[1]]$am
+      attr(,"distinct")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -0.490 -1.53   -0.490   -0.307  0.236
       2 TRUE      26  0.487 -0.533   0.487    0.0668 2.22 
       
-      attr(,"distinct")$mpg$ale[[1]]$gear
+      attr(,"distinct")$mpg$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -174,7 +174,7 @@
       2 four        24 -1.16  -1.76    -1.16     -1.07  -0.698
       3 five        10  0.521 -0.0278   0.521     0.571  0.985
       
-      attr(,"distinct")$mpg$ale[[1]]$carb
+      attr(,"distinct")$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -184,7 +184,7 @@
       4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
       5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      attr(,"distinct")$mpg$ale[[1]]$country
+      attr(,"distinct")$mpg$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -195,7 +195,7 @@
       5 Germany        16  3.11  -1.52    3.11      3.59   6.92
       6 USA            24  5.52   1.98    5.52      5.41   9.27
       
-      attr(,"distinct")$mpg$ale[[1]]$continent
+      attr(,"distinct")$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
@@ -206,9 +206,9 @@
       
       
       attr(,"distinct")$mpg$stats
-      attr(,"distinct")$mpg$stats[[1]]
-      attr(,"distinct")$mpg$stats[[1]]$by_term
-      attr(,"distinct")$mpg$stats[[1]]$by_term$model
+      attr(,"distinct")$mpg$stats$d1
+      attr(,"distinct")$mpg$stats$d1$by_term
+      attr(,"distinct")$mpg$stats$d1$by_term$model
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -219,7 +219,7 @@
       5 naler_min   -48.5        0 -50      -48.5  -50       -44.4 
       6 naler_max    27.7        0  -3.45    27.7   33.3      49.1 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$cyl
+      attr(,"distinct")$mpg$stats$d1$by_term$cyl
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -230,7 +230,7 @@
       5 naler_min   0          1     0       0       0         0     
       6 naler_max   0          0.5   0       0       0         0     
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$disp
+      attr(,"distinct")$mpg$stats$d1$by_term$disp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -241,7 +241,7 @@
       5 naler_min   -40.9        0   -40.9  -40.9  -40.9     -40.9 
       6 naler_max    28.8        0    28.8   28.8   28.8      28.8 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$hp
+      attr(,"distinct")$mpg$stats$d1$by_term$hp
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -252,7 +252,7 @@
       5 naler_min   -19.7        0   -19.7  -19.7  -19.7     -19.7 
       6 naler_max    22.7        0    22.7   22.7   22.7      22.7 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$drat
+      attr(,"distinct")$mpg$stats$d1$by_term$drat
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -263,7 +263,7 @@
       5 naler_min   -7.58        0   -7.58  -7.58  -7.58     -7.58 
       6 naler_max    7.58        0    7.58   7.58   7.58      7.58 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$wt
+      attr(,"distinct")$mpg$stats$d1$by_term$wt
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -274,7 +274,7 @@
       5 naler_min   -50          0   -50    -50    -50       -50   
       6 naler_max    34.8        0    34.8   34.8   34.8      34.8 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$qsec
+      attr(,"distinct")$mpg$stats$d1$by_term$qsec
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -285,7 +285,7 @@
       5 naler_min   -43.9        0   -43.9  -43.9  -43.9     -43.9 
       6 naler_max    37.9        0    37.9   37.9   37.9      37.9 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$vs
+      attr(,"distinct")$mpg$stats$d1$by_term$vs
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -296,7 +296,7 @@
       5 naler_min   -5.30        0  -15.8   -5.30  -2.27     0     
       6 naler_max    3.03        0   -3.86   3.03   4.55     7.35  
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$am
+      attr(,"distinct")$mpg$stats$d1$by_term$am
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -307,7 +307,7 @@
       5 naler_min   -5.68        0  -13.2   -5.68  -6.82      3.75 
       6 naler_max    4.17        0   -5.95   4.17   0.758    20.1  
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$gear
+      attr(,"distinct")$mpg$stats$d1$by_term$gear
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
@@ -318,7 +318,7 @@
       5 naler_min  -10.2         0  -13.5   -10.2   -9.85     -7.58 
       6 naler_max    6.06        0    4.55    6.06   6.06      7.58 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$carb
+      attr(,"distinct")$mpg$stats$d1$by_term$carb
       # A tibble: 6 x 7
         statistic estimate p.value conf.low     mean   median conf.high
         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -329,7 +329,7 @@
       5 naler_min  0           1    0        0        0         0      
       6 naler_max  0           0.5  0        0        0         0      
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$country
+      attr(,"distinct")$mpg$stats$d1$by_term$country
       # A tibble: 6 x 7
         statistic estimate p.value conf.low   mean median conf.high
         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -340,7 +340,7 @@
       5 naler_min   -7.20        0   -22.0  -7.20  -6.82       7.01
       6 naler_max   28.4         0    13.4  28.4   31.8       37.7 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_term$continent
+      attr(,"distinct")$mpg$stats$d1$by_term$continent
       # A tibble: 6 x 7
         statistic estimate p.value conf.low    mean  median conf.high
         <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -352,8 +352,8 @@
       6 naler_max    4.55        0   -3.86    4.55    4.55      13.0 
       
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$aled
+      attr(,"distinct")$mpg$stats$d1$by_stat
+      attr(,"distinct")$mpg$stats$d1$by_stat$aled
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -371,7 +371,7 @@
       12 country    4.44          0  1.72     4.44     4.24      7.48   
       13 continent  0.914         0  0.422    0.914    0.707     1.76   
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$aler_min
+      attr(,"distinct")$mpg$stats$d1$by_stat$aler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -389,7 +389,7 @@
       12 country    -0.999        0  -3.38    -0.999   -0.859     1.15  
       13 continent  -2.17         0  -3.91    -2.17    -1.80     -1.07  
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$aler_max
+      attr(,"distinct")$mpg$stats$d1$by_stat$aler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -407,7 +407,7 @@
       12 country     5.53         0   1.98   5.53   5.41      9.27  
       13 continent   0.685        0  -0.217  0.685  0.452     1.98  
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$naled
+      attr(,"distinct")$mpg$stats$d1$by_stat$naled
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -425,7 +425,7 @@
       12 country      24.4      0      12.5  24.4   25.7      34.0 
       13 continent     7.88     0       3.66  7.88   7.10     13.4 
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$naler_min
+      attr(,"distinct")$mpg$stats$d1$by_stat$naler_min
       # A tibble: 13 x 7
          term      estimate p.value conf.low   mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -443,7 +443,7 @@
       12 country      -7.20       0   -22.0   -7.20  -6.82      7.01
       13 continent   -16.3        0   -29.1  -16.3  -13.6      -8.03
       
-      attr(,"distinct")$mpg$stats[[1]]$by_stat$naler_max
+      attr(,"distinct")$mpg$stats$d1$by_stat$naler_max
       # A tibble: 13 x 7
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -462,7 +462,7 @@
       13 continent     4.55     0      -3.86  4.55  4.55      13.0 
       
       
-      attr(,"distinct")$mpg$stats[[1]]$estimate
+      attr(,"distinct")$mpg$stats$d1$estimate
       # A tibble: 13 x 7
          term          aled aler_min aler_max naled naler_min naler_max
          <chr>        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
@@ -625,12 +625,12 @@
       
       
       attr(,"params")$x_cols
-      attr(,"params")$x_cols[[1]]
+      attr(,"params")$x_cols$d1
        [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
        [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
       [13] "continent"
       
-      attr(,"params")$x_cols[[2]]
+      attr(,"params")$x_cols$d2
       list()
       
       
