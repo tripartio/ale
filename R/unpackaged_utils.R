@@ -124,22 +124,23 @@ var_type <- function(var) {
 #' Currently assumes that the result object will have only one class.
 #'
 #' @param x An R object
-#' @param new_class character(1). A single class to which to convert `x`.
+#' @param new_cls character(1). A single class to which to convert `x`.
 #'
-#' @return `x` converted to class `new_class`.
+#' @return `x` converted to class `new_cls`.
 #'
-cast <- function(x, new_class) {
-  # Attempt S3 coercion by looking for an as.<new_class>() function
-  coerce_fun_name <- paste0("as.", new_class)
+cast <- function(x, new_cls) {
+  # Attempt S3 coercion by looking for an as.<new_cls>() function
+  coerce_fun_name <- paste0("as.", new_cls)
 
   if (exists(coerce_fun_name, mode = "function")) {
-    # Retrieve the coercion function
-    coerce_fun <- get(coerce_fun_name, mode = "function")
+    # Retrieve the coercion function.
+    # Must specify base::get to not conflict with ale::get.
+    coerce_fun <- base::get(coerce_fun_name, mode = "function")
     # Apply the function to x
     return(coerce_fun(x))
   } else {
     # If S3 method doesn't exist, try S4 coercion using methods::as()
-    return(methods::as(x, new_class))
+    return(methods::as(x, new_cls))
   }
 }
 

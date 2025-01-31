@@ -333,7 +333,6 @@ ALE <- S7::new_class(
 
     if (!is.null(p_values)) {
       # The user wants p-values
-      # browser()
       if (rlang::is_scalar_atomic(p_values) && p_values == 'auto') {
       # if (length(p_values) == 1 && p_values == 'auto') {
         # Try to automatically obtain p-values
@@ -467,144 +466,18 @@ ALE <- S7::new_class(
         })
     }
 
+    resolved_x_cols <- resolve_x_cols(
+      col_names = names(data),
+      x_cols = x_cols,
+      y_col = y_col,
+      complete_d = complete_d
+    )
 
+    requested_x_cols <- resolved_x_cols$requested
+    ordered_x_cols <- resolved_x_cols$requested
+    # Work internally with the x_cols in the internal order
+    x_cols <- ordered_x_cols
 
-    ## Establish x_cols ---------------
-
-    # browser()
-
-
-    # Convert x_cols into a list of specific variables and interactions.
-    # x_cols$d1 is the 1D ALE; x_cols$d2 is the 2D ALE, and so on.
-    if (is.null(x_cols)) {
-      # By default, calculate 1D ALE for all variables in data
-      x_col_spec <- 'complete'
-
-      x_cols$d1 <- if (1 %in% complete_d) {
-        # list(
-        names(data) |> setdiff(y_col)
-        # )
-      } else {
-        list()
-      }
-
-      x_cols$d2 <- if (2 %in% complete_d) {
-        # All 2D combinations of x variables; redundancies will be cleaned up below
-        tidyr::expand_grid(
-          names(data) |> setdiff(y_col),
-          names(data) |> setdiff(y_col)
-        ) |>
-          purrr::pmap(~ c(..1, ..2))
-      } else {
-        list()
-      }
-    }
-    # A character vector: simple ALE with no interactions
-    # # Result: c('a', 'b', 'c', 'd', 'e', 'f')
-    else if (is.character(x_cols)) {
-      x_col_spec <- '1D'
-      x_cols <- list(d1 = x_cols)
-    }
-    else {
-      # Convert valid list specifications
-
-      # All desired ALE is explicitly specified as a character vector
-      # list(
-      #   'a',
-      #   'b',
-      #   c('a', 'b'),
-      #   c('c', 'd'),
-      #   c('e', 'f')
-      # )
-      # # Result: a, b, ab, cd, ef; nothing else
-      if (purrr::map_lgl(x_cols, is.character) |> all()) {
-        x_col_spec <- 'explicit'
-        ale_1D_spec <- list()
-        ale_2D_spec <- list()
-        for (it.ale_spec in x_cols) {
-          it.len_ale_spec <- length(it.ale_spec)
-          if (it.len_ale_spec == 1) {
-            ale_1D_spec <- ale_1D_spec |> append(it.ale_spec)
-          } else if (it.len_ale_spec == 2) {
-            ale_2D_spec <- ale_2D_spec |> append(list(it.ale_spec))
-          }
-          else {
-            cli_abort(c(x = 'Invalid specification for {.arg x_cols}. See help("ale") for details.'))
-          }
-        }
-
-        x_cols <- list(
-          d1 = ale_1D_spec,
-          d2 = ale_2D_spec
-        )
-      }
-      # Pairs of interactions are specified (only for 2D ALE)
-      # list(
-      #   list('a', 'b'),
-      #   list('c', 'd', 'e')
-      # )
-      # # Result: 2-way interactions: ac, ad, ae, bc, bd, be
-      else if (
-        length(x_cols) == 2 &&
-        is.list(x_cols[[1]]) && is.list(x_cols[[2]])
-      ) {
-        x_col_spec <- '2D'
-        x_cols <- list(
-          # No 1D ALE in this specification
-          d1 = list(),
-          # 2nd element is 2D ALE specification; redundancies will be cleaned up below
-          d2 = tidyr::expand_grid(
-            unlist(x_cols[[1]]),
-            unlist(x_cols[[2]])
-          ) |>
-            purrr::pmap(~ c(..1, ..2))
-        )
-      }
-      else {
-        cli_abort(c(x = 'Invalid specification for {.arg x_cols}. See help("ale") for details.'))
-      }
-    }
-
-    # browser()
-
-    # If there is only 1D ALE, assign the 2D to be an empty list
-    if (length(x_cols) == 1) {
-      x_cols$d2 <- list()
-    }
-
-    ### Remove redundancies in x_cols ---------------
-
-    # Always remove straight duplicates
-    x_cols$d1 <- unique(x_cols$d1)
-    x_cols$d2 <- unique(x_cols$d2)
-
-    # Always remove any possible duplicated 2D x_cols
-    dup_x_cols_2 <- x_cols$d2 |>
-      unlist(use.names = FALSE) |>
-      unique() |>
-      map(\(it.x) c(it.x, it.x))
-    x_cols$d2 <- x_cols$d2 |> setdiff(dup_x_cols_2)
-
-    # Remove inverted 2D x_cols that might have been automatically created
-    if (
-      x_col_spec == '2D' ||
-      (!is.null(complete_d) && max(complete_d) >= 2)
-    ) {
-      x_cols$d2 <- x_cols$d2[
-        # This logical index is the non-duplicate indexes
-        x_cols$d2 |>
-          # Sort the pairs and concatenate them with '|'...
-          purrr::map_chr(\(it.pair) {
-            it.pair |>
-              sort() |>
-              paste0(collapse = "|")
-          }) |>
-          # ... and then it is easy to identify which are duplicates ...
-          duplicated() |>
-          # ... and which are not
-          (`!`)()
-      ]
-    }
 
     # Establish max_d (maximum dimensions) variable for params
     valid_d <- x_cols |>
@@ -637,8 +510,6 @@ ALE <- S7::new_class(
       )
     }
 
-    # browser()
-
     # Loop to generate ALE data ---------------
     ales <-
       # Enumerate each ALE object to be created in one list
@@ -666,7 +537,6 @@ ALE <- S7::new_class(
           ale_results <-
             calc_ale(
               data, model, it.x_cols, y_col, y_cats,
-              # data_X, model, it.x_cols, y_cats,
               pred_fun, pred_type, max_num_bins,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = 'boot' %in% output,
@@ -676,10 +546,6 @@ ALE <- S7::new_class(
               p_dist = p_values
             ) |>
             list_transpose(simplify = FALSE)
-
-          # closeAllConnections()
-          # browser()
-
 
           ale_results |>
             imap(\(it.cat_ar, it.cat_name) {
@@ -912,7 +778,7 @@ ALE <- S7::new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> stringr::str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_col_spec', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'it_objs', 'resolved_x_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'x_col_spec', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments

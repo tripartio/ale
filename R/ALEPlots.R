@@ -102,7 +102,7 @@ ALEPlots <- S7::new_class(
     eff_plot <- NULL
 
     # if (type == 'ale') {
-    if (length(obj@params$x_cols$d1) >= 1) {
+    if (length(obj@params$ordered_x_cols$d1) >= 1) {
       # There is at least 1 1D ALE data element
       plots_1D <-
         imap(obj@distinct, \(it.cat_data, it.cat_name) {
