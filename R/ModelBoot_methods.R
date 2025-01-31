@@ -36,7 +36,7 @@ S7::method(print, ModelBoot) <- function(x, ...) {
 #' @title plot method for `ModelBoot` objects
 #'
 #' @description
-#' This plot method simply calls the constructer for an `ALEPlots` object.
+#' This plot method simply calls the constructor for an `ALEPlots` object.
 #'
 #' @param x ModelBoot object.
 #' @param ... Arguments passed to [ALEPlots()]
