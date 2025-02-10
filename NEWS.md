@@ -45,16 +45,17 @@ Other than for these edge cases, our implementation continues to give identical 
 
 Other notable changes that might not be readily visible to users:
 
-* Moved all performance metrics to a new dedicated package, `{staccuracy}`.
-* Reduced dependencies by doing more with the `{rlang}` and `{cli}` packages. Reduced the imported functions to a minimum.
+* Update required R version to >= 4.2.0 because it uses the |> pipe with placeholder.
+* Move all performance metrics to a new dedicated package, `{staccuracy}`.
+* Reduce dependencies by doing more with the `{rlang}` and `{cli}` packages. Reduced the imported functions to a minimum.
 * Package messages, warnings, and errors now use `{cli}`.
-* Replaced `{assertthat}` with custom validation functions that adapt some `{assertthat}` code. 
+* Replace `{assertthat}` with custom validation functions that adapt some `{assertthat}` code. 
 * Use `helper.R` test files so that some testing objects are available to the loaded package.
-* Configured `{future}` parallelization code to restore original values on exit.
-* Configured code that uses a random seed to restore the original system seed on exit.
-* Improved memory efficiency of `ale_p` objects.
-* Plotting code updated for compatibility with `{ggplot2}` 3.5.
-* Added testing code coverage with `{covr}`.
+* Configure `{future}` parallelization code to restore original values on exit.
+* Configure code that uses a random seed to restore the original system seed on exit.
+* Improve memory efficiency of `ale_p` objects.
+* Update plotting code for compatibility with `{ggplot2}` 3.5.
+* Add testing code coverage with `{covr}`.
 
 ## Known issues to be addressed in a future version
 
