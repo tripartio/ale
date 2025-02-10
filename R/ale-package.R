@@ -31,6 +31,7 @@
 #' @importFrom rlang is_string
 #' @importFrom rlang set_names
 #' @importFrom rlang `:=`
+#' @importFrom rlang `%||%`
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd

@@ -211,6 +211,13 @@ validate_x_cols <- function(
   ) |>
     compact()
 
+  # Replace empty elements with list() (not NULL)
+  x_cols$d1 <- x_cols$d1 %||% list()
+  x_cols$d2 <- x_cols$d2 %||% list()
+
+  # Assure the strict order of names as c('d1', 'd2')
+  x_cols <- x_cols[c('d1', 'd2')]
+
   return(x_cols)
 }
 
