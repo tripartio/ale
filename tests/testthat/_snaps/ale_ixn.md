@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -577,7 +577,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -601,17 +601,6 @@
        9 Dodge Challenger        2  0.468  0.468   0.468     0.468  0.468
       10 Merc 450SLC             2 -1.14  -1.14   -1.14     -1.14  -1.14 
       # i 22 more rows
-      
-      attr(,"distinct")$mpg$ale$d1$cyl
-      # A tibble: 6 x 7
-        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1        3     1  0.0187   0.0187   0.0187    0.0187   0.0187 
-      2        4    17  0.0115   0.0115   0.0115    0.0115   0.0115 
-      3        5     6  0.00427  0.00427  0.00427   0.00427  0.00427
-      4        6    11 -0.00292 -0.00292 -0.00292  -0.00292 -0.00292
-      5        8    26 -0.0173  -0.0173  -0.0173   -0.0173  -0.0173 
-      6        9     3 -0.0245  -0.0245  -0.0245   -0.0245  -0.0245 
       
       attr(,"distinct")$mpg$ale$d1$vs
       # A tibble: 2 x 7
@@ -657,38 +646,6 @@
       10    3.82      52     0  7.48e-15  7.48e-15  7.48e-15  7.48e-15  7.48e-15
       # i 134 more rows
       
-      attr(,"distinct")$mpg$ale$d2$wt$drat
-      # A tibble: 144 x 8
-         wt.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50      2.74     0  1.79e-14  1.79e-14  1.79e-14  1.79e-14  1.79e-14
-       2    1.84      2.74     0  1.28e-14  1.28e-14  1.28e-14  1.28e-14  1.28e-14
-       3    2.21      2.74     0  6.30e-15  6.30e-15  6.30e-15  6.30e-15  6.30e-15
-       4    2.64      2.74     0  1.56e-15  1.56e-15  1.56e-15  1.56e-15  1.56e-15
-       5    2.88      2.74     0 -1.65e-15 -1.65e-15 -1.65e-15 -1.65e-15 -1.65e-15
-       6    3.22      2.74     0 -4.86e-15 -4.86e-15 -4.86e-15 -4.86e-15 -4.86e-15
-       7    3.44      2.74     0 -3.32e-15 -3.32e-15 -3.32e-15 -3.32e-15 -3.32e-15
-       8    3.46      2.74     1 -2.32e-16 -2.32e-16 -2.32e-16 -2.32e-16 -2.32e-16
-       9    3.57      2.74     0 -1.70e-15 -1.70e-15 -1.70e-15 -1.70e-15 -1.70e-15
-      10    3.82      2.74     0 -3.28e-15 -3.28e-15 -3.28e-15 -3.28e-15 -3.28e-15
-      # i 134 more rows
-      
-      attr(,"distinct")$mpg$ale$d2$wt$qsec
-      # A tibble: 144 x 8
-         wt.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50      14.5     0  1.58e-14  1.58e-14  1.58e-14  1.58e-14  1.58e-14
-       2    1.84      14.5     0  2.22e-14  2.22e-14  2.22e-14  2.22e-14  2.22e-14
-       3    2.21      14.5     0  1.40e-14  1.40e-14  1.40e-14  1.40e-14  1.40e-14
-       4    2.64      14.5     0  1.18e-14  1.18e-14  1.18e-14  1.18e-14  1.18e-14
-       5    2.88      14.5     0  1.11e-14  1.11e-14  1.11e-14  1.11e-14  1.11e-14
-       6    3.22      14.5     1  8.89e-15  8.89e-15  8.89e-15  8.89e-15  8.89e-15
-       7    3.44      14.5     0  5.52e-15  5.52e-15  5.52e-15  5.52e-15  5.52e-15
-       8    3.46      14.5     0 -1.44e-15 -1.44e-15 -1.44e-15 -1.44e-15 -1.44e-15
-       9    3.57      14.5     0 -4.40e-15 -4.40e-15 -4.40e-15 -4.40e-15 -4.40e-15
-      10    3.82      14.5     0 -1.30e-14 -1.30e-14 -1.30e-14 -1.30e-14 -1.30e-14
-      # i 134 more rows
-      
       
       attr(,"distinct")$mpg$ale$d2$qsec
       attr(,"distinct")$mpg$ale$d2$qsec$wt
@@ -717,7 +674,7 @@
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-      [1] "model" "cyl"   "vs"   
+      [1] "model" "vs"   
       
       attr(,"params")$ordered_x_cols$d2
       attr(,"params")$ordered_x_cols$d2[[1]]
@@ -727,34 +684,22 @@
       [1] "wt" "hp"
       
       attr(,"params")$ordered_x_cols$d2[[3]]
-      [1] "wt"   "drat"
-      
-      attr(,"params")$ordered_x_cols$d2[[4]]
-      [1] "wt"   "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[5]]
       [1] "qsec" "wt"  
       
       
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-      [1] "model" "cyl"   "vs"   
+      [1] "model" "vs"   
       
       attr(,"params")$requested_x_cols$d2
       attr(,"params")$requested_x_cols$d2[[1]]
       [1] "hp"   "drat"
       
       attr(,"params")$requested_x_cols$d2[[2]]
-      [1] "wt"   "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[3]]
       [1] "wt" "hp"
       
-      attr(,"params")$requested_x_cols$d2[[4]]
-      [1] "wt"   "drat"
-      
-      attr(,"params")$requested_x_cols$d2[[5]]
+      attr(,"params")$requested_x_cols$d2[[3]]
       [1] "qsec" "wt"  
       
       
@@ -1030,22 +975,6 @@
       31 19.2 19.2
       32 19.2 19.2
       
-      $cyl
-        x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 3 19.21866     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 4 19.21147     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      3 5 19.20427     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      4 6 19.19708     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      5 8 19.18269     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-      6 9 19.17549     1    -1     NA lightgray       0.5        1    NA -Inf  Inf
-        ymin ymax
-      1 19.2 19.2
-      2 19.2 19.2
-      3 19.2 19.2
-      4 19.2 19.2
-      5 19.2 19.2
-      6 19.2 19.2
-      
       $vs
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
       1 1 20.82847     1     1     NA lightgray       0.5        1    NA -Inf  Inf
@@ -1064,7 +993,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -2507,7 +2436,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -3801,7 +3730,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -7043,7 +6972,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -10291,7 +10220,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>

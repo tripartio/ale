@@ -78,14 +78,15 @@ validate_x_cols <- function(
 
   # Standardize the x_cols format
 
-  # Default case: x_cols is NULL; set it to all 1D columns
-  if (is.null(x_cols)) {
-    x_cols <- list(d1 = col_names)
-  }
+  # # Default case: x_cols is NULL; set it to all 1D columns
+  # if (is.null(x_cols)) {
+  #   x_cols <- list(d1 = col_names)
+  # }
 
   # A character vector: simple ALE with no interactions
   # # Result: c('a', 'b', 'c', 'd', 'e', 'f')
-  else if (is.character(x_cols)) {
+  if (is.character(x_cols)) {
+  # else if (is.character(x_cols)) {
     x_cols <- list(d1 = x_cols)
   }
 

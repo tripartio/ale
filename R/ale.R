@@ -58,9 +58,10 @@ ALE <- S7::new_class(
   #'
   #' @param data dataframe. Dataset from which to create predictions for the ALE.
   #' @param model model object. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
-  #' @param x_cols character. Vector of column names from `data` for which one-way ALE data is to be calculated (that is, simple ALE without interactions). If not provided, ALE will be created for all columns in `data` except `y_col`.
+  #' @param x_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`.
   #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+  #' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed.
   # @param complete_d integer(1 or 2). If `x_cols` is `NULL` (default), `complete_d = 1L` (default) will generate all 1D ALE data; `complete_d = 2L` will generate all 2D ALE data; and `complete_d = c(1L, 2L)` will generate both. If `x_cols` is anything other than `NULL`, `complete_d` is ignored and internally set to `NULL`.
   #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. See details.
   #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
@@ -212,9 +213,10 @@ ALE <- S7::new_class(
   constructor = function (
     data,
     model,
-    x_cols = NULL,
+    x_cols = list(d1 = TRUE),
     y_col = NULL,
     ...,
+    exclude_cols = NULL,
     # complete_d = 1L,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
@@ -276,12 +278,21 @@ ALE <- S7::new_class(
 
     model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
+    # Validate and resolve x_cols and exclude_cols
     col_names <- names(data)
     x_cols <- validate_x_cols(
       x_cols = x_cols,
       col_names = col_names,
       y_col = y_col
     )
+    exclude_cols <- validate_x_cols(
+      x_cols = exclude_cols,
+      col_names = col_names,
+      y_col = y_col,
+      x_cols_arg_name = 'exclude_cols'
+    )
+
+    x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
     # if (!is.null(x_cols)) {
     #   # Validate x_cols
@@ -498,7 +509,7 @@ ALE <- S7::new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> stringr::str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'y_vals', 'y_preds')
     # temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'it_objs', 'resolved_x_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'x_col_spec', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 

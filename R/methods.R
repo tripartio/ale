@@ -83,13 +83,11 @@ S7::method(calc_p, ALE) <- function(obj, p_dist) {
 
 #' Dimension-by-dimension setdiff of an x_cols list
 #'
-#' @param x1
-#' @param x2
+#' @param x1,x2 canonical `x_cols` lists. Each element of `x2` will be removed, if present, from each corresponding element in `x1`. Any element of `x2` with no corresponding element in `x1` will be ignored.
 #'
-#' @returns `x1` without any element specified in `x2`.
+#' @returns `x1` without any corresponding element specified in `x2`.
 #' @noRd
 #'
-#' @examples
 setdiff_x_cols <- function(
     x1,
     x2
@@ -129,12 +127,6 @@ sort_x_cols <- function(x_cols, col_names) {
         na.omit()
     ],
     d2 = x_cols$d2[d2_ordering]
-    # x_cols$d2 |>
-    # set_names(x_cols$d2 |> map_chr(\(it.d2) it.d2[1])) |>
-    # (`[`)(col_names) |>
-    # compact() |>
-    # map(\(it.d2) sort_by(it.d2, col_names)) |>
-    # unname()
   )
 }
 

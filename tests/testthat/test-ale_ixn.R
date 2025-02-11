@@ -68,6 +68,12 @@ test_that(
         c('qsec', 'wt'),
         'vs'
       ),
+      exclude_cols = list(
+        'cyl',
+        c('wt', 'qsec'),
+        c('hp', 'wt'),
+        c('wt', 'drat')
+      ),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
