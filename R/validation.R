@@ -49,11 +49,11 @@ validate_x_cols <- function(
 
     if (is.list(all_x_cols)) {
       # If either d1 or d2 is TRUE, remove it during the all_x_cols validation tests
-      if (isTRUE(all_x_cols$d1)) {
-        all_x_cols$d1 <- NULL
+      if (isTRUE(all_x_cols[['d1']])) {
+        all_x_cols[['d1']] <- NULL
       }
-      if (isTRUE(all_x_cols$d2)) {
-        all_x_cols$d2 <- NULL
+      if (isTRUE(all_x_cols[['d2']])) {
+        all_x_cols[['d2']] <- NULL
       }
     }
 
@@ -74,7 +74,7 @@ validate_x_cols <- function(
   }
 
   # Convert x_cols into a list of specific variables and interactions.
-  # x_cols$d1 is the 1D ALE; x_cols$d2 is the 2D ALE, and so on.
+  # x_cols[['d1']] is the 1D ALE; x_cols[['d2']] is the 2D ALE, and so on.
 
   # Standardize the x_cols format
 
@@ -98,13 +98,14 @@ validate_x_cols <- function(
     ) {
       # if (all(names(x_cols) %in% c('d1', 'd2', 'd2_all'))) {
       validate(
-        class(x_cols$d1) %in% c('character', 'logical', 'NULL'),
+        class(x_cols[['d1']]) %in% c('character', 'logical', 'NULL'),
         msg = '{x_cols_arg_name}{.var $d1} must be a character vector, a scalar logical, or else NULL or absent.'
       )
+      # browser()
       validate(
-        class(x_cols$d2) %in% c('list', 'logical', 'NULL'),
+        class(x_cols[['d2']]) %in% c('list', 'logical', 'NULL'),
         # Note: NULL d2 returns TRUE for this test.
-        x_cols$d2 |>
+        x_cols[['d2']] |>
           purrr::map_lgl(\(it.el) {
             (is.character(it.el) && length(it.el) == 2) ||  # 2D column names
               isTRUE(it.el)
@@ -113,36 +114,36 @@ validate_x_cols <- function(
         msg = '{x_cols_arg_name}{.var $d2} must be a list of length-2 character vectors, a scalar logical, or else NULL or absent.'
       )
       validate(
-        class(x_cols$d2_all) %in% c('character', 'NULL'),
+        class(x_cols[['d2_all']]) %in% c('character', 'NULL'),
         msg = '{x_cols_arg_name}{.var $d2_all} must be a character vector, or else NULL or absent.'
       )
 
-      x_cols$d1 <- if(isTRUE(x_cols$d1)) {
+      x_cols[['d1']] <- if(isTRUE(x_cols[['d1']])) {
         col_names
-      } else if (is.character(x_cols$d1)) {
-        x_cols$d1
+      } else if (is.character(x_cols[['d1']])) {
+        x_cols[['d1']]
       } else {
         # The remaining possible values of d1 are FALSE, NULL, or missing values
         NULL
       }
 
-      x_cols$d2 <- if (is.list(x_cols$d2)) {
+      x_cols[['d2']] <- if (is.list(x_cols[['d2']])) {
         # Format was validated above, so any list at this point is in the valid format
-        x_cols$d2
+        x_cols[['d2']]
       }
-      else if (isTRUE(x_cols$d2) || !is.null(x_cols$d2_all)) {
+      else if (isTRUE(x_cols[['d2']]) || !is.null(x_cols[['d2_all']])) {
         full_d2_ixns <- NULL
         selected_d2_ixns <- NULL
 
-        if (isTRUE(x_cols$d2)) {
+        if (isTRUE(x_cols[['d2']])) {
           # Compute all 2D combinations of col_names x col_names
           full_d2_ixns <- tidyr::expand_grid(col_names, col_names) |>
             purrr::pmap(~ c(..1, ..2))
         }
 
-        if (!is.null(x_cols$d2_all)) {
+        if (!is.null(x_cols[['d2_all']])) {
           # Compute all 2D combinations involving the requested d2_all variables
-          selected_d2_ixns <- tidyr::expand_grid(x_cols$d2_all, col_names) |>
+          selected_d2_ixns <- tidyr::expand_grid(x_cols[['d2_all']], col_names) |>
             purrr::pmap(~ c(..1, ..2))
         }
 
