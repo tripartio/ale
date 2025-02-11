@@ -148,7 +148,7 @@ To create the model, we invoke the `{ale}` which returns a list with various ALE
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ALE(DAT, nnet.DAT, pred_type = "raw")
+nn_ale <- ALE(nnet.DAT, data = DAT, pred_type = "raw")
 ```
 
 Here are some notable differences compared to `ALEPlot`:
@@ -162,7 +162,7 @@ Since the plots are saved as a list, they can easily be printed out all at once:
 ```{r ale nnet one-way plots, fig.width=7, fig.height=5}
 # Print plots
 nn_plots <- plot(nn_ale)
-nn_1D_plots <- nn_plots$distinct$y$plots$d1
+nn_1D_plots <- nn_plots@distinct$y$plots$d1
 patchwork::wrap_plots(nn_1D_plots, ncol = 2)
 ```
 
@@ -178,7 +178,7 @@ It might not be clear that the previous plots display exactly the same data as t
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE plots
 nn_plots_zero <- plot(nn_ale, relative_y = 'zero')
-nn_1D_plots_zero <- nn_plots_zero$distinct$y$plots$d1
+nn_1D_plots_zero <- nn_plots_zero@distinct$y$plots$d1
 patchwork::wrap_plots(nn_1D_plots_zero)
 ```
 
@@ -189,15 +189,15 @@ The `{ale}` also produces interaction plots; see the [introductory vignette](htt
 ```{r ale nnet 2D, fig.width=7, fig.height=5}
 # Create and plot interactions
 nn_ale_2D <- ALE(
-  DAT, 
-  nnet.DAT, 
+  model = nnet.DAT, 
   x_cols = list(d2 = TRUE),
+  data = DAT, 
   pred_type = "raw"
 )
 
 # Print plots
 nn_plots <- plot(nn_ale_2D)
-nn_2D_plots <- nn_plots$distinct$y$plots$d2
+nn_2D_plots <- nn_plots@distinct$y$plots$d2
 nn_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -296,8 +296,8 @@ yhat <- function(object, newdata, type) {
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_link <- ALE(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
+#   gbm.data,
+#   data = data, 
 #   pred_fun = yhat,
 #   max_num_bins = 500,
 #   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
@@ -308,7 +308,7 @@ gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_link)
-gbm_1D_link_plots <- gbm_link_plots$distinct$higher_income$plots$d1
+gbm_1D_link_plots <- gbm_link_plots@distinct$higher_income$plots$d1
 patchwork::wrap_plots(gbm_1D_link_plots, ncol = 2)
 ```
 
@@ -319,9 +319,9 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_2D_link <- ALE(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
-#   complete_d = 2,
+#   gbm.data,
+#   x_cols = list(d2 = TRUE),
+#   data = data, 
 #   pred_fun = yhat,
 #   max_num_bins = 500,
 #   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
@@ -332,7 +332,7 @@ gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_link_plots <- plot(gbm_ale_2D_link)
-gbm_link_2D_plots <- gbm_link_plots$distinct$higher_income$plots$d2
+gbm_link_2D_plots <- gbm_link_plots@distinct$higher_income$plots$d2
 gbm_link_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -373,8 +373,8 @@ yhat <- function(object, newdata, type) {
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_prob <- ALE(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
+#   gbm.data,
+#   data = data, 
 #   pred_fun = yhat,
 #   max_num_bins = 500,
 #   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
@@ -385,7 +385,7 @@ gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_prob)
-gbm_1D_prob_plots <- gbm_prob_plots$distinct$higher_income$plots$d1
+gbm_1D_prob_plots <- gbm_prob_plots@distinct$higher_income$plots$d1
 patchwork::wrap_plots(gbm_1D_prob_plots, ncol = 2)
 ```
 
@@ -396,9 +396,9 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_2D_prob <- ALE(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
-#   complete_d = 2,
+#   gbm.data,
+#   x_cols = list(d2 = TRUE),
+#   data = data, 
 #   pred_fun = yhat,
 #   max_num_bins = 500,
 #   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
@@ -409,7 +409,7 @@ gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_a
 
 # Print plots
 gbm_prob_plots <- plot(gbm_ale_2D_prob)
-gbm_prob_2D_plots <- gbm_prob_plots$distinct$higher_income$plots$d2
+gbm_prob_2D_plots <- gbm_prob_plots@distinct$higher_income$plots$d2
 gbm_prob_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  

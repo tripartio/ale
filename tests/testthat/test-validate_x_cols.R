@@ -109,3 +109,27 @@ test_that("validate_x_cols removes y_col from x_cols silently", {
   )
   expect_equal(result, expected_result)
 })
+
+test_that("validate_x_cols handles d2_all input", {
+  # d2_all specifies subset interactions
+  x_cols <- list(d2_all = c("cyl", "disp"))
+  result <- validate_x_cols(x_cols, col_names, y_col)
+  expected_result <- list(
+    d1 = list(),
+    d2 = tidyr::expand_grid(
+      d2_all = c("cyl", "disp"),
+      col_names |> setdiff('mpg')
+    ) |>
+      purrr::pmap(~ c(..1, ..2)) |>
+      purrr::keep(\(pair) pair[1] != pair[2]) |>   # Remove self-interactions
+      setdiff(list(c('disp', 'cyl')))
+  )
+  expect_equal(result, expected_result)
+
+  # Invalid d2_all columns raise an error
+  x_cols <- list(d2_all = c("nonexistent", "disp"))
+  expect_error(
+    validate_x_cols(x_cols, col_names, y_col),
+    "The following columns were not found: nonexistent"
+  )
+})

@@ -121,7 +121,7 @@ The `ALE()` function returns a list with various elements. The two main ones are
 ```{r ale_simple}
 # Simple ALE without bootstrapping
 ale_gam_diamonds <- ALE(
-  diamonds, gam_diamonds,
+  gam_diamonds,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 ```
@@ -139,7 +139,7 @@ The `ALEPlots` object is somewhat complex, so it is easier to work with by using
 
 ```{r simplify-1D-plots}
 # Extract one-way ALE plots from the ALEPlots object
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
+diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
 ```
 
 The diamonds_1D_plots object is now simply a list of all the 1D ALE plots. The desired variable plot can now be easily plotted by printing its reference by name.  For example, to access and print the `carat` ALE plot, we simply refer to `diamonds_1D_plots$carat`:
@@ -174,7 +174,8 @@ Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE 
 ```{r ale_boot, fig.width=7, fig.height=11}
 
 ale_gam_diamonds_boot <- ALE(
-  diamonds_small_test, gam_diamonds, 
+  model = gam_diamonds, 
+  data = diamonds_small_test, 
   # Normally boot_it should be set to 100, but just 10 here for a faster demonstration
   boot_it = 10,
   parallel = 2  # CRAN limit (delete this line on your own computer)
@@ -182,7 +183,7 @@ ale_gam_diamonds_boot <- ALE(
 
 # Bootstrapping produces confidence intervals
 boot_plots <- plot(ale_gam_diamonds_boot)
-boot_1D_plots <- boot_plots$distinct$price$plots$d1
+boot_1D_plots <- boot_plots@distinct$price$plots$d1
 patchwork::wrap_plots(boot_1D_plots, ncol = 2)
 ```
 
@@ -195,7 +196,7 @@ Another advantage of ALE is that it provides data for 2D interactions between va
 ```{r ale_2D}
 # ALE two-way interactions
 ale_2D_gam_diamonds <- ALE(
-  diamonds, gam_diamonds,
+  gam_diamonds,
   x_cols = list(d2 = TRUE),
   # complete_d = 2,
   parallel = 0  # CRAN limit (delete this line on your own computer)
@@ -207,7 +208,7 @@ The `plot()` method similarly creates 2D ALE plots from the `ALE` object. Howeve
 ```{r simplify-2D-plots}
 # Extract two-way ALE plots from the ALEPlots object
 diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
-diamonds_2D_plots <- diamonds_2D_plots$distinct$price$plots$d2
+diamonds_2D_plots <- diamonds_2D_plots@distinct$price$plots$d2
 ```
 
 Because of the 2D interactions, this `diamonds_2D_plots` is a two-level list of the 2D ALE plots: the first level is the first variable in the interaction and the second level is a list of the interacting variables. So, we use the `purrr` package to iterate the list structure to print the 2D plots. `purrr::walk()` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(it.x1) {...}` where `it.x1` in our case represents each individual element of `diamonds_2D_plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `patchwork::wrap_plots()`, as before.

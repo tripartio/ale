@@ -93,13 +93,13 @@ Note that for now, we run `ALE()` with no bootstrapping (the default) because sm
 
 ```{r lm_simple, fig.width=7, fig.height=7}
 ale_lm_attitude_simple <- ALE(
-  attitude, lm_attitude,
+  lm_attitude,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print all plots
 lm_attitude_simple_plots <- plot(ale_lm_attitude_simple)
-lm_attitude_simple_1D_plots <- lm_attitude_simple_plots$distinct$rating$plots$d1
+lm_attitude_simple_1D_plots <- lm_attitude_simple_plots@distinct$rating$plots$d1
 patchwork::wrap_plots(lm_attitude_simple_1D_plots, ncol = 2)
 ```
 
@@ -111,7 +111,7 @@ We can also use `ALE()` to visualize the possible existence of any interactions 
 
 ```{r lm_2D, fig.width=7, fig.height=7}
 ale_lm_attitude_2D <- ALE(
-  attitude, lm_attitude,
+  lm_attitude,
   x_cols = list(d2 = TRUE),
   # complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
@@ -119,7 +119,7 @@ ale_lm_attitude_2D <- ALE(
 
 # Create an ALEPlots object
 attitude_plots <- plot(ale_lm_attitude_2D)
-attitude_2D_plots <- attitude_plots$distinct$rating$plots$d2
+attitude_2D_plots <- attitude_plots@distinct$rating$plots$d2
 # Print plots
 attitude_2D_plots |>
   # extract list of x1 ALE outputs
@@ -147,7 +147,6 @@ The constructor for `ModelBoot` has two required arguments. Consistent with tidy
 
 ```{r lm_full_call}
 mb_lm <- ModelBoot(
-  attitude, 
   lm_attitude,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   parallel = 2  # CRAN limit (delete this line on your own computer)
@@ -166,20 +165,20 @@ A `ModelBoot` has the following properties (depending on values requested in the
 Here are the bootstrapped overall model statistics:
 
 ```{r lm_full_stats}
-mb_lm$model_stats
+mb_lm@model_stats
 ```
 
 Here are the bootstrapped model coefficients:
 
 ```{r lm_full_coefs}
-mb_lm$model_coefs
+mb_lm@model_coefs
 ```
 
 Here we can visualize the results of the ALE plots.
 
 ```{r lm_full_ale, fig.width=7, fig.height=7}
 mb_lm_plots <- plot(mb_lm)
-mb_lm_1D_plots <- mb_lm_plots$distinct$rating$plots$d1
+mb_lm_1D_plots <- mb_lm_plots@distinct$rating$plots$d1
 patchwork::wrap_plots(mb_lm_1D_plots, ncol = 2)
 ```
 
@@ -211,12 +210,12 @@ To understand which variables were responsible for this relationship, the result
 
 ```{r gam_simple, fig.width=7, fig.height=7}
 ale_gam_attitude_simple <- ALE(
-  attitude, gam_attitude,
+  gam_attitude,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 gam_attitude_simple_plots <- plot(ale_gam_attitude_simple)
-gam_attitude_simple_1D_plots <- gam_attitude_simple_plots$distinct$rating$plots$d1
+gam_attitude_simple_1D_plots <- gam_attitude_simple_plots@distinct$rating$plots$d1
 patchwork::wrap_plots(gam_attitude_simple_1D_plots, ncol = 2)
 ```
 
@@ -224,21 +223,20 @@ Compared to the OLS results above, the GAM results provide quite a surprise conc
 
 ```{r gam_full_stats}
 mb_gam <- ModelBoot(
-  attitude, 
   gam_attitude, 
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
-mb_gam$model_stats
+mb_gam@model_stats
 ```
 
 ```{r gam_full_coefs}
-mb_gam$model_coefs
+mb_gam@model_coefs
 ```
 
 ```{r gam_full_ale, fig.width=7, fig.height=7}
 mb_gam_plots <- plot(mb_gam)
-mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots$d1
+mb_gam_1D_plots <- mb_gam_plots@distinct$rating$plots$d1
 patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 ```
 
@@ -274,7 +272,6 @@ So, here is the form for constructing a `ModelBoot` for a non-standard model obj
 
 ```{r model_call_string}
 mb_gam_non_standard <- ModelBoot(
-  attitude,
   gam_attitude_again,
   model_call_string = 'mgcv::gam(rating ~ complaints + privileges + s(learning) +
                                   raises + s(critical) + advance,
@@ -282,7 +279,7 @@ mb_gam_non_standard <- ModelBoot(
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   parallel = 2  # CRAN limit (delete this line on your own computer)
   )
-mb_gam_non_standard$model_stats
+mb_gam_non_standard@model_stats
 ```
 
 Everything else works as usual.

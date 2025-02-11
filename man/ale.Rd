@@ -5,12 +5,12 @@
 \title{ALE data and statistics that describe a trained model}
 \usage{
 ALE(
-  data,
   model,
-  x_cols = NULL,
+  x_cols = list(d1 = TRUE),
+  data = NULL,
   y_col = NULL,
   ...,
-  complete_d = 1L,
+  exclude_cols = NULL,
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   output = c("plots", "data", "stats", "conf_regions"),
@@ -36,17 +36,17 @@ ALE(
 )
 }
 \arguments{
-\item{data}{dataframe. Dataset from which to create predictions for the ALE.}
-
 \item{model}{model object. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.}
 
-\item{x_cols}{character. Vector of column names from \code{data} for which one-way ALE data is to be calculated (that is, simple ALE without interactions). If not provided, ALE will be created for all columns in \code{data} except \code{y_col}.}
+\item{x_cols}{character, list, or formula. Columns names from \code{data} requested in one of the special \code{x_cols} formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in \code{data} except \code{y_col}.}
+
+\item{data}{dataframe. Dataset from which to create predictions for the ALE. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
 
 \item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{y_col} should be provided. For survival models, set \code{y_col} to the name of the binary event column; in that case, \code{pred_type} should also be specified.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{complete_d}{integer(1 or 2). If \code{x_cols} is \code{NULL} (default), \code{complete_d = 1L} (default) will generate all 1D ALE data; \code{complete_d = 2L} will generate all 2D ALE data; and \code{complete_d = c(1L, 2L)} will generate both. If \code{x_cols} is anything other than \code{NULL}, \code{complete_d} is ignored and internally set to \code{NULL}.}
+\item{exclude_cols}{character, list, or formula. Same format specification as \code{x_cols}. After the columns specified by \code{x_cols} are determined, those specified by \code{exclude_cols} are removed.}
 
 \item{parallel}{non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. See details.}
 
@@ -227,11 +227,11 @@ summary(gam_diamonds)
 \donttest{
 
 # Simple ALE without bootstrapping
-ale_gam_diamonds <- ALE(diamonds_sample, gam_diamonds)
+ale_gam_diamonds <- ALE(gam_diamonds)
 
 # Plot the ALE data
 diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
+diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 # Bootstrapped ALE
@@ -239,13 +239,13 @@ patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 # Create ALE with 100 bootstrap samples
 ale_gam_diamonds_boot <- ALE(
-  diamonds_sample, gam_diamonds,
+  gam_diamonds,
   boot_it = 100
 )
 
 # Bootstrapped ALEs print with confidence intervals
 diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
-diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots$d1
+diamonds_boot_1D_plots <- diamonds_boot_plots@distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
 
 
@@ -256,13 +256,13 @@ custom_predict <- function(object, newdata, type = pred_type) {
 }
 
 ale_gam_diamonds_custom <- ALE(
-  diamonds_sample, gam_diamonds,
+  gam_diamonds,
   pred_fun = custom_predict, pred_type = 'link'
 )
 
 # Plot the ALE data
 diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
-diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots$d1
+diamonds_custom_1D_plots <- diamonds_custom_plots@distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
 
 }

@@ -7,9 +7,11 @@
 test_that(
   'Parallelized ALE prints', {
     pll_ale <- ALE(
-      test_cars, test_gam,
+      test_gam,
+      c('cyl', 'disp'),
+      data = test_cars,
       max_num_bins = 10,
-      x_cols = c('cyl', 'disp'),
+      # test_cars, test_gam,
       boot_it = 2,
       # parallel = 2,
       silent = TRUE
@@ -33,7 +35,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam,
+      test_gam,
+      data = test_cars,
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
@@ -44,16 +47,8 @@ test_that(
     car_eff_plot <- car_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # car_eff_plot <- cars_ale |>
-    #   plot(type = 'effects') |>
-    #   (`[[`)('mpg') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_1D_plots)
-    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -63,7 +58,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam,
+      test_gam,
+      data = test_cars,
       max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
       parallel = 0,
@@ -76,16 +72,8 @@ test_that(
     car_eff_plot <- car_plots@distinct$mpg$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # car_eff_plot <- cars_ale |>
-    #   plot(type = 'effects') |>
-    #   (`[[`)('mpg') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_1D_plots)
-    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -95,8 +83,10 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam,
+      model = test_gam,
+      # test_cars, test_gam,
       x_cols = c('vs', 'gear'),
+      data = var_cars,
       parallel = 0,
       output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -123,7 +113,8 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam_binary,
+      test_gam_binary,
+      data = test_cars,
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE,
@@ -134,16 +125,8 @@ test_that(
     car_eff_plot <- car_plots@distinct$vs$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # car_eff_plot <- cars_ale |>
-    #   plot( type = 'effects') |>
-    #   (`[[`)('vs') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_1D_plots)
-    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -153,9 +136,10 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam_binary,
-      max_num_bins = 10,
+      test_gam_binary,
       x_cols = c('hp', 'continent'),
+      data = test_cars,
+      max_num_bins = 10,
       parallel = 0,
       boot_it = 4,
       silent = TRUE,
@@ -166,16 +150,8 @@ test_that(
     car_eff_plot <- car_plots@distinct$vs$plots$eff |>
       ggplot2::ggplot_build() |>
       (`[[`)('data')
-    # car_plots <- plot(cars_ale)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # car_eff_plot <- cars_ale |>
-    #   plot( type = 'effects') |>
-    #   (`[[`)('vs') |>
-    #   ggplot2::ggplot_build() |>
-    #   (`[[`)('data')
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_1D_plots)
-    # expect_snapshot(car_plots)
     expect_snapshot(unclass(car_eff_plot))
   }
 )
@@ -185,8 +161,10 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars, test_gam_binary,
+      test_gam_binary,
+      # test_cars, test_gam_binary,
       x_cols = c('carb', 'country'),
+      data = var_cars,
       parallel = 0,
       output = c('boot'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -213,8 +191,9 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars,
       test_nn_categorical,
+      data = test_cars,
+      # test_nn_categorical,
       max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -233,17 +212,6 @@ test_that(
       list_transpose(simplify = FALSE)
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    # car_plots <- plot(cars_ale)@distinct |>
-    #   imap(\(it.cat, it.cat_name) {
-    #     it.cat$plots$d1 |>
-    #       ale_plots_to_data()
-    #   })
-    # car_eff_plots <- cars_ale |>
-    #   plot(type = 'effects') |>
-    #   ale_plots_to_data()
-    # expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
-    # expect_snapshot(unclass(car_eff_plots))
   }
 )
 
@@ -252,10 +220,12 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars,
       test_nn_categorical,
+      # test_cars,
+      # test_nn_categorical,
       max_num_bins = 10,
       x_cols = c('wt', 'am'),
+      data = test_cars,
       pred_type = 'probs',
       parallel = 0,
       boot_it = 3,
@@ -274,20 +244,6 @@ test_that(
       list_transpose(simplify = FALSE)
     expect_snapshot(unclass(cars_ale))
     expect_snapshot(car_plots)
-    # car_plots <- plot(cars_ale)@distinct |>
-    #   imap(\(it.cat, it.cat_name) {
-    #     it.cat$plots$d1 |>
-    #       ale_plots_to_data()
-    #   })
-    # car_eff_plots <- cars_ale |>
-    #   plot(type = 'effects') |>
-    #   ale_plots_to_data()
-    # car_eff_plots <- cars_ale |>
-    #   plot(type = 'effects') |>
-    #   ale_plots_to_data()
-    # expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
-    # expect_snapshot(unclass(car_eff_plots))
   }
 )
 
@@ -296,9 +252,11 @@ test_that(
     skip_on_ci()
 
     cars_ale <- ALE(
-      test_cars,
       test_nn_categorical,
+      # test_cars,
+      # test_nn_categorical,
       x_cols = c('gear', 'country'),
+      data = test_cars,
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",

@@ -4,7 +4,8 @@
 test_that(
   'Parallelized ModelBoot prints', {
     pll_mb <- ModelBoot(
-      test_cars, test_gam,
+      test_gam,
+      data = test_cars,
       ale_options = list(
         max_num_bins = 10,
         x_cols = c('cyl', 'disp')
@@ -32,8 +33,8 @@ test_that(
     skip_on_ci()
 
     mb <- ModelBoot(
-      test_cars,
       test_gam,
+      data = test_cars,
       parallel = 0,
       boot_it = 0,
       ale_options = list(
@@ -52,17 +53,6 @@ test_that(
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # # mb_eff_plot <- mb |>
-    # #   plot.ALE(type = 'effects') |>
-    # #   (`[[`)('mpg') |>
-    # #   ggplot2::ggplot_build() |>
-    # #   (`[[`)('data')
-    # mb@ale$single <- unclass(mb@ale$single)
-    # expect_snapshot(unclass(mb))
-    # expect_snapshot(mb_plots)
-    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -72,8 +62,8 @@ test_that(
     skip_on_ci()
 
     mb <- ModelBoot(
-      test_cars,
       test_gam,  # ignored because model_call_string is provided
+      data = test_cars,
       model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
                 vs + am + gear + carb + country, data = boot_data)',
       parallel = 0,
@@ -94,17 +84,6 @@ test_that(
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # # mb_eff_plot <- mb |>
-    # #   plot.ALE( type = 'effects') |>
-    # #   (`[[`)('mpg') |>
-    # #   ggplot2::ggplot_build() |>
-    # #   (`[[`)('data')
-    # mb@ale$single <- unclass(mb@ale$single)
-    # expect_snapshot(unclass(mb))
-    # expect_snapshot(mb_plots)
-    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -114,8 +93,8 @@ test_that(
     skip_on_ci()
 
     mb <- ModelBoot(
-      test_cars,
       test_gam,
+      data = test_cars,
       parallel = 0,
       boot_it = 2,
       seed = 1234,
@@ -134,8 +113,8 @@ test_that(
     skip_on_ci()
 
     mb <- ModelBoot(
-      test_cars,
       test_gam_binary,
+      data = test_cars,
       parallel = 0,
       boot_it = 5,
       ale_options = list(
@@ -154,17 +133,6 @@ test_that(
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_1D_plots)
     expect_snapshot(mb_eff_plot)
-    # mb_plots <- plot(mb)@distinct$mpg$plots$d1 |>
-    #   ale_plots_to_data()
-    # # mb_eff_plot <- mb |>
-    # #   plot.ALE( type = 'effects') |>
-    # #   (`[[`)('vs') |>
-    # #   ggplot2::ggplot_build() |>
-    # #   (`[[`)('data')
-    # mb@ale$single <- unclass(mb@ale$single)
-    # expect_snapshot(unclass(mb))
-    # # expect_snapshot(mb_plots)
-    # # expect_snapshot(mb_eff_plot)
   }
 )
 
@@ -181,8 +149,8 @@ test_that(
     )
 
     mb <- ModelBoot(
-      iris,
       test_nn_iris,
+      data = iris,
       pred_type = 'probs',
       parallel = 0,
       boot_it = 5,
@@ -207,23 +175,6 @@ test_that(
     mb@ale$single <- unclass(mb@ale$single)
     expect_snapshot(unclass(mb))
     expect_snapshot(mb_plots)
-
-    # # mb_plots <- mb |>
-    # #   plot.ALE() |>
-    # #   map(\(it.cat) {
-    # #     map(it.cat, \(it.plot) {
-    # #       it.plot |>
-    # #       ggplot2::ggplot_build() |>
-    # #       (`[[`)('data')
-    # #       })
-    # #   })
-    # # mb_eff_plots <- mb |>
-    # #   plot.ALE(type = 'effects') |>
-    # #   ale_plots_to_data()
-    # mb@ale$single <- unclass(mb@ale$single)
-    # expect_snapshot(unclass(mb))
-    # # expect_snapshot(mb_plots)
-    # # expect_snapshot(mb_eff_plots)
   }
 )
 

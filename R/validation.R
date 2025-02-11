@@ -201,10 +201,10 @@ validate_x_cols <- function(
   # Note: y_col is silently removed only at the end because it is complicated to remove it from so many different input formats above.
   # Explicit duplicates are removed but reverse duplicates are retained (e.g., b-a is not considered a duplicate of a-b).
   x_cols <-list(
-    d1 = x_cols$d1 |>
+    d1 = x_cols[['d1']] |>
       unique() |>
       setdiff(y_col),
-    d2 = x_cols$d2 |>
+    d2 = x_cols[['d2']] |>
       unique() |>
       map(\(it.d2) if (y_col %in% it.d2) NULL else it.d2) |>
       compact()
@@ -212,13 +212,44 @@ validate_x_cols <- function(
     compact()
 
   # Replace empty elements with list() (not NULL)
-  x_cols$d1 <- x_cols$d1 %||% list()
-  x_cols$d2 <- x_cols$d2 %||% list()
+  x_cols[['d1']] <- x_cols[['d1']] %||% list()
+  x_cols[['d2']] <- x_cols[['d2']] %||% list()
 
   # Assure the strict order of names as c('d1', 'd2')
   x_cols <- x_cols[c('d1', 'd2')]
 
   return(x_cols)
+}
+
+
+# Validate data
+# If data is NULL and model is a standard R model type, data can be automatically detected.
+validate_data <- function(
+    data,
+    model,
+    allow_na = FALSE
+) {
+  if (!is.null(data)) {
+    # Validate the dataset
+    validate(data |> inherits('data.frame'))
+
+    if (!allow_na) {
+      validate(
+        !any(is.na(data)),
+        msg = '{.arg data} must not have any missing values. If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
+      )
+    }
+  }
+  # If NULL, try to identify data from the model
+  else {
+    data <- insight::get_data(model)
+
+    if (is.null(data)) {
+      cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
+    }
+  }
+
+  data
 }
 
 
@@ -236,9 +267,8 @@ validate_y_col <- function(
       msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
     )
   }
-
-  # Identify y column from the Y term of a standard R model call
-  if (is.null(y_col)) {
+  # If NULL, identify y column from the Y term of a standard R model call
+  else {
     y_col <- insight::find_response(model)
 
     if (is.null(y_col)) {

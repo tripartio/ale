@@ -56,9 +56,9 @@ ALE <- S7::new_class(
   #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
   #'
   #'
-  #' @param data dataframe. Dataset from which to create predictions for the ALE.
   #' @param model model object. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
   #' @param x_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`.
+  #' @param data dataframe. Dataset from which to create predictions for the ALE. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
   #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
   #' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed.
@@ -170,11 +170,11 @@ ALE <- S7::new_class(
   #' \donttest{
   #'
   #' # Simple ALE without bootstrapping
-  #' ale_gam_diamonds <- ALE(diamonds_sample, gam_diamonds)
+  #' ale_gam_diamonds <- ALE(gam_diamonds)
   #'
   #' # Plot the ALE data
   #' diamonds_plots <- plot(ale_gam_diamonds)
-  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
+  #' diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
   #'
   #' # Bootstrapped ALE
@@ -182,13 +182,13 @@ ALE <- S7::new_class(
   #'
   #' # Create ALE with 100 bootstrap samples
   #' ale_gam_diamonds_boot <- ALE(
-  #'   diamonds_sample, gam_diamonds,
+  #'   gam_diamonds,
   #'   boot_it = 100
   #' )
   #'
   #' # Bootstrapped ALEs print with confidence intervals
   #' diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
-  #' diamonds_boot_1D_plots <- diamonds_boot_plots$distinct$price$plots$d1
+  #' diamonds_boot_1D_plots <- diamonds_boot_plots@distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
   #'
   #'
@@ -199,21 +199,21 @@ ALE <- S7::new_class(
   #' }
   #'
   #' ale_gam_diamonds_custom <- ALE(
-  #'   diamonds_sample, gam_diamonds,
+  #'   gam_diamonds,
   #'   pred_fun = custom_predict, pred_type = 'link'
   #' )
   #'
   #' # Plot the ALE data
   #' diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
-  #' diamonds_custom_1D_plots <- diamonds_custom_plots$distinct$price$plots$d1
+  #' diamonds_custom_1D_plots <- diamonds_custom_plots@distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
   #'
   #' }
   #'
   constructor = function (
-    data,
     model,
     x_cols = list(d1 = TRUE),
+    data = NULL,
     y_col = NULL,
     ...,
     exclude_cols = NULL,
@@ -247,12 +247,13 @@ ALE <- S7::new_class(
     # Never skip this validation step!
     rlang::check_dots_empty()
 
-    # Validate the dataset
-    validate(data |> inherits('data.frame'))
-    validate(
-      !any(is.na(data)),
-      msg = '{.arg data} must not have any missing values. If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
-    )
+    data <- validate_data(data, model)
+    # # Validate the dataset
+    # validate(data |> inherits('data.frame'))
+    # validate(
+    #   !any(is.na(data)),
+    #   msg = '{.arg data} must not have any missing values. If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
+    # )
 
     # Validate y_col.
     # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -294,43 +295,6 @@ ALE <- S7::new_class(
 
     x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
-    # if (!is.null(x_cols)) {
-    #   # Validate x_cols
-    #   validate(is_all_characters(x_cols))
-    #
-    #   # Flatten x_cols to just a vector of its names
-    #   all_x_cols <- x_cols |>
-    #     unlist(recursive = TRUE, use.names = FALSE) |>
-    #     unique()
-    #
-    #   validate(
-    #     !(y_col %in% all_x_cols),
-    #     msg = paste0('The prediction target "', y_col, '" must not be included in the list of predictors ({.arg x_cols, x1_cols, x2_cols}).')
-    #   )
-    #
-    #   valid_x_cols <- all_x_cols %in% names(data)
-    #   if (!all(valid_x_cols)) {
-    #     cli_abort(
-    #       'The following columns were not found in {.arg data}:
-    #   {paste0(all_x_cols[!valid_x_cols], collapse = ", ")}'
-    #     )
-    #   }
-    #
-    #   # #Later: Verify valid datatypes for all x_col
-    #   # "class(data[[x_col]]) must be logical, factor, ordered, integer, or numeric."
-    # }
-    #
-    # # Verify that complete_d is assigned a valid value if x_cols is Null
-    # if (is.null(x_cols)) {
-    #   validate(
-    #     all(complete_d %in% c(1, 2)),
-    #     msg = 'If {.arg x_cols} is {.val NULL}, then {.arg complete_d} must have a value of {.val 1, 2, or c(1, 2)}.'
-    #   )
-    # }
-    # else {
-    #   complete_d <- NULL
-    # }
-
     valid_output_types <- c('plots', 'data', 'stats', 'conf_regions', 'boot')
     validate(
       length(setdiff(output, valid_output_types)) == 0,
@@ -354,8 +318,8 @@ ALE <- S7::new_class(
         # Try to automatically obtain p-values
 
         p_values <- ALEpDist(
-          data = data,
           model = model,
+          data = data,
           pred_fun = pred_fun,
           pred_type = pred_type
         )

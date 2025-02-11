@@ -5,8 +5,8 @@
 \title{A statistics and ALE data of a bootstrapped model}
 \usage{
 ModelBoot(
-  data,
   model,
+  data = NULL,
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
@@ -31,9 +31,9 @@ ModelBoot(
 )
 }
 \arguments{
-\item{data}{dataframe. Dataset that will be bootstrapped.}
-
 \item{model}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{data}{dataframe. Dataset that will be bootstrapped. If not provided, \code{ModelBoot()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -141,7 +141,6 @@ summary(gam_attitude)
 # Only 4 bootstrap iterations for a rapid example; default is 100
 # Increase value of boot_it for more realistic results
 mb_gam <- ModelBoot(
-  attitude,
   gam_attitude,
   boot_it = 4
 )
@@ -149,7 +148,6 @@ mb_gam <- ModelBoot(
 # If the model is not standard, supply model_call_string with
 # 'data = boot_data' in the string (not as a direct argument to the `ModelBoot` constructor)
 mb_gam <- ModelBoot(
-  attitude,
   gam_attitude,
   model_call_string = 'mgcv::gam(
     rating ~ complaints + privileges + s(learning) +
@@ -160,12 +158,12 @@ mb_gam <- ModelBoot(
 )
 
 # Model statistics and coefficients
-mb_gam$model_stats
-mb_gam$model_coefs
+mb_gam@model_stats
+mb_gam@model_coefs
 
 # Plot ALE
 mb_gam_plots <- plot(mb_gam)
-mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots$d1
+mb_gam_1D_plots <- mb_gam_plots@distinct$rating$plots$d1
 patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 }
 

@@ -158,8 +158,8 @@ We now demonstrate how to create the `ALEpDist` object for our case.
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.
 # gam_math_p_dist <- ALEpDist(
-#   math,
 #   gam_math
+#   math,
 # )
 # saveRDS(gam_math_p_dist, file.choose())
 gam_math_p_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds') |> 
@@ -176,7 +176,6 @@ By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be cont
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
 # mb_gam_math <- ModelBoot(
-#   math,
 #   gam_math,
 #   # Pass the ALEpDist object so that p-values will be generated
 #   ale_options = list(p_values = gam_math_p_dist),
@@ -193,7 +192,7 @@ mb_gam_math <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_ma
 We can see the bootstrapped values of various overall model statistics by printing the `model_stats` element of the model bootstrap object:
 
 ```{r model_stats}
-mb_gam_math$model_stats
+mb_gam_math@model_stats
 ```
 
 The names of the columns follow the `broom` package conventions:
@@ -206,7 +205,7 @@ The names of the columns follow the `broom` package conventions:
 Our focus, however, in this vignette is on the effects of individual variables. These are available in the `model_coefs` element of the model bootstrap object:
 
 ```{r model_coefs}
-mb_gam_math$model_coefs
+mb_gam_math@model_coefs
 ```
 
 In this vignette, we cannot go into the details of how GAM models work (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")). However, for our model illustration here, the estimates for the parametric variables (the non-numeric ones in our model) are interpreted as regular statistical regression coefficients whereas the estimates for the non-parametric smoothed variables (those whose variable names are encapsulated by the smooth `s()` function) are actually estimates for expected degrees of freedom (EDF in GAM). The smooth function `s()` lets GAM model these numeric variables as flexible curves that fit the data better than a straight line. The `estimate` values for the smooth variables above are not so straightforward to interpret, but suffice it to say that they are completely different from regular regression coefficients.
@@ -214,7 +213,7 @@ In this vignette, we cannot go into the details of how GAM models work (you can 
 The `{ale}` package uses bootstrap-based confidence intervals, not p-values that assume predetermined distributions, to determine statistical significance. Although they are not quite as simple to interpret as counting the number of stars next to a p-value, they are not that complicated, either. Based on the default 95% confidence intervals, a coefficient is statistically significant if `conf.low` and `conf.high` are both positive or both negative. We can filter the results on this criterion:
 
 ```{r model_coefs stat sig variables}
-mb_gam_math$model_coefs |> 
+mb_gam_math@model_coefs |> 
   # filter is TRUE if conf.low and conf.high are both positive or both negative because
   # multiplying two numbers of the same sign results in a positive number.
   filter((conf.low * conf.high) > 0)
@@ -232,7 +231,7 @@ ALE was developed to graphically display the relationship between predictor vari
 
 ```{r all-ALE-plots, fig.width=7, fig.height=10}
 mb_gam_plots <- plot(mb_gam_math)
-mb_gam_1D_plots <- mb_gam_plots$distinct$math_avg$plots$d1
+mb_gam_1D_plots <- mb_gam_plots@distinct$math_avg$plots$d1
 patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
 ```
 
@@ -258,7 +257,6 @@ Before we continue, let us take a brief detour to see what we get if we create a
 # # To generate the code, uncomment the following lines.
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
 # mb_gam_no_p <- ModelBoot(
-#   math, 
 #   gam_math,
 #   # For the GAM model coefficients, show details of all variables, parametric or not
 #   tidy_options = list(parametric = TRUE),
@@ -270,7 +268,7 @@ mb_gam_no_p <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_no
   readRDS()
 
 mb_no_p_plots <- plot(mb_gam_no_p)
-mb_no_p_1D_plots <- mb_no_p_plots$distinct$math_avg$plots$d1
+mb_no_p_1D_plots <- mb_no_p_plots@distinct$math_avg$plots$d1
 patchwork::wrap_plots(mb_no_p_1D_plots, ncol = 2)
 ```
 
@@ -285,7 +283,7 @@ For most of the rest of this article, we will only analyze the results with ALER
 
 ```{r mb_gam_math_stas}
 # Create object for convenient access to the relevant stats
-mb_gam_math_stats <- mb_gam_math$ale$boot$distinct$math_avg$stats$d1
+mb_gam_math_stats <- mb_gam_math$ale$boot@distinct$math_avg$stats$d1
 ```
 
 
@@ -293,9 +291,6 @@ Although ALE plots allow rapid and intuitive conclusions for statistical inferen
 
 ```{r ALE-effects-plot, fig.width=8, fig.height=6}
 mb_gam_plots@distinct$math_avg$eff_plot
-# mb_gam_plots$distinct$math_avg$stats$effects
-# mb_gam_math |> 
-#   plot(type = 'effects')
 ```
 
 This plot is unusual, so it requires some explanation:
@@ -474,7 +469,7 @@ Although effect sizes are valuable in summarizing the global effects of each var
 To understand how bootstrapped ALE can be used for statistical inference, we must understand the structure of ALE data. Let's begin simple with a binary variable with just two categories, `public`:
 
 ```{r ale data for public}
-mb_gam_math$ale$boot$distinct$math_avg$ale$d1$public
+mb_gam_math$ale$boot@distinct$math_avg$ale$d1$public
 ```
 
 Here is the meaning of each column of `ale$data` for a categorical variable:
@@ -489,7 +484,7 @@ By default, the `{ale}` package centres ALE values on the median of the outcome 
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
 ```{r ale data for academic_ratio}
-mb_gam_math$ale$boot$distinct$math_avg$ale$d1$academic_ratio
+mb_gam_math$ale$boot@distinct$math_avg$ale$d1$academic_ratio
 ```
 
 The columns are the same as with a categorical variable, but instead of `.bin`, we have `.ceil` since there are no categories. To calculate ALE for numeric variables, the range of *x* values is divided into bins (by default 100, customizable with the `max_num_bins` argument). Because numeric variables often have multiple values in a bin, the ALE data stores the ceilings (upper bounds) of the bins. If the *x* values have fewer than 100 distinct values in the data, then each distinct value becomes its own bin and we record its value as the ceiling of the bin. (This is often the case with smaller datasets like ours; here `academic_ratio` has only `r nrow(mb_gam_math$ale$data$academic_ratio)` distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. The other columns mean the same thing as with categorical variables: `.n` is the number of rows of data in each bin and `.y` is the calculated ALE for the bin whose ceiling is `.ceil`.

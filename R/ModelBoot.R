@@ -36,8 +36,8 @@ ModelBoot <- S7::new_class(
   #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
   #'
   #'
-  #' @param data dataframe. Dataset that will be bootstrapped.
   #' @param model See documentation for [ALE()]
+  #' @param data dataframe. Dataset that will be bootstrapped. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
   #' @param model_call_string character string. If NULL, the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
   #' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
@@ -104,7 +104,6 @@ ModelBoot <- S7::new_class(
   #' # Only 4 bootstrap iterations for a rapid example; default is 100
   #' # Increase value of boot_it for more realistic results
   #' mb_gam <- ModelBoot(
-  #'   attitude,
   #'   gam_attitude,
   #'   boot_it = 4
   #' )
@@ -112,7 +111,6 @@ ModelBoot <- S7::new_class(
   #' # If the model is not standard, supply model_call_string with
   #' # 'data = boot_data' in the string (not as a direct argument to the `ModelBoot` constructor)
   #' mb_gam <- ModelBoot(
-  #'   attitude,
   #'   gam_attitude,
   #'   model_call_string = 'mgcv::gam(
   #'     rating ~ complaints + privileges + s(learning) +
@@ -123,18 +121,18 @@ ModelBoot <- S7::new_class(
   #' )
   #'
   #' # Model statistics and coefficients
-  #' mb_gam$model_stats
-  #' mb_gam$model_coefs
+  #' mb_gam@model_stats
+  #' mb_gam@model_coefs
   #'
   #' # Plot ALE
   #' mb_gam_plots <- plot(mb_gam)
-  #' mb_gam_1D_plots <- mb_gam_plots$distinct$rating$plots$d1
+  #' mb_gam_1D_plots <- mb_gam_plots@distinct$rating$plots$d1
   #' patchwork::wrap_plots(mb_gam_1D_plots, ncol = 2)
   #' }
   #'
   constructor = function (
-    data,
     model,
+    data = NULL,
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
@@ -159,7 +157,13 @@ ModelBoot <- S7::new_class(
     # Validate arguments -------------
     rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-    validate(data |> inherits('data.frame'))
+    data <- validate_data(
+      data,
+      model,
+      # Some models allow NA in data, so don't automatically refuse it when bootstrapping
+      allow_na = TRUE
+    )
+    # validate(data |> inherits('data.frame'))
 
     # If model_call_string is not provided, ensure that
     # the model allows automatic manipulation.
@@ -476,8 +480,6 @@ ModelBoot <- S7::new_class(
                 y_cat_actual
               }
               else {
-                # closeAllConnections()
-                # browser()
                 # For numeric or ordinal data, actuals are the raw y_col values
                 data[oob_idxs, y_col, drop = FALSE] |>
                   pull()
@@ -600,8 +602,8 @@ ModelBoot <- S7::new_class(
                     # ale_core,
                     utils::modifyList(
                       list(
-                        data = btit.data,
                         model = btit.model,
+                        data = btit.data,
                         parallel = 0,  # do not parallelize at this inner level
                         boot_it = 0,  # do not bootstrap at this inner level
                         # do not request conf_regions
@@ -620,7 +622,6 @@ ModelBoot <- S7::new_class(
                 error = \(e) {
                   if (btit == 0) {
                     # Terminate early if the full model cannot produce ALE
-                    # browser()
                     cli_alert_danger('Could not calculate ALE:\n')
                     print(e)
                     stop()
@@ -901,9 +902,7 @@ ModelBoot <- S7::new_class(
       }
 
     # Bootstrapped ALE data
-    ale_summary <-
-      if ('ale' %in% output) {
-        # browser()
+    ale_summary <- if ('ale' %in% output) {
         full_ale <- boot_data$ale[[1]]
 
         # Remove first element (not bootstrapped) if bootstrapping is requested
@@ -937,34 +936,20 @@ ModelBoot <- S7::new_class(
           imap(\(it.cat, it.cat_name) {
             it.cat |>
               imap(\(it.x_col, it.x_col_name) {
-                # browser()
                 it.x_col_is_ordinal <- names(it.x_col[[1]])[1] |> endsWith('.bin')
-                # it.x_col_is_ordinal <- !is.null(it.x_col[[1]]$.bin)
 
                 # If it.x_col is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
                 if (it.x_col_is_ordinal) {
-                  # if (is.ordered(it.x_col[[1]]$ale_x)) {
                   # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
                   # Note: column 1 is the x column
                   bin_levels <- full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]]
-                  # bin_levels <- full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]]
-.
+
                   it.x_col <- it.x_col |>
                     map(\(it.ale_tbl) {
                       it.ale_tbl[[1]] <- ordered(it.ale_tbl[[1]], levels = bin_levels)
                       it.ale_tbl
-                      # it.ale_tbl |>
-                      #   mutate(.bin = ordered(.data$.bin, levels = bin_levels))
                     })
                 }
-
-                # # Temporarily rename .bin or .ceil as .x for common operations
-                # it.x_col$.x <- it.x_col[[1]]
-                # # it.x_col$.x <- if (it.x_col_is_ordinal) {
-                # #   it.x_col$.bin
-                # # } else {
-                # #   it.x_col$.ceil
-                # # }
 
                 it.x_col <- it.x_col |>
                   bind_rows() |>
@@ -983,8 +968,6 @@ ModelBoot <- S7::new_class(
                       # bins or ceilings
                       .x = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]],
                       .n = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]]$.n,
-                      # .x = full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]],
-                      # .n = full_ale$distinct[[it.cat_name]]$ale$d1[[it.x_col_name]]$.n,
                     ),
                     by = '.x'
                   ) |>
@@ -995,11 +978,6 @@ ModelBoot <- S7::new_class(
                   it.x_col_name,
                   if (it.x_col_is_ordinal) '.bin' else '.ceil'
                 )
-                # if (it.x_col_is_ordinal) {
-                #   it.x_col <- it.x_col |> rename(.bin = .x)
-                # } else {
-                #   it.x_col <- it.x_col |> rename(.ceil = .x)
-                # }
 
                 # Return it.x_col
                 it.x_col
@@ -1012,10 +990,8 @@ ModelBoot <- S7::new_class(
           # extract data from each iteration
           map(\(it) {
             it@distinct |>
-              # it$distinct |>
               map(\(it.cat) {
                 it.cat$stats$d1$estimate
-                # it.cat$stats$estimate
               })
           }) |>
           list_transpose(simplify = FALSE) |>
@@ -1039,7 +1015,6 @@ ModelBoot <- S7::new_class(
 
             # If an ALEpDist object was passed, calculate p-values
             if (rownames(full_ale@params$y_summary)[1] == 'p') {
-            # if (rownames(full_ale$params$y_summary)[1] == 'p') {
               it.cat_estimate_btits <- it.cat_estimate_btits |>
                 rowwise() |>  # required to get statistic function for each row
                 mutate(
@@ -1062,7 +1037,6 @@ ModelBoot <- S7::new_class(
             summarize_conf_regions_1D(
               it.ale_summary_data,
               full_ale@params$y_summary[, it.cat, drop = FALSE],
-              # full_ale$params$y_summary[, it.cat, drop = FALSE],
               sig_criterion = if (!is.null(ale_options$p_values)) {
                 'p_values'
               } else {
@@ -1096,7 +1070,6 @@ ModelBoot <- S7::new_class(
       NULL
     }
 
-
     # Refine the parameters
     params <- params[
       names(params) |>
@@ -1108,8 +1081,6 @@ ModelBoot <- S7::new_class(
       data = data,
       y_vals = if ('ale' %in% output) full_ale@params$data$y_vals_sample else NA,
       sample_size = if ('ale' %in% output) full_ale@params$sample_size else 500,
-      # y_vals = if ('ale' %in% output) full_ale$params$data$y_vals_sample else NA,
-      # sample_size = if ('ale' %in% output) full_ale$params$sample_size else 500,
       seed = seed
     )
     params$model <- params_model(model)
@@ -1122,7 +1093,6 @@ ModelBoot <- S7::new_class(
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {
           ar$single@distinct[[it.cat]]$stats$d1$conf_regions <-
-            # ar$single$distinct[[it.cat]]$stats$d1$conf_regions <-
             ale_summary[[it.cat]]$stats$conf_regions
         } else {
           ar$boot$distinct <- ale_summary |>
@@ -1130,7 +1100,7 @@ ModelBoot <- S7::new_class(
               it.cat |>
                 map(\(it.el) {
                   # Demote each element (ale, stats, etc.) to the d1 element (1D ALE)
-                  list(it.el)
+                  list(d1 = it.el)
                 })
             })
         }
@@ -1140,25 +1110,6 @@ ModelBoot <- S7::new_class(
     } else {
       NULL
     }
-
-    # mb <- list(
-    #   model_stats = stats_summary,
-    #   model_coefs = tidy_summary,
-    #   ale = ale_results,
-    #   boot_data = if ('boot_data' %in% output) {
-    #     boot_data
-    #   } else {
-    #     NULL
-    #   },
-    #   params = params
-    # )
-    #
-    # # Set S3 class information for the model bootstrap object
-    # class(mb) <- c('ale_boot')
-    #
-    #
-    # return(mb)
-
 
     # Return S7 ModelBoot object
     S7::new_object(

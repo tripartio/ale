@@ -10,10 +10,9 @@ test_that(
     # With bootstrap
     expect_no_error(
       ALE(
-        test_cars, test_gam,
+        test_gam,
         x_cols = list(d2 = TRUE),
-        # # interact cyl by disp
-        # x_cols = list(d2 = list(c('cyl', 'disp'))),
+        data = test_cars,
         max_num_bins = 10,
         boot_it = 2,
         parallel = 2,
@@ -30,9 +29,9 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars, test_gam,
+      test_gam,
       x_cols = list(d2 = list(c('cyl', 'disp'))),
-      # complete_d = 2,
+      data = test_cars,
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE
@@ -55,7 +54,7 @@ test_that(
     skip_on_ci()
 
     cars_1D_2D <- ALE(
-      test_cars, test_gam,
+      test_gam,
       x_cols = list(
         'model',
         'cyl',
@@ -68,6 +67,7 @@ test_that(
         c('qsec', 'wt'),
         'vs'
       ),
+      data = test_cars,
       exclude_cols = list(
         'cyl',
         c('wt', 'qsec'),
@@ -87,15 +87,9 @@ test_that(
     cars_1D_2D_plots <- plot(cars_1D_2D)
     cars_1D_2D_plots <- cars_1D_2D_plots@distinct$mpg$plots$d1 |>
       ale_plots_to_data()
-    # for (it.cat in names(cars_1D_2D_plots$distinct)) {
-    #   cars_1D_2D_plots@distinct[[it.cat]]$plots$d2 <-
-    #     cars_1D_2D_plots@distinct[[it.cat]]$plots$d2 |>
-    #     map(\(it.x1) ale_plots_to_data(it.x1))
-    # }
 
     expect_snapshot(unclass(cars_1D_2D))
     expect_snapshot(cars_1D_2D_plots)
-    # expect_snapshot(unclass(cars_1D_2D_plots))
   }
 )
 
@@ -107,13 +101,10 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars, test_gam_binary,
+      test_gam_binary,
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
-      # list(
-      #   list('cyl', 'disp', 'gear', 'country'),
-      #   list('cyl', 'am', 'hp')
-      # ),
+      data = test_cars,
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE
@@ -136,13 +127,10 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars, test_gam_binary,
+      test_gam_binary,
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
-      # list(
-      #   list('cyl', 'disp', 'am', 'gear', 'country'),
-      #   list('cyl', 'hp')
-      # ),
+      data = test_cars,
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -173,14 +161,10 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars,
       test_nn_categorical,
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
-      # list(
-      #   list('cyl', 'disp', 'gear', 'country'),
-      #   list('cyl', 'am', 'hp')
-      # ),
+      data = test_cars,
       max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -204,14 +188,10 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars,
       test_nn_categorical,
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
-      # list(
-      #   list('cyl', 'disp', 'gear', 'country'),
-      #   list('cyl', 'am', 'hp')
-      # ),
+      data = test_cars,
       max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -236,14 +216,10 @@ test_that(
     skip_on_ci()
 
     cars_2D <- ALE(
-      test_cars,
       test_nn_categorical,
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
-      # list(
-      #   list('cyl', 'disp', 'am', 'gear', 'country'),
-      #   list('cyl', 'hp')
-      # ),
+      data = test_cars,
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",

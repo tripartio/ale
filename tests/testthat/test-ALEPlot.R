@@ -95,7 +95,9 @@ test_that('ale function matches output of ALEPlot with nnet', {
 
   # Create ale results with data only
   nnet_ale <- ALE(
-    DAT, nnet.DAT,  # basic arguments
+    # basic arguments
+    model = nnet.DAT,
+    data = DAT,
     # make ale equivalent to ALEPlot
     parallel = 0,
     output = 'data', boot_it = 0,
@@ -154,10 +156,9 @@ test_that('ale function matches output of ALEPlot with gbm', {
 
   # Create ale results with data only
   gbm_ale <- ALE(
-    adult_data[,-c(3,4)],  # unlike ALEPlot, include the y column (15)
-    gbm.data,
-    c('age', 'workclass', 'education_num', 'sex'),
-    # c('age', 'education_num', 'hours_per_week'),
+    model = gbm.data,
+    x_cols = c('age', 'workclass', 'education_num', 'sex'),
+    data = adult_data[,-c(3,4)],  # unlike ALEPlot, include the y column (15)
     # make ale equivalent to ALEPlot
     parallel = 0,
     output = 'data', boot_it = 0,
@@ -234,12 +235,10 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   dev.off() |> invisible()
 
   nnet_2D <- ALE(
-    DAT, nnet.DAT,  # basic arguments
+    # basic arguments
+    model = nnet.DAT,
+    data = DAT,
     x_cols = list(d2 = TRUE),
-    # x_cols = list(
-    #   list(c('x1', 'x2', 'x3')),
-    #   list(c('x2', 'x3', 'x4'))
-    # ),
     parallel = 0,
     output = 'data',
     pred_fun = nnet_pred_fun_ale,
@@ -322,8 +321,9 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
   dev.off() |> invisible()
 
   gbm_2D <- ALE(
-    adult_data, gbm.data,  # basic arguments
-    list(
+    model = gbm.data,
+    data = adult_data,
+    x_cols = list(
       c('age', 'education_num'),
       c('age', 'hours_per_week'),
       c('workclass', 'education_num'),

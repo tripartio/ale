@@ -5,8 +5,8 @@
 \title{Create an object of the ALE statistics of a random variable that can be used to generate p-values}
 \usage{
 ALEpDist(
-  data,
   model,
+  data = NULL,
   p_speed = "approx fast",
   ...,
   parallel = future::availableCores(logical = FALSE, omit = 1),
@@ -28,9 +28,9 @@ ALEpDist(
 )
 }
 \arguments{
-\item{data}{See documentation for \code{\link[=ALE]{ALE()}}}
-
 \item{model}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{data}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{p_speed}{character(1). Either 'approx fast' (default) or 'precise slow'. See details.}
 
@@ -120,8 +120,8 @@ summary(gam_diamonds)
 
 # Create p_value distribution
 pd_diamonds <- ALEpDist(
-  diamonds_sample,
   gam_diamonds,
+  diamonds_sample,
   # only 100 iterations for a quick demo; but usually should remain at 1000
   rand_it = 100,
 )
@@ -132,14 +132,13 @@ str(pd_diamonds)
 
 # Calculate ALEs with p-values
 ale_gam_diamonds <- ALE(
-  diamonds_sample,
   gam_diamonds,
   p_values = pd_diamonds
 )
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
+diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
 patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 
 
@@ -148,8 +147,8 @@ patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
 # of p-values from random variables as in this example.
 # See details above for an explanation.
 pd_diamonds <- ALEpDist(
-  diamonds_sample,
   gam_diamonds,
+  diamonds_sample,
   random_model_call_string = 'mgcv::gam(
     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
         cut + color + clarity + random_variable,

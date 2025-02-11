@@ -80,13 +80,13 @@ Now we generate ALE data from the `var_cars` GAM model and plot it.
 
 ```{r cars_ale, fig.width=7, fig.height=14}
 cars_ale <- ALE(
-  var_cars, cars_gam,
+  cars_gam,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 
 # Print all plots
 cars_plots <- plot(cars_ale)
-cars_1D_plots <- cars_plots$distinct$mpg$plots$d1
+cars_1D_plots <- cars_plots@distinct$mpg$plots$d1
 patchwork::wrap_plots(cars_1D_plots, ncol = 2)
 ```
 
@@ -98,7 +98,7 @@ We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r cars_ale_2D, fig.width=7, fig.height=7}
 cars_ale_2D <- ALE(
-  var_cars, cars_gam,
+  cars_gam,
   x_cols = list(d2 = TRUE),
   # complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
@@ -106,7 +106,7 @@ cars_ale_2D <- ALE(
 
 # Print plots
 cars_2D_plots <- plot(cars_ale_2D)
-cars_2D_plots <- cars_2D_plots$distinct$mpg$plots$d2
+cars_2D_plots <- cars_2D_plots@distinct$mpg$plots$d2
 cars_2D_plots |>
   # extract list of x1 ALE outputs
   purrr::walk(\(it.x1) {  
@@ -122,7 +122,6 @@ Finally, as explained in the vignette on modelling with [small datasets](ale-sma
 
 ```{r cars_full, fig.width=7, fig.height=14}
 mb <- ModelBoot(
-  var_cars, 
   cars_gam,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
   parallel = 2,  # CRAN limit (delete this line on your own computer)
@@ -130,7 +129,7 @@ mb <- ModelBoot(
 )
 
 mb_plots <- plot(mb)
-mb_1D_plots <- mb_plots$distinct$mpg$plots$d1
+mb_1D_plots <- mb_plots@distinct$mpg$plots$d1
 patchwork::wrap_plots(mb_1D_plots, ncol = 2)
 ```
 

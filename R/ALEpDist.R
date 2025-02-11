@@ -51,8 +51,8 @@ ALEpDist <- S7::new_class(
   #'
   #'
   #'
-  #' @param data See documentation for [ALE()]
   #' @param model See documentation for [ALE()]
+  #' @param data See documentation for [ALE()]
   #' @param p_speed character(1). Either 'approx fast' (default) or 'precise slow'. See details.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
   #' @param parallel See documentation for [ALE()]
@@ -92,8 +92,8 @@ ALEpDist <- S7::new_class(
   #'
   #' # Create p_value distribution
   #' pd_diamonds <- ALEpDist(
-  #'   diamonds_sample,
   #'   gam_diamonds,
+  #'   diamonds_sample,
   #'   # only 100 iterations for a quick demo; but usually should remain at 1000
   #'   rand_it = 100,
   #' )
@@ -104,14 +104,13 @@ ALEpDist <- S7::new_class(
   #'
   #' # Calculate ALEs with p-values
   #' ale_gam_diamonds <- ALE(
-  #'   diamonds_sample,
   #'   gam_diamonds,
   #'   p_values = pd_diamonds
   #' )
   #'
   #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
   #' diamonds_plots <- plot(ale_gam_diamonds)
-  #' diamonds_1D_plots <- diamonds_plots$distinct$price$plots$d1
+  #' diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
   #' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
   #'
   #'
@@ -120,8 +119,8 @@ ALEpDist <- S7::new_class(
   #' # of p-values from random variables as in this example.
   #' # See details above for an explanation.
   #' pd_diamonds <- ALEpDist(
-  #'   diamonds_sample,
   #'   gam_diamonds,
+  #'   diamonds_sample,
   #'   random_model_call_string = 'mgcv::gam(
   #'     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
   #'         cut + color + clarity + random_variable,
@@ -134,8 +133,8 @@ ALEpDist <- S7::new_class(
   #' }
   #'
   constructor =  function(
-    data,
     model,
+    data = NULL,
     p_speed = 'approx fast',
     ...,
     parallel = future::availableCores(logical = FALSE, omit = 1),
@@ -158,11 +157,17 @@ ALEpDist <- S7::new_class(
 
     ## Validate arguments --------------
 
-    validate(data |> inherits('data.frame'))
-    validate(
-      !any(is.na(data)),
-      msg = '{.arg data} must not have any missing values.'
+    data <- validate_data(
+      data,
+      model,
+      # Some models allow NA in data, so don't automatically refuse it when bootstrapping
+      allow_na = TRUE
     )
+    # validate(data |> inherits('data.frame'))
+    # validate(
+    #   !any(is.na(data)),
+    #   msg = '{.arg data} must not have any missing values.'
+    # )
 
     # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
     # y_col must be set before y_preds is created so that y_preds columns can be properly named.
@@ -437,9 +442,9 @@ ALEpDist <- S7::new_class(
           {
             # Calculate ale of random variable on the test set. If calculated on the training set, p-values will be too liberal.
             it.rand_ale <- ALE(
-              package_scope$rand_data,
-              package_scope$rand_model,
-              'random_variable',
+              model = package_scope$rand_model,
+              x_cols = 'random_variable',
+              data = package_scope$rand_data,
               parallel = 0,  # avoid recursive parallelization
               # The approximate version can use fewer ALE x intervals for faster execution. The precise version uses the default 100 intervals.
               max_num_bins = if (p_speed == 'approx fast') 10 else 100,
