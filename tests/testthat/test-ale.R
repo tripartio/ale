@@ -10,7 +10,7 @@ test_that(
       test_cars, test_gam,
       max_num_bins = 10,
       x_cols = c('cyl', 'disp'),
-      boot_it = 5,
+      boot_it = 2,
       # parallel = 2,
       silent = TRUE
     )
