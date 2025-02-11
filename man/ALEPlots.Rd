@@ -6,7 +6,6 @@
 \usage{
 ALEPlots(
   x,
-  type = "ale",
   ...,
   relative_y = "median",
   p_alpha = c(0.01, 0.05),
@@ -22,8 +21,6 @@ ALEPlots(
 }
 \arguments{
 \item{x}{ALE object. The object of class \code{ALE} containing data to be plotted.}
-
-\item{type}{character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 

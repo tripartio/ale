@@ -495,37 +495,6 @@ plot_ale_2D <- function(
     ale_data$.x2
   }
 
-  # ale_data <- ale_data |>
-  #   mutate(
-  #     # Set x1_quantile to .x1. This is required for factor x1.
-  #     # For numeric x1, this is only temporarily--it will be properly configured in the next code block. This lets the code be cleaner than inserting an if_else here.
-  #     x1_quantile = .data$.x1,
-  #
-  #     # x2_quantile: divide .x2 into n_x2_bins bins.
-  #     # ntile (the bin number) is divided by the number of bins (n_x2_bins) and then scaled by max(.x2) to fill the range of .x2 values.
-  #     x2_quantile = (((max(ale_data$.x2) - min(ale_data$.x2)) *
-  #                       (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
-  #                    + min(ale_data$.x2)),
-  #
-  #     # y_quantile: which of the n_y_quant in which .y falls
-  #     y_quantile = .data$.y |>
-  #       findInterval(y_quantiles) |>
-  #       # levels must be set so that all quantiles appear in legend
-  #       ordered(levels = 1:(n_y_quant - 1))
-  #   )
-  #
-  # if (var_type(ale_data$.x1) == 'numeric') {
-  #   # if (class(ale_data$.x1) %in% c("numeric", "integer")) {
-  #   ale_data <- ale_data |>
-  #     mutate(
-  #       # Set numeric x1 to quantiles; factors will be unchanged.
-  #       # See x2_quantile above for documentation of the formula.
-  #       x1_quantile = (((max(ale_data$.x1) - min(ale_data$.x1)) *
-  #                         (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
-  #                      + min(ale_data$.x1)),
-  #     )
-  # }
-
 
   plot <-
     ale_data |>
