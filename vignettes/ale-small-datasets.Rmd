@@ -107,12 +107,13 @@ This visualization confirms what we see in the model coefficients above: complai
 
 What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
 
-We can also use `ALE()` to visualize the possible existence of any interactions by specifying `complete_d = 2` to calculate all 2D interactions:
+We can also use `ALE()` to visualize the possible existence of any interactions by specifying `x_cols = list(d2 = TRUE)` to calculate all 2D interactions:
 
 ```{r lm_2D, fig.width=7, fig.height=7}
 ale_lm_attitude_2D <- ALE(
   attitude, lm_attitude,
-  complete_d = 2,
+  x_cols = list(d2 = TRUE),
+  # complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

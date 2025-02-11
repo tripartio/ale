@@ -235,10 +235,11 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
 
   nnet_2D <- ALE(
     DAT, nnet.DAT,  # basic arguments
-    x_cols = list(
-      list(c('x1', 'x2', 'x3')),
-      list(c('x2', 'x3', 'x4'))
-    ),
+    x_cols = list(d2 = TRUE),
+    # x_cols = list(
+    #   list(c('x1', 'x2', 'x3')),
+    #   list(c('x2', 'x3', 'x4'))
+    # ),
     parallel = 0,
     output = 'data',
     pred_fun = nnet_pred_fun_ale,

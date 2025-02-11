@@ -188,7 +188,12 @@ The `{ale}` also produces interaction plots; see the [introductory vignette](htt
 
 ```{r ale nnet 2D, fig.width=7, fig.height=5}
 # Create and plot interactions
-nn_ale_2D <- ALE(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
+nn_ale_2D <- ALE(
+  DAT, 
+  nnet.DAT, 
+  x_cols = list(d2 = TRUE),
+  pred_type = "raw"
+)
 
 # Print plots
 nn_plots <- plot(nn_ale_2D)

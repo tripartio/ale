@@ -99,7 +99,8 @@ We can also generate and plot the ALE data for all two-way interactions.
 ```{r cars_ale_2D, fig.width=7, fig.height=7}
 cars_ale_2D <- ALE(
   var_cars, cars_gam,
-  complete_d = 2,
+  x_cols = list(d2 = TRUE),
+  # complete_d = 2,
   parallel = 2  # CRAN limit (delete this line on your own computer)
 )
 

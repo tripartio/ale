@@ -20,6 +20,7 @@
 
 ## Other user-visible changes
 
+* The `x_cols` argument in `ALE()` now supports a complex syntax for specifying which specific columns for 1D ALE or pairs of columns for 2D interactions are desired. It also supports specification using standard R formula syntax.
 * Confidence regions for 1D ALE are now reported more compactly.
 * With the creation of `plot()` methods, eliminated the `compact_plots` to `ale()`. 
 * `print()` and `plot()` methods have been added to the `ale_plots` object.

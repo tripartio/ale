@@ -6,24 +6,14 @@
 # Test numeric outcomes ----------------
 
 test_that(
-  'Parallelized versions does not crash', {
-    # # No bootstrap
-    # expect_no_error(
-    #   ALE(
-    #     test_cars, test_gam,
-    #     x_cols = list(list('cyl'), list('disp')),
-    #     max_num_bins = 10,
-    #     parallel = 2,
-    #     silent = TRUE
-    #   )
-    # )
-
+  'Parallelized version does not crash', {
     # With bootstrap
     expect_no_error(
       ALE(
         test_cars, test_gam,
-        # interact cyl by disp
-        x_cols = list(list('cyl'), list('disp')),
+        x_cols = list(d2 = TRUE),
+        # # interact cyl by disp
+        # x_cols = list(d2 = list(c('cyl', 'disp'))),
         max_num_bins = 10,
         boot_it = 2,
         parallel = 2,
@@ -41,7 +31,8 @@ test_that(
 
     cars_2D <- ALE(
       test_cars, test_gam,
-      complete_d = 2,
+      x_cols = list(d2 = list(c('cyl', 'disp'))),
+      # complete_d = 2,
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE
@@ -111,10 +102,12 @@ test_that(
 
     cars_2D <- ALE(
       test_cars, test_gam_binary,
-      list(
-        list('cyl', 'disp', 'gear', 'country'),
-        list('cyl', 'am', 'hp')
-      ),
+      ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
+        gear:am + am:continent + country:gear + country:continent,
+      # list(
+      #   list('cyl', 'disp', 'gear', 'country'),
+      #   list('cyl', 'am', 'hp')
+      # ),
       max_num_bins = 10,
       parallel = 0,
       silent = TRUE
@@ -138,10 +131,12 @@ test_that(
 
     cars_2D <- ALE(
       test_cars, test_gam_binary,
-      list(
-        list('cyl', 'disp', 'am', 'gear', 'country'),
-        list('cyl', 'hp')
-      ),
+      ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
+        gear:am + am:continent + country:gear + country:continent,
+      # list(
+      #   list('cyl', 'disp', 'am', 'gear', 'country'),
+      #   list('cyl', 'hp')
+      # ),
       parallel = 0,
       output = c('plots'),
       pred_fun = test_predict,  # function defined in setup.R
@@ -174,10 +169,12 @@ test_that(
     cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
-      list(
-        list('cyl', 'disp', 'gear', 'country'),
-        list('cyl', 'am', 'hp')
-      ),
+      ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
+        gear:am + am:continent + country:gear + country:continent,
+      # list(
+      #   list('cyl', 'disp', 'gear', 'country'),
+      #   list('cyl', 'am', 'hp')
+      # ),
       max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
@@ -203,14 +200,16 @@ test_that(
     cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
+      ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
+        gear:am + am:continent + country:gear + country:continent,
+      # list(
+      #   list('cyl', 'disp', 'gear', 'country'),
+      #   list('cyl', 'am', 'hp')
+      # ),
       max_num_bins = 10,
-      list(
-        list('cyl', 'disp', 'gear', 'country'),
-        list('cyl', 'am', 'hp')
-      ),
       pred_type = 'probs',
       parallel = 0,
-      boot_it = 3,
+      boot_it = 2,
       silent = TRUE
     )
 
@@ -233,10 +232,12 @@ test_that(
     cars_2D <- ALE(
       test_cars,
       test_nn_categorical,
-      list(
-        list('cyl', 'disp', 'am', 'gear', 'country'),
-        list('cyl', 'hp')
-      ),
+      ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
+        gear:am + am:continent + country:gear + country:continent,
+      # list(
+      #   list('cyl', 'disp', 'am', 'gear', 'country'),
+      #   list('cyl', 'hp')
+      # ),
       parallel = 0,
       output = c('boot'),
       pred_type = "probs",

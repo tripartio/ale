@@ -39,7 +39,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., complete_d, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -336,9 +336,6 @@
       
       attr(,"params")$y_col
       [1] "mpg"
-      
-      attr(,"params")$complete_d
-      NULL
       
       attr(,"params")$parallel
       [1] 0
@@ -731,7 +728,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., complete_d, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -996,9 +993,6 @@
       
       attr(,"params")$y_col
       [1] "mpg"
-      
-      attr(,"params")$complete_d
-      NULL
       
       attr(,"params")$parallel
       [1] 0
@@ -1516,7 +1510,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., complete_d, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -1793,9 +1787,6 @@
       
       attr(,"params")$y_col
       [1] "vs"
-      
-      attr(,"params")$complete_d
-      NULL
       
       attr(,"params")$parallel
       [1] 0
@@ -2193,7 +2184,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(data, model, x_cols, y_col, ..., complete_d, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(data, model, x_cols, y_col, ..., parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -2922,9 +2913,6 @@
       
       attr(,"params")$y_col
       [1] "Species"
-      
-      attr(,"params")$complete_d
-      NULL
       
       attr(,"params")$parallel
       [1] 0

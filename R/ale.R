@@ -61,7 +61,7 @@ ALE <- S7::new_class(
   #' @param x_cols character. Vector of column names from `data` for which one-way ALE data is to be calculated (that is, simple ALE without interactions). If not provided, ALE will be created for all columns in `data` except `y_col`.
   #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-  #' @param complete_d integer(1 or 2). If `x_cols` is `NULL` (default), `complete_d = 1L` (default) will generate all 1D ALE data; `complete_d = 2L` will generate all 2D ALE data; and `complete_d = c(1L, 2L)` will generate both. If `x_cols` is anything other than `NULL`, `complete_d` is ignored and internally set to `NULL`.
+  # @param complete_d integer(1 or 2). If `x_cols` is `NULL` (default), `complete_d = 1L` (default) will generate all 1D ALE data; `complete_d = 2L` will generate all 2D ALE data; and `complete_d = c(1L, 2L)` will generate both. If `x_cols` is anything other than `NULL`, `complete_d` is ignored and internally set to `NULL`.
   #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. See details.
   #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
   #' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot'). Vector of types of results to return. 'plots' will return an ALE plot; 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.
@@ -215,7 +215,7 @@ ALE <- S7::new_class(
     x_cols = NULL,
     y_col = NULL,
     ...,
-    complete_d = 1L,
+    # complete_d = 1L,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output = c('plots', 'data', 'stats', 'conf_regions'),
@@ -244,8 +244,6 @@ ALE <- S7::new_class(
     # Error if any unlisted argument is used (captured in ...).
     # Never skip this validation step!
     rlang::check_dots_empty()
-
-    # If model validation is done more rigorously, also validate that y_col is not contained in all_x__cols
 
     # Validate the dataset
     validate(data |> inherits('data.frame'))
@@ -278,42 +276,49 @@ ALE <- S7::new_class(
 
     model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
-    if (!is.null(x_cols)) {
-      # Validate x_cols
-      validate(is_all_characters(x_cols))
+    col_names <- names(data)
+    x_cols <- validate_x_cols(
+      x_cols = x_cols,
+      col_names = col_names,
+      y_col = y_col
+    )
 
-      # Flatten x_cols to just a vector of its names
-      all_x_cols <- x_cols |>
-        unlist(recursive = TRUE, use.names = FALSE) |>
-        unique()
-
-      validate(
-        !(y_col %in% all_x_cols),
-        msg = paste0('The prediction target "', y_col, '" must not be included in the list of predictors ({.arg x_cols, x1_cols, x2_cols}).')
-      )
-
-      valid_x_cols <- all_x_cols %in% names(data)
-      if (!all(valid_x_cols)) {
-        cli_abort(
-          'The following columns were not found in {.arg data}:
-      {paste0(all_x_cols[!valid_x_cols], collapse = ", ")}'
-        )
-      }
-
-      # #Later: Verify valid datatypes for all x_col
-      # "class(data[[x_col]]) must be logical, factor, ordered, integer, or numeric."
-    }
-
-    # Verify that complete_d is assigned a valid value if x_cols is Null
-    if (is.null(x_cols)) {
-      validate(
-        all(complete_d %in% c(1, 2)),
-        msg = 'If {.arg x_cols} is {.val NULL}, then {.arg complete_d} must have a value of {.val 1, 2, or c(1, 2)}.'
-      )
-    }
-    else {
-      complete_d <- NULL
-    }
+    # if (!is.null(x_cols)) {
+    #   # Validate x_cols
+    #   validate(is_all_characters(x_cols))
+    #
+    #   # Flatten x_cols to just a vector of its names
+    #   all_x_cols <- x_cols |>
+    #     unlist(recursive = TRUE, use.names = FALSE) |>
+    #     unique()
+    #
+    #   validate(
+    #     !(y_col %in% all_x_cols),
+    #     msg = paste0('The prediction target "', y_col, '" must not be included in the list of predictors ({.arg x_cols, x1_cols, x2_cols}).')
+    #   )
+    #
+    #   valid_x_cols <- all_x_cols %in% names(data)
+    #   if (!all(valid_x_cols)) {
+    #     cli_abort(
+    #       'The following columns were not found in {.arg data}:
+    #   {paste0(all_x_cols[!valid_x_cols], collapse = ", ")}'
+    #     )
+    #   }
+    #
+    #   # #Later: Verify valid datatypes for all x_col
+    #   # "class(data[[x_col]]) must be logical, factor, ordered, integer, or numeric."
+    # }
+    #
+    # # Verify that complete_d is assigned a valid value if x_cols is Null
+    # if (is.null(x_cols)) {
+    #   validate(
+    #     all(complete_d %in% c(1, 2)),
+    #     msg = 'If {.arg x_cols} is {.val NULL}, then {.arg complete_d} must have a value of {.val 1, 2, or c(1, 2)}.'
+    #   )
+    # }
+    # else {
+    #   complete_d <- NULL
+    # }
 
     valid_output_types <- c('plots', 'data', 'stats', 'conf_regions', 'boot')
     validate(
@@ -466,16 +471,11 @@ ALE <- S7::new_class(
         })
     }
 
-    resolved_x_cols <- resolve_x_cols(
-      col_names = names(data),
-      x_cols = x_cols,
-      y_col = y_col,
-      complete_d = complete_d
-    )
+    # Distinguish requested from internally ordered x_cols
+    requested_x_cols <- x_cols
+    ordered_x_cols <- sort_x_cols(x_cols, col_names)
 
-    requested_x_cols <- resolved_x_cols$requested
-    ordered_x_cols <- resolved_x_cols$requested
-    # Work internally with the x_cols in the internal order
+    # Work internally with the x_cols in col_names order
     x_cols <- ordered_x_cols
 
 
@@ -487,6 +487,33 @@ ALE <- S7::new_class(
     max_d <- (1:length(x_cols)) |>
       (`[`)(valid_d) |>
       max()
+
+
+    ## Capture params ------------------
+    # Capture all parameters used to construct the ALE values.
+    # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
+    # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
+    params <- c(as.list(environment()), list(...))
+    # Create lists of objects to delete
+    it_objs <- names(params)[  # iterators
+      names(params) |> stringr::str_detect('^it\\.')
+    ]
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'y_vals', 'y_preds')
+    # temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'it_objs', 'resolved_x_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'x_col_spec', 'y_vals', 'y_preds')
+    params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
+
+    # Simplify some very large elements, especially closures that contain environments
+    params$data <- params_data(
+      data = data,
+      y_vals = y_vals,
+      data_name = var_name(data),
+      sample_size = sample_size,
+      seed = seed
+    )
+    params$model <- params_model(model, var_name(model))
+    params$pred_fun <- params_function(pred_fun)
+
+
 
     ## Prepare loops ---------------------
 
@@ -769,28 +796,6 @@ ALE <- S7::new_class(
       map(\(it.cat) list_transpose(it.cat, simplify = FALSE))
 
     # Create S7 ale object ----------------------
-
-    # Capture all parameters used to construct the ALE values.
-    # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
-    # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
-    params <- c(as.list(environment()), list(...))
-    # Create lists of objects to delete
-    it_objs <- names(params)[  # iterators
-      names(params) |> stringr::str_detect('^it\\.')
-    ]
-    temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'it_objs', 'resolved_x_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'x_col_spec', 'y_vals', 'y_preds')
-    params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
-
-    # Simplify some very large elements, especially closures that contain environments
-    params$data <- params_data(
-      data = data,
-      y_vals = y_vals,
-      data_name = var_name(data),
-      sample_size = sample_size,
-      seed = seed
-    )
-    params$model <- params_model(model, var_name(model))
-    params$pred_fun <- params_function(pred_fun)
 
     # # Create ale object
     # ale_obj <- ale_struc

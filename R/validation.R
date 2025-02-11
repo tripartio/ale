@@ -19,7 +19,7 @@ validate_x_cols <- function(
     x_cols,
     col_names,
     y_col,
-    x_cols_var_name = 'x_cols'
+    x_cols_arg_name = 'x_cols'
 ) {
   # Validate arguments
   validate(
@@ -45,8 +45,6 @@ validate_x_cols <- function(
 
   # Verify that all x_cols variables are included in col_names
   if (class(x_cols) %in% c('character', 'list')) {
-    # browser()
-
     all_x_cols <- x_cols
 
     if (is.list(all_x_cols)) {
@@ -184,7 +182,8 @@ validate_x_cols <- function(
         x_cols |>
           purrr::map_lgl(\(it.el) is.character(it.el) && length(it.el) %in% 1:2) |>
           all(),
-        msg = c(x = 'Invalid specification for {x_cols_arg_name}. See help("ale") for details.')
+        msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
+        # msg = c(x = 'Invalid specification for {x_cols_arg_name}. See help("ale") for details.')
       )
 
       # Result is list in canonical format
