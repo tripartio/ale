@@ -50,18 +50,41 @@ S7::method(plot, ALE) <- function(x, ...) {
 
 
 
-#' @param obj
-#'
-#' @param x_cols
-#' @param what
-#' @param cat
-#' @param simplify
-#'
+# cars_ale <- ALE(
+#   test_gam,
+#   list(d1 = TRUE, d2_all = 'wt'),
+#   data = test_cars,
+#   max_num_bins = 10,
+#   parallel = 0,
+#   silent = TRUE,
+# )
+#
+#
+# tg <- get(
+#   cars_ale,
+#   list(
+#     d1 = c('wt', 'gear'),
+#     d2 = list(c('wt', 'gear'), c('wt', 'qsec'))
+#   )
+# )
+#
+# tga <- get(cars_ale)
+
+
+
 #' @name get.ALE
 #' @title get method for ALE objects
 #'
 #' @description
 #' Retrieve specific elements from an `ALE` object.
+#'
+#' @param obj ALE object from which to retrieve elements.
+#' @param x_cols character, list, or formula. Columns names requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to retrieving all available date of the output requested in `what`.
+#' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'stats', 'conf', 'boot', 'plot', 'plots')`. Default is `'ale'`.
+#' @param cat character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
+#' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
+#'
+#' @returns Requested data as a list.
 #'
 #' @method get ALE
 S7::method(get, ALE) <- function(
@@ -87,7 +110,7 @@ S7::method(get, ALE) <- function(
     x_cols <- obj@params$requested_x_cols
   }
 
-  valid_what <- c('ale', 'stats', 'conf_regions', 'boot')
+  valid_what <- c('ale', 'stats', 'conf', 'boot', 'plot', 'plots')
   validate(
     length(setdiff(what, valid_what)) == 0,
     msg = 'The values in the {.arg what} argument must be one or more of the following values: {valid_what}.'
@@ -105,7 +128,7 @@ S7::method(get, ALE) <- function(
   }
 
   all_what <- S7::prop(obj, comp) |>
-    (`[[`)(cat) |>
+    (`[`)(cat) |>
     map(\(it.cat) {
       it.cat[[what]]
     })
@@ -131,18 +154,18 @@ S7::method(get, ALE) <- function(
     })
 
   ## Simplify the results ----------------
-  if (simplify) {
-    if (length(names(specific_what)) == 1) {
-      # Only one category: eliminate the category level
-      specific_what <- specific_what[[1]]
-    }
+  # If there is only one category, results are always simplified regardless of the value of simplify
+  if (length(names(specific_what)) == 1) {
+    # Only one category: eliminate the category level
+    specific_what <- specific_what[[1]]
+  }
 
+  if (simplify) {
     # If one dimension is empty, eliminate it and leave only the other
     specific_what <- compact(specific_what)
     if (is.null(specific_what[['d1']])) {
       specific_what <- compact(specific_what[['d2']])
-    }
-    if (is.null(specific_what[['d2']])) {
+    } else if (is.null(specific_what[['d2']])) {
       specific_what <- compact(specific_what[['d1']])
     }
   }

@@ -749,17 +749,20 @@ ALE <- S7::new_class(
           ale_struc$distinct[[it.cat]]$d2$stats$estimate <-
             ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
             bind_rows()
-          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
-            list_transpose(simplify = FALSE)
-          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term <-
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term |>
-            bind_rows()
-          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant <-
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant |>
-            bind_rows()
-          ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion <-
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion[[1]]
+
+          if ('conf_regions' %in% output) {
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
+              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
+              list_transpose(simplify = FALSE)
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term <-
+              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term |>
+              bind_rows()
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant <-
+              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant |>
+              bind_rows()
+            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion <-
+              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion[[1]]
+          }
 
         }  # if (length(x_cols$d2) >= 1) {
       }  # for (it.cat in y_cats)
