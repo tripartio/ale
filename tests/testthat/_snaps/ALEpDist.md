@@ -40,7 +40,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -714,12 +714,6 @@
       
       attr(,"params")$min_rug_per_interval
       [1] 1
-      
-      attr(,"params")$bins
-      NULL
-      
-      attr(,"params")$ns
-      NULL
       
       attr(,"params")$silent
       [1] TRUE

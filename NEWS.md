@@ -62,6 +62,7 @@ Other notable changes that might not be readily visible to users:
 
 * Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
 * Effects plots for interactions have not yet been implemented.
+* Although the standard {ALE} class supports 2D ALE interactions with ALE bootstrapping, {ModelBoot} does not yet support full-model bootstrapping for 2D ALE interactions.
 
 
 # ale 0.3.0

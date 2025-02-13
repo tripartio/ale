@@ -101,7 +101,6 @@ validate_x_cols <- function(
         class(x_cols[['d1']]) %in% c('character', 'logical', 'NULL'),
         msg = '{x_cols_arg_name}{.var $d1} must be a character vector, a scalar logical, or else NULL or absent.'
       )
-      # browser()
       validate(
         class(x_cols[['d2']]) %in% c('list', 'logical', 'NULL'),
         # Note: NULL d2 returns TRUE for this test.

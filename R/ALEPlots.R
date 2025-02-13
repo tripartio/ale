@@ -72,7 +72,6 @@ ALEPlots <- S7::new_class(
       # Adapt ModelBoot object to behave like a regular ALE object
       if (!is.null(obj@ale$boot)) {
         # Prefer plots based on the bootstrapped object, if available.
-        # browser()
         # Start with the single ALE object to give it the right ALE object type
         alt_obj <- obj@ale$single
         # Replace the ALE data with the bootstrapped version
@@ -134,7 +133,6 @@ ALEPlots <- S7::new_class(
       if ('stats' %in% obj@params$output) {
         eff_plot <-
           imap(obj@distinct, \(it.cat_data, it.cat_name) {
-            # browser()
             plot_effects(
               estimates = it.cat_data$stats$d1$estimate,
               y_summary = obj@params$y_summary[, it.cat_name],

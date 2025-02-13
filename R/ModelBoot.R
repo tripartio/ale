@@ -154,7 +154,7 @@ ModelBoot <- S7::new_class(
     glance_options = list(),
     silent = FALSE
   ) {
-    # Validate arguments -------------
+    ## Validate arguments -------------
     rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
     data <- validate_data(
@@ -267,7 +267,7 @@ ModelBoot <- S7::new_class(
     validate(boot_centre == 'mean' || boot_centre == 'median')
     # output must be a subset of c('ale', 'model_stats', 'model_coefs')
     validate(
-      length(setdiff(output, c('ale', 'model_stats', 'model_coefs'))) == 0,
+      length(setdiff(output, c('ale', 'model_stats', 'model_coefs', 'boot_data'))) == 0,
       msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
     "ale", "model_stats", or "model_coefs".')
     )
@@ -297,15 +297,37 @@ ModelBoot <- S7::new_class(
 
     validate_silent(silent)
 
+    # Temporarily forbid 2D ALE bootstrapping
+    if (!is.null(ale_options$x_cols)) {
+      resolved_x_cols <- validate_x_cols(
+        x_cols = ale_options$x_cols,
+        col_names = names(data),
+        y_col = y_col
+      )
+      validate(
+        length(resolved_x_cols[['d2']]) == 0,
+        msg = c(
+          x = '2D ALE detected in ale_options$x_cols. ',
+          # x = '2D ALE detected in {.arg ale_options}: {ale_options$x_cols}.',
+          i = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
+          i = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
+        )
+      )
+    }
 
-    # Begin main code -------------
-
-    n_rows <- nrow(data)
-
+    ## Capture params ------------------
     # Capture all parameters used to construct the bootstraps.
     # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function up to this point. It may be further modified by the end of the function.
     # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
     params <- c(as.list(environment()), list(...))
+
+
+
+
+    ## Begin main code -------------
+
+    n_rows <- nrow(data)
+
 
 
     # Establish the environment from which this function was called. This is needed to resolve the model call later.
@@ -334,8 +356,9 @@ ModelBoot <- S7::new_class(
     )
 
     # Initialize common bin for all iterations
-    bins <- NULL
-    ns <- NULL
+    ale_bins <- NULL
+    # bins <- NULL
+    # ns <- NULL
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
@@ -608,8 +631,9 @@ ModelBoot <- S7::new_class(
                         boot_it = 0,  # do not bootstrap at this inner level
                         # do not request conf_regions
                         output = c('data', 'stats'),
-                        bins = if (btit == 0) NULL else bins,
-                        ns = if (btit == 0) NULL else ns,
+                        .bins = if (btit == 0) NULL else ale_bins,
+                        # bins = if (btit == 0) NULL else bins,
+                        # ns = if (btit == 0) NULL else ns,
                         silent = TRUE  # silence inner bootstrap loop
                       ),
                       # pass all other desired options, e.g., specific x_col
@@ -626,6 +650,12 @@ ModelBoot <- S7::new_class(
                     print(e)
                     stop()
                   } else {
+                    cli_warn(
+                      'ALE calculation failed for iteration {btit}...',
+                      class = 'ale_fail'
+                    )
+                    # print(e)
+
                     NULL
                   }
                 }
@@ -636,19 +666,53 @@ ModelBoot <- S7::new_class(
             if (btit == 0) {
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
 
-              bins <<-
-                boot_ale@distinct |>
-                map(\(it.cat) {
-                  it.cat$ale$d1 |>
-                    map(\(it.x) it.x[[1]])
-                })
+              ale_bins <<- list(
+                d1 = boot_ale@distinct[[1]]$ale$d1 |>
+                  map(\(it.x) list(
+                    bins = it.x[[1]],
+                    ns   = it.x[['.n']]
+                  )),
+                d2 = boot_ale@distinct[[1]]$ale$d2 |>
+                  map(\(it.x1) {
+                    it.x1 |>
+                      map(\(it.x2) list(
+                        x1_bins = it.x2[[1]],
+                        x2_bins = it.x2[[2]],
+                        ns   = it.x2[['.n']]
+                      ))
+                  })
+              )
+              # boot_ale@distinct |>
+                # map(\(it.cat) list(
+                #   d1 = it.cat$ale$d1 |>
+                #     map(\(it.x) list(
+                #       bins = it.x[[1]],
+                #       ns   = it.x[['.n']]
+                #     )),
+                #   d2 = it.cat$ale$d2 |>
+                #     map(\(it.x1) {
+                #       it.x1 |>
+                #         map(\(it.x2) list(
+                #           x1_bins = it.x2[[1]],
+                #           x2_bins = it.x2[[2]],
+                #           ns   = it.x2[['.n']]
+                #         ))
+                #     })
+                # ))
 
-              ns <<-
-                boot_ale@distinct |>
-                map(\(it.cat) {
-                  it.cat$ale$d1 |>
-                    map(\(it.x) it.x$.n)
-                })
+                            # bins <<-
+              #   boot_ale@distinct |>
+              #   map(\(it.cat) {
+              #     it.cat$ale$d1 |>
+              #       map(\(it.x) it.x[[1]])
+              #   })
+              #
+              # ns <<-
+              #   boot_ale@distinct |>
+              #   map(\(it.cat) {
+              #     it.cat$ale$d1 |>
+              #       map(\(it.x) it.x$.n)
+              #   })
 
               # bins <<-
               #   boot_ale$data |>
@@ -686,7 +750,7 @@ ModelBoot <- S7::new_class(
       list_transpose(simplify = FALSE)
 
 
-    # Assemble bootstrapped results ------------
+    ## Assemble bootstrapped results ------------
 
     # Bind the model and ALE data to the bootstrap tbl
     boot_data <- boot_data |>
@@ -706,9 +770,8 @@ ModelBoot <- S7::new_class(
       -1  # else, remove nothing; analyze the unique row (it is never -1)
     }
 
-    ## Summarize the bootstrapped data
+    ### Overall model bootstrapped summary --------------
 
-    # Bootstrapped model statistics
     stats_summary <-
       if ('model_stats' %in% output) {
         # Model statistics for which bootstrapping is not meaningful.
@@ -853,7 +916,7 @@ ModelBoot <- S7::new_class(
     }
 
 
-    # Bootstrapped model coefficient estimates
+    ### Bootstrapped model coefficient estimates ---------------
     tidy_summary <-
       if ('model_coefs' %in% output) {
 
@@ -901,7 +964,9 @@ ModelBoot <- S7::new_class(
         NULL
       }
 
-    # Bootstrapped ALE data
+
+    ### Bootstrapped ALE data ------------------
+
     ale_summary <- if ('ale' %in% output) {
         full_ale <- boot_data$ale[[1]]
 
@@ -1070,11 +1135,19 @@ ModelBoot <- S7::new_class(
       NULL
     }
 
-    # Refine the parameters
-    params <- params[
-      names(params) |>
-        setdiff(c('y_preds', 'model_call'))
+    ## Refine the parameters -----------------
+
+    # Create lists of objects to delete
+    it_objs <- names(params)[  # iterators
+      names(params) |> stringr::str_detect('^it\\.')
     ]
+    temp_objs <- c('model_call', 'n_rows', 'resolved_x_cols', 'y_preds')
+    params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
+
+    # params <- params[
+    #   names(params) |>
+    #     setdiff(c())
+    # ]
 
     # Simplify some very large elements, especially closures that contain environments
     params$data <- params_data(
@@ -1111,7 +1184,7 @@ ModelBoot <- S7::new_class(
       NULL
     }
 
-    # Return S7 ModelBoot object
+    ## Return S7 ModelBoot object --------------------
     S7::new_object(
       S7::S7_object(),
       model_stats = stats_summary,

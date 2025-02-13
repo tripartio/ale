@@ -25,7 +25,8 @@
 #' @param boot_alpha See documentation for [ALE()]
 #' @param boot_centre See documentation for [ALE()]
 #' @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values. If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
-#' @param bins,ns numeric or ordinal vector,integer vector. Normally generated automatically (if `bins == NULL`), but if provided, the provided values will be used instead. They would mainly be provided from [ModelBoot()].
+#' @param .bins See documentation for [ALE()]
+# @param bins,ns numeric or ordinal vector,integer vector. Normally generated automatically (if `bins == NULL`), but if provided, the provided values will be used instead. They would mainly be provided from [ModelBoot()].
 #' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ALE()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
 #' @param p_dist See documentation for `p_values` in [ALE()]
 #'
@@ -38,8 +39,9 @@ calc_ale <- function(
     max_num_bins,
     boot_it, seed, boot_alpha, boot_centre,
     boot_ale_y = FALSE,
-    bins = NULL,
-    ns = NULL,
+    .bins = NULL,
+    # bins = NULL,
+    # ns = NULL,
     ale_y_norm_funs = NULL,
     p_dist = NULL
 ) {
@@ -74,12 +76,21 @@ calc_ale <- function(
     ale_y = list(NULL)
   )
 
-  # Determine the datatypes of each x from bins unless bins is null; in that case, take them from x_cols.
-  # They should be taken from bins (if available) because intermediary bootstrap runs might change the x_col values such that their datatypes are ambiguous.
-  x_types <- if (!is.null(bins)) {
-    map_chr(x_cols, \(it.x_col) {
-      var_type(bins[[it.x_col]])
-    })
+  # Determine the datatypes of each x from bins unless .bins is null; in that case, take them from x_cols.
+  # They should be taken from .bins (if available) because intermediary bootstrap runs might change the x_col values such that their datatypes are ambiguous.
+  x_types <- if (!is.null(.bins)) {
+    if (ixn_d == 1) {
+      var_type(.bins[[1]])
+    } else if (ixn_d == 2) {
+      c(
+        var_type(.bins[[1]]),
+        var_type(.bins[[2]])
+      )
+    }
+    # x_types <- if (!is.null(bins)) {
+    # map_chr(x_cols, \(it.x_col) {
+    #   var_type(bins[[it.x_col]])
+    # })
   } else {
     map_chr(x_cols, \(it.x_col) {
       var_type(X[[it.x_col]])
@@ -93,8 +104,10 @@ calc_ale <- function(
       x_col = it.x_col,
       x_type = x_types[[it.x_col]],
       x_vals = X[[it.x_col]],
-      bins = bins[[it.x_col]],
-      n = ns[[it.x_col]],
+      bins = .bins[[which(x_cols == it.x_col)]],
+      n = .bins[['ns']],
+      # bins = bins[[it.x_col]],
+      # n = ns[[it.x_col]],
       max_num_bins,
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
@@ -106,6 +119,7 @@ calc_ale <- function(
 
   # Calculate the ALE Y values for each bootstrap sample. Row 0 is the ALE Y for the full dataset.
   boot_ale$ale <- map(boot_ale$row_idxs, \(btit.row_idxs) {
+
 
     # Create variables for this particular bootstrap sample
     btit.X <- X[btit.row_idxs, ]  # bootstrapped X dataframe
@@ -172,12 +186,22 @@ calc_ale <- function(
     ## Iteratively set btit.X_lo and btit.X_hi values for each x variable in the interaction set ------------------
     for (it.x_col in x_cols) {
       if (xd[[it.x_col]]$x_type == 'numeric') {
+        # closeAllConnections()
+        # if (!is.null(.bins)) {
+        #   print(x_cols)
+        #   if (x_cols == 'wt') browser()
+        # }
+
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
         btit.x_vars[[it.x_col]]$bin_idxs <- cut(
           btit.X[[it.x_col]],
           breaks = c(
+            # Subtract 1 from lowest ceiling to ensure that the minimum value is included in it
             xd[[it.x_col]]$ceilings[1] - 1,
-            xd[[it.x_col]]$ceilings
+            head(xd[[it.x_col]]$ceilings, -1),
+            # Add a tiny amount to the top ceiling to make sure the max value is included
+            tail(xd[[it.x_col]]$ceilings, 1) + 1e-8
+            # xd[[it.x_col]]$ceilings
           ),
           # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
           right = TRUE
@@ -264,7 +288,6 @@ calc_ale <- function(
       # This captures some odd model cases
       colnames(btit.delta_pred) <- y_cats
     }
-
 
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
     # These mean prediction differences are the "local effects" of ALE.
@@ -493,8 +516,15 @@ calc_ale <- function(
   }
 
   if (ixn_d == 1) {
-    x1_counts <- table(x1_idxs)
-    names(x1_counts) <- c(x1$bins, x1$ceilings)  # either bins or ceilings but not both since one is NUL
+    # Count how many times each index occurs
+    x1_counts <- table(
+      factor(
+        if (x1$x_type == 'numeric') x1$ceilings[x1_idxs] else x1$bins[x1_idxs],
+        levels = if (x1$x_type == 'numeric') x1$ceilings else x1$bins
+      )
+    )
+    # x1_counts <- table(x1_idxs)
+    # names(x1_counts) <- c(x1$bins, x1$ceilings)  # either bins or ceilings but not both since one is NULL
   }
 
   if (ixn_d >= 2) {
@@ -511,9 +541,23 @@ calc_ale <- function(
       x2$x_ordered_idx
     }
 
-    x12_counts <- table(x1_idxs, x2_idxs)
-    rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
-    colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
+    # Count how many times each index occurs
+    x12_counts <- table(
+      # factor(x1_idxs, levels = x1$idx_ord_orig_int),
+      factor(
+        # x1$ceilings[x1_idxs],
+        if (x1$x_type == 'numeric') x1$ceilings[x1_idxs] else x1$bins[x1_idxs],
+        levels = if (x1$x_type == 'numeric') x1$ceilings else x1$bins
+      ),
+      factor(
+        # x2$ceilings[x2_idxs],
+        if (x2$x_type == 'numeric') x2$ceilings[x2_idxs] else x2$bins[x2_idxs],
+        levels = if (x2$x_type == 'numeric') x2$ceilings else x2$bins
+      )
+    )
+    # x12_counts <- table(x1_idxs, x2_idxs)
+    # rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
+    # colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
   }
 
   ## 1D ---------------
@@ -990,7 +1034,7 @@ calc_ale <- function(
 
 #' Compute preparatory data for ALE calculation
 #'
-#' This function is not exported. It computes data needed to calculate its ALE values.
+#' Computes data needed to calculate a variable's ALE values.
 #'
 #' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
 #' @param x_type character(1). var_type() of x_col.
@@ -1008,6 +1052,7 @@ prep_var_for_ale <- function(
     max_num_bins,
     X = NULL
 ) {
+
   if (x_type == 'numeric') {
 
     # ceilings: max_num_bins quantile intervals of x_col values
@@ -1036,6 +1081,11 @@ prep_var_for_ale <- function(
         ) |>
         table() |>  # count number of x in each bin
         as.integer()
+    }
+    else {
+      ceilings <- bins |>
+        unique() |>
+        sort()
     }
 
     n_bins <- length(ceilings)

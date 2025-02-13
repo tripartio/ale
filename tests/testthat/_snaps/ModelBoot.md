@@ -39,7 +39,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -385,20 +385,11 @@
       attr(,"params")$min_rug_per_interval
       [1] 1
       
-      attr(,"params")$bins
-      NULL
-      
-      attr(,"params")$ns
-      NULL
-      
       attr(,"params")$silent
       [1] TRUE
       
       
       attr(,"params")
-      attr(,"params")$n_rows
-      [1] 64
-      
       attr(,"params")$calc_boot_valid
       [1] FALSE
       
@@ -728,7 +719,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -1042,20 +1033,140 @@
       attr(,"params")$min_rug_per_interval
       [1] 1
       
-      attr(,"params")$bins
-      NULL
-      
-      attr(,"params")$ns
-      NULL
-      
       attr(,"params")$silent
       [1] TRUE
       
       
-      attr(,"params")
-      attr(,"params")$n_rows
-      [1] 64
+      attr(,"ale")$boot
+      attr(,"ale")$boot$distinct
+      attr(,"ale")$boot$distinct$mpg
+      attr(,"ale")$boot$distinct$mpg$ale
+      attr(,"ale")$boot$distinct$mpg$ale$d1
+      attr(,"ale")$boot$distinct$mpg$ale$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>  <int> <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 FALSE     36 -5.30 -11.1     -5.30     -5.06 -0.192
+      2 TRUE      28  6.18   0.213    6.18      6.51 13.3  
       
+      attr(,"ale")$boot$distinct$mpg$ale$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n    .y  .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30  25.1   3.97    25.1      7.77 82.9  
+      2 four        24 -25.1 -88.0    -25.1     -8.94 -4.09 
+      3 five        10 -27.4 -88.0    -27.4    -10.3  -0.412
+      
+      
+      
+      attr(,"ale")$boot$distinct$mpg$stats
+      attr(,"ale")$boot$distinct$mpg$stats$d1
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$vs
+      # A tibble: 6 x 6
+        statistic estimate conf.low median   mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 aled          5.75    0.463   5.70   5.75    12.1  
+      2 aler_min     -5.36  -11.1    -5.06  -5.36    -0.459
+      3 aler_max      6.24    0.480   6.51   6.24    13.3  
+      4 naled        31.7     4.44   32.7   31.7     48.3  
+      5 naler_min   -32.8   -49.7   -37.5  -32.8     -4.18 
+      6 naler_max    30.5     4.06   33.3   30.5     46.6  
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$gear
+      # A tibble: 6 x 6
+        statistic estimate conf.low median  mean conf.high
+        <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 aled          25.4     4.11   6.74  25.4     85.3 
+      2 aler_min     -30.1   -89.9  -10.3  -30.1     -5.46
+      3 aler_max      25.1     3.97   7.77  25.1     82.9 
+      4 naled         40.8    31.5   39.0   40.8     50   
+      5 naler_min    -47.6   -50    -50    -47.6    -39.4 
+      6 naler_max     40.8    34.4   34.8   40.8     50   
+      
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aled
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 vs        5.75    0.463   5.70  5.75      12.1
+      2 gear     25.4     4.11    6.74 25.4       85.3
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aler_min
+      # A tibble: 2 x 6
+        term  estimate conf.low median   mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 vs       -5.36    -11.1  -5.06  -5.36    -0.459
+      2 gear    -30.1     -89.9 -10.3  -30.1     -5.46 
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 vs        6.24    0.480   6.51  6.24      13.3
+      2 gear     25.1     3.97    7.77 25.1       82.9
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naled
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 vs        31.7     4.44   32.7  31.7      48.3
+      2 gear      40.8    31.5    39.0  40.8      50  
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naler_min
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 vs       -32.8    -49.7  -37.5 -32.8     -4.18
+      2 gear     -47.6    -50    -50   -47.6    -39.4 
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 vs        30.5     4.06   33.3  30.5      46.6
+      2 gear      40.8    34.4    34.8  40.8      50  
+      
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$estimate
+      # A tibble: 2 x 7
+        term   aled aler_min aler_max naled naler_min naler_max
+        <chr> <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 vs     5.75    -5.36     6.24  31.7     -32.8      30.5
+      2 gear  25.4    -30.1     25.1   40.8     -47.6      40.8
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions
+      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions$by_term
+      # A tibble: 5 x 6
+        term  x         n   pct      y mid_bar
+        <chr> <chr> <int> <dbl>  <dbl> <ord>  
+      1 vs    FALSE    36  56.2  -5.30 below  
+      2 vs    TRUE     28  43.8   6.18 above  
+      3 gear  three    30  46.9  25.1  above  
+      4 gear  four     24  37.5 -25.1  below  
+      5 gear  five     10  15.6 -27.4  below  
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions$significant
+      # A tibble: 5 x 6
+        term  x         n   pct      y mid_bar
+        <chr> <chr> <int> <dbl>  <dbl> <ord>  
+      1 vs    FALSE    36  56.2  -5.30 below  
+      2 vs    TRUE     28  43.8   6.18 above  
+      3 gear  three    30  46.9  25.1  above  
+      4 gear  four     24  37.5 -25.1  below  
+      5 gear  five     10  15.6 -27.4  below  
+      
+      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      
+      
+      
+      
+      
+      attr(,"params")
       attr(,"params")$calc_boot_valid
       [1] TRUE
       
@@ -1235,17 +1346,17 @@
     Output
       $vs
         x        y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1 17.32625     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 21.60911     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      1 1 13.90176     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 25.38374     1     2     NA lightgray       0.5        1    NA -Inf  Inf
             ymin     ymax
       1 19.04095 19.28336
       2 19.04095 19.28336
       
       $gear
         x         y PANEL group colour      fill linewidth linetype alpha xmin xmax
-      1 1  9.876782     1     1     NA lightgray       0.5        1    NA -Inf  Inf
-      2 2 23.999836     1     2     NA lightgray       0.5        1    NA -Inf  Inf
-      3 3 35.650050     1     3     NA lightgray       0.5        1    NA -Inf  Inf
+      1 1 44.338416     1     1     NA lightgray       0.5        1    NA -Inf  Inf
+      2 2 -5.913318     1     2     NA lightgray       0.5        1    NA -Inf  Inf
+      3 3 -8.165295     1     3     NA lightgray       0.5        1    NA -Inf  Inf
             ymin     ymax
       1 19.04095 19.28336
       2 19.04095 19.28336
@@ -1267,48 +1378,48 @@
       
       [[2]]
              xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
-      1 17.326251 21.60911 1     1     1 0.875 1.125  black       0.5        1   0.25
-      2  9.876782       NA 2     1     2 1.875 2.125  black       0.5        1   0.25
+      1  13.84237 25.44313 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 -10.93142       NA 2     1     2 1.875 2.125  black       0.5        1   0.25
         alpha
       1    NA
       2    NA
       
       [[3]]
-            xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
-      1 18.10817 20.21614  0.7  1.3 1     1     1     NA white       0.5        1
-      2 14.79190 23.53241  1.7  2.3 2     1     2     NA white       0.5        1
+             xmin     xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 16.285558 22.03875  0.7  1.3 1     1     1     NA white       0.5        1
+      2  6.483868 31.84044  1.7  2.3 2     1     2     NA white       0.5        1
         alpha
       1    NA
       2    NA
       
       [[4]]
-               x     label y PANEL group colour size angle hjust vjust alpha family
-      1 19.16215 NALED 17% 1     1     1  black    3     0   0.5    -1    NA       
-      2 19.16215 NALED 42% 2     1     2  black    3     0   0.5    -1    NA       
+               x       label y PANEL group colour size angle hjust vjust alpha family
+      1 19.16215 NALED 31.7% 1     1     1  black    3     0   0.5    -1    NA       
+      2 19.16215 NALED 40.8% 2     1     2  black    3     0   0.5    -1    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       [[5]]
-               x label    y PANEL group colour size angle hjust vjust alpha family
-      1 18.10817     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 14.79190     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+                x label    y PANEL group colour size angle hjust vjust alpha family
+      1 16.285558     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2  6.483868     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       [[6]]
                x label    y PANEL group colour size angle hjust vjust alpha family
-      1 20.21614     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 23.53241     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+      1 22.03875     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 31.84044     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       [[7]]
                x     label y PANEL group colour size angle hjust vjust alpha family
-      1 19.16215 ALED 2.11 1     1     1  black    3     0   0.5     2    NA       
-      2 19.16215 ALED 8.74 2     1     2  black    3     0   0.5     2    NA       
+      1 19.16215 ALED  5.8 1     1     1  black    3     0   0.5     2    NA       
+      2 19.16215 ALED 25.4 2     1     2  black    3     0   0.5     2    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
@@ -1362,9 +1473,6 @@
       4 s(wt)       1.30   4.00  4.00      6.70 4.24      
       5 s(qsec)     1.35   4.50  4.50      7.65 4.95      
       attr(,"params")
-      attr(,"params")$n_rows
-      [1] 64
-      
       attr(,"params")$calc_boot_valid
       [1] TRUE
       
@@ -1510,7 +1618,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -1836,20 +1944,145 @@
       attr(,"params")$min_rug_per_interval
       [1] 1
       
-      attr(,"params")$bins
-      NULL
-      
-      attr(,"params")$ns
-      NULL
-      
       attr(,"params")$silent
       [1] TRUE
       
       
-      attr(,"params")
-      attr(,"params")$n_rows
-      [1] 64
+      attr(,"ale")$boot
+      attr(,"ale")$boot$distinct
+      attr(,"ale")$boot$distinct$vs
+      attr(,"ale")$boot$distinct$vs$ale
+      attr(,"ale")$boot$distinct$vs$ale$d1
+      attr(,"ale")$boot$distinct$vs$ale$d1$cyl
+      # A tibble: 7 x 7
+        cyl.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+      1        3     1  5.39e-13 -1.12e-15  5.39e-13  3.22e-19 2.43e-12
+      2        4    17  4.41e-13 -7.25e-16  4.41e-13  2.85e-19 1.99e-12
+      3        5     6  1.87e-13 -3.26e-16  1.87e-13  2.46e-19 8.41e-13
+      4        6    11  2.70e-14 -1.61e-22  2.70e-14  1.13e-19 1.22e-13
+      5        7     5 -1.84e-13 -8.26e-13 -1.84e-13 -1.45e-19 4.39e-16
+      6        8    21 -5.26e-13 -2.37e-12 -5.26e-13 -4.55e-19 8.12e-16
+      7        9     3 -8.69e-13 -3.91e-12 -8.69e-13 -7.65e-19 1.18e-15
       
+      attr(,"ale")$boot$distinct$vs$ale$d1$disp
+      # A tibble: 10 x 7
+         disp.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+       1      70.9     1 -2.35e-16 -6.83e-16 -2.35e-16 -2.75e-19 1.01e-16
+       2      79.0     7 -2.35e-16 -6.83e-16 -2.35e-16 -2.75e-19 1.01e-16
+       3     120.      7 -1.73e-16 -4.85e-16 -1.73e-16 -2.43e-19 9.49e-17
+       4     146.      7 -1.29e-16 -3.75e-16 -1.29e-16 -2.43e-19 9.49e-17
+       5     166.      7 -9.37e-17 -2.82e-16 -9.37e-17 -1.64e-19 8.15e-17
+       6     258.      7  3.35e-17 -1.85e-17  3.35e-17  1.51e-20 1.29e-16
+       7     300.      7  9.27e-17 -5.33e-17  9.27e-17  2.80e-20 3.08e-16
+       8     350.      7  1.64e-16 -9.52e-17  1.64e-16  2.59e-19 5.24e-16
+       9     397.      7  2.30e-16 -1.34e-16  2.30e-16  4.75e-19 7.26e-16
+      10     472       7  3.37e-16 -1.97e-16  3.37e-16  8.20e-19 1.05e-15
+      
+      
+      
+      attr(,"ale")$boot$distinct$vs$stats
+      attr(,"ale")$boot$distinct$vs$stats$d1
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_term
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_term$cyl
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low    median      mean conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       3.18e-13  3.15e-20  6.44e-19  3.18e-13  1.43e-12
+      2 aler_min  -8.70e-13 -3.91e-12 -2.25e-18 -8.70e-13 -8.06e-20
+      3 aler_max   5.39e-13  4.21e-20  7.55e-19  5.39e-13  2.43e-12
+      4 naled      2.16e+ 1  1.99e+ 0  2.76e+ 1  2.16e+ 1  3.16e+ 1
+      5 naler_min -4   e+ 1 -5   e+ 1 -5   e+ 1 -4   e+ 1 -5.00e+ 0
+      6 naler_max  6.27e+ 0  7.35e- 1  7.35e+ 0  6.27e+ 0  8.72e+ 0
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_term$disp
+      # A tibble: 6 x 6
+        statistic  estimate  conf.low    median      mean conf.high
+        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 aled       1.83e-16  4.83e-20  1.03e-16  1.83e-16  4.32e-16
+      2 aler_min  -3.01e-16 -6.83e-16 -2.19e-16 -3.01e-16 -9.38e-20
+      3 aler_max   4.03e-16  1.02e-19  1.12e-16  4.03e-16  1.05e-15
+      4 naled      2.26e+ 1  2.07e+ 0  2.81e+ 1  2.26e+ 1  3.52e+ 1
+      5 naler_min -4   e+ 1 -5   e+ 1 -5   e+ 1 -4   e+ 1 -5.00e+ 0
+      6 naler_max  6.27e+ 0  7.35e- 1  7.35e+ 0  6.27e+ 0  8.72e+ 0
+      
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$aled
+      # A tibble: 2 x 6
+        term  estimate conf.low   median     mean conf.high
+        <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+      1 cyl   3.18e-13 3.15e-20 6.44e-19 3.18e-13  1.43e-12
+      2 disp  1.83e-16 4.83e-20 1.03e-16 1.83e-16  4.32e-16
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$aler_min
+      # A tibble: 2 x 6
+        term   estimate  conf.low    median      mean conf.high
+        <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 cyl   -8.70e-13 -3.91e-12 -2.25e-18 -8.70e-13 -8.06e-20
+      2 disp  -3.01e-16 -6.83e-16 -2.19e-16 -3.01e-16 -9.38e-20
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$aler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low   median     mean conf.high
+        <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+      1 cyl   5.39e-13 4.21e-20 7.55e-19 5.39e-13  2.43e-12
+      2 disp  4.03e-16 1.02e-19 1.12e-16 4.03e-16  1.05e-15
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$naled
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 cyl       21.6     1.99   27.6  21.6      31.6
+      2 disp      22.6     2.07   28.1  22.6      35.2
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$naler_min
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 cyl        -40      -50    -50   -40     -5.00
+      2 disp       -40      -50    -50   -40     -5.00
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$by_stat$naler_max
+      # A tibble: 2 x 6
+        term  estimate conf.low median  mean conf.high
+        <chr>    <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 cyl       6.27    0.735   7.35  6.27      8.72
+      2 disp      6.27    0.735   7.35  6.27      8.72
+      
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$estimate
+      # A tibble: 2 x 7
+        term      aled  aler_min aler_max naled naler_min naler_max
+        <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 cyl   3.18e-13 -8.70e-13 5.39e-13  21.6       -40      6.27
+      2 disp  1.83e-16 -3.01e-16 4.03e-16  22.6       -40      6.27
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$conf_regions
+      attr(,"ale")$boot$distinct$vs$stats$d1$conf_regions$by_term
+      # A tibble: 2 x 10
+        term  start_x end_x x_span_pct     n   pct   start_y     end_y     trend
+        <chr>   <dbl> <dbl>      <dbl> <int> <dbl>     <dbl>     <dbl>     <dbl>
+      1 cyl       3       9        100    64   100  5.39e-13 -8.69e-13 -1.41e-12
+      2 disp     70.9   472        100    64   100 -2.35e-16  3.37e-16  5.72e-16
+      # i 1 more variable: mid_bar <ord>
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$conf_regions$significant
+      # A tibble: 0 x 10
+      # i 10 variables: term <chr>, start_x <dbl>, end_x <dbl>, x_span_pct <dbl>,
+      #   n <int>, pct <dbl>, start_y <dbl>, end_y <dbl>, trend <dbl>, mid_bar <ord>
+      
+      attr(,"ale")$boot$distinct$vs$stats$d1$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      
+      
+      
+      
+      
+      attr(,"params")
       attr(,"params")$calc_boot_valid
       [1] TRUE
       
@@ -2028,14 +2261,14 @@
       mb_1D_plots
     Output
       $cyl
-        x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 3 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 4 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 5 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 6 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 7 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 8 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 9 3.925673e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+        x             y PANEL group colour      fill linewidth linetype alpha xmin
+      1 3  9.313003e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 4  8.340303e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 5  5.793592e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 6  4.196105e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 7  2.090063e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 8 -1.338159e-13     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 9 -4.766381e-13     1    -1     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 3.925673e-13 3.925673e-13
       2  Inf 3.925673e-13 3.925673e-13
@@ -2047,16 +2280,16 @@
       
       $disp
                  x            y PANEL group colour      fill linewidth linetype alpha
-      1   70.92941 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
-      2   79.04253 3.925677e-13     1    -1     NA lightgray       0.5        1    NA
-      3  120.30000 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
-      4  146.07210 3.925676e-13     1    -1     NA lightgray       0.5        1    NA
-      5  166.13111 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
-      6  258.37592 3.925675e-13     1    -1     NA lightgray       0.5        1    NA
-      7  300.03890 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      8  350.17436 3.925669e-13     1    -1     NA lightgray       0.5        1    NA
-      9  397.00444 3.925666e-13     1    -1     NA lightgray       0.5        1    NA
-      10 472.00000 3.925661e-13     1    -1     NA lightgray       0.5        1    NA
+      1   70.92941 3.923323e-13     1    -1     NA lightgray       0.5        1    NA
+      2   79.04253 3.923323e-13     1    -1     NA lightgray       0.5        1    NA
+      3  120.30000 3.923947e-13     1    -1     NA lightgray       0.5        1    NA
+      4  146.07210 3.924385e-13     1    -1     NA lightgray       0.5        1    NA
+      5  166.13111 3.924736e-13     1    -1     NA lightgray       0.5        1    NA
+      6  258.37592 3.926008e-13     1    -1     NA lightgray       0.5        1    NA
+      7  300.03890 3.926600e-13     1    -1     NA lightgray       0.5        1    NA
+      8  350.17436 3.927312e-13     1    -1     NA lightgray       0.5        1    NA
+      9  397.00444 3.927978e-13     1    -1     NA lightgray       0.5        1    NA
+      10 472.00000 3.929043e-13     1    -1     NA lightgray       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 3.925673e-13 3.925673e-13
       2  -Inf  Inf 3.925673e-13 3.925673e-13
@@ -2084,41 +2317,41 @@
       2 3.925673e-13 -Inf  Inf
       
       [[2]]
-                xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5        1
-      2 3.925661e-13 3.925677e-13 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1  3.922660e-13 3.929706e-13 1     1     1 0.875 1.125  black       0.5
+      2 -4.771512e-13 9.318134e-13 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
       
       [[3]]
                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
-      2 3.925671e-13 3.925675e-13  1.7  2.3 2     1     2     NA white       0.5
+      1 3.924760e-13 3.926586e-13  0.7  1.3 1     1     1     NA white       0.5
+      2 2.334716e-13 5.516630e-13  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
       
       [[4]]
                    x       label y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13 NALED 10.2% 1     1     1  black    3     0   0.5    -1    NA
-      2 3.925673e-13 NALED 20.6% 2     1     2  black    3     0   0.5    -1    NA
+      1 3.925673e-13 NALED 22.6% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 21.6% 2     1     2  black    3     0   0.5    -1    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       [[5]]
                    x label    y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 3.925671e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+      1 3.924760e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 2.334716e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       [[6]]
                    x label    y PANEL group colour size angle hjust vjust alpha
-      1 3.925673e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 3.925675e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+      1 3.926586e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 5.516630e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
@@ -2184,7 +2417,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, bins, ns, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, seed, boot_alpha, boot_centre, y_type, median_band_pct, sample_size, min_rug_per_interval, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -2962,20 +3195,421 @@
       attr(,"params")$min_rug_per_interval
       [1] 1
       
-      attr(,"params")$bins
-      NULL
-      
-      attr(,"params")$ns
-      NULL
-      
       attr(,"params")$silent
       [1] TRUE
       
       
-      attr(,"params")
-      attr(,"params")$n_rows
-      [1] 150
+      attr(,"ale")$boot
+      attr(,"ale")$boot$distinct
+      attr(,"ale")$boot$distinct$setosa
+      attr(,"ale")$boot$distinct$setosa$ale
+      attr(,"ale")$boot$distinct$setosa$ale$d1
+      attr(,"ale")$boot$distinct$setosa$ale$d1$Sepal.Length
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n        .y       .y_lo   .y_mean  .y_median      .y_hi
+                     <dbl> <int>     <dbl>       <dbl>     <dbl>      <dbl>      <dbl>
+       1               4.3     1 -0.00234  -0.00936    -0.00234  -0.000534  -0.0000216
+       2               4.9    21  0.000153 -0.00000560  0.000153  0.0000338  0.000619 
+       3               5.1    19  0.000161 -0.00000362  0.000161  0.0000408  0.000621 
+       4               5.4    11  0.000162 -0.00000361  0.000162  0.0000408  0.000621 
+       5               5.7    21  0.000189 -0.00000357  0.000189  0.0000410  0.000742 
+       6               6      16  0.000190 -0.00000354  0.000190  0.0000410  0.000742 
+       7               6.3    19  0.000190 -0.00000349  0.000190  0.0000410  0.000742 
+       8               6.5    12  0.000190 -0.00000348  0.000190  0.0000410  0.000743 
+       9               6.9    17  0.000365 -0.00000335  0.000365  0.0000410  0.00153  
+      10               7.9    13  0.000403  0.0000467   0.000403  0.0000999  0.00153  
       
+      attr(,"ale")$boot$distinct$setosa$ale$d1$Petal.Width
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n       .y     .y_lo  .y_mean   .y_median    .y_hi
+                   <dbl> <int>    <dbl>     <dbl>    <dbl>       <dbl>    <dbl>
+      1              0.1     5  0.00691 -0.000238  0.00691 -0.0000152  0.0314  
+      2              0.2    29  0.00693 -0.000165  0.00693 -0.0000146  0.0314  
+      3              0.6    16  0.00694 -0.000159  0.00694 -0.00000614 0.0314  
+      4              1.3    28 -0.00502 -0.0227   -0.00502  0.00000808 0.000106
+      5              1.4     8 -0.00501 -0.0227   -0.00501  0.00000818 0.000147
+      6              1.6    16 -0.00501 -0.0227   -0.00501  0.00000820 0.000149
+      7              1.9    19 -0.00501 -0.0227   -0.00501  0.00000820 0.000149
+      8              2.2    15 -0.00501 -0.0227   -0.00501  0.00000820 0.000149
+      9              2.5    14 -0.00501 -0.0227   -0.00501  0.00000820 0.000149
+      
+      
+      
+      attr(,"ale")$boot$distinct$setosa$stats
+      attr(,"ale")$boot$distinct$setosa$stats$d1
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term$Sepal.Length
+      # A tibble: 6 x 6
+        statistic   estimate    conf.low      median       mean   conf.high
+        <chr>          <dbl>       <dbl>       <dbl>      <dbl>       <dbl>
+      1 aled        0.000343   0.0000116   0.0000701   0.000343   0.00134  
+      2 aler_min   -0.00234   -0.00936    -0.000534   -0.00234   -0.0000216
+      3 aler_max    0.000403   0.0000467   0.0000999   0.000403   0.00153  
+      4 naled      25.9       18.2        22.0        25.9       44.3      
+      5 naler_min -50        -50         -50         -50        -50        
+      6 naler_max  15.9       12.9        16          15.9       19.2      
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term$Petal.Width
+      # A tibble: 6 x 6
+        statistic  estimate     conf.low      median      mean    conf.high
+        <chr>         <dbl>        <dbl>       <dbl>     <dbl>        <dbl>
+      1 aled        0.00482   0.00000292   0.0000136   0.00482   0.0215    
+      2 aler_min   -0.00511  -0.0228      -0.0000254  -0.00511  -0.00000472
+      3 aler_max    0.00701   0.00000286   0.0000139   0.00701   0.0314    
+      4 naled      30.3      26.0         31.6        30.3      33.9       
+      5 naler_min -50       -50          -50         -50       -50         
+      6 naler_max  15.3      12.7         14.9        15.3      19.1       
+      
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aled
+      # A tibble: 2 x 6
+        term         estimate   conf.low    median     mean conf.high
+        <chr>           <dbl>      <dbl>     <dbl>    <dbl>     <dbl>
+      1 Sepal.Length 0.000343 0.0000116  0.0000701 0.000343   0.00134
+      2 Petal.Width  0.00482  0.00000292 0.0000136 0.00482    0.0215 
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low     median     mean   conf.high
+        <chr>           <dbl>    <dbl>      <dbl>    <dbl>       <dbl>
+      1 Sepal.Length -0.00234 -0.00936 -0.000534  -0.00234 -0.0000216 
+      2 Petal.Width  -0.00511 -0.0228  -0.0000254 -0.00511 -0.00000472
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aler_max
+      # A tibble: 2 x 6
+        term         estimate   conf.low    median     mean conf.high
+        <chr>           <dbl>      <dbl>     <dbl>    <dbl>     <dbl>
+      1 Sepal.Length 0.000403 0.0000467  0.0000999 0.000403   0.00153
+      2 Petal.Width  0.00701  0.00000286 0.0000139 0.00701    0.0314 
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naled
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     25.9     18.2   22.0  25.9      44.3
+      2 Petal.Width      30.3     26.0   31.6  30.3      33.9
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length      -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naler_max
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     15.9     12.9   16    15.9      19.2
+      2 Petal.Width      15.3     12.7   14.9  15.3      19.1
+      
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$estimate
+      # A tibble: 2 x 7
+        term             aled aler_min aler_max naled naler_min naler_max
+        <chr>           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 Sepal.Length 0.000343 -0.00234 0.000403  25.9       -50      15.9
+      2 Petal.Width  0.00482  -0.00511 0.00701   30.3       -50      15.3
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions
+      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions$by_term
+      # A tibble: 4 x 10
+        term         start_x end_x x_span_pct     n     pct  start_y    end_y    trend
+        <chr>          <dbl> <dbl>      <dbl> <int>   <dbl>    <dbl>    <dbl>    <dbl>
+      1 Sepal.Length     4.3   4.3        0       1   0.667 -2.34e-3 -2.34e-3  0      
+      2 Sepal.Length     4.9   6.9       55.6   136  90.7    1.53e-4  3.65e-4  3.82e-4
+      3 Sepal.Length     7.9   7.9        0      13   8.67   4.03e-4  4.03e-4  0      
+      4 Petal.Width      0.1   2.5      100     150 100      6.91e-3 -5.01e-3 -1.19e-2
+      # i 1 more variable: mid_bar <ord>
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions$significant
+      # A tibble: 2 x 10
+        term      start_x end_x x_span_pct     n   pct  start_y    end_y trend mid_bar
+        <chr>       <dbl> <dbl>      <dbl> <int> <dbl>    <dbl>    <dbl> <dbl> <ord>  
+      1 Sepal.Le~     4.3   4.3          0     1 0.667 -2.34e-3 -2.34e-3     0 below  
+      2 Sepal.Le~     7.9   7.9          0    13 8.67   4.03e-4  4.03e-4     0 above  
+      
+      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      
+      
+      
+      attr(,"ale")$boot$distinct$versicolor
+      attr(,"ale")$boot$distinct$versicolor$ale
+      attr(,"ale")$boot$distinct$versicolor$ale$d1
+      attr(,"ale")$boot$distinct$versicolor$ale$d1$Sepal.Length
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n      .y    .y_lo .y_mean .y_median    .y_hi
+                     <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0363 -0.102   -0.0363  -0.0308  0.0127  
+       2               4.9    21 -0.0363 -0.100   -0.0363  -0.0310  0.000250
+       3               5.1    19 -0.0363 -0.100   -0.0363  -0.0310  0.000248
+       4               5.4    11 -0.0358 -0.100   -0.0358  -0.0285  0.000248
+       5               5.7    21 -0.0355 -0.100   -0.0355  -0.0274  0.000145
+       6               6      16 -0.0103 -0.0499  -0.0103  -0.00180 0.00670 
+       7               6.3    19  0.0491 -0.00220  0.0491   0.0373  0.146   
+       8               6.5    12  0.0502 -0.00212  0.0502   0.0404  0.146   
+       9               6.9    17  0.0567 -0.00284  0.0567   0.0486  0.152   
+      10               7.9    13  0.0601 -0.0138   0.0601   0.0633  0.154   
+      
+      attr(,"ale")$boot$distinct$versicolor$ale$d1$Petal.Width
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
+                   <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
+      1              0.1     5  0.184   0.153   0.184     0.174   0.231  
+      2              0.2    29  0.184   0.153   0.184     0.174   0.231  
+      3              0.6    16  0.184   0.153   0.184     0.174   0.231  
+      4              1.3    28  0.195   0.152   0.195     0.196   0.234  
+      5              1.4     8  0.185   0.140   0.185     0.175   0.234  
+      6              1.6    16 -0.0412 -0.0869 -0.0412   -0.0555  0.00772
+      7              1.9    19 -0.439  -0.664  -0.439    -0.397  -0.314  
+      8              2.2    15 -0.447  -0.664  -0.447    -0.418  -0.325  
+      9              2.5    14 -0.447  -0.664  -0.447    -0.418  -0.326  
+      
+      
+      
+      attr(,"ale")$boot$distinct$versicolor$stats
+      attr(,"ale")$boot$distinct$versicolor$stats$d1
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term$Sepal.Length
+      # A tibble: 6 x 6
+        statistic estimate  conf.low   median     mean conf.high
+        <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+      1 aled        0.0395   0.00471   0.0323   0.0395    0.105 
+      2 aler_min   -0.0430  -0.102    -0.0310  -0.0430   -0.0140
+      3 aler_max    0.0667   0.0159    0.0633   0.0667    0.154 
+      4 naled      32.9     27.8      34.3     32.9      35.5   
+      5 naler_min -50      -50       -50      -50       -50     
+      6 naler_max  13.2      8.80     13.2     13.2      17.7   
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term$Petal.Width
+      # A tibble: 6 x 6
+        statistic estimate conf.low  median    mean conf.high
+        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 aled         0.230    0.180   0.232   0.230     0.300
+      2 aler_min    -0.447   -0.664  -0.418  -0.447    -0.326
+      3 aler_max     0.196    0.153   0.196   0.196     0.234
+      4 naled       25.8     21.8    26.4    25.8      28.6  
+      5 naler_min  -50      -50     -50     -50       -50    
+      6 naler_max   15.2     11.5    15.3    15.2      18.4  
+      
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aled
+      # A tibble: 2 x 6
+        term         estimate conf.low median   mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 Sepal.Length   0.0395  0.00471 0.0323 0.0395     0.105
+      2 Petal.Width    0.230   0.180   0.232  0.230      0.300
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low  median    mean conf.high
+        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 Sepal.Length  -0.0430   -0.102 -0.0310 -0.0430   -0.0140
+      2 Petal.Width   -0.447    -0.664 -0.418  -0.447    -0.326 
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aler_max
+      # A tibble: 2 x 6
+        term         estimate conf.low median   mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 Sepal.Length   0.0667   0.0159 0.0633 0.0667     0.154
+      2 Petal.Width    0.196    0.153  0.196  0.196      0.234
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naled
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     32.9     27.8   34.3  32.9      35.5
+      2 Petal.Width      25.8     21.8   26.4  25.8      28.6
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length      -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naler_max
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     13.2     8.80   13.2  13.2      17.7
+      2 Petal.Width      15.2    11.5    15.3  15.2      18.4
+      
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$estimate
+      # A tibble: 2 x 7
+        term           aled aler_min aler_max naled naler_min naler_max
+        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 Sepal.Length 0.0395  -0.0430   0.0667  32.9       -50      13.2
+      2 Petal.Width  0.230   -0.447    0.196   25.8       -50      15.2
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions$by_term
+      # A tibble: 4 x 10
+        term     start_x end_x x_span_pct     n   pct start_y   end_y    trend mid_bar
+        <chr>      <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl>    <dbl> <ord>  
+      1 Sepal.L~     4.3   7.9      100     150 100   -0.0363  0.0601  0.0964  overlap
+      2 Petal.W~     0.1   1.4       54.2    86  57.3  0.184   0.185   0.00335 above  
+      3 Petal.W~     1.6   1.6        0      16  10.7 -0.0412 -0.0412  0       overlap
+      4 Petal.W~     1.9   2.5       25      48  32   -0.439  -0.447  -0.0331  below  
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions$significant
+      # A tibble: 2 x 10
+        term      start_x end_x x_span_pct     n   pct start_y  end_y    trend mid_bar
+        <chr>       <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>  <dbl>    <dbl> <ord>  
+      1 Petal.Wi~     0.1   1.4       54.2    86  57.3   0.184  0.185  0.00335 above  
+      2 Petal.Wi~     1.9   2.5       25      48  32    -0.439 -0.447 -0.0331  below  
+      
+      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      
+      
+      
+      attr(,"ale")$boot$distinct$virginica
+      attr(,"ale")$boot$distinct$virginica$ale
+      attr(,"ale")$boot$distinct$virginica$ale$d1
+      attr(,"ale")$boot$distinct$virginica$ale$d1$Sepal.Length
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n      .y     .y_lo .y_mean .y_median   .y_hi
+                     <dbl> <int>   <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
+       1               4.3     1  0.0387 -0.00332   0.0387   0.0310  0.102  
+       2               4.9    21  0.0361 -0.000870  0.0361   0.0310  0.100  
+       3               5.1    19  0.0361 -0.000870  0.0361   0.0310  0.100  
+       4               5.4    11  0.0356 -0.000870  0.0356   0.0285  0.100  
+       5               5.7    21  0.0353 -0.000886  0.0353   0.0274  0.100  
+       6               6      16  0.0101 -0.00674   0.0101   0.00178 0.0498 
+       7               6.3    19 -0.0493 -0.146    -0.0493  -0.0374  0.00146
+       8               6.5    12 -0.0504 -0.146    -0.0504  -0.0404  0.00138
+       9               6.9    17 -0.0571 -0.152    -0.0571  -0.0487  0.00131
+      10               7.9    13 -0.0605 -0.154    -0.0605  -0.0633  0.0123 
+      
+      attr(,"ale")$boot$distinct$virginica$ale$d1$Petal.Width
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+                   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+      1              0.1     5 -0.191  -0.232   -0.191    -0.196  -0.153 
+      2              0.2    29 -0.191  -0.232   -0.191    -0.196  -0.153 
+      3              0.6    16 -0.191  -0.232   -0.191    -0.196  -0.153 
+      4              1.3    28 -0.190  -0.232   -0.190    -0.196  -0.152 
+      5              1.4     8 -0.180  -0.232   -0.180    -0.175  -0.140 
+      6              1.6    16  0.0463 -0.00787  0.0463    0.0555  0.0941
+      7              1.9    19  0.444   0.314    0.444     0.397   0.666 
+      8              2.2    15  0.452   0.325    0.452     0.418   0.666 
+      9              2.5    14  0.452   0.326    0.452     0.418   0.666 
+      
+      
+      
+      attr(,"ale")$boot$distinct$virginica$stats
+      attr(,"ale")$boot$distinct$virginica$stats$d1
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term$Sepal.Length
+      # A tibble: 6 x 6
+        statistic estimate  conf.low   median     mean conf.high
+        <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+      1 aled        0.0393   0.00388   0.0323   0.0393   0.105  
+      2 aler_min   -0.0647  -0.154    -0.0633  -0.0647  -0.00661
+      3 aler_max    0.0429   0.0144    0.0310   0.0429   0.102  
+      4 naled      30.4     26.2      28.5     30.4     38.1    
+      5 naler_min -50      -50       -50      -50      -50      
+      6 naler_max  14.3     10.8      12       14.3     20.8    
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term$Petal.Width
+      # A tibble: 6 x 6
+        statistic estimate conf.low  median    mean conf.high
+        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 aled         0.234    0.180   0.235   0.234     0.301
+      2 aler_min    -0.191   -0.232  -0.196  -0.191    -0.153
+      3 aler_max     0.452    0.326   0.418   0.452     0.666
+      4 naled       39.3     37.0    38.6    39.3      42.6  
+      5 naler_min  -50      -50     -50     -50       -50    
+      6 naler_max   16.4     11.7    16      16.4      22.6  
+      
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aled
+      # A tibble: 2 x 6
+        term         estimate conf.low median   mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 Sepal.Length   0.0393  0.00388 0.0323 0.0393     0.105
+      2 Petal.Width    0.234   0.180   0.235  0.234      0.301
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low  median    mean conf.high
+        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+      1 Sepal.Length  -0.0647   -0.154 -0.0633 -0.0647  -0.00661
+      2 Petal.Width   -0.191    -0.232 -0.196  -0.191   -0.153  
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aler_max
+      # A tibble: 2 x 6
+        term         estimate conf.low median   mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+      1 Sepal.Length   0.0429   0.0144 0.0310 0.0429     0.102
+      2 Petal.Width    0.452    0.326  0.418  0.452      0.666
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naled
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     30.4     26.2   28.5  30.4      38.1
+      2 Petal.Width      39.3     37.0   38.6  39.3      42.6
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naler_min
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length      -50      -50    -50   -50       -50
+      2 Petal.Width       -50      -50    -50   -50       -50
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naler_max
+      # A tibble: 2 x 6
+        term         estimate conf.low median  mean conf.high
+        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+      1 Sepal.Length     14.3     10.8     12  14.3      20.8
+      2 Petal.Width      16.4     11.7     16  16.4      22.6
+      
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$estimate
+      # A tibble: 2 x 7
+        term           aled aler_min aler_max naled naler_min naler_max
+        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 Sepal.Length 0.0393  -0.0647   0.0429  30.4       -50      14.3
+      2 Petal.Width  0.234   -0.191    0.452   39.3       -50      16.4
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions
+      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions$by_term
+      # A tibble: 4 x 10
+        term      start_x end_x x_span_pct     n   pct start_y   end_y   trend mid_bar
+        <chr>       <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl>   <dbl> <ord>  
+      1 Sepal.Le~     4.3   7.9      100     150 100    0.0387 -0.0605 -0.0992 overlap
+      2 Petal.Wi~     0.1   1.4       54.2    86  57.3 -0.191  -0.180   0.0187 below  
+      3 Petal.Wi~     1.6   1.6        0      16  10.7  0.0463  0.0463  0      overlap
+      4 Petal.Wi~     1.9   2.5       25      48  32    0.444   0.452   0.0331 above  
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions$significant
+      # A tibble: 2 x 10
+        term        start_x end_x x_span_pct     n   pct start_y  end_y  trend mid_bar
+        <chr>         <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>  <dbl>  <dbl> <ord>  
+      1 Petal.Width     0.1   1.4       54.2    86  57.3  -0.191 -0.180 0.0187 below  
+      2 Petal.Width     1.9   2.5       25      48  32     0.444  0.452 0.0331 above  
+      
+      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions$sig_criterion
+      [1] "median_band_pct"
+      
+      
+      
+      
+      
+      
+      
+      attr(,"params")
       attr(,"params")$calc_boot_valid
       [1] TRUE
       
@@ -3382,16 +4016,16 @@
       $oneD$setosa
       $oneD$setosa$Sepal.Length
            x             y PANEL group colour      fill linewidth linetype alpha xmin
-      1  4.3 -6.353303e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  4.9 -3.966071e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  5.1  4.080285e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  5.4  4.104362e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  5.7  7.086307e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  6.0  7.147701e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  6.3  7.261248e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  6.5  7.296126e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  6.9  7.615127e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 7.9  1.014319e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+      1  4.3 -0.0023444207     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9  0.0001528565     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1  0.0001614347     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4  0.0001616082     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7  0.0001894034     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0  0.0001895581     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3  0.0001897884     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5  0.0001900731     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9  0.0003650941     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9  0.0004034585     1    -1     NA lightgray       0.5        1    NA -Inf
          xmax         ymin         ymax
       1   Inf 4.215968e-09 2.193143e-08
       2   Inf 4.215968e-09 2.193143e-08
@@ -3405,16 +4039,16 @@
       10  Inf 4.215968e-09 2.193143e-08
       
       $oneD$setosa$Petal.Width
-          x             y PANEL group colour      fill linewidth linetype alpha xmin
-      1 0.1 -2.004268e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 0.2 -1.936915e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 0.6 -4.424730e-06     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 1.3  1.067232e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 1.4  1.073964e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 1.6  1.076269e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 1.9  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      8 2.2  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
-      9 2.5  1.076266e-05     1    -1     NA lightgray       0.5        1    NA -Inf
+          x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 0.1  0.006914629     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2  0.006932248     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6  0.006937420     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3 -0.005023334     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4 -0.005014321     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6 -0.005013793     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9 -0.005013793     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2 -0.005013793     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5 -0.005013793     1    -1     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 4.215968e-09 2.193143e-08
       2  Inf 4.215968e-09 2.193143e-08
@@ -3429,17 +4063,17 @@
       
       $oneD$versicolor
       $oneD$versicolor$Sepal.Length
-           x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1  4.3 -0.030030014     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  4.9 -0.026183687     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  5.1 -0.026191732     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  5.4 -0.025971699     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  5.7 -0.025893629     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  6.0  0.001670126     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  6.3  0.034771450     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  6.5  0.035432981     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  6.9  0.047143368     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 7.9  0.057273904     1    -1     NA lightgray       0.5        1    NA -Inf
+           x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1  4.3 -0.03628344     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9 -0.03621784     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1 -0.03622642     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4 -0.03570528     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7 -0.03540968     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0 -0.01023826     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3  0.04918762     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5  0.05028275     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9  0.05678294     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9  0.06016311     1    -1     NA lightgray       0.5        1    NA -Inf
          xmax         ymin         ymax
       1   Inf 1.690351e-05 0.0002494482
       2   Inf 1.690351e-05 0.0002494482
@@ -3454,15 +4088,15 @@
       
       $oneD$versicolor$Petal.Width
           x           y PANEL group colour      fill linewidth linetype alpha xmin
-      1 0.1  0.16762887     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 0.2  0.16762820     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 0.6  0.16761325     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 1.3  0.16756167     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 1.4  0.14946319     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 1.6 -0.04149649     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 1.9 -0.38175427     1    -1     NA lightgray       0.5        1    NA -Inf
-      8 2.2 -0.38671924     1    -1     NA lightgray       0.5        1    NA -Inf
-      9 2.5 -0.38675325     1    -1     NA lightgray       0.5        1    NA -Inf
+      1 0.1  0.18369894     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2  0.18368132     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6  0.18367615     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3  0.19511488     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4  0.18551102     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6 -0.04119335     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9 -0.43913971     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2 -0.44728119     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5 -0.44741962     1    -1     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 1.690351e-05 0.0002494482
       2  Inf 1.690351e-05 0.0002494482
@@ -3477,17 +4111,17 @@
       
       $oneD$virginica
       $oneD$virginica$Sepal.Length
-           x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1  4.3  0.030154280     1    -1     NA lightgray       0.5        1    NA -Inf
-      2  4.9  0.026248386     1    -1     NA lightgray       0.5        1    NA -Inf
-      3  5.1  0.026248385     1    -1     NA lightgray       0.5        1    NA -Inf
-      4  5.4  0.026028327     1    -1     NA lightgray       0.5        1    NA -Inf
-      5  5.7  0.025947275     1    -1     NA lightgray       0.5        1    NA -Inf
-      6  6.0 -0.001616541     1    -1     NA lightgray       0.5        1    NA -Inf
-      7  6.3 -0.034717979     1    -1     NA lightgray       0.5        1    NA -Inf
-      8  6.5 -0.035379544     1    -1     NA lightgray       0.5        1    NA -Inf
-      9  6.9 -0.047090251     1    -1     NA lightgray       0.5        1    NA -Inf
-      10 7.9 -0.057223314     1    -1     NA lightgray       0.5        1    NA -Inf
+           x           y PANEL group colour      fill linewidth linetype alpha xmin
+      1  4.3  0.03868859     1    -1     NA lightgray       0.5        1    NA -Inf
+      2  4.9  0.03612572     1    -1     NA lightgray       0.5        1    NA -Inf
+      3  5.1  0.03612571     1    -1     NA lightgray       0.5        1    NA -Inf
+      4  5.4  0.03560440     1    -1     NA lightgray       0.5        1    NA -Inf
+      5  5.7  0.03528101     1    -1     NA lightgray       0.5        1    NA -Inf
+      6  6.0  0.01010944     1    -1     NA lightgray       0.5        1    NA -Inf
+      7  6.3 -0.04931668     1    -1     NA lightgray       0.5        1    NA -Inf
+      8  6.5 -0.05041209     1    -1     NA lightgray       0.5        1    NA -Inf
+      9  6.9 -0.05708730     1    -1     NA lightgray       0.5        1    NA -Inf
+      10 7.9 -0.06050583     1    -1     NA lightgray       0.5        1    NA -Inf
          xmax         ymin         ymax
       1   Inf 6.333628e-06 4.101349e-05
       2   Inf 6.333628e-06 4.101349e-05
@@ -3502,15 +4136,15 @@
       
       $oneD$virginica$Petal.Width
           x           y PANEL group colour      fill linewidth linetype alpha xmin
-      1 0.1 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
-      2 0.2 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
-      3 0.6 -0.16754810     1    -1     NA lightgray       0.5        1    NA -Inf
-      4 1.3 -0.16751161     1    -1     NA lightgray       0.5        1    NA -Inf
-      5 1.4 -0.14941319     1    -1     NA lightgray       0.5        1    NA -Inf
-      6 1.6  0.04154646     1    -1     NA lightgray       0.5        1    NA -Inf
-      7 1.9  0.38180424     1    -1     NA lightgray       0.5        1    NA -Inf
-      8 2.2  0.38676921     1    -1     NA lightgray       0.5        1    NA -Inf
-      9 2.5  0.38680322     1    -1     NA lightgray       0.5        1    NA -Inf
+      1 0.1 -0.19055284     1    -1     NA lightgray       0.5        1    NA -Inf
+      2 0.2 -0.19055284     1    -1     NA lightgray       0.5        1    NA -Inf
+      3 0.6 -0.19055284     1    -1     NA lightgray       0.5        1    NA -Inf
+      4 1.3 -0.19003082     1    -1     NA lightgray       0.5        1    NA -Inf
+      5 1.4 -0.18043597     1    -1     NA lightgray       0.5        1    NA -Inf
+      6 1.6  0.04626788     1    -1     NA lightgray       0.5        1    NA -Inf
+      7 1.9  0.44421423     1    -1     NA lightgray       0.5        1    NA -Inf
+      8 2.2  0.45235572     1    -1     NA lightgray       0.5        1    NA -Inf
+      9 2.5  0.45249415     1    -1     NA lightgray       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 6.333628e-06 4.101349e-05
       2  Inf 6.333628e-06 4.101349e-05
@@ -3535,52 +4169,52 @@
       2 2.193143e-08 -Inf  Inf
       
       $eff$setosa[[2]]
-                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
-      1 -6.353303e-05 1.014319e-05 1     1     1 0.875 1.125  black       0.5
-      2 -2.004268e-05 1.076269e-05 2     1     2 1.875 2.125  black       0.5
-        linetype height alpha
-      1        1   0.25    NA
-      2        1   0.25    NA
+                xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.002344421 0.0004034585 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.005112696 0.0070135327 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
       
       $eff$setosa[[3]]
-                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
-      1 -4.938218e-06 4.964365e-06  0.7  1.3 1     1     1     NA white       0.5
-      2 -5.725693e-06 5.751840e-06  1.7  2.3 2     1     2     NA white       0.5
+                xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 -0.000171560 0.0001715862  0.7  1.3 1     1     1     NA white       0.5
+      2 -0.002408941 0.0024089667  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
       
       $eff$setosa[[4]]
                   x       label y PANEL group colour size angle hjust vjust alpha
-      1 1.30737e-08 NALED 18.9% 1     1     1  black    3     0   0.5    -1    NA
-      2 1.30737e-08 NALED 26.8% 2     1     2  black    3     0   0.5    -1    NA
+      1 1.30737e-08 NALED 25.9% 1     1     1  black    3     0   0.5    -1    NA
+      2 1.30737e-08 NALED 30.3% 2     1     2  black    3     0   0.5    -1    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       $eff$setosa[[5]]
-                    x label    y PANEL group colour size angle hjust vjust alpha
-      1 -4.938218e-06     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 -5.725693e-06     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 -0.000171560     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 -0.002408941     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       $eff$setosa[[6]]
                    x label    y PANEL group colour size angle hjust vjust alpha
-      1 4.964365e-06     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 5.751840e-06     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+      1 0.0001715862     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 0.0024089667     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       $eff$setosa[[7]]
-                  x  label y PANEL group colour size angle hjust vjust alpha family
-      1 1.30737e-08 ALED 0 1     1     1  black    3     0   0.5     2    NA       
-      2 1.30737e-08 ALED 0 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
+                  x      label y PANEL group colour size angle hjust vjust alpha
+      1 1.30737e-08 ALED 0.000 1     1     1  black    3     0   0.5     2    NA
+      2 1.30737e-08 ALED 0.005 2     1     2  black    3     0   0.5     2    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
       
       $eff$setosa[[8]]
         x y PANEL group colour  fill size angle hjust vjust alpha family fontface
@@ -3599,24 +4233,24 @@
       2 0.0002494482 -Inf  Inf
       
       $eff$versicolor[[2]]
-               xmin      xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.03003001 0.0572739 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.38675325 0.1676289 2     1     2 1.875 2.125  black       0.5        1
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.04291598 0.06678123 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.44741962 0.19572627 2     1     2 1.875 2.125  black       0.5        1
         height alpha
       1   0.25    NA
       2   0.25    NA
       
       $eff$versicolor[[3]]
                xmin       xmax ymin ymax y PANEL group colour  fill linewidth
-      1 -0.01416849 0.01443484  0.7  1.3 1     1     1     NA white       0.5
-      2 -0.10120636 0.10147271  1.7  2.3 2     1     2     NA white       0.5
+      1 -0.01959467 0.01986102  0.7  1.3 1     1     1     NA white       0.5
+      2 -0.11496715 0.11523350  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
       
       $eff$versicolor[[4]]
                    x       label y PANEL group colour size angle hjust vjust alpha
-      1 0.0001331758 NALED 34.4% 1     1     1  black    3     0   0.5    -1    NA
+      1 0.0001331758 NALED 32.9% 1     1     1  black    3     0   0.5    -1    NA
       2 0.0001331758 NALED 25.8% 2     1     2  black    3     0   0.5    -1    NA
         family fontface lineheight
       1               1        1.2
@@ -3624,24 +4258,24 @@
       
       $eff$versicolor[[5]]
                   x label    y PANEL group colour size angle hjust vjust alpha family
-      1 -0.01416849     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 -0.10120636     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+      1 -0.01959467     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 -0.11496715     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       $eff$versicolor[[6]]
                  x label    y PANEL group colour size angle hjust vjust alpha family
-      1 0.01443484     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 0.10147271     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+      1 0.01986102     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 0.11523350     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       $eff$versicolor[[7]]
                    x      label y PANEL group colour size angle hjust vjust alpha
-      1 0.0001331758 ALED 0.029 1     1     1  black    3     0   0.5     2    NA
-      2 0.0001331758 ALED 0.203 2     1     2  black    3     0   0.5     2    NA
+      1 0.0001331758 ALED 0.039 1     1     1  black    3     0   0.5     2    NA
+      2 0.0001331758 ALED 0.230 2     1     2  black    3     0   0.5     2    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
@@ -3664,48 +4298,48 @@
       
       $eff$virginica[[2]]
                xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.05722331 0.03015428 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.16754810 0.38680322 2     1     2 1.875 2.125  black       0.5        1
+      1 -0.06470002 0.04288278 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.19055284 0.45249415 2     1     2 1.875 2.125  black       0.5        1
         height alpha
       1   0.25    NA
       2   0.25    NA
       
       $eff$virginica[[3]]
-              xmin       xmax ymin ymax y PANEL group colour  fill linewidth linetype
-      1 -0.0142811 0.01432845  0.7  1.3 1     1     1     NA white       0.5        1
-      2 -0.1013124 0.10135977  1.7  2.3 2     1     2     NA white       0.5        1
+               xmin      xmax ymin ymax y PANEL group colour  fill linewidth linetype
+      1 -0.01962455 0.0196719  0.7  1.3 1     1     1     NA white       0.5        1
+      2 -0.11678388 0.1168312  1.7  2.3 2     1     2     NA white       0.5        1
         alpha
       1    NA
       2    NA
       
       $eff$virginica[[4]]
                    x       label y PANEL group colour size angle hjust vjust alpha
-      1 2.367356e-05 NALED 28.2% 1     1     1  black    3     0   0.5    -1    NA
-      2 2.367356e-05 NALED 39.0% 2     1     2  black    3     0   0.5    -1    NA
+      1 2.367356e-05 NALED 30.4% 1     1     1  black    3     0   0.5    -1    NA
+      2 2.367356e-05 NALED 39.3% 2     1     2  black    3     0   0.5    -1    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
       
       $eff$virginica[[5]]
-                 x label    y PANEL group colour size angle hjust vjust alpha family
-      1 -0.0142811     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 -0.1013124     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+                  x label    y PANEL group colour size angle hjust vjust alpha family
+      1 -0.01962455     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 -0.11678388     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       $eff$virginica[[6]]
-                 x label    y PANEL group colour size angle hjust vjust alpha family
-      1 0.01432845     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2 0.10135977     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
+                x label    y PANEL group colour size angle hjust vjust alpha family
+      1 0.0196719     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA       
+      2 0.1168312     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       $eff$virginica[[7]]
                    x      label y PANEL group colour size angle hjust vjust alpha
-      1 2.367356e-05 ALED 0.029 1     1     1  black    3     0   0.5     2    NA
-      2 2.367356e-05 ALED 0.203 2     1     2  black    3     0   0.5     2    NA
+      1 2.367356e-05 ALED 0.039 1     1     1  black    3     0   0.5     2    NA
+      2 2.367356e-05 ALED 0.234 2     1     2  black    3     0   0.5     2    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2

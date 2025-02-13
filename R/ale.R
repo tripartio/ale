@@ -88,7 +88,8 @@ ALE <- S7::new_class(
   #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
   #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
   #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ALE` object to include the entire dataset).
-  #' @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
+  #' @param .bins Internal. List of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), [ALE()] automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
+  # @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
   #' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
   #'
   #'
@@ -236,8 +237,9 @@ ALE <- S7::new_class(
     median_band_pct = c(0.05, 0.5),
     sample_size = 500,
     min_rug_per_interval = 1,
-    bins = NULL,
-    ns = NULL,
+    .bins = NULL,
+    # bins = NULL,
+    # ns = NULL,
     silent = FALSE
   )
   {
@@ -348,24 +350,33 @@ ALE <- S7::new_class(
                  (y_type %in% c('binary', 'categorical', 'ordinal', 'numeric')))
     }
     validate(is_string(pred_type))
-    if (!is.null(bins)) {
-      map(
-        bins,
-        \(it.var) validate(
-          is.null(it.var)  ||  # if the variable is present, try the next two tests
-            is.numeric(it.var) || is.factor(it.var)
-        )
+
+    # Only a very rough validation check for the internal .bins argument
+    if (!is.null(.bins)) {
+      validate(
+        is.list(.bins) &&
+          names(.bins)[1] == 'd1' && names(.bins)[2] == 'd2',
+        msg = '{.arg .bins} is not in a valid format.'
       )
     }
-    if (!is.null(ns)) {
-      map(
-        ns,
-        \(it.var) validate(
-          is.null(it.var) ||  # if the variable is present, try the next test
-            is.integer(it.var)
-        )
-      )
-    }
+    # if (!is.null(bins)) {
+    #   map(
+    #     bins,
+    #     \(it.var) validate(
+    #       is.null(it.var)  ||  # if the variable is present, try the next two tests
+    #         is.numeric(it.var) || is.factor(it.var)
+    #     )
+    #   )
+    # }
+    # if (!is.null(ns)) {
+    #   map(
+    #     ns,
+    #     \(it.var) validate(
+    #       is.null(it.var) ||  # if the variable is present, try the next test
+    #         is.integer(it.var)
+    #     )
+    #   )
+    # }
 
     # Validate plot-related arguments.
     # If plots are not requested, then ignore these arguments.
@@ -502,7 +513,8 @@ ALE <- S7::new_class(
 
     # Create progress bar iterator only if not in an outer loop with bins
     # if (!ixn) {
-    if (!silent && is.null(bins)) {
+    if (!silent && is.null(.bins)) {
+      # if (!silent && is.null(bins)) {
       progress_iterator <- progressr::progressor(
         # The number of steps is the number of elements in each ALE dimension requested.
         steps = length(x_cols$d1) +
@@ -531,19 +543,33 @@ ALE <- S7::new_class(
         .f = \(it.x_cols) {
           # Increment progress bar iterator only if not in an outer loop with bins
           # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
-          if (!silent && is.null(bins)) {
+          if (!silent && is.null(.bins)) {
+            # if (!silent && is.null(bins)) {
             progress_iterator()
           }
 
-          # Calculate ale_data for single variables
+          # If available, pass on predetermined ALE bins for the current variables
+          it.bins <- if (!is.null(.bins)) {
+            len_it.x_cols  <- length(it.x_cols)
+
+            if (len_it.x_cols == 1) {
+              .bins[['d1']][[it.x_cols]]
+            } else if (len_it.x_cols == 2) {
+              .bins[['d2']][[it.x_cols[1]]][[it.x_cols[2]]]
+            }
+          } else {
+            NULL
+          }
+
           ale_results <-
             calc_ale(
               data, model, it.x_cols, y_col, y_cats,
               pred_fun, pred_type, max_num_bins,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = 'boot' %in% output,
-              bins = bins[[it.x_cols]],
-              ns = ns[[it.x_cols]],
+              .bins = it.bins,
+              # bins = bins[[it.x_cols]],
+              # ns = ns[[it.x_cols]],
               ale_y_norm_funs = ale_y_norm_funs,
               p_dist = p_values
             ) |>
