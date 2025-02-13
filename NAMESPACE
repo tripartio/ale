@@ -3,6 +3,7 @@
 export(ALE)
 export(ALEpDist)
 export(ModelBoot)
+export(get)
 import(dplyr)
 import(ggplot2)
 import(staccuracy)

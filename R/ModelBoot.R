@@ -1084,7 +1084,7 @@ ModelBoot <- S7::new_class(
                 rowwise() |>  # required to get statistic function for each row
                 mutate(
                   p.value = value_to_p(
-                    ale_options$p_values$rand_stats[[it.cat]],
+                    ale_options$p_values@rand_stats[[it.cat]],
                     .data$statistic,
                     .data$estimate
                   ),

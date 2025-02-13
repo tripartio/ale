@@ -5,6 +5,7 @@
 # get generic ----------
 
 #' S7 generic get method for objects in the ale package
+#' @export
 #'
 #' @description
 #' Retrieve specific data elements from an object based on their X column names.

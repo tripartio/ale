@@ -143,7 +143,8 @@ ALEPlots <- S7::new_class(
                 # Use p_value of NALED:
                 # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
                 # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-                obj@params$p_values$rand_stats[[it.cat_name]] |>
+                obj@params$p_values@rand_stats[[it.cat_name]] |>
+                  # obj@params$p_values$rand_stats[[it.cat_name]] |>
                   p_to_random_value('naled', obj@params$median_band_pct) |>
                   unname() |>
                   (`/`)(100)  # scale NALED from percentage to 0 to 1
@@ -255,7 +256,7 @@ ALEPlots <- S7::new_class(
     #           # Use p_value of NALED:
     #           # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
     #           # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-    #           obj@params$p_values$rand_stats[[it.cat_name]] |>
+    #           obj@params$p_values@rand_stats[[it.cat_name]] |>
     #             p_to_random_value('naled', obj@params$median_band_pct) |>
     #             unname() |>
     #             (`/`)(100)  # scale NALED from percentage to 0 to 1

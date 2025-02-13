@@ -13,8 +13,8 @@
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}.
-stats = 'terms'
-stats = c('aled', 'aler_min')) # also stats = 'all'
+stats = 'all'
+stats = c('aled', 'aler_min'))
 stats = 'estimate' (default for get_stats)
 stats = 'conf_regions'
 stats = 'conf_sig'}

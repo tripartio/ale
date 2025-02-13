@@ -83,8 +83,8 @@ S7::method(plot, ALE) <- function(x, ...) {
 #' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'boot_data')`. Default is `'ale'`. If `stats` is specified and `what = 'ale'`, then ALE statistics are retrieved. Otherwise, `get()` errors if `stats` is specified and `what` has some other value.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`.
-#' stats = 'terms'
-#' stats = c('aled', 'aler_min')) # also stats = 'all'
+#' stats = 'all'
+#' stats = c('aled', 'aler_min'))
 #' stats = 'estimate' (default for get_stats)
 #' stats = 'conf_regions'
 #' stats = 'conf_sig'
@@ -125,24 +125,55 @@ S7::method(get, ALE) <- function(
 
   valid_what <- c('ale', 'boot_data')
   validate(
-    length(setdiff(what, valid_what)) == 0,
-    msg = 'The values in the {.arg what} argument must be one or more of the following values: {valid_what}.'
+    is_string(what, valid_what),
+    # length(setdiff(what, valid_what)) == 0,
+    msg = 'The {.arg what} argument must be one (and only one) of the following values: {valid_what}.'
+  )
+
+  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  valid_stats <- c(
+    'estimate',
+    'all',
+    stats_names,
+    'conf_regions', 'conf_sig'
+  )
+  validate(
+    is.null(stats) || is_string(stats, valid_stats),
+    msg = 'The {.arg stats} argument must be one (and only one) of the following values: {valid_stats}.'
+  )
+  if (is_string(stats) && what != 'ale') {
+    cli_abort("If {.arg stats} is specified, then {.arg what} must be {.val 'ale'} (default).")
+  }
+
+  y_cats <- names(S7::prop(obj, comp))
+  validate(
+    is.null(cat) || is_string(cat, y_cats),
+    # is.null(cat) || cat %in% names(S7::prop(obj, comp)),
+    msg = 'The values in the {.arg cat} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
   validate(
-    is.null(cat) || cat %in% names(S7::prop(obj, comp)),
-    msg = 'The values in the {.arg cat} argument must be one or more of the following categories of the outcome variable: {names(S7::prop(obj, comp))}.'
+    is_bool(simplify),
+    msg = '{.arg simplify} must be {.val TRUE} or {.val FALSE}.'
   )
 
 
   ## Retrieve requested results --------------
   if (is.null(cat)) {
-    cat <- names(S7::prop(obj, comp))
+    cat <- y_cats
   }
 
-  # Rename what == 'boot_data' if necessary.
-  # This argument is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
-  what <- if (what == 'boot_data') 'boot' else what
+  # Rename what depending on what the user requests.
+  # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
+  what <- if (!is.null(stats)) {
+    'stats'
+    } else if (what == 'boot_data') {
+      'boot'
+    } else {
+      what
+    }
+
+  ## Retrieve requested data --------------
 
   all_what <- S7::prop(obj, comp) |>
     (`[`)(cat) |>
@@ -150,25 +181,77 @@ S7::method(get, ALE) <- function(
       it.cat[[what]]
     })
 
-  specific_what <- all_what |>
-    imap(\(it.cat, it.cat_name) {
-      it.cat.d1 <- x_cols[['d1']] |>
-        map(\(it.d1) {
-          all_what[[it.cat_name]][['d1']][[it.d1]]
-        }) |>
-        set_names(x_cols[['d1']])
+  if (what == 'stats') {
+    specific_what <- all_what |>
+      imap(\(it.cat, it.cat_name) {
+        it.cat.d1 <- x_cols[['d1']] |>
+          map(\(it.d1) {
+            it.stats_data <- all_what[[it.cat_name]][['d1']]
 
-      it.cat.d2 <- list()
-      for(it.d2 in x_cols[['d2']]) {
-        it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-          all_what[[it.cat_name]][['d2']][[it.d2[1]]][[it.d2[2]]]
-      }
+            if (stats == 'estimate') {
+              it.stats_data$estimate |>
+                filter(term == it.d1)
+            }
+            else if (stats == 'all') {
+              it.stats_data$by_term[[it.d1]]
+            }
+            else if (stats %in% stats_names) {
+              it.stats_data$by_stat[[stats]] |>
+                filter(term == it.d1)
+            }
+            else if (stats == 'conf_regions') {
+              it.stats_data$conf_regions$by_term |>
+                filter(term == it.d1)
+            }
+            else if (stats == 'conf_sig') {
+              it.stats_data$conf_regions$significant |>
+                filter(term == it.d1)
+            }
+            else {
+              cli_abort('Invalid value for {.arg stats}: {stats}')
+            }
+          }) |>
+          set_names(x_cols[['d1']])
 
-      list(
-        d1 = it.cat.d1,
-        d2 = it.cat.d2
-      )
-    })
+        if (stats %in% c('estimate', 'conf_sig')) {
+          it.cat.d1 <- bind_rows(it.cat.d1)
+        }
+
+        it.cat.d2 <- list()
+        for(it.d2 in x_cols[['d2']]) {
+          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
+            all_what[[it.cat_name]][['d2']][[it.d2[1]]][[it.d2[2]]]
+        }
+
+        list(
+          d1 = it.cat.d1,
+          d2 = it.cat.d2
+        )
+      })
+  }
+  # what = 'ale' or 'boot'
+  else {
+    specific_what <- all_what |>
+      imap(\(it.cat, it.cat_name) {
+        it.cat.d1 <- x_cols[['d1']] |>
+          map(\(it.d1) {
+            all_what[[it.cat_name]][['d1']][[it.d1]]
+          }) |>
+          set_names(x_cols[['d1']])
+
+        it.cat.d2 <- list()
+        for(it.d2 in x_cols[['d2']]) {
+          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
+            all_what[[it.cat_name]][['d2']][[it.d2[1]]][[it.d2[2]]]
+        }
+
+        list(
+          d1 = it.cat.d1,
+          d2 = it.cat.d2
+        )
+      })
+  }
+
 
   ## Simplify the results ----------------
   # If there is only one category, results are always simplified regardless of the value of simplify
@@ -184,6 +267,10 @@ S7::method(get, ALE) <- function(
       specific_what <- compact(specific_what[['d2']])
     } else if (is.null(specific_what[['d2']])) {
       specific_what <- compact(specific_what[['d1']])
+    }
+
+    if (length(specific_what) == 1) {
+      specific_what <- specific_what[[1]]
     }
   }
 
@@ -370,8 +457,8 @@ S7::method(get, ModelBoot) <- function(
 
   valid_which <- c('auto', 'boot', 'single')
   validate(
-    length(setdiff(which, valid_which)) == 0,
-    msg = 'The {.arg which} argument must be one of the following values: {valid_which}.'
+    is_string(which, valid_which),
+    msg = 'The {.arg which} argument must be one (and only one) of the following values: {valid_which}.'
   )
 
   ## Pass to get.ALE for retrieval --------------
