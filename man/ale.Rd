@@ -30,8 +30,7 @@ ALE(
   median_band_pct = c(0.05, 0.5),
   sample_size = 500,
   min_rug_per_interval = 1,
-  bins = NULL,
-  ns = NULL,
+  .bins = NULL,
   silent = FALSE
 )
 }
@@ -88,7 +87,7 @@ require it.}
 
 \item{min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{sample_size} rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the \code{max_num_bins} intervals will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{sample_size} to \code{Inf} (but that would enlarge the size of the \code{ALE} object to include the entire dataset).}
 
-\item{bins, ns}{list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see \code{\link[=ModelBoot]{ModelBoot()}}).}
+\item{.bins}{Internal. List of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see \code{\link[=ModelBoot]{ModelBoot()}}).}
 
 \item{silent}{logical length 1, default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.}
 }

@@ -79,8 +79,15 @@ S7::method(plot, ALE) <- function(x, ...) {
 #' Retrieve specific elements from an `ALE` object.
 #'
 #' @param obj ALE object from which to retrieve elements.
-#' @param x_cols character, list, or formula. Columns names requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to retrieving all available date of the output requested in `what`.
-#' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'stats', 'conf', 'boot', 'plot', 'plots')`. Default is `'ale'`.
+#' @param x_cols character, list, or formula. Columns names requested in one of the special `x_cols` formats for which ALE data is to be calculated. The default value of NULL retrieves all available date of the output requested in `what`.
+#' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'boot_data')`. Default is `'ale'`. If `stats` is specified and `what = 'ale'`, then ALE statistics are retrieved. Otherwise, `get()` errors if `stats` is specified and `what` has some other value.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`.
+#' stats = 'terms'
+#' stats = c('aled', 'aler_min')) # also stats = 'all'
+#' stats = 'estimate' (default for get_stats)
+#' stats = 'conf_regions'
+#' stats = 'conf_sig'
 #' @param cat character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
 #'
@@ -89,15 +96,21 @@ S7::method(plot, ALE) <- function(x, ...) {
 #' @method get ALE
 S7::method(get, ALE) <- function(
     obj,
-    x_cols = NULL,  # retrieve everything
+    x_cols = NULL,
     what = 'ale',
+    ...,
+    stats = NULL,
     cat = NULL,
     simplify = TRUE
   ) {
   comp = 'distinct'
-  # browser()
 
-  ## Validate x_cols -------------
+  ## Validate inputs -------------
+
+  # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
+
   if (!is.null(x_cols)) {
     x_cols <- validate_x_cols(
       x_cols,
@@ -110,7 +123,7 @@ S7::method(get, ALE) <- function(
     x_cols <- obj@params$requested_x_cols
   }
 
-  valid_what <- c('ale', 'stats', 'conf', 'boot', 'plot', 'plots')
+  valid_what <- c('ale', 'boot_data')
   validate(
     length(setdiff(what, valid_what)) == 0,
     msg = 'The values in the {.arg what} argument must be one or more of the following values: {valid_what}.'
@@ -118,7 +131,7 @@ S7::method(get, ALE) <- function(
 
   validate(
     is.null(cat) || cat %in% names(S7::prop(obj, comp)),
-    msg = 'The values in the {.arg what} argument must be one or more of the following values: {valid_what}.'
+    msg = 'The values in the {.arg cat} argument must be one or more of the following categories of the outcome variable: {names(S7::prop(obj, comp))}.'
   )
 
 
@@ -126,6 +139,10 @@ S7::method(get, ALE) <- function(
   if (is.null(cat)) {
     cat <- names(S7::prop(obj, comp))
   }
+
+  # Rename what == 'boot_data' if necessary.
+  # This argument is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
+  what <- if (what == 'boot_data') 'boot' else what
 
   all_what <- S7::prop(obj, comp) |>
     (`[`)(cat) |>
@@ -263,7 +280,6 @@ sort_x_cols <- function(x_cols, col_names) {
 #'
 #' @method print ModelBoot
 S7::method(print, ModelBoot) <- function(x, ...) {
-  # browser()
   cat(
     "'ModelBoot' object of the ", x@params$model$name, " model on a ",
     x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset ",
@@ -291,6 +307,94 @@ S7::method(plot, ModelBoot) <- function(
     ...
 ) {
   ALEPlots(x, ...)
-  # getS3method("plot", "ale::ALE")(x, ...)
+}
+
+
+# tmp_gam <- mgcv::gam(
+#   mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
+#     vs + am + gear + carb + country + continent,
+#   data = test_cars
+# )
+#
+#
+# mb <- ModelBoot(
+#   tmp_gam,
+#   # test_gam,
+#   data = test_cars,
+#   parallel = 0,
+#   boot_it = 10,
+#   output = c('ale', 'model_stats', 'model_coefs', 'boot_data'),
+#   ale_options = list(
+#     max_num_bins = 10,
+#     x_cols = list(d1 = c('cyl', 'wt', 'vs', 'gear', 'country'))
+#     # x_cols = list(d1 = c('wt', 'gear'), d2 = list(c('cyl', 'disp')))
+#   ),
+#   silent = TRUE
+# )
+#
+# View(mb@ale)
+# View(mb@params)
+# View(mb@ale$single@distinct)
+#
+# gmb <- get(mb)
+
+
+
+
+#' @name get.ModelBoot
+#' @title get method for ModelBoot objects
+#'
+#' @description
+#' Retrieve specific ALE elements from a `ModelBoot` object. This method is similar to [get.ALE()] except that the user may specify `which` object ALE data to retrieve (see the argument definition for details).
+#'
+#' See [get.ALE()] for explanation of parameters not described here.
+#'
+#' @param obj ModelBoot object from which to retrieve ALE elements.
+#' @param which character(1). Specify which kind of ModelBoot ALE elements to retrieve: `'single'` for the ALE calculated on the full data set or `'boot'` for the bootstrapped ALE data (based on full-model bootstrapping). The default `'auto'` will retrieve `'boot'` if it is available and `'single'` otherwise.
+#'
+#' @returns See [get.ALE()]
+#'
+#' @method get ModelBoot
+S7::method(get, ModelBoot) <- function(
+    obj,
+    x_cols = NULL,
+    what = 'ale',
+    ...,
+    which = 'auto',
+    stats = NULL,
+    cat = NULL,
+    simplify = TRUE
+) {
+
+  ## Validate arguments unique to get.ModelBoot (relative to get.ALE -------------
+
+  valid_which <- c('auto', 'boot', 'single')
+  validate(
+    length(setdiff(which, valid_which)) == 0,
+    msg = 'The {.arg which} argument must be one of the following values: {valid_which}.'
+  )
+
+  ## Pass to get.ALE for retrieval --------------
+
+  if (which == 'auto') {
+    which <- if (is.null(obj@ale$boot)) 'single' else 'boot'
+  }
+
+  # Always use the single ALE object as the base structure
+  which_obj <- obj@ale$single
+
+  if (which == 'boot') {
+    # Replace the base structure with the bootstrapped data
+    which_obj@distinct <- obj@ale$boot$distinct
+  }
+
+  get(
+    which_obj,
+    x_cols = x_cols,
+    what = what,
+    stats = stats,
+    cat = cat,
+    simplify = simplify
+  )
 }
 

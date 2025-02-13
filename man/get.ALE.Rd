@@ -3,6 +3,29 @@
 \name{get.ALE}
 \alias{get.ALE}
 \title{get method for ALE objects}
+\arguments{
+\item{obj}{ALE object from which to retrieve elements.}
+
+\item{x_cols}{character, list, or formula. Columns names requested in one of the special \code{x_cols} formats for which ALE data is to be calculated. The default value of NULL retrieves all available date of the output requested in \code{what}.}
+
+\item{what}{character(1). What kind of output is requested. Must be one (and only one) of \code{c('ale', 'boot_data')}. Default is \code{'ale'}. If \code{stats} is specified and \code{what = 'ale'}, then ALE statistics are retrieved. Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value.}
+
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
+
+\item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}.
+stats = 'terms'
+stats = c('aled', 'aler_min')) # also stats = 'all'
+stats = 'estimate' (default for get_stats)
+stats = 'conf_regions'
+stats = 'conf_sig'}
+
+\item{cat}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
+
+\item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest structure possible to give the requested results.}
+}
+\value{
+Requested data as a list.
+}
 \description{
 Retrieve specific elements from an \code{ALE} object.
 }
