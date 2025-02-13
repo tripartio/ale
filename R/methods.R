@@ -186,25 +186,25 @@ S7::method(get, ALE) <- function(
       imap(\(it.cat, it.cat_name) {
         it.cat.d1 <- x_cols[['d1']] |>
           map(\(it.d1) {
-            it.stats_data <- all_what[[it.cat_name]][['d1']]
+            it.d1_stats <- all_what[[it.cat_name]][['d1']]
 
             if (stats == 'estimate') {
-              it.stats_data$estimate |>
+              it.d1_stats$estimate |>
                 filter(term == it.d1)
             }
             else if (stats == 'all') {
-              it.stats_data$by_term[[it.d1]]
+              it.d1_stats$by_term[[it.d1]]
             }
             else if (stats %in% stats_names) {
-              it.stats_data$by_stat[[stats]] |>
+              it.d1_stats$by_stat[[stats]] |>
                 filter(term == it.d1)
             }
             else if (stats == 'conf_regions') {
-              it.stats_data$conf_regions$by_term |>
+              it.d1_stats$conf_regions$by_term |>
                 filter(term == it.d1)
             }
             else if (stats == 'conf_sig') {
-              it.stats_data$conf_regions$significant |>
+              it.d1_stats$conf_regions$significant |>
                 filter(term == it.d1)
             }
             else {
@@ -217,10 +217,44 @@ S7::method(get, ALE) <- function(
           it.cat.d1 <- bind_rows(it.cat.d1)
         }
 
-        it.cat.d2 <- list()
-        for(it.d2 in x_cols[['d2']]) {
-          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-            all_what[[it.cat_name]][['d2']][[it.d2[1]]][[it.d2[2]]]
+        # browser()
+
+        it.cat.d2 <- x_cols[['d2']] |>
+          map(\(it.d2) {
+            it.d2_stats <- all_what[[it.cat_name]][['d2']]
+
+            if (stats == 'estimate') {
+              it.d2_stats$estimate |>
+                filter(term1 == it.d2[1], term2 == it.d2[2])
+            }
+            else if (stats == 'all') {
+              it.d2_stats$by_term[[it.d2[1]]][[it.d2[2]]]
+            }
+            else if (stats %in% stats_names) {
+              it.d2_stats$by_stat[[stats]] |>
+                filter(term1 == it.d2[1], term2 == it.d2[2])
+            }
+            else if (stats == 'conf_regions') {
+              it.d2_stats$conf_regions$by_term |>
+                filter(term1 == it.d2[1], term2 == it.d2[2])
+            }
+            else if (stats == 'conf_sig') {
+              it.d2_stats$conf_regions$significant |>
+                filter(term1 == it.d2[1], term2 == it.d2[2])
+            }
+            else {
+              cli_abort('Invalid value for {.arg stats}: {stats}')
+            }
+          }) |>
+          set_names(
+            map_chr(
+              x_cols[['d2']],
+              \(it.d2) paste0(it.d2, collapse = ':')
+            )
+          )
+
+        if (stats %in% c('estimate', 'conf_regions', 'conf_sig')) {
+          it.cat.d2 <- bind_rows(it.cat.d2)
         }
 
         list(
