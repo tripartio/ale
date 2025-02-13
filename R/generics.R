@@ -15,12 +15,12 @@
 #' @param obj object.
 #' @param ... For ale package objects, instructions for which predictor (x) columns should be retrieved. For everything else, arguments to pass to [base::get()].
 #'
-get <- S7::new_generic("get", "obj", function(obj, ...) {
+get <- new_generic("get", "obj", function(obj, ...) {
   if (
-    S7::S7_inherits(obj) &&
+    S7_inherits(obj) &&
     class(obj)[1] %in% c('ale::ALE', 'ale::ModelBoot', 'ale::ALEPlots', 'ale::ALEpDist')
   ) {
-      S7::S7_dispatch()
+      S7_dispatch()
   }
   # Call base::get() for everything else
   else {
@@ -39,6 +39,6 @@ get <- S7::new_generic("get", "obj", function(obj, ...) {
 #' @param obj object.
 #' @param ... Arguments to pass to the implemented method.
 #'
-calc_p <- S7::new_generic("calc_p", "obj", function(obj, ...) {
-  S7::S7_dispatch()
+calc_p <- new_generic("calc_p", "obj", function(obj, ...) {
+  S7_dispatch()
 })

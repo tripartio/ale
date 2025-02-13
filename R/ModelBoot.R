@@ -6,14 +6,14 @@
 # ModelBoot object ------------------
 
 
-ModelBoot <- S7::new_class(
+ModelBoot <- new_class(
   'ModelBoot',
   properties = list(
-    model_stats = S7::class_list | NULL,
-    model_coefs = S7::class_list | NULL,
-    ale         = S7::class_list | NULL,
-    boot_data   = S7::class_list | NULL,
-    params      = S7::class_list
+    model_stats = class_list | NULL,
+    model_coefs = class_list | NULL,
+    ale         = class_list | NULL,
+    boot_data   = class_list | NULL,
+    params      = class_list
   ),
 
   #' @title A statistics and ALE data of a bootstrapped model
@@ -1185,8 +1185,8 @@ ModelBoot <- S7::new_class(
     }
 
     ## Return S7 ModelBoot object --------------------
-    S7::new_object(
-      S7::S7_object(),
+    new_object(
+      S7_object(),
       model_stats = stats_summary,
       model_coefs = tidy_summary,
       ale = ale_results,

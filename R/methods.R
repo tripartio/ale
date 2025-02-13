@@ -21,7 +21,7 @@
 #' print(ale_cars)
 #'
 #' @method print ALE
-S7::method(print, ALE) <- function(x, ...) {
+method(print, ALE) <- function(x, ...) {
   cat(
     "'ALE' object of the ", x@params$model$name, " model on a ",
     x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset.\n",
@@ -44,7 +44,7 @@ S7::method(print, ALE) <- function(x, ...) {
 #' @param ... Arguments passed to [ALEPlots()]
 #'
 #' @method plot ALE
-S7::method(plot, ALE) <- function(x, ...) {
+method(plot, ALE) <- function(x, ...) {
   ALEPlots(x, ...)
 }
 
@@ -94,7 +94,7 @@ S7::method(plot, ALE) <- function(x, ...) {
 #' @returns Requested data as a list.
 #'
 #' @method get ALE
-S7::method(get, ALE) <- function(
+method(get, ALE) <- function(
     obj,
     x_cols = NULL,
     what = 'ale',
@@ -123,10 +123,9 @@ S7::method(get, ALE) <- function(
     x_cols <- obj@params$requested_x_cols
   }
 
-  valid_what <- c('ale', 'boot_data')
+  valid_what <- c('ale', 'boot_data', 'plots')
   validate(
     is_string(what, valid_what),
-    # length(setdiff(what, valid_what)) == 0,
     msg = 'The {.arg what} argument must be one (and only one) of the following values: {valid_what}.'
   )
 
@@ -145,10 +144,10 @@ S7::method(get, ALE) <- function(
     cli_abort("If {.arg stats} is specified, then {.arg what} must be {.val 'ale'} (default).")
   }
 
-  y_cats <- names(S7::prop(obj, comp))
+  y_cats <- names(prop(obj, comp))
   validate(
     is.null(cat) || is_string(cat, y_cats),
-    # is.null(cat) || cat %in% names(S7::prop(obj, comp)),
+    # is.null(cat) || cat %in% names(prop(obj, comp)),
     msg = 'The values in the {.arg cat} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
@@ -158,7 +157,8 @@ S7::method(get, ALE) <- function(
   )
 
 
-  ## Retrieve requested results --------------
+  ## Retrieve requested data --------------
+
   if (is.null(cat)) {
     cat <- y_cats
   }
@@ -173,13 +173,16 @@ S7::method(get, ALE) <- function(
       what
     }
 
-  ## Retrieve requested data --------------
+  # Get plots if the user wants plots from an ALE object
+  if (S7_inherits())
 
-  all_what <- S7::prop(obj, comp) |>
+  all_what <- prop(obj, comp) |>
     (`[`)(cat) |>
     map(\(it.cat) {
       it.cat[[what]]
     })
+
+  browser()
 
   if (what == 'stats') {
     specific_what <- all_what |>
@@ -323,7 +326,7 @@ S7::method(get, ALE) <- function(
 #'
 #' @returns `obj` with p-values included in its statistics.
 #'
-S7::method(calc_p, ALE) <- function(obj, p_dist) {
+method(calc_p, ALE) <- function(obj, p_dist) {
   obj + p_dist
 }
 
@@ -400,7 +403,7 @@ sort_x_cols <- function(x_cols, col_names) {
 #' print(mb)
 #'
 #' @method print ModelBoot
-S7::method(print, ModelBoot) <- function(x, ...) {
+method(print, ModelBoot) <- function(x, ...) {
   cat(
     "'ModelBoot' object of the ", x@params$model$name, " model on a ",
     x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset ",
@@ -423,7 +426,7 @@ S7::method(print, ModelBoot) <- function(x, ...) {
 #' @param ... Arguments passed to [ALEPlots()]
 #'
 #' @method plot ModelBoot
-S7::method(plot, ModelBoot) <- function(
+method(plot, ModelBoot) <- function(
     x,
     ...
 ) {

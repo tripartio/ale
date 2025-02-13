@@ -5,11 +5,11 @@
 
 # ALEPlots object ------------------
 
-ALEPlots <- S7::new_class(
+ALEPlots <- new_class(
   'ALEPlots',
   properties = list(
-    distinct = S7::class_list,
-    params   = S7::class_list
+    distinct = class_list,
+    params   = class_list
   ),
 
   #' @title Object to contain ALE plots
@@ -55,7 +55,7 @@ ALEPlots <- S7::new_class(
     rm(x)
 
     validate(
-      obj |> S7::S7_inherits(ALE) || obj |> S7::S7_inherits(ModelBoot),
+      obj |> S7_inherits(ALE) || obj |> S7_inherits(ModelBoot),
       # obj |> inherits('ale') || obj |> inherits('ale_boot'),
       msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
     )
@@ -68,7 +68,7 @@ ALEPlots <- S7::new_class(
       msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
     )
 
-    if (obj |> S7::S7_inherits(ModelBoot)) {
+    if (obj |> S7_inherits(ModelBoot)) {
       # Adapt ModelBoot object to behave like a regular ALE object
       if (!is.null(obj@ale$boot)) {
         # Prefer plots based on the bootstrapped object, if available.
@@ -235,8 +235,8 @@ ALEPlots <- S7::new_class(
     # return(ale_plots_obj)
 
     # Return S7 ALEPlots object
-    return(S7::new_object(
-      S7::S7_object(),
+    return(new_object(
+      S7_object(),
       distinct = distinct,
       params = params
     ))

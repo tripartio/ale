@@ -5,11 +5,11 @@
 
 # ALE object ------------------
 
-ALE <- S7::new_class(
+ALE <- new_class(
   'ALE',
   properties = list(
-    distinct = S7::class_list,
-    params   = S7::class_list
+    distinct = class_list,
+    params   = class_list
   ),
 
   #' @title ALE data and statistics that describe a trained model
@@ -329,7 +329,7 @@ ALE <- S7::new_class(
       else {  # an ALEpDist object should be provided
         validate(
           # Verify that p_values is an `ALEpDist` object.
-          p_values |> S7::S7_inherits(ALEpDist),
+          p_values |> S7_inherits(ALEpDist),
           msg = cli_alert_danger(paste0(
             'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object. See {.fun ale::ALE()} for instructions for obtaining p-values.'
           ))
@@ -820,8 +820,8 @@ ALE <- S7::new_class(
     # return(ale_obj)
 
     # Return S7 ALE object
-    S7::new_object(
-      S7::S7_object(),
+    new_object(
+      S7_object(),
       distinct = ale_struc$distinct,
       params = params
     )

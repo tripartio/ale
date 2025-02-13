@@ -6,13 +6,13 @@
 
 # ALEpDist object -------------
 
-ALEpDist <- S7::new_class(
+ALEpDist <- new_class(
   'ALEpDist',
   properties = list(
-    rand_stats = S7::class_list,
-    residual_distribution   = S7::as_class(S7::new_S3_class('univariateML')),
-    rand_it_ok = S7::class_integer,
-    residuals = S7::class_double | NULL
+    rand_stats = class_list,
+    residual_distribution   = as_class(new_S3_class('univariateML')),
+    rand_it_ok = class_integer,
+    residuals = class_double | NULL
   ),
 
   #' @title Create an object of the ALE statistics of a random variable that can be used to generate p-values
@@ -539,8 +539,8 @@ ALEpDist <- S7::new_class(
       residuals <- NULL
     }
 
-    S7::new_object(
-      S7::S7_object(),
+    new_object(
+      S7_object(),
       rand_stats            = rand_stats,
       residual_distribution = residual_distribution,
       rand_it_ok            = rand_it_ok,
