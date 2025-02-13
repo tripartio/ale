@@ -282,16 +282,16 @@ ModelBoot <- S7::new_class(
 
 
     validate(is.list(ale_options))
-    validate(
-      !(
-        !is.null(ale_options$p_values) &&
-          length(ale_options$p_values) == 1 &&
-          ale_options$p_values == 'auto'
-      ),
-      msg = cli_alert_danger(
-        'The {.arg ale_options} `p_values == "auto"` option is disabled when creating a {.cls ale::ModelBoot} because it is far too slow. Rather, you must pass a {.cls ale::ALEpDist} object.'
-      )
-    )
+    # validate(
+    #   !(
+    #     !is.null(ale_options$p_values) &&
+    #       length(ale_options$p_values) == 1 &&
+    #       ale_options$p_values == 'auto'
+    #   ),
+    #   msg = cli_alert_danger(
+    #     'The {.arg ale_options} `p_values == "auto"` option is disabled when creating a {.cls ale::ModelBoot} because it is far too slow. Rather, you must pass a {.cls ale::ALEpDist} object.'
+    #   )
+    # )
     validate(is.list(tidy_options))
     validate(is.list(glance_options))
 
