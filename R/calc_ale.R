@@ -197,9 +197,9 @@ calc_ale <- function(
           breaks = c(
             # Subtract 1 from lowest ceiling to ensure that the minimum value is included in it
             xd[[it.x_col]]$ceilings[1] - 1,
-            head(xd[[it.x_col]]$ceilings, -1),
+            utils::head(xd[[it.x_col]]$ceilings, -1),
             # Add a tiny amount to the top ceiling to make sure the max value is included
-            tail(xd[[it.x_col]]$ceilings, 1) + 1e-8
+            utils::tail(xd[[it.x_col]]$ceilings, 1) + 1e-8
             # xd[[it.x_col]]$ceilings
           ),
           # right=TRUE is crucial otherwise dates crash because their cut method has different defaults

@@ -368,7 +368,7 @@ sort_x_cols <- function(x_cols, col_names) {
   list(
     d1 = x_cols$d1[
       match(col_names, x_cols$d1) |>
-        na.omit()
+        stats::na.omit()
     ],
     d2 = x_cols$d2[d2_ordering]
   )

@@ -224,7 +224,7 @@ data <-
   census |> 
   as.data.frame() |>   # ALEPlot is not compatible with the tibble format
   select(age:native_country, higher_income) |>  # Rearrange columns to match ALEPlot order
-  na.omit(data)
+  stats::na.omit(data)
 ```
 
 Although gradient boosted trees generally perform quite well, they are rather slow. Rather than having you wait for it to run, the code here downloads a pretrained GBM model. However, the code used to generate it is provided in comments so that you can see it and run it yourself if you want to. Note that the model calls is based on `data[,-c(3,4)]`, which drops the third and fourth variables (`fnlwgt` and `education`, respectively).

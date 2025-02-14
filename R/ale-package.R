@@ -16,6 +16,7 @@
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
 #' @importFrom cli cli_warn
+#' @importFrom patchwork wrap_plots
 #' @importFrom purrr compact
 #' @importFrom purrr imap
 #' @importFrom purrr list_transpose

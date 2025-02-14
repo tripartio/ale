@@ -41,7 +41,8 @@ Imports:
     stats,
     stringr,
     tidyr,
-    univariateML
+    univariateML,
+    utils
 Depends: 
     R (>= 4.2.0)
 URL: https://github.com/tripartio/ale, https://tripartio.github.io/ale/

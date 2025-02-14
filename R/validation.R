@@ -28,8 +28,8 @@ validate_x_cols <- function(
   )
 
   # Convert formula x_cols into list of individual elements format
-  if (class(x_cols) == 'formula') {
-    fmla_cols <- attr(terms(x_cols), 'term.labels')
+  if (x_cols |> inherits('formula')) {
+    fmla_cols <- attr(stats::terms(x_cols), 'term.labels')
 
     # Detect terms with more than two interactions (':' more than twice)
     too_hi_ixns <- fmla_cols[stringr::str_detect(fmla_cols, ".*:.*:.*")]

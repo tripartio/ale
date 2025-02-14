@@ -39,11 +39,7 @@ ModelBoot(
 
 \item{model_call_string}{character string. If NULL, the \code{ModelBoot} tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes \code{boot_data} as the data argument for the call. See examples.}
 
-\item{model_call_string_vars}{character. Character vector of names of variables
-included in \code{model_call_string} that are not columns in \code{data}.
-If any such variables exist, they must be specified here or else parallel processing
-will produce an error. If parallelization is disabled with \code{parallel = 0},
-then this is not a concern.}
+\item{model_call_string_vars}{character. Character vector of names of variables included in \code{model_call_string} that are not columns in \code{data}. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with \code{parallel = 0}, then this is not a concern.}
 
 \item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
 

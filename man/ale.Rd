@@ -13,7 +13,7 @@ ALE(
   exclude_cols = NULL,
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
-  output = c("plots", "data", "stats", "conf_regions"),
+  output = c("data", "stats", "conf_regions"),
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
     object, newdata = newdata, type = type)
@@ -21,7 +21,7 @@ ALE(
   pred_type = "response",
   p_values = NULL,
   p_alpha = c(0.01, 0.05),
-  max_num_bins = 100,
+  max_num_bins = 10,
   boot_it = 0,
   seed = 0,
   boot_alpha = 0.05,
@@ -29,7 +29,6 @@ ALE(
   y_type = NULL,
   median_band_pct = c(0.05, 0.5),
   sample_size = 500,
-  min_rug_per_interval = 1,
   .bins = NULL,
   silent = FALSE
 )
@@ -51,11 +50,11 @@ ALE(
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious. The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the \code{model} to this argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.}
 
-\item{output}{character in c('plots', 'data', 'stats', 'conf_regions', 'boot'). Vector of types of results to return. 'plots' will return an ALE plot; 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.}
+\item{output}{character in c('data', 'stats', 'conf_regions', 'boot_data'). Vector of types of results to return. 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.}
 
 \item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
 
-\item{p_values}{instructions for calculating p-values and to determine the median band. If \code{NULL} (default), no p-values are calculated and \code{median_band_pct} is used to determine the median band. To calculate p-values, an \code{\link[=ALEpDist]{ALEpDist()}} object must be provided here. If \code{p_values} is set to 'auto', this \code{ALE()} function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for \code{\link[=create_p_dist]{create_p_dist()}}. Note that p-values will not be generated if 'stats' are not included as an option in the \code{output} argument.}
+\item{p_values}{instructions for calculating p-values and to determine the median band. If \code{NULL} (default), no p-values are calculated and \code{median_band_pct} is used to determine the median band. To calculate p-values, an \code{\link[=ALEpDist]{ALEpDist()}} object must be provided here. If \code{p_values} is set to 'auto', this \code{ALE()} function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that p-values will not be generated if 'stats' are not included as an option in the \code{output} argument.}
 
 \item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
@@ -84,8 +83,6 @@ require it.}
 \item{median_band_pct}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are not provided. If \code{p_values} are provided, then \code{median_band_pct} is ignored. The inner band range will be the median value of y ± \code{median_band_pct[1]/2}. For plots with a second outer band, its range will be the median ± \code{median_band_pct[2]/2}. For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.}
-
-\item{min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{sample_size} rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the \code{max_num_bins} intervals will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{sample_size} to \code{Inf} (but that would enlarge the size of the \code{ALE} object to include the entire dataset).}
 
 \item{.bins}{Internal. List of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see \code{\link[=ModelBoot]{ModelBoot()}}).}
 
@@ -165,7 +162,7 @@ arguments to understand how these are determined.
 }
 }
 \description{
-An \code{ALE} object contains ALE data and statistics. For details, see \link{vignette('ale-intro')} or the details and examples below.
+An \code{ALE} object contains ALE data and statistics. For details, see \code{vignette('ale-intro')} or the details and examples below.
 }
 \section{Custom predict function}{
 
@@ -188,7 +185,7 @@ You can see an example below of a custom prediction function.
 
 \section{ALE statistics}{
 
-For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \link{vignette('ale-statistics')}.
+For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \code{vignette('ale-statistics')}.
 }
 
 \section{Parallel processing}{

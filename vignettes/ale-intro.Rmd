@@ -139,7 +139,7 @@ To retrieve a specific variable plot, you can use the `get()` method of the `ALE
 get(diamonds_plots, 'carat')
 ```
 
-To display all the ALE plots in an `ALEPlots` object, we can simply call its `print()` or `plot()` methods. They use the `patchwork` package to arrange multiple plots in a common plot grid using `patchwork::wrap_plots()`, so we can pass arguments from that function. For example, we can specify that we want two plots per row with the `ncol` argument:
+To display all the ALE plots in an `ALEPlots` object, we can simply call its `print()` or `plot()` methods. Behind the scenes, they use the `{patchwork}` package to arrange multiple plots in a common plot grid using `patchwork::wrap_plots()`, so we can pass arguments from that function. For example, we can specify that we want two plots per row with the `ncol` argument:
 
 ```{r print-ale_simple, fig.width=7, fig.height=11}
 # Print all plots
@@ -191,15 +191,6 @@ ale_2D_gam_diamonds <- ALE(
 
 The `plot()` method similarly creates 2D ALE plots from the `ALE` object:
 
-. However, the structure is slightly more complex because of the two levels of interacting variables in the output data. As before, we first create plots from the `ALE` object and then we extract the 2D plots from this `ALEPlots` object:
-
-```{r simplify-2D-plots}
-# Extract two-way ALE plots from the ALEPlots object
-diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
-```
-
-Because of the 2D interactions, this `diamonds_2D_plots` is a two-level list of the 2D ALE plots: the first level is the first variable in the interaction and the second level is a list of the interacting variables. So, we use the `purrr` package to iterate the list structure to print the 2D plots. `purrr::walk()` takes a list as its first argument and then we specify an anonymous function for what we want to do with each element of the list. We specify the anonymous function as `\(it.x1) {...}` where `it.x1` in our case represents each individual element of `diamonds_2D_plots` in turn, that is, a sublist of plots with which the x1 variable interacts. We print the plots of all the x1 interactions as a combined grid of plots with `patchwork::wrap_plots()`, as before.
-
 ```{r print-all-2D, fig.width=7, fig.height=7}
 diamonds_2D_plots <- plot(ale_2D_gam_diamonds)
 
@@ -209,7 +200,7 @@ diamonds_2D_plots |>
   print(ncol = 2)
 ```
 
-Because we are printing all plots together with the same `patchwork::wrap_plots()` statement, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. The `ale` package supports the standard R formula notation for specifying variables. For example, we can print the interaction plot between carat and depth by referring to it thus: `get(diamonds_2D_plots, ~ carat:clarity)`.
+Because we are printing all plots together, some of them might appear vertically distorted because each plot is forced to be of the same height. For more fine-tuned presentation, we would need to refer to a specific plot. The `ale` package supports the standard R formula notation for specifying variables. For example, we can print the interaction plot between carat and depth by referring to it thus: `get(diamonds_2D_plots, ~ carat:clarity)`.
 
 ```{r print-specific-ixn, fig.width=5, fig.height=3}
 get(diamonds_2D_plots, ~ carat:clarity)
