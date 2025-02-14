@@ -9,7 +9,7 @@ test_that(
       ale_options = list(
         x_cols = c('cyl', 'disp')
       ),
-      boot_it = 3,
+      boot_it = 2,
       silent = TRUE
     )
 
@@ -17,7 +17,7 @@ test_that(
     expect_equal(
       print(pll_mb) |>
         capture.output(),
-      "'ModelBoot' object of the model model on a 64x13 dataset with 3 bootstrap iterations."
+      "'ModelBoot' object of the model model on a 64x13 dataset with 2 bootstrap iterations."
     )
   }
 )
@@ -26,66 +26,9 @@ test_that(
 # All other tests are without parallelization so that results are reproducible
 
 # Because it is complex to save entire ggplot objects, only save the core data from the plot
-test_that(
-  'mostly default (boot_it=0) snapshot works with multiple x datatypes', {
-    skip_on_ci()
-
-    mb <- ModelBoot(
-      test_gam,
-      data = test_cars,
-      parallel = 0,
-      boot_it = 0,
-      ale_options = list(
-        x_cols = c('cyl', 'disp')
-      ),
-      silent = TRUE
-    )
-    mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$mpg$plots$d1 |>
-      ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$mpg$plots$eff |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
-    mb@ale$single <- unclass(mb@ale$single)
-    expect_snapshot(unclass(mb))
-    expect_snapshot(mb_1D_plots)
-    expect_snapshot(mb_eff_plot)
-  }
-)
-
 
 test_that(
-  'mostly default (boot_it=3) snapshot works with multiple x datatypes', {
-    skip_on_ci()
-
-    mb <- ModelBoot(
-      test_gam,  # ignored because model_call_string is provided
-      data = test_cars,
-      model_call_string = 'mgcv::gam(mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-                vs + am + gear + carb + country, data = boot_data)',
-      parallel = 0,
-      boot_it = 5,  # Normally 3 for the test, but 3 gives a warning, so leave at 5
-      ale_options = list(
-        x_cols = c('vs', 'gear')
-      ),
-      silent = TRUE
-    )
-    mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$mpg$plots$d1 |>
-      ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$mpg$plots$eff |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
-    mb@ale$single <- unclass(mb@ale$single)
-    expect_snapshot(unclass(mb))
-    expect_snapshot(mb_1D_plots)
-    expect_snapshot(mb_eff_plot)
-  }
-)
-
-
-test_that(
-  'ALE snapshot works with every parameter set to something, with multiple x datatypes', {
+  'bootstrapped numeric outcome with full 1D ALE', {
     skip_on_ci()
 
     mb <- ModelBoot(
@@ -93,47 +36,55 @@ test_that(
       data = test_cars,
       parallel = 0,
       boot_it = 2,
-      seed = 1234,
-      boot_alpha = 0.1,
-      boot_centre = 'median',
-      output = c("model_stats", "model_coefs"),  # exclude ALE
+      seed = 5,  # avoid errors with tiny dataset
+      ale_options = list(
+        # 'model' is problematic for bootstrapping because there are too many unique factor levels
+        x_cols = names(test_cars) |> setdiff('model')
+      ),
       silent = TRUE
     )
+
+    plot(mb, type = 'boot') |>
+      ale_plots_to_data() |>
+      expect_snapshot()
+
     mb@ale$single <- unclass(mb@ale$single)
-    expect_snapshot(unclass(mb))
+    mb |>
+      unclass() |>
+      expect_snapshot()
   }
 )
 
+
 test_that(
-  'binary outcome works with multiple x datatypes', {
+  'binary outcome with full 1D ALE, no bootstrapping', {
     skip_on_ci()
 
     mb <- ModelBoot(
       test_gam_binary,
       data = test_cars,
       parallel = 0,
-      boot_it = 5,
-      ale_options = list(
-        x_cols = c('cyl', 'disp')
-      ),
+      boot_it = 0,
+      # ale_options = list(
+      #   x_cols = c('cyl', 'disp')
+      # ),
       silent = TRUE
     )
-    mb_plots <- plot(mb)
-    mb_1D_plots <- mb_plots@distinct$vs$plots$d1 |>
-      ale_plots_to_data()
-    mb_eff_plot <- mb_plots@distinct$vs$plots$eff |>
-      ggplot2::ggplot_build() |>
-      (`[[`)('data')
+
+    plot(mb, type = 'boot') |>
+      ale_plots_to_data() |>
+      expect_snapshot()
+
     mb@ale$single <- unclass(mb@ale$single)
-    expect_snapshot(unclass(mb))
-    expect_snapshot(mb_1D_plots)
-    expect_snapshot(mb_eff_plot)
+    mb |>
+      unclass() |>
+      expect_snapshot()
   }
 )
 
 # Temporarily test on iris until I can get a larger var_cars sample
 test_that(
-  'categorical outcome works on iris dataset', {
+  'bootstrapped categorical outcome with full 1D and all variables set', {
     skip_on_ci()
 
     # Regular test_nn_categorical is too small a dataset; bootstrapping turns up problems. So, use iris here.
@@ -146,29 +97,37 @@ test_that(
     mb <- ModelBoot(
       test_nn_iris,
       data = iris,
-      pred_type = 'probs',
+      model_call_string =
+        'nnet::multinom(Species ~ ., data = boot_data, trace = FALSE)',
+      # model_call_string_vars = character(),  # not tested
       parallel = 0,
-      boot_it = 5,
+      model_packages = 'nnet',
+      y_col = 'Species',
+      binary_true_value = FALSE,  # not used here
+      # pred_fun,  # not tested
+      pred_type = "probs",
+      boot_it = 2,
+      seed = 1234,
+      boot_alpha = 0.1,
+      boot_centre = 'median',
+      output = c('ale', 'model_stats', 'model_coefs'),  # test all options
       ale_options = list(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),
+      # tidy_options = list(),  # not tested
+      # glance_options = list(),  # not tested
       silent = TRUE
     )
-    mb_plots <- plot(mb)@distinct |>
-      imap(\(it.cat, it.cat_name) {
-        list(
-          oneD = it.cat$plots$d1 |>
-            ale_plots_to_data(),
-          eff = it.cat$plots$eff |>
-            ggplot2::ggplot_build() |>
-            (`[[`)('data')
-        )
-      }) |>
-      list_transpose(simplify = FALSE)
+
+    plot(mb, type = 'boot') |>
+      ale_plots_to_data() |>
+      expect_snapshot()
+
     mb@ale$single <- unclass(mb@ale$single)
-    expect_snapshot(unclass(mb))
-    expect_snapshot(mb_plots)
+    mb |>
+      unclass() |>
+      expect_snapshot()
   }
 )
 

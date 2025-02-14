@@ -5,15 +5,27 @@
 col_names <- colnames(test_cars)
 y_col <- "mpg"
 
-# test_that("validate_x_cols handles NULL input correctly", {
-#   x_cols <- NULL
-#   result <- validate_x_cols(x_cols, col_names, y_col)
-#   expected_result <- list(
-#     d1 = setdiff(col_names, y_col),
-#     d2 = list()
-#   )
-#   expect_equal(result, expected_result)
-# })
+
+# x_cols = list(
+#   'model',
+#   'cyl',
+#   c('hp', 'drat'),
+#   'model',
+#   c('hp', 'drat'),
+#   c('wt', 'qsec'),
+#   c('wt', 'hp'),
+#   c('wt', 'drat'),
+#   c('qsec', 'wt'),
+#   'vs'
+# ),
+# data = test_cars,
+# exclude_cols = list(
+#   'cyl',
+#   c('wt', 'qsec'),
+#   c('hp', 'wt'),
+#   c('wt', 'drat')
+# ),
+
 
 test_that("validate_x_cols handles character vector input", {
   x_cols <- c("cyl", "disp")

@@ -65,7 +65,7 @@ ALE <- new_class(
   # @param complete_d integer(1 or 2). If `x_cols` is `NULL` (default), `complete_d = 1L` (default) will generate all 1D ALE data; `complete_d = 2L` will generate all 2D ALE data; and `complete_d = c(1L, 2L)` will generate both. If `x_cols` is anything other than `NULL`, `complete_d` is ignored and internally set to `NULL`.
   #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. See details.
   #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
-  #' @param output character in c('plots', 'data', 'stats', 'conf_regions', 'boot_data'). Vector of types of results to return. 'plots' will return an ALE plot; 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.
+  #' @param output character in c('data', 'stats', 'conf_regions', 'boot_data'). Vector of types of results to return. 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.
   #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
   #' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [create_p_dist()]. Note that p-values will not be generated if 'stats' are not included as an option in the `output` argument.
   #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
@@ -87,7 +87,7 @@ ALE <- new_class(
   #' require it.
   #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
   #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
-  #' @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ALE` object to include the entire dataset).
+  # @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ALE` object to include the entire dataset).
   #' @param .bins Internal. List of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), [ALE()] automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
   # @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
   #' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
@@ -215,7 +215,7 @@ ALE <- new_class(
     # complete_d = 1L,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
-    output = c('plots', 'data', 'stats', 'conf_regions'),
+    output = c('data', 'stats', 'conf_regions'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -230,10 +230,8 @@ ALE <- new_class(
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
     sample_size = 500,
-    min_rug_per_interval = 1,
+    # min_rug_per_interval = 1,
     .bins = NULL,
-    # bins = NULL,
-    # ns = NULL,
     silent = FALSE
   )
   {
@@ -291,7 +289,7 @@ ALE <- new_class(
 
     x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
-    valid_output_types <- c('plots', 'data', 'stats', 'conf_regions', 'boot_data')
+    valid_output_types <- c('data', 'stats', 'conf_regions', 'boot_data')
     validate(
       length(setdiff(output, valid_output_types)) == 0,
       msg = cli_alert_danger(
@@ -372,26 +370,26 @@ ALE <- new_class(
     #   )
     # }
 
-    # Validate plot-related arguments.
-    # If plots are not requested, then ignore these arguments.
-    if ('plots' %in% output) {
-      validate(
-        is.numeric(median_band_pct) &&
-          length(median_band_pct) == 2 &&
-          all(between(median_band_pct, 0, 1))
-      )
-      validate(
-        sample_size == 0 ||  # 0 means no data sample or rug plots are desired
-          (is_scalar_natural(sample_size) &&
-             # rug sample cannot be smaller than number of intervals
-             sample_size > (max_num_bins + 1)),
-        msg = cli_alert_danger('{.arg sample_size} must be either 0 or an integer larger than the number of max_num_bins + 1.')
-      )
-      validate(is_scalar_whole(min_rug_per_interval))
-      # validate(is_scalar_natural(n_x1_bins))
-      # validate(is_scalar_natural(n_x2_bins))
-      # validate(is_scalar_natural(n_y_quant))
-    }
+    # # Validate plot-related arguments.
+    # # If plots are not requested, then ignore these arguments.
+    # if ('plots' %in% output) {
+    #   validate(
+    #     is.numeric(median_band_pct) &&
+    #       length(median_band_pct) == 2 &&
+    #       all(between(median_band_pct, 0, 1))
+    #   )
+    #   validate(
+    #     sample_size == 0 ||  # 0 means no data sample or rug plots are desired
+    #       (is_scalar_natural(sample_size) &&
+    #          # rug sample cannot be smaller than number of intervals
+    #          sample_size > (max_num_bins + 1)),
+    #     msg = cli_alert_danger('{.arg sample_size} must be either 0 or an integer larger than the number of max_num_bins + 1.')
+    #   )
+    #   validate(is_scalar_whole(min_rug_per_interval))
+    #   # validate(is_scalar_natural(n_x1_bins))
+    #   # validate(is_scalar_natural(n_x2_bins))
+    #   # validate(is_scalar_natural(n_y_quant))
+    # }
 
     validate_silent(silent)
 
@@ -527,7 +525,7 @@ ALE <- new_class(
         x_cols$d2,
         x_cols$d1
       ) |>
-      # map(  # for debugging
+      # map2(  # uncomment for debugging; furrr hides detailed error messages
       furrr::future_map(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation

@@ -42,11 +42,7 @@ ModelBoot <- new_class(
   #' @param model_call_string character string. If NULL, the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
   #' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
   #' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
-  #' @param model_call_string_vars character. Character vector of names of variables
-  #' included in `model_call_string` that are not columns in `data`.
-  #' If any such variables exist, they must be specified here or else parallel processing
-  #' will produce an error. If parallelization is disabled with `parallel = 0`,
-  #' then this is not a concern.
+  #' @param model_call_string_vars character. Character vector of names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern.
   #' @param parallel See documentation for [ALE()]
   #' @param model_packages See documentation for [ALE()]
   #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
@@ -381,7 +377,7 @@ ModelBoot <- new_class(
     # Major bootstrap loop ---------
 
     model_and_ale <-
-      # map2(
+      # map2(  # uncomment for debugging; furrr hides detailed error messages
       furrr::future_map2(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
@@ -652,7 +648,7 @@ ModelBoot <- new_class(
                       'ALE calculation failed for iteration {btit}...',
                       class = 'ale_fail'
                     )
-                    # print(e)
+                    # print(e)  # uncomment to debug
 
                     NULL
                   }

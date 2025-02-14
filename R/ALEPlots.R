@@ -24,7 +24,6 @@ ALEPlots <- new_class(
   #'
   #'
   #' @param x ALE object. The object of class `ALE` containing data to be plotted.
-  # @param type character(1). 'ale' for regular ALE plots; 'effects' for an ALE statistic effects plot.
   #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
   #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
   #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
@@ -37,7 +36,6 @@ ALEPlots <- new_class(
   #'
   constructor = function(
     x,
-    # type = 'ale',
     ...,
     relative_y = 'median',
     p_alpha = c(0.01, 0.05),
@@ -59,10 +57,7 @@ ALEPlots <- new_class(
       # obj |> inherits('ale') || obj |> inherits('ale_boot'),
       msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
     )
-    # validate(
-    #   type %in% c('ale', 'effects'),
-    #   msg = '{.arg type} must be either "ale" or "effects".'
-    # )
+
     validate(
       is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
       msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
@@ -100,7 +95,6 @@ ALEPlots <- new_class(
     plots_2D <- NULL
     eff_plot <- NULL
 
-    # if (type == 'ale') {
     if (length(obj@params$ordered_x_cols$d1) >= 1) {
       # There is at least 1 1D ALE data element
       plots_1D <-
