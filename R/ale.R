@@ -222,7 +222,7 @@ ALE <- new_class(
     pred_type = "response",
     p_values = NULL,
     p_alpha = c(0.01, 0.05),
-    max_num_bins = 100,
+    max_num_bins = 10,
     boot_it = 0,
     seed = 0,
     boot_alpha = 0.05,

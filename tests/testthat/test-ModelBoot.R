@@ -7,11 +7,9 @@ test_that(
       test_gam,
       data = test_cars,
       ale_options = list(
-        max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       boot_it = 3,
-      # parallel = 2,
       silent = TRUE
     )
 
@@ -38,7 +36,6 @@ test_that(
       parallel = 0,
       boot_it = 0,
       ale_options = list(
-        max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE
@@ -69,7 +66,6 @@ test_that(
       parallel = 0,
       boot_it = 5,  # Normally 3 for the test, but 3 gives a warning, so leave at 5
       ale_options = list(
-        max_num_bins = 10,
         x_cols = c('vs', 'gear')
       ),
       silent = TRUE
@@ -118,7 +114,6 @@ test_that(
       parallel = 0,
       boot_it = 5,
       ale_options = list(
-        max_num_bins = 10,
         x_cols = c('cyl', 'disp')
       ),
       silent = TRUE
@@ -155,7 +150,6 @@ test_that(
       parallel = 0,
       boot_it = 5,
       ale_options = list(
-        max_num_bins = 10,
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),

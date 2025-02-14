@@ -18,7 +18,6 @@ test_that(
     cars_ale <- ALE(
       test_gam,
       data = test_cars,
-      max_num_bins = 10,
       p_values = pd,
       output = 'stats',
       boot_it = 3,

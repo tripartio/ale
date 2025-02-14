@@ -54,7 +54,6 @@ method(plot, ALE) <- function(x, ...) {
 #   test_gam,
 #   list(d1 = TRUE, d2_all = 'wt'),
 #   data = test_cars,
-#   max_num_bins = 10,
 #   parallel = 0,
 #   silent = TRUE,
 # )
@@ -442,7 +441,6 @@ method(plot, ModelBoot) <- function(
 #   boot_it = 10,
 #   output = c('ale', 'model_stats', 'model_coefs', 'boot_data'),
 #   ale_options = list(
-#     max_num_bins = 10,
 #     x_cols = list(d1 = c('cyl', 'wt', 'vs', 'gear', 'country'))
 #     # x_cols = list(d1 = c('wt', 'gear'), d2 = list(c('cyl', 'disp')))
 #   ),

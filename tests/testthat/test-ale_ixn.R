@@ -32,7 +32,6 @@ test_that(
       test_gam,
       x_cols = list(d2 = list(c('cyl', 'disp'))),
       data = test_cars,
-      max_num_bins = 10,
       parallel = 0,
       silent = TRUE
     )
@@ -105,7 +104,6 @@ test_that(
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
       data = test_cars,
-      max_num_bins = 10,
       parallel = 0,
       silent = TRUE
     )
@@ -165,7 +163,6 @@ test_that(
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
       data = test_cars,
-      max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
       silent = TRUE
@@ -192,7 +189,6 @@ test_that(
       ~ cyl:disp + drat:hp + wt:am + gear:qsec + carb:country +
         gear:am + am:continent + country:gear + country:continent,
       data = test_cars,
-      max_num_bins = 10,
       pred_type = 'probs',
       parallel = 0,
       boot_it = 2,
