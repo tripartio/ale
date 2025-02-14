@@ -42,11 +42,7 @@ ModelBoot <- new_class(
   #' @param model_call_string character string. If NULL, the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
   #' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
   #' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
-  #' @param model_call_string_vars character. Character vector of names of variables
-  #' included in `model_call_string` that are not columns in `data`.
-  #' If any such variables exist, they must be specified here or else parallel processing
-  #' will produce an error. If parallelization is disabled with `parallel = 0`,
-  #' then this is not a concern.
+  #' @param model_call_string_vars character. Character vector of names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern.
   #' @param parallel See documentation for [ALE()]
   #' @param model_packages See documentation for [ALE()]
   #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
@@ -381,7 +377,7 @@ ModelBoot <- new_class(
     # Major bootstrap loop ---------
 
     model_and_ale <-
-      # map2(
+      # map2(  # uncomment for debugging; furrr hides detailed error messages
       furrr::future_map2(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation
@@ -652,7 +648,7 @@ ModelBoot <- new_class(
                       'ALE calculation failed for iteration {btit}...',
                       class = 'ale_fail'
                     )
-                    # print(e)
+                    # print(e)  # uncomment to debug; later, log all errors in params
 
                     NULL
                   }
@@ -680,51 +676,6 @@ ModelBoot <- new_class(
                       ))
                   })
               )
-              # boot_ale@distinct |>
-                # map(\(it.cat) list(
-                #   d1 = it.cat$ale$d1 |>
-                #     map(\(it.x) list(
-                #       bins = it.x[[1]],
-                #       ns   = it.x[['.n']]
-                #     )),
-                #   d2 = it.cat$ale$d2 |>
-                #     map(\(it.x1) {
-                #       it.x1 |>
-                #         map(\(it.x2) list(
-                #           x1_bins = it.x2[[1]],
-                #           x2_bins = it.x2[[2]],
-                #           ns   = it.x2[['.n']]
-                #         ))
-                #     })
-                # ))
-
-                            # bins <<-
-              #   boot_ale@distinct |>
-              #   map(\(it.cat) {
-              #     it.cat$ale$d1 |>
-              #       map(\(it.x) it.x[[1]])
-              #   })
-              #
-              # ns <<-
-              #   boot_ale@distinct |>
-              #   map(\(it.cat) {
-              #     it.cat$ale$d1 |>
-              #       map(\(it.x) it.x$.n)
-              #   })
-
-              # bins <<-
-              #   boot_ale$data |>
-              #   map(\(it.x) {
-              #     if (!is.null(it.x$.ceil)) {  # numeric x
-              #       it.x$.ceil
-              #     } else {  # non-numeric x
-              #       it.x$.bin
-              #     }
-              #   })
-              #
-              # ns <<-
-              #   boot_ale$data |>
-              #   map(\(it.x) it.x$.n)
             }
 
           }  # end:  if ('ale' %in% output)
@@ -1142,10 +1093,6 @@ ModelBoot <- new_class(
     temp_objs <- c('model_call', 'n_rows', 'resolved_x_cols', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
-    # params <- params[
-    #   names(params) |>
-    #     setdiff(c())
-    # ]
 
     # Simplify some very large elements, especially closures that contain environments
     params$data <- params_data(

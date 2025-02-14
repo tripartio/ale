@@ -182,7 +182,6 @@ calc_ale <- function(
     #   eval()
     ## End: recursive ixn delta_pred -----------
 
-
     ## Iteratively set btit.X_lo and btit.X_hi values for each x variable in the interaction set ------------------
     for (it.x_col in x_cols) {
       if (xd[[it.x_col]]$x_type == 'numeric') {
