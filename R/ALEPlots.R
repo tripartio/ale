@@ -228,11 +228,8 @@ ALEPlots <- new_class(
       }) |>
       set_names(obj@params$y_cats)
 
-    # ale_plots_obj$params <- params
-    #
-    # class(ale_plots_obj) <- c('ale_plots')
-    #
-    # return(ale_plots_obj)
+    params$requested_x_cols <- obj@params$requested_x_cols
+    params$y_col            <- obj@params$y_col
 
     # Return S7 ALEPlots object
     return(new_object(
@@ -240,144 +237,6 @@ ALEPlots <- new_class(
       distinct = distinct,
       params = params
     ))
-
-    # }
-
-    # else if (type == 'effects') {
-    #   eff_plot <-
-    #     imap(obj@distinct, \(it.cat_data, it.cat_name) {
-    #       plot_effects(
-    #         estimates = it.cat_data$stats$d1$estimate,
-    #         y_summary = obj@params$y_summary[, it.cat_name],
-    #         y_col = it.cat_name,
-    #         middle_band = if (is.null(obj@params$p_values)) {
-    #           obj@params$median_band_pct
-    #         } else {
-    #           # Use p_value of NALED:
-    #           # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
-    #           # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-    #           obj@params$p_values@rand_stats[[it.cat_name]] |>
-    #             p_to_random_value('naled', obj@params$median_band_pct) |>
-    #             unname() |>
-    #             (`/`)(100)  # scale NALED from percentage to 0 to 1
-    #         }
-    #       )
-    #     })
-    #
-    #   # Set S3 class information for the ale_eff_plot object
-    #   class(eff_plot) <- c('ale_eff_plot')
-    #
-    #   return(eff_plot)
-    # }
   }  # ALEPlots constructor
 )  # ALEPlots
-
-  # S7::method(plot, ALE) <- function(
-
-
-# ALEPlots methods ------------------------
-
-#' @name plot.ALEPlots
-#' @title Plot method for ALEPlots object
-#'
-#' @description
-#' Plot an `ALEPlots` object.
-#'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
-#' @param ... Arguments to pass to [patchwork::wrap_plots()]
-#'
-#' @return Invisibly returns `x`.
-#'
-#' @examples
-#' \dontrun{
-#' my_object <- structure(list(name = "Example", value = 42), class = "my_class")
-#' print(my_object)
-#' }
-#'
-#' @method plot ALEPlots
-S7::method(plot, ALEPlots) <- function(
-    # plot.ALEPlots <- function(
-    x,
-    max_print = 20L,
-    ...
-) {
-  count_1D <- x@distinct |>
-    purrr::map_int(\(it.cat) length(it.cat$plots$d1))
-
-  count_2D <- if (x@params$max_d >= 2) {
-    x@distinct |>
-      purrr::map_int(\(it.cat) {
-        it.cat$plots$d2 |>
-          purrr::map_int(length) |>
-          sum()
-      })
-  } else {
-    0L
-  }
-
-  count_plots <- count_1D + count_2D
-
-  cat(
-    str_glue("'ALEPlots' object with {count_1D} 1D and {count_2D} 2D ALE plots."),
-    "\n"
-  )
-
-  if ((0 < count_1D) && (count_1D <= max_print)) {
-    x@distinct |>
-      purrr::walk(\(it.cat) {
-        it.cat$plots$d1 |>
-          patchwork::wrap_plots() |>
-          print(...)
-        # patchwork:::print.patchwork(...)
-      })
-  }
-  else if (count_1D > max_print) {
-    cli_alert_info(
-      "With more than {max_print} 1D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
-    )
-  }
-
-  if ((0 < count_2D) && (count_2D <= max_print)) {
-    x@distinct |>
-      walk(\(it.cat) {
-        it.cat$plots$d2 |>
-          purrr::list_flatten() |>
-          patchwork::wrap_plots() |>
-          print(...)
-        # patchwork:::print.patchwork(...)
-      })
-  }
-  else if (count_2D > max_print) {
-    cli_alert_info(
-      "With more than {max_print} 2D plots, either filter the specific plots to print or call {.fn print} with a higher value of the {.arg max_print} argument."
-    )
-  }
-
-  invisible(x)
-}  # plot.ALEPlots()
-
-
-#' @name print.ALEPlots
-#' @title Print method for ALEPlots object
-#'
-#' @description
-#' Print an ALEPlots object by calling plot().
-#'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print See documentation for [plot.ALEPlots()]
-#' @param ... Additional arguments (currently not used).
-#'
-#' @return Invisibly returns `x`.
-#'
-#' @method print ALEPlots
-S7::method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
-  # print.ALEPlots <- function(x, max_print = 20L, ...) {
-  getS3method("plot", "ale::ALEPlots")(x, max_print = max_print, ...)
-  # plot.ALEPlots(x, max_print = max_print, ...)
-}
-
-
-
-
 

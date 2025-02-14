@@ -109,9 +109,7 @@ ALEpDist <- new_class(
   #' )
   #'
   #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
-  #' diamonds_plots <- plot(ale_gam_diamonds)
-  #' diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
-  #' patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
+  #' plot(ale_gam_diamonds)
   #'
   #'
   #' # For non-standard models that give errors with the default settings,
@@ -127,7 +125,7 @@ ALEpDist <- new_class(
   #'     data = rand_data
   #'   )',
   #'   # only 100 iterations for a quick demo; but usually should remain at 1000
-  #'   rand_it = 100,
+  #'   rand_it = 100
   #' )
   #'
   #' }

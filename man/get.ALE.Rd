@@ -19,7 +19,7 @@ stats = 'estimate' (default for get_stats)
 stats = 'conf_regions'
 stats = 'conf_sig'}
 
-\item{cat}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
+\item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
 \item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest structure possible to give the requested results.}
 }

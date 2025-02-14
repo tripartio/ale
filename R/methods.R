@@ -88,7 +88,7 @@ method(plot, ALE) <- function(x, ...) {
 #' stats = 'estimate' (default for get_stats)
 #' stats = 'conf_regions'
 #' stats = 'conf_sig'
-#' @param cat character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
+#' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
 #'
 #' @returns Requested data as a list.
@@ -100,7 +100,7 @@ method(get, ALE) <- function(
     what = 'ale',
     ...,
     stats = NULL,
-    cat = NULL,
+    cats = NULL,
     simplify = TRUE
   ) {
   comp = 'distinct'
@@ -146,9 +146,9 @@ method(get, ALE) <- function(
 
   y_cats <- names(prop(obj, comp))
   validate(
-    is.null(cat) || is_string(cat, y_cats),
-    # is.null(cat) || cat %in% names(prop(obj, comp)),
-    msg = 'The values in the {.arg cat} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
+    is.null(cats) || is_string(cats, y_cats),
+    # is.null(cats) || cats %in% names(prop(obj, comp)),
+    msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
   validate(
@@ -159,8 +159,8 @@ method(get, ALE) <- function(
 
   ## Retrieve requested data --------------
 
-  if (is.null(cat)) {
-    cat <- y_cats
+  if (is.null(cats)) {
+    cats <- y_cats
   }
 
   # Rename what depending on what the user requests.
@@ -173,16 +173,11 @@ method(get, ALE) <- function(
       what
     }
 
-  # Get plots if the user wants plots from an ALE object
-  if (S7_inherits())
-
   all_what <- prop(obj, comp) |>
-    (`[`)(cat) |>
+    (`[`)(cats) |>
     map(\(it.cat) {
       it.cat[[what]]
     })
-
-  browser()
 
   if (what == 'stats') {
     specific_what <- all_what |>
@@ -219,8 +214,6 @@ method(get, ALE) <- function(
         if (stats %in% c('estimate', 'conf_sig')) {
           it.cat.d1 <- bind_rows(it.cat.d1)
         }
-
-        # browser()
 
         it.cat.d2 <- x_cols[['d2']] |>
           map(\(it.d2) {
@@ -266,7 +259,7 @@ method(get, ALE) <- function(
         )
       })
   }
-  # what = 'ale' or 'boot'
+  # all other cases: {what} is 'ale' or 'boot'
   else {
     specific_what <- all_what |>
       imap(\(it.cat, it.cat_name) {
@@ -469,56 +462,292 @@ method(plot, ModelBoot) <- function(
 #' @title get method for ModelBoot objects
 #'
 #' @description
-#' Retrieve specific ALE elements from a `ModelBoot` object. This method is similar to [get.ALE()] except that the user may specify `which` object ALE data to retrieve (see the argument definition for details).
+#' Retrieve specific ALE elements from a `ModelBoot` object. This method is similar to [get.ALE()] except that the user may specify what `type` of ALE data to retrieve (see the argument definition for details).
 #'
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param obj ModelBoot object from which to retrieve ALE elements.
-#' @param which character(1). Specify which kind of ModelBoot ALE elements to retrieve: `'single'` for the ALE calculated on the full data set or `'boot'` for the bootstrapped ALE data (based on full-model bootstrapping). The default `'auto'` will retrieve `'boot'` if it is available and `'single'` otherwise.
+#' @param type character(1). The type of ModelBoot ALE elements to retrieve: `'single'` for the ALE calculated on the full data set or `'boot'` for the bootstrapped ALE data (based on full-model bootstrapping). The default `'auto'` will retrieve `'boot'` if it is available and `'single'` otherwise.
 #'
 #' @returns See [get.ALE()]
 #'
 #' @method get ModelBoot
-S7::method(get, ModelBoot) <- function(
+method(get, ModelBoot) <- function(
     obj,
     x_cols = NULL,
     what = 'ale',
     ...,
-    which = 'auto',
+    type = 'auto',
     stats = NULL,
-    cat = NULL,
+    cats = NULL,
     simplify = TRUE
 ) {
 
   ## Validate arguments unique to get.ModelBoot (relative to get.ALE -------------
 
-  valid_which <- c('auto', 'boot', 'single')
+  valid_type <- c('auto', 'boot', 'single')
   validate(
-    is_string(which, valid_which),
-    msg = 'The {.arg which} argument must be one (and only one) of the following values: {valid_which}.'
+    is_string(type, valid_type),
+    msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
   )
 
   ## Pass to get.ALE for retrieval --------------
 
-  if (which == 'auto') {
-    which <- if (is.null(obj@ale$boot)) 'single' else 'boot'
+  if (type == 'auto') {
+    type <- if (is.null(obj@ale$boot)) 'single' else 'boot'
   }
 
   # Always use the single ALE object as the base structure
-  which_obj <- obj@ale$single
+  obj_type <- obj@ale$single
 
-  if (which == 'boot') {
+  if (type == 'boot') {
     # Replace the base structure with the bootstrapped data
-    which_obj@distinct <- obj@ale$boot$distinct
+    obj_type@distinct <- obj@ale$boot$distinct
   }
 
-  get(
-    which_obj,
+  method(get, ale::ALE)(
+    obj_type,
     x_cols = x_cols,
     what = what,
     stats = stats,
-    cat = cat,
+    cats = cats,
     simplify = simplify
   )
 }
 
+
+
+
+# ALEPlots methods ------------------------
+
+#' @name plot.ALEPlots
+#' @title Plot method for ALEPlots object
+#'
+#' @description
+#' Plot an `ALEPlots` object.
+#'
+#' @param x An object of class `ALEPlots`.
+#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' @param ... Arguments to pass to [patchwork::wrap_plots()]
+#'
+#' @return Invisibly returns `x`.
+#'
+#' @method plot ALEPlots
+method(plot, ALEPlots) <- function(
+    # plot.ALEPlots <- function(
+    x,
+    max_print = 20L,
+    ...
+) {
+  count_1D <- x@distinct |>
+    purrr::map_int(\(it.cat) length(it.cat$plots$d1))
+
+  count_2D <- if (x@params$max_d >= 2) {
+    x@distinct |>
+      purrr::map_int(\(it.cat) {
+        it.cat$plots$d2 |>
+          purrr::map_int(length) |>
+          sum()
+      })
+  } else {
+    0L
+  }
+
+  if ((0 < count_1D) && (count_1D <= max_print)) {
+    x@distinct |>
+      purrr::walk(\(it.cat) {
+        it.cat$plots$d1 |>
+          patchwork::wrap_plots(...) |>
+          print()
+      })
+  }
+  else if (count_1D > max_print) {
+    cli_alert_info(
+      "With more than {max_print} 1D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument."
+    )
+  }
+
+  if ((0 < count_2D) && (count_2D <= max_print)) {
+    x@distinct |>
+      walk(\(it.cat) {
+        it.cat$plots$d2 |>
+          purrr::list_flatten() |>
+          patchwork::wrap_plots(...) |>
+          print()
+      })
+  }
+  else if (count_2D > max_print) {
+    cli_alert_info(
+      "With more than {max_print} 2D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument."
+    )
+  }
+
+  invisible(x)
+}  # plot.ALEPlots()
+
+
+#' @name print.ALEPlots
+#' @title Print method for ALEPlots object
+#'
+#' @description
+#' Print an ALEPlots object by calling plot().
+#'
+#' @param x An object of class `ALEPlots`.
+#' @param max_print See documentation for [plot.ALEPlots()]
+#' @param ... Additional arguments (currently not used).
+#'
+#' @return Invisibly returns `x`.
+#'
+#' @method print ALEPlots
+method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
+  getS3method("plot", "ale::ALEPlots")(x, max_print = max_print, ...)
+}
+
+
+
+#' @name summary.ALEPlots
+#' @title summary method for ALEPlots object
+#'
+#' @description
+#' Present concise summary information about an `ALEPlots` object.
+#'
+#' @param object An object of class `ALEPlots`.
+#' @param ... Not used
+#'
+#' @return Summary string.
+#'
+#' @method summary ALEPlots
+method(summary, ALEPlots) <- function(
+    object,
+    ...
+) {
+  count_1D <- object@distinct |>
+    purrr::map_int(\(it.cat) length(it.cat$plots$d1))
+
+  count_2D <- if (object@params$max_d >= 2) {
+    object@distinct |>
+      purrr::map_int(\(it.cat) {
+        it.cat$plots$d2 |>
+          purrr::map_int(length) |>
+          sum()
+      })
+  } else {
+    0L
+  }
+
+  smy <- str_glue(
+    "'ALEPlots' object with {count_1D} 1D and {count_2D} 2D ALE plots."
+    )
+
+  return(smy)
+}  # summary.ALEPlots()
+
+
+
+
+#' @name get.ALEPlots
+#' @title get method for ALEPlots objects
+#'
+#' @description
+#' Retrieve specific plots from a `ALEPlots` object.
+#'
+#' See [get.ALE()] for explanation of parameters not described here.
+#'
+#' @param obj ALEPlots object from which to retrieve ALE elements.
+#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'eff'` for ALE effects plots.
+#'
+#' @returns See [get.ALE()]
+#'
+#' @method get ALEPlots
+method(get, ALEPlots) <- function(
+    obj,
+    x_cols = NULL,
+    ...,
+    type = 'ale',
+    cats = NULL
+) {
+  comp = 'distinct'
+  ## Validate inputs -------------
+
+  # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
+
+  # browser()
+
+  if (!is.null(x_cols)) {
+    x_cols <- validate_x_cols(
+      x_cols,
+      col_names = obj@params$requested_x_cols |>
+        unlist(use.names = FALSE) |>
+        unique(),
+      y_col = obj@params$y_col
+    )
+  }
+  else {
+    # NULL x_cols means: return everything available
+    x_cols <- obj@params$requested_x_cols
+  }
+
+  valid_type <- c('ale', 'eff')
+  validate(
+    is_string(type, valid_type),
+    msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
+  )
+
+  y_cats <- names(prop(obj, comp))
+  validate(
+    is.null(cats) || is_string(cats, y_cats),
+    msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
+  )
+
+
+  ## Retrieve requested plots --------------
+
+  if (is.null(cats)) {
+    cats <- y_cats
+  }
+
+  obj@distinct <- obj@distinct[cats]
+
+  if (type == 'ale') {
+    subset_plots <- prop(obj, comp) |>
+      imap(\(it.cat, it.cat_name) {
+        # browser()
+        it.cat.d1 <- x_cols[['d1']] |>
+          map(\(it.d1) {
+            it.cat$plots$d1[[it.d1]]
+          }) |>
+          set_names(x_cols[['d1']])
+
+        it.cat.d2 <- list()
+        for(it.d2 in x_cols[['d2']]) {
+          # brows-er()
+          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
+            it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
+        }
+
+        list(
+          plots = list(
+            d1 = it.cat.d1,
+            d2 = it.cat.d2
+          )
+        )
+      })
+
+    requested_plots <- obj
+    requested_plots@distinct <- subset_plots
+
+  }
+  else if (type == 'eff') {
+    requested_plots <- prop(obj, comp) |>
+      map(\(it.cat) it.cat$plots$eff)
+
+    if (length(names(requested_plots)) == 1) {
+      # Only one category: eliminate the category level
+      requested_plots <- requested_plots[[1]]
+    }
+  }
+
+  return(requested_plots)
+}

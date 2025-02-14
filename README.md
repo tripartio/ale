@@ -32,16 +32,16 @@ For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
 Machine Learning and Classical Techniques Based on Accumulated Local
 Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
 
-The `{ale}` package currently presents three main functions:
+The `{ale}` package currently defines three main `{S7}` classes:
 
-- `ale()`: create data and plots for 1D ALE (single variables) and 2D
-  ALE (two-way interactions). ALE values may be bootstrapped.
-- `model_bootstrap()`: bootstrap an entire model, not just the ALE
+- `ALE`: data for 1D ALE (single variables) and 2D ALE (two-way
+  interactions). ALE values may be bootstrapped.
+- `ModelBoot`: bootstrap results an entire model, not just the ALE
   values. This function returns the bootstrapped model statistics and
   coefficients as well as the bootstrapped ALE values. This is the
-  appropriate approach for small samples.
-- `create_p_dist()`: create a distribution object for calculating the
-  p-values for ALE statistics when `ale()` is called.
+  appropriate approach for models that have not been cross-validated.
+- `ALEpDist`: a distribution object for calculating the p-values for ALE
+  statistics when an `ALE` object is created.
 
 ## Documentation
 
@@ -51,7 +51,7 @@ most detailed documentation is found in the **[website for the most
 recent development version](https://tripartio.github.io/ale/)**. There
 you can find several articles. We particularly recommend:
 
-- [Introduction to the `ale`
+- [Introduction to the `{ale}`
   package](https://tripartio.github.io/ale/articles/ale-intro.html)
 - [ALE-based statistics for statistical inference and effect
   sizes](https://tripartio.github.io/ale/articles/ale-statistics.html)
@@ -109,6 +109,11 @@ a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
 library(ale)
+#> 
+#> Attaching package: 'ale'
+#> The following object is masked from 'package:base':
+#> 
+#>     get
 
 # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
 set.seed(0)
@@ -127,16 +132,16 @@ gam_diamonds <- mgcv::gam(
 ### Simple demonstration
 
 For the simple demonstration, we directly create ALE data with the
-`ale()` function and then plot the `ggplot` plot objects.
+`ALE()` function and then plot the `ggplot` plot objects.
 
 ``` r
 # Create ALE data
-ale_gam_diamonds <- ale(diamonds_sample, gam_diamonds)
+ale_gam_diamonds <- ALE(gam_diamonds)
 
 # Plot the ALE data
-diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots$distinct$price$plots[[1]]
-patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
+plot(ale_gam_diamonds) |> 
+  print(ncol = 2)
+#> 'ALEPlots' object with 9 1D and 0 2D ALE plots.
 ```
 
 <img src="man/figures/README-simple-ale-1.png" width="100%" />
@@ -161,8 +166,8 @@ statistics can be properly distinguished from random effects.
 
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.
-# gam_diamonds_p_readme <- create_p_dist(
-#   diamonds_sample, gam_diamonds,
+# gam_diamonds_p_readme <- ALEpDist(
+#   gam_diamonds, diamonds_sample,
 #   'precise slow',
 #   # Normally should be default 1000, but just 100 for quicker demo
 #   rand_it = 100
@@ -180,8 +185,8 @@ in the plots of bootstrapped ALE with p-values:
 # Create ALE data
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it bootstraps the ALE data 100 times, so this vignette loads a pre-created ALE object.
-# ale_gam_diamonds_stats_readme <- ale(
-#   diamonds_sample, gam_diamonds,
+# ale_gam_diamonds_stats_readme <- ALE(
+#   gam_diamonds,
 #   p_values = gam_diamonds_p_readme,
 #   boot_it = 100
 # )
@@ -191,9 +196,9 @@ ale_gam_diamonds_stats_readme <-
   readRDS()
 
 # Plot the ALE data
-diamonds_stats_plots <- plot(ale_gam_diamonds_stats_readme)
-diamonds_stats_1D_plots <- diamonds_stats_plots$distinct$price$plots[[1]]
-patchwork::wrap_plots(diamonds_stats_1D_plots, ncol = 2)
+plot(ale_gam_diamonds_stats_readme) |> 
+  print(ncol = 2)
+#> 'ALEPlots' object with 9 1D and 0 2D ALE plots.
 ```
 
 <img src="man/figures/README-stats-ale-1.png" width="100%" />

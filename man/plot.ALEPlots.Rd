@@ -16,10 +16,3 @@ Invisibly returns \code{x}.
 \description{
 Plot an \code{ALEPlots} object.
 }
-\examples{
-\dontrun{
-my_object <- structure(list(name = "Example", value = 42), class = "my_class")
-print(my_object)
-}
-
-}

@@ -229,9 +229,7 @@ summary(gam_diamonds)
 ale_gam_diamonds <- ALE(gam_diamonds)
 
 # Plot the ALE data
-diamonds_plots <- plot(ale_gam_diamonds)
-diamonds_1D_plots <- diamonds_plots@distinct$price$plots$d1
-patchwork::wrap_plots(diamonds_1D_plots, ncol = 2)
+plot(ale_gam_diamonds)
 
 # Bootstrapped ALE
 # This can be slow, since bootstrapping runs the algorithm boot_it times
@@ -243,9 +241,7 @@ ale_gam_diamonds_boot <- ALE(
 )
 
 # Bootstrapped ALEs print with confidence intervals
-diamonds_boot_plots <- plot(ale_gam_diamonds_boot)
-diamonds_boot_1D_plots <- diamonds_boot_plots@distinct$price$plots$d1
-patchwork::wrap_plots(diamonds_boot_1D_plots, ncol = 2)
+plot(ale_gam_diamonds_boot)
 
 
 # If the predict function you want is non-standard, you may define a
@@ -260,9 +256,7 @@ ale_gam_diamonds_custom <- ALE(
 )
 
 # Plot the ALE data
-diamonds_custom_plots <- plot(ale_gam_diamonds_custom)
-diamonds_custom_1D_plots <- diamonds_custom_plots@distinct$price$plots$d1
-patchwork::wrap_plots(diamonds_custom_1D_plots, ncol = 2)
+plot(ale_gam_diamonds_custom)
 
 }
 
