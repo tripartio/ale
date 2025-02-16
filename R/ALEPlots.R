@@ -5,6 +5,49 @@
 
 # ALEPlots object ------------------
 
+#' @title ALE plots with print and plot methods
+#'
+#' @description
+#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` creates all possible plots from the `ALE` or `ModelBoot` passed to its constructor---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. In addition to specific ALE See examples there or examples with the [ALE] and [ModelBoot] objects.
+
+#' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
+#' @param p_alpha numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
+#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
+#' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
+#' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for 2D interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
+#' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
+#' @param seed See documentation for [ALE()]
+#' @param silent See documentation for [ALE()]
+#'
+#'
+#' @returns An object of class `ALEPlots` with properties `distinct` and `params`.
+#'
+#' @section Properties:
+#' \describe{
+#'   \item{distinct}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
+#'   \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the `ALEPlots` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
+#'
+#'     * `max_d`: See documentation for [ALE()]
+#'     * `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
+#'     * `y_col`: See documentation for [ALE()]
+#'   }
+#' }
+#'
+#'
+#' @section 2D interaction plots:
+#' #' For the 2D interaction plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
+#' * The middle quantile is the first confidence interval of `median_band_pct` (`median_band_pct[1]`) around the median.
+#' This middle quantile is special because it generally represents no meaningful interaction.
+#' * The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
+#'
+#' There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If `n_y_quant` is even, then a middle quantile will be added to it. If `n_y_quant` is odd, then the number specified will be used, including the middle quantile.
+#'
+#'
+#' @examples
+#' # See examples with ALE and ModelBoot objects
+#'
 ALEPlots <- new_class(
   'ALEPlots',
   properties = list(
@@ -12,30 +55,8 @@ ALEPlots <- new_class(
     params   = class_list
   ),
 
-  #' @title Object to contain ALE plots
-  #'
-  #' @description
-  #' For the 2D plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
-  #' * The middle quantile is the first confidence interval of `median_band_pct` (`median_band_pct[1]`) around the median.
-  #' This middle quantile is special because it generally represents no meaningful interaction.
-  #' * The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
-  #'
-  #' There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If `n_y_quant` is even, then a middle quantile will be added to it. If `n_y_quant` is odd, then the number specified will be used, including the middle quantile.
-  #'
-  #'
-  #' @param x ALE object. The object of class `ALE` containing data to be plotted.
-  #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-  #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
-  #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-  #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
-  #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows otherwise they can be very slow for large datasets. By default, their size is the `sample_size` size from the `ale_obj` parameters. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALE` object would store the entire dataset).
-  #' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
-  #' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
-  #' @param seed See documentation for [ALE()]
-  #' @param silent See documentation for [ALE()]
-  #'
   constructor = function(
-    x,
+    obj,
     ...,
     relative_y = 'median',
     p_alpha = c(0.01, 0.05),
@@ -48,13 +69,9 @@ ALEPlots <- new_class(
     seed = 0,
     silent = FALSE
   ) {
-    # Rename the required x argument internally to obj
-    obj <- x
-    rm(x)
-
+    ## Validate arguments -------------
     validate(
       obj |> S7_inherits(ALE) || obj |> S7_inherits(ModelBoot),
-      # obj |> inherits('ale') || obj |> inherits('ale_boot'),
       msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
     )
 

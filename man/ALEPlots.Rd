@@ -2,10 +2,10 @@
 % Please edit documentation in R/ALEPlots.R
 \name{ALEPlots}
 \alias{ALEPlots}
-\title{Object to contain ALE plots}
+\title{ALE plots with print and plot methods}
 \usage{
 ALEPlots(
-  x,
+  obj,
   ...,
   relative_y = "median",
   p_alpha = c(0.01, 0.05),
@@ -20,19 +20,19 @@ ALEPlots(
 )
 }
 \arguments{
-\item{x}{ALE object. The object of class \code{ALE} containing data to be plotted.}
+\item{obj}{\code{ALE} or \code{ModelBoot} object. The object containing ALE data to be plotted.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{relative_y}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.}
 
-\item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
+\item{p_alpha}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
 \item{median_band_pct}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are not provided. If \code{p_values} are provided, then \code{median_band_pct} is ignored. The inner band range will be the median value of y ± \code{median_band_pct[1]/2}. For plots with a second outer band, its range will be the median ± \code{median_band_pct[2]/2}. For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
 
-\item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows otherwise they can be very slow for large datasets. By default, their size is the \code{sample_size} size from the \code{ale_obj} parameters. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALE} object would store the entire dataset).}
+\item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
 
-\item{n_x1_bins, n_x2_bins}{positive integer(1). Number of bins for the x1 or x2 axes respectively for interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
+\item{n_x1_bins, n_x2_bins}{positive integer(1). Number of bins for the x1 or x2 axes respectively for 2D interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
 
 \item{n_y_quant}{positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.}
 
@@ -40,8 +40,30 @@ ALEPlots(
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
+\value{
+An object of class \code{ALEPlots} with properties \code{distinct} and \code{params}.
+}
 \description{
-For the 2D plots, \code{n_y_quant} is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
+An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to its constructor---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. In addition to specific ALE See examples there or examples with the \link{ALE} and \link{ModelBoot} objects.
+}
+\section{Properties}{
+
+\describe{
+\item{distinct}{Stores the ALE plots. Use \code{\link[=get.ALEPlots]{get.ALEPlots()}} to access them.}
+\item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the \code{ALEPlots} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: See documentation for [ALE()]
+* `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
+* `y_col`: See documentation for [ALE()]
+}\if{html}{\out{</div>}}
+
+}
+}
+}
+
+\section{2D interaction plots}{
+
+#' For the 2D interaction plots, \code{n_y_quant} is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
 \itemize{
 \item The middle quantile is the first confidence interval of \code{median_band_pct} (\code{median_band_pct[1]}) around the median.
 This middle quantile is special because it generally represents no meaningful interaction.
@@ -49,4 +71,9 @@ This middle quantile is special because it generally represents no meaningful in
 }
 
 There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If \code{n_y_quant} is even, then a middle quantile will be added to it. If \code{n_y_quant} is odd, then the number specified will be used, including the middle quantile.
+}
+
+\examples{
+# See examples with ALE and ModelBoot objects
+
 }

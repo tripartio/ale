@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @description
-#' An `ALE` object contains ALE data and statistics. For details, see `vignette('ale-intro')` or the details and examples below.
+#' An `ALE` S7 object contains ALE data and statistics. For details, see `vignette('ale-intro')` or the details and examples below.
 #'
 #'
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
@@ -48,7 +48,7 @@
 #'
 #'     * `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
 #'     * `requested_x_cols`,`ordered_x_cols`: `requested_x_cols` is the resolved list of `x_cols` as requested by the user (that is, `x_cols` minus `exclude_cols`). `ordered_x_cols` is the same set of `x_cols` but arranged in the internal storage order.
-#'     * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_cols`.
+#'     * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_col`.
 #'     * `y_type`: high-level datatype of the y outcome variable.
 #'     * `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predicted values of `y_col` by applying `model` to the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5%' element is the 5th percentile of y values. The following elements have special meanings:
 #'     * The first element is named either `p` or `q` and its value is always 0.
@@ -102,7 +102,7 @@
 #'
 #'
 #' @examples
-# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
+#' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
 #' set.seed(0)
 #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 #'
