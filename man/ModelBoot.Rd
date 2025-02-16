@@ -23,7 +23,10 @@ ModelBoot(
   boot_alpha = 0.05,
   boot_centre = "mean",
   seed = 0,
-  output = c("ale", "model_stats", "model_coefs"),
+  output_model_stats = TRUE,
+  output_model_coefs = TRUE,
+  output_ale = TRUE,
+  output_boot_data = FALSE,
   ale_options = list(),
   tidy_options = list(),
   glance_options = list(),
@@ -57,13 +60,13 @@ ModelBoot(
 
 \item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data.}
 
-\item{output}{character vector. Which types of bootstrapped data to calculate and return:
-\itemize{
-\item 'ale': ALE data.
-\item 'model_stats': overall model statistics.
-\item 'model_coefs': model coefficients.
-\item 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this \code{output} argument.
-}}
+\item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics.}
+
+\item{output_model_coefs}{logical(1). If \code{TRUE} (default), return model coefficients.}
+
+\item{output_ale}{logical(1). If \code{TRUE} (default), return ALE data and statistics.}
+
+\item{output_boot_data}{logical(1). If \code{TRUE}, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default is \code{FALSE}.}
 
 \item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.}
 

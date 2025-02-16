@@ -13,7 +13,9 @@ ALE(
   exclude_cols = NULL,
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
-  output = c("ale_data", "stats", "conf"),
+  output_stats = TRUE,
+  output_conf = TRUE,
+  output_boot_data = FALSE,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
     object, newdata = newdata, type = type)
@@ -50,11 +52,15 @@ ALE(
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
-\item{output}{character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.}
+\item{output_stats}{logical(1). If \code{TRUE} (default), return ALE statistics.}
+
+\item{output_conf}{logical(1). If \code{TRUE} (default), return ALE confidence regions. If \code{output_stats} is \code{FALSE}, \code{output_conf} is ignored since confidence regions cannot be produced without ALE statistics.}
+
+\item{output_boot_data}{logical(1). If \code{TRUE}, return the raw ALE data for each bootstrap iteration. Default is \code{FALSE}.}
 
 \item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
 
-\item{p_values}{instructions for calculating p-values and to determine the median band. If \code{NULL} (default), no p-values are calculated and \code{median_band_pct} is used to determine the median band. To calculate p-values, an \code{\link[=ALEpDist]{ALEpDist()}} object must be provided here. If \code{p_values} is set to 'auto', this \code{ALE()} function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that p-values will not be generated if 'stats' are not included as an option in the \code{output} argument.}
+\item{p_values}{instructions for calculating p-values and to determine the median band. If \code{NULL} (default), no p-values are calculated and \code{median_band_pct} is used to determine the median band. To calculate p-values, an \code{\link[=ALEpDist]{ALEpDist()}} object must be provided here. If \code{p_values} is set to 'auto', this \code{ALE()} function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that p-values will not be generated if \code{output_stats} is \code{FALSE}.}
 
 \item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 

@@ -6,6 +6,122 @@
 
 # ALEpDist object -------------
 
+#' @title Object with the ALE statistics of a random variable for generating p-values
+#' @export
+#'
+#' @description
+#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `{ale}` package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the `{ale}` package is model-agnostic (that is, it works with any kind of R model), the [ALE()] constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALE()` constructor correctly manipulate its model object:
+#'
+#' * The full model call must be passed as a character string in the argument `random_model_call_string`, with two slight modifications as follows.
+#' * In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
+#' * The dataset on which the model is trained must be named 'rand_data'. This corresponds to the modified datasets that will be used to train the random variables.
+#'
+#' See the example below for how this is implemented.
+#'
+#'
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#'
+#'
+#'
+#' @param model See documentation for [ALE()]
+#' @param data See documentation for [ALE()]
+#' @param p_speed character(1). Either 'approx fast' (default) or 'precise slow'. See details.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param parallel See documentation for [ALE()]
+#' @param model_packages See documentation for [ALE()]
+#' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
+#' @param y_col See documentation for [ALE()]
+#' @param binary_true_value See documentation for [ModelBoot()]
+#' @param pred_fun,pred_type See documentation for [ALE()].
+#' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
+#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for "approximate" p-values as low as 100 for faster test runs but then the p-values are not as stable.
+#' @param seed See documentation for [ALE()]
+#' @param silent See documentation for [ALE()]
+#' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
+#'
+#' @returns An object of class `ALEpDist` with properties `rand_stats`, `residual_distribution`, `rand_it_ok`, and `residuals`.
+#'
+#' * `rand_it_ok`: An integer with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
+#' * `rand_stats`: A named list of tibbles. There is normally one element whose name is the same as `y_col` except if `y_col` is a categorical variable; in that case, the elements are named for each category of `y_col`. Each element is a tibble whose rows are each of the `rand_it_ok` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
+#' * `residual_distribution`: A `univariateML` object with the closest estimated distribution for the `residuals` as determined by [univariateML::model_select()]. This is the distribution used to generate all the random variables.
+#' * `residuals`: If `output_residuals == TRUE`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output_residuals == FALSE`, (default), does not return these residuals. The rows correspond to each row of `data`. The columns correspond to the named elements (`y_col` or categories) described above for `rand_stats`.
+#'
+#' @section Approach to calculating p-values:
+#' The `{ale}` package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
+#' * The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
+#' * The closest distribution of the residuals is detected with `univariateML::model_select()`.
+#' * 1000 new models are trained by generating a random variable each time with `univariateML::rml()` and then training a new model with that random variable added.
+#' * The ALEs and ALE statistics are calculated for each random variable.
+#' * For each ALE statistic, the empirical cumulative distribution function (from `stats::ecdf()`) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
+#'
+#' What we have just described is the precise approach to calculating p-values with the argument `p_speed = 'precise slow'`. Because it is so slow, by default, the `ALEpDist` constructor implements an approximate algorithm by default (`p_speed = 'approx fast'`) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE bins instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model two or three times. See the "Parallel processing" section below for more details on the speed of computation.
+#'
+#' @section Parallel processing:
+#' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
+#'
+#' For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an `ALEpDist` object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
+#'
+#' For approximate p-values (the default), at least four random variables are trained to give some minimal variation. With parallel processing, more random variables can be trained to increase the accuracy of the p_value estimates up to the maximum
+#' number of physical cores.
+#'
+#'
+#' @examples
+#' \donttest{
+#' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
+#' set.seed(0)
+#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+#'
+#' # Create a GAM with flexible curves to predict diamond price
+#' # Smooth all numeric variables and include all other variables
+#' gam_diamonds <- mgcv::gam(
+#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+#'     cut + color + clarity,
+#'   data = diamonds_sample
+#' )
+#' summary(gam_diamonds)
+#'
+#' # Create p_value distribution
+#' pd_diamonds <- ALEpDist(
+#'   gam_diamonds,
+#'   diamonds_sample,
+#'   # only 100 iterations for a quick demo; but usually should remain at 1000
+#'   rand_it = 100,
+#' )
+#'
+#' # Examine the structure of the returned object
+#' str(pd_diamonds)
+#' # In RStudio: View(pd_diamonds)
+#'
+#' # Calculate ALEs with p-values
+#' ale_gam_diamonds <- ALE(
+#'   gam_diamonds,
+#'   p_values = pd_diamonds
+#' )
+#'
+#' # Plot the ALE data. The horizontal bands in the plots use the p-values.
+#' plot(ale_gam_diamonds)
+#'
+#'
+#' # For non-standard models that give errors with the default settings,
+#' # you can use 'random_model_call_string' to specify a model for the estimation
+#' # of p-values from random variables as in this example.
+#' # See details above for an explanation.
+#' pd_diamonds <- ALEpDist(
+#'   gam_diamonds,
+#'   diamonds_sample,
+#'   random_model_call_string = 'mgcv::gam(
+#'     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+#'         cut + color + clarity + random_variable,
+#'     data = rand_data
+#'   )',
+#'   # only 100 iterations for a quick demo; but usually should remain at 1000
+#'   rand_it = 100
+#' )
+#'
+#' }
+#'
+
 ALEpDist <- new_class(
   'ALEpDist',
   properties = list(
@@ -15,121 +131,6 @@ ALEpDist <- new_class(
     residuals = class_double | NULL
   ),
 
-  #' @title Create an object of the ALE statistics of a random variable that can be used to generate p-values
-  #'
-  #' @description
-  #' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `{ale}` package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the `{ale}` package is model-agnostic (that is, it works with any kind of R model), the [ALE()] constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALE()` constructor correctly manipulate its model object:
-  #'
-  #' * The full model call must be passed as a character string in the argument 'random_model_call_string', with two slight modifications as follows.
-  #' * In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
-  #' * The dataset on which the model is trained must be named 'rand_data'. This corresponds to the modified datasets that will be used to train the random variables.
-  #'
-  #' See the example below for how this is implemented.
-  #'
-  #' @section Approach to calculating p-values:
-  #' The `{ale}` package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
-  #' * The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
-  #' * The closest distribution of the residuals is detected with `univariateML::model_select()`.
-  #' * 1000 new models are trained by generating a random variable each time with `univariateML::rml()` and then training a new model with that random variable added.
-  #' * The ALEs and ALE statistics are calculated for each random variable.
-  #' * For each ALE statistic, the empirical cumulative distribution function (from `stats::ecdf()`) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
-  #'
-  #' What we have just described is the precise approach to calculating p-values with the argument `p_speed = 'precise slow'`. Because it is so slow, by default, the `ALEpDist` constructor implements an approximate algorithm by default (`p_speed = 'approx fast'`) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE bins instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model two or three times. See the "Parallel processing" section below for more details on the speed of computation.
-  #'
-  #' @section Parallel processing:
-  #' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
-  #'
-  #' For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an `ALEpDist` object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
-  #'
-  #' For approximate p-values (the default), at least four random variables are trained to give some minimal variation. With parallel processing, more random variables can be trained to increase the accuracy of the p_value estimates up to the maximum
-  #' number of physical cores.
-  #'
-  #'
-  #' @export
-  #'
-  #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
-  #'
-  #'
-  #'
-  #' @param model See documentation for [ALE()]
-  #' @param data See documentation for [ALE()]
-  #' @param p_speed character(1). Either 'approx fast' (default) or 'precise slow'. See details.
-  #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-  #' @param parallel See documentation for [ALE()]
-  #' @param model_packages See documentation for [ALE()]
-  #' @param random_model_call_string character string. If NULL, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
-  #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
-  #' @param y_col See documentation for [ALE()]
-  #' @param binary_true_value See documentation for [ModelBoot()]
-  #' @param pred_fun,pred_type See documentation for [ALE()].
-  #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
-  #' @param rand_it non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.
-  #' @param seed See documentation for [ALE()]
-  #' @param silent See documentation for [ALE()]
-  #' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
-  #'
-  #' @return
-  #' The return value is an object of class `ALEpDist`. See examples for an illustration of how to inspect this list. Its elements are:
-  #' * `rand_stats`: A named list of tibbles. There is normally one element whose name is the same as `y_col` except if `y_col` is a categorical variable; in that case, the elements are named for each category of `y_col`. Each element is a tibble whose rows are each of the `rand_it_ok` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
-  #' * `residual_distribution`: A `univariateML` object with the closest estimated distribution for the `residuals` as determined by [univariateML::model_select()]. This is the distribution used to generate all the random variables.
-  #' * `rand_it_ok`: An integer with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
-  #' * `residuals`: If `output_residuals == TRUE`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output_residuals == FALSE`, (default), does not return these residuals. The rows correspond to each row of `data`. The columns correspond to the named elements described above for `rand_stats`.
-  #'
-  #' @examples
-  #' \donttest{
-  #' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-  #' set.seed(0)
-  #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
-  #'
-  #' # Create a GAM with flexible curves to predict diamond price
-  #' # Smooth all numeric variables and include all other variables
-  #' gam_diamonds <- mgcv::gam(
-  #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-  #'     cut + color + clarity,
-  #'   data = diamonds_sample
-  #' )
-  #' summary(gam_diamonds)
-  #'
-  #' # Create p_value distribution
-  #' pd_diamonds <- ALEpDist(
-  #'   gam_diamonds,
-  #'   diamonds_sample,
-  #'   # only 100 iterations for a quick demo; but usually should remain at 1000
-  #'   rand_it = 100,
-  #' )
-  #'
-  #' # Examine the structure of the returned object
-  #' str(pd_diamonds)
-  #' # In RStudio: View(pd_diamonds)
-  #'
-  #' # Calculate ALEs with p-values
-  #' ale_gam_diamonds <- ALE(
-  #'   gam_diamonds,
-  #'   p_values = pd_diamonds
-  #' )
-  #'
-  #' # Plot the ALE data. The horizontal bands in the plots use the p-values.
-  #' plot(ale_gam_diamonds)
-  #'
-  #'
-  #' # For non-standard models that give errors with the default settings,
-  #' # you can use 'random_model_call_string' to specify a model for the estimation
-  #' # of p-values from random variables as in this example.
-  #' # See details above for an explanation.
-  #' pd_diamonds <- ALEpDist(
-  #'   gam_diamonds,
-  #'   diamonds_sample,
-  #'   random_model_call_string = 'mgcv::gam(
-  #'     price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-  #'         cut + color + clarity + random_variable,
-  #'     data = rand_data
-  #'   )',
-  #'   # only 100 iterations for a quick demo; but usually should remain at 1000
-  #'   rand_it = 100
-  #' )
-  #'
-  #' }
-  #'
   constructor =  function(
     model,
     data = NULL,

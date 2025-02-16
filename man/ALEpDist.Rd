@@ -2,7 +2,7 @@
 % Please edit documentation in R/ALEpDist.R
 \name{ALEpDist}
 \alias{ALEpDist}
-\title{Create an object of the ALE statistics of a random variable that can be used to generate p-values}
+\title{Object with the ALE statistics of a random variable for generating p-values}
 \usage{
 ALEpDist(
   model,
@@ -20,7 +20,7 @@ ALEpDist(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
-  output = NULL,
+  output_residuals = FALSE,
   rand_it = 1000,
   seed = 0,
   silent = FALSE,
@@ -40,7 +40,7 @@ ALEpDist(
 
 \item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{random_model_call_string}{character string. If NULL, the \code{ALEpDist()} constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
+\item{random_model_call_string}{character(1). If \code{NULL}, the \code{ALEpDist()} constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
 
 \item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=ModelBoot]{ModelBoot()}}; their operation is very similar.}
 
@@ -50,9 +50,9 @@ ALEpDist(
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}.}
 
-\item{output}{character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.}
+\item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If \code{FALSE} (default), does not return the residuals.}
 
-\item{rand_it}{non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.}
+\item{rand_it}{non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for "approximate" p-values as low as 100 for faster test runs but then the p-values are not as stable.}
 
 \item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 
@@ -61,18 +61,18 @@ ALEpDist(
 \item{.testing_mode}{logical(1). Internal use only. Disables some data validation checks to allow for debugging.}
 }
 \value{
-The return value is an object of class \code{ALEpDist}. See examples for an illustration of how to inspect this list. Its elements are:
+An object of class \code{ALEpDist} with properties \code{rand_stats}, \code{residual_distribution}, \code{rand_it_ok}, and \code{residuals}.
 \itemize{
+\item \code{rand_it_ok}: An integer with the number of \code{rand_it} iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The \code{rand_it} - \code{rand_it_ok} failed attempts are discarded.
 \item \code{rand_stats}: A named list of tibbles. There is normally one element whose name is the same as \code{y_col} except if \code{y_col} is a categorical variable; in that case, the elements are named for each category of \code{y_col}. Each element is a tibble whose rows are each of the \code{rand_it_ok} iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
 \item \code{residual_distribution}: A \code{univariateML} object with the closest estimated distribution for the \code{residuals} as determined by \code{\link[univariateML:model_select]{univariateML::model_select()}}. This is the distribution used to generate all the random variables.
-\item \code{rand_it_ok}: An integer with the number of \code{rand_it} iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The \code{rand_it} - \code{rand_it_ok} failed attempts are discarded.
-\item \code{residuals}: If \code{output = 'residuals'}, returns a matrix of the actual \code{y_col} values from \code{data} minus the predicted values from the \code{model} (without random variables) on the \code{data}. If \code{output = NULL}, (default), does not return these residuals. The rows correspond to each row of \code{data}. The columns correspond to the named elements described above for \code{rand_stats}.
+\item \code{residuals}: If \code{output_residuals == TRUE}, returns a matrix of the actual \code{y_col} values from \code{data} minus the predicted values from the \code{model} (without random variables) on the \code{data}. If \code{output_residuals == FALSE}, (default), does not return these residuals. The rows correspond to each row of \code{data}. The columns correspond to the named elements (\code{y_col} or categories) described above for \code{rand_stats}.
 }
 }
 \description{
 ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the \code{{ale}} package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the \code{{ale}} package is model-agnostic (that is, it works with any kind of R model), the \code{\link[=ALE]{ALE()}} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALE()} constructor correctly manipulate its model object:
 \itemize{
-\item The full model call must be passed as a character string in the argument 'random_model_call_string', with two slight modifications as follows.
+\item The full model call must be passed as a character string in the argument \code{random_model_call_string}, with two slight modifications as follows.
 \item In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
 \item The dataset on which the model is trained must be named 'rand_data'. This corresponds to the modified datasets that will be used to train the random variables.
 }
