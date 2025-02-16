@@ -29,16 +29,3 @@ get <- new_generic("get", "obj", function(obj, ...) {
   }
 })
 
-
-# calc_p generic ----------
-
-#' S7 generic for calculating p-values for an object
-#'
-#' Calculate p-values
-#'
-#' @param obj object.
-#' @param ... Arguments to pass to the implemented method.
-#'
-calc_p <- new_generic("calc_p", "obj", function(obj, ...) {
-  S7_dispatch()
-})
