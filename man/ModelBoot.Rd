@@ -2,7 +2,7 @@
 % Please edit documentation in R/ModelBoot.R
 \name{ModelBoot}
 \alias{ModelBoot}
-\title{A statistics and ALE data of a bootstrapped model}
+\title{Statistics and ALE data for a bootstrapped model}
 \usage{
 ModelBoot(
   model,
@@ -20,9 +20,9 @@ ModelBoot(
  },
   pred_type = "response",
   boot_it = 100,
-  seed = 0,
   boot_alpha = 0.05,
   boot_centre = "mean",
+  seed = 0,
   output = c("ale", "model_stats", "model_coefs"),
   ale_options = list(),
   tidy_options = list(),
@@ -31,90 +31,121 @@ ModelBoot(
 )
 }
 \arguments{
-\item{model}{See documentation for \code{\link[=ALE]{ALE()}}}
+\item{model}{Required. See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{data}{dataframe. Dataset that will be bootstrapped. If not provided, \code{ModelBoot()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
+\item{data}{dataframe. Dataset that will be bootstrapped. This must be the same data on which the \code{model} was trained. If not provided, \code{ModelBoot()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{model_call_string}{character string. If NULL, the \code{ModelBoot} tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes \code{boot_data} as the data argument for the call. See examples.}
+\item{model_call_string}{character(1). If NULL (default), the \code{ModelBoot} tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes \code{boot_data} as the data argument for the call. See examples.}
 
-\item{model_call_string_vars}{character. Character vector of names of variables included in \code{model_call_string} that are not columns in \code{data}. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with \code{parallel = 0}, then this is not a concern.}
+\item{model_call_string_vars}{character. Names of variables included in \code{model_call_string} that are not columns in \code{data}. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with \code{parallel = 0}, then this is not a concern. See documentation for the \code{model_packages} argument in \code{\link[=ALE]{ALE()}}.}
 
 \item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
+\item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}. Used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
 
-\item{binary_true_value}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value} as \code{2}.}
+\item{binary_true_value}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value = 2}.}
 
-\item{boot_it}{integer from 0 to Inf. Number of bootstrap iterations.
-If boot_it = 0, then the model is run as normal once on the full \code{data} with
-no bootstrapping.}
+\item{boot_it}{non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if \code{\link[=ALE]{ALE()}} with bootstrapping is not more appropriate than \code{\link[=ModelBoot]{ModelBoot()}}. If \code{boot_it = 0}, then the model is run as normal once on the full \code{data} with no bootstrapping.}
 
-\item{seed}{integer. Random seed. Supply this between runs to assure identical
-bootstrap samples are generated each time on the same data.}
+\item{boot_alpha}{numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the intervals will be from the 2.5 and 97.5 percentiles.}
 
-\item{boot_alpha}{numeric. The confidence level for the bootstrap confidence intervals is
-1 - boot_alpha. For example, the default 0.05 will give a 95\% confidence
-interval, that is, from the 2.5\% to the 97.5\% percentile.}
+\item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
-\item{boot_centre}{See See documentation for \code{\link[=ALE]{ALE()}}}
+\item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data.}
 
-\item{output}{character vector. Which types of bootstraps to calculate and return:
+\item{output}{character vector. Which types of bootstrapped data to calculate and return:
 \itemize{
-\item 'ale': Calculate and return bootstrapped ALE data.
-\item 'model_stats': Calculate and return bootstrapped overall model statistics.
-\item 'model_coefs': Calculate and return bootstrapped model coefficients.
-\item 'boot_data': Return full data for all bootstrap iterations. This data will always be calculated
-because it is needed for the bootstrap averages. By default, it is not returned
-except if included in this \code{output} argument.
+\item 'ale': ALE data.
+\item 'model_stats': overall model statistics.
+\item 'model_coefs': model coefficients.
+\item 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this \code{output} argument.
 }}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}}, \code{\link[broom:reexports]{broom::tidy()}}, or \code{\link[broom:reexports]{broom::glance()}} functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.}
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
-list with the following elements (depending on values requested in the \code{output} argument:
-\itemize{
-\item \code{model_stats}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}
-\item \code{boot_valid}: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
-\itemize{
-\item mae: mean absolute error (bootstrap validated)
-\item mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
-\item sa_mae_mad: standardized accuracy of the MAE referenced on the MAD (bootstrap validated)
-\item rmse: root mean squared error (bootstrap validated)
-\item standard deviation (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
-\item sa_rmse_sd: standardized accuracy of the RMSE referenced on the SD (bootstrap validated)
-}
-\item \code{model_coefs}: tibble of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}
-\item \code{ale}: list of bootstrapped ALE results
-\itemize{
-\item \code{data}: ALE data (see \code{\link[=ALE]{ALE()}} for details about the format)
-\item \code{stats}: ALE statistics. The same data is duplicated with different views that might be variously useful:
-\itemize{
-\item \code{by_term}: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the \code{broom} package. The confidence intervals are based on the \code{\link[=ALE]{ALE()}} function defaults; they can be changed with the \code{ale_options} argument. The estimate is the median or the mean, depending on the \code{boot_centre} argument.
-\item \code{by_stat} : term, estimate, conf.low, median, mean, conf.high.
-\item \code{estimate}: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
-}
-}
-\item \code{boot_data}: full bootstrap data (not returned by default)
-\item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that were originally passed are returned for reference.
-}
+An object of class \code{ALE} with properties \code{model_stats}, \code{model_coefs}, \code{ale}, \code{model_stats}, \code{boot_data}, and \code{params}.
 }
 \description{
-No modelling results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets, normally the model provided to \code{\link[=ALE]{ALE()}} is the final deployment model that has been validated and evaluated on training and testing on subsets; that is why \code{\link[=ALE]{ALE()}} is calculated on the full dataset. However, when a dataset is too small to be subdivided into training and test sets for a standard machine learning process, then the entire model should be bootstrapped. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are. For details, see the vignette on small datasets or the details and examples below.
+A \code{ModelBoot} object contains full-model bootstrapped statistics and ALE data for a trained model. Full-model bootstrapping (as distinct from data-only bootstrapping) retrains a model for each bootstrap iterations. Thus, it is very slow, though more reliable. However, for obtaining bootstrapped ALE data, plots, and statistics, full-model bootstrapping as provided by \code{ModelBoot} is only necessary for models that have not been developed by cross-validation. For cross-validated models, it is sufficient (and much faster) to create a regular \code{ALE} object with bootstrapping by setting the \code{boot_it} argument there. In fact, full-model bootstrapping with \code{ModelBoot} is often infeasible for slow machine-learning models trained on large datasets, which should rather be cross-validated to assure their reliability. However, for models that have not been cross-validated, full-model bootstrapping with \code{ModelBoot} is necessary for reliable results. Further details follow below; see also \code{vignette('ale-statistics')}.
+}
+\section{Properties}{
 
-\code{\link[=ModelBoot]{ModelBoot()}} automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
+\describe{
+\item{model_stats}{
+\code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::glance()}}. \code{NULL} if \code{model_stats} argument is \code{FALSE}. In general, only \code{\link[broom:reexports]{broom::glance()}} results that make sense when bootstrapped are included, such as \code{df} and \code{adj.r.squared}. Results that are incomparable across bootstrapped datasets (such as \code{aic}) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
+\itemize{
+\item For regression (numeric prediction) models:
+\itemize{
+\item \code{mae}: mean absolute error (MAE)
+\item \code{sa_mae_mad}: standardized accuracy of the MAE referenced on the mean absolute deviation
+\item \code{rmse}: root mean squared error (RMSE)
+\item \code{sa_rmse_sd}: standardized accuracy of the RMSE referenced on the standard deviation
+}
+\item For classification (probability) models:
+\itemize{
+\item \code{auc}: area under the ROC curve
+}
+}
+}
+
+\item{model_coefs}{
+A \code{tibble} of bootstrapped results from \code{\link[broom:reexports]{broom::tidy()}}.
+\code{NULL} if \code{model_coefs} argument is \code{FALSE}.
+}
+\item{ale}{
+A list of bootstrapped ALE results using default \code{\link[=ALE]{ALE()}} settings unless if overridden with \code{ale_options}. \code{NULL} if \code{ale} argument is \code{FALSE}. Elements are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  * `single`: an `ALE` object of ALE calculations on the full dataset without bootstrapping.
+  * `boot`: a list of bootstrapped ALE data and statistics. This element is not an `ALE` object; it is in a special internal format.
+}\if{html}{\out{</div>}}
+
+}
+\item{boot_data}{
+A \code{tibble} of bootstrap results. Each row represents a bootstrap iteration. \code{NULL} if \code{boot_data} argument is \code{FALSE}. The columns are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  * `it`: the specific bootstrap iteration from 0 to `boot_it` iterations. Iteration 0 is the results from the full dataset (not bootstrapped).
+  * `row_idxs`: the row indexes for the bootstrapped sample for that iteration. To save space, the row indexes are returned rather than the full datasets. So, for example, iteration i's bootstrap sample can be reproduced by `data[ModelBoot_obj@boot_data$row_idxs[[2]], ]` where `data` is the dataset and `ModelBoot_obj` is the result of `ModelBoot()`.
+  * `model`: the model object trained on that iteration.
+  * `tidy`: the results of `broom::tidy(model)` on that iteration.
+  * `stats`: the results of `broom::glance(model)` on that iteration.
+  * `perf`: performance measures on the entire dataset. These are the measures specified above for regression and classification models.
+}\if{html}{\out{</div>}}
+
+}
+
+\item{params}{
+Parameters used to calculate bootstrapped data. Most of these repeat the arguments passed to \code{ModelBoot()}. These are either the values provided by the user or used by default if the user did not change them but the following additional objects created internally are also provided:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `y_cats`: same as `ALE@params$y_cats` (see documentation there).
+* `y_type`: same as `ALE@params$y_type` (see documentation there).
+* `model`: same as `ALE@params$model` (see documentation there).
+* `data`: same as `ALE@params$data` (see documentation there).
+}\if{html}{\out{</div>}}
+
+}
+}
+}
+
+\section{Full-model bootstrapping}{
+
+No modelling results, with or without ALE, should be considered reliable without appropriate validation. For ALE, both the trained model itself and the ALE that explains the trained model must be validated. ALE must be validated by bootstrapping. The trained model might be validated either by cross-validation or by bootstrapping. For ALE that explains trained models that have been developed by cross-validation, it is sufficient to bootstrap just the training data. That is what the \code{ALE} object does with its \code{boot_it} argument. However, unvalidated models must be validated by bootstrapping them along with the calculation of ALE; this is what the \code{ModelBoot} object does with its \code{boot_it} argument.
+
+\code{\link[=ModelBoot]{ModelBoot()}} carries out full-model bootstrapping to validate models. Specifically, it:
 \itemize{
 \item Creates multiple bootstrap samples (default 100; the user can specify any number);
 \item Creates a model on each bootstrap sample;
-\item Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
+\item Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 \item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 }
 }
+
 \section{p-values}{
 
 The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a \code{ModelBoot} object is created. Although the \code{\link[=ALE]{ALE()}} function provides an 'auto' option for creating p-values, that option is disabled when creating a \code{ModelBoot} because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in \code{help(-ALEpDist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you create a \code{ModelBoot} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
@@ -141,14 +172,14 @@ mb_gam <- ModelBoot(
   boot_it = 4
 )
 
-# If the model is not standard, supply model_call_string with
-# 'data = boot_data' in the string (not as a direct argument to the `ModelBoot` constructor)
+# If the model is not standard, supply model_call_string with 'data = boot_data' in the string instead of the actual dataset name (in addition to the actual dataset as the 'data' argument directly to the `ModelBoot` constructor)
 mb_gam <- ModelBoot(
   gam_attitude,
+  data = attitude,  # the actual dataset
   model_call_string = 'mgcv::gam(
     rating ~ complaints + privileges + s(learning) +
       raises + s(critical) + advance,
-    data = boot_data
+    data = boot_data  # required for model_call_string
   )',
   boot_it = 4
 )

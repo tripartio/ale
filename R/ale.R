@@ -5,206 +5,157 @@
 
 # ALE object ------------------
 
+#' @title ALE data and statistics that describe a trained model
+#' @export
+#'
+#' @description
+#' An `ALE` object contains ALE data and statistics. For details, see `vignette('ale-intro')` or the details and examples below.
+#'
+#'
+#' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
+#' @param x_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See [get.ALE()] for details.
+#' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
+#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed. See [get.ALE()] for details.
+#' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set `parallel = 0` to disable parallel processing. See details.
+#' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
+#' @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
+#' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
+#' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [ALEpDist()]. Note that p-values will not be generated if 'stats' are not included as an option in the `output` argument.
+#' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
+#' @param max_num_bins positive integer(1). Maximum number of bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`.
+#' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the `ModelBoot` class. See details there. The default `boot_it = 0` turns off bootstrapping.
+#' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
+#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified.
+#' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.
+#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
+#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
+#' @param .bins Internal. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
+#' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
+#'
+#'
+#' @returns An object of class `ALE` with properties `distinct` and `params`.
+#'
+#' @section Properties:
+#' \describe{
+#'   \item{distinct}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
+#'   \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the `ALE` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
+#'
+#'     * `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
+#'     * `requested_x_cols`,`ordered_x_cols`: `requested_x_cols` is the resolved list of `x_cols` as requested by the user (that is, `x_cols` minus `exclude_cols`). `ordered_x_cols` is the same set of `x_cols` but arranged in the internal storage order.
+#'     * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_cols`.
+#'     * `y_type`: high-level datatype of the y outcome variable.
+#'     * `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predicted values of `y_col` by applying `model` to the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5%' element is the 5th percentile of y values. The following elements have special meanings:
+#'     * The first element is named either `p` or `q` and its value is always 0.
+#'       The value is not used; only the name of the element is meaningful.
+#'       `p` means that the following special `y_summary` elements are based on
+#'       the provided `ALEpDist` object. `q` means that quantiles were calculated
+#'       based on `median_band_pct` because `p_values` was not provided.
+#'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively. Note that the median is `50%`, the 50th percentile.
+#'     * `med_lo_2`, `med_lo`, `med_hi`, `med_hi_2`: `med_lo` and `med_hi` are the inner lower and upper confidence intervals of y values with respect to the median (`50%`); `med_lo_2` and `med_hi_2` are the outer confidence intervals. See the documentation for the `p_alpha` and `median_band_pct` arguments to understand how these are determined.
+#'     * `model`: same as `ALE@params$model` (see documentation there).
+#'     * `data`: same as `ALE@params$model` (see documentation there).
+#'   }
+#' }
+#'
+#' @section Custom predict function:
+#' The calculation of ALE requires modifying several values of the original `data`. Thus, `ALE()` needs direct access to the `predict` function for the `model`. By default, `ALE()` uses a generic default `predict` function of the form `predict(object, newdata, type)` with the default prediction type of `'response'`. If, however, the desired prediction values are not generated with that format, the user must specify what they want. Very often, the only modification needed is to change the prediction type to some other value by setting the `pred_type` argument (e.g., to `'prob'` to generated classification probabilities). But if the desired predictions need a different function signature, then the user must create a custom prediction function and pass it to `pred_fun`. The requirements for this custom function are:
+#'
+#' * It must take three required arguments and nothing else:
+#'     * `object`: a model
+#'     * `newdata`: a dataframe or compatible table type such as a tibble or data.table
+#'     * `type`: a string; it should usually be specified as `type = pred_type`
+#'     These argument names are according to the R convention for the generic [stats::predict()] function.
+#' * It must return a vector or matrix of numeric values as the prediction.
+#'
+#' You can see an example below of a custom prediction function.
+#'
+#' **Note:** `survival` models probably do not need a custom prediction function but `y_col` must be set to the name of the binary event column and `pred_type` must be set to the desired prediction type.
+#'
+#'
+#' @section ALE statistics:
+#' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`.
+#'
+#'
+#' @section Parallel processing:
+#' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer. If you will dedicate the entire computer to running this function (and you don't mind everything else becoming very slow while it runs), you may use all cores by setting `parallel = future::availableCores(logical = FALSE)`. To disable parallel processing, set `parallel = 0`.
+#'
+#'#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
+#'
+#' @section Progress bars:
+#' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. To disable progress bars, set `silent = TRUE`. The first time a function is called in the `{ale}` package that requires progress bars, it checks if the user has activated the necessary `{progressr}` settings. If not, the `{ale}` package automatically enables `{progressr}` progress bars with the `cli` handler and prints a message notifying the user.
+#'
+#' If you like the default progress bars and you want to make them permanent, you can add the following lines of code to your `.Rprofile` configuration file and they will become your defaults for every R session; you will not see the message again:
+#' ```R
+#' progressr::handlers(global = TRUE)
+#' progressr::handlers('cli')
+#' ```
+#' This would apply not only to the `{ale}` package but to any package that uses `{progressr}` progress bars. For more details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html).
+#'
+#'
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#'
+#'
+#' @examples
+# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
+#' set.seed(0)
+#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+#'
+#' # Create a GAM model with flexible curves to predict diamond price
+#' # Smooth all numeric variables and include all other variables
+#' gam_diamonds <- mgcv::gam(
+#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+#'     cut + color + clarity,
+#'   data = diamonds_sample
+#' )
+#' summary(gam_diamonds)
+#'
+#'
+#' \donttest{
+#'
+#' # Simple ALE without bootstrapping
+#' ale_gam_diamonds <- ALE(gam_diamonds)
+#'
+#' # Plot the ALE data
+#' plot(ale_gam_diamonds)
+#'
+#' # Bootstrapped ALE
+#' # This can be slow, since bootstrapping runs the algorithm boot_it times
+#'
+#' # Create ALE with 100 bootstrap samples
+#' ale_gam_diamonds_boot <- ALE(
+#'   gam_diamonds,
+#'   boot_it = 100
+#' )
+#'
+#' # Bootstrapped ALEs print with confidence intervals
+#' plot(ale_gam_diamonds_boot)
+#'
+#'
+#' # If the predict function you want is non-standard, you may define a
+#' # custom predict function. It must return a single numeric vector.
+#' custom_predict <- function(object, newdata, type = pred_type) {
+#'   predict(object, newdata, type = type, se.fit = TRUE)$fit
+#' }
+#'
+#' ale_gam_diamonds_custom <- ALE(
+#'   gam_diamonds,
+#'   pred_fun = custom_predict, pred_type = 'link'
+#' )
+#'
+#' # Plot the ALE data
+#' plot(ale_gam_diamonds_custom)
+#'
+#' }
+#'
 ALE <- new_class(
   'ALE',
   properties = list(
     distinct = class_list,
     params   = class_list
   ),
-
-  #' @title ALE data and statistics that describe a trained model
-  #'
-  #' @description
-  #' An `ALE` object contains ALE data and statistics. For details, see `vignette('ale-intro')` or the details and examples below.
-  #'
-  #' @section Custom predict function:
-  #' The calculation of ALE requires modifying several values of the original `data`. Thus, `ALE()` needs direct access to a `predict` function that work on `model`. By default, `ALE()` uses a generic default `predict` function of the form `predict(object, newdata, type)` with the default prediction type of 'response'. If, however, the desired prediction values are not generated with that format, the user must specify what they want. Most of the time, the only modification needed is to change the prediction type to some other value by setting the `pred_type` argument (e.g., to 'prob' to generated classification probabilities). But if the desired predictions need a different function signature, then the user must create a custom prediction function and pass it to `pred_fun`. The requirements for this custom function are:
-  #'
-  #' * It must take three required arguments and nothing else:
-  #'     * `object`: a model
-  #'     * `newdata`: a dataframe or compatible table type
-  #'     * `type`: a string; it should usually be specified as `type = pred_type`
-  #'     These argument names are according to the R convention for the generic [stats::predict()] function.
-  #' * It must return a vector of numeric values as the prediction.
-  #'
-  #' You can see an example below of a custom prediction function.
-  #'
-  #' **Note:** `survival` models probably do not need a custom prediction function but `y_col` must be set to the name of the binary event column and `pred_type` must be set to the desired prediction type.
-  #'
-  #'
-  #' @section ALE statistics:
-  #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`.
-  #'
-  #'
-  #' @section Parallel processing:
-  #' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer. If you will dedicate the entire computer to running this function (and you don't mind everything else becoming very slow while it runs), you may use all cores by setting `parallel = future::availableCores(logical = FALSE)`. To disable parallel processing, set `parallel = 0`.
-  #'
-  #'
-  #' @section Progress bars:
-  #' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. **To disable progress bars, set `silent = TRUE`.** The first time a function is called in the `{ale}` package that requires progress bars, it checks if the user has activated the necessary `{progressr}` settings. If not, the `{ale}` package automatically enables `{progressr}` progress bars with the `cli` handler and prints a message notifying the user.
-  #'
-  #' If you like the default progress bars and you want to make them permanent, then you can add the following lines of code to your `.Rprofile` configuration file and they will become your defaults for every R session; you will not see the message again:
-  #' ```R
-  #' progressr::handlers(global = TRUE)
-  #' progressr::handlers('cli')
-  #' ```
-  #' For more details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html).
-  #'
-  #'
-  #' @export
-  #'
-  #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
-  #'
-  #'
-  #' @param model model object. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
-  #' @param x_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`.
-  #' @param data dataframe. Dataset from which to create predictions for the ALE. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
-  #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
-  #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-  #' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed.
-  # @param complete_d integer(1 or 2). If `x_cols` is `NULL` (default), `complete_d = 1L` (default) will generate all 1D ALE data; `complete_d = 2L` will generate all 2D ALE data; and `complete_d = c(1L, 2L)` will generate both. If `x_cols` is anything other than `NULL`, `complete_d` is ignored and internally set to `NULL`.
-  #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. See details.
-  #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious. The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
-  #' @param output character in c('data', 'stats', 'conf_regions', 'boot_data'). Vector of types of results to return. 'data' will return the source ALE data; 'stats' will return ALE statistics; 'boot' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot'.
-  #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
-  #' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [ALEpDist()]. Note that p-values will not be generated if 'stats' are not included as an option in the `output` argument.
-  #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-  #' @param max_num_bins positive integer length 1. Maximum number of bins for numeric `x_cols` variables. The number of bins that the algorithm generates might eventually be fewer than what the user specifies if the data values for a given x value do not support that many bins.
-  #' @param boot_it non-negative integer length 1. Number of bootstrap iterations for the
-  #' ALE values. If `boot_it = 0` (default), then ALE will be calculated on the entire dataset
-  #' with no bootstrapping.
-  #' @param seed integer length 1. Random seed. Supply this between runs to assure that
-  #' identical random ALE data is generated each time
-  #' @param boot_alpha numeric length 1 from 0 to 1. Alpha for percentile-based confidence
-  #' interval range for the bootstrap intervals; the bootstrap confidence intervals
-  #' will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example,
-  #' if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5
-  #' percentiles.
-  #' @param boot_centre character length 1 in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
-  #' @param y_type character length 1. Datatype of the y (outcome) variable.
-  #' Must be one of c('binary', 'numeric', 'categorical', 'ordinal'). Normally
-  #' determined automatically; only provide for complex non-standard models that
-  #' require it.
-  #' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
-  #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
-  # @param min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `sample_size` rows otherwise they are too slow. They maintain representativeness of the data by guaranteeing that each of the `max_num_bins` intervals will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `sample_size` to `Inf` (but that would enlarge the size of the `ALE` object to include the entire dataset).
-  #' @param .bins Internal. List of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), [ALE()] automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
-  # @param bins,ns list of bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), the function automatically calculates the bins. `bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping; see [ModelBoot()]).
-  #' @param silent logical length 1, default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
-  #'
-  #'
-  #' @return list with the following elements:
-  #' * `data`: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
-  #'     * `.bin` or `.ceil`: For non-numeric x, `.bin` is the value of each of the ALE categories. For numeric x, `.ceil` is the value of the upper bound of each ALE bin. The first "bin" of numeric variables represents the minimum value.
-  #'     * `.n`: the number of rows of data in each bin represented by `.bin` or `.ceil`. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
-  #'     * `.y`: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if the `boot_centre = 'median'` argument is specified. Regardless, both `.y_mean` and `.y_median` are returned as columns here.
-  #'     * `.y_lo`, `.y_hi`: the lower and upper confidence intervals, respectively, for the bootstrapped `.y` value.
-  #'   Note: regardless what options are requested in the `output` argument, this `data` element is always returned.
-  #' * `boot_data`: if `boot` is requested in the `output` argument, returns a list whose elements, named by each requested x variable, are each a matrix. If not requested (as is the default) or if `boot_it == 0`, returns `NULL`. Each matrix element is the `.y` value of each bin ( `.bin` or `.ceil`) (unnamed rows) for each `boot_it` bootstrap iteration (unnamed columns).
-  #' * `stats`: if `stats` are requested in the `output` argument (as is the default),
-  #'   returns a list. If not requested, returns `NULL`. The returned list provides
-  #'   ALE statistics of the `data` element duplicated and presented from various
-  #'   perspectives in the following elements:
-  #'     * `by_term`: a list named by each requested x variable, each of whose elements
-  #'       is a tibble with the following columns:
-  #'         * `statistic`: the ALE statistic specified in the row (see
-  #'           the `by_stat` element below).
-  #'         * `estimate`: the bootstrapped `mean` or `median` of the `statistic`,
-  #'           depending on the `boot_centre` argument to the [ALE()] function.
-  #'           Regardless, both `mean` and `median` are returned as columns here.
-  #'         * `conf.low`, `conf.high`: the lower and upper confidence intervals,
-  #'           respectively, for the bootstrapped `estimate`.
-  #'     * `by_stat`: list named by each of the following ALE statistics:
-  #'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`. See
-  #'      `vignette('ale-statistics')` for details.
-  #'     * `estimate`: a tibble whose data consists of the `estimate` values from the
-  #'       `by_term` element above. The columns are `term` (the variable name) and the
-  #'       statistic for which the estimate is given:
-  #'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`.
-  #'     * `effects_plot`: a `ggplot` object which is the ALE effects plot for all the
-  #'       x variables.
-  #'     * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),  returns a list. If not requested, returns `NULL`. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the `data` element. The list has the following elements:
-  #'         * `by_term`: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See `vignette('ale-statistics')` for details about confidence regions.)
-  #'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row. For 2D interactions, numeric values are grouped in terciles (quantiles of three) and the `x1` or `x2` reports these terciles as an interval. However, in some cases where terciles cannot be cleanly formed because of the distribution of the data, the numeric terciles might be indicated with the numbers 1, 2, or 3 without specifying the actual numeric interval values.
-  #'         * `sig_criterion`: a length-one character vector that reports which values were used to determine statistical significance: if `p_values` was provided to the [ALE()] function, it will be used; otherwise, `median_band_pct` will be used.
-  #' * `plots`: if `plots` are requested in the `output` argument (as is the default),
-  #'   returns a list whose elements, named by each requested x variable, are each
-  #'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
-  #'   If `plots` is not included in `output`, this element is `NULL`.
-  #' * Various values echoed from the original call to the [ALE()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
-  #'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `sample_size`. These are either the values provided by the user or used by default if the user did not change them.
-  #' * `y_summary`: summary statistics of y values used for the ALE calculation.
-  #'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
-  #'   probability or other value that is constrained in the `[0, 1]` range. In that
-  #'   case, `y_summary` is based on the predicted values of `y_col` by applying
-  #'   `model` to the `data`. `y_summary` is a named numeric vector. Most of the
-  #'   elements are the percentile of the y values. E.g., the '5%' element is the
-  #'   5th percentile of y values. The following elements have special meanings:
-  #'     * The first element is named either `p` or `q` and its value is always 0.
-  #'       The value is not used; only the name of the element is meaningful.
-  #'       `p` means that the following special `y_summary` elements are based on
-  #'       the provided `ALEpDist` object. `q` means that quantiles were calculated
-  #'       based on `median_band_pct` because `p_values` was not provided.
-  #'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively.
-  #'       Note that the median is `50%`, the 50th percentile.
-  #'     * `med_lo_2`, `med_lo`, `med_hi`, `med_hi_2`: `med_lo` and `med_hi` are the
-  #'       inner lower and upper confidence intervals of y values with respect to
-  #'       the median (`50%`); `med_lo_2` and `med_hi_2` are the outer confidence
-  #'       intervals. See the documentation for the `p_alpha` and `median_band_pct`
-  #'       arguments to understand how these are determined.
-  #'
-  #' @examples
-  # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-  #' set.seed(0)
-  #' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
-  #'
-  #' # Create a GAM model with flexible curves to predict diamond price
-  #' # Smooth all numeric variables and include all other variables
-  #' gam_diamonds <- mgcv::gam(
-  #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-  #'     cut + color + clarity,
-  #'   data = diamonds_sample
-  #' )
-  #' summary(gam_diamonds)
-  #'
-  #'
-  #' \donttest{
-  #'
-  #' # Simple ALE without bootstrapping
-  #' ale_gam_diamonds <- ALE(gam_diamonds)
-  #'
-  #' # Plot the ALE data
-  #' plot(ale_gam_diamonds)
-  #'
-  #' # Bootstrapped ALE
-  #' # This can be slow, since bootstrapping runs the algorithm boot_it times
-  #'
-  #' # Create ALE with 100 bootstrap samples
-  #' ale_gam_diamonds_boot <- ALE(
-  #'   gam_diamonds,
-  #'   boot_it = 100
-  #' )
-  #'
-  #' # Bootstrapped ALEs print with confidence intervals
-  #' plot(ale_gam_diamonds_boot)
-  #'
-  #'
-  #' # If the predict function you want is non-standard, you may define a
-  #' # custom predict function. It must return a single numeric vector.
-  #' custom_predict <- function(object, newdata, type = pred_type) {
-  #'   predict(object, newdata, type = type, se.fit = TRUE)$fit
-  #' }
-  #'
-  #' ale_gam_diamonds_custom <- ALE(
-  #'   gam_diamonds,
-  #'   pred_fun = custom_predict, pred_type = 'link'
-  #' )
-  #'
-  #' # Plot the ALE data
-  #' plot(ale_gam_diamonds_custom)
-  #'
-  #' }
-  #'
   constructor = function (
     model,
     x_cols = list(d1 = TRUE),
@@ -215,7 +166,7 @@ ALE <- new_class(
     # complete_d = 1L,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
-    output = c('data', 'stats', 'conf_regions'),
+    output = c('ale_data', 'stats', 'conf'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -224,13 +175,12 @@ ALE <- new_class(
     p_alpha = c(0.01, 0.05),
     max_num_bins = 10,
     boot_it = 0,
-    seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'mean',
+    seed = 0,
     y_type = NULL,
     median_band_pct = c(0.05, 0.5),
     sample_size = 500,
-    # min_rug_per_interval = 1,
     .bins = NULL,
     silent = FALSE
   )
@@ -289,18 +239,18 @@ ALE <- new_class(
 
     x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
-    valid_output_types <- c('data', 'stats', 'conf_regions', 'boot_data')
+    valid_output_types <- c('ale_data', 'stats', 'conf', 'boot_data')
     validate(
       length(setdiff(output, valid_output_types)) == 0,
       msg = cli_alert_danger(
         'The values in the {.arg output} argument must be one or more of the following values: {valid_output_types}.'
       )
     )
-    if ('conf_regions' %in% output) {
+    if ('conf' %in% output) {
       validate(
         'stats' %in% output,
         msg = cli_alert_danger(paste0(
-          'If "conf_regions" is requested in the {.arg output} argument, then "stats" must also be requested.'
+          'If "con" is requested in the {.arg output} argument, then "stats" must also be requested.'
         ))
       )
     }
@@ -308,7 +258,7 @@ ALE <- new_class(
     if (!is.null(p_values)) {
       # The user wants p-values
       if (rlang::is_scalar_atomic(p_values) && p_values == 'auto') {
-      # if (length(p_values) == 1 && p_values == 'auto') {
+        # if (length(p_values) == 1 && p_values == 'auto') {
         # Try to automatically obtain p-values
 
         p_values <- ALEpDist(
@@ -351,45 +301,6 @@ ALE <- new_class(
         msg = '{.arg .bins} is not in a valid format.'
       )
     }
-    # if (!is.null(bins)) {
-    #   map(
-    #     bins,
-    #     \(it.var) validate(
-    #       is.null(it.var)  ||  # if the variable is present, try the next two tests
-    #         is.numeric(it.var) || is.factor(it.var)
-    #     )
-    #   )
-    # }
-    # if (!is.null(ns)) {
-    #   map(
-    #     ns,
-    #     \(it.var) validate(
-    #       is.null(it.var) ||  # if the variable is present, try the next test
-    #         is.integer(it.var)
-    #     )
-    #   )
-    # }
-
-    # # Validate plot-related arguments.
-    # # If plots are not requested, then ignore these arguments.
-    # if ('plots' %in% output) {
-    #   validate(
-    #     is.numeric(median_band_pct) &&
-    #       length(median_band_pct) == 2 &&
-    #       all(between(median_band_pct, 0, 1))
-    #   )
-    #   validate(
-    #     sample_size == 0 ||  # 0 means no data sample or rug plots are desired
-    #       (is_scalar_natural(sample_size) &&
-    #          # rug sample cannot be smaller than number of intervals
-    #          sample_size > (max_num_bins + 1)),
-    #     msg = cli_alert_danger('{.arg sample_size} must be either 0 or an integer larger than the number of max_num_bins + 1.')
-    #   )
-    #   validate(is_scalar_whole(min_rug_per_interval))
-    #   # validate(is_scalar_natural(n_x1_bins))
-    #   # validate(is_scalar_natural(n_x2_bins))
-    #   # validate(is_scalar_natural(n_y_quant))
-    # }
 
     validate_silent(silent)
 
@@ -689,7 +600,7 @@ ALE <- new_class(
             select('term', everything()) |>
             pivot_stats()
 
-          if ('conf_regions' %in% output) {
+          if ('conf' %in% output) {
             # conf_regions optionally provided only if stats also requested
             sig_criterion <- if (!is.null(p_values)) {
               'p_values'
@@ -703,7 +614,7 @@ ALE <- new_class(
                 y_summary[, it.cat, drop = FALSE],
                 sig_criterion = sig_criterion
               )
-          }  # if ('conf_regions' %in% output)
+          }  # if ('conf' %in% output)
         }  # if (length(x_cols$d1) >= 1) {
 
         # 2D ALE statistics
@@ -736,7 +647,7 @@ ALE <- new_class(
               rename(term2 = 'term') |>
               select('term1', 'term2', everything())
 
-            if ('conf_regions' %in% output) {
+            if ('conf' %in% output) {
               # conf_regions optionally provided only if stats also requested
               sig_criterion <- if (!is.null(p_values)) {
                 'p_values'
@@ -768,7 +679,7 @@ ALE <- new_class(
             ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
             bind_rows()
 
-          if ('conf_regions' %in% output) {
+          if ('conf' %in% output) {
             ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
               ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
               list_transpose(simplify = FALSE)

@@ -90,7 +90,76 @@ method(plot, ALE) <- function(x, ...) {
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
 #'
-#' @returns Requested data as a list.
+#' @returns Requested data as a list with the following elements:
+#' * `data`: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
+#'     * `.bin` or `.ceil`: For non-numeric x, `.bin` is the value of each of the ALE categories. For numeric x, `.ceil` is the value of the upper bound of each ALE bin. The first "bin" of numeric variables represents the minimum value.
+#'     * `.n`: the number of rows of data in each bin represented by `.bin` or `.ceil`. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
+#'     * `.y`: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if the `boot_centre = 'median'` argument is specified. Regardless, both `.y_mean` and `.y_median` are returned as columns here.
+#'     * `.y_lo`, `.y_hi`: the lower and upper confidence intervals, respectively, for the bootstrapped `.y` value.
+#'   Note: regardless what options are requested in the `output` argument, this `data` element is always returned.
+#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list whose elements, named by each requested x variable, are each a matrix. If not requested (as is the default) or if `boot_it == 0`, returns `NULL`. Each matrix element is the `.y` value of each bin ( `.bin` or `.ceil`) (unnamed rows) for each `boot_it` bootstrap iteration (unnamed columns).
+#' * `stats`: if `stats` are requested in the `output` argument (as is the default),
+#'   returns a list. If not requested, returns `NULL`. The returned list provides
+#'   ALE statistics of the `data` element duplicated and presented from various
+#'   perspectives in the following elements:
+#'     * `by_term`: a list named by each requested x variable, each of whose elements
+#'       is a tibble with the following columns:
+#'         * `statistic`: the ALE statistic specified in the row (see
+#'           the `by_stat` element below).
+#'         * `estimate`: the bootstrapped `mean` or `median` of the `statistic`,
+#'           depending on the `boot_centre` argument to the [ALE()] function.
+#'           Regardless, both `mean` and `median` are returned as columns here.
+#'         * `conf.low`, `conf.high`: the lower and upper confidence intervals,
+#'           respectively, for the bootstrapped `estimate`.
+#'     * `by_stat`: list named by each of the following ALE statistics:
+#'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`. See
+#'      `vignette('ale-statistics')` for details.
+#'     * `estimate`: a tibble whose data consists of the `estimate` values from the
+#'       `by_term` element above. The columns are `term` (the variable name) and the
+#'       statistic for which the estimate is given:
+#'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`.
+#'     * `effects_plot`: a `ggplot` object which is the ALE effects plot for all the
+#'       x variables.
+#'     * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),  returns a list. If not requested, returns `NULL`. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the `data` element. The list has the following elements:
+#'         * `by_term`: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See `vignette('ale-statistics')` for details about confidence regions.)
+#'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row. For 2D interactions, numeric values are grouped in terciles (quantiles of three) and the `x1` or `x2` reports these terciles as an interval. However, in some cases where terciles cannot be cleanly formed because of the distribution of the data, the numeric terciles might be indicated with the numbers 1, 2, or 3 without specifying the actual numeric interval values.
+#'         * `sig_criterion`: a length-one character vector that reports which values were used to determine statistical significance: if `p_values` was provided to the [ALE()] function, it will be used; otherwise, `median_band_pct` will be used.
+#' * `plots`: if `plots` are requested in the `output` argument (as is the default),
+#'   returns a list whose elements, named by each requested x variable, are each
+#'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
+#'   If `plots` is not included in `output`, this element is `NULL`.
+#' * Various values echoed from the original call to the [ALE()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
+#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `sample_size`. These are either the values provided by the user or used by default if the user did not change them.
+#' * `y_summary`: summary statistics of y values used for the ALE calculation.
+#'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
+#'   probability or other value that is constrained in the `[0, 1]` range. In that
+#'   case, `y_summary` is based on the predicted values of `y_col` by applying
+#'   `model` to the `data`. `y_summary` is a named numeric vector. Most of the
+#'   elements are the percentile of the y values. E.g., the '5%' element is the
+#'   5th percentile of y values. The following elements have special meanings:
+#'     * The first element is named either `p` or `q` and its value is always 0.
+#'       The value is not used; only the name of the element is meaningful.
+#'       `p` means that the following special `y_summary` elements are based on
+#'       the provided `ALEpDist` object. `q` means that quantiles were calculated
+#'       based on `median_band_pct` because `p_values` was not provided.
+#'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively.
+#'       Note that the median is `50%`, the 50th percentile.
+#'     * `med_lo_2`, `med_lo`, `med_hi`, `med_hi_2`: `med_lo` and `med_hi` are the
+#'       inner lower and upper confidence intervals of y values with respect to
+#'       the median (`50%`); `med_lo_2` and `med_hi_2` are the outer confidence
+#'       intervals. See the documentation for the `p_alpha` and `median_band_pct`
+#'       arguments to understand how these are determined.
+#'
+#' ModelBoot:
+#' * `ale`: list of bootstrapped ALE results
+#'   * `data`: ALE data (see [ALE()] for details about the format)
+#'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
+#'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ALE()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
+#'     * `by_stat` : term, estimate, conf.low, median, mean, conf.high.
+#'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
+#' * `boot_data`: full bootstrap data (not returned by default)
+#' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that were originally passed are returned for reference.
+
 #'
 #' @method get ALE
 method(get, ALE) <- function(
@@ -307,20 +376,20 @@ method(get, ALE) <- function(
 }
 
 
-#' @name get.calc_p
-#' @title Calculate and append p-values to an ALE object
-#'
-#' @description
-#' Calculating p-values for ALE objects is usually very slow, so it is not done by default. the `calc_p()` method receives an `ALEpDist` object, uses it to calculate p-values, and then appends these p-values to the `ALE` object.
-#'
-#' @param obj object.
-#' @param ... Arguments to pass to the implemented method.
-#'
-#' @returns `obj` with p-values included in its statistics.
-#'
-method(calc_p, ALE) <- function(obj, p_dist) {
-  obj + p_dist
-}
+#' #' @name get.calc_p
+#' #' @title Calculate and append p-values to an ALE object
+#' #'
+#' #' @description
+#' #' Calculating p-values for ALE objects is usually very slow, so it is not done by default. the `calc_p()` method receives an `ALEpDist` object, uses it to calculate p-values, and then appends these p-values to the `ALE` object.
+#' #'
+#' #' @param obj object.
+#' #' @param ... Arguments to pass to the implemented method.
+#' #'
+#' #' @returns `obj` with p-values included in its statistics.
+#' #'
+#' method(calc_p, ALE) <- function(obj, p_dist) {
+#'   obj + p_dist
+#' }
 
 
 ## ALE helper functions ------------

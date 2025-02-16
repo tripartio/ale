@@ -6,6 +6,138 @@
 # ModelBoot object ------------------
 
 
+#' @title Statistics and ALE data for a bootstrapped model
+#' @export
+#'
+#' @description
+#' A `ModelBoot` object contains full-model bootstrapped statistics and ALE data for a trained model. Full-model bootstrapping (as distinct from data-only bootstrapping) retrains a model for each bootstrap iterations. Thus, it is very slow, though more reliable. However, for obtaining bootstrapped ALE data, plots, and statistics, full-model bootstrapping as provided by `ModelBoot` is only necessary for models that have not been developed by cross-validation. For cross-validated models, it is sufficient (and much faster) to create a regular `ALE` object with bootstrapping by setting the `boot_it` argument there. In fact, full-model bootstrapping with `ModelBoot` is often infeasible for slow machine-learning models trained on large datasets, which should rather be cross-validated to assure their reliability. However, for models that have not been cross-validated, full-model bootstrapping with `ModelBoot` is necessary for reliable results. Further details follow below; see also `vignette('ale-statistics')`.
+#'
+#'
+#' @param model Required. See documentation for [ALE()]
+#' @param data dataframe. Dataset that will be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param model_call_string character(1). If NULL (default), the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
+#' @param model_call_string_vars character. Names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern. See documentation for the `model_packages` argument in [ALE()].
+#' @param parallel See documentation for [ALE()]
+#' @param model_packages See documentation for [ALE()]
+#' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
+#' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value = 2`.
+#' @param boot_it non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if [ALE()] with bootstrapping is not more appropriate than [ModelBoot()]. If `boot_it = 0`, then the model is run as normal once on the full `data` with no bootstrapping.
+#' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
+#' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
+#' @param seed integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data.
+#' @param output character vector. Which types of bootstrapped data to calculate and return:
+#' * 'ale': ALE data.
+#' * 'model_stats': overall model statistics.
+#' * 'model_coefs': model coefficients.
+#' * 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this `output` argument.
+#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()] when `ale = TRUE`, [broom::tidy()] when `model_coefs = TRUE`, or [broom::glance()] when `model_stats = TRUE`, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.
+#' @param silent See documentation for [ALE()]
+#'
+#'
+#' @returns An object of class `ALE` with properties `model_stats`, `model_coefs`, `ale`, `model_stats`, `boot_data`, and `params`.
+#'
+#' @section Properties:
+#' \describe{
+#'   \item{model_stats}{
+#'   `tibble` of bootstrapped results from [broom::glance()]. `NULL` if `model_stats` argument is `FALSE`. In general, only [broom::glance()] results that make sense when bootstrapped are included, such as `df` and `adj.r.squared`. Results that are incomparable across bootstrapped datasets (such as `aic`) are excluded. In addition, certain model performance measures are included; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
+#'   * For regression (numeric prediction) models:
+#'       * `mae`: mean absolute error (MAE)
+#'       * `sa_mae_mad`: standardized accuracy of the MAE referenced on the mean absolute deviation
+#'       * `rmse`: root mean squared error (RMSE)
+#'       * `sa_rmse_sd`: standardized accuracy of the RMSE referenced on the standard deviation
+#'   * For classification (probability) models:
+#'       * `auc`: area under the ROC curve
+#'   }
+#'
+#'   \item{model_coefs}{
+#'     A `tibble` of bootstrapped results from [broom::tidy()].
+#'     `NULL` if `model_coefs` argument is `FALSE`.
+#'   }
+#'   \item{ale}{
+#'     A list of bootstrapped ALE results using default [ALE()] settings unless if overridden with `ale_options`. `NULL` if `ale` argument is `FALSE`. Elements are:
+#'
+#'       * `single`: an `ALE` object of ALE calculations on the full dataset without bootstrapping.
+#'       * `boot`: a list of bootstrapped ALE data and statistics. This element is not an `ALE` object; it is in a special internal format.
+#'   }
+#'   \item{boot_data}{
+#'     A `tibble` of bootstrap results. Each row represents a bootstrap iteration. `NULL` if `boot_data` argument is `FALSE`. The columns are:
+#'
+#'       * `it`: the specific bootstrap iteration from 0 to `boot_it` iterations. Iteration 0 is the results from the full dataset (not bootstrapped).
+#'       * `row_idxs`: the row indexes for the bootstrapped sample for that iteration. To save space, the row indexes are returned rather than the full datasets. So, for example, iteration i's bootstrap sample can be reproduced by `data[ModelBoot_obj@boot_data$row_idxs[[2]], ]` where `data` is the dataset and `ModelBoot_obj` is the result of `ModelBoot()`.
+#'       * `model`: the model object trained on that iteration.
+#'       * `tidy`: the results of `broom::tidy(model)` on that iteration.
+#'       * `stats`: the results of `broom::glance(model)` on that iteration.
+#'       * `perf`: performance measures on the entire dataset. These are the measures specified above for regression and classification models.
+#'   }
+#'
+#'   \item{params}{
+#'     Parameters used to calculate bootstrapped data. Most of these repeat the arguments passed to `ModelBoot()`. These are either the values provided by the user or used by default if the user did not change them but the following additional objects created internally are also provided:
+#'
+#'     * `y_cats`: same as `ALE@params$y_cats` (see documentation there).
+#'     * `y_type`: same as `ALE@params$y_type` (see documentation there).
+#'     * `model`: same as `ALE@params$model` (see documentation there).
+#'     * `data`: same as `ALE@params$data` (see documentation there).
+#'   }
+#' }
+#'
+#'
+#' @section Full-model bootstrapping:
+#' No modelling results, with or without ALE, should be considered reliable without appropriate validation. For ALE, both the trained model itself and the ALE that explains the trained model must be validated. ALE must be validated by bootstrapping. The trained model might be validated either by cross-validation or by bootstrapping. For ALE that explains trained models that have been developed by cross-validation, it is sufficient to bootstrap just the training data. That is what the `ALE` object does with its `boot_it` argument. However, unvalidated models must be validated by bootstrapping them along with the calculation of ALE; this is what the `ModelBoot` object does with its `boot_it` argument.
+#'
+#' [ModelBoot()] carries out full-model bootstrapping to validate models. Specifically, it:
+#' * Creates multiple bootstrap samples (default 100; the user can specify any number);
+#' * Creates a model on each bootstrap sample;
+#' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
+#' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
+#'
+#' @section p-values:
+#'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a `ModelBoot` object is created. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled when creating a `ModelBoot` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(-ALEpDist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you create a `ModelBoot` by passing it the argument `ale_options = list(p_values = p_dist)`.
+#'
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#'
+#'
+#' @examples
+#'
+#' # attitude dataset
+#' attitude
+#'
+#' ## ALE for general additive models (GAM)
+#' ## GAM is tweaked to work on the small dataset.
+#' gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
+#'                             raises + s(critical) + advance,
+#'                           data = attitude)
+#' summary(gam_attitude)
+#'
+#' \donttest{
+#' # Full model bootstrapping
+#' # Only 4 bootstrap iterations for a rapid example; default is 100
+#' # Increase value of boot_it for more realistic results
+#' mb_gam <- ModelBoot(
+#'   gam_attitude,
+#'   boot_it = 4
+#' )
+#'
+#' # If the model is not standard, supply model_call_string with 'data = boot_data' in the string instead of the actual dataset name (in addition to the actual dataset as the 'data' argument directly to the `ModelBoot` constructor)
+#' mb_gam <- ModelBoot(
+#'   gam_attitude,
+#'   data = attitude,  # the actual dataset
+#'   model_call_string = 'mgcv::gam(
+#'     rating ~ complaints + privileges + s(learning) +
+#'       raises + s(critical) + advance,
+#'     data = boot_data  # required for model_call_string
+#'   )',
+#'   boot_it = 4
+#' )
+#'
+#' # Model statistics and coefficients
+#' mb_gam@model_stats
+#' mb_gam@model_coefs
+#'
+#' # Plot ALE
+#' plot(mb_gam)
+#' }
+#'
 ModelBoot <- new_class(
   'ModelBoot',
   properties = list(
@@ -16,114 +148,6 @@ ModelBoot <- new_class(
     params      = class_list
   ),
 
-  #' @title A statistics and ALE data of a bootstrapped model
-  #'
-  #' @description
-  #' No modelling results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets, normally the model provided to [ALE()] is the final deployment model that has been validated and evaluated on training and testing on subsets; that is why [ALE()] is calculated on the full dataset. However, when a dataset is too small to be subdivided into training and test sets for a standard machine learning process, then the entire model should be bootstrapped. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are. For details, see the vignette on small datasets or the details and examples below.
-  #'
-  #' [ModelBoot()] automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
-  #'
-  #' * Creates multiple bootstrap samples (default 100; the user can specify any number);
-  #' * Creates a model on each bootstrap sample;
-  #' * Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
-  #' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
-  #'
-  #' @section p-values:
-  #'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a `ModelBoot` object is created. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled when creating a `ModelBoot` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(-ALEpDist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you create a `ModelBoot` by passing it the argument `ale_options = list(p_values = p_dist)`.
-  #'
-  #' @export
-  #'
-  #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
-  #'
-  #'
-  #' @param model See documentation for [ALE()]
-  #' @param data dataframe. Dataset that will be bootstrapped. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
-  #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-  #' @param model_call_string character string. If NULL, the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
-  #' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Only used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
-  #' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value` as `2`.
-  #' @param model_call_string_vars character. Character vector of names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing will produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern.
-  #' @param parallel See documentation for [ALE()]
-  #' @param model_packages See documentation for [ALE()]
-  #' @param boot_it integer from 0 to Inf. Number of bootstrap iterations.
-  #' If boot_it = 0, then the model is run as normal once on the full `data` with
-  #' no bootstrapping.
-  #' @param seed integer. Random seed. Supply this between runs to assure identical
-  #' bootstrap samples are generated each time on the same data.
-  #' @param boot_alpha numeric. The confidence level for the bootstrap confidence intervals is
-  #' 1 - boot_alpha. For example, the default 0.05 will give a 95% confidence
-  #' interval, that is, from the 2.5% to the 97.5% percentile.
-  #' @param boot_centre See See documentation for [ALE()]
-  #' @param output character vector. Which types of bootstraps to calculate and return:
-  #' * 'ale': Calculate and return bootstrapped ALE data.
-  #' * 'model_stats': Calculate and return bootstrapped overall model statistics.
-  #' * 'model_coefs': Calculate and return bootstrapped model coefficients.
-  #' * 'boot_data': Return full data for all bootstrap iterations. This data will always be calculated
-  #' because it is needed for the bootstrap averages. By default, it is not returned
-  #' except if included in this `output` argument.
-  #' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()], [broom::tidy()], or [broom::glance()] functions, respectively, beyond (or overriding) the defaults. In particular, to obtain p-values for ALE statistics, see the details.
-  #' @param silent See documentation for [ALE()]
-  #'
-  #' @return list with the following elements (depending on values requested in the `output` argument:
-  #' * `model_stats`: tibble of bootstrapped results from [broom::glance()]
-  #' * `boot_valid`: named vector of advanced model performance measures; these are bootstrap-validated with the .632 correction (NOT the .632+ correction):
-  #'     * mae: mean absolute error (bootstrap validated)
-  #'     * mad: mean absolute deviation about the mean (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
-  #'     * sa_mae_mad: standardized accuracy of the MAE referenced on the MAD (bootstrap validated)
-  #'     * rmse: root mean squared error (bootstrap validated)
-  #'     * standard deviation (this is a descriptive statistic calculated on the full dataset; it is provided for reference)
-  #'     * sa_rmse_sd: standardized accuracy of the RMSE referenced on the SD (bootstrap validated)
-  #' * `model_coefs`: tibble of bootstrapped results from [broom::tidy()]
-  #' * `ale`: list of bootstrapped ALE results
-  #'   * `data`: ALE data (see [ALE()] for details about the format)
-  #'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
-  #'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ALE()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
-  #'     * `by_stat` : term, estimate, conf.low, median, mean, conf.high.
-  #'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
-  #' * `boot_data`: full bootstrap data (not returned by default)
-  #' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that were originally passed are returned for reference.
-  #'
-  #' @examples
-  #'
-  #' # attitude dataset
-  #' attitude
-  #'
-  #' ## ALE for general additive models (GAM)
-  #' ## GAM is tweaked to work on the small dataset.
-  #' gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
-  #'                             raises + s(critical) + advance,
-  #'                           data = attitude)
-  #' summary(gam_attitude)
-  #'
-  #' \donttest{
-  #' # Full model bootstrapping
-  #' # Only 4 bootstrap iterations for a rapid example; default is 100
-  #' # Increase value of boot_it for more realistic results
-  #' mb_gam <- ModelBoot(
-  #'   gam_attitude,
-  #'   boot_it = 4
-  #' )
-  #'
-  #' # If the model is not standard, supply model_call_string with
-  #' # 'data = boot_data' in the string (not as a direct argument to the `ModelBoot` constructor)
-  #' mb_gam <- ModelBoot(
-  #'   gam_attitude,
-  #'   model_call_string = 'mgcv::gam(
-  #'     rating ~ complaints + privileges + s(learning) +
-  #'       raises + s(critical) + advance,
-  #'     data = boot_data
-  #'   )',
-  #'   boot_it = 4
-  #' )
-  #'
-  #' # Model statistics and coefficients
-  #' mb_gam@model_stats
-  #' mb_gam@model_coefs
-  #'
-  #' # Plot ALE
-  #' plot(mb_gam)
-  #' }
-  #'
   constructor = function (
     model,
     data = NULL,
@@ -139,9 +163,9 @@ ModelBoot <- new_class(
     },
     pred_type = "response",
     boot_it = 100,
-    seed = 0,
     boot_alpha = 0.05,
     boot_centre = 'mean',
+    seed = 0,
     output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
     tidy_options = list(),
@@ -624,7 +648,7 @@ ModelBoot <- new_class(
                         parallel = 0,  # do not parallelize at this inner level
                         boot_it = 0,  # do not bootstrap at this inner level
                         # do not request conf_regions
-                        output = c('data', 'stats'),
+                        output = c('ale_data', 'stats'),
                         .bins = if (btit == 0) NULL else ale_bins,
                         # bins = if (btit == 0) NULL else bins,
                         # ns = if (btit == 0) NULL else ns,
