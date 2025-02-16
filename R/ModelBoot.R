@@ -26,11 +26,15 @@
 #' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
 #' @param seed integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data.
-#' @param output character vector. Which types of bootstrapped data to calculate and return:
-#' * 'ale': ALE data.
-#' * 'model_stats': overall model statistics.
-#' * 'model_coefs': model coefficients.
-#' * 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this `output` argument.
+#' @param output_model_stats logical(1). If `TRUE` (default), return overall model statistics.
+#' @param output_model_coefs logical(1). If `TRUE` (default), return model coefficients.
+#' @param output_ale logical(1). If `TRUE` (default), return ALE data and statistics.
+#' @param output_boot_data logical(1). If `TRUE`, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default is `FALSE`.
+# @param output character vector. Which types of bootstrapped data to calculate and return:
+# * 'ale': ALE data.
+# * 'model_stats': overall model statistics.
+# * 'model_coefs': model coefficients.
+# * 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this `output` argument.
 #' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()] when `ale = TRUE`, [broom::tidy()] when `model_coefs = TRUE`, or [broom::glance()] when `model_stats = TRUE`, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.
 #' @param silent See documentation for [ALE()]
 #'
@@ -166,7 +170,11 @@ ModelBoot <- new_class(
     boot_alpha = 0.05,
     boot_centre = 'mean',
     seed = 0,
-    output = c('ale', 'model_stats', 'model_coefs'),
+    output_model_stats = TRUE,
+    output_model_coefs = TRUE,
+    output_ale = TRUE,
+    output_boot_data = FALSE,
+    # output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
     tidy_options = list(),
     glance_options = list(),
@@ -283,17 +291,23 @@ ModelBoot <- new_class(
     validate(is_scalar_number(seed))
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
     validate(boot_centre == 'mean' || boot_centre == 'median')
-    # output must be a subset of c('ale', 'model_stats', 'model_coefs')
-    validate(
-      length(setdiff(output, c('ale', 'model_stats', 'model_coefs', 'boot_data'))) == 0,
-      msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
-    "ale", "model_stats", or "model_coefs".')
-    )
 
-    if ('ale' %in% output) {
+    validate(is_bool(output_model_stats))
+    validate(is_bool(output_model_coefs))
+    validate(is_bool(output_ale))
+    validate(is_bool(output_boot_data))
+
+    # # output must be a subset of c('ale', 'model_stats', 'model_coefs')
+    # validate(
+    #   length(setdiff(output, c('ale', 'model_stats', 'model_coefs', 'boot_data'))) == 0,
+    #   msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
+    # "ale", "model_stats", or "model_coefs".')
+    # )
+
+    if (output_ale) {
       validate(
         !any(is.na(data)),
-        msg = 'If  {.val ale} is requested in {.arg output}, then {.arg data} must not have any missing values.'
+        msg = 'If  {.arg output_ale} is TRUE, then {.arg data} must not have any missing values.  If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
       )
     }
 
@@ -476,7 +490,7 @@ ModelBoot <- new_class(
           boot_stats <- NULL
           boot_perf <- NULL
 
-          if ('model_stats' %in% output) {
+          if (output_model_stats) {  #'model_stats' %in% output) {
             # Call broom::glance; if an iteration fails for any reason, set it as missing
             tryCatch(
               {
@@ -589,13 +603,13 @@ ModelBoot <- new_class(
                 )
               }
             }  # calc_boot_valid && btit > 0
-          }  # if ('model_stats' %in% output)
+          }  # if (output_model_stats)
 
 
           ## Bootstrap individual term coefficients ---------------
 
           boot_tidy <-
-            if ('model_coefs' %in% output) {
+            if (output_model_coefs) {  #' %in% output) {
               # Unless the user manually specified conf.int, set it to FALSE
               # because this function creates its own bootstrapped confidence intervals.
               if (is.null(tidy_options$conf.int)) {
@@ -625,7 +639,7 @@ ModelBoot <- new_class(
 
           ## Bootstrap ALE --------------
 
-          if ('ale' %in% output) {
+          if (output_ale) {  #'ale' %in% output) {
             boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
               # One or more coefficients are not defined.
               # This might be due to collinearity in a bootstrapped sample, which
@@ -648,7 +662,8 @@ ModelBoot <- new_class(
                         parallel = 0,  # do not parallelize at this inner level
                         boot_it = 0,  # do not bootstrap at this inner level
                         # do not request conf_regions
-                        output = c('ale_data', 'stats'),
+                        output_conf = FALSE,
+                        # output = c('ale_data', 'stats'),
                         .bins = if (btit == 0) NULL else ale_bins,
                         # bins = if (btit == 0) NULL else bins,
                         # ns = if (btit == 0) NULL else ns,
@@ -702,9 +717,9 @@ ModelBoot <- new_class(
               )
             }
 
-          }  # end:  if ('ale' %in% output)
+          }  # end:  if (output_ale)
 
-          else {  # 'ale' not requested in output
+          else {  # output_ale is FALSE
             boot_ale <- NULL
           }
 
@@ -746,7 +761,7 @@ ModelBoot <- new_class(
     ### Overall model bootstrapped summary --------------
 
     stats_summary <-
-      if ('model_stats' %in% output) {
+      if (output_model_stats) {  #'model_stats' %in% output) {
         # Model statistics for which bootstrapping is not meaningful.
         # see https://stats.stackexchange.com/a/529506/81392
         invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
@@ -884,14 +899,15 @@ ModelBoot <- new_class(
         ss
       }
 
-    else {  # 'model_stats' not in output
+    else {
+      # output_model_stats is FALSE
       NULL
     }
 
 
     ### Bootstrapped model coefficient estimates ---------------
     tidy_summary <-
-      if ('model_coefs' %in% output) {
+      if (output_model_coefs) {  #'model_coefs' %in% output) {
 
         # Rename some tidy outputs that do not normally report `estimate`
         tidy_boot_data <-
@@ -940,7 +956,7 @@ ModelBoot <- new_class(
 
     ### Bootstrapped ALE data ------------------
 
-    ale_summary <- if ('ale' %in% output) {
+    ale_summary <- if (output_ale) {  #'ale' %in% output) {
         full_ale <- boot_data$ale[[1]]
 
         # Remove first element (not bootstrapped) if bootstrapping is requested
@@ -1121,14 +1137,16 @@ ModelBoot <- new_class(
     # Simplify some very large elements, especially closures that contain environments
     params$data <- params_data(
       data = data,
-      y_vals = if ('ale' %in% output) full_ale@params$data$y_vals_sample else NA,
-      sample_size = if ('ale' %in% output) full_ale@params$sample_size else 500,
+      y_vals = if (output_ale) full_ale@params$data$y_vals_sample else NA,
+      sample_size = if (output_ale) full_ale@params$sample_size else 500,
+      # y_vals = if ('ale' %in% output) full_ale@params$data$y_vals_sample else NA,
+      # sample_size = if ('ale' %in% output) full_ale@params$sample_size else 500,
       seed = seed
     )
     params$model <- params_model(model)
     params$pred_fun <- params_function(pred_fun)
 
-    ale_results <- if ('ale' %in% output) {
+    ale_results <- if (output_ale) {  #'ale' %in% output) {
       # Start with ale object of the full dataset without bootstrapping
       ar <- list(single = full_ale)
 
@@ -1159,7 +1177,7 @@ ModelBoot <- new_class(
       model_stats = stats_summary,
       model_coefs = tidy_summary,
       ale = ale_results,
-      boot_data = if ('boot_data' %in% output) {
+      boot_data = if (output_boot_data) {  #'boot_data' %in% output) {
         boot_data
       } else {
         NULL

@@ -53,7 +53,8 @@ test_that(
       # exclude_cols = NULL,  # test exclude_cols separately
       parallel = 0,
       # model_packages = NULL,  # not tested here; requires parallelization
-      output = c('stats'),
+      output_conf = FALSE,
+      # output = c('stats'),
       # pred_fun = test_predict,  # don't test for nnet
       pred_type = "probs",
       # p_values = NULL,  # test p-values with ALEpDist

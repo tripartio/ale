@@ -110,7 +110,10 @@ test_that(
       seed = 1234,
       boot_alpha = 0.1,
       boot_centre = 'median',
-      output = c('ale', 'model_stats', 'model_coefs'),  # test all options
+      output_ale = TRUE,
+      output_model_stats = TRUE,
+      output_model_coefs = TRUE,
+      # output = c('ale', 'model_stats', 'model_coefs'),  # test all options
       ale_options = list(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'

@@ -124,7 +124,7 @@ ALEPlots <- new_class(
         })
 
       # Create a 1D effects plot when 1D stats are available
-      if ('stats' %in% obj@params$output) {
+      if (obj@params$output_stats) {  #'stats' %in% obj@params$output) {
         eff_plot <-
           imap(obj@distinct, \(it.cat_data, it.cat_name) {
             plot_effects(

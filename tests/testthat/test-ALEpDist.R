@@ -19,7 +19,8 @@ test_that(
       test_gam,
       data = test_cars,
       p_values = pd,
-      output = 'stats',
+      output_conf = FALSE,
+      # output = 'stats',
       boot_it = 3,
       parallel = 0,
       silent = TRUE,
@@ -50,7 +51,7 @@ test_that(
       data = test_cars,
       rand_it = 10,
       p_speed = 'precise slow',
-      output = 'residuals',
+      output_residuals = TRUE,
       silent = TRUE,
       parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE
@@ -88,7 +89,7 @@ test_that(
       # edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
       p_speed = 'approx fast',
-      output = 'residuals',
+      output_residuals = TRUE,
       silent = TRUE,
       parallel = 0,  # disable parallelization for testing
       .testing_mode = TRUE

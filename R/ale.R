@@ -20,9 +20,12 @@
 #' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed. See [get.ALE()] for details.
 #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
-#' @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
+# @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
+#' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
+#' @param output_conf logical(1). If `TRUE` (default), return ALE confidence regions. If `output_stats` is `FALSE`, `output_conf` is ignored since confidence regions cannot be produced without ALE statistics.
+#' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
 #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
-#' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [ALEpDist()]. Note that p-values will not be generated if 'stats' are not included as an option in the `output` argument.
+#' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [ALEpDist()]. Note that p-values will not be generated if `output_stats` is `FALSE`.
 #' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
 #' @param max_num_bins positive integer(1). Maximum number of bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the `ModelBoot` class. See details there. The default `boot_it = 0` turns off bootstrapping.
@@ -166,7 +169,10 @@ ALE <- new_class(
     # complete_d = 1L,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
-    output = c('ale_data', 'stats', 'conf'),
+    output_stats = TRUE,
+    output_conf = TRUE,
+    output_boot_data = FALSE,
+    # output = c('ale_data', 'stats', 'conf'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -239,21 +245,24 @@ ALE <- new_class(
 
     x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
-    valid_output_types <- c('ale_data', 'stats', 'conf', 'boot_data')
-    validate(
-      length(setdiff(output, valid_output_types)) == 0,
-      msg = cli_alert_danger(
-        'The values in the {.arg output} argument must be one or more of the following values: {valid_output_types}.'
-      )
-    )
-    if ('conf' %in% output) {
-      validate(
-        'stats' %in% output,
-        msg = cli_alert_danger(paste0(
-          'If "con" is requested in the {.arg output} argument, then "stats" must also be requested.'
-        ))
-      )
-    }
+    validate(is_bool(output_stats))
+    validate(is_bool(output_conf))
+    validate(is_bool(output_boot_data))
+    # valid_output_types <- c('ale_data', 'stats', 'conf', 'boot_data')
+    # validate(
+    #   length(setdiff(output, valid_output_types)) == 0,
+    #   msg = cli_alert_danger(
+    #     'The values in the {.arg output} argument must be one or more of the following values: {valid_output_types}.'
+    #   )
+    # )
+    # if ('conf' %in% output) {
+    #   validate(
+    #     'stats' %in% output,
+    #     msg = cli_alert_danger(paste0(
+    #       'If "con" is requested in the {.arg output} argument, then "stats" must also be requested.'
+    #     ))
+    #   )
+    # }
 
     if (!is.null(p_values)) {
       # The user wants p-values
@@ -352,7 +361,8 @@ ALE <- new_class(
 
     # Prepare to create ALE statistics
     ale_y_norm_funs <- NULL
-    if ('stats' %in% output) {
+    if (output_stats) {
+      # if ('stats' %in% output) {
       ale_y_norm_funs <-
         y_vals |>
         apply(2, \(it.cat) {
@@ -469,7 +479,8 @@ ALE <- new_class(
               data, model, it.x_cols, y_col, y_cats,
               pred_fun, pred_type, max_num_bins,
               boot_it, seed, boot_alpha, boot_centre,
-              boot_ale_y = 'boot_data' %in% output,
+              boot_ale_y = output_boot_data,
+              # boot_ale_y = 'boot_data' %in% output,
               .bins = it.bins,
               # bins = bins[[it.x_cols]],
               # ns = ns[[it.x_cols]],
@@ -585,7 +596,7 @@ ALE <- new_class(
 
     # Calculate summary statistics ---------------------
 
-    if ('stats' %in% output) {
+    if (output_stats) {  #'stats' %in% output) {
       for (it.cat in y_cats) {
 
         # 1D ALE statistics
@@ -600,7 +611,7 @@ ALE <- new_class(
             select('term', everything()) |>
             pivot_stats()
 
-          if ('conf' %in% output) {
+          if (output_conf) { #'conf' %in% output) {
             # conf_regions optionally provided only if stats also requested
             sig_criterion <- if (!is.null(p_values)) {
               'p_values'
@@ -614,7 +625,7 @@ ALE <- new_class(
                 y_summary[, it.cat, drop = FALSE],
                 sig_criterion = sig_criterion
               )
-          }  # if ('conf' %in% output)
+          }  # if (output_conf)
         }  # if (length(x_cols$d1) >= 1) {
 
         # 2D ALE statistics
@@ -647,7 +658,7 @@ ALE <- new_class(
               rename(term2 = 'term') |>
               select('term1', 'term2', everything())
 
-            if ('conf' %in% output) {
+            if (output_conf) { #'conf' %in% output) {
               # conf_regions optionally provided only if stats also requested
               sig_criterion <- if (!is.null(p_values)) {
                 'p_values'
@@ -679,7 +690,7 @@ ALE <- new_class(
             ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
             bind_rows()
 
-          if ('conf' %in% output) {
+          if (output_conf) { #'conf' %in% output) {
             ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
               ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
               list_transpose(simplify = FALSE)

@@ -430,7 +430,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -466,7 +466,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -1043,8 +1043,14 @@
       attr(,"params")$model_packages
       NULL
       
-      attr(,"params")$output
-      [1] "ale_data" "stats"   
+      attr(,"params")$output_stats
+      [1] TRUE
+      
+      attr(,"params")$output_conf
+      [1] FALSE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
@@ -1684,8 +1690,17 @@
       attr(,"params")$seed
       [1] 5
       
-      attr(,"params")$output
-      [1] "ale"         "model_stats" "model_coefs"
+      attr(,"params")$output_model_stats
+      [1] TRUE
+      
+      attr(,"params")$output_model_coefs
+      [1] TRUE
+      
+      attr(,"params")$output_ale
+      [1] TRUE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$ale_options
       attr(,"params")$ale_options$x_cols
@@ -2232,7 +2247,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -2264,7 +2279,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -2924,8 +2939,14 @@
       attr(,"params")$model_packages
       NULL
       
-      attr(,"params")$output
-      [1] "ale_data" "stats"   
+      attr(,"params")$output_stats
+      [1] TRUE
+      
+      attr(,"params")$output_conf
+      [1] FALSE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
@@ -3113,8 +3134,17 @@
       attr(,"params")$seed
       [1] 0
       
-      attr(,"params")$output
-      [1] "ale"         "model_stats" "model_coefs"
+      attr(,"params")$output_model_stats
+      [1] TRUE
+      
+      attr(,"params")$output_model_coefs
+      [1] TRUE
+      
+      attr(,"params")$output_ale
+      [1] TRUE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$ale_options
       list()
@@ -3495,7 +3525,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -3532,7 +3562,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -4268,8 +4298,14 @@
       attr(,"params")$model_packages
       NULL
       
-      attr(,"params")$output
-      [1] "ale_data" "stats"   
+      attr(,"params")$output_stats
+      [1] TRUE
+      
+      attr(,"params")$output_conf
+      [1] FALSE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$pred_fun
       [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
@@ -5104,8 +5140,17 @@
       attr(,"params")$seed
       [1] 1234
       
-      attr(,"params")$output
-      [1] "ale"         "model_stats" "model_coefs"
+      attr(,"params")$output_model_stats
+      [1] TRUE
+      
+      attr(,"params")$output_model_coefs
+      [1] TRUE
+      
+      attr(,"params")$output_ale
+      [1] TRUE
+      
+      attr(,"params")$output_boot_data
+      [1] FALSE
       
       attr(,"params")$ale_options
       attr(,"params")$ale_options$x_cols

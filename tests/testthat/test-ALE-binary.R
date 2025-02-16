@@ -39,7 +39,9 @@ test_that(
       # exclude_cols = NULL,  # test exclude_cols separately
       parallel = 0,
       # model_packages = NULL,  # not tested here; requires parallelization
-      output = c('boot_data'),
+      output_stats = FALSE,
+      output_boot_data = TRUE,
+      # output = c('boot_data'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       # p_values = NULL,  # test p-values with ALEpDist

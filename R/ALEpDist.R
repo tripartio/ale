@@ -62,7 +62,7 @@ ALEpDist <- new_class(
   #' @param y_col See documentation for [ALE()]
   #' @param binary_true_value See documentation for [ModelBoot()]
   #' @param pred_fun,pred_type See documentation for [ALE()].
-  #' @param output character string. If 'residuals', returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If NULL (default), does not return the residuals.
+  #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
   #' @param rand_it non-negative integer length 1. Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values. It can be reduced as low as 100 for faster test runs.
   #' @param seed See documentation for [ALE()]
   #' @param silent See documentation for [ALE()]
@@ -73,7 +73,7 @@ ALEpDist <- new_class(
   #' * `rand_stats`: A named list of tibbles. There is normally one element whose name is the same as `y_col` except if `y_col` is a categorical variable; in that case, the elements are named for each category of `y_col`. Each element is a tibble whose rows are each of the `rand_it_ok` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
   #' * `residual_distribution`: A `univariateML` object with the closest estimated distribution for the `residuals` as determined by [univariateML::model_select()]. This is the distribution used to generate all the random variables.
   #' * `rand_it_ok`: An integer with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
-  #' * `residuals`: If `output = 'residuals'`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output = NULL`, (default), does not return these residuals. The rows correspond to each row of `data`. The columns correspond to the named elements described above for `rand_stats`.
+  #' * `residuals`: If `output_residuals == TRUE`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output_residuals == FALSE`, (default), does not return these residuals. The rows correspond to each row of `data`. The columns correspond to the named elements described above for `rand_stats`.
   #'
   #' @examples
   #' \donttest{
@@ -145,7 +145,7 @@ ALEpDist <- new_class(
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
-    output = NULL,
+    output_residuals = FALSE,
     rand_it = 1000,  # iterations of random variables
     seed = 0,
     silent = FALSE,
@@ -240,15 +240,17 @@ ALEpDist <- new_class(
 
     validate(is_string(pred_type))
 
-    if (!is.null(output)) {
-      validate(
-        is_string(output),
-        output == 'residuals',
-        msg = cli_alert_danger(
-          '{.arg output} must be either {.str residuals} or NULL'
-        )
-      )
-    }
+    validate(is_bool(output_residuals))
+
+    # if (!is.null(output)) {
+    #   validate(
+    #     is_string(output),
+    #     output == 'residuals',
+    #     msg = cli_alert_danger(
+    #       '{.arg output} must be either {.str residuals} or NULL'
+    #     )
+    #   )
+    # }
 
     validate(is_scalar_number(seed))
 
@@ -448,7 +450,8 @@ ALEpDist <- new_class(
               max_num_bins = if (p_speed == 'approx fast') 10 else 100,
               # Don't bootstrap even the approximate version--random variables have virtually no variation
               # boot_it = if (p_speed == 'approx fast') 100 else 0,
-              output = 'data',
+              output_stats = FALSE,
+              # output = 'ale_data',
               y_col = y_col,
               pred_fun = pred_fun,
               pred_type = pred_type,
@@ -511,26 +514,9 @@ ALEpDist <- new_class(
       map(bind_rows)  # combine statistics in each group into a tibble
 
 
-    # p_dist <- list(
-    #   rand_stats = rand_stats,
-    #   residual_distribution = residual_distribution,
-    #   rand_it_ok = rand_it_ok
-    # )
-    #
-    # if (!is.null(output) && output == 'residuals') {
-    #   colnames(residuals) <- y_cats
-    #   p_dist$residuals <- residuals
-    # }
-    #
-    # # Set S3 class information for the p_dist object
-    # class(p_dist) <- 'ALEpDist'
-    # # attr(p_dist, 'ale_version') <- utils::packageVersion('ale')
-    #
-    # return(p_dist)
-
     # Return S7 ALEpDist object
 
-    if (!is.null(output) && output == 'residuals') {
+    if (output_residuals) {
       # Residuals were requested
       colnames(residuals) <- y_cats
     } else {
