@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250128</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">October 24, 2023</h4>
+            <h4 data-toc-skip class="date">February 14, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
       <div class="d-none name"><code>ale-intro.Rmd</code></div>
@@ -99,6 +99,11 @@ package</a>.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ale'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     get</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -323,10 +328,10 @@ automatically for you with a notification message.</p>
 </div>
 <div class="section level2">
 <h2 id="ale-function-for-generating-ale-data-and-plots">
-<code>ale()</code> function for generating ALE data and plots<a class="anchor" aria-label="anchor" href="#ale-function-for-generating-ale-data-and-plots"></a>
+<code>ALE()</code> function for generating ALE data and plots<a class="anchor" aria-label="anchor" href="#ale-function-for-generating-ale-data-and-plots"></a>
 </h2>
 <p>The core function in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is the
-<code><a href="../reference/ale.html">ale()</a></code> function. Consistent with tidyverse conventions, its
+<code><a href="../reference/ale.html">ALE()</a></code> function. Consistent with tidyverse conventions, its
 first argument is a dataset. Its second argument is a model object–any R
 model object that can generate numeric predictions is acceptable. By
 default, it generates ALE data and plots on all the input variables used
@@ -334,8 +339,8 @@ for the model. To change these options (e.g., to calculate ALE for only
 a subset of variables; to output the data only or the plots only rather
 than both; or to use a custom, non-standard predict function for the
 model), see details in the help file for the function:
-<code><a href="../reference/ale.html">help(ale)</a></code>.</p>
-<p>The <code><a href="../reference/ale.html">ale()</a></code> function returns a list with various elements.
+<code><a href="../reference/ale-package.html">help(ale)</a></code>.</p>
+<p>The <code><a href="../reference/ale.html">ALE()</a></code> function returns a list with various elements.
 The two main ones are <code>data</code>, containing the ALE x intervals
 and the y values for each interval, and <code>plots</code>, containing
 the ALE plots as individual <code>ggplot</code> objects. Each of these
@@ -346,47 +351,35 @@ important element is <code>stats</code>, containing ALE-based
 statistics, which we describe in <a href="ale-statistics.html" title="ALE-based statistics">a separate vignette</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds</span>, <span class="va">gam_diamonds</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></code></pre></div>
 <p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
-parallel processing. However, this requires explicit specification of
-the packages used to build the model, specified with the
-<code>model_packages</code> argument. (If parallelization is disabled
-with <code>parallel = 0</code>, then <code>model_packages</code> is not
-required.) See <code><a href="../reference/ale.html">help(ale)</a></code> for more details.</p>
+parallel processing. If your computer has problems with this, you can
+disable parallelization with the argument <code>parallel = 0</code>.</p>
 <p>To access the plot for a specific variable, we must first create an
-ale_plots object by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method on the
-<code>ale</code> object which generates <code>ggplot</code> objects with
-the full flexibility of {ggplot2}:</p>
+<code>ALEPlots</code> object by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method
+on the <code>ALE</code> object which internally generates
+<code>ggplot</code> objects with the full flexibility of {ggplot2}:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="va">diamonds_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></code></pre></div>
-<p>The plots object is somewhat complex, so it is easier to work with by
-using the following code to simplify it. (A future version of the ale
-package should simplify working directly with <code>ale_plots</code>
-objects.)</p>
+<p>To retrieve a specific variable plot, you can use the
+<code><a href="../reference/get.html">get()</a></code> method of the <code>ALEPlots</code> object. For
+example, to access and print the <code>carat</code> ALE plot, we call
+simply refer to <code>get(diamonds_plots, 'carat')</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Extract one-way ALE plots from the ale_plots object</span></span>
-<span><span class="va">diamonds_1D_plots</span> <span class="op">&lt;-</span> <span class="va">diamonds_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p>The diamonds_1D_plots object is now simply a list of all the 1D ALE
-plots. The desired variable plot can now be easily plotted by printing
-its reference by name. For example, to access and print the
-<code>carat</code> ALE plot, we simply refer to
-<code>diamonds_1D_plots$carat</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
-<span><span class="va">diamonds_1D_plots</span><span class="op">$</span><span class="va">carat</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, <span class="st">'carat'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-carat-1.png" width="384"></p>
-<p>To iterate the list and plot all the ALE plots, we can use the
-<code>patchwork</code> package to arrange multiple plots in a common
-plot grid using <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>. We need to pass
-the list of plots to the <code>grobs</code> argument and we can specify
-that we want two plots per row with the <code>ncol</code> argument.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>To display all the ALE plots in an <code>ALEPlots</code> object, we
+can simply call its <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> or <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods.
+Behind the scenes, they use the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package to
+arrange multiple plots in a common plot grid using
+<code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, so we can pass arguments from that
+function. For example, we can specify that we want two plots per row
+with the <code>ncol</code> argument:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">diamonds_1D_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" width="672"></p>
 </div>
 <div class="section level2">
@@ -396,10 +389,11 @@ that we want two plots per row with the <code>ncol</code> argument.</p>
 ALE results to ensure that the results are reliable, that is,
 generalizable to data beyond the sample on which the model was built. As
 mentioned above, this assumes that IML analysis is carried out on a
-final deployment model selected after training and evaluating the model
-hyperparameters on distinct subsets. When samples are too small for
-this, we provide a different bootstrapping method,
-<code><a href="../reference/model_bootstrap.html">model_bootstrap()</a></code>, explained in the vignette for <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
+final deployment model selected after training, cross-validating, and
+evaluating the model hyperparameters on distinct subsets. When samples
+are too small for cross-validation, we provide a different approach by
+bootstrapping the entire model with a <code>ModelBoot</code> object,
+explained in the vignette for <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
 <p>Although ALE is faster than most other IML techniques for global
 explanation such as partial dependence plots (PDP) and SHAP, it still
 requires some time to run. Bootstrapping multiplies that time by the
@@ -409,7 +403,7 @@ will demonstrate bootstrapping on a small subset of the test data. This
 will run much faster as the speed of the ALE algorithm depends on the
 size of the dataset. So, let us take a random sample of 200 rows of the
 test set.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bootstraping is rather slow, so create a smaller subset of new data for demonstration</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">new_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>, <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -422,19 +416,18 @@ development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
 beyond 100 iterations. However, so that this introduction runs faster,
 we demonstrate it here with only 10 iterations.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds_small_test</span>, <span class="va">gam_diamonds</span>, </span>
+<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
+<span>  model <span class="op">=</span> <span class="va">gam_diamonds</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">diamonds_small_test</span>, </span>
 <span>  <span class="co"># Normally boot_it should be set to 100, but just 10 here for a faster demonstration</span></span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="fl">2</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span>  boot_it <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
-<span><span class="va">boot_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span></span>
-<span><span class="va">boot_1D_plots</span> <span class="op">&lt;-</span> <span class="va">boot_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">boot_1D_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE result. In principle, we should always bootstrap
@@ -453,64 +446,39 @@ the key features of the package.</p>
 <div class="section level2">
 <h2 id="ale-interactions">ALE interactions<a class="anchor" aria-label="anchor" href="#ale-interactions"></a>
 </h2>
-<p>Another advantage of ALE is that it provides data for two-way
-interactions between variables. This is also implemented with the
-<code><a href="../reference/ale.html">ale()</a></code> function. When the <code>complete_d</code> argument
-is set to <code>2</code>, then if no variables are specified for
-<code>x_cols</code>, <code><a href="../reference/ale.html">ale()</a></code> generates ALE data on all
-possible pairs of input variables used for the model. To change the
-default options (e.g., to calculate interactions for only certain pairs
-of variables), see details in the help file for the function:
-<code><a href="../reference/ale.html">help(ale)</a></code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p>Another advantage of ALE is that it provides data for 2D interactions
+between variables. This is also implemented with the <code><a href="../reference/ale.html">ALE()</a></code>
+function. When the <code>d2</code> element of the <code>x_cols</code>
+list argument is set to <code>TRUE</code>, <code><a href="../reference/ale.html">ALE()</a></code> generates
+ALE data on all possible 2D interactions from the input dataset. To
+change the default options (e.g., to calculate interactions for only
+certain pairs of variables), see details in the help file for the
+function: <code><a href="../reference/ale-package.html">help(ale)</a></code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
-<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span></span>
-<span>  <span class="va">diamonds</span>, <span class="va">gam_diamonds</span>,</span>
-<span>  complete_d <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="fl">0</span>  <span class="co"># CRAN limit (delete this line on your own computer)</span></span>
+<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
+<span>  <span class="va">gam_diamonds</span>,</span>
+<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,parallel<span class="op">=</span><span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method similarly creates 2D ALE plots from
-the <code>ale</code> object. However, the structure is slightly more
-complex because of the two levels of interacting variables in the output
-data. As before, we first create plots from the <code>ale</code> object
-and then we extract the 2D plots from this <code>ale_plots</code>
-object:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Extract two-way ALE plots from the ale_plots object</span></span>
-<span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
-<span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="va">diamonds_2D_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">price</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p>Because of the 2D interactions, this <code>diamonds_2D_plots</code>
-is a two-level list of the 2D ALE plots: the first level is the first
-variable in the interaction and the second level is a list of the
-interacting variables. So, we use the <code>purrr</code> package to
-iterate the list structure to print the 2D plots.
-<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::walk()</a></code> takes a list as its first argument and then
-we specify an anonymous function for what we want to do with each
-element of the list. We specify the anonymous function as
-<code>\(it.x1) {...}</code> where <code>it.x1</code> in our case
-represents each individual element of <code>diamonds_2D_plots</code> in
-turn, that is, a sublist of plots with which the x1 variable interacts.
-We print the plots of all the x1 interactions as a combined grid of
-plots with <code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code>, as before.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Print all interaction plots</span></span>
+the <code>ALE</code> object:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">diamonds_2D_plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># extract list of x1 ALE interactions groups</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">it.x1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># plot all x2 plots in each it.x1 element</span></span>
-<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">it.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-2.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-3.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-4.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-5.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-6.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-7.png" width="672"><img src="ale-intro_files/figure-html/print-all-2D-8.png" width="672"></p>
-<p>Because we are printing all plots together with the same
-<code><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">patchwork::wrap_plots()</a></code> statement, some of them might
-appear vertically distorted because each plot is forced to be of the
-same height. For more fine-tuned presentation, we would need to refer to
-a specific plot. For example, we can print the interaction plot between
-carat and depth by referring to it thus:
-<code>diamonds_2D_plots$carat$depth</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span><span class="op">$</span><span class="va">carat</span><span class="op">$</span><span class="va">depth</span></span></code></pre></div>
+<span>  <span class="co"># Select all 2D interactions that involve 'carat'</span></span>
+<span>  <span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2_all <span class="op">=</span> <span class="st">'carat'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" width="672"></p>
+<p>Because we are printing all plots together, some of them might appear
+vertically distorted because each plot is forced to be of the same
+height. For more fine-tuned presentation, we would need to refer to a
+specific plot. The <code>ale</code> package supports the standard R
+formula notation for specifying variables. For example, we can print the
+interaction plot between carat and depth by referring to it thus:
+<code>get(diamonds_2D_plots, ~ carat:clarity)</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_2D_plots</span>, <span class="op">~</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
 because there are none here. This is expressed in the graphs by the ALE

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250128</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">January 10, 2024</h4>
+            <h4 data-toc-skip class="date">February 14, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/articles/ale-ALEPlot.Rmd" class="external-link"><code>vignettes/articles/ale-ALEPlot.Rmd</code></a></small>
       <div class="d-none name"><code>ale-ALEPlot.Rmd</code></div>
@@ -109,7 +109,7 @@ dependency plots (PDP). The package is focused exclusively on
 accumulated local effects (ALE); users who need PDPs may use
 <code>{ALEPlot}</code> or other implementations.</p>
 <p>In each section here, we cover an example from <code>{ALEPlot}</code>
-and then reimplement it with <code>ale</code>.</p>
+and then reimplement it with <a href="https://github.com/tripartio/ale" class="external-link">ale</a>.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -247,8 +247,17 @@ automatically for you with a notification message.</p>
 list with various ALE elements.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ale'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     get</span></span>
 <span></span>
-<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nn_ale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
+<span>  <span class="va">nnet.DAT</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">DAT</span>,</span>
+<span>  pred_type <span class="op">=</span> <span class="st">"raw"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Here are some notable differences compared to
 <code>ALEPlot</code>:</p>
 <ul>
@@ -275,9 +284,7 @@ functions with the <code>pred_fun</code> argument.</li>
 all at once:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print plots</span></span>
-<span><span class="va">nn_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale</span><span class="op">)</span></span>
-<span><span class="va">nn_1D_plots</span> <span class="op">&lt;-</span> <span class="va">nn_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">nn_1D_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20plots-1.png" width="672"></p>
 <p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package plots have various features that
 enhance interpretability:</p>
@@ -298,9 +305,7 @@ same data as those shown above from <code>ALEPlot</code>. To make the
 comparison clearer, we can plot the ALEs on a zero-centred scale:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Zero-centred ALE plots</span></span>
-<span><span class="va">nn_plots_zero</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span><span class="op">)</span></span>
-<span><span class="va">nn_1D_plots_zero</span> <span class="op">&lt;-</span> <span class="va">nn_plots_zero</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">nn_1D_plots_zero</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale</span>, relative_y <span class="op">=</span> <span class="st">'zero'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%20one-way%20zeroed-1.png" width="672"></p>
 <p>With these zero-centred plots, the full range of y values and the rug
 plots give some context that aids interpretation. (If the rugs look
@@ -310,19 +315,17 @@ overplotting.)</p>
 vignette</a> for details on how they are specified and created.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and plot interactions</span></span>
-<span><span class="va">nn_ale_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ale</a></span><span class="op">(</span><span class="va">DAT</span>, <span class="va">nnet.DAT</span>, pred_type <span class="op">=</span> <span class="st">"raw"</span>, complete_d <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">nn_ale_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
+<span>  model <span class="op">=</span> <span class="va">nnet.DAT</span>, </span>
+<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">DAT</span>, </span>
+<span>  pred_type <span class="op">=</span> <span class="st">"raw"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="va">nn_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale_2D</span><span class="op">)</span></span>
-<span><span class="va">nn_2D_plots</span> <span class="op">&lt;-</span> <span class="va">nn_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">nn_2D_plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">it.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
-<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
-<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">it.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%202D-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20nnet%202D-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%20nnet%202D-3.png" width="672"></p>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn_ale_2D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-ALEPlot_files/figure-html/ale%20nnet%202D-1.png" width="672"></p>
 <p>These interaction plots are heat maps that indicate the interaction
 regions that are above or below the average value of y with colours.
 Grey indicates no meaningful interaction; blue indicates a positive
@@ -376,7 +379,7 @@ We load it here with the adjustments necessary to run the
 <span>  <span class="va">census</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>   <span class="co"># ALEPlot is not compatible with the tibble format</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">age</span><span class="op">:</span><span class="va">native_country</span>, <span class="va">higher_income</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Rearrange columns to match ALEPlot order</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <p>Although gradient boosted trees generally perform quite well, they
 are rather slow. Rather than having you wait for it to run, the code
 here downloads a pretrained GBM model. However, the code used to
@@ -424,11 +427,11 @@ interaction between <code>age</code> and
 <span><span class="co">## Calculate and plot the ALE main and interaction effects for x_1, x_3,</span></span>
 <span><span class="co">## x_11, and {x_1, x_11}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">+</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span><span class="va">ALE.1</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">1</span>, K<span class="op">=</span><span class="fl">500</span>,</span>
+<span><span class="va">ALE.1</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">1</span>, K<span class="op">=</span><span class="fl">100</span>,</span>
 <span>NA.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">ALE.3</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">3</span>, K<span class="op">=</span><span class="fl">500</span>,</span>
+<span><span class="va">ALE.3</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">3</span>, K<span class="op">=</span><span class="fl">100</span>,</span>
 <span>NA.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">ALE.11</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">11</span>, K<span class="op">=</span><span class="fl">500</span>,</span>
+<span><span class="va">ALE.11</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fl">11</span>, K<span class="op">=</span><span class="fl">100</span>,</span>
 <span>NA.plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">ALE.1and11</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/ALEPlot/man/ALEPlot.html" class="external-link">ALEPlot</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">15</span><span class="op">)</span><span class="op">]</span>, <span class="va">gbm.data</span>, pred.fun<span class="op">=</span><span class="va">yhat</span>, J<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">11</span><span class="op">)</span>,</span>
 <span>K<span class="op">=</span><span class="fl">50</span>, NA.plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -469,21 +472,19 @@ plots.</p>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is very slow because it calculates ALE for all variables,</span></span>
 <span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
-<span><span class="co"># gbm_ale_link &lt;- ale(</span></span>
-<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
-<span><span class="co">#   data, gbm.data,</span></span>
+<span><span class="co"># gbm_ale_link &lt;- ALE(</span></span>
+<span><span class="co">#   gbm.data,</span></span>
+<span><span class="co">#   data = data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
-<span><span class="co">#   max_num_bins = 500,</span></span>
-<span><span class="co">#   sample_size = 600  # technical issue: sample_size must be &gt; max_num_bins + 1</span></span>
+<span><span class="co">#   max_num_bins = 100</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_link, file.choose())</span></span>
 <span><span class="va">gbm_ale_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_link_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_link</span><span class="op">)</span></span>
-<span><span class="va">gbm_1D_link_plots</span> <span class="op">&lt;-</span> <span class="va">gbm_link_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">higher_income</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">gbm_1D_link_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_link</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20link-1.png" width="672"></p>
 <p>Now we generate ALE data for all two-way interactions and then plot
 them. Again, note the interaction between <code>age</code> and
@@ -493,35 +494,31 @@ extremely high cases of hours per week.</p>
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is very slow because it calculates ALE for all variables,</span></span>
 <span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
-<span><span class="co"># gbm_ale_2D_link &lt;- ale(</span></span>
-<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
-<span><span class="co">#   data, gbm.data,</span></span>
-<span><span class="co">#   complete_d = 2,</span></span>
+<span><span class="co"># gbm_ale_2D_link &lt;- ALE(</span></span>
+<span><span class="co">#   gbm.data,</span></span>
+<span><span class="co">#   x_cols = list(d2 = TRUE),  # All 2D interactions</span></span>
+<span><span class="co">#   data = data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
-<span><span class="co">#   max_num_bins = 500,</span></span>
-<span><span class="co">#   sample_size = 600  # technical issue: sample_size must be &gt; max_num_bins + 1</span></span>
+<span><span class="co">#   max_num_bins = 100</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_2D_link, file.choose())</span></span>
 <span><span class="va">gbm_ale_2D_link</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_link.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_link_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_2D_link</span><span class="op">)</span></span>
-<span><span class="va">gbm_link_2D_plots</span> <span class="op">&lt;-</span> <span class="va">gbm_link_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">higher_income</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">gbm_link_2D_plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">it.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
-<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
-<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">it.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-5.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-6.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-7.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-8.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-9.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-10.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-11.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-12.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-13.png" width="672"></p>
+<span><span class="co"># Create plots object</span></span>
+<span><span class="va">gbm_link_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_2D_link</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Only print plots involving age</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">gbm_link_2D_plots</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2_all <span class="op">=</span> <span class="st">'age'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-ALEPlot_files/figure-html/ale%202D%20link-1.png" width="672"></p>
 <p>In some of these plots, we can see some white spots. These are the
 interaction zones where there is no data in the dataset to calculate the
 existence of an interaction. For example, let’s focus on the
 interactions of <code>age</code> with <code>education_num</code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gbm_link_2D_plots</span><span class="op">$</span><span class="va">age</span><span class="op">$</span><span class="va">education_num</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># We can use the formula syntax to specify which interaction plot to retrieve</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">gbm_link_2D_plots</span>, <span class="op">~</span> <span class="va">age</span><span class="op">:</span><span class="va">education_num</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20age%20x%20education_num-1.png" width="700"></p>
 <p>Here, the grey zones in the majority of the plot indicate that there
 are minimal interaction effects for most of the data range. However, in
@@ -566,21 +563,19 @@ middle.</p>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
 <span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
-<span><span class="co"># gbm_ale_prob &lt;- ale(</span></span>
-<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
-<span><span class="co">#   data, gbm.data,</span></span>
+<span><span class="co"># gbm_ale_prob &lt;- ALE(</span></span>
+<span><span class="co">#   gbm.data,</span></span>
+<span><span class="co">#   data = data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
-<span><span class="co">#   max_num_bins = 500,</span></span>
-<span><span class="co">#   sample_size = 600  # technical issue: sample_size must be &gt; max_num_bins + 1</span></span>
+<span><span class="co">#   max_num_bins = 100</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_prob, file.choose())</span></span>
 <span><span class="va">gbm_ale_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_prob_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_prob</span><span class="op">)</span></span>
-<span><span class="va">gbm_1D_prob_plots</span> <span class="op">&lt;-</span> <span class="va">gbm_prob_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">higher_income</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">gbm_1D_prob_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_prob</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-ALEPlot_files/figure-html/ale%20one-way%20prob-1.png" width="672"></p>
 <p>Finally, we again generate two-way interactions, this time based on
 probabilities instead of on log odds. However, probabilities might not
@@ -590,32 +585,27 @@ its probabilities in the extremes near 0 and 1. Thus, the plots’
 suggestions of strong interactions are likely exaggerated. In this case,
 the log odds ALEs shown above are probably more relevant.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># To generate the code, uncomment the following lines.</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow because it calculates ALE for all variables,</span></span>
 <span><span class="co"># # so this vignette loads a pre-created model object.</span></span>
-<span><span class="co"># gbm_ale_2D_prob &lt;- ale(</span></span>
-<span><span class="co">#   # data[,-c(3,4)], gbm.data,</span></span>
-<span><span class="co">#   data, gbm.data,</span></span>
-<span><span class="co">#   complete_d = 2,</span></span>
+<span><span class="co"># gbm_ale_2D_prob &lt;- ALE(</span></span>
+<span><span class="co">#   gbm.data,</span></span>
+<span><span class="co">#   x_cols = list(d2 = TRUE),</span></span>
+<span><span class="co">#   data = data,</span></span>
 <span><span class="co">#   pred_fun = yhat,</span></span>
-<span><span class="co">#   max_num_bins = 500,</span></span>
-<span><span class="co">#   sample_size = 600  # technical issue: sample_size must be &gt; max_num_bins + 1</span></span>
+<span><span class="co">#   max_num_bins = 100</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(gbm_ale_2D_prob, file.choose())</span></span>
 <span><span class="va">gbm_ale_2D_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_prob.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Print plots</span></span>
-<span><span class="va">gbm_prob_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_2D_prob</span><span class="op">)</span></span>
-<span><span class="va">gbm_prob_2D_plots</span> <span class="op">&lt;-</span> <span class="va">gbm_prob_plots</span><span class="op">$</span><span class="va">distinct</span><span class="op">$</span><span class="va">higher_income</span><span class="op">$</span><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">gbm_prob_2D_plots</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># extract list of x1 ALE outputs</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">walk</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">it.x1</span><span class="op">)</span> <span class="op">{</span>  </span>
-<span>    <span class="co"># plot all x2 plots in each .x1 element</span></span>
-<span>    <span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">it.x1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-1.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-2.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-3.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-4.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-5.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-6.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-7.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-8.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-9.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-10.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-11.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-12.png" width="672"><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-13.png" width="672"></p>
+<span><span class="co"># Create plots object</span></span>
+<span><span class="va">gbm_prob_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gbm_ale_2D_link</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Only print plots involving age</span></span>
+<span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">gbm_prob_2D_plots</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2_all <span class="op">=</span> <span class="st">'age'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="ale-ALEPlot_files/figure-html/ale%202D%20prob-1.png" width="672"></p>
 </div>
 </div>
 </div>

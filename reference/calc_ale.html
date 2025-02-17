@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250128</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,8 +60,7 @@
 <span>  <span class="va">boot_alpha</span>,</span>
 <span>  <span class="va">boot_centre</span>,</span>
 <span>  boot_ale_y <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ale_y_norm_funs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  p_dist <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -72,11 +71,11 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-x-cols">x_cols<a class="anchor" aria-label="anchor" href="#arg-x-cols"></a></dt>
@@ -92,52 +91,52 @@
 
 
 <dt id="arg-pred-fun">pred_fun<a class="anchor" aria-label="anchor" href="#arg-pred-fun"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-pred-type">pred_type<a class="anchor" aria-label="anchor" href="#arg-pred-type"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-max-num-bins">max_num_bins<a class="anchor" aria-label="anchor" href="#arg-max-num-bins"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-boot-it">boot_it<a class="anchor" aria-label="anchor" href="#arg-boot-it"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-boot-alpha">boot_alpha<a class="anchor" aria-label="anchor" href="#arg-boot-alpha"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-boot-centre">boot_centre<a class="anchor" aria-label="anchor" href="#arg-boot-centre"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-boot-ale-y">boot_ale_y<a class="anchor" aria-label="anchor" href="#arg-boot-ale-y"></a></dt>
 <dd><p>logical(1). If <code>TRUE</code>, return the bootstrap matrix of ALE y values. If <code>FALSE</code> (default) return NULL for the <code>boot_ale_y</code> element of the return value.</p></dd>
 
 
-<dt id="arg-bins-ns">bins, ns<a class="anchor" aria-label="anchor" href="#arg-bins-ns"></a></dt>
-<dd><p>numeric or ordinal vector,integer vector. Normally generated automatically (if <code>bins == NULL</code>), but if provided, the provided values will be used instead. They would mainly be provided from <code><a href="model_bootstrap.html">model_bootstrap()</a></code>.</p></dd>
+<dt id="arg--bins">.bins<a class="anchor" aria-label="anchor" href="#arg--bins"></a></dt>
+<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-ale-y-norm-funs">ale_y_norm_funs<a class="anchor" aria-label="anchor" href="#arg-ale-y-norm-funs"></a></dt>
-<dd><p>list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to <code><a href="ale.html">ale()</a></code>. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.</p></dd>
+<dd><p>list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to <code><a href="ale.html">ALE()</a></code>. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.</p></dd>
 
 
 <dt id="arg-p-dist">p_dist<a class="anchor" aria-label="anchor" href="#arg-p-dist"></a></dt>
-<dd><p>See documentation for <code>p_values</code> in <code><a href="ale.html">ale()</a></code></p></dd>
+<dd><p>See documentation for <code>p_values</code> in <code><a href="ale.html">ALE()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For details about arguments not documented here, see <code><a href="ale.html">ale()</a></code>.</p>
+    <p>For details about arguments not documented here, see <code><a href="ale.html">ALE()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
