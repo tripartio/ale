@@ -6,18 +6,13 @@
 \arguments{
 \item{obj}{ALE object from which to retrieve elements.}
 
-\item{x_cols, exclude_cols}{See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}. The default value of \code{NULL} for \code{x_cols} retrieves all available data of the output requested in \code{what}.}
+\item{x_cols, exclude_cols}{character, list, or formula. Columns names and interaction terms from \code{obj} requested in one of the special \code{x_cols} formats. The default value of \code{NULL} for \code{x_cols} retrieves all available data of the output requested in \code{what}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.}
 
 \item{what}{character(1). What kind of output is requested. Must be one (and only one) of \code{c('ale', 'boot_data')}. Default is \code{'ale'}. If \code{stats} is specified and \code{what = 'ale'}, then ALE statistics are retrieved. Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}.
-stats = 'all'
-stats = c('aled', 'aler_min'))
-stats = 'estimate' (default for get_stats)
-stats = 'conf_regions'
-stats = 'conf_sig'}
+\item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}. See the return value details below for valid values for \code{stats}.}
 
 \item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
@@ -26,94 +21,62 @@ stats = 'conf_sig'}
 \item{silent}{See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}}
 }
 \value{
-Requested data as a list with the following elements:
+Regardless of the requested data, all \code{\link[=get.ALE]{get.ALE()}} have a common structure:
 \itemize{
-\item \code{data}: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
+\item If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the \code{cats} argument, then the top level never has categories, regardless of the value of \code{simplify}.
+\item The next level (or top level if there are zero or one category) is a list with one or two levels:
 \itemize{
-\item \code{.bin} or \code{.ceil}: For non-numeric x, \code{.bin} is the value of each of the ALE categories. For numeric x, \code{.ceil} is the value of the upper bound of each ALE bin. The first "bin" of numeric variables represents the minimum value.
-\item \code{.n}: the number of rows of data in each bin represented by \code{.bin} or \code{.ceil}. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
-\item \code{.y}: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as \code{.y_mean} by default or \code{.y_median} if the \code{boot_centre = 'median'} argument is specified. Regardless, both \code{.y_mean} and \code{.y_median} are returned as columns here.
-\item \code{.y_lo}, \code{.y_hi}: the lower and upper confidence intervals, respectively, for the bootstrapped \code{.y} value.
-Note: regardless what options are requested in the \code{output} argument, this \code{data} element is always returned.
+\item \code{d1}: 1D ALE elements.
+\item \code{d2}: 2D ALE elements.
+However, if elements of only one dimension (either 1D or 2D) are requested and \code{simplify = TRUE} (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no \code{d1} sublist but only a list of the ALE data as described for the next level. If \code{simplify = FALSE}, both \code{d1} and \code{d2} sublists will always be returned; the empty sublist will be \code{NULL}.
 }
-\item \code{boot_data}: if \code{boot} is requested in the \code{output} argument, returns a list whose elements, named by each requested x variable, are each a matrix. If not requested (as is the default) or if \code{boot_it == 0}, returns \code{NULL}. Each matrix element is the \code{.y} value of each bin ( \code{.bin} or \code{.ceil}) (unnamed rows) for each \code{boot_it} bootstrap iteration (unnamed columns).
-\item \code{stats}: if \code{stats} are requested in the \code{output} argument (as is the default),
-returns a list. If not requested, returns \code{NULL}. The returned list provides
-ALE statistics of the \code{data} element duplicated and presented from various
-perspectives in the following elements:
-\itemize{
-\item \code{by_term}: a list named by each requested x variable, each of whose elements
-is a tibble with the following columns:
-\itemize{
-\item \code{statistic}: the ALE statistic specified in the row (see
-the \code{by_stat} element below).
-\item \code{estimate}: the bootstrapped \code{mean} or \code{median} of the \code{statistic},
-depending on the \code{boot_centre} argument to the \code{\link[=ALE]{ALE()}} function.
-Regardless, both \code{mean} and \code{median} are returned as columns here.
-\item \code{conf.low}, \code{conf.high}: the lower and upper confidence intervals,
-respectively, for the bootstrapped \code{estimate}.
-}
-\item \code{by_stat}: list named by each of the following ALE statistics:
-\code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}. See
-\code{vignette('ale-statistics')} for details.
-\item \code{estimate}: a tibble whose data consists of the \code{estimate} values from the
-\code{by_term} element above. The columns are \code{term} (the variable name) and the
-statistic for which the estimate is given:
-\code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}.
-\item \code{effects_plot}: a \code{ggplot} object which is the ALE effects plot for all the
-x variables.
-\item \code{conf_regions}: if \code{conf_regions} are requested in the \code{output} argument (as is the default),  returns a list. If not requested, returns \code{NULL}. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the \code{data} element. The list has the following elements:
-\itemize{
-\item \code{by_term}: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See \code{vignette('ale-statistics')} for details about confidence regions.)
-\item \code{significant}: a tibble that summarizes the \code{by_term} to only show confidence regions that are statistically significant. Its columns are those from \code{by_term} plus a \code{term} column to specify which x variable is indicated by the respective row. For 2D interactions, numeric values are grouped in terciles (quantiles of three) and the \code{x1} or \code{x2} reports these terciles as an interval. However, in some cases where terciles cannot be cleanly formed because of the distribution of the data, the numeric terciles might be indicated with the numbers 1, 2, or 3 without specifying the actual numeric interval values.
-\item \code{sig_criterion}: a length-one character vector that reports which values were used to determine statistical significance: if \code{p_values} was provided to the \code{\link[=ALE]{ALE()}} function, it will be used; otherwise, \code{median_band_pct} will be used.
-}
-}
-\item \code{plots}: if \code{plots} are requested in the \code{output} argument (as is the default),
-returns a list whose elements, named by each requested x variable, are each
-a \code{ggplot} object of the ALE y values plotted against the x variable intervals.
-If \code{plots} is not included in \code{output}, this element is \code{NULL}.
-\item Various values echoed from the original call to the \code{\link[=ALE]{ALE()}} function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
-\code{y_col}, \code{x_cols}, \code{boot_it}, \code{seed}, \code{boot_alpha}, \code{boot_centre}, \code{y_type}, \code{median_band_pct}, \code{sample_size}. These are either the values provided by the user or used by default if the user did not change them.
-\item \code{y_summary}: summary statistics of y values used for the ALE calculation.
-These statistics are based on the actual values of \code{y_col} unless if \code{y_type} is a
-probability or other value that is constrained in the \verb{[0, 1]} range. In that
-case, \code{y_summary} is based on the predicted values of \code{y_col} by applying
-\code{model} to the \code{data}. \code{y_summary} is a named numeric vector. Most of the
-elements are the percentile of the y values. E.g., the '5\%' element is the
-5th percentile of y values. The following elements have special meanings:
-\itemize{
-\item The first element is named either \code{p} or \code{q} and its value is always 0.
-The value is not used; only the name of the element is meaningful.
-\code{p} means that the following special \code{y_summary} elements are based on
-the provided \code{ALEpDist} object. \code{q} means that quantiles were calculated
-based on \code{median_band_pct} because \code{p_values} was not provided.
-\item \code{min}, \code{mean}, \code{max}: the minimum, mean, and maximum y values, respectively.
-Note that the median is \verb{50\%}, the 50th percentile.
-\item \code{med_lo_2}, \code{med_lo}, \code{med_hi}, \code{med_hi_2}: \code{med_lo} and \code{med_hi} are the
-inner lower and upper confidence intervals of y values with respect to
-the median (\verb{50\%}); \code{med_lo_2} and \code{med_hi_2} are the outer confidence
-intervals. See the documentation for the \code{p_alpha} and \code{median_band_pct}
-arguments to understand how these are determined.
-}
+\item For the \code{d1} sublist, there is no further hierarchy: the returned data is as described below. For the \code{d2} sublist representing \code{var1} by \code{var2} interactions, the next level is a named list of all \code{var1} elements. This level in turn consists of a named list of \code{var2} elements with the actual data as described below. For example, for ALE data, \code{result <- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))} would return \code{result} as a list where the 1D ALE data is in \code{result$d1$var1} and the 2D ALE data in \code{result$d2$var1$var2}.
 }
 
-ModelBoot:
-\itemize{
-\item \code{ale}: list of bootstrapped ALE results
-\itemize{
-\item \code{data}: ALE data (see \code{\link[=ALE]{ALE()}} for details about the format)
-\item \code{stats}: ALE statistics. The same data is duplicated with different views that might be variously useful:
-\itemize{
-\item \code{by_term}: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the \code{broom} package. The confidence intervals are based on the \code{\link[=ALE]{ALE()}} function defaults; they can be changed with the \code{ale_options} argument. The estimate is the median or the mean, depending on the \code{boot_centre} argument.
-\item \code{by_stat} : term, estimate, conf.low, median, mean, conf.high.
-\item \code{estimate}: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
+While all results follow the general structure just described, the specific type of data returned depends on the values of the \code{what} and \code{stats} arguments:
+\describe{
+\item{\code{what = 'ale'} (default) and \code{stats = NULL} (default)}{A list whose elements, named by each requested x variable, are each a tibble. The rows each represent one ALE bin. The tibble has the following columns:
+* \code{var.bin} or \code{var.ceil} where \code{var} is the name of a variable (column): For non-numeric x, \code{var.bin} is the value of each of the ALE categories. For numeric x, \code{var.ceil} is the value of the upper bound (ceiling) of each ALE bin. The first "bin" of numeric variables represents the minimum value. For 2D ALE with an \code{var1} by \code{var2} interaction, both \code{var1.bin} and \code{var2.bin} columns are returned (or \code{var1.ceil} or \code{var2.ceil}for numeric \code{var1} or \code{var2}).
+* \code{.n}: the number of rows of data in each bin represented by \code{var.bin} or \code{var.ceil}. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
+* \code{.y}: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as \code{.y_mean} by default or \code{.y_median} if \code{boot_centre = 'median'}. Regardless, both \code{.y_mean} and \code{.y_median} are returned as columns here.
+* \code{.y_lo}, \code{.y_hi}: the lower and upper confidence intervals, respectively, for the bootstrapped \code{.y} value based on the \code{boot_alpha} argument in the \code{\link[=ALE]{ALE()}} constructor.
 }
+
+\item{\code{what = 'boot_data'} and \code{stats = NULL} (default)}{A list whose elements, named by each requested x variable, are each a tibble. These are the data from which \code{.y_mean}, \code{.y_median}, \code{.y_lo}, and \code{.y_hi} are summarized when \code{what = 'ale'}. The rows each represent one ALE bin for a specified bootstrap iteration. The tibble has the following columns:
+* \code{.it}: The bootstrap iteration. Iteration 0 represents the ALE calculations on the full dataset; the remaining values of \code{.it} are from 1 to \code{boot_it} (number of bootstrap iterations specified in the \code{\link[=ALE]{ALE()}} constructor.
+* \code{var} where \code{var} is the name of a variable (column): For non-numeric x, \code{var} is the value of each of the ALE categories. For numeric x, \code{var} is the value of the upper bound (ceiling) of each ALE bin. They are otherwise similar to their meanings described for \code{what = 'ale'} above.
+* \code{.n} and \code{.y}: Same as for \code{what = 'ale'}.
 }
-\item \code{boot_data}: full bootstrap data (not returned by default)
-\item other values: the \code{boot_it}, \code{seed}, \code{boot_alpha}, and \code{boot_centre} arguments that were originally passed are returned for reference.
+
+\item{\code{what = 'ale'} (default) and \code{stats = 'estimate'}}{A list with elements \code{d1} and \code{d2} with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
+* \code{term} or \code{term1} and \code{term2}: The variable or column for the 1D (\code{term}) or 2D (\code{term1} by \code{term2}) ALE statistic.
+* \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respecitve ALE statistic for the variable or interaction.
+}
+
+\item{\code{what = 'ale'} (default) and \code{stats} is one value in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
+* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
+* \code{estimate}, \code{mean}, \code{median}: The average of the bootstrapped value of the requested statistic. \code{estimate} is equal to either \code{mean} or \code{median} depending on the \code{boot_centre} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{mean}, and \code{median} are equal.
+* \code{conf.low}, \code{conf.high}: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the \code{boot_alpha} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{conf.low}, and \code{conf.high} are equal.
+}
+
+\item{\code{what = 'ale'} (default) and \code{stats = 'all'}}{A list with elements \code{d1} and \code{d2} with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the \code{stats = 'aled'} (for example) format returns data for a single statistic, \code{stats = 'all'} returns all statistics for the requested variables. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
+* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
+* \code{estimate}, \code{mean}, \code{median}: Same as above for individual ALE statistics.
+* \code{conf.low}, \code{conf.high}: Same as above for individual ALE statistics.
+}
+
+\item{\code{what = 'ale'} (default) and \code{stats = 'conf_regions'}}{A list with elements \code{d1} and \code{d2} with the confidence regions for the requested variables and interactions. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see \code{vignette('ale-statistics')}.
+}
+
+\item{\code{what = 'ale'} (default) and \code{stats = 'conf_sig'}}{A list with elements \code{d1} and \code{d2} filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see \code{vignette('ale-statistics')}.
+}
 }
 }
 \description{
 Retrieve specific elements from an \code{ALE} object.
+}
+\examples{
+# See examples at ALE() for a demonstration us the get() method.
+
+
 }

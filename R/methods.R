@@ -78,89 +78,65 @@ method(plot, ALE) <- function(x, ...) {
 #' Retrieve specific elements from an `ALE` object.
 #'
 #' @param obj ALE object from which to retrieve elements.
-#' @param x_cols,exclude_cols See documentation for [resolve_x_cols()]. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`.
+#' @param x_cols,exclude_cols character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
 #' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'boot_data')`. Default is `'ale'`. If `stats` is specified and `what = 'ale'`, then ALE statistics are retrieved. Otherwise, `get()` errors if `stats` is specified and `what` has some other value.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`.
-#' stats = 'all'
-#' stats = c('aled', 'aler_min'))
-#' stats = 'estimate' (default for get_stats)
-#' stats = 'conf_regions'
-#' stats = 'conf_sig'
+#' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`. See the return value details below for valid values for `stats`.
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
 #' @param silent See documentation for [resolve_x_cols()]
 #'
-#' @returns Requested data as a list with the following elements:
-#' * `data`: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
-#'     * `.bin` or `.ceil`: For non-numeric x, `.bin` is the value of each of the ALE categories. For numeric x, `.ceil` is the value of the upper bound of each ALE bin. The first "bin" of numeric variables represents the minimum value.
-#'     * `.n`: the number of rows of data in each bin represented by `.bin` or `.ceil`. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
-#'     * `.y`: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if the `boot_centre = 'median'` argument is specified. Regardless, both `.y_mean` and `.y_median` are returned as columns here.
-#'     * `.y_lo`, `.y_hi`: the lower and upper confidence intervals, respectively, for the bootstrapped `.y` value.
-#'   Note: regardless what options are requested in the `output` argument, this `data` element is always returned.
-#' * `boot_data`: if `boot` is requested in the `output` argument, returns a list whose elements, named by each requested x variable, are each a matrix. If not requested (as is the default) or if `boot_it == 0`, returns `NULL`. Each matrix element is the `.y` value of each bin ( `.bin` or `.ceil`) (unnamed rows) for each `boot_it` bootstrap iteration (unnamed columns).
-#' * `stats`: if `stats` are requested in the `output` argument (as is the default),
-#'   returns a list. If not requested, returns `NULL`. The returned list provides
-#'   ALE statistics of the `data` element duplicated and presented from various
-#'   perspectives in the following elements:
-#'     * `by_term`: a list named by each requested x variable, each of whose elements
-#'       is a tibble with the following columns:
-#'         * `statistic`: the ALE statistic specified in the row (see
-#'           the `by_stat` element below).
-#'         * `estimate`: the bootstrapped `mean` or `median` of the `statistic`,
-#'           depending on the `boot_centre` argument to the [ALE()] function.
-#'           Regardless, both `mean` and `median` are returned as columns here.
-#'         * `conf.low`, `conf.high`: the lower and upper confidence intervals,
-#'           respectively, for the bootstrapped `estimate`.
-#'     * `by_stat`: list named by each of the following ALE statistics:
-#'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`. See
-#'      `vignette('ale-statistics')` for details.
-#'     * `estimate`: a tibble whose data consists of the `estimate` values from the
-#'       `by_term` element above. The columns are `term` (the variable name) and the
-#'       statistic for which the estimate is given:
-#'       `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`.
-#'     * `effects_plot`: a `ggplot` object which is the ALE effects plot for all the
-#'       x variables.
-#'     * `conf_regions`: if `conf_regions` are requested in the `output` argument (as is the default),  returns a list. If not requested, returns `NULL`. The returned list provides summaries of the confidence regions of the relevant ALE statistics of the `data` element. The list has the following elements:
-#'         * `by_term`: a list named by each requested x variable, each of whose elements is a tibble with the relevant data for the confidence regions. (See `vignette('ale-statistics')` for details about confidence regions.)
-#'         * `significant`: a tibble that summarizes the `by_term` to only show confidence regions that are statistically significant. Its columns are those from `by_term` plus a `term` column to specify which x variable is indicated by the respective row. For 2D interactions, numeric values are grouped in terciles (quantiles of three) and the `x1` or `x2` reports these terciles as an interval. However, in some cases where terciles cannot be cleanly formed because of the distribution of the data, the numeric terciles might be indicated with the numbers 1, 2, or 3 without specifying the actual numeric interval values.
-#'         * `sig_criterion`: a length-one character vector that reports which values were used to determine statistical significance: if `p_values` was provided to the [ALE()] function, it will be used; otherwise, `median_band_pct` will be used.
-#' * `plots`: if `plots` are requested in the `output` argument (as is the default),
-#'   returns a list whose elements, named by each requested x variable, are each
-#'   a `ggplot` object of the ALE y values plotted against the x variable intervals.
-#'   If `plots` is not included in `output`, this element is `NULL`.
-#' * Various values echoed from the original call to the [ALE()] function, provided to document the key elements used to calculate the ALE data, statistics, and plots:
-#'   `y_col`, `x_cols`, `boot_it`, `seed`, `boot_alpha`, `boot_centre`, `y_type`, `median_band_pct`, `sample_size`. These are either the values provided by the user or used by default if the user did not change them.
-#' * `y_summary`: summary statistics of y values used for the ALE calculation.
-#'   These statistics are based on the actual values of `y_col` unless if `y_type` is a
-#'   probability or other value that is constrained in the `[0, 1]` range. In that
-#'   case, `y_summary` is based on the predicted values of `y_col` by applying
-#'   `model` to the `data`. `y_summary` is a named numeric vector. Most of the
-#'   elements are the percentile of the y values. E.g., the '5%' element is the
-#'   5th percentile of y values. The following elements have special meanings:
-#'     * The first element is named either `p` or `q` and its value is always 0.
-#'       The value is not used; only the name of the element is meaningful.
-#'       `p` means that the following special `y_summary` elements are based on
-#'       the provided `ALEpDist` object. `q` means that quantiles were calculated
-#'       based on `median_band_pct` because `p_values` was not provided.
-#'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively.
-#'       Note that the median is `50%`, the 50th percentile.
-#'     * `med_lo_2`, `med_lo`, `med_hi`, `med_hi_2`: `med_lo` and `med_hi` are the
-#'       inner lower and upper confidence intervals of y values with respect to
-#'       the median (`50%`); `med_lo_2` and `med_hi_2` are the outer confidence
-#'       intervals. See the documentation for the `p_alpha` and `median_band_pct`
-#'       arguments to understand how these are determined.
+#' @returns
+#' Regardless of the requested data, all [get.ALE()] have a common structure:
+#'   * If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the `cats` argument, then the top level never has categories, regardless of the value of `simplify`.
+#'   * The next level (or top level if there are zero or one category) is a list with one or two levels:
+#'       * `d1`: 1D ALE elements.
+#'       * `d2`: 2D ALE elements.
+#'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL`.
+#'   * For the `d1` sublist, there is no further hierarchy: the returned data is as described below. For the `d2` sublist representing `var1` by `var2` interactions, the next level is a named list of all `var1` elements. This level in turn consists of a named list of `var2` elements with the actual data as described below. For example, for ALE data, `result <- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))` would return `result` as a list where the 1D ALE data is in `result$d1$var1` and the 2D ALE data in `result$d2$var1$var2`.
 #'
-#' ModelBoot:
-#' * `ale`: list of bootstrapped ALE results
-#'   * `data`: ALE data (see [ALE()] for details about the format)
-#'   * `stats`: ALE statistics. The same data is duplicated with different views that might be variously useful:
-#'     * `by_term`: statistic, estimate, conf.low, median, mean, conf.high. ("term" means variable name.) The column names are compatible with the `broom` package. The confidence intervals are based on the [ALE()] function defaults; they can be changed with the `ale_options` argument. The estimate is the median or the mean, depending on the `boot_centre` argument.
-#'     * `by_stat` : term, estimate, conf.low, median, mean, conf.high.
-#'     * `estimate`: term, then one column per statistic provided with the default estimate. This view does not present confidence intervals.
-#' * `boot_data`: full bootstrap data (not returned by default)
-#' * other values: the `boot_it`, `seed`, `boot_alpha`, and `boot_centre` arguments that were originally passed are returned for reference.
-
+#' While all results follow the general structure just described, the specific type of data returned depends on the values of the `what` and `stats` arguments:
+#' \describe{
+#'   \item{`what = 'ale'` (default) and `stats = NULL` (default)}{A list whose elements, named by each requested x variable, are each a tibble. The rows each represent one ALE bin. The tibble has the following columns:
+#'     * `var.bin` or `var.ceil` where `var` is the name of a variable (column): For non-numeric x, `var.bin` is the value of each of the ALE categories. For numeric x, `var.ceil` is the value of the upper bound (ceiling) of each ALE bin. The first "bin" of numeric variables represents the minimum value. For 2D ALE with an `var1` by `var2` interaction, both `var1.bin` and `var2.bin` columns are returned (or `var1.ceil` or `var2.ceil`for numeric `var1` or `var2`).
+#'     * `.n`: the number of rows of data in each bin represented by `var.bin` or `var.ceil`. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
+#'     * `.y`: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if `boot_centre = 'median'`. Regardless, both `.y_mean` and `.y_median` are returned as columns here.
+#'     * `.y_lo`, `.y_hi`: the lower and upper confidence intervals, respectively, for the bootstrapped `.y` value based on the `boot_alpha` argument in the [ALE()] constructor.
+#'   }
+#'
+#'   \item{`what = 'boot_data'` and `stats = NULL` (default)}{A list whose elements, named by each requested x variable, are each a tibble. These are the data from which `.y_mean`, `.y_median`, `.y_lo`, and `.y_hi` are summarized when `what = 'ale'`. The rows each represent one ALE bin for a specified bootstrap iteration. The tibble has the following columns:
+#'     * `.it`: The bootstrap iteration. Iteration 0 represents the ALE calculations on the full dataset; the remaining values of `.it` are from 1 to `boot_it` (number of bootstrap iterations specified in the [ALE()] constructor.
+#'     * `var` where `var` is the name of a variable (column): For non-numeric x, `var` is the value of each of the ALE categories. For numeric x, `var` is the value of the upper bound (ceiling) of each ALE bin. They are otherwise similar to their meanings described for `what = 'ale'` above.
+#'     * `.n` and `.y`: Same as for `what = 'ale'`.
+#'   }
+#'
+#'   \item{`what = 'ale'` (default) and `stats = 'estimate'`}{A list with elements `d1` and `d2` with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
+#'     * `term` or `term1` and `term2`: The variable or column for the 1D (`term`) or 2D (`term1` by `term2`) ALE statistic.
+#'     * `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`: the respecitve ALE statistic for the variable or interaction.
+#'   }
+#'
+#'   \item{`what = 'ale'` (default) and `stats` is one value in `c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
+#'     * `term` or `term1` and `term2`: Same as for `stats = 'estimate'`.
+#'     * `estimate`, `mean`, `median`: The average of the bootstrapped value of the requested statistic. `estimate` is equal to either `mean` or `median` depending on the `boot_centre` argument in the [ALE()] constructor. If ALE is not bootstrapped, then `estimate`, `mean`, and `median` are equal.
+#'     * `conf.low`, `conf.high`: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the `boot_alpha` argument in the [ALE()] constructor. If ALE is not bootstrapped, then `estimate`, `conf.low`, and `conf.high` are equal.
+#'   }
+#'
+#'   \item{`what = 'ale'` (default) and `stats = 'all'`}{A list with elements `d1` and `d2` with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the `stats = 'aled'` (for example) format returns data for a single statistic, `stats = 'all'` returns all statistics for the requested variables. Each element is a list with the requested `d1` and `d2` sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
+#'     * `term` or `term1` and `term2`: Same as for `stats = 'estimate'`.
+#'     * `estimate`, `mean`, `median`: Same as above for individual ALE statistics.
+#'     * `conf.low`, `conf.high`: Same as above for individual ALE statistics.
+#'   }
+#'
+#'   \item{`what = 'ale'` (default) and `stats = 'conf_regions'`}{A list with elements `d1` and `d2` with the confidence regions for the requested variables and interactions. Each element is a list with the requested `d1` and `d2` sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see `vignette('ale-statistics')`.
+#'   }
+#'
+#'   \item{`what = 'ale'` (default) and `stats = 'conf_sig'`}{A list with elements `d1` and `d2` filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see `vignette('ale-statistics')`.
+#'   }
+#' }
+#'
+#' @examples
+#' # See examples at ALE() for a demonstration us the get() method.
+#'
 #'
 #' @method get ALE
 method(get, ALE) <- function(
@@ -183,7 +159,7 @@ method(get, ALE) <- function(
   rlang::check_dots_empty()
 
   if (is.null(x_cols)) {
-    # Return everything available
+    # Retrieve everything available
     x_cols <- obj@params$requested_x_cols
   }
 
@@ -206,7 +182,7 @@ method(get, ALE) <- function(
   #   x_cols <- obj@params$requested_x_cols
   # }
 
-  valid_what <- c('ale', 'boot_data', 'plots')
+  valid_what <- c('ale', 'boot_data')
   validate(
     is_string(what, valid_what),
     msg = 'The {.arg what} argument must be one (and only one) of the following values: {valid_what}.'
@@ -224,7 +200,7 @@ method(get, ALE) <- function(
     msg = 'The {.arg stats} argument must be one (and only one) of the following values: {valid_stats}.'
   )
   if (is_string(stats) && what != 'ale') {
-    cli_abort("If {.arg stats} is specified, then {.arg what} must be {.val 'ale'} (default).")
+    cli_abort("If {.arg stats} is specified, then {.arg what} must be {.val 'ale'} (that's the default).")
   }
 
   y_cats <- names(prop(obj, comp))
@@ -247,11 +223,11 @@ method(get, ALE) <- function(
   }
 
   # Rename what depending on what the user requests.
-  # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
+  # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
     'stats'
-    } else if (what == 'boot_data') {
-      'boot'
+    # } else if (what == 'boot_data') {
+    #   'boot'
     } else {
       what
     }
@@ -294,7 +270,7 @@ method(get, ALE) <- function(
           }) |>
           set_names(x_cols[['d1']])
 
-        if (stats %in% c('estimate', 'conf_sig')) {
+        if (stats %in% c('estimate', 'conf_sig', stats_names)) {
           it.cat.d1 <- bind_rows(it.cat.d1)
         }
 
@@ -332,7 +308,7 @@ method(get, ALE) <- function(
             )
           )
 
-        if (stats %in% c('estimate', 'conf_regions', 'conf_sig')) {
+        if (stats %in% c('estimate', 'conf_regions', 'conf_sig', stats_names)) {
           it.cat.d2 <- bind_rows(it.cat.d2)
         }
 

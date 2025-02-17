@@ -150,6 +150,25 @@
 #' # Plot the ALE data
 #' plot(ale_gam_diamonds_custom)
 #'
+#'
+#' # How to retrieve specific types of ALE data from an ALE object.
+#' ale_diamonds_with__boot_data <- ALE(
+#'   gam_diamonds,
+#'   # For detailed options for x_cols, see examples at resolve_x_cols()
+#'   x_cols = ~ carat + cut + clarity + color:depth + x:y,
+#'   output_boot_data = TRUE,
+#'   boot_it = 10  # just for demonstration
+#' )
+#'
+#' # See ?get.ALE for details on the various kinds of data that may be retrieved.
+#' get(ale_diamonds_with__boot_data, ~ carat + color:depth)  # default ALE data
+#' get(ale_diamonds_with__boot_data, what = 'boot_data')
+#' get(ale_diamonds_with__boot_data, stats = 'estimate')
+#' get(ale_diamonds_with__boot_data, stats = 'aled')
+#' get(ale_diamonds_with__boot_data, stats = 'all')
+#' get(ale_diamonds_with__boot_data, stats = 'conf_regions')
+#' get(ale_diamonds_with__boot_data, stats = 'conf_sig')
+
 #' }
 #'
 ALE <- new_class(
