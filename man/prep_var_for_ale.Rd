@@ -15,10 +15,10 @@ prep_var_for_ale(x_col, x_type, x_vals, bins, n, max_num_bins, X = NULL)
 
 \item{bins, n}{See documentation for \code{\link[=calc_ale]{calc_ale()}}}
 
-\item{max_num_bins}{See documentation for \code{\link[=ale]{ale()}}}
+\item{max_num_bins}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{X}{See documentation for \code{\link[=calc_ale]{calc_ale()}}. Used only for categorical x_col.}
 }
 \description{
-This function is not exported. It computes data needed to calculate its ALE values.
+Computes data needed to calculate a variable's ALE values.
 }

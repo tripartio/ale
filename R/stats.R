@@ -298,7 +298,8 @@ var_summary <- function(
     p_alpha = c(0.01, 0.05)
 ) {
   if (!is.null(p_dist)) {
-    rand_stats <- p_dist$rand_stats
+    rand_stats <- p_dist@rand_stats
+    # rand_stats <- p_dist$rand_stats
   }
 
   # Convert vector to matrix
@@ -491,7 +492,6 @@ pivot_stats <- function(long_stats) {
       ) |>
       as_tibble() |>
       # name each element of each row with the term names (all_cols[[1]]).
-      # This is an anonymous function that operates on
       (\(all_cols) {
         map(all_cols, \(.col) {
           names(.col) <- all_cols[[1]]

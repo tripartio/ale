@@ -49,11 +49,40 @@ test_nn_categorical <- nnet::multinom(
 ale_plots_to_data <- function(
     ale_plots  # list of ALE plots
 ) {
-  ale_plots |>
-    purrr::imap(\(it.plot, it.plot_name) {
-      ggplot2::ggplot_build(it.plot)$data[[1]]
+  ale_plots@distinct |>
+    purrr::map(\(it.cat) {
+      list(
+        d1  = it.cat$plots$d1 |>
+          purrr::map(\(it.plot) {
+            ggplot2::ggplot_build(it.plot)$data[[1]]
+          }),
+        d2  = it.cat$plots$d2 |>
+          purrr::map(\(it.x1) {
+            it.x1 |>
+              purrr::map(\(it.plot) {
+                ggplot2::ggplot_build(it.plot)$data[[1]]
+              })
+            }),
+        eff = if (!is.null(it.cat$plots$eff)) {
+          it.cat$plots$eff |>
+            ggplot2::ggplot_build() |>
+            (`[[`)('data')
+        } else {
+          # No effects plot if no 1D data or no statistics
+          NULL
+        }
+      )
     })
 }
+
+# ale_plots_to_data <- function(
+#     ale_plots  # list of ALE plots
+# ) {
+#   ale_plots |>
+#     purrr::imap(\(it.plot, it.plot_name) {
+#       ggplot2::ggplot_build(it.plot)$data[[1]]
+#     })
+# }
 
 # custom predict function ------------
 test_predict <- function(object, newdata, type = pred_type) {

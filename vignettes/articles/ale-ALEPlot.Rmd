@@ -1,7 +1,7 @@
 ---
 title: "Comparison between ALEPlot and ale packages"
 author: "Chitu Okoli"
-date: "January 10, 2024"
+date: "February 14, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Comparison between ALEPlot and ale packages}
@@ -29,7 +29,7 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 
 One notable difference between the two packages is that the `{ale}` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
 
-In each section here, we cover an example from `{ALEPlot}` and then reimplement it with `ale`.
+In each section here, we cover an example from `{ALEPlot}` and then reimplement it with `{ale}`.
 
 We begin by loading the necessary libraries.
 
@@ -148,7 +148,11 @@ To create the model, we invoke the `{ale}` which returns a list with various ALE
 ```{r ale nnet one-way creation}
 library(ale)
 
-nn_ale <- ale(DAT, nnet.DAT, pred_type = "raw")
+nn_ale <- ALE(
+  nnet.DAT, 
+  data = DAT,
+  pred_type = "raw"
+)
 ```
 
 Here are some notable differences compared to `ALEPlot`:
@@ -161,9 +165,7 @@ Since the plots are saved as a list, they can easily be printed out all at once:
 
 ```{r ale nnet one-way plots, fig.width=7, fig.height=5}
 # Print plots
-nn_plots <- plot(nn_ale)
-nn_1D_plots <- nn_plots$distinct$y$plots[[1]]
-patchwork::wrap_plots(nn_1D_plots, ncol = 2)
+plot(nn_ale)
 ```
 
 The `{ale}` package plots have various features that enhance interpretability:
@@ -177,29 +179,25 @@ It might not be clear that the previous plots display exactly the same data as t
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE plots
-nn_plots_zero <- plot(nn_ale, relative_y = 'zero')
-nn_1D_plots_zero <- nn_plots_zero$distinct$y$plots[[1]]
-patchwork::wrap_plots(nn_1D_plots_zero)
+plot(nn_ale, relative_y = 'zero')
 ```
 
 With these zero-centred plots, the full range of y values and the rug plots give some context that aids interpretation. (If the rugs look slightly different, it is because they are randomly jittered to avoid overplotting.)
 
 The `{ale}` also produces interaction plots; see the [introductory vignette](https://tripartio.github.io/ale/articles/ale-intro.html) for details on how they are specified and created. 
 
-```{r ale nnet 2D, fig.width=7, fig.height=5}
+```{r ale nnet 2D, fig.width=7, fig.height=6}
 # Create and plot interactions
-nn_ale_2D <- ale(DAT, nnet.DAT, pred_type = "raw", complete_d = 2)
+nn_ale_2D <- ALE(
+  model = nnet.DAT, 
+  x_cols = list(d2 = TRUE),
+  data = DAT, 
+  pred_type = "raw"
+)
 
 # Print plots
-nn_plots <- plot(nn_ale_2D)
-nn_2D_plots <- nn_plots$distinct$y$plots[[2]]
-nn_2D_plots |>
-  # extract list of x1 ALE outputs
-  purrr::walk(\(it.x1) {  
-    # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2, nrow = 2) |> 
-      print()
-  })
+plot(nn_ale_2D) |> 
+  print(ncol = 2)
 ```
 
 These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction; blue indicates a positive interaction effect; red indicates a negative effect. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
@@ -226,7 +224,7 @@ data <-
   census |> 
   as.data.frame() |>   # ALEPlot is not compatible with the tibble format
   select(age:native_country, higher_income) |>  # Rearrange columns to match ALEPlot order
-  na.omit(data)
+  stats::na.omit(data)
 ```
 
 Although gradient boosted trees generally perform quite well, they are rather slow. Rather than having you wait for it to run, the code here downloads a pretrained GBM model. However, the code used to generate it is provided in comments so that you can see it and run it yourself if you want to. Note that the model calls is based on `data[,-c(3,4)]`, which drops the third and fourth variables (`fnlwgt` and `education`, respectively).
@@ -260,11 +258,11 @@ n.trees = 6000, type="link"))
 ## Calculate and plot the ALE main and interaction effects for x_1, x_3,
 ## x_11, and {x_1, x_11}
 par(mfrow = c(2,2), mar = c(4,4,2,2)+ 0.1)
-ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=500,
+ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=100,
 NA.plot = TRUE)
-ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=500,
+ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=100,
 NA.plot = TRUE)
-ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=500,
+ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=100,
 NA.plot = TRUE)
 ALE.1and11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=c(1,11),
 K=50, NA.plot = FALSE)
@@ -290,57 +288,51 @@ yhat <- function(object, newdata, type) {
 # # To generate the code, uncomment the following lines.
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_link <- ale(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
+# gbm_ale_link <- ALE(
+#   gbm.data,
+#   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
   readRDS()
 
 # Print plots
-gbm_link_plots <- plot(gbm_ale_link)
-gbm_1D_link_plots <- gbm_link_plots$distinct$higher_income$plots[[1]]
-patchwork::wrap_plots(gbm_1D_link_plots, ncol = 2)
+plot(gbm_ale_link) |> 
+  print(ncol = 2)
 ```
 
 Now we generate ALE data for all two-way interactions and then plot them. Again, note the interaction between `age` and `hours_per_week`. The interaction is minimal except for the extremely high cases of hours per week.
 
-```{r ale 2D link, fig.width=7, fig.height=5}
+```{r ale 2D link, fig.width=7, fig.height=14}
 # # To generate the code, uncomment the following lines.
 # # But it is very slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_2D_link <- ale(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
-#   complete_d = 2,
+# gbm_ale_2D_link <- ALE(
+#   gbm.data,
+#   x_cols = list(d2 = TRUE),  # All 2D interactions
+#   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_2D_link, file.choose())
 gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_link.rds') |> 
   readRDS()
 
-# Print plots
-gbm_link_plots <- plot(gbm_ale_2D_link)
-gbm_link_2D_plots <- gbm_link_plots$distinct$higher_income$plots[[2]]
-gbm_link_2D_plots |>
-  # extract list of x1 ALE outputs
-  purrr::walk(\(it.x1) {  
-    # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2) |> 
-      print()
-  })
+# Create plots object
+gbm_link_2D_plots <- plot(gbm_ale_2D_link)
+
+# Only print plots involving age
+get(gbm_link_2D_plots, list(d2_all = 'age')) |> 
+  print(ncol = 2)
 ```
 
 In some of these plots, we can see some white spots. These are the interaction zones where there is no data in the dataset to calculate the existence of an interaction. For example, let's focus on the interactions of `age` with `education_num`:
 
 ```{r ale age x education_num}
-gbm_link_2D_plots$age$education_num
+# We can use the formula syntax to specify which interaction plot to retrieve
+get(gbm_link_2D_plots, ~ age:education_num)
 ```
 
 Here, the grey zones in the majority of the plot indicate that there are minimal interaction effects for most of the data range. However, in the small interacting zone of people younger than 30 years old or so with 14 to 16 years of education, we see that the likelihood of higher income is around 0.9 times lower than average. For the several white zones, there is no data in the dataset to support an estimate. For example, there is no one 35 to 45 years old with 15 years of education and there is no one 49 to 60 years old with 14 years of education; so, the model can say nothing about such interactions.
@@ -367,49 +359,42 @@ yhat <- function(object, newdata, type) {
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_prob <- ale(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
+# gbm_ale_prob <- ALE(
+#   gbm.data,
+#   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
   readRDS()
 
 # Print plots
-gbm_prob_plots <- plot(gbm_ale_prob)
-gbm_1D_prob_plots <- gbm_prob_plots$distinct$higher_income$plots[[1]]
-patchwork::wrap_plots(gbm_1D_prob_plots, ncol = 2)
+plot(gbm_ale_prob) |> 
+  print(ncol = 2)
 ```
 
 Finally, we again generate two-way interactions, this time based on probabilities instead of on log odds. However, probabilities might not be the best choice for indicating interactions because, as we see from the rugs in the one-way ALE plots, the GBM model heavily concentrates its probabilities in the extremes near 0 and 1. Thus, the plots' suggestions of strong interactions are likely exaggerated. In this case, the log odds ALEs shown above are probably more relevant.
 
-```{r ale 2D prob, fig.width=7, fig.height=5}
-# To generate the code, uncomment the following lines.
+```{r ale 2D prob, fig.width=7, fig.height=10}
+# # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
-# gbm_ale_2D_prob <- ale(
-#   # data[,-c(3,4)], gbm.data,
-#   data, gbm.data,
-#   complete_d = 2,
+# gbm_ale_2D_prob <- ALE(
+#   gbm.data,
+#   x_cols = list(d2 = TRUE),
+#   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_2D_prob, file.choose())
 gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_prob.rds') |> 
   readRDS()
 
-# Print plots
-gbm_prob_plots <- plot(gbm_ale_2D_prob)
-gbm_prob_2D_plots <- gbm_prob_plots$distinct$higher_income$plots[[2]]
-gbm_prob_2D_plots |>
-  # extract list of x1 ALE outputs
-  purrr::walk(\(it.x1) {  
-    # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2) |> 
-      print()
-  })
+# Create plots object
+gbm_prob_2D_plots <- plot(gbm_ale_2D_link)
+
+# Only print plots involving age
+get(gbm_prob_2D_plots, list(d2_all = 'age')) |> 
+  print(ncol = 2)
 ```

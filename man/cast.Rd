@@ -4,15 +4,15 @@
 \alias{cast}
 \title{Cast (convert) the class of an object}
 \usage{
-cast(x, new_class)
+cast(x, new_cls)
 }
 \arguments{
 \item{x}{An R object}
 
-\item{new_class}{character(1). A single class to which to convert \code{x}.}
+\item{new_cls}{character(1). A single class to which to convert \code{x}.}
 }
 \value{
-\code{x} converted to class \code{new_class}.
+\code{x} converted to class \code{new_cls}.
 }
 \description{
 Currently assumes that the result object will have only one class.

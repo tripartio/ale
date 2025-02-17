@@ -9,6 +9,8 @@ browse_ale(
   obj = NULL,
   obj_name = NULL,
   ale_dataset = NULL,
+  ...,
+  tabs = "all",
   height = 800,
   width = "100\%"
 )
@@ -29,6 +31,13 @@ be named in the app.}
 full dataset is unavailable, at least a random sample of the dataset should be
 provided. When provided, this optional argument is used for some visualizations,
 particularly for rug plots.}
+
+\item{...}{not used. Tabs to display in the browser. Possible values from
+c('all', 'plots', 'stats', 'data', 'load'). If 'all' is included (default),
+all tabs will #' be included regardless of the other options. Otherwise, only
+the tabs explicitly listed are shown.}
+
+\item{tabs}{character vector. Inserted to require explicit naming of subsequent arguments.}
 
 \item{height, width}{single integer or character string. Desired height and width
 of the application in the user's browser window. The browser might adjust the

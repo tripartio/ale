@@ -1,7 +1,7 @@
 ---
 title: "ale function handling of various datatypes for x"
 author: "Chitu Okoli"
-date: "January 9, 2024"
+date: "February 14, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ale function handling of various datatypes for x}
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette demonstrates how `ale` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+This vignette demonstrates how `{ale}` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
 We begin by loading the necessary libraries.
 
@@ -57,13 +57,13 @@ summary(var_cars)
 
 ## Modelling with ALE and GAM
 
-With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `ale` package.
+With GAM, only numeric variables can be smoothed, not binary or categorical ones. However, smoothing does not always help improve the model since some variables are not related to the outcome and some that are related actually do have a simple linear relationship. To keep this demonstration simple, we have done some earlier analysis (not shown here) that determines where smoothing is worthwhile on the modified `var_cars` dataset, so only some of the numeric variables are smoothed. Our goal here is not to demonstrate the best modelling procedure but rather to demonstrate the flexibility of the `{ale}` package.
 
-```{r cars_gam}
-cars_gam <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
+```{r gam_cars}
+gam_cars <- mgcv::gam(mpg ~ cyl + disp + hp + drat + wt + s(qsec) +
                   vs + am + gear + carb + country,
                 data = var_cars)
-summary(cars_gam)
+summary(gam_cars)
 ```
 
 Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
@@ -76,43 +76,35 @@ progressr::handlers('cli')
 
 If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
 
-Now we generate ALE data from the `var_cars` GAM model and plot it.
+Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
-```{r cars_ale, fig.width=7, fig.height=14}
-cars_ale <- ale(
-  var_cars, cars_gam,
-  parallel = 2  # CRAN limit (delete this line on your own computer)
-)
+```{r ale_cars, fig.width=7, fig.height=14}
+ale_cars <- ALE(gam_cars)
 
 # Print all plots
-cars_plots <- plot(cars_ale)
-cars_1D_plots <- cars_plots$distinct$mpg$plots[[1]]
-patchwork::wrap_plots(cars_1D_plots, ncol = 2)
+plot(ale_cars) |> 
+  print(ncol = 2)
 ```
 
-We can see that `ale` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
+We can see that `ALE()` has no trouble modelling any of the datatypes in our sample (logical, factor, ordered, integer, or double). It plots line charts for the numeric predictors and column charts for everything else. 
 
 The numeric predictors have rug plots that indicate in which ranges of the x (predictor) and y (`mpg`) values data actually exists in the dataset.  This helps us to not over-interpret regions where data is sparse. Since column charts are on a discrete scale, they cannot rug plots. Instead, the percentage of data represented by each column is displayed.
 
 We can also generate and plot the ALE data for all two-way interactions.
 
-```{r cars_ale_2D, fig.width=7, fig.height=7}
-cars_ale_2D <- ale(
-  var_cars, cars_gam,
-  complete_d = 2,
-  parallel = 2  # CRAN limit (delete this line on your own computer)
+```{r ale_cars_2D, fig.width=7, fig.height=28}
+ale_cars_2D <- ALE(
+  gam_cars,
+  x_cols = list(d2 = TRUE)
 )
 
 # Print plots
-cars_2D_plots <- plot(cars_ale_2D)
-cars_2D_plots <- cars_2D_plots$distinct$mpg$plots[[2]]
-cars_2D_plots |>
-  # extract list of x1 ALE outputs
-  purrr::walk(\(it.x1) {  
-    # plot all x2 plots in each .x1 element
-    patchwork::wrap_plots(it.x1, ncol = 2) |> 
-      print()
-  })
+plot(ale_cars_2D) |> 
+  print(
+    ncol = 2, 
+    # By default, at most 20 plots are printed. Set max_print to increase this limit
+    max_print = 100
+  )
 ```
 
 There are no interactions in this dataset. (To see what ALE interaction plots look like in the presence of interactions, see the [{ALEPlot} comparison vignette](https://tripartio.github.io/ale/articles/ale-ALEPlot.html), which explains the interaction plots in more detail.)
@@ -120,19 +112,19 @@ There are no interactions in this dataset. (To see what ALE interaction plots lo
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
 ```{r cars_full, fig.width=7, fig.height=14}
-mb <- model_bootstrap(
-  var_cars, 
-  cars_gam,
+mb <- ModelBoot(
+  gam_cars,
   boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  parallel = 2,  # CRAN limit (delete this line on your own computer)
   seed = 2  # workaround to avoid random error on such a small dataset
 )
 
-mb_plots <- plot(mb)
-mb_1D_plots <- mb_plots$distinct$mpg$plots[[1]]
-patchwork::wrap_plots(mb_1D_plots, ncol = 2)
+# Warnings are because it is difficult to bootstrap such a small dataset.
+# However, most bootstrap iterations succeed nonetheless.
+
+plot(mb) |> 
+  print(ncol = 2)
 ```
 
-(By default, `model_bootstrap()` creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) 
+(By default, a `ModelBoot` object creates 100 bootstrap samples but, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) 
 
 With such a small dataset, the bootstrap confidence interval always overlap with the middle band, indicating that this dataset cannot support any claims that any of its variables has a meaningful effect on fuel efficiency (mpg). Considering that the average bootstrapped ALE values suggest various intriguing patterns, the problem is no doubt that the dataset is too small--if more data were collected and analyzed, some of the patterns would probably be confirmed.

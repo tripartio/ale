@@ -2,6 +2,7 @@
 % Please edit documentation in R/ale-package.R
 \docType{package}
 \name{ale-package}
+\alias{ale}
 \alias{ale-package}
 \title{Interpretable Machine Learning and Statistical Inference with Accumulated Local Effects (ALE)}
 \description{

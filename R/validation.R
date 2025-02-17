@@ -3,6 +3,66 @@
 # More general validation code is in unpackaged_utils.R
 
 
+
+
+
+# Validate data
+# If data is NULL and model is a standard R model type, data can be automatically detected.
+validate_data <- function(
+    data,
+    model,
+    allow_na = FALSE
+) {
+  if (!is.null(data)) {
+    # Validate the dataset
+    validate(data |> inherits('data.frame'))
+
+    if (!allow_na) {
+      validate(
+        !any(is.na(data)),
+        msg = '{.arg data} must not have any missing values. If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
+      )
+    }
+  }
+  # If NULL, try to identify data from the model
+  else {
+    data <- insight::get_data(model)
+
+    if (is.null(data)) {
+      cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
+    }
+  }
+
+  data
+}
+
+
+# Validate y_col.
+# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+validate_y_col <- function(
+    y_col,
+    data,
+    model
+) {
+  if (!is.null(y_col)) {
+    validate(is_string(y_col))
+    validate(
+      y_col %in% names(data),
+      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
+    )
+  }
+  # If NULL, identify y column from the Y term of a standard R model call
+  else {
+    y_col <- insight::find_response(model)
+
+    if (is.null(y_col)) {
+      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
+    }
+  }
+
+  y_col
+}
+
 # Validate model predictions.
 # This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows
 # in the dataset.
@@ -57,32 +117,6 @@ validate_y_preds <- function(
 }
 
 
-# Validate y_col.
-# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
-validate_y_col <- function(
-    y_col,
-    data,
-    model
-) {
-  if (!is.null(y_col)) {
-    validate(is_string(y_col))
-    validate(
-      y_col %in% names(data),
-      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
-    )
-  }
-
-  # Identify y column from the Y term of a standard R model call
-  if (is.null(y_col)) {
-    y_col <- insight::find_response(model)
-
-    if (is.null(y_col)) {
-      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
-    }
-  }
-
-  y_col
-}
 
 
 # Validate parallel processing inputs: parallel, model_packages.
@@ -159,10 +193,8 @@ validate_silent <- function(silent) {
           '{.pkg cli} progress bar activated for this R session. (This is not an error.) See documentation on {.fun ale::ale} to permanently configure progress bar settings and end these periodic messages.'
         )
       }
-
     }
   }
-
 }
 
 

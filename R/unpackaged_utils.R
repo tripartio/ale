@@ -56,14 +56,85 @@ validate <- function(..., msg = NULL)
   }
 }
 
-# TRUE if all root elements of a list are character strings
-is_all_characters <- function(x) {
-  if (is.list(x)) {
-    all(purrr::map_lgl(x, is_all_characters))
-  } else {
-    is.character(x)
+# # TRUE if all root elements of a list are character strings
+# is_all_characters <- function(x) {
+#   if (is.list(x)) {
+#     all(purrr::map_lgl(x, is_all_characters))
+#   } else {
+#     is.character(x)
+#   }
+# }
+
+
+#' Find Non-Character Elements in a Nested List
+#'
+#' Recursively traverses a nested list structure and returns all non-character
+#' elements found within a specified maximum recursion depth. The top-level of the
+#' list is considered depth 1. Any elements nested deeper than the specified
+#' `max_depth` are ignored.
+#'
+#' @noRd
+#'
+#' @param x A list (possibly nested) or an atomic element. If `x` is a list, the function
+#'   will recursively search its elements.
+#' @param max_depth An integer specifying the maximum depth to inspect. Elements at a
+#'   depth greater than `max_depth` will be ignored. The default value is 2.
+#' @param current_depth Internal parameter to track the current recursion depth.
+#'   This parameter is managed by the function and should not be supplied by the user.
+#'
+#' @return A list of non-character elements found within the list at depths less than or
+#'   equal to `max_depth`. If no such elements are found, the function returns `NULL`.
+#'
+#' @details The function uses recursion to traverse the list. It starts with a default
+#'   `current_depth` of 0, meaning that the top-level elements are at depth 1. When
+#'   `max_depth` is set to 2, only elements in the top-level list and one level deep are inspected.
+#'
+#' @examples
+#' lst1 <- list("a", "b", list("c", "d"))            # All character – should return NULL
+#' lst2 <- list("a", 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#' lst3 <- list("a", "b", list("c", 2))                # Numeric in nested list – should return list(2)
+#' lst4 <- list("a", 1, list("c", 2, list(3)))         # Numeric 3 is at depth 3 and should be ignored
+#' lst5 <- list(NULL, 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#'
+#' extract_non_characters(lst1, max_depth = 2)
+#' extract_non_characters(lst2, max_depth = 2)
+#' extract_non_characters(lst3, max_depth = 2)
+#' extract_non_characters(lst4, max_depth = 2)
+#' extract_non_characters(lst5, max_depth = 2)
+#'
+extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
+  # validate(is.list(x))
+
+  # If x is atomic (not a list), then its "depth" is current_depth.
+  if (!is.list(x)) {
+    # If we are within the allowed depth and x is not a character, return it.
+    if (current_depth <= max_depth && !is.character(x)) {
+      return(list(x))
+    } else {
+      return(list())
+    }
   }
+
+  # x is a list. If we are already at the max depth,
+  # then do not descend any further.
+  if (current_depth == max_depth) {
+    return(list())
+  }
+
+  # Otherwise, we are allowed to look inside this list.
+  # Increase the depth by 1 for its elements.
+  result <- x |>
+    map(\(it.el) extract_non_characters(it.el, max_depth, current_depth + 1)) |>
+    purrr::list_flatten()
+
+  # At the very top (current_depth == 0), if nothing was found, return NULL.
+  if (current_depth == 0 && length(result) == 0) {
+    return(NULL)
+  }
+
+  result
 }
+
 
 
 # TRUE if x is length 1 and is either a double or an integer
@@ -109,7 +180,7 @@ var_type <- function(var) {
     class_var == 'logical' ~ 'binary',
     # var consisting only of one of any two values (excluding NA) is considered binary.
     # This test must be placed before all the others to ensure that it takes precedence, no matter what the underlying datatype might be.
-    (var |> na.omit() |> unique() |> length()) == 2 ~ 'binary',
+    (var |> stats::na.omit() |> unique() |> length()) == 2 ~ 'binary',
     is.numeric(var) ~ 'numeric',
     class_var %in% c('factor', 'character') ~ 'categorical',
     class_var == 'ordered' ~ 'ordinal',
@@ -124,22 +195,23 @@ var_type <- function(var) {
 #' Currently assumes that the result object will have only one class.
 #'
 #' @param x An R object
-#' @param new_class character(1). A single class to which to convert `x`.
+#' @param new_cls character(1). A single class to which to convert `x`.
 #'
-#' @return `x` converted to class `new_class`.
+#' @return `x` converted to class `new_cls`.
 #'
-cast <- function(x, new_class) {
-  # Attempt S3 coercion by looking for an as.<new_class>() function
-  coerce_fun_name <- paste0("as.", new_class)
+cast <- function(x, new_cls) {
+  # Attempt S3 coercion by looking for an as.<new_cls>() function
+  coerce_fun_name <- paste0("as.", new_cls)
 
   if (exists(coerce_fun_name, mode = "function")) {
-    # Retrieve the coercion function
-    coerce_fun <- get(coerce_fun_name, mode = "function")
+    # Retrieve the coercion function.
+    # Must specify base::get to not conflict with ale::get.
+    coerce_fun <- base::get(coerce_fun_name, mode = "function")
     # Apply the function to x
     return(coerce_fun(x))
   } else {
     # If S3 method doesn't exist, try S4 coercion using methods::as()
-    return(methods::as(x, new_class))
+    return(methods::as(x, new_cls))
   }
 }
 

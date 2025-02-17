@@ -1,4 +1,4 @@
-# ALEPlot.R
+# ALEPlot_compatibility.R
 # Functions for compatibility with the ALEPlot package
 
 
