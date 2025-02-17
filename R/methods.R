@@ -78,7 +78,7 @@ method(plot, ALE) <- function(x, ...) {
 #' Retrieve specific elements from an `ALE` object.
 #'
 #' @param obj ALE object from which to retrieve elements.
-#' @param x_cols character, list, or formula. Columns names requested in one of the special `x_cols` formats for which ALE data is to be calculated. The default value of NULL retrieves all available date of the output requested in `what`.
+#' @param x_cols,exclude_cols See documentation for [resolve_x_cols()]. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`.
 #' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'boot_data')`. Default is `'ale'`. If `stats` is specified and `what = 'ale'`, then ALE statistics are retrieved. Otherwise, `get()` errors if `stats` is specified and `what` has some other value.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`.
@@ -89,6 +89,7 @@ method(plot, ALE) <- function(x, ...) {
 #' stats = 'conf_sig'
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
+#' @param silent See documentation for [resolve_x_cols()]
 #'
 #' @returns Requested data as a list with the following elements:
 #' * `data`: a list whose elements, named by each requested x variable, are each a tibble with the following columns:
@@ -167,9 +168,11 @@ method(get, ALE) <- function(
     x_cols = NULL,
     what = 'ale',
     ...,
+    exclude_cols = NULL,
     stats = NULL,
     cats = NULL,
-    simplify = TRUE
+    simplify = TRUE,
+    silent = FALSE
   ) {
   comp = 'distinct'
 
@@ -179,17 +182,29 @@ method(get, ALE) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  if (!is.null(x_cols)) {
-    x_cols <- validate_x_cols(
-      x_cols,
-      col_names = obj@params$data$data_sample |> colnames(),
-      y_col = obj@params$y_col
-    )
-  }
-  else {
-    # NULL x_cols means: return everything available
+  if (is.null(x_cols)) {
+    # Return everything available
     x_cols <- obj@params$requested_x_cols
   }
+
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols,
+    col_names = obj@params$data$data_sample |> colnames(),
+    y_col = obj@params$y_col,
+    exclude_cols = exclude_cols,
+    silent = silent
+  )
+  # if (!is.null(x_cols)) {
+  #   x_cols <- validate_x_cols(
+  #     x_cols,
+  #     col_names = obj@params$data$data_sample |> colnames(),
+  #     y_col = obj@params$y_col
+  #   )
+  # }
+  # else {
+  #   # NULL x_cols means: return everything available
+  #   x_cols <- obj@params$requested_x_cols
+  # }
 
   valid_what <- c('ale', 'boot_data', 'plots')
   validate(
@@ -375,73 +390,21 @@ method(get, ALE) <- function(
   return(specific_what)
 }
 
+# @name get.calc_p
+# @title Calculate and append p-values to an ALE object
+#
+# @description
+# Calculating p-values for ALE objects is usually very slow, so it is not done by default. the `calc_p()` method receives an `ALEpDist` object, uses it to calculate p-values, and then appends these p-values to the `ALE` object.
+#
+# @param obj object.
+# @param ... Arguments to pass to the implemented method.
+#
+# @returns `obj` with p-values included in its statistics.
+#
+# method(calc_p, ALE) <- function(obj, p_dist) {
+#   obj + p_dist
+# }
 
-#' #' @name get.calc_p
-#' #' @title Calculate and append p-values to an ALE object
-#' #'
-#' #' @description
-#' #' Calculating p-values for ALE objects is usually very slow, so it is not done by default. the `calc_p()` method receives an `ALEpDist` object, uses it to calculate p-values, and then appends these p-values to the `ALE` object.
-#' #'
-#' #' @param obj object.
-#' #' @param ... Arguments to pass to the implemented method.
-#' #'
-#' #' @returns `obj` with p-values included in its statistics.
-#' #'
-#' method(calc_p, ALE) <- function(obj, p_dist) {
-#'   obj + p_dist
-#' }
-
-
-## ALE helper functions ------------
-
-#' Dimension-by-dimension setdiff of an x_cols list
-#'
-#' @param x1,x2 canonical `x_cols` lists. Each element of `x2` will be removed, if present, from each corresponding element in `x1`. Any element of `x2` with no corresponding element in `x1` will be ignored.
-#'
-#' @returns `x1` without any corresponding element specified in `x2`.
-#' @noRd
-#'
-setdiff_x_cols <- function(
-    x1,
-    x2
-) {
-  list(
-    d1 = setdiff(x1$d1, x2$d1),
-    d2 = setdiff(x1$d2, x2$d2)
-  )
-}
-
-
-
-
-#' Sort x_cols in the order of provided column names
-#'
-#' @param x_cols. x_cols in canonical format.
-#' @param col_names character. Order of columns as they occur in the dataset.
-#'
-#' @returns `x_cols` with `d1` sorted in the order of `col_names` and `d2` sorted by `d2[1]` and then `d2[2]` in the order of `col_names`.
-#'
-#' @noRd
-#'
-sort_x_cols <- function(x_cols, col_names) {
-  # Extract the first and second elements from each vector in d2
-  d2_1 <- map_chr(x_cols$d2, ~ .x[[1]])
-  d2_2 <- map_chr(x_cols$d2, ~ .x[[2]])
-
-  # Determine the d2 ordering based on the positions in sort_order
-  d2_ordering <- order(
-    match(d2_1, col_names),
-    match(d2_2, col_names)
-  )
-
-  list(
-    d1 = x_cols$d1[
-      match(col_names, x_cols$d1) |>
-        stats::na.omit()
-    ],
-    d2 = x_cols$d2[d2_ordering]
-  )
-}
 
 
 

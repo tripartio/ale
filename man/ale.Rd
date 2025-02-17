@@ -38,15 +38,13 @@ ALE(
 \arguments{
 \item{model}{model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.}
 
-\item{x_cols}{character, list, or formula. Columns names from \code{data} requested in one of the special \code{x_cols} formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in \code{data} except \code{y_col}. See \code{\link[=get.ALE]{get.ALE()}} for details.}
+\item{x_cols, exclude_cols}{character, list, or formula. Columns names from \code{data} requested in one of the special \code{x_cols} formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in \code{data} except \code{y_col}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.}
 
 \item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
 
 \item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{y_col} should be provided. For survival models, set \code{y_col} to the name of the binary event column; in that case, \code{pred_type} should also be specified.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
-
-\item{exclude_cols}{character, list, or formula. Same format specification as \code{x_cols}. After the columns specified by \code{x_cols} are determined, those specified by \code{exclude_cols} are removed. See \code{\link[=get.ALE]{get.ALE()}} for details.}
 
 \item{parallel}{non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set \code{parallel = 0} to disable parallel processing. See details.}
 

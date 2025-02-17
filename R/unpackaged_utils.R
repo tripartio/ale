@@ -103,7 +103,7 @@ validate <- function(..., msg = NULL)
 #' extract_non_characters(lst5, max_depth = 2)
 #'
 extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
-  validate(is.list(x))
+  # validate(is.list(x))
 
   # If x is atomic (not a list), then its "depth" is current_depth.
   if (!is.list(x)) {
@@ -123,7 +123,9 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
   # Otherwise, we are allowed to look inside this list.
   # Increase the depth by 1 for its elements.
-  result <- map(x, ~ find_non_chars(.x, max_depth, current_depth + 1)) %>% flatten()
+  result <- x |>
+    map(\(it.el) extract_non_characters(it.el, max_depth, current_depth + 1)) |>
+    purrr::list_flatten()
 
   # At the very top (current_depth == 0), if nothing was found, return NULL.
   if (current_depth == 0 && length(result) == 0) {

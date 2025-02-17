@@ -13,11 +13,10 @@
 #'
 #'
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
-#' @param x_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See [get.ALE()] for details.
+#' @param x_cols,exclude_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See details in the documentation for [resolve_x_cols()].
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
 #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param exclude_cols character, list, or formula. Same format specification as `x_cols`. After the columns specified by `x_cols` are determined, those specified by `exclude_cols` are removed. See [get.ALE()] for details.
 #' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 # @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
@@ -231,19 +230,26 @@ ALE <- new_class(
 
     # Validate and resolve x_cols and exclude_cols
     col_names <- names(data)
-    x_cols <- validate_x_cols(
+    x_cols <- resolve_x_cols(
       x_cols = x_cols,
       col_names = col_names,
-      y_col = y_col
-    )
-    exclude_cols <- validate_x_cols(
-      x_cols = exclude_cols,
-      col_names = col_names,
       y_col = y_col,
-      x_cols_arg_name = 'exclude_cols'
+      exclude_cols = exclude_cols,
+      silent = silent
     )
-
-    x_cols <- setdiff_x_cols(x_cols, exclude_cols)
+    # x_cols <- validate_x_cols(
+    #   x_cols = x_cols,
+    #   col_names = col_names,
+    #   y_col = y_col
+    # )
+    # exclude_cols <- validate_x_cols(
+    #   x_cols = exclude_cols,
+    #   col_names = col_names,
+    #   y_col = y_col,
+    #   x_cols_arg_name = 'exclude_cols'
+    # )
+    #
+    # x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
     validate(is_bool(output_stats))
     validate(is_bool(output_conf))
