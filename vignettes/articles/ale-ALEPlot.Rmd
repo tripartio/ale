@@ -258,11 +258,11 @@ n.trees = 6000, type="link"))
 ## Calculate and plot the ALE main and interaction effects for x_1, x_3,
 ## x_11, and {x_1, x_11}
 par(mfrow = c(2,2), mar = c(4,4,2,2)+ 0.1)
-ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=500,
+ALE.1=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=1, K=100,
 NA.plot = TRUE)
-ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=500,
+ALE.3=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=3, K=100,
 NA.plot = TRUE)
-ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=500,
+ALE.11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=11, K=100,
 NA.plot = TRUE)
 ALE.1and11=ALEPlot(data[,-c(3,4,15)], gbm.data, pred.fun=yhat, J=c(1,11),
 K=50, NA.plot = FALSE)
@@ -292,8 +292,7 @@ yhat <- function(object, newdata, type) {
 #   gbm.data,
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -315,8 +314,7 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   x_cols = list(d2 = TRUE),  # All 2D interactions
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_2D_link, file.choose())
 gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_link.rds') |> 
@@ -365,8 +363,7 @@ yhat <- function(object, newdata, type) {
 #   gbm.data,
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -380,7 +377,7 @@ plot(gbm_ale_prob) |>
 Finally, we again generate two-way interactions, this time based on probabilities instead of on log odds. However, probabilities might not be the best choice for indicating interactions because, as we see from the rugs in the one-way ALE plots, the GBM model heavily concentrates its probabilities in the extremes near 0 and 1. Thus, the plots' suggestions of strong interactions are likely exaggerated. In this case, the log odds ALEs shown above are probably more relevant.
 
 ```{r ale 2D prob, fig.width=7, fig.height=10}
-# To generate the code, uncomment the following lines.
+# # To generate the code, uncomment the following lines.
 # # But it is slow because it calculates ALE for all variables,
 # # so this vignette loads a pre-created model object.
 # gbm_ale_2D_prob <- ALE(
@@ -388,8 +385,7 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #   x_cols = list(d2 = TRUE),
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 500,
-#   sample_size = 600  # technical issue: sample_size must be > max_num_bins + 1
+#   max_num_bins = 100
 # )
 # saveRDS(gbm_ale_2D_prob, file.choose())
 gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_prob.rds') |> 

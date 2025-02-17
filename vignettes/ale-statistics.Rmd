@@ -264,7 +264,7 @@ Before we continue, let us take a brief detour to see what we get if we create a
 #   # tidy_options = list(parametric = NULL),
 #   boot_it = 40  # 100 by default but reduced here for a faster demonstration
 # )
-# # saveRDS(mb_gam_no_p, file.choose())
+# saveRDS(mb_gam_no_p, file.choose())
 mb_gam_no_p <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.rds') |> 
   readRDS()
 
