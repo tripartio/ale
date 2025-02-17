@@ -78,7 +78,8 @@ col_names <- names(df)
 y_col <- "y"  # Assume 'y' is the outcome variable
 
 
-## Examples with just x_cols to show different formats for specifying x_cols (same format for exclude_cols)
+## Examples with just x_cols to show different formats for specifying x_cols
+## (same format for exclude_cols)
 
 # Character vector: Simple ALE with no interactions
 resolve_x_cols(c("a", "b"), col_names, y_col)

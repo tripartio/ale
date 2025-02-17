@@ -175,7 +175,9 @@ mb_gam <- ModelBoot(
   boot_it = 4
 )
 
-# If the model is not standard, supply model_call_string with 'data = boot_data' in the string instead of the actual dataset name (in addition to the actual dataset as the 'data' argument directly to the `ModelBoot` constructor)
+# If the model is not standard, supply model_call_string with 'data = boot_data'
+# in the string instead of the actual dataset name (in addition to the actual dataset
+# as the 'data' argument directly to the `ModelBoot` constructor).
 mb_gam <- ModelBoot(
   gam_attitude,
   data = attitude,  # the actual dataset
