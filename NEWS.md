@@ -1,26 +1,32 @@
 # ale (development version)
 
+We have deeply rethought the vision of this package and have completely rewritten it to support existing, new, and future planned functionality. 
+
 ## Breaking changes
 
-* We have deeply rethought how best to structure the objects for this package. As a result, the underlying algorithm for calculating ALE has been completely rewritten to be more scalable. 
-* In addition to rewriting the code under the hood, the structure of all ale objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
+* The underlying algorithm for calculating ALE has been completely rewritten to be more scalable. 
+* In addition to rewriting the code under the hood, the structure of all `ale` package objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.
 * We have created several S7 objects to represent different kinds of `{ale}` package objects:
-    * `ALE`: the core `{ale}` package object that holds ALE data for a model.
-    * `ale_boot`: results of the `model_bootstrap()` function.
-    * `ale_p`: p-value distribution information as the result of the `create_p_dist()` function.
+    * `ALE`: the core `{ale}` package object that holds ALE data for a model (replaces the former `ale()` and `ale_ixn()` functions).
+    * `ModelBoot`: results of full-model bootstrapping (replaces the former `model_bootstrap()` function).
+    * `ALEPlots`: store ALE plots generated from either `ALE` or `ModelBoot` with convenient `print()` and `plot()` methods.
+    * `ALEpDist`: p-value distribution information (replaces the former `create_p_dist()` function).
 * With the extensive rewrite, we no longer depend on `{ALEPlot}` code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
 * Renamed the `rug_sample_size` argument of the `ALE` constructor to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
-* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ale()` function.
+* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ALE()` constructor for .
 * The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ale_plot` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ale_boot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
 
 
 ## Bug fixes
+
+We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
 
 * Gracefully fails instead of crashing when the input data has missing values.
 
 ## Other user-visible changes
 
 * The `x_cols` argument in `ALE()` now supports a complex syntax for specifying which specific columns for 1D ALE or pairs of columns for 2D interactions are desired. It also supports specification using standard R formula syntax.
+* New `get()` methods now provide convenient access to `ALE`, `ModelBoot`, and `ALEPlots` objects.
 * Confidence regions for 1D ALE are now reported more compactly.
 * With the creation of `plot()` methods, eliminated the `compact_plots` to `ale()`. 
 * `print()` and `plot()` methods have been added to the `ale_plots` object.

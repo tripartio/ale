@@ -50,7 +50,7 @@ While all results follow the general structure just described, the specific type
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'estimate'}}{A list with elements \code{d1} and \code{d2} with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
 * \code{term} or \code{term1} and \code{term2}: The variable or column for the 1D (\code{term}) or 2D (\code{term1} by \code{term2}) ALE statistic.
-* \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respecitve ALE statistic for the variable or interaction.
+* \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respective ALE statistic for the variable or interaction.
 }
 
 \item{\code{what = 'ale'} (default) and \code{stats} is one value in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one variable or interaction. The tibble has the following columns:

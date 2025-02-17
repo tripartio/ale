@@ -112,7 +112,7 @@ method(plot, ALE) <- function(x, ...) {
 #'
 #'   \item{`what = 'ale'` (default) and `stats = 'estimate'`}{A list with elements `d1` and `d2` with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
 #'     * `term` or `term1` and `term2`: The variable or column for the 1D (`term`) or 2D (`term1` by `term2`) ALE statistic.
-#'     * `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`: the respecitve ALE statistic for the variable or interaction.
+#'     * `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`: the respective ALE statistic for the variable or interaction.
 #'   }
 #'
 #'   \item{`what = 'ale'` (default) and `stats` is one value in `c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
