@@ -501,7 +501,7 @@ ALEpDist <- new_class(
       map(\(it.rand) {  # iterate by random ALE iteration
         it.rand@distinct |>
           map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
-            ale_stats(
+            calc_stats(
               y = it.rand.cat$ale$d1$random_variable$.y,
               bin_n = it.rand.cat$ale$d1$random_variable$.n,
               ale_y_norm_fun = ale_y_norm_fun,

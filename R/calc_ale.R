@@ -846,7 +846,7 @@ calc_ale <- function(
 
   # Calculate ALE statistics ------------------
 
-  # Call ale_stats for each bootstrap iteration and summarize results
+  # Call calc_stats for each bootstrap iteration and summarize results
   boot_stats <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
@@ -857,7 +857,7 @@ calc_ale <- function(
           split(it.cat_ale_data$.it) |>
           map(\(btit.cat_ale_data) {
             if (ixn_d == 1) {
-              ale_stats(
+              calc_stats(
                 y = btit.cat_ale_data$.y,
                 bin_n = btit.cat_ale_data$.n,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
@@ -867,7 +867,7 @@ calc_ale <- function(
               )
             }
             else if (ixn_d == 2) {
-              ale_stats_2D(
+              calc_stats_2D(
                 ale_data = btit.cat_ale_data,
                 x_cols = x_cols,
                 x_types = x_types,

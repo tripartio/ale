@@ -1,4 +1,4 @@
-## ale_stats.R
+## calc_stats.R
 #
 # Calculate statistical measures based on ALE
 #
@@ -19,9 +19,9 @@
 #' @param y numeric. Vector of ALE y values.
 #' @param bin_n numeric. Vector of counts of rows in each ALE bin. Must be the same length as `y`.
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
-#' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `ale_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
+#' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
-# @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
+# @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `calc_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -31,7 +31,7 @@
 #' * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
 #' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
 #'
-ale_stats <- function(
+calc_stats <- function(
     y,
     bin_n,
     y_vals = NULL,
@@ -126,14 +126,14 @@ ale_stats <- function(
     naler_min = naler[1],
     naler_max = naler[2]
   ))
-}  # ale_stats()
+}  # calc_stats()
 
 
 #' Calculate statistics from 2D ALE y values.
 #'
 #' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
 #'
-#' After these possible adjustments, the ALE y values and bin counts are passed to [ale_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
+#' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
 #' Not exported.
 #'
@@ -141,13 +141,13 @@ ale_stats <- function(
 #' @param ale_data dataframe. ALE data
 #' @param x_cols character. Names of the x columns in `ale_data`.
 #' @param x_types character same length as `x_cols`. Variable types (output of [var_type()]) of corresponding `x_cols`.
-#' @param y_vals See documentation for [ale_stats()]
-#' @param ale_y_norm_fun See documentation for [ale_stats()]
-# @param zeroed_ale See documentation for [ale_stats()]
+#' @param y_vals See documentation for [calc_stats()]
+#' @param ale_y_norm_fun See documentation for [calc_stats()]
+# @param zeroed_ale See documentation for [calc_stats()]
 #'
-#' @returns Same as [ale_stats()].
+#' @returns Same as [calc_stats()].
 #'
-ale_stats_2D <- function(
+calc_stats_2D <- function(
     ale_data,
     x_cols,
     x_types,
@@ -221,7 +221,7 @@ ale_stats_2D <- function(
     ale_n <- ale_n_ray
   }
 
-  return(ale_stats(
+  return(calc_stats(
     y = ale_y,
     bin_n = ale_n,
     y_vals = y_vals,
@@ -230,7 +230,7 @@ ale_stats_2D <- function(
     x_type = 'ordered' #,
     # zeroed_ale = TRUE
   ))
-}  # ale_stats_2D()
+}  # calc_stats_2D()
 
 
 # Create a function that normalizes ALE y values
