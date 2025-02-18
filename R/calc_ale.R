@@ -847,10 +847,10 @@ calc_ale <- function(
   # Calculate ALE statistics ------------------
 
   # Call calc_stats for each bootstrap iteration and summarize results
-  boot_stats <- NULL
+  boot_stats_summary <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-    boot_stats <- boot_ale_tbl |>
+    boot_stats_detailed <- boot_ale_tbl |>
       split(boot_ale_tbl$.cat) |>
       imap(\(it.cat_ale_data, it.cat) {
         it.cat_ale_data |>
@@ -876,18 +876,26 @@ calc_ale <- function(
                 # zeroed_ale = FALSE
               )            }
             else {
-              stop('Statistics not yet supported for higher than 2 dimensions.')
+              cli_abort('Statistics not yet supported for higher than 2 dimensions.')
             }
 
           }) |>
           bind_rows()
       })
 
+    # closeAllConnections()
+    # browser()
 
     # Summarize stats across all bootstrap iterations
-    boot_stats <- boot_stats |>
+    boot_stats_summary <- boot_stats_detailed |>
       map(\(it.cat_boot_stats) {
+        # browser()
         it.cbs <- as.matrix(it.cat_boot_stats)
+
+        if (boot_it > 0) {
+          # Delete the first row (full data, not a bootstrap iteration)
+          it.cbs <- it.cbs[-1, ]
+        }
 
         tibble(
           statistic = colnames(it.cbs),
@@ -909,8 +917,10 @@ calc_ale <- function(
 
     # If p_dist is provided, calculate p-values
     if (!is.null(p_dist)) {
-      boot_stats <- boot_stats |>
+      boot_stats_summary <- boot_stats_summary |>
         imap(\(it.cat_stats, it.cat) {
+          # closeAllConnections()
+          # browser()
           it.cat_stats |>
             mutate(
               p.value = map2_dbl(
@@ -918,7 +928,24 @@ calc_ale <- function(
                 \(it.stat, it.stat_name) {
                   # Call the p_value function corresponding to the named statistic
                   p_dist@rand_stats[[it.cat]] |>
-                    # p_dist$rand_stats[[it.cat]] |>
+                    value_to_p(it.stat_name, it.stat)
+                })
+            ) |>
+            select('statistic', 'estimate', 'p.value', everything())
+        })
+    }
+    else if (boot_it >= 30) {
+      boot_stats_summary <- boot_stats_summary |>
+        imap(\(it.cat_stats, it.cat) {
+          # closeAllConnections()
+          # browser()
+          it.cat_stats |>
+            mutate(
+              p.value = map2_dbl(
+                .data$estimate, .data$statistic,
+                \(it.stat, it.stat_name) {
+                  # Call the p_value function corresponding to the named statistic
+                  p_dist@rand_stats[[it.cat]] |>
                     value_to_p(it.stat_name, it.stat)
                 })
             ) |>
@@ -985,7 +1012,6 @@ calc_ale <- function(
     map(\(it.ale_data) {
       it.ale_data |> select(-'.cat')
     })
-  boot_stats <- boot_stats
 
   # Add attributes to ALE tibble that describe the column characteristics
   boot_summary <- boot_summary |>
@@ -1006,24 +1032,13 @@ calc_ale <- function(
 
   rtn_list <- list(summary = boot_summary)
   if (!is.null(ale_y_norm_funs)) {
-    rtn_list$stats <- boot_stats
+    rtn_list$stats <- boot_stats_summary
   }
   if (boot_ale_y) {
     rtn_list$boot_ale_y <- boot_ale_tbl
   }
 
   return(rtn_list)
-
-  # return(list(
-  #   summary = boot_summary,
-  #   stats = boot_stats,
-  #   boot_ale_y = if (boot_ale_y) {
-  #     boot_ale_tbl
-  #   } else {
-  #     NULL
-  #   }
-  # ))
-
 }  # calc_ale()
 
 
