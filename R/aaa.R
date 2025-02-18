@@ -7,6 +7,9 @@
   methods_register()
 }
 
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("The 'get()' function for 'ale' works such that the masked base::get() still works fine without modification.")
+}
 
 # Create a package-wide environment to hold objects shared across functions.
 # Its current use is only for objects that need to be reused across random iterations for ALEpDist().
