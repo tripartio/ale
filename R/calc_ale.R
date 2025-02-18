@@ -850,8 +850,14 @@ calc_ale <- function(
   boot_stats_summary <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-    boot_stats_detailed <- boot_ale_tbl |>
-      split(boot_ale_tbl$.cat) |>
+    boot_stats_detailed <- boot_ale_tbl
+    if (boot_it > 0) {
+      # Delete the first row (full data, not a bootstrap iteration)
+      boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
+    }
+
+    boot_stats_detailed <- boot_stats_detailed |>
+      split(boot_stats_detailed$.cat) |>
       imap(\(it.cat_ale_data, it.cat) {
         it.cat_ale_data |>
           split(it.cat_ale_data$.it) |>
@@ -892,10 +898,10 @@ calc_ale <- function(
         # browser()
         it.cbs <- as.matrix(it.cat_boot_stats)
 
-        if (boot_it > 0) {
-          # Delete the first row (full data, not a bootstrap iteration)
-          it.cbs <- it.cbs[-1, ]
-        }
+        # if (boot_it > 0) {
+        #   # Delete the first row (full data, not a bootstrap iteration)
+        #   it.cbs <- it.cbs[-1, ]
+        # }
 
         tibble(
           statistic = colnames(it.cbs),
@@ -934,24 +940,24 @@ calc_ale <- function(
             select('statistic', 'estimate', 'p.value', everything())
         })
     }
-    else if (boot_it >= 30) {
-      boot_stats_summary <- boot_stats_summary |>
-        imap(\(it.cat_stats, it.cat) {
-          # closeAllConnections()
-          # browser()
-          it.cat_stats |>
-            mutate(
-              p.value = map2_dbl(
-                .data$estimate, .data$statistic,
-                \(it.stat, it.stat_name) {
-                  # Call the p_value function corresponding to the named statistic
-                  p_dist@rand_stats[[it.cat]] |>
-                    value_to_p(it.stat_name, it.stat)
-                })
-            ) |>
-            select('statistic', 'estimate', 'p.value', everything())
-        })
-    }
+    # else if (boot_it >= 30) {
+    #   boot_stats_summary <- boot_stats_summary |>
+    #     imap(\(it.cat_stats, it.cat) {
+    #       closeAllConnections()
+    #       browser()
+    #       it.cat_stats |>
+    #         mutate(
+    #           p.value = map2_dbl(
+    #             .data$estimate, .data$statistic,
+    #             \(it.stat, it.stat_name) {
+    #               # Call the p_value function corresponding to the named statistic
+    #               p_dist@rand_stats[[it.cat]] |>
+    #                 value_to_p(it.stat_name, it.stat)
+    #             })
+    #         ) |>
+    #         select('statistic', 'estimate', 'p.value', everything())
+    #     })
+    # }
 
   }  # if (!is.null(ale_y_norm_funs))
 
