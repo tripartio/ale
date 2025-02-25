@@ -858,7 +858,7 @@ calc_ale <- function(
 
     boot_stats_detailed <- boot_stats_detailed |>
       split(boot_stats_detailed$.cat) |>
-      imap(\(it.cat_ale_data, it.cat) {
+      imap(\(it.cat_ale_data, it.cat_name) {
         it.cat_ale_data |>
           split(it.cat_ale_data$.it) |>
           map(\(btit.cat_ale_data) {
@@ -866,7 +866,7 @@ calc_ale <- function(
               calc_stats(
                 y = btit.cat_ale_data$.y,
                 bin_n = btit.cat_ale_data$.n,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
+                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
                 y_vals = NULL,
                 x_type = xd[[1]]$x_type # ,
                 # zeroed_ale = TRUE
@@ -877,7 +877,7 @@ calc_ale <- function(
                 ale_data = btit.cat_ale_data,
                 x_cols = x_cols,
                 x_types = x_types,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
+                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
                 y_vals = NULL #,
                 # zeroed_ale = FALSE
               )            }
@@ -924,40 +924,20 @@ calc_ale <- function(
     # If p_dist is provided, calculate p-values
     if (!is.null(p_dist)) {
       boot_stats_summary <- boot_stats_summary |>
-        imap(\(it.cat_stats, it.cat) {
-          # closeAllConnections()
-          # browser()
+        imap(\(it.cat_stats, it.cat_name) {
           it.cat_stats |>
             mutate(
               p.value = map2_dbl(
                 .data$estimate, .data$statistic,
                 \(it.stat, it.stat_name) {
                   # Call the p_value function corresponding to the named statistic
-                  p_dist@rand_stats[[it.cat]] |>
+                  p_dist@rand_stats[[it.cat_name]] |>
                     value_to_p(it.stat_name, it.stat)
                 })
             ) |>
             select('statistic', 'estimate', 'p.value', everything())
         })
     }
-    # else if (boot_it >= 30) {
-    #   boot_stats_summary <- boot_stats_summary |>
-    #     imap(\(it.cat_stats, it.cat) {
-    #       closeAllConnections()
-    #       browser()
-    #       it.cat_stats |>
-    #         mutate(
-    #           p.value = map2_dbl(
-    #             .data$estimate, .data$statistic,
-    #             \(it.stat, it.stat_name) {
-    #               # Call the p_value function corresponding to the named statistic
-    #               p_dist@rand_stats[[it.cat]] |>
-    #                 value_to_p(it.stat_name, it.stat)
-    #             })
-    #         ) |>
-    #         select('statistic', 'estimate', 'p.value', everything())
-    #     })
-    # }
 
   }  # if (!is.null(ale_y_norm_funs))
 
