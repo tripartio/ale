@@ -5,10 +5,17 @@
 # Data validation --------------------
 
 
-# Custom version of asserthat::assert_that. This way, I skip that dependency
-# and my simplified version is lighter with only base R functions and cli.
-# Note: license of asserthat is GPL-3.
-# I guess that my customizations are sufficient to change license.
+#' Validate statements
+#'
+#' Validation adapted as a lighter version of `asserthat::assert_that()`, using `cli` for formatting.
+#'
+#' @noRd
+#'
+#' @param ... Predicate statements that should evaluate to `TRUE` if valid, separated by commas.
+#' @param msg character(1). Error message if any of the statements in `...` is `FALSE`.
+#'
+#' @returns `TRUE` if all statements are `TRUE`. If any statement is `FALSE`, errors with `msg` as the error message.
+#'
 validate <- function(..., msg = NULL)
 {
   # extract assertions from ...
@@ -24,13 +31,13 @@ validate <- function(..., msg = NULL)
 
     # Validate the assertion itself--this is purely internal validation
     if (length(res) != 1) {
-      cli_abort('ale:::validate: length of assertion is not 1')
+      cli_abort('validate: length of assertion is not 1')
     }
     if (!is.logical(res)) {
-      cli_abort('ale:::validate: assertion must return a logical value')
+      cli_abort('validate: assertion must return a logical value')
     }
     if (any(is.na(res))) {
-      cli_abort('ale:::validate: missing values present in assertion')
+      cli_abort('validate: missing values present in assertion')
     }
 
     # On the first FALSE res, break out of the for loop
@@ -82,7 +89,7 @@ validate <- function(..., msg = NULL)
 #' @param current_depth Internal parameter to track the current recursion depth.
 #'   This parameter is managed by the function and should not be supplied by the user.
 #'
-#' @return A list of non-character elements found within the list at depths less than or
+#' @returns A list of non-character elements found within the list at depths less than or
 #'   equal to `max_depth`. If no such elements are found, the function returns `NULL`.
 #'
 #' @details The function uses recursion to traverse the list. It starts with a default
@@ -137,30 +144,54 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
 
 
 
-# TRUE if x is length 1 and is either a double or an integer
+
+#' Validate a scalar number
+#'
+#' @noRd
+#'
+#' @param x
+#'
+#' @returns `TRUE` if `x` is length 1 and is either a double or an integer
+#'
 is_scalar_number <- function(x) {
   rlang::is_scalar_double(x) || rlang::is_scalar_integer(x)
 }
 
-# TRUE if x is a scalar natural number (positive integer, zero excluded)
+#' Validate a scalar natural number
+#'
+#' @noRd
+#'
+#' @param x
+#'
+#' @returns `TRUE` if `x` is length 1, is either a double or an integer R type, is effectively an integer (mathematically), and is a strictly positive whole number (zero excluded); `FALSE` otherwise.
+#'
 is_scalar_natural <- function(x) {
-  rlang::is_scalar_integer(x) || x > 0
+  rlang::is_scalar_integerish(x) && x > 0
 }
 
-# TRUE if x is a scalar whole number (non-negative integer, zero included)
+#' Validate a scalar whole number
+#'
+#' @noRd
+#'
+#' @param x
+#'
+#' @returns `TRUE` if `x` is length 1, is either a double or an integer R type, is effectively an integer (mathematically), and is a non-negative whole number (zero included); `FALSE` otherwise.
+#'
 is_scalar_whole <- function(x) {
-  rlang::is_scalar_integer(x) || x >= 0
+  rlang::is_scalar_integerish(x) && x >= 0
 }
 
 
 
-## Data types ------------------
+# Data types ------------------
 
 #' Determine the datatype of a vector
 #'
-#' @param var vector whose datatype is to be determined
+#' see @returns for details of what it does.
 #'
-#' Not exported. See @returns for details of what it does.
+#' @noRd
+#'
+#' @param var vector whose datatype is to be determined
 #'
 #' @returns  Returns generic datatypes of R basic vectors according to the following mapping:
 #'  * `logical` returns 'binary'
@@ -194,10 +225,12 @@ var_type <- function(var) {
 #'
 #' Currently assumes that the result object will have only one class.
 #'
+#' @noRd
+#'
 #' @param x An R object
 #' @param new_cls character(1). A single class to which to convert `x`.
 #'
-#' @return `x` converted to class `new_cls`.
+#' @returns `x` converted to class `new_cls`.
 #'
 cast <- function(x, new_cls) {
   # Attempt S3 coercion by looking for an as.<new_cls>() function
@@ -216,23 +249,39 @@ cast <- function(x, new_cls) {
 }
 
 
-## Miscellaneous -----------------
+# Miscellaneous -----------------
 
 # Inverse of %in% operator
 `%notin%` <- Negate(`%in%`)
 
-# Concatenate two character vectors
+#' Concatenate two character vectors
+#'
+#' Each element of `cv2` is concatenated to each corresponding element of `cv1`.
+#'
+#' @noRd
+#'
+#' @param cv1,cv2 character vectors
+#'
+#' @returns `cv2` concatenated to `cv1`.
+#'
 `%+%` <- function(cv1, cv2) {
   paste0(cv1, cv2)
 }
 
 
 
-
-
-# Round a numeric vector to an intuitive number of decimal places:
-# ranging from 0 when abs(max(x)) > 100 to 3 when abs(max(x)) < 1
-round_dp <- function(x) {
+#' Intuitively round a numeric vector
+#'
+#' Round a numeric vector to an intuitive number of decimal places, ranging from 0 when `abs(max(x)) > 100` to 3 when `abs(max(x)) < 1`.
+#'
+#' @noRd
+#'
+#' @param x numeric. Vector of numbers to round off.
+#' @param default_dp integer(1). Number of decimal places for numbers less than 1.
+#'
+#' @returns `x` rounded by an intuitive number of decimal places.
+#'
+round_dp <- function(x, default_dp = 3L) {
   validate(is.numeric(x))
 
   max_x <- max(abs(x))
@@ -240,7 +289,7 @@ round_dp <- function(x) {
     max_x > 100 ~ 0,
     max_x >  10 ~ 1,
     max_x >   1 ~ 2,
-    .default = 3
+    .default = default_dp
   )
 
   round(x, dp)
