@@ -21,7 +21,7 @@
 #' @param parallel See documentation for [ALE()]
 #' @param model_packages See documentation for [ALE()]
 #' @param y_col,pred_fun,pred_type See documentation for [ALE()]. Used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.
-#' @param binary_true_value any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `binary_true_value` specifies the value of `y_col` (the target outcome) that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `binary_true_value = 2`.
+#' @param positive any single atomic value. If the model represented by `model` or `model_call_string` is a binary classification model, `positive` specifies the 'positive' value of `y_col` (the target outcome), that is, the value of interest that is considered `TRUE`; any other value of `y_col` is considered `FALSE`. This argument is ignored if the model is not a binary classification model. For example, if 2 means `TRUE` and 1 means `FALSE`, then set `positive = 2`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if [ALE()] with bootstrapping is not more appropriate than [ModelBoot()]. If `boot_it = 0`, then the model is run as normal once on the full `data` with no bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
@@ -163,7 +163,7 @@ ModelBoot <- new_class(
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     y_col = NULL,
-    binary_true_value = TRUE,
+    positive = TRUE,
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -263,7 +263,7 @@ ModelBoot <- new_class(
           y_cats <- colnames(y_preds)
           y_type <- var_type(data[[y_col]])
 
-          validate(is.atomic(binary_true_value))
+          validate(is.atomic(positive))
 
           # If we've made it this far, then we have all we need to calculate bootstrap-validated performance metrics.
           TRUE
@@ -520,7 +520,7 @@ ModelBoot <- new_class(
               # Calculate the actual values that were excluded from the current bootstrap iteration
               actual_oob <- if (y_type == 'binary') {
                 # Convert actual to TRUE/FALSE, which equals 1/0
-                (data[oob_idxs, y_col] == binary_true_value) |>
+                (data[oob_idxs, y_col] == positive) |>
                   as.logical()
               }
               else if (y_type == 'categorical') {
@@ -849,7 +849,7 @@ ModelBoot <- new_class(
                 auc = aucroc(
                   binary_target, y_preds[, it.cat],
                   na.rm = TRUE,
-                  binary_true_value = binary_true_value
+                  positive = positive
                 )$auc
               )
             }

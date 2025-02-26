@@ -13,7 +13,7 @@ ModelBoot(
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   y_col = NULL,
-  binary_true_value = TRUE,
+  positive = TRUE,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
     object, newdata = newdata, type = type)
@@ -50,7 +50,7 @@ ModelBoot(
 
 \item{y_col, pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}. Used to calculate bootstrapped performance measures. If NULL (default), then the relevant performance measures are calculated only if these arguments can be automatically detected.}
 
-\item{binary_true_value}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{binary_true_value} specifies the value of \code{y_col} (the target outcome) that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{binary_true_value = 2}.}
+\item{positive}{any single atomic value. If the model represented by \code{model} or \code{model_call_string} is a binary classification model, \code{positive} specifies the 'positive' value of \code{y_col} (the target outcome), that is, the value of interest that is considered \code{TRUE}; any other value of \code{y_col} is considered \code{FALSE}. This argument is ignored if the model is not a binary classification model. For example, if 2 means \code{TRUE} and 1 means \code{FALSE}, then set \code{positive = 2}.}
 
 \item{boot_it}{non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if \code{\link[=ALE]{ALE()}} with bootstrapping is not more appropriate than \code{\link[=ModelBoot]{ModelBoot()}}. If \code{boot_it = 0}, then the model is run as normal once on the full \code{data} with no bootstrapping.}
 
@@ -58,7 +58,7 @@ ModelBoot(
 
 \item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
-\item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data.}
+\item{seed}{integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for \code{\link[=ALE]{ALE()}} for further details.}
 
 \item{output_model_stats}{logical(1). If \code{TRUE} (default), return overall model statistics.}
 

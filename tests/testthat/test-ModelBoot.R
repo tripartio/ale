@@ -103,7 +103,7 @@ test_that(
       parallel = 0,
       model_packages = 'nnet',
       y_col = 'Species',
-      binary_true_value = FALSE,  # not used here
+      positive = FALSE,  # not used here
       # pred_fun,  # not tested
       pred_type = "probs",
       boot_it = 2,
