@@ -351,7 +351,7 @@ ModelBoot <- new_class(
 
     ## Capture params ------------------
     # Capture all parameters used to construct the bootstraps.
-    # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function up to this point. It may be further modified by the end of the function.
+    # This includes the arguments in the original object constructor call (both user-specified and default) with any values changed by the constructor up to this point. It may be further modified by the end of the constructor.
     # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
     params <- c(as.list(environment()), list(...))
 

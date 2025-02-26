@@ -430,7 +430,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -1669,7 +1669,7 @@
       attr(,"params")$y_col
       [1] "mpg"
       
-      attr(,"params")$binary_true_value
+      attr(,"params")$positive
       [1] TRUE
       
       attr(,"params")$pred_fun
@@ -2247,7 +2247,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -3113,7 +3113,7 @@
       attr(,"params")$y_col
       NULL
       
-      attr(,"params")$binary_true_value
+      attr(,"params")$positive
       [1] TRUE
       
       attr(,"params")$pred_fun
@@ -3525,7 +3525,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, binary_true_value, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -5119,7 +5119,7 @@
       attr(,"params")$y_col
       [1] "Species"
       
-      attr(,"params")$binary_true_value
+      attr(,"params")$positive
       [1] FALSE
       
       attr(,"params")$pred_fun

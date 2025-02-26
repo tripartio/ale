@@ -159,7 +159,6 @@ We now demonstrate how to create the `ALEpDist` object for our case.
 # # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.
 # gam_math_p_dist <- ALEpDist(
 #   gam_math,
-#   p_speed = 'precise slow',
 #   math,
 # )
 # saveRDS(gam_math_p_dist, file.choose())

@@ -11,6 +11,8 @@ test_that(
       data = test_cars,
       # disable parallelization for testing
       parallel = 0,
+      rand_it = 10,
+      .skip_validation = TRUE,
       silent = TRUE
     )
     expect_snapshot(unclass(pd))
@@ -43,18 +45,18 @@ test_that(
 )
 
 test_that(
-  'ALEpDist works with precise slow', {
+  'Surrogate ALEpDist works', {
     skip_on_ci()
 
     pd <- ALEpDist(
       test_gam,
       data = test_cars,
-      rand_it = 10,
-      p_speed = 'precise slow',
+      rand_it = 3,
+      .skip_validation = TRUE,
+      surrogate = TRUE,
       output_residuals = TRUE,
       silent = TRUE,
-      parallel = 0,  # disable parallelization for testing
-      .testing_mode = TRUE
+      parallel = 0  # disable parallelization for testing
     )
     expect_snapshot(unclass(pd))
 
@@ -88,11 +90,12 @@ test_that(
       # It is difficult to test random_model_call_string_vars because it is only for
       # edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
-      p_speed = 'approx fast',
+      surrogate = FALSE,
       output_residuals = TRUE,
       silent = TRUE,
       parallel = 0,  # disable parallelization for testing
-      .testing_mode = TRUE
+      rand_it = 3,
+      .skip_validation = TRUE
     )
     expect_snapshot(unclass(pd))
   }
@@ -107,7 +110,9 @@ test_that(
       test_gam_binary,
       data = test_cars,
       parallel = 0,  # disable parallelization for testing
-      silent = TRUE
+      silent = TRUE,
+      rand_it = 10,
+      .skip_validation = TRUE
     )
     expect_snapshot(unclass(pd))
   }
@@ -122,7 +127,9 @@ test_that(
       data = test_cars,
       pred_type = 'probs',
       parallel = 0,  # disable parallelization for testing
-      silent = TRUE
+      silent = TRUE,
+      rand_it = 10,
+      .skip_validation = TRUE
     )
     expect_snapshot(unclass(pd))
   }

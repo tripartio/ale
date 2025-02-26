@@ -7,29 +7,64 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 4 x 6
-             aled  aler_min aler_max naled naler_min naler_max
-            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.0000560 -0.000317 0.000205 0          0         0   
-      2 0.00239   -0.00711  0.00898  0.537     -1.56      1.56
-      3 0.000514  -0.00206  0.00152  0          0         0   
-      4 0.00233   -0.00774  0.0109   0.366     -1.56      1.56
+      # A tibble: 10 x 6
+              aled  aler_min aler_max naled naler_min naler_max
+             <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 0.0000475 -0.000324 0.000197 0          0         0   
+       2 0.00227   -0.00710  0.00899  0.513     -1.56      1.56
+       3 0.000465  -0.00205  0.00153  0          0         0   
+       4 0.00191   -0.00763  0.0110   0.464     -1.56      1.56
+       5 0.000997  -0.00471  0.00393  0.171     -1.56      1.56
+       6 0.00201   -0.00998  0.00819  0.391     -1.56      1.56
+       7 0.00216   -0.00876  0.00648  0.537     -1.56      1.56
+       8 0.000262  -0.000969 0.00192  0          0         0   
+       9 0.00261   -0.0127   0.00767  0.610     -1.56      1.56
+      10 0.00377   -0.0137   0.0119   0.757     -1.56      1.56
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 4
+      attr(,"params")
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 ---
 
@@ -226,9 +261,9 @@
       1 aled        0.0107     0     0.0106  0.0107  0.0106    0.0108
       2 aler_min   -0.0236     0    -0.0236 -0.0236 -0.0236   -0.0236
       3 aler_max    0.0196     0     0.0196  0.0196  0.0196    0.0196
-      4 naled       0          0.5   0       0       0         0     
+      4 naled       0          0.7   0       0       0         0     
       5 naler_min   0          1     0       0       0         0     
-      6 naler_max   0          0.5   0       0       0         0     
+      6 naler_max   0          0.7   0       0       0         0     
       
       attr(,"distinct")$mpg$stats$d1$by_term$disp
       # A tibble: 6 x 7
@@ -293,8 +328,8 @@
       2 aler_min    -0.119     0     -0.226 -0.119 -0.0997   -0.0295
       3 aler_max     0.117     0     -0.207  0.117  0.284     0.298 
       4 naled        3.03      0      2.02   3.03   2.56      4.45  
-      5 naler_min   -1.52      0.5   -4.32  -1.52   0         0     
-      6 naler_max    1.52      0.5   -4.09   1.52   4.55      4.55  
+      5 naler_min   -1.52      0.7   -4.32  -1.52   0         0     
+      6 naler_max    1.52      0.7   -4.09   1.52   4.55      4.55  
       
       attr(,"distinct")$mpg$stats$d1$by_term$am
       # A tibble: 6 x 7
@@ -323,11 +358,11 @@
         statistic estimate p.value conf.low     mean   median conf.high
         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
       1 aled       0.00786     0    0.00711  0.00786  0.00731   0.00907
-      2 aler_min  -0.0123      0   -0.0123  -0.0123  -0.0123   -0.0123 
+      2 aler_min  -0.0123      0.2 -0.0123  -0.0123  -0.0123   -0.0123 
       3 aler_max   0.0427      0    0.0427   0.0427   0.0427    0.0427 
-      4 naled      0           0.5  0        0        0         0      
+      4 naled      0           0.7  0        0        0         0      
       5 naler_min  0           1    0        0        0         0      
-      6 naler_max  0           0.5  0        0        0         0      
+      6 naler_max  0           0.7  0        0        0         0      
       
       attr(,"distinct")$mpg$stats$d1$by_term$country
       # A tibble: 6 x 7
@@ -349,7 +384,7 @@
       3 aler_max     0.211     0     -0.235   0.211   0.449     0.454
       4 naled        5.87      0      3.58    5.87    6.82      7.36 
       5 naler_min  -11.6       0    -13.6   -11.6   -13.6      -7.88 
-      6 naler_max    1.52      0.5   -4.09    1.52    4.55      4.55 
+      6 naler_max    1.52      0.7   -4.09    1.52    4.55      4.55 
       
       
       attr(,"distinct")$mpg$stats$d1$by_stat
@@ -375,19 +410,19 @@
       # A tibble: 13 x 7
          term      estimate p.value conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model     -40.3          0 -56.9    -40.3    -32.8     -30.1   
-       2 cyl        -0.0236       0  -0.0236  -0.0236  -0.0236   -0.0236
-       3 disp       -5.74         0  -5.74    -5.74    -5.74     -5.74  
-       4 hp         -3.19         0  -3.19    -3.19    -3.19     -3.19  
-       5 drat       -0.965        0  -0.965   -0.965   -0.965    -0.965 
-       6 wt         -8.94         0  -8.94    -8.94    -8.94     -8.94  
-       7 qsec       -7.56         0  -7.56    -7.56    -7.56     -7.56  
-       8 vs         -0.119        0  -0.226   -0.119   -0.0997   -0.0295
-       9 am         -0.247        0  -0.540   -0.247   -0.464     0.231 
-      10 gear       -0.948        0  -1.38    -0.948   -0.739    -0.697 
-      11 carb       -0.0123       0  -0.0123  -0.0123  -0.0123   -0.0123
-      12 country    -0.159        0  -1.64    -0.159    0.0123    1.18  
-      13 continent  -1.54         0  -1.84    -1.54    -1.75     -1.06  
+       1 model     -40.3        0   -56.9    -40.3    -32.8     -30.1   
+       2 cyl        -0.0236     0    -0.0236  -0.0236  -0.0236   -0.0236
+       3 disp       -5.74       0    -5.74    -5.74    -5.74     -5.74  
+       4 hp         -3.19       0    -3.19    -3.19    -3.19     -3.19  
+       5 drat       -0.965      0    -0.965   -0.965   -0.965    -0.965 
+       6 wt         -8.94       0    -8.94    -8.94    -8.94     -8.94  
+       7 qsec       -7.56       0    -7.56    -7.56    -7.56     -7.56  
+       8 vs         -0.119      0    -0.226   -0.119   -0.0997   -0.0295
+       9 am         -0.247      0    -0.540   -0.247   -0.464     0.231 
+      10 gear       -0.948      0    -1.38    -0.948   -0.739    -0.697 
+      11 carb       -0.0123     0.2  -0.0123  -0.0123  -0.0123   -0.0123
+      12 country    -0.159      0    -1.64    -0.159    0.0123    1.18  
+      13 continent  -1.54       0    -1.84    -1.54    -1.75     -1.06  
       
       attr(,"distinct")$mpg$stats$d1$by_stat$aler_max
       # A tibble: 13 x 7
@@ -412,7 +447,7 @@
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 model        45.4      0      43.3  45.4   44.5      48.2 
-       2 cyl           0        0.5     0     0      0         0   
+       2 cyl           0        0.7     0     0      0         0   
        3 disp         23.1      0      22.7  23.1   23.2      23.5 
        4 hp            9.98     0       9.36  9.98   9.59     10.9 
        5 drat          6.23     0       6.07  6.23   6.20      6.41
@@ -421,7 +456,7 @@
        8 vs            3.03     0       2.02  3.03   2.56      4.45
        9 am            5.67     0       5.19  5.67   5.78      6.05
       10 gear          6.41     0       5.73  6.41   6.68      6.86
-      11 carb          0        0.5     0     0      0         0   
+      11 carb          0        0.7     0     0      0         0   
       12 country      28.6      0      21.5  28.6   30.5      34.1 
       13 continent     5.87     0       3.58  5.87   6.82      7.36
       
@@ -436,7 +471,7 @@
        5 drat         -7.58     0      -7.58  -7.58  -7.58     -7.58
        6 wt          -50        0     -50    -50    -50       -50   
        7 qsec        -43.9      0     -43.9  -43.9  -43.9     -43.9 
-       8 vs           -1.52     0.5    -4.32  -1.52   0         0   
+       8 vs           -1.52     0.7    -4.32  -1.52   0         0   
        9 am           -3.03     0      -7.5   -3.03  -6.06      4.02
       10 gear         -9.09     0     -11.9   -9.09  -7.58     -7.58
       11 carb          0        1       0      0      0         0   
@@ -448,18 +483,18 @@
          term      estimate p.value conf.low  mean median conf.high
          <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
        1 model        24.2      0      -4.32 24.2   28.8      48.9 
-       2 cyl           0        0.5     0     0      0         0   
+       2 cyl           0        0.7     0     0      0         0   
        3 disp         28.8      0      28.8  28.8   28.8      28.8 
        4 hp           22.7      0      22.7  22.7   22.7      22.7 
        5 drat          7.58     0       7.58  7.58   7.58      7.58
        6 wt           34.8      0      34.8  34.8   34.8      34.8 
        7 qsec         37.9      0      37.9  37.9   37.9      37.9 
-       8 vs            1.52     0.5    -4.09  1.52   4.55      4.55
+       8 vs            1.52     0.7    -4.09  1.52   4.55      4.55
        9 am           -1.52     1      -5.98 -1.52  -4.55      5.53
       10 gear          5.56     0       4.55  5.56   4.55      7.42
-      11 carb          0        0.5     0     0      0         0   
+      11 carb          0        0.7     0     0      0         0   
       12 country      33.8      0      29.1  33.8   34.8      37.7 
-      13 continent     1.52     0.5    -4.09  1.52   4.55      4.55
+      13 continent     1.52     0.7    -4.09  1.52   4.55      4.55
       
       
       attr(,"distinct")$mpg$stats$d1$estimate
@@ -522,12 +557,12 @@
       25%      15.43921
       30%      15.79628
       40%      17.83840
-      med_lo_2 19.19227
-      med_lo   19.19231
+      med_lo_2 19.18633
+      med_lo   19.18652
       50%      19.20000
       mean     20.09462
-      med_hi   19.21078
-      med_hi_2 19.21089
+      med_hi   19.21173
+      med_hi_2 19.21190
       60%      21.00000
       70%      21.51193
       75%      22.80000
@@ -671,25 +706,33 @@
       attr(,"params")$p_values
       <ale::ALEpDist>
        @ rand_stats           :List of 1
-       .. $ mpg: tibble [4 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:4] 0.000056 0.002385 0.000514 0.002325
-       ..  ..$ aler_min : num [1:4] -0.000317 -0.007115 -0.002059 -0.007737
-       ..  ..$ aler_max : num [1:4] 0.000205 0.008979 0.001518 0.010923
-       ..  ..$ naled    : num [1:4] 0 0.537 0 0.366
-       ..  ..$ naler_min: num [1:4] 0 -1.56 0 -1.56
-       ..  ..$ naler_max: num [1:4] 0 1.56 0 1.56
+       .. $ mpg: tibble [10 x 6] (S3: tbl_df/tbl/data.frame)
+       ..  ..$ aled     : num [1:10] 4.75e-05 2.27e-03 4.65e-04 1.91e-03 9.97e-04 ...
+       ..  ..$ aler_min : num [1:10] -0.000324 -0.007102 -0.002052 -0.007634 -0.004708 ...
+       ..  ..$ aler_max : num [1:10] 0.000197 0.008991 0.001525 0.011026 0.003932 ...
+       ..  ..$ naled    : num [1:10] 0 0.513 0 0.464 0.171 ...
+       ..  ..$ naler_min: num [1:10] 0 -1.56 0 -1.56 -1.56 ...
+       ..  ..$ naler_max: num [1:10] 0 1.56 0 1.56 1.56 ...
        @ residual_distribution: 'univariateML' Named num [1:2] 1.52e-12 1.48e-03
-       .. - attr(*, "logLik")= num 309
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
-       .. - attr(*, "n")= int 64
+       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
        .. - attr(*, "model")= chr "Laplace"
        .. - attr(*, "density")= chr "extraDistr::dlaplace"
+       .. - attr(*, "logLik")= num 309
        .. - attr(*, "support")= num [1:2] -Inf Inf
-       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
-       .. - attr(*, "default")= num [1:2] 0 1
-       .. - attr(*, "continuous")= logi TRUE
-       @ rand_it_ok           : int 4
+       .. - attr(*, "n")= int 64
+       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
        @ residuals            : NULL
+       @ params               :List of 10
+       .. $ y_col                        : chr "mpg"
+       .. $ parallel                     : num 0
+       .. $ model_packages               : NULL
+       .. $ random_model_call_string     : NULL
+       .. $ random_model_call_string_vars: chr(0) 
+       .. $ positive                     : logi TRUE
+       .. $ rand_it                      : num 10
+       .. $ seed                         : num 0
+       .. $ rand_it_ok                   : int 10
+       .. $ exactness                    : chr "invalid"
       
       attr(,"params")$p_alpha
       [1] 0.01 0.05
@@ -739,16 +782,16 @@
        [1] 1 1 1 1 1 0 0 0 0 0 0
       
       $naled
-       [1] 1.00 1.00 1.00 1.00 0.50 0.50 0.50 0.25 0.00 0.00 0.00
+       [1] 1.0 1.0 1.0 1.0 0.7 0.7 0.7 0.4 0.0 0.0 0.0
       
       $naler_min
-       [1] 0.0 0.0 0.5 0.5 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+       [1] 0.0 0.0 0.7 0.7 1.0 1.0 1.0 1.0 1.0 1.0 1.0
       
       $naler_max
-       [1] 1.0 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.0 0.0
+       [1] 1.0 1.0 1.0 1.0 0.7 0.7 0.7 0.7 0.7 0.0 0.0
       
 
-# ALEpDist works with precise slow
+# Surrogate ALEpDist works
 
     Code
       unclass(pd)
@@ -757,35 +800,34 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 10 x 6
-              aled  aler_min aler_max naled naler_min naler_max
-             <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 0.0000475 -0.000324 0.000197 0          0         0   
-       2 0.00227   -0.00710  0.00899  0.513     -1.56      1.56
-       3 0.000465  -0.00205  0.00153  0          0         0   
-       4 0.00191   -0.00763  0.0110   0.464     -1.56      1.56
-       5 0.000997  -0.00471  0.00393  0.171     -1.56      1.56
-       6 0.00201   -0.00998  0.00819  0.391     -1.56      1.56
-       7 0.00216   -0.00876  0.00648  0.537     -1.56      1.56
-       8 0.000262  -0.000969 0.00192  0          0         0   
-       9 0.00261   -0.0127   0.00767  0.610     -1.56      1.56
-      10 0.00377   -0.0137   0.0119   0.757     -1.56      1.56
+      # A tibble: 100 x 6
+             aled  aler_min aler_max  naled naler_min naler_max
+            <dbl>     <dbl>    <dbl>  <dbl>     <dbl>     <dbl>
+       1 0.000989 -0.00410  0.00674  0.171      -1.56      1.56
+       2 0.00227  -0.00709  0.00898  0.513      -1.56      1.56
+       3 0.000995 -0.00327  0.00439  0.122      -1.56      1.56
+       4 0.000106 -0.000422 0.000610 0           0         0   
+       5 0.000593 -0.00280  0.00234  0.0244     -1.56      0   
+       6 0.00151  -0.00750  0.00616  0.293      -1.56      1.56
+       7 0.00203  -0.00825  0.00610  0.488      -1.56      1.56
+       8 0.000633 -0.00234  0.00464  0.0488      0         1.56
+       9 0.00183  -0.00892  0.00538  0.415      -1.56      1.56
+      10 0.00351  -0.0128   0.0111   0.732      -1.56      1.56
+      # i 90 more rows
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 10
       attr(,"residuals")
                       mpg
        [1,]  2.076210e-03
@@ -852,6 +894,37 @@
       [62,]  4.459260e-04
       [63,] -8.025594e-04
       [64,] -4.463587e-04
+      attr(,"params")
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$rand_it
+      [1] 3
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 100
+      
+      attr(,"params")$exactness
+      [1] "surrogate"
+      
 
 ---
 
@@ -862,25 +935,25 @@
     Output
       $aled
                  0        0.001         0.01         0.01         0.05          0.1 
-      3.774163e-03 3.763716e-03 3.669690e-03 3.669690e-03 3.251801e-03 2.729438e-03 
+      3.780595e-03 3.754197e-03 3.516613e-03 3.516613e-03 2.670500e-03 2.315519e-03 
                0.5            1 
-      1.962555e-03 4.753915e-05 
+      1.110811e-03 6.812640e-06 
       
       $aler_min
                   0         0.001          0.01          0.01          0.05 
-      -0.0137111960 -0.0137022413 -0.0136216489 -0.0136216489 -0.0132634607 
+      -1.721245e-02 -1.713395e-02 -1.642748e-02 -1.642748e-02 -1.277781e-02 
                 0.1           0.5             1 
-      -0.0128157255 -0.0073679468 -0.0003240953 
+      -9.121186e-03 -3.927578e-03 -4.631035e-05 
       
       $aler_max
-                0       0.001        0.01        0.01        0.05         0.1 
-      0.011942953 0.011934704 0.011860467 0.011860467 0.011530521 0.011118088 
-              0.5           1 
-      0.007073919 0.000197209 
+                 0        0.001         0.01         0.01         0.05          0.1 
+      2.252749e-02 2.174372e-02 1.468975e-02 1.468975e-02 1.212300e-02 9.601000e-03 
+               0.5            1 
+      4.206450e-03 3.375357e-05 
       
       $naled
               0     0.001      0.01      0.01      0.05       0.1       0.5         1 
-      0.7568359 0.7555176 0.7436523 0.7436523 0.6909180 0.6250000 0.4272461 0.0000000 
+      0.8300781 0.8204102 0.7333984 0.7333984 0.6591797 0.5639648 0.1464844 0.0000000 
       
       $naler_min
             0   0.001    0.01    0.01    0.05     0.1     0.5       1 
@@ -900,29 +973,26 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 4 x 6
+      # A tibble: 3 x 6
            aled aler_min aler_max naled naler_min naler_max
           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.0416   -0.152    0.235   1.73     -3.12      3.12
-      2 0.00658  -0.0196   0.0248  1.05     -1.56      1.56
-      3 0.0352   -0.141    0.104   1.76     -1.56      3.12
-      4 0.0212   -0.0706   0.0997  1.56     -1.56      3.12
+      1 0.0353   -0.146    0.241   1.66     -3.12      3.12
+      2 0.00626  -0.0196   0.0248  1.07     -1.56      1.56
+      3 0.0318   -0.141    0.105   1.61     -1.56      3.12
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
       1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 4
       attr(,"residuals")
                       mpg
        [1,]  2.076210e-03
@@ -989,6 +1059,37 @@
       [62,]  4.459260e-04
       [63,] -8.025594e-04
       [64,] -4.463587e-04
+      attr(,"params")
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      [1] "mgcv::gam(\n        mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +\n        vs + am + gear + carb + country + random_variable,\n        data = package_scope$rand_data\n      )"
+      
+      attr(,"params")$random_model_call_string_vars
+      [1] "rmcsv"
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$rand_it
+      [1] 3
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 3
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 # ALEpDist works with binary outcome
 
@@ -999,29 +1100,64 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$vs
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Uniform model 
              min         max  
       -3.926e-13   3.926e-13  
-      attr(,"rand_it_ok")
-      [1] 4
+      attr(,"params")
+      attr(,"params")$y_col
+      [1] "vs"
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 # ALEpDist works with categorical outcome
 
@@ -1032,45 +1168,92 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$Asia
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"rand_stats")$Europe
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"rand_stats")$`North America`
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Normal model 
             mean          sd  
       -7.759e-19   2.898e-17  
-      attr(,"rand_it_ok")
-      [1] 4
+      attr(,"params")
+      attr(,"params")$y_col
+      [1] "continent"
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 

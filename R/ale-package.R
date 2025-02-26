@@ -29,7 +29,6 @@
 #' @importFrom purrr walk
 #' @importFrom rlang .data
 #' @importFrom rlang is_bool
-#' @importFrom rlang is_scalar_logical
 #' @importFrom rlang is_string
 #' @importFrom rlang set_names
 #' @importFrom rlang `:=`

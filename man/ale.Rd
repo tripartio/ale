@@ -70,7 +70,7 @@ ALE(
 
 \item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
-\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified.}
+\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with \code{parallel = 0}.}
 
 \item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.}
 

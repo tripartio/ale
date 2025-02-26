@@ -10,7 +10,60 @@
 #' @export
 #'
 #' @description
-#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `{ale}` package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the `{ale}` package is model-agnostic (that is, it works with any kind of R model), the [ALE()] constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALE()` constructor correctly manipulate its model object:
+#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An `ALEpDist` object contains the necessary distribution data for generating such p-values.
+#'
+#'
+#' @param model See documentation for [ALE()]
+#' @param data See documentation for [ALE()]
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param surrogate logical(1). Create p-value distribution based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Surrogate p-values are faster approximations but are not as reliable.
+#' @param parallel See documentation for [ALE()]
+#' @param model_packages See documentation for [ALE()]
+#' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
+#' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
+#' @param y_col See documentation for [ALE()]
+#' @param positive See documentation for [ModelBoot()]
+#' @param pred_fun,pred_type See documentation for [ALE()]
+#' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
+#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
+#' @param seed See documentation for [ALE()]
+#' @param silent See documentation for [ALE()]
+#' @param .skip_validation Internal use only. logical(1). Disables some data validation checks.
+#'
+#' @returns An object of class `ALEpDist` with properties `rand_stats`, `residual_distribution`, `residuals`, and `params`.
+#'
+#' @section Properties:
+#' \describe{
+#'   \item{rand_stats}{
+#'   A named list of tibbles. There is normally one element whose name is the same as `y_col` except if `y_col` is a categorical variable; in that case, the elements are named for each category of `y_col`. Each element is a tibble whose rows are each of the `rand_it_ok` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
+#'   }
+#'   \item{residual_distribution}{
+#'     A `univariateML` object with the closest estimated distribution for the `residuals` as determined by [univariateML::model_select()]. This is the distribution used to generate all the random variables.
+#'   }
+#'   \item{residuals}{
+#'     If `output_residuals == TRUE`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. The rows correspond to each row of `data`. The columns correspond to the named elements (`y_col` or categories) described above for `rand_stats`. `NULL` if `output_residuals == FALSE` (default).
+#'   }
+#'
+#'   \item{params}{
+#'     Parameters used to generate p-value distributions. Most of these repeat selected arguments passed to `ALEpDist()`. These are either values provided by the user or used by default if the user did not change them but the following additional or modified objects are notable:
+#'
+#'     * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
+#'     * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
+#'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model.
+#'   }
+#' }
+#'
+#'
+#' @section Exact p-values for ALE statistics:
+#'
+#' Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the `{ale}` package takes a literal frequentist approach to the calculation of empirical (Monte Carlo) p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
+#' * The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
+#' * The closest distribution of the residuals is detected with `univariateML::model_select()`.
+#' * 1000 new models are trained by generating a random variable each time with `univariateML::rml()` and then training a new model with that random variable added.
+#' * The ALEs and ALE statistics are calculated for each random variable.
+#' * For each ALE statistic, the empirical cumulative distribution function (`stats::ecdf()`) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
+#'
+#' Because the `ale` package is model-agnostic (that is, it works with any kind of R model), the `ALEpDist()` constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like [stats::lm()] and [stats::glm()]) and many widely used statistics packages (like `mgcv` and `survival`), but which excludes most machine learning algorithms (like `tidymodels` and `caret`). For non-standard algorithms, the user needs to do a little work to help the `ALEpDist()` constructor correctly manipulate its model object:
 #'
 #' * The full model call must be passed as a character string in the argument `random_model_call_string`, with two slight modifications as follows.
 #' * In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
@@ -18,52 +71,21 @@
 #'
 #' See the example below for how this is implemented.
 #'
+#' @section Faster approximate and surrogate p-values:
+#' The procedure we have just described requires at least 1000 random iterations for p-values to be considered "exact". Unfortunately, this procedure rather slow--it takes at least 1000 times as long as the time it takes to train the model once (and a bit longer, with some additional necessary processing).
 #'
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#' With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact but if the successful iterations are below 1000, the p-values are only considered approximate.
 #'
-#'
-#'
-#' @param model See documentation for [ALE()]
-#' @param data See documentation for [ALE()]
-#' @param p_speed character(1). Either 'approx fast' (default) or 'precise slow'. See details.
-#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel See documentation for [ALE()]
-#' @param model_packages See documentation for [ALE()]
-#' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
-#' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
-#' @param y_col See documentation for [ALE()]
-#' @param binary_true_value See documentation for [ModelBoot()]
-#' @param pred_fun,pred_type See documentation for [ALE()].
-#' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
-#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for "approximate" p-values as low as 100 for faster test runs but then the p-values are not as stable.
-#' @param seed See documentation for [ALE()]
-#' @param silent See documentation for [ALE()]
-#' @param .testing_mode logical(1). Internal use only. Disables some data validation checks to allow for debugging.
-#'
-#' @returns An object of class `ALEpDist` with properties `rand_stats`, `residual_distribution`, `rand_it_ok`, and `residuals`.
-#'
-#' * `rand_it_ok`: An integer with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
-#' * `rand_stats`: A named list of tibbles. There is normally one element whose name is the same as `y_col` except if `y_col` is a categorical variable; in that case, the elements are named for each category of `y_col`. Each element is a tibble whose rows are each of the `rand_it_ok` iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
-#' * `residual_distribution`: A `univariateML` object with the closest estimated distribution for the `residuals` as determined by [univariateML::model_select()]. This is the distribution used to generate all the random variables.
-#' * `residuals`: If `output_residuals == TRUE`, returns a matrix of the actual `y_col` values from `data` minus the predicted values from the `model` (without random variables) on the `data`. If `output_residuals == FALSE`, (default), does not return these residuals. The rows correspond to each row of `data`. The columns correspond to the named elements (`y_col` or categories) described above for `rand_stats`.
-#'
-#' @section Approach to calculating p-values:
-#' The `{ale}` package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the `rand_it` argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
-#' * The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
-#' * The closest distribution of the residuals is detected with `univariateML::model_select()`.
-#' * 1000 new models are trained by generating a random variable each time with `univariateML::rml()` and then training a new model with that random variable added.
-#' * The ALEs and ALE statistics are calculated for each random variable.
-#' * For each ALE statistic, the empirical cumulative distribution function (from `stats::ecdf()`) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
-#'
-#' What we have just described is the precise approach to calculating p-values with the argument `p_speed = 'precise slow'`. Because it is so slow, by default, the `ALEpDist` constructor implements an approximate algorithm by default (`p_speed = 'approx fast'`) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE bins instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model two or three times. See the "Parallel processing" section below for more details on the speed of computation.
+#' Because the procedure can be very slow, a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions always require exact p-values with at least 1000 iterations on the original model**.
 #'
 #' @section Parallel processing:
 #' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
 #'
 #' For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an `ALEpDist` object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
 #'
-#' For approximate p-values (the default), at least four random variables are trained to give some minimal variation. With parallel processing, more random variables can be trained to increase the accuracy of the p_value estimates up to the maximum
-#' number of physical cores.
+#'
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#'
 #'
 #'
 #' @examples
@@ -121,52 +143,75 @@
 #'
 #' }
 #'
-
 ALEpDist <- new_class(
   'ALEpDist',
   properties = list(
-    rand_stats = class_list,
-    residual_distribution   = as_class(new_S3_class('univariateML')),
-    rand_it_ok = class_integer,
-    residuals = class_double | NULL
+    rand_stats            = class_list,
+    residual_distribution = as_class(new_S3_class('univariateML')),
+    residuals             = class_double | NULL,
+    params                = class_list
   ),
 
   constructor =  function(
     model,
     data = NULL,
-    p_speed = 'approx fast',
     ...,
+    surrogate = FALSE,
+    y_col = NULL,
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
-    y_col = NULL,
-    binary_true_value = TRUE,
+    positive = TRUE,
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
     output_residuals = FALSE,
-    rand_it = 1000,  # iterations of random variables
+    rand_it = NULL,
     seed = 0,
     silent = FALSE,
-    .testing_mode = FALSE
+    .skip_validation = FALSE
   )
   {
 
     ## Validate arguments --------------
 
-    data <- validate_data(
-      data,
-      model,
-      # Some models allow NA in data, so don't automatically refuse it when bootstrapping
-      allow_na = TRUE
-    )
-    # validate(data |> inherits('data.frame'))
-    # validate(
-    #   !any(is.na(data)),
-    #   msg = '{.arg data} must not have any missing values.'
-    # )
+    ### Validations that do not modify the arguments ------------
+
+    if (!.skip_validation) {
+      data <- validate_data(
+        data,
+        model,
+        # Some models allow NA in data, so don't automatically refuse it when bootstrapping
+        allow_na = TRUE
+      )
+
+      validate(is_bool(surrogate))
+
+      validate(is.character(random_model_call_string_vars))
+
+      validate(is.atomic(positive))
+
+      validate(is_string(pred_type))
+
+      validate(is_bool(output_residuals))
+
+      validate(is_scalar_number(seed))
+
+      validate_silent(silent)
+
+      validate(is.null(rand_it) || is_scalar_whole(rand_it))
+      if (is_scalar_whole(rand_it) && rand_it < 100) {
+        cli_abort(c(
+          'x' = '{.arg rand_it} must be an integer greater than or equal to 100.',
+          'i' = 'p-values created on fewer than 100 iterations are invalid.'
+        ))
+      }
+    }
+
+
+    ### Required validations that set necessary variables ------------
 
     # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
     # y_col must be set before y_preds is created so that y_preds columns can be properly named.
@@ -175,8 +220,6 @@ ALEpDist <- new_class(
       data = data,
       model = model
     )
-
-    validate(is_scalar_logical(binary_true_value))
 
     # Validate the prediction function with the model and the dataset
     # Note: y_preds will be used later in this function.
@@ -197,6 +240,7 @@ ALEpDist <- new_class(
 
     model_packages <- validated_parallel_packages(parallel, model, model_packages)
 
+    model_call <- NULL  # Initialize
     if (is.null(random_model_call_string)) {
       # Automatically extract the call from the model
       model_call <- insight::get_call(model)
@@ -233,82 +277,20 @@ ALEpDist <- new_class(
           'rand_data',
           'package_scope$rand_data'
         )
-
-      model_call <- NULL  # Needed for subsequent code
     }
 
-    validate(is.character(random_model_call_string_vars))
 
-    validate(is_string(pred_type))
-
-    validate(is_bool(output_residuals))
-
-    # if (!is.null(output)) {
-    #   validate(
-    #     is_string(output),
-    #     output == 'residuals',
-    #     msg = cli_alert_danger(
-    #       '{.arg output} must be either {.str residuals} or NULL'
-    #     )
-    #   )
-    # }
-
-    validate(is_scalar_number(seed))
-
-    validate_silent(silent)
-
-    # Validate and set rand_it based on p_speed
-    validate(p_speed %in% c('approx fast', 'precise slow'))
-    if (p_speed == 'precise slow') {
-      validate(is_scalar_whole(rand_it))
-      if (!.testing_mode) {
-        # internal tests override this validation step so that tests can run faster
-        validate(
-          rand_it >= 100,
-          msg = cli_alert_danger(paste0(
-            '{.arg rand_it} must be an integer greater than or equal to 100.',
-            ' p-values created on fewer than 100 iterations are very imprecise.')
-        ))
-      }
-    }
-    else {  # p_speed == 'approx fast'
-      # For approx p-values, set one iteration per parallel thread, min 4
-      # In this case, the original value of rand_it is completely ignored.
-      rand_it <- if (parallel <= 4) {
-        4
-      } else {
-        parallel
-      }
-    }
+    ## Capture params ------------------
+    # Capture all parameters used to construct the p-value distributions
+    # This includes the arguments in the original object constructor call (both user-specified and default) with any values changed by the constructor up to this point. It may be further modified by the end of the constructor.
+    # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
+    params <- c(as.list(environment()), list(...))
 
 
     ## Begin main code -------------
 
     # Establish the environment from which this function was called. This is needed to resolve the model call later.
     call_env <- rlang::caller_env()
-
-    if (!is.null(model_call)) {
-      # Get the predictors when model_call is automatically detected
-      model_predictors <-
-        model_call$formula |>
-        # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
-        eval(envir = call_env) |>
-        # stats::as.formula(env = call_env) |>
-        stats::terms(data = data) |>
-        attr('term.labels')
-    }
-
-
-    # Enable parallel processing and restore former parallel plan on exit
-    if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan))
-    }
-
-    # Create progress bar iterator
-    if (!silent) {
-      progress_iterator <- progressr::progressor(steps = rand_it)
-    }
 
     # Obtain data about y_col needed for subsequent operations
     y_type <- var_type(data[[y_col]])
@@ -317,7 +299,7 @@ ALEpDist <- new_class(
     # Calculate the residual (actual y minus predicted y)
     residuals <- if (y_type == 'binary') {
       # Convert actual to TRUE/FALSE, which equals 1/0
-      (data[[y_col]] == binary_true_value) - y_preds
+      (data[[y_col]] == positive) - y_preds
     }
     else if (y_type == 'categorical') {
       # Convert each category column to TRUE/FALSE, which equals 1/0
@@ -348,14 +330,66 @@ ALEpDist <- new_class(
     })
 
 
+    original_seed <- if (exists('.Random.seed')) .Random.seed else seed
+    on.exit(set.seed(original_seed))
+    set.seed(seed)
+
+    # Establish the number of rand_it based on original or surrogate model
+    if (surrogate) {
+      # Reset model and data for surrogate models
+      if (nrow(data) > 1000) {
+        data <- data |>
+          # Note: this statement must be preceded by set.seed somewhere above
+          slice_sample(n = 1000)
+      }
+
+      sgt_fmla <- stats::as.formula(y_col %+% '~.')
+      model <- stats::lm(sgt_fmla, data)
+      model_call <- call(
+        'lm',
+        formula = sgt_fmla,
+        data = data
+      )
+
+      if (is.null(rand_it) || rand_it < 100) {
+        rand_it <- 100
+      }
+    }
+    else if (is.null(rand_it)) {
+      # Default 1000 random iterations for exact p-values
+      rand_it <- 1000
+    }
+
+    if (!is.null(model_call)) {
+      # Get the predictors when model_call is automatically detected
+      model_predictors <-
+        model_call$formula |>
+        # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
+        eval(envir = call_env) |>
+        # stats::as.formula(env = call_env) |>
+        stats::terms(data = data) |>
+        attr('term.labels')
+    }
+
+
+
 
     # Create ALEs for random variables based on residual_distribution
     package_scope$rand_data <- data
     n_rows <- nrow(data)
 
-    original_seed <- if (exists('.Random.seed')) .Random.seed else seed
-    on.exit(set.seed(original_seed))
-    set.seed(seed)
+
+
+    # Enable parallel processing and restore former parallel plan on exit
+    if (parallel > 0) {
+      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
+      on.exit(future::plan(original_parallel_plan))
+    }
+
+    # Create progress bar iterator
+    if (!silent) {
+      progress_iterator <- progressr::progressor(steps = rand_it)
+    }
 
     # rand_ales <- map(  # use for debugging
     rand_ales <- furrr::future_map(
@@ -447,12 +481,8 @@ ALEpDist <- new_class(
               x_cols = 'random_variable',
               data = package_scope$rand_data,
               parallel = 0,  # avoid recursive parallelization
-              # The approximate version can use fewer ALE x intervals for faster execution. The precise version uses the default 100 intervals.
-              max_num_bins = if (p_speed == 'approx fast') 10 else 100,
-              # Don't bootstrap even the approximate version--random variables have virtually no variation
-              # boot_it = if (p_speed == 'approx fast') 100 else 0,
+              max_num_bins = 100,  # fine capture of extreme random ALE intervals
               output_stats = FALSE,
-              # output = 'ale_data',
               y_col = y_col,
               pred_fun = pred_fun,
               pred_type = pred_type,
@@ -486,8 +516,33 @@ ALEpDist <- new_class(
     rand_it_ok <- length(rand_ales)
 
     if (rand_it_ok == 0) {
-      cli_abort('No random p-value distributions could be created.')
-      return(NULL)
+      cli_abort(c(
+        'No random p-value distributions could be created.',
+        'i' = 'See {.fn warnings()} for error messages.'
+      ))
+    }
+
+    # Validate results based on rand_it_ok
+    if (!.skip_validation) {
+      if (rand_it_ok < 100) {
+        cli_abort(c(
+          '{rand_it - rand_it_ok} iteration{?s} failed; only {rand_it_ok} {?was/were} valid.',
+          'i' = 'With < 100 successful iterations, p-values are invalid.',
+          'i' = 'See {.fn warnings()} for error messages.'
+        ))
+      }
+
+      # Warn user when rand_it_ok < rand_it
+      if (rand_it_ok < rand_it) {
+        cli_warn(c(
+          '{rand_it - rand_it_ok} iteration{?s} failed; only {rand_it_ok} {?was/were} valid.',
+          'i' = if (rand_it_ok >= 1000) {
+            'Nonetheless, with >= 1000 successful iterations, p-values are exact.'
+          } else {
+            'p-values are thus only approximate.'
+          }
+        ))
+      }
     }
 
     # Normalization is based on y_preds rather than y_col:
@@ -515,7 +570,33 @@ ALEpDist <- new_class(
       map(bind_rows)  # combine statistics in each group into a tibble
 
 
-    # Return S7 ALEpDist object
+    ## Refine the parameters -----------------
+
+    # Create lists of objects to delete
+    it_objs <- names(params)[  # iterators
+      names(params) |> stringr::str_detect('^it\\.')
+    ]
+    temp_objs <- c(
+      'data', 'model', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
+      'pred_type', 'silent', 'surrogate', 'y_preds'
+    )
+    params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
+
+    params$rand_it_ok <- rand_it_ok
+
+    params$exactness <- if (surrogate) {
+      'surrogate'
+    } else if (rand_it_ok >= 1000) {
+      'exact'
+    } else if (rand_it_ok >= 100) {
+      'approx'
+    } else {
+      # should arrive here only if .skip_validation = TRUE
+      'invalid'
+    }
+
+
+    ## Return S7 ALEpDist object --------------
 
     if (output_residuals) {
       # Residuals were requested
@@ -528,8 +609,8 @@ ALEpDist <- new_class(
       S7_object(),
       rand_stats            = rand_stats,
       residual_distribution = residual_distribution,
-      rand_it_ok            = rand_it_ok,
-      residuals             = residuals
+      residuals             = residuals,
+      params                = params
     )
   }  # ALEpDist constructor
 )  # ALEpDist
