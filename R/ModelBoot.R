@@ -35,7 +35,8 @@
 # * 'model_stats': overall model statistics.
 # * 'model_coefs': model coefficients.
 # * 'boot_data': return full data for all bootstrap iterations, specifically, the bootstrapped models and the model row indices. This data will always be calculated because it is needed for the bootstrap averages. By default, it is not returned except if included in this `output` argument.
-#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()] when `ale = TRUE`, [broom::tidy()] when `model_coefs = TRUE`, or [broom::glance()] when `model_stats = TRUE`, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.
+#' @param ale_options,tidy_options,glance_options list of named arguments. Arguments to pass to the [ALE()] when `ale = TRUE`, [broom::tidy()] when `model_coefs = TRUE`, or [broom::glance()] when `model_stats = TRUE`, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the ale_p argument and the documentation for the `p_values` argument for [ALE()].
+#' @param ale_p Same as the `p_values` argument for the [ALE()] constructor; see documentation there. This argument overrides the `p_values` element of the `ale_options` argument.
 #' @param silent See documentation for [ALE()]
 #'
 #'
@@ -94,9 +95,6 @@
 #' * Creates a model on each bootstrap sample;
 #' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 #' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
-#'
-#' @section p-values:
-#'  The [broom::tidy()] summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a `ModelBoot` object is created. Although the [ALE()] function provides an 'auto' option for creating p-values, that option is disabled when creating a `ModelBoot` because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in `help(-ALEpDist)`. If the name of your p-values object is `p_dist`, you can then request p-values each time you create a `ModelBoot` by passing it the argument `ale_options = list(p_values = p_dist)`.
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
@@ -176,8 +174,8 @@ ModelBoot <- new_class(
     output_model_coefs = TRUE,
     output_ale = TRUE,
     output_boot_data = FALSE,
-    # output = c('ale', 'model_stats', 'model_coefs'),
     ale_options = list(),
+    ale_p = 'surrogate',
     tidy_options = list(),
     glance_options = list(),
     silent = FALSE
@@ -299,13 +297,6 @@ ModelBoot <- new_class(
     validate(is_bool(output_ale))
     validate(is_bool(output_boot_data))
 
-    # # output must be a subset of c('ale', 'model_stats', 'model_coefs')
-    # validate(
-    #   length(setdiff(output, c('ale', 'model_stats', 'model_coefs', 'boot_data'))) == 0,
-    #   msg = cli_alert_danger('The value in the {.arg output} argument must be one or more of
-    # "ale", "model_stats", or "model_coefs".')
-    # )
-
     if (output_ale) {
       validate(
         !any(is.na(data)),
@@ -313,19 +304,50 @@ ModelBoot <- new_class(
       )
     }
 
-
-
     validate(is.list(ale_options))
-    # validate(
-    #   !(
-    #     !is.null(ale_options$p_values) &&
-    #       length(ale_options$p_values) == 1 &&
-    #       ale_options$p_values == 'auto'
-    #   ),
-    #   msg = cli_alert_danger(
-    #     'The {.arg ale_options} `p_values == "auto"` option is disabled when creating a {.cls ale::ModelBoot} because it is far too slow. Rather, you must pass a {.cls ale::ALEpDist} object.'
-    #   )
-    # )
+    validate(
+      is.null(ale_options$p_values),
+      msg = c(
+        'x' = 'The {.arg ale_options$p_values} option is disabled.',
+        'i' = 'Use the {.arg ale_p} argument instead.'
+      )
+    )
+
+    if (ale_options$output_stats %||% TRUE) {
+      if (!is.null(ale_p)) {
+        # The user wants p-values
+        if (is_string(ale_p, 'surrogate')) {
+          ale_p <- ALEpDist(
+            model = model,
+            data = data,
+            surrogate = TRUE,
+            y_col = y_col,
+            parallel = parallel,
+            model_packages = model_packages,
+            pred_fun = pred_fun,
+            pred_type = pred_type,
+            seed = seed,
+            silent = silent,
+            .skip_validation = TRUE
+          )
+        }
+        else {
+          validate(
+            # ale_p must be an `ALEpDist` object
+            ale_p |> S7_inherits(ALEpDist),
+            msg = c(
+              'x' = 'The value passed to {.arg ale_p} is not a valid {.cls ALEpDist} object.',
+              'i' = 'See {.fun ALE()} for instructions for obtaining p-values.'
+            )
+          )
+        }
+      }  # if (!is.null(ale_p))
+    }
+    else {
+      # No stats desired
+      ale_p <- NULL
+    }
+
     validate(is.list(tidy_options))
     validate(is.list(glance_options))
 
@@ -663,6 +685,7 @@ ModelBoot <- new_class(
                         parallel = 0,  # do not parallelize at this inner level
                         boot_it = 0,  # do not bootstrap at this inner level
                         output_conf = FALSE,
+                        p_values = NULL,
                         .bins = if (btit == 0) NULL else ale_bins,
                         silent = TRUE  # silence inner bootstrap loop
                       ),
@@ -1065,12 +1088,14 @@ ModelBoot <- new_class(
               select('term', 'statistic', 'estimate', everything())
 
             # If an ALEpDist object was passed, calculate p-values
-            if (rownames(full_ale@params$y_summary)[1] == 'p') {
+            if (!is.null(ale_p)) {
+              # if (rownames(full_ale@params$y_summary)[1] == 'p') {
               it.cat_estimate_btits <- it.cat_estimate_btits |>
                 rowwise() |>  # required to get statistic function for each row
                 mutate(
                   p.value = value_to_p(
-                    ale_options$p_values@rand_stats[[it.cat]],
+                    ale_p@rand_stats[[it.cat]],
+                    # ale_options$p_values@rand_stats[[it.cat]],
                     .data$statistic,
                     .data$estimate
                   ),
@@ -1088,7 +1113,7 @@ ModelBoot <- new_class(
             summarize_conf_regions_1D(
               it.ale_summary_data,
               full_ale@params$y_summary[, it.cat, drop = FALSE],
-              sig_criterion = if (!is.null(ale_options$p_values)) {
+              sig_criterion = if (!is.null(ale_p)) {
                 'p_values'
               } else {
                 'median_band_pct'

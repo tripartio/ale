@@ -389,7 +389,10 @@ ALEpDist <- new_class(
 
     # Create progress bar iterator
     if (!silent) {
-      progress_iterator <- progressr::progressor(steps = rand_it)
+      progress_iterator <- progressr::progressor(
+        steps = rand_it,
+        message = 'Generating random variable distributions for p-values…'
+      )
     }
 
     # rand_ales <- map(  # use for debugging

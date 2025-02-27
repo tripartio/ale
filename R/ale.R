@@ -265,7 +265,6 @@ ALE <- new_class(
       if (!is.null(p_values)) {
         # The user wants p-values
         if (is_string(p_values, 'surrogate')) {
-          if (!silent) cli_inform('Creating surrogate p-values...')
           p_values <- ALEpDist(
             model = model,
             data = data,
@@ -279,7 +278,6 @@ ALE <- new_class(
             silent = silent,
             .skip_validation = TRUE
           )
-          if (!silent) cli_inform('Surrogate p-values created.')
         }
         else {
           validate(

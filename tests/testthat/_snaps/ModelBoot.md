@@ -430,7 +430,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -1709,6 +1709,9 @@
       [13] "continent"
       
       
+      attr(,"params")$ale_p
+      NULL
+      
       attr(,"params")$tidy_options
       list()
       
@@ -2247,7 +2250,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -3149,6 +3152,9 @@
       attr(,"params")$ale_options
       list()
       
+      attr(,"params")$ale_p
+      NULL
+      
       attr(,"params")$tidy_options
       list()
       
@@ -3525,7 +3531,7 @@
       attr(,"S7_class")
       <ale::ModelBoot> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, tidy_options, glance_options, silent) {...}
+      @ constructor: function(model, data, ..., model_call_string, model_call_string_vars, parallel, model_packages, y_col, positive, pred_fun, pred_type, boot_it, boot_alpha, boot_centre, seed, output_model_stats, output_model_coefs, output_ale, output_boot_data, ale_options, ale_p, tidy_options, glance_options, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ model_stats: <list> or <NULL>
@@ -5159,6 +5165,9 @@
       attr(,"params")$ale_options$pred_type
       [1] "probs"
       
+      
+      attr(,"params")$ale_p
+      NULL
       
       attr(,"params")$tidy_options
       list()

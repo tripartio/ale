@@ -9,6 +9,7 @@ test_that(
       ale_options = list(
         x_cols = c('cyl', 'disp')
       ),
+      ale_p = 'surrogate',  # test for bugginess but not for snapshot
       boot_it = 2,
       silent = TRUE
     )
@@ -41,6 +42,7 @@ test_that(
         # 'model' is problematic for bootstrapping because there are too many unique factor levels
         x_cols = names(test_cars) |> setdiff('model')
       ),
+      ale_p = NULL,
       silent = TRUE
     )
 
@@ -65,9 +67,7 @@ test_that(
       data = test_cars,
       parallel = 0,
       boot_it = 0,
-      # ale_options = list(
-      #   x_cols = c('cyl', 'disp')
-      # ),
+      ale_p = NULL,
       silent = TRUE
     )
 
@@ -118,6 +118,7 @@ test_that(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'
       ),
+      ale_p = NULL,
       # tidy_options = list(),  # not tested
       # glance_options = list(),  # not tested
       silent = TRUE

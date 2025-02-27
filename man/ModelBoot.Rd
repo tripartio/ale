@@ -28,6 +28,7 @@ ModelBoot(
   output_ale = TRUE,
   output_boot_data = FALSE,
   ale_options = list(),
+  ale_p = "surrogate",
   tidy_options = list(),
   glance_options = list(),
   silent = FALSE
@@ -68,7 +69,9 @@ ModelBoot(
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the full raw data for each bootstrap iteration, specifically, the bootstrapped models and the model row indices. Default is \code{FALSE}.}
 
-\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the details.}
+\item{ale_options, tidy_options, glance_options}{list of named arguments. Arguments to pass to the \code{\link[=ALE]{ALE()}} when \code{ale = TRUE}, \code{\link[broom:reexports]{broom::tidy()}} when \code{model_coefs = TRUE}, or \code{\link[broom:reexports]{broom::glance()}} when \code{model_stats = TRUE}, respectively, beyond (or overriding) their defaults. In particular, to obtain p-values for ALE statistics, see the ale_p argument and the documentation for the \code{p_values} argument for \code{\link[=ALE]{ALE()}}.}
+
+\item{ale_p}{Same as the \code{p_values} argument for the \code{\link[=ALE]{ALE()}} constructor; see documentation there. This argument overrides the \code{p_values} element of the \code{ale_options} argument.}
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
@@ -147,11 +150,6 @@ No modelling results, with or without ALE, should be considered reliable without
 \item Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 \item Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 }
-}
-
-\section{p-values}{
-
-The \code{\link[broom:reexports]{broom::tidy()}} summary statistics will provide p-values. However, the procedure for obtaining p-values for ALE statistics is very slow: it involves retraining the model 1000 times. Thus, it is not efficient to calculate p-values whenever a \code{ModelBoot} object is created. Although the \code{\link[=ALE]{ALE()}} function provides an 'auto' option for creating p-values, that option is disabled when creating a \code{ModelBoot} because it would be far too slow: it would involve retraining the model 1000 times the number of bootstrap iterations. Rather, you must first create a p-values distribution object using the procedure described in \code{help(-ALEpDist)}. If the name of your p-values object is \code{p_dist}, you can then request p-values each time you create a \code{ModelBoot} by passing it the argument \code{ale_options = list(p_values = p_dist)}.
 }
 
 \examples{
