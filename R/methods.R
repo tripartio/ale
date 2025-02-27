@@ -483,6 +483,7 @@ method(get, ModelBoot) <- function(
     x_cols = NULL,
     what = 'ale',
     ...,
+    exclude_cols = NULL,
     type = 'auto',
     stats = NULL,
     cats = NULL,
@@ -514,6 +515,7 @@ method(get, ModelBoot) <- function(
   method(get, ale::ALE)(
     obj_type,
     x_cols = x_cols,
+    exclude_cols = exclude_cols,
     what = what,
     stats = stats,
     cats = cats,
@@ -669,8 +671,10 @@ method(get, ALEPlots) <- function(
     obj,
     x_cols = NULL,
     ...,
+    exclude_cols = NULL,
     type = 'ale',
-    cats = NULL
+    cats = NULL,
+    silent = FALSE
 ) {
   comp = 'distinct'
   ## Validate inputs -------------
@@ -679,20 +683,26 @@ method(get, ALEPlots) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  # browser()
+  if (is.null(x_cols)) {
+    # Retrieve everything available
+    x_cols <- obj@params$requested_x_cols
+  }
+
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols,
+    col_names = obj@params$requested_x_cols |>
+      unlist(use.names = FALSE) |>
+      unique(),
+    y_col = obj@params$y_col,
+    exclude_cols = exclude_cols,
+    silent = silent
+  )
 
   if (!is.null(x_cols)) {
     x_cols <- validate_x_cols(
       x_cols,
-      col_names = obj@params$requested_x_cols |>
-        unlist(use.names = FALSE) |>
-        unique(),
       y_col = obj@params$y_col
     )
-  }
-  else {
-    # NULL x_cols means: return everything available
-    x_cols <- obj@params$requested_x_cols
   }
 
   valid_type <- c('ale', 'eff')
