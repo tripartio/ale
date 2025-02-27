@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' lm_cars <- stats::lm(mpg ~ ., mtcars)
-#' ale_cars <- ALE(lm_cars, parallel = 0)
+#' ale_cars <- ALE(lm_cars, p_values = NULL)
 #' print(ale_cars)
 #'
 #' @method print ALE
@@ -47,28 +47,6 @@ method(print, ALE) <- function(x, ...) {
 method(plot, ALE) <- function(x, ...) {
   ALEPlots(x, ...)
 }
-
-
-
-# cars_ale <- ALE(
-#   test_gam,
-#   list(d1 = TRUE, d2_all = 'wt'),
-#   data = test_cars,
-#   parallel = 0,
-#   silent = TRUE,
-# )
-#
-#
-# tg <- get(
-#   cars_ale,
-#   list(
-#     d1 = c('wt', 'gear'),
-#     d2 = list(c('wt', 'gear'), c('wt', 'qsec'))
-#   )
-# )
-#
-# tga <- get(cars_ale)
-
 
 
 #' @name get.ALE

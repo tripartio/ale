@@ -111,15 +111,17 @@ Because the \code{ale} package is model-agnostic (that is, it works with any kin
 }
 
 See the example below for how this is implemented.
+
+If the model generation is unstable (because of a small dataset size or a finicky model algorithm), then one or more iterations might fail, possibly dropping the number of successful iterations to below 1000. Then the p-values are only considered approximate; they are no longer exact. If that is the case, then request rand_it at a sufficiently high number such that even if some iterations fail, at least 1000 will succeed. For example, for an \code{ALEpDist} object named \code{p_dist}, if \code{p_dist@params$rand_it_ok} is 950, you could rerun \code{ALEpDist()} with \code{rand_it = 1100} or higher to allow for up to 100 possible failures.
 }
 
 \section{Faster approximate and surrogate p-values}{
 
 The procedure we have just described requires at least 1000 random iterations for p-values to be considered "exact". Unfortunately, this procedure rather slow--it takes at least 1000 times as long as the time it takes to train the model once (and a bit longer, with some additional necessary processing).
 
-With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the \code{rand_it} argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact but if the successful iterations are below 1000, the p-values are only considered approximate.
+With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the \code{rand_it} argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 
-Because the procedure can be very slow, a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same \code{y_col} outcome from all the other columns in \code{data}. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, \strong{definitive conclusions always require exact p-values with at least 1000 iterations on the original model}.
+Because the procedure can be very slow, when  a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same \code{y_col} outcome from all the other columns in \code{data}. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, \strong{definitive conclusions always require exact p-values with at least 1000 iterations on the original model}. Note that surrogate p-values are always marked as "surrogate"; they can never be considered exact, even if they are generated based on over 1000 iterations, because they are not based on the original model.
 }
 
 \section{Parallel processing}{

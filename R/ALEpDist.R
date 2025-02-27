@@ -71,12 +71,14 @@
 #'
 #' See the example below for how this is implemented.
 #'
+#' If the model generation is unstable (because of a small dataset size or a finicky model algorithm), then one or more iterations might fail, possibly dropping the number of successful iterations to below 1000. Then the p-values are only considered approximate; they are no longer exact. If that is the case, then request rand_it at a sufficiently high number such that even if some iterations fail, at least 1000 will succeed. For example, for an `ALEpDist` object named `p_dist`, if `p_dist@params$rand_it_ok` is 950, you could rerun `ALEpDist()` with `rand_it = 1100` or higher to allow for up to 100 possible failures.
+#'
 #' @section Faster approximate and surrogate p-values:
 #' The procedure we have just described requires at least 1000 random iterations for p-values to be considered "exact". Unfortunately, this procedure rather slow--it takes at least 1000 times as long as the time it takes to train the model once (and a bit longer, with some additional necessary processing).
 #'
-#' With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact but if the successful iterations are below 1000, the p-values are only considered approximate.
+#' With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 #'
-#' Because the procedure can be very slow, a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions always require exact p-values with at least 1000 iterations on the original model**.
+#' Because the procedure can be very slow, when  a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions always require exact p-values with at least 1000 iterations on the original model**. Note that surrogate p-values are always marked as "surrogate"; they can never be considered exact, even if they are generated based on over 1000 iterations, because they are not based on the original model.
 #'
 #' @section Parallel processing:
 #' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
@@ -189,6 +191,14 @@ ALEpDist <- new_class(
 
       validate(is_bool(surrogate))
 
+      # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+      # y_col must be set before y_preds is created so that y_preds columns can be properly named.
+      y_col <- validate_y_col(
+        y_col = y_col,
+        data = data,
+        model = model
+      )
+
       validate(is.character(random_model_call_string_vars))
 
       validate(is.atomic(positive))
@@ -213,21 +223,12 @@ ALEpDist <- new_class(
 
     ### Required validations that set necessary variables ------------
 
-    # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
-    # y_col must be set before y_preds is created so that y_preds columns can be properly named.
-    y_col <- validate_y_col(
-      y_col = y_col,
-      data = data,
-      model = model
-    )
-
     # Validate the prediction function with the model and the dataset
     # Note: y_preds will be used later in this function.
     y_preds <- validate_y_preds(
       pred_fun = pred_fun,
       model = model,
       data = data,
-      # data = training_data,
       y_col = y_col,
       pred_type = pred_type
     )
@@ -480,12 +481,13 @@ ALEpDist <- new_class(
               model = package_scope$rand_model,
               x_cols = 'random_variable',
               data = package_scope$rand_data,
-              parallel = 0,  # avoid recursive parallelization
-              max_num_bins = 100,  # fine capture of extreme random ALE intervals
-              output_stats = FALSE,
               y_col = y_col,
+              parallel = 0,  # avoid recursive parallelization
+              output_stats = FALSE,
               pred_fun = pred_fun,
               pred_type = pred_type,
+              p_values = NULL,  # avoid infinite recursion
+              max_num_bins = 100,  # fine capture of extreme random ALE intervals
               silent = TRUE
             )
           },

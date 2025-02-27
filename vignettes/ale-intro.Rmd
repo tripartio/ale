@@ -100,18 +100,6 @@ gam_diamonds <- mgcv::gam(
 summary(gam_diamonds)
 ```
 
-## Enable progress bars
-
-Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
-
-```{r enable progressr, eval = FALSE}
-# Run this in an R console; it will not work directly within an R Markdown or Quarto block
-progressr::handlers(global = TRUE)
-progressr::handlers('cli')
-```
-
-If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
-
 ## `ALE()` function for generating ALE data and plots
 
 The core function in the `{ale}` package is the `ALE()` function. Consistent with tidyverse conventions, its first argument is a dataset. Its second argument is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates ALE data and plots on all the input variables used for the model. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or the plots only rather than both; or to use a custom, non-standard predict function for the model), see details in the help file for the function: `help(ale)`.
@@ -185,7 +173,7 @@ Another advantage of ALE is that it provides data for 2D interactions between va
 # ALE two-way interactions
 ale_2D_gam_diamonds <- ALE(
   gam_diamonds,
-  x_cols = list(d2 = TRUE),parallel=0
+  x_cols = list(d2 = TRUE)
 )
 ```
 

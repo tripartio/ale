@@ -24,8 +24,8 @@
 #' @param output_conf logical(1). If `TRUE` (default), return ALE confidence regions. If `output_stats` is `FALSE`, `output_conf` is ignored since confidence regions cannot be produced without ALE statistics.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
 #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
-#' @param p_values instructions for calculating p-values and to determine the median band. If `NULL` (default), no p-values are calculated and `median_band_pct` is used to determine the median band. To calculate p-values, an [ALEpDist()] object must be provided here. If `p_values` is set to 'auto', this `ALE()` function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for [ALEpDist()]. Note that p-values will not be generated if `output_stats` is `FALSE`.
-#' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
+#' @param p_values instructions for calculating p-values. To calculate p-values, an `ALEpDist` object must be provided here. The default value of `'surrogate'` will try to automatically create a fast surrogate `ALEpDist` object; however, this only works with standard R model types. If the automatic process errors, then see documentation for [ALEpDist()]. Set to `NULL` to disable calculation of p-values. Note that `p_values` is ignored if `output_stats` is `FALSE`.
+#' @param p_alpha numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
 #' @param max_num_bins positive integer(1). Maximum number of bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the `ModelBoot` class. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
@@ -195,7 +195,7 @@ ALE <- new_class(
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
-    p_values = NULL,
+    p_values = 'surrogate',
     p_alpha = c(0.01, 0.05),
     max_num_bins = 10,
     boot_it = 0,
@@ -256,62 +256,59 @@ ALE <- new_class(
       exclude_cols = exclude_cols,
       silent = silent
     )
-    # x_cols <- validate_x_cols(
-    #   x_cols = x_cols,
-    #   col_names = col_names,
-    #   y_col = y_col
-    # )
-    # exclude_cols <- validate_x_cols(
-    #   x_cols = exclude_cols,
-    #   col_names = col_names,
-    #   y_col = y_col,
-    #   x_cols_arg_name = 'exclude_cols'
-    # )
-    #
-    # x_cols <- setdiff_x_cols(x_cols, exclude_cols)
 
     validate(is_bool(output_stats))
     validate(is_bool(output_conf))
     validate(is_bool(output_boot_data))
-    # valid_output_types <- c('ale_data', 'stats', 'conf', 'boot_data')
-    # validate(
-    #   length(setdiff(output, valid_output_types)) == 0,
-    #   msg = cli_alert_danger(
-    #     'The values in the {.arg output} argument must be one or more of the following values: {valid_output_types}.'
-    #   )
-    # )
-    # if ('conf' %in% output) {
-    #   validate(
-    #     'stats' %in% output,
-    #     msg = cli_alert_danger(paste0(
-    #       'If "con" is requested in the {.arg output} argument, then "stats" must also be requested.'
-    #     ))
-    #   )
-    # }
 
-    if (!is.null(p_values)) {
-      # The user wants p-values
-      if (rlang::is_scalar_atomic(p_values) && p_values == 'auto') {
-        # if (length(p_values) == 1 && p_values == 'auto') {
-        # Try to automatically obtain p-values
-
-        p_values <- ALEpDist(
-          model = model,
-          data = data,
-          pred_fun = pred_fun,
-          pred_type = pred_type
-        )
-      }
-      else {  # an ALEpDist object should be provided
-        validate(
-          # Verify that p_values is an `ALEpDist` object.
-          p_values |> S7_inherits(ALEpDist),
-          msg = cli_alert_danger(paste0(
-            'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object. See {.fun ale::ALE()} for instructions for obtaining p-values.'
-          ))
-        )
-      }
+    if (output_stats) {
+      if (!is.null(p_values)) {
+        # The user wants p-values
+        if (is_string(p_values, 'surrogate')) {
+          if (!silent) cli_inform('Creating surrogate p-values...')
+          p_values <- ALEpDist(
+            model = model,
+            data = data,
+            surrogate = TRUE,
+            y_col = y_col,
+            parallel = parallel,
+            model_packages = model_packages,
+            pred_fun = pred_fun,
+            pred_type = pred_type,
+            seed = seed,
+            silent = silent,
+            .skip_validation = TRUE
+          )
+          if (!silent) cli_inform('Surrogate p-values created.')
+        }
+        else {
+          validate(
+            # p_values must be an `ALEpDist` object
+            p_values |> S7_inherits(ALEpDist),
+            msg = c(
+              'x' = 'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object.',
+              'i' = 'See {.fun ale::ALE()} for instructions for obtaining p-values.'
+            )
+          )
+        }
+      }  # if (!is.null(p_values))
     }
+    else {
+      # No stats desired
+      p_values <- NULL
+    }
+
+    validate(
+      is.numeric(p_alpha),
+      length(p_alpha) == 2,
+      !any(is.na(p_alpha)),
+      all(p_alpha |> between(0, 0.5)),
+      p_alpha[1] <= p_alpha[2],
+      msg = c(
+        'x' = '{.arg p_alpha} must be a pair of numbers each between 0 and 0.5.',
+        'i' = 'p_alpha[1] must be less than or equal to p_alpha[2].'
+      )
+    )
 
     validate(is_scalar_natural(max_num_bins) && (max_num_bins > 1))
     validate(is_scalar_whole(boot_it))
@@ -738,27 +735,9 @@ ALE <- new_class(
     ale_struc$distinct <- ale_struc$distinct |>
       map(\(it.cat) list_transpose(it.cat, simplify = FALSE))
 
-    # Create S7 ale object ----------------------
 
-    # # Create ale object
-    # ale_obj <- ale_struc
-    # ale_obj$params <- params
-    # class(ale_obj) <- c('ale')
+    # Create and return S7 ale object ----------------------
 
-    # # Assign distinct ALE
-    # ale_obj$distinct <- ales_1D
-    # if (!is.null(ales_2D)) {
-    #   for (it.cat in y_cats) {
-    #     ale_obj$distinct[[it.cat]]$ixn <- ales_2D[[it.cat]]
-    #   }
-    # }
-
-
-    # # Always return the full list object.
-    # # If any specific output is not desired, it is returned as NULL.
-    # return(ale_obj)
-
-    # Return S7 ALE object
     new_object(
       S7_object(),
       distinct = ale_struc$distinct,

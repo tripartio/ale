@@ -92,9 +92,7 @@ If you forget to do that, the `{ale}` package will do it automatically for you w
 Note that for now, we run `ALE()` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple, fig.width=7, fig.height=6}
-ale_lm_attitude_simple <- ALE(
-  lm_attitude
-)
+ale_lm_attitude_simple <- ALE(lm_attitude)
 
 # Print all plots
 plot(ale_lm_attitude_simple) |> 
@@ -195,9 +193,7 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
 ```{r gam_simple, fig.width=7, fig.height=6}
-ale_gam_attitude_simple <- ALE(
-  gam_attitude
-)
+ale_gam_attitude_simple <- ALE(gam_attitude)
 
 plot(ale_gam_attitude_simple) |> 
   print(ncol = 2)

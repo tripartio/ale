@@ -151,7 +151,8 @@ library(ale)
 nn_ale <- ALE(
   nnet.DAT, 
   data = DAT,
-  pred_type = "raw"
+  pred_type = "raw",
+  p_values = NULL
 )
 ```
 
@@ -192,7 +193,8 @@ nn_ale_2D <- ALE(
   model = nnet.DAT, 
   x_cols = list(d2 = TRUE),
   data = DAT, 
-  pred_type = "raw"
+  pred_type = "raw",
+  p_values = NULL
 )
 
 # Print plots
@@ -292,7 +294,8 @@ yhat <- function(object, newdata, type) {
 #   gbm.data,
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 100
+#   max_num_bins = 100,
+#   p_values = NULL
 # )
 # saveRDS(gbm_ale_link, file.choose())
 gbm_ale_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_link.rds') |> 
@@ -314,7 +317,8 @@ Now we generate ALE data for all two-way interactions and then plot them. Again,
 #   x_cols = list(d2 = TRUE),  # All 2D interactions
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 100
+#   max_num_bins = 100,
+#   p_values = NULL
 # )
 # saveRDS(gbm_ale_2D_link, file.choose())
 gbm_ale_2D_link <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_link.rds') |> 
@@ -363,7 +367,8 @@ yhat <- function(object, newdata, type) {
 #   gbm.data,
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 100
+#   max_num_bins = 100,
+#   p_values = NULL
 # )
 # saveRDS(gbm_ale_prob, file.choose())
 gbm_ale_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_prob.rds') |> 
@@ -385,7 +390,8 @@ Finally, we again generate two-way interactions, this time based on probabilitie
 #   x_cols = list(d2 = TRUE),
 #   data = data,
 #   pred_fun = yhat,
-#   max_num_bins = 100
+#   max_num_bins = 100,
+#   p_values = NULL
 # )
 # saveRDS(gbm_ale_2D_prob, file.choose())
 gbm_ale_2D_prob <- url('https://github.com/tripartio/ale/raw/main/download/gbm_ale_2D_prob.rds') |> 

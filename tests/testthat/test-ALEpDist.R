@@ -3,12 +3,13 @@
 
 
 test_that(
-  'ALEpDist works with default inputs (approx fast) on ALE()', {
+  'ALEpDist works with default inputs (exact) on ALE()', {
     skip_on_ci()
 
     pd <- ALEpDist(
       test_gam,
       data = test_cars,
+      y_col = 'mpg',
       # disable parallelization for testing
       parallel = 0,
       rand_it = 10,
@@ -51,6 +52,7 @@ test_that(
     pd <- ALEpDist(
       test_gam,
       data = test_cars,
+      y_col = 'mpg',
       rand_it = 3,
       .skip_validation = TRUE,
       surrogate = TRUE,
@@ -82,6 +84,7 @@ test_that(
     pd <- ALEpDist(
       test_gam,
       data = test_cars,
+      y_col = 'mpg',
       random_model_call_string = 'mgcv::gam(
         mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
         vs + am + gear + carb + country + random_variable,
@@ -109,6 +112,7 @@ test_that(
     pd <- ALEpDist(
       test_gam_binary,
       data = test_cars,
+      y_col = 'vs',
       parallel = 0,  # disable parallelization for testing
       silent = TRUE,
       rand_it = 10,
@@ -125,6 +129,7 @@ test_that(
     pd <- ALEpDist(
       test_nn_categorical,
       data = test_cars,
+      y_col = 'continent',
       pred_type = 'probs',
       parallel = 0,  # disable parallelization for testing
       silent = TRUE,

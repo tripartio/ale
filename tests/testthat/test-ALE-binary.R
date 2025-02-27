@@ -13,6 +13,7 @@ test_that(
       data = test_cars,
       boot_it = 2,
       parallel = 0,
+      p_values = NULL,
       silent = TRUE
     )
 
@@ -44,7 +45,8 @@ test_that(
       # output = c('boot_data'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      # p_values = NULL,  # test p-values with ALEpDist
+      # test p-values with ALEpDist
+      p_values = NULL,
       # p_alpha = c(0.01, 0.05),
       max_num_bins = 12,
       boot_it = 1,  # edge case

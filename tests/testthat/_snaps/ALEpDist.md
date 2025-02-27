@@ -1,4 +1,4 @@
-# ALEpDist works with default inputs (approx fast) on ALE()
+# ALEpDist works with default inputs (exact) on ALE()
 
     Code
       unclass(pd)

@@ -656,19 +656,14 @@ ModelBoot <- new_class(
                 {
                   do.call(
                     ALE,
-                    # ale_core,
                     utils::modifyList(
                       list(
                         model = btit.model,
                         data = btit.data,
                         parallel = 0,  # do not parallelize at this inner level
                         boot_it = 0,  # do not bootstrap at this inner level
-                        # do not request conf_regions
                         output_conf = FALSE,
-                        # output = c('ale_data', 'stats'),
                         .bins = if (btit == 0) NULL else ale_bins,
-                        # bins = if (btit == 0) NULL else bins,
-                        # ns = if (btit == 0) NULL else ns,
                         silent = TRUE  # silence inner bootstrap loop
                       ),
                       # pass all other desired options, e.g., specific x_col

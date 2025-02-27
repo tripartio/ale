@@ -15,6 +15,7 @@
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
+#' @importFrom cli cli_inform
 #' @importFrom cli cli_warn
 #' @importFrom patchwork wrap_plots
 #' @importFrom purrr compact

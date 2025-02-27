@@ -14,6 +14,7 @@ test_that(
       pred_type = 'probs',
       boot_it = 2,
       parallel = 0,
+      p_values = NULL,
       silent = TRUE
     )
 
@@ -57,7 +58,8 @@ test_that(
       # output = c('stats'),
       # pred_fun = test_predict,  # don't test for nnet
       pred_type = "probs",
-      # p_values = NULL,  # test p-values with ALEpDist
+      # test p-values with ALEpDist
+      p_values = NULL,
       # p_alpha = c(0.01, 0.05),
       max_num_bins = 12,
       boot_it = 0,  # edge case

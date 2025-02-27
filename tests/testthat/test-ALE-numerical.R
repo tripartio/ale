@@ -8,6 +8,7 @@ test_that(
       test_gam,
       x_cols = ~ model + cyl + vs:disp,
       data = test_cars,
+      p_values = 'surrogate',
       boot_it = 2,
       silent = TRUE
     )
@@ -35,6 +36,7 @@ test_that(
       data = test_cars,
       boot_it = 2,
       parallel = 0,
+      p_values = NULL,
       silent = TRUE
     )
 

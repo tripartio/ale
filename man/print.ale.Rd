@@ -16,7 +16,7 @@ Print an ALE object.
 }
 \examples{
 lm_cars <- stats::lm(mpg ~ ., mtcars)
-ale_cars <- ALE(lm_cars, parallel = 0)
+ale_cars <- ALE(lm_cars, p_values = NULL)
 print(ale_cars)
 
 }

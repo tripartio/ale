@@ -21,7 +21,7 @@ ALE(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
-  p_values = NULL,
+  p_values = "surrogate",
   p_alpha = c(0.01, 0.05),
   max_num_bins = 10,
   boot_it = 0,
@@ -58,9 +58,9 @@ ALE(
 
 \item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
 
-\item{p_values}{instructions for calculating p-values and to determine the median band. If \code{NULL} (default), no p-values are calculated and \code{median_band_pct} is used to determine the median band. To calculate p-values, an \code{\link[=ALEpDist]{ALEpDist()}} object must be provided here. If \code{p_values} is set to 'auto', this \code{ALE()} function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that p-values will not be generated if \code{output_stats} is \code{FALSE}.}
+\item{p_values}{instructions for calculating p-values. To calculate p-values, an \code{ALEpDist} object must be provided here. The default value of \code{'surrogate'} will try to automatically create a fast surrogate \code{ALEpDist} object; however, this only works with standard R model types. If the automatic process errors, then see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Set to \code{NULL} to disable calculation of p-values. Note that \code{p_values} is ignored if \code{output_stats} is \code{FALSE}.}
 
-\item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
+\item{p_alpha}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
 \item{max_num_bins}{positive integer(1). Maximum number of bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}.}
 
