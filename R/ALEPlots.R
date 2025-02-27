@@ -119,19 +119,20 @@ ALEPlots <- new_class(
           imap(it.cat_data$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
             if (!is.null(it.x_col_ale_data)) {
               plot_ale_1D(
-                ale_data  = it.x_col_ale_data,
-                x_col     = it.x_col_name,
-                y_col     = it.cat_name,
+                ale_data    = it.x_col_ale_data,
+                x_col       = it.x_col_name,
+                y_col       = it.cat_name,
                 # y_col     = obj@params$y_col,
-                y_type    = obj@params$y_type,
-                y_summary = obj@params$y_summary[, it.cat_name],
-                x_y       = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
-                relative_y = relative_y,
-                p_alpha = p_alpha,
+                y_type      = obj@params$y_type,
+                y_summary   = obj@params$y_summary[, it.cat_name],
+                p_exactness = obj@params$p_values@params$exactness,
+                x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
+                relative_y  = relative_y,
+                p_alpha     = p_alpha,
                 median_band_pct = median_band_pct,
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
-                seed = seed
+                seed        = seed
               )
             }
             else {

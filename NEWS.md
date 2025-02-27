@@ -38,7 +38,7 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * `model_bootstrap()` has added various model performance measures that are validated using bootstrap validation with the .632 correction.
 * The structure of `p_funs` has been completely changed; it has now been converted to an object named `ale_p` and the functions are separated from the object as internal functions. The function `create_p_funs()` has been renamed `create_p_dist()`.
-* create_p_dist()` now produces two types of p-values via the `p_speed` argument: 'approx fast' for relatively faster but only approximate values (the default) or 'precise slow' for very slow but more exact values.
+* `ALEpDist()` now produces three types of p-values: "exact" (very slow) with at least 1000 random iterations on the original model; "approx" for 100 to 999 iterations on the original model; and "surrogate" for much faster but less reliable p-values based on a surrogate linear model. See `ALEpDist()` for details.
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
 
 ## Under the hood

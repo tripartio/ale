@@ -5,35 +5,35 @@
 
 
 
-#  Plot ALE data
-#
-#  This function is not exported. It creates a ggplot object that plots the input
-#  ALE data generated from `calc_ale`.
-#  This function is not usually called directly by the user. For details about
-#  arguments not documented here, see [ALE()].
-#
-#
-#  @param ale_data tibble. Output data from `calc_ale`.
-#  @param x_col character length 1. Name of single column whose ALE data is to
-#  be plotted.
-#  @param y_col character length 1. Name of y (output) column whose ALE data is to
-#  be plotted.
-#  @param y_type See documentation for [ALE()]
-#  @param y_summary named double. Named vector of y summary statistics to be used for plotting. Unlike the direct result of var_summary(), this y_summary is the vector that represents only a single categorical class.
-#  @param ... not used. Enforces explicit naming of subsequent arguments.
-#  @param relative_y See documentation for [ALE()]
-#  @param median_band_pct See documentation for [ALE()]
-#  @param x_y dataframe with two columns: x_col and y_col.
-#  If provided, used to generate rug plots.
-#@param data dataframe. If provided, used to generate rug plots. Must at least
-#contain columns x_col and y_col; any other columns are not used.
-#  @param rug_sample_size,min_rug_per_interval See documentation for [ALE()]
-#  @param seed See documentation for [ALE()]
-#
-#
+#' Plot 1D ALE data
+#'
+#' Create a ggplot object that plots the 1D ALE data from an `ALE` object. For details about arguments not documented here, see [ALE()].
+#'
+#' @noRd
+#'
+#' @param ale_data tibble. Output data from `calc_ale`.
+#' @param x_col character(1). Name of a single column whose ALE data is to be plotted.
+#' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
+#' @param y_type See documentation for [ALEPlots()]
+#' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
+#' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
+#' @param ... not used. Enforces explicit naming of subsequent arguments.
+#' @param relative_y See documentation for [ALEPlots()]
+#' @param p_alpha See documentation for [ALE()]
+#' @param median_band_pct See documentation for [ALEPlots()]
+#' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
+#' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
+#' @param seed See documentation for [ALE()]
+#'
+#' @returns a `ggplot` with a 1D ALE plot
+#'
 plot_ale_1D <- function(
-    ale_data, x_col, y_col, y_type,
+    ale_data,
+    x_col,
+    y_col,
+    y_type,
     y_summary,
+    p_exactness,
     ...,
     # ggplot_custom,
     relative_y = 'median',
@@ -162,6 +162,7 @@ plot_ale_1D <- function(
       # centre label; leave the others empty
       '',  #empty
       str_glue(
+        '{p_exactness}\n',
         'p(ALER)\n',
         # Unicode ± must be replaced by \u00B1 for CRAN
         '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
@@ -193,7 +194,6 @@ plot_ale_1D <- function(
           breaks = sec_breaks
         )
     )
-
 
   ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
 
