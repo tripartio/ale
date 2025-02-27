@@ -341,10 +341,10 @@ ModelBoot <- new_class(
       validate(
         length(resolved_x_cols[['d2']]) == 0,
         msg = c(
-          x = '2D ALE detected in ale_options$x_cols. ',
+          'x' = '2D ALE detected in ale_options$x_cols. ',
           # x = '2D ALE detected in {.arg ale_options}: {ale_options$x_cols}.',
-          i = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
-          i = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
+          'i' = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
+          'i' = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
         )
       )
     }
