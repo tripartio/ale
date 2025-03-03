@@ -10,13 +10,13 @@
 #' @export
 #'
 #' @description
-#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An `ALEpDist` object contains the necessary distribution data for generating such p-values.
+#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An `ALEpDist` object contains the necessary distribution data for generating such p-values.
 #'
 #'
 #' @param model See documentation for [ALE()]
 #' @param data See documentation for [ALE()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param surrogate logical(1). Create p-value distribution based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Surrogate p-values are faster approximations but are not as reliable.
+#' @param surrogate logical(1). Create p-value distributionS based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details.
 #' @param parallel See documentation for [ALE()]
 #' @param model_packages See documentation for [ALE()]
 #' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
@@ -28,7 +28,7 @@
 #' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
-#' @param .skip_validation Internal use only. logical(1). Disables some data validation checks.
+#' @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
 #'
 #' @returns An object of class `ALEpDist` with properties `rand_stats`, `residual_distribution`, `residuals`, and `params`.
 #'
@@ -74,11 +74,11 @@
 #' If the model generation is unstable (because of a small dataset size or a finicky model algorithm), then one or more iterations might fail, possibly dropping the number of successful iterations to below 1000. Then the p-values are only considered approximate; they are no longer exact. If that is the case, then request rand_it at a sufficiently high number such that even if some iterations fail, at least 1000 will succeed. For example, for an `ALEpDist` object named `p_dist`, if `p_dist@params$rand_it_ok` is 950, you could rerun `ALEpDist()` with `rand_it = 1100` or higher to allow for up to 100 possible failures.
 #'
 #' @section Faster approximate and surrogate p-values:
-#' The procedure we have just described requires at least 1000 random iterations for p-values to be considered "exact". Unfortunately, this procedure rather slow--it takes at least 1000 times as long as the time it takes to train the model once (and a bit longer, with some additional necessary processing).
+#' The procedure we have just described requires at least 1000 random iterations for p-values to be considered **"exact"**. Unfortunately, this procedure is rather slow--it takes at least 1000 times as long as the time it takes to train the model once.
 #'
-#' With fewer iterations (at least 100), p-values can only be considered approximate ("approx"). Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
+#' With fewer iterations (at least 100), p-values can only be considered **approximate ("approx")**. Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 #'
-#' Because the procedure can be very slow, when  a faster algorithm can generate "surrogate" p-values by substituting the original model with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. These surrogate p-values typically use only 100 iterations, although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions always require exact p-values with at least 1000 iterations on the original model**. Note that surrogate p-values are always marked as "surrogate"; they can never be considered exact, even if they are generated based on over 1000 iterations, because they are not based on the original model.
+#' Because the procedure can be very slow, a faster version of the algorithm generates **"surrogate"** p-values by substituting the original `model` with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. By default, these surrogate p-values use only 100 iterations and if the dataset is large, the surrogate model samples 1000 rows. Thus, the surrogate p-values can be generated much faster than for slower model algorithms on larger datasets. Although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions (e.g., for publication) always require exact p-values with at least 1000 iterations on the original model**. Note that surrogate p-values are always marked as "surrogate"; even if they are generated based on over 1000 iterations, they can never be considered exact because they are not based on the original `model`.
 #'
 #' @section Parallel processing:
 #' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
