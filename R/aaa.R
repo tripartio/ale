@@ -9,13 +9,28 @@
 
 
 .onAttach <- function(libname, pkgname) {
-  dev_load_all <- sys.calls() |>
-    as.character() |>
+  sys_calls <- sys.calls() |>
+    as.character()
+
+  dev_load_all <- sys_calls |>
     stringr::str_detect('load_all') |>
     any()
 
-  if (!dev_load_all) {
-    packageStartupMessage("The 'get()' function for 'ale' works such that the masked base::get() still works fine without modification.")
+  suppress_pkg_msg <- sys_calls |>
+    stringr::str_detect('suppressPackageStartupMessages') |>
+    any()
+
+  if (!(dev_load_all || suppress_pkg_msg)) {
+    # Post custom startup messages AFTER default package conflict messages.
+    # https://stackoverflow.com/a/79480949/2449926
+    invisible(
+      addTaskCallback(function(expr, value, ok, visible) {
+        packageStartupMessage(
+          "The 'get()' function for 'ale' works such that the masked base::get() still works fine\nwithout modification."
+        )
+        return(FALSE)
+      })
+    )
   }
 }
 
