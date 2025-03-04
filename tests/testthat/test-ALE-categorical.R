@@ -25,20 +25,6 @@ test_that(
     plot(cars_ale) |>
       ale_plots_to_data() |>
       expect_snapshot()
-
-    # car_plots <- plot(cars_ale)@distinct |>
-    #   imap(\(it.cat, it.cat_name) {
-    #     list(
-    #       d1 = it.cat$plots$d1 |>
-    #         ale_plots_to_data(),
-    #       eff = it.cat$plots$eff |>
-    #         ggplot2::ggplot_build() |>
-    #         (`[[`)('data')
-    #     )
-    #   }) |>
-    #   list_transpose(simplify = FALSE)
-    # expect_snapshot(unclass(cars_ale))
-    # expect_snapshot(car_plots)
   }
 )
 

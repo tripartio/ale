@@ -21,7 +21,7 @@
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 # @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
-#' @param output_conf logical(1). If `TRUE` (default), return ALE confidence regions. If `output_stats` is `FALSE`, `output_conf` is ignored since confidence regions cannot be produced without ALE statistics.
+#' @param output_conf logical(1). If `TRUE`, return ALE confidence regions but only if statistics are requested (`output_stats = TRUE`), bootstrapping is requested (`boot_it > 0`), and `p_values` are available; otherwise raises an error. The default `NULL` will generate confidence regions if these conditions are met.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
 #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
 #' @param p_values instructions for calculating p-values. Possible values are:
@@ -187,7 +187,7 @@ ALE <- new_class(
     parallel = future::availableCores(logical = FALSE, omit = 1),
     model_packages = NULL,
     output_stats = TRUE,
-    output_conf = TRUE,
+    output_conf = NULL,
     output_boot_data = FALSE,
     # output = c('ale_data', 'stats', 'conf'),
     pred_fun = function(object, newdata, type = pred_type) {
@@ -256,8 +256,27 @@ ALE <- new_class(
       silent = silent
     )
 
+    validate(is_scalar_whole(boot_it))
+
     validate(is_bool(output_stats))
-    validate(is_bool(output_conf))
+
+    output_conf <- if (is.null(output_conf)) {
+      output_stats && boot_it > 0 && !is.null(p_values)
+    } else {
+      validate(
+        is_bool(output_conf),
+        msg = '{.arg output_conf} must be TRUE, FALSE, or NULL.'
+      )
+
+      if (output_conf) {
+        validate(
+          output_stats && boot_it > 0 && !is.null(p_values),
+          msg = 'If {.arg output_conf} is set to {.val TRUE}, {.arg output_stats} must also be {.val TRUE}, {.arg boot_it} must be positive, and {.arg p_values} must be provided. Otherwise, leave {.arg output_conf} at its default {.val NULL}.'
+        )
+      }
+      output_conf
+    }
+
     validate(is_bool(output_boot_data))
 
     if (output_stats) {
@@ -314,7 +333,6 @@ ALE <- new_class(
     )
 
     validate(is_scalar_natural(max_num_bins) && (max_num_bins > 1))
-    validate(is_scalar_whole(boot_it))
     validate(is_scalar_number(seed))
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
     validate(
@@ -621,7 +639,18 @@ ALE <- new_class(
 
     # Calculate summary statistics ---------------------
 
-    if (output_stats) {  #'stats' %in% output) {
+    if (output_stats) {
+      if (
+        output_conf &&
+        (boot_it < 100 || p_values@params$rand_it_ok < 100)
+      ) {
+        if (!silent) cli_inform(c(
+          '!' = 'Note that confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
+          'i' = '{.arg boot_it} = {boot_it}.',
+          'i' = '{.arg p_values} is based on {p_values@params$rand_it_ok} iterations.'
+        ))
+      }
+
       for (it.cat in y_cats) {
 
         # 1D ALE statistics
@@ -636,7 +665,7 @@ ALE <- new_class(
             select('term', everything()) |>
             pivot_stats()
 
-          if (output_conf) { #'conf' %in% output) {
+          if (output_conf) {
             # conf_regions optionally provided only if stats also requested
             sig_criterion <- if (!is.null(p_values)) {
               'p_values'
@@ -683,7 +712,7 @@ ALE <- new_class(
               rename(term2 = 'term') |>
               select('term1', 'term2', everything())
 
-            if (output_conf) { #'conf' %in% output) {
+            if (output_conf) {
               # conf_regions optionally provided only if stats also requested
               sig_criterion <- if (!is.null(p_values)) {
                 'p_values'
@@ -715,7 +744,7 @@ ALE <- new_class(
             ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
             bind_rows()
 
-          if (output_conf) { #'conf' %in% output) {
+          if (output_conf) {
             ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
               ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
               list_transpose(simplify = FALSE)
@@ -731,8 +760,7 @@ ALE <- new_class(
 
         }  # if (length(x_cols$d2) >= 1) {
       }  # for (it.cat in y_cats)
-
-    }
+    }  # if (output_stats) {
 
     # Transpose the ALE elements with the ALE dimension
     ale_struc$distinct <- ale_struc$distinct |>

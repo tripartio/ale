@@ -14,7 +14,7 @@ ALE(
   parallel = future::availableCores(logical = FALSE, omit = 1),
   model_packages = NULL,
   output_stats = TRUE,
-  output_conf = TRUE,
+  output_conf = NULL,
   output_boot_data = FALSE,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -52,7 +52,7 @@ ALE(
 
 \item{output_stats}{logical(1). If \code{TRUE} (default), return ALE statistics.}
 
-\item{output_conf}{logical(1). If \code{TRUE} (default), return ALE confidence regions. If \code{output_stats} is \code{FALSE}, \code{output_conf} is ignored since confidence regions cannot be produced without ALE statistics.}
+\item{output_conf}{logical(1). If \code{TRUE}, return ALE confidence regions but only if statistics are requested (\code{output_stats = TRUE}), bootstrapping is requested (\code{boot_it > 0}), and \code{p_values} are available; otherwise raises an error. The default \code{NULL} will generate confidence regions if these conditions are met.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the raw ALE data for each bootstrap iteration. Default is \code{FALSE}.}
 

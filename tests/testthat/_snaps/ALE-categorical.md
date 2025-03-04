@@ -1836,45 +1836,6 @@
       12 carb    0.000000299 -0.00000135 0.00000135  33.4    -50        30.5 
       13 country 0            0          0            0        0         0   
       
-      attr(,"distinct")$Asia$stats$d1$conf_regions
-      attr(,"distinct")$Asia$stats$d1$conf_regions$by_term
-      # A tibble: 62 x 12
-         term  x       start_x end_x x_span_pct     n   pct      y start_y end_y trend
-         <chr> <chr>     <dbl> <dbl>      <dbl> <int> <dbl>  <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster~      NA    NA         NA     2  3.12 0.0209      NA    NA    NA
-       2 model Camaro~      NA    NA         NA     2  3.12 0.117       NA    NA    NA
-       3 model Lincol~      NA    NA         NA     2  3.12 0.281       NA    NA    NA
-       4 model Cadill~      NA    NA         NA     2  3.12 0.281       NA    NA    NA
-       5 model Chrysl~      NA    NA         NA     2  3.12 0.614       NA    NA    NA
-       6 model Hornet~      NA    NA         NA     2  3.12 0.620       NA    NA    NA
-       7 model Pontia~      NA    NA         NA     2  3.12 0.620       NA    NA    NA
-       8 model AMC Ja~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-       9 model Dodge ~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-      10 model Merc 4~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-      # i 52 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$Asia$stats$d1$conf_regions$significant
-      # A tibble: 39 x 12
-         term  x       start_x end_x x_span_pct     n   pct      y start_y end_y trend
-         <chr> <chr>     <dbl> <dbl>      <dbl> <int> <dbl>  <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster~      NA    NA         NA     2  3.12 0.0209      NA    NA    NA
-       2 model Lincol~      NA    NA         NA     2  3.12 0.281       NA    NA    NA
-       3 model Cadill~      NA    NA         NA     2  3.12 0.281       NA    NA    NA
-       4 model Chrysl~      NA    NA         NA     2  3.12 0.614       NA    NA    NA
-       5 model Hornet~      NA    NA         NA     2  3.12 0.620       NA    NA    NA
-       6 model Pontia~      NA    NA         NA     2  3.12 0.620       NA    NA    NA
-       7 model AMC Ja~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-       8 model Dodge ~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-       9 model Merc 4~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-      10 model Merc 4~      NA    NA         NA     2  3.12 0.789       NA    NA    NA
-      # i 29 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$Asia$stats$d1$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       attr(,"distinct")$Asia$stats$d2
       attr(,"distinct")$Asia$stats$d2$by_term
@@ -2874,43 +2835,6 @@
        9 model am     1.61   -3.62     0.846  48.2     -50        0   
       10 model gear   1.96    0.342    4.56   44.1      31.2     50   
       # i 68 more rows
-      
-      attr(,"distinct")$Asia$stats$d2$conf_regions
-      attr(,"distinct")$Asia$stats$d2$conf_regions$by_term
-      # A tibble: 1,054 x 8
-         term1 x1                  term2 x2          mid_bar     n   pct     y
-         <chr> <chr>               <chr> <chr>       <ord>   <int> <dbl> <dbl>
-       1 model Cadillac Fleetwood  mpg   [10.4,16.4] overlap     2  3.12     0
-       2 model Duster 360          mpg   [10.4,16.4] overlap     2  3.12     0
-       3 model Camaro Z28          mpg   [10.4,16.4] overlap     2  3.12     0
-       4 model Lincoln Continental mpg   [10.4,16.4] overlap     2  3.12     0
-       5 model Chrysler Imperial   mpg   [10.4,16.4] overlap     2  3.12     0
-       6 model AMC Javelin         mpg   [10.4,16.4] overlap     2  3.12     0
-       7 model Merc 450SLC         mpg   [10.4,16.4] overlap     2  3.12     0
-       8 model Maserati Bora       mpg   [10.4,16.4] overlap     2  3.12     0
-       9 model Dodge Challenger    mpg   [10.4,16.4] overlap     2  3.12     0
-      10 model Merc 450SE          mpg   [10.4,16.4] overlap     2  3.12     0
-      # i 1,044 more rows
-      
-      attr(,"distinct")$Asia$stats$d2$conf_regions$significant
-      # A tibble: 343 x 8
-         term1 x1             term2 x2    mid_bar     n   pct     y
-         <chr> <chr>          <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 model Merc 240D      cyl   [3,5] above       2  3.12  3.21
-       2 model Merc 230       cyl   [3,5] above       2  3.12  3.33
-       3 model Lotus Europa   cyl   [3,5] above       2  3.12  3.58
-       4 model Volvo 142E     cyl   [3,5] above       2  3.12  4.98
-       5 model Honda Civic    cyl   [3,5] above       2  3.12  3.88
-       6 model Hornet 4 Drive cyl   [3,5] above       1  1.56  4.27
-       7 model Toyota Corona  cyl   [3,5] above       1  1.56  4.53
-       8 model Mazda RX4 Wag  cyl   [3,5] above       1  1.56  5.10
-       9 model Toyota Corolla cyl   [3,5] above       1  1.56  6.33
-      10 model Datsun 710     cyl   [3,5] above       1  1.56  6.33
-      # i 333 more rows
-      
-      attr(,"distinct")$Asia$stats$d2$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
       
       
       
@@ -4738,45 +4662,6 @@
       12 carb    0.00000589   0.00000169   0.00000963   5.66    -21.9       6.25
       13 country 0            0            0            0         0         0   
       
-      attr(,"distinct")$Europe$stats$d1$conf_regions
-      attr(,"distinct")$Europe$stats$d1$conf_regions$by_term
-      # A tibble: 62 x 12
-         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
-         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
-       1 model Duste~      NA    NA         NA     2  3.12  0.370       NA    NA    NA
-       2 model Camar~      NA    NA         NA     2  3.12  0.274       NA    NA    NA
-       3 model Linco~      NA    NA         NA     2  3.12 -0.0531      NA    NA    NA
-       4 model Cadil~      NA    NA         NA     2  3.12 -0.0525      NA    NA    NA
-       5 model Chrys~      NA    NA         NA     2  3.12 -0.386       NA    NA    NA
-       6 model Horne~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       7 model Ponti~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       8 model AMC J~      NA    NA         NA     2  3.12 -0.745       NA    NA    NA
-       9 model Dodge~      NA    NA         NA     2  3.12 -0.912       NA    NA    NA
-      10 model Merc ~      NA    NA         NA     2  3.12 -0.912       NA    NA    NA
-      # i 52 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$Europe$stats$d1$conf_regions$significant
-      # A tibble: 40 x 12
-         term  x       start_x end_x x_span_pct     n   pct      y start_y end_y trend
-         <chr> <chr>     <dbl> <dbl>      <dbl> <int> <dbl>  <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster~      NA    NA         NA     2  3.12  0.370      NA    NA    NA
-       2 model Camaro~      NA    NA         NA     2  3.12  0.274      NA    NA    NA
-       3 model AMC Ja~      NA    NA         NA     2  3.12 -0.745      NA    NA    NA
-       4 model Dodge ~      NA    NA         NA     2  3.12 -0.912      NA    NA    NA
-       5 model Merc 4~      NA    NA         NA     2  3.12 -0.912      NA    NA    NA
-       6 model Merc 4~      NA    NA         NA     2  3.12 -0.924      NA    NA    NA
-       7 model Merc 4~      NA    NA         NA     2  3.12 -1.42       NA    NA    NA
-       8 model Ford P~      NA    NA         NA     2  3.12 -1.77       NA    NA    NA
-       9 model Valiant      NA    NA         NA     2  3.12 -1.86       NA    NA    NA
-      10 model Hornet~      NA    NA         NA     2  3.12 -1.53       NA    NA    NA
-      # i 30 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$Europe$stats$d1$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       attr(,"distinct")$Europe$stats$d2
       attr(,"distinct")$Europe$stats$d2$by_term
@@ -5776,43 +5661,6 @@
        9 model am     1.68     -1.10    3.24   39.1     -21.9     50   
       10 model gear   1.40     -3.33    1.10   45.9     -50        0   
       # i 68 more rows
-      
-      attr(,"distinct")$Europe$stats$d2$conf_regions
-      attr(,"distinct")$Europe$stats$d2$conf_regions$by_term
-      # A tibble: 1,077 x 8
-         term1 x1                  term2 x2          mid_bar     n   pct     y
-         <chr> <chr>               <chr> <chr>       <ord>   <int> <dbl> <dbl>
-       1 model Cadillac Fleetwood  mpg   [10.4,16.4] overlap     2  3.12     0
-       2 model Duster 360          mpg   [10.4,16.4] overlap     2  3.12     0
-       3 model Camaro Z28          mpg   [10.4,16.4] overlap     2  3.12     0
-       4 model Lincoln Continental mpg   [10.4,16.4] overlap     2  3.12     0
-       5 model Chrysler Imperial   mpg   [10.4,16.4] overlap     2  3.12     0
-       6 model AMC Javelin         mpg   [10.4,16.4] overlap     2  3.12     0
-       7 model Merc 450SLC         mpg   [10.4,16.4] overlap     2  3.12     0
-       8 model Maserati Bora       mpg   [10.4,16.4] overlap     2  3.12     0
-       9 model Dodge Challenger    mpg   [10.4,16.4] overlap     2  3.12     0
-      10 model Merc 450SE          mpg   [10.4,16.4] overlap     2  3.12     0
-      # i 1,067 more rows
-      
-      attr(,"distinct")$Europe$stats$d2$conf_regions$significant
-      # A tibble: 413 x 8
-         term1 x1             term2 x2    mid_bar     n   pct     y
-         <chr> <chr>          <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 model Toyota Corona  cyl   [3,5] below       2  3.12 -3.72
-       2 model Merc 240D      cyl   [3,5] below       2  3.12 -3.23
-       3 model Merc 230       cyl   [3,5] below       2  3.12 -3.36
-       4 model Lotus Europa   cyl   [3,5] below       2  3.12 -3.61
-       5 model Volvo 142E     cyl   [3,5] below       2  3.12 -4.84
-       6 model Honda Civic    cyl   [3,5] below       2  3.12 -3.90
-       7 model Fiat X1-9      cyl   [3,5] below       1  1.56 -3.90
-       8 model Hornet 4 Drive cyl   [3,5] below       1  1.56 -4.10
-       9 model Mazda RX4 Wag  cyl   [3,5] below       1  1.56 -4.81
-      10 model Toyota Corolla cyl   [3,5] below       1  1.56 -6.04
-      # i 403 more rows
-      
-      attr(,"distinct")$Europe$stats$d2$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
       
       
       
@@ -7640,45 +7488,6 @@
       12 carb    0.00000600  -0.00000980  -0.00000305   42.4     -50       -21.1 
       13 country 0            0            0             0         0         0   
       
-      attr(,"distinct")$`North America`$stats$d1$conf_regions
-      attr(,"distinct")$`North America`$stats$d1$conf_regions$by_term
-      # A tibble: 61 x 12
-         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
-         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
-       1 model Duste~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       2 model Camar~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       3 model Linco~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       4 model Cadil~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       5 model Chrys~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       6 model Horne~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       7 model Ponti~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       8 model AMC J~      NA    NA         NA     2  3.12 -0.0437      NA    NA    NA
-       9 model Dodge~      NA    NA         NA     2  3.12  0.123       NA    NA    NA
-      10 model Merc ~      NA    NA         NA     2  3.12  0.123       NA    NA    NA
-      # i 51 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$`North America`$stats$d1$conf_regions$significant
-      # A tibble: 42 x 12
-         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
-         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
-       1 model Duste~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       2 model Camar~      NA    NA         NA     2  3.12 -0.391       NA    NA    NA
-       3 model Linco~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       4 model Cadil~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       5 model Chrys~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       6 model Horne~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       7 model Ponti~      NA    NA         NA     2  3.12 -0.228       NA    NA    NA
-       8 model AMC J~      NA    NA         NA     2  3.12 -0.0437      NA    NA    NA
-       9 model Merc ~      NA    NA         NA     2  3.12  0.468       NA    NA    NA
-      10 model Ford ~      NA    NA         NA     2  3.12  0.479       NA    NA    NA
-      # i 32 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$`North America`$stats$d1$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       attr(,"distinct")$`North America`$stats$d2
       attr(,"distinct")$`North America`$stats$d2$by_term
@@ -8679,43 +8488,6 @@
       10 model gear  0.899  -0.0534    1.91   37.1     -50        50  
       # i 68 more rows
       
-      attr(,"distinct")$`North America`$stats$d2$conf_regions
-      attr(,"distinct")$`North America`$stats$d2$conf_regions$by_term
-      # A tibble: 1,056 x 8
-         term1 x1                  term2 x2          mid_bar     n   pct     y
-         <chr> <chr>               <chr> <chr>       <ord>   <int> <dbl> <dbl>
-       1 model Cadillac Fleetwood  mpg   [10.4,16.4] overlap     2  3.12     0
-       2 model Duster 360          mpg   [10.4,16.4] overlap     2  3.12     0
-       3 model Camaro Z28          mpg   [10.4,16.4] overlap     2  3.12     0
-       4 model Lincoln Continental mpg   [10.4,16.4] overlap     2  3.12     0
-       5 model Chrysler Imperial   mpg   [10.4,16.4] overlap     2  3.12     0
-       6 model AMC Javelin         mpg   [10.4,16.4] overlap     2  3.12     0
-       7 model Merc 450SLC         mpg   [10.4,16.4] overlap     2  3.12     0
-       8 model Maserati Bora       mpg   [10.4,16.4] overlap     2  3.12     0
-       9 model Dodge Challenger    mpg   [10.4,16.4] overlap     2  3.12     0
-      10 model Merc 450SE          mpg   [10.4,16.4] overlap     2  3.12     0
-      # i 1,046 more rows
-      
-      attr(,"distinct")$`North America`$stats$d2$conf_regions$significant
-      # A tibble: 279 x 8
-         term1 x1             term2 x2        mid_bar     n   pct      y
-         <chr> <chr>          <chr> <chr>     <ord>   <int> <dbl>  <dbl>
-       1 model Hornet 4 Drive cyl   [3,5]     below       1  1.56 -0.174
-       2 model Mazda RX4 Wag  cyl   [3,5]     below       1  1.56 -0.285
-       3 model Volvo 142E     cyl   [3,5]     below       1  1.56 -0.286
-       4 model Merc 450SL     disp  (159,350] below       2  3.12 -2.02 
-       5 model Merc 450SE     disp  (159,350] below       2  3.12 -2.03 
-       6 model Maserati Bora  disp  (159,350] below       2  3.12 -3.15 
-       7 model Camaro Z28     disp  (159,350] below       1  1.56 -1.21 
-       8 model Ford Pantera L disp  (159,350] below       1  1.56 -3.28 
-       9 model Duster 360     disp  (350,472] below       2  3.12 -1.11 
-      10 model Camaro Z28     disp  (350,472] below       1  1.56 -1.20 
-      # i 269 more rows
-      
-      attr(,"distinct")$`North America`$stats$d2$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       
       
@@ -9357,7 +9129,7 @@
       [1] TRUE
       
       attr(,"params")$output_conf
-      [1] TRUE
+      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE

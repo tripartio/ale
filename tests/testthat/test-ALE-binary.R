@@ -42,7 +42,6 @@ test_that(
       # model_packages = NULL,  # not tested here; requires parallelization
       output_stats = FALSE,
       output_boot_data = TRUE,
-      # output = c('boot_data'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
       # test p-values with ALEpDist

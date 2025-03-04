@@ -1816,45 +1816,6 @@
       12 country    5.26     -0.859    6.60   27.7     -6.82      33.3 
       13 continent  0.707    -1.80     0.0887  7.10   -13.6        0   
       
-      attr(,"distinct")$mpg$stats$d1$conf_regions
-      attr(,"distinct")$mpg$stats$d1$conf_regions$by_term
-      # A tibble: 61 x 12
-         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
-         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
-       1 model Duste~      NA    NA         NA     2  3.12   2.54       NA    NA    NA
-       2 model Camar~      NA    NA         NA     2  3.12  -0.225      NA    NA    NA
-       3 model Chrys~      NA    NA         NA     2  3.12  -3.08       NA    NA    NA
-       4 model Cadil~      NA    NA         NA     2  3.12  -8.48       NA    NA    NA
-       5 model Linco~      NA    NA         NA     2  3.12 -11.5        NA    NA    NA
-       6 model Ponti~      NA    NA         NA     2  3.12 -12.1        NA    NA    NA
-       7 model Horne~      NA    NA         NA     2  3.12 -17.9        NA    NA    NA
-       8 model AMC J~      NA    NA         NA     2  3.12 -23.1        NA    NA    NA
-       9 model Dodge~      NA    NA         NA     2  3.12 -22.4        NA    NA    NA
-      10 model Merc ~      NA    NA         NA     2  3.12 -23.6        NA    NA    NA
-      # i 51 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$mpg$stats$d1$conf_regions$significant
-      # A tibble: 35 x 12
-         term  x        start_x end_x x_span_pct     n   pct     y start_y end_y trend
-         <chr> <chr>      <dbl> <dbl>      <dbl> <int> <dbl> <dbl>   <dbl> <dbl> <dbl>
-       1 model AMC Jav~      NA    NA         NA     2  3.12 -23.1      NA    NA    NA
-       2 model Dodge C~      NA    NA         NA     2  3.12 -22.4      NA    NA    NA
-       3 model Merc 45~      NA    NA         NA     2  3.12 -23.6      NA    NA    NA
-       4 model Valiant       NA    NA         NA     2  3.12 -26.5      NA    NA    NA
-       5 model Hornet ~      NA    NA         NA     2  3.12 -23.7      NA    NA    NA
-       6 model Toyota ~      NA    NA         NA     2  3.12 -27.8      NA    NA    NA
-       7 model Ferrari~      NA    NA         NA     2  3.12 -25.1      NA    NA    NA
-       8 model Merc 28~      NA    NA         NA     2  3.12 -26.1      NA    NA    NA
-       9 model Porsche~      NA    NA         NA     2  3.12 -29.0      NA    NA    NA
-      10 model Mazda R~      NA    NA         NA     2  3.12 -21.8      NA    NA    NA
-      # i 25 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$mpg$stats$d1$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       attr(,"distinct")$mpg$stats$d2
       attr(,"distinct")$mpg$stats$d2$by_term
@@ -2855,32 +2816,6 @@
       10 model carb  4.82e-15 -1.34e-14 6.95e-15     0         0         0
       # i 68 more rows
       
-      attr(,"distinct")$mpg$stats$d2$conf_regions
-      attr(,"distinct")$mpg$stats$d2$conf_regions$by_term
-      # A tibble: 928 x 8
-         term1 x1             term2 x2    mid_bar     n   pct         y
-         <chr> <chr>          <chr> <chr> <ord>   <int> <dbl>     <dbl>
-       1 model Fiat X1-9      cyl   [3,5] overlap     2  3.12 -5.32e-15
-       2 model Toyota Corona  cyl   [3,5] overlap     2  3.12 -2.98e-15
-       3 model Porsche 914-2  cyl   [3,5] overlap     2  3.12 -5.98e-15
-       4 model Merc 240D      cyl   [3,5] overlap     2  3.12 -4.40e-15
-       5 model Merc 230       cyl   [3,5] overlap     2  3.12 -8.49e-16
-       6 model Lotus Europa   cyl   [3,5] overlap     2  3.12 -1.15e-15
-       7 model Volvo 142E     cyl   [3,5] overlap     2  3.12 -7.36e-15
-       8 model Honda Civic    cyl   [3,5] overlap     2  3.12 -5.49e-15
-       9 model Toyota Corolla cyl   [3,5] overlap     2  3.12 -4.55e-15
-      10 model Fiat 128       cyl   [3,5] overlap     2  3.12 -2.57e-16
-      # i 918 more rows
-      
-      attr(,"distinct")$mpg$stats$d2$conf_regions$significant
-      # A tibble: 0 x 8
-      # i 8 variables: term1 <chr>, x1 <chr>, term2 <chr>, x2 <chr>, mid_bar <ord>,
-      #   n <int>, pct <dbl>, y <dbl>
-      
-      attr(,"distinct")$mpg$stats$d2$conf_regions$sig_criterion
-      [1] "median_band_pct"
-      
-      
       
       
       
@@ -3524,7 +3459,7 @@
       [1] TRUE
       
       attr(,"params")$output_conf
-      [1] TRUE
+      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE

@@ -514,7 +514,7 @@ ModelBoot <- new_class(
           boot_stats <- NULL
           boot_perf <- NULL
 
-          if (output_model_stats) {  #'model_stats' %in% output) {
+          if (output_model_stats) {
             # Call broom::glance; if an iteration fails for any reason, set it as missing
             tryCatch(
               {
@@ -633,7 +633,7 @@ ModelBoot <- new_class(
           ## Bootstrap individual term coefficients ---------------
 
           boot_tidy <-
-            if (output_model_coefs) {  #' %in% output) {
+            if (output_model_coefs) {
               # Unless the user manually specified conf.int, set it to FALSE
               # because this function creates its own bootstrapped confidence intervals.
               if (is.null(tidy_options$conf.int)) {
@@ -663,7 +663,7 @@ ModelBoot <- new_class(
 
           ## Bootstrap ALE --------------
 
-          if (output_ale) {  #'ale' %in% output) {
+          if (output_ale) {
             boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
               # One or more coefficients are not defined.
               # This might be due to collinearity in a bootstrapped sample, which
@@ -781,7 +781,7 @@ ModelBoot <- new_class(
     ### Overall model bootstrapped summary --------------
 
     stats_summary <-
-      if (output_model_stats) {  #'model_stats' %in% output) {
+      if (output_model_stats) {
         # Model statistics for which bootstrapping is not meaningful.
         # see https://stats.stackexchange.com/a/529506/81392
         invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
@@ -927,7 +927,7 @@ ModelBoot <- new_class(
 
     ### Bootstrapped model coefficient estimates ---------------
     tidy_summary <-
-      if (output_model_coefs) {  #'model_coefs' %in% output) {
+      if (output_model_coefs) {
 
         # Rename some tidy outputs that do not normally report `estimate`
         tidy_boot_data <-
@@ -976,7 +976,7 @@ ModelBoot <- new_class(
 
     ### Bootstrapped ALE data ------------------
 
-    ale_summary <- if (output_ale) {  #'ale' %in% output) {
+    ale_summary <- if (output_ale) {
         full_ale <- boot_data$ale[[1]]
 
         # Remove first element (not bootstrapped) if bootstrapping is requested
@@ -1161,14 +1161,12 @@ ModelBoot <- new_class(
       data = data,
       y_vals = if (output_ale) full_ale@params$data$y_vals_sample else NA,
       sample_size = if (output_ale) full_ale@params$sample_size else 500,
-      # y_vals = if ('ale' %in% output) full_ale@params$data$y_vals_sample else NA,
-      # sample_size = if ('ale' %in% output) full_ale@params$sample_size else 500,
       seed = seed
     )
     params$model <- params_model(model)
     params$pred_fun <- params_function(pred_fun)
 
-    ale_results <- if (output_ale) {  #'ale' %in% output) {
+    ale_results <- if (output_ale) {
       # Start with ale object of the full dataset without bootstrapping
       ar <- list(single = full_ale)
 
@@ -1199,7 +1197,7 @@ ModelBoot <- new_class(
       model_stats = stats_summary,
       model_coefs = tidy_summary,
       ale = ale_results,
-      boot_data = if (output_boot_data) {  #'boot_data' %in% output) {
+      boot_data = if (output_boot_data) {
         boot_data
       } else {
         NULL
