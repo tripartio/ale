@@ -8,7 +8,7 @@ test_that(
       test_gam,
       x_cols = ~ model + cyl + vs:disp,
       data = test_cars,
-      p_values = 'surrogate',
+      p_values = 'auto',
       boot_it = 2,
       silent = TRUE
     )

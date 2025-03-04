@@ -21,7 +21,7 @@ ALE(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
-  p_values = "surrogate",
+  p_values = "auto",
   p_alpha = c(0.01, 0.05),
   max_num_bins = 10,
   boot_it = 0,
@@ -58,7 +58,12 @@ ALE(
 
 \item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
 
-\item{p_values}{instructions for calculating p-values. To calculate p-values, an \code{ALEpDist} object must be provided here. The default value of \code{"surrogate"} will try to automatically create a fast surrogate \code{ALEpDist} object; however, this only works with standard R model types. If the automatic process errors, then see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Set to \code{NULL} to disable calculation of p-values. \code{p_values} is ignored if \code{output_stats} is \code{FALSE}. Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See \code{\link[=ALEpDist]{ALEpDist()}} for details.}
+\item{p_values}{instructions for calculating p-values. Possible values are:
+\itemize{
+\item \code{NULL}: p-values are not calculated.
+\item An \code{ALEpDist} object: the object will be used to calculate p-values.
+\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+}}
 
 \item{p_alpha}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
@@ -133,9 +138,11 @@ You can see an example below of a custom prediction function.
 \strong{Note:} \code{survival} models probably do not need a custom prediction function but \code{y_col} must be set to the name of the binary event column and \code{pred_type} must be set to the desired prediction type.
 }
 
-\section{ALE statistics}{
+\section{ALE statistics and p-values}{
 
-For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \code{vignette('ale-statistics')}.
+For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \code{vignette('ale-statistics')}. For general details about the calculation of p-values, see \code{\link[=ALEpDist]{ALEpDist()}}. Here, we clarify the automatic calculation of p-values with the \link{ALE() constructor}.
+
+As explained in the documentation above for the \code{p_values} argument, the default \code{p_values = "auto"} will try to automatically create a fast surrogate \code{ALEpDist} object. However, this is on the condition that statistics are requested (default, \code{output_stats = TRUE}) and bootstrapping is also requested (not default, \code{boot_it} is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an \code{ALEpDist} object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate \code{ALEpDist} object.
 }
 
 \section{Parallel processing}{
@@ -147,15 +154,7 @@ Parallel processing using the \code{{furrr}} framework is enabled by default. By
 
 \section{Progress bars}{
 
-Progress bars are implemented with the \code{{progressr}} package, which lets the user fully control progress bars. To disable progress bars, set \code{silent = TRUE}. The first time a function is called in the \code{{ale}} package that requires progress bars, it checks if the user has activated the necessary \code{{progressr}} settings. If not, the \code{{ale}} package automatically enables \code{{progressr}} progress bars with the \code{cli} handler and prints a message notifying the user.
-
-If you like the default progress bars and you want to make them permanent, you can add the following lines of code to your \code{.Rprofile} configuration file and they will become your defaults for every R session; you will not see the message again:
-
-\if{html}{\out{<div class="sourceCode R">}}\preformatted{progressr::handlers(global = TRUE)
-progressr::handlers('cli')
-}\if{html}{\out{</div>}}
-
-This would apply not only to the \code{{ale}} package but to any package that uses \code{{progressr}} progress bars. For more details on formatting progress bars to your liking, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}.
+Progress bars are implemented with the \code{{progressr}} package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
 }
 
 \examples{

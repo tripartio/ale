@@ -175,7 +175,7 @@ ModelBoot <- new_class(
     output_ale = TRUE,
     output_boot_data = FALSE,
     ale_options = list(),
-    ale_p = 'surrogate',
+    ale_p = 'auto',
     tidy_options = list(),
     glance_options = list(),
     silent = FALSE
@@ -316,7 +316,7 @@ ModelBoot <- new_class(
     if (ale_options$output_stats %||% TRUE) {
       if (!is.null(ale_p)) {
         # The user wants p-values
-        if (is_string(ale_p, 'surrogate')) {
+        if (is_string(ale_p, 'auto')) {
           ale_p <- ALEpDist(
             model = model,
             data = data,

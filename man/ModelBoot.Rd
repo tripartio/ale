@@ -28,7 +28,7 @@ ModelBoot(
   output_ale = TRUE,
   output_boot_data = FALSE,
   ale_options = list(),
-  ale_p = "surrogate",
+  ale_p = "auto",
   tidy_options = list(),
   glance_options = list(),
   silent = FALSE

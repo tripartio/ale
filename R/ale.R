@@ -24,7 +24,10 @@
 #' @param output_conf logical(1). If `TRUE` (default), return ALE confidence regions. If `output_stats` is `FALSE`, `output_conf` is ignored since confidence regions cannot be produced without ALE statistics.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
 #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
-#' @param p_values instructions for calculating p-values. To calculate p-values, an `ALEpDist` object must be provided here. The default value of `"surrogate"` will try to automatically create a fast surrogate `ALEpDist` object; however, this only works with standard R model types. If the automatic process errors, then see documentation for [ALEpDist()]. Set to `NULL` to disable calculation of p-values. `p_values` is ignored if `output_stats` is `FALSE`. Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See [ALEpDist()] for details.
+#' @param p_values instructions for calculating p-values. Possible values are:
+#' * `NULL`: p-values are not calculated.
+#' * An `ALEpDist` object: the object will be used to calculate p-values.
+#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then see documentation for [ALEpDist()]. Note that although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 #' @param p_alpha numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
 #' @param max_num_bins positive integer(1). Maximum number of bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the `ModelBoot` class. See details there. The default `boot_it = 0` turns off bootstrapping.
@@ -78,8 +81,10 @@
 #' **Note:** `survival` models probably do not need a custom prediction function but `y_col` must be set to the name of the binary event column and `pred_type` must be set to the desired prediction type.
 #'
 #'
-#' @section ALE statistics:
-#' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`.
+#' @section ALE statistics and p-values:
+#' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`. For general details about the calculation of p-values, see [ALEpDist()]. Here, we clarify the automatic calculation of p-values with the [ALE() constructor].
+#'
+#' As explained in the documentation above for the `p_values` argument, the default `p_values = "auto"` will try to automatically create a fast surrogate `ALEpDist` object. However, this is on the condition that statistics are requested (default, `output_stats = TRUE`) and bootstrapping is also requested (not default, `boot_it` is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an `ALEpDist` object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate `ALEpDist` object.
 #'
 #'
 #' @section Parallel processing:
@@ -88,14 +93,7 @@
 #'#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 #'
 #' @section Progress bars:
-#' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. To disable progress bars, set `silent = TRUE`. The first time a function is called in the `{ale}` package that requires progress bars, it checks if the user has activated the necessary `{progressr}` settings. If not, the `{ale}` package automatically enables `{progressr}` progress bars with the `cli` handler and prints a message notifying the user.
-#'
-#' If you like the default progress bars and you want to make them permanent, you can add the following lines of code to your `.Rprofile` configuration file and they will become your defaults for every R session; you will not see the message again:
-#' ```R
-#' progressr::handlers(global = TRUE)
-#' progressr::handlers('cli')
-#' ```
-#' This would apply not only to the `{ale}` package but to any package that uses `{progressr}` progress bars. For more details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html).
+#' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
 #'
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
@@ -195,8 +193,8 @@ ALE <- new_class(
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
-    pred_type = "response",
-    p_values = 'surrogate',
+    pred_type = 'response',
+    p_values = 'auto',
     p_alpha = c(0.01, 0.05),
     max_num_bins = 10,
     boot_it = 0,
@@ -265,20 +263,26 @@ ALE <- new_class(
     if (output_stats) {
       if (!is.null(p_values)) {
         # The user wants p-values
-        if (is_string(p_values, 'surrogate')) {
-          p_values <- ALEpDist(
-            model = model,
-            data = data,
-            surrogate = TRUE,
-            y_col = y_col,
-            parallel = parallel,
-            model_packages = model_packages,
-            pred_fun = pred_fun,
-            pred_type = pred_type,
-            seed = seed,
-            silent = silent,
-            .skip_validation = TRUE
-          )
+        if (is_string(p_values, 'auto')) {
+          p_values <- if (boot_it > 0) {
+            # If the user bootstraps, generate relatively fast surrogate p-values as well
+            ALEpDist(
+              model = model,
+              data = data,
+              surrogate = TRUE,
+              y_col = y_col,
+              parallel = parallel,
+              model_packages = model_packages,
+              pred_fun = pred_fun,
+              pred_type = pred_type,
+              seed = seed,
+              silent = silent,
+              .skip_validation = TRUE
+            )
+          } else {
+            # No automatic p-values without bootstrapping
+            NULL
+          }
         }
         else {
           validate(
@@ -286,7 +290,7 @@ ALE <- new_class(
             p_values |> S7_inherits(ALEpDist),
             msg = c(
               'x' = 'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object.',
-              'i' = 'See {.fun ale::ALE()} for instructions for obtaining p-values.'
+              'i' = 'See {.fun ale::ALE} for instructions for obtaining p-values.'
             )
           )
         }
@@ -467,7 +471,7 @@ ALE <- new_class(
         x_cols$d2,
         x_cols$d1
       ) |>
-      # map2(  # uncomment for debugging; furrr hides detailed error messages
+      # map(  # uncomment for debugging; furrr hides detailed error messages
       furrr::future_map(
         .options = furrr::furrr_options(
           # Enable parallel-processing random seed generation

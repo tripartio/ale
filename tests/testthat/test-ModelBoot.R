@@ -9,7 +9,7 @@ test_that(
       ale_options = list(
         x_cols = c('cyl', 'disp')
       ),
-      ale_p = 'surrogate',  # test for bugginess but not for snapshot
+      ale_p = 'auto',  # test for bugginess but not for snapshot
       boot_it = 2,
       silent = TRUE
     )
