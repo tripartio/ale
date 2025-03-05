@@ -307,8 +307,6 @@ validate_x_cols <- function(
         all_x_cols[['d2']] <- NULL
       }
 
-      # browser()
-
       non_chars <- extract_non_characters(all_x_cols) |>
         compact()
       validate(
@@ -322,14 +320,6 @@ validate_x_cols <- function(
     all_x_cols <- all_x_cols |>
       unlist(recursive = TRUE, use.names = FALSE) |>
       unique()
-
-    # validate(
-    #   is_all_characters(all_x_cols) ||
-    #     is.null(all_x_cols),  # e.g., if d1 and d2 were TRUE or NULL
-    #   msg = ''
-    # )
-
-    # browser()
 
     valid_x_cols <- all_x_cols %in% col_names
     if (!all(valid_x_cols)) {
@@ -366,8 +356,6 @@ validate_x_cols <- function(
       !is.null(names(x_cols)) &&
       all(names(x_cols) %in% c('d1', 'd2', 'd2_all'))
     ) {
-      # if (all(names(x_cols) %in% c('d1', 'd2', 'd2_all'))) {
-      # browser()
       validate(
         is.character(x_cols[['d1']]) ||
           is_bool(x_cols[['d1']]) ||

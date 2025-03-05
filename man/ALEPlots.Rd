@@ -8,8 +8,9 @@ ALEPlots(
   obj,
   ...,
   relative_y = "median",
-  p_alpha = c(0.01, 0.05),
-  median_band_pct = c(0.05, 0.5),
+  p_aler = c(0.01, 0.05),
+  y_1d_refs = c("25\%", "75\%"),
+  y_nonsig_band = 0.05,
   rug_sample_size = obj@params$sample_size,
   min_rug_per_interval = 1,
   n_x1_bins = NULL,
@@ -26,9 +27,11 @@ ALEPlots(
 
 \item{relative_y}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.}
 
-\item{p_alpha}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are provided. If \code{p_values} are not provided, then \code{median_band_pct} is used instead. The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
+\item{p_aler}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing ALER bands around the median for single-variable plots if the \code{ALE} object has p-values. The inner band range will be the median value of y ± \code{p_aler[2]} of the p-value of the ALE range (ALER). For plots with a second outer band, its range will be the median ± \code{p_aler[1]}. For example, in the ALE plots, for the default \code{p_aler = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
-\item{median_band_pct}{numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are not provided. If \code{p_values} are provided, then \code{median_band_pct} is ignored. The inner band range will be the median value of y ± \code{median_band_pct[1]/2}. For plots with a second outer band, its range will be the median ± \code{median_band_pct[2]/2}. For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
+\item{y_1d_refs}{character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, \code{y_1d_refs} values are names from \code{obj@params$y_summary} (usually quantile names). If a numeric vector, \code{y_1d_refs} values must be values within the range of y, that is, between \code{obj@params$y_summary$min} and \code{obj@params$y_summary$max} inclusive.}
+
+\item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably 2D ALE and 1D effects) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{relative_y} average (the median, by default) to indicate nonsignificant effects. See details.}
 
 \item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
 
@@ -63,9 +66,9 @@ An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{Mod
 
 \section{2D interaction plots}{
 
-#' For the 2D interaction plots, \code{n_y_quant} is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
+For the 2D interaction plots, \code{n_y_quant} is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
 \itemize{
-\item The middle quantile is the first confidence interval of \code{median_band_pct} (\code{median_band_pct[1]}) around the median.
+\item The middle quantile is either the inner ALER band (not yet implemented) or the boundaries of \code{y_nonsig_band} around the median.
 This middle quantile is special because it generally represents no meaningful interaction.
 \item The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
 }

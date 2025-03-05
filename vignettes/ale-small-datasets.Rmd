@@ -166,10 +166,10 @@ plot(mb_lm) |>
   print(ncol = 2)
 ```
 
-The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
+To draw formal conclusions from this analysis, we need a more formal statistical framework based on ALE, which is what we describe in the vignette on [ALE-based statistics for statistical inference](ale-statistics.html). However, we can generally infer that:
 
 -   Complaints that were handled at below around 68% led to below-average overall ratings; complaints that were handled above around 72% are associated with above-average overall ratings.
--   The 95% bootstrapped confidence intervals of every other variable fully overlap the entire 5% median band. Thus, despite the general trends of some of the data (in particular learning's positive trend and advance's negative trend), the data does not support claims that any other factor had a convincingly meaningful effect on ratings.
+-   The 95% bootstrapped confidence intervals of every other variable fully overlap almost the entirety of the median. Thus, despite the general trends of some of the data (in particular learning's positive trend and advance's negative trend), the data does not seem to support claims that any other factor had a convincingly meaningful effect on ratings.
 
 Although this is a basic demonstration, it readily shows how crucial proper bootstrapping is to make meaningful inferences from data analysis.
 
@@ -218,7 +218,7 @@ plot(mb_gam) |>
   print(ncol = 2)
 ```
 
-The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
+The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the median. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
 
 So, what should we conclude? First, it is tempting to retain the OLS results because they tell a more interesting story. But we consider that this would be irresponsible since the GAM model is clearly superior in terms of adjusted R^2^: it is the model that far more reliably tells us what is really going on. And what does it tell us?
 

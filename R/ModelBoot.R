@@ -1112,12 +1112,12 @@ ModelBoot <- new_class(
           imap(\(it.ale_summary_data, it.cat) {
             summarize_conf_regions_1D(
               it.ale_summary_data,
-              full_ale@params$y_summary[, it.cat, drop = FALSE],
-              sig_criterion = if (!is.null(ale_p)) {
-                'p_values'
-              } else {
-                'median_band_pct'
-              }
+              full_ale@params$y_summary[, it.cat, drop = FALSE]
+              # sig_criterion = if (!is.null(ale_p)) {
+              #   'p_values'
+              # } else {
+              #   'median_band_pct'
+              # }
             )
           })
 

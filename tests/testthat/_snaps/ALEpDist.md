@@ -75,7 +75,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ distinct: <list>
@@ -546,32 +546,31 @@
       [1] "mpg"
       
       attr(,"params")$y_summary
-                    mpg
-      p         0.05000
-      min      10.39108
-      1%       10.39108
-      2.5%     10.40000
-      5%       10.88271
-      10%      14.33418
-      20%      15.16500
-      25%      15.43921
-      30%      15.79628
-      40%      17.83840
-      med_lo_2 19.18633
-      med_lo   19.18652
-      50%      19.20000
-      mean     20.09462
-      med_hi   19.21173
-      med_hi_2 19.21190
-      60%      21.00000
-      70%      21.51193
-      75%      22.80000
-      80%      24.48680
-      90%      30.31124
-      95%      32.14486
-      97.5%    33.08402
-      99%      33.84876
-      max      33.84876
+                      mpg
+      min        10.39108
+      1%         10.39108
+      2.5%       10.40000
+      5%         10.88271
+      10%        14.33418
+      20%        15.16500
+      25%        15.43921
+      30%        15.79628
+      40%        17.83840
+      aler_lo_lo 19.18633
+      aler_lo    19.18652
+      50%        19.20000
+      mean       20.09462
+      aler_hi    19.21173
+      aler_hi_hi 19.21190
+      60%        21.00000
+      70%        21.51193
+      75%        22.80000
+      80%        24.48680
+      90%        30.31124
+      95%        32.14486
+      97.5%      33.08402
+      99%        33.84876
+      max        33.84876
       
       attr(,"params")$model
       attr(,"params")$model$name
@@ -734,7 +733,7 @@
        .. $ rand_it_ok                   : int 10
        .. $ exactness                    : chr "invalid"
       
-      attr(,"params")$p_alpha
+      attr(,"params")$p_aler
       [1] 0.01 0.05
       
       attr(,"params")$max_num_bins
@@ -754,9 +753,6 @@
       
       attr(,"params")$y_type
       [1] "numeric"
-      
-      attr(,"params")$median_band_pct
-      [1] 0.05 0.50
       
       attr(,"params")$sample_size
       [1] 500

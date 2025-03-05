@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`{ale}` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
+Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 We begin by loading the necessary libraries.
 
@@ -117,7 +117,7 @@ progressr::handlers(global = TRUE)
 progressr::handlers('cli')
 ```
 
-If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
+If you forget to do that, the `ale` package will do it automatically for you with a notification message.
 
 ## Full model bootstrap
 
@@ -148,7 +148,7 @@ The implication of this for p-values is that the distribution of the data must b
 * This procedure is repeated 1,000 times or so to get 1,000 statistic values from the 1,000 random  variables.
 * p-values are calculated based on the frequency of times that the random variables obtain specific statistic values.
 
-As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The {ale} package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
+As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The `ale` package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
 To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), we can create a `ALEpDist` object that can be run once for a given model-dataset pair. The `ALEpDist` object is used ton generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `ALEpDist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `ALEpDist()` constructor will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
@@ -211,7 +211,7 @@ mb_gam_math@model_coefs
 
 In this vignette, we cannot go into the details of how GAM models work (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")). However, for our model illustration here, the estimates for the parametric variables (the non-numeric ones in our model) are interpreted as regular statistical regression coefficients whereas the estimates for the non-parametric smoothed variables (those whose variable names are encapsulated by the smooth `s()` function) are actually estimates for expected degrees of freedom (EDF in GAM). The smooth function `s()` lets GAM model these numeric variables as flexible curves that fit the data better than a straight line. The `estimate` values for the smooth variables above are not so straightforward to interpret, but suffice it to say that they are completely different from regular regression coefficients.
 
-The `{ale}` package uses bootstrap-based confidence intervals, not p-values that assume predetermined distributions, to determine statistical significance. Although they are not quite as simple to interpret as counting the number of stars next to a p-value, they are not that complicated, either. Based on the default 95% confidence intervals, a coefficient is statistically significant if `conf.low` and `conf.high` are both positive or both negative. We can filter the results on this criterion:
+The `ale` package uses bootstrap-based confidence intervals, not p-values that assume predetermined distributions, to determine statistical significance. Although they are not quite as simple to interpret as counting the number of stars next to a p-value, they are not that complicated, either. Based on the default 95% confidence intervals, a coefficient is statistically significant if `conf.low` and `conf.high` are both positive or both negative. We can filter the results on this criterion:
 
 ```{r model_coefs stat sig variables}
 mb_gam_math@model_coefs |> 
@@ -271,20 +271,11 @@ plot(mb_gam_no_p) |>
   print(ncol = 2)
 ```
 
-In the absence of p-values, the {ale} packages uses alternate visualizations to offer meaningful results, but with somewhat different interpretations of the middle grey band. Without p-values, we do not have any point of reference for the ALER statistics, so we use percentiles around the median as the reference. The middle grey band here indicates the median ± 2.5%, that is, the middle 5% of all average mathematics achievement scores (`math_avg`) values in the dataset. We call this the "median band". The idea is that if any predictor can do no better than influencing `math_avg` to fall within this middle median band, then it only has a minimal effect. For an effect to be considered statistically significant, there should be no overlap between the confidence regions of a predictor variable and the median band. (We use 5% around the median by default, but the value can be changed with the `median_band_pct` argument.) For further reference, the outer dashed lines indicate the interquartile range of the outcome values, that is, the 25th and 75th percentiles.
+In the absence of p-values, the `ale` packages uses simpler visualizations to offer meaningful results. There is no ALER band; there are simply reference lines that indicate the interquartile range of the outcome values, that is, the 25th and 75th percentiles, with the median in between. While these references do not give us a precise measure of the strength of effects, they do give a general, intuitive indication.
 
-We can see that in this case, the 5% median band is much narrower than the 5% ALER band when p-values are calculated, though they might be more similar for a different dataset. This should give us pause to skipping the calculation of p-values, since we might be overly lax in interpreting apparent relationships as meaningful whereas the ALER band indicates that they might not be that different from what random variables might produce.
-
-For most of the rest of this article, we will only analyze the results with ALER bands generated from p-values, though we will briefly revisit median bands without p-values.
+For most of the rest of this article, we will only analyze the results with ALER bands generated from p-values, though we will briefly revisit ALE plots without p-values.
 
 ### ALE effect size measures on the scale of the y outcome variable
-
-
-<!-- ```{r mb_gam_math_stas} -->
-<!-- # Create object for convenient access to the relevant stats -->
-<!-- mb_gam_math_stats <- mb_gam_math@ale$boot$distinct$math_avg$stats$d1 -->
-<!-- ``` -->
-
 
 Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated by calling the `plot()` method on an `ALE` object that has statistics calculated:
 
@@ -408,9 +399,7 @@ $$
 
 NALED produces a score that ranges from 0 to 100%. It is essentially the ALED expressed in percentiles, that is, the average effect of a variable over its full domain of values. So, the NALED of public school status of `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` indicates that its average effect on math scores spans the middle `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` percent of scores. Academic ratio has an average effect expressed in NALED of `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naled'] |> round(1)`% of scores.
 
-### The median band and random variables
-
-When we do not have p-values, the NALED is particularly helpful in comparing the practical relevance of variables against our threshold for the median band by which we consider that a variable needs to shift the outcome on average by more than 5% of the median values. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` just barely crosses our threshold.
+### The ALER band and random variables
 
 It is particularly striking to note the ALE effect size measures for the random `rand_norm`:
 
@@ -423,11 +412,7 @@ get(mb_gam_plots, 'rand_norm')
 get(mb_gam_math, 'rand_norm', stats = 'all')
 ```
 
-`rand_norm` has a NALED of `r get(mb_gam_math, 'rand_norm', stats = 'all')$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of, but statistically, it must have some numeric value or the other. However, by setting our default value for the median band at 5%, we effectively exclude `rand_norm` from serious consideration. In informal tests with several different random seeds, the random variables never exceeded this 5% threshold. Setting the median band too low at a value like 1% would not have excluded the random variable, but 5% seems like a nice balance. Thus, the effect of a variable like the discrimination climate score (discrim, `r get(mb_gam_math, 'discrim', stats = 'all')$estimate['naled'] |> round(1)`) should probably not be considered practically meaningful.
-
-We realize that 5% as a threshold for the median band is rather arbitrary, inspired by traditional $\alpha$ = 0.05 for statistical significance and confidence intervals. A proper analysis should use p-values, as most of this article does. However, our initial analyses here show that 5% seems to be an effective choice for excluding a purely random variable from consideration, even for quick initial analyses.
-
-We return to using p-values for the rest of this article.
+`rand_norm` has a NALED of `r get(mb_gam_math, 'rand_norm', stats = 'all')$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of but statistically, it must have some numeric value or the other. In informal tests with several different random seeds, the random variables on this dataset did not exceed a threshold of 5%. So, if we do not have p-values, the NALED is particularly helpful in comparing the practical relevance of variables. As a rule of thumb, we suggest that a variable needs to shift the outcome on average by at least 5% of the median values to be considered meaningful. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` just barely crosses our threshold.
 
 ### Interpretation of normalized ALE effect sizes
 
@@ -450,7 +435,7 @@ A common question for interpreting effect sizes is, "How strong does an effect n
 
 On the other hand, we do consider it very important to delineate the threshold between random effects and non-random effects. It is always important to distinguish between a weak but real effect from one that is just a statistical artifact due to random chance. For that, we can offer some general guidelines based on whether or not we have p-values.
 
-When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p_value ALER minimum of a random variable and greater than the 0.05 p_value maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `{ale}` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p_value threshold. 
+When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p_value ALER minimum of a random variable and greater than the 0.05 p_value maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `ale` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p_value threshold. 
 
 In the absence of p-values, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, the average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sensitive to exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
 
@@ -478,7 +463,7 @@ Here is the meaning of each column of `ale$data` for a categorical variable:
 -   `ale_y`: the ALE function value calculated for that category. For bootstrapped ALE, this is the same as `ale_y_mean` by default or `ale_y_median` if the `boot_centre = 'median'` argument is specified.
 -   `ale_y_lo` and `ale_y_hi`: the lower and upper confidence intervals for the bootstrapped `ale_y` value.
 
-By default, the `{ale}` package centres ALE values on the median of the outcome variable; in our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE y values (weighted on `.n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE y approximately equals the median.
+By default, the `ale` package centres ALE values on the median of the outcome variable; in our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE y values (weighted on `.n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE y approximately equals the median.
 
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
@@ -490,7 +475,7 @@ The columns are the same as with a categorical variable, but instead of `.bin`, 
 
 ### Bootstrap-based inference with ALE
 
-In a bootstrapped ALE plot, values within the confidence intervals are statistically significant; values outside of the ALER band can be considered at least somewhat meaningful. Thus, **the essence of ALE-based statistical inference is that only effects that are simultaneously within the confidence intervals AND outside of the ALER band should be considered conceptually meaningful.**
+In a bootstrapped ALE plot, values within the confidence intervals are statistically significant; values outside of the ALER band can be considered at least somewhat meaningful. Thus, **the essence of ALE-based inference is that only when a variable has at least some effects whose confidence intervals are outside of the ALER band should it be considered conceptually meaningful.**
 
 We can see this, for example, with the plot of `mean_ses`:
 
@@ -504,7 +489,7 @@ It might not always be easy to tell from a plot which regions are relevant, so t
 get(mb_gam_math, 'mean_ses', stats = 'all')
 ```
 
-For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the middle irrelevance band, they overlap the band, or they are all above the band. Here are the summary components:
+For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the ALER band, they overlap the band, or they are all above the band. Here are the summary components:
 
 -   `start_x` is the first and `end_x` is the last x value in the sequence. `start_y` is the y value that corresponds to `start_x` while `end_y` corresponds to `end_x`.
 -   `n` is the number of data elements in the sequence; `pct` is the percentage of total data elements out of the total number.
@@ -515,7 +500,7 @@ For numeric variables, the confidence regions summary has one row for each conse
     -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the ALER band.
     -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the ALER band.
 
-These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the median band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the median band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the median band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the median band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the median band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the median band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the median band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.-
+These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the ALER band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the ALER band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the ALER band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the ALER band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the ALER band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the ALER band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the ALER band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.
 
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_1D_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
@@ -554,7 +539,7 @@ And here is its confidence regions summary table:
 get(mb_gam_math, 'rand_norm', stats = 'conf_regions')
 ```
 
-Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the median band from 12 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the ALER band from 12 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
 
 We can conveniently summarize all the confidence regions from all variables that are statistically significant or meaningful by accessing the `conf_regions$significant` element:
 

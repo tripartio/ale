@@ -293,9 +293,9 @@ var_summary <- function(
     var_name,
     var_vals,
     ...,
-    median_band_pct = c(0.05, 0.5),
+    # median_band_pct = c(0.05, 0.5),
     p_dist = NULL,
-    p_alpha = c(0.01, 0.05)
+    p_aler = c(0.01, 0.05)
 ) {
   if (!is.null(p_dist)) {
     rand_stats <- p_dist@rand_stats
@@ -314,21 +314,21 @@ var_summary <- function(
         .col,
         probs = c(
           0.01, 0.025, 0.05, 0.1, 0.2, 0.25, 0.3, 0.4,
-          # Insert the median_band_pct requested percentiles. If duplicated or unnecessary, they will be removed later. If duplicated, the first occurrence will be retrieved (which is identical to any duplicates, so it doesn't matter.)
-          0.5 - (median_band_pct[2] / 2),
-          0.5 - (median_band_pct[1] / 2),
           0.5,
-          0.5 + (median_band_pct[1] / 2),
-          0.5 + (median_band_pct[2] / 2),
-          # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
           0.6, 0.7, 0.75, 0.8, 0.9, 0.95, 0.975, 0.99
+          # # Insert the median_band_pct requested percentiles. If duplicated or unnecessary, they will be removed later. If duplicated, the first occurrence will be retrieved (which is identical to any duplicates, so it doesn't matter.)
+          # 0.5 - (median_band_pct[2] / 2),
+          # 0.5 - (median_band_pct[1] / 2),
+          # 0.5 + (median_band_pct[1] / 2),
+          # 0.5 + (median_band_pct[2] / 2),
+          # # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
         )
       )
     })
 
   # Calculate the p-values necessary to obtain the desired joint probabilities.
-  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
-  joint_p <- 1 - sqrt(1 - p_alpha)
+  # For example, if the p_aler is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
+  joint_p <- 1 - sqrt(1 - p_aler)
 
   # s <- s |>
   #   apply(MARGIN = 2, \(.col) {
@@ -339,22 +339,23 @@ var_summary <- function(
     .col <- c(
       # Retain first half of values
       .col[1:match('40%', names(.col))],
-      # .col[1:match('25%', names(.col))],
 
       # Create lower confidence bounds just below the midpoint
-      med_lo_2 = if (!is.null(p_dist)) {
+      aler_lo_lo = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[1])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
+        NULL
+        # .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
       },
-      med_lo = if (!is.null(p_dist)) {
+      aler_lo = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[2])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
+        NULL
+        # .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
       },
 
       .col[match('50%', names(.col))],
@@ -362,24 +363,25 @@ var_summary <- function(
       mean = mean(var_vals, na.rm = TRUE),
 
       # Create upper confidence bounds just above the midpoint
-      med_hi = if (!is.null(p_dist)) {
+      aler_hi = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[2])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
+        NULL
+        # .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
       },
-      med_hi_2 = if (!is.null(p_dist)) {
+      aler_hi_hi = if (!is.null(p_dist)) {
         (.col[['50%']] +
            p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[1])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
+        NULL
+        # .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
       },
 
       # Retain latter half of values
       .col[match('60%', names(.col)):length(.col)]
-      # .col[match('75%', names(.col)):length(.col)]
     )
 
     # Determine the limits and average of y.
@@ -404,13 +406,20 @@ var_summary <- function(
     var_s <- apply(s, 1, median)
 
     var_s['min']      <- min(s['min', ])
-    var_s['med_lo_2'] <- min(s['med_lo_2', ])
-    var_s['med_lo']   <- min(s['med_lo', ])
+    # var_s['aler_lo_lo'] <- min(s['aler_lo_lo', ])
+    # var_s['aler_lo']   <- min(s['aler_lo', ])
     var_s['mean']     <- mean(s['mean', ])
     var_s['50%']      <- median(s['50%', ])
-    var_s['med_hi']   <- max(s['med_hi', ])
-    var_s['med_hi_2'] <- max(s['med_hi_2', ])
+    # var_s['aler_hi']   <- max(s['aler_hi', ])
+    # var_s['aler_hi_hi'] <- max(s['aler_hi_hi', ])
     var_s['max']      <- max(s['max', ])
+
+    if (!is.null(p_dist)) {
+      var_s['aler_lo_lo'] <- min(s['aler_lo_lo', ])
+      var_s['aler_lo']   <- min(s['aler_lo', ])
+      var_s['aler_hi']   <- max(s['aler_hi', ])
+      var_s['aler_hi_hi'] <- max(s['aler_hi_hi', ])
+    }
 
     s <- cbind(
       var_s,
@@ -422,21 +431,21 @@ var_summary <- function(
   colnames(s)[1] <- var_name
 
 
-  # Encode whether the med values represent p-values or not:
-  # names(s[1]) == 'p': base p_value
-  # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
-  s <- if (is.null(p_dist)) {
-    rbind(
-      q = rep(median_band_pct[1], ncol(s)),
-      s
-    )
-  }
-  else {
-    rbind(
-      p = rep(p_alpha[2], ncol(s)),
-      s
-    )
-  }
+  # # Encode whether the med values represent p-values or not:
+  # # names(s[1]) == 'p': base p_value
+  # # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
+  # s <- if (is.null(p_dist)) {
+  #   rbind(
+  #     q = rep(median_band_pct[1], ncol(s)),
+  #     s
+  #   )
+  # }
+  # else {
+  #   rbind(
+  #     p = rep(p_aler[2], ncol(s)),
+  #     s
+  #   )
+  # }
 
   return(s)
 }  # var_summary()
@@ -506,8 +515,8 @@ pivot_stats <- function(long_stats) {
 # Summarize overlapping confidence regions
 summarize_conf_regions_1D <- function(
     ale_data_list,  # list of ale_data elements
-    y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'p_values' or 'median_band_pct'
+    y_summary  # result of var_summary(y_vals)
+    # sig_criterion  # string either 'p_values' or 'median_band_pct'
 ) {
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
@@ -527,8 +536,8 @@ summarize_conf_regions_1D <- function(
         mutate(
           # where is the current point relative to the median band?
           mid_bar = case_when(
-            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
-            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+            .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -621,8 +630,8 @@ summarize_conf_regions_1D <- function(
   return(
     list(
       by_term = cr_by_term,
-      significant = sig_conf_regions,
-      sig_criterion = sig_criterion
+      significant = sig_conf_regions
+      # sig_criterion = sig_criterion
     )
   )
 }  # summarize_conf_regions_1D()
@@ -631,8 +640,8 @@ summarize_conf_regions_1D <- function(
 # Summarize overlapping confidence regions for 2D ALE
 summarize_conf_regions_2D <- function(
     ale_data_list,  # list of ale_data elements
-    y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'p_values' or 'median_band_pct'
+    y_summary  # result of var_summary(y_vals)
+    # sig_criterion  # string either 'p_values' or 'median_band_pct'
 ) {
   # Create terciles of a numeric vector
   terciles <- function(x) {
@@ -679,8 +688,8 @@ summarize_conf_regions_2D <- function(
         mutate(
           # where is the current point relative to the median band?
           mid_bar = case_when(
-            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
-            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+            .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -786,8 +795,8 @@ summarize_conf_regions_2D <- function(
   return(
     list(
       by_term = cr_by_term,
-      significant = sig_conf_regions,
-      sig_criterion = sig_criterion
+      significant = sig_conf_regions
+      # sig_criterion = sig_criterion
     )
   )
 }  # summarize_conf_regions_1D()
@@ -797,7 +806,7 @@ summarize_conf_regions_2D <- function(
 # contents in words.
 summarize_conf_regions_1D_in_words <- function(
     conf_region_summary,
-    band_type = 'median'
+    band_type = 'ALER'
 ) {
   map_chr(1:nrow(conf_region_summary), \(.row_num) {
     with(

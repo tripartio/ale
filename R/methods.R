@@ -707,7 +707,6 @@ method(get, ALEPlots) <- function(
   if (type == 'ale') {
     subset_plots <- prop(obj, comp) |>
       imap(\(it.cat, it.cat_name) {
-        # browser()
         it.cat.d1 <- x_cols[['d1']] |>
           map(\(it.d1) {
             it.cat$plots$d1[[it.d1]]

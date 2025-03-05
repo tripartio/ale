@@ -13,8 +13,9 @@
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
-#' @param p_alpha numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
+#' @param p_aler numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing ALER bands around the median for single-variable plots if the `ALE` object has p-values. The inner band range will be the median value of y ± `p_aler[2]` of the p-value of the ALE range (ALER). For plots with a second outer band, its range will be the median ± `p_aler[1]`. For example, in the ALE plots, for the default `p_aler = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
+#' @param y_1d_refs character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, `y_1d_refs` values are names from `obj@params$y_summary` (usually quantile names). If a numeric vector, `y_1d_refs` values must be values within the range of y, that is, between `obj@params$y_summary$min` and `obj@params$y_summary$max` inclusive.
+#' @param y_nonsig_band numeric(1) from 0 to 1. If there are no p-values, some plots (notably 2D ALE and 1D effects) will shade grey the inner `y_nonsig_band` quantile below and above the `relative_y` average (the median, by default) to indicate nonsignificant effects. See details.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
 #' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for 2D interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
 #' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
@@ -37,8 +38,8 @@
 #'
 #'
 #' @section 2D interaction plots:
-#' #' For the 2D interaction plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
-#' * The middle quantile is the first confidence interval of `median_band_pct` (`median_band_pct[1]`) around the median.
+#' For the 2D interaction plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
+#' * The middle quantile is either the inner ALER band (not yet implemented) or the boundaries of `y_nonsig_band` around the median.
 #' This middle quantile is special because it generally represents no meaningful interaction.
 #' * The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
 #'
@@ -59,8 +60,10 @@ ALEPlots <- new_class(
     obj,
     ...,
     relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
+    p_aler = c(0.01, 0.05),
+    y_1d_refs = c('25%', '75%'),
+    y_nonsig_band = 0.05,
+    # median_band_pct = c(0.05, 0.5),
     rug_sample_size = obj@params$sample_size,
     min_rug_per_interval = 1,
     n_x1_bins = NULL,
@@ -125,11 +128,16 @@ ALEPlots <- new_class(
                 # y_col     = obj@params$y_col,
                 y_type      = obj@params$y_type,
                 y_summary   = obj@params$y_summary[, it.cat_name],
-                p_exactness = obj@params$p_values@params$exactness,
+                p_exactness = if (is.null(obj@params$p_values)) {
+                  NULL
+                } else {
+                  obj@params$p_values@params$exactness
+                },
                 x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
                 relative_y  = relative_y,
-                p_alpha     = p_alpha,
-                median_band_pct = median_band_pct,
+                p_aler      = p_aler,
+                y_1d_refs   = y_1d_refs,
+                # median_band_pct = median_band_pct,
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
                 seed        = seed
@@ -149,15 +157,16 @@ ALEPlots <- new_class(
               estimates = it.cat_data$stats$d1$estimate,
               y_summary = obj@params$y_summary[, it.cat_name],
               y_col = it.cat_name,
-              middle_band = if (is.null(obj@params$p_values)) {
-                obj@params$median_band_pct
+              y_nonsig_band = if (is.null(obj@params$p_values)) {
+                y_nonsig_band
+                # obj@params$median_band_pct
               } else {
                 # Use p_value of NALED:
-                # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
+                # like y_nonsig_band, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
                 # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
                 obj@params$p_values@rand_stats[[it.cat_name]] |>
-                  # obj@params$p_values$rand_stats[[it.cat_name]] |>
-                  p_to_random_value('naled', obj@params$median_band_pct) |>
+                  p_to_random_value('naled', y_nonsig_band) |>
+                  # p_to_random_value('naled', obj@params$median_band_pct) |>
                   unname() |>
                   (`/`)(100)  # scale NALED from percentage to 0 to 1
               }
@@ -166,14 +175,11 @@ ALEPlots <- new_class(
       }
     }
 
-    # browser()
-
     if (obj@params$max_d >= 2) {
       plots_2D <-
         imap(obj@distinct, \(it.cat_data, it.cat_name) {
           imap(it.cat_data$ale$d2, \(it.x1_ales, it.x1_col_name) {
             imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
-              # browser()
               plot_ale_2D(
                 ale_data  = it.x1_x2_ale,
                 x1_col    = it.x1_col_name,
@@ -197,8 +203,9 @@ ALEPlots <- new_class(
                   , c(it.x1_col_name, it.x2_col_name, obj@params$y_col)
                 ],
                 relative_y = relative_y,
-                p_alpha = p_alpha,
-                median_band_pct = median_band_pct,
+                p_aler = p_aler,
+                y_nonsig_band = y_nonsig_band,
+                # median_band_pct = median_band_pct,
                 rug_sample_size = rug_sample_size,
                 min_rug_per_interval = min_rug_per_interval,
                 seed = seed

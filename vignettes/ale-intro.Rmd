@@ -194,6 +194,6 @@ Because we are printing all plots together, some of them might appear vertically
 get(diamonds_2D_plots, ~ carat:clarity)
 ```
 
-This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band (the median band), which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
+This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all falling in the middle grey band, which indicates that any interactions would not shift the price outside the middle 5% of its values. In other words, there is no meaningful interaction effect.
 
 Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course `x_length` and `y_width` both have effects on the price, as the one-way ALE plots show, but they have no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](https://tripartio.github.io/ale/articles/ale-ALEPlot.html), which explains the interaction plots in more detail.

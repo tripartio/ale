@@ -22,14 +22,13 @@ ALE(
  },
   pred_type = "response",
   p_values = "auto",
-  p_alpha = c(0.01, 0.05),
+  p_aler = c(0.01, 0.05),
   max_num_bins = 10,
   boot_it = 0,
   boot_alpha = 0.05,
   boot_centre = "mean",
   seed = 0,
   y_type = NULL,
-  median_band_pct = c(0.05, 0.5),
   sample_size = 500,
   .bins = NULL,
   silent = FALSE
@@ -65,7 +64,7 @@ ALE(
 \item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
 
-\item{p_alpha}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{p_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{p_alpha[1]}. For example, in the ALE plots, for the default \code{p_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
+\item{p_aler}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{p_aler[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{p_aler[1]}. For example, in the ALE plots, for the default \code{p_aler = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
 \item{max_num_bins}{positive integer(1). Maximum number of bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}.}
 
@@ -78,8 +77,6 @@ ALE(
 \item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with \code{parallel = 0}.}
 
 \item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.}
-
-\item{median_band_pct}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if \code{p_values} are not provided. If \code{p_values} are provided, then \code{median_band_pct} is ignored. The inner band range will be the median value of y ± \code{median_band_pct[1]/2}. For plots with a second outer band, its range will be the median ± \code{median_band_pct[2]/2}. For example, for the default \code{median_band_pct = c(0.05, 0.5)}, the inner band will be the median ± 2.5\% and the outer band will be the median ± 25\%.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.}
 
@@ -103,16 +100,11 @@ An \code{ALE} S7 object contains ALE data and statistics. For details, see \code
 * `requested_x_cols`,`ordered_x_cols`: `requested_x_cols` is the resolved list of `x_cols` as requested by the user (that is, `x_cols` minus `exclude_cols`). `ordered_x_cols` is the same set of `x_cols` but arranged in the internal storage order.
 * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_col`.
 * `y_type`: high-level datatype of the y outcome variable.
-* `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predicted values of `y_col` by applying `model` to the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5\%' element is the 5th percentile of y values. The following elements have special meanings:
-* The first element is named either `p` or `q` and its value is always 0.
-  The value is not used; only the name of the element is meaningful.
-  `p` means that the following special `y_summary` elements are based on
-  the provided `ALEpDist` object. `q` means that quantiles were calculated
-  based on `median_band_pct` because `p_values` was not provided.
+* `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5\%' element is the 5th percentile of y values. The following elements have special meanings:
 * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively. Note that the median is `50\%`, the 50th percentile.
-* `med_lo_2`, `med_lo`, `med_hi`, `med_hi_2`: `med_lo` and `med_hi` are the inner lower and upper confidence intervals of y values with respect to the median (`50\%`); `med_lo_2` and `med_hi_2` are the outer confidence intervals. See the documentation for the `p_alpha` and `median_band_pct` arguments to understand how these are determined.
-* `model`: same as `ALE@params$model` (see documentation there).
-* `data`: same as `ALE@params$model` (see documentation there).
+* `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50\%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `p_aler` argument to understand how these are determined. Without p-values, these elements are absent.
+* `model`: selected elements that describe the `model` that the `ALE` object interprets.
+* `data`: selected elements that describe the `data` used to produce the `ALE` object.
 }\if{html}{\out{</div>}}
 
 }

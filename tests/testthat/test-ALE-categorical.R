@@ -46,14 +46,13 @@ test_that(
       pred_type = "probs",
       # test p-values with ALEpDist
       p_values = NULL,
-      # p_alpha = c(0.01, 0.05),
+      # p_aler = c(0.01, 0.05),
       max_num_bins = 12,
       boot_it = 0,  # edge case
       seed = 100,
       boot_alpha = 0.1,
       boot_centre = 'median',
       y_type = 'categorical',
-      median_band_pct = c(0.02, 0.25),
       sample_size = 15,
       # .bins = NULL,  # too complicated to test
       silent = TRUE  # always TRUE in tests

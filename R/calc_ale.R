@@ -320,14 +320,8 @@ calc_ale <- function(
       # Strip the '.bin' or '.ceil' from column names
       rename_with(
         ~ stringr::str_replace(.x, '(.*)(\\.bin)|(\\.ceil)$', '\\1'),
-        # ~ stringr::str_replace(.x, '.*(\\.bin)|(\\.ceil)$', ''),
         ends_with(c('.bin', '.ceil'))
       )
-
-    # names(btit.local_eff_tbl) <- names(btit.local_eff_tbl) |>
-    #   stringr::str_replace('.*(\\.bin)|(\\.ceil)$', '')
-    # # stringr::str_replace('.*\\.[bin|ceil]$', 'dodo')
-
 
     # Convert the mean prediction differences to a multidimensional array
 
@@ -349,10 +343,6 @@ calc_ale <- function(
             (if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins) |>
               as.character()
           })
-        # xd |>
-        #   list_transpose(simplify = FALSE) |>
-        #   pluck('bin') |>
-        #   unname()
       )
     )
     # Initialize the cumulative predictions arrays similarly
@@ -889,13 +879,9 @@ calc_ale <- function(
           bind_rows()
       })
 
-    # closeAllConnections()
-    # browser()
-
     # Summarize stats across all bootstrap iterations
     boot_stats_summary <- boot_stats_detailed |>
       map(\(it.cat_boot_stats) {
-        # browser()
         it.cbs <- as.matrix(it.cat_boot_stats)
 
         # if (boot_it > 0) {

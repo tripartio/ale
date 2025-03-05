@@ -46,14 +46,13 @@ test_that(
       pred_type = "link",
       # test p-values with ALEpDist
       p_values = NULL,
-      # p_alpha = c(0.01, 0.05),
+      # p_aler = c(0.01, 0.05),
       max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
       boot_centre = 'median',
       y_type = 'binary',
-      median_band_pct = c(0.01, 0.2),
       sample_size = 25,
       # .bins = NULL,  # too complicated to test
       silent = TRUE  # always TRUE in tests

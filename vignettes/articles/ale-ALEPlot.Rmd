@@ -172,8 +172,8 @@ plot(nn_ale)
 The `{ale}` package plots have various features that enhance interpretability:
 
 -   The outcome y is displayed on its full original scale.
--   A median band that shows the middle 5 percentile of the y values is displayed. The idea is that any ALE values outside this band are at least somewhat significant.
--   Similarly, there are 25% and 75% percentile markers to show the middle 50% of the y values. Any ALE y value beyond these bands indicates that the x variable is so strong that it alone at the values indicated can shift the y value by that much.
+-   By default, plots are centred on the median, which is more intuitive than zero-centring because it is easier to see the effects of a variable relative to typical values.
+-   The 25% and 75% percentile markers show the middle 50% of the y values. Any ALE y value beyond these bands indicates that the x variable is so strong that it alone at the values indicated can shift the y value by that much.
 -   Rug plots indicate the distribution of the data so that outliers are not over-interpreted.
 
 It might not be clear that the previous plots display exactly the same data as those shown above from `ALEPlot`. To make the comparison clearer, we can plot the ALEs on a zero-centred scale:
@@ -204,7 +204,7 @@ plot(nn_ale_2D) |>
 
 These interaction plots are heat maps that indicate the interaction regions that are above or below the average value of y with colours. Grey indicates no meaningful interaction; blue indicates a positive interaction effect; red indicates a negative effect. We find these easier to interpret than the contour maps from `ALEPlot`, especially since the colours in each plot are on the same scale and so the plots are directly comparable with each other.
 
-The range of outcome (y) values is divided into quantiles, deciles by default. However, the middle quantiles are modified. Rather than showing the middle 10% or 20% of values, it is much narrow: it shows the middle 5%. (This value is based on the notion of alpha of 0.05 for confidence intervals; it can be customized with the `median_band_pct` argument.)
+The range of outcome (y) values is divided into quantiles (deciles by default). However, the middle quantiles are modified. Rather than showing the middle 10% or 20% of values, it is much narrow: it shows the middle 5%. (This value is based on the notion of alpha of 0.05 for confidence intervals; it can be customized with the `y_nonsig_band` argument.)
 
 The legend shows the midpoint y value of each quantile, which is usually the mean of the boundaries of the quantile. The exception is the special middle quantile, whose displayed midpoint value is the median of the entire dataset.
 

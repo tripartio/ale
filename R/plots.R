@@ -19,8 +19,8 @@
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
 #' @param relative_y See documentation for [ALEPlots()]
-#' @param p_alpha See documentation for [ALE()]
-#' @param median_band_pct See documentation for [ALEPlots()]
+#' @param p_aler See documentation for [ALE()]
+#' @param y_1d_refs See documentation for [ALEPlots()]
 #' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
 #' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
 #' @param seed See documentation for [ALE()]
@@ -37,8 +37,9 @@ plot_ale_1D <- function(
     ...,
     # ggplot_custom,
     relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
+    p_aler = c(0.01, 0.05),
+    y_1d_refs = c('25%', '75%'),
+    # median_band_pct = c(0.05, 0.5),
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
@@ -50,6 +51,7 @@ plot_ale_1D <- function(
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
+  use_aler_band <- !is.null(p_exactness)
 
   # # For now ensure that plots are not categorical
   # if (ncol(y_summary) > 1) {
@@ -119,32 +121,17 @@ plot_ale_1D <- function(
     ale_data |>
     ggplot(aes(
       x = .data$.x,
-      # x = if (!is.null(ale_data$.ceil)) {   # numeric x
-      #   .data$.ceil
-      # } else {  # ordinal x
-      #   .data$.bin
-      # },
       y = .data$.y
     )) +
     theme_bw() +
     # Zoom y-axis to the range of actual Y and ALE Y values.
-    # In particular, ignore extreme .y_lo or .y_hi values, or else they
-    # could distort the scale.
-    # With this setting most plots will be on the same y_min to y_max scale;
-    # only a few with extreme .y values would zoom out to show these.
+    # In particular, ignore extreme .y_lo or .y_hi values, or else they could distort the scale.
+    # With this setting most plots will be on the same y_min to y_max scale; only a few with extreme .y values would zoom out to show these.
     coord_cartesian(
       ylim = c(
         min(y_summary[['min']], ale_data$.y),
         max(y_summary[['max']], ale_data$.y)
       )
-    ) +
-    # Add a band to show the average ± the confidence limits
-    geom_rect(
-      xmin = -Inf,
-      xmax = Inf,
-      ymin = y_summary[['med_lo']],
-      ymax = y_summary[['med_hi']],
-      fill = 'lightgray'
     ) +
     theme(axis.text.y.right = element_text(size = 8)) +
     labs(
@@ -153,37 +140,86 @@ plot_ale_1D <- function(
       alt = str_glue('ALE plot of {y_col} against {x_col}')
     )
 
-  # Add a secondary axis to label the percentiles
-  # Construct secondary (right) axis label from bottom to top.
-  sec_labels <- if (names(y_summary[1]) == 'p') {
-    # p-values were provided for y_summary; ALER is used
-    c(
-      # To prevent overlapping text, summarize all details only in the
-      # centre label; leave the others empty
-      '',  #empty
-      str_glue(
-        '{p_exactness}\n',
-        'p(ALER)\n',
-        # Unicode ± must be replaced by \u00B1 for CRAN
-        '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
-        '\u00B1{format(p_alpha[1], nsmall = 3)}'),
-      ''  #empty
+  # Add ALER band to show the average ± the confidence limits
+  if (use_aler_band) {
+    plot <- plot +
+      geom_rect(
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = y_summary[['aler_lo']],
+        ymax = y_summary[['aler_hi']],
+        fill = 'lightgray'
+      )
+
+    # Add a secondary axis to label the percentiles
+    # Construct secondary (right) axis label from bottom to top.
+    sec_labels <- c(
+        # To prevent overlapping text, summarize all details only in the
+        # centre label; leave the others empty
+        '',  # empty
+        str_glue(
+          '{p_exactness}\n',
+          'p(ALER)\n',
+          # Unicode ± must be replaced by \u00B1 for CRAN
+          '\u00B1{format(p_aler[2], nsmall = 3)},\n',
+          '\u00B1{format(p_aler[1], nsmall = 3)}'),
+        ''  # empty
+      )
+
+    sec_breaks <- c(
+      y_summary[['aler_lo_lo']],
+      if (relative_y == 'median') y_summary[['50%']] else y_summary[['mean']],
+      y_summary[['aler_hi_hi']]
     )
-  }
-  else {
-    # without p-values, quantiles are used
-    c(
-      str_glue('{50-(median_band_pct[2]*100/2)}%'),
-      relative_y,
-      str_glue('{50+(median_band_pct[2]*100/2)}%')
+  } else {
+    # Add a secondary axis to label the percentiles
+    # Construct secondary (right) axis label from bottom to top.
+    sec_labels <- c(
+        y_1d_refs[1],
+        relative_y,
+        y_1d_refs[2]
+      )
+
+    sec_breaks <- c(
+      y_summary[[y_1d_refs[1]]],
+      if (relative_y == 'median') y_summary[['50%']] else y_summary[['mean']],
+      y_summary[[y_1d_refs[2]]]
     )
   }
 
-  sec_breaks <- c(
-    y_summary[['med_lo_2']],
-    if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
-    y_summary[['med_hi_2']]
-  )
+  # # Add a secondary axis to label the percentiles
+  # # Construct secondary (right) axis label from bottom to top.
+  # sec_labels <- if (use_aler_band) {
+  #   # sec_labels <- if (names(y_summary[1]) == 'p') {
+  #   c(
+  #     # To prevent overlapping text, summarize all details only in the
+  #     # centre label; leave the others empty
+  #     '',  #empty
+  #     str_glue(
+  #       '{p_exactness}\n',
+  #       'p(ALER)\n',
+  #       # Unicode ± must be replaced by \u00B1 for CRAN
+  #       '\u00B1{format(p_aler[2], nsmall = 3)},\n',
+  #       '\u00B1{format(p_aler[1], nsmall = 3)}'),
+  #     ''  #empty
+  #   )
+  # }
+  # else {
+  #   c(
+  #     y_1d_refs[1],
+  #     relative_y,
+  #     y_1d_refs[2]
+  #     # str_glue('{50-(median_band_pct[2]*100/2)}%'),
+  #     # relative_y,
+  #     # str_glue('{50+(median_band_pct[2]*100/2)}%')
+  #   )
+  # }
+  #
+  # sec_breaks <- c(
+  #   y_summary[['aler_lo_lo']],
+  #   if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
+  #   y_summary[['aler_hi_hi']]
+  # )
 
   plot <- plot +
     scale_y_continuous(
@@ -197,12 +233,14 @@ plot_ale_1D <- function(
 
   ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
 
-  # if (x_type == 'numeric') {
-  # if (!is.null(ale_data$.ceil)) {   # numeric x
   if (x_is_numeric) {
     plot <- plot +
-      geom_ribbon(aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
-                  fill = 'grey85', alpha = 0.5) +
+      # Bootstrap band (ribbon)
+      geom_ribbon(
+        aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
+        fill = 'grey85', alpha = 0.5
+      ) +
+      # x line
       geom_line()
   }
   else {  # x is not numeric
@@ -222,7 +260,6 @@ plot_ale_1D <- function(
       )
 
     # Rotate categorical labels if they are too long
-    # if ((ale_data$.bin |> paste(collapse = ' ') |> nchar()) > 50) {
     if ((ale_data[[1]] |> paste(collapse = ' ') |> nchar()) > 50) {
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -232,26 +269,25 @@ plot_ale_1D <- function(
   # Add guides to show the median and the outer median band.
   # Add them late so that they superimpose most other elements.
   plot <- plot +
-    geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
-    geom_hline(yintercept = y_summary[['50%']],      linetype = "solid") +
-    geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
+    geom_hline(
+      yintercept = if (use_aler_band) y_summary[['aler_lo_lo']] else y_summary[[y_1d_refs[1]]],
+      linetype = "dashed"
+    ) +
+    geom_hline(yintercept = y_summary[['50%']], linetype = "solid") +
+    geom_hline(
+      yintercept = if (use_aler_band) y_summary[['aler_hi_hi']] else y_summary[[y_1d_refs[2]]],
+      linetype = "dashed"
+    )
 
 
   ## Add rug plot if data is provided ------------
   # Add them late so that they superimpose most other elements.
   if (
     x_is_numeric &&
-    # !is.null(ale_data$.ceil) &&   # x is numeric
     !is.null(x_y) && rug_sample_size > 0
   ) {
-  # if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
     rug_data <- x_y
     names(rug_data) <- c('rug_x', 'rug_y')
-
-    # tibble(
-    #   rug_x = x_y[[x_col]],
-    #   rug_y = x_y[[y_col]] + y_shift,
-    # )
 
     # If the data is too big, down-sample or else rug plots are too slow
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
@@ -320,7 +356,7 @@ plot_ale_1D <- function(
 # `ale_data`.
 # @param ... not used. Enforces explicit naming of subsequent arguments.
 # @param relative_y See documentation for [ALE()]
-# @param median_band_pct See documentation for [ALE()]
+# @param y_nonsig_band See documentation for [ALE()]
 # @param n_x1_bins,n_x2_bins See documentation for [plot.ALE()]
 # @param n_y_quant See documentation for [plot.ALE()]
 # @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
@@ -337,8 +373,9 @@ plot_ale_2D <- function(
     ...,
     # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
+    p_aler = c(0.01, 0.05),
+    y_nonsig_band = 0.05,
+    # median_band_pct = c(0.05, 0.5),
     n_x1_bins = 20, n_x2_bins = 20, n_y_quant = 10,
     x1_x2_y = NULL,
     # data = NULL,
@@ -414,8 +451,10 @@ plot_ale_2D <- function(
     stats::quantile(
       probs = c(
         seq(0, 1, 1 / n_y_quant),
-        0.5 - (median_band_pct[1] / 2),
-        0.5 + (median_band_pct[1] / 2)
+        0.5 - (y_nonsig_band / 2),
+        0.5 + (y_nonsig_band / 2)
+        # 0.5 - (median_band_pct[1] / 2),
+        # 0.5 + (median_band_pct[1] / 2)
       ) |>
         sort()
     )
@@ -636,7 +675,7 @@ plot_effects <- function(
     y_summary,
     # y_vals,
     y_col,
-    middle_band
+    y_nonsig_band
 ) {
   # Essential functionality of labeling::extended or scales::breaks_extended()
   nice_breaks <- function(limits, n) {
@@ -657,26 +696,24 @@ plot_effects <- function(
   #   quantile(seq(0, 1, 0.1)) |>
   #   stats::setNames(seq(-50, 50, 10) |> paste0('%'))
   #
-  # # Determine key points for the middle_band: naled_band or median_band
-  # middle_band_quantiles <- quantile(
+  # # Determine key points for the y_nonsig_band: naled_band or median_band
+  # y_nonsig_band_quantiles <- quantile(
   #   y_vals, c(
   #     # effects plot only uses the inner median band
-  #     0.5 - (middle_band[1] / 2),
+  #     0.5 - (y_nonsig_band[1] / 2),
   #     0.5,
-  #     0.5 + (middle_band[1] / 2)
+  #     0.5 + (y_nonsig_band[1] / 2)
   #   )
   # )
-  # middle_band_lo <- middle_band_quantiles[1]
-  # median_y       <- middle_band_quantiles[2]
-  # middle_band_hi <- middle_band_quantiles[3]
+  # y_nonsig_band_lo <- y_nonsig_band_quantiles[1]
+  # median_y       <- y_nonsig_band_quantiles[2]
+  # y_nonsig_band_hi <- y_nonsig_band_quantiles[3]
 
   # # Set y_summary to only one category set of values
   # y_summary <- y_summary[, 1]
 
-  # ALED and NALED should be centred not on the median, but on the middle of the
-  # median band. This is visually more intuitive.
-  middle_band_mid <- (y_summary['med_lo'] + y_summary['med_hi']) / 2
-  # middle_band_mid <- (middle_band_lo + middle_band_hi) / 2
+  # ALED and NALED should be centred not on the median, but on the middle of the median band. This is visually more intuitive.
+  y_nonsig_band_mid <- (y_summary['aler_lo'] + y_summary['aler_hi']) / 2
 
   # Sort estimates by ALED and convert term to an ordered factor for proper sorting.
   # NALED sometimes gives unusual values because of the normalization.
@@ -710,8 +747,6 @@ plot_effects <- function(
       limits = c(
         min(y_summary['min'], estimates$aler_min),
         max(y_summary['max'], estimates$aler_max)
-        # min(min(y_vals, estimates$aler_min)),
-        # max(max(y_vals, estimates$aler_max))
       ),
       # Regular breaks plus the median
       breaks = \(it.limits) {
@@ -737,8 +772,8 @@ plot_effects <- function(
     ) +
     # Plot the median band: the average ± the confidence limits
     geom_rect(
-      xmin = y_summary['med_lo'],
-      xmax = y_summary['med_hi'],
+      xmin = y_summary['aler_lo'],
+      xmax = y_summary['aler_hi'],
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'
@@ -755,29 +790,29 @@ plot_effects <- function(
     # ALED/NALED as annotated text above and below white box
     geom_rect(
       aes(
-        xmin = middle_band_mid - (.data$aled / 2),
-        xmax = middle_band_mid + (.data$aled / 2),
+        xmin = y_nonsig_band_mid - (.data$aled / 2),
+        xmax = y_nonsig_band_mid + (.data$aled / 2),
         ymin = as.integer(as.factor(.data$term)) - 0.3,
         ymax = as.integer(as.factor(.data$term)) + 0.3,
       ),
       fill = 'white'
     ) +
     geom_text(
-      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = middle_band_mid),
+      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = y_nonsig_band_mid),
       size = 3, vjust = -1
     ) +
     # Use ( ) as the demarcators of the plot.
     # This visualization should not be confused with a box plot.
     geom_text(
-      aes(label = '(', x = middle_band_mid - (.data$aled / 2)),
+      aes(label = '(', x = y_nonsig_band_mid - (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = ')', x = middle_band_mid + (.data$aled / 2)),
+      aes(label = ')', x = y_nonsig_band_mid + (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = middle_band_mid),
+      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = y_nonsig_band_mid),
       size = 3, vjust = 2
     ) +
     # annotation to explain symbols
