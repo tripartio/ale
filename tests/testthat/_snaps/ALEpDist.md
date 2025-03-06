@@ -713,13 +713,15 @@
        ..  ..$ naler_min: num [1:10] 0 -1.56 0 -1.56 -1.56 ...
        ..  ..$ naler_max: num [1:10] 0 1.56 0 1.56 1.56 ...
        @ residual_distribution: 'univariateML' Named num [1:2] 1.52e-12 1.48e-03
-       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
+       .. - attr(*, "logLik")= num 309
+       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
+       .. - attr(*, "n")= int 64
        .. - attr(*, "model")= chr "Laplace"
        .. - attr(*, "density")= chr "extraDistr::dlaplace"
-       .. - attr(*, "logLik")= num 309
        .. - attr(*, "support")= num [1:2] -Inf Inf
-       .. - attr(*, "n")= int 64
-       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
+       .. - attr(*, "names")= chr [1:2] "mu" "sigma"
+       .. - attr(*, "default")= num [1:2] 0 1
+       .. - attr(*, "continuous")= logi TRUE
        @ residuals            : NULL
        @ params               :List of 10
        .. $ y_col                        : chr "mpg"
