@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Accumulated local effects (ALE) was developed by [Daniel Apley and Jingyu Zhu](https://www.doi.org/10.1111/rssb.12377) as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
+Accumulated local effects (ALE) was developed by Daniel Apley and Jingyu Zhu <doi:10.1111/rssb.12377> as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://doi.org/10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 We begin by loading the necessary libraries.
 
