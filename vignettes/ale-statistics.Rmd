@@ -178,7 +178,7 @@ By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be cont
 # mb_gam_math <- ModelBoot(
 #   gam_math,
 #   # Pass the ALEpDist object so that p-values will be generated
-#   ale_options = list(p_values = gam_math_p_dist),
+#   ale_p = gam_math_p_dist,
 #   # For the GAM model coefficients, show details of all variables, parametric or not
 #   tidy_options = list(parametric = TRUE),
 #   # tidy_options = list(parametric = NULL),

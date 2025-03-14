@@ -86,7 +86,7 @@
 #' For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an `ALEpDist` object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
 #'
 #'
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#' @references Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://arxiv.org/abs/2310.09877>.
 #'
 #'
 #'
@@ -110,7 +110,7 @@
 #'   gam_diamonds,
 #'   diamonds_sample,
 #'   # only 100 iterations for a quick demo; but usually should remain at 1000
-#'   rand_it = 100,
+#'   rand_it = 100
 #' )
 #'
 #' # Examine the structure of the returned object
@@ -391,7 +391,7 @@ ALEpDist <- new_class(
     if (!silent) {
       progress_iterator <- progressr::progressor(
         steps = rand_it,
-        message = 'Generating random variable distributions for p-values…'
+        message = 'Generating random variable distributions for p-values...'
       )
     }
 

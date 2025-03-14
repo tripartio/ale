@@ -376,8 +376,8 @@ method(get, ALE) <- function(
 #' @return Invisibly returns `x`.
 #'
 #' @examples
-#' lm_cars <- stats::lm(mpg ~ ., mtcars)
-#' mb <- ModelBoot(lm_cars, boot_it = 2, parallel = 0)
+#' lm_cars <- stats::lm(mpg ~ wt + gear, mtcars)
+#' mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL, parallel = 0)
 #' print(mb)
 #'
 #' @method print ModelBoot
@@ -666,11 +666,13 @@ method(get, ALEPlots) <- function(
     x_cols <- obj@params$requested_x_cols
   }
 
+  col_names <- obj@params$requested_x_cols |>
+    unlist(use.names = FALSE) |>
+    unique()
+
   x_cols <- resolve_x_cols(
     x_cols = x_cols,
-    col_names = obj@params$requested_x_cols |>
-      unlist(use.names = FALSE) |>
-      unique(),
+    col_names = col_names,
     y_col = obj@params$y_col,
     exclude_cols = exclude_cols,
     silent = silent
@@ -679,6 +681,7 @@ method(get, ALEPlots) <- function(
   if (!is.null(x_cols)) {
     x_cols <- validate_x_cols(
       x_cols,
+      col_names = col_names,
       y_col = obj@params$y_col
     )
   }

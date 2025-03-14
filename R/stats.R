@@ -135,12 +135,12 @@ calc_stats <- function(
 #'
 #' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
-#' Not exported.
+#' @noRd
 #'
 #'
 #' @param ale_data dataframe. ALE data
 #' @param x_cols character. Names of the x columns in `ale_data`.
-#' @param x_types character same length as `x_cols`. Variable types (output of [var_type()]) of corresponding `x_cols`.
+#' @param x_types character same length as `x_cols`. Variable types (output of var_type()) of corresponding `x_cols`.
 #' @param y_vals See documentation for [calc_stats()]
 #' @param ale_y_norm_fun See documentation for [calc_stats()]
 # @param zeroed_ale See documentation for [calc_stats()]

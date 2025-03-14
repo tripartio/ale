@@ -151,7 +151,7 @@ pd_diamonds <- ALEpDist(
   gam_diamonds,
   diamonds_sample,
   # only 100 iterations for a quick demo; but usually should remain at 1000
-  rand_it = 100,
+  rand_it = 100
 )
 
 # Examine the structure of the returned object
@@ -188,5 +188,5 @@ pd_diamonds <- ALEpDist(
 
 }
 \references{
-Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
+Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. \url{https://arxiv.org/abs/2310.09877}.
 }
