@@ -16,7 +16,13 @@
 #'
 #' @returns `TRUE` if all statements are `TRUE`. If any statement is `FALSE`, errors with `msg` as the error message.
 #'
-validate <- function(..., msg = NULL)
+validate <- function(
+    ...,
+    msg = NULL,
+    .envir = parent.frame(),
+    call = .envir,
+    .frame = .envir
+)
 {
   # extract assertions from ...
   asserts <- eval(substitute(alist(...)))
@@ -59,7 +65,13 @@ validate <- function(..., msg = NULL)
     return(TRUE)
   }
   else {
-    cli_abort(c('x' = attr(res, 'msg')))
+    cli_abort(
+      message = attr(res, 'msg'),
+      # message = c('x' = attr(res, 'msg')),
+      call = call,
+      .envir = .envir,
+      .frame = .frame
+    )
   }
 }
 
@@ -256,15 +268,24 @@ cast <- function(x, new_cls) {
 
 #' Concatenate two character vectors
 #'
-#' Each element of `cv2` is concatenated to each corresponding element of `cv1`.
+#' Each element of `cv2` is concatenated to each corresponding element of `cv1`. `cv1` and `cv2` must be of equal length. The vectors may be any object that can be coerced as characters but any coercion must result in objects of equal length.
 #'
 #' @noRd
 #'
-#' @param cv1,cv2 character vectors
+#' @param cv1,cv2 character vectors (or objects that can be coerced into characters) of equal length.
 #'
 #' @returns `cv2` concatenated to `cv1`.
 #'
 `%+%` <- function(cv1, cv2) {
+  # Validate with a fast "if" check rather than the heavier validate()
+  if (length(cv1) != length(cv2)) {
+    cli_abort(c(
+      'x' = 'When concatenating character vectors (cv) with "cv1 %+% cv2", both vectors must be of equal length.',
+      'i' = '{.arg cv1} is of length {length(cv1)}.',
+      'i' = '{.arg cv2} is of length {length(cv2)}.'
+    ))
+  }
+
   paste0(cv1, cv2)
 }
 
@@ -272,7 +293,7 @@ cast <- function(x, new_cls) {
 
 #' Intuitively round a numeric vector
 #'
-#' Round a numeric vector to an intuitive number of decimal places, ranging from 0 when `abs(max(x)) > 100` to 3 when `abs(max(x)) < 1`.
+#' Round a numeric vector to an intuitive number of decimal places, ranging from 0 when `abs(max(x)) > 100` to 3 (default, modifiable) when `abs(max(x)) < 1`.
 #'
 #' @noRd
 #'
@@ -282,7 +303,13 @@ cast <- function(x, new_cls) {
 #' @returns `x` rounded by an intuitive number of decimal places.
 #'
 round_dp <- function(x, default_dp = 3L) {
-  validate(is.numeric(x))
+  # Validate with a fast "if" check rather than the heavier validate()
+  if (!is.numeric(x)) {
+    cli_abort(c(
+      'x' = '{.arg x} is not numeric.',
+      'i' = '{.arg x} is of class {class(x)}.'
+    ))
+  }
 
   max_x <- max(abs(x))
   dp <- dplyr::case_when(
@@ -292,7 +319,7 @@ round_dp <- function(x, default_dp = 3L) {
     .default = default_dp
   )
 
-  round(x, dp)
+  round(x, digits = dp)
 }
 
 

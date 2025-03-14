@@ -72,16 +72,20 @@ ALEPlots <- new_class(
     seed = 0,
     silent = FALSE
   ) {
+
     ## Validate arguments -------------
     validate(
       obj |> S7_inherits(ALE) || obj |> S7_inherits(ModelBoot),
-      msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
+      msg = '{.arg obj} must be an {.cls ALE} or {.cls ModelBoot} object.'
     )
 
     validate(
       is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
       msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
     )
+
+
+    ## Prepare settings and objects --------------
 
     if (obj |> S7_inherits(ModelBoot)) {
       # Adapt ModelBoot object to behave like a regular ALE object
