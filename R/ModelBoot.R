@@ -158,7 +158,7 @@ ModelBoot <- new_class(
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = future::availableCores(logical = FALSE, omit = 1),
+    parallel = 'all',
     model_packages = NULL,
     y_col = NULL,
     positive = TRUE,
@@ -229,7 +229,9 @@ ModelBoot <- new_class(
       # stringr::str_replace_all('([^.])(boot_data)', '\\1it\\.\\2')
     }
 
-    model_packages <- validated_parallel_packages(parallel, model, model_packages)
+    vp <- validate_parallel(parallel, model, model_packages)
+    parallel <- vp$parallel
+    model_packages <- vp$model_packages
 
 
     # Determine if the information for calculating performance measures can be obtained.
@@ -1152,7 +1154,7 @@ ModelBoot <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> stringr::str_detect('^it\\.')
     ]
-    temp_objs <- c('model_call', 'n_rows', 'resolved_x_cols', 'y_preds')
+    temp_objs <- c('model_call', 'n_rows', 'resolved_x_cols', 'vp', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
 

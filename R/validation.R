@@ -120,8 +120,33 @@ validate_y_preds <- function(
 
 
 # Validate parallel processing inputs: parallel, model_packages.
-validated_parallel_packages <- function(parallel, model, model_packages) {
-  validate(is_scalar_whole(parallel))
+validate_parallel <- function(parallel, model, model_packages) {
+  validate(
+    is_string(parallel, c('all', 'all but one')) || is_scalar_whole(parallel),
+    msg = c(
+      'x' = "{.arg parallel} must either be a whole number or a value in {c('all', 'all but one')}.",
+      'i' = '{.arg parallel} set to {parallel}.'
+    )
+  )
+
+  parallel <- if (parallel == 'all') {
+    future::availableCores(logical = TRUE)
+  } else if (parallel == 'all but one') {
+    future::availableCores(logical = FALSE, omit = 1)
+  } else {
+    max_cores <- future::availableCores(logical = TRUE)
+    if (parallel > max_cores) {
+      cli_alert_info(c(
+        '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
+        'i' = '{.arg parallel} set to {max_cores}.',
+        'i' = 'To use all available parallel threads without this notification, leave the default parallel = "all".'
+      ))
+
+      max_cores
+    } else {
+      parallel
+    }
+  }
 
   # Validate or set model_packages for parallel processing.
   # If execution is not parallel, then skip all that follows; essentially, ignore the model_packages argument.
@@ -173,7 +198,10 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
     }
   }
 
-  return(model_packages)
+  return(list(
+    parallel = parallel,
+    model_packages = model_packages
+  ))
 }
 
 

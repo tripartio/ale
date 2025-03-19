@@ -17,9 +17,8 @@
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
 #' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set `parallel = 0` to disable parallel processing. See details.
+#' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the function. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
-# @param output character in c('ale_data', 'stats', 'conf', 'boot_data'). Vector of one or more types of results to return. 'ale_data' will return the source ALE data; 'stats' will return ALE statistics; 'boot_data' will return ALE data for each bootstrap iteration. Each option must be listed to return the specified component. By default, all are returned except for 'boot_data'.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
 #' @param output_conf logical(1). If `TRUE`, return ALE confidence regions but only if statistics are requested (`output_stats = TRUE`), bootstrapping is requested (`boot_it > 0`), and `p_values` are available; otherwise raises an error. The default `NULL` will generate confidence regions if these conditions are met.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
@@ -82,9 +81,9 @@
 #'
 #'
 #' @section Parallel processing:
-#' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer. If you will dedicate the entire computer to running this function (and you don't mind everything else becoming very slow while it runs), you may use all cores by setting `parallel = future::availableCores(logical = FALSE)`. To disable parallel processing, set `parallel = 0`.
+#' Parallel processing using the `{furrr}` framework is enabled by default. The number of parallel threads (workers or cores) is specified with the `parallel` argument. By default (`parallel = "all"`), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set `parallel = "all but one")`, which will only use faster physical cores and reserve one core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set `parallel = 0`.
 #'
-#'#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
+#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 #'
 #' @section Progress bars:
 #' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
@@ -178,7 +177,7 @@ ALE <- new_class(
     ...,
     exclude_cols = NULL,
     # complete_d = 1L,
-    parallel = future::availableCores(logical = FALSE, omit = 1),
+    parallel = 'all',
     model_packages = NULL,
     output_stats = TRUE,
     output_conf = NULL,
@@ -238,7 +237,9 @@ ALE <- new_class(
       pred_type = pred_type
     )
 
-    model_packages <- validated_parallel_packages(parallel, model, model_packages)
+    vp <- validate_parallel(parallel, model, model_packages)
+    parallel <- vp$parallel
+    model_packages <- vp$model_packages
 
     # Validate and resolve x_cols and exclude_cols
     col_names <- names(data)
@@ -434,8 +435,7 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> stringr::str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'y_vals', 'y_preds')
-    # temp_objs <- c('ale_1D_spec', 'ale_2D_spec', 'ale_2D_struc', 'ale_struc', 'ales', 'ales_1D', 'ales_2D', 'ale_y_norm_funs', 'all_x_cols', 'call_env', 'dup_x_cols_2', 'it.cat', 'it_objs', 'resolved_x_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'x_cols', 'x_col_spec', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments

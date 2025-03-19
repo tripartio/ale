@@ -17,7 +17,7 @@
 #' @param data See documentation for [ALE()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param surrogate logical(1). Create p-value distributionS based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details.
-#' @param parallel See documentation for [ALE()]
+#' @param parallel See documentation for [ALE()]. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.
 #' @param model_packages See documentation for [ALE()]
 #' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
@@ -79,11 +79,6 @@
 #' With fewer iterations (at least 100), p-values can only be considered **approximate ("approx")**. Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the `rand_it` argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 #'
 #' Because the procedure can be very slow, a faster version of the algorithm generates **"surrogate"** p-values by substituting the original `model` with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. By default, these surrogate p-values use only 100 iterations and if the dataset is large, the surrogate model samples 1000 rows. Thus, the surrogate p-values can be generated much faster than for slower model algorithms on larger datasets. Although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions (e.g., for publication) always require exact p-values with at least 1000 iterations on the original model**. Note that surrogate p-values are always marked as "surrogate"; even if they are generated based on over 1000 iterations, they can never be considered exact because they are not based on the original `model`.
-#'
-#' @section Parallel processing:
-#' Parallel processing using the `{furrr}` framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting `parallel = future::availableCores(logical = FALSE, omit = 1)`. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
-#'
-#' For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an `ALEpDist` object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
 #'
 #'
 #' @references Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://arxiv.org/abs/2310.09877>.
@@ -160,7 +155,7 @@ ALEpDist <- new_class(
     ...,
     surrogate = FALSE,
     y_col = NULL,
-    parallel = future::availableCores(logical = FALSE, omit = 1),
+    parallel = 'all',
     model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
@@ -239,7 +234,9 @@ ALEpDist <- new_class(
       msg = cli_alert_danger('All predictions are identical. p-values cannot be created.')
     )
 
-    model_packages <- validated_parallel_packages(parallel, model, model_packages)
+    vp <- validate_parallel(parallel, model, model_packages)
+    parallel <- vp$parallel
+    model_packages <- vp$model_packages
 
     model_call <- NULL  # Initialize
     if (is.null(random_model_call_string)) {
@@ -583,7 +580,7 @@ ALEpDist <- new_class(
     ]
     temp_objs <- c(
       'data', 'model', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'pred_type', 'silent', 'surrogate', 'y_preds'
+      'pred_type', 'silent', 'surrogate', 'vp', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
