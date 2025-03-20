@@ -494,7 +494,6 @@ ALE <- new_class(
           # Increment progress bar iterator only if not in an outer loop with bins
           # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
           if (!silent && is.null(.bins)) {
-            # if (!silent && is.null(bins)) {
             progress_iterator()
           }
 
