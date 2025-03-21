@@ -231,8 +231,17 @@ calc_ale <- function(
           it.dec_bin_idxs
         ] |>
           # Cast imputed column into appropriate datatype.
-          # Especially necessary to cast into logical when needed.
+          # Especially necessary to cast into logical or factor when needed.
           methods::as(class(X[[it.x_col]])[1])
+
+        # For unordered factors, precise recasting is needed
+        if (is.factor(X[[it.x_col]]) && !is.ordered(X[[it.x_col]])) {
+          btit.x_vars[[it.x_col]]$lo  <- factor(
+            btit.x_vars[[it.x_col]]$lo,
+            levels = levels(X[[it.x_col]]),
+            ordered = FALSE
+          )
+        }
 
         # For non-numeric x, btit.X_hi stays at its default base level; only btit.X_lo is decremented
         btit.x_vars[[it.x_col]]$hi <- btit.X[[it.x_col]]
@@ -248,6 +257,12 @@ calc_ale <- function(
       # Set border datasets
       btit.X_hi[[x_cols]] <- btit.x_vars[[x_cols]]$hi
       btit.X_lo[[x_cols]] <- btit.x_vars[[x_cols]]$lo
+
+      # print(x_cols)
+      # if (x_cols == 'chas') {
+      #   # closeAllConnections()
+      #   browser()
+      # }
 
       # Difference between low and high boundary predictions
       pred_fun(model, btit.X_hi, pred_type) - pred_fun(model, btit.X_lo, pred_type)
