@@ -373,6 +373,45 @@ ModelBoot <- new_class(
       )
     }
 
+
+    ## Verify glance and tidy methods ------------
+
+    # Define call_glance since it is possible to output_model_stats without broom::glance results
+    call_glance <- FALSE
+    if (output_model_stats) {
+      glance_methods <- methods(broom::glance) |>
+        stringr::str_remove("^glance\\.") |>  # Remove leading "glance."
+        stringr::str_remove("\\*$")           # Remove trailing "*" if present
+
+      call_glance <- any(class(model) %in% glance_methods)
+
+      if (!call_glance) {
+        cli_warn(c(
+          '!' = 'No {.fun boot::glance} methods found for the class {class(model)}.',
+          'i' = 'General model statistics cannot be provided.',
+          'i' = 'To disable this warning, set "output_model_stats = FALSE".'
+        ))
+      }
+    }
+
+    # If broom::tidy is unavailable, then disable output_model_coefs since there are no results
+    if (output_model_coefs) {
+      tidy_methods <- methods(broom::tidy) |>
+        stringr::str_remove("^tidy\\.") |>  # Remove leading "tidy."
+        stringr::str_remove("\\*$")           # Remove trailing "*" if present
+
+      output_model_coefs <- any(class(model) %in% tidy_methods)
+
+      if (!output_model_coefs) {
+        cli_warn(c(
+          '!' = 'No {.fun boot::tidy} methods found for the class {class(model)}.',
+          'i' = 'Model coefficient summaries cannot be provided.',
+          'i' = 'To disable this warning, set "output_model_coefs = FALSE".'
+        ))
+      }
+    }
+
+
     ## Capture params ------------------
     # Capture all parameters used to construct the bootstraps.
     # This includes the arguments in the original object constructor call (both user-specified and default) with any values changed by the constructor up to this point. It may be further modified by the end of the constructor.
@@ -518,17 +557,21 @@ ModelBoot <- new_class(
 
           if (output_model_stats) {
             # Call broom::glance; if an iteration fails for any reason, set it as missing
-            tryCatch(
-              {
-                boot_stats <- do.call(
-                  broom::glance,
-                  list(btit.model, unlist(glance_options))
-                )
-              },
-              error = \(e) {
-                boot_stats <- NULL
-              }
-            )
+            boot_stats <- if (call_glance){
+              tryCatch(
+                {
+                  do.call(
+                    broom::glance,
+                    list(btit.model, unlist(glance_options))
+                  )
+                },
+                error = \(e) {
+                  NULL
+                }
+              )
+            } else {
+              NULL
+            }
 
 
             # Calculate bootstrap-validated model metrics if the necessary information is available.
@@ -789,13 +832,17 @@ ModelBoot <- new_class(
         invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
         # Summarize the broom::glance data
-        ss <- boot_data |>
-          # only summarize rows other than the full dataset analysis (it == 0)
-          filter(.data$it != exclude_boot_data) |>
-          (`[[`)('stats') |>
-          bind_rows() |>  # automatically removes NULL elements from failed iterations
-          select(-any_of(invalid_boot_model_stats)) |>
-          tidyr::pivot_longer(everything())
+        ss <- if (call_glance) {
+          boot_data |>
+            # only summarize rows other than the full dataset analysis (it == 0)
+            filter(.data$it != exclude_boot_data) |>
+            (`[[`)('stats') |>
+            bind_rows() |>  # automatically removes NULL elements from failed iterations
+            select(-any_of(invalid_boot_model_stats)) |>
+            tidyr::pivot_longer(everything())
+        } else {
+          NULL
+        }
 
         # Summarize the performance data, if available.
         if (calc_boot_valid) {
@@ -1154,7 +1201,10 @@ ModelBoot <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> stringr::str_detect('^it\\.')
     ]
-    temp_objs <- c('model_call', 'n_rows', 'resolved_x_cols', 'vp', 'y_preds')
+    temp_objs <- c(
+      'call_glance', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols',
+      'tidy_methods', 'vp', 'y_preds'
+    )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
 
