@@ -387,9 +387,9 @@ ModelBoot <- new_class(
 
       if (!call_glance) {
         cli_warn(c(
-          '!' = 'No {.fun boot::glance} methods found for the class {class(model)}.',
-          'i' = 'General model statistics cannot be provided.',
-          'i' = 'To disable this warning, set "output_model_stats = FALSE".'
+          '!' = 'No {.fun boot::glance} methods found for the class {.cls {class(model)}}.',
+          'i' = 'Some general model statistics will not be provided',
+          'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
         ))
       }
     }
@@ -404,9 +404,9 @@ ModelBoot <- new_class(
 
       if (!output_model_coefs) {
         cli_warn(c(
-          '!' = 'No {.fun boot::tidy} methods found for the class {class(model)}.',
-          'i' = 'Model coefficient summaries cannot be provided.',
-          'i' = 'To disable this warning, set "output_model_coefs = FALSE".'
+          '!' = 'No {.fun boot::tidy} methods found for the class {.cls {class(model)}}.',
+          'i' = 'Model coefficient summaries will not be provided.',
+          'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
         ))
       }
     }
@@ -1221,6 +1221,18 @@ ModelBoot <- new_class(
     ale_results <- if (output_ale) {
       # Start with ale object of the full dataset without bootstrapping
       ar <- list(single = full_ale)
+
+      # If ale_p is provided, recreate y_summary with p-values
+      if (!is.null(ale_p)) {
+        ar$single@params$p_values <- ale_p
+
+        ar$single@params$y_summary <- var_summary(
+          var_name = y_col,
+          var_vals = ar$single@params$data$y_vals_sample,
+          p_dist = ale_p,
+          p_aler = ar$single@params$p_aler
+        )
+      }
 
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {

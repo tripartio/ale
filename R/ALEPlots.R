@@ -89,13 +89,16 @@ ALEPlots <- new_class(
 
     if (obj |> S7_inherits(ModelBoot)) {
       # Adapt ModelBoot object to behave like a regular ALE object
+
+      # Temporarily save ale_p
+      obj_p <- obj@params$ale_p
+
       if (!is.null(obj@ale$boot)) {
         # Prefer plots based on the bootstrapped object, if available.
         # Start with the single ALE object to give it the right ALE object type
         alt_obj <- obj@ale$single
         # Replace the ALE data with the bootstrapped version
         alt_obj@distinct <- obj@ale$boot$distinct
-        # alt_obj$params <- obj@ale$single@params
 
         obj <- alt_obj
       }
@@ -104,7 +107,10 @@ ALEPlots <- new_class(
         obj <- obj@ale$single
       }
 
-      # The default value for rug_sample_size assumes an ale object. So, ensure that a valid value is assigned for ale_boot objects.
+      # Assign ale_p to adapted object
+      obj@params$p_values <- obj_p
+
+      # The default value for rug_sample_size assumes an ALE object. So, ensure that a valid value is assigned for ModelBoot objects.
       if (is.null(rug_sample_size)) {
         rug_sample_size <- if (!is.null(obj@params$sample_size)) {
           obj@params$sample_size
@@ -227,7 +233,7 @@ ALEPlots <- new_class(
     params <- c(as.list(environment()), list(...))
     # Create list of objects to delete
     temp_objs <- c(
-      'eff_plot', 'obj', 'plots_1D', 'plots_2D', 'temp_objs'
+      'eff_plot', 'obj', 'obj_p', 'plots_1D', 'plots_2D', 'temp_objs'
     )
     params <- params[names(params) |> setdiff(temp_objs)]
     params$max_d <- obj@params$max_d
