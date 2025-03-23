@@ -32,7 +32,7 @@ var_cars <-
   as_tibble(rownames = 'model') |>
   mutate(
     # extract first word only to identify the make
-    make = stringr::str_extract(model, '^\\S+'),
+    make = str_extract(model, '^\\S+'),
     country = make |>
       car_country() |>
       factor(),

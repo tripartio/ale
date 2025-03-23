@@ -433,7 +433,7 @@ ALE <- new_class(
     params <- c(as.list(environment()), list(...))
     # Create lists of objects to delete
     it_objs <- names(params)[  # iterators
-      names(params) |> stringr::str_detect('^it\\.')
+      names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
@@ -612,7 +612,7 @@ ALE <- new_class(
 
         ale_2D_struc <- list()
         # it.2D_x_cols <- names(it.ar_2D$d1) |>
-        #   stringr::str_split('\\|')
+        #   str_split('\\|')
         for (it.el in names(it.ar_2D)) {
           for (it.2D_x_cols in x_cols$d2) {
             ale_2D_struc[[it.el]][[it.2D_x_cols[1]]][[it.2D_x_cols[2]]] <-

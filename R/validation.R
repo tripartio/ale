@@ -77,7 +77,7 @@ validate_y_preds <- function(
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
     error = \(e) {
-      if (stringr::str_detect(as.character(e), "^Error: object .* not found\n$")) {
+      if (str_detect(as.character(e), "^Error: object .* not found\n$")) {
         cli_abort('{e}')
       }
       else {

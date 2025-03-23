@@ -527,7 +527,7 @@ summarize_conf_regions_1D <- function(
     ale_data_list |>
     map(\(it.ale_data) {
       x_name <- names(it.ale_data)[1] |>
-        stringr::str_remove("\\.bin$|\\.ceil$")
+        str_remove("\\.bin$|\\.ceil$")
 
 
       # cr is the confidence regions for a single variable (term) at a time
@@ -767,7 +767,7 @@ summarize_conf_regions_2D <- function(
 
       # Rename the x variables with their original variable names
       x1_x2_names <- x1_x2_names |>
-        stringr::str_remove("\\.bin$|\\.ceil$")
+        str_remove("\\.bin$|\\.ceil$")
 
       # # Convert x data columns uniformly to character format
       # cr[[1]] <- as.character(cr[[1]])

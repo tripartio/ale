@@ -16,11 +16,11 @@
       as.character()
 
     dev_load_all <- sys_calls |>
-      stringr::str_detect('load_all') |>
+      str_detect('load_all') |>
       any()
 
     suppress_pkg_msg <- sys_calls |>
-      stringr::str_detect('suppressPackageStartupMessages') |>
+      str_detect('suppressPackageStartupMessages') |>
       any()
 
     if (!(dev_load_all || suppress_pkg_msg)) {

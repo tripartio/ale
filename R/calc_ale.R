@@ -334,7 +334,7 @@ calc_ale <- function(
       ) |>
       # Strip the '.bin' or '.ceil' from column names
       rename_with(
-        ~ stringr::str_replace(.x, '(.*)(\\.bin)|(\\.ceil)$', '\\1'),
+        ~ str_replace(.x, '(.*)(\\.bin)|(\\.ceil)$', '\\1'),
         ends_with(c('.bin', '.ceil'))
       )
 
@@ -993,7 +993,7 @@ calc_ale <- function(
   # }
 
   boot_summary <- boot_summary |>
-    # rename_with(~ stringr::str_sub(.x, 2), starts_with('.')) |>
+    # rename_with(~ str_sub(.x, 2), starts_with('.')) |>
     select(-any_of(c('.y_composite', '.y_distinct'))) |>
     split(boot_summary$.cat) |>
     map(\(it.ale_data) {

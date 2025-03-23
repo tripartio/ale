@@ -216,7 +216,7 @@ ModelBoot <- new_class(
     else {  # validate model_call_string
       validate(is_string(model_call_string))
       validate(
-        stringr::str_detect(model_call_string, 'boot_data'),
+        str_detect(model_call_string, 'boot_data'),
         msg = cli_alert_danger(paste0(
           'The {.arg data} argument for {.arg model_call_string} must be "boot_data". ',
           'See {.cls ale::ModelBoot} for details.'
@@ -225,8 +225,8 @@ ModelBoot <- new_class(
 
       # Rename 'boot_data' to 'btit.data' for internal naming style
       model_call_string <- model_call_string |>
-        stringr::str_replace_all('([^.])(boot_data)', '\\1btit.data')
-      # stringr::str_replace_all('([^.])(boot_data)', '\\1it\\.\\2')
+        str_replace_all('([^.])(boot_data)', '\\1btit.data')
+      # str_replace_all('([^.])(boot_data)', '\\1it\\.\\2')
     }
 
     vp <- validate_parallel(parallel, model, model_packages)
@@ -380,8 +380,8 @@ ModelBoot <- new_class(
     call_glance <- FALSE
     if (output_model_stats) {
       glance_methods <- methods(broom::glance) |>
-        stringr::str_remove("^glance\\.") |>  # Remove leading "glance."
-        stringr::str_remove("\\*$")           # Remove trailing "*" if present
+        str_remove("^glance\\.") |>  # Remove leading "glance."
+        str_remove("\\*$")           # Remove trailing "*" if present
 
       call_glance <- any(class(model) %in% glance_methods)
 
@@ -397,8 +397,8 @@ ModelBoot <- new_class(
     # If broom::tidy is unavailable, then disable output_model_coefs since there are no results
     if (output_model_coefs) {
       tidy_methods <- methods(broom::tidy) |>
-        stringr::str_remove("^tidy\\.") |>  # Remove leading "tidy."
-        stringr::str_remove("\\*$")           # Remove trailing "*" if present
+        str_remove("^tidy\\.") |>  # Remove leading "tidy."
+        str_remove("\\*$")           # Remove trailing "*" if present
 
       output_model_coefs <- any(class(model) %in% tidy_methods)
 
@@ -1199,7 +1199,7 @@ ModelBoot <- new_class(
 
     # Create lists of objects to delete
     it_objs <- names(params)[  # iterators
-      names(params) |> stringr::str_detect('^it\\.')
+      names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
       'call_glance', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols',

@@ -12,6 +12,7 @@
 #' @import ggplot2
 #' @import S7
 #' @import staccuracy
+#' @import stringr
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert_danger
 #' @importFrom cli cli_alert_info
@@ -37,7 +38,6 @@
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd
-#' @importFrom stringr str_glue
 #'
 #' @keywords internal
 '_PACKAGE'

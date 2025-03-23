@@ -465,7 +465,7 @@ plot_ale_2D <- function(
     (n_y_quant / 2) + 4
   )]
   y_quantile_names <- names(y_quantiles) |>
-    stringr::str_sub(end = -2)
+    str_sub(end = -2)
 
   quantile_mids <-
     c(
@@ -491,7 +491,7 @@ plot_ale_2D <- function(
         i == 1 ~ paste0(lgd, ' (strong -)'),
         i == (n_y_quant / 2) ~ paste0(lgd, ' (none)'),
         # Replace ')' at the end of 100 with ']'
-        i == (n_y_quant - 1) ~ paste0(stringr::str_sub(lgd, end = -2),
+        i == (n_y_quant - 1) ~ paste0(str_sub(lgd, end = -2),
                                       '] (strong +)'),
         .default = lgd
       )

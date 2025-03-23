@@ -255,14 +255,14 @@ ALEpDist <- new_class(
     else {  # validate random_model_call_string
       validate(is_string(random_model_call_string))
       validate(
-        stringr::str_detect(random_model_call_string, 'random_variable'),
+        str_detect(random_model_call_string, 'random_variable'),
         msg = cli_alert_danger(paste0(
           '{.arg random_model_call_string} must contain a variable named {.var random_variable}. ',
           'See {.fun ALEpDist()} for details.'
         ))
       )
       validate(
-        stringr::str_detect(random_model_call_string, 'rand_data'),
+        str_detect(random_model_call_string, 'rand_data'),
         msg = cli_alert_danger(paste0(
           'The {.arg data} argument for {.arg random_model_call_string} must be {.str rand_data}. ',
           'See {.fun ALEpDist()} for details.'
@@ -271,7 +271,7 @@ ALEpDist <- new_class(
 
       # Replace 'rand_data' with the proper internal reference.
       random_model_call_string <- random_model_call_string |>
-        stringr::str_replace_all(
+        str_replace_all(
           'rand_data',
           'package_scope$rand_data'
         )
@@ -576,7 +576,7 @@ ALEpDist <- new_class(
 
     # Create lists of objects to delete
     it_objs <- names(params)[  # iterators
-      names(params) |> stringr::str_detect('^it\\.')
+      names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
       'data', 'model', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
@@ -631,7 +631,7 @@ value_to_p <- function(
   validate(is.numeric(x))
 
   # For aler_min and naler_min, the p_value is the simple ECDF
-  if (stringr::str_sub(stat, -4, -1) == '_min') {
+  if (str_sub(stat, -4, -1) == '_min') {
     stats::ecdf(p_dist_cat[[stat]])(x)
   }
   # For other statistics, the p_value is 1 - ECDF.
@@ -653,7 +653,7 @@ p_to_random_value <- function(
   # This code returns the statistic that yields the given p for this data.
 
   # For aler_min and naler_min, the value is the simple quantile
-  if (stringr::str_sub(stat, -4, -1) == '_min') {
+  if (str_sub(stat, -4, -1) == '_min') {
     p_dist_cat[[stat]] |>
       quantile(probs = p) |>
       stats::setNames(p)
