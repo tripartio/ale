@@ -10,7 +10,7 @@ ALEpDist(
   ...,
   surrogate = FALSE,
   y_col = NULL,
-  parallel = future::availableCores(logical = FALSE, omit = 1),
+  parallel = "all",
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
@@ -38,7 +38,7 @@ ALEpDist(
 
 \item{y_col}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
+\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.}
 
 \item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
 
@@ -122,13 +122,6 @@ The procedure we have just described requires at least 1000 random iterations fo
 With fewer iterations (at least 100), p-values can only be considered \strong{approximate ("approx")}. Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the \code{rand_it} argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 
 Because the procedure can be very slow, a faster version of the algorithm generates \strong{"surrogate"} p-values by substituting the original \code{model} with a linear model that predicts the same \code{y_col} outcome from all the other columns in \code{data}. By default, these surrogate p-values use only 100 iterations and if the dataset is large, the surrogate model samples 1000 rows. Thus, the surrogate p-values can be generated much faster than for slower model algorithms on larger datasets. Although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, \strong{definitive conclusions (e.g., for publication) always require exact p-values with at least 1000 iterations on the original model}. Note that surrogate p-values are always marked as "surrogate"; even if they are generated based on over 1000 iterations, they can never be considered exact because they are not based on the original \code{model}.
-}
-
-\section{Parallel processing}{
-
-Parallel processing using the \code{{furrr}} framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting \code{parallel = future::availableCores(logical = FALSE, omit = 1)}. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
-
-For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an \code{ALEpDist} object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
 }
 
 \examples{

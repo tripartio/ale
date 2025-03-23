@@ -10,7 +10,7 @@ ModelBoot(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = future::availableCores(logical = FALSE, omit = 1),
+  parallel = "all",
   model_packages = NULL,
   y_col = NULL,
   positive = TRUE,

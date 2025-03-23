@@ -11,7 +11,7 @@ ALE(
   y_col = NULL,
   ...,
   exclude_cols = NULL,
-  parallel = future::availableCores(logical = FALSE, omit = 1),
+  parallel = "all",
   model_packages = NULL,
   output_stats = TRUE,
   output_conf = NULL,
@@ -45,7 +45,7 @@ ALE(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set \code{parallel = 0} to disable parallel processing. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the function. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set \code{parallel = 0} to disable parallel processing. See details.}
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
@@ -139,9 +139,9 @@ As explained in the documentation above for the \code{p_values} argument, the de
 
 \section{Parallel processing}{
 
-Parallel processing using the \code{{furrr}} framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting \code{parallel = future::availableCores(logical = FALSE, omit = 1)}. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer. If you will dedicate the entire computer to running this function (and you don't mind everything else becoming very slow while it runs), you may use all cores by setting \code{parallel = future::availableCores(logical = FALSE)}. To disable parallel processing, set \code{parallel = 0}.
+Parallel processing using the \code{{furrr}} framework is enabled by default. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = "all"}), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set \verb{parallel = "all but one")}, which will only use faster physical cores and reserve one core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set \code{parallel = 0}.
 
-#'  The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the \code{model} to this argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
+The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the \code{model} to this argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
 }
 
 \section{Progress bars}{

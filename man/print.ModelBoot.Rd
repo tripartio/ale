@@ -16,7 +16,7 @@ Print a ModelBoot object.
 }
 \examples{
 lm_cars <- stats::lm(mpg ~ wt + gear, mtcars)
-mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL, parallel = 0)
+mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL)
 print(mb)
 
 }
