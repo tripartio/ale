@@ -26,32 +26,26 @@
 #' The `x_cols` argument determines which predictor variables and interactions
 #' are included in the analysis. It supports multiple input formats:
 #'
-#' - **Character vector**: A simple vector of column names (e.g., `c("a", "b")`)
-#'   selects individual columns for 1D ALE analysis.
+#' - **Character vector**: Users can explicitly specify 1D terms and 2D ALE interactions, e.g., `c("a", "b", "a:b", "a:c")`.
 #'
 #' - **Formula (`~`)**: Allows specifying variables and interactions in
 #'   formula notation (e.g., `~ a + b + a:b`), which is automatically converted
 #'   into a structured format. The outcome term is optional and will be ignored regardless.
 #'   So, `~ a + b + a:b` produces results identical to `whatever ~ a + b + a:b`.
 #'
-#' - **List format**: Users can explicitly separate 1D and 2D ALE interactions:
-#'   - A character vector named `d1` like `list(d1 = c("a", "b"))` specifies 1D ALE variables.
-#'   - A list of 2-character vectors named `d2` like `list(d2 = list(c("a", "b"), c("a", "c")))` specifies 2D interactions.
-#'   - `list(d1 = c("a", "b"), d2 = list(c("a", "b"), c("a", "c")))` combines both.
-#'
-#' - **Boolean selection for an entire dimension**:
-#'   - `list(d1 = TRUE)` selects all available variables for 1D ALE, excluding `y_col`.
-#'   - `list(d2 = TRUE)` selects all possible 2D interactions among all columns in `col_names`, excluding `y_col`.
-#'
-#' - **Selective 2D expansion**: `list(d2_all = "a")` includes all 2D interactions
-#'   where `"a"` is one of the interacting variables.
+#' - **List format**:
+#'   - The basic list format is a list of character vectors named `d1` for 1D ALE terms, `d2` for 2D interactions, or both. For example, `list(d1 = c("a", "b"), d2 = c("a:b", "a:c"))`
+#'   - **Boolean selection for an entire dimension**:
+#'     - `list(d1 = TRUE)` selects all available variables for 1D ALE, excluding `y_col`.
+#'     - `list(d2 = TRUE)` selects all possible 2D interactions among all columns in `col_names`, excluding `y_col`.
+#'   - A character vector of 1D terms only named `d2_all` may be used to include all 2D interactions that include the specified 1D terms. For example, specifying `list(d2_all = "a")` would select `c("a:b", "a:c", "a:d")`, etc. This is in addition to any terms requested in the `d1` or `d2` elements.
 #'
 #' - **NULL (or unspecified)**: If `x_cols = NULL`, no variables are selected.
 #'
-#' Regardless of format, `y_col` is always removed automatically. The function
-#' ensures all variables are valid and in `col_names`, providing informative
+#' The function ensures all variables are valid and in `col_names`, providing informative
 #' messages unless `silent = TRUE`. And regardless of the specification format,
 #' the result will always be standardized in the format specified in the return value.
+#' Note that `y_col` is not removed if included in `x_cols`. However, a message alerts when it is included, in case it is a mistake.
 #'
 #' Run examples for details.
 #'
@@ -78,11 +72,8 @@
 #' # Character string: Select just one 1D element
 #' resolve_x_cols("c", col_names, y_col)
 #'
-#' # Character string: Select just one 1D element
-#' resolve_x_cols("c", col_names, y_col)
-#'
 #' # list of 1- and 2-length character vectors: specify precise 1D and 2D elements desired
-#' resolve_x_cols(list(c("a", "b"), "c", c("c", "a"), "b"), col_names, y_col)
+#' resolve_x_cols(c('a:b', "c", 'c:a', "b"), col_names, y_col)
 #'
 #' # Formula: Converts to a list of individual elements
 #' resolve_x_cols(~ a + b, col_names, y_col)
@@ -96,10 +87,10 @@
 #' resolve_x_cols(list(d1 = c("a", "b")), col_names, y_col)
 #'
 #' # List specifying d2 (2D ALE)
-#' resolve_x_cols(list(d2 = list(c("a", "b"))), col_names, y_col)
+#' resolve_x_cols(list(d2 = 'a:b'), col_names, y_col)
 #'
 #' # List specifying both d1 and d2
-#' resolve_x_cols(list(d1 = c("a", "b"), d2 = list(c("a", "b"))), col_names, y_col)
+#' resolve_x_cols(list(d1 = c("a", "b"), d2 = 'a:b'), col_names, y_col)
 #'
 #' # d1 as TRUE (select all columns except y_col)
 #' resolve_x_cols(list(d1 = TRUE), col_names, y_col)
@@ -159,7 +150,7 @@
 #'
 #' # Exclude one column from a list-based input
 #' resolve_x_cols(
-#'   x_cols = list(d1 = c("a", "b"), d2 = list(c("a", "b"), c("a", "c"))),
+#'   x_cols = list(d1 = c("a", "b"), d2 = c("a:b", "a:c")),
 #'   col_names = col_names,
 #'   y_col = y_col,
 #'   exclude_cols = list(d1 = "a")
@@ -167,18 +158,18 @@
 #'
 #' # Exclude interactions only
 #' resolve_x_cols(
-#'   x_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c"))),
+#'   x_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c")),
 #'   col_names = col_names,
 #'   y_col = y_col,
-#'   exclude_cols = list(d2 = list(c("a", "b")))
+#'   exclude_cols = list(d2 = 'a:b')
 #' )
 #'
 #' # Exclude everything, including interactions
 #' resolve_x_cols(
-#'   x_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c"))),
+#'   x_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c")),
 #'   col_names = col_names,
 #'   y_col = y_col,
-#'   exclude_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c")))
+#'   exclude_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c"))
 #' )
 #'
 #' # Exclude a column implicitly removed by y_col
@@ -186,12 +177,12 @@
 #'   x_cols = c("y", "a", "b"),
 #'   col_names = col_names,
 #'   y_col = "y",
-#'   exclude_cols = "y"
+#'   exclude_cols = "a"
 #' )
 #'
 #' # Exclude entire 2D dimension from x_cols with d2 = TRUE
 #' resolve_x_cols(
-#'   x_cols = list(d1 = TRUE, d2 = list(c("a", "b"), c("a", "c"))),
+#'   x_cols = list(d1 = TRUE, d2 = c("a:b", "a:c")),
 #'   col_names = col_names,
 #'   y_col = y_col,
 #'   exclude_cols = list(d1 = c("a"), d2 = TRUE)
@@ -272,10 +263,16 @@ validate_x_cols <- function(
     silent = FALSE
 ) {
   ## Validate arguments ----------------
+
+  validate(is.character(col_names))
+
   # This section validates the most obvious issues; the rest of the function validates x_cols in more detail.
   validate(
     class(x_cols) %in% c('character', 'list', 'formula', 'NULL'),
-    msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
+    msg = c(
+      'x' = 'Invalid specification for {x_cols_arg_name}.',
+      'i' = 'See help("ale") for details.'
+    )
   )
 
   # Convert formula x_cols into list of individual elements format
@@ -283,7 +280,7 @@ validate_x_cols <- function(
     fmla_cols <- attr(stats::terms(x_cols), 'term.labels')
 
     # Detect terms with more than two interactions (':' more than twice)
-    too_hi_ixns <- fmla_cols[stringr::str_detect(fmla_cols, ".*:.*:.*")]
+    too_hi_ixns <- fmla_cols[str_detect(fmla_cols, ".*:.*:.*")]
     if (length(too_hi_ixns) > 0) {
       cli_abort(c(
         x = 'Interactions higher than 2D are not supported.',
@@ -291,7 +288,10 @@ validate_x_cols <- function(
       ))
     }
 
-    x_cols <- stringr::str_split(fmla_cols, ':')
+    # browser()
+
+    # x_cols <- str_split(fmla_cols, ':')
+    x_cols <- fmla_cols
   }
 
   # Verify that all x_cols variables are included in col_names
@@ -316,20 +316,32 @@ validate_x_cols <- function(
       )
     }
 
-    # Flatten all_x_cols to just a vector of its names
+    # Flatten all_x_cols to just a vector of its values
     all_x_cols <- all_x_cols |>
+      # convert to character vector
       unlist(recursive = TRUE, use.names = FALSE) |>
+      str_split(':') |>
+      # convert resulting list to character vector again
+      unlist() |>
       unique()
 
     valid_x_cols <- all_x_cols %in% col_names
     if (!all(valid_x_cols)) {
       if (allow_missing_cols && !silent) {
-        cli_alert_info('The following columns in ' %+% x_cols_arg_name %+% ' were not found in {.arg col_names}: {all_x_cols[!valid_x_cols]}')
+        cli_alert_info('The following columns in {x_cols_arg_name} were not found in {.arg col_names}: {all_x_cols[!valid_x_cols]}')
       } else if (!allow_missing_cols) {
-        cli_abort('The following columns in ' %+% x_cols_arg_name %+% ' were not found in {.arg col_names}: {all_x_cols[!valid_x_cols]}')
+        cli_abort('The following columns in {x_cols_arg_name} were not found in {.arg col_names}: {all_x_cols[!valid_x_cols]}')
       }
     }
+
+    # I'm not sure why someone would deliberately do this but alert them just in case it's a mistake:
+    if (!silent && (y_col %in% all_x_cols)) {
+      cli_alert_info('{.arg y_col} ({y_col}) was requested in {x_cols_arg_name}.')
+    }
   }
+
+  validate(is_string(y_col))
+  col_names <- col_names |> setdiff(y_col)
 
   ## Standardize x_cols ------------
 
@@ -346,8 +358,31 @@ validate_x_cols <- function(
   # A character vector: simple ALE with no interactions
   # # Result: c('a', 'b', 'c', 'd', 'e', 'f')
   if (is.character(x_cols)) {
-    # else if (is.character(x_cols)) {
-    x_cols <- list(d1 = x_cols)
+    # x_cols <- list(d1 = x_cols)
+
+    # browser()
+
+    # If non-canonical, x_cols should be an explicit character vector of 1D and 2D terms.
+    validate(
+      # x_cols must be a vector of length 1 or 2 character vectors.
+      # There can be at most one ':' present, indicating maximum 2D interaction
+      x_cols |>
+        str_match_all(':') |>
+        purrr::map_lgl(\(it.match) nrow(it.match) > 1) |>
+        (`[`)(i = x_cols, j = _) |>
+        length() |>
+        (`==`)(0),
+      msg = c(
+        'x' = 'Invalid specification for ' %+% x_cols_arg_name %+% '.',
+        'i' = 'See help("ale") for details.'
+      )
+    )
+
+    # Result is list in canonical format
+    x_cols <- list(
+      d1 = purrr::keep(x_cols, \(it.el) str_detect(it.el, ':', negate = TRUE)),
+      d2 = purrr::keep(x_cols, \(it.el) str_detect(it.el, ':'))
+    )
   }
 
   else if (is.list(x_cols)) {
@@ -360,25 +395,28 @@ validate_x_cols <- function(
         is.character(x_cols[['d1']]) ||
           is_bool(x_cols[['d1']]) ||
           length(x_cols[['d1']]) == 0,
-        msg = x_cols_arg_name %+% '{.var $d1} must be a character vector, a scalar logical, or else an empty value.'
-        # class(x_cols[['d1']]) %in% c('character', 'logical', 'NULL'),
-        # msg = x_cols_arg_name %+% '{.var $d1} must be a character vector, a scalar logical, or else NULL or absent.'
+        msg = x_cols_arg_name %+% '{.var $d1} must be a character vector, a scalar logical, or else NULL or absent.'
       )
+
       validate(
-        # class(x_cols[['d2']]) %in% c('list', 'logical', 'NULL'),
-        is.list(x_cols[['d2']]) ||
+        is.character(x_cols[['d2']]) ||
           is_bool(x_cols[['d2']]) ||
           length(x_cols[['d2']]) == 0,
-        # Note: NULL d2 returns TRUE for this test.
-        x_cols[['d2']] |>
-          purrr::map_lgl(\(it.el) {
-            (is.character(it.el) && length(it.el) == 2) ||  # 2D column names
-              isTRUE(it.el)
-          }) |>
-          all(),
-        msg = x_cols_arg_name %+% '{.var $d2} must be a list of length-2 character vectors, a scalar logical, or else NULL or absent.'
-        # msg = x_cols_arg_name %+% '{.var $d2} must be a list of length-2 character vectors, a scalar logical, or else NULL or absent.'
+        msg = x_cols_arg_name %+% '{.var $d2} must be a character vector of 2D interactions, a scalar logical, or else NULL or absent.'
       )
+      if (is.character(x_cols[['d2']])) {
+        non_2d <- x_cols[['d2']] |>
+          str_match_all(':') |>
+          purrr::map_lgl(\(it.match) nrow(it.match) != 1) |>
+          (`[`)(i =  x_cols[['d2']], j = _)
+
+        if (length(non_2d) > 0) {
+          cli_abort(c(
+            'x' = 'In "$d2", element{?s} {non_2d} {?is/are} not {?a/} 2D interaction term{?s}.'
+          ))
+        }
+      }
+
       validate(
         class(x_cols[['d2_all']]) %in% c('character', 'NULL'),
         msg = x_cols_arg_name %+% '{.var $d2_all} must be a character vector, or else NULL or absent.'
@@ -393,10 +431,12 @@ validate_x_cols <- function(
         NULL
       }
 
-      x_cols[['d2']] <- if (is.list(x_cols[['d2']])) {
-        # Format was validated above, so any list at this point is in the valid format
+      x_cols[['d2']] <- if (is.character(x_cols[['d2']])) {
+        # Format was validated above, so any character vector at this point is in the valid format
         x_cols[['d2']]
       }
+
+
       else if (isTRUE(x_cols[['d2']]) || !is.null(x_cols[['d2_all']])) {
         full_d2_ixns <- NULL
         selected_d2_ixns <- NULL
@@ -433,54 +473,62 @@ validate_x_cols <- function(
 
         # Remove self-interactions (e.g., a-a)
         ixns |>
-          purrr::keep(\(it.el) it.el[1] != it.el[2])
+          purrr::keep(\(it.el) it.el[1] != it.el[2]) |>
+          map_chr(\(it.el) paste0(it.el, collapse = ':'))
       }
       else {
         # The remaining possible values of d2 after validation above are FALSE, NULL, or NA
         NULL
       }
     }
-
-    # If non-canonical, x_cols must be an explicit list of 1D and 2D elements
     else {
-      # Verify that x_cols explicitly lists 1D or 2D columns
-      validate(
-        # x_cols must be a list of length 1 or 2 character vectors.
-        # Note that if the element names do not consist exclusively of the canonical dimensions names d1 and d2 (handled above), then element names are completely ignored.
-        x_cols |>
-          purrr::map_lgl(\(it.el) is.character(it.el) && length(it.el) %in% 1:2) |>
-          all(),
-        msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
-        # msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
-      )
-
-      # Result is list in canonical format
-      x_cols <- list(
-        d1 = purrr::keep(x_cols, \(it.el) length(it.el) == 1) |>
-          unlist(),
-        d2 = purrr::keep(x_cols, \(it.el) length(it.el) == 2)
-      ) |>
-        compact()
+      cli_abort(c(
+        'x' = 'Invalid specification for {x_cols_arg_name}.',
+        'i' = 'See help("ale") for details.'
+      ))
     }
+
+    # # If non-canonical, x_cols must be an explicit list of 1D and 2D elements
+    # else {
+    #   # Verify that x_cols explicitly lists 1D or 2D columns
+    #   validate(
+    #     # x_cols must be a list of length 1 or 2 character vectors.
+    #     # Note that if the element names do not consist exclusively of the canonical dimensions names d1 and d2 (handled above), then element names are completely ignored.
+    #     x_cols |>
+    #       purrr::map_lgl(\(it.el) is.character(it.el) && length(it.el) %in% 1:2) |>
+    #       all(),
+    #     msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
+    #     # msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
+    #   )
+    #
+    #   # Result is list in canonical format
+    #   x_cols <- list(
+    #     d1 = purrr::keep(x_cols, \(it.el) length(it.el) == 1) |>
+    #       unlist(),
+    #     d2 = purrr::keep(x_cols, \(it.el) length(it.el) == 2)
+    #   ) |>
+    #     compact()
+    # }
   }
 
   # Remove y_col and any duplicates if present.
-  # Note: y_col is silently removed only at the end because it is complicated to remove it from so many different input formats above.
+  ##### Note: y_col is silently removed only at the end because it is complicated to remove it from so many different input formats above.
   # Explicit duplicates are removed but reverse duplicates are retained (e.g., b-a is not considered a duplicate of a-b).
-  x_cols <-list(
+  x_cols <- list(
     d1 = x_cols[['d1']] |>
-      unique() |>
-      setdiff(y_col),
+      unique(),
+      # unique() |>
+      # setdiff(y_col),
     d2 = x_cols[['d2']] |>
       unique() |>
-      map(\(it.d2) if (y_col %in% it.d2) NULL else it.d2) |>
+      # map(\(it.d2) if (y_col %in% it.d2) NULL else it.d2) |>
       compact()
   ) |>
     compact()
 
   # Replace empty elements with list() (not NULL)
-  x_cols[['d1']] <- x_cols[['d1']] %||% list()
-  x_cols[['d2']] <- x_cols[['d2']] %||% list()
+  x_cols[['d1']] <- x_cols[['d1']] %||% character()
+  x_cols[['d2']] <- x_cols[['d2']] %||% character()
 
   # Assure the strict order of names as c('d1', 'd2')
   x_cols <- x_cols[c('d1', 'd2')]
