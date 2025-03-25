@@ -76,4 +76,3 @@ ale_plots_to_data <- function(
 test_predict <- function(object, newdata, type = pred_type) {
   predict(object, newdata, se.fit = TRUE, type = type)$fit
 }
-
