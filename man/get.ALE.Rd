@@ -30,7 +30,6 @@ Regardless of the requested data, all \code{\link[=get.ALE]{get.ALE()}} have a c
 \item \code{d2}: 2D ALE elements.
 However, if elements of only one dimension (either 1D or 2D) are requested and \code{simplify = TRUE} (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no \code{d1} sublist but only a list of the ALE data as described for the next level. If \code{simplify = FALSE}, both \code{d1} and \code{d2} sublists will always be returned; the empty sublist will be \code{NULL}.
 }
-\item For the \code{d1} sublist, there is no further hierarchy: the returned data is as described below. For the \code{d2} sublist representing \code{var1} by \code{var2} interactions, the next level is a named list of all \code{var1} elements. This level in turn consists of a named list of \code{var2} elements with the actual data as described below. For example, for ALE data, \code{result <- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))} would return \code{result} as a list where the 1D ALE data is in \code{result$d1$var1} and the 2D ALE data in \code{result$d2$var1$var2}.
 }
 
 While all results follow the general structure just described, the specific type of data returned depends on the values of the \code{what} and \code{stats} arguments:

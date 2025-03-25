@@ -462,14 +462,11 @@ ALE <- new_class(
     }
 
     # Create progress bar iterator only if not in an outer loop with bins
-    # if (!ixn) {
     if (!silent && is.null(.bins)) {
-      # if (!silent && is.null(bins)) {
       progress_iterator <- progressr::progressor(
         # The number of steps is the number of elements in each ALE dimension requested.
         steps = length(x_cols$d1) +
           (if (length(x_cols) > 1) length(x_cols$d2) else 0),
-        # steps = length(x_cols),
         message = 'Calculating ALE'
       )
     }
@@ -497,14 +494,17 @@ ALE <- new_class(
             progress_iterator()
           }
 
+          it.x_cols_split <- it.x_cols |>
+            strsplit(":", fixed = TRUE) |>
+            unlist()
+          it.len_x_cols_split <- length(it.x_cols_split)
+
           # If available, pass on predetermined ALE bins for the current variables
           it.bins <- if (!is.null(.bins)) {
-            len_it.x_cols  <- length(it.x_cols)
-
-            if (len_it.x_cols == 1) {
+            if (it.len_x_cols_split == 1) {
               .bins[['d1']][[it.x_cols]]
-            } else if (len_it.x_cols == 2) {
-              .bins[['d2']][[it.x_cols[1]]][[it.x_cols[2]]]
+            } else if (it.len_x_cols_split == 2) {
+              .bins[['d2']][[it.x_cols]]
             }
           } else {
             NULL
@@ -512,14 +512,11 @@ ALE <- new_class(
 
           ale_results <-
             calc_ale(
-              data, model, it.x_cols, y_col, y_cats,
+              data, model, it.x_cols_split, y_col, y_cats,
               pred_fun, pred_type, max_num_bins,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = output_boot_data,
-              # boot_ale_y = 'boot_data' %in% output,
               .bins = it.bins,
-              # bins = bins[[it.x_cols]],
-              # ns = ns[[it.x_cols]],
               ale_y_norm_funs = ale_y_norm_funs,
               p_dist = p_values
             ) |>
@@ -530,7 +527,8 @@ ALE <- new_class(
               it.rtn <- list(
                 cat = it.cat_name,
                 x_cols = list(it.x_cols),
-                ale_d = length(it.x_cols),  # dimension of ALE (1D or 2D)
+                # dimension of ALE (1D or 2D)
+                ale_d = it.len_x_cols_split,
                 ale = list(it.cat_ar$summary)
               )
 
@@ -551,7 +549,6 @@ ALE <- new_class(
       # Remove category names (already encoded in tibbles)
       set_names(NULL) |>
       bind_rows()
-
 
     # Organize results -------------
 
@@ -611,24 +608,17 @@ ALE <- new_class(
         ]
 
         ale_2D_struc <- list()
-        # it.2D_x_cols <- names(it.ar_2D$d1) |>
-        #   str_split('\\|')
         for (it.el in names(it.ar_2D)) {
           for (it.2D_x_cols in x_cols$d2) {
-            ale_2D_struc[[it.el]][[it.2D_x_cols[1]]][[it.2D_x_cols[2]]] <-
-              it.ar_2D[[it.el]][[
-                paste0(it.2D_x_cols[1], '|', it.2D_x_cols[2])
-              ]]
+            ale_2D_struc[[it.el]][[it.2D_x_cols]] <-
+              it.ar_2D[[it.el]][[it.2D_x_cols]]
           }
         }
 
         ale_struc$distinct[[it.cat]]$d2 <- ale_2D_struc
-        # ale_struc$distinct[[it.cat]]$ixn <- ale_2D_struc
       }  # if (length(x_cols) >= 2 && length(x_cols$d2) >= 2) {
 
     }
-
-
 
     # Calculate summary statistics ---------------------
 
@@ -659,98 +649,33 @@ ALE <- new_class(
             pivot_stats()
 
           if (output_conf) {
-            # # conf_regions optionally provided only if stats also requested
-            # sig_criterion <- if (!is.null(p_values)) {
-            #   'p_values'
-            # } else {
-            #   'median_band_pct'
-            # }
-
             ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
               summarize_conf_regions_1D(
                 ale_struc$distinct[[it.cat]]$d1$ale,
                 y_summary[, it.cat, drop = FALSE]
-                # sig_criterion = sig_criterion
               )
           }  # if (output_conf)
         }  # if (length(x_cols$d1) >= 1) {
 
         # 2D ALE statistics
-        if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {
-          # Iterate statistics for each x1 variable
-          for (it.x1 in names(ale_struc$distinct[[it.cat]]$d2$stats)) {
-            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]] <-
-              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]] |>
-              imap(\(it.term_tbl, it.term) {
-                it.term_tbl |>
-                  mutate(term = it.term)
-              }) |>
-              bind_rows() |>
-              select('term', everything()) |>
-              pivot_stats()
-
-            # Rename terms to specify both interaction variables
-            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$by_stat <-
-              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$by_stat |>
-              map(\(it.stat_tbl) {
-                it.stat_tbl |>
-                  mutate(term1 = it.x1) |>
-                  rename(term2 = 'term') |>
-                  select('term1', 'term2', everything())
-              })
-
-            ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$estimate <-
-              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$estimate |>
-              mutate(term1 = it.x1) |>
-              rename(term2 = 'term') |>
-              select('term1', 'term2', everything())
-
-            if (output_conf) {
-              # # conf_regions optionally provided only if stats also requested
-              # sig_criterion <- if (!is.null(p_values)) {
-              #   'p_values'
-              # } else {
-              #   'median_band_pct'
-              # }
-
-              ale_struc$distinct[[it.cat]]$d2$stats[[it.x1]]$conf_regions <-
-                summarize_conf_regions_2D(
-                  ale_struc$distinct[[it.cat]]$d2$ale[[it.x1]],
-                  y_summary[, it.cat, drop = FALSE]
-                  # sig_criterion = sig_criterion
-                )
-            }
-
-          }  # for (it.x1 in names(ales_2D[[it.cat]]$stats))
-
-          # Transpose stats result order in the list
+        if (length(x_cols$d2) >= 1) {
           ale_struc$distinct[[it.cat]]$d2$stats <-
             ale_struc$distinct[[it.cat]]$d2$stats |>
-            list_transpose(simplify = FALSE)
-
-          # Consolidate 2D stats into more convenient formats
-          ale_struc$distinct[[it.cat]]$d2$stats$by_stat <-
-            ale_struc$distinct[[it.cat]]$d2$stats$by_stat |>
-            list_transpose(simplify = FALSE) |>
-            map(\(it.stat) bind_rows(it.stat))
-          ale_struc$distinct[[it.cat]]$d2$stats$estimate <-
-            ale_struc$distinct[[it.cat]]$d2$stats$estimate |>
-            bind_rows()
+            imap(\(it.term_tbl, it.term) {
+              it.term_tbl |>
+                mutate(term = it.term)
+            }) |>
+            bind_rows() |>
+            select('term', everything()) |>
+            pivot_stats()
 
           if (output_conf) {
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
-              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions |>
-              list_transpose(simplify = FALSE)
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term <-
-              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$by_term |>
-              bind_rows()
-            ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant <-
-              ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$significant |>
-              bind_rows()
-            # ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion <-
-            #   ale_struc$distinct[[it.cat]]$d2$stats$conf_regions$sig_criterion[[1]]
-          }
-
+            ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
+              summarize_conf_regions_2D(
+                ale_struc$distinct[[it.cat]]$d2$ale,
+                y_summary[, it.cat, drop = FALSE]
+              )
+          }  # if (output_conf)
         }  # if (length(x_cols$d2) >= 1) {
       }  # for (it.cat in y_cats)
     }  # if (output_stats) {

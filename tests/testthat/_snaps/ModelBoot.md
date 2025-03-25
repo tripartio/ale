@@ -859,7 +859,7 @@
        [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
       
       attr(,"params")$ordered_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$requested_x_cols
@@ -868,7 +868,7 @@
        [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
       
       attr(,"params")$requested_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$y_cats
@@ -1656,9 +1656,8 @@
       
       attr(,"params")$ale_options
       attr(,"params")$ale_options$x_cols
-       [1] "mpg"       "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+       [1] "cyl"       "disp"      "hp"        "drat"      "wt"        "qsec"     
+       [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
       
       
       attr(,"params")$ale_p
@@ -2693,7 +2692,7 @@
       [13] "continent"
       
       attr(,"params")$ordered_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$requested_x_cols
@@ -2703,7 +2702,7 @@
       [13] "continent"
       
       attr(,"params")$requested_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$y_cats
@@ -3809,7 +3808,7 @@
       [1] "Sepal.Length" "Petal.Width" 
       
       attr(,"params")$ordered_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$requested_x_cols
@@ -3817,7 +3816,7 @@
       [1] "Sepal.Length" "Petal.Width" 
       
       attr(,"params")$requested_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$y_cats

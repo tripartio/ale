@@ -371,14 +371,11 @@ plot_ale_2D <- function(
     y_summary,
     y_vals,
     ...,
-    # ggplot_custom, marginal, gg_marginal_custom,
     relative_y = 'median',
     p_aler = c(0.01, 0.05),
     y_nonsig_band = 0.05,
-    # median_band_pct = c(0.05, 0.5),
     n_x1_bins = 20, n_x2_bins = 20, n_y_quant = 10,
     x1_x2_y = NULL,
-    # data = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
     seed = 0
@@ -389,22 +386,8 @@ plot_ale_2D <- function(
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # # For now ensure that plots are not categorical
-  # if (ncol(y_summary) > 1) {
-  #   # Not yet ready to create categorical plots
-  #   return(NULL)
-  # }
-
-  # # Adjust inputs according to new (202404) data structure
-  # # ale_data <- ale_data[[1]]  # remove extra category level
-  # # convert y_summary to a vector instead of a matrix
-  # y_summary <- y_summary |>
-  #   as.numeric() |>
-  #   setNames(rownames(y_summary))
-
-
   # Shift ale_data and y_summary by relative_y.
-  # Calculate shift amount
+  # Calculate shift amount.
   y_shift <- case_when(
     relative_y == 'median' ~ y_summary[['50%']],
     relative_y == 'mean' ~ y_summary[['mean']],

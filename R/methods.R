@@ -71,7 +71,6 @@ method(plot, ALE) <- function(x, ...) {
 #'       * `d1`: 1D ALE elements.
 #'       * `d2`: 2D ALE elements.
 #'       However, if elements of only one dimension (either 1D or 2D) are requested and `simplify = TRUE` (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no `d1` sublist but only a list of the ALE data as described for the next level. If `simplify = FALSE`, both `d1` and `d2` sublists will always be returned; the empty sublist will be `NULL`.
-#'   * For the `d1` sublist, there is no further hierarchy: the returned data is as described below. For the `d2` sublist representing `var1` by `var2` interactions, the next level is a named list of all `var1` elements. This level in turn consists of a named list of `var2` elements with the actual data as described below. For example, for ALE data, `result <- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))` would return `result` as a list where the 1D ALE data is in `result$d1$var1` and the 2D ALE data in `result$d2$var1$var2`.
 #'
 #' While all results follow the general structure just described, the specific type of data returned depends on the values of the `what` and `stats` arguments:
 #' \describe{
@@ -148,17 +147,6 @@ method(get, ALE) <- function(
     exclude_cols = exclude_cols,
     silent = silent
   )
-  # if (!is.null(x_cols)) {
-  #   x_cols <- validate_x_cols(
-  #     x_cols,
-  #     col_names = obj@params$data$data_sample |> colnames(),
-  #     y_col = obj@params$y_col
-  #   )
-  # }
-  # else {
-  #   # NULL x_cols means: return everything available
-  #   x_cols <- obj@params$requested_x_cols
-  # }
 
   valid_what <- c('ale', 'boot_data')
   validate(
@@ -300,22 +288,16 @@ method(get, ALE) <- function(
   else {
     specific_what <- all_what |>
       imap(\(it.cat, it.cat_name) {
-        it.cat.d1 <- x_cols[['d1']] |>
-          map(\(it.d1) {
-            all_what[[it.cat_name]][['d1']][[it.d1]]
+
+        names(x_cols) |>
+          map(\(it.d) {
+            x_cols[[it.d]] |>
+              map(\(it.d_term) {
+                all_what[[it.cat_name]][[it.d]][[it.d_term]]
+              }) |>
+              set_names(x_cols[[it.d]])
           }) |>
-          set_names(x_cols[['d1']])
-
-        it.cat.d2 <- list()
-        for(it.d2 in x_cols[['d2']]) {
-          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-            all_what[[it.cat_name]][['d2']][[it.d2[1]]][[it.d2[2]]]
-        }
-
-        list(
-          d1 = it.cat.d1,
-          d2 = it.cat.d2
-        )
+          set_names(names(x_cols))
       })
   }
 
@@ -527,21 +509,12 @@ method(plot, ALEPlots) <- function(
 ) {
   count_1D <- x@distinct |>
     purrr::map_int(\(it.cat) length(it.cat$plots$d1))
-
-  count_2D <- if (x@params$max_d >= 2) {
-    x@distinct |>
-      purrr::map_int(\(it.cat) {
-        it.cat$plots$d2 |>
-          purrr::map_int(length) |>
-          sum()
-      })
-  } else {
-    0L
-  }
+  count_2D <- x@distinct |>
+    purrr::map_int(\(it.cat) length(it.cat$plots$d2))
 
   if ((0 < count_1D) && (count_1D <= max_print)) {
     x@distinct |>
-      purrr::walk(\(it.cat) {
+      walk(\(it.cat) {
         it.cat$plots$d1 |>
           patchwork::wrap_plots(...) |>
           print()
@@ -557,7 +530,6 @@ method(plot, ALEPlots) <- function(
     x@distinct |>
       walk(\(it.cat) {
         it.cat$plots$d2 |>
-          purrr::list_flatten() |>
           patchwork::wrap_plots(...) |>
           print()
       })

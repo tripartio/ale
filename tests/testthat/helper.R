@@ -15,11 +15,11 @@ int_jitter <- sample(c(-1L, 0L, 1L), nrow(var_cars), replace = TRUE)
 test_cars <- var_cars |>
   dplyr::bind_rows(
     var_cars |>
-      dplyr::mutate(
-        dplyr::across(dplyr::where(is.double), \(it.dbl) it.dbl * dbl_jitter)) |>
-      dplyr::mutate(dplyr::across(
-        dplyr::where(is.integer),
-        \(it.int) dplyr::if_else(it.int > 1, it.int + int_jitter, it.int)
+      mutate(
+        across(where(is.double), \(it.dbl) it.dbl * dbl_jitter)) |>
+      mutate(across(
+        where(is.integer),
+        \(it.int) if_else(it.int > 1, it.int + int_jitter, it.int)
       ))
   )
 rm(dbl_jitter)
@@ -57,12 +57,16 @@ ale_plots_to_data <- function(
             ggplot2::ggplot_build(it.plot)$data[[1]]
           }),
         d2  = it.cat$plots$d2 |>
-          purrr::map(\(it.x1) {
-            it.x1 |>
-              purrr::map(\(it.plot) {
-                ggplot2::ggplot_build(it.plot)$data[[1]]
-              })
-            }),
+          purrr::map(\(it.plot) {
+            ggplot2::ggplot_build(it.plot)$data[[1]]
+          }),
+        # d2  = it.cat$plots$d2 |>
+        #   purrr::map(\(it.x1) {
+        #     it.x1 |>
+        #       purrr::map(\(it.plot) {
+        #         ggplot2::ggplot_build(it.plot)$data[[1]]
+        #       })
+        #   }),
         eff = if (!is.null(it.cat$plots$eff)) {
           it.cat$plots$eff |>
             ggplot2::ggplot_build() |>
@@ -74,15 +78,6 @@ ale_plots_to_data <- function(
       )
     })
 }
-
-# ale_plots_to_data <- function(
-#     ale_plots  # list of ALE plots
-# ) {
-#   ale_plots |>
-#     purrr::imap(\(it.plot, it.plot_name) {
-#       ggplot2::ggplot_build(it.plot)$data[[1]]
-#     })
-# }
 
 # custom predict function ------------
 test_predict <- function(object, newdata, type = pred_type) {
