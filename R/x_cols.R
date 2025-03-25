@@ -548,15 +548,23 @@ validate_x_cols <- function(
 #' @noRd
 #'
 sort_x_cols <- function(x_cols, col_names) {
-  # Extract the first and second elements from each vector in d2
-  d2_1 <- map_chr(x_cols$d2, ~ .x[[1]])
-  d2_2 <- map_chr(x_cols$d2, ~ .x[[2]])
+  d2_ordering <- if (length(x_cols$d2) > 0) {
+    d2_split <- x_cols$d2 |>
+      strsplit(":", fixed = TRUE) |>
+      list_transpose(simplify = TRUE)
+    # Extract the first and second elements from each vector in d2
+    d2_1 <- d2_split[[1]]
+    d2_2 <- d2_split[[2]]
 
-  # Determine the d2 ordering based on the positions in sort_order
-  d2_ordering <- order(
-    match(d2_1, col_names),
-    match(d2_2, col_names)
-  )
+    # Determine the d2 ordering based on the positions in sort_order
+   order(
+      match(d2_1, col_names),
+      match(d2_2, col_names)
+    )
+  }
+  else {
+    NULL
+  }
 
   list(
     d1 = x_cols$d1[

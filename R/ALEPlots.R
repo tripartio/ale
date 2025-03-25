@@ -188,43 +188,44 @@ ALEPlots <- new_class(
     if (obj@params$max_d >= 2) {
       plots_2D <-
         imap(obj@distinct, \(it.cat_data, it.cat_name) {
-          imap(it.cat_data$ale$d2, \(it.x1_ales, it.x1_col_name) {
-            imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
-              plot_ale_2D(
-                ale_data  = it.x1_x2_ale,
-                x1_col    = it.x1_col_name,
-                x2_col    = it.x2_col_name,
-                y_col     = obj@params$y_col,
-                y_type    = obj@params$y_type,
-                y_summary = obj@params$y_summary[, it.cat_name],
-                y_vals    = obj@params$data$y_vals_sample[, it.cat_name],
-                n_x1_bins = if (is.null(n_x1_bins)) {
-                  attributes(it.x1_x2_ale)$x[[1]]$n_bins
-                } else {
-                  20
-                },
-                n_x2_bins = if (is.null(n_x2_bins)) {
-                  attributes(it.x1_x2_ale)$x[[2]]$n_bins
-                } else {
-                  20
-                },
-                n_y_quant = n_y_quant,
-                x1_x2_y = obj@params$data$data_sample[
-                  , c(it.x1_col_name, it.x2_col_name, obj@params$y_col)
-                ],
-                relative_y = relative_y,
-                p_aler = p_aler,
-                y_nonsig_band = y_nonsig_band,
-                # median_band_pct = median_band_pct,
-                rug_sample_size = rug_sample_size,
-                min_rug_per_interval = min_rug_per_interval,
-                seed = seed
-              )
-            })
+          imap(it.cat_data$ale$d2, \(it.x_cols_ale_data, it.x_cols_name) {
+            it.x_cols_split <- it.x_cols_name |>
+              strsplit(":", fixed = TRUE) |>
+              unlist()
+
+            plot_ale_2D(
+              ale_data  = it.x_cols_ale_data,
+              x1_col    = it.x_cols_split[1],
+              x2_col    = it.x_cols_split[2],
+              y_col     = obj@params$y_col,
+              y_type    = obj@params$y_type,
+              y_summary = obj@params$y_summary[, it.cat_name],
+              y_vals    = obj@params$data$y_vals_sample[, it.cat_name],
+              n_x1_bins = if (is.null(n_x1_bins)) {
+                attributes(it.x_cols_ale_data)$x[[1]]$n_bins
+              } else {
+                20
+              },
+              n_x2_bins = if (is.null(n_x2_bins)) {
+                attributes(it.x_cols_ale_data)$x[[2]]$n_bins
+              } else {
+                20
+              },
+              n_y_quant = n_y_quant,
+              x1_x2_y = obj@params$data$data_sample[
+                , c(it.x_cols_split[1], it.x_cols_split[2], obj@params$y_col)
+              ],
+              relative_y = relative_y,
+              p_aler = p_aler,
+              y_nonsig_band = y_nonsig_band,
+              rug_sample_size = rug_sample_size,
+              min_rug_per_interval = min_rug_per_interval,
+              seed = seed
+            )
+            # })
           })
         })
     }
-
 
 
     # Create S7 ALEPlots object ----------------------

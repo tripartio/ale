@@ -102,7 +102,6 @@ test_that('ale function matches output of ALEPlot with nnet', {
     parallel = 0,
     output_stats = FALSE,
     boot_it = 0,
-    # output = c('data', 'plots'), boot_it = 0,
     # specific options requested by ALEPlot example
     pred_type = "raw", pred_fun = nnet_pred_fun_ale,
     max_num_bins = 10 + 1,
@@ -200,41 +199,42 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   pdf(file = NULL)
 
   # Create list of ALEPlot data that can be readily compared for accuracy
-  nnet_ALEPlot_ixn <-
-    map(1:4, \(it.col1_idx) {
-      map(1:4, \(it.col2_idx) {
-        if (it.col1_idx < it.col2_idx) {
-          ap_data <- ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot,
-                                      J = c(it.col1_idx, it.col2_idx), K = 10)
-          .x1 <- ap_data$x.values[[1]]
-          .x2 <- ap_data$x.values[[2]]
-          .y  <- ap_data$f.values
+  nnet_ALEPlot_ixn <- list()
+  for (it.x1 in 1:4) {
+    for (it.x2 in 1:4) {
+      if (it.x1 < it.x2) {
+        ap_data <- ALEPlot::ALEPlot(
+          DAT[,2:5],
+          nnet.DAT,
+          pred.fun = nnet_pred_fun_ALEPlot,
+          J = c(it.x1, it.x2),
+          K = 10
+        )
+        .x1 <- ap_data$x.values[[1]]
+        .x2 <- ap_data$x.values[[2]]
+        .y  <- ap_data$f.values
 
-          ixn_tbl <-
-            expand.grid(
-              row = 1:length(.x1),
-              col = 1:length(.x2)
-            ) |>
-            as_tibble() |>
-            mutate(
-              .x1 = as.numeric(.x1[row]),
-              .x2 = as.numeric(.x2[col]),
-              .y  = as.numeric(.y[cbind(row, col)])
-            ) |>
-            select(-row, -col) |>
-            arrange(.x1, .x2, .y)
+        ixn_tbl <-
+          expand.grid(
+            row = 1:length(.x1),
+            col = 1:length(.x2)
+          ) |>
+          as_tibble() |>
+          mutate(
+            .x1 = .x1[row],
+            .x2 = as.numeric(.x2[col]),
+            .y  = as.numeric(.y[cbind(row, col)])
+          ) |>
+          select(-row, -col) |>
+          arrange(.x1, .x2, .y)
 
-          # Remove extraneous attributes, otherwise comparison will not match
-          attributes(ixn_tbl)$out.attrs <- NULL
+        # Remove extraneous attributes, otherwise comparison will not match
+        attributes(ixn_tbl)$out.attrs <- NULL
 
-          ixn_tbl
-        }
-      }) |>
-        set_names(names(DAT[,2:5])) |>
-        compact()
-    }) |>
-    set_names(names(DAT[,2:5])) |>
-    compact()
+        nnet_ALEPlot_ixn[[str_glue('x{it.x1}:x{it.x2}')]] <- ixn_tbl
+      }
+    }
+  }
 
   # Return to regular printing of plots
   dev.off() |> invisible()
@@ -254,19 +254,16 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_2D_to_ALEPlot <-
     get(nnet_2D) |>
-    # nnet_2D@distinct$y$ale$d2 |>
-    map(\(it.x1) {
-      map(it.x1, \(it.x2) {
-        it.x2 <- it.x2 |>
-          select(1, 2, .y) |>
-          set_names(c('.x1', '.x2', '.y')) |>
-          arrange(.x1, .x2, .y)
+    map(\(it.ale) {
+      it.ale <- it.ale |>
+        select(1, 2, .y) |>
+        set_names(c('.x1', '.x2', '.y')) |>
+        arrange(.x1, .x2, .y)
 
-        # Strip incomparable attributes
-        attr(it.x2, 'x') <- NULL
+      # Strip incomparable attributes
+      attr(it.ale, 'x') <- NULL
 
-        it.x2
-      })
+      it.ale
     })
 
   # Compare results of ALEPlot with ale
@@ -283,59 +280,59 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
   pdf(file = NULL)
 
   # Create list of ALEPlot data that can be readily compared for accuracy
-  gbm_ALEPlot_ixn <-
-    map(c(1, 2, 3, 8), \(it.col1_idx) {
-      # map(c(1, 3, 11), \(it.col1_idx) {
-      map(c(1, 3, 11), \(it.col2_idx) {
-        if (it.col1_idx < it.col2_idx) {
-          ap_data <- ALEPlot::ALEPlot(
-            adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
-            J = c(it.col1_idx, it.col2_idx), K = 10, NA.plot = TRUE
-          )
-          .x1 <- ap_data$x.values[[1]]
-          .x2 <- ap_data$x.values[[2]]
-          .y  <- ap_data$f.values
+  gbm_ALEPlot_ixn <- list()
+  adult_data_subset <- adult_data[,-c(3,4,15)]
+  for (it.x1 in c(1, 2, 3, 8)) {
+    for (it.x2 in c(1, 3, 11)) {
+      if (it.x1 < it.x2) {
+        ap_data <- ALEPlot::ALEPlot(
+          adult_data_subset,
+          gbm.data,
+          pred.fun = gbm_pred_fun_ALEPlot,
+          J = c(it.x1, it.x2),
+          K = 10,
+          NA.plot = TRUE
+        )
+        .x1 <- ap_data$x.values[[1]]
+        .x2 <- ap_data$x.values[[2]]
+        .y  <- ap_data$f.values
 
-          ixn_tbl <-
-            expand.grid(
-              row = 1:length(.x1),
-              col = 1:length(.x2)
-            ) |>
-            as_tibble() |>
-            mutate(
-              .x1 = .x1[row],
-              # .x1 = as.numeric(.x1[row]),
-              .x2 = as.numeric(.x2[col]),
-              .y  = as.numeric(.y[cbind(row, col)])
-            ) |>
-            select(-row, -col) |>
-            arrange(.x1, .x2, .y)
+        ixn_tbl <-
+          expand.grid(
+            row = 1:length(.x1),
+            col = 1:length(.x2)
+          ) |>
+          as_tibble() |>
+          mutate(
+            .x1 = .x1[row],
+            .x2 = as.numeric(.x2[col]),
+            .y  = as.numeric(.y[cbind(row, col)])
+          ) |>
+          select(-row, -col) |>
+          arrange(.x1, .x2, .y)
 
-          # Remove extraneous attributes, otherwise comparison will not match
-          attributes(ixn_tbl)$out.attrs <- NULL
+        # Remove extraneous attributes, otherwise comparison will not match
+        attributes(ixn_tbl)$out.attrs <- NULL
 
-          ixn_tbl
-        }
-      }) |>
-        set_names(names(adult_data[,-c(3,4,15)])[c(1, 3, 11)]) |>
-        compact()
-    }) |>
-    set_names(names(adult_data[,-c(3,4,15)])[c(1, 2, 3, 8)]) |>
-    compact()
+        # browser()
 
-  # Return to regular printing of plots
-  dev.off() |> invisible()
+        gbm_ALEPlot_ixn[[str_glue(
+          '{names(adult_data_subset)[it.x1]}:{names(adult_data_subset)[it.x2]}'
+        )]] <- ixn_tbl
+      }
+    }
+  }
 
   gbm_2D <- ALE(
     model = gbm.data,
     data = adult_data,
-    x_cols = list(
-      c('age', 'education_num'),
-      c('age', 'hours_per_week'),
-      c('workclass', 'education_num'),
-      c('workclass', 'hours_per_week'),
-      c('education_num', 'hours_per_week'),
-      c('sex', 'hours_per_week')
+    x_cols = c(
+      'age:education_num',
+      'age:hours_per_week',
+      'workclass:education_num',
+      'workclass:hours_per_week',
+      'education_num:hours_per_week',
+      'sex:hours_per_week'
     ),
     parallel = 0,
     output_stats = FALSE,
@@ -344,23 +341,29 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
     silent = TRUE
   )
 
+  # Return to regular printing of plots
+  # For some reason, calling ALE() on gbm.data also prints some plots
+  dev.off() |> invisible()
+
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_2D_to_ALEPlot <-
     get(gbm_2D) |>
-    # gbm_2D@distinct$higher_income$ale$d2 |>
-    map(\(it.x1) {
-      map(it.x1, \(it.x2) {
-        it.x2 <- it.x2 |>
-          select(1, 2, .y) |>
-          mutate(across(where(is.factor), as.character)) |>
-          set_names(c('.x1', '.x2', '.y')) |>
-          arrange(.x1, .x2, .y)
+    map(\(it.ale) {
+      # browser()
+      it.ale <- it.ale |>
+        select(1, 2, .y) |>
+        set_names(c('.x1', '.x2', '.y')) |>
+        # Convert [ordered] factor columns to character for comparability with ALEPlot
+        mutate(across(
+            '.x1',
+            \(it.col) if (is.factor(it.col)) as.character(it.col) else it.col
+        )) |>
+        arrange(.x1, .x2, .y)
 
-        # Strip incomparable attributes
-        attr(it.x2, 'x') <- NULL
+      # Strip incomparable attributes
+      attr(it.ale, 'x') <- NULL
 
-        it.x2
-      })
+      it.ale
     })
 
   # Compare results of ALEPlot with ale

@@ -40,7 +40,7 @@ test_that(
       seed = 5,  # avoid errors with tiny dataset
       ale_options = list(
         # 'model' is problematic for bootstrapping because there are too many unique factor levels
-        x_cols = names(test_cars) |> setdiff('model')
+        x_cols = names(test_cars) |> setdiff(c('mpg', 'model'))
       ),
       ale_p = NULL,
       silent = TRUE

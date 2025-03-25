@@ -529,7 +529,7 @@
       [13] "continent"
       
       attr(,"params")$ordered_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$requested_x_cols
@@ -539,7 +539,7 @@
       [13] "continent"
       
       attr(,"params")$requested_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$y_cats

@@ -180,8 +180,7 @@
       
       
       attr(,"distinct")$vs$ale$d2
-      attr(,"distinct")$vs$ale$d2$model
-      attr(,"distinct")$vs$ale$d2$model$mpg
+      attr(,"distinct")$vs$ale$d2$`model:mpg`
       # A tibble: 320 x 8
          model.bin           mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -197,7 +196,7 @@
       10 Valiant                 10.4     0     0     0       0         0     0
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$cyl
+      attr(,"distinct")$vs$ale$d2$`model:cyl`
       # A tibble: 224 x 8
          model.bin    cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -213,7 +212,7 @@
       10 Valiant             3     0 -7.10e-11 -7.10e-11 -7.10e-11 -7.10e-11 -7.10e-11
       # i 214 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$disp
+      attr(,"distinct")$vs$ale$d2$`model:disp`
       # A tibble: 320 x 8
          model.bin       disp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -229,7 +228,7 @@
       10 Valiant              70.9     0 3.38e-10 3.38e-10 3.38e-10  3.38e-10 3.38e-10
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$hp
+      attr(,"distinct")$vs$ale$d2$`model:hp`
       # A tibble: 320 x 8
          model.bin           hp.ceil    .n        .y   .y_lo .y_mean .y_median   .y_hi
          <ord>                 <dbl> <int>     <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -245,7 +244,7 @@
       10 Valiant                  52     0   8.62e-9 8.62e-9 8.62e-9   8.62e-9 8.62e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$drat
+      attr(,"distinct")$vs$ale$d2$`model:drat`
       # A tibble: 320 x 8
          model.bin       drat.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -261,7 +260,7 @@
       10 Valiant              2.74     1 -2.11e-9 -2.11e-9 -2.11e-9  -2.11e-9 -2.11e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$wt
+      attr(,"distinct")$vs$ale$d2$`model:wt`
       # A tibble: 320 x 8
          model.bin         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -277,7 +276,7 @@
       10 Valiant              1.50     0 -4.77e-8 -4.77e-8 -4.77e-8  -4.77e-8 -4.77e-8
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$qsec
+      attr(,"distinct")$vs$ale$d2$`model:qsec`
       # A tibble: 320 x 8
          model.bin           qsec.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>                   <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -293,7 +292,7 @@
       10 Valiant                  14.5     0 3.48e-9 3.48e-9 3.48e-9   3.48e-9 3.48e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$am
+      attr(,"distinct")$vs$ale$d2$`model:am`
       # A tibble: 64 x 8
          model.bin           am.bin    .n      .y  .y_lo .y_mean .y_median  .y_hi
          <ord>               <ord>  <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -309,7 +308,7 @@
       10 Valiant             FALSE      2 -0.0624 -0.562 -0.0624   -0.562   0.862
       # i 54 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$gear
+      attr(,"distinct")$vs$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin           gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>               <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -325,7 +324,7 @@
       10 Valiant             three        2 0.811 0.311   0.811     0.311 1.74 
       # i 86 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$carb
+      attr(,"distinct")$vs$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin       carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -341,7 +340,7 @@
       10 Valiant                 1     2 5.66e-12 5.66e-12 5.66e-12  5.66e-12 5.66e-12
       # i 150 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$country
+      attr(,"distinct")$vs$ale$d2$`model:country`
       # A tibble: 192 x 8
          model.bin           country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>               <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -357,7 +356,7 @@
       10 Valiant             Sweden          0  1.30  1.30    1.30      1.30  1.30
       # i 182 more rows
       
-      attr(,"distinct")$vs$ale$d2$model$continent
+      attr(,"distinct")$vs$ale$d2$`model:continent`
       # A tibble: 96 x 8
          model.bin   continent.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>       <ord>         <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -373,9 +372,7 @@
       10 Valiant     North America     2  5.21e-4  1.36e-5  5.21e-4   3.89e-4  1.14e-3
       # i 86 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$mpg
-      attr(,"distinct")$vs$ale$d2$mpg$cyl
+      attr(,"distinct")$vs$ale$d2$`mpg:cyl`
       # A tibble: 70 x 8
          mpg.ceil cyl.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -391,7 +388,7 @@
       10     33.9        3     0     0     0       0         0     0
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$disp
+      attr(,"distinct")$vs$ale$d2$`mpg:disp`
       # A tibble: 100 x 8
          mpg.ceil disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -407,7 +404,7 @@
       10     33.9      70.9     1     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$hp
+      attr(,"distinct")$vs$ale$d2$`mpg:hp`
       # A tibble: 100 x 8
          mpg.ceil hp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -423,7 +420,7 @@
       10     33.9      52     1     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$drat
+      attr(,"distinct")$vs$ale$d2$`mpg:drat`
       # A tibble: 100 x 8
          mpg.ceil drat.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -439,7 +436,7 @@
       10     33.9      2.74     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$wt
+      attr(,"distinct")$vs$ale$d2$`mpg:wt`
       # A tibble: 100 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -455,7 +452,7 @@
       10     33.9    1.50     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$qsec
+      attr(,"distinct")$vs$ale$d2$`mpg:qsec`
       # A tibble: 100 x 8
          mpg.ceil qsec.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -471,7 +468,7 @@
       10     33.9      14.5     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$am
+      attr(,"distinct")$vs$ale$d2$`mpg:am`
       # A tibble: 20 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -496,7 +493,7 @@
       19     30.1 TRUE       5     0     0       0         0     0
       20     33.9 TRUE       7     0     0       0         0     0
       
-      attr(,"distinct")$vs$ale$d2$mpg$gear
+      attr(,"distinct")$vs$ale$d2$`mpg:gear`
       # A tibble: 30 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -512,7 +509,7 @@
       10     33.9 three        0     0     0       0         0     0
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$carb
+      attr(,"distinct")$vs$ale$d2$`mpg:carb`
       # A tibble: 50 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -528,7 +525,7 @@
       10     33.9         1     4     0     0       0         0     0
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$country
+      attr(,"distinct")$vs$ale$d2$`mpg:country`
       # A tibble: 60 x 8
          mpg.ceil country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -544,7 +541,7 @@
       10     33.9 Sweden          0     0     0       0         0     0
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$mpg$continent
+      attr(,"distinct")$vs$ale$d2$`mpg:continent`
       # A tibble: 30 x 8
          mpg.ceil continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -560,9 +557,7 @@
       10     33.9 North America     0     0     0       0         0     0
       # i 20 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$cyl
-      attr(,"distinct")$vs$ale$d2$cyl$disp
+      attr(,"distinct")$vs$ale$d2$`cyl:disp`
       # A tibble: 70 x 8
          cyl.ceil disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -578,7 +573,7 @@
       10        5      79.0     0 -1.58e-26 -1.58e-26 -1.58e-26 -1.58e-26 -1.58e-26
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$hp
+      attr(,"distinct")$vs$ale$d2$`cyl:hp`
       # A tibble: 70 x 8
          cyl.ceil hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -594,7 +589,7 @@
       10        5      66     1 -1.01e-25 -1.01e-25 -1.01e-25 -1.01e-25 -1.01e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$drat
+      attr(,"distinct")$vs$ale$d2$`cyl:drat`
       # A tibble: 70 x 8
          cyl.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -610,7 +605,7 @@
       10        5      3.02     0  5.22e-25  5.22e-25  5.22e-25  5.22e-25  5.22e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$wt
+      attr(,"distinct")$vs$ale$d2$`cyl:wt`
       # A tibble: 70 x 8
          cyl.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -626,7 +621,7 @@
       10        5    1.94     1  4.13e-25  3.78e-25  4.13e-25  3.78e-25  4.78e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$qsec
+      attr(,"distinct")$vs$ale$d2$`cyl:qsec`
       # A tibble: 70 x 8
          cyl.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -642,7 +637,7 @@
       10        5      15.6     0 -5.09e-25 -5.09e-25 -5.09e-25 -5.09e-25 -5.09e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$am
+      attr(,"distinct")$vs$ale$d2$`cyl:am`
       # A tibble: 14 x 8
          cyl.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -661,7 +656,7 @@
       13        8 TRUE       3 -5.13e-11 -9.63e-11 -5.13e-11 -3.07e-11 -2.38e-11
       14        9 TRUE       0 -5.13e-11 -9.63e-11 -5.13e-11 -3.07e-11 -2.38e-11
       
-      attr(,"distinct")$vs$ale$d2$cyl$gear
+      attr(,"distinct")$vs$ale$d2$`cyl:gear`
       # A tibble: 21 x 8
          cyl.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -677,7 +672,7 @@
       10        5 four         4  3.50e-13  3.50e-13  3.50e-13  3.50e-13  3.50e-13
       # i 11 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$carb
+      attr(,"distinct")$vs$ale$d2$`cyl:carb`
       # A tibble: 35 x 8
          cyl.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -693,7 +688,7 @@
       10        5         2     0 -3.43e-28 -3.70e-28 -3.43e-28 -3.56e-28 -3.04e-28
       # i 25 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$country
+      attr(,"distinct")$vs$ale$d2$`cyl:country`
       # A tibble: 42 x 8
          cyl.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -709,7 +704,7 @@
       10        5 UK              0 -5.12e-12 -6.02e-11 -5.12e-12  2.38e-11  2.54e-11
       # i 32 more rows
       
-      attr(,"distinct")$vs$ale$d2$cyl$continent
+      attr(,"distinct")$vs$ale$d2$`cyl:continent`
       # A tibble: 21 x 8
          cyl.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
             <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -726,9 +721,7 @@
       # i 11 more rows
       # i 1 more variable: .y_hi <dbl>
       
-      
-      attr(,"distinct")$vs$ale$d2$disp
-      attr(,"distinct")$vs$ale$d2$disp$hp
+      attr(,"distinct")$vs$ale$d2$`disp:hp`
       # A tibble: 100 x 8
          disp.ceil hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -744,7 +737,7 @@
       10     472        52     0 -2.45e-23 -2.45e-23 -2.45e-23 -2.45e-23 -2.45e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$drat
+      attr(,"distinct")$vs$ale$d2$`disp:drat`
       # A tibble: 100 x 8
          disp.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -760,7 +753,7 @@
       10     472        2.74     0  1.02e-23  1.02e-23  1.02e-23  1.02e-23  1.02e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$wt
+      attr(,"distinct")$vs$ale$d2$`disp:wt`
       # A tibble: 100 x 8
          disp.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -776,7 +769,7 @@
       10     472      1.50     0  7.02e-23  7.02e-23  7.02e-23  7.02e-23  7.02e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$qsec
+      attr(,"distinct")$vs$ale$d2$`disp:qsec`
       # A tibble: 100 x 8
          disp.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -792,7 +785,7 @@
       10     472        14.5     0 -2.33e-23 -2.33e-23 -2.33e-23 -2.33e-23 -2.33e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$am
+      attr(,"distinct")$vs$ale$d2$`disp:am`
       # A tibble: 20 x 8
          disp.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -817,7 +810,7 @@
       19     397.  TRUE       1  1.29e- 9  5.79e-10  1.29e- 9  1.06e- 9  2.20e- 9
       20     472   TRUE       0  1.29e- 9  5.79e-10  1.29e- 9  1.06e- 9  2.20e- 9
       
-      attr(,"distinct")$vs$ale$d2$disp$gear
+      attr(,"distinct")$vs$ale$d2$`disp:gear`
       # A tibble: 30 x 8
          disp.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -833,7 +826,7 @@
       10     472   three        7 -1.41e-11 -1.41e-11 -1.41e-11 -1.41e-11 -1.41e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$carb
+      attr(,"distinct")$vs$ale$d2$`disp:carb`
       # A tibble: 50 x 8
          disp.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -849,7 +842,7 @@
       10     472           1     0 -2.91e-26 -2.91e-26 -2.91e-26 -2.91e-26 -2.91e-26
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$country
+      attr(,"distinct")$vs$ale$d2$`disp:country`
       # A tibble: 60 x 8
          disp.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -865,7 +858,7 @@
       10     472   Sweden          0 -1.55e-10 -2.28e-10 -1.55e-10 -2.28e-10 -2.18e-11
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$disp$continent
+      attr(,"distinct")$vs$ale$d2$`disp:continent`
       # A tibble: 30 x 8
          disp.ceil continent.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
              <dbl> <ord>         <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -881,9 +874,7 @@
       10     472   North America     7 1.03e-10 -2.38e-11 1.03e-10  1.03e-10 2.31e-10
       # i 20 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$hp
-      attr(,"distinct")$vs$ale$d2$hp$drat
+      attr(,"distinct")$vs$ale$d2$`hp:drat`
       # A tibble: 100 x 8
          hp.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -899,7 +890,7 @@
       10    335       2.74     0  2.17e-22  2.17e-22  2.17e-22  2.17e-22  2.17e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$wt
+      attr(,"distinct")$vs$ale$d2$`hp:wt`
       # A tibble: 100 x 8
          hp.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -915,7 +906,7 @@
       10    335     1.50     0  8.29e-22  8.29e-22  8.29e-22  8.29e-22  8.29e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$qsec
+      attr(,"distinct")$vs$ale$d2$`hp:qsec`
       # A tibble: 100 x 8
          hp.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -931,7 +922,7 @@
       10    335       14.5     1 -2.56e-22 -2.56e-22 -2.56e-22 -2.56e-22 -2.56e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$am
+      attr(,"distinct")$vs$ale$d2$`hp:am`
       # A tibble: 20 x 8
          hp.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -956,7 +947,7 @@
       19    245  TRUE       0  3.96e- 9 -3.35e- 9  3.96e- 9  -1.05e-9  1.55e- 8
       20    335  TRUE       4  1.25e- 8  1.59e- 9  1.25e- 8   1.14e-8  2.42e- 8
       
-      attr(,"distinct")$vs$ale$d2$hp$gear
+      attr(,"distinct")$vs$ale$d2$`hp:gear`
       # A tibble: 30 x 8
          hp.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -972,7 +963,7 @@
       10    335  three        2 -5.72e-10 -5.72e-10 -5.72e-10 -5.72e-10 -5.72e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$carb
+      attr(,"distinct")$vs$ale$d2$`hp:carb`
       # A tibble: 50 x 8
          hp.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -988,7 +979,7 @@
       10    335          1     0 -2.23e-25 -2.23e-25 -2.23e-25 -2.23e-25 -2.23e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$country
+      attr(,"distinct")$vs$ale$d2$`hp:country`
       # A tibble: 60 x 8
          hp.ceil country.bin    .n        .y    .y_lo   .y_mean .y_median        .y_hi
            <dbl> <ord>       <int>     <dbl>    <dbl>     <dbl>     <dbl>        <dbl>
@@ -1004,7 +995,7 @@
       10    335  Sweden          0 -1.46e- 9 -3.11e-9 -1.46e- 9  -3.11e-9      1.60e-9
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$hp$continent
+      attr(,"distinct")$vs$ale$d2$`hp:continent`
       # A tibble: 30 x 8
          hp.ceil continent.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>         <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1020,9 +1011,7 @@
       10    335  North America     4 2.27e-10 -2.62e-11 2.27e-10  3.64e-10 3.64e-10
       # i 20 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$drat
-      attr(,"distinct")$vs$ale$d2$drat$wt
+      attr(,"distinct")$vs$ale$d2$`drat:wt`
       # A tibble: 100 x 8
          drat.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1038,7 +1027,7 @@
       10      4.98    1.50     0 -1.94e-22 -1.94e-22 -1.94e-22 -1.94e-22 -1.94e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$drat$qsec
+      attr(,"distinct")$vs$ale$d2$`drat:qsec`
       # A tibble: 100 x 8
          drat.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1054,7 +1043,7 @@
       10      4.98      14.5     1  7.06e-22  7.06e-22  7.06e-22  7.06e-22  7.06e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$drat$am
+      attr(,"distinct")$vs$ale$d2$`drat:am`
       # A tibble: 20 x 8
          drat.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1079,7 +1068,7 @@
       19      4.21 TRUE       7  2.45e- 9  7.44e-10  2.45e- 9  8.87e-10  5.49e- 9
       20      4.98 TRUE       7 -9.06e- 9 -1.31e- 8 -9.06e- 9 -1.03e- 8 -4.05e- 9
       
-      attr(,"distinct")$vs$ale$d2$drat$gear
+      attr(,"distinct")$vs$ale$d2$`drat:gear`
       # A tibble: 30 x 8
          drat.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1095,7 +1084,7 @@
       10      4.98 three        0  2.58e-10  2.58e-10  2.58e-10  2.58e-10  2.58e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$drat$carb
+      attr(,"distinct")$vs$ale$d2$`drat:carb`
       # A tibble: 50 x 8
          drat.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1111,7 +1100,7 @@
       10      4.98         1     1  1.34e-25  1.34e-25  1.34e-25  1.34e-25  1.34e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$drat$country
+      attr(,"distinct")$vs$ale$d2$`drat:country`
       # A tibble: 60 x 8
          drat.ceil country.bin    .n        .y    .y_lo   .y_mean .y_median    .y_hi
              <dbl> <ord>       <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
@@ -1127,7 +1116,7 @@
       10      4.98 Sweden          0  2.68e- 9 -2.52e-9  2.68e- 9   5.49e-9  5.49e-9
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$drat$continent
+      attr(,"distinct")$vs$ale$d2$`drat:continent`
       # A tibble: 30 x 8
          drat.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
              <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1144,9 +1133,7 @@
       # i 20 more rows
       # i 1 more variable: .y_hi <dbl>
       
-      
-      attr(,"distinct")$vs$ale$d2$wt
-      attr(,"distinct")$vs$ale$d2$wt$qsec
+      attr(,"distinct")$vs$ale$d2$`wt:qsec`
       # A tibble: 100 x 8
          wt.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1162,7 +1149,7 @@
       10    5.45      14.5     0  7.77e-22  7.77e-22  7.77e-22  7.77e-22  7.77e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$wt$am
+      attr(,"distinct")$vs$ale$d2$`wt:am`
       # A tibble: 20 x 8
          wt.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1187,7 +1174,7 @@
       19    4.05 TRUE       0 -3.55e-8 -5.03e-8 -3.55e-8 -3.94e- 8 -1.74e-8
       20    5.45 TRUE       0 -3.55e-8 -5.03e-8 -3.55e-8 -3.94e- 8 -1.74e-8
       
-      attr(,"distinct")$vs$ale$d2$wt$gear
+      attr(,"distinct")$vs$ale$d2$`wt:gear`
       # A tibble: 30 x 8
          wt.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1203,7 +1190,7 @@
       10    5.45 three        7  9.21e-11  9.21e-11  9.21e-11  9.21e-11  9.21e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$wt$carb
+      attr(,"distinct")$vs$ale$d2$`wt:carb`
       # A tibble: 50 x 8
          wt.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1219,7 +1206,7 @@
       10    5.45         1     0  7.38e-25  7.38e-25  7.38e-25  7.38e-25  7.38e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$wt$country
+      attr(,"distinct")$vs$ale$d2$`wt:country`
       # A tibble: 60 x 8
          wt.ceil country.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>       <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1235,7 +1222,7 @@
       10    5.45 Sweden          0  2.22e-8 -6.04e-9  2.22e-8   3.75e-8  3.75e-8
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$wt$continent
+      attr(,"distinct")$vs$ale$d2$`wt:continent`
       # A tibble: 30 x 8
          wt.ceil continent.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>         <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1251,9 +1238,7 @@
       10    5.45 North America     6 -1.71e-9 -3.58e-9 -1.71e-9  -3.04e-9  1.29e-9
       # i 20 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$qsec
-      attr(,"distinct")$vs$ale$d2$qsec$am
+      attr(,"distinct")$vs$ale$d2$`qsec:am`
       # A tibble: 20 x 8
          qsec.ceil am.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
              <dbl> <ord>  <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1278,7 +1263,7 @@
       19      20   TRUE       4  1.15e-8  6.34e- 9  1.15e-8   1.03e-8  1.76e-8
       20      23.0 TRUE       0  1.15e-8  6.34e- 9  1.15e-8   1.03e-8  1.76e-8
       
-      attr(,"distinct")$vs$ale$d2$qsec$gear
+      attr(,"distinct")$vs$ale$d2$`qsec:gear`
       # A tibble: 30 x 8
          qsec.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1294,7 +1279,7 @@
       10      23.0 three        4 -1.24e-10 -1.24e-10 -1.24e-10 -1.24e-10 -1.24e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$qsec$carb
+      attr(,"distinct")$vs$ale$d2$`qsec:carb`
       # A tibble: 50 x 8
          qsec.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1310,7 +1295,7 @@
       10      23.0         1     4 -5.15e-26 -5.15e-26 -5.15e-26 -5.15e-26 -5.15e-26
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$qsec$country
+      attr(,"distinct")$vs$ale$d2$`qsec:country`
       # A tibble: 60 x 8
          qsec.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1326,7 +1311,7 @@
       10      23.0 Sweden          0 -2.11e- 8 -2.17e- 8 -2.11e- 8 -2.17e- 8 -2.01e- 8
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$qsec$continent
+      attr(,"distinct")$vs$ale$d2$`qsec:continent`
       # A tibble: 30 x 8
          qsec.ceil continent.bin    .n          .y     .y_lo .y_mean .y_median   .y_hi
              <dbl> <ord>         <int>       <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
@@ -1342,9 +1327,7 @@
       10      23.0 North America     2     5.88e-9 -1.41e-10 5.88e-9   5.88e-9 1.19e-8
       # i 20 more rows
       
-      
-      attr(,"distinct")$vs$ale$d2$am
-      attr(,"distinct")$vs$ale$d2$am$gear
+      attr(,"distinct")$vs$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1355,7 +1338,7 @@
       5 FALSE  five         0  0.273   0.0721  0.273    0.167    0.563 
       6 TRUE   five        10 -0.0163 -0.156  -0.0163  -0.00941  0.117 
       
-      attr(,"distinct")$vs$ale$d2$am$carb
+      attr(,"distinct")$vs$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1370,7 +1353,7 @@
        9 FALSE          8     2  2.37e-12 -1.29e-11  2.37e-12 -7.88e-12  2.64e-11
       10 TRUE           8     4  3.29e-11  2.82e-11  3.29e-11  3.14e-11  3.91e-11
       
-      attr(,"distinct")$vs$ale$d2$am$country
+      attr(,"distinct")$vs$ale$d2$`am:country`
       # A tibble: 12 x 8
          am.bin country.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>  <ord>       <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1387,7 +1370,7 @@
       11 FALSE  USA            22 -0.0482 -0.403  -0.0482    0.0468  0.226 
       12 TRUE   USA             2 -0.0181 -0.285  -0.0181   -0.214   0.415 
       
-      attr(,"distinct")$vs$ale$d2$am$continent
+      attr(,"distinct")$vs$ale$d2$`am:continent`
       # A tibble: 6 x 8
         am.bin continent.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
         <ord>  <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1398,9 +1381,7 @@
       5 FALSE  Asia              2 -5.67e- 9 -1.16e- 8 -5.67e- 9 -2.62e- 9 -2.35e- 9
       6 TRUE   Asia             10 -6.44e- 9 -1.83e- 8 -6.44e- 9 -3.45e- 9  2.90e- 9
       
-      
-      attr(,"distinct")$vs$ale$d2$gear
-      attr(,"distinct")$vs$ale$d2$gear$carb
+      attr(,"distinct")$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1420,7 +1401,7 @@
       14 four             8     1 -1.77e-13 -1.77e-13 -1.77e-13 -1.77e-13 -1.77e-13
       15 five             8     4 -1.40e-12 -4.98e-12 -1.40e-12 -6.34e-13  1.54e-12
       
-      attr(,"distinct")$vs$ale$d2$gear$country
+      attr(,"distinct")$vs$ale$d2$`gear:country`
       # A tibble: 18 x 8
          gear.bin country.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
          <ord>    <ord>       <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
@@ -1443,7 +1424,7 @@
       17 four     USA             0 -0.686   -1.62   -0.686     -0.588   0.162 
       18 five     USA             2 -0.686   -1.62   -0.686     -0.588   0.162 
       
-      attr(,"distinct")$vs$ale$d2$gear$continent
+      attr(,"distinct")$vs$ale$d2$`gear:continent`
       # A tibble: 9 x 8
         gear.bin continent.bin    .n          .y     .y_lo  .y_mean .y_median    .y_hi
         <ord>    <ord>         <int>       <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1457,9 +1438,7 @@
       8 four     Asia             10 -0.0000419   -1.10e-4 -4.19e-5  -8.50e-5  6.29e-5
       9 five     Asia              0 -0.0000419   -1.10e-4 -4.19e-5  -8.50e-5  6.29e-5
       
-      
-      attr(,"distinct")$vs$ale$d2$carb
-      attr(,"distinct")$vs$ale$d2$carb$country
+      attr(,"distinct")$vs$ale$d2$`carb:country`
       # A tibble: 30 x 8
          carb.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1475,7 +1454,7 @@
       10         8 UK              0 -1.59e-11 -1.69e-11 -1.59e-11 -1.69e-11 -1.40e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$carb$continent
+      attr(,"distinct")$vs$ale$d2$`carb:continent`
       # A tibble: 15 x 8
          carb.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
              <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1496,9 +1475,7 @@
       15         8 Asia              0  5.69e-12 -1.24e-13  5.69e-12  3.91e-12
       # i 1 more variable: .y_hi <dbl>
       
-      
-      attr(,"distinct")$vs$ale$d2$country
-      attr(,"distinct")$vs$ale$d2$country$continent
+      attr(,"distinct")$vs$ale$d2$`country:continent`
       # A tibble: 18 x 8
          country.bin continent.bin    .n        .y     .y_lo   .y_mean .y_median
          <ord>       <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1521,7 +1498,6 @@
       17 Germany     Asia              0 -3.66e- 9 -6.73e- 9 -3.66e- 9 -3.31e- 9
       18 USA         Asia              0 -3.38e- 9 -6.73e- 9 -3.38e- 9 -3.31e- 9
       # i 1 more variable: .y_hi <dbl>
-      
       
       
       
@@ -1803,8 +1779,7 @@
       
       attr(,"distinct")$vs$stats$d2
       attr(,"distinct")$vs$stats$d2$by_term
-      attr(,"distinct")$vs$stats$d2$by_term$model
-      attr(,"distinct")$vs$stats$d2$by_term$model$mpg
+      attr(,"distinct")$vs$stats$d2$by_term$`model:mpg`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1815,7 +1790,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$cyl
+      attr(,"distinct")$vs$stats$d2$by_term$`model:cyl`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1826,7 +1801,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$disp
+      attr(,"distinct")$vs$stats$d2$by_term$`model:disp`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1837,7 +1812,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$hp
+      attr(,"distinct")$vs$stats$d2$by_term$`model:hp`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1848,7 +1823,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$drat
+      attr(,"distinct")$vs$stats$d2$by_term$`model:drat`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1859,7 +1834,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`model:wt`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1870,7 +1845,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`model:qsec`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -1881,7 +1856,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$am
+      attr(,"distinct")$vs$stats$d2$by_term$`model:am`
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1892,7 +1867,7 @@
       5 naler_min  -50       -50    -50     -50       -50    
       6 naler_max   50        50     50      50        50    
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`model:gear`
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -1903,7 +1878,7 @@
       5 naler_min   -50      -50    -50    -50       -50   
       6 naler_max    50       50     50     50        50   
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`model:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1914,7 +1889,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$country
+      attr(,"distinct")$vs$stats$d2$by_term$`model:country`
       # A tibble: 6 x 6
         statistic estimate conf.low   mean median conf.high
         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -1925,7 +1900,7 @@
       5 naler_min   -50     -50     -50    -50       -50   
       6 naler_max    50      50      50     50        50   
       
-      attr(,"distinct")$vs$stats$d2$by_term$model$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`model:continent`
       # A tibble: 6 x 6
         statistic     estimate     conf.low         mean       median    conf.high
         <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
@@ -1936,9 +1911,7 @@
       5 naler_min -50          -50          -50          -50          -50         
       6 naler_max   6.25         6.25         6.25         6.25         6.25      
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$mpg
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$cyl
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:cyl`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1949,7 +1922,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$disp
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:disp`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1960,7 +1933,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$hp
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:hp`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1971,7 +1944,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$drat
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:drat`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1982,7 +1955,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:wt`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -1993,7 +1966,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:qsec`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2004,7 +1977,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$am
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:am`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2015,7 +1988,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:gear`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2026,7 +1999,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:carb`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2037,7 +2010,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$country
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:country`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2048,7 +2021,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      attr(,"distinct")$vs$stats$d2$by_term$mpg$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`mpg:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low  mean median conf.high
         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
@@ -2059,9 +2032,7 @@
       5 naler_min        0        0     0      0         0
       6 naler_max        0        0     0      0         0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$cyl
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$disp
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:disp`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2072,7 +2043,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$hp
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:hp`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2083,7 +2054,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$drat
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:drat`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2094,7 +2065,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:wt`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2105,7 +2076,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:qsec`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2116,7 +2087,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$am
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:am`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2127,7 +2098,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2138,7 +2109,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2149,7 +2120,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$country
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:country`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2160,7 +2131,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max -2.19e+ 1 -4.86e+ 1 -2.19e+ 1 -2.19e+ 1  4.84e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$cyl$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`cyl:continent`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2171,9 +2142,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$disp
-      attr(,"distinct")$vs$stats$d2$by_term$disp$hp
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:hp`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2184,7 +2153,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$drat
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:drat`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2195,7 +2164,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:wt`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2206,7 +2175,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:qsec`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2217,7 +2186,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$am
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:am`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2228,7 +2197,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2239,7 +2208,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2250,7 +2219,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$country
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:country`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2261,7 +2230,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$disp$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`disp:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2272,9 +2241,7 @@
       5 naler_min 6.25e+ 0 6.25e+ 0 6.25e+ 0 6.25e+ 0  6.25e+ 0
       6 naler_max 6.25e+ 0 6.25e+ 0 6.25e+ 0 6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$hp
-      attr(,"distinct")$vs$stats$d2$by_term$hp$drat
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:drat`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2285,7 +2252,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:wt`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2296,7 +2263,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:qsec`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2307,7 +2274,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$am
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:am`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2318,7 +2285,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2329,7 +2296,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2340,7 +2307,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$country
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:country`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2351,7 +2318,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$hp$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`hp:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2362,9 +2329,7 @@
       5 naler_min 6.25e+ 0 6.25e+ 0 6.25e+ 0 6.25e+ 0  6.25e+ 0
       6 naler_max 6.25e+ 0 6.25e+ 0 6.25e+ 0 6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$drat
-      attr(,"distinct")$vs$stats$d2$by_term$drat$wt
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:wt`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2375,7 +2340,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:qsec`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2386,7 +2351,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$am
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:am`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2397,7 +2362,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2408,7 +2373,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2419,7 +2384,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$country
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:country`
       # A tibble: 6 x 6
         statistic estimate  conf.low     mean   median conf.high
         <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
@@ -2430,7 +2395,7 @@
       5 naler_min -5   e+1 -5   e+ 1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max -2.19e+1 -4.86e+ 1 -2.19e+1 -2.19e+1   4.84e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$drat$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`drat:continent`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2441,9 +2406,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$wt
-      attr(,"distinct")$vs$stats$d2$by_term$wt$qsec
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:qsec`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2454,7 +2417,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$wt$am
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:am`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2465,7 +2428,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$wt$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2476,7 +2439,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$wt$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2487,7 +2450,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$wt$country
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:country`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2498,7 +2461,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$wt$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`wt:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2509,9 +2472,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$qsec
-      attr(,"distinct")$vs$stats$d2$by_term$qsec$am
+      attr(,"distinct")$vs$stats$d2$by_term$`qsec:am`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2522,7 +2483,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$qsec$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`qsec:gear`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2533,7 +2494,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$qsec$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`qsec:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2544,7 +2505,7 @@
       5 naler_min  0         0         0         0         0       
       6 naler_max  0         0         0         0         0       
       
-      attr(,"distinct")$vs$stats$d2$by_term$qsec$country
+      attr(,"distinct")$vs$stats$d2$by_term$`qsec:country`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2555,7 +2516,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      attr(,"distinct")$vs$stats$d2$by_term$qsec$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`qsec:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2566,9 +2527,7 @@
       5 naler_min -5   e+1 -5   e+1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$am
-      attr(,"distinct")$vs$stats$d2$by_term$am$gear
+      attr(,"distinct")$vs$stats$d2$by_term$`am:gear`
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2579,7 +2538,7 @@
       5 naler_min  -50      -50     -50     -50      -50     
       6 naler_max    6.25     6.25    6.25    6.25     6.25  
       
-      attr(,"distinct")$vs$stats$d2$by_term$am$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`am:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2590,7 +2549,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$am$country
+      attr(,"distinct")$vs$stats$d2$by_term$`am:country`
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2601,7 +2560,7 @@
       5 naler_min  -50     -50      -50     -50       -50    
       6 naler_max    6.25    6.25     6.25    6.25      6.25 
       
-      attr(,"distinct")$vs$stats$d2$by_term$am$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`am:continent`
       # A tibble: 6 x 6
         statistic estimate  conf.low     mean   median conf.high
         <chr>        <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
@@ -2612,9 +2571,7 @@
       5 naler_min -5   e+1 -5   e+ 1 -5   e+1 -5   e+1  -5   e+1
       6 naler_max  6.25e+0  6.25e+ 0  6.25e+0  6.25e+0   6.25e+0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$gear
-      attr(,"distinct")$vs$stats$d2$by_term$gear$carb
+      attr(,"distinct")$vs$stats$d2$by_term$`gear:carb`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2625,7 +2582,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$gear$country
+      attr(,"distinct")$vs$stats$d2$by_term$`gear:country`
       # A tibble: 6 x 6
         statistic estimate conf.low    mean  median conf.high
         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -2636,7 +2593,7 @@
       5 naler_min  -50      -50     -50     -50       -50    
       6 naler_max   50       50      50      50        50    
       
-      attr(,"distinct")$vs$stats$d2$by_term$gear$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`gear:continent`
       # A tibble: 6 x 6
         statistic    estimate    conf.low        mean      median   conf.high
         <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -2647,9 +2604,7 @@
       5 naler_min -50         -50         -50         -50         -50        
       6 naler_max -21.9       -48.6       -21.9       -21.9         4.84     
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$carb
-      attr(,"distinct")$vs$stats$d2$by_term$carb$country
+      attr(,"distinct")$vs$stats$d2$by_term$`carb:country`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2660,7 +2615,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      attr(,"distinct")$vs$stats$d2$by_term$carb$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`carb:continent`
       # A tibble: 6 x 6
         statistic  estimate  conf.low      mean    median conf.high
         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -2671,9 +2626,7 @@
       5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"distinct")$vs$stats$d2$by_term$country
-      attr(,"distinct")$vs$stats$d2$by_term$country$continent
+      attr(,"distinct")$vs$stats$d2$by_term$`country:continent`
       # A tibble: 6 x 6
         statistic estimate conf.low     mean   median conf.high
         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2685,119 +2638,118 @@
       6 naler_max  6.25e+0  6.25e+0  6.25e+0  6.25e+0   6.25e+0
       
       
-      
       attr(,"distinct")$vs$stats$d2$by_stat
       attr(,"distinct")$vs$stats$d2$by_stat$aled
-      # A tibble: 78 x 7
-         term1 term2 estimate conf.low     mean   median conf.high
-         <chr> <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model mpg   0        0        0        0         0       
-       2 model cyl   3.51e-11 2.91e-11 3.51e-11 3.51e-11  4.11e-11
-       3 model disp  5.94e-10 3.27e-10 5.94e-10 5.94e-10  8.61e-10
-       4 model hp    7.24e- 9 6.24e- 9 7.24e- 9 7.24e- 9  8.24e- 9
-       5 model drat  7.73e- 9 4.28e- 9 7.73e- 9 7.73e- 9  1.12e- 8
-       6 model wt    2.73e- 8 1.65e- 8 2.73e- 8 2.73e- 8  3.81e- 8
-       7 model qsec  7.45e- 9 5.71e- 9 7.45e- 9 7.45e- 9  9.19e- 9
-       8 model am    3.65e+ 0 3.10e+ 0 3.65e+ 0 3.65e+ 0  4.19e+ 0
-       9 model gear  1.42e+ 0 1.13e+ 0 1.42e+ 0 1.42e+ 0  1.71e+ 0
-      10 model carb  8.81e-12 5.01e-12 8.81e-12 8.81e-12  1.26e-11
+      # A tibble: 78 x 6
+         term       estimate conf.low     mean   median conf.high
+         <chr>         <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model:mpg  0        0        0        0         0       
+       2 model:cyl  3.51e-11 2.91e-11 3.51e-11 3.51e-11  4.11e-11
+       3 model:disp 5.94e-10 3.27e-10 5.94e-10 5.94e-10  8.61e-10
+       4 model:hp   7.24e- 9 6.24e- 9 7.24e- 9 7.24e- 9  8.24e- 9
+       5 model:drat 7.73e- 9 4.28e- 9 7.73e- 9 7.73e- 9  1.12e- 8
+       6 model:wt   2.73e- 8 1.65e- 8 2.73e- 8 2.73e- 8  3.81e- 8
+       7 model:qsec 7.45e- 9 5.71e- 9 7.45e- 9 7.45e- 9  9.19e- 9
+       8 model:am   3.65e+ 0 3.10e+ 0 3.65e+ 0 3.65e+ 0  4.19e+ 0
+       9 model:gear 1.42e+ 0 1.13e+ 0 1.42e+ 0 1.42e+ 0  1.71e+ 0
+      10 model:carb 8.81e-12 5.01e-12 8.81e-12 8.81e-12  1.26e-11
       # i 68 more rows
       
       attr(,"distinct")$vs$stats$d2$by_stat$aler_min
-      # A tibble: 78 x 7
-         term1 term2  estimate  conf.low      mean    median conf.high
-         <chr> <chr>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 model mpg    0         0         0         0         0       
-       2 model cyl   -1.57e-10 -1.60e-10 -1.57e-10 -1.57e-10 -1.53e-10
-       3 model disp  -4.13e-10 -5.68e-10 -4.13e-10 -4.13e-10 -2.58e-10
-       4 model hp    -1.11e- 8 -1.22e- 8 -1.11e- 8 -1.11e- 8 -1.01e- 8
-       5 model drat  -4.13e- 8 -5.35e- 8 -4.13e- 8 -4.13e- 8 -2.91e- 8
-       6 model wt    -3.38e- 7 -3.83e- 7 -3.38e- 7 -3.38e- 7 -2.93e- 7
-       7 model qsec  -2.74e- 8 -2.90e- 8 -2.74e- 8 -2.74e- 8 -2.59e- 8
-       8 model am    -9.37e- 1 -1.29e+ 0 -9.37e- 1 -9.37e- 1 -5.81e- 1
-       9 model gear  -1.73e+ 0 -1.93e+ 0 -1.73e+ 0 -1.73e+ 0 -1.54e+ 0
-      10 model carb  -1.18e-11 -1.21e-11 -1.18e-11 -1.18e-11 -1.16e-11
+      # A tibble: 78 x 6
+         term        estimate  conf.low      mean    median conf.high
+         <chr>          <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 model:mpg   0         0         0         0         0       
+       2 model:cyl  -1.57e-10 -1.60e-10 -1.57e-10 -1.57e-10 -1.53e-10
+       3 model:disp -4.13e-10 -5.68e-10 -4.13e-10 -4.13e-10 -2.58e-10
+       4 model:hp   -1.11e- 8 -1.22e- 8 -1.11e- 8 -1.11e- 8 -1.01e- 8
+       5 model:drat -4.13e- 8 -5.35e- 8 -4.13e- 8 -4.13e- 8 -2.91e- 8
+       6 model:wt   -3.38e- 7 -3.83e- 7 -3.38e- 7 -3.38e- 7 -2.93e- 7
+       7 model:qsec -2.74e- 8 -2.90e- 8 -2.74e- 8 -2.74e- 8 -2.59e- 8
+       8 model:am   -9.37e- 1 -1.29e+ 0 -9.37e- 1 -9.37e- 1 -5.81e- 1
+       9 model:gear -1.73e+ 0 -1.93e+ 0 -1.73e+ 0 -1.73e+ 0 -1.54e+ 0
+      10 model:carb -1.18e-11 -1.21e-11 -1.18e-11 -1.18e-11 -1.16e-11
       # i 68 more rows
       
       attr(,"distinct")$vs$stats$d2$by_stat$aler_max
-      # A tibble: 78 x 7
-         term1 term2 estimate conf.low     mean   median conf.high
-         <chr> <chr>    <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model mpg   0        0        0        0         0       
-       2 model cyl   7.42e-11 5.31e-11 7.42e-11 7.42e-11  9.52e-11
-       3 model disp  5.39e- 9 5.04e- 9 5.39e- 9 5.39e- 9  5.74e- 9
-       4 model hp    7.75e- 8 6.25e- 8 7.75e- 8 7.75e- 8  9.26e- 8
-       5 model drat  9.29e- 9 9.29e- 9 9.29e- 9 9.29e- 9  9.29e- 9
-       6 model wt    5.13e- 8 4.97e- 8 5.13e- 8 5.13e- 8  5.29e- 8
-       7 model qsec  1.49e- 8 1.24e- 8 1.49e- 8 1.49e- 8  1.73e- 8
-       8 model am    9.06e+ 0 7.75e+ 0 9.06e+ 0 9.06e+ 0  1.04e+ 1
-       9 model gear  4.72e+ 0 4.72e+ 0 4.72e+ 0 4.72e+ 0  4.72e+ 0
-      10 model carb  3.64e-11 2.99e-11 3.64e-11 3.64e-11  4.29e-11
+      # A tibble: 78 x 6
+         term       estimate conf.low     mean   median conf.high
+         <chr>         <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 model:mpg  0        0        0        0         0       
+       2 model:cyl  7.42e-11 5.31e-11 7.42e-11 7.42e-11  9.52e-11
+       3 model:disp 5.39e- 9 5.04e- 9 5.39e- 9 5.39e- 9  5.74e- 9
+       4 model:hp   7.75e- 8 6.25e- 8 7.75e- 8 7.75e- 8  9.26e- 8
+       5 model:drat 9.29e- 9 9.29e- 9 9.29e- 9 9.29e- 9  9.29e- 9
+       6 model:wt   5.13e- 8 4.97e- 8 5.13e- 8 5.13e- 8  5.29e- 8
+       7 model:qsec 1.49e- 8 1.24e- 8 1.49e- 8 1.49e- 8  1.73e- 8
+       8 model:am   9.06e+ 0 7.75e+ 0 9.06e+ 0 9.06e+ 0  1.04e+ 1
+       9 model:gear 4.72e+ 0 4.72e+ 0 4.72e+ 0 4.72e+ 0  4.72e+ 0
+      10 model:carb 3.64e-11 2.99e-11 3.64e-11 3.64e-11  4.29e-11
       # i 68 more rows
       
       attr(,"distinct")$vs$stats$d2$by_stat$naled
-      # A tibble: 78 x 7
-         term1 term2 estimate conf.low  mean median conf.high
-         <chr> <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model mpg        0        0     0      0         0  
-       2 model cyl       30.2     17.8  30.2   30.2      42.5
-       3 model disp      24.4     11.1  24.4   24.4      37.7
-       4 model hp        14.8     12.5  14.8   14.8      17.1
-       5 model drat      45.6     43.9  45.6   45.6      47.2
-       6 model wt        29.2     15.2  29.2   29.2      43.1
-       7 model qsec      27.4     25.5  27.4   27.4      29.4
-       8 model am        41.1     32.7  41.1   41.1      49.6
-       9 model gear      32.9     21.9  32.9   32.9      44.0
-      10 model carb      11.4     10.4  11.4   11.4      12.4
+      # A tibble: 78 x 6
+         term       estimate conf.low  mean median conf.high
+         <chr>         <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model:mpg       0        0     0      0         0  
+       2 model:cyl      30.2     17.8  30.2   30.2      42.5
+       3 model:disp     24.4     11.1  24.4   24.4      37.7
+       4 model:hp       14.8     12.5  14.8   14.8      17.1
+       5 model:drat     45.6     43.9  45.6   45.6      47.2
+       6 model:wt       29.2     15.2  29.2   29.2      43.1
+       7 model:qsec     27.4     25.5  27.4   27.4      29.4
+       8 model:am       41.1     32.7  41.1   41.1      49.6
+       9 model:gear     32.9     21.9  32.9   32.9      44.0
+      10 model:carb     11.4     10.4  11.4   11.4      12.4
       # i 68 more rows
       
       attr(,"distinct")$vs$stats$d2$by_stat$naler_min
-      # A tibble: 78 x 7
-         term1 term2 estimate conf.low  mean median conf.high
-         <chr> <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model mpg          0        0     0      0         0
-       2 model cyl        -50      -50   -50    -50       -50
-       3 model disp       -50      -50   -50    -50       -50
-       4 model hp         -50      -50   -50    -50       -50
-       5 model drat       -50      -50   -50    -50       -50
-       6 model wt         -50      -50   -50    -50       -50
-       7 model qsec       -50      -50   -50    -50       -50
-       8 model am         -50      -50   -50    -50       -50
-       9 model gear       -50      -50   -50    -50       -50
-      10 model carb       -50      -50   -50    -50       -50
+      # A tibble: 78 x 6
+         term       estimate conf.low  mean median conf.high
+         <chr>         <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model:mpg         0        0     0      0         0
+       2 model:cyl       -50      -50   -50    -50       -50
+       3 model:disp      -50      -50   -50    -50       -50
+       4 model:hp        -50      -50   -50    -50       -50
+       5 model:drat      -50      -50   -50    -50       -50
+       6 model:wt        -50      -50   -50    -50       -50
+       7 model:qsec      -50      -50   -50    -50       -50
+       8 model:am        -50      -50   -50    -50       -50
+       9 model:gear      -50      -50   -50    -50       -50
+      10 model:carb      -50      -50   -50    -50       -50
       # i 68 more rows
       
       attr(,"distinct")$vs$stats$d2$by_stat$naler_max
-      # A tibble: 78 x 7
-         term1 term2 estimate conf.low  mean median conf.high
-         <chr> <chr>    <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model mpg       0        0     0      0         0   
-       2 model cyl       6.25     6.25  6.25   6.25      6.25
-       3 model disp      6.25     6.25  6.25   6.25      6.25
-       4 model hp        6.25     6.25  6.25   6.25      6.25
-       5 model drat      6.25     6.25  6.25   6.25      6.25
-       6 model wt        6.25     6.25  6.25   6.25      6.25
-       7 model qsec      6.25     6.25  6.25   6.25      6.25
-       8 model am       50       50    50     50        50   
-       9 model gear     50       50    50     50        50   
-      10 model carb      6.25     6.25  6.25   6.25      6.25
+      # A tibble: 78 x 6
+         term       estimate conf.low  mean median conf.high
+         <chr>         <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 model:mpg      0        0     0      0         0   
+       2 model:cyl      6.25     6.25  6.25   6.25      6.25
+       3 model:disp     6.25     6.25  6.25   6.25      6.25
+       4 model:hp       6.25     6.25  6.25   6.25      6.25
+       5 model:drat     6.25     6.25  6.25   6.25      6.25
+       6 model:wt       6.25     6.25  6.25   6.25      6.25
+       7 model:qsec     6.25     6.25  6.25   6.25      6.25
+       8 model:am      50       50    50     50        50   
+       9 model:gear    50       50    50     50        50   
+      10 model:carb     6.25     6.25  6.25   6.25      6.25
       # i 68 more rows
       
       
       attr(,"distinct")$vs$stats$d2$estimate
-      # A tibble: 78 x 8
-         term1 term2     aled  aler_min aler_max naled naler_min naler_max
-         <chr> <chr>    <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 model mpg   0         0        0          0           0      0   
-       2 model cyl   3.51e-11 -1.57e-10 7.42e-11  30.2       -50      6.25
-       3 model disp  5.94e-10 -4.13e-10 5.39e- 9  24.4       -50      6.25
-       4 model hp    7.24e- 9 -1.11e- 8 7.75e- 8  14.8       -50      6.25
-       5 model drat  7.73e- 9 -4.13e- 8 9.29e- 9  45.6       -50      6.25
-       6 model wt    2.73e- 8 -3.38e- 7 5.13e- 8  29.2       -50      6.25
-       7 model qsec  7.45e- 9 -2.74e- 8 1.49e- 8  27.4       -50      6.25
-       8 model am    3.65e+ 0 -9.37e- 1 9.06e+ 0  41.1       -50     50   
-       9 model gear  1.42e+ 0 -1.73e+ 0 4.72e+ 0  32.9       -50     50   
-      10 model carb  8.81e-12 -1.18e-11 3.64e-11  11.4       -50      6.25
+      # A tibble: 78 x 7
+         term           aled  aler_min aler_max naled naler_min naler_max
+         <chr>         <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 model:mpg  0         0        0          0           0      0   
+       2 model:cyl  3.51e-11 -1.57e-10 7.42e-11  30.2       -50      6.25
+       3 model:disp 5.94e-10 -4.13e-10 5.39e- 9  24.4       -50      6.25
+       4 model:hp   7.24e- 9 -1.11e- 8 7.75e- 8  14.8       -50      6.25
+       5 model:drat 7.73e- 9 -4.13e- 8 9.29e- 9  45.6       -50      6.25
+       6 model:wt   2.73e- 8 -3.38e- 7 5.13e- 8  29.2       -50      6.25
+       7 model:qsec 7.45e- 9 -2.74e- 8 1.49e- 8  27.4       -50      6.25
+       8 model:am   3.65e+ 0 -9.37e- 1 9.06e+ 0  41.1       -50     50   
+       9 model:gear 1.42e+ 0 -1.73e+ 0 4.72e+ 0  32.9       -50     50   
+      10 model:carb 8.81e-12 -1.18e-11 3.64e-11  11.4       -50      6.25
       # i 68 more rows
       
       
@@ -2814,240 +2766,32 @@
       [13] "continent"
       
       attr(,"params")$ordered_x_cols$d2
-      attr(,"params")$ordered_x_cols$d2[[1]]
-      [1] "model" "mpg"  
-      
-      attr(,"params")$ordered_x_cols$d2[[2]]
-      [1] "model" "cyl"  
-      
-      attr(,"params")$ordered_x_cols$d2[[3]]
-      [1] "model" "disp" 
-      
-      attr(,"params")$ordered_x_cols$d2[[4]]
-      [1] "model" "hp"   
-      
-      attr(,"params")$ordered_x_cols$d2[[5]]
-      [1] "model" "drat" 
-      
-      attr(,"params")$ordered_x_cols$d2[[6]]
-      [1] "model" "wt"   
-      
-      attr(,"params")$ordered_x_cols$d2[[7]]
-      [1] "model" "qsec" 
-      
-      attr(,"params")$ordered_x_cols$d2[[8]]
-      [1] "model" "am"   
-      
-      attr(,"params")$ordered_x_cols$d2[[9]]
-      [1] "model" "gear" 
-      
-      attr(,"params")$ordered_x_cols$d2[[10]]
-      [1] "model" "carb" 
-      
-      attr(,"params")$ordered_x_cols$d2[[11]]
-      [1] "model"   "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[12]]
-      [1] "model"     "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[13]]
-      [1] "mpg" "cyl"
-      
-      attr(,"params")$ordered_x_cols$d2[[14]]
-      [1] "mpg"  "disp"
-      
-      attr(,"params")$ordered_x_cols$d2[[15]]
-      [1] "mpg" "hp" 
-      
-      attr(,"params")$ordered_x_cols$d2[[16]]
-      [1] "mpg"  "drat"
-      
-      attr(,"params")$ordered_x_cols$d2[[17]]
-      [1] "mpg" "wt" 
-      
-      attr(,"params")$ordered_x_cols$d2[[18]]
-      [1] "mpg"  "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[19]]
-      [1] "mpg" "am" 
-      
-      attr(,"params")$ordered_x_cols$d2[[20]]
-      [1] "mpg"  "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[21]]
-      [1] "mpg"  "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[22]]
-      [1] "mpg"     "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[23]]
-      [1] "mpg"       "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[24]]
-      [1] "cyl"  "disp"
-      
-      attr(,"params")$ordered_x_cols$d2[[25]]
-      [1] "cyl" "hp" 
-      
-      attr(,"params")$ordered_x_cols$d2[[26]]
-      [1] "cyl"  "drat"
-      
-      attr(,"params")$ordered_x_cols$d2[[27]]
-      [1] "cyl" "wt" 
-      
-      attr(,"params")$ordered_x_cols$d2[[28]]
-      [1] "cyl"  "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[29]]
-      [1] "cyl" "am" 
-      
-      attr(,"params")$ordered_x_cols$d2[[30]]
-      [1] "cyl"  "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[31]]
-      [1] "cyl"  "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[32]]
-      [1] "cyl"     "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[33]]
-      [1] "cyl"       "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[34]]
-      [1] "disp" "hp"  
-      
-      attr(,"params")$ordered_x_cols$d2[[35]]
-      [1] "disp" "drat"
-      
-      attr(,"params")$ordered_x_cols$d2[[36]]
-      [1] "disp" "wt"  
-      
-      attr(,"params")$ordered_x_cols$d2[[37]]
-      [1] "disp" "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[38]]
-      [1] "disp" "am"  
-      
-      attr(,"params")$ordered_x_cols$d2[[39]]
-      [1] "disp" "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[40]]
-      [1] "disp" "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[41]]
-      [1] "disp"    "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[42]]
-      [1] "disp"      "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[43]]
-      [1] "hp"   "drat"
-      
-      attr(,"params")$ordered_x_cols$d2[[44]]
-      [1] "hp" "wt"
-      
-      attr(,"params")$ordered_x_cols$d2[[45]]
-      [1] "hp"   "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[46]]
-      [1] "hp" "am"
-      
-      attr(,"params")$ordered_x_cols$d2[[47]]
-      [1] "hp"   "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[48]]
-      [1] "hp"   "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[49]]
-      [1] "hp"      "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[50]]
-      [1] "hp"        "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[51]]
-      [1] "drat" "wt"  
-      
-      attr(,"params")$ordered_x_cols$d2[[52]]
-      [1] "drat" "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[53]]
-      [1] "drat" "am"  
-      
-      attr(,"params")$ordered_x_cols$d2[[54]]
-      [1] "drat" "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[55]]
-      [1] "drat" "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[56]]
-      [1] "drat"    "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[57]]
-      [1] "drat"      "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[58]]
-      [1] "wt"   "qsec"
-      
-      attr(,"params")$ordered_x_cols$d2[[59]]
-      [1] "wt" "am"
-      
-      attr(,"params")$ordered_x_cols$d2[[60]]
-      [1] "wt"   "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[61]]
-      [1] "wt"   "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[62]]
-      [1] "wt"      "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[63]]
-      [1] "wt"        "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[64]]
-      [1] "qsec" "am"  
-      
-      attr(,"params")$ordered_x_cols$d2[[65]]
-      [1] "qsec" "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[66]]
-      [1] "qsec" "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[67]]
-      [1] "qsec"    "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[68]]
-      [1] "qsec"      "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[69]]
-      [1] "am"   "gear"
-      
-      attr(,"params")$ordered_x_cols$d2[[70]]
-      [1] "am"   "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[71]]
-      [1] "am"      "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[72]]
-      [1] "am"        "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[73]]
-      [1] "gear" "carb"
-      
-      attr(,"params")$ordered_x_cols$d2[[74]]
-      [1] "gear"    "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[75]]
-      [1] "gear"      "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[76]]
-      [1] "carb"    "country"
-      
-      attr(,"params")$ordered_x_cols$d2[[77]]
-      [1] "carb"      "continent"
-      
-      attr(,"params")$ordered_x_cols$d2[[78]]
-      [1] "country"   "continent"
-      
+       [1] "model:mpg"         "model:cyl"         "model:disp"       
+       [4] "model:hp"          "model:drat"        "model:wt"         
+       [7] "model:qsec"        "model:am"          "model:gear"       
+      [10] "model:carb"        "model:country"     "model:continent"  
+      [13] "mpg:cyl"           "mpg:disp"          "mpg:hp"           
+      [16] "mpg:drat"          "mpg:wt"            "mpg:qsec"         
+      [19] "mpg:am"            "mpg:gear"          "mpg:carb"         
+      [22] "mpg:country"       "mpg:continent"     "cyl:disp"         
+      [25] "cyl:hp"            "cyl:drat"          "cyl:wt"           
+      [28] "cyl:qsec"          "cyl:am"            "cyl:gear"         
+      [31] "cyl:carb"          "cyl:country"       "cyl:continent"    
+      [34] "disp:hp"           "disp:drat"         "disp:wt"          
+      [37] "disp:qsec"         "disp:am"           "disp:gear"        
+      [40] "disp:carb"         "disp:country"      "disp:continent"   
+      [43] "hp:drat"           "hp:wt"             "hp:qsec"          
+      [46] "hp:am"             "hp:gear"           "hp:carb"          
+      [49] "hp:country"        "hp:continent"      "drat:wt"          
+      [52] "drat:qsec"         "drat:am"           "drat:gear"        
+      [55] "drat:carb"         "drat:country"      "drat:continent"   
+      [58] "wt:qsec"           "wt:am"             "wt:gear"          
+      [61] "wt:carb"           "wt:country"        "wt:continent"     
+      [64] "qsec:am"           "qsec:gear"         "qsec:carb"        
+      [67] "qsec:country"      "qsec:continent"    "am:gear"          
+      [70] "am:carb"           "am:country"        "am:continent"     
+      [73] "gear:carb"         "gear:country"      "gear:continent"   
+      [76] "carb:country"      "carb:continent"    "country:continent"
       
       
       attr(,"params")$requested_x_cols
@@ -3057,240 +2801,32 @@
       [13] "continent"
       
       attr(,"params")$requested_x_cols$d2
-      attr(,"params")$requested_x_cols$d2[[1]]
-      [1] "model" "mpg"  
-      
-      attr(,"params")$requested_x_cols$d2[[2]]
-      [1] "model" "cyl"  
-      
-      attr(,"params")$requested_x_cols$d2[[3]]
-      [1] "model" "disp" 
-      
-      attr(,"params")$requested_x_cols$d2[[4]]
-      [1] "model" "hp"   
-      
-      attr(,"params")$requested_x_cols$d2[[5]]
-      [1] "model" "drat" 
-      
-      attr(,"params")$requested_x_cols$d2[[6]]
-      [1] "model" "wt"   
-      
-      attr(,"params")$requested_x_cols$d2[[7]]
-      [1] "model" "qsec" 
-      
-      attr(,"params")$requested_x_cols$d2[[8]]
-      [1] "model" "am"   
-      
-      attr(,"params")$requested_x_cols$d2[[9]]
-      [1] "model" "gear" 
-      
-      attr(,"params")$requested_x_cols$d2[[10]]
-      [1] "model" "carb" 
-      
-      attr(,"params")$requested_x_cols$d2[[11]]
-      [1] "model"   "country"
-      
-      attr(,"params")$requested_x_cols$d2[[12]]
-      [1] "model"     "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[13]]
-      [1] "mpg" "cyl"
-      
-      attr(,"params")$requested_x_cols$d2[[14]]
-      [1] "mpg"  "disp"
-      
-      attr(,"params")$requested_x_cols$d2[[15]]
-      [1] "mpg" "hp" 
-      
-      attr(,"params")$requested_x_cols$d2[[16]]
-      [1] "mpg"  "drat"
-      
-      attr(,"params")$requested_x_cols$d2[[17]]
-      [1] "mpg" "wt" 
-      
-      attr(,"params")$requested_x_cols$d2[[18]]
-      [1] "mpg"  "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[19]]
-      [1] "mpg" "am" 
-      
-      attr(,"params")$requested_x_cols$d2[[20]]
-      [1] "mpg"  "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[21]]
-      [1] "mpg"  "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[22]]
-      [1] "mpg"     "country"
-      
-      attr(,"params")$requested_x_cols$d2[[23]]
-      [1] "mpg"       "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[24]]
-      [1] "cyl"  "disp"
-      
-      attr(,"params")$requested_x_cols$d2[[25]]
-      [1] "cyl" "hp" 
-      
-      attr(,"params")$requested_x_cols$d2[[26]]
-      [1] "cyl"  "drat"
-      
-      attr(,"params")$requested_x_cols$d2[[27]]
-      [1] "cyl" "wt" 
-      
-      attr(,"params")$requested_x_cols$d2[[28]]
-      [1] "cyl"  "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[29]]
-      [1] "cyl" "am" 
-      
-      attr(,"params")$requested_x_cols$d2[[30]]
-      [1] "cyl"  "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[31]]
-      [1] "cyl"  "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[32]]
-      [1] "cyl"     "country"
-      
-      attr(,"params")$requested_x_cols$d2[[33]]
-      [1] "cyl"       "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[34]]
-      [1] "disp" "hp"  
-      
-      attr(,"params")$requested_x_cols$d2[[35]]
-      [1] "disp" "drat"
-      
-      attr(,"params")$requested_x_cols$d2[[36]]
-      [1] "disp" "wt"  
-      
-      attr(,"params")$requested_x_cols$d2[[37]]
-      [1] "disp" "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[38]]
-      [1] "disp" "am"  
-      
-      attr(,"params")$requested_x_cols$d2[[39]]
-      [1] "disp" "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[40]]
-      [1] "disp" "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[41]]
-      [1] "disp"    "country"
-      
-      attr(,"params")$requested_x_cols$d2[[42]]
-      [1] "disp"      "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[43]]
-      [1] "hp"   "drat"
-      
-      attr(,"params")$requested_x_cols$d2[[44]]
-      [1] "hp" "wt"
-      
-      attr(,"params")$requested_x_cols$d2[[45]]
-      [1] "hp"   "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[46]]
-      [1] "hp" "am"
-      
-      attr(,"params")$requested_x_cols$d2[[47]]
-      [1] "hp"   "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[48]]
-      [1] "hp"   "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[49]]
-      [1] "hp"      "country"
-      
-      attr(,"params")$requested_x_cols$d2[[50]]
-      [1] "hp"        "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[51]]
-      [1] "drat" "wt"  
-      
-      attr(,"params")$requested_x_cols$d2[[52]]
-      [1] "drat" "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[53]]
-      [1] "drat" "am"  
-      
-      attr(,"params")$requested_x_cols$d2[[54]]
-      [1] "drat" "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[55]]
-      [1] "drat" "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[56]]
-      [1] "drat"    "country"
-      
-      attr(,"params")$requested_x_cols$d2[[57]]
-      [1] "drat"      "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[58]]
-      [1] "wt"   "qsec"
-      
-      attr(,"params")$requested_x_cols$d2[[59]]
-      [1] "wt" "am"
-      
-      attr(,"params")$requested_x_cols$d2[[60]]
-      [1] "wt"   "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[61]]
-      [1] "wt"   "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[62]]
-      [1] "wt"      "country"
-      
-      attr(,"params")$requested_x_cols$d2[[63]]
-      [1] "wt"        "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[64]]
-      [1] "qsec" "am"  
-      
-      attr(,"params")$requested_x_cols$d2[[65]]
-      [1] "qsec" "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[66]]
-      [1] "qsec" "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[67]]
-      [1] "qsec"    "country"
-      
-      attr(,"params")$requested_x_cols$d2[[68]]
-      [1] "qsec"      "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[69]]
-      [1] "am"   "gear"
-      
-      attr(,"params")$requested_x_cols$d2[[70]]
-      [1] "am"   "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[71]]
-      [1] "am"      "country"
-      
-      attr(,"params")$requested_x_cols$d2[[72]]
-      [1] "am"        "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[73]]
-      [1] "gear" "carb"
-      
-      attr(,"params")$requested_x_cols$d2[[74]]
-      [1] "gear"    "country"
-      
-      attr(,"params")$requested_x_cols$d2[[75]]
-      [1] "gear"      "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[76]]
-      [1] "carb"    "country"
-      
-      attr(,"params")$requested_x_cols$d2[[77]]
-      [1] "carb"      "continent"
-      
-      attr(,"params")$requested_x_cols$d2[[78]]
-      [1] "country"   "continent"
-      
+       [1] "model:mpg"         "model:cyl"         "model:disp"       
+       [4] "model:hp"          "model:drat"        "model:wt"         
+       [7] "model:qsec"        "model:am"          "model:gear"       
+      [10] "model:carb"        "model:country"     "model:continent"  
+      [13] "mpg:cyl"           "mpg:disp"          "mpg:hp"           
+      [16] "mpg:drat"          "mpg:wt"            "mpg:qsec"         
+      [19] "mpg:am"            "mpg:gear"          "mpg:carb"         
+      [22] "mpg:country"       "mpg:continent"     "cyl:disp"         
+      [25] "cyl:hp"            "cyl:drat"          "cyl:wt"           
+      [28] "cyl:qsec"          "cyl:am"            "cyl:gear"         
+      [31] "cyl:carb"          "cyl:country"       "cyl:continent"    
+      [34] "disp:hp"           "disp:drat"         "disp:wt"          
+      [37] "disp:qsec"         "disp:am"           "disp:gear"        
+      [40] "disp:carb"         "disp:country"      "disp:continent"   
+      [43] "hp:drat"           "hp:wt"             "hp:qsec"          
+      [46] "hp:am"             "hp:gear"           "hp:carb"          
+      [49] "hp:country"        "hp:continent"      "drat:wt"          
+      [52] "drat:qsec"         "drat:am"           "drat:gear"        
+      [55] "drat:carb"         "drat:country"      "drat:continent"   
+      [58] "wt:qsec"           "wt:am"             "wt:gear"          
+      [61] "wt:carb"           "wt:country"        "wt:continent"     
+      [64] "qsec:am"           "qsec:gear"         "qsec:carb"        
+      [67] "qsec:country"      "qsec:continent"    "am:gear"          
+      [70] "am:carb"           "am:country"        "am:continent"     
+      [73] "gear:carb"         "gear:country"      "gear:continent"   
+      [76] "carb:country"      "carb:continent"    "country:continent"
       
       
       attr(,"params")$y_cats
@@ -3777,8 +3313,7 @@
       
       
       $vs$d2
-      $vs$d2$model
-      $vs$d2$model$mpg
+      $vs$d2$`model:mpg`
              fill  x        y PANEL group xmin xmax      ymin     ymax colour
       1   #E2E2E2  1 10.37589     1     1  0.5  1.5  9.068999 11.68279     NA
       2   #E2E2E2  2 10.37589     1     2  1.5  2.5  9.068999 11.68279     NA
@@ -4422,7 +3957,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$cyl
+      $vs$d2$`model:cyl`
              fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype
       1    grey50  1 3     1     2  0.5  1.5  2.5  3.5     NA       0.1        1
       2    grey50  2 3     1     4  1.5  2.5  2.5  3.5     NA       0.1        1
@@ -4874,7 +4409,7 @@
       223    NA    NA     NA
       224    NA    NA     NA
       
-      $vs$d2$model$disp
+      $vs$d2$`model:disp`
              fill  x         y PANEL group xmin xmax      ymin      ymax colour
       1   #C0C5E3  1  70.92941     1     1  0.5  1.5  48.64771  93.21111     NA
       2   #C0C5E3  2  70.92941     1     3  1.5  2.5  48.64771  93.21111     NA
@@ -5518,7 +5053,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$hp
+      $vs$d2$`model:hp`
              fill  x         y PANEL group xmin xmax      ymin      ymax colour
       1   #C0C5E3  1  52.00000     1     1  0.5  1.5  36.27778  67.72222     NA
       2   #C0C5E3  2  52.00000     1     2  1.5  2.5  36.27778  67.72222     NA
@@ -6162,7 +5697,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$drat
+      $vs$d2$`model:drat`
              fill  x        y PANEL group xmin xmax     ymin     ymax colour
       1    grey50  1 2.743533     1     2  0.5  1.5 2.619368 2.867698     NA
       2    grey50  2 2.743533     1     4  1.5  2.5 2.619368 2.867698     NA
@@ -6806,7 +6341,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$wt
+      $vs$d2$`model:wt`
              fill  x        y PANEL group xmin xmax     ymin     ymax colour
       1    grey50  1 1.498275     1     2  0.5  1.5 1.278553 1.717997     NA
       2    grey50  2 1.498275     1     3  1.5  2.5 1.278553 1.717997     NA
@@ -7450,7 +6985,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$qsec
+      $vs$d2$`model:qsec`
              fill  x        y PANEL group xmin xmax     ymin     ymax colour
       1   #C0C5E3  1 14.46589     1     1  0.5  1.5 13.99324 14.93855     NA
       2   #C0C5E3  2 14.46589     1     3  1.5  2.5 13.99324 14.93855     NA
@@ -8094,7 +7629,7 @@
       319       0.1        1    NA    NA     NA
       320       0.1        1    NA    NA     NA
       
-      $vs$d2$model$am
+      $vs$d2$`model:am`
             fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2   grey50  2 1     1     3  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -8226,7 +7761,7 @@
       63    NA     NA
       64    NA     NA
       
-      $vs$d2$model$gear
+      $vs$d2$`model:gear`
             fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1  #C0C5E3  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3  2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -8422,7 +7957,7 @@
       95    NA     NA
       96    NA     NA
       
-      $vs$d2$model$carb
+      $vs$d2$`model:carb`
              fill  x    y PANEL group xmin xmax  ymin  ymax colour linewidth linetype
       1   #C0C5E3  1 1.00     1     1  0.5  1.5 0.125 1.875     NA       0.1        1
       2   #C0C5E3  2 1.00     1     2  1.5  2.5 0.125 1.875     NA       0.1        1
@@ -8746,7 +8281,7 @@
       159    NA    NA     NA
       160    NA    NA     NA
       
-      $vs$d2$model$country
+      $vs$d2$`model:country`
              fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype
       1    grey50  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1
       2    grey50  2 1     1     7  1.5  2.5  0.5  1.5     NA       0.1        1
@@ -9134,7 +8669,7 @@
       191    NA    NA     NA
       192    NA    NA     NA
       
-      $vs$d2$model$continent
+      $vs$d2$`model:continent`
             fill  x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50  1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3  2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -9330,9 +8865,7 @@
       95    NA     NA
       96    NA     NA
       
-      
-      $vs$d2$mpg
-      $vs$d2$mpg$cyl
+      $vs$d2$`mpg:cyl`
             fill        x y PANEL group      xmin     xmax ymin ymax colour linewidth
       1  #E2E2E2 10.37589 3     1     1  9.068999 11.68279  2.5  3.5     NA       0.1
       2  #E2E2E2 12.98968 3     1     1 11.682788 14.29658  2.5  3.5     NA       0.1
@@ -9476,7 +9009,7 @@
       69        1    NA    NA     NA
       70        1    NA    NA     NA
       
-      $vs$d2$mpg$disp
+      $vs$d2$`mpg:disp`
              fill        x         y PANEL group      xmin     xmax      ymin
       1   #E2E2E2 10.37589  70.92941     1     1  9.068999 11.68279  48.64771
       2   #E2E2E2 12.98968  70.92941     1     1 11.682788 14.29658  48.64771
@@ -9680,7 +9213,7 @@
       99  494.28170     NA       0.1        1    NA    NA     NA
       100 494.28170     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$hp
+      $vs$d2$`mpg:hp`
              fill        x         y PANEL group      xmin     xmax      ymin
       1   #E2E2E2 10.37589  52.00000     1     1  9.068999 11.68279  36.27778
       2   #E2E2E2 12.98968  52.00000     1     1 11.682788 14.29658  36.27778
@@ -9884,7 +9417,7 @@
       99  350.72222     NA       0.1        1    NA    NA     NA
       100 350.72222     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$drat
+      $vs$d2$`mpg:drat`
              fill        x        y PANEL group      xmin     xmax     ymin     ymax
       1   #E2E2E2 10.37589 2.743533     1     1  9.068999 11.68279 2.619368 2.867698
       2   #E2E2E2 12.98968 2.743533     1     1 11.682788 14.29658 2.619368 2.867698
@@ -10088,7 +9621,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$wt
+      $vs$d2$`mpg:wt`
              fill        x        y PANEL group      xmin     xmax     ymin     ymax
       1   #E2E2E2 10.37589 1.498275     1     1  9.068999 11.68279 1.278553 1.717997
       2   #E2E2E2 12.98968 1.498275     1     1 11.682788 14.29658 1.278553 1.717997
@@ -10292,7 +9825,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$qsec
+      $vs$d2$`mpg:qsec`
              fill        x        y PANEL group      xmin     xmax     ymin     ymax
       1   #E2E2E2 10.37589 14.46589     1     1  9.068999 11.68279 13.99324 14.93855
       2   #E2E2E2 12.98968 14.46589     1     1 11.682788 14.29658 13.99324 14.93855
@@ -10496,7 +10029,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$am
+      $vs$d2$`mpg:am`
             fill        x y PANEL group      xmin     xmax ymin ymax colour linewidth
       1  #E2E2E2 10.37589 1     1     1  9.068999 11.68279  0.5  1.5     NA       0.1
       2  #E2E2E2 12.98968 1     1     1 11.682788 14.29658  0.5  1.5     NA       0.1
@@ -10540,7 +10073,7 @@
       19        1    NA    NA     NA
       20        1    NA    NA     NA
       
-      $vs$d2$mpg$gear
+      $vs$d2$`mpg:gear`
             fill        x y PANEL group      xmin     xmax ymin ymax colour linewidth
       1  #E2E2E2 10.37589 1     1     1  9.068999 11.68279  0.5  1.5     NA       0.1
       2  #E2E2E2 12.98968 1     1     1 11.682788 14.29658  0.5  1.5     NA       0.1
@@ -10604,7 +10137,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      $vs$d2$mpg$carb
+      $vs$d2$`mpg:carb`
             fill        x    y PANEL group      xmin     xmax  ymin  ymax colour
       1  #E2E2E2 10.37589 1.00     1     1  9.068999 11.68279 0.125 1.875     NA
       2  #E2E2E2 12.98968 1.00     1     1 11.682788 14.29658 0.125 1.875     NA
@@ -10708,7 +10241,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$mpg$country
+      $vs$d2$`mpg:country`
             fill        x y PANEL group      xmin     xmax ymin ymax colour linewidth
       1  #E2E2E2 10.37589 1     1     1  9.068999 11.68279  0.5  1.5     NA       0.1
       2  #E2E2E2 12.98968 1     1     1 11.682788 14.29658  0.5  1.5     NA       0.1
@@ -10832,7 +10365,7 @@
       59        1    NA    NA     NA
       60        1    NA    NA     NA
       
-      $vs$d2$mpg$continent
+      $vs$d2$`mpg:continent`
             fill        x y PANEL group      xmin     xmax ymin ymax colour linewidth
       1  #E2E2E2 10.37589 1     1     1  9.068999 11.68279  0.5  1.5     NA       0.1
       2  #E2E2E2 12.98968 1     1     1 11.682788 14.29658  0.5  1.5     NA       0.1
@@ -10896,9 +10429,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      
-      $vs$d2$cyl
-      $vs$d2$cyl$disp
+      $vs$d2$`cyl:disp`
             fill x         y PANEL group xmin xmax      ymin      ymax colour
       1  #E2E2E2 3  70.92941     1     1  2.5  3.5  48.64771  93.21111     NA
       2  #E2E2E2 4  70.92941     1     1  3.5  4.5  48.64771  93.21111     NA
@@ -11042,7 +10573,7 @@
       69       0.1        1    NA    NA     NA
       70       0.1        1    NA    NA     NA
       
-      $vs$d2$cyl$hp
+      $vs$d2$`cyl:hp`
             fill x         y PANEL group xmin xmax      ymin      ymax colour
       1  #E2E2E2 3  52.00000     1     1  2.5  3.5  36.27778  67.72222     NA
       2  #E2E2E2 4  52.00000     1     1  3.5  4.5  36.27778  67.72222     NA
@@ -11186,7 +10717,7 @@
       69       0.1        1    NA    NA     NA
       70       0.1        1    NA    NA     NA
       
-      $vs$d2$cyl$drat
+      $vs$d2$`cyl:drat`
             fill x        y PANEL group xmin xmax     ymin     ymax colour linewidth
       1  #E2E2E2 3 2.743533     1     1  2.5  3.5 2.619368 2.867698     NA       0.1
       2  #E2E2E2 4 2.743533     1     1  3.5  4.5 2.619368 2.867698     NA       0.1
@@ -11330,7 +10861,7 @@
       69        1    NA    NA     NA
       70        1    NA    NA     NA
       
-      $vs$d2$cyl$wt
+      $vs$d2$`cyl:wt`
             fill x        y PANEL group xmin xmax     ymin     ymax colour linewidth
       1  #E2E2E2 3 1.498275     1     1  2.5  3.5 1.278553 1.717997     NA       0.1
       2  #E2E2E2 4 1.498275     1     1  3.5  4.5 1.278553 1.717997     NA       0.1
@@ -11474,7 +11005,7 @@
       69        1    NA    NA     NA
       70        1    NA    NA     NA
       
-      $vs$d2$cyl$qsec
+      $vs$d2$`cyl:qsec`
             fill x        y PANEL group xmin xmax     ymin     ymax colour linewidth
       1  #E2E2E2 3 14.46589     1     1  2.5  3.5 13.99324 14.93855     NA       0.1
       2  #E2E2E2 4 14.46589     1     1  3.5  4.5 13.99324 14.93855     NA       0.1
@@ -11618,7 +11149,7 @@
       69        1    NA    NA     NA
       70        1    NA    NA     NA
       
-      $vs$d2$cyl$am
+      $vs$d2$`cyl:am`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 3 1     1     1  2.5  3.5  0.5  1.5     NA       0.1        1    NA
       2   grey50 4 1     1     1  3.5  4.5  0.5  1.5     NA       0.1        1    NA
@@ -11650,7 +11181,7 @@
       13    NA     NA
       14    NA     NA
       
-      $vs$d2$cyl$gear
+      $vs$d2$`cyl:gear`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 3 1     1     2  2.5  3.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3 4 1     1     1  3.5  4.5  0.5  1.5     NA       0.1        1    NA
@@ -11696,7 +11227,7 @@
       20    NA     NA
       21    NA     NA
       
-      $vs$d2$cyl$carb
+      $vs$d2$`cyl:carb`
             fill x    y PANEL group xmin xmax  ymin  ymax colour linewidth linetype
       1  #E2E2E2 3 1.00     1     1  2.5  3.5 0.125 1.875     NA       0.1        1
       2  #E2E2E2 4 1.00     1     1  3.5  4.5 0.125 1.875     NA       0.1        1
@@ -11770,7 +11301,7 @@
       34    NA    NA     NA
       35    NA    NA     NA
       
-      $vs$d2$cyl$country
+      $vs$d2$`cyl:country`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 3 1     1     2  2.5  3.5  0.5  1.5     NA       0.1        1    NA
       2   grey50 4 1     1     2  3.5  4.5  0.5  1.5     NA       0.1        1    NA
@@ -11858,7 +11389,7 @@
       41    NA     NA
       42    NA     NA
       
-      $vs$d2$cyl$continent
+      $vs$d2$`cyl:continent`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 3 1     1     1  2.5  3.5  0.5  1.5     NA       0.1        1    NA
       2   grey50 4 1     1     1  3.5  4.5  0.5  1.5     NA       0.1        1    NA
@@ -11904,9 +11435,7 @@
       20    NA     NA
       21    NA     NA
       
-      
-      $vs$d2$disp
-      $vs$d2$disp$hp
+      $vs$d2$`disp:hp`
              fill         x         y PANEL group      xmin      xmax      ymin
       1   #E2E2E2  70.92941  52.00000     1     1  48.64771  93.21111  36.27778
       2   #E2E2E2 115.49281  52.00000     1     1  93.21111 137.77451  36.27778
@@ -12110,7 +11639,7 @@
       99  350.72222     NA       0.1        1    NA    NA     NA
       100 350.72222     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$drat
+      $vs$d2$`disp:drat`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  70.92941 2.743533     1     1  48.64771  93.21111 2.619368
       2   #E2E2E2 115.49281 2.743533     1     1  93.21111 137.77451 2.619368
@@ -12314,7 +11843,7 @@
       99  5.102667     NA       0.1        1    NA    NA     NA
       100 5.102667     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$wt
+      $vs$d2$`disp:wt`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  70.92941 1.498275     1     1  48.64771  93.21111 1.278553
       2   #E2E2E2 115.49281 1.498275     1     1  93.21111 137.77451 1.278553
@@ -12518,7 +12047,7 @@
       99  5.672994     NA       0.1        1    NA    NA     NA
       100 5.672994     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$qsec
+      $vs$d2$`disp:qsec`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  70.92941 14.46589     1     1  48.64771  93.21111 13.99324
       2   #E2E2E2 115.49281 14.46589     1     1  93.21111 137.77451 13.99324
@@ -12722,7 +12251,7 @@
       99  23.44630     NA       0.1        1    NA    NA     NA
       100 23.44630     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$am
+      $vs$d2$`disp:am`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  70.92941 1     1     1  48.64771  93.21111  0.5  1.5     NA
       2  #C0C5E3 115.49281 1     1     1  93.21111 137.77451  0.5  1.5     NA
@@ -12766,7 +12295,7 @@
       19       0.1        1    NA    NA     NA
       20       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$gear
+      $vs$d2$`disp:gear`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  70.92941 1     1     1  48.64771  93.21111  0.5  1.5     NA
       2  #C0C5E3 115.49281 1     1     1  93.21111 137.77451  0.5  1.5     NA
@@ -12830,7 +12359,7 @@
       29       0.1        1    NA    NA     NA
       30       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$carb
+      $vs$d2$`disp:carb`
             fill         x    y PANEL group      xmin      xmax  ymin  ymax colour
       1  #E2E2E2  70.92941 1.00     1     1  48.64771  93.21111 0.125 1.875     NA
       2  #E2E2E2 115.49281 1.00     1     1  93.21111 137.77451 0.125 1.875     NA
@@ -12934,7 +12463,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$country
+      $vs$d2$`disp:country`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  70.92941 1     1     1  48.64771  93.21111  0.5  1.5     NA
       2  #C0C5E3 115.49281 1     1     1  93.21111 137.77451  0.5  1.5     NA
@@ -13058,7 +12587,7 @@
       59       0.1        1    NA    NA     NA
       60       0.1        1    NA    NA     NA
       
-      $vs$d2$disp$continent
+      $vs$d2$`disp:continent`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  70.92941 1     1     1  48.64771  93.21111  0.5  1.5     NA
       2  #C0C5E3 115.49281 1     1     1  93.21111 137.77451  0.5  1.5     NA
@@ -13122,9 +12651,7 @@
       29       0.1        1    NA    NA     NA
       30       0.1        1    NA    NA     NA
       
-      
-      $vs$d2$hp
-      $vs$d2$hp$drat
+      $vs$d2$`hp:drat`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  52.00000 2.743533     1     1  36.27778  67.72222 2.619368
       2   #E2E2E2  83.44444 2.743533     1     1  67.72222  99.16667 2.619368
@@ -13328,7 +12855,7 @@
       99  5.102667     NA       0.1        1    NA    NA     NA
       100 5.102667     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$wt
+      $vs$d2$`hp:wt`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  52.00000 1.498275     1     1  36.27778  67.72222 1.278553
       2   #E2E2E2  83.44444 1.498275     1     1  67.72222  99.16667 1.278553
@@ -13532,7 +13059,7 @@
       99  5.672994     NA       0.1        1    NA    NA     NA
       100 5.672994     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$qsec
+      $vs$d2$`hp:qsec`
              fill         x        y PANEL group      xmin      xmax     ymin
       1   #E2E2E2  52.00000 14.46589     1     1  36.27778  67.72222 13.99324
       2   #E2E2E2  83.44444 14.46589     1     1  67.72222  99.16667 13.99324
@@ -13736,7 +13263,7 @@
       99  23.44630     NA       0.1        1    NA    NA     NA
       100 23.44630     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$am
+      $vs$d2$`hp:am`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  52.00000 1     1     1  36.27778  67.72222  0.5  1.5     NA
       2  #C0C5E3  83.44444 1     1     1  67.72222  99.16667  0.5  1.5     NA
@@ -13780,7 +13307,7 @@
       19       0.1        1    NA    NA     NA
       20       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$gear
+      $vs$d2$`hp:gear`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  52.00000 1     1     1  36.27778  67.72222  0.5  1.5     NA
       2  #C0C5E3  83.44444 1     1     1  67.72222  99.16667  0.5  1.5     NA
@@ -13844,7 +13371,7 @@
       29       0.1        1    NA    NA     NA
       30       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$carb
+      $vs$d2$`hp:carb`
             fill         x    y PANEL group      xmin      xmax  ymin  ymax colour
       1  #E2E2E2  52.00000 1.00     1     1  36.27778  67.72222 0.125 1.875     NA
       2  #E2E2E2  83.44444 1.00     1     1  67.72222  99.16667 0.125 1.875     NA
@@ -13948,7 +13475,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$country
+      $vs$d2$`hp:country`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  52.00000 1     1     1  36.27778  67.72222  0.5  1.5     NA
       2  #C0C5E3  83.44444 1     1     1  67.72222  99.16667  0.5  1.5     NA
@@ -14072,7 +13599,7 @@
       59       0.1        1    NA    NA     NA
       60       0.1        1    NA    NA     NA
       
-      $vs$d2$hp$continent
+      $vs$d2$`hp:continent`
             fill         x y PANEL group      xmin      xmax ymin ymax colour
       1  #C0C5E3  52.00000 1     1     1  36.27778  67.72222  0.5  1.5     NA
       2  #C0C5E3  83.44444 1     1     1  67.72222  99.16667  0.5  1.5     NA
@@ -14136,9 +13663,7 @@
       29       0.1        1    NA    NA     NA
       30       0.1        1    NA    NA     NA
       
-      
-      $vs$d2$drat
-      $vs$d2$drat$wt
+      $vs$d2$`drat:wt`
              fill        x        y PANEL group     xmin     xmax     ymin     ymax
       1   #E2E2E2 2.743533 1.498275     1     1 2.619368 2.867698 1.278553 1.717997
       2   #E2E2E2 2.991863 1.498275     1     1 2.867698 3.116028 1.278553 1.717997
@@ -14342,7 +13867,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$drat$qsec
+      $vs$d2$`drat:qsec`
              fill        x        y PANEL group     xmin     xmax     ymin     ymax
       1   #E2E2E2 2.743533 14.46589     1     1 2.619368 2.867698 13.99324 14.93855
       2   #E2E2E2 2.991863 14.46589     1     1 2.867698 3.116028 13.99324 14.93855
@@ -14546,7 +14071,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$drat$am
+      $vs$d2$`drat:am`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 2.743533 1     1     2 2.619368 2.867698  0.5  1.5     NA       0.1
       2   grey50 2.991863 1     1     2 2.867698 3.116028  0.5  1.5     NA       0.1
@@ -14590,7 +14115,7 @@
       19        1    NA    NA     NA
       20        1    NA    NA     NA
       
-      $vs$d2$drat$gear
+      $vs$d2$`drat:gear`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 2.743533 1     1     2 2.619368 2.867698  0.5  1.5     NA       0.1
       2   grey50 2.991863 1     1     2 2.867698 3.116028  0.5  1.5     NA       0.1
@@ -14654,7 +14179,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      $vs$d2$drat$carb
+      $vs$d2$`drat:carb`
             fill        x    y PANEL group     xmin     xmax  ymin  ymax colour
       1  #E2E2E2 2.743533 1.00     1     1 2.619368 2.867698 0.125 1.875     NA
       2  #E2E2E2 2.991863 1.00     1     1 2.867698 3.116028 0.125 1.875     NA
@@ -14758,7 +14283,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$drat$country
+      $vs$d2$`drat:country`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 2.743533 1     1     2 2.619368 2.867698  0.5  1.5     NA       0.1
       2   grey50 2.991863 1     1     2 2.867698 3.116028  0.5  1.5     NA       0.1
@@ -14882,7 +14407,7 @@
       59        1    NA    NA     NA
       60        1    NA    NA     NA
       
-      $vs$d2$drat$continent
+      $vs$d2$`drat:continent`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 2.743533 1     1     2 2.619368 2.867698  0.5  1.5     NA       0.1
       2   grey50 2.991863 1     1     2 2.867698 3.116028  0.5  1.5     NA       0.1
@@ -14946,9 +14471,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      
-      $vs$d2$wt
-      $vs$d2$wt$qsec
+      $vs$d2$`wt:qsec`
              fill        x        y PANEL group     xmin     xmax     ymin     ymax
       1   #E2E2E2 1.498275 14.46589     1     1 1.278553 1.717997 13.99324 14.93855
       2   #E2E2E2 1.937719 14.46589     1     1 1.717997 2.157441 13.99324 14.93855
@@ -15152,7 +14675,7 @@
       99      NA       0.1        1    NA    NA     NA
       100     NA       0.1        1    NA    NA     NA
       
-      $vs$d2$wt$am
+      $vs$d2$`wt:am`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 1.498275 1     1     1 1.278553 1.717997  0.5  1.5     NA       0.1
       2   grey50 1.937719 1     1     1 1.717997 2.157441  0.5  1.5     NA       0.1
@@ -15196,7 +14719,7 @@
       19        1    NA    NA     NA
       20        1    NA    NA     NA
       
-      $vs$d2$wt$gear
+      $vs$d2$`wt:gear`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 1.498275 1     1     2 1.278553 1.717997  0.5  1.5     NA       0.1
       2  #C0C5E3 1.937719 1     1     1 1.717997 2.157441  0.5  1.5     NA       0.1
@@ -15260,7 +14783,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      $vs$d2$wt$carb
+      $vs$d2$`wt:carb`
             fill        x    y PANEL group     xmin     xmax  ymin  ymax colour
       1  #E2E2E2 1.498275 1.00     1     1 1.278553 1.717997 0.125 1.875     NA
       2  #E2E2E2 1.937719 1.00     1     1 1.717997 2.157441 0.125 1.875     NA
@@ -15364,7 +14887,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$wt$country
+      $vs$d2$`wt:country`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 1.498275 1     1     2 1.278553 1.717997  0.5  1.5     NA       0.1
       2   grey50 1.937719 1     1     2 1.717997 2.157441  0.5  1.5     NA       0.1
@@ -15488,7 +15011,7 @@
       59        1    NA    NA     NA
       60        1    NA    NA     NA
       
-      $vs$d2$wt$continent
+      $vs$d2$`wt:continent`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1   grey50 1.498275 1     1     1 1.278553 1.717997  0.5  1.5     NA       0.1
       2   grey50 1.937719 1     1     1 1.717997 2.157441  0.5  1.5     NA       0.1
@@ -15552,9 +15075,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      
-      $vs$d2$qsec
-      $vs$d2$qsec$am
+      $vs$d2$`qsec:am`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1  #C0C5E3 14.46589 1     1     1 13.99324 14.93855  0.5  1.5     NA       0.1
       2  #C0C5E3 15.41120 1     1     1 14.93855 15.88385  0.5  1.5     NA       0.1
@@ -15598,7 +15119,7 @@
       19        1    NA    NA     NA
       20        1    NA    NA     NA
       
-      $vs$d2$qsec$gear
+      $vs$d2$`qsec:gear`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1  #C0C5E3 14.46589 1     1     1 13.99324 14.93855  0.5  1.5     NA       0.1
       2  #C0C5E3 15.41120 1     1     1 14.93855 15.88385  0.5  1.5     NA       0.1
@@ -15662,7 +15183,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      $vs$d2$qsec$carb
+      $vs$d2$`qsec:carb`
             fill        x    y PANEL group     xmin     xmax  ymin  ymax colour
       1  #E2E2E2 14.46589 1.00     1     1 13.99324 14.93855 0.125 1.875     NA
       2  #E2E2E2 15.41120 1.00     1     1 14.93855 15.88385 0.125 1.875     NA
@@ -15766,7 +15287,7 @@
       49       0.1        1    NA    NA     NA
       50       0.1        1    NA    NA     NA
       
-      $vs$d2$qsec$country
+      $vs$d2$`qsec:country`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1  #C0C5E3 14.46589 1     1     1 13.99324 14.93855  0.5  1.5     NA       0.1
       2  #C0C5E3 15.41120 1     1     1 14.93855 15.88385  0.5  1.5     NA       0.1
@@ -15890,7 +15411,7 @@
       59        1    NA    NA     NA
       60        1    NA    NA     NA
       
-      $vs$d2$qsec$continent
+      $vs$d2$`qsec:continent`
             fill        x y PANEL group     xmin     xmax ymin ymax colour linewidth
       1  #C0C5E3 14.46589 1     1     1 13.99324 14.93855  0.5  1.5     NA       0.1
       2  #C0C5E3 15.41120 1     1     1 14.93855 15.88385  0.5  1.5     NA       0.1
@@ -15954,9 +15475,7 @@
       29        1    NA    NA     NA
       30        1    NA    NA     NA
       
-      
-      $vs$d2$am
-      $vs$d2$am$gear
+      $vs$d2$`am:gear`
            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1 #C0C5E3 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  grey50 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -15972,7 +15491,7 @@
       5    NA     NA
       6    NA     NA
       
-      $vs$d2$am$carb
+      $vs$d2$`am:carb`
             fill x    y PANEL group xmin xmax  ymin  ymax colour linewidth linetype
       1  #C0C5E3 1 1.00     1     1  0.5  1.5 0.125 1.875     NA       0.1        1
       2   grey50 2 1.00     1     3  1.5  2.5 0.125 1.875     NA       0.1        1
@@ -15996,7 +15515,7 @@
       9     NA    NA     NA
       10    NA    NA     NA
       
-      $vs$d2$am$country
+      $vs$d2$`am:country`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3 2 1     1     7  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -16024,7 +15543,7 @@
       11    NA     NA
       12    NA     NA
       
-      $vs$d2$am$continent
+      $vs$d2$`am:continent`
            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1 #C0C5E3 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  grey50 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -16040,9 +15559,7 @@
       5    NA     NA
       6    NA     NA
       
-      
-      $vs$d2$gear
-      $vs$d2$gear$carb
+      $vs$d2$`gear:carb`
             fill x    y PANEL group xmin xmax  ymin  ymax colour linewidth linetype
       1  #C0C5E3 1 1.00     1     1  0.5  1.5 0.125 1.875     NA       0.1        1
       2  #C0C5E3 2 1.00     1     3  1.5  2.5 0.125 1.875     NA       0.1        1
@@ -16076,7 +15593,7 @@
       14    NA    NA     NA
       15    NA    NA     NA
       
-      $vs$d2$gear$country
+      $vs$d2$`gear:country`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1   grey50 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3 2 1     1     7  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -16116,7 +15633,7 @@
       17    NA     NA
       18    NA     NA
       
-      $vs$d2$gear$continent
+      $vs$d2$`gear:continent`
            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1 #C0C5E3 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  grey50 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -16138,9 +15655,7 @@
       8    NA     NA
       9    NA     NA
       
-      
-      $vs$d2$carb
-      $vs$d2$carb$country
+      $vs$d2$`carb:country`
             fill    x y PANEL group  xmin  xmax ymin ymax colour linewidth linetype
       1  #C0C5E3 1.00 1     1     1 0.125 1.875  0.5  1.5     NA       0.1        1
       2  #C0C5E3 2.75 1     1     1 1.875 3.625  0.5  1.5     NA       0.1        1
@@ -16204,7 +15719,7 @@
       29    NA    NA     NA
       30    NA    NA     NA
       
-      $vs$d2$carb$continent
+      $vs$d2$`carb:continent`
             fill    x y PANEL group  xmin  xmax ymin ymax colour linewidth linetype
       1  #C0C5E3 1.00 1     1     1 0.125 1.875  0.5  1.5     NA       0.1        1
       2  #C0C5E3 2.75 1     1     1 1.875 3.625  0.5  1.5     NA       0.1        1
@@ -16238,9 +15753,7 @@
       14    NA    NA     NA
       15    NA    NA     NA
       
-      
-      $vs$d2$country
-      $vs$d2$country$continent
+      $vs$d2$`country:continent`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
       1  #C0C5E3 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
       2  #C0C5E3 2 1     1     4  1.5  2.5  0.5  1.5     NA       0.1        1    NA
@@ -16279,7 +15792,6 @@
       16    NA     NA
       17    NA     NA
       18    NA     NA
-      
       
       
       $vs$eff
@@ -16518,8 +16030,7 @@
       
       
       attr(,"distinct")$vs$ale$d2
-      attr(,"distinct")$vs$ale$d2$gear
-      attr(,"distinct")$vs$ale$d2$gear$drat
+      attr(,"distinct")$vs$ale$d2$`gear:drat`
       # A tibble: 36 x 8
          gear.bin drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -16534,7 +16045,6 @@
        9 five          3.07     0  8.12e-15  6.36e-15  8.12e-15  8.12e-15  9.88e-15
       10 three         3.08     2 -2.73e-15 -2.73e-15 -2.73e-15 -2.73e-15 -2.73e-15
       # i 26 more rows
-      
       
       
       
@@ -16567,8 +16077,7 @@
       
       
       attr(,"distinct")$vs$boot_data$d2
-      attr(,"distinct")$vs$boot_data$d2$gear
-      attr(,"distinct")$vs$boot_data$d2$gear$drat
+      attr(,"distinct")$vs$boot_data$d2$`gear:drat`
       # A tibble: 72 x 7
            .it gear   drat .y_composite    .n .y_distinct        .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
@@ -16587,7 +16096,6 @@
       
       
       
-      
       attr(,"params")
       attr(,"params")$max_d
       [1] 2
@@ -16597,9 +16105,7 @@
       [1] "hp" "am"
       
       attr(,"params")$ordered_x_cols$d2
-      attr(,"params")$ordered_x_cols$d2[[1]]
-      [1] "gear" "drat"
-      
+      [1] "gear:drat"
       
       
       attr(,"params")$requested_x_cols
@@ -16607,9 +16113,7 @@
       [1] "hp" "am"
       
       attr(,"params")$requested_x_cols$d2
-      attr(,"params")$requested_x_cols$d2[[1]]
-      [1] "gear" "drat"
-      
+      [1] "gear:drat"
       
       
       attr(,"params")$y_cats
@@ -16805,8 +16309,7 @@
       
       
       $vs$d2
-      $vs$d2$gear
-      $vs$d2$gear$drat
+      $vs$d2$`gear:drat`
             fill x        y PANEL group xmin xmax     ymin     ymax colour linewidth
       1  #C0C5E3 1 2.760000     1     1  0.5  1.5 2.661364 2.858636     NA       0.1
       2  #C0C5E3 2 2.760000     1     2  1.5  2.5 2.661364 2.858636     NA       0.1
@@ -16881,7 +16384,6 @@
       34        1    NA    NA     NA
       35        1    NA    NA     NA
       36        1    NA    NA     NA
-      
       
       
       $vs$eff
