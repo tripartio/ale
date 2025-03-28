@@ -591,262 +591,27 @@
       
       attr(,"distinct")$mpg$stats
       attr(,"distinct")$mpg$stats$d1
-      attr(,"distinct")$mpg$stats$d1$by_term
-      attr(,"distinct")$mpg$stats$d1$by_term$cyl
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        0.0112   0.0112  0.0112  0.0112    0.0112
-      2 aler_min   -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
-      3 aler_max    0.0196   0.0196  0.0196  0.0196    0.0196
-      4 naled       0        0       0       0         0     
-      5 naler_min   0        0       0       0         0     
-      6 naler_max   0        0       0       0         0     
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$disp
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          3.09     3.09   3.09   3.09      3.09
-      2 aler_min     -5.74    -5.74  -5.74  -5.74     -5.74
-      3 aler_max      4.75     4.75   4.75   4.75      4.75
-      4 naled        22.8     22.8   22.8   22.8      22.8 
-      5 naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
-      6 naler_max    28.8     28.8   28.8   28.8      28.8 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$hp
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.37     1.37   1.37   1.37      1.37
-      2 aler_min     -3.19    -3.19  -3.19  -3.19     -3.19
-      3 aler_max      2.66     2.66   2.66   2.66      2.66
-      4 naled        10.8     10.8   10.8   10.8      10.8 
-      5 naler_min   -19.7    -19.7  -19.7  -19.7     -19.7 
-      6 naler_max    22.7     22.7   22.7   22.7      22.7 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$drat
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         0.501    0.501  0.501  0.501     0.501
-      2 aler_min    -0.965   -0.965 -0.965 -0.965    -0.965
-      3 aler_max     1.47     1.47   1.47   1.47      1.47 
-      4 naled        6.08     6.08   6.08   6.08      6.08 
-      5 naler_min   -7.58    -7.58  -7.58  -7.58     -7.58 
-      6 naler_max    7.58     7.58   7.58   7.58      7.58 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$wt
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.94     2.94   2.94   2.94      2.94
-      2 aler_min     -8.94    -8.94  -8.94  -8.94     -8.94
-      3 aler_max      6.90     6.90   6.90   6.90      6.90
-      4 naled        20.1     20.1   20.1   20.1      20.1 
-      5 naler_min   -50      -50    -50    -50       -50   
-      6 naler_max    34.8     34.8   34.8   34.8      34.8 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$qsec
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          3.02     3.02   3.02   3.02      3.02
-      2 aler_min     -7.56    -7.56  -7.56  -7.56     -7.56
-      3 aler_max      9.93     9.93   9.93   9.93      9.93
-      4 naled        19.2     19.2   19.2   19.2      19.2 
-      5 naler_min   -43.9    -43.9  -43.9  -43.9     -43.9 
-      6 naler_max    37.9     37.9   37.9   37.9      37.9 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$vs
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.83     1.83   1.83   1.83      1.83
-      2 aler_min     -2.09    -2.09  -2.09  -2.09     -2.09
-      3 aler_max      1.63     1.63   1.63   1.63      1.63
-      4 naled        11.6     11.6   11.6   11.6      11.6 
-      5 naler_min   -16.7    -16.7  -16.7  -16.7     -16.7 
-      6 naler_max     7.58     7.58   7.58   7.58      7.58
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$am
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.92     1.92   1.92   1.92      1.92
-      2 aler_min     -1.61    -1.61  -1.61  -1.61     -1.61
-      3 aler_max      2.36     2.36   2.36   2.36      2.36
-      4 naled        16.7     16.7   16.7   16.7      16.7 
-      5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
-      6 naler_max    21.2     21.2   21.2   21.2      21.2 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$gear
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.35     1.35   1.35   1.35      1.35
-      2 aler_min     -1.79    -1.79  -1.79  -1.79     -1.79
-      3 aler_max      1.21     1.21   1.21   1.21      1.21
-      4 naled         9.85     9.85   9.85   9.85      9.85
-      5 naler_min   -13.6    -13.6  -13.6  -13.6     -13.6 
-      6 naler_max     7.58     7.58   7.58   7.58      7.58
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$carb
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled       0.00874  0.00874  0.00874  0.00874   0.00874
-      2 aler_min  -0.0123  -0.0123  -0.0123  -0.0123   -0.0123 
-      3 aler_max   0.0427   0.0427   0.0427   0.0427    0.0427 
-      4 naled      0        0        0        0         0      
-      5 naler_min  0        0        0        0         0      
-      6 naler_max  0        0        0        0         0      
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$country
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.62     1.62   1.62   1.62      1.62
-      2 aler_min     -3.52    -3.52  -3.52  -3.52     -3.52
-      3 aler_max      1.84     1.84   1.84   1.84      1.84
-      4 naled        11.8     11.8   11.8   11.8      11.8 
-      5 naler_min   -22.7    -22.7  -22.7  -22.7     -22.7 
-      6 naler_max    12.1     12.1   12.1   12.1      12.1 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$continent
-      # A tibble: 6 x 6
-        statistic estimate conf.low   mean median conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.84     1.84   1.84   1.84      1.84
-      2 aler_min     -4.07    -4.07  -4.07  -4.07     -4.07
-      3 aler_max      2.11     2.11   2.11   2.11      2.11
-      4 naled        13.9     13.9   13.9   13.9      13.9 
-      5 naler_min   -30.3    -30.3  -30.3  -30.3     -30.3 
-      6 naler_max    13.6     13.6   13.6   13.6      13.6 
+      # A tibble: 72 x 7
+         term  statistic estimate conf.low    mean  median conf.high
+         <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+       1 cyl   aled        0.0112   0.0112  0.0112  0.0112    0.0112
+       2 cyl   aler_min   -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
+       3 cyl   aler_max    0.0196   0.0196  0.0196  0.0196    0.0196
+       4 cyl   naled       0        0       0       0         0     
+       5 cyl   naler_min   0        0       0       0         0     
+       6 cyl   naler_max   0        0       0       0         0     
+       7 disp  aled        3.09     3.09    3.09    3.09      3.09  
+       8 disp  aler_min   -5.74    -5.74   -5.74   -5.74     -5.74  
+       9 disp  aler_max    4.75     4.75    4.75    4.75      4.75  
+      10 disp  naled      22.8     22.8    22.8    22.8      22.8   
+      # i 62 more rows
       
       
-      attr(,"distinct")$mpg$stats$d1$by_stat
-      attr(,"distinct")$mpg$stats$d1$by_stat$aled
-      # A tibble: 12 x 6
-         term      estimate conf.low    mean  median conf.high
-         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 cyl        0.0112   0.0112  0.0112  0.0112    0.0112 
-       2 disp       3.09     3.09    3.09    3.09      3.09   
-       3 hp         1.37     1.37    1.37    1.37      1.37   
-       4 drat       0.501    0.501   0.501   0.501     0.501  
-       5 wt         2.94     2.94    2.94    2.94      2.94   
-       6 qsec       3.02     3.02    3.02    3.02      3.02   
-       7 vs         1.83     1.83    1.83    1.83      1.83   
-       8 am         1.92     1.92    1.92    1.92      1.92   
-       9 gear       1.35     1.35    1.35    1.35      1.35   
-      10 carb       0.00874  0.00874 0.00874 0.00874   0.00874
-      11 country    1.62     1.62    1.62    1.62      1.62   
-      12 continent  1.84     1.84    1.84    1.84      1.84   
+      attr(,"distinct")$mpg$conf
+      NULL
       
-      attr(,"distinct")$mpg$stats$d1$by_stat$aler_min
-      # A tibble: 12 x 6
-         term      estimate conf.low    mean  median conf.high
-         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 cyl        -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
-       2 disp       -5.74    -5.74   -5.74   -5.74     -5.74  
-       3 hp         -3.19    -3.19   -3.19   -3.19     -3.19  
-       4 drat       -0.965   -0.965  -0.965  -0.965    -0.965 
-       5 wt         -8.94    -8.94   -8.94   -8.94     -8.94  
-       6 qsec       -7.56    -7.56   -7.56   -7.56     -7.56  
-       7 vs         -2.09    -2.09   -2.09   -2.09     -2.09  
-       8 am         -1.61    -1.61   -1.61   -1.61     -1.61  
-       9 gear       -1.79    -1.79   -1.79   -1.79     -1.79  
-      10 carb       -0.0123  -0.0123 -0.0123 -0.0123   -0.0123
-      11 country    -3.52    -3.52   -3.52   -3.52     -3.52  
-      12 continent  -4.07    -4.07   -4.07   -4.07     -4.07  
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$aler_max
-      # A tibble: 12 x 6
-         term      estimate conf.low   mean median conf.high
-         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl         0.0196   0.0196 0.0196 0.0196    0.0196
-       2 disp        4.75     4.75   4.75   4.75      4.75  
-       3 hp          2.66     2.66   2.66   2.66      2.66  
-       4 drat        1.47     1.47   1.47   1.47      1.47  
-       5 wt          6.90     6.90   6.90   6.90      6.90  
-       6 qsec        9.93     9.93   9.93   9.93      9.93  
-       7 vs          1.63     1.63   1.63   1.63      1.63  
-       8 am          2.36     2.36   2.36   2.36      2.36  
-       9 gear        1.21     1.21   1.21   1.21      1.21  
-      10 carb        0.0427   0.0427 0.0427 0.0427    0.0427
-      11 country     1.84     1.84   1.84   1.84      1.84  
-      12 continent   2.11     2.11   2.11   2.11      2.11  
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naled
-      # A tibble: 12 x 6
-         term      estimate conf.low  mean median conf.high
-         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl           0        0     0      0         0   
-       2 disp         22.8     22.8  22.8   22.8      22.8 
-       3 hp           10.8     10.8  10.8   10.8      10.8 
-       4 drat          6.08     6.08  6.08   6.08      6.08
-       5 wt           20.1     20.1  20.1   20.1      20.1 
-       6 qsec         19.2     19.2  19.2   19.2      19.2 
-       7 vs           11.6     11.6  11.6   11.6      11.6 
-       8 am           16.7     16.7  16.7   16.7      16.7 
-       9 gear          9.85     9.85  9.85   9.85      9.85
-      10 carb          0        0     0      0         0   
-      11 country      11.8     11.8  11.8   11.8      11.8 
-      12 continent    13.9     13.9  13.9   13.9      13.9 
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naler_min
-      # A tibble: 12 x 6
-         term      estimate conf.low   mean median conf.high
-         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl           0        0      0      0         0   
-       2 disp        -40.9    -40.9  -40.9  -40.9     -40.9 
-       3 hp          -19.7    -19.7  -19.7  -19.7     -19.7 
-       4 drat         -7.58    -7.58  -7.58  -7.58     -7.58
-       5 wt          -50      -50    -50    -50       -50   
-       6 qsec        -43.9    -43.9  -43.9  -43.9     -43.9 
-       7 vs          -16.7    -16.7  -16.7  -16.7     -16.7 
-       8 am          -13.6    -13.6  -13.6  -13.6     -13.6 
-       9 gear        -13.6    -13.6  -13.6  -13.6     -13.6 
-      10 carb          0        0      0      0         0   
-      11 country     -22.7    -22.7  -22.7  -22.7     -22.7 
-      12 continent   -30.3    -30.3  -30.3  -30.3     -30.3 
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naler_max
-      # A tibble: 12 x 6
-         term      estimate conf.low  mean median conf.high
-         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 cyl           0        0     0      0         0   
-       2 disp         28.8     28.8  28.8   28.8      28.8 
-       3 hp           22.7     22.7  22.7   22.7      22.7 
-       4 drat          7.58     7.58  7.58   7.58      7.58
-       5 wt           34.8     34.8  34.8   34.8      34.8 
-       6 qsec         37.9     37.9  37.9   37.9      37.9 
-       7 vs            7.58     7.58  7.58   7.58      7.58
-       8 am           21.2     21.2  21.2   21.2      21.2 
-       9 gear          7.58     7.58  7.58   7.58      7.58
-      10 carb          0        0     0      0         0   
-      11 country      12.1     12.1  12.1   12.1      12.1 
-      12 continent    13.6     13.6  13.6   13.6      13.6 
-      
-      
-      attr(,"distinct")$mpg$stats$d1$estimate
-      # A tibble: 12 x 7
-         term         aled aler_min aler_max naled naler_min naler_max
-         <chr>       <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl       0.0112   -0.0236   0.0196  0         0         0   
-       2 disp      3.09     -5.74     4.75   22.8     -40.9      28.8 
-       3 hp        1.37     -3.19     2.66   10.8     -19.7      22.7 
-       4 drat      0.501    -0.965    1.47    6.08     -7.58      7.58
-       5 wt        2.94     -8.94     6.90   20.1     -50        34.8 
-       6 qsec      3.02     -7.56     9.93   19.2     -43.9      37.9 
-       7 vs        1.83     -2.09     1.63   11.6     -16.7       7.58
-       8 am        1.92     -1.61     2.36   16.7     -13.6      21.2 
-       9 gear      1.35     -1.79     1.21    9.85    -13.6       7.58
-      10 carb      0.00874  -0.0123   0.0427  0         0         0   
-      11 country   1.62     -3.52     1.84   11.8     -22.7      12.1 
-      12 continent 1.84     -4.07     2.11   13.9     -30.3      13.6 
-      
-      
+      attr(,"distinct")$mpg$boot_data
+      NULL
       
       
       attr(,"params")
@@ -1205,287 +970,24 @@
       
       attr(,"ale")$boot$distinct$mpg$stats
       attr(,"ale")$boot$distinct$mpg$stats$d1
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$cyl
-      # A tibble: 6 x 6
-        statistic estimate conf.low  median    mean conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        0.0113  0.00929  0.0113  0.0113    0.0133
-      2 aler_min   -0.0214 -0.0286  -0.0214 -0.0214   -0.0142
-      3 aler_max    0.0216  0.0209   0.0216  0.0216    0.0222
-      4 naled       0       0        0       0         0     
-      5 naler_min   0       0        0       0         0     
-      6 naler_max   0       0        0       0         0     
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$disp
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.03     1.32   2.03   2.03      2.74
-      2 aler_min     -2.73    -3.70  -2.73  -2.73     -1.77
-      3 aler_max      4.75     2.99   4.75   4.75      6.50
-      4 naled        13.1     10.5   13.1   13.1      15.6 
-      5 naler_min   -16.9    -18.1  -16.9  -16.9     -15.7 
-      6 naler_max    26.8     18.1   26.8   26.8      35.5 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$hp
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.59     1.60   2.59   2.59      3.59
-      2 aler_min    -10.1    -12.2  -10.1  -10.1      -8.04
-      3 aler_max      3.66     1.87   3.66   3.66      5.46
-      4 naled        16.7     11.1   16.7   16.7      22.3 
-      5 naler_min   -45.5    -49.8  -45.5  -45.5     -41.1 
-      6 naler_max    20.9      8.03  20.9   20.9      33.7 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$drat
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.37    0.739   1.37   1.37      1.99
-      2 aler_min     -2.92   -4.41   -2.92  -2.92     -1.44
-      3 aler_max      3.98    2.06    3.98   3.98      5.91
-      4 naled        10.1     7.49   10.1   10.1      12.8 
-      5 naler_min   -13.9   -15.5   -13.9  -13.9     -12.2 
-      6 naler_max    21.6     9.46   21.6   21.6      33.7 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$wt
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          3.49     3.41   3.49   3.49      3.56
-      2 aler_min    -10.2    -10.3  -10.2  -10.2     -10.0 
-      3 aler_max      7.01     6.77   7.01   7.01      7.25
-      4 naled        21.9     21.5   21.9   21.9      22.2 
-      5 naler_min   -46.1    -49.8  -46.1  -46.1     -42.4 
-      6 naler_max    31.9     28.1   31.9   31.9      35.7 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$qsec
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.06     2.05   2.06   2.06      2.08
-      2 aler_min     -5.45    -6.12  -5.45  -5.45     -4.78
-      3 aler_max      6.27     5.48   6.27   6.27      7.06
-      4 naled        14.4     14.0   14.4   14.4      14.8 
-      5 naler_min   -28.3    -40.3  -28.3  -28.3     -16.3 
-      6 naler_max    31.9     29.5   31.9   31.9      34.3 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$vs
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         0.283   0.0737  0.283  0.283    0.493 
-      2 aler_min    -0.294  -0.509  -0.294 -0.294   -0.0782
-      3 aler_max     0.274   0.0698  0.274  0.274    0.478 
-      4 naled        5.90    3.26    5.90   5.90     8.53  
-      5 naler_min   -3.12   -6.09   -3.12  -3.12    -0.156 
-      6 naler_max    8.41    6.01    8.41   8.41    10.8   
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$am
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.19     1.91   2.19   2.19      2.46
-      2 aler_min     -1.88    -1.98  -1.88  -1.88     -1.79
-      3 aler_max      2.66     2.06   2.66   2.66      3.27
-      4 naled        17.5     16.1   17.5   17.5      18.9 
-      5 naler_min   -15.3    -19.5  -15.3  -15.3     -11.2 
-      6 naler_max    19.8     17.8   19.8   19.8      21.8 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$gear
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.15    0.876   1.15   1.15     1.43 
-      2 aler_min     -1.43   -1.98   -1.43  -1.43    -0.893
-      3 aler_max      1.39    0.972   1.39   1.39     1.81 
-      4 naled        10.4     8.41   10.4   10.4     12.4  
-      5 naler_min   -10.0   -10.9   -10.0  -10.0     -9.14 
-      6 naler_max    14.6     7.72   14.6   14.6     21.5  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$carb
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled       0.00878  0.00689  0.00878  0.00878    0.0107
-      2 aler_min  -0.0243  -0.0330  -0.0243  -0.0243    -0.0156
-      3 aler_max   0.0357   0.0104   0.0357   0.0357     0.0609
-      4 naled      0        0        0        0          0     
-      5 naler_min  0        0        0        0          0     
-      6 naler_max  2.94     0.147    2.94     2.94       5.74  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$country
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.43     1.40   1.43   1.43      1.46
-      2 aler_min     -2.83    -2.83  -2.83  -2.83     -2.83
-      3 aler_max      2.34     1.88   2.34   2.34      2.80
-      4 naled        11.5     10.8   11.5   11.5      12.2 
-      5 naler_min   -16.8    -22.4  -16.8  -16.8     -11.2 
-      6 naler_max    19.8     17.8   19.8   19.8      21.8 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_term$continent
-      # A tibble: 6 x 6
-        statistic estimate conf.low median   mean conf.high
-        <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.12     2.00   2.12   2.12      2.25
-      2 aler_min     -3.37    -3.50  -3.37  -3.37     -3.24
-      3 aler_max      2.87     2.73   2.87   2.87      3.00
-      4 naled        15.1     14.2   15.1   15.1      15.9 
-      5 naler_min   -19.1    -25.4  -19.1  -19.1     -12.8 
-      6 naler_max    19.8     17.8   19.8   19.8      21.8 
+      # A tibble: 72 x 7
+         term  statistic estimate conf.low  median    mean conf.high
+         <fct> <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+       1 cyl   aled        0.0113  0.00929  0.0113  0.0113    0.0133
+       2 cyl   aler_min   -0.0214 -0.0286  -0.0214 -0.0214   -0.0142
+       3 cyl   aler_max    0.0216  0.0209   0.0216  0.0216    0.0222
+       4 cyl   naled       0       0        0       0         0     
+       5 cyl   naler_min   0       0        0       0         0     
+       6 cyl   naler_max   0       0        0       0         0     
+       7 disp  aled        2.03    1.32     2.03    2.03      2.74  
+       8 disp  aler_min   -2.73   -3.70    -2.73   -2.73     -1.77  
+       9 disp  aler_max    4.75    2.99     4.75    4.75      6.50  
+      10 disp  naled      13.1    10.5     13.1    13.1      15.6   
+      # i 62 more rows
       
       
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aled
-      # A tibble: 12 x 6
-         term      estimate conf.low  median    mean conf.high
-         <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 cyl        0.0113   0.00929 0.0113  0.0113     0.0133
-       2 disp       2.03     1.32    2.03    2.03       2.74  
-       3 hp         2.59     1.60    2.59    2.59       3.59  
-       4 drat       1.37     0.739   1.37    1.37       1.99  
-       5 wt         3.49     3.41    3.49    3.49       3.56  
-       6 qsec       2.06     2.05    2.06    2.06       2.08  
-       7 vs         0.283    0.0737  0.283   0.283      0.493 
-       8 am         2.19     1.91    2.19    2.19       2.46  
-       9 gear       1.15     0.876   1.15    1.15       1.43  
-      10 carb       0.00878  0.00689 0.00878 0.00878    0.0107
-      11 country    1.43     1.40    1.43    1.43       1.46  
-      12 continent  2.12     2.00    2.12    2.12       2.25  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aler_min
-      # A tibble: 12 x 6
-         term      estimate conf.low   median     mean conf.high
-         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 cyl        -0.0214  -0.0286  -0.0214  -0.0214   -0.0142
-       2 disp       -2.73    -3.70    -2.73    -2.73     -1.77  
-       3 hp        -10.1    -12.2    -10.1    -10.1      -8.04  
-       4 drat       -2.92    -4.41    -2.92    -2.92     -1.44  
-       5 wt        -10.2    -10.3    -10.2    -10.2     -10.0   
-       6 qsec       -5.45    -6.12    -5.45    -5.45     -4.78  
-       7 vs         -0.294   -0.509   -0.294   -0.294    -0.0782
-       8 am         -1.88    -1.98    -1.88    -1.88     -1.79  
-       9 gear       -1.43    -1.98    -1.43    -1.43     -0.893 
-      10 carb       -0.0243  -0.0330  -0.0243  -0.0243   -0.0156
-      11 country    -2.83    -2.83    -2.83    -2.83     -2.83  
-      12 continent  -3.37    -3.50    -3.37    -3.37     -3.24  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$aler_max
-      # A tibble: 12 x 6
-         term      estimate conf.low median   mean conf.high
-         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl         0.0216   0.0209 0.0216 0.0216    0.0222
-       2 disp        4.75     2.99   4.75   4.75      6.50  
-       3 hp          3.66     1.87   3.66   3.66      5.46  
-       4 drat        3.98     2.06   3.98   3.98      5.91  
-       5 wt          7.01     6.77   7.01   7.01      7.25  
-       6 qsec        6.27     5.48   6.27   6.27      7.06  
-       7 vs          0.274    0.0698 0.274  0.274     0.478 
-       8 am          2.66     2.06   2.66   2.66      3.27  
-       9 gear        1.39     0.972  1.39   1.39      1.81  
-      10 carb        0.0357   0.0104 0.0357 0.0357    0.0609
-      11 country     2.34     1.88   2.34   2.34      2.80  
-      12 continent   2.87     2.73   2.87   2.87      3.00  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naled
-      # A tibble: 12 x 6
-         term      estimate conf.low median  mean conf.high
-         <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl           0        0      0     0         0   
-       2 disp         13.1     10.5   13.1  13.1      15.6 
-       3 hp           16.7     11.1   16.7  16.7      22.3 
-       4 drat         10.1      7.49  10.1  10.1      12.8 
-       5 wt           21.9     21.5   21.9  21.9      22.2 
-       6 qsec         14.4     14.0   14.4  14.4      14.8 
-       7 vs            5.90     3.26   5.90  5.90      8.53
-       8 am           17.5     16.1   17.5  17.5      18.9 
-       9 gear         10.4      8.41  10.4  10.4      12.4 
-      10 carb          0        0      0     0         0   
-      11 country      11.5     10.8   11.5  11.5      12.2 
-      12 continent    15.1     14.2   15.1  15.1      15.9 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naler_min
-      # A tibble: 12 x 6
-         term      estimate conf.low median   mean conf.high
-         <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 cyl           0        0      0      0        0    
-       2 disp        -16.9    -18.1  -16.9  -16.9    -15.7  
-       3 hp          -45.5    -49.8  -45.5  -45.5    -41.1  
-       4 drat        -13.9    -15.5  -13.9  -13.9    -12.2  
-       5 wt          -46.1    -49.8  -46.1  -46.1    -42.4  
-       6 qsec        -28.3    -40.3  -28.3  -28.3    -16.3  
-       7 vs           -3.12    -6.09  -3.12  -3.12    -0.156
-       8 am          -15.3    -19.5  -15.3  -15.3    -11.2  
-       9 gear        -10.0    -10.9  -10.0  -10.0     -9.14 
-      10 carb          0        0      0      0        0    
-      11 country     -16.8    -22.4  -16.8  -16.8    -11.2  
-      12 continent   -19.1    -25.4  -19.1  -19.1    -12.8  
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$by_stat$naler_max
-      # A tibble: 12 x 6
-         term      estimate conf.low median  mean conf.high
-         <chr>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 cyl           0       0       0     0         0   
-       2 disp         26.8    18.1    26.8  26.8      35.5 
-       3 hp           20.9     8.03   20.9  20.9      33.7 
-       4 drat         21.6     9.46   21.6  21.6      33.7 
-       5 wt           31.9    28.1    31.9  31.9      35.7 
-       6 qsec         31.9    29.5    31.9  31.9      34.3 
-       7 vs            8.41    6.01    8.41  8.41     10.8 
-       8 am           19.8    17.8    19.8  19.8      21.8 
-       9 gear         14.6     7.72   14.6  14.6      21.5 
-      10 carb          2.94    0.147   2.94  2.94      5.74
-      11 country      19.8    17.8    19.8  19.8      21.8 
-      12 continent    19.8    17.8    19.8  19.8      21.8 
-      
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$estimate
-      # A tibble: 12 x 7
-         term         aled aler_min aler_max naled naler_min naler_max
-         <chr>       <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 cyl       0.0113   -0.0214   0.0216  0         0         0   
-       2 disp      2.03     -2.73     4.75   13.1     -16.9      26.8 
-       3 hp        2.59    -10.1      3.66   16.7     -45.5      20.9 
-       4 drat      1.37     -2.92     3.98   10.1     -13.9      21.6 
-       5 wt        3.49    -10.2      7.01   21.9     -46.1      31.9 
-       6 qsec      2.06     -5.45     6.27   14.4     -28.3      31.9 
-       7 vs        0.283    -0.294    0.274   5.90     -3.12      8.41
-       8 am        2.19     -1.88     2.66   17.5     -15.3      19.8 
-       9 gear      1.15     -1.43     1.39   10.4     -10.0      14.6 
-      10 carb      0.00878  -0.0243   0.0357  0         0         2.94
-      11 country   1.43     -2.83     2.34   11.5     -16.8      19.8 
-      12 continent 2.12     -3.37     2.87   15.1     -19.1      19.8 
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions
-      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions$by_term
-      # A tibble: 23 x 12
-         term  x     start_x  end_x x_span_pct     n   pct      y  start_y     end_y
-         <chr> <chr>   <dbl>  <dbl>      <dbl> <int> <dbl>  <dbl>    <dbl>     <dbl>
-       1 cyl   <NA>     3      9           100    64 100   NA      0.00355  -0.00335
-       2 disp  <NA>    70.9  472           100    64 100   NA     -2.73      4.75   
-       3 hp    <NA>    52    335           100    64 100   NA      3.55    -10.1    
-       4 drat  <NA>     2.74   4.98        100    64 100   NA     -2.92      3.98   
-       5 wt    <NA>     1.50   5.45        100    64 100   NA      7.01    -10.2    
-       6 qsec  <NA>    14.5   23.0         100    64 100   NA     -5.45      6.27   
-       7 vs    FALSE   NA     NA            NA    36  56.2  0.211 NA        NA      
-       8 vs    TRUE    NA     NA            NA    28  43.8 -0.231 NA        NA      
-       9 am    FALSE   NA     NA            NA    38  59.4 -1.88  NA        NA      
-      10 am    TRUE    NA     NA            NA    26  40.6  2.66  NA        NA      
-      # i 13 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
-      
-      attr(,"ale")$boot$distinct$mpg$stats$d1$conf_regions$significant
-      # A tibble: 0 x 12
-      # i 12 variables: term <chr>, x <chr>, start_x <dbl>, end_x <dbl>,
-      #   x_span_pct <dbl>, n <int>, pct <dbl>, y <dbl>, start_y <dbl>, end_y <dbl>,
-      #   trend <dbl>, mid_bar <ord>
-      
-      
-      
+      attr(,"ale")$boot$distinct$mpg$conf
+      NULL
       
       
       
@@ -2380,305 +1882,24 @@
       
       attr(,"distinct")$vs$stats
       attr(,"distinct")$vs$stats$d1
-      attr(,"distinct")$vs$stats$d1$by_term
-      attr(,"distinct")$vs$stats$d1$by_term$model
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.303    0.303   0.303   0.303     0.303
-      2 aler_min    -0.969   -0.969  -0.969  -0.969    -0.969
-      3 aler_max     1.03     1.03    1.03    1.03      1.03 
-      4 naled       18.6     18.6    18.6    18.6      18.6  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   50       50      50      50        50    
-      
-      attr(,"distinct")$vs$stats$d1$by_term$mpg
-      # A tibble: 6 x 6
-        statistic estimate conf.low  mean median conf.high
-        <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 aled             0        0     0      0         0
-      2 aler_min         0        0     0      0         0
-      3 aler_max         0        0     0      0         0
-      4 naled            0        0     0      0         0
-      5 naler_min        0        0     0      0         0
-      6 naler_max        0        0     0      0         0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$cyl
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       1.74e-20  1.74e-20  1.74e-20  1.74e-20  1.74e-20
-      2 aler_min  -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
-      3 aler_max   5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
-      4 naled      1.02e+ 1  1.02e+ 1  1.02e+ 1  1.02e+ 1  1.02e+ 1
-      5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$disp
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       3.78e-19  3.78e-19  3.78e-19  3.78e-19  3.78e-19
-      2 aler_min  -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
-      3 aler_max   4.20e-19  4.20e-19  4.20e-19  4.20e-19  4.20e-19
-      4 naled      2.06e+ 1  2.06e+ 1  2.06e+ 1  2.06e+ 1  2.06e+ 1
-      5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$hp
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       2.67e-18  2.67e-18  2.67e-18  2.67e-18  2.67e-18
-      2 aler_min  -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17
-      3 aler_max   2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
-      4 naled      2.06e+ 1  2.06e+ 1  2.06e+ 1  2.06e+ 1  2.06e+ 1
-      5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$drat
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       3.15e-18  3.15e-18  3.15e-18  3.15e-18  3.15e-18
-      2 aler_min  -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18
-      3 aler_max   7.19e-18  7.19e-18  7.19e-18  7.19e-18  7.19e-18
-      4 naled      2.61e+ 1  2.61e+ 1  2.61e+ 1  2.61e+ 1  2.61e+ 1
-      5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$wt
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       8.48e-18  8.48e-18  8.48e-18  8.48e-18  8.48e-18
-      2 aler_min  -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
-      3 aler_max   4.12e-17  4.12e-17  4.12e-17  4.12e-17  4.12e-17
-      4 naled      3.09e+ 1  3.09e+ 1  3.09e+ 1  3.09e+ 1  3.09e+ 1
-      5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$qsec
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       4.66e-18  4.66e-18  4.66e-18  4.66e-18  4.66e-18
-      2 aler_min  -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
-      3 aler_max   1.47e-17  1.47e-17  1.47e-17  1.47e-17  1.47e-17
-      4 naled      3.02e+ 1  3.02e+ 1  3.02e+ 1  3.02e+ 1  3.02e+ 1
-      5 naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      6 naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$am
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.222    0.222   0.222   0.222     0.222
-      2 aler_min    -0.274   -0.274  -0.274  -0.274    -0.274
-      3 aler_max     0.187    0.187   0.187   0.187     0.187
-      4 naled       24.0     24.0    24.0    24.0      24.0  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max    6.25     6.25    6.25    6.25      6.25 
-      
-      attr(,"distinct")$vs$stats$d1$by_term$gear
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.444    0.444   0.444   0.444     0.444
-      2 aler_min    -0.474   -0.474  -0.474  -0.474    -0.474
-      3 aler_max     0.559    0.559   0.559   0.559     0.559
-      4 naled       26.8     26.8    26.8    26.8      26.8  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max    6.25     6.25    6.25    6.25      6.25 
-      
-      attr(,"distinct")$vs$stats$d1$by_term$carb
-      # A tibble: 6 x 6
-        statistic  estimate  conf.low      mean    median conf.high
-        <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 aled       4.04e-21  4.04e-21  4.04e-21  4.04e-21  4.04e-21
-      2 aler_min  -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20
-      3 aler_max   4.96e-21  4.96e-21  4.96e-21  4.96e-21  4.96e-21
-      4 naled      2.76e+ 0  2.76e+ 0  2.76e+ 0  2.76e+ 0  2.76e+ 0
-      5 naler_min -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1 -2.03e+ 1
-      6 naler_max  3.12e+ 0  3.12e+ 0  3.12e+ 0  3.12e+ 0  3.12e+ 0
-      
-      attr(,"distinct")$vs$stats$d1$by_term$country
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0755   0.0755   0.0755   0.0755    0.0755
-      2 aler_min   -0.198   -0.198   -0.198   -0.198    -0.198 
-      3 aler_max    0.302    0.302    0.302    0.302     0.302 
-      4 naled      44.5     44.5     44.5     44.5      44.5   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max   6.25     6.25     6.25     6.25      6.25  
-      
-      attr(,"distinct")$vs$stats$d1$by_term$continent
-      # A tibble: 6 x 6
-        statistic    estimate    conf.low        mean      median   conf.high
-        <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 aled        0.0000803   0.0000803   0.0000803   0.0000803   0.0000803
-      2 aler_min   -0.000214   -0.000214   -0.000214   -0.000214   -0.000214 
-      3 aler_max    0.0000494   0.0000494   0.0000494   0.0000494   0.0000494
-      4 naled      14.5        14.5        14.5        14.5        14.5      
-      5 naler_min -50         -50         -50         -50         -50        
-      6 naler_max   6.25        6.25        6.25        6.25        6.25     
+      # A tibble: 78 x 7
+         term  statistic estimate conf.low    mean  median conf.high
+         <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
+       1 model aled         0.303    0.303   0.303   0.303     0.303
+       2 model aler_min    -0.969   -0.969  -0.969  -0.969    -0.969
+       3 model aler_max     1.03     1.03    1.03    1.03      1.03 
+       4 model naled       18.6     18.6    18.6    18.6      18.6  
+       5 model naler_min  -50      -50     -50     -50       -50    
+       6 model naler_max   50       50      50      50        50    
+       7 mpg   aled         0        0       0       0         0    
+       8 mpg   aler_min     0        0       0       0         0    
+       9 mpg   aler_max     0        0       0       0         0    
+      10 mpg   naled        0        0       0       0         0    
+      # i 68 more rows
       
       
-      attr(,"distinct")$vs$stats$d1$by_stat
-      attr(,"distinct")$vs$stats$d1$by_stat$aled
-      # A tibble: 13 x 6
-         term      estimate conf.low     mean   median conf.high
-         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model     3.03e- 1 3.03e- 1 3.03e- 1 3.03e- 1  3.03e- 1
-       2 mpg       0        0        0        0         0       
-       3 cyl       1.74e-20 1.74e-20 1.74e-20 1.74e-20  1.74e-20
-       4 disp      3.78e-19 3.78e-19 3.78e-19 3.78e-19  3.78e-19
-       5 hp        2.67e-18 2.67e-18 2.67e-18 2.67e-18  2.67e-18
-       6 drat      3.15e-18 3.15e-18 3.15e-18 3.15e-18  3.15e-18
-       7 wt        8.48e-18 8.48e-18 8.48e-18 8.48e-18  8.48e-18
-       8 qsec      4.66e-18 4.66e-18 4.66e-18 4.66e-18  4.66e-18
-       9 am        2.22e- 1 2.22e- 1 2.22e- 1 2.22e- 1  2.22e- 1
-      10 gear      4.44e- 1 4.44e- 1 4.44e- 1 4.44e- 1  4.44e- 1
-      11 carb      4.04e-21 4.04e-21 4.04e-21 4.04e-21  4.04e-21
-      12 country   7.55e- 2 7.55e- 2 7.55e- 2 7.55e- 2  7.55e- 2
-      13 continent 8.03e- 5 8.03e- 5 8.03e- 5 8.03e- 5  8.03e- 5
-      
-      attr(,"distinct")$vs$stats$d1$by_stat$aler_min
-      # A tibble: 13 x 6
-         term       estimate  conf.low      mean    median conf.high
-         <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 model     -9.69e- 1 -9.69e- 1 -9.69e- 1 -9.69e- 1 -9.69e- 1
-       2 mpg        0         0         0         0         0       
-       3 cyl       -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
-       4 disp      -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
-       5 hp        -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17
-       6 drat      -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18
-       7 wt        -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
-       8 qsec      -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
-       9 am        -2.74e- 1 -2.74e- 1 -2.74e- 1 -2.74e- 1 -2.74e- 1
-      10 gear      -4.74e- 1 -4.74e- 1 -4.74e- 1 -4.74e- 1 -4.74e- 1
-      11 carb      -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20
-      12 country   -1.98e- 1 -1.98e- 1 -1.98e- 1 -1.98e- 1 -1.98e- 1
-      13 continent -2.14e- 4 -2.14e- 4 -2.14e- 4 -2.14e- 4 -2.14e- 4
-      
-      attr(,"distinct")$vs$stats$d1$by_stat$aler_max
-      # A tibble: 13 x 6
-         term      estimate conf.low     mean   median conf.high
-         <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model     1.03e+ 0 1.03e+ 0 1.03e+ 0 1.03e+ 0  1.03e+ 0
-       2 mpg       0        0        0        0         0       
-       3 cyl       5.00e-20 5.00e-20 5.00e-20 5.00e-20  5.00e-20
-       4 disp      4.20e-19 4.20e-19 4.20e-19 4.20e-19  4.20e-19
-       5 hp        2.89e-18 2.89e-18 2.89e-18 2.89e-18  2.89e-18
-       6 drat      7.19e-18 7.19e-18 7.19e-18 7.19e-18  7.19e-18
-       7 wt        4.12e-17 4.12e-17 4.12e-17 4.12e-17  4.12e-17
-       8 qsec      1.47e-17 1.47e-17 1.47e-17 1.47e-17  1.47e-17
-       9 am        1.87e- 1 1.87e- 1 1.87e- 1 1.87e- 1  1.87e- 1
-      10 gear      5.59e- 1 5.59e- 1 5.59e- 1 5.59e- 1  5.59e- 1
-      11 carb      4.96e-21 4.96e-21 4.96e-21 4.96e-21  4.96e-21
-      12 country   3.02e- 1 3.02e- 1 3.02e- 1 3.02e- 1  3.02e- 1
-      13 continent 4.94e- 5 4.94e- 5 4.94e- 5 4.94e- 5  4.94e- 5
-      
-      attr(,"distinct")$vs$stats$d1$by_stat$naled
-      # A tibble: 13 x 6
-         term      estimate conf.low  mean median conf.high
-         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model        18.6     18.6  18.6   18.6      18.6 
-       2 mpg           0        0     0      0         0   
-       3 cyl          10.2     10.2  10.2   10.2      10.2 
-       4 disp         20.6     20.6  20.6   20.6      20.6 
-       5 hp           20.6     20.6  20.6   20.6      20.6 
-       6 drat         26.1     26.1  26.1   26.1      26.1 
-       7 wt           30.9     30.9  30.9   30.9      30.9 
-       8 qsec         30.2     30.2  30.2   30.2      30.2 
-       9 am           24.0     24.0  24.0   24.0      24.0 
-      10 gear         26.8     26.8  26.8   26.8      26.8 
-      11 carb          2.76     2.76  2.76   2.76      2.76
-      12 country      44.5     44.5  44.5   44.5      44.5 
-      13 continent    14.5     14.5  14.5   14.5      14.5 
-      
-      attr(,"distinct")$vs$stats$d1$by_stat$naler_min
-      # A tibble: 13 x 6
-         term      estimate conf.low  mean median conf.high
-         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model        -50      -50   -50    -50       -50  
-       2 mpg            0        0     0      0         0  
-       3 cyl          -20.3    -20.3 -20.3  -20.3     -20.3
-       4 disp         -50      -50   -50    -50       -50  
-       5 hp           -50      -50   -50    -50       -50  
-       6 drat         -50      -50   -50    -50       -50  
-       7 wt           -50      -50   -50    -50       -50  
-       8 qsec         -50      -50   -50    -50       -50  
-       9 am           -50      -50   -50    -50       -50  
-      10 gear         -50      -50   -50    -50       -50  
-      11 carb         -20.3    -20.3 -20.3  -20.3     -20.3
-      12 country      -50      -50   -50    -50       -50  
-      13 continent    -50      -50   -50    -50       -50  
-      
-      attr(,"distinct")$vs$stats$d1$by_stat$naler_max
-      # A tibble: 13 x 6
-         term      estimate conf.low  mean median conf.high
-         <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model        50       50    50     50        50   
-       2 mpg           0        0     0      0         0   
-       3 cyl           6.25     6.25  6.25   6.25      6.25
-       4 disp          6.25     6.25  6.25   6.25      6.25
-       5 hp            6.25     6.25  6.25   6.25      6.25
-       6 drat          6.25     6.25  6.25   6.25      6.25
-       7 wt            6.25     6.25  6.25   6.25      6.25
-       8 qsec          6.25     6.25  6.25   6.25      6.25
-       9 am            6.25     6.25  6.25   6.25      6.25
-      10 gear          6.25     6.25  6.25   6.25      6.25
-      11 carb          3.12     3.12  3.12   3.12      3.12
-      12 country       6.25     6.25  6.25   6.25      6.25
-      13 continent     6.25     6.25  6.25   6.25      6.25
-      
-      
-      attr(,"distinct")$vs$stats$d1$estimate
-      # A tibble: 13 x 7
-         term          aled  aler_min aler_max naled naler_min naler_max
-         <chr>        <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 model     3.03e- 1 -9.69e- 1 1.03e+ 0 18.6      -50       50   
-       2 mpg       0         0        0         0          0        0   
-       3 cyl       1.74e-20 -2.04e-20 5.00e-20 10.2      -20.3      6.25
-       4 disp      3.78e-19 -1.20e-18 4.20e-19 20.6      -50        6.25
-       5 hp        2.67e-18 -1.19e-17 2.89e-18 20.6      -50        6.25
-       6 drat      3.15e-18 -6.66e-18 7.19e-18 26.1      -50        6.25
-       7 wt        8.48e-18 -1.31e-17 4.12e-17 30.9      -50        6.25
-       8 qsec      4.66e-18 -4.87e-18 1.47e-17 30.2      -50        6.25
-       9 am        2.22e- 1 -2.74e- 1 1.87e- 1 24.0      -50        6.25
-      10 gear      4.44e- 1 -4.74e- 1 5.59e- 1 26.8      -50        6.25
-      11 carb      4.04e-21 -2.03e-20 4.96e-21  2.76     -20.3      3.12
-      12 country   7.55e- 2 -1.98e- 1 3.02e- 1 44.5      -50        6.25
-      13 continent 8.03e- 5 -2.14e- 4 4.94e- 5 14.5      -50        6.25
-      
-      attr(,"distinct")$vs$stats$d1$conf_regions
-      attr(,"distinct")$vs$stats$d1$conf_regions$by_term
-      # A tibble: 54 x 12
-         term  x       start_x end_x x_span_pct     n   pct      y start_y end_y trend
-         <chr> <chr>     <dbl> <dbl>      <dbl> <int> <dbl>  <dbl>   <dbl> <dbl> <dbl>
-       1 model Duster~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       2 model Camaro~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       3 model Chrysl~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       4 model Cadill~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       5 model Lincol~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       6 model Pontia~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       7 model Hornet~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       8 model AMC Ja~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-       9 model Dodge ~      NA    NA         NA     2  3.12 0.0313      NA    NA    NA
-      10 model Valiant      NA    NA         NA     2  3.12 1.03        NA    NA    NA
-      # i 44 more rows
-      # i 1 more variable: mid_bar <ord>
-      
-      attr(,"distinct")$vs$stats$d1$conf_regions$significant
-      # A tibble: 0 x 12
-      # i 12 variables: term <chr>, x <chr>, start_x <dbl>, end_x <dbl>,
-      #   x_span_pct <dbl>, n <int>, pct <dbl>, y <dbl>, start_y <dbl>, end_y <dbl>,
-      #   trend <dbl>, mid_bar <ord>
-      
-      
-      
+      attr(,"distinct")$vs$boot_data
+      NULL
       
       
       attr(,"params")
@@ -3493,82 +2714,28 @@
       
       attr(,"distinct")$setosa$stats
       attr(,"distinct")$setosa$stats$d1
-      attr(,"distinct")$setosa$stats$d1$by_term
-      attr(,"distinct")$setosa$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic     estimate     conf.low         mean       median    conf.high
-        <chr>            <dbl>        <dbl>        <dbl>        <dbl>        <dbl>
-      1 aled        0.00000990   0.00000990   0.00000990   0.00000990   0.00000990
-      2 aler_min   -0.0000635   -0.0000635   -0.0000635   -0.0000635   -0.0000635 
-      3 aler_max    0.0000101    0.0000101    0.0000101    0.0000101    0.0000101 
-      4 naled      18.9         18.9         18.9         18.9         18.9       
-      5 naler_min -50          -50          -50          -50          -50         
-      6 naler_max  15.3         15.3         15.3         15.3         15.3       
-      
-      attr(,"distinct")$setosa$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic    estimate    conf.low        mean      median   conf.high
-        <chr>           <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
-      1 aled        0.0000115   0.0000115   0.0000115   0.0000115   0.0000115
-      2 aler_min   -0.0000201  -0.0000201  -0.0000201  -0.0000201  -0.0000201
-      3 aler_max    0.0000108   0.0000108   0.0000108   0.0000108   0.0000108
-      4 naled      26.8        26.8        26.8        26.8        26.8      
-      5 naler_min -50         -50         -50         -50         -50        
-      6 naler_max  15.3        15.3        15.3        15.3        15.3      
+      # A tibble: 12 x 7
+         term         statistic     estimate     conf.low      mean   median conf.high
+         <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.00000990   0.00000990   9.90e-6  9.90e-6   9.90e-6
+       2 Sepal.Length aler_min   -0.0000635   -0.0000635   -6.35e-5 -6.35e-5  -6.35e-5
+       3 Sepal.Length aler_max    0.0000101    0.0000101    1.01e-5  1.01e-5   1.01e-5
+       4 Sepal.Length naled      18.9         18.9          1.89e+1  1.89e+1   1.89e+1
+       5 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+       6 Sepal.Length naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
+       7 Petal.Width  aled        0.0000115    0.0000115    1.15e-5  1.15e-5   1.15e-5
+       8 Petal.Width  aler_min   -0.0000201   -0.0000201   -2.01e-5 -2.01e-5  -2.01e-5
+       9 Petal.Width  aler_max    0.0000108    0.0000108    1.08e-5  1.08e-5   1.08e-5
+      10 Petal.Width  naled      26.8         26.8          2.68e+1  2.68e+1   2.68e+1
+      11 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+      12 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
       
       
-      attr(,"distinct")$setosa$stats$d1$by_stat
-      attr(,"distinct")$setosa$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term           estimate   conf.low       mean     median  conf.high
-        <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-      1 Sepal.Length 0.00000990 0.00000990 0.00000990 0.00000990 0.00000990
-      2 Petal.Width  0.0000115  0.0000115  0.0000115  0.0000115  0.0000115 
+      attr(,"distinct")$setosa$conf
+      NULL
       
-      attr(,"distinct")$setosa$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term           estimate   conf.low       mean     median  conf.high
-        <chr>             <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-      1 Sepal.Length -0.0000635 -0.0000635 -0.0000635 -0.0000635 -0.0000635
-      2 Petal.Width  -0.0000201 -0.0000201 -0.0000201 -0.0000201 -0.0000201
-      
-      attr(,"distinct")$setosa$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term          estimate  conf.low      mean    median conf.high
-        <chr>            <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0000101 0.0000101 0.0000101 0.0000101 0.0000101
-      2 Petal.Width  0.0000108 0.0000108 0.0000108 0.0000108 0.0000108
-      
-      attr(,"distinct")$setosa$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     18.9     18.9  18.9   18.9      18.9
-      2 Petal.Width      26.8     26.8  26.8   26.8      26.8
-      
-      attr(,"distinct")$setosa$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Petal.Width       -50      -50   -50    -50       -50
-      
-      attr(,"distinct")$setosa$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     15.3     15.3  15.3   15.3      15.3
-      2 Petal.Width      15.3     15.3  15.3   15.3      15.3
-      
-      
-      attr(,"distinct")$setosa$stats$d1$estimate
-      # A tibble: 2 x 7
-        term               aled   aler_min  aler_max naled naler_min naler_max
-        <chr>             <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.00000990 -0.0000635 0.0000101  18.9       -50      15.3
-      2 Petal.Width  0.0000115  -0.0000201 0.0000108  26.8       -50      15.3
-      
-      
+      attr(,"distinct")$setosa$boot_data
+      NULL
       
       
       attr(,"distinct")$versicolor
@@ -3607,82 +2774,28 @@
       
       attr(,"distinct")$versicolor$stats
       attr(,"distinct")$versicolor$stats$d1
-      attr(,"distinct")$versicolor$stats$d1$by_term
-      attr(,"distinct")$versicolor$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0286   0.0286   0.0286   0.0286    0.0286
-      2 aler_min   -0.0301  -0.0301  -0.0301  -0.0301   -0.0301
-      3 aler_max    0.0572   0.0572   0.0572   0.0572    0.0572
-      4 naled      34.4     34.4     34.4     34.4      34.4   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  12.7     12.7     12.7     12.7      12.7   
-      
-      attr(,"distinct")$versicolor$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.203    0.203   0.203   0.203     0.203
-      2 aler_min    -0.387   -0.387  -0.387  -0.387    -0.387
-      3 aler_max     0.168    0.168   0.168   0.168     0.168
-      4 naled       25.8     25.8    25.8    25.8      25.8  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   14.7     14.7    14.7    14.7      14.7  
+      # A tibble: 12 x 7
+         term         statistic estimate conf.low     mean   median conf.high
+         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0286   0.0286   0.0286   0.0286    0.0286
+       2 Sepal.Length aler_min   -0.0301  -0.0301  -0.0301  -0.0301   -0.0301
+       3 Sepal.Length aler_max    0.0572   0.0572   0.0572   0.0572    0.0572
+       4 Sepal.Length naled      34.4     34.4     34.4     34.4      34.4   
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       6 Sepal.Length naler_max  12.7     12.7     12.7     12.7      12.7   
+       7 Petal.Width  aled        0.203    0.203    0.203    0.203     0.203 
+       8 Petal.Width  aler_min   -0.387   -0.387   -0.387   -0.387    -0.387 
+       9 Petal.Width  aler_max    0.168    0.168    0.168    0.168     0.168 
+      10 Petal.Width  naled      25.8     25.8     25.8     25.8      25.8   
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
       
       
-      attr(,"distinct")$versicolor$stats$d1$by_stat
-      attr(,"distinct")$versicolor$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term         estimate conf.low   mean median conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
-      2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
+      attr(,"distinct")$versicolor$conf
+      NULL
       
-      attr(,"distinct")$versicolor$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low    mean  median conf.high
-        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 Sepal.Length  -0.0301  -0.0301 -0.0301 -0.0301   -0.0301
-      2 Petal.Width   -0.387   -0.387  -0.387  -0.387    -0.387 
-      
-      attr(,"distinct")$versicolor$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low   mean median conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0572   0.0572 0.0572 0.0572    0.0572
-      2 Petal.Width    0.168    0.168  0.168  0.168     0.168 
-      
-      attr(,"distinct")$versicolor$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     34.4     34.4  34.4   34.4      34.4
-      2 Petal.Width      25.8     25.8  25.8   25.8      25.8
-      
-      attr(,"distinct")$versicolor$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Petal.Width       -50      -50   -50    -50       -50
-      
-      attr(,"distinct")$versicolor$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     12.7     12.7  12.7   12.7      12.7
-      2 Petal.Width      14.7     14.7  14.7   14.7      14.7
-      
-      
-      attr(,"distinct")$versicolor$stats$d1$estimate
-      # A tibble: 2 x 7
-        term           aled aler_min aler_max naled naler_min naler_max
-        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0286  -0.0301   0.0572  34.4       -50      12.7
-      2 Petal.Width  0.203   -0.387    0.168   25.8       -50      14.7
-      
-      
+      attr(,"distinct")$versicolor$boot_data
+      NULL
       
       
       attr(,"distinct")$virginica
@@ -3721,82 +2834,28 @@
       
       attr(,"distinct")$virginica$stats
       attr(,"distinct")$virginica$stats$d1
-      attr(,"distinct")$virginica$stats$d1$by_term
-      attr(,"distinct")$virginica$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low     mean   median conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0286   0.0286   0.0286   0.0286    0.0286
-      2 aler_min   -0.0572  -0.0572  -0.0572  -0.0572   -0.0572
-      3 aler_max    0.0301   0.0301   0.0301   0.0301    0.0301
-      4 naled      28.2     28.2     28.2     28.2      28.2   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  13.3     13.3     13.3     13.3      13.3   
-      
-      attr(,"distinct")$virginica$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low    mean  median conf.high
-        <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.203    0.203   0.203   0.203     0.203
-      2 aler_min    -0.168   -0.168  -0.168  -0.168    -0.168
-      3 aler_max     0.387    0.387   0.387   0.387     0.387
-      4 naled       39.0     39.0    39.0    39.0      39.0  
-      5 naler_min  -50      -50     -50     -50       -50    
-      6 naler_max   16       16      16      16        16    
+      # A tibble: 12 x 7
+         term         statistic estimate conf.low     mean   median conf.high
+         <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0286   0.0286   0.0286   0.0286    0.0286
+       2 Sepal.Length aler_min   -0.0572  -0.0572  -0.0572  -0.0572   -0.0572
+       3 Sepal.Length aler_max    0.0301   0.0301   0.0301   0.0301    0.0301
+       4 Sepal.Length naled      28.2     28.2     28.2     28.2      28.2   
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       6 Sepal.Length naler_max  13.3     13.3     13.3     13.3      13.3   
+       7 Petal.Width  aled        0.203    0.203    0.203    0.203     0.203 
+       8 Petal.Width  aler_min   -0.168   -0.168   -0.168   -0.168    -0.168 
+       9 Petal.Width  aler_max    0.387    0.387    0.387    0.387     0.387 
+      10 Petal.Width  naled      39.0     39.0     39.0     39.0      39.0   
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      12 Petal.Width  naler_max  16       16       16       16        16     
       
       
-      attr(,"distinct")$virginica$stats$d1$by_stat
-      attr(,"distinct")$virginica$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term         estimate conf.low   mean median conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0286   0.0286 0.0286 0.0286    0.0286
-      2 Petal.Width    0.203    0.203  0.203  0.203     0.203 
+      attr(,"distinct")$virginica$conf
+      NULL
       
-      attr(,"distinct")$virginica$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low    mean  median conf.high
-        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 Sepal.Length  -0.0572  -0.0572 -0.0572 -0.0572   -0.0572
-      2 Petal.Width   -0.168   -0.168  -0.168  -0.168    -0.168 
-      
-      attr(,"distinct")$virginica$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low   mean median conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0301   0.0301 0.0301 0.0301    0.0301
-      2 Petal.Width    0.387    0.387  0.387  0.387     0.387 
-      
-      attr(,"distinct")$virginica$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     28.2     28.2  28.2   28.2      28.2
-      2 Petal.Width      39.0     39.0  39.0   39.0      39.0
-      
-      attr(,"distinct")$virginica$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length      -50      -50   -50    -50       -50
-      2 Petal.Width       -50      -50   -50    -50       -50
-      
-      attr(,"distinct")$virginica$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low  mean median conf.high
-        <chr>           <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-      1 Sepal.Length     13.3     13.3  13.3   13.3      13.3
-      2 Petal.Width      16       16    16     16        16  
-      
-      
-      attr(,"distinct")$virginica$stats$d1$estimate
-      # A tibble: 2 x 7
-        term           aled aler_min aler_max naled naler_min naler_max
-        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0286  -0.0572   0.0301  28.2       -50      13.3
-      2 Petal.Width  0.203   -0.168    0.387   39.0       -50      16  
-      
-      
+      attr(,"distinct")$virginica$boot_data
+      NULL
       
       
       attr(,"params")
@@ -4266,96 +3325,25 @@
       
       attr(,"ale")$boot$distinct$setosa$stats
       attr(,"ale")$boot$distinct$setosa$stats$d1
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic     estimate     conf.low       median         mean   conf.high
-        <chr>            <dbl>        <dbl>        <dbl>        <dbl>       <dbl>
-      1 aled        0.00000924   0.00000445   0.00000924   0.00000924   0.0000140
-      2 aler_min   -0.0000729   -0.000120    -0.0000729   -0.0000729   -0.0000253
-      3 aler_max    0.0000111    0.00000350   0.0000111    0.0000111    0.0000187
-      4 naled      23.9         22.7         23.9         23.9         25.2      
-      5 naler_min -50          -50          -50          -50          -50        
-      6 naler_max  19.4         19.1         19.4         19.4         19.7      
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic    estimate     conf.low      median        mean    conf.high
-        <chr>           <dbl>        <dbl>       <dbl>       <dbl>        <dbl>
-      1 aled        0.0000333   0.00000452   0.0000333   0.0000333   0.0000620 
-      2 aler_min   -0.0000671  -0.000125    -0.0000671  -0.0000671  -0.00000907
-      3 aler_max    0.0000305   0.00000408   0.0000305   0.0000305   0.0000570 
-      4 naled      27.5        26.0         27.5        27.5        28.9       
-      5 naler_min -50         -50          -50         -50         -50         
-      6 naler_max  18.4        16.6         18.4        18.4        20.2       
+      # A tibble: 12 x 7
+         term         statistic     estimate     conf.low    median     mean conf.high
+         <fct>        <fct>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.00000924   0.00000445   9.24e-6  9.24e-6   1.40e-5
+       2 Sepal.Length aler_min   -0.0000729   -0.000120    -7.29e-5 -7.29e-5  -2.53e-5
+       3 Sepal.Length aler_max    0.0000111    0.00000350   1.11e-5  1.11e-5   1.87e-5
+       4 Sepal.Length naled      23.9         22.7          2.39e+1  2.39e+1   2.52e+1
+       5 Sepal.Length naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+       6 Sepal.Length naler_max  19.4         19.1          1.94e+1  1.94e+1   1.97e+1
+       7 Petal.Width  aled        0.0000333    0.00000452   3.33e-5  3.33e-5   6.20e-5
+       8 Petal.Width  aler_min   -0.0000671   -0.000125    -6.71e-5 -6.71e-5  -9.07e-6
+       9 Petal.Width  aler_max    0.0000305    0.00000408   3.05e-5  3.05e-5   5.70e-5
+      10 Petal.Width  naled      27.5         26.0          2.75e+1  2.75e+1   2.89e+1
+      11 Petal.Width  naler_min -50          -50           -5   e+1 -5   e+1  -5   e+1
+      12 Petal.Width  naler_max  18.4         16.6          1.84e+1  1.84e+1   2.02e+1
       
       
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term           estimate   conf.low     median       mean conf.high
-        <chr>             <dbl>      <dbl>      <dbl>      <dbl>     <dbl>
-      1 Sepal.Length 0.00000924 0.00000445 0.00000924 0.00000924 0.0000140
-      2 Petal.Width  0.0000333  0.00000452 0.0000333  0.0000333  0.0000620
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term           estimate  conf.low     median       mean   conf.high
-        <chr>             <dbl>     <dbl>      <dbl>      <dbl>       <dbl>
-      1 Sepal.Length -0.0000729 -0.000120 -0.0000729 -0.0000729 -0.0000253 
-      2 Petal.Width  -0.0000671 -0.000125 -0.0000671 -0.0000671 -0.00000907
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term          estimate   conf.low    median      mean conf.high
-        <chr>            <dbl>      <dbl>     <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0000111 0.00000350 0.0000111 0.0000111 0.0000187
-      2 Petal.Width  0.0000305 0.00000408 0.0000305 0.0000305 0.0000570
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     23.9     22.7   23.9  23.9      25.2
-      2 Petal.Width      27.5     26.0   27.5  27.5      28.9
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Petal.Width       -50      -50    -50   -50       -50
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     19.4     19.1   19.4  19.4      19.7
-      2 Petal.Width      18.4     16.6   18.4  18.4      20.2
-      
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$estimate
-      # A tibble: 2 x 7
-        term               aled   aler_min  aler_max naled naler_min naler_max
-        <chr>             <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.00000924 -0.0000729 0.0000111  23.9       -50      19.4
-      2 Petal.Width  0.0000333  -0.0000671 0.0000305  27.5       -50      18.4
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions
-      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions$by_term
-      # A tibble: 2 x 10
-        term     start_x end_x x_span_pct     n   pct  start_y   end_y   trend mid_bar
-        <chr>      <dbl> <dbl>      <dbl> <int> <dbl>    <dbl>   <dbl>   <dbl> <ord>  
-      1 Sepal.L~     4.3   7.9        100   150   100 -7.29e-5 1.11e-5 8.40e-5 overlap
-      2 Petal.W~     0.1   2.5        100   150   100 -6.71e-5 3.05e-5 9.77e-5 overlap
-      
-      attr(,"ale")$boot$distinct$setosa$stats$d1$conf_regions$significant
-      # A tibble: 0 x 10
-      # i 10 variables: term <chr>, start_x <dbl>, end_x <dbl>, x_span_pct <dbl>,
-      #   n <int>, pct <dbl>, start_y <dbl>, end_y <dbl>, trend <dbl>, mid_bar <ord>
-      
-      
-      
+      attr(,"ale")$boot$distinct$setosa$conf
+      NULL
       
       
       attr(,"ale")$boot$distinct$versicolor
@@ -4394,96 +3382,25 @@
       
       attr(,"ale")$boot$distinct$versicolor$stats
       attr(,"ale")$boot$distinct$versicolor$stats$d1
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0155   0.0125   0.0155   0.0155    0.0185
-      2 aler_min   -0.0187  -0.0273  -0.0187  -0.0187   -0.0101
-      3 aler_max    0.0952   0.0368   0.0952   0.0952    0.154 
-      4 naled      38.2     35.2     38.2     38.2      41.1   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  16.0     14.5     16.0     16.0      17.6   
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0762   0.0552   0.0762   0.0762    0.0973
-      2 aler_min   -0.128   -0.167   -0.128   -0.128    -0.0896
-      3 aler_max    0.0683   0.0475   0.0683   0.0683    0.0890
-      4 naled      29.2     28.7     29.2     29.2      29.7   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  17.3     16.9     17.3     17.3      17.7   
+      # A tibble: 12 x 7
+         term         statistic estimate conf.low   median     mean conf.high
+         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0155   0.0125   0.0155   0.0155    0.0185
+       2 Sepal.Length aler_min   -0.0187  -0.0273  -0.0187  -0.0187   -0.0101
+       3 Sepal.Length aler_max    0.0952   0.0368   0.0952   0.0952    0.154 
+       4 Sepal.Length naled      38.2     35.2     38.2     38.2      41.1   
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       6 Sepal.Length naler_max  16.0     14.5     16.0     16.0      17.6   
+       7 Petal.Width  aled        0.0762   0.0552   0.0762   0.0762    0.0973
+       8 Petal.Width  aler_min   -0.128   -0.167   -0.128   -0.128    -0.0896
+       9 Petal.Width  aler_max    0.0683   0.0475   0.0683   0.0683    0.0890
+      10 Petal.Width  naled      29.2     28.7     29.2     29.2      29.7   
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
       
       
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term         estimate conf.low median   mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0155   0.0125 0.0155 0.0155    0.0185
-      2 Petal.Width    0.0762   0.0552 0.0762 0.0762    0.0973
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low  median    mean conf.high
-        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 Sepal.Length  -0.0187  -0.0273 -0.0187 -0.0187   -0.0101
-      2 Petal.Width   -0.128   -0.167  -0.128  -0.128    -0.0896
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low median   mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0952   0.0368 0.0952 0.0952    0.154 
-      2 Petal.Width    0.0683   0.0475 0.0683 0.0683    0.0890
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     38.2     35.2   38.2  38.2      41.1
-      2 Petal.Width      29.2     28.7   29.2  29.2      29.7
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Petal.Width       -50      -50    -50   -50       -50
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     16.0     14.5   16.0  16.0      17.6
-      2 Petal.Width      17.3     16.9   17.3  17.3      17.7
-      
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$estimate
-      # A tibble: 2 x 7
-        term           aled aler_min aler_max naled naler_min naler_max
-        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0155  -0.0187   0.0952  38.2       -50      16.0
-      2 Petal.Width  0.0762  -0.128    0.0683  29.2       -50      17.3
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions$by_term
-      # A tibble: 2 x 10
-        term       start_x end_x x_span_pct     n   pct start_y   end_y  trend mid_bar
-        <chr>        <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>  
-      1 Sepal.Len~     4.3   7.9        100   150   100 -0.0187  0.0952  0.114 overlap
-      2 Petal.Wid~     0.1   2.5        100   150   100  0.0683 -0.128  -0.196 overlap
-      
-      attr(,"ale")$boot$distinct$versicolor$stats$d1$conf_regions$significant
-      # A tibble: 0 x 10
-      # i 10 variables: term <chr>, start_x <dbl>, end_x <dbl>, x_span_pct <dbl>,
-      #   n <int>, pct <dbl>, start_y <dbl>, end_y <dbl>, trend <dbl>, mid_bar <ord>
-      
-      
-      
+      attr(,"ale")$boot$distinct$versicolor$conf
+      NULL
       
       
       attr(,"ale")$boot$distinct$virginica
@@ -4522,96 +3439,25 @@
       
       attr(,"ale")$boot$distinct$virginica$stats
       attr(,"ale")$boot$distinct$virginica$stats$d1
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term$Sepal.Length
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0155   0.0125   0.0155   0.0155    0.0185
-      2 aler_min   -0.0952  -0.154   -0.0952  -0.0952   -0.0368
-      3 aler_max    0.0188   0.0101   0.0188   0.0188    0.0274
-      4 naled      23.6     21.6     23.6     23.6      25.6   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  10.3      8.73    10.3     10.3      11.8   
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_term$Petal.Width
-      # A tibble: 6 x 6
-        statistic estimate conf.low   median     mean conf.high
-        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled        0.0762   0.0551   0.0762   0.0762    0.0973
-      2 aler_min   -0.0682  -0.0890  -0.0682  -0.0682   -0.0474
-      3 aler_max    0.128    0.0895   0.128    0.128     0.167 
-      4 naled      35.3     34.9     35.3     35.3      35.8   
-      5 naler_min -50      -50      -50      -50       -50     
-      6 naler_max  10.3      8.73    10.3     10.3      11.8   
+      # A tibble: 12 x 7
+         term         statistic estimate conf.low   median     mean conf.high
+         <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+       1 Sepal.Length aled        0.0155   0.0125   0.0155   0.0155    0.0185
+       2 Sepal.Length aler_min   -0.0952  -0.154   -0.0952  -0.0952   -0.0368
+       3 Sepal.Length aler_max    0.0188   0.0101   0.0188   0.0188    0.0274
+       4 Sepal.Length naled      23.6     21.6     23.6     23.6      25.6   
+       5 Sepal.Length naler_min -50      -50      -50      -50       -50     
+       6 Sepal.Length naler_max  10.3      8.73    10.3     10.3      11.8   
+       7 Petal.Width  aled        0.0762   0.0551   0.0762   0.0762    0.0973
+       8 Petal.Width  aler_min   -0.0682  -0.0890  -0.0682  -0.0682   -0.0474
+       9 Petal.Width  aler_max    0.128    0.0895   0.128    0.128     0.167 
+      10 Petal.Width  naled      35.3     34.9     35.3     35.3      35.8   
+      11 Petal.Width  naler_min -50      -50      -50      -50       -50     
+      12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
       
       
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aled
-      # A tibble: 2 x 6
-        term         estimate conf.low median   mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0155   0.0125 0.0155 0.0155    0.0185
-      2 Petal.Width    0.0762   0.0551 0.0762 0.0762    0.0973
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low  median    mean conf.high
-        <chr>           <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 Sepal.Length  -0.0952  -0.154  -0.0952 -0.0952   -0.0368
-      2 Petal.Width   -0.0682  -0.0890 -0.0682 -0.0682   -0.0474
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$aler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low median   mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 Sepal.Length   0.0188   0.0101 0.0188 0.0188    0.0274
-      2 Petal.Width    0.128    0.0895 0.128  0.128     0.167 
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naled
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     23.6     21.6   23.6  23.6      25.6
-      2 Petal.Width      35.3     34.9   35.3  35.3      35.8
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naler_min
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length      -50      -50    -50   -50       -50
-      2 Petal.Width       -50      -50    -50   -50       -50
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$by_stat$naler_max
-      # A tibble: 2 x 6
-        term         estimate conf.low median  mean conf.high
-        <chr>           <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-      1 Sepal.Length     10.3     8.73   10.3  10.3      11.8
-      2 Petal.Width      10.3     8.73   10.3  10.3      11.8
-      
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$estimate
-      # A tibble: 2 x 7
-        term           aled aler_min aler_max naled naler_min naler_max
-        <chr>         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 Sepal.Length 0.0155  -0.0952   0.0188  23.6       -50      10.3
-      2 Petal.Width  0.0762  -0.0682   0.128   35.3       -50      10.3
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions
-      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions$by_term
-      # A tibble: 2 x 10
-        term       start_x end_x x_span_pct     n   pct start_y   end_y  trend mid_bar
-        <chr>        <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl>  <dbl> <ord>  
-      1 Sepal.Len~     4.3   7.9        100   150   100  0.0188 -0.0952 -0.114 overlap
-      2 Petal.Wid~     0.1   2.5        100   150   100 -0.0682  0.128   0.196 overlap
-      
-      attr(,"ale")$boot$distinct$virginica$stats$d1$conf_regions$significant
-      # A tibble: 0 x 10
-      # i 10 variables: term <chr>, start_x <dbl>, end_x <dbl>, x_span_pct <dbl>,
-      #   n <int>, pct <dbl>, start_y <dbl>, end_y <dbl>, trend <dbl>, mid_bar <ord>
-      
-      
-      
+      attr(,"ale")$boot$distinct$virginica$conf
+      NULL
       
       
       

@@ -355,23 +355,23 @@ ModelBoot <- new_class(
 
     validate_silent(silent)
 
-    # Temporarily forbid 2D ALE bootstrapping
-    if (!is.null(ale_options$x_cols)) {
-      resolved_x_cols <- validate_x_cols(
-        x_cols = ale_options$x_cols,
-        col_names = names(data),
-        y_col = y_col
-      )
-      validate(
-        length(resolved_x_cols[['d2']]) == 0,
-        msg = c(
-          'x' = '2D ALE detected in ale_options$x_cols. ',
-          # x = '2D ALE detected in {.arg ale_options}: {ale_options$x_cols}.',
-          'i' = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
-          'i' = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
-        )
-      )
-    }
+    # # Temporarily forbid 2D ALE bootstrapping
+    # if (!is.null(ale_options$x_cols)) {
+    #   resolved_x_cols <- validate_x_cols(
+    #     x_cols = ale_options$x_cols,
+    #     col_names = names(data),
+    #     y_col = y_col
+    #   )
+    #   validate(
+    #     length(resolved_x_cols[['d2']]) == 0,
+    #     msg = c(
+    #       'x' = '2D ALE detected in ale_options$x_cols. ',
+    #       # x = '2D ALE detected in {.arg ale_options}: {ale_options$x_cols}.',
+    #       'i' = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
+    #       'i' = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
+    #     )
+    #   )
+    # }
 
 
     ## Verify glance and tidy methods ------------
@@ -486,7 +486,7 @@ ModelBoot <- new_class(
           # Enable parallel-processing random seed generation
           seed = seed,
           packages = model_packages
-        ),
+      ),
         .x = boot_data$it,
         .y = boot_data$row_idxs,
         .f = \(btit, btit.idxs) {
@@ -764,6 +764,15 @@ ModelBoot <- new_class(
             if (btit == 0) {
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
 
+              # ale_bins <<-
+              #   boot_ale@distinct[[1]]$ale |>
+              #   map(\(it.d_ale) {
+              #     map(it.d_ale, \(it.x) list(
+              #       bins = it.x[[1]],
+              #       ns   = it.x[['.n']]
+              #     ))
+              #   })
+
               ale_bins <<- list(
                 d1 = boot_ale@distinct[[1]]$ale$d1 |>
                   map(\(it.x) list(
@@ -771,14 +780,24 @@ ModelBoot <- new_class(
                     ns   = it.x[['.n']]
                   )),
                 d2 = boot_ale@distinct[[1]]$ale$d2 |>
-                  map(\(it.x1) {
-                    it.x1 |>
-                      map(\(it.x2) list(
-                        x1_bins = it.x2[[1]],
-                        x2_bins = it.x2[[2]],
-                        ns   = it.x2[['.n']]
-                      ))
-                  })
+                  map(\(it.x1_x2) list(
+                    x1_bins = it.x1_x2[[1]] |>
+                      unique() |>
+                      sort(),
+                    x2_bins = it.x1_x2[[2]] |>
+                      unique() |>
+                      sort(),
+                    ns      = it.x1_x2[['.n']]
+                  ))
+                # d2 = boot_ale@distinct[[1]]$ale$d2 |>
+                #   map(\(it.x1) {
+                #     it.x1 |>
+                #       map(\(it.x2) list(
+                #         x1_bins = it.x2[[1]],
+                #         x2_bins = it.x2[[2]],
+                #         ns   = it.x2[['.n']]
+                #       ))
+                #   })
               )
             }
 
@@ -825,149 +844,147 @@ ModelBoot <- new_class(
 
     ### Overall model bootstrapped summary --------------
 
-    stats_summary <-
-      if (output_model_stats) {
-        # Model statistics for which bootstrapping is not meaningful.
-        # see https://stats.stackexchange.com/a/529506/81392
-        invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
+    stats_summary <- if (output_model_stats) {
+      # Model statistics for which bootstrapping is not meaningful.
+      # see https://stats.stackexchange.com/a/529506/81392
+      invalid_boot_model_stats <- c('logLik', 'AIC', 'BIC', 'deviance')
 
-        # Summarize the broom::glance data
-        ss <- if (call_glance) {
-          boot_data |>
-            # only summarize rows other than the full dataset analysis (it == 0)
-            filter(.data$it != exclude_boot_data) |>
-            (`[[`)('stats') |>
-            bind_rows() |>  # automatically removes NULL elements from failed iterations
-            select(-any_of(invalid_boot_model_stats)) |>
-            tidyr::pivot_longer(everything())
-        } else {
-          NULL
-        }
-
-        # Summarize the performance data, if available.
-        if (calc_boot_valid) {
-          ps <- boot_data |>
-            filter(.data$it != exclude_boot_data) |>
-            (`[[`)('perf') |>
-            compact() |>   # remove NULL elements from failed iterations
-            map(\(it) {
-              it |>
-                map(\(it.measure) {
-                  unlist(it.measure) |>
-                    as.list()
-                }) |>
-                list_transpose(simplify = FALSE)
-            }) |>
-            list_transpose(simplify = FALSE) |>
-            imap(\(it.cat_boot_its, it.cat) {
-              it.cat_boot_its |>
-                imap(\(it.metric_list, it) {
-                  it.metric_list |>
-                    imap(\(it.metric_val, it.metric_name) {
-                      data.frame(
-                        name = if (y_type == 'categorical') {
-                          paste0(it.metric_name, ' (', it.cat, ')')
-                        } else {
-                          it.metric_name
-                        },
-                        value = it.metric_val
-                      )
-                    }) |>
-                    # necessary to unify all metrics under name and value header
-                    bind_rows()
-                })
-            }) |>
-            bind_rows()
-
-          ss <- bind_rows(ss, ps)
-
-        }
-
-        ss <- ss |>
-          summarize(
-            .by = 'name',
-            conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
-            median = median(.data$value, na.rm = TRUE),
-            mean = mean(.data$value, na.rm = TRUE),
-            conf.high = quantile(.data$value, 1 - (boot_alpha / 2), na.rm = TRUE),
-            sd = sd(.data$value, na.rm = TRUE),
-          )
-
-        if (calc_boot_valid) {
-          ss$boot_valid <- as.double(NA)
-
-          # Calculate the overly conservative mean performance for the bootstrapped data
-          walk(y_cats, \(it.cat) {
-            if (y_type %in% c('binary', 'categorical')) {
-
-              if (y_type == 'binary') {
-                binary_target <- data[[y_col]]  # no change
-                # Convert y_preds to a matrix for consistent code subsequently
-                y_preds <- y_preds |>
-                  as.matrix(dimnames = list(NULL, it.cat))
-              }
-              else {  # categorical
-                # Convert the target to TRUE for the current category only
-                binary_target <- data[[y_col]] == it.cat
-              }
-
-              # Calculate the overfit performance for the full dataset
-              full_perf <- c(
-                auc = aucroc(
-                  binary_target, y_preds[, it.cat],
-                  na.rm = TRUE,
-                  positive = positive
-                )$auc
-              )
-            }
-            else {  # y_type is neither binary nor categorical (so, numeric)
-
-              # Calculate the overfit performance for the full dataset
-              full_perf <- c(
-                mae        =        mae(data[[y_col]], y_preds, na.rm = TRUE),
-                mad        =        mad(data[[y_col]], na.rm = TRUE),
-                sa_mae_mad = sa_mae_mad(data[[y_col]], y_preds, na.rm = TRUE),
-                rmse       =       rmse(data[[y_col]], y_preds, na.rm = TRUE),
-                sd         =  stats::sd(data[[y_col]], na.rm = TRUE),
-                sa_rmse_sd = sa_rmse_sd(data[[y_col]], y_preds, na.rm = TRUE)
-              )
-            }
-
-            walk(names(full_perf), \(it.metric_name) {
-              it.metric_name_by_cat <-  if (y_type == 'categorical') {
-                paste0(it.metric_name, ' (', it.cat, ')')
-              } else {
-                it.metric_name
-              }
-
-              # Apply the .632 principle to correct the bootstrap validation performance
-              ss$boot_valid[
-                ss$name == it.metric_name_by_cat
-              ] <<-  # superassignment needed within purrr function
-                # mean bootstrapped metric
-                (0.632 * ss$mean[
-                  ss$name == it.metric_name_by_cat
-                ]) +
-                # full model metric
-                (0.368 * full_perf[[it.metric_name]])
-            })  # walk(names(full_perf), \(it.metric_name)
-          })  # walk(y_cats, \(it.cat)
-
-          # Return ss as result of this if block
-          ss <- ss |>
-            # When boot_valid is available, delete median and mean estimates because boot_valid is more accurate.
-            mutate(
-              across(c(median, mean), \(it.col) {
-                if_else(!is.na(.data$boot_valid), NA, it.col)
-              })
-            ) |>
-            select('name', 'boot_valid', everything())
-        }  # if (calc_boot_valid)
-
-        # Return ss as result of this if block
-        ss
+      # Summarize the broom::glance data
+      ss <- if (call_glance) {
+        boot_data |>
+          # only summarize rows other than the full dataset analysis (it == 0)
+          filter(.data$it != exclude_boot_data) |>
+          (`[[`)('stats') |>
+          bind_rows() |>  # automatically removes NULL elements from failed iterations
+          select(-any_of(invalid_boot_model_stats)) |>
+          tidyr::pivot_longer(everything())
+      } else {
+        NULL
       }
 
+      # Summarize the performance data, if available.
+      if (calc_boot_valid) {
+        ps <- boot_data |>
+          filter(.data$it != exclude_boot_data) |>
+          (`[[`)('perf') |>
+          compact() |>   # remove NULL elements from failed iterations
+          map(\(it) {
+            it |>
+              map(\(it.measure) {
+                unlist(it.measure) |>
+                  as.list()
+              }) |>
+              list_transpose(simplify = FALSE)
+          }) |>
+          list_transpose(simplify = FALSE) |>
+          imap(\(it.cat_boot_its, it.cat) {
+            it.cat_boot_its |>
+              imap(\(it.metric_list, it) {
+                it.metric_list |>
+                  imap(\(it.metric_val, it.metric_name) {
+                    data.frame(
+                      name = if (y_type == 'categorical') {
+                        paste0(it.metric_name, ' (', it.cat, ')')
+                      } else {
+                        it.metric_name
+                      },
+                      value = it.metric_val
+                    )
+                  }) |>
+                  # necessary to unify all metrics under name and value header
+                  bind_rows()
+              })
+          }) |>
+          bind_rows()
+
+        ss <- bind_rows(ss, ps)
+
+      }
+
+      ss <- ss |>
+        summarize(
+          .by = 'name',
+          conf.low = quantile(.data$value, boot_alpha / 2, na.rm = TRUE),
+          median = median(.data$value, na.rm = TRUE),
+          mean = mean(.data$value, na.rm = TRUE),
+          conf.high = quantile(.data$value, 1 - (boot_alpha / 2), na.rm = TRUE),
+          sd = sd(.data$value, na.rm = TRUE),
+        )
+
+      if (calc_boot_valid) {
+        ss$boot_valid <- as.double(NA)
+
+        # Calculate the overly conservative mean performance for the bootstrapped data
+        walk(y_cats, \(it.cat) {
+          if (y_type %in% c('binary', 'categorical')) {
+
+            if (y_type == 'binary') {
+              binary_target <- data[[y_col]]  # no change
+              # Convert y_preds to a matrix for consistent code subsequently
+              y_preds <- y_preds |>
+                as.matrix(dimnames = list(NULL, it.cat))
+            }
+            else {  # categorical
+              # Convert the target to TRUE for the current category only
+              binary_target <- data[[y_col]] == it.cat
+            }
+
+            # Calculate the overfit performance for the full dataset
+            full_perf <- c(
+              auc = aucroc(
+                binary_target, y_preds[, it.cat],
+                na.rm = TRUE,
+                positive = positive
+              )$auc
+            )
+          }
+          else {  # y_type is neither binary nor categorical (so, numeric)
+
+            # Calculate the overfit performance for the full dataset
+            full_perf <- c(
+              mae        =        mae(data[[y_col]], y_preds, na.rm = TRUE),
+              mad        =        mad(data[[y_col]], na.rm = TRUE),
+              sa_mae_mad = sa_mae_mad(data[[y_col]], y_preds, na.rm = TRUE),
+              rmse       =       rmse(data[[y_col]], y_preds, na.rm = TRUE),
+              sd         =  stats::sd(data[[y_col]], na.rm = TRUE),
+              sa_rmse_sd = sa_rmse_sd(data[[y_col]], y_preds, na.rm = TRUE)
+            )
+          }
+
+          walk(names(full_perf), \(it.metric_name) {
+            it.metric_name_by_cat <-  if (y_type == 'categorical') {
+              paste0(it.metric_name, ' (', it.cat, ')')
+            } else {
+              it.metric_name
+            }
+
+            # Apply the .632 principle to correct the bootstrap validation performance
+            ss$boot_valid[
+              ss$name == it.metric_name_by_cat
+            ] <<-  # superassignment needed within purrr function
+              # mean bootstrapped metric
+              (0.632 * ss$mean[
+                ss$name == it.metric_name_by_cat
+              ]) +
+              # full model metric
+              (0.368 * full_perf[[it.metric_name]])
+          })  # walk(names(full_perf), \(it.metric_name)
+        })  # walk(y_cats, \(it.cat)
+
+        # Return ss as result of this if block
+        ss <- ss |>
+          # When boot_valid is available, delete median and mean estimates because boot_valid is more accurate.
+          mutate(
+            across(c(median, mean), \(it.col) {
+              if_else(!is.na(.data$boot_valid), NA, it.col)
+            })
+          ) |>
+          select('name', 'boot_valid', everything())
+      }  # if (calc_boot_valid)
+
+      # Return ss as result of this if block
+      ss
+    }
     else {
       # output_model_stats is FALSE
       NULL
@@ -975,223 +992,279 @@ ModelBoot <- new_class(
 
 
     ### Bootstrapped model coefficient estimates ---------------
-    tidy_summary <-
-      if (output_model_coefs) {
+    tidy_summary <- if (output_model_coefs) {
 
-        # Rename some tidy outputs that do not normally report `estimate`
-        tidy_boot_data <-
-          boot_data |>
-          # only summarize rows other than the full dataset analysis (it == 0)
-          filter(.data$it != exclude_boot_data) |>
-          (`[[`)('tidy') |>
-          # compact() |>  # remove NULL elements from failed iterations
-          bind_rows()  # automatically removes NULL elements from failed iterations
+      # Rename some tidy outputs that do not normally report `estimate`
+      tidy_boot_data <-
+        boot_data |>
+        # only summarize rows other than the full dataset analysis (it == 0)
+        filter(.data$it != exclude_boot_data) |>
+        (`[[`)('tidy') |>
+        # compact() |>  # remove NULL elements from failed iterations
+        bind_rows()  # automatically removes NULL elements from failed iterations
 
-        tidy_boot_data_names <- names(tidy_boot_data)
-        if (!('estimate' %in% tidy_boot_data_names)) {
-          # Explicitly rename some known columns that `tidy` sometimes uses instead of 'estimate'
-          if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = FALSE
-            tidy_boot_data$estimate <- tidy_boot_data$edf
-          }
-        } else if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = NULL
-          tidy_boot_data$estimate <- if_else(
-            is.na(tidy_boot_data$estimate),
-            tidy_boot_data$edf,
-            tidy_boot_data$estimate
-          )
+      tidy_boot_data_names <- names(tidy_boot_data)
+      if (!('estimate' %in% tidy_boot_data_names)) {
+        # Explicitly rename some known columns that `tidy` sometimes uses instead of 'estimate'
+        if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = FALSE
+          tidy_boot_data$estimate <- tidy_boot_data$edf
         }
-
-        # tidy column names known to indicate categories of categorical variables
-        tidy_cat_col_names <- c('response', 'y.level', 'y.value')
-        # Identify which such columns are currently present; if any there should be only one.
-        # If none, then cat_col will be an empty character vector.
-        cat_col <- tidy_cat_col_names[tidy_cat_col_names %in% tidy_boot_data_names]
-
-        # assign result for tidy_summary
-        tidy_boot_data |>
-          summarize(
-            .by = c(any_of(cat_col), 'term'),  # If no categorical columns, only group by term
-            conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
-            median = median(.data$estimate, na.rm = TRUE),
-            mean = mean(.data$estimate, na.rm = TRUE),
-            conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
-            std.error = sd(.data$estimate, na.rm = TRUE),
-          ) |>
-          select(any_of(cat_col), 'term', everything())  # If no categorical columns, only select term
-      } else {
-        NULL
+      } else if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = NULL
+        tidy_boot_data$estimate <- if_else(
+          is.na(tidy_boot_data$estimate),
+          tidy_boot_data$edf,
+          tidy_boot_data$estimate
+        )
       }
+
+      # tidy column names known to indicate categories of categorical variables
+      tidy_cat_col_names <- c('response', 'y.level', 'y.value')
+      # Identify which such columns are currently present; if any there should be only one.
+      # If none, then cat_col will be an empty character vector.
+      cat_col <- tidy_cat_col_names[tidy_cat_col_names %in% tidy_boot_data_names]
+
+      # assign result for tidy_summary
+      tidy_boot_data |>
+        summarize(
+          .by = c(any_of(cat_col), 'term'),  # If no categorical columns, only group by term
+          conf.low = quantile(.data$estimate, boot_alpha / 2, na.rm = TRUE),
+          median = median(.data$estimate, na.rm = TRUE),
+          mean = mean(.data$estimate, na.rm = TRUE),
+          conf.high = quantile(.data$estimate, 1 - (boot_alpha / 2), na.rm = TRUE),
+          std.error = sd(.data$estimate, na.rm = TRUE),
+        ) |>
+        select(any_of(cat_col), 'term', everything())  # If no categorical columns, only select term
+    }
+    else {
+      # output_model_coefs is FALSE
+      NULL
+    }
 
 
     ### Bootstrapped ALE data ------------------
 
     ale_summary <- if (output_ale) {
-        full_ale <- boot_data$ale[[1]]
+      full_ale <- boot_data$ale[[1]]
 
-        # Remove first element (not bootstrapped) if bootstrapping is requested
-        boot_data_ale <-
-          if (boot_it == 0) {  # only one full iteration; it is valid
-            boot_data$ale
-          } else {  # for regular bootstraps, delete the first full model ALE
-            boot_data$ale[-1] |>
-              compact()  # remove NULL elements from failed iterations
-          }
+      # Remove first element (not bootstrapped) if bootstrapping is requested
+      boot_data_ale <-
+        if (boot_it == 0) {  # only one full iteration; it is valid
+          # Normally y_cats is calculated for bootstrapping;
+          # so make sure it is available for ALE summarization.
+          y_cats <- full_ale@params$y_cats
 
+          boot_data$ale
+        } else {  # for regular bootstraps, delete the first full model ALE
+          boot_data$ale[-1] |>
+            compact()  # remove NULL elements from failed iterations
+        }
+
+      # Use only one loop across the categories
+      map(y_cats, \(it.cat) {
         # Summarize bootstrapped ALE data, grouped by variable
-        ale_summary_data <-
+        it.ale_summary_data <-
           boot_data_ale |>
           # extract data from each iteration
-          map(\(it) {
-            it@distinct |>
-              # it$distinct |>
-              map(\(it.cat) {
-                it.cat$ale$d1
-                # it.cat$ale
-              })
+          map(\(it.ale) {
+            it.ale@distinct[[it.cat]]$ale
           }) |>
           # rearrange list to group all data and iterations by y_col category
           list_transpose(simplify = FALSE) |>
-          map(\(it.cat) {
-            list_transpose(it.cat, simplify = FALSE)
-          })
+          imap(\(it.d_ale, it.d) {
+            if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
+              it.d_ale |>
+                list_transpose(simplify = FALSE) |>
+                imap(\(it.term_ale_its, it.term_name) {
+                  it.ordinal_x_col <- names(it.term_ale_its[[1]]) |>
+                    endsWith('.bin')
+                  # it.ordinal_x_col <- names(it.term_ale_its[[1]])[1] |> endsWith('.bin')
 
-        ale_summary_data <- ale_summary_data |>
-          imap(\(it.cat, it.cat_name) {
-            it.cat |>
-              imap(\(it.x_col, it.x_col_name) {
-                it.x_col_is_ordinal <- names(it.x_col[[1]])[1] |> endsWith('.bin')
+                  # If it.term_ale_its is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
+                  if (any(it.ordinal_x_col)) {
+                  # if (it.ordinal_x_col) {
+                    # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
+                    # Note: column 1 is the x column
+                    bin_levels <- full_ale@distinct[[it.cat]]$ale[[it.d]][[it.term_name]][
+                      , it.ordinal_x_col
+                    ] |>
+                      map(\(it.col) {
+                        it.col |>
+                          unique() |>
+                          sort()
+                      })
+                    # bin_levels <- full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]][[1]]
 
-                # If it.x_col is ordinal, harmonize the levels across bootstrap iterations, otherwise binding rows will fail
-                if (it.x_col_is_ordinal) {
-                  # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
-                  # Note: column 1 is the x column
-                  bin_levels <- full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]]
+                    it.term_ale_its <- it.term_ale_its |>
+                      map(\(it.ale_tbl) {
+                        for (it.col_name in names(it.ale_tbl)[it.ordinal_x_col]) {
+                          it.ale_tbl[[it.col_name]] <-
+                            ordered(
+                              it.ale_tbl[[it.col_name]],
+                              levels = bin_levels[[it.col_name]]
+                            )
+                        }
 
-                  it.x_col <- it.x_col |>
-                    map(\(it.ale_tbl) {
-                      it.ale_tbl[[1]] <- ordered(it.ale_tbl[[1]], levels = bin_levels)
-                      it.ale_tbl
-                    })
-                }
+                        it.ale_tbl
+                        # it.ale_tbl[[1]] <- ordered(it.ale_tbl[[1]], levels = bin_levels)
+                        # it.ale_tbl
+                      })
+                  }
 
-                it.x_col <- it.x_col |>
-                  bind_rows() |>
-                  # Temporarily rename the first x column (x.bin or x.ceil) as .x for common operations
-                  rename(.x = names(it.x_col[[1]])[1]) |>
-                  group_by(.data$.x) |>
-                  summarize(
-                    .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
-                    .y_mean = mean(.data$.y, na.rm = TRUE),
-                    .y_median = median(.data$.y, na.rm = TRUE),
-                    .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                    .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
-                  ) |>
-                  right_join(
-                    tibble(
-                      # bins or ceilings
-                      .x = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]][[1]],
-                      .n = full_ale@distinct[[it.cat_name]]$ale$d1[[it.x_col_name]]$.n,
-                    ),
-                    by = '.x'
-                  ) |>
-                  select('.x', '.n', '.y', everything())
+                  # Get current dimension as an integer
+                  i.d <- str_sub(it.d, -1) |> as.integer()
 
-                # Rename .x
-                names(it.x_col)[1] <- paste0(
-                  it.x_col_name,
-                  if (it.x_col_is_ordinal) '.bin' else '.ceil'
-                )
+                  # Get names of term columns from the first iteration element
+                  it.term_col_names <- names(it.term_ale_its[[1]])[1:i.d]
 
-                # Return it.x_col
-                it.x_col
-              })  # imap(\(it.x_col, it.x_col_name)
-          })  # map(\(it.cat) {
+                  it.term_ale_its <- it.term_ale_its |>
+                    bind_rows() |>
+                    summarize(
+                      .by = all_of(it.term_col_names),
+                      .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
+                      .y_mean = mean(.data$.y, na.rm = TRUE),
+                      .y_median = median(.data$.y, na.rm = TRUE),
+                      .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                      .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
+                    ) |>
+                    right_join(
+                      full_ale@distinct[[it.cat]]$ale[[it.d]][[it.term_name]][
+                        , c(it.term_col_names, '.n')
+                      ],
+                      by = all_of(it.term_col_names)
+                    ) |>
+                    select(all_of(it.term_col_names), '.n', '.y', everything())
 
-        # Summarize bootstrapped ALE statistics
-        ale_summary_stats <-
-          boot_data_ale |>
-          # extract data from each iteration
-          map(\(it) {
-            it@distinct |>
-              map(\(it.cat) {
-                it.cat$stats$d1$estimate
-              })
-          }) |>
-          list_transpose(simplify = FALSE) |>
-          imap(\(it.cat_estimate_btits, it.cat) {
-            it.cat_estimate_btits <- it.cat_estimate_btits |>
-              bind_rows() |>
-              tidyr::pivot_longer(
-                cols = 'aled':'naler_max',
-                names_to = 'statistic',
-                values_to = 'estimate'
-              ) |>
-              summarize(
-                .by = c('term', 'statistic'),
-                conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
-                median = median(.data$estimate, na.rm = TRUE),
-                mean = mean(.data$estimate, na.rm = TRUE),
-                conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-              ) |>
-              select('term', 'statistic', 'estimate', everything())
+                  # # Temporarily rename the first x column (x.bin or x.ceil) as .x for common operations
+                    # rename(.x = names(it.term_ale_its[[1]])[1]) |>
+                    # group_by(.data$.x) |>
+                    # summarize(
+                    #   .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
+                    #   .y_mean = mean(.data$.y, na.rm = TRUE),
+                    #   .y_median = median(.data$.y, na.rm = TRUE),
+                    #   .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+                    #   .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
+                    # ) |>
+                    # right_join(
+                    #   tibble(
+                    #     # bins or ceilings
+                    #     .x = full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]][[1]],
+                    #     .n = full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]]$.n,
+                    #   ),
+                    #   by = '.x'
+                    # ) |>
+                    # select('.x', '.n', '.y', everything())
 
-            # If an ALEpDist object was passed, calculate p-values
-            if (!is.null(ale_p)) {
-              # if (rownames(full_ale@params$y_summary)[1] == 'p') {
-              it.cat_estimate_btits <- it.cat_estimate_btits |>
-                rowwise() |>  # required to get statistic function for each row
-                mutate(
-                  p.value = value_to_p(
-                    ale_p@rand_stats[[it.cat]],
-                    # ale_options$p_values@rand_stats[[it.cat]],
-                    .data$statistic,
-                    .data$estimate
-                  ),
-                ) |>
-                ungroup() |>  # undo rowwise()
-                select('term', 'statistic', 'estimate', 'p.value', everything())
+                  # # Rename .x
+                  # names(it.term_ale_its)[1] <- paste0(
+                  #   it.term_name,
+                  #   if (it.ordinal_x_col) '.bin' else '.ceil'
+                  # )
+
+                  # Return it.term_ale_its
+                  it.term_ale_its
+                })  # imap(\(it.term_ale_its, it.term_name)
             }
+            else {
+              # length(full_ale@params$requested_x_cols[[it.d]]) is zero
+              NULL
+            }
+          })  # map(\(it.d_ale) {
 
-            it.cat_estimate_btits
-          })
+        # Summarize bootstrapped ALE statistics.
+        # By default, when ALE is requested, statistics are requested.
+        # output_stats is FALSE only when the user explicitly disables statistics with ale_options.
+        it.ale_summary_stats <- if (full_ale@params$output_stats) {
+          iass <- boot_data_ale |>
+            imap(\(it.ale, i) {
+              it.ale@distinct[[it.cat]]$stats |>
+                imap(\(it.stats, it.d) {
+                  if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
+                    it.stats |>
+                      select('term', 'statistic', 'estimate') |>
+                      mutate(
+                        d = it.d,
+                        # cat = it.cat_name,
+                        it = i
+                      )
+                  } else {
+                    NULL
+                  }
+                }) |>
+                  bind_rows()
+              }) |>
+            bind_rows() |>
+            summarize(
+              .by = c('term', 'statistic', 'd'),
+              conf.low = quantile(.data$estimate, probs = (boot_alpha / 2), na.rm = TRUE),
+              median = median(.data$estimate, na.rm = TRUE),
+              mean = mean(.data$estimate, na.rm = TRUE),
+              conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
+              estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
+            ) |>
+            select('term', 'statistic', 'estimate', everything()) |>
+            mutate(across(
+              c('term', 'statistic'), factor
+            ))
 
-        ale_conf_regions <-
-          ale_summary_data |>
-          imap(\(it.ale_summary_data, it.cat) {
-            summarize_conf_regions_1D(
-              it.ale_summary_data,
-              full_ale@params$y_summary[, it.cat, drop = FALSE]
-              # sig_criterion = if (!is.null(ale_p)) {
-              #   'p_values'
-              # } else {
-              #   'median_band_pct'
-              # }
-            )
-          })
+          iass <- iass |>
+            split(iass$d) |>
+            map(\(it.d_stats) {
+              it.d_stats |>
+                select(-'d')
+            })
 
-        detailed_ale_stats <-
-          ale_summary_stats |>
-          map(\(it.cat) {
-            pivot_stats(it.cat)
-          })
+          iass
+        }
+        else {
+          # full_ale@params$output_stats is FALSE
+          NULL
+        }
 
-        if (!is.null(detailed_ale_stats)) {
-          for (it.cat in names(detailed_ale_stats)) {
-            detailed_ale_stats[[it.cat]]$conf_regions <- ale_conf_regions[[it.cat]]
+        # Calculate confidence regions if criteria are met
+        it.ale_conf_regions <- if (
+          full_ale@params$output_stats &&
+          boot_it > 0 &&
+          !is.null(ale_p)
+        ) {
+          if (boot_it < 100 || ale_p@params$rand_it_ok < 100) {
+            if (!silent) cli_inform(c(
+              '!' = 'Note that ALE confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
+              'i' = '{.arg boot_it} = {boot_it}.',
+              'i' = '{.arg ale_p} is based on {ale_p@params$rand_it_ok} iterations.'
+            ))
           }
+
+          it.conf_d1 <- summarize_conf_regions_1D(
+            it.ale_summary_data$d1,
+            full_ale@params$y_summary[, it.cat, drop = FALSE]
+          )
+          it.conf_d2 <- summarize_conf_regions_2D(
+            it.ale_summary_data$d2,
+            full_ale@params$y_summary[, it.cat, drop = FALSE]
+          )
+
+          list(
+            d1 = it.conf_d1,
+            d2 = it.conf_d2
+          ) |>
+            compact()
+        }
+        else {
+          # Confidence regions conditions not fulfilled
+          NULL
         }
 
         # Return ALE results
         list(
-          ale = ale_summary_data,
-          stats = detailed_ale_stats
-        ) |>
-          # Place categories on top level
-          list_transpose(simplify = FALSE)
-      }
-
-    else {  # ALE not requested
+          ale   = it.ale_summary_data,
+          stats = it.ale_summary_stats,
+          conf  = it.ale_conf_regions
+        )
+      }) |>
+        set_names(y_cats)
+    }
+    else {
+      # output_ale is FALSE
       NULL
     }
 
@@ -1218,6 +1291,8 @@ ModelBoot <- new_class(
     params$model <- params_model(model)
     params$pred_fun <- params_function(pred_fun)
 
+    # Create the single and bootstrapped ALE objects.
+    # Supplement the single ALE object with some details obtained by bootstrapping because bootstrapping was disabled when creating the single ALE object.
     ale_results <- if (output_ale) {
       # Start with ale object of the full dataset without bootstrapping
       ar <- list(single = full_ale)
@@ -1229,24 +1304,25 @@ ModelBoot <- new_class(
         ar$single@params$y_summary <- var_summary(
           var_name = y_col,
           var_vals = ar$single@params$data$y_vals_sample,
-          p_dist = ale_p,
-          p_aler = ar$single@params$p_aler
+          p_dist   = ale_p,
+          p_aler   = ar$single@params$p_aler
         )
       }
 
+
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {
-          ar$single@distinct[[it.cat]]$stats$d1$conf_regions <-
-            ale_summary[[it.cat]]$stats$conf_regions
+          ar$single@distinct[[it.cat]]$conf <- ale_summary[[it.cat]]$conf
         } else {
-          ar$boot$distinct <- ale_summary |>
-            map(\(it.cat) {
-              it.cat |>
-                map(\(it.el) {
-                  # Demote each element (ale, stats, etc.) to the d1 element (1D ALE)
-                  list(d1 = it.el)
-                })
-            })
+          ar$boot$distinct <- ale_summary
+          # ar$boot$distinct <- ale_summary |>
+          #   map(\(it.cat) {
+          #     it.cat |>
+          #       map(\(it.el) {
+          #         # Demote each element (ale, stats, etc.) to the d1 element (1D ALE)
+          #         list(d1 = it.el)
+          #       })
+          #   })
         }
       }
 
