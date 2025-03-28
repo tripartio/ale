@@ -622,21 +622,22 @@ ALE <- new_class(
       }
 
       for (it.cat in y_cats) {
-
         # 1D ALE statistics
         if (length(x_cols$d1) >= 1) {
           ale_struc$distinct[[it.cat]]$d1$stats <-
             ale_struc$distinct[[it.cat]]$d1$stats |>
-            imap(\(it.term_tbl, it.term) {
-              it.term_tbl |>
-                mutate(term = it.term)
-            }) |>
-            bind_rows() |>
-            select('term', everything()) |>
-            pivot_stats()
+            bind_rows()
+            # imap(\(it.term_tbl, it.term) {
+            #   it.term_tbl |>
+            #     mutate(term = it.term)
+            # }) |>
+            # bind_rows() |>
+            # select('term', everything()) |>
+            # pivot_stats()
 
           if (output_conf) {
-            ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
+            ale_struc$distinct[[it.cat]]$d1$conf <-
+            # ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
               summarize_conf_regions_1D(
                 ale_struc$distinct[[it.cat]]$d1$ale,
                 y_summary[, it.cat, drop = FALSE]
@@ -648,16 +649,18 @@ ALE <- new_class(
         if (length(x_cols$d2) >= 1) {
           ale_struc$distinct[[it.cat]]$d2$stats <-
             ale_struc$distinct[[it.cat]]$d2$stats |>
-            imap(\(it.term_tbl, it.term) {
-              it.term_tbl |>
-                mutate(term = it.term)
-            }) |>
-            bind_rows() |>
-            select('term', everything()) |>
-            pivot_stats()
+            bind_rows()
+          # imap(\(it.term_tbl, it.term) {
+            #   it.term_tbl |>
+            #     mutate(term = it.term)
+            # }) |>
+            # bind_rows() |>
+            # select('term', everything()) |>
+            # pivot_stats()
 
           if (output_conf) {
-            ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
+            ale_struc$distinct[[it.cat]]$d2$conf <-
+              # ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
               summarize_conf_regions_2D(
                 ale_struc$distinct[[it.cat]]$d2$ale,
                 y_summary[, it.cat, drop = FALSE]
@@ -669,7 +672,20 @@ ALE <- new_class(
 
     # Transpose the ALE elements with the ALE dimension
     ale_struc$distinct <- ale_struc$distinct |>
-      map(\(it.cat) list_transpose(it.cat, simplify = FALSE))
+      map(\(it.cat_el) {
+        it.cat_el <- it.cat_el |>
+          list_transpose(simplify = FALSE)
+
+        # closeAllConnections()
+        # browser()
+        #
+        list(
+          ale       = it.cat_el$ale,
+          stats     = if (output_stats) it.cat_el$stats else NULL,
+          conf      = if (output_conf) it.cat_el$conf else NULL,
+          boot_data = if (output_boot_data) it.cat_el$boot_data else NULL
+        )
+      })
 
 
     # Create and return S7 ale object ----------------------

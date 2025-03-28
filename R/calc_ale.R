@@ -919,7 +919,10 @@ calc_ale <- function(
             boot_centre == 'median' ~ median,
           ),
         )  |>
-          select('statistic', 'estimate', everything())
+          mutate(
+            term = paste0(x_cols, collapse = ':'),
+          ) |>
+          select('term', 'statistic', 'estimate', everything())
       })
 
     # If p_dist is provided, calculate p-values

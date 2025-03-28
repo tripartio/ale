@@ -580,15 +580,17 @@ summarize_conf_regions_1D <- function(
       'mid_bar'
     )
 
-  sig_conf_regions <- cr_by_term |>
-    filter(.data$mid_bar != 'overlap')
+  return(cr_by_term)
 
-  return(
-    list(
-      by_term = cr_by_term,
-      significant = sig_conf_regions
-    )
-  )
+  # sig_conf_regions <- cr_by_term |>
+  #   filter(.data$mid_bar != 'overlap')
+  #
+  # return(
+  #   list(
+  #     by_term = cr_by_term,
+  #     significant = sig_conf_regions
+  #   )
+  # )
 }  # summarize_conf_regions_1D()
 
 
@@ -701,18 +703,21 @@ summarize_conf_regions_2D <- function(
     set_names(names(ale_data_list)) |>
     bind_rows()
 
-  # Highlight which confidence regions are statistically significant
-  sig_conf_regions <- cr_by_term |>
-    filter(.data$mid_bar != 'overlap')
 
+  return(cr_by_term)
 
-  return(
-    list(
-      by_term = cr_by_term,
-      significant = sig_conf_regions
-      # sig_criterion = sig_criterion
-    )
-  )
+  # # Highlight which confidence regions are statistically significant
+  # sig_conf_regions <- cr_by_term |>
+  #   filter(.data$mid_bar != 'overlap')
+  #
+  #
+  # return(
+  #   list(
+  #     by_term = cr_by_term,
+  #     significant = sig_conf_regions
+  #     # sig_criterion = sig_criterion
+  #   )
+  # )
 }  # summarize_conf_regions_1D()
 
 
