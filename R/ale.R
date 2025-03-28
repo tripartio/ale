@@ -208,12 +208,6 @@ ALE <- new_class(
     rlang::check_dots_empty()
 
     data <- validate_data(data, model)
-    # # Validate the dataset
-    # validate(data |> inherits('data.frame'))
-    # validate(
-    #   !any(is.na(data)),
-    #   msg = '{.arg data} must not have any missing values. If you legitimately require ALE to accept missing values, post an issue on the package Github repository.'
-    # )
 
     # Validate y_col.
     # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
@@ -391,12 +385,6 @@ ALE <- new_class(
     # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.
     y_cats <- colnames(y_vals)
 
-    # # Remove the Y target label; ALE calculation needs the X matrix as input;
-    # # Y is obtained from the model predictions.
-    # data_X <-
-    #   data |>
-    #   select(-any_of(y_col))
-
     # Prepare to create ALE statistics
     ale_y_norm_funs <- NULL
     if (output_stats) {
@@ -488,8 +476,8 @@ ALE <- new_class(
           packages = model_packages
         ),
         .f = \(it.x_cols) {
-          # Increment progress bar iterator only if not in an outer loop with bins
-          # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization
+          # Increment progress bar iterator only if not in an outer loop with bins.
+          # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization.
           if (!silent && is.null(.bins)) {
             progress_iterator()
           }
@@ -580,7 +568,6 @@ ALE <- new_class(
       ]
 
       ale_struc$distinct[[it.cat]]$d1 <- it.ar_1D
-      # ale_struc$distinct[[it.cat]] <- it.ar_1D
 
       # Assign 2D ALE results to ale_struc
       if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {

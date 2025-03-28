@@ -476,7 +476,6 @@ ALEpDist <- new_class(
 
         tryCatch(
           {
-            # Calculate ale of random variable on the test set. If calculated on the training set, p-values will be too liberal.
             it.rand_ale <- ALE(
               model = package_scope$rand_model,
               x_cols = 'random_variable',
