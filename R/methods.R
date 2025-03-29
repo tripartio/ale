@@ -88,20 +88,18 @@ method(plot, ALE) <- function(x, ...) {
 #'   }
 #'
 #'   \item{`what = 'ale'` (default) and `stats = 'estimate'`}{A list with elements `d1` and `d2` with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
-#'     * `term` or `term1` and `term2`: The variable or column for the 1D (`term`) or 2D (`term1` by `term2`) ALE statistic.
+#'     * `term`: The variables or columns for the 1D or 2D ALE statistic.
 #'     * `aled`, `aler_min`, `aler_max`, `naled`, `naler_min`, `naler_max`: the respective ALE statistic for the variable or interaction.
 #'   }
 #'
-#'   \item{`what = 'ale'` (default) and `stats` is one value in `c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
-#'     * `term` or `term1` and `term2`: Same as for `stats = 'estimate'`.
+#'   \item{`what = 'ale'` (default) and `stats` is one or more values in `c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')`}{A list with elements `d1` and `d2` with the distribution value of the single requested ALE statistic. Each element `d1` and `d2` is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+#'     * `term`: Same as for `stats = 'estimate'`.
+#'     * `statistic`: The requested ALE statistic(s).
 #'     * `estimate`, `mean`, `median`: The average of the bootstrapped value of the requested statistic. `estimate` is equal to either `mean` or `median` depending on the `boot_centre` argument in the [ALE()] constructor. If ALE is not bootstrapped, then `estimate`, `mean`, and `median` are equal.
 #'     * `conf.low`, `conf.high`: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the `boot_alpha` argument in the [ALE()] constructor. If ALE is not bootstrapped, then `estimate`, `conf.low`, and `conf.high` are equal.
 #'   }
 #'
-#'   \item{`what = 'ale'` (default) and `stats = 'all'`}{A list with elements `d1` and `d2` with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the `stats = 'aled'` (for example) format returns data for a single statistic, `stats = 'all'` returns all statistics for the requested variables. Each element is a list with the requested `d1` and `d2` sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
-#'     * `term` or `term1` and `term2`: Same as for `stats = 'estimate'`.
-#'     * `estimate`, `mean`, `median`: Same as above for individual ALE statistics.
-#'     * `conf.low`, `conf.high`: Same as above for individual ALE statistics.
+#'   \item{`what = 'ale'` (default) and `stats = 'all'`}{A list with elements `d1` and `d2` with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the `stats = 'aled'` (for example) format returns data for a single statistic, `stats = 'all'` returns all statistics for the requested variables. Thus, the data structure and columns are identical as for single statistics above, except that all available ALE statistics are returned.
 #'   }
 #'
 #'   \item{`what = 'ale'` (default) and `stats = 'conf_regions'`}{A list with elements `d1` and `d2` with the confidence regions for the requested variables and interactions. Each element is a list with the requested `d1` and `d2` sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see `vignette('ale-statistics')`.
@@ -162,8 +160,10 @@ method(get, ALE) <- function(
     'conf_regions', 'conf_sig'
   )
   validate(
-    is.null(stats) || is_string(stats, valid_stats),
-    msg = 'The {.arg stats} argument must be one (and only one) of the following values: {valid_stats}.'
+    is.null(stats) ||
+      is_string(stats, valid_stats) ||
+      any(stats %in% stats_names),
+    msg = 'The {.arg stats} argument must be one (and only one) of the following values: {setdiff(valid_stats, stats_names)}; or else one or more of the following: {stats_names}.'
   )
   if (is_string(stats) && what != 'ale') {
     cli_abort("If {.arg stats} is specified, then {.arg what} must be {.val 'ale'} (that's the default).")
@@ -188,99 +188,189 @@ method(get, ALE) <- function(
     cats <- y_cats
   }
 
+  # browser()
+
   # Rename what depending on what the user requests.
   # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
-    'stats'
-    # } else if (what == 'boot_data') {
-    #   'boot'
-    } else {
-      what
-    }
+    if (stats %in% c('conf_regions', 'conf_sig')) 'conf' else 'stats'
+  } else {
+    what
+  }
 
   all_what <- prop(obj, comp) |>
     (`[`)(cats) |>
-    map(\(it.cat) {
-      it.cat[[what]]
+    map(\(it.cat_el) {
+      it.cat_el[[what]]
     })
 
   if (what == 'stats') {
     specific_what <- all_what |>
-      imap(\(it.cat, it.cat_name) {
-        it.cat.d1 <- x_cols[['d1']] |>
-          map(\(it.d1) {
-            it.d1_stats <- all_what[[it.cat_name]][['d1']]
+      imap(\(it.cat_el, it.cat_name) {
+        it.cat_el |>
+          imap(\(it.d_stats, it.d) {
+            it.d_stats <- it.d_stats |>
+              filter(term %in% x_cols[[it.d]])
 
-            if (stats == 'estimate') {
-              it.d1_stats$estimate |>
-                filter(term == it.d1)
-            }
-            else if (stats == 'all') {
-              it.d1_stats$by_term[[it.d1]]
+            it.d_stats <- if (stats == 'estimate') {
+              it.d_stats |>
+                pivot_wider(
+                  id_cols = 'term',
+                  names_from = 'statistic',
+                  values_from = 'estimate'
+                )
             }
             else if (stats %in% stats_names) {
-              it.d1_stats$by_stat[[stats]] |>
-                filter(term == it.d1)
+              it.d_stats |>
+                filter(statistic %in% stats)
             }
-            else if (stats == 'conf_regions') {
-              it.d1_stats$conf_regions$by_term |>
-                filter(term == it.d1)
-            }
-            else if (stats == 'conf_sig') {
-              it.d1_stats$conf_regions$significant |>
-                filter(term == it.d1)
+            else if (stats == 'all') {
+              it.d_stats
             }
             else {
               cli_abort('Invalid value for {.arg stats}: {stats}')
             }
-          }) |>
-          set_names(x_cols[['d1']])
 
-        if (stats %in% c('estimate', 'conf_sig', stats_names)) {
-          it.cat.d1 <- bind_rows(it.cat.d1)
+            it.d_stats
+          # it.cat.d1 <- x_cols[['d1']] |>
+          #   map(\(it.d1) {
+          #     it.d1_stats <- all_what[[it.cat_name]][['d1']]
+          #
+          #   }) |>
+          #   set_names(x_cols[['d1']])
+          #
+          # if (stats %in% c('estimate', 'conf_sig', stats_names)) {
+          #   it.cat.d1 <- bind_rows(it.cat.d1)
+          # }
+        })
+        # it.cat.d1 <- x_cols[['d1']] |>
+        #   map(\(it.d1) {
+        #     it.d1_stats <- all_what[[it.cat_name]][['d1']]
+        #
+        #     if (stats == 'estimate') {
+        #       it.d1_stats$estimate |>
+        #         filter(term == it.d1)
+        #     }
+        #     else if (stats == 'all') {
+        #       it.d1_stats$by_term[[it.d1]]
+        #     }
+        #     else if (stats %in% stats_names) {
+        #       it.d1_stats$by_stat[[stats]] |>
+        #         filter(term == it.d1)
+        #     }
+        #     else if (stats == 'conf_regions') {
+        #       it.d1_stats$conf_regions$by_term |>
+        #         filter(term == it.d1)
+        #     }
+        #     else if (stats == 'conf_sig') {
+        #       it.d1_stats$conf_regions$significant |>
+        #         filter(term == it.d1)
+        #     }
+        #     else {
+        #       cli_abort('Invalid value for {.arg stats}: {stats}')
+        #     }
+        #   }) |>
+        #   set_names(x_cols[['d1']])
+        #
+        # if (stats %in% c('estimate', 'conf_sig', stats_names)) {
+        #   it.cat.d1 <- bind_rows(it.cat.d1)
+        # }
+        #
+        # it.cat.d2 <- x_cols[['d2']] |>
+        #   map(\(it.d2) {
+        #     it.d2_stats <- all_what[[it.cat_name]][['d2']]
+        #
+        #     if (stats == 'estimate') {
+        #       it.d2_stats$estimate |>
+        #         filter(term1 == it.d2[1], term2 == it.d2[2])
+        #     }
+        #     else if (stats == 'all') {
+        #       it.d2_stats$by_term[[it.d2[1]]][[it.d2[2]]]
+        #     }
+        #     else if (stats %in% stats_names) {
+        #       it.d2_stats$by_stat[[stats]] |>
+        #         filter(term1 == it.d2[1], term2 == it.d2[2])
+        #     }
+        #     else if (stats == 'conf_regions') {
+        #       it.d2_stats$conf_regions$by_term |>
+        #         filter(term1 == it.d2[1], term2 == it.d2[2])
+        #     }
+        #     else if (stats == 'conf_sig') {
+        #       it.d2_stats$conf_regions$significant |>
+        #         filter(term1 == it.d2[1], term2 == it.d2[2])
+        #     }
+        #     else {
+        #       cli_abort('Invalid value for {.arg stats}: {stats}')
+        #     }
+        #   }) |>
+        #   set_names(
+        #     map_chr(
+        #       x_cols[['d2']],
+        #       \(it.d2) paste0(it.d2, collapse = ':')
+        #     )
+        #   )
+        #
+        # if (stats %in% c('estimate', 'conf_regions', 'conf_sig', stats_names)) {
+        #   it.cat.d2 <- bind_rows(it.cat.d2)
+        # }
+        #
+        # list(
+        #   d1 = it.cat.d1,
+        #   d2 = it.cat.d2
+        # )
+      })
+  }
+  else if (what == 'conf') {
+    specific_what <- all_what |>
+      imap(\(it.cat_el, it.cat_name) {
+        # Filter by requested 1D x_cols
+        it.cat_el_d1 <- it.cat_el$d1 |>
+          filter(term %in% x_cols$d1)
+
+        it.cat_el_d1 <- if (stats == 'conf_regions') {
+          it.cat_el_d1
+        }
+        else if (stats == 'conf_sig') {
+          # Find terms with greater than obj@params$boot_alpha % of significant values
+          sig_1D_terms <- it.cat_el_d1 |>
+            filter(mid_bar != 'overlap') |>
+            summarize(
+              .by = 'term',
+              sig_pct = sum(pct)
+            ) |>
+            filter(sig_pct >= (obj@params$boot_alpha * 100)) |>
+            pull(term)
+
+          it.cat_el_d1 |>
+            filter(term %in% sig_1D_terms)
         }
 
-        it.cat.d2 <- x_cols[['d2']] |>
-          map(\(it.d2) {
-            it.d2_stats <- all_what[[it.cat_name]][['d2']]
+        # Filter by requested 2D x_cols
+        it.cat_el_d2 <- it.cat_el$d2 |>
+          filter(paste0(term1, ':', term2) %in% x_cols$d2)
 
-            if (stats == 'estimate') {
-              it.d2_stats$estimate |>
-                filter(term1 == it.d2[1], term2 == it.d2[2])
-            }
-            else if (stats == 'all') {
-              it.d2_stats$by_term[[it.d2[1]]][[it.d2[2]]]
-            }
-            else if (stats %in% stats_names) {
-              it.d2_stats$by_stat[[stats]] |>
-                filter(term1 == it.d2[1], term2 == it.d2[2])
-            }
-            else if (stats == 'conf_regions') {
-              it.d2_stats$conf_regions$by_term |>
-                filter(term1 == it.d2[1], term2 == it.d2[2])
-            }
-            else if (stats == 'conf_sig') {
-              it.d2_stats$conf_regions$significant |>
-                filter(term1 == it.d2[1], term2 == it.d2[2])
-            }
-            else {
-              cli_abort('Invalid value for {.arg stats}: {stats}')
-            }
-          }) |>
-          set_names(
-            map_chr(
-              x_cols[['d2']],
-              \(it.d2) paste0(it.d2, collapse = ':')
-            )
-          )
+        it.cat_el_d2 <- if (stats == 'conf_regions') {
+          it.cat_el_d2
+        }
+        else if (stats == 'conf_sig') {
+          # Find terms with greater than obj@params$boot_alpha % of significant values
+          sig_2D_terms <- it.cat_el_d2 |>
+            filter(mid_bar != 'overlap') |>
+            summarize(
+              .by = all_of(c('term1', 'term2')),
+              sig_pct = sum(pct)
+            ) |>
+            filter(sig_pct >= (obj@params$boot_alpha * 100)) |>
+            mutate(term = paste0(term1, ':', term2)) |>
+            pull(term)
 
-        if (stats %in% c('estimate', 'conf_regions', 'conf_sig', stats_names)) {
-          it.cat.d2 <- bind_rows(it.cat.d2)
+          it.cat_el_d2 |>
+            filter(paste0(term1, ':', term2) %in% sig_2D_terms)
         }
 
         list(
-          d1 = it.cat.d1,
-          d2 = it.cat.d2
+          d1 = it.cat_el_d1,
+          d2 = it.cat_el_d2
         )
       })
   }
@@ -301,6 +391,7 @@ method(get, ALE) <- function(
       })
   }
 
+  # browser()
 
   ## Simplify the results ----------------
   # If there is only one category, results are always simplified regardless of the value of simplify

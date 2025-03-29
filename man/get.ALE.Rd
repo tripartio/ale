@@ -48,20 +48,18 @@ While all results follow the general structure just described, the specific type
 }
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'estimate'}}{A list with elements \code{d1} and \code{d2} with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: The variable or column for the 1D (\code{term}) or 2D (\code{term1} by \code{term2}) ALE statistic.
+* \code{term}: The variables or columns for the 1D or 2D ALE statistic.
 * \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respective ALE statistic for the variable or interaction.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats} is one value in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
+\item{\code{what = 'ale'} (default) and \code{stats} is one or more values in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+* \code{term}: Same as for \code{stats = 'estimate'}.
+* \code{statistic}: The requested ALE statistic(s).
 * \code{estimate}, \code{mean}, \code{median}: The average of the bootstrapped value of the requested statistic. \code{estimate} is equal to either \code{mean} or \code{median} depending on the \code{boot_centre} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{mean}, and \code{median} are equal.
 * \code{conf.low}, \code{conf.high}: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the \code{boot_alpha} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{conf.low}, and \code{conf.high} are equal.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats = 'all'}}{A list with elements \code{d1} and \code{d2} with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the \code{stats = 'aled'} (for example) format returns data for a single statistic, \code{stats = 'all'} returns all statistics for the requested variables. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
-* \code{estimate}, \code{mean}, \code{median}: Same as above for individual ALE statistics.
-* \code{conf.low}, \code{conf.high}: Same as above for individual ALE statistics.
+\item{\code{what = 'ale'} (default) and \code{stats = 'all'}}{A list with elements \code{d1} and \code{d2} with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the \code{stats = 'aled'} (for example) format returns data for a single statistic, \code{stats = 'all'} returns all statistics for the requested variables. Thus, the data structure and columns are identical as for single statistics above, except that all available ALE statistics are returned.
 }
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'conf_regions'}}{A list with elements \code{d1} and \code{d2} with the confidence regions for the requested variables and interactions. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see \code{vignette('ale-statistics')}.
