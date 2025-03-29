@@ -38,6 +38,8 @@
 #' @importFrom stats median
 #' @importFrom stats quantile
 #' @importFrom stats sd
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr pivot_wider
 #'
 #' @keywords internal
 '_PACKAGE'

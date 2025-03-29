@@ -379,7 +379,7 @@ ModelBoot <- new_class(
     # Define call_glance since it is possible to output_model_stats without broom::glance results
     call_glance <- FALSE
     if (output_model_stats) {
-      glance_methods <- methods(broom::glance) |>
+      glance_methods <- utils::methods(broom::glance) |>
         str_remove("^glance\\.") |>  # Remove leading "glance."
         str_remove("\\*$")           # Remove trailing "*" if present
 
@@ -396,7 +396,7 @@ ModelBoot <- new_class(
 
     # If broom::tidy is unavailable, then disable output_model_coefs since there are no results
     if (output_model_coefs) {
-      tidy_methods <- methods(broom::tidy) |>
+      tidy_methods <- utils::methods(broom::tidy) |>
         str_remove("^tidy\\.") |>  # Remove leading "tidy."
         str_remove("\\*$")           # Remove trailing "*" if present
 
@@ -857,7 +857,7 @@ ModelBoot <- new_class(
           (`[[`)('stats') |>
           bind_rows() |>  # automatically removes NULL elements from failed iterations
           select(-any_of(invalid_boot_model_stats)) |>
-          tidyr::pivot_longer(everything())
+          pivot_longer(everything())
       } else {
         NULL
       }
@@ -1130,7 +1130,7 @@ ModelBoot <- new_class(
                       full_ale@distinct[[it.cat]]$ale[[it.d]][[it.term_name]][
                         , c(it.term_col_names, '.n')
                       ],
-                      by = all_of(it.term_col_names)
+                      by = it.term_col_names
                     ) |>
                     select(all_of(it.term_col_names), '.n', '.y', everything())
 

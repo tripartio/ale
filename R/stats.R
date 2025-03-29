@@ -450,7 +450,7 @@ pivot_stats <- function(long_stats) {
     estimate = long_stats |>
       # create single tibble with estimates (no confidence intervals) with
       # terms in rows and statistics in columns
-      tidyr::pivot_wider(
+      pivot_wider(
         id_cols = 'term',
         names_from = 'statistic',
         values_from = 'estimate'

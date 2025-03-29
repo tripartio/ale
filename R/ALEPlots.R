@@ -161,7 +161,7 @@ ALEPlots <- new_class(
           # browser()
           estimates <- it.cat_el$stats$d1 |>
             # bind_rows() |>
-            tidyr::pivot_wider(
+            pivot_wider(
               id_cols = 'term',
               # id_cols = if (obj@params$y_type == 'categorical') {
               #   c('term', '.cat')
