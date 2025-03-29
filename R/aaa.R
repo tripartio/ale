@@ -24,16 +24,19 @@
       any()
 
     if (!(dev_load_all || suppress_pkg_msg)) {
-      # Post custom startup messages AFTER default package conflict messages.
-      # https://stackoverflow.com/a/79480949/2449926
-      invisible(
-        addTaskCallback(function(expr, value, ok, visible) {
-          packageStartupMessage(
-            "The 'get()' function for 'ale' works such that the masked base::get() still works fine\nwithout modification."
-          )
-          return(FALSE)
-        })
+      packageStartupMessage(
+        "The 'ale' package implements a 'get()' generic that is fully compatible with 'base::get()' without modification."
       )
+      # # Post custom startup messages AFTER default package conflict messages.
+      # # https://stackoverflow.com/a/79480949/2449926
+      # invisible(
+      #   addTaskCallback(function(expr, value, ok, visible) {
+      #     packageStartupMessage(
+      #       "The 'get()' function for 'ale' works such that the masked base::get() still works fine\nwithout modification."
+      #     )
+      #     return(FALSE)
+      #   })
+      # )
     }
   }
 }
