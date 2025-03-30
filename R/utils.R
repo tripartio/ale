@@ -5,44 +5,65 @@
 
 # Mathematical operations ------------
 
-# # Calculate the mode(s) of an atomic object
-#' Improvements:
-#' * Validation: ensure that the object is atomic (not just a vector)
-#' * For factors, get all classes and check if any class_x is a factor or ordered
-#' * Add arguments to return a unique mode with options to sort: occurrence order, lexicographical
-# #
-# # modes(c(1, 2, 3, 3, 4, 4, 5))
-# # modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))
-# # modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
-# modes <- function(x) {
-#   class_x <- class(x)[1]
-#
-#   freq_table <- table(x)
-#   max_freq <- max(freq_table)
-#
-#   # Extract the mode(s)
-#   m <- names(freq_table[freq_table == max_freq])
-#
-#   # Assign class of the mode(s) to class of x
-#   if (class_x %in% c('factor', 'ordered')) {
-#     m <- factor(
-#       m,
-#       levels = levels(x),
-#       ordered = is.ordered(x)
-#     )
-#   } else {
-#     m <- m |> methods::as(class_x)
-#   }
-#
-#   # Returning the mode(s)
-#   return(m)
-# }
+#' Calculate the mode(s) of an atomic object
+#'
+#' This function calculates the mode(s) of an atomic vector, including numeric, logical, and factor types. If there is more than one mode, all modes are returned sorted.
+#'
+#' @noRd
+#'
+#' @param x An atomic vector (numeric, logical, or factor).
+#'
+#' @return A vector containing the mode(s) of `x`. The returned vector has the same datatype as the input `x`. If multiple modes exist, they are returned in sorted order.
+#'
+#' @examples
+#' modes(c(1, 2, 3, 3, 4, 4, 5))
+#' modes(c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE))
+#' modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
+#'
+modes <- function(x) {
+  if (!is.atomic(x)) {
+    cli_abort(c(
+      'x' = '{.arg x} must be an atomic datatype.',
+      'i' = '{.arg x} is of class {.cls class(x)}.'
+    ))
+  }
+
+  class_x <- class(x)[1]
+
+  freq_table <- table(x)
+  max_freq <- max(freq_table)
+
+  # Extract the mode(s)
+  m <- names(freq_table[freq_table == max_freq])
+
+  # Assign class of the mode(s) to class of x
+  if (class_x %in% c('factor', 'ordered')) {
+    m <- factor(
+      m,
+      levels = levels(x),
+      ordered = is.ordered(x)
+    )
+  } else {
+    m <- m |> methods::as(class_x)
+  }
+
+  m <- if (length(m) > 1) {
+    sort(m)
+  } else {
+    m
+  }
+
+  # Returning the mode(s)
+  return(m)
+}
 
 
 
 # Extract key details or parameters from objects --------------
 
 #' Reduce a dataframe to a sample (retains the structure of its columns)
+#'
+#' @noRd
 #'
 #' @param data input dataframe
 #' @param y_vals y values, y predictions, or a sample thereof
