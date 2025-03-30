@@ -41,7 +41,7 @@ ALE(
 
 \item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
 
-\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{y_col} should be provided. For survival models, set \code{y_col} to the name of the binary event column; in that case, \code{pred_type} should also be specified.}
+\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -147,6 +147,16 @@ The \code{{ale}} package should be able to automatically recognize and load most
 \section{Progress bars}{
 
 Progress bars are implemented with the \code{{progressr}} package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+}
+
+\section{Time-to-event (survival) models}{
+
+For time-to-event (survival) models set the following arguments:
+\itemize{
+\item \code{y_col} must be the name of the binary event column.
+\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+\item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
+}
 }
 
 \examples{

@@ -15,7 +15,7 @@
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
 #' @param x_cols,exclude_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See details in the documentation for [resolve_x_cols()].
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
-#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For survival models, set `y_col` to the name of the binary event column; in that case, `pred_type` should also be specified.
+#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For time-to-event (survival) models, see details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the function. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
@@ -87,6 +87,13 @@
 #'
 #' @section Progress bars:
 #' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#'
+#' @section Time-to-event (survival) models:
+#' For time-to-event (survival) models set the following arguments:
+#' * `y_col` must be the name of the binary event column.
+#' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+#' * `pred_type` must be specified according to the desired `type` argument for the `predict()` method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
+#'
 #'
 #'
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
@@ -377,7 +384,6 @@ ALE <- new_class(
     y_summary <- var_summary(
       var_name = y_col,
       var_vals = y_vals,
-      # median_band_pct = median_band_pct,
       p_dist = p_values,
       p_aler = p_aler
     )
