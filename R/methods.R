@@ -378,7 +378,6 @@ method(get, ALE) <- function(
   else {
     specific_what <- all_what |>
       imap(\(it.cat, it.cat_name) {
-
         names(x_cols) |>
           map(\(it.d) {
             x_cols[[it.d]] |>
@@ -394,25 +393,51 @@ method(get, ALE) <- function(
   # browser()
 
   ## Simplify the results ----------------
+
+  if (simplify) {
+    # If one dimension is empty, eliminate it and leave only the other
+    specific_what <- specific_what |>
+    map(\(it.cat_el) {
+      it.cat_el <- compact(it.cat_el)
+      if (is.null(it.cat_el[['d1']])) {
+        it.cat_el <- compact(it.cat_el[['d2']])
+      } else if (is.null(it.cat_el[['d2']])) {
+        it.cat_el <- compact(it.cat_el[['d1']])
+      }
+
+      if (length(it.cat_el) == 1) {
+        it.cat_el <- it.cat_el[[1]]
+      }
+
+      it.cat_el
+    })
+  }
+
   # If there is only one category, results are always simplified regardless of the value of simplify
   if (length(names(specific_what)) == 1) {
     # Only one category: eliminate the category level
     specific_what <- specific_what[[1]]
   }
 
-  if (simplify) {
-    # If one dimension is empty, eliminate it and leave only the other
-    specific_what <- compact(specific_what)
-    if (is.null(specific_what[['d1']])) {
-      specific_what <- compact(specific_what[['d2']])
-    } else if (is.null(specific_what[['d2']])) {
-      specific_what <- compact(specific_what[['d1']])
-    }
-
-    if (length(specific_what) == 1) {
-      specific_what <- specific_what[[1]]
-    }
-  }
+  # # If there is only one category, results are always simplified regardless of the value of simplify
+  # if (length(names(specific_what)) == 1) {
+  #   # Only one category: eliminate the category level
+  #   specific_what <- specific_what[[1]]
+  # }
+  #
+  # if (simplify) {
+  #   # If one dimension is empty, eliminate it and leave only the other
+  #   specific_what <- compact(specific_what)
+  #   if (is.null(specific_what[['d1']])) {
+  #     specific_what <- compact(specific_what[['d2']])
+  #   } else if (is.null(specific_what[['d2']])) {
+  #     specific_what <- compact(specific_what[['d1']])
+  #   }
+  #
+  #   if (length(specific_what) == 1) {
+  #     specific_what <- specific_what[[1]]
+  #   }
+  # }
 
   return(specific_what)
 }
