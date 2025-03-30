@@ -82,7 +82,7 @@ validate_y_preds <- function(
       }
       else {
         cli_abort(
-          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ale::ale} for how to create a custom predict function for non-standard models. Here is the full error message:
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for non-standard models. Here is the full error message:
 
         {e}'
         )
@@ -217,9 +217,6 @@ validate_silent <- function(silent) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
-        # cli_alert_info(
-        #   '{.pkg cli} progress bar activated for this R session. (This is not an error.) See documentation on {.fun ale::ale} to permanently configure progress bar settings and end these periodic messages.'
-        # )
       }
     }
   }

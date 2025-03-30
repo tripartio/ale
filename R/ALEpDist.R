@@ -25,7 +25,7 @@
 #' @param positive See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()]
 #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
-#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
+#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of `NULL` will generate 1000 iterations, which should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
 #' @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
@@ -319,7 +319,8 @@ ALEpDist <- new_class(
       data[[y_col]] - y_preds
     }
 
-    residuals <- unname(residuals)
+    residuals <- as.numeric(residuals)  # convert to simple vector
+    # residuals <- unname(residuals)
 
     # Determine the closest distribution of the residuals
     suppressWarnings({
@@ -341,17 +342,40 @@ ALEpDist <- new_class(
           slice_sample(n = 1000)
       }
 
-      sgt_fmla <- stats::as.formula(y_col %+% '~.')
-      model <- stats::lm(sgt_fmla, data)
+      # closeAllConnections()
+      # browser()
+
+      if (y_type %in% c('binary', 'ordinal', 'categorical')) {
+        # For any of these types, convert the surrogate model to binary based on predicting the modal class.
+        # With multimodal y, the first sorted mode is used as the positive class.
+        sgt_fmla <- stats::as.formula(str_glue(
+          '({y_col} == modes({y_col})[1]) ~ .'
+        ))
+        sgt_family <- stats::binomial
+      }
+      else {
+        sgt_fmla <- stats::as.formula(y_col %+% '~.')
+        sgt_family <- stats::gaussian
+      }
+
+      # binary/categorical/ordinal fmla: (y_col == modes(y_col)[1]) ~ .
+      # family: binomial
+      # TTE: ???
+      model <- stats::glm(sgt_fmla, family = sgt_family, data = data)
       model_call <- call(
-        'lm',
+        'glm',
         formula = sgt_fmla,
-        data = data
+        family  = sgt_family,
+        data    = data
       )
 
       if (is.null(rand_it) || rand_it < 100) {
         rand_it <- 100
       }
+
+      # Set ALE() constructor default arguments for the surrogate model
+      pred_fun  <- formals(ale::ALE)$pred_fun
+      pred_type <- formals(ale::ALE)$pred_type
     }
     else if (is.null(rand_it)) {
       # Default 1000 random iterations for exact p-values
@@ -476,6 +500,9 @@ ALEpDist <- new_class(
 
         tryCatch(
           {
+            # closeAllConnections()
+            # browser()
+
             it.rand_ale <- ALE(
               model = package_scope$rand_model,
               x_cols = 'random_variable',
@@ -483,7 +510,8 @@ ALEpDist <- new_class(
               y_col = y_col,
               parallel = 0,  # avoid recursive parallelization
               output_stats = FALSE,
-              pred_fun = pred_fun,
+              # eval() required to avoid scoping bugs
+              pred_fun = eval(pred_fun),
               pred_type = pred_type,
               p_values = NULL,  # avoid infinite recursion
               max_num_bins = 100,  # fine capture of extreme random ALE intervals
@@ -599,18 +627,30 @@ ALEpDist <- new_class(
 
     ## Return S7 ALEpDist object --------------
 
-    if (output_residuals) {
-      # Residuals were requested
-      colnames(residuals) <- y_cats
-    } else {
-      residuals <- NULL
+    # closeAllConnections()
+    # browser()
+
+
+    # if (output_residuals) {
+    #   # Residuals were requested
+    #   colnames(residuals) <- y_cats
+    #   colnames(residuals) <- y_cats
+    # } else {
+    #   residuals <- NULL
+    # }
+
+    if (surrogate && y_type == 'categorical') {
+      rand_stats <-
+        y_cats |>
+        map(\(it.cat_name) rand_stats[[1]]) |>
+        set_names(y_cats)
     }
 
     new_object(
       S7_object(),
       rand_stats            = rand_stats,
       residual_distribution = residual_distribution,
-      residuals             = residuals,
+      residuals             = if (output_residuals) residuals else NULL,
       params                = params
     )
   }  # ALEpDist constructor

@@ -52,7 +52,7 @@ ALEpDist(
 
 \item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If \code{FALSE} (default), does not return the residuals.}
 
-\item{rand_it}{non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. \code{rand_it} below 100 is not allowed as such p-values are inaccurate.}
+\item{rand_it}{non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of \code{NULL} will generate 1000 iterations, which should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. \code{rand_it} below 100 is not allowed as such p-values are inaccurate.}
 
 \item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 
