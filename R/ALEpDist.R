@@ -583,7 +583,7 @@ ALEpDist <- new_class(
     rand_stats <-
       rand_ales |>
       map(\(it.rand) {  # iterate by random ALE iteration
-        it.rand@distinct |>
+        it.rand@effect |>
           map(\(it.rand.cat) {  # iterate by categorical class or just by the single y_col
             calc_stats(
               y = it.rand.cat$ale$d1$random_variable$.y,

@@ -765,7 +765,7 @@ ModelBoot <- new_class(
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
 
               # ale_bins <<-
-              #   boot_ale@distinct[[1]]$ale |>
+              #   boot_ale@effect[[1]]$ale |>
               #   map(\(it.d_ale) {
               #     map(it.d_ale, \(it.x) list(
               #       bins = it.x[[1]],
@@ -774,12 +774,12 @@ ModelBoot <- new_class(
               #   })
 
               ale_bins <<- list(
-                d1 = boot_ale@distinct[[1]]$ale$d1 |>
+                d1 = boot_ale@effect[[1]]$ale$d1 |>
                   map(\(it.x) list(
                     bins = it.x[[1]],
                     ns   = it.x[['.n']]
                   )),
-                d2 = boot_ale@distinct[[1]]$ale$d2 |>
+                d2 = boot_ale@effect[[1]]$ale$d2 |>
                   map(\(it.x1_x2) list(
                     x1_bins = it.x1_x2[[1]] |>
                       unique() |>
@@ -789,7 +789,7 @@ ModelBoot <- new_class(
                       sort(),
                     ns      = it.x1_x2[['.n']]
                   ))
-                # d2 = boot_ale@distinct[[1]]$ale$d2 |>
+                # d2 = boot_ale@effect[[1]]$ale$d2 |>
                 #   map(\(it.x1) {
                 #     it.x1 |>
                 #       map(\(it.x2) list(
@@ -1066,7 +1066,7 @@ ModelBoot <- new_class(
           boot_data_ale |>
           # extract data from each iteration
           map(\(it.ale) {
-            it.ale@distinct[[it.cat]]$ale
+            it.ale@effect[[it.cat]]$ale
           }) |>
           # rearrange list to group all data and iterations by y_col category
           list_transpose(simplify = FALSE) |>
@@ -1084,7 +1084,7 @@ ModelBoot <- new_class(
                   # if (it.ordinal_x_col) {
                     # The levels of the first category of the full data ALE are canonical for all bootstrap iterations.
                     # Note: column 1 is the x column
-                    bin_levels <- full_ale@distinct[[it.cat]]$ale[[it.d]][[it.term_name]][
+                    bin_levels <- full_ale@effect[[it.cat]]$ale[[it.d]][[it.term_name]][
                       , it.ordinal_x_col
                     ] |>
                       map(\(it.col) {
@@ -1092,7 +1092,7 @@ ModelBoot <- new_class(
                           unique() |>
                           sort()
                       })
-                    # bin_levels <- full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]][[1]]
+                    # bin_levels <- full_ale@effect[[it.cat]]$ale$d1[[it.term_name]][[1]]
 
                     it.term_ale_its <- it.term_ale_its |>
                       map(\(it.ale_tbl) {
@@ -1127,7 +1127,7 @@ ModelBoot <- new_class(
                       .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
                     ) |>
                     right_join(
-                      full_ale@distinct[[it.cat]]$ale[[it.d]][[it.term_name]][
+                      full_ale@effect[[it.cat]]$ale[[it.d]][[it.term_name]][
                         , c(it.term_col_names, '.n')
                       ],
                       by = it.term_col_names
@@ -1147,8 +1147,8 @@ ModelBoot <- new_class(
                     # right_join(
                     #   tibble(
                     #     # bins or ceilings
-                    #     .x = full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]][[1]],
-                    #     .n = full_ale@distinct[[it.cat]]$ale$d1[[it.term_name]]$.n,
+                    #     .x = full_ale@effect[[it.cat]]$ale$d1[[it.term_name]][[1]],
+                    #     .n = full_ale@effect[[it.cat]]$ale$d1[[it.term_name]]$.n,
                     #   ),
                     #   by = '.x'
                     # ) |>
@@ -1176,7 +1176,7 @@ ModelBoot <- new_class(
         it.ale_summary_stats <- if (full_ale@params$output_stats) {
           iass <- boot_data_ale |>
             imap(\(it.ale, i) {
-              it.ale@distinct[[it.cat]]$stats |>
+              it.ale@effect[[it.cat]]$stats |>
                 imap(\(it.stats, it.d) {
                   if (length(full_ale@params$requested_x_cols[[it.d]]) > 0) {
                     it.stats |>
@@ -1312,10 +1312,10 @@ ModelBoot <- new_class(
 
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {
-          ar$single@distinct[[it.cat]]$conf <- ale_summary[[it.cat]]$conf
+          ar$single@effect[[it.cat]]$conf <- ale_summary[[it.cat]]$conf
         } else {
-          ar$boot$distinct <- ale_summary
-          # ar$boot$distinct <- ale_summary |>
+          ar$boot$effect <- ale_summary
+          # ar$boot$effect <- ale_summary |>
           #   map(\(it.cat) {
           #     it.cat |>
           #       map(\(it.el) {

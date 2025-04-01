@@ -23,11 +23,11 @@
 #' @param silent See documentation for [ALE()]
 #'
 #'
-#' @returns An object of class `ALEPlots` with properties `distinct` and `params`.
+#' @returns An object of class `ALEPlots` with properties `plots` and `params`.
 #'
 #' @section Properties:
 #' \describe{
-#'   \item{distinct}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
+#'   \item{plots}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
 #'   \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the `ALEPlots` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `max_d`: See documentation for [ALE()]
@@ -52,7 +52,7 @@
 ALEPlots <- new_class(
   'ALEPlots',
   properties = list(
-    distinct = class_list,
+    plots = class_list,
     params   = class_list
   ),
 
@@ -98,7 +98,7 @@ ALEPlots <- new_class(
         # Start with the single ALE object to give it the right ALE object type
         alt_obj <- obj@ale$single
         # Replace the ALE data with the bootstrapped version
-        alt_obj@distinct <- obj@ale$boot$distinct
+        alt_obj@effect <- obj@ale$boot$effect
 
         obj <- alt_obj
       }
@@ -125,8 +125,50 @@ ALEPlots <- new_class(
     plots_2D <- NULL
     eff_plot <- NULL
 
-    plots <- imap(obj@distinct, \(it.cat_el, it.cat_name) {
+    # y_cats <- obj@params$y_cats
+    # if (length(y_cats) > 1) {
+    #   # Create composite .all_cats ALE data
+    #   # browser()
+    #   obj@effect$.all_cats <- list(
+    #     ale = list(
+    #       d1 = obj@params$ordered_x_cols$d1 |>
+    #         map(\(it.x_col_name) {
+    #           map(y_cats, \(it.cat_name) {
+    #             obj@effect[[it.cat_name]]$ale$d1[[it.x_col_name]] |>
+    #               mutate(.cat = it.cat_name)
+    #           }) |>
+    #             bind_rows()
+    #         }) |>
+    #         set_names(obj@params$ordered_x_cols$d1),
+    #
+    #       d2 = obj@params$ordered_x_cols$d2 |>
+    #         map(\(it.x1_x2_col_name) {
+    #           map(y_cats, \(it.cat_name) {
+    #             obj@effect[[it.cat_name]]$ale$d2[[it.x1_x2_col_name[1]]][[it.x1_x2_col_name[2]]] |>
+    #               mutate(.cat = it.cat_name)
+    #           }) |>
+    #             bind_rows()
+    #         }) |>
+    #         set_names(
+    #           obj@params$ordered_x_cols$d2 |>
+    #             map_chr(\(it.x1_x2_col_name) paste0(it.x1_x2_col_name, collapse = ':'))
+    #         )
+    #     )
+    #   )
+    #
+    #   y_cats <- c('.all_cats', y_cats)
+    # }
+
+
+    plots <- imap(obj@effect, \(it.cat_el, it.cat_name) {
       if (length(obj@params$ordered_x_cols$d1) >= 1) {
+
+        # cat_plot_type <- if (it.cat_name == '.all_cats') {
+        #   c('overlay', 'facet')
+        # } else {
+        #   'single'
+        # }
+
         # There is at least 1 1D ALE data element
         plots_1D <-
           imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
@@ -134,9 +176,15 @@ ALEPlots <- new_class(
               plot_ale_1D(
                 ale_data    = it.x_col_ale_data,
                 x_col       = it.x_col_name,
+                # y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+                # cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
                 y_col       = it.cat_name,
                 y_type      = obj@params$y_type,
                 y_summary   = obj@params$y_summary[, it.cat_name],
+                # y_summary   = obj@params$y_summary[
+                #   ,
+                #   if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
+                # ],
                 p_exactness = if (is.null(obj@params$p_values)) {
                   NULL
                 } else {
@@ -156,6 +204,9 @@ ALEPlots <- new_class(
             }
           })
 
+        # plot <- if (length(plot) == 1) plot[[1]] else plot  # from cat plots
+
+
         # Create a 1D effects plot when 1D stats are available
         if (obj@params$output_stats) {
           # browser()
@@ -171,6 +222,12 @@ ALEPlots <- new_class(
               names_from = 'statistic',
               values_from = 'estimate'
             )
+
+          # eff_plot <- obj@effect[setdiff(y_cats, '.all_cats')] |>
+          #   imap(\(it.cat_data, it.cat_name) {
+          #     plot_effects(
+          #       estimates = it.cat_data$stats$d1$estimate,
+
 
           eff_plot <- plot_effects(
             estimates = estimates,
@@ -262,7 +319,7 @@ ALEPlots <- new_class(
     # browser()
 
     # # Add the 1D and 2D plots
-    # distinct <-
+    # plots <-
     #   # Iterate by y category
     #   obj@params$y_cats |>
     #   map(\(it.cat) {
@@ -287,8 +344,7 @@ ALEPlots <- new_class(
     # Return S7 ALEPlots object
     return(new_object(
       S7_object(),
-      distinct = plots,
-      # distinct = distinct,
+      plots = plots,
       params = params
     ))
   }  # ALEPlots constructor

@@ -111,7 +111,6 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Convert ale results to version that can be readily compared with ALEPlot
   nnet_ale_to_ALEPlot <-
     get(nnet_ale) |>
-    # nnet_ale@distinct$y$ale$d1 |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],
@@ -175,7 +174,6 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # Convert ale results to version that can be readily compared with ALEPlot
   gbm_ale_to_ALEPlot <-
     get(gbm_ale) |>
-    # gbm_ale@distinct$higher_income$ale$d1 |>
     map(\(it.x) {
       tibble(
         x.values = it.x[[1]],

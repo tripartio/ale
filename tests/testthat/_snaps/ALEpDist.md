@@ -78,13 +78,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$mpg
-      attr(,"distinct")$mpg$ale
-      attr(,"distinct")$mpg$ale$d1
-      attr(,"distinct")$mpg$ale$d1$model
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$mpg
+      attr(,"effect")$mpg$ale
+      attr(,"effect")$mpg$ale$d1
+      attr(,"effect")$mpg$ale$d1$model
       # A tibble: 32 x 7
          model.bin              .n     .y   .y_lo .y_mean .y_median .y_hi
          <ord>               <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
@@ -100,7 +100,7 @@
       10 Merc 450SLC             2 -25.6  -42.0    -25.6     -29.1  -3.06
       # i 22 more rows
       
-      attr(,"distinct")$mpg$ale$d1$cyl
+      attr(,"effect")$mpg$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -112,7 +112,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      attr(,"distinct")$mpg$ale$d1$disp
+      attr(,"effect")$mpg$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -127,7 +127,7 @@
        9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      attr(,"distinct")$mpg$ale$d1$hp
+      attr(,"effect")$mpg$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -142,7 +142,7 @@
        9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
       10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      attr(,"distinct")$mpg$ale$d1$drat
+      attr(,"effect")$mpg$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -157,7 +157,7 @@
        9      4.21     7  0.671   0.671   0.671     0.671   0.671 
       10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      attr(,"distinct")$mpg$ale$d1$wt
+      attr(,"effect")$mpg$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -172,7 +172,7 @@
        9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
       10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      attr(,"distinct")$mpg$ale$d1$qsec
+      attr(,"effect")$mpg$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -187,21 +187,21 @@
        9      20       7  4.54   4.54    4.54      4.54   4.54 
       10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      attr(,"distinct")$mpg$ale$d1$vs
+      attr(,"effect")$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36  0.414 -0.217   0.414     0.129 1.53 
       2 TRUE      28 -0.532 -1.95   -0.532    -0.166 0.269
       
-      attr(,"distinct")$mpg$ale$d1$am
+      attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -0.490 -1.53   -0.490   -0.307  0.236
       2 TRUE      26  0.487 -0.533   0.487    0.0668 2.22 
       
-      attr(,"distinct")$mpg$ale$d1$gear
+      attr(,"effect")$mpg$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -209,7 +209,7 @@
       2 four        24 -1.16  -1.76    -1.16     -1.07  -0.698
       3 five        10  0.521 -0.0278   0.521     0.571  0.985
       
-      attr(,"distinct")$mpg$ale$d1$carb
+      attr(,"effect")$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -219,7 +219,7 @@
       4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
       5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      attr(,"distinct")$mpg$ale$d1$country
+      attr(,"effect")$mpg$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -230,7 +230,7 @@
       5 Germany        16  3.11  -1.52    3.11      3.59   6.92
       6 USA            24  5.52   1.98    5.52      5.41   9.27
       
-      attr(,"distinct")$mpg$ale$d1$continent
+      attr(,"effect")$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
@@ -240,8 +240,8 @@
       
       
       
-      attr(,"distinct")$mpg$stats
-      attr(,"distinct")$mpg$stats$d1
+      attr(,"effect")$mpg$stats
+      attr(,"effect")$mpg$stats$d1
       # A tibble: 78 x 8
          statistic estimate p.value term  conf.low     mean   median conf.high
          <chr>        <dbl>   <dbl> <chr>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -258,10 +258,10 @@
       # i 68 more rows
       
       
-      attr(,"distinct")$mpg$conf
+      attr(,"effect")$mpg$conf
       NULL
       
-      attr(,"distinct")$mpg$boot_data
+      attr(,"effect")$mpg$boot_data
       NULL
       
       

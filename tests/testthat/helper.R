@@ -49,7 +49,7 @@ test_nn_categorical <- nnet::multinom(
 ale_plots_to_data <- function(
     ale_plots  # ALEPlots object
 ) {
-  purrr::map(ale_plots@distinct, \(it.cat_plots) {
+  purrr::map(ale_plots@plots, \(it.cat_plots) {
     list(
       d1  = it.cat_plots$d1 |>
         purrr::map(\(it.plot) {
@@ -75,7 +75,7 @@ ale_plots_to_data <- function(
 # ale_plots_to_data <- function(
 #     ale_plots  # ALEPlots object
 # ) {
-#   ale_plots@distinct |>
+#   ale_plots@plots |>
 #     purrr::map(\(it.cat_plots) {
 #       list(
 #         d1  = it.cat_plots$plots$d1 |>

@@ -10,13 +10,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$vs
-      attr(,"distinct")$vs$ale
-      attr(,"distinct")$vs$ale$d1
-      attr(,"distinct")$vs$ale$d1$model
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$vs
+      attr(,"effect")$vs$ale
+      attr(,"effect")$vs$ale$d1
+      attr(,"effect")$vs$ale$d1$model
       # A tibble: 32 x 7
          model.bin              .n    .y  .y_lo .y_mean .y_median .y_hi
          <ord>               <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -32,7 +32,7 @@
       10 Valiant                 2 2.20  1.06     2.20     1.53   3.91 
       # i 22 more rows
       
-      attr(,"distinct")$vs$ale$d1$mpg
+      attr(,"effect")$vs$ale$d1$mpg
       # A tibble: 10 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -47,7 +47,7 @@
        9     30.1     7     0     0       0         0     0
       10     33.9     7     0     0       0         0     0
       
-      attr(,"distinct")$vs$ale$d1$cyl
+      attr(,"effect")$vs$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -59,7 +59,7 @@
       6        8    21  2.86e-20  2.43e-20  2.86e-20  3.01e-20  3.14e-20
       7        9     3  4.85e-20  4.42e-20  4.85e-20  5.00e-20  5.13e-20
       
-      attr(,"distinct")$vs$ale$d1$disp
+      attr(,"effect")$vs$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -74,7 +74,7 @@
        9     397.      7 -6.97e-19 -7.15e-19 -6.97e-19 -7.03e-19 -6.75e-19
       10     472       7 -1.19e-18 -1.21e-18 -1.19e-18 -1.20e-18 -1.17e-18
       
-      attr(,"distinct")$vs$ale$d1$hp
+      attr(,"effect")$vs$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -89,7 +89,7 @@
        9    245      8 -5.30e-18 -5.58e-18 -5.30e-18 -5.34e-18 -4.99e-18
       10    335      6 -1.16e-17 -1.19e-17 -1.16e-17 -1.17e-17 -1.13e-17
       
-      attr(,"distinct")$vs$ale$d1$drat
+      attr(,"effect")$vs$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -104,7 +104,7 @@
        9      4.21     7  2.36e-18  1.41e-18  2.36e-18  2.77e-18  2.96e-18
       10      4.98     7  7.78e-18  7.20e-18  7.78e-18  7.37e-18  8.71e-18
       
-      attr(,"distinct")$vs$ale$d1$wt
+      attr(,"effect")$vs$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -119,7 +119,7 @@
        9    4.05     7  1.10e-17  9.50e-18  1.10e-17  1.16e-17  1.19e-17
       10    5.45     7  4.03e-17  3.88e-17  4.03e-17  4.09e-17  4.12e-17
       
-      attr(,"distinct")$vs$ale$d1$qsec
+      attr(,"effect")$vs$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -134,14 +134,14 @@
        9      20       7 -4.79e-18 -5.00e-18 -4.79e-18 -4.87e-18 -4.50e-18
       10      23.0     7 -4.79e-18 -5.00e-18 -4.79e-18 -4.87e-18 -4.50e-18
       
-      attr(,"distinct")$vs$ale$d1$am
+      attr(,"effect")$vs$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n      .y    .y_lo .y_mean .y_median .y_hi
         <ord>  <int>   <dbl>    <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38  0.0822  0.00592  0.0822    0.0559 0.181
       2 TRUE      26 -0.0817 -0.264   -0.0817   -0.0817 0.101
       
-      attr(,"distinct")$vs$ale$d1$gear
+      attr(,"effect")$vs$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -149,7 +149,7 @@
       2 four        24  0.223  0.0465   0.223    0.276   0.355
       3 five        10  0.157 -0.154    0.157    0.0761  0.535
       
-      attr(,"distinct")$vs$ale$d1$carb
+      attr(,"effect")$vs$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -159,7 +159,7 @@
       4         4    16 -5.05e-21 -5.63e-21 -5.05e-21 -5.15e-21 -4.39e-21
       5         8     6 -2.02e-20 -2.24e-20 -2.02e-20 -2.03e-20 -1.79e-20
       
-      attr(,"distinct")$vs$ale$d1$country
+      attr(,"effect")$vs$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n      .y  .y_lo .y_mean .y_median   .y_hi
         <ord>       <int>   <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
@@ -170,7 +170,7 @@
       5 Germany        16 -0.274  -0.536 -0.274     -0.239 -0.0416
       6 USA            24 -0.260  -0.534 -0.260     -0.198 -0.0396
       
-      attr(,"distinct")$vs$ale$d1$continent
+      attr(,"effect")$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
         <ord>         <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -179,8 +179,8 @@
       3 Asia             12 -0.000131  -0.000209  -0.000131  -0.000106  -0.0000746
       
       
-      attr(,"distinct")$vs$ale$d2
-      attr(,"distinct")$vs$ale$d2$`model:mpg`
+      attr(,"effect")$vs$ale$d2
+      attr(,"effect")$vs$ale$d2$`model:mpg`
       # A tibble: 320 x 8
          model.bin           mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>                  <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -196,7 +196,7 @@
       10 Valiant                 10.4     0     0     0       0         0     0
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:cyl`
+      attr(,"effect")$vs$ale$d2$`model:cyl`
       # A tibble: 224 x 8
          model.bin    cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -212,7 +212,7 @@
       10 Valiant             3     0 -7.10e-11 -7.10e-11 -7.10e-11 -7.10e-11 -7.10e-11
       # i 214 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:disp`
+      attr(,"effect")$vs$ale$d2$`model:disp`
       # A tibble: 320 x 8
          model.bin       disp.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -228,7 +228,7 @@
       10 Valiant              70.9     0 3.38e-10 3.38e-10 3.38e-10  3.38e-10 3.38e-10
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:hp`
+      attr(,"effect")$vs$ale$d2$`model:hp`
       # A tibble: 320 x 8
          model.bin           hp.ceil    .n        .y   .y_lo .y_mean .y_median   .y_hi
          <ord>                 <dbl> <int>     <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -244,7 +244,7 @@
       10 Valiant                  52     0   8.62e-9 8.62e-9 8.62e-9   8.62e-9 8.62e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:drat`
+      attr(,"effect")$vs$ale$d2$`model:drat`
       # A tibble: 320 x 8
          model.bin       drat.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -260,7 +260,7 @@
       10 Valiant              2.74     1 -2.11e-9 -2.11e-9 -2.11e-9  -2.11e-9 -2.11e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:wt`
+      attr(,"effect")$vs$ale$d2$`model:wt`
       # A tibble: 320 x 8
          model.bin         wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -276,7 +276,7 @@
       10 Valiant              1.50     0 -4.77e-8 -4.77e-8 -4.77e-8  -4.77e-8 -4.77e-8
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:qsec`
+      attr(,"effect")$vs$ale$d2$`model:qsec`
       # A tibble: 320 x 8
          model.bin           qsec.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>                   <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -292,7 +292,7 @@
       10 Valiant                  14.5     0 3.48e-9 3.48e-9 3.48e-9   3.48e-9 3.48e-9
       # i 310 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:am`
+      attr(,"effect")$vs$ale$d2$`model:am`
       # A tibble: 64 x 8
          model.bin           am.bin    .n      .y  .y_lo .y_mean .y_median  .y_hi
          <ord>               <ord>  <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -308,7 +308,7 @@
       10 Valiant             FALSE      2 -0.0624 -0.562 -0.0624   -0.562   0.862
       # i 54 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:gear`
+      attr(,"effect")$vs$ale$d2$`model:gear`
       # A tibble: 96 x 8
          model.bin           gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>               <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -324,7 +324,7 @@
       10 Valiant             three        2 0.811 0.311   0.811     0.311 1.74 
       # i 86 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:carb`
+      attr(,"effect")$vs$ale$d2$`model:carb`
       # A tibble: 160 x 8
          model.bin       carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>               <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -340,7 +340,7 @@
       10 Valiant                 1     2 5.66e-12 5.66e-12 5.66e-12  5.66e-12 5.66e-12
       # i 150 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:country`
+      attr(,"effect")$vs$ale$d2$`model:country`
       # A tibble: 192 x 8
          model.bin           country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>               <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -356,7 +356,7 @@
       10 Valiant             Sweden          0  1.30  1.30    1.30      1.30  1.30
       # i 182 more rows
       
-      attr(,"distinct")$vs$ale$d2$`model:continent`
+      attr(,"effect")$vs$ale$d2$`model:continent`
       # A tibble: 96 x 8
          model.bin   continent.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
          <ord>       <ord>         <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -372,7 +372,7 @@
       10 Valiant     North America     2  5.21e-4  1.36e-5  5.21e-4   3.89e-4  1.14e-3
       # i 86 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:cyl`
+      attr(,"effect")$vs$ale$d2$`mpg:cyl`
       # A tibble: 70 x 8
          mpg.ceil cyl.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -388,7 +388,7 @@
       10     33.9        3     0     0     0       0         0     0
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:disp`
+      attr(,"effect")$vs$ale$d2$`mpg:disp`
       # A tibble: 100 x 8
          mpg.ceil disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -404,7 +404,7 @@
       10     33.9      70.9     1     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:hp`
+      attr(,"effect")$vs$ale$d2$`mpg:hp`
       # A tibble: 100 x 8
          mpg.ceil hp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -420,7 +420,7 @@
       10     33.9      52     1     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:drat`
+      attr(,"effect")$vs$ale$d2$`mpg:drat`
       # A tibble: 100 x 8
          mpg.ceil drat.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -436,7 +436,7 @@
       10     33.9      2.74     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:wt`
+      attr(,"effect")$vs$ale$d2$`mpg:wt`
       # A tibble: 100 x 8
          mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -452,7 +452,7 @@
       10     33.9    1.50     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:qsec`
+      attr(,"effect")$vs$ale$d2$`mpg:qsec`
       # A tibble: 100 x 8
          mpg.ceil qsec.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -468,7 +468,7 @@
       10     33.9      14.5     0     0     0       0         0     0
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:am`
+      attr(,"effect")$vs$ale$d2$`mpg:am`
       # A tibble: 20 x 8
          mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -493,7 +493,7 @@
       19     30.1 TRUE       5     0     0       0         0     0
       20     33.9 TRUE       7     0     0       0         0     0
       
-      attr(,"distinct")$vs$ale$d2$`mpg:gear`
+      attr(,"effect")$vs$ale$d2$`mpg:gear`
       # A tibble: 30 x 8
          mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -509,7 +509,7 @@
       10     33.9 three        0     0     0       0         0     0
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:carb`
+      attr(,"effect")$vs$ale$d2$`mpg:carb`
       # A tibble: 50 x 8
          mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -525,7 +525,7 @@
       10     33.9         1     4     0     0       0         0     0
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:country`
+      attr(,"effect")$vs$ale$d2$`mpg:country`
       # A tibble: 60 x 8
          mpg.ceil country.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>       <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -541,7 +541,7 @@
       10     33.9 Sweden          0     0     0       0         0     0
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`mpg:continent`
+      attr(,"effect")$vs$ale$d2$`mpg:continent`
       # A tibble: 30 x 8
          mpg.ceil continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -557,7 +557,7 @@
       10     33.9 North America     0     0     0       0         0     0
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:disp`
+      attr(,"effect")$vs$ale$d2$`cyl:disp`
       # A tibble: 70 x 8
          cyl.ceil disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -573,7 +573,7 @@
       10        5      79.0     0 -1.58e-26 -1.58e-26 -1.58e-26 -1.58e-26 -1.58e-26
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:hp`
+      attr(,"effect")$vs$ale$d2$`cyl:hp`
       # A tibble: 70 x 8
          cyl.ceil hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -589,7 +589,7 @@
       10        5      66     1 -1.01e-25 -1.01e-25 -1.01e-25 -1.01e-25 -1.01e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:drat`
+      attr(,"effect")$vs$ale$d2$`cyl:drat`
       # A tibble: 70 x 8
          cyl.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -605,7 +605,7 @@
       10        5      3.02     0  5.22e-25  5.22e-25  5.22e-25  5.22e-25  5.22e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:wt`
+      attr(,"effect")$vs$ale$d2$`cyl:wt`
       # A tibble: 70 x 8
          cyl.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -621,7 +621,7 @@
       10        5    1.94     1  4.13e-25  3.78e-25  4.13e-25  3.78e-25  4.78e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:qsec`
+      attr(,"effect")$vs$ale$d2$`cyl:qsec`
       # A tibble: 70 x 8
          cyl.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -637,7 +637,7 @@
       10        5      15.6     0 -5.09e-25 -5.09e-25 -5.09e-25 -5.09e-25 -5.09e-25
       # i 60 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:am`
+      attr(,"effect")$vs$ale$d2$`cyl:am`
       # A tibble: 14 x 8
          cyl.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -656,7 +656,7 @@
       13        8 TRUE       3 -5.13e-11 -9.63e-11 -5.13e-11 -3.07e-11 -2.38e-11
       14        9 TRUE       0 -5.13e-11 -9.63e-11 -5.13e-11 -3.07e-11 -2.38e-11
       
-      attr(,"distinct")$vs$ale$d2$`cyl:gear`
+      attr(,"effect")$vs$ale$d2$`cyl:gear`
       # A tibble: 21 x 8
          cyl.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -672,7 +672,7 @@
       10        5 four         4  3.50e-13  3.50e-13  3.50e-13  3.50e-13  3.50e-13
       # i 11 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:carb`
+      attr(,"effect")$vs$ale$d2$`cyl:carb`
       # A tibble: 35 x 8
          cyl.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -688,7 +688,7 @@
       10        5         2     0 -3.43e-28 -3.70e-28 -3.43e-28 -3.56e-28 -3.04e-28
       # i 25 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:country`
+      attr(,"effect")$vs$ale$d2$`cyl:country`
       # A tibble: 42 x 8
          cyl.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -704,7 +704,7 @@
       10        5 UK              0 -5.12e-12 -6.02e-11 -5.12e-12  2.38e-11  2.54e-11
       # i 32 more rows
       
-      attr(,"distinct")$vs$ale$d2$`cyl:continent`
+      attr(,"effect")$vs$ale$d2$`cyl:continent`
       # A tibble: 21 x 8
          cyl.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
             <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -721,7 +721,7 @@
       # i 11 more rows
       # i 1 more variable: .y_hi <dbl>
       
-      attr(,"distinct")$vs$ale$d2$`disp:hp`
+      attr(,"effect")$vs$ale$d2$`disp:hp`
       # A tibble: 100 x 8
          disp.ceil hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -737,7 +737,7 @@
       10     472        52     0 -2.45e-23 -2.45e-23 -2.45e-23 -2.45e-23 -2.45e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:drat`
+      attr(,"effect")$vs$ale$d2$`disp:drat`
       # A tibble: 100 x 8
          disp.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -753,7 +753,7 @@
       10     472        2.74     0  1.02e-23  1.02e-23  1.02e-23  1.02e-23  1.02e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:wt`
+      attr(,"effect")$vs$ale$d2$`disp:wt`
       # A tibble: 100 x 8
          disp.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -769,7 +769,7 @@
       10     472      1.50     0  7.02e-23  7.02e-23  7.02e-23  7.02e-23  7.02e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:qsec`
+      attr(,"effect")$vs$ale$d2$`disp:qsec`
       # A tibble: 100 x 8
          disp.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -785,7 +785,7 @@
       10     472        14.5     0 -2.33e-23 -2.33e-23 -2.33e-23 -2.33e-23 -2.33e-23
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:am`
+      attr(,"effect")$vs$ale$d2$`disp:am`
       # A tibble: 20 x 8
          disp.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -810,7 +810,7 @@
       19     397.  TRUE       1  1.29e- 9  5.79e-10  1.29e- 9  1.06e- 9  2.20e- 9
       20     472   TRUE       0  1.29e- 9  5.79e-10  1.29e- 9  1.06e- 9  2.20e- 9
       
-      attr(,"distinct")$vs$ale$d2$`disp:gear`
+      attr(,"effect")$vs$ale$d2$`disp:gear`
       # A tibble: 30 x 8
          disp.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -826,7 +826,7 @@
       10     472   three        7 -1.41e-11 -1.41e-11 -1.41e-11 -1.41e-11 -1.41e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:carb`
+      attr(,"effect")$vs$ale$d2$`disp:carb`
       # A tibble: 50 x 8
          disp.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -842,7 +842,7 @@
       10     472           1     0 -2.91e-26 -2.91e-26 -2.91e-26 -2.91e-26 -2.91e-26
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:country`
+      attr(,"effect")$vs$ale$d2$`disp:country`
       # A tibble: 60 x 8
          disp.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -858,7 +858,7 @@
       10     472   Sweden          0 -1.55e-10 -2.28e-10 -1.55e-10 -2.28e-10 -2.18e-11
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`disp:continent`
+      attr(,"effect")$vs$ale$d2$`disp:continent`
       # A tibble: 30 x 8
          disp.ceil continent.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
              <dbl> <ord>         <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -874,7 +874,7 @@
       10     472   North America     7 1.03e-10 -2.38e-11 1.03e-10  1.03e-10 2.31e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:drat`
+      attr(,"effect")$vs$ale$d2$`hp:drat`
       # A tibble: 100 x 8
          hp.ceil drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -890,7 +890,7 @@
       10    335       2.74     0  2.17e-22  2.17e-22  2.17e-22  2.17e-22  2.17e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:wt`
+      attr(,"effect")$vs$ale$d2$`hp:wt`
       # A tibble: 100 x 8
          hp.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -906,7 +906,7 @@
       10    335     1.50     0  8.29e-22  8.29e-22  8.29e-22  8.29e-22  8.29e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:qsec`
+      attr(,"effect")$vs$ale$d2$`hp:qsec`
       # A tibble: 100 x 8
          hp.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -922,7 +922,7 @@
       10    335       14.5     1 -2.56e-22 -2.56e-22 -2.56e-22 -2.56e-22 -2.56e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:am`
+      attr(,"effect")$vs$ale$d2$`hp:am`
       # A tibble: 20 x 8
          hp.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -947,7 +947,7 @@
       19    245  TRUE       0  3.96e- 9 -3.35e- 9  3.96e- 9  -1.05e-9  1.55e- 8
       20    335  TRUE       4  1.25e- 8  1.59e- 9  1.25e- 8   1.14e-8  2.42e- 8
       
-      attr(,"distinct")$vs$ale$d2$`hp:gear`
+      attr(,"effect")$vs$ale$d2$`hp:gear`
       # A tibble: 30 x 8
          hp.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -963,7 +963,7 @@
       10    335  three        2 -5.72e-10 -5.72e-10 -5.72e-10 -5.72e-10 -5.72e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:carb`
+      attr(,"effect")$vs$ale$d2$`hp:carb`
       # A tibble: 50 x 8
          hp.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -979,7 +979,7 @@
       10    335          1     0 -2.23e-25 -2.23e-25 -2.23e-25 -2.23e-25 -2.23e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:country`
+      attr(,"effect")$vs$ale$d2$`hp:country`
       # A tibble: 60 x 8
          hp.ceil country.bin    .n        .y    .y_lo   .y_mean .y_median        .y_hi
            <dbl> <ord>       <int>     <dbl>    <dbl>     <dbl>     <dbl>        <dbl>
@@ -995,7 +995,7 @@
       10    335  Sweden          0 -1.46e- 9 -3.11e-9 -1.46e- 9  -3.11e-9      1.60e-9
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`hp:continent`
+      attr(,"effect")$vs$ale$d2$`hp:continent`
       # A tibble: 30 x 8
          hp.ceil continent.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>         <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1011,7 +1011,7 @@
       10    335  North America     4 2.27e-10 -2.62e-11 2.27e-10  3.64e-10 3.64e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:wt`
+      attr(,"effect")$vs$ale$d2$`drat:wt`
       # A tibble: 100 x 8
          drat.ceil wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>   <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1027,7 +1027,7 @@
       10      4.98    1.50     0 -1.94e-22 -1.94e-22 -1.94e-22 -1.94e-22 -1.94e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:qsec`
+      attr(,"effect")$vs$ale$d2$`drat:qsec`
       # A tibble: 100 x 8
          drat.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1043,7 +1043,7 @@
       10      4.98      14.5     1  7.06e-22  7.06e-22  7.06e-22  7.06e-22  7.06e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:am`
+      attr(,"effect")$vs$ale$d2$`drat:am`
       # A tibble: 20 x 8
          drat.ceil am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1068,7 +1068,7 @@
       19      4.21 TRUE       7  2.45e- 9  7.44e-10  2.45e- 9  8.87e-10  5.49e- 9
       20      4.98 TRUE       7 -9.06e- 9 -1.31e- 8 -9.06e- 9 -1.03e- 8 -4.05e- 9
       
-      attr(,"distinct")$vs$ale$d2$`drat:gear`
+      attr(,"effect")$vs$ale$d2$`drat:gear`
       # A tibble: 30 x 8
          drat.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1084,7 +1084,7 @@
       10      4.98 three        0  2.58e-10  2.58e-10  2.58e-10  2.58e-10  2.58e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:carb`
+      attr(,"effect")$vs$ale$d2$`drat:carb`
       # A tibble: 50 x 8
          drat.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1100,7 +1100,7 @@
       10      4.98         1     1  1.34e-25  1.34e-25  1.34e-25  1.34e-25  1.34e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:country`
+      attr(,"effect")$vs$ale$d2$`drat:country`
       # A tibble: 60 x 8
          drat.ceil country.bin    .n        .y    .y_lo   .y_mean .y_median    .y_hi
              <dbl> <ord>       <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
@@ -1116,7 +1116,7 @@
       10      4.98 Sweden          0  2.68e- 9 -2.52e-9  2.68e- 9   5.49e-9  5.49e-9
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`drat:continent`
+      attr(,"effect")$vs$ale$d2$`drat:continent`
       # A tibble: 30 x 8
          drat.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
              <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1133,7 +1133,7 @@
       # i 20 more rows
       # i 1 more variable: .y_hi <dbl>
       
-      attr(,"distinct")$vs$ale$d2$`wt:qsec`
+      attr(,"effect")$vs$ale$d2$`wt:qsec`
       # A tibble: 100 x 8
          wt.ceil qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1149,7 +1149,7 @@
       10    5.45      14.5     0  7.77e-22  7.77e-22  7.77e-22  7.77e-22  7.77e-22
       # i 90 more rows
       
-      attr(,"distinct")$vs$ale$d2$`wt:am`
+      attr(,"effect")$vs$ale$d2$`wt:am`
       # A tibble: 20 x 8
          wt.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1174,7 +1174,7 @@
       19    4.05 TRUE       0 -3.55e-8 -5.03e-8 -3.55e-8 -3.94e- 8 -1.74e-8
       20    5.45 TRUE       0 -3.55e-8 -5.03e-8 -3.55e-8 -3.94e- 8 -1.74e-8
       
-      attr(,"distinct")$vs$ale$d2$`wt:gear`
+      attr(,"effect")$vs$ale$d2$`wt:gear`
       # A tibble: 30 x 8
          wt.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1190,7 +1190,7 @@
       10    5.45 three        7  9.21e-11  9.21e-11  9.21e-11  9.21e-11  9.21e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`wt:carb`
+      attr(,"effect")$vs$ale$d2$`wt:carb`
       # A tibble: 50 x 8
          wt.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1206,7 +1206,7 @@
       10    5.45         1     0  7.38e-25  7.38e-25  7.38e-25  7.38e-25  7.38e-25
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`wt:country`
+      attr(,"effect")$vs$ale$d2$`wt:country`
       # A tibble: 60 x 8
          wt.ceil country.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>       <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1222,7 +1222,7 @@
       10    5.45 Sweden          0  2.22e-8 -6.04e-9  2.22e-8   3.75e-8  3.75e-8
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`wt:continent`
+      attr(,"effect")$vs$ale$d2$`wt:continent`
       # A tibble: 30 x 8
          wt.ceil continent.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <ord>         <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -1238,7 +1238,7 @@
       10    5.45 North America     6 -1.71e-9 -3.58e-9 -1.71e-9  -3.04e-9  1.29e-9
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`qsec:am`
+      attr(,"effect")$vs$ale$d2$`qsec:am`
       # A tibble: 20 x 8
          qsec.ceil am.bin    .n       .y     .y_lo  .y_mean .y_median    .y_hi
              <dbl> <ord>  <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1263,7 +1263,7 @@
       19      20   TRUE       4  1.15e-8  6.34e- 9  1.15e-8   1.03e-8  1.76e-8
       20      23.0 TRUE       0  1.15e-8  6.34e- 9  1.15e-8   1.03e-8  1.76e-8
       
-      attr(,"distinct")$vs$ale$d2$`qsec:gear`
+      attr(,"effect")$vs$ale$d2$`qsec:gear`
       # A tibble: 30 x 8
          qsec.ceil gear.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>    <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1279,7 +1279,7 @@
       10      23.0 three        4 -1.24e-10 -1.24e-10 -1.24e-10 -1.24e-10 -1.24e-10
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`qsec:carb`
+      attr(,"effect")$vs$ale$d2$`qsec:carb`
       # A tibble: 50 x 8
          qsec.ceil carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl>     <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1295,7 +1295,7 @@
       10      23.0         1     4 -5.15e-26 -5.15e-26 -5.15e-26 -5.15e-26 -5.15e-26
       # i 40 more rows
       
-      attr(,"distinct")$vs$ale$d2$`qsec:country`
+      attr(,"effect")$vs$ale$d2$`qsec:country`
       # A tibble: 60 x 8
          qsec.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1311,7 +1311,7 @@
       10      23.0 Sweden          0 -2.11e- 8 -2.17e- 8 -2.11e- 8 -2.17e- 8 -2.01e- 8
       # i 50 more rows
       
-      attr(,"distinct")$vs$ale$d2$`qsec:continent`
+      attr(,"effect")$vs$ale$d2$`qsec:continent`
       # A tibble: 30 x 8
          qsec.ceil continent.bin    .n          .y     .y_lo .y_mean .y_median   .y_hi
              <dbl> <ord>         <int>       <dbl>     <dbl>   <dbl>     <dbl>   <dbl>
@@ -1327,7 +1327,7 @@
       10      23.0 North America     2     5.88e-9 -1.41e-10 5.88e-9   5.88e-9 1.19e-8
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`am:gear`
+      attr(,"effect")$vs$ale$d2$`am:gear`
       # A tibble: 6 x 8
         am.bin gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>  <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1338,7 +1338,7 @@
       5 FALSE  five         0  0.273   0.0721  0.273    0.167    0.563 
       6 TRUE   five        10 -0.0163 -0.156  -0.0163  -0.00941  0.117 
       
-      attr(,"distinct")$vs$ale$d2$`am:carb`
+      attr(,"effect")$vs$ale$d2$`am:carb`
       # A tibble: 10 x 8
          am.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>      <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1353,7 +1353,7 @@
        9 FALSE          8     2  2.37e-12 -1.29e-11  2.37e-12 -7.88e-12  2.64e-11
       10 TRUE           8     4  3.29e-11  2.82e-11  3.29e-11  3.14e-11  3.91e-11
       
-      attr(,"distinct")$vs$ale$d2$`am:country`
+      attr(,"effect")$vs$ale$d2$`am:country`
       # A tibble: 12 x 8
          am.bin country.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
          <ord>  <ord>       <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1370,7 +1370,7 @@
       11 FALSE  USA            22 -0.0482 -0.403  -0.0482    0.0468  0.226 
       12 TRUE   USA             2 -0.0181 -0.285  -0.0181   -0.214   0.415 
       
-      attr(,"distinct")$vs$ale$d2$`am:continent`
+      attr(,"effect")$vs$ale$d2$`am:continent`
       # A tibble: 6 x 8
         am.bin continent.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
         <ord>  <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1381,7 +1381,7 @@
       5 FALSE  Asia              2 -5.67e- 9 -1.16e- 8 -5.67e- 9 -2.62e- 9 -2.35e- 9
       6 TRUE   Asia             10 -6.44e- 9 -1.83e- 8 -6.44e- 9 -3.45e- 9  2.90e- 9
       
-      attr(,"distinct")$vs$ale$d2$`gear:carb`
+      attr(,"effect")$vs$ale$d2$`gear:carb`
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1401,7 +1401,7 @@
       14 four             8     1 -1.77e-13 -1.77e-13 -1.77e-13 -1.77e-13 -1.77e-13
       15 five             8     4 -1.40e-12 -4.98e-12 -1.40e-12 -6.34e-13  1.54e-12
       
-      attr(,"distinct")$vs$ale$d2$`gear:country`
+      attr(,"effect")$vs$ale$d2$`gear:country`
       # A tibble: 18 x 8
          gear.bin country.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
          <ord>    <ord>       <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
@@ -1424,7 +1424,7 @@
       17 four     USA             0 -0.686   -1.62   -0.686     -0.588   0.162 
       18 five     USA             2 -0.686   -1.62   -0.686     -0.588   0.162 
       
-      attr(,"distinct")$vs$ale$d2$`gear:continent`
+      attr(,"effect")$vs$ale$d2$`gear:continent`
       # A tibble: 9 x 8
         gear.bin continent.bin    .n          .y     .y_lo  .y_mean .y_median    .y_hi
         <ord>    <ord>         <int>       <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
@@ -1438,7 +1438,7 @@
       8 four     Asia             10 -0.0000419   -1.10e-4 -4.19e-5  -8.50e-5  6.29e-5
       9 five     Asia              0 -0.0000419   -1.10e-4 -4.19e-5  -8.50e-5  6.29e-5
       
-      attr(,"distinct")$vs$ale$d2$`carb:country`
+      attr(,"effect")$vs$ale$d2$`carb:country`
       # A tibble: 30 x 8
          carb.ceil country.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <ord>       <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1454,7 +1454,7 @@
       10         8 UK              0 -1.59e-11 -1.69e-11 -1.59e-11 -1.69e-11 -1.40e-11
       # i 20 more rows
       
-      attr(,"distinct")$vs$ale$d2$`carb:continent`
+      attr(,"effect")$vs$ale$d2$`carb:continent`
       # A tibble: 15 x 8
          carb.ceil continent.bin    .n        .y     .y_lo   .y_mean .y_median
              <dbl> <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1475,7 +1475,7 @@
       15         8 Asia              0  5.69e-12 -1.24e-13  5.69e-12  3.91e-12
       # i 1 more variable: .y_hi <dbl>
       
-      attr(,"distinct")$vs$ale$d2$`country:continent`
+      attr(,"effect")$vs$ale$d2$`country:continent`
       # A tibble: 18 x 8
          country.bin continent.bin    .n        .y     .y_lo   .y_mean .y_median
          <ord>       <ord>         <int>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1501,8 +1501,8 @@
       
       
       
-      attr(,"distinct")$vs$stats
-      attr(,"distinct")$vs$stats$d1
+      attr(,"effect")$vs$stats
+      attr(,"effect")$vs$stats$d1
       # A tibble: 78 x 7
          term  statistic estimate conf.low   mean median conf.high
          <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
@@ -1518,7 +1518,7 @@
       10 mpg   naled        0       0       0      0         0    
       # i 68 more rows
       
-      attr(,"distinct")$vs$stats$d2
+      attr(,"effect")$vs$stats$d2
       # A tibble: 468 x 7
          term      statistic  estimate  conf.low      mean    median conf.high
          <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1535,10 +1535,10 @@
       # i 458 more rows
       
       
-      attr(,"distinct")$vs$conf
+      attr(,"effect")$vs$conf
       NULL
       
-      attr(,"distinct")$vs$boot_data
+      attr(,"effect")$vs$boot_data
       NULL
       
       
@@ -14785,13 +14785,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$vs
-      attr(,"distinct")$vs$ale
-      attr(,"distinct")$vs$ale$d1
-      attr(,"distinct")$vs$ale$d1$hp
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$vs
+      attr(,"effect")$vs$ale
+      attr(,"effect")$vs$ale$d1
+      attr(,"effect")$vs$ale$d1$hp
       # A tibble: 12 x 7
          hp.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
            <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
@@ -14808,7 +14808,7 @@
       11     245     3 -0.0000185  -0.0000185  -0.0000185  -0.0000185  -0.0000185 
       12     335     2 -0.0000346  -0.0000346  -0.0000346  -0.0000346  -0.0000346 
       
-      attr(,"distinct")$vs$ale$d1$am
+      attr(,"effect")$vs$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
@@ -14816,8 +14816,8 @@
       2 TRUE      13 -8.84 -21.1    -8.84     -8.84  3.40
       
       
-      attr(,"distinct")$vs$ale$d2
-      attr(,"distinct")$vs$ale$d2$`gear:drat`
+      attr(,"effect")$vs$ale$d2
+      attr(,"effect")$vs$ale$d2$`gear:drat`
       # A tibble: 36 x 8
          gear.bin drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -14835,15 +14835,15 @@
       
       
       
-      attr(,"distinct")$vs$stats
+      attr(,"effect")$vs$stats
       NULL
       
-      attr(,"distinct")$vs$conf
+      attr(,"effect")$vs$conf
       NULL
       
-      attr(,"distinct")$vs$boot_data
-      attr(,"distinct")$vs$boot_data$d1
-      attr(,"distinct")$vs$boot_data$d1$hp
+      attr(,"effect")$vs$boot_data
+      attr(,"effect")$vs$boot_data$d1
+      attr(,"effect")$vs$boot_data$d1$hp
       # A tibble: 24 x 6
            .it    hp .y_composite    .n .y_distinct          .y
          <dbl> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
@@ -14859,7 +14859,7 @@
       10     0   215  -0.0000131      2 -0.0000131  -0.0000131 
       # i 14 more rows
       
-      attr(,"distinct")$vs$boot_data$d1$am
+      attr(,"effect")$vs$boot_data$d1$am
       # A tibble: 4 x 6
           .it am    .y_composite    .n .y_distinct     .y
         <dbl> <fct>        <dbl> <dbl>       <dbl>  <dbl>
@@ -14869,8 +14869,8 @@
       4     1 TRUE          3.52    13        3.52   3.52
       
       
-      attr(,"distinct")$vs$boot_data$d2
-      attr(,"distinct")$vs$boot_data$d2$`gear:drat`
+      attr(,"effect")$vs$boot_data$d2
+      attr(,"effect")$vs$boot_data$d2$`gear:drat`
       # A tibble: 72 x 7
            .it gear   drat .y_composite    .n .y_distinct        .y
          <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>     <dbl>

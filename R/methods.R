@@ -125,7 +125,7 @@ method(get, ALE) <- function(
     simplify = TRUE,
     silent = FALSE
   ) {
-  comp = 'distinct'
+  comp = 'effect'
 
   ## Validate inputs -------------
 
@@ -533,7 +533,7 @@ method(plot, ModelBoot) <- function(
 #
 # View(mb@ale)
 # View(mb@params)
-# View(mb@ale$single@distinct)
+# View(mb@ale$single@effect)
 #
 # gmb <- get(mb)
 
@@ -585,7 +585,7 @@ method(get, ModelBoot) <- function(
 
   if (type == 'boot') {
     # Replace the base structure with the bootstrapped data
-    obj_type@distinct <- obj@ale$boot$distinct
+    obj_type@effect <- obj@ale$boot$effect
   }
 
   method(get, ale::ALE)(
@@ -628,8 +628,21 @@ method(plot, ALEPlots) <- function(
   n_1D <- length(plot_obj@params$requested_x_cols$d1)
   n_2D <- length(plot_obj@params$requested_x_cols$d2)
 
+  # if ((0 < count_1D) && (count_1D <= max_print)) {
+  #   x@effect |>
+  #     purrr::iwalk(\(it.cat, it.cat_name) {
+  #       if (it.cat_name == '.all_cats') {
+  #         # browser()
+  #         it.cat$plots$d1 |>
+  #           map(\(it.all_cat_plots) {
+  #             it.all_cat_plots |>
+  #               patchwork::wrap_plots(...) |>
+  #               print()
+  #           })
+  #       }
+
   # Print one page per category per dimension
-  purrr::iwalk(plot_obj@distinct, \(it.cat_plots, i.cat) {
+  purrr::iwalk(plot_obj@plots, \(it.cat_plots, i.cat) {
     purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
       if ((0 < it.n) && (it.n <= max_print)) {
         it.cat_plots[['d' %+% i.d]] |>
@@ -804,7 +817,7 @@ method(get, ALEPlots) <- function(
     cats = NULL,
     silent = FALSE
 ) {
-  comp = 'distinct'
+  comp = 'plots'
   ## Validate inputs -------------
 
   # Error if any unlisted argument is used (captured in ...).
@@ -848,14 +861,69 @@ method(get, ALEPlots) <- function(
     msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
+  # all_cats <- length(y_cats) > 1 && is.null(cats)
+  # if (all_cats) {
+  #   validate(
+  #     type %in% c('ale', 'overlay', 'facet'),
+  #     msg = c(
+  #       'x' = "For categorical plots that span all categories together, the {.arg type} argument must be one of {c('ale', 'overlay', 'facet')}.",
+  #       'i' = 'The {.arg type} argument was {type}.'
+  #     )
+  #   )
+  # }
 
   ## Retrieve requested plots --------------
+
+  # # Subset x_cols.
+  # # This procedure also validates the arguments used here.
+  # obj <- subset(
+  #   obj,
+  #   x_cols = x_cols,
+  #   exclude_cols = exclude_cols,
+  #   silent = silent
+  # )
+  #
+  # x_cols <- obj@params$requested_x_cols
+  #
+  # if (!all_cats) {
+  #   if (is.null(cats)) {
+  #     cats <- y_cats
+  #   }
+  #
+  #   req_plots <- prop(obj, comp)[cats]
+  #   # prop(obj, comp) <- prop(obj, comp)[cats]
+  #
+  #   if (type == 'ale') {
+  #     req_plots <- req_plots |>
+  #       # req_plots <- prop(obj, comp) |>
+  #       imap(\(it.cat, it.cat_name) {
+  #         it.cat.d1 <- x_cols[['d1']] |>
+  #           map(\(it.d1) {
+  #             it.cat$plots$d1[[it.d1]]
+  #           }) |>
+  #           set_names(x_cols[['d1']])
+  #
+  #         it.cat.d2 <- list()
+  #         for(it.d2 in x_cols[['d2']]) {
+  #
+  #           it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
+  #             it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
+  #         }
+  #
+  #         list(
+  #           plots = list(
+  #             d1 = it.cat.d1,
+  #             d2 = it.cat.d2
+  #           )
+  #         )
+  #       })
+
 
   if (is.null(cats)) {
     cats <- y_cats
   }
 
-  obj@distinct <- obj@distinct[cats]
+  obj@plots <- obj@plots[cats]
 
   if (type == 'ale') {
     subset_plots <- prop(obj, comp) |>
@@ -897,3 +965,143 @@ method(get, ALEPlots) <- function(
 
   return(requested_plots)
 }
+
+
+#' else if (type == 'eff') {
+#'   req_plots <- req_plots |>
+#'     map(\(it.cat) it.cat$plots$eff)
+#'
+#'   if (length(names(requested_plots)) == 1) {
+#'     # Only one category: eliminate the category level
+#'     requested_plots <- requested_plots[[1]]
+#'   }
+#' }
+#' }
+#' else {  # all_cats = TRUE
+#'   type <- if (type == 'ale') 'overlay' else type
+#'
+#'   req_plots <- list(
+#'     d1 = prop(obj, comp)$.all_cats$plots$d1 |>
+#'       map(\(it.x_col) it.x_col[[type]])
+#'   )
+#' }
+#'
+#' # browser()
+#'
+#' ## Simplify the results ----------------
+#' # If there is only one category, results are always simplified regardless of the value of simplify
+#' if (length(req_plots) == 1) {
+#'   # Only one category: eliminate the category level
+#'   req_plots <- req_plots[[1]]$plots
+#' }
+#'
+#' if (simplify) {
+#'   # If one dimension is empty, eliminate it and leave only the other
+#'   req_plots <- compact(req_plots)
+#'   if (is.null(req_plots[['d1']])) {
+#'     req_plots <- compact(req_plots[['d2']])
+#'   } else if (is.null(req_plots[['d2']])) {
+#'     req_plots <- compact(req_plots[['d1']])
+#'   }
+#'
+#'   if (length(req_plots) == 1) {
+#'     req_plots <- req_plots[[1]]
+#'   }
+#' }
+#'
+#'
+#' return(requested_plots)
+#' }
+#'
+#'
+#' #' @name subset.ALEPlots
+#' #' @title subset method for ALEPlots objects
+#' #'
+#' #' @description
+#' #' Subsets an `ALEPlots` object with the resolved `x_cols` requested.
+#' #'
+#' #' See [get.ALE()] for explanation of parameters not described here.
+#' #'
+#' #' @param x ALEPlots object to subset.
+#' #'
+#' #' @returns An `ALEPlots` object identical to the original obj except that it only has the resolved `x_cols` requested.
+#' #'
+#' #' @method subset ALEPlots
+#' method(subset, ALEPlots) <- function(
+#'     x,
+#'     x_cols = NULL,
+#'     ...,
+#'     exclude_cols = NULL,
+#'     silent = FALSE
+#' ) {
+#'   # internally rename x to obj
+#'   obj <- x
+#'   rm(x)
+#'
+#'   ## Validate inputs -------------
+#'
+#'   # Error if any unlisted argument is used (captured in ...).
+#'   # Never skip this validation step!
+#'   rlang::check_dots_empty()
+#'
+#'   if (is.null(x_cols) && is.null(exclude_cols)) {
+#'     # NULL x_cols means "everything", so return the original object with no subset
+#'     return(obj)
+#'   }
+#'
+#'   x_cols <- resolve_x_cols(
+#'     x_cols = x_cols,
+#'     col_names = obj@params$requested_x_cols |>
+#'       unlist(use.names = FALSE) |>
+#'       unique(),
+#'     y_col = obj@params$y_col,
+#'     exclude_cols = exclude_cols,
+#'     silent = silent
+#'   )
+#'
+#'   ## Subset requested x_cols --------------
+#'
+#'   obj_props <- obj |>
+#'     props() |>
+#'     names()
+#'
+#'   sub_obj <- obj_props |>
+#'     setdiff('params') |>
+#'     map(\(it.obj_prop_name) {
+#'       prop(obj, it.obj_prop_name)  |>
+#'         imap(\(it.cat, it.cat_name) {
+#'           it.cat.d1 <- x_cols[['d1']] |>
+#'             map(\(it.d1) {
+#'               it.cat$plots$d1[[it.d1]]
+#'             }) |>
+#'             set_names(x_cols[['d1']])
+#'
+#'           it.cat.d2 <- list()
+#'           for(it.d2 in x_cols[['d2']]) {
+#'             it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
+#'               it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
+#'           }
+#'
+#'           it.cat.eff <-  it.cat$plots$eff
+#'
+#'           list(
+#'             plots = list(
+#'               d1  = if (length(it.cat.d1) == 0) NULL else it.cat.d1,
+#'               d2  = if (length(it.cat.d2) == 0) NULL else it.cat.d2,
+#'               eff = if (length(it.cat.eff) == 0) NULL else it.cat.eff
+#'             )
+#'           )
+#'         })
+#'     }) |>
+#'     set_names(obj_props |> setdiff('params'))
+#'
+#'   sub_obj$params <- obj@params
+#'   sub_obj$params$requested_x_cols <- x_cols
+#'
+#'   for (p in obj_props) {
+#'     prop(obj, p) <- sub_obj[[p]]
+#'   }
+#'
+#'   return(obj)
+#' }
+

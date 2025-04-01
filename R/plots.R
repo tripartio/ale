@@ -4,6 +4,58 @@
 # None of the object-oriented code is in this file; such code is in dedicated object files such as ALEPlots.R.
 
 
+# Colours
+# https://coolors.co/09090b-4979c1-ff474a-f4ce67-adadad
+#
+# /* CSS HEX */
+#   --black: #09090bff;
+#   --glaucous: #4979c1ff;
+#   --imperial-red: #ff474aff;
+#   --naples-yellow: #f4ce67ff;
+#   --silver: #adadadff;
+#
+#   /* CSS HSL */
+#   --black: hsla(240, 10%, 4%, 1);
+# --glaucous: hsla(216, 49%, 52%, 1);
+# --imperial-red: hsla(359, 100%, 64%, 1);
+# --naples-yellow: hsla(44, 87%, 68%, 1);
+# --silver: hsla(0, 0%, 68%, 1);
+#
+# /* SCSS HEX */
+#   $black: #09090bff;
+#   $glaucous: #4979c1ff;
+#   $imperial-red: #ff474aff;
+#   $naples-yellow: #f4ce67ff;
+#   $silver: #adadadff;
+#
+#   /* SCSS HSL */
+#   $black: hsla(240, 10%, 4%, 1);
+# $glaucous: hsla(216, 49%, 52%, 1);
+# $imperial-red: hsla(359, 100%, 64%, 1);
+# $naples-yellow: hsla(44, 87%, 68%, 1);
+# $silver: hsla(0, 0%, 68%, 1);
+#
+# /* SCSS RGB */
+#   $black: rgba(9, 9, 11, 1);
+# $glaucous: rgba(73, 121, 193, 1);
+# $imperial-red: rgba(255, 71, 74, 1);
+# $naples-yellow: rgba(244, 206, 103, 1);
+# $silver: rgba(173, 173, 173, 1);
+#
+# /* SCSS Gradient */
+#   $gradient-top: linear-gradient(0deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                  $gradient-right: linear-gradient(90deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                   $gradient-bottom: linear-gradient(180deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                     $gradient-left: linear-gradient(270deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                                                     $gradient-top-right: linear-gradient(45deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                                                                                          $gradient-bottom-right: linear-gradient(135deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                                                                                                                                  $gradient-top-left: linear-gradient(225deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                                                                                                                                                                      $gradient-bottom-left: linear-gradient(315deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+#                                                                                                                                                                                                                                                                                             $gradient-radial: radial-gradient(#09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
+
+
+
+
 
 #' Plot 1D ALE data
 #'
@@ -14,6 +66,7 @@
 #' @param ale_data tibble. Output data from `calc_ale`.
 #' @param x_col character(1). Name of a single column whose ALE data is to be plotted.
 #' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
+# @param cat_plot character(1) in c('overlay', 'facet'). If not `NULL` (default), type of categorical plot to create.
 #' @param y_type See documentation for [ALEPlots()]
 #' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
@@ -31,6 +84,7 @@ plot_ale_1D <- function(
     ale_data,
     x_col,
     y_col,
+    # cat_plot = NULL,
     y_type,
     y_summary,
     p_exactness,
@@ -52,6 +106,8 @@ plot_ale_1D <- function(
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
   use_aler_band <- !is.null(p_exactness)
+
+  all_cats <- '.cat' %in% names(ale_data)
 
   # # For now ensure that plots are not categorical
   # if (ncol(y_summary) > 1) {
@@ -111,10 +167,15 @@ plot_ale_1D <- function(
   # x_type <- var_type(ale_data$ale_x)
 
 
-  total_n <- sum(ale_data$.n)
-
   # Rename the x variable in ale_data for easier coding
   names(ale_data)[1] <- '.x'
+
+  # total_n <- ale_data |>
+  #   # Summarize by x and .n in case current ale_data is for all_cats
+  #   summarize(.by = c('.x', '.n')) |>
+  #   pull('.n') |>
+  #   sum()
+  total_n <- sum(ale_data$.n)
 
   ## Create base plot --------------------
   plot <-
@@ -232,6 +293,42 @@ plot_ale_1D <- function(
     )
 
   ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
+
+  # if (all_cats) browser()
+
+  # if (x_is_numeric) {
+  #   if (!all_cats) {
+  #     plot <- plot +
+  #       # Bootstrap band (ribbon)
+  #       geom_ribbon(
+  #         aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
+  #         fill = 'grey85', alpha = 0.5
+  #       ) +
+  #       # x line
+  #       geom_line()
+  #   }
+  #   else {
+  #     # All categories: no bootstrap bands
+  #     # browser()
+  #     plot <- if (cat_plot == 'overlay') {
+  #       plot +
+  #         geom_line(aes(
+  #           colour = .cat,
+  #           linetype = .cat
+  #         )) +
+  #         labs(
+  #           colour = y_col,
+  #           linetype = y_col
+  #         )
+  #     }
+  #     else {  # facet
+  #       plot +
+  #         geom_line() +
+  #         facet_wrap(vars(.cat), nrow = 1)
+  #     }
+  #   }
+  # }
+
 
   if (x_is_numeric) {
     plot <- plot +

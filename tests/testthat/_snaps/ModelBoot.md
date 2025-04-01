@@ -443,13 +443,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$mpg
-      attr(,"distinct")$mpg$ale
-      attr(,"distinct")$mpg$ale$d1
-      attr(,"distinct")$mpg$ale$d1$cyl
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$mpg
+      attr(,"effect")$mpg$ale
+      attr(,"effect")$mpg$ale$d1
+      attr(,"effect")$mpg$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -461,7 +461,7 @@
       6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
       7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
       
-      attr(,"distinct")$mpg$ale$d1$disp
+      attr(,"effect")$mpg$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
              <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -476,7 +476,7 @@
        9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
       10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
       
-      attr(,"distinct")$mpg$ale$d1$hp
+      attr(,"effect")$mpg$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -491,7 +491,7 @@
        9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
       10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
       
-      attr(,"distinct")$mpg$ale$d1$drat
+      attr(,"effect")$mpg$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -506,7 +506,7 @@
        9      4.21     7  0.671   0.671   0.671     0.671   0.671 
       10      4.98     7  1.47    1.47    1.47      1.47    1.47  
       
-      attr(,"distinct")$mpg$ale$d1$wt
+      attr(,"effect")$mpg$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -521,7 +521,7 @@
        9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
       10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
       
-      attr(,"distinct")$mpg$ale$d1$qsec
+      attr(,"effect")$mpg$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -536,21 +536,21 @@
        9      20       7  4.54   4.54    4.54      4.54   4.54 
       10      23.0     7  9.93   9.93    9.93      9.93   9.93 
       
-      attr(,"distinct")$mpg$ale$d1$vs
+      attr(,"effect")$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     36  1.63  1.63    1.63      1.63  1.63
       2 TRUE      28 -2.09 -2.09   -2.09     -2.09 -2.09
       
-      attr(,"distinct")$mpg$ale$d1$am
+      attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -1.61 -1.61   -1.61     -1.61 -1.61
       2 TRUE      26  2.36  2.36    2.36      2.36  2.36
       
-      attr(,"distinct")$mpg$ale$d1$gear
+      attr(,"effect")$mpg$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -558,7 +558,7 @@
       2 four        24 -1.79  -1.79   -1.79     -1.79  -1.79 
       3 five        10  0.688  0.688   0.688     0.688  0.688
       
-      attr(,"distinct")$mpg$ale$d1$carb
+      attr(,"effect")$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
             <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -568,7 +568,7 @@
       4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
       5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
       
-      attr(,"distinct")$mpg$ale$d1$country
+      attr(,"effect")$mpg$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -579,7 +579,7 @@
       5 Germany        16 -1.81  -1.81   -1.81     -1.81  -1.81 
       6 USA            24  1.84   1.84    1.84      1.84   1.84 
       
-      attr(,"distinct")$mpg$ale$d1$continent
+      attr(,"effect")$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -589,8 +589,8 @@
       
       
       
-      attr(,"distinct")$mpg$stats
-      attr(,"distinct")$mpg$stats$d1
+      attr(,"effect")$mpg$stats
+      attr(,"effect")$mpg$stats$d1
       # A tibble: 72 x 7
          term  statistic estimate conf.low    mean  median conf.high
          <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -607,10 +607,10 @@
       # i 62 more rows
       
       
-      attr(,"distinct")$mpg$conf
+      attr(,"effect")$mpg$conf
       NULL
       
-      attr(,"distinct")$mpg$boot_data
+      attr(,"effect")$mpg$boot_data
       NULL
       
       
@@ -824,11 +824,11 @@
       
       
       attr(,"ale")$boot
-      attr(,"ale")$boot$distinct
-      attr(,"ale")$boot$distinct$mpg
-      attr(,"ale")$boot$distinct$mpg$ale
-      attr(,"ale")$boot$distinct$mpg$ale$d1
-      attr(,"ale")$boot$distinct$mpg$ale$d1$cyl
+      attr(,"ale")$boot$effect
+      attr(,"ale")$boot$effect$mpg
+      attr(,"ale")$boot$effect$mpg$ale
+      attr(,"ale")$boot$effect$mpg$ale$d1
+      attr(,"ale")$boot$effect$mpg$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n         .y    .y_lo    .y_mean  .y_median   .y_hi
            <dbl> <int>      <dbl>    <dbl>      <dbl>      <dbl>   <dbl>
@@ -840,7 +840,7 @@
       6        8    21 -0.00220   -0.0197  -0.00220   -0.00220   0.0153 
       7        9     3 -0.00335   -0.0277  -0.00335   -0.00335   0.0210 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$disp
+      attr(,"ale")$boot$effect$mpg$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -855,7 +855,7 @@
        9     397.      7  3.35   2.10    3.35      3.35   4.59 
       10     472       7  4.75   2.99    4.75      4.75   6.50 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$hp
+      attr(,"ale")$boot$effect$mpg$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n      .y   .y_lo .y_mean .y_median  .y_hi
            <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
@@ -870,7 +870,7 @@
        9    245      8  -5.17   -6.57   -5.17     -5.17  -3.77 
       10    335      6 -10.1   -12.2   -10.1     -10.1   -8.04 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$drat
+      attr(,"ale")$boot$effect$mpg$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n     .y   .y_lo .y_mean .y_median   .y_hi
              <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -885,7 +885,7 @@
        9      4.21     7  1.62   0.882    1.62      1.62   2.36  
       10      4.98     7  3.98   2.06     3.98      3.98   5.91  
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$wt
+      attr(,"ale")$boot$effect$mpg$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
            <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -900,7 +900,7 @@
        9    4.05     7  -4.07   -4.09   -4.07     -4.07   -4.06 
       10    5.45     7 -10.2   -10.3   -10.2     -10.2   -10.0  
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$qsec
+      attr(,"ale")$boot$effect$mpg$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n      .y  .y_lo .y_mean .y_median  .y_hi
              <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -915,21 +915,21 @@
        9      20       7  2.76    2.60   2.76      2.76    2.92 
       10      23.0     7  6.27    5.48   6.27      6.27    7.06 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$vs
+      attr(,"ale")$boot$effect$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
         <ord>  <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
       1 FALSE     36  0.211 -0.0530   0.211     0.211 0.475 
       2 TRUE      28 -0.231 -0.506   -0.231    -0.231 0.0445
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$am
+      attr(,"ale")$boot$effect$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -1.88 -1.98   -1.88     -1.88 -1.79
       2 TRUE      26  2.66  2.06    2.66      2.66  3.27
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$gear
+      attr(,"ale")$boot$effect$mpg$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
@@ -937,7 +937,7 @@
       2 four        24 -1.43  -1.98   -1.43     -1.43  -0.893  
       3 five        10 -0.254 -0.515  -0.254    -0.254  0.00742
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$carb
+      attr(,"ale")$boot$effect$mpg$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y    .y_lo   .y_mean .y_median   .y_hi
             <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>   <dbl>
@@ -947,7 +947,7 @@
       4         4    16  0.00444  -0.00849  0.00444   0.00444  0.0174 
       5         8     6  0.0144   -0.0311   0.0144    0.0144   0.0599 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$country
+      attr(,"ale")$boot$effect$mpg$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -958,7 +958,7 @@
       5 Germany        16 -1.03  -1.53   -1.03     -1.03  -0.530
       6 USA            24  1.69   1.39    1.69      1.69   1.99 
       
-      attr(,"ale")$boot$distinct$mpg$ale$d1$continent
+      attr(,"ale")$boot$effect$mpg$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -968,8 +968,8 @@
       
       
       
-      attr(,"ale")$boot$distinct$mpg$stats
-      attr(,"ale")$boot$distinct$mpg$stats$d1
+      attr(,"ale")$boot$effect$mpg$stats
+      attr(,"ale")$boot$effect$mpg$stats$d1
       # A tibble: 72 x 7
          term  statistic estimate conf.low  median    mean conf.high
          <fct> <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -986,7 +986,7 @@
       # i 62 more rows
       
       
-      attr(,"ale")$boot$distinct$mpg$conf
+      attr(,"ale")$boot$effect$mpg$conf
       NULL
       
       
@@ -1710,13 +1710,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$vs
-      attr(,"distinct")$vs$ale
-      attr(,"distinct")$vs$ale$d1
-      attr(,"distinct")$vs$ale$d1$model
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$vs
+      attr(,"effect")$vs$ale
+      attr(,"effect")$vs$ale$d1
+      attr(,"effect")$vs$ale$d1$model
       # A tibble: 32 x 7
          model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
          <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1732,7 +1732,7 @@
       10 Valiant                 2 1.03   1.03    1.03      1.03   1.03  
       # i 22 more rows
       
-      attr(,"distinct")$vs$ale$d1$mpg
+      attr(,"effect")$vs$ale$d1$mpg
       # A tibble: 10 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
@@ -1747,7 +1747,7 @@
        9     30.1     7     0     0       0         0     0
       10     33.9     7     0     0       0         0     0
       
-      attr(,"distinct")$vs$ale$d1$cyl
+      attr(,"effect")$vs$ale$d1$cyl
       # A tibble: 7 x 7
         cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1759,7 +1759,7 @@
       6        8    21  3.01e-20  3.01e-20  3.01e-20  3.01e-20  3.01e-20
       7        9     3  5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
       
-      attr(,"distinct")$vs$ale$d1$disp
+      attr(,"effect")$vs$ale$d1$disp
       # A tibble: 10 x 7
          disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1774,7 +1774,7 @@
        9     397.      7 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19
       10     472       7 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
       
-      attr(,"distinct")$vs$ale$d1$hp
+      attr(,"effect")$vs$ale$d1$hp
       # A tibble: 10 x 7
          hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1789,7 +1789,7 @@
        9    245      8 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18
       10    335      6 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17
       
-      attr(,"distinct")$vs$ale$d1$drat
+      attr(,"effect")$vs$ale$d1$drat
       # A tibble: 10 x 7
          drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1804,7 +1804,7 @@
        9      4.21     7  2.77e-18  2.77e-18  2.77e-18  2.77e-18  2.77e-18
       10      4.98     7  7.19e-18  7.19e-18  7.19e-18  7.19e-18  7.19e-18
       
-      attr(,"distinct")$vs$ale$d1$wt
+      attr(,"effect")$vs$ale$d1$wt
       # A tibble: 10 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1819,7 +1819,7 @@
        9    4.05     7  1.19e-17  1.19e-17  1.19e-17  1.19e-17  1.19e-17
       10    5.45     7  4.12e-17  4.12e-17  4.12e-17  4.12e-17  4.12e-17
       
-      attr(,"distinct")$vs$ale$d1$qsec
+      attr(,"effect")$vs$ale$d1$qsec
       # A tibble: 10 x 7
          qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
              <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1834,14 +1834,14 @@
        9      20       7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
       10      23.0     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
       
-      attr(,"distinct")$vs$ale$d1$am
+      attr(,"effect")$vs$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
       1 FALSE     38  0.187  0.187   0.187     0.187  0.187
       2 TRUE      26 -0.274 -0.274  -0.274    -0.274 -0.274
       
-      attr(,"distinct")$vs$ale$d1$gear
+      attr(,"effect")$vs$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
@@ -1849,7 +1849,7 @@
       2 four        24  0.359  0.359   0.359     0.359  0.359
       3 five        10  0.559  0.559   0.559     0.559  0.559
       
-      attr(,"distinct")$vs$ale$d1$carb
+      attr(,"effect")$vs$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
@@ -1859,7 +1859,7 @@
       4         4    16 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21
       5         8     6 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20
       
-      attr(,"distinct")$vs$ale$d1$country
+      attr(,"effect")$vs$ale$d1$country
       # A tibble: 6 x 7
         country.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
         <ord>       <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -1870,7 +1870,7 @@
       5 Germany        16 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
       6 USA            24 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
       
-      attr(,"distinct")$vs$ale$d1$continent
+      attr(,"effect")$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
         <ord>         <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
@@ -1880,8 +1880,8 @@
       
       
       
-      attr(,"distinct")$vs$stats
-      attr(,"distinct")$vs$stats$d1
+      attr(,"effect")$vs$stats
+      attr(,"effect")$vs$stats$d1
       # A tibble: 78 x 7
          term  statistic estimate conf.low    mean  median conf.high
          <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
@@ -1898,7 +1898,7 @@
       # i 68 more rows
       
       
-      attr(,"distinct")$vs$boot_data
+      attr(,"effect")$vs$boot_data
       NULL
       
       
@@ -2675,13 +2675,13 @@
       @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$setosa
-      attr(,"distinct")$setosa$ale
-      attr(,"distinct")$setosa$ale$d1
-      attr(,"distinct")$setosa$ale$d1$Sepal.Length
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$setosa
+      attr(,"effect")$setosa$ale
+      attr(,"effect")$setosa$ale$d1
+      attr(,"effect")$setosa$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -2696,7 +2696,7 @@
        9               6.9    17  0.00000761  0.00000761    7.61e-6   7.61e-6  7.61e-6
       10               7.9    13  0.0000101   0.0000101     1.01e-5   1.01e-5  1.01e-5
       
-      attr(,"distinct")$setosa$ale$d1$Petal.Width
+      attr(,"effect")$setosa$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n          .y       .y_lo     .y_mean  .y_median    .y_hi
                    <dbl> <int>       <dbl>       <dbl>       <dbl>      <dbl>    <dbl>
@@ -2712,8 +2712,8 @@
       
       
       
-      attr(,"distinct")$setosa$stats
-      attr(,"distinct")$setosa$stats$d1
+      attr(,"effect")$setosa$stats
+      attr(,"effect")$setosa$stats$d1
       # A tibble: 12 x 7
          term         statistic     estimate     conf.low      mean   median conf.high
          <chr>        <chr>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
@@ -2731,17 +2731,17 @@
       12 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
       
       
-      attr(,"distinct")$setosa$conf
+      attr(,"effect")$setosa$conf
       NULL
       
-      attr(,"distinct")$setosa$boot_data
+      attr(,"effect")$setosa$boot_data
       NULL
       
       
-      attr(,"distinct")$versicolor
-      attr(,"distinct")$versicolor$ale
-      attr(,"distinct")$versicolor$ale$d1
-      attr(,"distinct")$versicolor$ale$d1$Sepal.Length
+      attr(,"effect")$versicolor
+      attr(,"effect")$versicolor$ale
+      attr(,"effect")$versicolor$ale$d1
+      attr(,"effect")$versicolor$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2756,7 +2756,7 @@
        9               6.9    17  0.0471   0.0471   0.0471    0.0471   0.0471 
       10               7.9    13  0.0572   0.0572   0.0572    0.0572   0.0572 
       
-      attr(,"distinct")$versicolor$ale$d1$Petal.Width
+      attr(,"effect")$versicolor$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2772,8 +2772,8 @@
       
       
       
-      attr(,"distinct")$versicolor$stats
-      attr(,"distinct")$versicolor$stats$d1
+      attr(,"effect")$versicolor$stats
+      attr(,"effect")$versicolor$stats$d1
       # A tibble: 12 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2791,17 +2791,17 @@
       12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
       
       
-      attr(,"distinct")$versicolor$conf
+      attr(,"effect")$versicolor$conf
       NULL
       
-      attr(,"distinct")$versicolor$boot_data
+      attr(,"effect")$versicolor$boot_data
       NULL
       
       
-      attr(,"distinct")$virginica
-      attr(,"distinct")$virginica$ale
-      attr(,"distinct")$virginica$ale$d1
-      attr(,"distinct")$virginica$ale$d1$Sepal.Length
+      attr(,"effect")$virginica
+      attr(,"effect")$virginica$ale
+      attr(,"effect")$virginica$ale$d1
+      attr(,"effect")$virginica$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -2816,7 +2816,7 @@
        9               6.9    17 -0.0471  -0.0471  -0.0471   -0.0471  -0.0471 
       10               7.9    13 -0.0572  -0.0572  -0.0572   -0.0572  -0.0572 
       
-      attr(,"distinct")$virginica$ale$d1$Petal.Width
+      attr(,"effect")$virginica$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
                    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
@@ -2832,8 +2832,8 @@
       
       
       
-      attr(,"distinct")$virginica$stats
-      attr(,"distinct")$virginica$stats$d1
+      attr(,"effect")$virginica$stats
+      attr(,"effect")$virginica$stats$d1
       # A tibble: 12 x 7
          term         statistic estimate conf.low     mean   median conf.high
          <chr>        <chr>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -2851,10 +2851,10 @@
       12 Petal.Width  naler_max  16       16       16       16        16     
       
       
-      attr(,"distinct")$virginica$conf
+      attr(,"effect")$virginica$conf
       NULL
       
-      attr(,"distinct")$virginica$boot_data
+      attr(,"effect")$virginica$boot_data
       NULL
       
       
@@ -3288,11 +3288,11 @@
       
       
       attr(,"ale")$boot
-      attr(,"ale")$boot$distinct
-      attr(,"ale")$boot$distinct$setosa
-      attr(,"ale")$boot$distinct$setosa$ale
-      attr(,"ale")$boot$distinct$setosa$ale$d1
-      attr(,"ale")$boot$distinct$setosa$ale$d1$Sepal.Length
+      attr(,"ale")$boot$effect
+      attr(,"ale")$boot$effect$setosa
+      attr(,"ale")$boot$effect$setosa$ale
+      attr(,"ale")$boot$effect$setosa$ale$d1
+      attr(,"ale")$boot$effect$setosa$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
                      <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
@@ -3307,7 +3307,7 @@
        9               6.9    17  0.00000621  0.00000301    6.21e-6   6.21e-6  9.40e-6
       10               7.9    13  0.0000111   0.00000350    1.11e-5   1.11e-5  1.87e-5
       
-      attr(,"ale")$boot$distinct$setosa$ale$d1$Petal.Width
+      attr(,"ale")$boot$effect$setosa$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n         .y       .y_lo    .y_mean  .y_median      .y_hi
                    <dbl> <int>      <dbl>       <dbl>      <dbl>      <dbl>      <dbl>
@@ -3323,8 +3323,8 @@
       
       
       
-      attr(,"ale")$boot$distinct$setosa$stats
-      attr(,"ale")$boot$distinct$setosa$stats$d1
+      attr(,"ale")$boot$effect$setosa$stats
+      attr(,"ale")$boot$effect$setosa$stats$d1
       # A tibble: 12 x 7
          term         statistic     estimate     conf.low    median     mean conf.high
          <fct>        <fct>            <dbl>        <dbl>     <dbl>    <dbl>     <dbl>
@@ -3342,14 +3342,14 @@
       12 Petal.Width  naler_max  18.4         16.6          1.84e+1  1.84e+1   2.02e+1
       
       
-      attr(,"ale")$boot$distinct$setosa$conf
+      attr(,"ale")$boot$effect$setosa$conf
       NULL
       
       
-      attr(,"ale")$boot$distinct$versicolor
-      attr(,"ale")$boot$distinct$versicolor$ale
-      attr(,"ale")$boot$distinct$versicolor$ale$d1
-      attr(,"ale")$boot$distinct$versicolor$ale$d1$Sepal.Length
+      attr(,"ale")$boot$effect$versicolor
+      attr(,"ale")$boot$effect$versicolor$ale
+      attr(,"ale")$boot$effect$versicolor$ale$d1
+      attr(,"ale")$boot$effect$versicolor$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -3364,7 +3364,7 @@
        9               6.9    17  0.0173   0.00664  0.0173    0.0173   0.0280 
       10               7.9    13  0.0952   0.0368   0.0952    0.0952   0.154  
       
-      attr(,"ale")$boot$distinct$versicolor$ale$d1$Petal.Width
+      attr(,"ale")$boot$effect$versicolor$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n       .y   .y_lo  .y_mean .y_median    .y_hi
                    <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>    <dbl>
@@ -3380,8 +3380,8 @@
       
       
       
-      attr(,"ale")$boot$distinct$versicolor$stats
-      attr(,"ale")$boot$distinct$versicolor$stats$d1
+      attr(,"ale")$boot$effect$versicolor$stats
+      attr(,"ale")$boot$effect$versicolor$stats$d1
       # A tibble: 12 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3399,14 +3399,14 @@
       12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
       
       
-      attr(,"ale")$boot$distinct$versicolor$conf
+      attr(,"ale")$boot$effect$versicolor$conf
       NULL
       
       
-      attr(,"ale")$boot$distinct$virginica
-      attr(,"ale")$boot$distinct$virginica$ale
-      attr(,"ale")$boot$distinct$virginica$ale$d1
-      attr(,"ale")$boot$distinct$virginica$ale$d1$Sepal.Length
+      attr(,"ale")$boot$effect$virginica
+      attr(,"ale")$boot$effect$virginica$ale
+      attr(,"ale")$boot$effect$virginica$ale$d1
+      attr(,"ale")$boot$effect$virginica$ale$d1$Sepal.Length
       # A tibble: 10 x 7
          Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
                      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
@@ -3421,7 +3421,7 @@
        9               6.9    17 -0.0173  -0.0280  -0.0173   -0.0173  -0.00665
       10               7.9    13 -0.0952  -0.154   -0.0952   -0.0952  -0.0368 
       
-      attr(,"ale")$boot$distinct$virginica$ale$d1$Petal.Width
+      attr(,"ale")$boot$effect$virginica$ale$d1$Petal.Width
       # A tibble: 9 x 7
         Petal.Width.ceil    .n       .y    .y_lo  .y_mean .y_median   .y_hi
                    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>   <dbl>
@@ -3437,8 +3437,8 @@
       
       
       
-      attr(,"ale")$boot$distinct$virginica$stats
-      attr(,"ale")$boot$distinct$virginica$stats$d1
+      attr(,"ale")$boot$effect$virginica$stats
+      attr(,"ale")$boot$effect$virginica$stats$d1
       # A tibble: 12 x 7
          term         statistic estimate conf.low   median     mean conf.high
          <fct>        <fct>        <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
@@ -3456,7 +3456,7 @@
       12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
       
       
-      attr(,"ale")$boot$distinct$virginica$conf
+      attr(,"ale")$boot$effect$virginica$conf
       NULL
       
       

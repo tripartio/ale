@@ -40,11 +40,11 @@
 # @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
 #'
 #'
-#' @returns An object of class `ALE` with properties `distinct` and `params`.
+#' @returns An object of class `ALE` with properties `effect` and `params`.
 #'
 #' @section Properties:
 #' \describe{
-#'   \item{distinct}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
+#'   \item{effect}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
 #'   \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the `ALE` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
@@ -173,7 +173,7 @@
 ALE <- new_class(
   'ALE',
   properties = list(
-    distinct = class_list,
+    effect = class_list,
     params   = class_list
   ),
   constructor = function (
@@ -551,7 +551,7 @@ ALE <- new_class(
       split(ales$cat)
 
     # Initialize structure to store ALE results
-    ale_struc <- list(distinct = list())
+    ale_struc <- list(effect = list())
 
     for (it.cat in y_cats) {
       # Assign 1D ALE results to ale_struc
@@ -573,7 +573,7 @@ ALE <- new_class(
           setdiff(c('cat', 'x_cols', 'ale_d'))
       ]
 
-      ale_struc$distinct[[it.cat]]$d1 <- it.ar_1D
+      ale_struc$effect[[it.cat]]$d1 <- it.ar_1D
 
       # Assign 2D ALE results to ale_struc
       if (length(x_cols) >= 2 && length(x_cols$d2) >= 1) {
@@ -608,7 +608,7 @@ ALE <- new_class(
           }
         }
 
-        ale_struc$distinct[[it.cat]]$d2 <- ale_2D_struc
+        ale_struc$effect[[it.cat]]$d2 <- ale_2D_struc
       }  # if (length(x_cols) >= 2 && length(x_cols$d2) >= 2) {
 
     }
@@ -630,8 +630,8 @@ ALE <- new_class(
       for (it.cat in y_cats) {
         # 1D ALE statistics
         if (length(x_cols$d1) >= 1) {
-          ale_struc$distinct[[it.cat]]$d1$stats <-
-            ale_struc$distinct[[it.cat]]$d1$stats |>
+          ale_struc$effect[[it.cat]]$d1$stats <-
+            ale_struc$effect[[it.cat]]$d1$stats |>
             bind_rows()
             # imap(\(it.term_tbl, it.term) {
             #   it.term_tbl |>
@@ -642,10 +642,10 @@ ALE <- new_class(
             # pivot_stats()
 
           if (output_conf) {
-            ale_struc$distinct[[it.cat]]$d1$conf <-
-            # ale_struc$distinct[[it.cat]]$d1$stats$conf_regions <-
+            ale_struc$effect[[it.cat]]$d1$conf <-
+            # ale_struc$effect[[it.cat]]$d1$stats$conf_regions <-
               summarize_conf_regions_1D(
-                ale_struc$distinct[[it.cat]]$d1$ale,
+                ale_struc$effect[[it.cat]]$d1$ale,
                 y_summary[, it.cat, drop = FALSE]
               )
           }  # if (output_conf)
@@ -653,8 +653,8 @@ ALE <- new_class(
 
         # 2D ALE statistics
         if (length(x_cols$d2) >= 1) {
-          ale_struc$distinct[[it.cat]]$d2$stats <-
-            ale_struc$distinct[[it.cat]]$d2$stats |>
+          ale_struc$effect[[it.cat]]$d2$stats <-
+            ale_struc$effect[[it.cat]]$d2$stats |>
             bind_rows()
           # imap(\(it.term_tbl, it.term) {
             #   it.term_tbl |>
@@ -665,10 +665,10 @@ ALE <- new_class(
             # pivot_stats()
 
           if (output_conf) {
-            ale_struc$distinct[[it.cat]]$d2$conf <-
-              # ale_struc$distinct[[it.cat]]$d2$stats$conf_regions <-
+            ale_struc$effect[[it.cat]]$d2$conf <-
+              # ale_struc$effect[[it.cat]]$d2$stats$conf_regions <-
               summarize_conf_regions_2D(
-                ale_struc$distinct[[it.cat]]$d2$ale,
+                ale_struc$effect[[it.cat]]$d2$ale,
                 y_summary[, it.cat, drop = FALSE]
               )
           }  # if (output_conf)
@@ -677,7 +677,7 @@ ALE <- new_class(
     }  # if (output_stats) {
 
     # Transpose the ALE elements with the ALE dimension
-    ale_struc$distinct <- ale_struc$distinct |>
+    ale_struc$effect <- ale_struc$effect |>
       map(\(it.cat_el) {
         it.cat_el <- it.cat_el |>
           list_transpose(simplify = FALSE)
@@ -698,7 +698,7 @@ ALE <- new_class(
 
     new_object(
       S7_object(),
-      distinct = ale_struc$distinct,
+      effect = ale_struc$effect,
       params = params
     )
   }  # ALE constructor
