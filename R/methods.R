@@ -143,8 +143,6 @@ method(get, ALE) <- function(
     cats <- y_cats
   }
 
-  # browser()
-
   # Rename what depending on what the user requests.
   # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
@@ -450,14 +448,16 @@ method(print, ModelBoot) <- function(x, ...) {
 #' @title get method for ALEPlots objects
 #'
 #' @description
-#' Retrieve specific plots from a `ALEPlots` object.
+#' Retrieve specific plots from a `ALEPlots` object. Unlike [subset.ALEPlots()] which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions, this `get.ALEPlots()` method returns a list of `ggplot` objects as specified in the return value description. If you want to retain special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots, then use [subset.ALEPlots()] instead.
 #'
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param obj ALEPlots object from which to retrieve ALE elements.
-#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'eff'` for ALE effects plots.
+#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'eff'` for ALE effects plots. See `cats` argument for options for categorical plots.
+#' @param cats character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", to avoid naming conflicts with categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+#' @param include_eff See documentation for [subset.ALEPlots()]
 #'
-#' @returns See [get.ALE()]
+#' @returns A list of `ggplot` objects as described in the documentation for the return value of [get.ALE()]. This is different from [subset.ALEPlots()], which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions.
 #'
 #' @method get ALEPlots
 method(get, ALEPlots) <- function(
@@ -467,6 +467,8 @@ method(get, ALEPlots) <- function(
     exclude_cols = NULL,
     type = 'ale',
     cats = NULL,
+    include_eff = TRUE,
+    simplify = TRUE,
     silent = FALSE
 ) {
   comp = 'plots'
@@ -476,196 +478,117 @@ method(get, ALEPlots) <- function(
   # Never skip this validation step!
   rlang::check_dots_empty()
 
-  if (is.null(x_cols)) {
-    # Retrieve everything available
-    x_cols <- obj@params$requested_x_cols
-  }
-
-  col_names <- obj@params$requested_x_cols |>
-    unlist(use.names = FALSE) |>
-    unique()
-
-  x_cols <- resolve_x_cols(
+  # Subset x_cols.
+  # This procedure also validates the arguments used here.
+  obj <- subset(
+    x = obj,
     x_cols = x_cols,
-    col_names = col_names,
-    y_col = obj@params$y_col,
     exclude_cols = exclude_cols,
+    include_eff = include_eff,
     silent = silent
   )
 
-  if (!is.null(x_cols)) {
-    x_cols <- validate_x_cols(
-      x_cols,
-      col_names = col_names,
-      y_col = obj@params$y_col
-    )
-  }
+  x_cols <- obj@params$requested_x_cols
 
-  valid_type <- c('ale', 'eff')
+  valid_type <- c('ale', 'effect', 'overlay', 'facet')
   validate(
     is_string(type, valid_type),
     msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
   )
 
-  y_cats <- names(prop(obj, comp))
+  y_cats <- obj@params$y_cats
+  all_cats <- is_string(cats, c('.all', '.all_cats'))  # all-category plots requested
   validate(
-    is.null(cats) || is_string(cats, y_cats),
-    msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
+    is.null(cats) || is_string(cats, y_cats) || all_cats,
+    msg = c(
+      'x' = 'The {.arg cats} argument must be {.val NULL}, {".all"}, or one or more of the following categories of the outcome variable: {y_cats}.',
+      'i' = '{.arg cats} is {cats}.'
+    )
   )
 
-  # all_cats <- length(y_cats) > 1 && is.null(cats)
-  # if (all_cats) {
-  #   validate(
-  #     type %in% c('ale', 'overlay', 'facet'),
-  #     msg = c(
-  #       'x' = "For categorical plots that span all categories together, the {.arg type} argument must be one of {c('ale', 'overlay', 'facet')}.",
-  #       'i' = 'The {.arg type} argument was {type}.'
-  #     )
-  #   )
-  # }
+  if (all_cats) {
+    validate(
+      type %in% c('ale', 'overlay', 'facet'),
+      msg = c(
+        'x' = "For categorical plots that span all categories together, the {.arg type} argument must be one of {c('overlay', 'facet')}.",
+        'i' = 'The {.arg type} argument was {type}.'
+      )
+    )
+
+    # If unchanged for all_cats, set default type ('ale') to 'facet'
+    type <- if (type == 'ale') 'facet' else type
+  }
 
   ## Retrieve requested plots --------------
 
-  # # Subset x_cols.
-  # # This procedure also validates the arguments used here.
-  # obj <- subset(
-  #   obj,
-  #   x_cols = x_cols,
-  #   exclude_cols = exclude_cols,
-  #   silent = silent
-  # )
-  #
-  # x_cols <- obj@params$requested_x_cols
-  #
-  # if (!all_cats) {
-  #   if (is.null(cats)) {
-  #     cats <- y_cats
-  #   }
-  #
-  #   req_plots <- prop(obj, comp)[cats]
-  #   # prop(obj, comp) <- prop(obj, comp)[cats]
-  #
-  #   if (type == 'ale') {
-  #     req_plots <- req_plots |>
-  #       # req_plots <- prop(obj, comp) |>
-  #       imap(\(it.cat, it.cat_name) {
-  #         it.cat.d1 <- x_cols[['d1']] |>
-  #           map(\(it.d1) {
-  #             it.cat$plots$d1[[it.d1]]
-  #           }) |>
-  #           set_names(x_cols[['d1']])
-  #
-  #         it.cat.d2 <- list()
-  #         for(it.d2 in x_cols[['d2']]) {
-  #
-  #           it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-  #             it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
-  #         }
-  #
-  #         list(
-  #           plots = list(
-  #             d1 = it.cat.d1,
-  #             d2 = it.cat.d2
-  #           )
-  #         )
-  #       })
+  if (!all_cats) {
+    if (is.null(cats)) {
+      cats <- y_cats
+    }
 
+    req_plots <- prop(obj, comp)[cats]
 
-  if (is.null(cats)) {
-    cats <- y_cats
-  }
-
-  obj@plots <- obj@plots[cats]
-
-  if (type == 'ale') {
-    subset_plots <- prop(obj, comp) |>
-      imap(\(it.cat, it.cat_name) {
-        it.cat.d1 <- x_cols[['d1']] |>
-          map(\(it.d1) {
-            it.cat$plots$d1[[it.d1]]
-          }) |>
-          set_names(x_cols[['d1']])
-
-        it.cat.d2 <- list()
-        for(it.d2 in x_cols[['d2']]) {
-          # brows-er()
-          it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-            it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
-        }
-
+    req_plots <- map(req_plots, \(it.cat_plots) {
+      if (type == 'ale') {
         list(
-          plots = list(
-            d1 = it.cat.d1,
-            d2 = it.cat.d2
-          )
+          d1 = it.cat_plots$d1,
+          d2 = it.cat_plots$d2
         )
-      })
+      }
+      else if (type == 'effect') {
+        it.cat_plots$eff
+      }
+    })
 
-    requested_plots <- obj
-    requested_plots@distinct <- subset_plots
-
-  }
-  else if (type == 'eff') {
-    requested_plots <- prop(obj, comp) |>
-      map(\(it.cat) it.cat$plots$eff)
-
-    if (length(names(requested_plots)) == 1) {
+    # If there is only one category, results are always simplified regardless of the value of simplify
+    if (length(req_plots) == 1) {
       # Only one category: eliminate the category level
-      requested_plots <- requested_plots[[1]]
+      req_plots <- req_plots[[1]]
+    }
+  }
+  else {
+    # all_cats
+    req_plots <- list(
+      d1 = obj@plots$.all_cats$d1 |>
+        map(\(it.d1_plots) it.d1_plots[[type]]),
+
+      d2 = if (type == 'facet') {
+        obj@plots$.all_cats$d2
+      } else if (type == 'overlay') {
+        if (length(x_cols$d1) == 0) {
+          cli_warn(c(
+            '!' = 'Overlay plots were requested, yet overlay plots are not supported for 2D ALE and no 1D ALE plots were requested.'
+          ))
+
+          NULL
+        }
+      }
+    )
+  }
+
+  ## Simplify the results ----------------
+
+  if (
+    simplify &&
+    # Only simplify if req_plots is a simple list
+    (class(req_plots) |> is_string('list'))
+  ) {
+    # If one dimension is empty, eliminate it and leave only the other
+    req_plots <- compact(req_plots)
+    if (is.null(req_plots[['d1']])) {
+      req_plots <- compact(req_plots[['d2']])
+    } else if (is.null(req_plots[['d2']])) {
+      req_plots <- compact(req_plots[['d1']])
+    }
+
+    if (length(req_plots) == 1) {
+      req_plots <- req_plots[[1]]
     }
   }
 
-  return(requested_plots)
+  return(req_plots)
 }
 
-
-#' else if (type == 'eff') {
-#'   req_plots <- req_plots |>
-#'     map(\(it.cat) it.cat$plots$eff)
-#'
-#'   if (length(names(requested_plots)) == 1) {
-#'     # Only one category: eliminate the category level
-#'     requested_plots <- requested_plots[[1]]
-#'   }
-#' }
-#' }
-#' else {  # all_cats = TRUE
-#'   type <- if (type == 'ale') 'overlay' else type
-#'
-#'   req_plots <- list(
-#'     d1 = prop(obj, comp)$.all_cats$plots$d1 |>
-#'       map(\(it.x_col) it.x_col[[type]])
-#'   )
-#' }
-#'
-#' # browser()
-#'
-#' ## Simplify the results ----------------
-#' # If there is only one category, results are always simplified regardless of the value of simplify
-#' if (length(req_plots) == 1) {
-#'   # Only one category: eliminate the category level
-#'   req_plots <- req_plots[[1]]$plots
-#' }
-#'
-#' if (simplify) {
-#'   # If one dimension is empty, eliminate it and leave only the other
-#'   req_plots <- compact(req_plots)
-#'   if (is.null(req_plots[['d1']])) {
-#'     req_plots <- compact(req_plots[['d2']])
-#'   } else if (is.null(req_plots[['d2']])) {
-#'     req_plots <- compact(req_plots[['d1']])
-#'   }
-#'
-#'   if (length(req_plots) == 1) {
-#'     req_plots <- req_plots[[1]]
-#'   }
-#' }
-#'
-#'
-#' return(requested_plots)
-#' }
-#'
-#'
 
 
 #' @name plot.ALEPlots
@@ -741,16 +664,15 @@ method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
 #' @title subset method for ALEPlots object
 #'
 #' @description
-#' Return an `ALEPlots` object reduced to cover only specified variables and interactions.
+#' Subset an `ALEPlots` object to produce another `ALEPlots` object only with the subsetted `x_cols` variables and interactions, as specified in the return value description.
 #'
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param x An object of class `ALEPlots`.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param include character in c('eff'). x_cols and exclude_cols specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. include specifies which of such plots to retain. Possibilities are:
-#'   * "eff": ALE effects plot (included, that is, not subsetted, by default).
+#' @param include_eff logical(1). `x_cols` and `exclude_cols` specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. `include_eff = TRUE` (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.
 #'
-#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by x_cols and exclude_cols .
+#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by `x_cols` and `exclude_cols`. This is different from [get.ALEPlots()], which returns a list of `ggplot` objects and loses the special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots.
 #'
 #' @method subset ALEPlots
 method(subset, ALEPlots) <- function(
@@ -758,12 +680,14 @@ method(subset, ALEPlots) <- function(
     x_cols = NULL,
     ...,
     exclude_cols = NULL,
-    include = 'eff',
+    include_eff = TRUE,
     silent = FALSE
     ) {
-    # Error if any unlisted argument is used (captured in ...).
+  # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
   rlang::check_dots_empty()
+
+  validate(is_bool(include_eff))
 
   if (is.null(x_cols) && is.null(exclude_cols)) {
     # NULL x_cols means "everything", so return the original object with no subset
@@ -789,11 +713,10 @@ method(subset, ALEPlots) <- function(
   # Subset plots
   plot_obj@plots <- plot_obj@plots |>
     map(\(it.plot_cat) {
-      # browser()
       it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
       it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
 
-      if ('eff' %notin% include) {
+      if (!include_eff) {
         # Only removed if explicitly not included
         it.plot_cat$eff <- NULL
       }

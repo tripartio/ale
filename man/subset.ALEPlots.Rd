@@ -8,16 +8,13 @@
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{include}{character in c('eff'). x_cols and exclude_cols specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. include specifies which of such plots to retain. Possibilities are:
-\itemize{
-\item "eff": ALE effects plot (included, that is, not subsetted, by default).
-}}
+\item{include_eff}{logical(1). \code{x_cols} and \code{exclude_cols} specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. \code{include_eff = TRUE} (default) includes the ALE effects plot in the subset rather than dropping it, if it is available.}
 }
 \value{
-An \code{ALEPlots} object reduced to cover only variables and interactions specified by x_cols and exclude_cols .
+An \code{ALEPlots} object reduced to cover only variables and interactions specified by \code{x_cols} and \code{exclude_cols}. This is different from \code{\link[=get.ALEPlots]{get.ALEPlots()}}, which returns a list of \code{ggplot} objects and loses the special \code{ALEPlots} behaviour like plotting, printing, and summarizing multiple plots.
 }
 \description{
-Return an \code{ALEPlots} object reduced to cover only specified variables and interactions.
+Subset an \code{ALEPlots} object to produce another \code{ALEPlots} object only with the subsetted \code{x_cols} variables and interactions, as specified in the return value description.
 
 See \code{\link[=get.ALE]{get.ALE()}} for explanation of parameters not described here.
 }
