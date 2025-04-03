@@ -85,7 +85,7 @@ ALE(
 \item{silent}{logical(1), default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.}
 }
 \value{
-An object of class \code{ALE} with properties \code{distinct} and \code{params}.
+An object of class \code{ALE} with properties \code{effect} and \code{params}.
 }
 \description{
 An \code{ALE} S7 object contains ALE data and statistics. For details, see \code{vignette('ale-intro')} or the details and examples below.
@@ -93,7 +93,7 @@ An \code{ALE} S7 object contains ALE data and statistics. For details, see \code
 \section{Properties}{
 
 \describe{
-\item{distinct}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
+\item{effect}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
 \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the \code{ALE} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.

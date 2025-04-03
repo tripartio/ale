@@ -459,9 +459,9 @@ plot_ale_1D <- function(
 
 #' Plot 2D ALE data
 #'
-#' @noRd
-#'
 #' Creates a 2D ALE plot as a `ggplot` object. For details about arguments not documented here, see [ALE()].
+#'
+#' @noRd
 #'
 #' @param ale_data tibble. Output data from `calc_ale`.
 #' @param x1_col,x2_col character length 1. Name of single x1 and single x2 column whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted on the y axis.

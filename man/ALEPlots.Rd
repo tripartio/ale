@@ -44,7 +44,7 @@ ALEPlots(
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 }
 \value{
-An object of class \code{ALEPlots} with properties \code{distinct} and \code{params}.
+An object of class \code{ALEPlots} with properties \code{plots} and \code{params}.
 }
 \description{
 An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to its constructor---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. In addition to specific ALE See examples there or examples with the \link{ALE} and \link{ModelBoot} objects.
@@ -52,11 +52,11 @@ An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{Mod
 \section{Properties}{
 
 \describe{
-\item{distinct}{Stores the ALE plots. Use \code{\link[=get.ALEPlots]{get.ALEPlots()}} to access them.}
+\item{plots}{Stores the ALE plots. Use \code{\link[=get.ALEPlots]{get.ALEPlots()}} to access them.}
 \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the \code{ALEPlots} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: See documentation for [ALE()]
-* `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
+* `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `requested_x_cols`.
 * `y_col`: See documentation for [ALE()]
 }\if{html}{\out{</div>}}
 
