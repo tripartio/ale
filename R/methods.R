@@ -618,7 +618,6 @@ method(get, ModelBoot) <- function(
 #'
 #' @method plot ALEPlots
 method(plot, ALEPlots) <- function(
-    # plot.ALEPlots <- function(
     x,
     max_print = 20L,
     ...
@@ -628,98 +627,28 @@ method(plot, ALEPlots) <- function(
   n_1D <- length(plot_obj@params$requested_x_cols$d1)
   n_2D <- length(plot_obj@params$requested_x_cols$d2)
 
-  # if ((0 < count_1D) && (count_1D <= max_print)) {
-  #   x@effect |>
-  #     purrr::iwalk(\(it.cat, it.cat_name) {
-  #       if (it.cat_name == '.all_cats') {
-  #         # browser()
-  #         it.cat$plots$d1 |>
-  #           map(\(it.all_cat_plots) {
-  #             it.all_cat_plots |>
-  #               patchwork::wrap_plots(...) |>
-  #               print()
-  #           })
-  #       }
-
-  # Print one page per category per dimension
-  purrr::iwalk(plot_obj@plots, \(it.cat_plots, i.cat) {
-    purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
-      if ((0 < it.n) && (it.n <= max_print)) {
-        it.cat_plots[['d' %+% i.d]] |>
-          patchwork::wrap_plots(...) |>
-          print()
-      }
-      else if (
-        it.n > max_print &&
-        # issue the warning only for the 1st category; don't repeat it
-        i.cat == plot_obj@params$y_cats[1]
-      ) {
-        cli_warn(c(
-          '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
-          'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
-        ))
-      }
+  # Print one page per category per dimension.
+  # Skip .all_cats; silently just don't print it.
+  plot_obj@plots[names(plot_obj@plots) |> setdiff('.all_cats')] |>
+    purrr::iwalk(\(it.cat_plots, i.cat_name) {
+      purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
+        if ((0 < it.n) && (it.n <= max_print)) {
+          it.cat_plots[['d' %+% i.d]] |>
+            patchwork::wrap_plots(...) |>
+            print()
+        }
+        else if (
+          it.n > max_print &&
+          # issue the warning only for the 1st category; don't repeat it
+          i.cat_name == plot_obj@params$y_cats[1]
+        ) {
+          cli_warn(c(
+            '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
+            'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
+          ))
+        }
+      })
     })
-
-
-    # if ((0 < n_1D) && (n_1D <= max_print)) {
-    #   it.cat_plots$d1 |>
-    #     patchwork::wrap_plots(...) |>
-    #     print()
-    # }
-    # else if (n_1D > max_print) {
-    #   cli_warn(c(
-    #     '!' = 'With more than {max_print} 1D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
-    #     'i' = 'The {.cls ALEPlots} object contains {n_1D} 1D plots.'
-    #   ))
-    # }
-    #
-    # if ((0 < n_2D) && (n_2D <= max_print)) {
-    #   it.cat_plots$d2 |>
-    #     patchwork::wrap_plots(...) |>
-    #     print()
-    # }
-    # else if (n_2D > max_print) {
-    #   cli_warn(c(
-    #     '!' = 'With more than {max_print} 2D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
-    #     'i' = 'The {.cls ALEPlots} object contains {n_2D} 2D plots.'
-    #   ))
-    # }
-  })
-
-
-  # count_1D <- x@distinct |>
-  #   purrr::map_int(\(it.cat) length(it.cat$plots$d1))
-  # count_2D <- x@distinct |>
-  #   purrr::map_int(\(it.cat) length(it.cat$plots$d2))
-  #
-  # if ((0 < count_1D) && (count_1D <= max_print)) {
-  #   x@distinct |>
-  #     walk(\(it.cat) {
-  #       it.cat$plots$d1 |>
-  #         patchwork::wrap_plots(...) |>
-  #         print()
-  #     })
-  # }
-  # else if (count_1D > max_print) {
-  #   cli_alert_info(
-  #     "With more than {max_print} 1D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument."
-  #   )
-  # }
-  #
-  # if ((0 < count_2D) && (count_2D <= max_print)) {
-  #   x@distinct |>
-  #     walk(\(it.cat) {
-  #       it.cat$plots$d2 |>
-  #         patchwork::wrap_plots(...) |>
-  #         print()
-  #     })
-  # }
-  # else if (count_2D > max_print) {
-  #   cli_alert_info(
-  #     "With more than {max_print} 2D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument."
-  #   )
-  # }
 
   invisible(plot_obj)
 }  # plot.ALEPlots()
@@ -760,20 +689,6 @@ method(summary, ALEPlots) <- function(
     object,
     ...
 ) {
-  # count_1D <- object@distinct |>
-  #   purrr::map_int(\(it.cat) length(it.cat$plots$d1))
-  #
-  # count_2D <- if (object@params$max_d >= 2) {
-  #   object@distinct |>
-  #     purrr::map_int(\(it.cat) {
-  #       it.cat$plots$d2 |>
-  #         purrr::map_int(length) |>
-  #         sum()
-  #     })
-  # } else {
-  #   0L
-  # }
-
   n_cats <- length(object@params$y_cats)
   cats_text <- if (n_cats > 1) {
     str_glue('{n_cats} categories, each with')
