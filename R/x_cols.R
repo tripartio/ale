@@ -368,7 +368,7 @@ validate_x_cols <- function(
       # There can be at most one ':' present, indicating maximum 2D interaction
       x_cols |>
         str_match_all(':') |>
-        purrr::map_lgl(\(it.match) nrow(it.match) > 1) |>
+        map_lgl(\(it.match) nrow(it.match) > 1) |>
         (`[`)(i = x_cols, j = _) |>
         length() |>
         (`==`)(0),
@@ -407,7 +407,7 @@ validate_x_cols <- function(
       if (is.character(x_cols[['d2']])) {
         non_2d <- x_cols[['d2']] |>
           str_match_all(':') |>
-          purrr::map_lgl(\(it.match) nrow(it.match) != 1) |>
+          map_lgl(\(it.match) nrow(it.match) != 1) |>
           (`[`)(i =  x_cols[['d2']], j = _)
 
         if (length(non_2d) > 0) {
@@ -487,28 +487,6 @@ validate_x_cols <- function(
         'i' = 'See help("ale") for details.'
       ))
     }
-
-    # # If non-canonical, x_cols must be an explicit list of 1D and 2D elements
-    # else {
-    #   # Verify that x_cols explicitly lists 1D or 2D columns
-    #   validate(
-    #     # x_cols must be a list of length 1 or 2 character vectors.
-    #     # Note that if the element names do not consist exclusively of the canonical dimensions names d1 and d2 (handled above), then element names are completely ignored.
-    #     x_cols |>
-    #       purrr::map_lgl(\(it.el) is.character(it.el) && length(it.el) %in% 1:2) |>
-    #       all(),
-    #     msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
-    #     # msg = c(x = 'Invalid specification for ' %+% x_cols_arg_name %+% '. See help("ale") for details.')
-    #   )
-    #
-    #   # Result is list in canonical format
-    #   x_cols <- list(
-    #     d1 = purrr::keep(x_cols, \(it.el) length(it.el) == 1) |>
-    #       unlist(),
-    #     d2 = purrr::keep(x_cols, \(it.el) length(it.el) == 2)
-    #   ) |>
-    #     compact()
-    # }
   }
 
   # Remove y_col and any duplicates if present.

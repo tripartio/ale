@@ -75,16 +75,6 @@ validate <- function(
   }
 }
 
-# # TRUE if all root elements of a list are character strings
-# is_all_characters <- function(x) {
-#   if (is.list(x)) {
-#     all(purrr::map_lgl(x, is_all_characters))
-#   } else {
-#     is.character(x)
-#   }
-# }
-
-
 #' Find Non-Character Elements in a Nested List
 #'
 #' Recursively traverses a nested list structure and returns all non-character

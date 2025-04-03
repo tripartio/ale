@@ -412,7 +412,7 @@ ALE <- new_class(
 
     # Establish max_d (maximum dimensions) variable for params
     valid_d <- x_cols |>
-      purrr::map_lgl(\(it.x_col_d) {
+      map_lgl(\(it.x_col_d) {
         length(it.x_col_d) > 0
       })
     max_d <- (1:length(x_cols)) |>
