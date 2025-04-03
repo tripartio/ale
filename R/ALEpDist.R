@@ -284,6 +284,8 @@ ALEpDist <- new_class(
     # https://stackoverflow.com/questions/11885207/get-all-parameters-as-list
     params <- c(as.list(environment()), list(...))
 
+    # Capture model paramaters early because they might be changed for surrogates
+    params$model <- params_model(model)
 
     ## Begin main code -------------
 
@@ -341,9 +343,6 @@ ALEpDist <- new_class(
           # Note: this statement must be preceded by set.seed somewhere above
           slice_sample(n = 1000)
       }
-
-      # closeAllConnections()
-      # browser()
 
       if (y_type %in% c('binary', 'ordinal', 'categorical')) {
         # For any of these types, convert the surrogate model to binary based on predicting the modal class.
@@ -500,9 +499,6 @@ ALEpDist <- new_class(
 
         tryCatch(
           {
-            # closeAllConnections()
-            # browser()
-
             it.rand_ale <- ALE(
               model = package_scope$rand_model,
               x_cols = 'random_variable',
@@ -606,7 +602,7 @@ ALEpDist <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'data', 'model', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
+      'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
       'pred_type', 'silent', 'surrogate', 'vp', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
@@ -626,18 +622,6 @@ ALEpDist <- new_class(
 
 
     ## Return S7 ALEpDist object --------------
-
-    # closeAllConnections()
-    # browser()
-
-
-    # if (output_residuals) {
-    #   # Residuals were requested
-    #   colnames(residuals) <- y_cats
-    #   colnames(residuals) <- y_cats
-    # } else {
-    #   residuals <- NULL
-    # }
 
     if (surrogate && y_type == 'categorical') {
       rand_stats <-

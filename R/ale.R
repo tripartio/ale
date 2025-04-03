@@ -308,6 +308,20 @@ ALE <- new_class(
               'i' = 'See {.fun ale::ALE} for instructions for obtaining p-values.'
             )
           )
+
+          # Ensure that p_values was generated using the exact same model as the present model
+          pm <- params_model(model)
+          validate(
+            all.equal(pm$class, p_values@params$model$class) |> isTRUE(),
+            all.equal(pm$call, p_values@params$model$call) |> isTRUE(),
+            all.equal(pm$print, p_values@params$model$print) |> isTRUE(),
+            msg = c(
+              'x' = 'It seems that {.arg p_values} was generated from a different model from the present one. An {.cls ALEpDist} object is only valid for one model trained on the same dataset:',
+              'i' = 'The {.arg p_values} object was generated on the following {.cls {p_values@params$model$class}} model: {p_values@params$model$print}.',
+              'i' = 'The current {.arg model} is the following {.cls {pm$class}} object: {pm$print}.'
+            )
+          )
+
         }
       }  # if (!is.null(p_values))
     }
@@ -429,7 +443,7 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'pm', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments
@@ -683,9 +697,6 @@ ALE <- new_class(
         it.cat_el <- it.cat_el |>
           list_transpose(simplify = FALSE)
 
-        # closeAllConnections()
-        # browser()
-        #
         list(
           ale       = it.cat_el$ale,
           stats     = if (output_stats) it.cat_el$stats else NULL,
