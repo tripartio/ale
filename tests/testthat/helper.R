@@ -21,24 +21,35 @@ test_cars <- var_cars |>
         where(is.integer),
         \(it.int) if_else(it.int > 1, it.int + int_jitter, it.int)
       ))
+  ) |>
+  # Use only a few  variables to minimize ALE processing time
+  select(
+    # outcomes: numeric, binary, categorical
+    mpg, vs, continent,
+    # predictors: binary, categorical, ordinal, integer, double
+    am, model, gear, carb, wt
   )
+
 rm(dbl_jitter)
 rm(int_jitter)
 
 test_gam <- mgcv::gam(
-  mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + am + gear + carb + country + continent,
+  mpg ~ model + s(wt) + am + gear + carb,
+  # mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + vs + am + gear + carb + country + continent,
   data = test_cars
 )
 
 test_gam_binary <- mgcv::gam(
-  vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + am + gear + carb + country + continent,
+  vs ~ model + s(wt) + am + gear + carb,
+  # vs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + am + gear + carb + country + continent,
   data = test_cars,
   family = stats::binomial()
 )
 
 test_nn_categorical <- nnet::multinom(
   # Remove mpg (typical target) and country (perfectly determines continent) from the model
-  continent ~ . - mpg - country,
+  continent ~ model + wt + am + gear + carb,
+  # continent ~ . - mpg - country,
   data = test_cars,
   trace = FALSE  # suppress noisy output from nnet
 )

@@ -6,7 +6,7 @@ test_that(
   'Parallelized ALE prints', {
     pll_ale <- ALE(
       test_gam,
-      x_cols = ~ model + cyl + vs:disp,
+      x_cols = ~ model + carb + am:wt,
       data = test_cars,
       p_values = 'auto',
       boot_it = 2,
@@ -17,7 +17,7 @@ test_that(
     expect_equal(
       print(pll_ale) |>
         capture.output(),
-      "'ALE' object of the test_gam model on a 64x13 dataset."
+      "'ALE' object of the test_gam model on a 64x8 dataset."
     )
   }
 )

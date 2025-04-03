@@ -7,7 +7,7 @@ test_that(
       test_gam,
       data = test_cars,
       ale_options = list(
-        x_cols = c('cyl', 'disp')
+        x_cols = c('carb', 'wt')
       ),
       ale_p = 'auto',  # test for bugginess but not for snapshot
       boot_it = 2,
@@ -18,7 +18,7 @@ test_that(
     expect_equal(
       print(pll_mb) |>
         capture.output(),
-      "'ModelBoot' object of the model model on a 64x13 dataset with 2 bootstrap iterations."
+      "'ModelBoot' object of the model model on a 64x8 dataset with 2 bootstrap iterations."
     )
   }
 )
@@ -40,7 +40,7 @@ test_that(
       seed = 5,  # avoid errors with tiny dataset
       ale_options = list(
         # 'model' is problematic for bootstrapping because there are too many unique factor levels
-        x_cols = names(test_cars) |> setdiff(c('mpg', 'model'))
+        exclude_cols = 'model'
       ),
       ale_p = NULL,
       silent = TRUE
@@ -82,7 +82,7 @@ test_that(
   }
 )
 
-# Temporarily test on iris until I can get a larger var_cars sample
+# Temporarily test on iris until I can get a larger test_cars sample
 test_that(
   'bootstrapped categorical outcome with full 1D and all variables set', {
     skip_on_ci()

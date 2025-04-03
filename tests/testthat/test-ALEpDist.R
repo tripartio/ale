@@ -86,8 +86,7 @@ test_that(
       data = test_cars,
       y_col = 'mpg',
       random_model_call_string = 'mgcv::gam(
-        mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-        vs + am + gear + carb + country + random_variable,
+        mpg ~ model + s(wt) + am + gear + carb + random_variable,
         data = rand_data
       )',
       # It is difficult to test random_model_call_string_vars because it is only for

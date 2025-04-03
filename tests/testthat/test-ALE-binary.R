@@ -33,9 +33,8 @@ test_that(
 
     cars_ale <- ALE(
       test_gam_binary,
-      x_cols = ~ hp + am + gear:drat,
-      # x_cols = ~ model + cyl + vs:disp,
-      data = var_cars,
+      x_cols = ~ wt + am + gear:carb,
+      data = test_cars,
       y_col = 'vs',
       # exclude_cols = NULL,  # test exclude_cols separately
       parallel = 0,

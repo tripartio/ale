@@ -5,165 +5,37 @@
     Output
       $mpg
       $mpg$d1
-      $mpg$d1$cyl
-            ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
-      1 19.18707 19.22004 3 19.18707     1    -1       FALSE     NA grey85       0.5
-      2 19.19272 19.21209 4 19.19272     1    -1       FALSE     NA grey85       0.5
-      3 19.19837 19.20413 5 19.19837     1    -1       FALSE     NA grey85       0.5
-      4 19.19618 19.20402 6 19.19618     1    -1       FALSE     NA grey85       0.5
-      5 19.18823 19.20967 7 19.18823     1    -1       FALSE     NA grey85       0.5
-      6 19.18028 19.21532 8 19.18028     1    -1       FALSE     NA grey85       0.5
-      7 19.17232 19.22097 9 19.17232     1    -1       FALSE     NA grey85       0.5
-        linetype alpha
-      1        1   0.5
-      2        1   0.5
-      3        1   0.5
-      4        1   0.5
-      5        1   0.5
-      6        1   0.5
-      7        1   0.5
-      
-      $mpg$d1$disp
-             ymin     ymax         x        y PANEL group flipped_aes colour   fill
-      1  15.49989 17.43160  70.92941 15.49989     1    -1       FALSE     NA grey85
-      2  15.70626 17.52783  79.04253 15.70626     1    -1       FALSE     NA grey85
-      3  16.75570 18.01723 120.30000 16.75570     1    -1       FALSE     NA grey85
-      4  17.41124 18.32295 146.07210 17.41124     1    -1       FALSE     NA grey85
-      5  17.92147 18.56087 166.13111 17.92147     1    -1       FALSE     NA grey85
-      6  19.65439 20.26782 258.37592 19.65439     1    -1       FALSE     NA grey85
-      7  20.14795 21.32755 300.03890 20.14795     1    -1       FALSE     NA grey85
-      8  20.74244 22.60280 350.17436 20.74244     1    -1       FALSE     NA grey85
-      9  21.29834 23.79400 397.00444 21.29834     1    -1       FALSE     NA grey85
-      10 22.18855 25.70162 472.00000 22.18855     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      
-      $mpg$d1$hp
-              ymin     ymax        x         y PANEL group flipped_aes colour   fill
-      1  20.855097 24.65212  52.0000 20.855097     1    -1       FALSE     NA grey85
-      2  21.045672 23.79480  66.0000 21.045672     1    -1       FALSE     NA grey85
-      3  20.972899 22.00695  95.0000 20.972899     1    -1       FALSE     NA grey85
-      4  20.475688 21.13200 109.0000 20.475688     1    -1       FALSE     NA grey85
-      5  20.384230 20.95104 111.9003 20.384230     1    -1       FALSE     NA grey85
-      6  18.560941 18.68022 150.0000 18.560941     1    -1       FALSE     NA grey85
-      7  16.926587 18.09438 176.2939 16.926587     1    -1       FALSE     NA grey85
-      8  16.655333 18.03405 180.6733 16.655333     1    -1       FALSE     NA grey85
-      9  12.627072 15.43483 245.0000 12.627072     1    -1       FALSE     NA grey85
-      10  6.974812 11.16294 335.0000  6.974812     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      
-      $mpg$d1$drat
-             ymin     ymax        x        y PANEL group flipped_aes colour   fill
-      1  14.79230 17.75994 2.743533 14.79230     1    -1       FALSE     NA grey85
-      2  16.05047 18.18597 3.016190 16.05047     1    -1       FALSE     NA grey85
-      3  16.34484 18.28269 3.080000 16.34484     1    -1       FALSE     NA grey85
-      4  16.78636 18.42602 3.175717 16.78636     1    -1       FALSE     NA grey85
-      5  18.83632 19.11356 3.620000 18.83632     1    -1       FALSE     NA grey85
-      6  19.29583 19.35932 3.733310 19.29583     1    -1       FALSE     NA grey85
-      7  19.56867 20.12882 3.900000 19.56867     1    -1       FALSE     NA grey85
-      8  19.62265 20.27936 3.932607 19.62265     1    -1       FALSE     NA grey85
-      9  20.08236 21.55948 4.209875 20.08236     1    -1       FALSE     NA grey85
-      10 21.25752 25.10562 4.978502 21.25752     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      
-      $mpg$d1$wt
-              ymin      ymax        x         y PANEL group flipped_aes colour   fill
-      1  25.966190 26.454543 1.498275 25.966190     1    -1       FALSE     NA grey85
-      2  24.110664 24.510687 1.935000 24.110664     1    -1       FALSE     NA grey85
-      3  21.859060 22.151671 2.465000 21.859060     1    -1       FALSE     NA grey85
-      4  20.476106 20.702959 2.790481 20.476106     1    -1       FALSE     NA grey85
-      5  18.778520 18.924702 3.190000 18.778520     1    -1       FALSE     NA grey85
-      6  17.718888 17.814815 3.439356 17.718888     1    -1       FALSE     NA grey85
-      7  17.376333 17.455874 3.520000 17.376333     1    -1       FALSE     NA grey85
-      8  16.484467 16.521176 3.730000 16.484467     1    -1       FALSE     NA grey85
-      9  15.114360 15.141189 4.046066 15.114360     1    -1       FALSE     NA grey85
-      10  8.850598  9.150295 5.453272  8.850598     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      
-      $mpg$d1$qsec
-             ymin     ymax        x        y PANEL group flipped_aes colour   fill
-      1  13.08018 14.42182 14.46589 13.08018     1    -1       FALSE     NA grey85
-      2  15.05134 15.93334 15.61460 15.05134     1    -1       FALSE     NA grey85
-      3  16.98328 17.62138 16.73553 16.98328     1    -1       FALSE     NA grey85
-      4  17.46503 18.02876 17.02000 17.46503     1    -1       FALSE     NA grey85
-      5  18.11313 18.60238 17.41920 18.11313     1    -1       FALSE     NA grey85
-      6  19.01668 19.35603 17.98000 19.01668     1    -1       FALSE     NA grey85
-      7  19.99458 20.01028 18.59333 19.99458     1    -1       FALSE     NA grey85
-      8  20.38338 20.46417 18.90000 20.38338     1    -1       FALSE     NA grey85
-      9  21.79591 22.11807 20.00000 21.79591     1    -1       FALSE     NA grey85
-      10 24.68435 26.26219 22.97365 24.68435     1    -1       FALSE     NA grey85
-         linewidth linetype alpha
-      1        0.5        1   0.5
-      2        0.5        1   0.5
-      3        0.5        1   0.5
-      4        0.5        1   0.5
-      5        0.5        1   0.5
-      6        0.5        1   0.5
-      7        0.5        1   0.5
-      8        0.5        1   0.5
-      9        0.5        1   0.5
-      10       0.5        1   0.5
-      
       $mpg$d1$vs
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 19.41089     1     1       FALSE    0 19.41089 0.55 1.45     NA gray
-      2 2 18.96941     1     2       FALSE    0 18.96941 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
+      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
+      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      
+      $mpg$d1$continent
+        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
+      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
+      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
+      3 3 19.2     1     3       FALSE    0 19.2 2.55 3.45     NA gray       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
+      3        1    NA
       
       $mpg$d1$am
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 17.31504     1     1       FALSE    0 17.31504 0.55 1.45     NA gray
-      2 2 21.86481     1     2       FALSE    0 21.86481 1.55 2.45     NA gray
+      1 1 14.02396     1     1       FALSE    0 14.02396 0.55 1.45     NA gray
+      2 2 26.49925     1     2       FALSE    0 26.49925 1.55 2.45     NA gray
         linewidth linetype alpha
       1       0.5        1    NA
       2       0.5        1    NA
       
       $mpg$d1$gear
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 20.59073     1     1       FALSE    0 20.59073 0.55 1.45     NA gray
-      2 2 17.76537     1     2       FALSE    0 17.76537 1.55 2.45     NA gray
-      3 3 18.94643     1     3       FALSE    0 18.94643 2.55 3.45     NA gray
+      1 1 20.05025     1     1       FALSE    0 20.05025 0.55 1.45     NA gray
+      2 2 20.72601     1     2       FALSE    0 20.72601 1.55 2.45     NA gray
+      3 3 15.36998     1     3       FALSE    0 15.36998 2.55 3.45     NA gray
         linewidth linetype alpha
       1       0.5        1    NA
       2       0.5        1    NA
@@ -171,11 +43,11 @@
       
       $mpg$d1$carb
             ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
-      1 19.18549 19.20847 1 19.18549     1    -1       FALSE     NA grey85       0.5
-      2 19.19612 19.20282 2 19.19612     1    -1       FALSE     NA grey85       0.5
-      3 19.19716 19.20674 3 19.19716     1    -1       FALSE     NA grey85       0.5
-      4 19.19151 19.21737 4 19.19151     1    -1       FALSE     NA grey85       0.5
-      5 19.16891 19.25986 8 19.16891     1    -1       FALSE     NA grey85       0.5
+      1 19.19662 19.19995 1 19.19662     1    -1       FALSE     NA grey85       0.5
+      2 19.19909 19.19999 2 19.19909     1    -1       FALSE     NA grey85       0.5
+      3 19.20003 19.20156 3 19.20003     1    -1       FALSE     NA grey85       0.5
+      4 19.20006 19.20404 4 19.20006     1    -1       FALSE     NA grey85       0.5
+      5 19.20020 19.21393 8 19.20020     1    -1       FALSE     NA grey85       0.5
         linetype alpha
       1        1   0.5
       2        1   0.5
@@ -183,31 +55,29 @@
       4        1   0.5
       5        1   0.5
       
-      $mpg$d1$country
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 16.36945     1     1       FALSE    0 16.36945 0.55 1.45     NA gray
-      2 2 19.61713     1     2       FALSE    0 19.61713 1.55 2.45     NA gray
-      3 3 19.60993     1     3       FALSE    0 19.60993 2.55 3.45     NA gray
-      4 4 21.53962     1     4       FALSE    0 21.53962 3.55 4.45     NA gray
-      5 5 18.17258     1     5       FALSE    0 18.17258 4.55 5.45     NA gray
-      6 6 20.88811     1     6       FALSE    0 20.88811 5.55 6.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      4       0.5        1    NA
-      5       0.5        1    NA
-      6       0.5        1    NA
-      
-      $mpg$d1$continent
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 18.54561     1     1       FALSE    0 18.54561 0.55 1.45     NA gray
-      2 2 22.06557     1     2       FALSE    0 22.06557 1.55 2.45     NA gray
-      3 3 15.83008     1     3       FALSE    0 15.83008 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
+      $mpg$d1$wt
+              ymin      ymax        x         y PANEL group flipped_aes colour   fill
+      1   2.373802  2.554649 1.498275  2.373802     1    -1       FALSE     NA grey85
+      2  10.287804 11.904771 1.935000 10.287804     1    -1       FALSE     NA grey85
+      3  15.988919 19.898873 2.465000 15.988919     1    -1       FALSE     NA grey85
+      4  18.940345 22.296036 2.790481 18.940345     1    -1       FALSE     NA grey85
+      5  22.544780 24.735988 3.190000 22.544780     1    -1       FALSE     NA grey85
+      6  24.112399 26.664441 3.439356 24.112399     1    -1       FALSE     NA grey85
+      7  24.490752 26.952645 3.520000 24.490752     1    -1       FALSE     NA grey85
+      8  24.886014 25.347665 3.730000 24.886014     1    -1       FALSE     NA grey85
+      9  14.171035 26.552656 4.046066 14.171035     1    -1       FALSE     NA grey85
+      10  7.538774 27.973955 5.453272  7.538774     1    -1       FALSE     NA grey85
+         linewidth linetype alpha
+      1        0.5        1   0.5
+      2        0.5        1   0.5
+      3        0.5        1   0.5
+      4        0.5        1   0.5
+      5        0.5        1   0.5
+      6        0.5        1   0.5
+      7        0.5        1   0.5
+      8        0.5        1   0.5
+      9        0.5        1   0.5
+      10       0.5        1   0.5
       
       
       $mpg$d2
@@ -215,178 +85,106 @@
       
       $mpg$eff
       $mpg$eff[[1]]
-          y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1   1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2   2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      3   3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      4   4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      5   5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      6   6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      7   7     1     7     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      8   8     1     8     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      9   9     1     9     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      10 10     1    10     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      11 11     1    11     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      12 12     1    12     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      3 3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      4 4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      5 5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      6 6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       
       $mpg$eff[[2]]
-              xmin     xmax  y PANEL group   ymin   ymax colour linewidth linetype
-      1  19.175701 19.23567  1     1     1  0.875  1.125  black       0.5        1
-      2  19.178621 19.22158  2     1     2  1.875  2.125  black       0.5        1
-      3  18.906446 19.47386  3     1     3  2.875  3.125  black       0.5        1
-      4  17.765370 20.59073  4     1     4  3.875  4.125  black       0.5        1
-      5  16.276120 23.18157  5     1     5  4.875  5.125  black       0.5        1
-      6  16.369452 21.53962  6     1     6  5.875  6.125  black       0.5        1
-      7  16.465745 23.94509  7     1     7  6.875  7.125  black       0.5        1
-      8  13.750998 25.47327  8     1     8  7.875  8.125  black       0.5        1
-      9  15.830079 22.06557  9     1     9  8.875  9.125  black       0.5        1
-      10 17.315036 21.86481 10     1    10  9.875 10.125  black       0.5        1
-      11  9.068877 22.86268 11     1    11 10.875 11.125  black       0.5        1
-      12  9.000447 26.21037 12     1    12 11.875 12.125  black       0.5        1
-         height alpha
-      1    0.25    NA
-      2    0.25    NA
-      3    0.25    NA
-      4    0.25    NA
-      5    0.25    NA
-      6    0.25    NA
-      7    0.25    NA
-      8    0.25    NA
-      9    0.25    NA
-      10   0.25    NA
-      11   0.25    NA
-      12   0.25    NA
+             xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
+      1 19.200000 19.20000 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 19.200000 19.20000 2     1     2 1.875 2.125  black       0.5        1   0.25
+      3 19.198188 19.20716 3     1     3 2.875 3.125  black       0.5        1   0.25
+      4 14.202377 23.61692 4     1     4 3.875 4.125  black       0.5        1   0.25
+      5 14.023960 26.49925 5     1     5 4.875 5.125  black       0.5        1   0.25
+      6  2.464225 27.76458 6     1     6 5.875 6.125  black       0.5        1   0.25
+        alpha
+      1    NA
+      2    NA
+      3    NA
+      4    NA
+      5    NA
+      6    NA
       
       $mpg$eff[[3]]
-         xmin xmax ymin ymax  y PANEL group colour  fill linewidth linetype alpha
-      1    NA   NA  0.7  1.3  1     1     1     NA white       0.5        1    NA
-      2    NA   NA  1.7  2.3  2     1     2     NA white       0.5        1    NA
-      3    NA   NA  2.7  3.3  3     1     3     NA white       0.5        1    NA
-      4    NA   NA  3.7  4.3  4     1     4     NA white       0.5        1    NA
-      5    NA   NA  4.7  5.3  5     1     5     NA white       0.5        1    NA
-      6    NA   NA  5.7  6.3  6     1     6     NA white       0.5        1    NA
-      7    NA   NA  6.7  7.3  7     1     7     NA white       0.5        1    NA
-      8    NA   NA  7.7  8.3  8     1     8     NA white       0.5        1    NA
-      9    NA   NA  8.7  9.3  9     1     9     NA white       0.5        1    NA
-      10   NA   NA  9.7 10.3 10     1    10     NA white       0.5        1    NA
-      11   NA   NA 10.7 11.3 11     1    11     NA white       0.5        1    NA
-      12   NA   NA 11.7 12.3 12     1    12     NA white       0.5        1    NA
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      3   NA   NA  2.7  3.3 3     1     3     NA white       0.5        1    NA
+      4   NA   NA  3.7  4.3 4     1     4     NA white       0.5        1    NA
+      5   NA   NA  4.7  5.3 5     1     5     NA white       0.5        1    NA
+      6   NA   NA  5.7  6.3 6     1     6     NA white       0.5        1    NA
       
       $mpg$eff[[4]]
-          x       label  y PANEL group colour size angle hjust vjust alpha family
-      1  NA NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA       
-      2  NA NALED  0.0%  2     1     2  black    3     0   0.5    -1    NA       
-      3  NA NALED  5.9%  3     1     3  black    3     0   0.5    -1    NA       
-      4  NA NALED 10.4%  4     1     4  black    3     0   0.5    -1    NA       
-      5  NA NALED 10.1%  5     1     5  black    3     0   0.5    -1    NA       
-      6  NA NALED 11.5%  6     1     6  black    3     0   0.5    -1    NA       
-      7  NA NALED 13.1%  7     1     7  black    3     0   0.5    -1    NA       
-      8  NA NALED 14.4%  8     1     8  black    3     0   0.5    -1    NA       
-      9  NA NALED 15.1%  9     1     9  black    3     0   0.5    -1    NA       
-      10 NA NALED 17.5% 10     1    10  black    3     0   0.5    -1    NA       
-      11 NA NALED 16.7% 11     1    11  black    3     0   0.5    -1    NA       
-      12 NA NALED 21.9% 12     1    12  black    3     0   0.5    -1    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED  0.0% 2     1     2  black    3     0   0.5    -1    NA       
+      3 NA NALED  0.0% 3     1     3  black    3     0   0.5    -1    NA       
+      4 NA NALED 23.4% 4     1     4  black    3     0   0.5    -1    NA       
+      5 NA NALED 31.4% 5     1     5  black    3     0   0.5    -1    NA       
+      6 NA NALED 31.0% 6     1     6  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      3        1        1.2
+      4        1        1.2
+      5        1        1.2
+      6        1        1.2
       
       $mpg$eff[[5]]
-          x label     y PANEL group colour size angle hjust vjust alpha family
-      1  NA     (  1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2  NA     (  2.02     1     2  black 3.88     0   0.5   0.5    NA       
-      3  NA     (  3.02     1     3  black 3.88     0   0.5   0.5    NA       
-      4  NA     (  4.02     1     4  black 3.88     0   0.5   0.5    NA       
-      5  NA     (  5.02     1     5  black 3.88     0   0.5   0.5    NA       
-      6  NA     (  6.02     1     6  black 3.88     0   0.5   0.5    NA       
-      7  NA     (  7.02     1     7  black 3.88     0   0.5   0.5    NA       
-      8  NA     (  8.02     1     8  black 3.88     0   0.5   0.5    NA       
-      9  NA     (  9.02     1     9  black 3.88     0   0.5   0.5    NA       
-      10 NA     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA       
-      11 NA     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA       
-      12 NA     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+      3 NA     ( 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
+      4 NA     ( 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
+      5 NA     ( 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
+      6 NA     ( 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       $mpg$eff[[6]]
-          x label     y PANEL group colour size angle hjust vjust alpha family
-      1  NA     )  1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2  NA     )  2.02     1     2  black 3.88     0   0.5   0.5    NA       
-      3  NA     )  3.02     1     3  black 3.88     0   0.5   0.5    NA       
-      4  NA     )  4.02     1     4  black 3.88     0   0.5   0.5    NA       
-      5  NA     )  5.02     1     5  black 3.88     0   0.5   0.5    NA       
-      6  NA     )  6.02     1     6  black 3.88     0   0.5   0.5    NA       
-      7  NA     )  7.02     1     7  black 3.88     0   0.5   0.5    NA       
-      8  NA     )  8.02     1     8  black 3.88     0   0.5   0.5    NA       
-      9  NA     )  9.02     1     9  black 3.88     0   0.5   0.5    NA       
-      10 NA     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA       
-      11 NA     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA       
-      12 NA     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+      3 NA     ) 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
+      4 NA     ) 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
+      5 NA     ) 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
+      6 NA     ) 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
       
       $mpg$eff[[7]]
-          x     label  y PANEL group colour size angle hjust vjust alpha family
-      1  NA ALED 0.01  1     1     1  black    3     0   0.5     2    NA       
-      2  NA ALED 0.01  2     1     2  black    3     0   0.5     2    NA       
-      3  NA ALED 0.28  3     1     3  black    3     0   0.5     2    NA       
-      4  NA ALED 1.15  4     1     4  black    3     0   0.5     2    NA       
-      5  NA ALED 1.37  5     1     5  black    3     0   0.5     2    NA       
-      6  NA ALED 1.43  6     1     6  black    3     0   0.5     2    NA       
-      7  NA ALED 2.03  7     1     7  black    3     0   0.5     2    NA       
-      8  NA ALED 2.06  8     1     8  black    3     0   0.5     2    NA       
-      9  NA ALED 2.12  9     1     9  black    3     0   0.5     2    NA       
-      10 NA ALED 2.19 10     1    10  black    3     0   0.5     2    NA       
-      11 NA ALED 2.59 11     1    11  black    3     0   0.5     2    NA       
-      12 NA ALED 3.49 12     1    12  black    3     0   0.5     2    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
+         x     label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.00 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.00 2     1     2  black    3     0   0.5     2    NA       
+      3 NA ALED 0.00 3     1     3  black    3     0   0.5     2    NA       
+      4 NA ALED 3.57 4     1     4  black    3     0   0.5     2    NA       
+      5 NA ALED 6.00 5     1     5  black    3     0   0.5     2    NA       
+      6 NA ALED 6.42 6     1     6  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      3        1        1.2
+      4        1        1.2
+      5        1        1.2
+      6        1        1.2
       
       $mpg$eff[[8]]
                x y PANEL group colour  fill size angle hjust vjust alpha family
-      1 33.84876 2     1    -1  black white    3     0     1   0.5    NA       
+      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
         fontface lineheight
       1        1        1.2
                                                                      label
@@ -414,26 +212,22 @@
        $ params     : <list>          
       attr(,"model_stats")
       # A tibble: 9 x 7
-        name          boot_valid conf.low median  mean conf.high       sd
-        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl>    <dbl>
-      1 df               NA       38.2     41.5  41.5    44.8    4.92e+ 0
-      2 df.residual      NA       19.2     22.5  22.5    25.8    4.92e+ 0
-      3 nobs             NA       64       64    64      64      0       
-      4 adj.r.squared    NA        1.00     1.00  1.00    1.00   5.58e-12
-      5 npar             NA       85.1     86    86      86.9    1.41e+ 0
-      6 mae               0.0131   0.0165  NA    NA       0.0232 4.96e- 3
-      7 sa_mae_mad        0.998    0.997   NA    NA       0.998  8.44e- 4
-      8 rmse              0.0168   0.0216  NA    NA       0.0291 5.58e- 3
-      9 sa_rmse_sd        0.998    0.997   NA    NA       0.998  5.93e- 4
+        name          boot_valid conf.low median  mean conf.high           sd
+        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl>        <dbl>
+      1 df               NA       36.1     37.4  37.4     38.7   1.93        
+      2 df.residual      NA       25.3     26.6  26.6     27.9   1.93        
+      3 nobs             NA       64       64    64       64     0           
+      4 adj.r.squared    NA        1.00     1.00  1.00     1.00  0.0000000429
+      5 npar             NA       40.0     41    41       42.0   1.41        
+      6 mae               0.0597   0.0222  NA    NA        0.162 0.104       
+      7 sa_mae_mad        0.992    0.978   NA    NA        0.997 0.0141      
+      8 rmse              0.105    0.0305  NA    NA        0.295 0.197       
+      9 sa_rmse_sd        0.990    0.972   NA    NA        0.997 0.0187      
       attr(,"model_coefs")
-      # A tibble: 5 x 6
-        term    conf.low median  mean conf.high std.error
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.00   1.00  1.00      1.01   0.00486
-      2 s(hp)       1.10   3.00  3.00      4.89   2.82   
-      3 s(drat)     1.03   1.53  1.53      2.03   0.747  
-      4 s(wt)       1.00   1.01  1.01      1.02   0.0174 
-      5 s(qsec)     4.89   4.94  4.94      5.00   0.0822 
+      # A tibble: 1 x 6
+        term  conf.low median  mean conf.high std.error
+        <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+      1 s(wt)     8.01   8.36  8.36      8.71     0.519
       attr(,"ale")
       attr(,"ale")$single
       <object>
@@ -449,162 +243,79 @@
       attr(,"effect")$mpg
       attr(,"effect")$mpg$ale
       attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1        3     1  0.0196   0.0196   0.0196    0.0196   0.0196 
-      2        4    17  0.0124   0.0124   0.0124    0.0124   0.0124 
-      3        5     6  0.00517  0.00517  0.00517   0.00517  0.00517
-      4        6    11 -0.00202 -0.00202 -0.00202  -0.00202 -0.00202
-      5        7     5 -0.00922 -0.00922 -0.00922  -0.00922 -0.00922
-      6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
-      7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
-      
-      attr(,"effect")$mpg$ale$d1$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      70.9     1  4.75  4.75    4.75      4.75  4.75
-       2      79.0     7  4.49  4.49    4.49      4.49  4.49
-       3     120.      7  3.18  3.18    3.18      3.18  3.18
-       4     146.      7  2.34  2.34    2.34      2.34  2.34
-       5     166.      7  1.68  1.68    1.68      1.68  1.68
-       6     258.      7 -1.18 -1.18   -1.18     -1.18 -1.18
-       7     300.      7 -2.40 -2.40   -2.40     -2.40 -2.40
-       8     350.      7 -3.71 -3.71   -3.71     -3.71 -3.71
-       9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
-      10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
-      
-      attr(,"effect")$mpg$ale$d1$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1     52      1  2.66   2.66    2.66      2.66   2.66 
-       2     66      8  2.24   2.24    2.24      2.24   2.24 
-       3     95      6  1.23   1.23    1.23      1.23   1.23 
-       4    109      7  0.709  0.709   0.709     0.709  0.709
-       5    112.     7  0.603  0.603   0.603     0.603  0.603
-       6    150      8 -0.618 -0.618  -0.618    -0.618 -0.618
-       7    176.     6 -1.18  -1.18   -1.18     -1.18  -1.18 
-       8    181.     7 -1.26  -1.26   -1.26     -1.26  -1.26 
-       9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
-      10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
-      
-      attr(,"effect")$mpg$ale$d1$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-             <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1      2.74     1 -0.965  -0.965  -0.965    -0.965  -0.965 
-       2      3.02     7 -0.652  -0.652  -0.652    -0.652  -0.652 
-       3      3.08     8 -0.578  -0.578  -0.578    -0.578  -0.578 
-       4      3.18     6 -0.467  -0.467  -0.467    -0.467  -0.467 
-       5      3.62     7  0.0383  0.0383  0.0383    0.0383  0.0383
-       6      3.73     7  0.165   0.165   0.165     0.165   0.165 
-       7      3.9      8  0.340   0.340   0.340     0.340   0.340 
-       8      3.93     6  0.374   0.374   0.374     0.374   0.374 
-       9      4.21     7  0.671   0.671   0.671     0.671   0.671 
-      10      4.98     7  1.47    1.47    1.47      1.47    1.47  
-      
-      attr(,"effect")$mpg$ale$d1$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1    1.50     1  6.90   6.90    6.90      6.90   6.90 
-       2    1.94     7  5.08   5.08    5.08      5.08   5.08 
-       3    2.46     7  2.80   2.80    2.80      2.80   2.80 
-       4    2.79     7  1.39   1.39    1.39      1.39   1.39 
-       5    3.19     7 -0.264 -0.264  -0.264    -0.264 -0.264
-       6    3.44     7 -1.26  -1.26   -1.26     -1.26  -1.26 
-       7    3.52     7 -1.58  -1.58   -1.58     -1.58  -1.58 
-       8    3.73     7 -2.40  -2.40   -2.40     -2.40  -2.40 
-       9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
-      10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
-      
-      attr(,"effect")$mpg$ale$d1$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      14.5     1 -7.56  -7.56   -7.56     -7.56  -7.56 
-       2      15.6     7 -4.82  -4.82   -4.82     -4.82  -4.82 
-       3      16.7     7 -2.27  -2.27   -2.27     -2.27  -2.27 
-       4      17.0     7 -1.61  -1.61   -1.61     -1.61  -1.61 
-       5      17.4     7 -0.707 -0.707  -0.707    -0.707 -0.707
-       6      18.0     7  0.509  0.509   0.509     0.509  0.509
-       7      18.6     7  1.72   1.72    1.72      1.72   1.72 
-       8      18.9     7  2.33   2.33    2.33      2.33   2.33 
-       9      20       7  4.54   4.54    4.54      4.54   4.54 
-      10      23.0     7  9.93   9.93    9.93      9.93   9.93 
-      
       attr(,"effect")$mpg$ale$d1$vs
       # A tibble: 2 x 7
         vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36  1.63  1.63    1.63      1.63  1.63
-      2 TRUE      28 -2.09 -2.09   -2.09     -2.09 -2.09
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      attr(,"effect")$mpg$ale$d1$continent
+      # A tibble: 3 x 7
+        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 North America    24     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 Asia             12     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38 -1.61 -1.61   -1.61     -1.61 -1.61
-      2 TRUE      26  2.36  2.36    2.36      2.36  2.36
+      1 FALSE     38 -5.29 -5.29   -5.29     -5.29 -5.29
+      2 TRUE      26  7.73  7.73    7.73      7.73  7.73
       
       attr(,"effect")$mpg$ale$d1$gear
       # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30  1.21   1.21    1.21      1.21   1.21 
-      2 four        24 -1.79  -1.79   -1.79     -1.79  -1.79 
-      3 five        10  0.688  0.688   0.688     0.688  0.688
+        gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 three       30 -2.64 -2.64   -2.64     -2.64 -2.64
+      2 four        24  4.31  4.31    4.31      4.31  4.31
+      3 five        10 -2.42 -2.42   -2.42     -2.42 -2.42
       
       attr(,"effect")$mpg$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1         1    14 -0.0123  -0.0123  -0.0123   -0.0123  -0.0123 
-      2         2    19 -0.00441 -0.00441 -0.00441  -0.00441 -0.00441
-      3         3     9  0.00343  0.00343  0.00343   0.00343  0.00343
-      4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
-      5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
+        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1         1    14  0.000490  0.000490  0.000490  0.000490  0.000490
+      2         2    19  0.000176  0.000176  0.000176  0.000176  0.000176
+      3         3     9 -0.000137 -0.000137 -0.000137 -0.000137 -0.000137
+      4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
+      5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
       
-      attr(,"effect")$mpg$ale$d1$country
-      # A tibble: 6 x 7
-        country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 Sweden          2 -3.52  -3.52   -3.52     -3.52  -3.52 
-      2 UK              2 -1.31  -1.31   -1.31     -1.31  -1.31 
-      3 Italy           8 -1.65  -1.65   -1.65     -1.65  -1.65 
-      4 Japan          12  0.644  0.644   0.644     0.644  0.644
-      5 Germany        16 -1.81  -1.81   -1.81     -1.81  -1.81 
-      6 USA            24  1.84   1.84    1.84      1.84   1.84 
-      
-      attr(,"effect")$mpg$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 North America    24 -0.421 -0.421  -0.421    -0.421 -0.421
-      2 Europe           28  2.11   2.11    2.11      2.11   2.11 
-      3 Asia             12 -4.07  -4.07   -4.07     -4.07  -4.07 
+      attr(,"effect")$mpg$ale$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1    1.50     1 -18.1   -18.1   -18.1     -18.1   -18.1  
+       2    1.94     7 -10.2   -10.2   -10.2     -10.2   -10.2  
+       3    2.46     7  -3.51   -3.51   -3.51     -3.51   -3.51 
+       4    2.79     7  -0.882  -0.882  -0.882    -0.882  -0.882
+       5    3.19     7   2.07    2.07    2.07      2.07    2.07 
+       6    3.44     7   3.65    3.65    3.65      3.65    3.65 
+       7    3.52     7   4.05    4.05    4.05      4.05    4.05 
+       8    3.73     7   4.92    4.92    4.92      4.92    4.92 
+       9    4.05     7   6.38    6.38    6.38      6.38    6.38 
+      10    5.45     7   9.11    9.11    9.11      9.11    9.11 
       
       
       
       attr(,"effect")$mpg$stats
       attr(,"effect")$mpg$stats$d1
-      # A tibble: 72 x 7
-         term  statistic estimate conf.low    mean  median conf.high
-         <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 cyl   aled        0.0112   0.0112  0.0112  0.0112    0.0112
-       2 cyl   aler_min   -0.0236  -0.0236 -0.0236 -0.0236   -0.0236
-       3 cyl   aler_max    0.0196   0.0196  0.0196  0.0196    0.0196
-       4 cyl   naled       0        0       0       0         0     
-       5 cyl   naler_min   0        0       0       0         0     
-       6 cyl   naler_max   0        0       0       0         0     
-       7 disp  aled        3.09     3.09    3.09    3.09      3.09  
-       8 disp  aler_min   -5.74    -5.74   -5.74   -5.74     -5.74  
-       9 disp  aler_max    4.75     4.75    4.75    4.75      4.75  
-      10 disp  naled      22.8     22.8    22.8    22.8      22.8   
-      # i 62 more rows
+      # A tibble: 36 x 7
+         term      statistic estimate conf.low  mean median conf.high
+         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 vs        aled             0        0     0      0         0
+       2 vs        aler_min         0        0     0      0         0
+       3 vs        aler_max         0        0     0      0         0
+       4 vs        naled            0        0     0      0         0
+       5 vs        naler_min        0        0     0      0         0
+       6 vs        naler_max        0        0     0      0         0
+       7 continent aled             0        0     0      0         0
+       8 continent aler_min         0        0     0      0         0
+       9 continent aler_max         0        0     0      0         0
+      10 continent naled            0        0     0      0         0
+      # i 26 more rows
       
       
       attr(,"effect")$mpg$conf
@@ -620,8 +331,7 @@
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-       [1] "cyl"       "disp"      "hp"        "drat"      "wt"        "qsec"     
-       [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
+      [1] "vs"        "continent" "am"        "gear"      "carb"      "wt"       
       
       attr(,"params")$ordered_x_cols$d2
       character(0)
@@ -629,8 +339,7 @@
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-       [1] "cyl"       "disp"      "hp"        "drat"      "wt"        "qsec"     
-       [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
+      [1] "vs"        "continent" "am"        "gear"      "carb"      "wt"       
       
       attr(,"params")$requested_x_cols$d2
       character(0)
@@ -664,38 +373,37 @@
       
       attr(,"params")$model
       attr(,"params")$model$name
-      [1] "structure(list(coefficients = c(\"(Intercept)\" = 12.2929140338384, "
+      [1] "structure(list(coefficients = c(\"(Intercept)\" = 14.3177589279234, "
       
       attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), cyl = c(6L, 6L, 4L, 6L, 8L, 6L, 8L, 4L, \n    4L, 6L, 6L, 8L, 8L, 8L, 8L, 8L, 8L, 4L, 4L, 4L, 4L, 8L, 8L, \n    8L, 8L, 4L, 4L, 4L, 8L, 6L, 8L, 4L, 6L, 5L, 5L, 5L, 9L, 6L, \n    8L, 4L, 4L, 7L, 6L, 7L, 9L, 8L, 7L, 7L, 9L, 4L, 4L, 5L, 5L, \n    8L, 8L, 8L, 8L, 3L, 4L, 4L, 8L, 6L, 7L, 5L), disp = c(160, \n    160, 108, 258, 360, 225, 360, 146.7, 140.8, 167.6, 167.6, \n    275.8, 275.8, 275.8, 472, 460, 440, 78.7, 75.7, 71.1, 120.1, \n    318, 304, 350, 400, 79, 120.3, 95.1, 351, 145, 301, 121, \n    161.269431040436, 159.249627722055, 107.723787623215, 258.375923354896, \n    362.939096087962, 223.657568689669, 362.868405731767, 148.004677238088, \n    141.252806583643, 168.032790275149, 166.131107578607, 274.178155755145, \n    274.01588704695, 276.831618022164, 470.905939099938, 462.482541063987, \n    439.97975333035, 79.0425315320082, 76.4447458275734, 70.9294100251556, \n    120.76642342161, 320.764725269834, 302.249826529399, 351.061716362601, \n    397.004440767691, 78.6322086565895, 120.02599050666, 94.1744684136682, \n    350.174363458632, 146.072103452589, 300.03890096006, 120.95663387944\n    ), hp = c(110, 110, 93, 110, 175, 105, 245, 62, 95, 123, \n    123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, \n    245, 175, 66, 91, 113, 264, 175, 335, 109, 110.8727338403, \n    109.484119058913, 92.7621504533244, 110.160277399374, 176.428727264982, \n    104.373532055179, 246.952109456342, 62.5513973330706, 95.305515805725, \n    123.317620547991, 121.92199422535, 178.941508469637, 178.835604309104, \n    180.673282247968, 204.524825244676, 216.160318105994, 229.989416513592, \n    66.287256430909, 52.5115823386237, 64.8440457332647, 97.5382437293604, \n    151.304115693318, 149.136427563848, 245.743201453821, 173.689442835865, \n    65.6927312827203, 90.7927276484296, 111.900262152939, 263.37900841333, \n    176.293917960022, 333.930338277807, 108.960934651727), drat = c(3.9, \n    3.9, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92, \n    3.07, 3.07, 3.07, 2.93, 3, 3.23, 4.08, 4.93, 4.22, 3.7, 2.76, \n    3.15, 3.73, 3.08, 4.08, 4.43, 3.77, 4.22, 3.62, 3.54, 4.11, \n    3.93094238161063, 3.88170967572508, 3.84015354027203, 3.08448776718248, \n    3.17571709076967, 2.74353284259327, 3.23557661777493, 3.72281703482308, \n    3.93260654693097, 3.93012254104167, 3.88564404360466, 3.05194683889882, \n    3.05014058460528, 3.08148320278479, 2.92320847788733, 3.01619048519991, \n    3.22985137103871, 4.09775767027438, 4.97850194095029, 4.20987496914426, \n    3.72053094637766, 2.78399572875705, 3.13186497884081, 3.74131486295001, \n    3.05693419391122, 4.06100520656817, 4.41990970859937, 3.73330963112018, \n    4.21007354357671, 3.64676561723016, 3.52869670896549, 4.10852698549172\n    ), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, 3.57, 3.19, \n    3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, 5.345, 2.2, \n    1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, 1.935, 2.14, \n    1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, 2.86151674813067, \n    2.31406654894315, 3.21968447126353, 3.46808469595164, 3.43935638962779, \n    3.59844502350669, 3.21837028213702, 3.16013026092667, 3.44888304622024, \n    3.40985089540817, 4.0460663303968, 3.70587113373866, 3.79413892720733, \n    5.23783089041244, 5.45327239724144, 5.34475404897891, 2.20957521436363, \n    1.63088856686302, 1.83059729108524, 2.47867804941107, 3.55060324826986, \n    3.41522419121212, 3.8516485452354, 3.81620518687943, 1.92599143987976, \n    2.13512568316087, 1.49827519148139, 3.16254339647824, 2.79048087285291, \n    3.5586009183635, 2.77900365442019), qsec = c(16.46, 17.02, \n    18.61, 19.44, 17.02, 20.22, 15.84, 20, 22.9, 18.3, 18.9, \n    17.4, 17.6, 18, 17.98, 17.82, 17.42, 19.47, 18.52, 19.9, \n    20.01, 16.87, 17.3, 15.41, 17.05, 18.9, 16.7, 16.9, 14.5, \n    15.5, 14.6, 18.6, 16.5905927182849, 16.9401791489336, 18.5624045154448, \n    19.4683253876712, 17.1589539317142, 20.0993601729115, 15.9662098521978, \n    20.1778701074421, 22.973645388959, 18.347255740067, 18.7343552102367, \n    17.297679152065, 17.4861479768902, 18.0673282247968, 17.9383236970697, \n    17.9161714820875, 17.4191984159425, 19.5547406471182, 18.7022020175252, \n    19.8522540014149, 20.1210335775722, 17.0166695449751, 17.2004013123638, \n    15.4567458547077, 16.9223142877228, 18.812009412779, 16.6619621069096, \n    16.7355259326077, 14.4658925075503, 15.6146041621733, 14.5533819070328, \n    18.5933338029552), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), am = c(TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE), gear = structure(c(2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, \n    1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, \n    1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, \n    3L, 3L, 2L), levels = c(\"three\", \"four\", \"five\"), class = c(\"ordered\", \n    \"factor\")), carb = c(4L, 4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, \n    4L, 4L, 3L, 3L, 3L, 4L, 4L, 4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, \n    2L, 1L, 2L, 2L, 4L, 6L, 8L, 2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, \n    2L, 2L, 5L, 4L, 2L, 4L, 3L, 3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, \n    2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 7L, 3L), country = structure(c(3L, \n    3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 6L, 6L, \n    6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, 2L, 2L, \n    4L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n    6L, 6L, 6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, \n    2L, 2L, 4L), levels = c(\"Germany\", \"Italy\", \"Japan\", \"Sweden\", \n    \"UK\", \"USA\"), class = \"factor\"), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\")), row.names = c(NA, -64L), class = c(\"tbl_df\", \n    \"tbl\", \"data.frame\")))"
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = structure(list(\n    mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n-64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
       
       attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
       
       
       attr(,"params")$data
       attr(,"params")$data$name
-      [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
+      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
       
       attr(,"params")$data$data_sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # A tibble: 64 x 8
+           mpg vs    continent     am    model             gear   carb    wt
+         <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
+       1  21   FALSE Asia          TRUE  Mazda RX4         four      4  2.62
+       2  21   FALSE Asia          TRUE  Mazda RX4 Wag     four      4  2.88
+       3  22.8 TRUE  Asia          TRUE  Datsun 710        four      1  2.32
+       4  21.4 TRUE  North America FALSE Hornet 4 Drive    three     1  3.22
+       5  18.7 FALSE North America FALSE Hornet Sportabout three     2  3.44
+       6  18.1 TRUE  North America FALSE Valiant           three     1  3.46
+       7  14.3 FALSE North America FALSE Duster 360        three     4  3.57
+       8  24.4 TRUE  Europe        FALSE Merc 240D         four      2  3.19
+       9  22.8 TRUE  Europe        FALSE Merc 230          four      2  3.15
+      10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
       
       attr(,"params")$data$y_vals_sample
                  mpg
@@ -828,162 +536,79 @@
       attr(,"ale")$boot$effect$mpg
       attr(,"ale")$boot$effect$mpg$ale
       attr(,"ale")$boot$effect$mpg$ale$d1
-      attr(,"ale")$boot$effect$mpg$ale$d1$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n         .y    .y_lo    .y_mean  .y_median   .y_hi
-           <dbl> <int>      <dbl>    <dbl>      <dbl>      <dbl>   <dbl>
-      1        3     1  0.00355   -0.0129   0.00355    0.00355   0.0200 
-      2        4    17  0.00240   -0.00728  0.00240    0.00240   0.0121 
-      3        5     6  0.00125   -0.00163  0.00125    0.00125   0.00413
-      4        6    11  0.0000998 -0.00382  0.0000998  0.0000998 0.00402
-      5        7     5 -0.00105   -0.0118  -0.00105   -0.00105   0.00967
-      6        8    21 -0.00220   -0.0197  -0.00220   -0.00220   0.0153 
-      7        9     3 -0.00335   -0.0277  -0.00335   -0.00335   0.0210 
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      70.9     1 -2.73  -3.70   -2.73     -2.73  -1.77 
-       2      79.0     7 -2.58  -3.49   -2.58     -2.58  -1.67 
-       3     120.      7 -1.81  -2.44   -1.81     -1.81  -1.18 
-       4     146.      7 -1.33  -1.79   -1.33     -1.33  -0.877
-       5     166.      7 -0.959 -1.28   -0.959    -0.959 -0.639
-       6     258.      7  0.761  0.454   0.761     0.761  1.07 
-       7     300.      7  1.54   0.948   1.54      1.54   2.13 
-       8     350.      7  2.47   1.54    2.47      2.47   3.40 
-       9     397.      7  3.35   2.10    3.35      3.35   4.59 
-      10     472       7  4.75   2.99    4.75      4.75   6.50 
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n      .y   .y_lo .y_mean .y_median  .y_hi
-           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
-       1     52      1   3.55    1.66    3.55      3.55   5.45 
-       2     66      8   3.22    1.85    3.22      3.22   4.59 
-       3     95      6   2.29    1.77    2.29      2.29   2.81 
-       4    109      7   1.60    1.28    1.60      1.60   1.93 
-       5    112.     7   1.47    1.18    1.47      1.47   1.75 
-       6    150      8  -0.579  -0.639  -0.579    -0.579 -0.520
-       7    176.     6  -1.69   -2.27   -1.69     -1.69  -1.11 
-       8    181.     7  -1.86   -2.54   -1.86     -1.86  -1.17 
-       9    245      8  -5.17   -6.57   -5.17     -5.17  -3.77 
-      10    335      6 -10.1   -12.2   -10.1     -10.1   -8.04 
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n     .y   .y_lo .y_mean .y_median   .y_hi
-             <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1      2.74     1 -2.92  -4.41    -2.92     -2.92  -1.44  
-       2      3.02     7 -2.08  -3.15    -2.08     -2.08  -1.01  
-       3      3.08     8 -1.89  -2.86    -1.89     -1.89  -0.917 
-       4      3.18     6 -1.59  -2.41    -1.59     -1.59  -0.774 
-       5      3.62     7 -0.225 -0.364   -0.225    -0.225 -0.0864
-       6      3.73     7  0.128  0.0958   0.128     0.128  0.159 
-       7      3.9      8  0.649  0.369    0.649     0.649  0.929 
-       8      3.93     6  0.751  0.423    0.751     0.751  1.08  
-       9      4.21     7  1.62   0.882    1.62      1.62   2.36  
-      10      4.98     7  3.98   2.06     3.98      3.98   5.91  
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1    1.50     1   7.01    6.77    7.01      7.01    7.25 
-       2    1.94     7   5.11    4.91    5.11      5.11    5.31 
-       3    2.46     7   2.81    2.66    2.81      2.81    2.95 
-       4    2.79     7   1.39    1.28    1.39      1.39    1.50 
-       5    3.19     7  -0.348  -0.421  -0.348    -0.348  -0.275
-       6    3.44     7  -1.43   -1.48   -1.43     -1.43   -1.39 
-       7    3.52     7  -1.78   -1.82   -1.78     -1.78   -1.74 
-       8    3.73     7  -2.70   -2.72   -2.70     -2.70   -2.68 
-       9    4.05     7  -4.07   -4.09   -4.07     -4.07   -4.06 
-      10    5.45     7 -10.2   -10.3   -10.2     -10.2   -10.0  
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n      .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      14.5     1 -5.45   -6.12  -5.45     -5.45   -4.78 
-       2      15.6     7 -3.71   -4.15  -3.71     -3.71   -3.27 
-       3      16.7     7 -1.90   -2.22  -1.90     -1.90   -1.58 
-       4      17.0     7 -1.45   -1.73  -1.45     -1.45   -1.17 
-       5      17.4     7 -0.842  -1.09  -0.842    -0.842  -0.598
-       6      18.0     7 -0.0136 -0.183 -0.0136   -0.0136  0.156
-       7      18.6     7  0.802   0.795  0.802     0.802   0.810
-       8      18.9     7  1.22    1.18   1.22      1.22    1.26 
-       9      20       7  2.76    2.60   2.76      2.76    2.92 
-      10      23.0     7  6.27    5.48   6.27      6.27    7.06 
-      
       attr(,"ale")$boot$effect$mpg$ale$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
-        <ord>  <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
-      1 FALSE     36  0.211 -0.0530   0.211     0.211 0.475 
-      2 TRUE      28 -0.231 -0.506   -0.231    -0.231 0.0445
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      attr(,"ale")$boot$effect$mpg$ale$d1$continent
+      # A tibble: 3 x 7
+        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 North America    24     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 Asia             12     0     0       0         0     0
       
       attr(,"ale")$boot$effect$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38 -1.88 -1.98   -1.88     -1.88 -1.79
-      2 TRUE      26  2.66  2.06    2.66      2.66  3.27
+      1 FALSE     38 -5.18 -5.36   -5.18     -5.18 -4.99
+      2 TRUE      26  7.30  5.72    7.30      7.30  8.87
       
       attr(,"ale")$boot$effect$mpg$ale$d1$gear
       # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
-      1 three       30  1.39   0.972   1.39      1.39   1.81   
-      2 four        24 -1.43  -1.98   -1.43     -1.43  -0.893  
-      3 five        10 -0.254 -0.515  -0.254    -0.254  0.00742
+        gear.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
+        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+      1 three       30  0.850 -3.09    0.850     0.850  4.79
+      2 four        24  1.53  -0.665   1.53      1.53   3.72
+      3 five        10 -3.83  -6.55   -3.83     -3.83  -1.11
       
       attr(,"ale")$boot$effect$mpg$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n        .y    .y_lo   .y_mean .y_median   .y_hi
-            <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>   <dbl>
-      1         1    14 -0.00302  -0.0145  -0.00302  -0.00302  0.00847
-      2         2    19 -0.000533 -0.00388 -0.000533 -0.000533 0.00282
-      3         3     9  0.00195  -0.00284  0.00195   0.00195  0.00674
-      4         4    16  0.00444  -0.00849  0.00444   0.00444  0.0174 
-      5         8     6  0.0144   -0.0311   0.0144    0.0144   0.0599 
+        carb.ceil    .n        .y      .y_lo   .y_mean .y_median       .y_hi
+            <dbl> <int>     <dbl>      <dbl>     <dbl>     <dbl>       <dbl>
+      1         1    14 -0.00171  -0.00338   -0.00171  -0.00171  -0.0000454 
+      2         2    19 -0.000459 -0.000908  -0.000459 -0.000459 -0.00000965
+      3         3     9  0.000795  0.0000261  0.000795  0.000795  0.00156   
+      4         4    16  0.00205   0.0000618  0.00205   0.00205   0.00404   
+      5         8     6  0.00707   0.000205   0.00707   0.00707   0.0139    
       
-      attr(,"ale")$boot$effect$mpg$ale$d1$country
-      # A tibble: 6 x 7
-        country.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 Sweden          2 -2.83  -2.83   -2.83     -2.83  -2.83 
-      2 UK              2  0.417  0.174   0.417     0.417  0.661
-      3 Italy           8  0.410 -0.176   0.410     0.410  0.996
-      4 Japan          12  2.34   1.88    2.34      2.34   2.80 
-      5 Germany        16 -1.03  -1.53   -1.03     -1.03  -0.530
-      6 USA            24  1.69   1.39    1.69      1.69   1.99 
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 North America    24 -0.654 -0.982  -0.654    -0.654 -0.327
-      2 Europe           28  2.87   2.73    2.87      2.87   3.00 
-      3 Asia             12 -3.37  -3.50   -3.37     -3.37  -3.24 
+      attr(,"ale")$boot$effect$mpg$ale$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n     .y   .y_lo .y_mean .y_median   .y_hi
+           <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1    1.50     1 -16.7  -16.8    -16.7     -16.7  -16.6  
+       2    1.94     7  -8.10  -8.91    -8.10     -8.10  -7.30 
+       3    2.46     7  -1.26  -3.21    -1.26     -1.26   0.699
+       4    2.79     7   1.42  -0.260    1.42      1.42   3.10 
+       5    3.19     7   4.44   3.34     4.44      4.44   5.54 
+       6    3.44     7   6.19   4.91     6.19      6.19   7.46 
+       7    3.52     7   6.52   5.29     6.52      6.52   7.75 
+       8    3.73     7   5.92   5.69     5.92      5.92   6.15 
+       9    4.05     7   1.16  -5.03     1.16      1.16   7.35 
+      10    5.45     7  -1.44 -11.7     -1.44     -1.44   8.77 
       
       
       
       attr(,"ale")$boot$effect$mpg$stats
       attr(,"ale")$boot$effect$mpg$stats$d1
-      # A tibble: 72 x 7
-         term  statistic estimate conf.low  median    mean conf.high
-         <fct> <fct>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 cyl   aled        0.0113  0.00929  0.0113  0.0113    0.0133
-       2 cyl   aler_min   -0.0214 -0.0286  -0.0214 -0.0214   -0.0142
-       3 cyl   aler_max    0.0216  0.0209   0.0216  0.0216    0.0222
-       4 cyl   naled       0       0        0       0         0     
-       5 cyl   naler_min   0       0        0       0         0     
-       6 cyl   naler_max   0       0        0       0         0     
-       7 disp  aled        2.03    1.32     2.03    2.03      2.74  
-       8 disp  aler_min   -2.73   -3.70    -2.73   -2.73     -1.77  
-       9 disp  aler_max    4.75    2.99     4.75    4.75      6.50  
-      10 disp  naled      13.1    10.5     13.1    13.1      15.6   
-      # i 62 more rows
+      # A tibble: 36 x 7
+         term      statistic estimate conf.low median  mean conf.high
+         <fct>     <fct>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
+       1 vs        aled             0        0      0     0         0
+       2 vs        aler_min         0        0      0     0         0
+       3 vs        aler_max         0        0      0     0         0
+       4 vs        naled            0        0      0     0         0
+       5 vs        naler_min        0        0      0     0         0
+       6 vs        naler_max        0        0      0     0         0
+       7 continent aled             0        0      0     0         0
+       8 continent aler_min         0        0      0     0         0
+       9 continent aler_max         0        0      0     0         0
+      10 continent naled            0        0      0     0         0
+      # i 26 more rows
       
       
       attr(,"ale")$boot$effect$mpg$conf
@@ -1007,13 +632,13 @@
       [1] "model"
       
       attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
       
       attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
       
       
       attr(,"params")$data
@@ -1021,21 +646,20 @@
       [1] "data"
       
       attr(,"params")$data$data_sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # A tibble: 64 x 8
+           mpg vs    continent     am    model             gear   carb    wt
+         <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
+       1  21   FALSE Asia          TRUE  Mazda RX4         four      4  2.62
+       2  21   FALSE Asia          TRUE  Mazda RX4 Wag     four      4  2.88
+       3  22.8 TRUE  Asia          TRUE  Datsun 710        four      1  2.32
+       4  21.4 TRUE  North America FALSE Hornet 4 Drive    three     1  3.22
+       5  18.7 FALSE North America FALSE Hornet Sportabout three     2  3.44
+       6  18.1 TRUE  North America FALSE Valiant           three     1  3.46
+       7  14.3 FALSE North America FALSE Duster 360        three     4  3.57
+       8  24.4 TRUE  Europe        FALSE Merc 240D         four      2  3.19
+       9  22.8 TRUE  Europe        FALSE Merc 230          four      2  3.15
+      10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
       
       attr(,"params")$data$y_vals_sample
                  mpg
@@ -1157,9 +781,8 @@
       [1] FALSE
       
       attr(,"params")$ale_options
-      attr(,"params")$ale_options$x_cols
-       [1] "cyl"       "disp"      "hp"        "drat"      "wt"        "qsec"     
-       [7] "vs"        "am"        "gear"      "carb"      "country"   "continent"
+      attr(,"params")$ale_options$exclude_cols
+      [1] "model"
       
       
       attr(,"params")$ale_p
@@ -1182,74 +805,6 @@
     Output
       $vs
       $vs$d1
-      $vs$d1$model
-          x          y PANEL group flipped_aes       ymin       ymax  xmin  xmax
-      1   1 0.03127471     1     1       FALSE  0.0000000 0.03127471  0.55  1.45
-      2   2 0.03127471     1     2       FALSE  0.0000000 0.03127471  1.55  2.45
-      3   3 0.03127471     1     3       FALSE  0.0000000 0.03127471  2.55  3.45
-      4   4 0.03127471     1     4       FALSE  0.0000000 0.03127471  3.55  4.45
-      5   5 0.03127471     1     5       FALSE  0.0000000 0.03127471  4.55  5.45
-      6   6 0.03127471     1     6       FALSE  0.0000000 0.03127471  5.55  6.45
-      7   7 0.03127471     1     7       FALSE  0.0000000 0.03127471  6.55  7.45
-      8   8 0.03127471     1     8       FALSE  0.0000000 0.03127471  7.55  8.45
-      9   9 0.03127471     1     9       FALSE  0.0000000 0.03127471  8.55  9.45
-      10 10 1.03127471     1    10       FALSE  0.0000000 1.03127471  9.55 10.45
-      11 11 1.03127471     1    11       FALSE  0.0000000 1.03127471 10.55 11.45
-      12 12 0.03127471     1    12       FALSE  0.0000000 0.03127471 11.55 12.45
-      13 13 0.03127471     1    13       FALSE  0.0000000 0.03127471 12.55 13.45
-      14 14 0.03127471     1    14       FALSE  0.0000000 0.03127471 13.55 14.45
-      15 15 0.00000000     1    15       FALSE -0.9687253 0.00000000 14.55 15.45
-      16 16 0.03127471     1    16       FALSE  0.0000000 0.03127471 15.55 16.45
-      17 17 0.03127471     1    17       FALSE  0.0000000 0.03127471 16.55 17.45
-      18 18 0.03127471     1    18       FALSE  0.0000000 0.03127471 17.55 18.45
-      19 19 0.03127471     1    19       FALSE  0.0000000 0.03127471 18.55 19.45
-      20 20 0.03127471     1    20       FALSE  0.0000000 0.03127471 19.55 20.45
-      21 21 0.00000000     1    21       FALSE -0.9687253 0.00000000 20.55 21.45
-      22 22 0.00000000     1    22       FALSE -0.9687253 0.00000000 21.55 22.45
-      23 23 0.03127471     1    23       FALSE  0.0000000 0.03127471 22.55 23.45
-      24 24 0.03127471     1    24       FALSE  0.0000000 0.03127471 23.55 24.45
-      25 25 0.00000000     1    25       FALSE -0.9687253 0.00000000 24.55 25.45
-      26 26 0.00000000     1    26       FALSE -0.9687253 0.00000000 25.55 26.45
-      27 27 0.03048380     1    27       FALSE  0.0000000 0.03048380 26.55 27.45
-      28 28 0.03127473     1    28       FALSE  0.0000000 0.03127473 27.55 28.45
-      29 29 0.03127473     1    29       FALSE  0.0000000 0.03127473 28.55 29.45
-      30 30 0.03127473     1    30       FALSE  0.0000000 0.03127473 29.55 30.45
-      31 31 1.03127473     1    31       FALSE  0.0000000 1.03127473 30.55 31.45
-      32 32 1.03127473     1    32       FALSE  0.0000000 1.03127473 31.55 32.45
-         colour fill linewidth linetype alpha
-      1      NA gray       0.5        1    NA
-      2      NA gray       0.5        1    NA
-      3      NA gray       0.5        1    NA
-      4      NA gray       0.5        1    NA
-      5      NA gray       0.5        1    NA
-      6      NA gray       0.5        1    NA
-      7      NA gray       0.5        1    NA
-      8      NA gray       0.5        1    NA
-      9      NA gray       0.5        1    NA
-      10     NA gray       0.5        1    NA
-      11     NA gray       0.5        1    NA
-      12     NA gray       0.5        1    NA
-      13     NA gray       0.5        1    NA
-      14     NA gray       0.5        1    NA
-      15     NA gray       0.5        1    NA
-      16     NA gray       0.5        1    NA
-      17     NA gray       0.5        1    NA
-      18     NA gray       0.5        1    NA
-      19     NA gray       0.5        1    NA
-      20     NA gray       0.5        1    NA
-      21     NA gray       0.5        1    NA
-      22     NA gray       0.5        1    NA
-      23     NA gray       0.5        1    NA
-      24     NA gray       0.5        1    NA
-      25     NA gray       0.5        1    NA
-      26     NA gray       0.5        1    NA
-      27     NA gray       0.5        1    NA
-      28     NA gray       0.5        1    NA
-      29     NA gray       0.5        1    NA
-      30     NA gray       0.5        1    NA
-      31     NA gray       0.5        1    NA
-      32     NA gray       0.5        1    NA
-      
       $vs$d1$mpg
                  ymin         ymax        x            y PANEL group flipped_aes
       1  3.925673e-13 3.925673e-13 10.37589 3.925673e-13     1    -1       FALSE
@@ -1274,161 +829,101 @@
       9      NA grey85       0.5        1   0.5
       10     NA grey85       0.5        1   0.5
       
-      $vs$d1$cyl
-                ymin         ymax x            y PANEL group flipped_aes colour
-      1 3.925673e-13 3.925673e-13 3 3.925673e-13     1    -1       FALSE     NA
-      2 3.925673e-13 3.925673e-13 4 3.925673e-13     1    -1       FALSE     NA
-      3 3.925673e-13 3.925673e-13 5 3.925673e-13     1    -1       FALSE     NA
-      4 3.925673e-13 3.925673e-13 6 3.925673e-13     1    -1       FALSE     NA
-      5 3.925673e-13 3.925673e-13 7 3.925673e-13     1    -1       FALSE     NA
-      6 3.925673e-13 3.925673e-13 8 3.925673e-13     1    -1       FALSE     NA
-      7 3.925673e-13 3.925673e-13 9 3.925673e-13     1    -1       FALSE     NA
-          fill linewidth linetype alpha
-      1 grey85       0.5        1   0.5
-      2 grey85       0.5        1   0.5
-      3 grey85       0.5        1   0.5
-      4 grey85       0.5        1   0.5
-      5 grey85       0.5        1   0.5
-      6 grey85       0.5        1   0.5
-      7 grey85       0.5        1   0.5
-      
-      $vs$d1$disp
-                 ymin         ymax         x            y PANEL group flipped_aes
-      1  3.925677e-13 3.925677e-13  70.92941 3.925677e-13     1    -1       FALSE
-      2  3.925677e-13 3.925677e-13  79.04253 3.925677e-13     1    -1       FALSE
-      3  3.925676e-13 3.925676e-13 120.30000 3.925676e-13     1    -1       FALSE
-      4  3.925676e-13 3.925676e-13 146.07210 3.925676e-13     1    -1       FALSE
-      5  3.925675e-13 3.925675e-13 166.13111 3.925675e-13     1    -1       FALSE
-      6  3.925675e-13 3.925675e-13 258.37592 3.925675e-13     1    -1       FALSE
-      7  3.925672e-13 3.925672e-13 300.03890 3.925672e-13     1    -1       FALSE
-      8  3.925669e-13 3.925669e-13 350.17436 3.925669e-13     1    -1       FALSE
-      9  3.925666e-13 3.925666e-13 397.00444 3.925666e-13     1    -1       FALSE
-      10 3.925661e-13 3.925661e-13 472.00000 3.925661e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
-      $vs$d1$hp
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925702e-13 3.925702e-13  52.0000 3.925702e-13     1    -1       FALSE
-      2  3.925702e-13 3.925702e-13  66.0000 3.925702e-13     1    -1       FALSE
-      3  3.925695e-13 3.925695e-13  95.0000 3.925695e-13     1    -1       FALSE
-      4  3.925695e-13 3.925695e-13 109.0000 3.925695e-13     1    -1       FALSE
-      5  3.925694e-13 3.925694e-13 111.9003 3.925694e-13     1    -1       FALSE
-      6  3.925684e-13 3.925684e-13 150.0000 3.925684e-13     1    -1       FALSE
-      7  3.925665e-13 3.925665e-13 176.2939 3.925665e-13     1    -1       FALSE
-      8  3.925662e-13 3.925662e-13 180.6733 3.925662e-13     1    -1       FALSE
-      9  3.925617e-13 3.925617e-13 245.0000 3.925617e-13     1    -1       FALSE
-      10 3.925554e-13 3.925554e-13 335.0000 3.925554e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
-      $vs$d1$drat
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925606e-13 3.925606e-13 2.743533 3.925606e-13     1    -1       FALSE
-      2  3.925630e-13 3.925630e-13 3.016190 3.925630e-13     1    -1       FALSE
-      3  3.925635e-13 3.925635e-13 3.080000 3.925635e-13     1    -1       FALSE
-      4  3.925643e-13 3.925643e-13 3.175717 3.925643e-13     1    -1       FALSE
-      5  3.925688e-13 3.925688e-13 3.620000 3.925688e-13     1    -1       FALSE
-      6  3.925691e-13 3.925691e-13 3.733310 3.925691e-13     1    -1       FALSE
-      7  3.925700e-13 3.925700e-13 3.900000 3.925700e-13     1    -1       FALSE
-      8  3.925700e-13 3.925700e-13 3.932607 3.925700e-13     1    -1       FALSE
-      9  3.925700e-13 3.925700e-13 4.209875 3.925700e-13     1    -1       FALSE
-      10 3.925745e-13 3.925745e-13 4.978502 3.925745e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
-      $vs$d1$wt
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925542e-13 3.925542e-13 1.498275 3.925542e-13     1    -1       FALSE
-      2  3.925542e-13 3.925542e-13 1.935000 3.925542e-13     1    -1       FALSE
-      3  3.925573e-13 3.925573e-13 2.465000 3.925573e-13     1    -1       FALSE
-      4  3.925612e-13 3.925612e-13 2.790481 3.925612e-13     1    -1       FALSE
-      5  3.925660e-13 3.925660e-13 3.190000 3.925660e-13     1    -1       FALSE
-      6  3.925675e-13 3.925675e-13 3.439356 3.925675e-13     1    -1       FALSE
-      7  3.925682e-13 3.925682e-13 3.520000 3.925682e-13     1    -1       FALSE
-      8  3.925726e-13 3.925726e-13 3.730000 3.925726e-13     1    -1       FALSE
-      9  3.925792e-13 3.925792e-13 4.046066 3.925792e-13     1    -1       FALSE
-      10 3.926085e-13 3.926085e-13 5.453272 3.926085e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
-      $vs$d1$qsec
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925820e-13 3.925820e-13 14.46589 3.925820e-13     1    -1       FALSE
-      2  3.925755e-13 3.925755e-13 15.61460 3.925755e-13     1    -1       FALSE
-      3  3.925702e-13 3.925702e-13 16.73553 3.925702e-13     1    -1       FALSE
-      4  3.925688e-13 3.925688e-13 17.02000 3.925688e-13     1    -1       FALSE
-      5  3.925665e-13 3.925665e-13 17.41920 3.925665e-13     1    -1       FALSE
-      6  3.925634e-13 3.925634e-13 17.98000 3.925634e-13     1    -1       FALSE
-      7  3.925624e-13 3.925624e-13 18.59333 3.925624e-13     1    -1       FALSE
-      8  3.925624e-13 3.925624e-13 18.90000 3.925624e-13     1    -1       FALSE
-      9  3.925624e-13 3.925624e-13 20.00000 3.925624e-13     1    -1       FALSE
-      10 3.925624e-13 3.925624e-13 22.97365 3.925624e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
-      $vs$d1$am
-        x         y PANEL group flipped_aes       ymin      ymax xmin xmax colour
-      1 1 0.1873517     1     1       FALSE  0.0000000 0.1873517 0.55 1.45     NA
-      2 2 0.0000000     1     2       FALSE -0.2738217 0.0000000 1.55 2.45     NA
-        fill linewidth linetype alpha
-      1 gray       0.5        1    NA
-      2 gray       0.5        1    NA
-      
-      $vs$d1$gear
-        x         y PANEL group flipped_aes       ymin      ymax xmin xmax colour
-      1 1 0.0000000     1     1       FALSE -0.4739336 0.0000000 0.55 1.45     NA
-      2 2 0.3593997     1     2       FALSE  0.0000000 0.3593997 1.55 2.45     NA
-      3 3 0.5592415     1     3       FALSE  0.0000000 0.5592415 2.55 3.45     NA
+      $vs$d1$continent
+        x            y PANEL group flipped_aes ymin         ymax xmin xmax colour
+      1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.55 1.45     NA
+      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.55 2.45     NA
+      3 3 3.925673e-13     1     3       FALSE    0 3.925673e-13 2.55 3.45     NA
         fill linewidth linetype alpha
       1 gray       0.5        1    NA
       2 gray       0.5        1    NA
       3 gray       0.5        1    NA
+      
+      $vs$d1$am
+        x            y PANEL group flipped_aes ymin         ymax xmin xmax colour
+      1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.55 1.45     NA
+      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.55 2.45     NA
+        fill linewidth linetype alpha
+      1 gray       0.5        1    NA
+      2 gray       0.5        1    NA
+      
+      $vs$d1$model
+          x      y PANEL group flipped_aes    ymin   ymax  xmin  xmax colour fill
+      1   1 0.0000     1     1       FALSE -0.4375 0.0000  0.55  1.45     NA gray
+      2   2 0.0000     1     2       FALSE -0.4375 0.0000  1.55  2.45     NA gray
+      3   3 0.0000     1     3       FALSE -0.4375 0.0000  2.55  3.45     NA gray
+      4   4 0.0000     1     4       FALSE -0.4375 0.0000  3.55  4.45     NA gray
+      5   5 0.0000     1     5       FALSE -0.4375 0.0000  4.55  5.45     NA gray
+      6   6 0.0000     1     6       FALSE -0.4375 0.0000  5.55  6.45     NA gray
+      7   7 0.0000     1     7       FALSE -0.4375 0.0000  6.55  7.45     NA gray
+      8   8 0.0000     1     8       FALSE -0.4375 0.0000  7.55  8.45     NA gray
+      9   9 0.0000     1     9       FALSE -0.4375 0.0000  8.55  9.45     NA gray
+      10 10 0.5625     1    10       FALSE  0.0000 0.5625  9.55 10.45     NA gray
+      11 11 0.5625     1    11       FALSE  0.0000 0.5625 10.55 11.45     NA gray
+      12 12 0.0000     1    12       FALSE -0.4375 0.0000 11.55 12.45     NA gray
+      13 13 0.0000     1    13       FALSE -0.4375 0.0000 12.55 13.45     NA gray
+      14 14 0.0000     1    14       FALSE -0.4375 0.0000 13.55 14.45     NA gray
+      15 15 0.5625     1    15       FALSE  0.0000 0.5625 14.55 15.45     NA gray
+      16 16 0.5625     1    16       FALSE  0.0000 0.5625 15.55 16.45     NA gray
+      17 17 0.5625     1    17       FALSE  0.0000 0.5625 16.55 17.45     NA gray
+      18 18 0.5625     1    18       FALSE  0.0000 0.5625 17.55 18.45     NA gray
+      19 19 0.5625     1    19       FALSE  0.0000 0.5625 18.55 19.45     NA gray
+      20 20 0.0000     1    20       FALSE -0.4375 0.0000 19.55 20.45     NA gray
+      21 21 0.0000     1    21       FALSE -0.4375 0.0000 20.55 21.45     NA gray
+      22 22 0.0000     1    22       FALSE -0.4375 0.0000 21.55 22.45     NA gray
+      23 23 0.5625     1    23       FALSE  0.0000 0.5625 22.55 23.45     NA gray
+      24 24 0.0000     1    24       FALSE -0.4375 0.0000 23.55 24.45     NA gray
+      25 25 0.0000     1    25       FALSE -0.4375 0.0000 24.55 25.45     NA gray
+      26 26 0.0000     1    26       FALSE -0.4375 0.0000 25.55 26.45     NA gray
+      27 27 0.5625     1    27       FALSE  0.0000 0.5625 26.55 27.45     NA gray
+      28 28 0.5625     1    28       FALSE  0.0000 0.5625 27.55 28.45     NA gray
+      29 29 0.5625     1    29       FALSE  0.0000 0.5625 28.55 29.45     NA gray
+      30 30 0.5625     1    30       FALSE  0.0000 0.5625 29.55 30.45     NA gray
+      31 31 0.5625     1    31       FALSE  0.0000 0.5625 30.55 31.45     NA gray
+      32 32 0.5625     1    32       FALSE  0.0000 0.5625 31.55 32.45     NA gray
+         linewidth linetype alpha
+      1        0.5        1    NA
+      2        0.5        1    NA
+      3        0.5        1    NA
+      4        0.5        1    NA
+      5        0.5        1    NA
+      6        0.5        1    NA
+      7        0.5        1    NA
+      8        0.5        1    NA
+      9        0.5        1    NA
+      10       0.5        1    NA
+      11       0.5        1    NA
+      12       0.5        1    NA
+      13       0.5        1    NA
+      14       0.5        1    NA
+      15       0.5        1    NA
+      16       0.5        1    NA
+      17       0.5        1    NA
+      18       0.5        1    NA
+      19       0.5        1    NA
+      20       0.5        1    NA
+      21       0.5        1    NA
+      22       0.5        1    NA
+      23       0.5        1    NA
+      24       0.5        1    NA
+      25       0.5        1    NA
+      26       0.5        1    NA
+      27       0.5        1    NA
+      28       0.5        1    NA
+      29       0.5        1    NA
+      30       0.5        1    NA
+      31       0.5        1    NA
+      32       0.5        1    NA
+      
+      $vs$d1$gear
+        x        y PANEL group flipped_aes       ymin     ymax xmin xmax colour fill
+      1 1 0.000000     1     1       FALSE -0.4427083 0.000000 0.55 1.45     NA gray
+      2 2 0.390625     1     2       FALSE  0.0000000 0.390625 1.55 2.45     NA gray
+      3 3 0.390625     1     3       FALSE  0.0000000 0.390625 2.55 3.45     NA gray
+        linewidth linetype alpha
+      1       0.5        1    NA
+      2       0.5        1    NA
+      3       0.5        1    NA
       
       $vs$d1$carb
                 ymin         ymax x            y PANEL group flipped_aes colour
@@ -1444,31 +939,29 @@
       4 grey85       0.5        1   0.5
       5 grey85       0.5        1   0.5
       
-      $vs$d1$country
-        x         y PANEL group flipped_aes        ymin      ymax xmin xmax colour
-      1 1 0.0000000     1     1       FALSE -0.19776013 0.0000000 0.55 1.45     NA
-      2 2 0.0000000     1     2       FALSE -0.19776013 0.0000000 1.55 2.45     NA
-      3 3 0.3018444     1     3       FALSE  0.00000000 0.3018444 2.55 3.45     NA
-      4 4 0.0000000     1     4       FALSE -0.03122529 0.0000000 3.55 4.45     NA
-      5 5 0.0000000     1     5       FALSE -0.03122529 0.0000000 4.55 5.45     NA
-      6 6 0.0000000     1     6       FALSE -0.03122529 0.0000000 5.55 6.45     NA
-        fill linewidth linetype alpha
-      1 gray       0.5        1    NA
-      2 gray       0.5        1    NA
-      3 gray       0.5        1    NA
-      4 gray       0.5        1    NA
-      5 gray       0.5        1    NA
-      6 gray       0.5        1    NA
-      
-      $vs$d1$continent
-        x            y PANEL group flipped_aes         ymin         ymax xmin xmax
-      1 1 4.943285e-05     1     1       FALSE  0.000000000 4.943285e-05 0.55 1.45
-      2 2 4.943285e-05     1     2       FALSE  0.000000000 4.943285e-05 1.55 2.45
-      3 3 0.000000e+00     1     3       FALSE -0.000214209 0.000000e+00 2.55 3.45
-        colour fill linewidth linetype alpha
-      1     NA gray       0.5        1    NA
-      2     NA gray       0.5        1    NA
-      3     NA gray       0.5        1    NA
+      $vs$d1$wt
+                 ymin         ymax        x            y PANEL group flipped_aes
+      1  3.925673e-13 3.925673e-13 1.498275 3.925673e-13     1    -1       FALSE
+      2  3.925673e-13 3.925673e-13 1.935000 3.925673e-13     1    -1       FALSE
+      3  3.925673e-13 3.925673e-13 2.465000 3.925673e-13     1    -1       FALSE
+      4  3.925673e-13 3.925673e-13 2.790481 3.925673e-13     1    -1       FALSE
+      5  3.925673e-13 3.925673e-13 3.190000 3.925673e-13     1    -1       FALSE
+      6  3.925673e-13 3.925673e-13 3.439356 3.925673e-13     1    -1       FALSE
+      7  3.925673e-13 3.925673e-13 3.520000 3.925673e-13     1    -1       FALSE
+      8  3.925673e-13 3.925673e-13 3.730000 3.925673e-13     1    -1       FALSE
+      9  3.925673e-13 3.925673e-13 4.046066 3.925673e-13     1    -1       FALSE
+      10 3.925673e-13 3.925673e-13 5.453272 3.925673e-13     1    -1       FALSE
+         colour   fill linewidth linetype alpha
+      1      NA grey85       0.5        1   0.5
+      2      NA grey85       0.5        1   0.5
+      3      NA grey85       0.5        1   0.5
+      4      NA grey85       0.5        1   0.5
+      5      NA grey85       0.5        1   0.5
+      6      NA grey85       0.5        1   0.5
+      7      NA grey85       0.5        1   0.5
+      8      NA grey85       0.5        1   0.5
+      9      NA grey85       0.5        1   0.5
+      10     NA grey85       0.5        1   0.5
       
       
       $vs$d2
@@ -1476,186 +969,114 @@
       
       $vs$eff
       $vs$eff[[1]]
-          y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1   1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2   2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      3   3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      4   4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      5   5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      6   6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      7   7     1     7     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      8   8     1     8     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      9   9     1     9     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      10 10     1    10     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      11 11     1    11     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      12 12     1    12     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      13 13     1    13     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      3 3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      4 4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      5 5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      6 6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      7 7     1     7     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       
       $vs$eff[[2]]
-                  xmin         xmax  y PANEL group   ymin   ymax colour linewidth
-      1   3.925673e-13 3.925673e-13  1     1     1  0.875  1.125  black       0.5
-      2   3.925673e-13 3.925673e-13  2     1     2  1.875  2.125  black       0.5
-      3   3.925673e-13 3.925673e-13  3     1     3  2.875  3.125  black       0.5
-      4   3.925661e-13 3.925677e-13  4     1     4  3.875  4.125  black       0.5
-      5   3.925554e-13 3.925702e-13  5     1     5  4.875  5.125  black       0.5
-      6   3.925606e-13 3.925745e-13  6     1     6  5.875  6.125  black       0.5
-      7   3.925624e-13 3.925820e-13  7     1     7  6.875  7.125  black       0.5
-      8   3.925542e-13 3.926085e-13  8     1     8  7.875  8.125  black       0.5
-      9  -2.142090e-04 4.943285e-05  9     1     9  8.875  9.125  black       0.5
-      10 -1.977601e-01 3.018444e-01 10     1    10  9.875 10.125  black       0.5
-      11 -2.738217e-01 1.873517e-01 11     1    11 10.875 11.125  black       0.5
-      12 -9.687253e-01           NA 12     1    12 11.875 12.125  black       0.5
-      13 -4.739336e-01 5.592415e-01 13     1    13 12.875 13.125  black       0.5
-         linetype height alpha
-      1         1   0.25    NA
-      2         1   0.25    NA
-      3         1   0.25    NA
-      4         1   0.25    NA
-      5         1   0.25    NA
-      6         1   0.25    NA
-      7         1   0.25    NA
-      8         1   0.25    NA
-      9         1   0.25    NA
-      10        1   0.25    NA
-      11        1   0.25    NA
-      12        1   0.25    NA
-      13        1   0.25    NA
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1  3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5
+      2  3.925673e-13 3.925673e-13 2     1     2 1.875 2.125  black       0.5
+      3  3.925673e-13 3.925673e-13 3     1     3 2.875 3.125  black       0.5
+      4  3.925673e-13 3.925673e-13 4     1     4 3.875 4.125  black       0.5
+      5  3.925673e-13 3.925673e-13 5     1     5 4.875 5.125  black       0.5
+      6 -4.427083e-01 3.906250e-01 6     1     6 5.875 6.125  black       0.5
+      7 -4.375000e-01 5.625000e-01 7     1     7 6.875 7.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      3        1   0.25    NA
+      4        1   0.25    NA
+      5        1   0.25    NA
+      6        1   0.25    NA
+      7        1   0.25    NA
       
       $vs$eff[[3]]
-         xmin xmax ymin ymax  y PANEL group colour  fill linewidth linetype alpha
-      1    NA   NA  0.7  1.3  1     1     1     NA white       0.5        1    NA
-      2    NA   NA  1.7  2.3  2     1     2     NA white       0.5        1    NA
-      3    NA   NA  2.7  3.3  3     1     3     NA white       0.5        1    NA
-      4    NA   NA  3.7  4.3  4     1     4     NA white       0.5        1    NA
-      5    NA   NA  4.7  5.3  5     1     5     NA white       0.5        1    NA
-      6    NA   NA  5.7  6.3  6     1     6     NA white       0.5        1    NA
-      7    NA   NA  6.7  7.3  7     1     7     NA white       0.5        1    NA
-      8    NA   NA  7.7  8.3  8     1     8     NA white       0.5        1    NA
-      9    NA   NA  8.7  9.3  9     1     9     NA white       0.5        1    NA
-      10   NA   NA  9.7 10.3 10     1    10     NA white       0.5        1    NA
-      11   NA   NA 10.7 11.3 11     1    11     NA white       0.5        1    NA
-      12   NA   NA 11.7 12.3 12     1    12     NA white       0.5        1    NA
-      13   NA   NA 12.7 13.3 13     1    13     NA white       0.5        1    NA
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      3   NA   NA  2.7  3.3 3     1     3     NA white       0.5        1    NA
+      4   NA   NA  3.7  4.3 4     1     4     NA white       0.5        1    NA
+      5   NA   NA  4.7  5.3 5     1     5     NA white       0.5        1    NA
+      6   NA   NA  5.7  6.3 6     1     6     NA white       0.5        1    NA
+      7   NA   NA  6.7  7.3 7     1     7     NA white       0.5        1    NA
       
       $vs$eff[[4]]
-          x       label  y PANEL group colour size angle hjust vjust alpha family
-      1  NA NALED  0.0%  1     1     1  black    3     0   0.5    -1    NA       
-      2  NA NALED  2.8%  2     1     2  black    3     0   0.5    -1    NA       
-      3  NA NALED 10.2%  3     1     3  black    3     0   0.5    -1    NA       
-      4  NA NALED 20.6%  4     1     4  black    3     0   0.5    -1    NA       
-      5  NA NALED 20.6%  5     1     5  black    3     0   0.5    -1    NA       
-      6  NA NALED 26.1%  6     1     6  black    3     0   0.5    -1    NA       
-      7  NA NALED 30.2%  7     1     7  black    3     0   0.5    -1    NA       
-      8  NA NALED 30.9%  8     1     8  black    3     0   0.5    -1    NA       
-      9  NA NALED 14.5%  9     1     9  black    3     0   0.5    -1    NA       
-      10 NA NALED 44.5% 10     1    10  black    3     0   0.5    -1    NA       
-      11 NA NALED 24.0% 11     1    11  black    3     0   0.5    -1    NA       
-      12 NA NALED 18.6% 12     1    12  black    3     0   0.5    -1    NA       
-      13 NA NALED 26.8% 13     1    13  black    3     0   0.5    -1    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
-      13        1        1.2
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED  0.0% 2     1     2  black    3     0   0.5    -1    NA       
+      3 NA NALED  5.6% 3     1     3  black    3     0   0.5    -1    NA       
+      4 NA NALED 24.4% 4     1     4  black    3     0   0.5    -1    NA       
+      5 NA NALED 24.0% 5     1     5  black    3     0   0.5    -1    NA       
+      6 NA NALED 26.8% 6     1     6  black    3     0   0.5    -1    NA       
+      7 NA NALED 30.9% 7     1     7  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      3        1        1.2
+      4        1        1.2
+      5        1        1.2
+      6        1        1.2
+      7        1        1.2
       
       $vs$eff[[5]]
-          x label     y PANEL group colour size angle hjust vjust alpha family
-      1  NA     (  1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2  NA     (  2.02     1     2  black 3.88     0   0.5   0.5    NA       
-      3  NA     (  3.02     1     3  black 3.88     0   0.5   0.5    NA       
-      4  NA     (  4.02     1     4  black 3.88     0   0.5   0.5    NA       
-      5  NA     (  5.02     1     5  black 3.88     0   0.5   0.5    NA       
-      6  NA     (  6.02     1     6  black 3.88     0   0.5   0.5    NA       
-      7  NA     (  7.02     1     7  black 3.88     0   0.5   0.5    NA       
-      8  NA     (  8.02     1     8  black 3.88     0   0.5   0.5    NA       
-      9  NA     (  9.02     1     9  black 3.88     0   0.5   0.5    NA       
-      10 NA     ( 10.02     1    10  black 3.88     0   0.5   0.5    NA       
-      11 NA     ( 11.02     1    11  black 3.88     0   0.5   0.5    NA       
-      12 NA     ( 12.02     1    12  black 3.88     0   0.5   0.5    NA       
-      13 NA     ( 13.02     1    13  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
-      13        1        1.2
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+      3 NA     ( 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
+      4 NA     ( 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
+      5 NA     ( 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
+      6 NA     ( 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
+      7 NA     ( 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
+      7        1.2
       
       $vs$eff[[6]]
-          x label     y PANEL group colour size angle hjust vjust alpha family
-      1  NA     )  1.02     1     1  black 3.88     0   0.5   0.5    NA       
-      2  NA     )  2.02     1     2  black 3.88     0   0.5   0.5    NA       
-      3  NA     )  3.02     1     3  black 3.88     0   0.5   0.5    NA       
-      4  NA     )  4.02     1     4  black 3.88     0   0.5   0.5    NA       
-      5  NA     )  5.02     1     5  black 3.88     0   0.5   0.5    NA       
-      6  NA     )  6.02     1     6  black 3.88     0   0.5   0.5    NA       
-      7  NA     )  7.02     1     7  black 3.88     0   0.5   0.5    NA       
-      8  NA     )  8.02     1     8  black 3.88     0   0.5   0.5    NA       
-      9  NA     )  9.02     1     9  black 3.88     0   0.5   0.5    NA       
-      10 NA     ) 10.02     1    10  black 3.88     0   0.5   0.5    NA       
-      11 NA     ) 11.02     1    11  black 3.88     0   0.5   0.5    NA       
-      12 NA     ) 12.02     1    12  black 3.88     0   0.5   0.5    NA       
-      13 NA     ) 13.02     1    13  black 3.88     0   0.5   0.5    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
-      13        1        1.2
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+      3 NA     ) 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
+      4 NA     ) 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
+      5 NA     ) 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
+      6 NA     ) 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
+      7 NA     ) 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      3        1.2
+      4        1.2
+      5        1.2
+      6        1.2
+      7        1.2
       
       $vs$eff[[7]]
-          x      label  y PANEL group colour size angle hjust vjust alpha family
-      1  NA ALED 0.000  1     1     1  black    3     0   0.5     2    NA       
-      2  NA ALED 0.000  2     1     2  black    3     0   0.5     2    NA       
-      3  NA ALED 0.000  3     1     3  black    3     0   0.5     2    NA       
-      4  NA ALED 0.000  4     1     4  black    3     0   0.5     2    NA       
-      5  NA ALED 0.000  5     1     5  black    3     0   0.5     2    NA       
-      6  NA ALED 0.000  6     1     6  black    3     0   0.5     2    NA       
-      7  NA ALED 0.000  7     1     7  black    3     0   0.5     2    NA       
-      8  NA ALED 0.000  8     1     8  black    3     0   0.5     2    NA       
-      9  NA ALED 0.000  9     1     9  black    3     0   0.5     2    NA       
-      10 NA ALED 0.075 10     1    10  black    3     0   0.5     2    NA       
-      11 NA ALED 0.222 11     1    11  black    3     0   0.5     2    NA       
-      12 NA ALED 0.303 12     1    12  black    3     0   0.5     2    NA       
-      13 NA ALED 0.444 13     1    13  black    3     0   0.5     2    NA       
-         fontface lineheight
-      1         1        1.2
-      2         1        1.2
-      3         1        1.2
-      4         1        1.2
-      5         1        1.2
-      6         1        1.2
-      7         1        1.2
-      8         1        1.2
-      9         1        1.2
-      10        1        1.2
-      11        1        1.2
-      12        1        1.2
-      13        1        1.2
+         x      label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.000 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.000 2     1     2  black    3     0   0.5     2    NA       
+      3 NA ALED 0.000 3     1     3  black    3     0   0.5     2    NA       
+      4 NA ALED 0.000 4     1     4  black    3     0   0.5     2    NA       
+      5 NA ALED 0.000 5     1     5  black    3     0   0.5     2    NA       
+      6 NA ALED 0.415 6     1     6  black    3     0   0.5     2    NA       
+      7 NA ALED 0.492 7     1     7  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      3        1        1.2
+      4        1        1.2
+      5        1        1.2
+      6        1        1.2
+      7        1        1.2
       
       $vs$eff[[8]]
         x y PANEL group colour  fill size angle hjust vjust alpha family fontface
@@ -1687,20 +1108,16 @@
       # A tibble: 5 x 6
         name          conf.low median  mean conf.high    sd
         <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
-      1 df                39.0   39.0  39.0      39.0    NA
-      2 df.residual       25.0   25.0  25.0      25.0    NA
-      3 nobs              64     64    64        64      NA
-      4 adj.r.squared      1      1     1         1      NA
-      5 npar              89     89    89        89      NA
+      1 df                  34     34    34        34    NA
+      2 df.residual         30     30    30        30    NA
+      3 nobs                64     64    64        64    NA
+      4 adj.r.squared        1      1     1         1    NA
+      5 npar                45     45    45        45    NA
       attr(,"model_coefs")
-      # A tibble: 5 x 6
-        term    conf.low median  mean conf.high std.error
-        <chr>      <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(disp)     1.00   1.00  1.00      1.00        NA
-      2 s(hp)       1.00   1.00  1.00      1.00        NA
-      3 s(drat)     1.00   1.00  1.00      1.00        NA
-      4 s(wt)       1.00   1.00  1.00      1.00        NA
-      5 s(qsec)     1.00   1.00  1.00      1.00        NA
+      # A tibble: 1 x 6
+        term  conf.low median  mean conf.high std.error
+        <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
+      1 s(wt)     1.00   1.00  1.00      1.00        NA
       attr(,"ale")
       attr(,"ale")$single
       <object>
@@ -1716,22 +1133,6 @@
       attr(,"effect")$vs
       attr(,"effect")$vs$ale
       attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$model
-      # A tibble: 32 x 7
-         model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
-         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1 Duster 360              2 0.0313 0.0313  0.0313    0.0313 0.0313
-       2 Camaro Z28              2 0.0313 0.0313  0.0313    0.0313 0.0313
-       3 Chrysler Imperial       2 0.0313 0.0313  0.0313    0.0313 0.0313
-       4 Cadillac Fleetwood      2 0.0313 0.0313  0.0313    0.0313 0.0313
-       5 Lincoln Continental     2 0.0313 0.0313  0.0313    0.0313 0.0313
-       6 Pontiac Firebird        2 0.0313 0.0313  0.0313    0.0313 0.0313
-       7 Hornet Sportabout       2 0.0313 0.0313  0.0313    0.0313 0.0313
-       8 AMC Javelin             2 0.0313 0.0313  0.0313    0.0313 0.0313
-       9 Dodge Challenger        2 0.0313 0.0313  0.0313    0.0313 0.0313
-      10 Valiant                 2 1.03   1.03    1.03      1.03   1.03  
-      # i 22 more rows
-      
       attr(,"effect")$vs$ale$d1$mpg
       # A tibble: 10 x 7
          mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
@@ -1747,155 +1148,88 @@
        9     30.1     7     0     0       0         0     0
       10     33.9     7     0     0       0         0     0
       
-      attr(,"effect")$vs$ale$d1$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1        3     1 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20 -2.04e-20
-      2        4    17 -1.80e-20 -1.80e-20 -1.80e-20 -1.80e-20 -1.80e-20
-      3        5     6 -1.47e-20 -1.47e-20 -1.47e-20 -1.47e-20 -1.47e-20
-      4        6    11 -5.67e-21 -5.67e-21 -5.67e-21 -5.67e-21 -5.67e-21
-      5        7     5  1.02e-20  1.02e-20  1.02e-20  1.02e-20  1.02e-20
-      6        8    21  3.01e-20  3.01e-20  3.01e-20  3.01e-20  3.01e-20
-      7        9     3  5.00e-20  5.00e-20  5.00e-20  5.00e-20  5.00e-20
-      
-      attr(,"effect")$vs$ale$d1$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1      70.9     1  4.20e-19  4.20e-19  4.20e-19  4.20e-19  4.20e-19
-       2      79.0     7  4.20e-19  4.20e-19  4.20e-19  4.20e-19  4.20e-19
-       3     120.      7  3.41e-19  3.41e-19  3.41e-19  3.41e-19  3.41e-19
-       4     146.      7  2.93e-19  2.93e-19  2.93e-19  2.93e-19  2.93e-19
-       5     166.      7  2.16e-19  2.16e-19  2.16e-19  2.16e-19  2.16e-19
-       6     258.      7  2.16e-19  2.16e-19  2.16e-19  2.16e-19  2.16e-19
-       7     300.      7 -5.99e-20 -5.99e-20 -5.99e-20 -5.99e-20 -5.99e-20
-       8     350.      7 -3.93e-19 -3.93e-19 -3.93e-19 -3.93e-19 -3.93e-19
-       9     397.      7 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19 -7.03e-19
-      10     472       7 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18 -1.20e-18
-      
-      attr(,"effect")$vs$ale$d1$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1     52      1  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
-       2     66      8  2.89e-18  2.89e-18  2.89e-18  2.89e-18  2.89e-18
-       3     95      6  2.21e-18  2.21e-18  2.21e-18  2.21e-18  2.21e-18
-       4    109      7  2.21e-18  2.21e-18  2.21e-18  2.21e-18  2.21e-18
-       5    112.     7  2.09e-18  2.09e-18  2.09e-18  2.09e-18  2.09e-18
-       6    150      8  1.09e-18  1.09e-18  1.09e-18  1.09e-18  1.09e-18
-       7    176.     6 -7.60e-19 -7.60e-19 -7.60e-19 -7.60e-19 -7.60e-19
-       8    181.     7 -1.07e-18 -1.07e-18 -1.07e-18 -1.07e-18 -1.07e-18
-       9    245      8 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18 -5.59e-18
-      10    335      6 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17 -1.19e-17
-      
-      attr(,"effect")$vs$ale$d1$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1      2.74     1 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18 -6.66e-18
-       2      3.02     7 -4.30e-18 -4.30e-18 -4.30e-18 -4.30e-18 -4.30e-18
-       3      3.08     8 -3.74e-18 -3.74e-18 -3.74e-18 -3.74e-18 -3.74e-18
-       4      3.18     6 -2.94e-18 -2.94e-18 -2.94e-18 -2.94e-18 -2.94e-18
-       5      3.62     7  1.54e-18  1.54e-18  1.54e-18  1.54e-18  1.54e-18
-       6      3.73     7  1.87e-18  1.87e-18  1.87e-18  1.87e-18  1.87e-18
-       7      3.9      8  2.71e-18  2.71e-18  2.71e-18  2.71e-18  2.71e-18
-       8      3.93     6  2.77e-18  2.77e-18  2.77e-18  2.77e-18  2.77e-18
-       9      4.21     7  2.77e-18  2.77e-18  2.77e-18  2.77e-18  2.77e-18
-      10      4.98     7  7.19e-18  7.19e-18  7.19e-18  7.19e-18  7.19e-18
-      
-      attr(,"effect")$vs$ale$d1$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
-       2    1.94     7 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17 -1.31e-17
-       3    2.46     7 -9.95e-18 -9.95e-18 -9.95e-18 -9.95e-18 -9.95e-18
-       4    2.79     7 -6.07e-18 -6.07e-18 -6.07e-18 -6.07e-18 -6.07e-18
-       5    3.19     7 -1.31e-18 -1.31e-18 -1.31e-18 -1.31e-18 -1.31e-18
-       6    3.44     7  1.80e-19  1.80e-19  1.80e-19  1.80e-19  1.80e-19
-       7    3.52     7  9.01e-19  9.01e-19  9.01e-19  9.01e-19  9.01e-19
-       8    3.73     7  5.28e-18  5.28e-18  5.28e-18  5.28e-18  5.28e-18
-       9    4.05     7  1.19e-17  1.19e-17  1.19e-17  1.19e-17  1.19e-17
-      10    5.45     7  4.12e-17  4.12e-17  4.12e-17  4.12e-17  4.12e-17
-      
-      attr(,"effect")$vs$ale$d1$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1      14.5     1  1.47e-17  1.47e-17  1.47e-17  1.47e-17  1.47e-17
-       2      15.6     7  8.27e-18  8.27e-18  8.27e-18  8.27e-18  8.27e-18
-       3      16.7     7  2.88e-18  2.88e-18  2.88e-18  2.88e-18  2.88e-18
-       4      17.0     7  1.51e-18  1.51e-18  1.51e-18  1.51e-18  1.51e-18
-       5      17.4     7 -7.35e-19 -7.35e-19 -7.35e-19 -7.35e-19 -7.35e-19
-       6      18.0     7 -3.88e-18 -3.88e-18 -3.88e-18 -3.88e-18 -3.88e-18
-       7      18.6     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
-       8      18.9     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
-       9      20       7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
-      10      23.0     7 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18 -4.87e-18
+      attr(,"effect")$vs$ale$d1$continent
+      # A tibble: 3 x 7
+        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 North America    24     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 Asia             12     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d1$am
       # A tibble: 2 x 7
-        am.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 FALSE     38  0.187  0.187   0.187     0.187  0.187
-      2 TRUE      26 -0.274 -0.274  -0.274    -0.274 -0.274
+        am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 FALSE     38  4.89e-22  4.89e-22  4.89e-22  4.89e-22  4.89e-22
+      2 TRUE      26 -7.15e-22 -7.15e-22 -7.15e-22 -7.15e-22 -7.15e-22
+      
+      attr(,"effect")$vs$ale$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Cadillac Fleetwood      2 -0.437 -0.437  -0.437    -0.437 -0.437
+       2 Lincoln Continental     2 -0.437 -0.437  -0.437    -0.437 -0.437
+       3 Chrysler Imperial       2 -0.437 -0.437  -0.437    -0.437 -0.437
+       4 Camaro Z28              2 -0.437 -0.437  -0.437    -0.437 -0.437
+       5 Duster 360              2 -0.437 -0.437  -0.437    -0.437 -0.437
+       6 Hornet Sportabout       2 -0.437 -0.437  -0.437    -0.437 -0.437
+       7 Pontiac Firebird        2 -0.437 -0.437  -0.437    -0.437 -0.437
+       8 AMC Javelin             2 -0.437 -0.437  -0.437    -0.437 -0.437
+       9 Dodge Challenger        2 -0.437 -0.437  -0.437    -0.437 -0.437
+      10 Valiant                 2  0.562  0.562   0.562     0.562  0.562
+      # i 22 more rows
       
       attr(,"effect")$vs$ale$d1$gear
       # A tibble: 3 x 7
         gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
         <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30 -0.474 -0.474  -0.474    -0.474 -0.474
-      2 four        24  0.359  0.359   0.359     0.359  0.359
-      3 five        10  0.559  0.559   0.559     0.559  0.559
+      1 three       30 -0.443 -0.443  -0.443    -0.443 -0.443
+      2 four        24  0.391  0.391   0.391     0.391  0.391
+      3 five        10  0.391  0.391   0.391     0.391  0.391
       
       attr(,"effect")$vs$ale$d1$carb
       # A tibble: 5 x 7
         carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
             <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1         1    14  4.96e-21  4.96e-21  4.96e-21  4.96e-21  4.96e-21
-      2         2    19  2.57e-21  2.57e-21  2.57e-21  2.57e-21  2.57e-21
-      3         3     9 -1.46e-21 -1.46e-21 -1.46e-21 -1.46e-21 -1.46e-21
-      4         4    16 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21 -5.15e-21
-      5         8     6 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20 -2.03e-20
+      1         1    14 -1.59e-24 -1.59e-24 -1.59e-24 -1.59e-24 -1.59e-24
+      2         2    19 -8.23e-25 -8.23e-25 -8.23e-25 -8.23e-25 -8.23e-25
+      3         3     9  4.69e-25  4.69e-25  4.69e-25  4.69e-25  4.69e-25
+      4         4    16  1.65e-24  1.65e-24  1.65e-24  1.65e-24  1.65e-24
+      5         8     6  6.50e-24  6.50e-24  6.50e-24  6.50e-24  6.50e-24
       
-      attr(,"effect")$vs$ale$d1$country
-      # A tibble: 6 x 7
-        country.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
-        <ord>       <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-      1 Sweden          2 -0.198  -0.198  -0.198    -0.198  -0.198 
-      2 UK              2 -0.198  -0.198  -0.198    -0.198  -0.198 
-      3 Italy           8  0.302   0.302   0.302     0.302   0.302 
-      4 Japan          12 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
-      5 Germany        16 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
-      6 USA            24 -0.0312 -0.0312 -0.0312   -0.0312 -0.0312
-      
-      attr(,"effect")$vs$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n         .y      .y_lo    .y_mean  .y_median      .y_hi
-        <ord>         <int>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
-      1 North America    24  0.0000494  0.0000494  0.0000494  0.0000494  0.0000494
-      2 Europe           28  0.0000494  0.0000494  0.0000494  0.0000494  0.0000494
-      3 Asia             12 -0.000214  -0.000214  -0.000214  -0.000214  -0.000214 
+      attr(,"effect")$vs$ale$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1    1.50     1  1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
+       2    1.94     7  1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
+       3    2.46     7  1.35e-22  1.35e-22  1.35e-22  1.35e-22  1.35e-22
+       4    2.79     7  8.26e-23  8.26e-23  8.26e-23  8.26e-23  8.26e-23
+       5    3.19     7  1.78e-23  1.78e-23  1.78e-23  1.78e-23  1.78e-23
+       6    3.44     7 -2.46e-24 -2.46e-24 -2.46e-24 -2.46e-24 -2.46e-24
+       7    3.52     7 -1.23e-23 -1.23e-23 -1.23e-23 -1.23e-23 -1.23e-23
+       8    3.73     7 -7.19e-23 -7.19e-23 -7.19e-23 -7.19e-23 -7.19e-23
+       9    4.05     7 -1.62e-22 -1.62e-22 -1.62e-22 -1.62e-22 -1.62e-22
+      10    5.45     7 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22
       
       
       
       attr(,"effect")$vs$stats
       attr(,"effect")$vs$stats$d1
-      # A tibble: 78 x 7
-         term  statistic estimate conf.low    mean  median conf.high
-         <chr> <chr>        <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-       1 model aled         0.303    0.303   0.303   0.303     0.303
-       2 model aler_min    -0.969   -0.969  -0.969  -0.969    -0.969
-       3 model aler_max     1.03     1.03    1.03    1.03      1.03 
-       4 model naled       18.6     18.6    18.6    18.6      18.6  
-       5 model naler_min  -50      -50     -50     -50       -50    
-       6 model naler_max   50       50      50      50        50    
-       7 mpg   aled         0        0       0       0         0    
-       8 mpg   aler_min     0        0       0       0         0    
-       9 mpg   aler_max     0        0       0       0         0    
-      10 mpg   naled        0        0       0       0         0    
-      # i 68 more rows
+      # A tibble: 42 x 7
+         term      statistic estimate conf.low  mean median conf.high
+         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
+       1 mpg       aled             0        0     0      0         0
+       2 mpg       aler_min         0        0     0      0         0
+       3 mpg       aler_max         0        0     0      0         0
+       4 mpg       naled            0        0     0      0         0
+       5 mpg       naler_min        0        0     0      0         0
+       6 mpg       naler_max        0        0     0      0         0
+       7 continent aled             0        0     0      0         0
+       8 continent aler_min         0        0     0      0         0
+       9 continent aler_max         0        0     0      0         0
+      10 continent naled            0        0     0      0         0
+      # i 32 more rows
       
       
       attr(,"effect")$vs$boot_data
@@ -1908,9 +1242,8 @@
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
-       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
+      [7] "wt"       
       
       attr(,"params")$ordered_x_cols$d2
       character(0)
@@ -1918,9 +1251,8 @@
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-       [1] "model"     "mpg"       "cyl"       "disp"      "hp"        "drat"     
-       [7] "wt"        "qsec"      "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
+      [7] "wt"       
       
       attr(,"params")$requested_x_cols$d2
       character(0)
@@ -1932,12 +1264,12 @@
       attr(,"params")$y_summary
                       vs
       min   0.000000e+00
-      1%    3.925672e-13
-      2.5%  3.925672e-13
-      5%    3.925672e-13
-      10%   3.925672e-13
-      20%   3.925672e-13
-      25%   3.925672e-13
+      1%    3.925673e-13
+      2.5%  3.925673e-13
+      5%    3.925673e-13
+      10%   3.925673e-13
+      20%   3.925673e-13
+      25%   3.925673e-13
       30%   3.925673e-13
       40%   3.925673e-13
       50%   3.925673e-13
@@ -1954,38 +1286,37 @@
       
       attr(,"params")$model
       attr(,"params")$model$name
-      [1] "structure(list(coefficients = c(\"(Intercept)\" = 0, "
+      [1] "structure(list(coefficients = c(\"(Intercept)\" = 9.52203731307039, "
       
       attr(,"params")$model$call
-      [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = structure(list(model = c(\"Mazda RX4\", \n    \"Mazda RX4 Wag\", \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \n    \"Valiant\", \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \n    \"Merc 280C\", \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), cyl = c(6L, 6L, 4L, 6L, 8L, 6L, 8L, 4L, \n    4L, 6L, 6L, 8L, 8L, 8L, 8L, 8L, 8L, 4L, 4L, 4L, 4L, 8L, 8L, \n    8L, 8L, 4L, 4L, 4L, 8L, 6L, 8L, 4L, 6L, 5L, 5L, 5L, 9L, 6L, \n    8L, 4L, 4L, 7L, 6L, 7L, 9L, 8L, 7L, 7L, 9L, 4L, 4L, 5L, 5L, \n    8L, 8L, 8L, 8L, 3L, 4L, 4L, 8L, 6L, 7L, 5L), disp = c(160, \n    160, 108, 258, 360, 225, 360, 146.7, 140.8, 167.6, 167.6, \n    275.8, 275.8, 275.8, 472, 460, 440, 78.7, 75.7, 71.1, 120.1, \n    318, 304, 350, 400, 79, 120.3, 95.1, 351, 145, 301, 121, \n    161.269431040436, 159.249627722055, 107.723787623215, 258.375923354896, \n    362.939096087962, 223.657568689669, 362.868405731767, 148.004677238088, \n    141.252806583643, 168.032790275149, 166.131107578607, 274.178155755145, \n    274.01588704695, 276.831618022164, 470.905939099938, 462.482541063987, \n    439.97975333035, 79.0425315320082, 76.4447458275734, 70.9294100251556, \n    120.76642342161, 320.764725269834, 302.249826529399, 351.061716362601, \n    397.004440767691, 78.6322086565895, 120.02599050666, 94.1744684136682, \n    350.174363458632, 146.072103452589, 300.03890096006, 120.95663387944\n    ), hp = c(110, 110, 93, 110, 175, 105, 245, 62, 95, 123, \n    123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, \n    245, 175, 66, 91, 113, 264, 175, 335, 109, 110.8727338403, \n    109.484119058913, 92.7621504533244, 110.160277399374, 176.428727264982, \n    104.373532055179, 246.952109456342, 62.5513973330706, 95.305515805725, \n    123.317620547991, 121.92199422535, 178.941508469637, 178.835604309104, \n    180.673282247968, 204.524825244676, 216.160318105994, 229.989416513592, \n    66.287256430909, 52.5115823386237, 64.8440457332647, 97.5382437293604, \n    151.304115693318, 149.136427563848, 245.743201453821, 173.689442835865, \n    65.6927312827203, 90.7927276484296, 111.900262152939, 263.37900841333, \n    176.293917960022, 333.930338277807, 108.960934651727), drat = c(3.9, \n    3.9, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92, \n    3.07, 3.07, 3.07, 2.93, 3, 3.23, 4.08, 4.93, 4.22, 3.7, 2.76, \n    3.15, 3.73, 3.08, 4.08, 4.43, 3.77, 4.22, 3.62, 3.54, 4.11, \n    3.93094238161063, 3.88170967572508, 3.84015354027203, 3.08448776718248, \n    3.17571709076967, 2.74353284259327, 3.23557661777493, 3.72281703482308, \n    3.93260654693097, 3.93012254104167, 3.88564404360466, 3.05194683889882, \n    3.05014058460528, 3.08148320278479, 2.92320847788733, 3.01619048519991, \n    3.22985137103871, 4.09775767027438, 4.97850194095029, 4.20987496914426, \n    3.72053094637766, 2.78399572875705, 3.13186497884081, 3.74131486295001, \n    3.05693419391122, 4.06100520656817, 4.41990970859937, 3.73330963112018, \n    4.21007354357671, 3.64676561723016, 3.52869670896549, 4.10852698549172\n    ), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, 3.57, 3.19, \n    3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, 5.345, 2.2, \n    1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, 1.935, 2.14, \n    1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, 2.86151674813067, \n    2.31406654894315, 3.21968447126353, 3.46808469595164, 3.43935638962779, \n    3.59844502350669, 3.21837028213702, 3.16013026092667, 3.44888304622024, \n    3.40985089540817, 4.0460663303968, 3.70587113373866, 3.79413892720733, \n    5.23783089041244, 5.45327239724144, 5.34475404897891, 2.20957521436363, \n    1.63088856686302, 1.83059729108524, 2.47867804941107, 3.55060324826986, \n    3.41522419121212, 3.8516485452354, 3.81620518687943, 1.92599143987976, \n    2.13512568316087, 1.49827519148139, 3.16254339647824, 2.79048087285291, \n    3.5586009183635, 2.77900365442019), qsec = c(16.46, 17.02, \n    18.61, 19.44, 17.02, 20.22, 15.84, 20, 22.9, 18.3, 18.9, \n    17.4, 17.6, 18, 17.98, 17.82, 17.42, 19.47, 18.52, 19.9, \n    20.01, 16.87, 17.3, 15.41, 17.05, 18.9, 16.7, 16.9, 14.5, \n    15.5, 14.6, 18.6, 16.5905927182849, 16.9401791489336, 18.5624045154448, \n    19.4683253876712, 17.1589539317142, 20.0993601729115, 15.9662098521978, \n    20.1778701074421, 22.973645388959, 18.347255740067, 18.7343552102367, \n    17.297679152065, 17.4861479768902, 18.0673282247968, 17.9383236970697, \n    17.9161714820875, 17.4191984159425, 19.5547406471182, 18.7022020175252, \n    19.8522540014149, 20.1210335775722, 17.0166695449751, 17.2004013123638, \n    15.4567458547077, 16.9223142877228, 18.812009412779, 16.6619621069096, \n    16.7355259326077, 14.4658925075503, 15.6146041621733, 14.5533819070328, \n    18.5933338029552), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), am = c(TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE), gear = structure(c(2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, \n    1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, \n    1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 3L, \n    3L, 3L, 2L), levels = c(\"three\", \"four\", \"five\"), class = c(\"ordered\", \n    \"factor\")), carb = c(4L, 4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, \n    4L, 4L, 3L, 3L, 3L, 4L, 4L, 4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, \n    2L, 1L, 2L, 2L, 4L, 6L, 8L, 2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, \n    2L, 2L, 5L, 4L, 2L, 4L, 3L, 3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, \n    2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 7L, 3L), country = structure(c(3L, \n    3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 6L, 6L, \n    6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, 2L, 2L, \n    4L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, \n    6L, 6L, 6L, 2L, 3L, 3L, 3L, 6L, 6L, 6L, 6L, 2L, 1L, 5L, 6L, \n    2L, 2L, 4L), levels = c(\"Germany\", \"Italy\", \"Japan\", \"Sweden\", \n    \"UK\", \"USA\"), class = \"factor\"), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\")), row.names = c(NA, -64L), class = c(\"tbl_df\", \n    \"tbl\", \"data.frame\")))"
+      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, \n    14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, \n    14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, \n    26, 30.4, 15.8, 19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, \n    22.7416884982344, 21.4311812395146, 18.852669713458, 17.9920088590356, \n    14.4139394499008, 24.6170015310794, 22.873323793374, 19.2495797928572, \n    17.6439959122865, 16.303559660567, 17.188088636375, 15.256854945384, \n    10.3758935733885, 10.4561270153597, 14.6993235771731, 32.5410167933553, \n    30.6990789056569, 33.8186638516565, 21.6193014451675, 15.6347586216428, \n    15.1124913264699, 13.3403452217788, 19.0562131568491, 27.1729024851252, \n    25.9407793281227, 30.1041413225606, 15.7628345944341, 19.8456581932139, \n    14.9521046990063, 21.3923302894216), vs = c(FALSE, FALSE, \n    TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, \n    FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n    -64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
       
       attr(,"params")$model$print
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               0.000e+00  0.000e+00     NaN      NaN\nmodelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1\nmodelCamaro Z28          -4.563e-05  1.204e+08       0        1\nmodelChrysler Imperial   -8.515e-05  1.256e+08       0        1\nmodelDatsun 710           5.713e+01  7.909e+07       0        1\nmodelDodge Challenger    -2.991e-07  2.335e+07       0        1\nmodelDuster 360          -1.155e-05  8.817e+07       0        1\nmodelFerrari Dino        -9.284e+01  2.084e+08       0        1\nmodelFiat 128             1.206e-05  2.166e+07       0        1\nmodelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN\nmodelFord Pantera L      -5.713e+01  2.036e+08       0        1\nmodelHonda Civic          5.713e+01  7.704e+07       0        1\nmodelHornet 4 Drive       5.713e+01  6.786e+07       0        1\nmodelHornet Sportabout    1.251e-06  4.093e+07       0        1\nmodelLincoln Continental -8.020e-05  1.122e+08       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -9.284e+01  2.616e+08       0        1\nmodelMazda RX4            0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1\nmodelMerc 230             7.597e-05  1.345e+08       0        1\nmodelMerc 240D            3.250e-05  8.088e+07       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C            2.619e-05  1.662e+07       0        1\nmodelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 450SL           2.082e-05  4.016e+07       0        1\nmodelMerc 450SLC          2.397e-05  4.362e+07       0        1\nmodelPontiac Firebird    -1.741e-05  4.924e+07       0        1\nmodelPorsche 914-2       -5.713e+01  1.316e+08       0        1\nmodelToyota Corolla       5.713e+01  1.043e+08       0        1\nmodelToyota Corona        7.856e+01  1.118e+08       0        1\nmodelValiant              5.713e+01  1.139e+08       0        1\nmodelVolvo 142E           3.571e+01  2.684e+07       0        1\ncyl                       5.068e-08  6.167e+05       0        1\namTRUE                   -3.571e+01  3.488e+07       0        1\ngear.L                    6.565e+01  7.765e+07       0        1\ngear.Q                   -8.747e+00  6.818e+07       0        1\ncarb                     -1.157e-08  7.575e+05       0        1\ncountryItaly              3.571e+01  8.901e+07       0        1\ncountryJapan              0.000e+00  0.000e+00     NaN      NaN\ncountrySweden             0.000e+00  0.000e+00     NaN      NaN\ncountryUK                 0.000e+00  0.000e+00     NaN      NaN\ncountryUSA                0.000e+00  0.000e+00     NaN      NaN\ncontinentEurope           2.142e+01  3.433e+07       0        1\ncontinentNorth America    2.142e+01  6.026e+07       0        1\n\nApproximate significance of smooth terms:\n        edf Ref.df Chi.sq p-value\ns(disp)   1      1      0       1\ns(hp)     1      1      0       1\ns(drat)   1      1      0       1\ns(wt)     1      1      0       1\ns(qsec)   1      1      0       1\n\nRank: 79/89\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.21875  Scale est. = 1         n = 64"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               9.522e+00  1.068e+06       0        1\nmodelCadillac Fleetwood   1.310e-09  2.420e+07       0        1\nmodelCamaro Z28           2.970e-10  5.648e+06       0        1\nmodelChrysler Imperial    1.380e-09  2.550e+07       0        1\nmodelDatsun 710           7.775e-08  9.376e+06       0        1\nmodelDodge Challenger     7.967e-11  1.760e+06       0        1\nmodelDuster 360           1.078e-10  2.390e+06       0        1\nmodelFerrari Dino        -5.713e+01  1.689e+07       0        1\nmodelFiat 128             4.992e-08  7.891e+06       0        1\nmodelFiat X1-9            8.312e-08  4.293e+06       0        1\nmodelFord Pantera L      -5.713e+01  2.207e+07       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout    1.906e-11  1.054e+06       0        1\nmodelLincoln Continental  1.451e-09  2.680e+07       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -5.713e+01  2.726e+07       0        1\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -1.764e-05  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280             3.537e-08  3.387e+06       0        1\nmodelMerc 280C           -1.763e-05  3.113e+06       0        1\nmodelMerc 450SE           4.560e-10  8.472e+06       0        1\nmodelMerc 450SL           2.063e-10  3.993e+06       0        1\nmodelMerc 450SLC          2.581e-10  4.887e+06       0        1\nmodelPontiac Firebird     2.934e-10  5.495e+06       0        1\nmodelPorsche 914-2       -5.713e+01  8.485e+06       0        1\nmodelToyota Corolla      -1.764e-05  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E           8.495e-07  1.543e+07       0        1\namTRUE                   -6.645e-09  2.111e+07       0        1\ngear.L                    4.040e+01  3.334e+06       0        1\ngear.Q                   -2.332e+01  7.942e+05       0        1\ncarb                      3.703e-12  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
       
       
       attr(,"params")$data
       attr(,"params")$data$name
-      [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
+      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
       
       attr(,"params")$data$data_sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # A tibble: 64 x 8
+           mpg vs    continent     am    model             gear   carb    wt
+         <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
+       1  21   FALSE Asia          TRUE  Mazda RX4         four      4  2.62
+       2  21   FALSE Asia          TRUE  Mazda RX4 Wag     four      4  2.88
+       3  22.8 TRUE  Asia          TRUE  Datsun 710        four      1  2.32
+       4  21.4 TRUE  North America FALSE Hornet 4 Drive    three     1  3.22
+       5  18.7 FALSE North America FALSE Hornet Sportabout three     2  3.44
+       6  18.1 TRUE  North America FALSE Valiant           three     1  3.46
+       7  14.3 FALSE North America FALSE Duster 360        three     4  3.57
+       8  24.4 TRUE  Europe        FALSE Merc 240D         four      2  3.19
+       9  22.8 TRUE  Europe        FALSE Merc 230          four      2  3.15
+      10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
       
       attr(,"params")$data$y_vals_sample
                       vs
@@ -2001,57 +1332,57 @@
       [10,] 1.000000e+00
       [11,] 1.000000e+00
       [12,] 3.925673e-13
-      [13,] 3.925672e-13
+      [13,] 3.925673e-13
       [14,] 3.925673e-13
       [15,] 3.925673e-13
-      [16,] 3.925672e-13
-      [17,] 3.925672e-13
+      [16,] 3.925673e-13
+      [17,] 3.925673e-13
       [18,] 1.000000e+00
       [19,] 1.000000e+00
       [20,] 1.000000e+00
       [21,] 1.000000e+00
       [22,] 3.925673e-13
-      [23,] 3.925672e-13
-      [24,] 3.925672e-13
+      [23,] 3.925673e-13
+      [24,] 3.925673e-13
       [25,] 3.925673e-13
       [26,] 1.000000e+00
-      [27,] 3.925672e-13
+      [27,] 3.925673e-13
       [28,] 1.000000e+00
       [29,] 3.925673e-13
       [30,] 3.925673e-13
       [31,] 3.925673e-13
       [32,] 1.000000e+00
-      [33,] 3.925672e-13
+      [33,] 3.925673e-13
       [34,] 3.925673e-13
       [35,] 1.000000e+00
       [36,] 1.000000e+00
-      [37,] 3.925672e-13
+      [37,] 3.925673e-13
       [38,] 1.000000e+00
-      [39,] 3.925672e-13
+      [39,] 3.925673e-13
       [40,] 1.000000e+00
       [41,] 1.000000e+00
       [42,] 1.000000e+00
       [43,] 1.000000e+00
-      [44,] 3.925672e-13
+      [44,] 3.925673e-13
       [45,] 3.925673e-13
-      [46,] 3.925672e-13
-      [47,] 3.925672e-13
+      [46,] 3.925673e-13
+      [47,] 3.925673e-13
       [48,] 3.925673e-13
       [49,] 3.925673e-13
       [50,] 1.000000e+00
       [51,] 1.000000e+00
       [52,] 1.000000e+00
       [53,] 1.000000e+00
-      [54,] 3.925672e-13
+      [54,] 3.925673e-13
       [55,] 3.925673e-13
       [56,] 3.925673e-13
       [57,] 3.925673e-13
       [58,] 1.000000e+00
       [59,] 3.925673e-13
       [60,] 1.000000e+00
-      [61,] 3.925672e-13
-      [62,] 3.925672e-13
-      [63,] 3.925672e-13
+      [61,] 3.925673e-13
+      [62,] 3.925673e-13
+      [63,] 3.925673e-13
       [64,] 1.000000e+00
       
       attr(,"params")$data$nrow
@@ -2122,13 +1453,13 @@
       [1] "model"
       
       attr(,"params")$model$call
-      [1] "mgcv::gam(formula = vs ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + am + gear + carb + country + continent, \n    family = stats::binomial(), data = test_cars)"
+      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
       
       attr(,"params")$model$print
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n1 1 1 1 1  total = 39 \n\nUBRE score: 0.21875     rank: 79/89"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    am + gear + carb + country + continent\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               0.000e+00  0.000e+00     NaN      NaN\nmodelCadillac Fleetwood  -6.822e-05  9.363e+07       0        1\nmodelCamaro Z28          -4.563e-05  1.204e+08       0        1\nmodelChrysler Imperial   -8.515e-05  1.256e+08       0        1\nmodelDatsun 710           5.713e+01  7.909e+07       0        1\nmodelDodge Challenger    -2.991e-07  2.335e+07       0        1\nmodelDuster 360          -1.155e-05  8.817e+07       0        1\nmodelFerrari Dino        -9.284e+01  2.084e+08       0        1\nmodelFiat 128             1.206e-05  2.166e+07       0        1\nmodelFiat X1-9            0.000e+00  0.000e+00     NaN      NaN\nmodelFord Pantera L      -5.713e+01  2.036e+08       0        1\nmodelHonda Civic          5.713e+01  7.704e+07       0        1\nmodelHornet 4 Drive       5.713e+01  6.786e+07       0        1\nmodelHornet Sportabout    1.251e-06  4.093e+07       0        1\nmodelLincoln Continental -8.020e-05  1.122e+08       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -9.284e+01  2.616e+08       0        1\nmodelMazda RX4            0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4 Wag       -5.624e-06  2.052e+07       0        1\nmodelMerc 230             7.597e-05  1.345e+08       0        1\nmodelMerc 240D            3.250e-05  8.088e+07       0        1\nmodelMerc 280             0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280C            2.619e-05  1.662e+07       0        1\nmodelMerc 450SE           0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 450SL           2.082e-05  4.016e+07       0        1\nmodelMerc 450SLC          2.397e-05  4.362e+07       0        1\nmodelPontiac Firebird    -1.741e-05  4.924e+07       0        1\nmodelPorsche 914-2       -5.713e+01  1.316e+08       0        1\nmodelToyota Corolla       5.713e+01  1.043e+08       0        1\nmodelToyota Corona        7.856e+01  1.118e+08       0        1\nmodelValiant              5.713e+01  1.139e+08       0        1\nmodelVolvo 142E           3.571e+01  2.684e+07       0        1\ncyl                       5.068e-08  6.167e+05       0        1\namTRUE                   -3.571e+01  3.488e+07       0        1\ngear.L                    6.565e+01  7.765e+07       0        1\ngear.Q                   -8.747e+00  6.818e+07       0        1\ncarb                     -1.157e-08  7.575e+05       0        1\ncountryItaly              3.571e+01  8.901e+07       0        1\ncountryJapan              0.000e+00  0.000e+00     NaN      NaN\ncountrySweden             0.000e+00  0.000e+00     NaN      NaN\ncountryUK                 0.000e+00  0.000e+00     NaN      NaN\ncountryUSA                0.000e+00  0.000e+00     NaN      NaN\ncontinentEurope           2.142e+01  3.433e+07       0        1\ncontinentNorth America    2.142e+01  6.026e+07       0        1\n\nApproximate significance of smooth terms:\n        edf Ref.df Chi.sq p-value\ns(disp)   1      1      0       1\ns(hp)     1      1      0       1\ns(drat)   1      1      0       1\ns(wt)     1      1      0       1\ns(qsec)   1      1      0       1\n\nRank: 79/89\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.21875  Scale est. = 1         n = 64"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               9.522e+00  1.068e+06       0        1\nmodelCadillac Fleetwood   1.310e-09  2.420e+07       0        1\nmodelCamaro Z28           2.970e-10  5.648e+06       0        1\nmodelChrysler Imperial    1.380e-09  2.550e+07       0        1\nmodelDatsun 710           7.775e-08  9.376e+06       0        1\nmodelDodge Challenger     7.967e-11  1.760e+06       0        1\nmodelDuster 360           1.078e-10  2.390e+06       0        1\nmodelFerrari Dino        -5.713e+01  1.689e+07       0        1\nmodelFiat 128             4.992e-08  7.891e+06       0        1\nmodelFiat X1-9            8.312e-08  4.293e+06       0        1\nmodelFord Pantera L      -5.713e+01  2.207e+07       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout    1.906e-11  1.054e+06       0        1\nmodelLincoln Continental  1.451e-09  2.680e+07       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -5.713e+01  2.726e+07       0        1\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -1.764e-05  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280             3.537e-08  3.387e+06       0        1\nmodelMerc 280C           -1.763e-05  3.113e+06       0        1\nmodelMerc 450SE           4.560e-10  8.472e+06       0        1\nmodelMerc 450SL           2.063e-10  3.993e+06       0        1\nmodelMerc 450SLC          2.581e-10  4.887e+06       0        1\nmodelPontiac Firebird     2.934e-10  5.495e+06       0        1\nmodelPorsche 914-2       -5.713e+01  8.485e+06       0        1\nmodelToyota Corolla      -1.764e-05  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E           8.495e-07  1.543e+07       0        1\namTRUE                   -6.645e-09  2.111e+07       0        1\ngear.L                    4.040e+01  3.334e+06       0        1\ngear.Q                   -2.332e+01  7.942e+05       0        1\ncarb                      3.703e-12  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
       
       
       attr(,"params")$data
@@ -2136,21 +1467,20 @@
       [1] "data"
       
       attr(,"params")$data$data_sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # A tibble: 64 x 8
+           mpg vs    continent     am    model             gear   carb    wt
+         <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
+       1  21   FALSE Asia          TRUE  Mazda RX4         four      4  2.62
+       2  21   FALSE Asia          TRUE  Mazda RX4 Wag     four      4  2.88
+       3  22.8 TRUE  Asia          TRUE  Datsun 710        four      1  2.32
+       4  21.4 TRUE  North America FALSE Hornet 4 Drive    three     1  3.22
+       5  18.7 FALSE North America FALSE Hornet Sportabout three     2  3.44
+       6  18.1 TRUE  North America FALSE Valiant           three     1  3.46
+       7  14.3 FALSE North America FALSE Duster 360        three     4  3.57
+       8  24.4 TRUE  Europe        FALSE Merc 240D         four      2  3.19
+       9  22.8 TRUE  Europe        FALSE Merc 230          four      2  3.15
+      10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
       
       attr(,"params")$data$y_vals_sample
                       vs
@@ -2166,57 +1496,57 @@
       [10,] 1.000000e+00
       [11,] 1.000000e+00
       [12,] 3.925673e-13
-      [13,] 3.925672e-13
+      [13,] 3.925673e-13
       [14,] 3.925673e-13
       [15,] 3.925673e-13
-      [16,] 3.925672e-13
-      [17,] 3.925672e-13
+      [16,] 3.925673e-13
+      [17,] 3.925673e-13
       [18,] 1.000000e+00
       [19,] 1.000000e+00
       [20,] 1.000000e+00
       [21,] 1.000000e+00
       [22,] 3.925673e-13
-      [23,] 3.925672e-13
-      [24,] 3.925672e-13
+      [23,] 3.925673e-13
+      [24,] 3.925673e-13
       [25,] 3.925673e-13
       [26,] 1.000000e+00
-      [27,] 3.925672e-13
+      [27,] 3.925673e-13
       [28,] 1.000000e+00
       [29,] 3.925673e-13
       [30,] 3.925673e-13
       [31,] 3.925673e-13
       [32,] 1.000000e+00
-      [33,] 3.925672e-13
+      [33,] 3.925673e-13
       [34,] 3.925673e-13
       [35,] 1.000000e+00
       [36,] 1.000000e+00
-      [37,] 3.925672e-13
+      [37,] 3.925673e-13
       [38,] 1.000000e+00
-      [39,] 3.925672e-13
+      [39,] 3.925673e-13
       [40,] 1.000000e+00
       [41,] 1.000000e+00
       [42,] 1.000000e+00
       [43,] 1.000000e+00
-      [44,] 3.925672e-13
+      [44,] 3.925673e-13
       [45,] 3.925673e-13
-      [46,] 3.925672e-13
-      [47,] 3.925672e-13
+      [46,] 3.925673e-13
+      [47,] 3.925673e-13
       [48,] 3.925673e-13
       [49,] 3.925673e-13
       [50,] 1.000000e+00
       [51,] 1.000000e+00
       [52,] 1.000000e+00
       [53,] 1.000000e+00
-      [54,] 3.925672e-13
+      [54,] 3.925673e-13
       [55,] 3.925673e-13
       [56,] 3.925673e-13
       [57,] 3.925673e-13
       [58,] 1.000000e+00
       [59,] 3.925673e-13
       [60,] 1.000000e+00
-      [61,] 3.925672e-13
-      [62,] 3.925672e-13
-      [63,] 3.925672e-13
+      [61,] 3.925673e-13
+      [62,] 3.925673e-13
+      [63,] 3.925673e-13
       [64,] 1.000000e+00
       
       attr(,"params")$data$nrow

@@ -24,7 +24,7 @@
 method(print, ALE) <- function(x, ...) {
   cat(
     "'ALE' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset.\n",
+    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset.\n",
     sep = ''
   )
 
@@ -482,7 +482,7 @@ method(get, ALE) <- function(
 method(print, ModelBoot) <- function(x, ...) {
   cat(
     "'ModelBoot' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample) - 1, " dataset ",
+    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
     "with ", x@params$boot_it, " bootstrap iterations.\n",
     sep = ''
   )
