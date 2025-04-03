@@ -15,11 +15,13 @@ test_that(
     )
 
     # Test the ModelBoot print method
-    expect_equal(
-      print(pll_mb) |>
-        capture.output(),
-      "'ModelBoot' object of the model model on a 64x8 dataset with 2 bootstrap iterations."
-    )
+    print(pll_mb) |>
+      expect_snapshot()
+    # expect_equal(
+    #   print(pll_mb) |>
+    #     capture.output(),
+    #   "'ModelBoot' object of the model model on a 64x8 dataset with 2 bootstrap iterations."
+    # )
   }
 )
 

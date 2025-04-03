@@ -1,3 +1,16 @@
+# Parallelized ALE prints
+
+    Code
+      print(pll_ale)
+    Message
+      <ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome)
+      from a 64-row by 8-column dataset.
+      ALE data, statistics, surrogate p-values, and confidence regions are provided
+      for the following terms:
+      2 1D terms: model and carb
+      1 2D term: am:wt
+      The results were bootstrapped with 2 iterations.
+
 # bootstrapped numeric outcome with full 1D and 2D ALE
 
     Code
@@ -522,8 +535,8 @@
       max   33.84876
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_gam"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
@@ -536,9 +549,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt

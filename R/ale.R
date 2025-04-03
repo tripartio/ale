@@ -436,11 +436,12 @@ ALE <- new_class(
     params$data <- params_data(
       data = data,
       y_vals = y_vals,
-      data_name = var_name(data),
+      # data_name = var_name(data),
       sample_size = sample_size,
       seed = seed
     )
-    params$model <- params_model(model, var_name(model))
+    params$model <- params_model(model)
+    # params$model <- params_model(model, var_name(model))
     params$pred_fun <- params_function(pred_fun)
 
 

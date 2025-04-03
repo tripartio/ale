@@ -67,7 +67,7 @@ modes <- function(x) {
 #'
 #' @param data input dataframe
 #' @param y_vals y values, y predictions, or a sample thereof
-#' @param data_name name of the data argument
+# @param data_name name of the data argument
 #' @param sample_size size of data to sample
 #' @param seed random seed
 #'
@@ -75,7 +75,7 @@ modes <- function(x) {
 params_data <- function(
     data,
     y_vals,
-    data_name = var_name(data),
+    # data_name = var_name(data),
     sample_size = 500,
     seed = 0
 ) {
@@ -91,28 +91,17 @@ params_data <- function(
   }
 
   list(
-    name = data_name,
+    # name = data_name,
     data_sample = data,
     y_vals_sample = y_vals,
     nrow = n_rows
   )
-
-  # list(
-  #   name = data_name,
-  #   # If data is large, reduce it to a sample of sample_size; else return the full dataset
-  #   sample = if (n_rows > sample_size) {
-  #     set.seed(seed)
-  #     slice_sample(data, n = sample_size)
-  #   } else {
-  #     data
-  #   },
-  #   nrow = n_rows
-  # )
 }
 
 
 # Reduce a model to text descriptions of its key elements
-params_model <- function(model, model_name = var_name(model)) {
+params_model <- function(model) {
+# params_model <- function(model, model_name = var_name(model)) {
   # Some calls to summary(model) crash, so wrap in tryCatch
   model_summary <- tryCatch(
     {
@@ -127,7 +116,8 @@ params_model <- function(model, model_name = var_name(model)) {
   )
 
   list(
-    name = model_name,
+    # name = model_name,
+    class = class(model),
     call = insight::model_name(model, include_call = TRUE) |>
       paste0(collapse = '\n'),
     print = print(model) |>
@@ -152,26 +142,27 @@ params_function <- function(func) {
 # Miscellaneous ------------
 
 
-# Guess the user-defined variable name of an R object
-#
-# Adapted from checkmate::vname(data) (BSD license).
-# Returns the user-defined variable name of an R object as a character string. If the parsing attempt fails in any way, returns NULL.
-var_name <- function (x, max_width = 50L)
-{
-  tryCatch(
-    {
-      x |>
-        substitute() |>
-        substitute() |>
-        eval.parent() |>
-        deparse(width.cutoff = max_width) |>
-        # Keep only the first element of size max_width characters; discard longer names
-        (`[`)(1)
-        # paste0(collapse = '\n')
-    },
-    error = \(e) NULL
-  )
-}
+# # Guess the user-defined variable name of an R object
+# #
+# # Adapted from checkmate::vname(data) (BSD license).
+# # Returns the user-defined variable name of an R object as a character string. If the parsing attempt fails in any way, returns NULL.
+# # It's rather buggy, especially when called within many layers deep in package functions.
+# var_name <- function (x, max_width = 50L)
+# {
+#   tryCatch(
+#     {
+#       x |>
+#         substitute() |>
+#         substitute() |>
+#         eval.parent() |>
+#         deparse(width.cutoff = max_width) |>
+#         # Keep only the first element of size max_width characters; discard longer names
+#         (`[`)(1)
+#         # paste0(collapse = '\n')
+#     },
+#     error = \(e) NULL
+#   )
+# }
 
 
 

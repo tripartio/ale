@@ -1517,8 +1517,8 @@
       max   1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_nn_categorical"
+      attr(,"params")$model$class
+      [1] "multinom" "nnet"    
       
       attr(,"params")$model$call
       [1] "nnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)"
@@ -1531,9 +1531,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -54975,8 +54972,8 @@
       max   1.000000e+00 1.000000e+00 1.000000e+00  1.000000e+00
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_nn_categorical"
+      attr(,"params")$model$class
+      [1] "multinom" "nnet"    
       
       attr(,"params")$model$call
       [1] "nnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)"
@@ -54989,9 +54986,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 15 x 8
            mpg vs    continent     am    model               gear   carb    wt

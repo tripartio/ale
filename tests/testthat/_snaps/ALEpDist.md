@@ -235,8 +235,8 @@
       max        33.84876
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_gam"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
@@ -249,9 +249,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt

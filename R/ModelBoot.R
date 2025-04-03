@@ -1309,7 +1309,6 @@ ModelBoot <- new_class(
         )
       }
 
-
       for (it.cat in names(ale_summary)) {
         if (boot_it == 0) {
           ar$single@effect[[it.cat]]$conf <- ale_summary[[it.cat]]$conf

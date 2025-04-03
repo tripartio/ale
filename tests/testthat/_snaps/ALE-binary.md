@@ -548,8 +548,8 @@
       max   1.000000e+00
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_gam_binary"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
@@ -562,9 +562,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -10111,8 +10108,8 @@
       max    28.566091
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_gam_binary"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
@@ -10125,9 +10122,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 25 x 8
            mpg vs    continent     am    model               gear   carb    wt

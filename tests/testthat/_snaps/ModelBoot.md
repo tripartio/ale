@@ -1,3 +1,27 @@
+# Parallelized ModelBoot prints
+
+    Code
+      print(pll_mb)
+    Message
+      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric
+      outcome) from a 64-row by 8-column dataset.
+      * The model was retrained with 2 bootstrap iterations.
+    Output
+      
+    Message
+      The following overall model summary statistics are available:
+      * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
+      * Bootstrap-validated model accuracy: mae, sa_mae_mad, rmse, and sa_rmse_sd
+      Statistics for the following specific variables or interactions are available:
+      s(wt)
+    Output
+      
+    Message
+      Accumulated local effects (ALE) data, statistics, surrogate ALE p-values, and
+      confidence regions are provided for the following terms:
+      2 1D terms: carb and wt
+      no 2D terms:
+
 # bootstrapped numeric outcome with full 1D ALE
 
     Code
@@ -372,8 +396,8 @@
       max   33.84876
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "structure(list(coefficients = c(\"(Intercept)\" = 14.3177589279234, "
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = structure(list(\n    mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, \n    19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, \n    33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, \n    19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, 22.7416884982344, \n    21.4311812395146, 18.852669713458, 17.9920088590356, 14.4139394499008, \n    24.6170015310794, 22.873323793374, 19.2495797928572, 17.6439959122865, \n    16.303559660567, 17.188088636375, 15.256854945384, 10.3758935733885, \n    10.4561270153597, 14.6993235771731, 32.5410167933553, 30.6990789056569, \n    33.8186638516565, 21.6193014451675, 15.6347586216428, 15.1124913264699, \n    13.3403452217788, 19.0562131568491, 27.1729024851252, 25.9407793281227, \n    30.1041413225606, 15.7628345944341, 19.8456581932139, 14.9521046990063, \n    21.3923302894216), vs = c(FALSE, FALSE, TRUE, TRUE, FALSE, \n    TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, \n    FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, \n    TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, \n    TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n-64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
@@ -386,9 +410,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -628,8 +649,8 @@
       [1] "mpg"
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "model"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
@@ -642,9 +663,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "data"
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -1285,8 +1303,8 @@
       max   1.000000e+00
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "structure(list(coefficients = c(\"(Intercept)\" = 9.52203731307039, "
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, \n    14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, \n    14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, \n    26, 30.4, 15.8, 19.7, 15, 21.4, 21.1666128240572, 20.9015136385197, \n    22.7416884982344, 21.4311812395146, 18.852669713458, 17.9920088590356, \n    14.4139394499008, 24.6170015310794, 22.873323793374, 19.2495797928572, \n    17.6439959122865, 16.303559660567, 17.188088636375, 15.256854945384, \n    10.3758935733885, 10.4561270153597, 14.6993235771731, 32.5410167933553, \n    30.6990789056569, 33.8186638516565, 21.6193014451675, 15.6347586216428, \n    15.1124913264699, 13.3403452217788, 19.0562131568491, 27.1729024851252, \n    25.9407793281227, 30.1041413225606, 15.7628345944341, 19.8456581932139, \n    14.9521046990063, 21.3923302894216), vs = c(FALSE, FALSE, \n    TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, \n    FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, \n    FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, \n    TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, \n    TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE), continent = structure(c(1L, \n    1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, \n    3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, 2L, 2L, \n    2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, \n    3L, 3L, 3L, 2L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 3L, \n    2L, 2L, 2L), levels = c(\"Asia\", \"Europe\", \"North America\"\n    ), class = \"factor\"), am = c(TRUE, TRUE, TRUE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, \n    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, \n    TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, \n    TRUE, TRUE, TRUE, TRUE), model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", \n    \"Datsun 710\", \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \n    \"Duster 360\", \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \n    \"Merc 450SE\", \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \n    \"Lincoln Continental\", \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \n    \"Toyota Corolla\", \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \n    \"Camaro Z28\", \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \n    \"Lotus Europa\", \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \n    \"Volvo 142E\", \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \n    \"Hornet 4 Drive\", \"Hornet Sportabout\", \"Valiant\", \"Duster 360\", \n    \"Merc 240D\", \"Merc 230\", \"Merc 280\", \"Merc 280C\", \"Merc 450SE\", \n    \"Merc 450SL\", \"Merc 450SLC\", \"Cadillac Fleetwood\", \"Lincoln Continental\", \n    \"Chrysler Imperial\", \"Fiat 128\", \"Honda Civic\", \"Toyota Corolla\", \n    \"Toyota Corona\", \"Dodge Challenger\", \"AMC Javelin\", \"Camaro Z28\", \n    \"Pontiac Firebird\", \"Fiat X1-9\", \"Porsche 914-2\", \"Lotus Europa\", \n    \"Ford Pantera L\", \"Ferrari Dino\", \"Maserati Bora\", \"Volvo 142E\"\n    ), gear = structure(c(2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, \n    2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, \n    2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, \n    1L, 1L, 1L, 2L, 3L, 3L, 3L, 3L, 3L, 2L), levels = c(\"three\", \n    \"four\", \"five\"), class = c(\"ordered\", \"factor\")), carb = c(4L, \n    4L, 1L, 1L, 2L, 1L, 4L, 2L, 2L, 4L, 4L, 3L, 3L, 3L, 4L, 4L, \n    4L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, 6L, 8L, \n    2L, 4L, 3L, 1L, 1L, 3L, 1L, 4L, 2L, 2L, 5L, 4L, 2L, 4L, 3L, \n    3L, 3L, 5L, 1L, 2L, 1L, 1L, 2L, 2L, 4L, 2L, 1L, 2L, 2L, 4L, \n    6L, 7L, 3L), wt = c(2.62, 2.875, 2.32, 3.215, 3.44, 3.46, \n    3.57, 3.19, 3.15, 3.44, 3.44, 4.07, 3.73, 3.78, 5.25, 5.424, \n    5.345, 2.2, 1.615, 1.835, 2.465, 3.52, 3.435, 3.84, 3.845, \n    1.935, 2.14, 1.513, 3.17, 2.77, 3.57, 2.78, 2.64078693328714, \n    2.86151674813067, 2.31406654894315, 3.21968447126353, 3.46808469595164, \n    3.43935638962779, 3.59844502350669, 3.21837028213702, 3.16013026092667, \n    3.44888304622024, 3.40985089540817, 4.0460663303968, 3.70587113373866, \n    3.79413892720733, 5.23783089041244, 5.45327239724144, 5.34475404897891, \n    2.20957521436363, 1.63088856686302, 1.83059729108524, 2.47867804941107, \n    3.55060324826986, 3.41522419121212, 3.8516485452354, 3.81620518687943, \n    1.92599143987976, 2.13512568316087, 1.49827519148139, 3.16254339647824, \n    2.79048087285291, 3.5586009183635, 2.77900365442019)), row.names = c(NA, \n    -64L), class = c(\"tbl_df\", \"tbl\", \"data.frame\")))"
@@ -1299,9 +1317,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, "
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -1449,8 +1464,8 @@
       [1] FALSE
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "model"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
       [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
@@ -1463,9 +1478,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "data"
-      
       attr(,"params")$data$data_sample
       # A tibble: 64 x 8
            mpg vs    continent     am    model             gear   carb    wt
@@ -2375,8 +2387,8 @@
       max   1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "structure(list(n = c(5, 0, 3), nunits = 9L, nconn = c(0, "
+      attr(,"params")$model$class
+      [1] "multinom" "nnet"    
       
       attr(,"params")$model$call
       [1] "nnet::multinom(formula = Species ~ ., data = btit.data, trace = FALSE)"
@@ -2389,9 +2401,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, "
-      
       attr(,"params")$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa
@@ -2943,8 +2952,8 @@
       [1] "setosa"     "versicolor" "virginica" 
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "model"
+      attr(,"params")$model$class
+      [1] "multinom" "nnet"    
       
       attr(,"params")$model$call
       [1] "nnet::multinom(formula = Species ~ ., data = iris, trace = FALSE)"
@@ -2957,9 +2966,6 @@
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "data"
-      
       attr(,"params")$data$data_sample
           Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
       1            5.1         3.5          1.4         0.2     setosa

@@ -322,10 +322,35 @@ method(plot, ALE) <- function(x, ...) {
 #'
 #' @method print ALE
 method(print, ALE) <- function(x, ...) {
-  cat(
-    "'ALE' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset.\n",
-    sep = ''
+
+  cli_text(
+    '{.cls ALE} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
+  )
+
+  output_string <- c(
+    'ALE data',
+    if (x@params$output_stats) 'statistics' else NULL,
+    if (!is.null(x@params$p_values)) x@params$p_values@params$exactness %+% ' p-values' else NULL,
+    if (x@params$output_conf) 'confidence regions' else NULL,
+    if (x@params$output_boot_data) 'raw bootstrap data' else NULL
+  )
+
+  cli_text(
+    '{output_string} {?is/are} provided for the following terms:'
+  )
+  cli_text(
+    '{cli::no(length(x@params$requested_x_cols$d1))}  1D term{?s}: {x@params$requested_x_cols$d1}'
+  )
+  cli_text(
+    '{cli::no(length(x@params$requested_x_cols$d2))}  2D term{?s}: {x@params$requested_x_cols$d2}'
+  )
+
+  cli_text(
+    if (x@params$boot_it > 0) {
+      'The results were bootstrapped with {x@params$boot_it} iteration{?s}.'
+    } else {
+      'The results were not bootstrapped.'
+    }
   )
 
   invisible(x)
@@ -430,12 +455,78 @@ method(plot, ModelBoot) <- function(
 #'
 #' @method print ModelBoot
 method(print, ModelBoot) <- function(x, ...) {
-  cat(
-    "'ModelBoot' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
-    "with ", x@params$boot_it, " bootstrap iterations.\n",
-    sep = ''
+
+  cli_text(
+    '{.cls ModelBoot} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
   )
+
+  cli_text(
+    if (x@params$boot_it > 0) {
+      '* The model was retrained with {x@params$boot_it} bootstrap iteration{?s}.' %+%
+        (if (!is.null(x@boot_data)) ' The raw bootstrapped results are available.' else '')
+    } else {
+      '* The model was trained once on the entire dataset without bootstrapping.'
+    }
+  )
+  cat('\n')
+
+  if (!is.null(x@model_stats)) {
+    cli_text(
+      'The following overall model summary statistics are available:'
+    )
+    average_stats <- x@model_stats |>
+      filter(!is.na(mean)) |>
+      pull(name)
+    cli_text(
+      '* Overall average statistics: {average_stats}'
+    )
+    boot_valid_stats <- x@model_stats |>
+      filter(!is.na(boot_valid)) |>
+      pull(name)
+    cli_text(
+      '* Bootstrap-validated model accuracy: {boot_valid_stats}'
+    )
+  }
+
+  if (!is.null(x@model_coefs)) {
+    cli_text(
+      'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}'
+    )
+  }
+  cat('\n')
+
+  # browser()
+
+  if (!is.null(x@ale)) {
+    ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
+    ale_p <- !is.null(x@params$ale_p)
+    ale_conf <- !is.null(x@ale$boot$effect[[1]]$conf) || x@ale$single@params$output_conf
+    output_string <- c(
+      'Accumulated local effects (ALE) data',
+      if (ale_stats) 'statistics' else NULL,
+      if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL,
+      if (ale_conf) 'confidence regions' else NULL
+    )
+
+    cli_text(
+      '{output_string} {?is/are} provided for the following terms:'
+    )
+    cli_text(
+      '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}'
+    )
+    cli_text(
+      '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}'
+    )
+  }
+
+
+
+  # cat(
+  #   "'ModelBoot' object of the ", x@params$model$name, " model on a ",
+  #   x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
+  #   "with ", x@params$boot_it, " bootstrap iterations.\n",
+  #   sep = ''
+  # )
 
   invisible(x)
 }
