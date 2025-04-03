@@ -673,6 +673,73 @@ method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
 
 
 
+#' @name subset.ALEPlots
+#' @title subset method for ALEPlots object
+#'
+#' @description
+#' Return an `ALEPlots` object reduced to cover only specified variables and interactions.
+#'
+#' See [get.ALE()] for explanation of parameters not described here.
+#'
+#' @param x An object of class `ALEPlots`.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param include character in c('eff'). x_cols and exclude_cols specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. include specifies which of such plots to retain. Possibilities are:
+#'   * "eff": ALE effects plot (included, that is, not subsetted, by default).
+#'
+#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by x_cols and exclude_cols .
+#'
+#' @method subset ALEPlots
+method(subset, ALEPlots) <- function(
+    x,
+    x_cols = NULL,
+    ...,
+    exclude_cols = NULL,
+    include = 'eff',
+    silent = FALSE
+    ) {
+    # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
+
+  plot_obj <- x  # rename
+  rm(x)
+
+  col_names <- plot_obj@params$requested_x_cols |>
+    unlist() |>
+    str_split(':') |>
+    unlist()
+
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols,
+    col_names = col_names,
+    y_col = plot_obj@params$y_col,
+    exclude_cols = exclude_cols,
+    silent = silent
+  )
+
+  # Subset plots
+  plot_obj@plots <- plot_obj@plots |>
+    map(\(it.plot_cat) {
+      # browser()
+      it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
+      it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
+
+      if ('eff' %notin% include) {
+        # Only removed if explicitly not included
+        it.plot_cat$eff <- NULL
+      }
+
+      it.plot_cat
+    })
+
+  # Align params to the new subset
+  plot_obj@params$requested_x_cols <- x_cols
+
+  return(plot_obj)
+}
+
+
+
 #' @name summary.ALEPlots
 #' @title summary method for ALEPlots object
 #'
