@@ -49,22 +49,50 @@ test_nn_categorical <- nnet::multinom(
 ale_plots_to_data <- function(
     ale_plots  # ALEPlots object
 ) {
-  purrr::map(ale_plots@plots, \(it.cat_plots) {
+  purrr::imap(ale_plots@plots, \(it.cat_plots, it.cat_name) {
+    # if (it.cat_name == '.all_cats') browser()
     list(
-      d1  = it.cat_plots$d1 |>
-        purrr::map(\(it.plot) {
-          ggplot2::ggplot_build(it.plot)$data[[1]]
-        }),
-      d2  = it.cat_plots$d2 |>
-        purrr::map(\(it.plot) {
-          ggplot2::ggplot_build(it.plot)$data[[1]]
-        }),
-      eff = if (!is.null(it.cat_plots$eff)) {
-        it.cat_plots$eff |>
-          ggplot2::ggplot_build() |>
-          (`[[`)('data')
+      d1  = if (it.cat_name != '.all_cats') {
+        it.cat_plots$d1 |>
+          purrr::map(\(it.plot) {
+            ggplot2::ggplot_build(it.plot)$data[[1]]
+          })
       } else {
-        # No effects plot if no 1D data or no statistics
+        it.cat_plots$d1 |>
+          purrr::map(\(it.x_col) {
+            it.x_col |>
+              purrr::map(\(it.plot) {
+                ggplot2::ggplot_build(it.plot)$data[[1]]
+              })
+          })
+      },
+      d2  = if (it.cat_name != '.all_cats') {
+        it.cat_plots$d2 |>
+          purrr::map(\(it.plot) {
+            ggplot2::ggplot_build(it.plot)$data[[1]]
+          })
+      } else {
+        # browser()
+        it.cat_plots$d2 |>
+          purrr::map(\(it.plot) {
+            ggplot2::ggplot_build(it.plot)$data[[1]]
+            # it.x_cols |>
+            #   purrr::map(\(it.plot) {
+            #     ggplot2::ggplot_build(it.plot)$data[[1]]
+            #   })
+          })
+      },
+      eff = if (it.cat_name != '.all_cats') {
+        if (!is.null(it.cat_plots$eff)) {
+          it.cat_plots$eff |>
+            ggplot2::ggplot_build() |>
+            (`[[`)('data')
+        } else {
+          # No effects plot if no 1D data or no statistics
+          NULL
+        }
+      } else {
+        # No effects plot for '.all_cats' category
         NULL
       }
     )

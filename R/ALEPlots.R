@@ -31,7 +31,7 @@
 #'   \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the `ALEPlots` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `max_d`: See documentation for [ALE()]
-#'     * `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
+#'     * `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `requested_x_cols`.
 #'     * `y_col`: See documentation for [ALE()]
 #'   }
 #' }
@@ -125,117 +125,90 @@ ALEPlots <- new_class(
     plots_2D <- NULL
     eff_plot <- NULL
 
-    # y_cats <- obj@params$y_cats
-    # if (length(y_cats) > 1) {
-    #   # Create composite .all_cats ALE data
-    #   # browser()
-    #   obj@effect$.all_cats <- list(
-    #     ale = list(
-    #       d1 = obj@params$ordered_x_cols$d1 |>
-    #         map(\(it.x_col_name) {
-    #           map(y_cats, \(it.cat_name) {
-    #             obj@effect[[it.cat_name]]$ale$d1[[it.x_col_name]] |>
-    #               mutate(.cat = it.cat_name)
-    #           }) |>
-    #             bind_rows()
-    #         }) |>
-    #         set_names(obj@params$ordered_x_cols$d1),
-    #
-    #       d2 = obj@params$ordered_x_cols$d2 |>
-    #         map(\(it.x1_x2_col_name) {
-    #           map(y_cats, \(it.cat_name) {
-    #             obj@effect[[it.cat_name]]$ale$d2[[it.x1_x2_col_name[1]]][[it.x1_x2_col_name[2]]] |>
-    #               mutate(.cat = it.cat_name)
-    #           }) |>
-    #             bind_rows()
-    #         }) |>
-    #         set_names(
-    #           obj@params$ordered_x_cols$d2 |>
-    #             map_chr(\(it.x1_x2_col_name) paste0(it.x1_x2_col_name, collapse = ':'))
-    #         )
-    #     )
-    #   )
-    #
-    #   y_cats <- c('.all_cats', y_cats)
-    # }
+    y_cats <- obj@params$y_cats
+    if (length(y_cats) > 1) {
+      # Create composite .all_cats ALE data
+      obj@effect$.all_cats <- list(
+        ale = imap(obj@params$requested_x_cols, \(it.x_cols_d, it.d) {
+          map(it.x_cols_d, \(it.x_cols) {
+            map(y_cats, \(it.cat_name) {
+              obj@effect[[it.cat_name]]$ale[[it.d]][[it.x_cols]] |>
+                mutate(.cat = it.cat_name)
+            }) |>
+              bind_rows()
+          }) |>
+            set_names(it.x_cols_d)
+        })
+      )
 
+      y_cats <- c(y_cats, '.all_cats')
+    }
 
     plots <- imap(obj@effect, \(it.cat_el, it.cat_name) {
-      if (length(obj@params$ordered_x_cols$d1) >= 1) {
+      if (length(obj@params$requested_x_cols$d1) >= 1) {
 
-        # cat_plot_type <- if (it.cat_name == '.all_cats') {
-        #   c('overlay', 'facet')
-        # } else {
-        #   'single'
-        # }
+        it.all_cat_plot_types <- if (it.cat_name == '.all_cats') {
+          c('overlay', 'facet')
+        } else {
+          'single'
+        }
 
         # There is at least 1 1D ALE data element
         plots_1D <-
           imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
-            if (!is.null(it.x_col_ale_data)) {
-              plot_ale_1D(
-                ale_data    = it.x_col_ale_data,
-                x_col       = it.x_col_name,
-                # y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
-                # cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
-                y_col       = it.cat_name,
-                y_type      = obj@params$y_type,
-                y_summary   = obj@params$y_summary[, it.cat_name],
-                # y_summary   = obj@params$y_summary[
-                #   ,
-                #   if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
-                # ],
-                p_exactness = if (is.null(obj@params$p_values)) {
-                  NULL
-                } else {
-                  obj@params$p_values@params$exactness
-                },
-                x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
-                relative_y  = relative_y,
-                p_aler      = p_aler,
-                y_1d_refs   = y_1d_refs,
-                rug_sample_size = rug_sample_size,
-                min_rug_per_interval = min_rug_per_interval,
-                seed        = seed
-              )
+            it.p <- map(it.all_cat_plot_types, \(it.cat_plot_type) {
+              if (!is.null(it.x_col_ale_data)) {
+                plot_ale_1D(
+                  ale_data    = it.x_col_ale_data,
+                  x_col       = it.x_col_name,
+                  y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+                  cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
+                  y_type      = obj@params$y_type,
+                  y_summary   = obj@params$y_summary[
+                    ,
+                    if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
+                  ],
+                  p_exactness = if (is.null(obj@params$p_values)) {
+                    NULL
+                  } else {
+                    obj@params$p_values@params$exactness
+                  },
+                  x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
+                  relative_y  = relative_y,
+                  p_aler      = p_aler,
+                  y_1d_refs   = y_1d_refs,
+                  rug_sample_size = rug_sample_size,
+                  min_rug_per_interval = min_rug_per_interval,
+                  seed        = seed
+                )
+              }
+              else {
+                NULL
+              }
+            }) |>
+              set_names(it.all_cat_plot_types)
+
+            it.p <- if (length(it.p) == 1 && names(it.p) == 'single') {
+              # Remove the extra layer for single plots
+              it.p[[1]]
+            } else {
+              it.p
             }
-            else {
-              NULL
-            }
+
+            it.p
           })
 
-        # plot <- if (length(plot) == 1) plot[[1]] else plot  # from cat plots
-
-
         # Create a 1D effects plot when 1D stats are available
-        if (obj@params$output_stats) {
-          # browser()
+        if (obj@params$output_stats && it.cat_name != '.all_cats') {
           estimates <- it.cat_el$stats$d1 |>
-            # bind_rows() |>
             pivot_wider(
               id_cols = 'term',
-              # id_cols = if (obj@params$y_type == 'categorical') {
-              #   c('term', '.cat')
-              # } else {
-              #   'term'
-              # },
               names_from = 'statistic',
               values_from = 'estimate'
             )
 
-          # eff_plot <- obj@effect[setdiff(y_cats, '.all_cats')] |>
-          #   imap(\(it.cat_data, it.cat_name) {
-          #     plot_effects(
-          #       estimates = it.cat_data$stats$d1$estimate,
-
-
           eff_plot <- plot_effects(
             estimates = estimates,
-            # estimates = if (obj@params$y_type == 'categorical') {
-            #   filter(estimates, .cat == it.cat_name)
-            # } else {
-            #   estimates
-            # },
             y_summary = obj@params$y_summary[, it.cat_name],
             y_col = it.cat_name,
             y_nonsig_band = if (is.null(obj@params$p_values)) {
@@ -264,32 +237,11 @@ ALEPlots <- new_class(
               ale_data  = it.x_cols_ale_data,
               x1_col    = it.x_cols_split[1],
               x2_col    = it.x_cols_split[2],
-              y_col     = obj@params$y_col,
-              y_type    = obj@params$y_type,
-              y_summary = obj@params$y_summary[, it.cat_name],
-              y_vals    = obj@params$data$y_vals_sample[, it.cat_name],
-              n_x1_bins = if (is.null(n_x1_bins)) {
-                attributes(it.x_cols_ale_data)$x[[1]]$n_bins
-              } else {
-                20
-              },
-              n_x2_bins = if (is.null(n_x2_bins)) {
-                attributes(it.x_cols_ale_data)$x[[2]]$n_bins
-              } else {
-                20
-              },
-              n_y_quant = n_y_quant,
-              x1_x2_y = obj@params$data$data_sample[
-                , c(it.x_cols_split[1], it.x_cols_split[2], obj@params$y_col)
-              ],
-              relative_y = relative_y,
-              p_aler = p_aler,
-              y_nonsig_band = y_nonsig_band,
-              rug_sample_size = rug_sample_size,
-              min_rug_per_interval = min_rug_per_interval,
-              seed = seed
+              y_col     = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+              params    = obj@params,
+              cat_plot  = if (it.cat_name == '.all_cats') 'facet' else 'single',
+              relative_y = relative_y
             )
-            # })
           })
       }
 
@@ -315,31 +267,6 @@ ALEPlots <- new_class(
     params$requested_x_cols <- obj@params$requested_x_cols
     params$y_col  <- obj@params$y_col
     params$y_cats <- obj@params$y_cats
-
-    # browser()
-
-    # # Add the 1D and 2D plots
-    # plots <-
-    #   # Iterate by y category
-    #   obj@params$y_cats |>
-    #   map(\(it.cat) {
-    #     # Always add a d1 plot list, even if it is NULL
-    #     rtn_list <- list(
-    #       plots = list(d1 = plots_1D[[it.cat]])
-    #     )
-    #
-    #     if (params$max_d >= 2) {
-    #       rtn_list$plots$d2 <- plots_2D[[it.cat]]
-    #     }
-    #
-    #     # Always add the effects plot, even if it is NULL
-    #     rtn_list$plots$eff <- eff_plot[[it.cat]]
-    #     # rtn_list$eff_plot <- eff_plot[[it.cat]]
-    #
-    #     rtn_list
-    #   }) |>
-    #   set_names(obj@params$y_cats)
-
 
     # Return S7 ALEPlots object
     return(new_object(

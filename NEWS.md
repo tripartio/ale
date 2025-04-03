@@ -33,8 +33,10 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * A `print()` method has been added to the `ALE` object.
 * Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)
 * Bootstrapping is now supported for ALE interactions.
+* 2D ALE plots have been completely rewritten. They are still implemented as tiled heatmaps but now are faceted by bootstrap quantile when ALE is bootstrapped. 
 * ALE statistics are now supported for interactions, including confidence regions.
-* Categorical y outcomes are now supported. The plots, though, only plot one category at a time. 
+* Categorical y outcomes are now supported. 
+* For categorical y outcomes, plots are created for one category at a time and also for all categories combined. For 1D ALE, separate plots are available for categories overlaid on one plot and for categories faceted. For 2D ALE, plots faceted by category are available.
 * 'boot_data' is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.
 * `model_bootstrap()` has added various model performance measures that are validated using bootstrap validation with the .632 correction.
 * The structure of `p_funs` has been completely changed; it has now been converted to an object named `ale_p` and the functions are separated from the object as internal functions. The function `create_p_funs()` has been renamed `create_p_dist()`.
