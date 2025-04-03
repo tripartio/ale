@@ -4,51 +4,6 @@
 
 # ALE methods ---------------------------
 
-#' @name print.ALE
-#' @title print Method for ALE object
-#'
-#' @description
-#' Print an ALE object.
-#'
-#' @param x An object of class `ALE`.
-#' @param ... Additional arguments (currently not used).
-#'
-#' @return Invisibly returns `x`.
-#'
-#' @examples
-#' lm_cars <- stats::lm(mpg ~ ., mtcars)
-#' ale_cars <- ALE(lm_cars, p_values = NULL)
-#' print(ale_cars)
-#'
-#' @method print ALE
-method(print, ALE) <- function(x, ...) {
-  cat(
-    "'ALE' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset.\n",
-    sep = ''
-  )
-
-  invisible(x)
-}
-
-
-
-
-#' @name plot.ALE
-#' @title plot method for `ALE` objects
-#'
-#' @description
-#' This plot method simply calls the constructor for an `ALEPlots` object.
-#'
-#' @param x ALE object.
-#' @param ... Arguments passed to [ALEPlots()]
-#'
-#' @method plot ALE
-method(plot, ALE) <- function(x, ...) {
-  ALEPlots(x, ...)
-}
-
-
 #' @name get.ALE
 #' @title get method for ALE objects
 #'
@@ -124,7 +79,7 @@ method(get, ALE) <- function(
     cats = NULL,
     simplify = TRUE,
     silent = FALSE
-  ) {
+) {
   comp = 'effect'
 
   ## Validate inputs -------------
@@ -232,92 +187,7 @@ method(get, ALE) <- function(
             }
 
             it.d_stats
-          # it.cat.d1 <- x_cols[['d1']] |>
-          #   map(\(it.d1) {
-          #     it.d1_stats <- all_what[[it.cat_name]][['d1']]
-          #
-          #   }) |>
-          #   set_names(x_cols[['d1']])
-          #
-          # if (stats %in% c('estimate', 'conf_sig', stats_names)) {
-          #   it.cat.d1 <- bind_rows(it.cat.d1)
-          # }
-        })
-        # it.cat.d1 <- x_cols[['d1']] |>
-        #   map(\(it.d1) {
-        #     it.d1_stats <- all_what[[it.cat_name]][['d1']]
-        #
-        #     if (stats == 'estimate') {
-        #       it.d1_stats$estimate |>
-        #         filter(term == it.d1)
-        #     }
-        #     else if (stats == 'all') {
-        #       it.d1_stats$by_term[[it.d1]]
-        #     }
-        #     else if (stats %in% stats_names) {
-        #       it.d1_stats$by_stat[[stats]] |>
-        #         filter(term == it.d1)
-        #     }
-        #     else if (stats == 'conf_regions') {
-        #       it.d1_stats$conf_regions$by_term |>
-        #         filter(term == it.d1)
-        #     }
-        #     else if (stats == 'conf_sig') {
-        #       it.d1_stats$conf_regions$significant |>
-        #         filter(term == it.d1)
-        #     }
-        #     else {
-        #       cli_abort('Invalid value for {.arg stats}: {stats}')
-        #     }
-        #   }) |>
-        #   set_names(x_cols[['d1']])
-        #
-        # if (stats %in% c('estimate', 'conf_sig', stats_names)) {
-        #   it.cat.d1 <- bind_rows(it.cat.d1)
-        # }
-        #
-        # it.cat.d2 <- x_cols[['d2']] |>
-        #   map(\(it.d2) {
-        #     it.d2_stats <- all_what[[it.cat_name]][['d2']]
-        #
-        #     if (stats == 'estimate') {
-        #       it.d2_stats$estimate |>
-        #         filter(term1 == it.d2[1], term2 == it.d2[2])
-        #     }
-        #     else if (stats == 'all') {
-        #       it.d2_stats$by_term[[it.d2[1]]][[it.d2[2]]]
-        #     }
-        #     else if (stats %in% stats_names) {
-        #       it.d2_stats$by_stat[[stats]] |>
-        #         filter(term1 == it.d2[1], term2 == it.d2[2])
-        #     }
-        #     else if (stats == 'conf_regions') {
-        #       it.d2_stats$conf_regions$by_term |>
-        #         filter(term1 == it.d2[1], term2 == it.d2[2])
-        #     }
-        #     else if (stats == 'conf_sig') {
-        #       it.d2_stats$conf_regions$significant |>
-        #         filter(term1 == it.d2[1], term2 == it.d2[2])
-        #     }
-        #     else {
-        #       cli_abort('Invalid value for {.arg stats}: {stats}')
-        #     }
-        #   }) |>
-        #   set_names(
-        #     map_chr(
-        #       x_cols[['d2']],
-        #       \(it.d2) paste0(it.d2, collapse = ':')
-        #     )
-        #   )
-        #
-        # if (stats %in% c('estimate', 'conf_regions', 'conf_sig', stats_names)) {
-        #   it.cat.d2 <- bind_rows(it.cat.d2)
-        # }
-        #
-        # list(
-        #   d1 = it.cat.d1,
-        #   d2 = it.cat.d2
-        # )
+          })
       })
   }
   else if (what == 'conf') {
@@ -390,27 +260,25 @@ method(get, ALE) <- function(
       })
   }
 
-  # browser()
-
   ## Simplify the results ----------------
 
   if (simplify) {
     # If one dimension is empty, eliminate it and leave only the other
     specific_what <- specific_what |>
-    map(\(it.cat_el) {
-      it.cat_el <- compact(it.cat_el)
-      if (is.null(it.cat_el[['d1']])) {
-        it.cat_el <- compact(it.cat_el[['d2']])
-      } else if (is.null(it.cat_el[['d2']])) {
-        it.cat_el <- compact(it.cat_el[['d1']])
-      }
+      map(\(it.cat_el) {
+        it.cat_el <- compact(it.cat_el)
+        if (is.null(it.cat_el[['d1']])) {
+          it.cat_el <- compact(it.cat_el[['d2']])
+        } else if (is.null(it.cat_el[['d2']])) {
+          it.cat_el <- compact(it.cat_el[['d1']])
+        }
 
-      if (length(it.cat_el) == 1) {
-        it.cat_el <- it.cat_el[[1]]
-      }
+        if (length(it.cat_el) == 1) {
+          it.cat_el <- it.cat_el[[1]]
+        }
 
-      it.cat_el
-    })
+        it.cat_el
+      })
   }
 
   # If there is only one category, results are always simplified regardless of the value of simplify
@@ -419,71 +287,46 @@ method(get, ALE) <- function(
     specific_what <- specific_what[[1]]
   }
 
-  # # If there is only one category, results are always simplified regardless of the value of simplify
-  # if (length(names(specific_what)) == 1) {
-  #   # Only one category: eliminate the category level
-  #   specific_what <- specific_what[[1]]
-  # }
-  #
-  # if (simplify) {
-  #   # If one dimension is empty, eliminate it and leave only the other
-  #   specific_what <- compact(specific_what)
-  #   if (is.null(specific_what[['d1']])) {
-  #     specific_what <- compact(specific_what[['d2']])
-  #   } else if (is.null(specific_what[['d2']])) {
-  #     specific_what <- compact(specific_what[['d1']])
-  #   }
-  #
-  #   if (length(specific_what) == 1) {
-  #     specific_what <- specific_what[[1]]
-  #   }
-  # }
-
   return(specific_what)
 }
 
-# @name get.calc_p
-# @title Calculate and append p-values to an ALE object
-#
-# @description
-# Calculating p-values for ALE objects is usually very slow, so it is not done by default. the `calc_p()` method receives an `ALEpDist` object, uses it to calculate p-values, and then appends these p-values to the `ALE` object.
-#
-# @param obj object.
-# @param ... Arguments to pass to the implemented method.
-#
-# @returns `obj` with p-values included in its statistics.
-#
-# method(calc_p, ALE) <- function(obj, p_dist) {
-#   obj + p_dist
-# }
 
-
-
-
-# ModelBoot methods -----------
-
-#' @name print.ModelBoot
-#' @title print method for ModelBoot object
+#' @name plot.ALE
+#' @title plot method for `ALE` objects
 #'
 #' @description
-#' Print a ModelBoot object.
+#' This plot method simply calls the constructor for an `ALEPlots` object.
 #'
-#' @param x An object of class `ModelBoot`.
+#' @param x ALE object.
+#' @param ... Arguments passed to [ALEPlots()]
+#'
+#' @method plot ALE
+method(plot, ALE) <- function(x, ...) {
+  ALEPlots(x, ...)
+}
+
+
+#' @name print.ALE
+#' @title print Method for ALE object
+#'
+#' @description
+#' Print an ALE object.
+#'
+#' @param x An object of class `ALE`.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
 #' @examples
-#' lm_cars <- stats::lm(mpg ~ wt + gear, mtcars)
-#' mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL)
-#' print(mb)
+#' lm_cars <- stats::lm(mpg ~ ., mtcars)
+#' ale_cars <- ALE(lm_cars, p_values = NULL)
+#' print(ale_cars)
 #'
-#' @method print ModelBoot
-method(print, ModelBoot) <- function(x, ...) {
+#' @method print ALE
+method(print, ALE) <- function(x, ...) {
   cat(
-    "'ModelBoot' object of the ", x@params$model$name, " model on a ",
-    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
-    "with ", x@params$boot_it, " bootstrap iterations.\n",
+    "'ALE' object of the ", x@params$model$name, " model on a ",
+    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset.\n",
     sep = ''
   )
 
@@ -491,54 +334,7 @@ method(print, ModelBoot) <- function(x, ...) {
 }
 
 
-
-#' @name plot.ModelBoot
-#' @title plot method for `ModelBoot` objects
-#'
-#' @description
-#' This plot method simply calls the constructor for an `ALEPlots` object.
-#'
-#' @param x ModelBoot object.
-#' @param ... Arguments passed to [ALEPlots()]
-#'
-#' @method plot ModelBoot
-method(plot, ModelBoot) <- function(
-    x,
-    ...
-) {
-  ALEPlots(x, ...)
-}
-
-
-# tmp_gam <- mgcv::gam(
-#   mpg ~ cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) +
-#     vs + am + gear + carb + country + continent,
-#   data = test_cars
-# )
-#
-#
-# mb <- ModelBoot(
-#   tmp_gam,
-#   # test_gam,
-#   data = test_cars,
-#   parallel = 0,
-#   boot_it = 10,
-#   output = c('ale', 'model_stats', 'model_coefs', 'boot_data'),
-#   ale_options = list(
-#     x_cols = list(d1 = c('cyl', 'wt', 'vs', 'gear', 'country'))
-#     # x_cols = list(d1 = c('wt', 'gear'), d2 = list(c('cyl', 'disp')))
-#   ),
-#   silent = TRUE
-# )
-#
-# View(mb@ale)
-# View(mb@params)
-# View(mb@ale$single@effect)
-#
-# gmb <- get(mb)
-
-
-
+# ModelBoot methods -----------
 
 #' @name get.ModelBoot
 #' @title get method for ModelBoot objects
@@ -600,181 +396,55 @@ method(get, ModelBoot) <- function(
 }
 
 
-
-
-# ALEPlots methods ------------------------
-
-#' @name plot.ALEPlots
-#' @title Plot method for ALEPlots object
+#' @name plot.ModelBoot
+#' @title plot method for `ModelBoot` objects
 #'
 #' @description
-#' Plot an `ALEPlots` object.
+#' This plot method simply calls the constructor for an `ALEPlots` object.
 #'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
-#' @param ... Arguments to pass to [patchwork::wrap_plots()]
+#' @param x ModelBoot object.
+#' @param ... Arguments passed to [ALEPlots()]
 #'
-#' @return Invisibly returns `x`.
-#'
-#' @method plot ALEPlots
-method(plot, ALEPlots) <- function(
+#' @method plot ModelBoot
+method(plot, ModelBoot) <- function(
     x,
-    max_print = 20L,
     ...
 ) {
-  plot_obj <- x  # rename
-
-  n_1D <- length(plot_obj@params$requested_x_cols$d1)
-  n_2D <- length(plot_obj@params$requested_x_cols$d2)
-
-  # Print one page per category per dimension.
-  # Skip .all_cats; silently just don't print it.
-  plot_obj@plots[names(plot_obj@plots) |> setdiff('.all_cats')] |>
-    purrr::iwalk(\(it.cat_plots, i.cat_name) {
-      purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
-        if ((0 < it.n) && (it.n <= max_print)) {
-          it.cat_plots[['d' %+% i.d]] |>
-            patchwork::wrap_plots(...) |>
-            print()
-        }
-        else if (
-          it.n > max_print &&
-          # issue the warning only for the 1st category; don't repeat it
-          i.cat_name == plot_obj@params$y_cats[1]
-        ) {
-          cli_warn(c(
-            '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
-            'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
-          ))
-        }
-      })
-    })
-
-  invisible(plot_obj)
-}  # plot.ALEPlots()
+  ALEPlots(x, ...)
+}
 
 
-#' @name print.ALEPlots
-#' @title Print method for ALEPlots object
+#' @name print.ModelBoot
+#' @title print method for ModelBoot object
 #'
 #' @description
-#' Print an ALEPlots object by calling plot().
+#' Print a ModelBoot object.
 #'
-#' @param x An object of class `ALEPlots`.
-#' @param max_print See documentation for [plot.ALEPlots()]
+#' @param x An object of class `ModelBoot`.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
 #'
-#' @method print ALEPlots
-method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
-  getS3method("plot", "ale::ALEPlots")(x, max_print = max_print, ...)
+#' @examples
+#' lm_cars <- stats::lm(mpg ~ wt + gear, mtcars)
+#' mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL)
+#' print(mb)
+#'
+#' @method print ModelBoot
+method(print, ModelBoot) <- function(x, ...) {
+  cat(
+    "'ModelBoot' object of the ", x@params$model$name, " model on a ",
+    x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
+    "with ", x@params$boot_it, " bootstrap iterations.\n",
+    sep = ''
+  )
+
+  invisible(x)
 }
 
 
 
-#' @name subset.ALEPlots
-#' @title subset method for ALEPlots object
-#'
-#' @description
-#' Return an `ALEPlots` object reduced to cover only specified variables and interactions.
-#'
-#' See [get.ALE()] for explanation of parameters not described here.
-#'
-#' @param x An object of class `ALEPlots`.
-#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param include character in c('eff'). x_cols and exclude_cols specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. include specifies which of such plots to retain. Possibilities are:
-#'   * "eff": ALE effects plot (included, that is, not subsetted, by default).
-#'
-#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by x_cols and exclude_cols .
-#'
-#' @method subset ALEPlots
-method(subset, ALEPlots) <- function(
-    x,
-    x_cols = NULL,
-    ...,
-    exclude_cols = NULL,
-    include = 'eff',
-    silent = FALSE
-    ) {
-    # Error if any unlisted argument is used (captured in ...).
-  # Never skip this validation step!
-  rlang::check_dots_empty()
-
-  plot_obj <- x  # rename
-  rm(x)
-
-  col_names <- plot_obj@params$requested_x_cols |>
-    unlist() |>
-    str_split(':') |>
-    unlist()
-
-  x_cols <- resolve_x_cols(
-    x_cols = x_cols,
-    col_names = col_names,
-    y_col = plot_obj@params$y_col,
-    exclude_cols = exclude_cols,
-    silent = silent
-  )
-
-  # Subset plots
-  plot_obj@plots <- plot_obj@plots |>
-    map(\(it.plot_cat) {
-      # browser()
-      it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
-      it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
-
-      if ('eff' %notin% include) {
-        # Only removed if explicitly not included
-        it.plot_cat$eff <- NULL
-      }
-
-      it.plot_cat
-    })
-
-  # Align params to the new subset
-  plot_obj@params$requested_x_cols <- x_cols
-
-  return(plot_obj)
-}
-
-
-
-#' @name summary.ALEPlots
-#' @title summary method for ALEPlots object
-#'
-#' @description
-#' Present concise summary information about an `ALEPlots` object.
-#'
-#' @param object An object of class `ALEPlots`.
-#' @param ... Not used
-#'
-#' @return Summary string.
-#'
-#' @method summary ALEPlots
-method(summary, ALEPlots) <- function(
-    object,
-    ...
-) {
-  n_cats <- length(object@params$y_cats)
-  cats_text <- if (n_cats > 1) {
-    str_glue('{n_cats} categories, each with')
-  } else {
-    ''
-  }
-
-  smy <- str_glue(
-    '"ALEPlots" object with {cats_text}',
-    '{length(object@params$requested_x_cols$d1)} 1D and ',
-    '{length(object@params$requested_x_cols$d2)} 2D ALE plots.'
-    # "'ALEPlots' object with {count_1D} 1D and {count_2D} 2D ALE plots."
-  )
-
-  return(smy)
-}  # summary.ALEPlots()
-
-
-
+# ALEPlots methods ------------------------
 
 #' @name get.ALEPlots
 #' @title get method for ALEPlots objects
@@ -996,94 +666,182 @@ method(get, ALEPlots) <- function(
 #' }
 #'
 #'
-#' #' @name subset.ALEPlots
-#' #' @title subset method for ALEPlots objects
-#' #'
-#' #' @description
-#' #' Subsets an `ALEPlots` object with the resolved `x_cols` requested.
-#' #'
-#' #' See [get.ALE()] for explanation of parameters not described here.
-#' #'
-#' #' @param x ALEPlots object to subset.
-#' #'
-#' #' @returns An `ALEPlots` object identical to the original obj except that it only has the resolved `x_cols` requested.
-#' #'
-#' #' @method subset ALEPlots
-#' method(subset, ALEPlots) <- function(
-#'     x,
-#'     x_cols = NULL,
-#'     ...,
-#'     exclude_cols = NULL,
-#'     silent = FALSE
-#' ) {
-#'   # internally rename x to obj
-#'   obj <- x
-#'   rm(x)
+
+
+#' @name plot.ALEPlots
+#' @title Plot method for ALEPlots object
 #'
-#'   ## Validate inputs -------------
+#' @description
+#' Plot an `ALEPlots` object.
 #'
-#'   # Error if any unlisted argument is used (captured in ...).
-#'   # Never skip this validation step!
-#'   rlang::check_dots_empty()
+#' @param x An object of class `ALEPlots`.
+#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' @param ... Arguments to pass to [patchwork::wrap_plots()]
 #'
-#'   if (is.null(x_cols) && is.null(exclude_cols)) {
-#'     # NULL x_cols means "everything", so return the original object with no subset
-#'     return(obj)
-#'   }
+#' @return Invisibly returns `x`.
 #'
-#'   x_cols <- resolve_x_cols(
-#'     x_cols = x_cols,
-#'     col_names = obj@params$requested_x_cols |>
-#'       unlist(use.names = FALSE) |>
-#'       unique(),
-#'     y_col = obj@params$y_col,
-#'     exclude_cols = exclude_cols,
-#'     silent = silent
-#'   )
+#' @method plot ALEPlots
+method(plot, ALEPlots) <- function(
+    x,
+    max_print = 20L,
+    ...
+) {
+  plot_obj <- x  # rename
+
+  n_1D <- length(plot_obj@params$requested_x_cols$d1)
+  n_2D <- length(plot_obj@params$requested_x_cols$d2)
+
+  # Print one page per category per dimension.
+  # Skip .all_cats; silently just don't print it.
+  plot_obj@plots[names(plot_obj@plots) |> setdiff('.all_cats')] |>
+    purrr::iwalk(\(it.cat_plots, i.cat_name) {
+      purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
+        if ((0 < it.n) && (it.n <= max_print)) {
+          it.cat_plots[['d' %+% i.d]] |>
+            patchwork::wrap_plots(...) |>
+            print()
+        }
+        else if (
+          it.n > max_print &&
+          # issue the warning only for the 1st category; don't repeat it
+          i.cat_name == plot_obj@params$y_cats[1]
+        ) {
+          cli_warn(c(
+            '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
+            'i' = 'The {.cls ALEPlots} object contains {it.n} {i.d}D plots.'
+          ))
+        }
+      })
+    })
+
+  invisible(plot_obj)
+}  # plot.ALEPlots()
+
+
+#' @name print.ALEPlots
+#' @title Print method for ALEPlots object
 #'
-#'   ## Subset requested x_cols --------------
+#' @description
+#' Print an ALEPlots object by calling plot().
 #'
-#'   obj_props <- obj |>
-#'     props() |>
-#'     names()
+#' @param x An object of class `ALEPlots`.
+#' @param max_print See documentation for [plot.ALEPlots()]
+#' @param ... Additional arguments (currently not used).
 #'
-#'   sub_obj <- obj_props |>
-#'     setdiff('params') |>
-#'     map(\(it.obj_prop_name) {
-#'       prop(obj, it.obj_prop_name)  |>
-#'         imap(\(it.cat, it.cat_name) {
-#'           it.cat.d1 <- x_cols[['d1']] |>
-#'             map(\(it.d1) {
-#'               it.cat$plots$d1[[it.d1]]
-#'             }) |>
-#'             set_names(x_cols[['d1']])
+#' @return Invisibly returns `x`.
 #'
-#'           it.cat.d2 <- list()
-#'           for(it.d2 in x_cols[['d2']]) {
-#'             it.cat.d2[[it.d2[1]]][[it.d2[2]]] <-
-#'               it.cat$plots$d2[[it.d2[1]]][[it.d2[2]]]
-#'           }
+#' @method print ALEPlots
+method(print, ALEPlots) <- function(x, max_print = 20L, ...) {
+  getS3method("plot", "ale::ALEPlots")(x, max_print = max_print, ...)
+}
+
+
+
+#' @name subset.ALEPlots
+#' @title subset method for ALEPlots object
 #'
-#'           it.cat.eff <-  it.cat$plots$eff
+#' @description
+#' Return an `ALEPlots` object reduced to cover only specified variables and interactions.
 #'
-#'           list(
-#'             plots = list(
-#'               d1  = if (length(it.cat.d1) == 0) NULL else it.cat.d1,
-#'               d2  = if (length(it.cat.d2) == 0) NULL else it.cat.d2,
-#'               eff = if (length(it.cat.eff) == 0) NULL else it.cat.eff
-#'             )
-#'           )
-#'         })
-#'     }) |>
-#'     set_names(obj_props |> setdiff('params'))
+#' See [get.ALE()] for explanation of parameters not described here.
 #'
-#'   sub_obj$params <- obj@params
-#'   sub_obj$params$requested_x_cols <- x_cols
+#' @param x An object of class `ALEPlots`.
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
+#' @param include character in c('eff'). x_cols and exclude_cols specify precisely which variables to include or exclude in the subset. However, multivariable plots like ALE effects plot are ambiguous because they cannot be subsetted to remove some existing variables. include specifies which of such plots to retain. Possibilities are:
+#'   * "eff": ALE effects plot (included, that is, not subsetted, by default).
 #'
-#'   for (p in obj_props) {
-#'     prop(obj, p) <- sub_obj[[p]]
-#'   }
+#' @returns An `ALEPlots` object reduced to cover only variables and interactions specified by x_cols and exclude_cols .
 #'
-#'   return(obj)
-#' }
+#' @method subset ALEPlots
+method(subset, ALEPlots) <- function(
+    x,
+    x_cols = NULL,
+    ...,
+    exclude_cols = NULL,
+    include = 'eff',
+    silent = FALSE
+    ) {
+    # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
+
+  if (is.null(x_cols) && is.null(exclude_cols)) {
+    # NULL x_cols means "everything", so return the original object with no subset
+    return(x)
+  }
+
+  plot_obj <- x  # rename
+  rm(x)
+
+  col_names <- plot_obj@params$requested_x_cols |>
+    unlist() |>
+    str_split(':') |>
+    unlist()
+
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols,
+    col_names = col_names,
+    y_col = plot_obj@params$y_col,
+    exclude_cols = exclude_cols,
+    silent = silent
+  )
+
+  # Subset plots
+  plot_obj@plots <- plot_obj@plots |>
+    map(\(it.plot_cat) {
+      # browser()
+      it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
+      it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
+
+      if ('eff' %notin% include) {
+        # Only removed if explicitly not included
+        it.plot_cat$eff <- NULL
+      }
+
+      it.plot_cat
+    })
+
+  # Align params to the new subset
+  plot_obj@params$requested_x_cols <- x_cols
+
+  return(plot_obj)
+}
+
+
+
+#' @name summary.ALEPlots
+#' @title summary method for ALEPlots object
+#'
+#' @description
+#' Present concise summary information about an `ALEPlots` object.
+#'
+#' @param object An object of class `ALEPlots`.
+#' @param ... Not used
+#'
+#' @return Summary string.
+#'
+#' @method summary ALEPlots
+method(summary, ALEPlots) <- function(
+    object,
+    ...
+) {
+  n_cats <- length(object@params$y_cats)
+  cats_text <- if (n_cats > 1) {
+    str_glue('{n_cats} categories, each with')
+  } else {
+    ''
+  }
+
+  smy <- str_glue(
+    '"ALEPlots" object with {cats_text}',
+    '{length(object@params$requested_x_cols$d1)} 1D and ',
+    '{length(object@params$requested_x_cols$d2)} 2D ALE plots.'
+    # "'ALEPlots' object with {count_1D} 1D and {count_2D} 2D ALE plots."
+  )
+
+  return(smy)
+}  # summary.ALEPlots()
+
+
+
 
