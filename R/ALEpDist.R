@@ -273,7 +273,8 @@ ALEpDist <- new_class(
       random_model_call_string <- random_model_call_string |>
         str_replace_all(
           'rand_data',
-          'package_scope$rand_data'
+          'it.rand_data'
+          # 'package_scope$rand_data'
         )
     }
 
@@ -396,7 +397,7 @@ ALEpDist <- new_class(
 
 
     # Create ALEs for random variables based on residual_distribution
-    package_scope$rand_data <- data
+    # package_scope$rand_data <- data
     n_rows <- nrow(data)
 
 
@@ -432,10 +433,12 @@ ALEpDist <- new_class(
         # Package scope because they modify the datasets defined outside of the map function.
         set.seed(seed + it)
 
-        tmp_rand_data <- data
+        it.rand_data <- data
+        # tmp_rand_data <- data
         tryCatch(
           {
-            tmp_rand_data$random_variable <- univariateML::rml(
+            it.rand_data$random_variable <- univariateML::rml(
+              # tmp_rand_data$random_variable <- univariateML::rml(
               n = n_rows,
               obj = residual_distribution
             )
@@ -450,8 +453,8 @@ ALEpDist <- new_class(
             return(NULL)
           }
         )
-        package_scope$rand_data <- tmp_rand_data
-        rm(tmp_rand_data)
+        # package_scope$rand_data <- tmp_rand_data
+        # rm(tmp_rand_data)
 
         # Train model with the random variable: convert model call string to an expression
 
@@ -459,17 +462,21 @@ ALEpDist <- new_class(
           {
             # If random_model_call_string was provided, prefer it to automatic detection
             if (!is.null(random_model_call_string)) {
-              assign(
-                envir = package_scope,
-                'rand_model',
-                random_model_call_string |>
-                  parse(text = _) |>
-                  eval()
-              )
+              it.rand_model <- random_model_call_string |>
+                parse(text = _) |>
+                eval()
+              # assign(
+              #   envir = package_scope,
+              #   'rand_model',
+              #   random_model_call_string |>
+              #     parse(text = _) |>
+              #     eval()
+              # )
             }
             else {  # use the automatically detected model call
               # Update the model call to add random_variable and to train on rand_data
-              model_call$data <- package_scope$rand_data
+              model_call$data <- it.rand_data
+              # model_call$data <- package_scope$rand_data
 
               model_call$formula <-
                 paste0(
@@ -483,7 +490,8 @@ ALEpDist <- new_class(
               #   eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved
               #   stats::update.formula(~ . + random_variable)
 
-              assign('rand_model', eval(model_call), package_scope)
+              it.rand_model <- eval(model_call)
+              # assign('rand_model', eval(model_call), package_scope)
             }
           },
           error = \(e) {
@@ -499,18 +507,25 @@ ALEpDist <- new_class(
 
         tryCatch(
           {
+            # eval() required to avoid scoping bugs for arguments with environments
             it.rand_ale <- ALE(
-              model = package_scope$rand_model,
+              model = eval(it.rand_model),
+              # model = package_scope$rand_model,
               x_cols = 'random_variable',
-              data = package_scope$rand_data,
+              data = eval(it.rand_data),
+              # data = package_scope$rand_data,
               y_col = y_col,
               parallel = 0,  # avoid recursive parallelization
               output_stats = FALSE,
-              # eval() required to avoid scoping bugs
               pred_fun = eval(pred_fun),
               pred_type = pred_type,
               p_values = NULL,  # avoid infinite recursion
-              max_num_bins = 100,  # fine capture of extreme random ALE intervals
+              max_num_bins = if (surrogate) {
+                10  # "quicker calculation" but tictoc says it's the same timing
+              } else {
+                100  # fine capture of extreme random ALE intervals
+              },
+              # max_num_bins = 100,  # fine capture of extreme random ALE intervals
               silent = TRUE
             )
           },
