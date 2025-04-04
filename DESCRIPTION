@@ -29,7 +29,6 @@ Imports:
     furrr,
     future,
     ggplot2,
-    grDevices,
     insight,
     methods,
     patchwork,

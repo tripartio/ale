@@ -316,9 +316,11 @@ method(plot, ALE) <- function(x, ...) {
 #' @return Invisibly returns `x`.
 #'
 #' @examples
+#' \donttest{
 #' lm_cars <- stats::lm(mpg ~ ., mtcars)
 #' ale_cars <- ALE(lm_cars, p_values = NULL)
 #' print(ale_cars)
+#' }
 #'
 #' @method print ALE
 method(print, ALE) <- function(x, ...) {
@@ -449,9 +451,11 @@ method(plot, ModelBoot) <- function(
 #' @return Invisibly returns `x`.
 #'
 #' @examples
+#' \donttest{
 #' lm_cars <- stats::lm(mpg ~ wt + gear, mtcars)
 #' mb <- ModelBoot(lm_cars, boot_it = 2, ale_p = NULL)
 #' print(mb)
+#' }
 #'
 #' @method print ModelBoot
 method(print, ModelBoot) <- function(x, ...) {

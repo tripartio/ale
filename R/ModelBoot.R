@@ -5,7 +5,6 @@
 
 # ModelBoot object ------------------
 
-
 #' @title Statistics and ALE data for a bootstrapped model
 #' @export
 #'
@@ -189,7 +188,6 @@ ModelBoot <- new_class(
       # Some models allow NA in data, so don't automatically refuse it when bootstrapping
       allow_na = TRUE
     )
-    # validate(data |> inherits('data.frame'))
 
     # If model_call_string is not provided, ensure that
     # the model allows automatic manipulation.
@@ -201,32 +199,30 @@ ModelBoot <- new_class(
       validate(
         !is.character(model),
         # If there is no model_call_string and model is a character, then model was probably omitted and model_call_string might was mistakenly passed in the model argument position
-        msg = cli_alert_danger('{.arg model} is a required argument.')
+        msg = c('x' = '{.arg model} is a required argument.')
       )
 
       validate(
         !is.null(model_call),
-        msg = cli_alert_danger(paste0(
-          'The model call could not be automatically detected, so ',
-          '{.arg model_call_string} must be provided. See {.cls ale::ModelBoot} ',
-          'for details.'
-        ))
+        msg = c(
+          'x' = 'The model call could not be automatically detected.',
+          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot()} for details.'
+        )
       )
     }
     else {  # validate model_call_string
       validate(is_string(model_call_string))
       validate(
         str_detect(model_call_string, 'boot_data'),
-        msg = cli_alert_danger(paste0(
-          'The {.arg data} argument for {.arg model_call_string} must be "boot_data". ',
-          'See {.cls ale::ModelBoot} for details.'
-        ))
+        msg = c(
+          'x' = 'The {.arg data} argument for {.arg model_call_string} must be "boot_data".',
+          'i' = 'See {.fun ModelBoot()} for details.'
+        )
       )
 
       # Rename 'boot_data' to 'btit.data' for internal naming style
       model_call_string <- model_call_string |>
         str_replace_all('([^.])(boot_data)', '\\1btit.data')
-      # str_replace_all('([^.])(boot_data)', '\\1it\\.\\2')
     }
 
     vp <- validate_parallel(parallel, model, model_packages)
@@ -355,25 +351,6 @@ ModelBoot <- new_class(
 
     validate_silent(silent)
 
-    # # Temporarily forbid 2D ALE bootstrapping
-    # if (!is.null(ale_options$x_cols)) {
-    #   resolved_x_cols <- validate_x_cols(
-    #     x_cols = ale_options$x_cols,
-    #     col_names = names(data),
-    #     y_col = y_col
-    #   )
-    #   validate(
-    #     length(resolved_x_cols[['d2']]) == 0,
-    #     msg = c(
-    #       'x' = '2D ALE detected in ale_options$x_cols. ',
-    #       # x = '2D ALE detected in {.arg ale_options}: {ale_options$x_cols}.',
-    #       'i' = '{.cls ModelBoot} does not currently support bootstrapping 2D ALE.',
-    #       'i' = "If bootstrapped 2D ALE is required, submit an issue on the package's GitHub site."
-    #     )
-    #   )
-    # }
-
-
     ## Verify glance and tidy methods ------------
 
     # Define call_glance since it is possible to output_model_stats without broom::glance results
@@ -454,8 +431,6 @@ ModelBoot <- new_class(
 
     # Initialize common bin for all iterations
     ale_bins <- NULL
-    # bins <- NULL
-    # ns <- NULL
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
@@ -556,7 +531,7 @@ ModelBoot <- new_class(
           boot_perf <- NULL
 
           if (output_model_stats) {
-            # Call broom::glance; if an iteration fails for any reason, set it as missing
+            # Call broom::glance; if an iteration fails for any reason, set it as NULL
             boot_stats <- if (call_glance){
               tryCatch(
                 {
@@ -711,8 +686,7 @@ ModelBoot <- new_class(
           if (output_ale) {
             boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
               # One or more coefficients are not defined.
-              # This might be due to collinearity in a bootstrapped sample, which
-              # yields the warning: "Coefficients: (_ not defined because of singularities)".
+              # This might be due to collinearity in a bootstrapped sample, which yields the warning: "Coefficients: (_ not defined because of singularities)".
               NA
             }
             else {  # Valid model and ALE requested
@@ -752,7 +726,7 @@ ModelBoot <- new_class(
                       'ALE calculation failed for iteration {btit}...',
                       class = 'ale_fail'
                     )
-                    # print(e)  # uncomment to debug; later, log all errors in params
+                    # print(e)  # uncomment to debug; TODO: log all errors in params
 
                     NULL
                   }
@@ -763,15 +737,6 @@ ModelBoot <- new_class(
             # From full dataset (btit == 0), calculate common bins for all subsequent iterations
             if (btit == 0) {
               # Super-assignment needed to set bins and ns for all iterations, not just the current one
-
-              # ale_bins <<-
-              #   boot_ale@effect[[1]]$ale |>
-              #   map(\(it.d_ale) {
-              #     map(it.d_ale, \(it.x) list(
-              #       bins = it.x[[1]],
-              #       ns   = it.x[['.n']]
-              #     ))
-              #   })
 
               ale_bins <<- list(
                 d1 = boot_ale@effect[[1]]$ale$d1 |>
@@ -789,19 +754,10 @@ ModelBoot <- new_class(
                       sort(),
                     ns      = it.x1_x2[['.n']]
                   ))
-                # d2 = boot_ale@effect[[1]]$ale$d2 |>
-                #   map(\(it.x1) {
-                #     it.x1 |>
-                #       map(\(it.x2) list(
-                #         x1_bins = it.x2[[1]],
-                #         x2_bins = it.x2[[2]],
-                #         ns   = it.x2[['.n']]
-                #       ))
-                #   })
               )
             }
 
-          }  # end:  if (output_ale)
+          }  # if (output_ale)
 
           else {  # output_ale is FALSE
             boot_ale <- NULL
@@ -1134,32 +1090,6 @@ ModelBoot <- new_class(
                     ) |>
                     select(all_of(it.term_col_names), '.n', '.y', everything())
 
-                  # # Temporarily rename the first x column (x.bin or x.ceil) as .x for common operations
-                    # rename(.x = names(it.term_ale_its[[1]])[1]) |>
-                    # group_by(.data$.x) |>
-                    # summarize(
-                    #   .y_lo = quantile(.data$.y, probs = (boot_alpha / 2), na.rm = TRUE),
-                    #   .y_mean = mean(.data$.y, na.rm = TRUE),
-                    #   .y_median = median(.data$.y, na.rm = TRUE),
-                    #   .y_hi = quantile(.data$.y, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
-                    #   .y = if_else(boot_centre == 'mean', .data$.y_mean, .data$.y_median),
-                    # ) |>
-                    # right_join(
-                    #   tibble(
-                    #     # bins or ceilings
-                    #     .x = full_ale@effect[[it.cat]]$ale$d1[[it.term_name]][[1]],
-                    #     .n = full_ale@effect[[it.cat]]$ale$d1[[it.term_name]]$.n,
-                    #   ),
-                    #   by = '.x'
-                    # ) |>
-                    # select('.x', '.n', '.y', everything())
-
-                  # # Rename .x
-                  # names(it.term_ale_its)[1] <- paste0(
-                  #   it.term_name,
-                  #   if (it.ordinal_x_col) '.bin' else '.ceil'
-                  # )
-
                   # Return it.term_ale_its
                   it.term_ale_its
                 })  # imap(\(it.term_ale_its, it.term_name)
@@ -1314,14 +1244,6 @@ ModelBoot <- new_class(
           ar$single@effect[[it.cat]]$conf <- ale_summary[[it.cat]]$conf
         } else {
           ar$boot$effect <- ale_summary
-          # ar$boot$effect <- ale_summary |>
-          #   map(\(it.cat) {
-          #     it.cat |>
-          #       map(\(it.el) {
-          #         # Demote each element (ale, stats, etc.) to the d1 element (1D ALE)
-          #         list(d1 = it.el)
-          #       })
-          #   })
         }
       }
 

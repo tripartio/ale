@@ -107,34 +107,8 @@ plot_ale_1D <- function(
 
   all_cats <- '.cat' %in% names(ale_data)
 
-  # # For now ensure that plots are not categorical
-  # if (ncol(y_summary) > 1) {
-  #   # Not yet ready to create categorical plots
-  #   return(NULL)
-  # }
-  #
-  # # Adjust inputs according to new (202404) data structure
-  # ale_data <- ale_data[[1]]  # remove extra category level
-
-  # # convert y_summary to a vector instead of a matrix
-  # y_summary <- y_summary |>
-  #   as.numeric() |>
-  #   setNames(rownames(y_summary))
-
-
-  # # Default relative_y is median. If it is mean or zero, then the y axis
-  # # must be shifted for appropriate plotting
-  # y_shift <- case_when(
-  #   relative_y == 'median' ~ 0,  # no shift since median is the default
-  #   relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
-  #   relative_y == 'zero' ~ -y_summary[['50%']],
-  # )
-  #
-  # # Then shift all the y summary data
-  # y_summary <- y_summary + y_shift
-
   # Shift ale_data and y_summary by relative_y.
-  # Calculate shift amount
+  # Calculate shift amount.
   y_shift <- case_when(
     relative_y == 'median' ~ y_summary[['50%']],
     relative_y == 'mean' ~ y_summary[['mean']],
@@ -160,9 +134,6 @@ plot_ale_1D <- function(
 
 
   x_is_numeric <- names(ale_data)[1] |> endsWith('.ceil')
-  # # Determine if datatype of ale_x
-  # # Note: all non-numeric ale_x are ordered factors (ordinal)
-  # x_type <- var_type(ale_data$ale_x)
 
 
   # Rename the x variable in ale_data for easier coding
@@ -173,7 +144,6 @@ plot_ale_1D <- function(
     summarize(.by = c('.x', '.n')) |>
     pull('.n') |>
     sum()
-  # total_n <- sum(ale_data$.n)
 
   ## Create base plot --------------------
   plot <-
@@ -246,40 +216,6 @@ plot_ale_1D <- function(
     )
   }
 
-  # # Add a secondary axis to label the percentiles
-  # # Construct secondary (right) axis label from bottom to top.
-  # sec_labels <- if (use_aler_band) {
-  #   # sec_labels <- if (names(y_summary[1]) == 'p') {
-  #   c(
-  #     # To prevent overlapping text, summarize all details only in the
-  #     # centre label; leave the others empty
-  #     '',  #empty
-  #     str_glue(
-  #       '{p_exactness}\n',
-  #       'p(ALER)\n',
-  #       # Unicode ± must be replaced by \u00B1 for CRAN
-  #       '\u00B1{format(p_aler[2], nsmall = 3)},\n',
-  #       '\u00B1{format(p_aler[1], nsmall = 3)}'),
-  #     ''  #empty
-  #   )
-  # }
-  # else {
-  #   c(
-  #     y_1d_refs[1],
-  #     relative_y,
-  #     y_1d_refs[2]
-  #     # str_glue('{50-(median_band_pct[2]*100/2)}%'),
-  #     # relative_y,
-  #     # str_glue('{50+(median_band_pct[2]*100/2)}%')
-  #   )
-  # }
-  #
-  # sec_breaks <- c(
-  #   y_summary[['aler_lo_lo']],
-  #   if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
-  #   y_summary[['aler_hi_hi']]
-  # )
-
   plot <- plot +
     scale_y_continuous(
       sec.axis = sec_axis(
@@ -291,8 +227,6 @@ plot_ale_1D <- function(
     )
 
   ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
-
-  # if (all_cats) browser()
 
   if (x_is_numeric) {
     if (!all_cats) {
@@ -307,12 +241,11 @@ plot_ale_1D <- function(
     }
     else {
       # All categories: no bootstrap bands
-      # browser()
       plot <- if (cat_plot == 'overlay') {
         plot +
           geom_line(aes(
-            colour = .cat,
-            linetype = .cat
+            colour = '.cat',
+            linetype = '.cat'
           )) +
           labs(
             colour = y_col,
@@ -322,7 +255,7 @@ plot_ale_1D <- function(
       else {  # facet
         plot +
           geom_line() +
-          facet_wrap(vars(.cat), nrow = 1)
+          facet_wrap(vars('.cat'), nrow = 1)
       }
     }
 
@@ -343,27 +276,21 @@ plot_ale_1D <- function(
     }
     else {
       # All categories: no bootstrap bands
-      # browser()
       plot <- if (cat_plot == 'overlay') {
         plot +
-          # coord_cartesian(ylim = c(-0.01, 0.01)) +
           geom_col(
-            aes(fill = .cat),
+            aes(fill = '.cat'),
             position = 'dodge'  # side-by-side columns
           )
       }
       else {  # facet
         plot +
           geom_col(fill = 'gray') +
-          # coord_cartesian(ylim = c(-0.01, 0.01)) +
-          facet_wrap(vars(.cat), nrow = 1)
+          facet_wrap(vars('.cat'), nrow = 1)
       }
     }
 
-    # if (all_cats) browser()
-
     plot <- plot +
-      # coord_cartesian(ylim = c(-0.01, 0.01)) +
       geom_errorbar(
         aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
         width = 1,
@@ -485,7 +412,7 @@ plot_ale_2D <- function(
   make_unique_jitter <- function(x, jitter_scale = 0.001, max_tries = 1000) {
     x_jit <- x
     for (i in seq_len(max_tries)) {
-      x_jit <- x + runif(length(x), -jitter_scale, jitter_scale)
+      x_jit <- x + stats::runif(length(x), -jitter_scale, jitter_scale)
       if (length(unique(x_jit)) == length(x)) return(x_jit)
     }
     cli::cli_abort("Could not make all values unique after {max_tries} tries.")
@@ -495,8 +422,6 @@ plot_ale_2D <- function(
 
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
-
-  # browser()
 
   # Establish base variables
   total_n <- ale_data |>
@@ -584,13 +509,11 @@ plot_ale_2D <- function(
     ) |>
     mutate(
       boot = factor(
-        boot,
+        'boot',
         levels = c('.y_hi', '.y', '.y_lo'),
         ordered = TRUE
       )
     )
-
-  # browser()
 
   plot <-
     ale_data |>
@@ -706,8 +629,8 @@ plot_ale_2D <- function(
   # Conditionally facet the plot
   plot <- plot +
     facet_grid(
-      rows = if (params$boot_it > 0) vars(boot) else NULL,
-      cols = if (cat_plot != 'single') vars(.cat) else NULL,
+      rows = if (params$boot_it > 0) vars('boot') else NULL,
+      cols = if (cat_plot != 'single') vars('.cat') else NULL,
       labeller = if (params$boot_it > 0) {
         labeller(
           # Specify only bootstrap renaming; categories are left as default
