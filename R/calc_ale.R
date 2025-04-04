@@ -820,7 +820,13 @@ calc_ale <- function(
         .y_median = purrr::map_dbl(.q, 2),
         .y_hi     = purrr::map_dbl(.q, 3)
       ) |>
-      select(-.q, .y_lo, .y_mean, .y_median, .y_hi)
+      # Select and reorder columns as desired
+      select(
+        -any_of(c('.q', '.y_lo', '.y_mean', '.y_median', '.y_hi')),
+        # everything(),
+        all_of(c('.y_lo', '.y_mean', '.y_median', '.y_hi'))
+      )
+
     # bsumm <- boot_ale_tbl |>
     #   summarize(
     #     .by = c('.cat', all_of(x_cols)),
