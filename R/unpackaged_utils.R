@@ -302,7 +302,7 @@ round_dp <- function(x, default_dp = 3L) {
   }
 
   max_x <- max(abs(x))
-  dp <- dplyr::case_when(
+  dp <- case_when(
     max_x > 100 ~ 0,
     max_x >  10 ~ 1,
     max_x >   1 ~ 2,

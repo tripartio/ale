@@ -803,11 +803,32 @@ calc_ale <- function(
     bsumm <- boot_ale_tbl |>
       summarize(
         .by = c('.cat', all_of(x_cols)),
-        .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
-        .y_mean   = mean(.data$.y, na.rm = TRUE),
-        .y_median = median(.data$.y, na.rm = TRUE),
-        .y_hi     = stats::quantile(.data$.y, probs = 1 - boot_alpha / 2, na.rm = TRUE),
-      )
+        # Retrieve the lower, median, and upper quantiles in a single list column.
+        # This is faster than calling quantile() or median() individually.
+        .q = list(
+          stats::quantile(
+            .y,
+            probs = c(boot_alpha / 2, 0.5, 1 - boot_alpha / 2),
+            na.rm = TRUE
+          )
+        ),
+        .y_mean = mean(.y, na.rm = TRUE)
+      ) |>
+      # Unpack the three quantiles
+      mutate(
+        .y_lo     = purrr::map_dbl(.q, 1),
+        .y_median = purrr::map_dbl(.q, 2),
+        .y_hi     = purrr::map_dbl(.q, 3)
+      ) |>
+      select(-.q, .y_lo, .y_mean, .y_median, .y_hi)
+    # bsumm <- boot_ale_tbl |>
+    #   summarize(
+    #     .by = c('.cat', all_of(x_cols)),
+    #     .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
+    #     .y_mean   = mean(.data$.y, na.rm = TRUE),
+    #     .y_median = median(.data$.y, na.rm = TRUE),
+    #     .y_hi     = stats::quantile(.data$.y, probs = 1 - boot_alpha / 2, na.rm = TRUE),
+    #   )
 
     xn_counts <- if (ixn_d == 1) {
       x1_counts

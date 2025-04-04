@@ -253,7 +253,7 @@ create_ale_y_norm_function <- function(y_vals) {
     function(ale_y) {
       # Assign each ALE y value to its respective norm_ale_y (normalized half percentile).
       # ale_y == 0 is assigned at the 50th percentile.
-      norm_ale_y <- dplyr::case_when(
+      norm_ale_y <- case_when(
         # When ale_y is between the values right below and above the median (0),
         # normalize it to 0.
         (ale_y >= pre_median) & (ale_y <= post_median) ~ 0,

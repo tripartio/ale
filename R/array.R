@@ -311,6 +311,8 @@ extract_2D_diags <- function(mx) {
 #' * The 2D intrapolation is the mean intrapolation from any of the four values. In taking the mean, missing intrapolations are removed.
 #' * When there is no intrapolation available from any of the four directions, the missing value remains missing.
 #'
+#' @noRd
+#'
 #' @param mx numeric matrix. A numeric matrix.
 #' @param consolidate logical(1). See return value.
 #'
