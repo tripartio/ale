@@ -516,6 +516,8 @@ ALEpDist <- new_class(
               # data = package_scope$rand_data,
               y_col = y_col,
               parallel = 0,  # avoid recursive parallelization
+              model_packages = model_packages,
+              # model_packages = c(model_packages, 'ale'),
               output_stats = FALSE,
               pred_fun = eval(pred_fun),
               pred_type = pred_type,

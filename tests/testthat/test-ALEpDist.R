@@ -127,6 +127,7 @@ test_that(
 
     pd <- ALEpDist(
       test_nn_categorical,
+      model_packages = 'nnet',
       data = test_cars,
       y_col = 'continent',
       pred_type = 'probs',

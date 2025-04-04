@@ -860,7 +860,7 @@
       [1] 0
       
       attr(,"params")$model_packages
-      NULL
+      [1] "nnet"
       
       attr(,"params")$random_model_call_string
       NULL
