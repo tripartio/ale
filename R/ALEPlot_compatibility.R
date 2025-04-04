@@ -2,6 +2,8 @@
 # Functions for compatibility with the ALEPlot package
 
 
+# nocov start
+
 # For missing (NA) cells in 2D interactions, replace delta_pred (dp) with the nearest valid neighbour
 nn_na_delta_pred <- function(dp, xd) {
   # Hack to silence R-CMD-CHECK
@@ -97,6 +99,7 @@ nn_na_delta_pred <- function(dp, xd) {
 
   dp
 }
+# nocov end
 
 
 #' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.

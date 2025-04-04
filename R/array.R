@@ -94,6 +94,7 @@ rotate_2d <- function(x, clockwise = FALSE) {
   }
 }
 
+# nocov start
 
 # ChatGPT: rotate 3D array
 # # Create a 3D array (3 x 3 x 3 for example)
@@ -167,10 +168,11 @@ rotate_3d <- function(x, axis = 'row', clockwise = FALSE) {
 
   return(rotated_array)
 }
+# nocov end
 
 
 
-
+# nocov start
 x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
   # Rotate along the specified axis
   if (axis == "x") {
@@ -200,6 +202,7 @@ x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
 
   return(rotated_array)
 }
+# nocov end
 
 
 
@@ -468,7 +471,7 @@ mean_array_intrap <- function(ip) {
 
 
 
-
+# nocov start
 
 #' Extract all FNWBSE diagonals from a 3D array
 #'
@@ -554,6 +557,10 @@ extract_3D_diags <- function(ray) {
   return(diags)
 }
 
+# nocov end
+
+
+# nocov start
 
 #' Intrapolate missing values of a 3D array
 #'
@@ -723,5 +730,6 @@ intrapolate_3D <- function(ray, consolidate = TRUE) {
     return(ip)
   }
 }
+# nocov end
 
 
