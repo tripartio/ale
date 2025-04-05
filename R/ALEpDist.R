@@ -176,7 +176,7 @@ ALEpDist <- new_class(
 
     ### Validations that do not modify the arguments ------------
 
-    if (!.skip_validation) {
+    if (!.skip_validation) {  # nocov start
       data <- validate_data(
         data,
         model,
@@ -213,7 +213,8 @@ ALEpDist <- new_class(
           'i' = 'p-values created on fewer than 100 iterations are invalid.'
         ))
       }
-    }
+    }  # if (!.skip_validation) {
+    # nocov end
 
 
     ### Required validations that set necessary variables ------------
@@ -339,11 +340,11 @@ ALEpDist <- new_class(
     # Establish the number of rand_it based on original or surrogate model
     if (surrogate) {
       # Reset model and data for surrogate models
-      if (nrow(data) > 1000) {
+      if (nrow(data) > 1000) {  # nocov start
         data <- data |>
           # Note: this statement must be preceded by set.seed somewhere above
           slice_sample(n = 1000)
-      }
+      }  # nocov end
 
       if (y_type %in% c('binary', 'ordinal', 'categorical')) {
         # For any of these types, convert the surrogate model to binary based on predicting the modal class.
@@ -377,10 +378,10 @@ ALEpDist <- new_class(
       pred_fun  <- formals(ale::ALE)$pred_fun
       pred_type <- formals(ale::ALE)$pred_type
     }
-    else if (is.null(rand_it)) {
+    else if (is.null(rand_it)) {  # nocov start
       # Default 1000 random iterations for exact p-values
       rand_it <- 1000
-    }
+    }  # nocov end
 
     if (!is.null(model_call)) {
       # Get the predictors when model_call is automatically detected
@@ -409,12 +410,12 @@ ALEpDist <- new_class(
     }
 
     # Create progress bar iterator
-    if (!silent) {
+    if (!silent) {  # nocov start
       progress_iterator <- progressr::progressor(
         steps = rand_it,
         message = 'Generating random variable distributions for p-values...'
       )
-    }
+    }  # nocov end
 
     # rand_ales <- map(  # use for debugging
     rand_ales <- furrr::future_map(
@@ -443,7 +444,7 @@ ALEpDist <- new_class(
               obj = residual_distribution
             )
           },
-          error = \(e) {
+          error = \(e) {  # nocov start
             cli_warn(paste0(
               'Error generating random distribution; skipped iteration ', it, ':\n',
               e
@@ -451,7 +452,7 @@ ALEpDist <- new_class(
 
             # End current future_map loop without any return value
             return(NULL)
-          }
+          }  # nocov end
         )
         # package_scope$rand_data <- tmp_rand_data
         # rm(tmp_rand_data)
@@ -494,7 +495,7 @@ ALEpDist <- new_class(
               # assign('rand_model', eval(model_call), package_scope)
             }
           },
-          error = \(e) {
+          error = \(e) {  # nocov start
             cli_warn(paste0(
               'Error creating random model; skipped iteration ', it, ':\n',
               e
@@ -502,7 +503,7 @@ ALEpDist <- new_class(
 
             # End current future_map loop without any return value
             return(NULL)
-          }
+          }  # nocov end
         )
 
         tryCatch(
@@ -531,7 +532,7 @@ ALEpDist <- new_class(
               silent = TRUE
             )
           },
-          error = \(e) {
+          error = \(e) {  # nocov start
             cli_warn(paste0(
               'Error calculating ALE; skipped iteration ', it, ':\n',
               e
@@ -539,13 +540,13 @@ ALEpDist <- new_class(
 
             # End current future_map loop without any return value
             return(NULL)
-          }
+          }  # nocov end
         )
 
         # Increment the progress bar iterator.
         # Do not skip iterations (e.g., it %% 10 == 0): inaccurate with parallelization
         if (!silent) {
-          progress_iterator()
+          progress_iterator()  # nocov
         }
 
         it.rand_ale
@@ -557,15 +558,15 @@ ALEpDist <- new_class(
     # Store the number of valid iterations
     rand_it_ok <- length(rand_ales)
 
-    if (rand_it_ok == 0) {
+    if (rand_it_ok == 0) {  # nocov start
       cli_abort(c(
         'No random p-value distributions could be created.',
         'i' = 'See {.fn warnings()} for error messages.'
       ))
-    }
+    }  # nocov end
 
     # Validate results based on rand_it_ok
-    if (!.skip_validation) {
+    if (!.skip_validation) {  # nocov start
       if (rand_it_ok < 100) {
         cli_abort(c(
           '{rand_it - rand_it_ok} iteration{?s} failed; only {rand_it_ok} {?was/were} valid.',
@@ -585,7 +586,8 @@ ALEpDist <- new_class(
           }
         ))
       }
-    }
+    }   # if (!.skip_validation)
+    # nocov end
 
     # Normalization is based on y_preds rather than y_col:
     # * takes care of classification, survival, or other [0, 1] prediction values
@@ -629,9 +631,9 @@ ALEpDist <- new_class(
     params$exactness <- if (surrogate) {
       'surrogate'
     } else if (rand_it_ok >= 1000) {
-      'exact'
+      'exact'  # nocov
     } else if (rand_it_ok >= 100) {
-      'approx'
+      'approx'  # nocov
     } else {
       # should arrive here only if .skip_validation = TRUE
       'invalid'

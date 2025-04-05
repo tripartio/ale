@@ -410,12 +410,12 @@ validate_x_cols <- function(
           map_lgl(\(it.match) nrow(it.match) != 1) |>
           (`[`)(i =  x_cols[['d2']], j = _)
 
-        if (length(non_2d) > 0) {
+        if (length(non_2d) > 0) { # nocov start
           cli_abort(c(
             'x' = 'In "$d2", element{?s} {non_2d} {?is/are} not {?a/} 2D interaction term{?s}.'
           ))
         }
-      }
+      }  # nocov end
 
       validate(
         class(x_cols[['d2_all']]) %in% c('character', 'NULL'),
@@ -481,12 +481,12 @@ validate_x_cols <- function(
         NULL
       }
     }
-    else {
+    else {  # nocov start
       cli_abort(c(
         'x' = 'Invalid specification for {x_cols_arg_name}.',
-        'i' = 'See help("ale") for details.'
+        'i' = 'See {.fn ALE} for details.'
       ))
-    }
+    }  # nocov end
   }
 
   # Remove y_col and any duplicates if present.

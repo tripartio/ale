@@ -117,6 +117,25 @@ test_that("resolve_x_cols processes canonical formats properly", {
 })
 
 
+test_that("resolve_x_cols correctly expands d2_all", {
+  expect_equal(
+    resolve_x_cols(list(d2_all = "a"), col_names, y_col),
+    list(d1 = character(), d2 = c('a:b', 'a:c'))
+  )
+
+  expect_equal(
+    resolve_x_cols(list(d2 = 'a:b'), col_names, y_col),
+    list(d1 = character(), d2 = "a:b")
+  )
+
+  expect_error(
+    resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
+    "are not characters:"
+    # "x_cols$d1 must be a character vector"
+  )
+})
+
+
 test_that("resolve_x_cols properly excludes specified columns", {
   expect_equal(
     resolve_x_cols(c("a", "b", "c"), col_names, y_col, exclude_cols = "b"),

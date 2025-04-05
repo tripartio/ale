@@ -169,8 +169,11 @@ plot_ale_1D <- function(
       alt = str_glue('ALE plot of {y_col} against {x_col}')
     )
 
+  # browser()
+
   # Add ALER band to show the average ± the confidence limits
   if (use_aler_band) {
+    # browser()
     plot <- plot +
       geom_rect(
         xmin = -Inf,
@@ -277,6 +280,7 @@ plot_ale_1D <- function(
     else {
       # All categories: no bootstrap bands
       plot <- if (cat_plot == 'overlay') {
+        # browser()
         plot +
           geom_col(
             aes(fill = '.cat'),
@@ -284,6 +288,7 @@ plot_ale_1D <- function(
           )
       }
       else {  # facet
+        # browser()
         plot +
           geom_col(fill = 'gray') +
           facet_wrap(vars('.cat'), nrow = 1)
@@ -340,6 +345,7 @@ plot_ale_1D <- function(
 
     # If the data is too big, down-sample or else rug plots are too slow
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
+      # browser()
       rug_sample(
         rug_data,
         ale_data[[1]],
@@ -406,17 +412,21 @@ plot_ale_2D <- function(
     relative_y = 'median'
 ) {
   ## Internal functions -----------------
-
+# browser()
   # Ensure that a vector is unique.
   # Needed for plotting scale breaks that require unique values.
-  make_unique_jitter <- function(x, jitter_scale = 0.001, max_tries = 1000) {
+  make_unique_jitter <- function(
+    x,
+    jitter_scale = 0.001,
+    max_tries = 1000
+  ) {  # nocov start
     x_jit <- x
     for (i in seq_len(max_tries)) {
       x_jit <- x + stats::runif(length(x), -jitter_scale, jitter_scale)
       if (length(unique(x_jit)) == length(x)) return(x_jit)
     }
     cli::cli_abort("Could not make all values unique after {max_tries} tries.")
-  }
+  }  # nocov end
 
   ## Prepare data for plotting -----------------------
 
@@ -672,6 +682,7 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
+  # browser()
   names(x_y) <- c('rug_x', 'rug_y')
 
   # Only sample small datasets

@@ -264,12 +264,12 @@ ALE <- new_class(
         msg = '{.arg output_conf} must be TRUE, FALSE, or NULL.'
       )
 
-      if (output_conf) {
+      if (output_conf) {  # nocov start
         validate(
           output_stats && boot_it > 0 && !is.null(p_values),
           msg = 'If {.arg output_conf} is set to {.val TRUE}, {.arg output_stats} must also be {.val TRUE}, {.arg boot_it} must be positive, and {.arg p_values} must be provided. Otherwise, leave {.arg output_conf} at its default {.val NULL}.'
         )
-      }
+      }  # nocov end
       output_conf
     }
 
@@ -296,10 +296,10 @@ ALE <- new_class(
             )
           } else {
             # No automatic p-values without bootstrapping
-            NULL
+            NULL  # nocov
           }
         }
-        else {
+        else {  # nocov start
           validate(
             # p_values must be an `ALEpDist` object
             p_values |> S7_inherits(ALEpDist),
@@ -321,8 +321,7 @@ ALE <- new_class(
               'i' = 'The current {.arg model} is the following {.cls {pm$class}} object: {pm$print}.'
             )
           )
-
-        }
+        }  # nocov end
       }  # if (!is.null(p_values))
     }
     else {
@@ -390,9 +389,9 @@ ALE <- new_class(
         data[y_col] |> as.matrix()
       } else if (y_type %in% c('binary', 'categorical')) {
         y_preds
-      } else {
+      } else {  # nocov start
         cli_abort('Invalid datatype for y outcome variable: must be binary, categorical, ordinal, or numeric.')
-      }
+      }  # nocov end
 
     # Generate summary statistics for y for plotting
     y_summary <- var_summary(
@@ -471,14 +470,14 @@ ALE <- new_class(
     }
 
     # Create progress bar iterator only if not in an outer loop with bins
-    if (!silent && is.null(.bins)) {
+    if (!silent && is.null(.bins)) {  # nocov start
       progress_iterator <- progressr::progressor(
         # The number of steps is the number of elements in each ALE dimension requested.
         steps = length(x_cols$d1) +
           (if (length(x_cols) > 1) length(x_cols$d2) else 0),
         message = 'Calculating ALE'
       )
-    }
+    }  # nocov end
 
     # Loop to generate ALE data ---------------
     ales <-
@@ -500,7 +499,7 @@ ALE <- new_class(
           # Increment progress bar iterator only if not in an outer loop with bins.
           # Do not skip iterations (e.g., .it %% 10 == 0): inaccurate with parallelization.
           if (!silent && is.null(.bins)) {
-            progress_iterator()
+            progress_iterator()  # nocov
           }
 
           it.x_cols_split <- it.x_cols |>
@@ -634,13 +633,13 @@ ALE <- new_class(
       if (
         output_conf &&
         (boot_it < 100 || p_values@params$rand_it_ok < 100)
-      ) {
+      ) {  # nocov start
         if (!silent) cli_inform(c(
           '!' = 'Note that confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
           'i' = '{.arg boot_it} = {boot_it}.',
           'i' = '{.arg p_values} is based on {p_values@params$rand_it_ok} iterations.'
         ))
-      }
+      }  # nocov end
 
       for (it.cat in y_cats) {
         # 1D ALE statistics

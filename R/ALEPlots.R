@@ -110,14 +110,16 @@ ALEPlots <- new_class(
       # Assign ale_p to adapted object
       obj@params$p_values <- obj_p
 
-      # The default value for rug_sample_size assumes an ALE object. So, ensure that a valid value is assigned for ModelBoot objects.
-      if (is.null(rug_sample_size)) {
-        rug_sample_size <- if (!is.null(obj@params$sample_size)) {
-          obj@params$sample_size
-        } else {
-          500
-        }
-      }
+      # browser()
+      # # The default value for rug_sample_size assumes an ALE object. So, ensure that a valid value is assigned for ModelBoot objects.
+      # if (is.null(rug_sample_size)) {
+      #   browser()
+      #   rug_sample_size <- if (!is.null(obj@params$sample_size)) {
+      #     obj@params$sample_size
+      #   } else {
+      #     500
+      #   }
+      # }
     }
 
     # Initialize plot lists
@@ -171,6 +173,7 @@ ALEPlots <- new_class(
                   p_exactness = if (is.null(obj@params$p_values)) {
                     NULL
                   } else {
+                    # browser()
                     obj@params$p_values@params$exactness
                   },
                   x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],

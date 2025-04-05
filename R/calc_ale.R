@@ -286,7 +286,7 @@ calc_ale <- function(
         (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
     }
     else {
-      stop('Interactions beyond 2 are not yet supported.')
+      stop('Interactions beyond 2 are not yet supported.')  # nocov
     }
 
 
@@ -300,7 +300,7 @@ calc_ale <- function(
     }
     else if (is.null(colnames(btit.delta_pred))) {
       # This captures some odd model cases
-      colnames(btit.delta_pred) <- y_cats
+      colnames(btit.delta_pred) <- y_cats  # nocov
     }
 
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
@@ -449,39 +449,39 @@ calc_ale <- function(
       }  # else if (ixn_d == 2) {
 
       ### 3D ALE ----------------------
-      else if (ixn_d == 3) {
-
-        # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
-        btit.local_eff_ray[it.cat, , , ] <- add_array_na.rm(
-          btit.local_eff_ray[it.cat, , , ],
-          intrapolate_3D(btit.local_eff_ray[it.cat, , , ])
-        )
-
-        # Set any indeterminate missing values to zero; this includes the values in the first row and first column
-        btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , , ])] <- 0
-
-        # Accumulate interaction local effects first over rows then over columns then over depth.
-        # The order is arbitrary: any order would give identical results.
-        btit.acc_local_eff[it.cat, , , ] <- btit.local_eff_ray[it.cat, , , ] |>
-          # First accumulate over rows...
-          apply(c(2, 3), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          # apply() transposes its results when iterating over rows, so we need to transpose them back.
-          apply(c(2, 3), t) |>
-          # ... then accumulate over columns...
-          apply(c(1, 3), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          apply(c(1, 3), t) |>
-          # ... and then accumulate over depth.
-          apply(c(2, 1), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          apply(c(2, 1), t)
-      }
+      # else if (ixn_d == 3) {
+      #
+      #   # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
+      #   btit.local_eff_ray[it.cat, , , ] <- add_array_na.rm(
+      #     btit.local_eff_ray[it.cat, , , ],
+      #     intrapolate_3D(btit.local_eff_ray[it.cat, , , ])
+      #   )
+      #
+      #   # Set any indeterminate missing values to zero; this includes the values in the first row and first column
+      #   btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , , ])] <- 0
+      #
+      #   # Accumulate interaction local effects first over rows then over columns then over depth.
+      #   # The order is arbitrary: any order would give identical results.
+      #   btit.acc_local_eff[it.cat, , , ] <- btit.local_eff_ray[it.cat, , , ] |>
+      #     # First accumulate over rows...
+      #     apply(c(2, 3), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     # apply() transposes its results when iterating over rows, so we need to transpose them back.
+      #     apply(c(2, 3), t) |>
+      #     # ... then accumulate over columns...
+      #     apply(c(1, 3), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     apply(c(1, 3), t) |>
+      #     # ... and then accumulate over depth.
+      #     apply(c(2, 1), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     apply(c(2, 1), t)
+      # }
       else {
-        cli_abort('Internal error: ixn_d not in c(1, 2, 3).')
+        cli_abort('Internal error: ixn_d not in c(1, 2, 3).')  # nocov
       }
 
     }  # for (it.cat in y_cats)
@@ -649,9 +649,9 @@ calc_ale <- function(
   }
 
   ## 3D ---------------
-  else if (ixn_d >= 3) {
+  else if (ixn_d >= 3) {  # nocov start
     stop('Interactions beyond 2 are not yet supported.')
-  }
+  }  # nocov end
 
 
   ## Apply the centring ----------------
@@ -841,7 +841,7 @@ calc_ale <- function(
     } else if (ixn_d == 2) {
       x12_counts
     } else {
-      stop('Interactions beyond 2 are not yet supported.')
+      stop('Interactions beyond 2 are not yet supported.')  # nocov
     }
     xn_counts <- xn_counts |>
       as.data.frame.table(responseName = '.n') |>
@@ -914,7 +914,7 @@ calc_ale <- function(
                 # zeroed_ale = FALSE
               )            }
             else {
-              cli_abort('Statistics not yet supported for higher than 2 dimensions.')
+              cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
             }
 
           }) |>
@@ -1139,7 +1139,7 @@ prep_var_for_ale <- function(
         if (.i %in% names(x_int_counts)) {
           x_int_counts[[as.character(.i)]]
         } else {
-          0
+          0  # nocov
         }
       })
 

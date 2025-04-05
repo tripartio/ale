@@ -293,7 +293,7 @@ var_summary <- function(
 
   # Convert vector to matrix
   if (!is.matrix(var_vals)) {
-    var_vals <- as.matrix(var_vals, ncol = 1)
+    var_vals <- as.matrix(var_vals, ncol = 1)  # nocov
   }
 
   s <-
@@ -407,65 +407,65 @@ var_summary <- function(
 }  # var_summary()
 
 
-# Rearrange ALE statistics in multiple orientations
-pivot_stats <- function(long_stats) {
-
-  return(list(
-    by_term = long_stats |>
-      split(~ term) |>
-      # split() sort terms alphabetically; revert to the original provided order of terms
-      (`[`)(unique(long_stats$term)) |>
-      # Name each element on each row by its corresponding statistic
-      map(\(it.term_tbl) {
-        .row_names <- it.term_tbl[['statistic']]
-
-        it.term_tbl |>
-          # Name each element on each row
-          map(\(it.col) {
-            names(it.col) <- .row_names
-            it.col
-          }) |>
-          as_tibble() |>
-          select(-'term')  # remove superfluous column
-      }),
-
-    by_stat = long_stats |>
-      split(~ statistic) |>
-      # split() sort statistics alphabetically; revert to the original provided order of statistics
-      (`[`)(unique(long_stats$statistic)) |>
-      # Name each element on each row by its corresponding term
-      map(\(.statistic_tbl) {
-        .row_names <- .statistic_tbl[['term']]
-
-        .statistic_tbl |>
-          # Name each element on each row
-          map(\(it.col) {
-            names(it.col) <- .row_names
-            it.col
-          }) |>
-          as_tibble() |>
-          select(-'statistic')  # remove superfluous column
-      }),
-
-    estimate = long_stats |>
-      # create single tibble with estimates (no confidence intervals) with
-      # terms in rows and statistics in columns
-      pivot_wider(
-        id_cols = 'term',
-        names_from = 'statistic',
-        values_from = 'estimate'
-      ) |>
-      as_tibble() |>
-      # name each element of each row with the term names (all_cols[[1]]).
-      (\(all_cols) {
-        map(all_cols, \(it.col) {
-          names(it.col) <- all_cols[[1]]
-          it.col
-        }) |>
-          as_tibble()
-      })()
-  ))
-}  # pivot_stats()
+# # Rearrange ALE statistics in multiple orientations
+# pivot_stats <- function(long_stats) {
+#
+#   return(list(
+#     by_term = long_stats |>
+#       split(~ term) |>
+#       # split() sort terms alphabetically; revert to the original provided order of terms
+#       (`[`)(unique(long_stats$term)) |>
+#       # Name each element on each row by its corresponding statistic
+#       map(\(it.term_tbl) {
+#         .row_names <- it.term_tbl[['statistic']]
+#
+#         it.term_tbl |>
+#           # Name each element on each row
+#           map(\(it.col) {
+#             names(it.col) <- .row_names
+#             it.col
+#           }) |>
+#           as_tibble() |>
+#           select(-'term')  # remove superfluous column
+#       }),
+#
+#     by_stat = long_stats |>
+#       split(~ statistic) |>
+#       # split() sort statistics alphabetically; revert to the original provided order of statistics
+#       (`[`)(unique(long_stats$statistic)) |>
+#       # Name each element on each row by its corresponding term
+#       map(\(.statistic_tbl) {
+#         .row_names <- .statistic_tbl[['term']]
+#
+#         .statistic_tbl |>
+#           # Name each element on each row
+#           map(\(it.col) {
+#             names(it.col) <- .row_names
+#             it.col
+#           }) |>
+#           as_tibble() |>
+#           select(-'statistic')  # remove superfluous column
+#       }),
+#
+#     estimate = long_stats |>
+#       # create single tibble with estimates (no confidence intervals) with
+#       # terms in rows and statistics in columns
+#       pivot_wider(
+#         id_cols = 'term',
+#         names_from = 'statistic',
+#         values_from = 'estimate'
+#       ) |>
+#       as_tibble() |>
+#       # name each element of each row with the term names (all_cols[[1]]).
+#       (\(all_cols) {
+#         map(all_cols, \(it.col) {
+#           names(it.col) <- all_cols[[1]]
+#           it.col
+#         }) |>
+#           as_tibble()
+#       })()
+#   ))
+# }  # pivot_stats()
 
 
 # Summarize overlapping confidence regions
@@ -613,13 +613,13 @@ summarize_conf_regions_2D <- function(
         )
       },
       # if cut() crashes, fall back on the more robust .bincode() without pretty printing
-      error = \(e) {
+      error = \(e) {  # nocov start
         .bincode(
           x,
           breaks = quantile(x, probs = c(0, 1/3, 2/3, 1)),
           include.lowest = TRUE
         )
-      }
+      }  # nocov end
     )
   }
 
@@ -720,7 +720,7 @@ summarize_conf_regions_2D <- function(
   # )
 }  # summarize_conf_regions_1D()
 
-
+# nocov start
 # Receives a confidence region summary tibble and then converts its essential
 # contents in words.
 summarize_conf_regions_1D_in_words <- function(
@@ -757,4 +757,4 @@ summarize_conf_regions_1D_in_words <- function(
   }) |>
     paste(collapse = ' ')
 }  # summarize_conf_regions_in_words()
-
+# nocov end

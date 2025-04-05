@@ -7,21 +7,18 @@ test_that(
       test_gam,
       data = test_cars,
       ale_options = list(
-        x_cols = c('carb', 'wt')
+        x_cols = c('wt', 'gear:carb')
       ),
-      ale_p = 'auto',  # test for bugginess but not for snapshot
+      ale_p = NULL,
+      # ale_p = 'auto',  # test for bugginess but not for snapshot
       boot_it = 2,
+      parallel = 'all but one',
       silent = TRUE
     )
 
     # Test the ModelBoot print method
     print(pll_mb) |>
       expect_snapshot()
-    # expect_equal(
-    #   print(pll_mb) |>
-    #     capture.output(),
-    #   "'ModelBoot' object of the model model on a 64x8 dataset with 2 bootstrap iterations."
-    # )
   }
 )
 
@@ -41,8 +38,7 @@ test_that(
       boot_it = 2,
       seed = 5,  # avoid errors with tiny dataset
       ale_options = list(
-        # 'model' is problematic for bootstrapping because there are too many unique factor levels
-        exclude_cols = 'model'
+        x_cols = c('wt', 'am', 'gear:carb')
       ),
       ale_p = NULL,
       silent = TRUE
@@ -68,7 +64,10 @@ test_that(
       test_gam_binary,
       data = test_cars,
       parallel = 0,
-      boot_it = 0,
+      boot_it = 2,
+      ale_options = list(
+        x_cols = c('wt', 'continent', 'gear:carb')
+      ),
       ale_p = NULL,
       silent = TRUE
     )

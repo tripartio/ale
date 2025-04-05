@@ -264,7 +264,7 @@ ModelBoot <- new_class(
           # If we've made it this far, then we have all we need to calculate bootstrap-validated performance metrics.
           TRUE
         },
-        error = \(e) {
+        error = \(e) {  # nocov start
           if (!silent) {
             cli_alert_info(paste0(
               'The necessary information to calculate bootstrap-validated performance measures was not correctly provided, so only those that are available will be calculated. The error message was: \n',
@@ -273,13 +273,13 @@ ModelBoot <- new_class(
           }
 
           FALSE  # do not calculate performance
-        }
+        }  # nocov end
       )
     }
     else {  # boot_it == 0
-      if (!silent) {
+      if (!silent) {  # nocov start
         cli_alert_info('Bootstrapping was disabled, so performance measures that require bootstrapping for reliable calculation will not be returned.')
-      }
+      }  # nocov end
 
       FALSE
     }
@@ -329,7 +329,7 @@ ModelBoot <- new_class(
             .skip_validation = TRUE
           )
         }
-        else {
+        else {  # nocov start
           validate(
             # ale_p must be an `ALEpDist` object
             ale_p |> S7_inherits(ALEpDist),
@@ -338,12 +338,12 @@ ModelBoot <- new_class(
               'i' = 'See {.fun ALE()} for instructions for obtaining p-values.'
             )
           )
-        }
+        }  # nocov end
       }  # if (!is.null(ale_p))
     }
     else {
       # No stats desired
-      ale_p <- NULL
+      ale_p <- NULL  # nocov
     }
 
     validate(is.list(tidy_options))
@@ -362,13 +362,13 @@ ModelBoot <- new_class(
 
       call_glance <- any(class(model) %in% glance_methods)
 
-      if (!call_glance) {
+      if (!call_glance) {  # nocov start
         cli_warn(c(
           '!' = 'No {.fun boot::glance} methods found for the class {.cls {class(model)}}.',
           'i' = 'Some general model statistics will not be provided',
           'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
         ))
-      }
+      }  # nocov end
     }
 
     # If broom::tidy is unavailable, then disable output_model_coefs since there are no results
@@ -379,13 +379,13 @@ ModelBoot <- new_class(
 
       output_model_coefs <- any(class(model) %in% tidy_methods)
 
-      if (!output_model_coefs) {
+      if (!output_model_coefs) {  # nocov start
         cli_warn(c(
           '!' = 'No {.fun boot::tidy} methods found for the class {.cls {class(model)}}.',
           'i' = 'Model coefficient summaries will not be provided.',
           'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
         ))
-      }
+      }  # nocov end
     }
 
 
@@ -444,13 +444,13 @@ ModelBoot <- new_class(
     )
 
     # Create progress bar iterator
-    if (!silent) {
+    if (!silent) {  # nocov start
       progress_iterator <- progressr::progressor(
         # progressor will run once for the full dataset + boot_it times
         steps = boot_it + 1,
         message = 'Creating and analyzing models'
       )
-    }
+    }  # nocov end
 
     # Major bootstrap loop ---------
 
@@ -468,7 +468,7 @@ ModelBoot <- new_class(
           # Increment progress bar iterator
           # Do not skip iterations (e.g., btit %% 10 == 0): inaccurate with parallelization
           if (!silent) {
-            progress_iterator()
+            progress_iterator()  # nocov
           }
 
           ## Bootstrap the model -----------
@@ -496,7 +496,7 @@ ModelBoot <- new_class(
                 )
               }
             },
-            error = \(e) {
+            error = \(e) {  # nocov start
               if (btit == 0) {
                 # If the full model call fails, then abort altogether. Nothing else will probably work.
                 cli_abort(paste0(
@@ -509,11 +509,11 @@ ModelBoot <- new_class(
               else {
                 btit.model <- NULL
               }
-            }
+            }  # nocov end
           )
 
           # If the model failed (and it's not the original full model call btit==0), then skip this iteration and go on looping
-          if (is.null(btit.model)) {
+          if (is.null(btit.model)) {  # nocov start
             return(list(
               model = NULL,
               ale = NULL,
@@ -521,7 +521,7 @@ ModelBoot <- new_class(
               stats = NULL,
               perf = NULL
             ))
-          }
+          }  # nocov end
 
 
           ## Bootstrap statistics and performance -----------
@@ -541,11 +541,11 @@ ModelBoot <- new_class(
                   )
                 },
                 error = \(e) {
-                  NULL
+                  NULL  # nocov
                 }
               )
             } else {
-              NULL
+              NULL  # nocov
             }
 
 
@@ -562,6 +562,7 @@ ModelBoot <- new_class(
               # Calculate the actual values that were excluded from the current bootstrap iteration
               actual_oob <- if (y_type == 'binary') {
                 # Convert actual to TRUE/FALSE, which equals 1/0
+                # browser()
                 (data[oob_idxs, y_col] == positive) |>
                   as.logical()
               }
@@ -615,7 +616,7 @@ ModelBoot <- new_class(
               )
 
               if (y_type == 'binary') {
-
+# browser()
                 # Calculate AUC for probability predictions
                 boot_perf <- tibble(
                   auc = aucroc(
@@ -672,12 +673,12 @@ ModelBoot <- new_class(
                   )  # any parameters
                 },
                 error = \(e) {
-                  NULL
+                  NULL  # nocov
                 }
               )
 
             } else {
-              NULL
+              NULL  # nocov
             }
 
 
@@ -715,7 +716,7 @@ ModelBoot <- new_class(
                     envir = parent.frame(1)
                   )
                 },
-                error = \(e) {
+                error = \(e) {  # nocov start
                   if (btit == 0) {
                     # Terminate early if the full model cannot produce ALE
                     cli_alert_danger('Could not calculate ALE:\n')
@@ -730,7 +731,7 @@ ModelBoot <- new_class(
 
                     NULL
                   }
-                }
+                }  # nocov end
               )
             }  # else {  # Valid model and ALE requested
 
@@ -760,7 +761,7 @@ ModelBoot <- new_class(
           }  # if (output_ale)
 
           else {  # output_ale is FALSE
-            boot_ale <- NULL
+            boot_ale <- NULL  # nocov
           }
 
 
@@ -815,7 +816,7 @@ ModelBoot <- new_class(
           select(-any_of(invalid_boot_model_stats)) |>
           pivot_longer(everything())
       } else {
-        NULL
+        NULL  # nocov
       }
 
       # Summarize the performance data, if available.
@@ -873,7 +874,7 @@ ModelBoot <- new_class(
         # Calculate the overly conservative mean performance for the bootstrapped data
         walk(y_cats, \(it.cat) {
           if (y_type %in% c('binary', 'categorical')) {
-
+# browser()
             if (y_type == 'binary') {
               binary_target <- data[[y_col]]  # no change
               # Convert y_preds to a matrix for consistent code subsequently
@@ -943,7 +944,7 @@ ModelBoot <- new_class(
     }
     else {
       # output_model_stats is FALSE
-      NULL
+      NULL  # nocov
     }
 
 
@@ -966,11 +967,11 @@ ModelBoot <- new_class(
           tidy_boot_data$estimate <- tidy_boot_data$edf
         }
       } else if ('edf' %in% tidy_boot_data_names) {  # tidy.gam when parametric = NULL
-        tidy_boot_data$estimate <- if_else(
+        tidy_boot_data$estimate <- if_else(  # nocov start
           is.na(tidy_boot_data$estimate),
           tidy_boot_data$edf,
           tidy_boot_data$estimate
-        )
+        )  # nocov end
       }
 
       # tidy column names known to indicate categories of categorical variables
@@ -993,7 +994,7 @@ ModelBoot <- new_class(
     }
     else {
       # output_model_coefs is FALSE
-      NULL
+      NULL  # nocov
     }
 
 
@@ -1096,7 +1097,7 @@ ModelBoot <- new_class(
             }
             else {
               # length(full_ale@params$requested_x_cols[[it.d]]) is zero
-              NULL
+              NULL  # nocov
             }
           })  # map(\(it.d_ale) {
 
@@ -1117,7 +1118,7 @@ ModelBoot <- new_class(
                         it = i
                       )
                   } else {
-                    NULL
+                    NULL  # nocov
                   }
                 }) |>
                   bind_rows()
@@ -1156,13 +1157,13 @@ ModelBoot <- new_class(
           boot_it > 0 &&
           !is.null(ale_p)
         ) {
-          if (boot_it < 100 || ale_p@params$rand_it_ok < 100) {
+          if (boot_it < 100 || ale_p@params$rand_it_ok < 100) {  # nocov start
             if (!silent) cli_inform(c(
               '!' = 'Note that ALE confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
               'i' = '{.arg boot_it} = {boot_it}.',
               'i' = '{.arg ale_p} is based on {ale_p@params$rand_it_ok} iterations.'
             ))
-          }
+          }  # nocov end
 
           it.conf_d1 <- summarize_conf_regions_1D(
             it.ale_summary_data$d1,
@@ -1195,7 +1196,7 @@ ModelBoot <- new_class(
     }
     else {
       # output_ale is FALSE
-      NULL
+      NULL  # nocov
     }
 
     ## Refine the parameters -----------------
@@ -1248,8 +1249,8 @@ ModelBoot <- new_class(
       }
 
       ar
-    } else {
-      NULL
+    } else {  # !output_ale
+      NULL  # nocov
     }
 
     ## Return S7 ModelBoot object --------------------

@@ -21,6 +21,7 @@
 #' modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
 #'
 modes <- function(x) {
+  # browser()
   if (!is.atomic(x)) {
     cli_abort(c(
       'x' = '{.arg x} must be an atomic datatype.',
@@ -111,7 +112,7 @@ params_model <- function(model) {
         paste0(collapse = '\n')
     },
     error = \(e) {
-      e
+      e  # nocov
     }
   )
 

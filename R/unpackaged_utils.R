@@ -37,20 +37,20 @@ validate <- function(
 
     # Validate the assertion itself--this is purely internal validation
     if (length(res) != 1) {
-      cli_abort('validate: length of assertion is not 1')
+      cli_abort('validate: length of assertion is not 1')  # nocov
     }
     if (!is.logical(res)) {
-      cli_abort('validate: assertion must return a logical value')
+      cli_abort('validate: assertion must return a logical value')  # nocov
     }
     if (any(is.na(res))) {
-      cli_abort('validate: missing values present in assertion')
+      cli_abort('validate: missing values present in assertion')  # nocov
     }
 
     # On the first FALSE res, break out of the for loop
     if (!res) {
       if (is.null(msg)) {
         # With no default msg, generic msg is 'assertion is FALSE'
-        msg <- paste0(deparse(assertion), ' is FALSE')
+        msg <- paste0(deparse(assertion), ' is FALSE')  # nocov
       }
 
       res <- structure(FALSE, msg = msg)
@@ -120,7 +120,7 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
     if (current_depth <= max_depth && !is.character(x)) {
       return(list(x))
     } else {
-      return(list())
+      return(list())  # nocov
     }
   }
 
@@ -246,7 +246,7 @@ cast <- function(x, new_cls) {
     return(coerce_fun(x))
   } else {
     # If S3 method doesn't exist, try S4 coercion using methods::as()
-    return(methods::as(x, new_cls))
+    return(methods::as(x, new_cls))  # nocov
   }
 }
 
@@ -268,13 +268,13 @@ cast <- function(x, new_cls) {
 #'
 `%+%` <- function(cv1, cv2) {
   # Validate with a fast "if" check rather than the heavier validate()
-  if (length(cv1) != length(cv2)) {
+  if (length(cv1) != length(cv2)) {  # nocov start
     cli_abort(c(
       'x' = 'When concatenating character vectors (cv) with "cv1 %+% cv2", both vectors must be of equal length.',
       'i' = '{.arg cv1} is of length {length(cv1)}.',
       'i' = '{.arg cv2} is of length {length(cv2)}.'
     ))
-  }
+  }  # nocov end
 
   paste0(cv1, cv2)
 }
@@ -294,12 +294,12 @@ cast <- function(x, new_cls) {
 #'
 round_dp <- function(x, default_dp = 3L) {
   # Validate with a fast "if" check rather than the heavier validate()
-  if (!is.numeric(x)) {
+  if (!is.numeric(x)) {  # nocov start
     cli_abort(c(
       'x' = '{.arg x} is not numeric.',
       'i' = '{.arg x} is of class {class(x)}.'
     ))
-  }
+  }  # nocov end
 
   max_x <- max(abs(x))
   dp <- case_when(

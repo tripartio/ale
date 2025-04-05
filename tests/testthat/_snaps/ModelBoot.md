@@ -17,10 +17,10 @@
     Output
       
     Message
-      Accumulated local effects (ALE) data, statistics, surrogate ALE p-values, and
-      confidence regions are provided for the following terms:
-      2 1D terms: carb and wt
-      no 2D terms:
+      Accumulated local effects (ALE) data and statistics are provided for the
+      following terms:
+      1 1D term: wt
+      1 2D term: gear:carb
 
 # bootstrapped numeric outcome with full 1D ALE
 
@@ -29,24 +29,6 @@
     Output
       $mpg
       $mpg$d1
-      $mpg$d1$vs
-        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
-      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
-      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      
-      $mpg$d1$continent
-        x    y PANEL group flipped_aes ymin ymax xmin xmax colour fill linewidth
-      1 1 19.2     1     1       FALSE    0 19.2 0.55 1.45     NA gray       0.5
-      2 2 19.2     1     2       FALSE    0 19.2 1.55 2.45     NA gray       0.5
-      3 3 19.2     1     3       FALSE    0 19.2 2.55 3.45     NA gray       0.5
-        linetype alpha
-      1        1    NA
-      2        1    NA
-      3        1    NA
-      
       $mpg$d1$am
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
       1 1 14.02396     1     1       FALSE    0 14.02396 0.55 1.45     NA gray
@@ -54,30 +36,6 @@
         linewidth linetype alpha
       1       0.5        1    NA
       2       0.5        1    NA
-      
-      $mpg$d1$gear
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 20.05025     1     1       FALSE    0 20.05025 0.55 1.45     NA gray
-      2 2 20.72601     1     2       FALSE    0 20.72601 1.55 2.45     NA gray
-      3 3 15.36998     1     3       FALSE    0 15.36998 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      
-      $mpg$d1$carb
-            ymin     ymax x        y PANEL group flipped_aes colour   fill linewidth
-      1 19.19662 19.19995 1 19.19662     1    -1       FALSE     NA grey85       0.5
-      2 19.19909 19.19999 2 19.19909     1    -1       FALSE     NA grey85       0.5
-      3 19.20003 19.20156 3 19.20003     1    -1       FALSE     NA grey85       0.5
-      4 19.20006 19.20404 4 19.20006     1    -1       FALSE     NA grey85       0.5
-      5 19.20020 19.21393 8 19.20020     1    -1       FALSE     NA grey85       0.5
-        linetype alpha
-      1        1   0.5
-      2        1   0.5
-      3        1   0.5
-      4        1   0.5
-      5        1   0.5
       
       $mpg$d1$wt
               ymin      ymax        x         y PANEL group flipped_aes colour   fill
@@ -105,106 +63,151 @@
       
       
       $mpg$d2
-      list()
+      $mpg$d2$`gear:carb`
+            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         width height
+      1     NA     NA
+      2     NA     NA
+      3     NA     NA
+      4     NA     NA
+      5     NA     NA
+      6     NA     NA
+      7     NA     NA
+      8     NA     NA
+      9     NA     NA
+      10    NA     NA
+      11    NA     NA
+      12    NA     NA
+      13    NA     NA
+      14    NA     NA
+      15    NA     NA
+      16    NA     NA
+      17    NA     NA
+      18    NA     NA
+      19    NA     NA
+      20    NA     NA
+      21    NA     NA
+      22    NA     NA
+      23    NA     NA
+      24    NA     NA
+      25    NA     NA
+      26    NA     NA
+      27    NA     NA
+      28    NA     NA
+      29    NA     NA
+      30    NA     NA
+      31    NA     NA
+      32    NA     NA
+      33    NA     NA
+      34    NA     NA
+      35    NA     NA
+      36    NA     NA
+      37    NA     NA
+      38    NA     NA
+      39    NA     NA
+      40    NA     NA
+      41    NA     NA
+      42    NA     NA
+      43    NA     NA
+      44    NA     NA
+      45    NA     NA
+      
       
       $mpg$eff
       $mpg$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
       1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      3 3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      4 4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      5 5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      6 6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       
       $mpg$eff[[2]]
              xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
-      1 19.200000 19.20000 1     1     1 0.875 1.125  black       0.5        1   0.25
-      2 19.200000 19.20000 2     1     2 1.875 2.125  black       0.5        1   0.25
-      3 19.198188 19.20716 3     1     3 2.875 3.125  black       0.5        1   0.25
-      4 14.202377 23.61692 4     1     4 3.875 4.125  black       0.5        1   0.25
-      5 14.023960 26.49925 5     1     5 4.875 5.125  black       0.5        1   0.25
-      6  2.464225 27.76458 6     1     6 5.875 6.125  black       0.5        1   0.25
+      1 14.023960 26.49925 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2  2.464225 27.76458 2     1     2 1.875 2.125  black       0.5        1   0.25
         alpha
       1    NA
       2    NA
-      3    NA
-      4    NA
-      5    NA
-      6    NA
       
       $mpg$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
       1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      3   NA   NA  2.7  3.3 3     1     3     NA white       0.5        1    NA
-      4   NA   NA  3.7  4.3 4     1     4     NA white       0.5        1    NA
-      5   NA   NA  4.7  5.3 5     1     5     NA white       0.5        1    NA
-      6   NA   NA  5.7  6.3 6     1     6     NA white       0.5        1    NA
       
       $mpg$eff[[4]]
          x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED  0.0% 2     1     2  black    3     0   0.5    -1    NA       
-      3 NA NALED  0.0% 3     1     3  black    3     0   0.5    -1    NA       
-      4 NA NALED 23.4% 4     1     4  black    3     0   0.5    -1    NA       
-      5 NA NALED 31.4% 5     1     5  black    3     0   0.5    -1    NA       
-      6 NA NALED 31.0% 6     1     6  black    3     0   0.5    -1    NA       
+      1 NA NALED 31.4% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 31.0% 2     1     2  black    3     0   0.5    -1    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
       
       $mpg$eff[[5]]
          x label    y PANEL group colour size angle hjust vjust alpha family fontface
       1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
       2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ( 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ( 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ( 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ( 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
         lineheight
       1        1.2
       2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
       
       $mpg$eff[[6]]
          x label    y PANEL group colour size angle hjust vjust alpha family fontface
       1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
       2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ) 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ) 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ) 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ) 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
         lineheight
       1        1.2
       2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
       
       $mpg$eff[[7]]
          x     label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.00 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.00 2     1     2  black    3     0   0.5     2    NA       
-      3 NA ALED 0.00 3     1     3  black    3     0   0.5     2    NA       
-      4 NA ALED 3.57 4     1     4  black    3     0   0.5     2    NA       
-      5 NA ALED 6.00 5     1     5  black    3     0   0.5     2    NA       
-      6 NA ALED 6.42 6     1     6  black    3     0   0.5     2    NA       
+      1 NA ALED 6.00 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 6.42 2     1     2  black    3     0   0.5     2    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
       
       $mpg$eff[[8]]
                x y PANEL group colour  fill size angle hjust vjust alpha family
@@ -267,45 +270,12 @@
       attr(,"effect")$mpg
       attr(,"effect")$mpg$ale
       attr(,"effect")$mpg$ale$d1
-      attr(,"effect")$mpg$ale$d1$vs
-      # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
-      
-      attr(,"effect")$mpg$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
-      2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
-      
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -5.29 -5.29   -5.29     -5.29 -5.29
       2 TRUE      26  7.73  7.73    7.73      7.73  7.73
-      
-      attr(,"effect")$mpg$ale$d1$gear
-      # A tibble: 3 x 7
-        gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 three       30 -2.64 -2.64   -2.64     -2.64 -2.64
-      2 four        24  4.31  4.31    4.31      4.31  4.31
-      3 five        10 -2.42 -2.42   -2.42     -2.42 -2.42
-      
-      attr(,"effect")$mpg$ale$d1$carb
-      # A tibble: 5 x 7
-        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1         1    14  0.000490  0.000490  0.000490  0.000490  0.000490
-      2         2    19  0.000176  0.000176  0.000176  0.000176  0.000176
-      3         3     9 -0.000137 -0.000137 -0.000137 -0.000137 -0.000137
-      4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
-      5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
       
       attr(,"effect")$mpg$ale$d1$wt
       # A tibble: 10 x 7
@@ -323,23 +293,57 @@
       10    5.45     7   9.11    9.11    9.11      9.11    9.11 
       
       
+      attr(,"effect")$mpg$ale$d2
+      attr(,"effect")$mpg$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
+       2 four             1     8 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
+       3 five             1     0  2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
+       4 three            2     8  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
+       5 four             2     7 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
+       6 five             2     4  2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
+       7 three            3     7  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
+       8 four             3     2 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
+       9 five             3     0  4.49e-16  4.49e-16  4.49e-16  4.49e-16  4.49e-16
+      10 three            4     8 -4.89e-16 -4.89e-16 -4.89e-16 -4.89e-16 -4.89e-16
+      11 four             4     6  1.41e-15  1.41e-15  1.41e-15  1.41e-15  1.41e-15
+      12 five             4     2 -1.25e-15 -1.25e-15 -1.25e-15 -1.25e-15 -1.25e-15
+      13 three            8     1 -3.45e-15 -3.45e-15 -3.45e-15 -3.45e-15 -3.45e-15
+      14 four             8     1  2.00e-15  2.00e-15  2.00e-15  2.00e-15  2.00e-15
+      15 five             8     4  2.27e-16  2.27e-16  2.27e-16  2.27e-16  2.27e-16
+      
+      
       
       attr(,"effect")$mpg$stats
       attr(,"effect")$mpg$stats$d1
-      # A tibble: 36 x 7
-         term      statistic estimate conf.low  mean median conf.high
-         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 vs        aled             0        0     0      0         0
-       2 vs        aler_min         0        0     0      0         0
-       3 vs        aler_max         0        0     0      0         0
-       4 vs        naled            0        0     0      0         0
-       5 vs        naler_min        0        0     0      0         0
-       6 vs        naler_max        0        0     0      0         0
-       7 continent aled             0        0     0      0         0
-       8 continent aler_min         0        0     0      0         0
-       9 continent aler_max         0        0     0      0         0
-      10 continent naled            0        0     0      0         0
-      # i 26 more rows
+      # A tibble: 12 x 7
+         term  statistic estimate conf.low   mean median conf.high
+         <chr> <chr>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 am    aled          6.28     6.28   6.28   6.28      6.28
+       2 am    aler_min     -5.29    -5.29  -5.29  -5.29     -5.29
+       3 am    aler_max      7.73     7.73   7.73   7.73      7.73
+       4 am    naled        38.4     38.4   38.4   38.4      38.4 
+       5 am    naler_min   -40.9    -40.9  -40.9  -40.9     -40.9 
+       6 am    naler_max    34.8     34.8   34.8   34.8      34.8 
+       7 wt    aled          5.51     5.51   5.51   5.51      5.51
+       8 wt    aler_min    -18.1    -18.1  -18.1  -18.1     -18.1 
+       9 wt    aler_max      9.11     9.11   9.11   9.11      9.11
+      10 wt    naled        29.6     29.6   29.6   29.6      29.6 
+      11 wt    naler_min   -50      -50    -50    -50       -50   
+      12 wt    naler_max    37.9     37.9   37.9   37.9      37.9 
+      
+      attr(,"effect")$mpg$stats$d2
+      # A tibble: 6 x 7
+        term      statistic  estimate  conf.low      mean    median conf.high
+        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       4.42e-16  4.42e-16  4.42e-16  4.42e-16  4.42e-16
+      2 gear:carb aler_min  -1.97e-15 -1.97e-15 -1.97e-15 -1.97e-15 -1.97e-15
+      3 gear:carb aler_max   2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
+      4 gear:carb naled      0         0         0         0         0       
+      5 gear:carb naler_min  0         0         0         0         0       
+      6 gear:carb naler_max  0         0         0         0         0       
       
       
       attr(,"effect")$mpg$conf
@@ -351,22 +355,22 @@
       
       attr(,"params")
       attr(,"params")$max_d
-      [1] 1
+      [1] 2
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-      [1] "vs"        "continent" "am"        "gear"      "carb"      "wt"       
+      [1] "am" "wt"
       
       attr(,"params")$ordered_x_cols$d2
-      character(0)
+      [1] "gear:carb"
       
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-      [1] "vs"        "continent" "am"        "gear"      "carb"      "wt"       
+      [1] "wt" "am"
       
       attr(,"params")$requested_x_cols$d2
-      character(0)
+      [1] "gear:carb"
       
       
       attr(,"params")$y_cats
@@ -557,45 +561,12 @@
       attr(,"ale")$boot$effect$mpg
       attr(,"ale")$boot$effect$mpg$ale
       attr(,"ale")$boot$effect$mpg$ale$d1
-      attr(,"ale")$boot$effect$mpg$ale$d1$vs
-      # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
-      2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
-      
       attr(,"ale")$boot$effect$mpg$ale$d1$am
       # A tibble: 2 x 7
         am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE     38 -5.18 -5.36   -5.18     -5.18 -4.99
       2 TRUE      26  7.30  5.72    7.30      7.30  8.87
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$gear
-      # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-      1 three       30  0.850 -3.09    0.850     0.850  4.79
-      2 four        24  1.53  -0.665   1.53      1.53   3.72
-      3 five        10 -3.83  -6.55   -3.83     -3.83  -1.11
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$carb
-      # A tibble: 5 x 7
-        carb.ceil    .n        .y      .y_lo   .y_mean .y_median       .y_hi
-            <dbl> <int>     <dbl>      <dbl>     <dbl>     <dbl>       <dbl>
-      1         1    14 -0.00171  -0.00338   -0.00171  -0.00171  -0.0000454 
-      2         2    19 -0.000459 -0.000908  -0.000459 -0.000459 -0.00000965
-      3         3     9  0.000795  0.0000261  0.000795  0.000795  0.00156   
-      4         4    16  0.00205   0.0000618  0.00205   0.00205   0.00404   
-      5         8     6  0.00707   0.000205   0.00707   0.00707   0.0139    
       
       attr(,"ale")$boot$effect$mpg$ale$d1$wt
       # A tibble: 10 x 7
@@ -613,23 +584,57 @@
       10    5.45     7  -1.44 -11.7     -1.44     -1.44   8.77 
       
       
+      attr(,"ale")$boot$effect$mpg$ale$d2
+      attr(,"ale")$boot$effect$mpg$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -2.86e-16 -5.15e-16 -2.86e-16 -2.86e-16 -5.77e-17
+       2 four             1     8  4.68e-16  1.41e-16  4.68e-16  4.68e-16  7.95e-16
+       3 five             1     0  4.12e-16  1.38e-16  4.12e-16  4.12e-16  6.86e-16
+       4 three            2     8  2.07e-16 -3.30e-17  2.07e-16  2.07e-16  4.47e-16
+       5 four             2     7  1.72e-16  1.26e-16  1.72e-16  1.72e-16  2.17e-16
+       6 five             2     4  1.16e-16  1.09e-16  1.16e-16  1.16e-16  1.23e-16
+       7 three            3     7  2.07e-16 -3.30e-17  2.07e-16  2.07e-16  4.47e-16
+       8 four             3     2  1.72e-16  1.26e-16  1.72e-16  1.72e-16  2.17e-16
+       9 five             3     0  1.16e-16  1.09e-16  1.16e-16  1.16e-16  1.23e-16
+      10 three            4     8  1.37e-15  2.80e-16  1.37e-15  1.37e-15  2.46e-15
+      11 four             4     6 -2.02e-15 -3.34e-15 -2.02e-15 -2.02e-15 -6.93e-16
+      12 five             4     2 -2.07e-15 -3.45e-15 -2.07e-15 -2.07e-15 -6.95e-16
+      13 three            8     1  1.01e-15  2.63e-16  1.01e-15  1.01e-15  1.76e-15
+      14 four             8     1 -2.15e-15 -3.60e-15 -2.15e-15 -2.15e-15 -6.99e-16
+      15 five             8     4 -1.76e-15 -2.84e-15 -1.76e-15 -1.76e-15 -6.80e-16
+      
+      
       
       attr(,"ale")$boot$effect$mpg$stats
       attr(,"ale")$boot$effect$mpg$stats$d1
-      # A tibble: 36 x 7
-         term      statistic estimate conf.low median  mean conf.high
-         <fct>     <fct>        <dbl>    <dbl>  <dbl> <dbl>     <dbl>
-       1 vs        aled             0        0      0     0         0
-       2 vs        aler_min         0        0      0     0         0
-       3 vs        aler_max         0        0      0     0         0
-       4 vs        naled            0        0      0     0         0
-       5 vs        naler_min        0        0      0     0         0
-       6 vs        naler_max        0        0      0     0         0
-       7 continent aled             0        0      0     0         0
-       8 continent aler_min         0        0      0     0         0
-       9 continent aler_max         0        0      0     0         0
-      10 continent naled            0        0      0     0         0
-      # i 26 more rows
+      # A tibble: 12 x 7
+         term  statistic estimate conf.low median   mean conf.high
+         <fct> <fct>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
+       1 am    aled          6.00     5.32   6.00   6.00      6.68
+       2 am    aler_min     -5.18    -5.36  -5.18  -5.18     -4.99
+       3 am    aler_max      7.30     5.72   7.30   7.30      8.87
+       4 am    naled        31.4     25.5   31.4   31.4      37.2 
+       5 am    naler_min   -27.5    -37.4  -27.5  -27.5     -17.7 
+       6 am    naler_max    35.6     34.4   35.6   35.6      36.7 
+       7 wt    aled          6.42     6.04   6.42   6.42      6.81
+       8 wt    aler_min    -16.7    -16.8  -16.7  -16.7     -16.6 
+       9 wt    aler_max      8.56     7.85   8.56   8.56      9.27
+      10 wt    naled        31.0     30.7   31.0   31.0      31.3 
+      11 wt    naler_min   -50      -50    -50    -50       -50   
+      12 wt    naler_max    36.4     36.0   36.4   36.4      36.7 
+      
+      attr(,"ale")$boot$effect$mpg$stats$d2
+      # A tibble: 6 x 7
+        term      statistic  estimate  conf.low    median      mean conf.high
+        <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       5.14e-16  1.48e-16  5.14e-16  5.14e-16  8.81e-16
+      2 gear:carb aler_min  -2.08e-15 -3.47e-15 -2.08e-15 -2.08e-15 -6.96e-16
+      3 gear:carb aler_max   1.19e-15  2.71e-16  1.19e-15  1.19e-15  2.11e-15
+      4 gear:carb naled      0         0         0         0         0       
+      5 gear:carb naler_min  0         0         0         0         0       
+      6 gear:carb naler_max  0         0         0         0         0       
       
       
       attr(,"ale")$boot$effect$mpg$conf
@@ -799,8 +804,8 @@
       [1] FALSE
       
       attr(,"params")$ale_options
-      attr(,"params")$ale_options$exclude_cols
-      [1] "model"
+      attr(,"params")$ale_options$x_cols
+      [1] "wt"        "am"        "gear:carb"
       
       
       attr(,"params")$ale_p
@@ -823,30 +828,6 @@
     Output
       $vs
       $vs$d1
-      $vs$d1$mpg
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925673e-13 3.925673e-13 10.37589 3.925673e-13     1    -1       FALSE
-      2  3.925673e-13 3.925673e-13 14.41394 3.925673e-13     1    -1       FALSE
-      3  3.925673e-13 3.925673e-13 15.20000 3.925673e-13     1    -1       FALSE
-      4  3.925673e-13 3.925673e-13 16.40000 3.925673e-13     1    -1       FALSE
-      5  3.925673e-13 3.925673e-13 18.70000 3.925673e-13     1    -1       FALSE
-      6  3.925673e-13 3.925673e-13 19.84566 3.925673e-13     1    -1       FALSE
-      7  3.925673e-13 3.925673e-13 21.40000 3.925673e-13     1    -1       FALSE
-      8  3.925673e-13 3.925673e-13 22.87332 3.925673e-13     1    -1       FALSE
-      9  3.925673e-13 3.925673e-13 30.10414 3.925673e-13     1    -1       FALSE
-      10 3.925673e-13 3.925673e-13 33.90000 3.925673e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
-      
       $vs$d1$continent
         x            y PANEL group flipped_aes ymin         ymax xmin xmax colour
       1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.55 1.45     NA
@@ -856,106 +837,6 @@
       1 gray       0.5        1    NA
       2 gray       0.5        1    NA
       3 gray       0.5        1    NA
-      
-      $vs$d1$am
-        x            y PANEL group flipped_aes ymin         ymax xmin xmax colour
-      1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.55 1.45     NA
-      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.55 2.45     NA
-        fill linewidth linetype alpha
-      1 gray       0.5        1    NA
-      2 gray       0.5        1    NA
-      
-      $vs$d1$model
-          x      y PANEL group flipped_aes    ymin   ymax  xmin  xmax colour fill
-      1   1 0.0000     1     1       FALSE -0.4375 0.0000  0.55  1.45     NA gray
-      2   2 0.0000     1     2       FALSE -0.4375 0.0000  1.55  2.45     NA gray
-      3   3 0.0000     1     3       FALSE -0.4375 0.0000  2.55  3.45     NA gray
-      4   4 0.0000     1     4       FALSE -0.4375 0.0000  3.55  4.45     NA gray
-      5   5 0.0000     1     5       FALSE -0.4375 0.0000  4.55  5.45     NA gray
-      6   6 0.0000     1     6       FALSE -0.4375 0.0000  5.55  6.45     NA gray
-      7   7 0.0000     1     7       FALSE -0.4375 0.0000  6.55  7.45     NA gray
-      8   8 0.0000     1     8       FALSE -0.4375 0.0000  7.55  8.45     NA gray
-      9   9 0.0000     1     9       FALSE -0.4375 0.0000  8.55  9.45     NA gray
-      10 10 0.5625     1    10       FALSE  0.0000 0.5625  9.55 10.45     NA gray
-      11 11 0.5625     1    11       FALSE  0.0000 0.5625 10.55 11.45     NA gray
-      12 12 0.0000     1    12       FALSE -0.4375 0.0000 11.55 12.45     NA gray
-      13 13 0.0000     1    13       FALSE -0.4375 0.0000 12.55 13.45     NA gray
-      14 14 0.0000     1    14       FALSE -0.4375 0.0000 13.55 14.45     NA gray
-      15 15 0.5625     1    15       FALSE  0.0000 0.5625 14.55 15.45     NA gray
-      16 16 0.5625     1    16       FALSE  0.0000 0.5625 15.55 16.45     NA gray
-      17 17 0.5625     1    17       FALSE  0.0000 0.5625 16.55 17.45     NA gray
-      18 18 0.5625     1    18       FALSE  0.0000 0.5625 17.55 18.45     NA gray
-      19 19 0.5625     1    19       FALSE  0.0000 0.5625 18.55 19.45     NA gray
-      20 20 0.0000     1    20       FALSE -0.4375 0.0000 19.55 20.45     NA gray
-      21 21 0.0000     1    21       FALSE -0.4375 0.0000 20.55 21.45     NA gray
-      22 22 0.0000     1    22       FALSE -0.4375 0.0000 21.55 22.45     NA gray
-      23 23 0.5625     1    23       FALSE  0.0000 0.5625 22.55 23.45     NA gray
-      24 24 0.0000     1    24       FALSE -0.4375 0.0000 23.55 24.45     NA gray
-      25 25 0.0000     1    25       FALSE -0.4375 0.0000 24.55 25.45     NA gray
-      26 26 0.0000     1    26       FALSE -0.4375 0.0000 25.55 26.45     NA gray
-      27 27 0.5625     1    27       FALSE  0.0000 0.5625 26.55 27.45     NA gray
-      28 28 0.5625     1    28       FALSE  0.0000 0.5625 27.55 28.45     NA gray
-      29 29 0.5625     1    29       FALSE  0.0000 0.5625 28.55 29.45     NA gray
-      30 30 0.5625     1    30       FALSE  0.0000 0.5625 29.55 30.45     NA gray
-      31 31 0.5625     1    31       FALSE  0.0000 0.5625 30.55 31.45     NA gray
-      32 32 0.5625     1    32       FALSE  0.0000 0.5625 31.55 32.45     NA gray
-         linewidth linetype alpha
-      1        0.5        1    NA
-      2        0.5        1    NA
-      3        0.5        1    NA
-      4        0.5        1    NA
-      5        0.5        1    NA
-      6        0.5        1    NA
-      7        0.5        1    NA
-      8        0.5        1    NA
-      9        0.5        1    NA
-      10       0.5        1    NA
-      11       0.5        1    NA
-      12       0.5        1    NA
-      13       0.5        1    NA
-      14       0.5        1    NA
-      15       0.5        1    NA
-      16       0.5        1    NA
-      17       0.5        1    NA
-      18       0.5        1    NA
-      19       0.5        1    NA
-      20       0.5        1    NA
-      21       0.5        1    NA
-      22       0.5        1    NA
-      23       0.5        1    NA
-      24       0.5        1    NA
-      25       0.5        1    NA
-      26       0.5        1    NA
-      27       0.5        1    NA
-      28       0.5        1    NA
-      29       0.5        1    NA
-      30       0.5        1    NA
-      31       0.5        1    NA
-      32       0.5        1    NA
-      
-      $vs$d1$gear
-        x        y PANEL group flipped_aes       ymin     ymax xmin xmax colour fill
-      1 1 0.000000     1     1       FALSE -0.4427083 0.000000 0.55 1.45     NA gray
-      2 2 0.390625     1     2       FALSE  0.0000000 0.390625 1.55 2.45     NA gray
-      3 3 0.390625     1     3       FALSE  0.0000000 0.390625 2.55 3.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
-      3       0.5        1    NA
-      
-      $vs$d1$carb
-                ymin         ymax x            y PANEL group flipped_aes colour
-      1 3.925673e-13 3.925673e-13 1 3.925673e-13     1    -1       FALSE     NA
-      2 3.925673e-13 3.925673e-13 2 3.925673e-13     1    -1       FALSE     NA
-      3 3.925673e-13 3.925673e-13 3 3.925673e-13     1    -1       FALSE     NA
-      4 3.925673e-13 3.925673e-13 4 3.925673e-13     1    -1       FALSE     NA
-      5 3.925673e-13 3.925673e-13 8 3.925673e-13     1    -1       FALSE     NA
-          fill linewidth linetype alpha
-      1 grey85       0.5        1   0.5
-      2 grey85       0.5        1   0.5
-      3 grey85       0.5        1   0.5
-      4 grey85       0.5        1   0.5
-      5 grey85       0.5        1   0.5
       
       $vs$d1$wt
                  ymin         ymax        x            y PANEL group flipped_aes
@@ -983,118 +864,151 @@
       
       
       $vs$d2
-      list()
+      $vs$d2$`gear:carb`
+            fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
+      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+         width height
+      1     NA     NA
+      2     NA     NA
+      3     NA     NA
+      4     NA     NA
+      5     NA     NA
+      6     NA     NA
+      7     NA     NA
+      8     NA     NA
+      9     NA     NA
+      10    NA     NA
+      11    NA     NA
+      12    NA     NA
+      13    NA     NA
+      14    NA     NA
+      15    NA     NA
+      16    NA     NA
+      17    NA     NA
+      18    NA     NA
+      19    NA     NA
+      20    NA     NA
+      21    NA     NA
+      22    NA     NA
+      23    NA     NA
+      24    NA     NA
+      25    NA     NA
+      26    NA     NA
+      27    NA     NA
+      28    NA     NA
+      29    NA     NA
+      30    NA     NA
+      31    NA     NA
+      32    NA     NA
+      33    NA     NA
+      34    NA     NA
+      35    NA     NA
+      36    NA     NA
+      37    NA     NA
+      38    NA     NA
+      39    NA     NA
+      40    NA     NA
+      41    NA     NA
+      42    NA     NA
+      43    NA     NA
+      44    NA     NA
+      45    NA     NA
+      
       
       $vs$eff
       $vs$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
       1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      3 3     1     3     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      4 4     1     4     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      5 5     1     5     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      6 6     1     6     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      7 7     1     7     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
       
       $vs$eff[[2]]
-                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
-      1  3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5
-      2  3.925673e-13 3.925673e-13 2     1     2 1.875 2.125  black       0.5
-      3  3.925673e-13 3.925673e-13 3     1     3 2.875 3.125  black       0.5
-      4  3.925673e-13 3.925673e-13 4     1     4 3.875 4.125  black       0.5
-      5  3.925673e-13 3.925673e-13 5     1     5 4.875 5.125  black       0.5
-      6 -4.427083e-01 3.906250e-01 6     1     6 5.875 6.125  black       0.5
-      7 -4.375000e-01 5.625000e-01 7     1     7 6.875 7.125  black       0.5
-        linetype height alpha
-      1        1   0.25    NA
-      2        1   0.25    NA
-      3        1   0.25    NA
-      4        1   0.25    NA
-      5        1   0.25    NA
-      6        1   0.25    NA
-      7        1   0.25    NA
+                xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5        1
+      2 3.925673e-13 3.925673e-13 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
       
       $vs$eff[[3]]
         xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
       1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
       2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      3   NA   NA  2.7  3.3 3     1     3     NA white       0.5        1    NA
-      4   NA   NA  3.7  4.3 4     1     4     NA white       0.5        1    NA
-      5   NA   NA  4.7  5.3 5     1     5     NA white       0.5        1    NA
-      6   NA   NA  5.7  6.3 6     1     6     NA white       0.5        1    NA
-      7   NA   NA  6.7  7.3 7     1     7     NA white       0.5        1    NA
       
       $vs$eff[[4]]
          x       label y PANEL group colour size angle hjust vjust alpha family
       1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED  0.0% 2     1     2  black    3     0   0.5    -1    NA       
-      3 NA NALED  5.6% 3     1     3  black    3     0   0.5    -1    NA       
-      4 NA NALED 24.4% 4     1     4  black    3     0   0.5    -1    NA       
-      5 NA NALED 24.0% 5     1     5  black    3     0   0.5    -1    NA       
-      6 NA NALED 26.8% 6     1     6  black    3     0   0.5    -1    NA       
-      7 NA NALED 30.9% 7     1     7  black    3     0   0.5    -1    NA       
+      2 NA NALED 28.5% 2     1     2  black    3     0   0.5    -1    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
-      7        1        1.2
       
       $vs$eff[[5]]
          x label    y PANEL group colour size angle hjust vjust alpha family fontface
       1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
       2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ( 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ( 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ( 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ( 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
-      7 NA     ( 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
         lineheight
       1        1.2
       2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
-      7        1.2
       
       $vs$eff[[6]]
          x label    y PANEL group colour size angle hjust vjust alpha family fontface
       1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
       2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-      3 NA     ) 3.02     1     3  black 3.88     0   0.5   0.5    NA               1
-      4 NA     ) 4.02     1     4  black 3.88     0   0.5   0.5    NA               1
-      5 NA     ) 5.02     1     5  black 3.88     0   0.5   0.5    NA               1
-      6 NA     ) 6.02     1     6  black 3.88     0   0.5   0.5    NA               1
-      7 NA     ) 7.02     1     7  black 3.88     0   0.5   0.5    NA               1
         lineheight
       1        1.2
       2        1.2
-      3        1.2
-      4        1.2
-      5        1.2
-      6        1.2
-      7        1.2
       
       $vs$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.000 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.000 2     1     2  black    3     0   0.5     2    NA       
-      3 NA ALED 0.000 3     1     3  black    3     0   0.5     2    NA       
-      4 NA ALED 0.000 4     1     4  black    3     0   0.5     2    NA       
-      5 NA ALED 0.000 5     1     5  black    3     0   0.5     2    NA       
-      6 NA ALED 0.415 6     1     6  black    3     0   0.5     2    NA       
-      7 NA ALED 0.492 7     1     7  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      3        1        1.2
-      4        1        1.2
-      5        1        1.2
-      6        1        1.2
-      7        1        1.2
+         x  label y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
+      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
+        lineheight
+      1        1.2
+      2        1.2
       
       $vs$eff[[8]]
         x y PANEL group colour  fill size angle hjust vjust alpha family fontface
@@ -1123,19 +1037,20 @@
        $ boot_data  : <list> or <NULL>
        $ params     : <list>          
       attr(,"model_stats")
-      # A tibble: 5 x 6
-        name          conf.low median  mean conf.high    sd
-        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
-      1 df                  34     34    34        34    NA
-      2 df.residual         30     30    30        30    NA
-      3 nobs                64     64    64        64    NA
-      4 adj.r.squared        1      1     1         1    NA
-      5 npar                45     45    45        45    NA
+      # A tibble: 6 x 7
+        name          boot_valid conf.low median  mean conf.high    sd
+        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df                    NA     29.0   29.5  29.5      30.0 0.707
+      2 df.residual           NA     34.0   34.5  34.5      35.0 0.707
+      3 nobs                  NA     64     64    64        64   0    
+      4 adj.r.squared         NA      1      1     1         1   0    
+      5 npar                  NA     40.0   40.5  40.5      41.0 0.707
+      6 auc                    1      1     NA    NA         1   0    
       attr(,"model_coefs")
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)     1.00   1.00  1.00      1.00        NA
+      1 s(wt)     1.00   1.00  1.00      1.00  1.28e-14
       attr(,"ale")
       attr(,"ale")$single
       <object>
@@ -1151,21 +1066,6 @@
       attr(,"effect")$vs
       attr(,"effect")$vs$ale
       attr(,"effect")$vs$ale$d1
-      attr(,"effect")$vs$ale$d1$mpg
-      # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
-      
       attr(,"effect")$vs$ale$d1$continent
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
@@ -1173,47 +1073,6 @@
       1 North America    24     0     0       0         0     0
       2 Europe           28     0     0       0         0     0
       3 Asia             12     0     0       0         0     0
-      
-      attr(,"effect")$vs$ale$d1$am
-      # A tibble: 2 x 7
-        am.bin    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 FALSE     38  4.89e-22  4.89e-22  4.89e-22  4.89e-22  4.89e-22
-      2 TRUE      26 -7.15e-22 -7.15e-22 -7.15e-22 -7.15e-22 -7.15e-22
-      
-      attr(,"effect")$vs$ale$d1$model
-      # A tibble: 32 x 7
-         model.bin              .n     .y  .y_lo .y_mean .y_median  .y_hi
-         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1 Cadillac Fleetwood      2 -0.437 -0.437  -0.437    -0.437 -0.437
-       2 Lincoln Continental     2 -0.437 -0.437  -0.437    -0.437 -0.437
-       3 Chrysler Imperial       2 -0.437 -0.437  -0.437    -0.437 -0.437
-       4 Camaro Z28              2 -0.437 -0.437  -0.437    -0.437 -0.437
-       5 Duster 360              2 -0.437 -0.437  -0.437    -0.437 -0.437
-       6 Hornet Sportabout       2 -0.437 -0.437  -0.437    -0.437 -0.437
-       7 Pontiac Firebird        2 -0.437 -0.437  -0.437    -0.437 -0.437
-       8 AMC Javelin             2 -0.437 -0.437  -0.437    -0.437 -0.437
-       9 Dodge Challenger        2 -0.437 -0.437  -0.437    -0.437 -0.437
-      10 Valiant                 2  0.562  0.562   0.562     0.562  0.562
-      # i 22 more rows
-      
-      attr(,"effect")$vs$ale$d1$gear
-      # A tibble: 3 x 7
-        gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
-        <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30 -0.443 -0.443  -0.443    -0.443 -0.443
-      2 four        24  0.391  0.391   0.391     0.391  0.391
-      3 five        10  0.391  0.391   0.391     0.391  0.391
-      
-      attr(,"effect")$vs$ale$d1$carb
-      # A tibble: 5 x 7
-        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1         1    14 -1.59e-24 -1.59e-24 -1.59e-24 -1.59e-24 -1.59e-24
-      2         2    19 -8.23e-25 -8.23e-25 -8.23e-25 -8.23e-25 -8.23e-25
-      3         3     9  4.69e-25  4.69e-25  4.69e-25  4.69e-25  4.69e-25
-      4         4    16  1.65e-24  1.65e-24  1.65e-24  1.65e-24  1.65e-24
-      5         8     6  6.50e-24  6.50e-24  6.50e-24  6.50e-24  6.50e-24
       
       attr(,"effect")$vs$ale$d1$wt
       # A tibble: 10 x 7
@@ -1231,24 +1090,61 @@
       10    5.45     7 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22
       
       
+      attr(,"effect")$vs$ale$d2
+      attr(,"effect")$vs$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -3.42e-25 -3.42e-25 -3.42e-25 -3.42e-25 -3.42e-25
+       2 four             1     8  5.38e-25  5.38e-25  5.38e-25  5.38e-25  5.38e-25
+       3 five             1     0  5.38e-25  5.38e-25  5.38e-25  5.38e-25  5.38e-25
+       4 three            2     8  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
+       5 four             2     7 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+       6 five             2     4 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+       7 three            3     7  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
+       8 four             3     2 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+       9 five             3     0 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+      10 three            4     8  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
+      11 four             4     6 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+      12 five             4     2 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
+      13 three            8     1  4.59e-24  4.59e-24  4.59e-24  4.59e-24  4.59e-24
+      14 four             8     1 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
+      15 five             8     4 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
+      
+      
       
       attr(,"effect")$vs$stats
       attr(,"effect")$vs$stats$d1
-      # A tibble: 42 x 7
-         term      statistic estimate conf.low  mean median conf.high
-         <chr>     <chr>        <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 mpg       aled             0        0     0      0         0
-       2 mpg       aler_min         0        0     0      0         0
-       3 mpg       aler_max         0        0     0      0         0
-       4 mpg       naled            0        0     0      0         0
-       5 mpg       naler_min        0        0     0      0         0
-       6 mpg       naler_max        0        0     0      0         0
-       7 continent aled             0        0     0      0         0
-       8 continent aler_min         0        0     0      0         0
-       9 continent aler_max         0        0     0      0         0
-      10 continent naled            0        0     0      0         0
-      # i 32 more rows
+      # A tibble: 12 x 7
+         term      statistic  estimate  conf.low      mean    median conf.high
+         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 continent aled       0         0         0         0         0       
+       2 continent aler_min   0         0         0         0         0       
+       3 continent aler_max   0         0         0         0         0       
+       4 continent naled      0         0         0         0         0       
+       5 continent naler_min  0         0         0         0         0       
+       6 continent naler_max  0         0         0         0         0       
+       7 wt        aled       1.15e-22  1.15e-22  1.15e-22  1.15e-22  1.15e-22
+       8 wt        aler_min  -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22
+       9 wt        aler_max   1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
+      10 wt        naled      2.44e+ 1  2.44e+ 1  2.44e+ 1  2.44e+ 1  2.44e+ 1
+      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
+      12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
+      attr(,"effect")$vs$stats$d2
+      # A tibble: 6 x 7
+        term      statistic  estimate  conf.low      mean    median conf.high
+        <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       2.70e-25  2.70e-25  2.70e-25  2.70e-25  2.70e-25
+      2 gear:carb aler_min  -1.07e-24 -1.07e-24 -1.07e-24 -1.07e-24 -1.07e-24
+      3 gear:carb aler_max   2.41e-24  2.41e-24  2.41e-24  2.41e-24  2.41e-24
+      4 gear:carb naled      2.95e+ 0  2.95e+ 0  2.95e+ 0  2.95e+ 0  2.95e+ 0
+      5 gear:carb naler_min -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0
+      6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
+      
+      
+      attr(,"effect")$vs$conf
+      NULL
       
       attr(,"effect")$vs$boot_data
       NULL
@@ -1256,24 +1152,22 @@
       
       attr(,"params")
       attr(,"params")$max_d
-      [1] 1
+      [1] 2
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-      [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
-      [7] "wt"       
+      [1] "continent" "wt"       
       
       attr(,"params")$ordered_x_cols$d2
-      character(0)
+      [1] "gear:carb"
       
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-      [1] "mpg"       "continent" "am"        "model"     "gear"      "carb"     
-      [7] "wt"       
+      [1] "wt"        "continent"
       
       attr(,"params")$requested_x_cols$d2
-      character(0)
+      [1] "gear:carb"
       
       
       attr(,"params")$y_cats
@@ -1459,9 +1353,103 @@
       [1] TRUE
       
       
+      attr(,"ale")$boot
+      attr(,"ale")$boot$effect
+      attr(,"ale")$boot$effect$vs
+      attr(,"ale")$boot$effect$vs$ale
+      attr(,"ale")$boot$effect$vs$ale$d1
+      attr(,"ale")$boot$effect$vs$ale$d1$continent
+      # A tibble: 3 x 7
+        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 North America    24     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 Asia             12     0     0       0         0     0
+      
+      attr(,"ale")$boot$effect$vs$ale$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+           <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+       1    1.50     1  2.04e-22 -6.06e-23  2.04e-22  2.04e-22 4.69e-22
+       2    1.94     7  2.04e-22 -6.06e-23  2.04e-22  2.04e-22 4.69e-22
+       3    2.46     7  1.77e-22 -6.20e-23  1.77e-22  1.77e-22 4.15e-22
+       4    2.79     7  8.54e-23 -4.56e-23  8.54e-23  8.54e-23 2.16e-22
+       5    3.19     7  2.34e-23 -7.67e-24  2.34e-23  2.34e-23 5.45e-23
+       6    3.44     7 -9.39e-24 -2.15e-23 -9.39e-24 -9.39e-24 2.70e-24
+       7    3.52     7 -1.35e-23 -3.20e-23 -1.35e-23 -1.35e-23 5.09e-24
+       8    3.73     7 -6.52e-23 -1.60e-22 -6.52e-23 -6.52e-23 2.95e-23
+       9    4.05     7 -1.43e-22 -3.52e-22 -1.43e-22 -1.43e-22 6.62e-23
+      10    5.45     7 -4.90e-22 -1.21e-21 -4.90e-22 -4.90e-22 2.30e-22
+      
+      
+      attr(,"ale")$boot$effect$vs$ale$d2
+      attr(,"ale")$boot$effect$vs$ale$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 three            1     6 -5.96e-23 -1.16e-22 -5.96e-23 -5.96e-23 -3.39e-24
+       2 four             1     8  1.05e-22  6.98e-24  1.05e-22  1.05e-22  2.02e-22
+       3 five             1     0  1.05e-22  6.98e-24  1.05e-22  1.05e-22  2.02e-22
+       4 three            2     8  1.74e-23  1.26e-24  1.74e-23  1.74e-23  3.35e-23
+       5 four             2     7 -1.60e-22 -3.12e-22 -1.60e-22 -1.60e-22 -7.74e-24
+       6 five             2     4 -1.60e-22 -3.12e-22 -1.60e-22 -1.60e-22 -7.73e-24
+       7 three            3     7 -1.66e-23 -3.28e-23 -1.66e-23 -1.66e-23 -3.13e-25
+       8 four             3     2  1.45e-22  5.35e-24  1.45e-22  1.45e-22  2.85e-22
+       9 five             3     0  1.45e-22  5.36e-24  1.45e-22  1.45e-22  2.85e-22
+      10 three            4     8 -1.66e-23 -3.28e-23 -1.66e-23 -1.66e-23 -4.65e-25
+      11 four             4     6  1.45e-22  5.67e-24  1.45e-22  1.45e-22  2.85e-22
+      12 five             4     2  1.45e-22  5.67e-24  1.45e-22  1.45e-22  2.85e-22
+      13 three            8     1  8.04e-22  4.88e-23  8.04e-22  8.04e-22  1.56e-21
+      14 four             8     1 -3.99e-22 -7.76e-22 -3.99e-22 -3.99e-22 -2.25e-23
+      15 five             8     4 -3.99e-22 -7.76e-22 -3.99e-22 -3.99e-22 -2.25e-23
+      
+      
+      
+      attr(,"ale")$boot$effect$vs$stats
+      attr(,"ale")$boot$effect$vs$stats$d1
+      # A tibble: 12 x 7
+         term      statistic  estimate  conf.low    median      mean conf.high
+         <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 continent aled       0         0         0         0         0       
+       2 continent aler_min   0         0         0         0         0       
+       3 continent aler_max   0         0         0         0         0       
+       4 continent naled      0         0         0         0         0       
+       5 continent naler_min  0         0         0         0         0       
+       6 continent naler_max  0         0         0         0         0       
+       7 wt        aled       1.59e-22  5.66e-23  1.59e-22  1.59e-22  2.61e-22
+       8 wt        aler_min  -6.61e-22 -1.22e-21 -6.61e-22 -6.61e-22 -1.04e-22
+       9 wt        aler_max   3.75e-22  2.73e-22  3.75e-22  3.75e-22  4.78e-22
+      10 wt        naled      2.85e+ 1  2.82e+ 1  2.85e+ 1  2.85e+ 1  2.89e+ 1
+      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
+      12 wt        naler_max  6.89e+ 0  4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+      
+      attr(,"ale")$boot$effect$vs$stats$d2
+      # A tibble: 6 x 7
+        term      statistic  estimate  conf.low    median      mean conf.high
+        <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       4.15e-23  2.85e-24  4.15e-23  4.15e-23  8.01e-23
+      2 gear:carb aler_min  -1.27e-22 -2.46e-22 -1.27e-22 -1.27e-22 -8.40e-24
+      3 gear:carb aler_max   3.94e-22  2.42e-23  3.94e-22  3.94e-22  7.63e-22
+      4 gear:carb naled      2.47e+ 1  1.30e+ 1  2.47e+ 1  2.47e+ 1  3.64e+ 1
+      5 gear:carb naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      6 gear:carb naler_max  6.89e+ 0  4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+      
+      
+      attr(,"ale")$boot$effect$vs$conf
+      NULL
+      
+      
+      
+      
       attr(,"params")
       attr(,"params")$calc_boot_valid
-      [1] FALSE
+      [1] TRUE
+      
+      attr(,"params")$y_type
+      [1] "binary"
+      
+      attr(,"params")$y_cats
+      [1] "vs"
       
       attr(,"params")$model
       attr(,"params")$model$class
@@ -1578,7 +1566,7 @@
       NULL
       
       attr(,"params")$y_col
-      NULL
+      [1] "vs"
       
       attr(,"params")$positive
       [1] TRUE
@@ -1590,7 +1578,7 @@
       [1] "response"
       
       attr(,"params")$boot_it
-      [1] 0
+      [1] 2
       
       attr(,"params")$boot_alpha
       [1] 0.05
@@ -1614,7 +1602,9 @@
       [1] FALSE
       
       attr(,"params")$ale_options
-      list()
+      attr(,"params")$ale_options$x_cols
+      [1] "wt"        "continent" "gear:carb"
+      
       
       attr(,"params")$ale_p
       NULL

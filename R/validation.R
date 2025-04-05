@@ -25,13 +25,13 @@ validate_data <- function(
     }
   }
   # If NULL, try to identify data from the model
-  else {
+  else {  # nocov start
     data <- insight::get_data(model)
 
     if (is.null(data)) {
       cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
     }
-  }
+  }  # nocov end
 
   data
 }
@@ -55,9 +55,9 @@ validate_y_col <- function(
   else {
     y_col <- insight::find_response(model)
 
-    if (is.null(y_col)) {
+    if (is.null(y_col)) {  # nocov start
       cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
-    }
+    }  # nocov end
   }
 
   y_col
@@ -76,7 +76,7 @@ validate_y_preds <- function(
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
-    error = \(e) {
+    error = \(e) {  # nocov start
       if (str_detect(as.character(e), "^Error: object .* not found\n$")) {
         cli_abort('{e}')
       }
@@ -87,7 +87,7 @@ validate_y_preds <- function(
         {e}'
         )
       }
-    },
+    },  # nocov end
     finally = NULL
   )
 
@@ -135,7 +135,7 @@ validate_parallel <- function(parallel, model, model_packages) {
     future::availableCores(logical = FALSE, omit = 1)
   } else {
     max_cores <- future::availableCores(logical = TRUE)
-    if (parallel > max_cores) {
+    if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
         'i' = '{.arg parallel} set to {max_cores}.',
@@ -143,7 +143,7 @@ validate_parallel <- function(parallel, model, model_packages) {
       ))
 
       max_cores
-    } else {
+    } else {  # nocov end
       parallel
     }
   }
@@ -210,7 +210,7 @@ validate_parallel <- function(parallel, model, model_packages) {
 validate_silent <- function(silent) {
   validate(is_bool(silent))
 
-  if (!silent) {
+  if (!silent) {  # nocov start
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
       if (interactive() && !getOption("rstudio.notebook.executing")) {
@@ -219,5 +219,5 @@ validate_silent <- function(silent) {
         progressr::handlers('cli')
       }
     }
-  }
+  }  # nocov end
 }
