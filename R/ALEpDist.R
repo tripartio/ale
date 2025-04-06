@@ -81,7 +81,7 @@
 #' Because the procedure can be very slow, a faster version of the algorithm generates **"surrogate"** p-values by substituting the original `model` with a linear model that predicts the same `y_col` outcome from all the other columns in `data`. By default, these surrogate p-values use only 100 iterations and if the dataset is large, the surrogate model samples 1000 rows. Thus, the surrogate p-values can be generated much faster than for slower model algorithms on larger datasets. Although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, **definitive conclusions (e.g., for publication) always require exact p-values with at least 1000 iterations on the original model**. Note that surrogate p-values are always marked as "surrogate"; even if they are generated based on over 1000 iterations, they can never be considered exact because they are not based on the original `model`.
 #'
 #'
-#' @references Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <https://arxiv.org/abs/2310.09877>.
+#' @references Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <doi:10.48550/arXiv.2310.09877>.
 #'
 #'
 #'

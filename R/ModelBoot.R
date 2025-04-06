@@ -95,7 +95,7 @@
 #' * Calculates overall model statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 #' * Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 #'
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 #'
 #'
 #' @examples
