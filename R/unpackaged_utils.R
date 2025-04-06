@@ -127,6 +127,7 @@ extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
   # x is a list. If we are already at the max depth,
   # then do not descend any further.
   if (current_depth == max_depth) {
+    # browser()
     return(list())
   }
 
