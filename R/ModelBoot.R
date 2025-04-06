@@ -1148,7 +1148,7 @@ ModelBoot <- new_class(
         }
         else {
           # full_ale@params$output_stats is FALSE
-          NULL
+          NULL  # nocov
         }
 
         # Calculate confidence regions if criteria are met

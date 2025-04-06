@@ -4,12 +4,12 @@
 # Register S7 methods.
 # https://rconsortium.github.io/S7/articles/packages.html#method-registration
 .onLoad <- function(...) {
-  methods_register()
+  methods_register()  # nocov
 }
 
 
 .onAttach <- function(libname, pkgname) {
-  if (interactive()) {
+  if (interactive()) {  # nocov start
     # Conditionally print a startup message
 
     sys_calls <- sys.calls() |>
@@ -28,5 +28,5 @@
         "The 'ale' package implements a 'get()' generic that is fully compatible with 'base::get()' without modification."
       )
     }
-  }
+  }  # nocov end
 }

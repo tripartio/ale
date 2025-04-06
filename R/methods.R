@@ -125,8 +125,11 @@ method(get, ALE) <- function(
   }
 
   y_cats <- names(prop(obj, comp))
+  # browser()
   validate(
-    is.null(cats) || is_string(cats, y_cats),
+    is.null(cats) ||
+      all(cats %in% y_cats),
+    # is.null(cats) || is_string(cats, y_cats),
     # is.null(cats) || cats %in% names(prop(obj, comp)),
     msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )

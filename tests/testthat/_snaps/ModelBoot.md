@@ -22,7 +22,7 @@
       1 1D term: wt
       1 2D term: gear:carb
 
-# bootstrapped numeric outcome with full 1D ALE
+# numeric outcome with no bootstrapping
 
     Code
       ale_plots_to_data(plot(mb, type = "boot"))
@@ -31,24 +31,24 @@
       $mpg$d1
       $mpg$d1$am
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 14.02396     1     1       FALSE    0 14.02396 0.55 1.45     NA gray
-      2 2 26.49925     1     2       FALSE    0 26.49925 1.55 2.45     NA gray
+      1 1 13.91157     1     1       FALSE    0 13.91157 0.55 1.45     NA gray
+      2 2 26.92924     1     2       FALSE    0 26.92924 1.55 2.45     NA gray
         linewidth linetype alpha
       1       0.5        1    NA
       2       0.5        1    NA
       
       $mpg$d1$wt
               ymin      ymax        x         y PANEL group flipped_aes colour   fill
-      1   2.373802  2.554649 1.498275  2.373802     1    -1       FALSE     NA grey85
-      2  10.287804 11.904771 1.935000 10.287804     1    -1       FALSE     NA grey85
-      3  15.988919 19.898873 2.465000 15.988919     1    -1       FALSE     NA grey85
-      4  18.940345 22.296036 2.790481 18.940345     1    -1       FALSE     NA grey85
-      5  22.544780 24.735988 3.190000 22.544780     1    -1       FALSE     NA grey85
-      6  24.112399 26.664441 3.439356 24.112399     1    -1       FALSE     NA grey85
-      7  24.490752 26.952645 3.520000 24.490752     1    -1       FALSE     NA grey85
-      8  24.886014 25.347665 3.730000 24.886014     1    -1       FALSE     NA grey85
-      9  14.171035 26.552656 4.046066 14.171035     1    -1       FALSE     NA grey85
-      10  7.538774 27.973955 5.453272  7.538774     1    -1       FALSE     NA grey85
+      1   1.077797  1.077797 1.498275  1.077797     1    -1       FALSE     NA grey85
+      2   9.043818  9.043818 1.935000  9.043818     1    -1       FALSE     NA grey85
+      3  15.691122 15.691122 2.465000 15.691122     1    -1       FALSE     NA grey85
+      4  18.317954 18.317954 2.790481 18.317954     1    -1       FALSE     NA grey85
+      5  21.273126 21.273126 3.190000 21.273126     1    -1       FALSE     NA grey85
+      6  22.851810 22.851810 3.439356 22.851810     1    -1       FALSE     NA grey85
+      7  23.245092 23.245092 3.520000 23.245092     1    -1       FALSE     NA grey85
+      8  24.124637 24.124637 3.730000 24.124637     1    -1       FALSE     NA grey85
+      9  25.580210 25.580210 4.046066 25.580210     1    -1       FALSE     NA grey85
+      10 28.306435 28.306435 5.453272 28.306435     1    -1       FALSE     NA grey85
          linewidth linetype alpha
       1        0.5        1   0.5
       2        0.5        1   0.5
@@ -166,8 +166,8 @@
       
       $mpg$eff[[2]]
              xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
-      1 14.023960 26.49925 1     1     1 0.875 1.125  black       0.5        1   0.25
-      2  2.464225 27.76458 2     1     2 1.875 2.125  black       0.5        1   0.25
+      1  1.077797 28.30643 1     1     1 0.875 1.125  black       0.5        1   0.25
+      2 13.911571 26.92924 2     1     2 1.875 2.125  black       0.5        1   0.25
         alpha
       1    NA
       2    NA
@@ -179,8 +179,8 @@
       
       $mpg$eff[[4]]
          x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 31.4% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 31.0% 2     1     2  black    3     0   0.5    -1    NA       
+      1 NA NALED 29.6% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 38.4% 2     1     2  black    3     0   0.5    -1    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
@@ -203,15 +203,15 @@
       
       $mpg$eff[[7]]
          x     label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 6.00 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 6.42 2     1     2  black    3     0   0.5     2    NA       
+      1 NA ALED 5.51 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 6.28 2     1     2  black    3     0   0.5     2    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
       
       $mpg$eff[[8]]
                x y PANEL group colour  fill size angle hjust vjust alpha family
-      1 33.84876 1     1    -1  black white    3     0     1   0.5    NA       
+      1 33.84876 2     1    -1  black white    3     0     1   0.5    NA       
         fontface lineheight
       1        1        1.2
                                                                      label
@@ -238,23 +238,19 @@
        $ boot_data  : <list> or <NULL>
        $ params     : <list>          
       attr(,"model_stats")
-      # A tibble: 9 x 7
-        name          boot_valid conf.low median  mean conf.high           sd
-        <chr>              <dbl>    <dbl>  <dbl> <dbl>     <dbl>        <dbl>
-      1 df               NA       36.1     37.4  37.4     38.7   1.93        
-      2 df.residual      NA       25.3     26.6  26.6     27.9   1.93        
-      3 nobs             NA       64       64    64       64     0           
-      4 adj.r.squared    NA        1.00     1.00  1.00     1.00  0.0000000429
-      5 npar             NA       40.0     41    41       42.0   1.41        
-      6 mae               0.0597   0.0222  NA    NA        0.162 0.104       
-      7 sa_mae_mad        0.992    0.978   NA    NA        0.997 0.0141      
-      8 rmse              0.105    0.0305  NA    NA        0.295 0.197       
-      9 sa_rmse_sd        0.990    0.972   NA    NA        0.997 0.0187      
+      # A tibble: 5 x 6
+        name          conf.low median  mean conf.high    sd
+        <chr>            <dbl>  <dbl> <dbl>     <dbl> <dbl>
+      1 df               41.0   41.0  41.0      41.0     NA
+      2 df.residual      23.0   23.0  23.0      23.0     NA
+      3 nobs             64     64    64        64       NA
+      4 adj.r.squared     1.00   1.00  1.00      1.00    NA
+      5 npar             45     45    45        45       NA
       attr(,"model_coefs")
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)     8.01   8.36  8.36      8.71     0.519
+      1 s(wt)     8.03   8.03  8.03      8.03        NA
       attr(,"ale")
       attr(,"ale")$single
       <object>
@@ -345,9 +341,6 @@
       5 gear:carb naler_min  0         0         0         0         0       
       6 gear:carb naler_max  0         0         0         0         0       
       
-      
-      attr(,"effect")$mpg$conf
-      NULL
       
       attr(,"effect")$mpg$boot_data
       NULL
@@ -556,102 +549,9 @@
       [1] TRUE
       
       
-      attr(,"ale")$boot
-      attr(,"ale")$boot$effect
-      attr(,"ale")$boot$effect$mpg
-      attr(,"ale")$boot$effect$mpg$ale
-      attr(,"ale")$boot$effect$mpg$ale$d1
-      attr(,"ale")$boot$effect$mpg$ale$d1$am
-      # A tibble: 2 x 7
-        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38 -5.18 -5.36   -5.18     -5.18 -4.99
-      2 TRUE      26  7.30  5.72    7.30      7.30  8.87
-      
-      attr(,"ale")$boot$effect$mpg$ale$d1$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n     .y   .y_lo .y_mean .y_median   .y_hi
-           <dbl> <int>  <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1    1.50     1 -16.7  -16.8    -16.7     -16.7  -16.6  
-       2    1.94     7  -8.10  -8.91    -8.10     -8.10  -7.30 
-       3    2.46     7  -1.26  -3.21    -1.26     -1.26   0.699
-       4    2.79     7   1.42  -0.260    1.42      1.42   3.10 
-       5    3.19     7   4.44   3.34     4.44      4.44   5.54 
-       6    3.44     7   6.19   4.91     6.19      6.19   7.46 
-       7    3.52     7   6.52   5.29     6.52      6.52   7.75 
-       8    3.73     7   5.92   5.69     5.92      5.92   6.15 
-       9    4.05     7   1.16  -5.03     1.16      1.16   7.35 
-      10    5.45     7  -1.44 -11.7     -1.44     -1.44   8.77 
-      
-      
-      attr(,"ale")$boot$effect$mpg$ale$d2
-      attr(,"ale")$boot$effect$mpg$ale$d2$`gear:carb`
-      # A tibble: 15 x 8
-         gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
-         <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -2.86e-16 -5.15e-16 -2.86e-16 -2.86e-16 -5.77e-17
-       2 four             1     8  4.68e-16  1.41e-16  4.68e-16  4.68e-16  7.95e-16
-       3 five             1     0  4.12e-16  1.38e-16  4.12e-16  4.12e-16  6.86e-16
-       4 three            2     8  2.07e-16 -3.30e-17  2.07e-16  2.07e-16  4.47e-16
-       5 four             2     7  1.72e-16  1.26e-16  1.72e-16  1.72e-16  2.17e-16
-       6 five             2     4  1.16e-16  1.09e-16  1.16e-16  1.16e-16  1.23e-16
-       7 three            3     7  2.07e-16 -3.30e-17  2.07e-16  2.07e-16  4.47e-16
-       8 four             3     2  1.72e-16  1.26e-16  1.72e-16  1.72e-16  2.17e-16
-       9 five             3     0  1.16e-16  1.09e-16  1.16e-16  1.16e-16  1.23e-16
-      10 three            4     8  1.37e-15  2.80e-16  1.37e-15  1.37e-15  2.46e-15
-      11 four             4     6 -2.02e-15 -3.34e-15 -2.02e-15 -2.02e-15 -6.93e-16
-      12 five             4     2 -2.07e-15 -3.45e-15 -2.07e-15 -2.07e-15 -6.95e-16
-      13 three            8     1  1.01e-15  2.63e-16  1.01e-15  1.01e-15  1.76e-15
-      14 four             8     1 -2.15e-15 -3.60e-15 -2.15e-15 -2.15e-15 -6.99e-16
-      15 five             8     4 -1.76e-15 -2.84e-15 -1.76e-15 -1.76e-15 -6.80e-16
-      
-      
-      
-      attr(,"ale")$boot$effect$mpg$stats
-      attr(,"ale")$boot$effect$mpg$stats$d1
-      # A tibble: 12 x 7
-         term  statistic estimate conf.low median   mean conf.high
-         <fct> <fct>        <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 am    aled          6.00     5.32   6.00   6.00      6.68
-       2 am    aler_min     -5.18    -5.36  -5.18  -5.18     -4.99
-       3 am    aler_max      7.30     5.72   7.30   7.30      8.87
-       4 am    naled        31.4     25.5   31.4   31.4      37.2 
-       5 am    naler_min   -27.5    -37.4  -27.5  -27.5     -17.7 
-       6 am    naler_max    35.6     34.4   35.6   35.6      36.7 
-       7 wt    aled          6.42     6.04   6.42   6.42      6.81
-       8 wt    aler_min    -16.7    -16.8  -16.7  -16.7     -16.6 
-       9 wt    aler_max      8.56     7.85   8.56   8.56      9.27
-      10 wt    naled        31.0     30.7   31.0   31.0      31.3 
-      11 wt    naler_min   -50      -50    -50    -50       -50   
-      12 wt    naler_max    36.4     36.0   36.4   36.4      36.7 
-      
-      attr(,"ale")$boot$effect$mpg$stats$d2
-      # A tibble: 6 x 7
-        term      statistic  estimate  conf.low    median      mean conf.high
-        <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       5.14e-16  1.48e-16  5.14e-16  5.14e-16  8.81e-16
-      2 gear:carb aler_min  -2.08e-15 -3.47e-15 -2.08e-15 -2.08e-15 -6.96e-16
-      3 gear:carb aler_max   1.19e-15  2.71e-16  1.19e-15  1.19e-15  2.11e-15
-      4 gear:carb naled      0         0         0         0         0       
-      5 gear:carb naler_min  0         0         0         0         0       
-      6 gear:carb naler_max  0         0         0         0         0       
-      
-      
-      attr(,"ale")$boot$effect$mpg$conf
-      NULL
-      
-      
-      
-      
       attr(,"params")
       attr(,"params")$calc_boot_valid
-      [1] TRUE
-      
-      attr(,"params")$y_type
-      [1] "numeric"
-      
-      attr(,"params")$y_cats
-      [1] "mpg"
+      [1] FALSE
       
       attr(,"params")$model
       attr(,"params")$model$class
@@ -768,7 +668,7 @@
       NULL
       
       attr(,"params")$y_col
-      [1] "mpg"
+      NULL
       
       attr(,"params")$positive
       [1] TRUE
@@ -780,7 +680,7 @@
       [1] "response"
       
       attr(,"params")$boot_it
-      [1] 2
+      [1] 0
       
       attr(,"params")$boot_alpha
       [1] 0.05
@@ -789,7 +689,7 @@
       [1] "mean"
       
       attr(,"params")$seed
-      [1] 5
+      [1] 0
       
       attr(,"params")$output_model_stats
       [1] TRUE
@@ -821,96 +721,103 @@
       [1] TRUE
       
 
-# binary outcome with full 1D ALE, no bootstrapping
+# binary outcome with p-values and confidence regions
 
     Code
       ale_plots_to_data(plot(mb, type = "boot"))
+    Condition
+      Warning:
+      Position guide is perpendicular to the intended axis.
+      i Did you mean to specify a different guide `position`?
+      Warning:
+      Position guide is perpendicular to the intended axis.
+      i Did you mean to specify a different guide `position`?
     Output
       $vs
       $vs$d1
       $vs$d1$continent
-        x            y PANEL group flipped_aes ymin         ymax xmin xmax colour
-      1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.55 1.45     NA
-      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.55 2.45     NA
-      3 3 3.925673e-13     1     3       FALSE    0 3.925673e-13 2.55 3.45     NA
-        fill linewidth linetype alpha
-      1 gray       0.5        1    NA
-      2 gray       0.5        1    NA
-      3 gray       0.5        1    NA
+        x            y PANEL group colour      fill linewidth linetype alpha xmin
+      1 1 3.925673e-13     1     1     NA lightgray       0.5        1    NA -Inf
+      2 2 3.925673e-13     1     2     NA lightgray       0.5        1    NA -Inf
+      3 3 3.925673e-13     1     3     NA lightgray       0.5        1    NA -Inf
+        xmax         ymin         ymax
+      1  Inf 3.925671e-13 3.925674e-13
+      2  Inf 3.925671e-13 3.925674e-13
+      3  Inf 3.925671e-13 3.925674e-13
       
       $vs$d1$wt
-                 ymin         ymax        x            y PANEL group flipped_aes
-      1  3.925673e-13 3.925673e-13 1.498275 3.925673e-13     1    -1       FALSE
-      2  3.925673e-13 3.925673e-13 1.935000 3.925673e-13     1    -1       FALSE
-      3  3.925673e-13 3.925673e-13 2.465000 3.925673e-13     1    -1       FALSE
-      4  3.925673e-13 3.925673e-13 2.790481 3.925673e-13     1    -1       FALSE
-      5  3.925673e-13 3.925673e-13 3.190000 3.925673e-13     1    -1       FALSE
-      6  3.925673e-13 3.925673e-13 3.439356 3.925673e-13     1    -1       FALSE
-      7  3.925673e-13 3.925673e-13 3.520000 3.925673e-13     1    -1       FALSE
-      8  3.925673e-13 3.925673e-13 3.730000 3.925673e-13     1    -1       FALSE
-      9  3.925673e-13 3.925673e-13 4.046066 3.925673e-13     1    -1       FALSE
-      10 3.925673e-13 3.925673e-13 5.453272 3.925673e-13     1    -1       FALSE
-         colour   fill linewidth linetype alpha
-      1      NA grey85       0.5        1   0.5
-      2      NA grey85       0.5        1   0.5
-      3      NA grey85       0.5        1   0.5
-      4      NA grey85       0.5        1   0.5
-      5      NA grey85       0.5        1   0.5
-      6      NA grey85       0.5        1   0.5
-      7      NA grey85       0.5        1   0.5
-      8      NA grey85       0.5        1   0.5
-      9      NA grey85       0.5        1   0.5
-      10     NA grey85       0.5        1   0.5
+                x            y PANEL group colour      fill linewidth linetype alpha
+      1  1.498275 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      2  1.935000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      3  2.465000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      4  2.790481 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      5  3.190000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      6  3.439356 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+         xmin xmax         ymin         ymax
+      1  -Inf  Inf 3.925671e-13 3.925674e-13
+      2  -Inf  Inf 3.925671e-13 3.925674e-13
+      3  -Inf  Inf 3.925671e-13 3.925674e-13
+      4  -Inf  Inf 3.925671e-13 3.925674e-13
+      5  -Inf  Inf 3.925671e-13 3.925674e-13
+      6  -Inf  Inf 3.925671e-13 3.925674e-13
+      7  -Inf  Inf 3.925671e-13 3.925674e-13
+      8  -Inf  Inf 3.925671e-13 3.925674e-13
+      9  -Inf  Inf 3.925671e-13 3.925674e-13
+      10 -Inf  Inf 3.925671e-13 3.925674e-13
       
       
       $vs$d2
       $vs$d2$`gear:carb`
             fill x y PANEL group xmin xmax ymin ymax colour linewidth linetype alpha
-      1  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      2  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      3  #D2D2D2 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
-      4  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      5  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      6  #D2D2D2 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
-      7  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      8  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      9  #D2D2D2 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
-      10 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      11 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      12 #D2D2D2 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
-      13 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      14 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      15 #D2D2D2 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
-      16 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      17 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      18 #D2D2D2 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
-      19 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      20 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      21 #D2D2D2 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
-      22 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      23 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      24 #D2D2D2 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
-      25 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      26 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      27 #D2D2D2 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
-      28 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      29 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      30 #D2D2D2 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
-      31 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      32 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      33 #D2D2D2 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
-      34 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      35 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      36 #D2D2D2 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
-      37 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      38 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      39 #D2D2D2 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
-      40 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      41 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      42 #D2D2D2 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
-      43 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      44 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
-      45 #D2D2D2 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      1  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      2  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      3  #FFBBBB 1 1     1     1  0.5  1.5  0.5  1.5     NA       0.1        1    NA
+      4  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      5  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      6  #FFBBBB 2 1     1     6  1.5  2.5  0.5  1.5     NA       0.1        1    NA
+      7  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      8  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      9  #FFBBBB 3 1     1    11  2.5  3.5  0.5  1.5     NA       0.1        1    NA
+      10 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      11 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      12 #FFBBBB 1 2     1     2  0.5  1.5  1.5  2.5     NA       0.1        1    NA
+      13 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      14 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      15 #FFBBBB 2 2     1     7  1.5  2.5  1.5  2.5     NA       0.1        1    NA
+      16 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      17 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      18 #FFBBBB 3 2     1    12  2.5  3.5  1.5  2.5     NA       0.1        1    NA
+      19 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      20 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      21 #FFBBBB 1 3     1     3  0.5  1.5  2.5  3.5     NA       0.1        1    NA
+      22 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      23 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      24 #FFBBBB 2 3     1     8  1.5  2.5  2.5  3.5     NA       0.1        1    NA
+      25 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      26 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      27 #FFBBBB 3 3     1    13  2.5  3.5  2.5  3.5     NA       0.1        1    NA
+      28 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      29 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      30 #FFBBBB 1 4     1     4  0.5  1.5  3.5  4.5     NA       0.1        1    NA
+      31 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      32 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      33 #FFBBBB 2 4     1     9  1.5  2.5  3.5  4.5     NA       0.1        1    NA
+      34 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      35 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      36 #FFBBBB 3 4     1    14  2.5  3.5  3.5  4.5     NA       0.1        1    NA
+      37 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      38 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      39 #FFBBBB 1 5     1     5  0.5  1.5  4.5  5.5     NA       0.1        1    NA
+      40 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      41 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      42 #FFBBBB 2 5     1    10  1.5  2.5  4.5  5.5     NA       0.1        1    NA
+      43 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      44 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
+      45 #FFBBBB 3 5     1    15  2.5  3.5  4.5  5.5     NA       0.1        1    NA
          width height
       1     NA     NA
       2     NA     NA
@@ -961,9 +868,12 @@
       
       $vs$eff
       $vs$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+        y PANEL group colour      fill linewidth linetype alpha         xmin
+      1 1     1     1     NA lightgray       0.5        1    NA 3.925671e-13
+      2 2     1     2     NA lightgray       0.5        1    NA 3.925671e-13
+                xmax ymin ymax
+      1 3.925674e-13 -Inf  Inf
+      2 3.925674e-13 -Inf  Inf
       
       $vs$eff[[2]]
                 xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
@@ -974,41 +884,44 @@
       2   0.25    NA
       
       $vs$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+                xmin         xmax ymin ymax y PANEL group colour  fill linewidth
+      1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
+      2 3.925673e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
+        linetype alpha
+      1        1    NA
+      2        1    NA
       
       $vs$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 28.5% 2     1     2  black    3     0   0.5    -1    NA       
+                   x       label y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 28.5% 2     1     2  black    3     0   0.5    -1    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $vs$eff[[5]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 3.925673e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $vs$eff[[6]]
+                   x label    y PANEL group colour size angle hjust vjust alpha
+      1 3.925673e-13     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA
+      2 3.925673e-13     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA
+        family fontface lineheight
+      1               1        1.2
+      2               1        1.2
+      
+      $vs$eff[[7]]
+                   x  label y PANEL group colour size angle hjust vjust alpha family
+      1 3.925673e-13 ALED 0 1     1     1  black    3     0   0.5     2    NA       
+      2 3.925673e-13 ALED 0 2     1     2  black    3     0   0.5     2    NA       
         fontface lineheight
       1        1        1.2
       2        1        1.2
-      
-      $vs$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $vs$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $vs$eff[[7]]
-         x  label y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
-      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
-        lineheight
-      1        1.2
-      2        1.2
       
       $vs$eff[[8]]
         x y PANEL group colour  fill size angle hjust vjust alpha family fontface
@@ -1174,27 +1087,31 @@
       [1] "vs"
       
       attr(,"params")$y_summary
-                      vs
-      min   0.000000e+00
-      1%    3.925673e-13
-      2.5%  3.925673e-13
-      5%    3.925673e-13
-      10%   3.925673e-13
-      20%   3.925673e-13
-      25%   3.925673e-13
-      30%   3.925673e-13
-      40%   3.925673e-13
-      50%   3.925673e-13
-      mean  4.375000e-01
-      60%   1.000000e+00
-      70%   1.000000e+00
-      75%   1.000000e+00
-      80%   1.000000e+00
-      90%   1.000000e+00
-      95%   1.000000e+00
-      97.5% 1.000000e+00
-      99%   1.000000e+00
-      max   1.000000e+00
+                           vs
+      min        0.000000e+00
+      1%         3.925673e-13
+      2.5%       3.925673e-13
+      5%         3.925673e-13
+      10%        3.925673e-13
+      20%        3.925673e-13
+      25%        3.925673e-13
+      30%        3.925673e-13
+      40%        3.925673e-13
+      aler_lo_lo 3.925669e-13
+      aler_lo    3.925671e-13
+      50%        3.925673e-13
+      mean       4.375000e-01
+      aler_hi    3.925674e-13
+      aler_hi_hi 3.925676e-13
+      60%        1.000000e+00
+      70%        1.000000e+00
+      75%        1.000000e+00
+      80%        1.000000e+00
+      90%        1.000000e+00
+      95%        1.000000e+00
+      97.5%      1.000000e+00
+      99%        1.000000e+00
+      max        1.000000e+00
       
       attr(,"params")$model
       attr(,"params")$model$class
@@ -1323,7 +1240,42 @@
       [1] "response"
       
       attr(,"params")$p_values
-      NULL
+      <ale::ALEpDist>
+       @ rand_stats           :List of 1
+       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       ..  ..$ aled     : num [1:100] 2.85e-23 3.38e-23 9.55e-25 1.74e-24 1.27e-23 ...
+       ..  ..$ aler_min : num [1:100] -5.50e-23 -7.07e-23 -2.47e-24 -3.09e-24 -2.43e-23 ...
+       ..  ..$ aler_max : num [1:100] 6.80e-23 6.77e-23 2.17e-24 3.09e-24 2.65e-23 ...
+       ..  ..$ naled    : num [1:100] 25.05 28.64 4.93 7.1 21.63 ...
+       ..  ..$ naler_min: num [1:100] -50 -50 -12.5 -17.2 -50 ...
+       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
+       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
+       .. - attr(*, "logLik")= num 1784
+       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
+       .. - attr(*, "n")= int 64
+       .. - attr(*, "model")= chr "Uniform"
+       .. - attr(*, "density")= chr "stats::dunif"
+       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
+       .. - attr(*, "names")= chr [1:2] "min" "max"
+       .. - attr(*, "default")= num [1:2] 0 1
+       .. - attr(*, "continuous")= logi TRUE
+       @ residuals            : NULL
+       @ params               :List of 11
+       .. $ model                        :List of 4
+       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
+       ..  ..$ call   : chr "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
+       ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
+       ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
+       .. $ y_col                        : chr "vs"
+       .. $ parallel                     : num 0
+       .. $ model_packages               : NULL
+       .. $ random_model_call_string     : NULL
+       .. $ random_model_call_string_vars: chr(0) 
+       .. $ positive                     : logi TRUE
+       .. $ rand_it                      : NULL
+       .. $ seed                         : num 0
+       .. $ rand_it_ok                   : int 100
+       .. $ exactness                    : chr "surrogate"
       
       attr(,"params")$p_aler
       [1] 0.01 0.05
@@ -1436,11 +1388,41 @@
       
       
       attr(,"ale")$boot$effect$vs$conf
-      NULL
+      attr(,"ale")$boot$effect$vs$conf$d1
+      # A tibble: 4 x 12
+        term      x     start_x end_x x_span_pct     n   pct     y   start_y     end_y
+        <chr>     <chr>   <dbl> <dbl>      <dbl> <int> <dbl> <dbl>     <dbl>     <dbl>
+      1 continent Nort~   NA    NA            NA    24  37.5     0 NA        NA       
+      2 continent Euro~   NA    NA            NA    28  43.8     0 NA        NA       
+      3 continent Asia    NA    NA            NA    12  18.8     0 NA        NA       
+      4 wt        <NA>     1.50  5.45        100    64 100      NA  2.04e-22 -4.90e-22
+      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      
+      attr(,"ale")$boot$effect$vs$conf$d2
+      # A tibble: 9 x 8
+        term1 x1    term2 x2    mid_bar     n   pct         y
+        <chr> <chr> <chr> <chr> <ord>   <int> <dbl>     <dbl>
+      1 gear  three carb  [1,2] overlap    14 21.9  -2.11e-23
+      2 gear  four  carb  [1,2] overlap    15 23.4  -2.76e-23
+      3 gear  five  carb  [1,2] overlap     4  6.25 -1.60e-22
+      4 gear  three carb  (2,4] overlap    15 23.4  -1.66e-23
+      5 gear  four  carb  (2,4] overlap     8 12.5   1.45e-22
+      6 gear  five  carb  (2,4] overlap     2  3.12  1.45e-22
+      7 gear  three carb  (4,8] overlap     1  1.56  8.04e-22
+      8 gear  four  carb  (4,8] overlap     1  1.56 -3.99e-22
+      9 gear  five  carb  (4,8] overlap     4  6.25 -3.99e-22
       
       
       
       
+      
+      attr(,"boot_data")
+      # A tibble: 3 x 7
+           it row_idxs   model  ale        tidy             stats            perf    
+        <int> <list>     <list> <list>     <list>           <list>           <list>  
+      1     0 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <NULL>  
+      2     1 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
+      3     2 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       attr(,"params")
       attr(,"params")$calc_boot_valid
       [1] TRUE
@@ -1599,7 +1581,7 @@
       [1] TRUE
       
       attr(,"params")$output_boot_data
-      [1] FALSE
+      [1] TRUE
       
       attr(,"params")$ale_options
       attr(,"params")$ale_options$x_cols
@@ -1607,7 +1589,42 @@
       
       
       attr(,"params")$ale_p
-      NULL
+      <ale::ALEpDist>
+       @ rand_stats           :List of 1
+       .. $ vs: tibble [100 x 6] (S3: tbl_df/tbl/data.frame)
+       ..  ..$ aled     : num [1:100] 2.85e-23 3.38e-23 9.55e-25 1.74e-24 1.27e-23 ...
+       ..  ..$ aler_min : num [1:100] -5.50e-23 -7.07e-23 -2.47e-24 -3.09e-24 -2.43e-23 ...
+       ..  ..$ aler_max : num [1:100] 6.80e-23 6.77e-23 2.17e-24 3.09e-24 2.65e-23 ...
+       ..  ..$ naled    : num [1:100] 25.05 28.64 4.93 7.1 21.63 ...
+       ..  ..$ naler_min: num [1:100] -50 -50 -12.5 -17.2 -50 ...
+       ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
+       @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
+       .. - attr(*, "logLik")= num 1784
+       .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
+       .. - attr(*, "n")= int 64
+       .. - attr(*, "model")= chr "Uniform"
+       .. - attr(*, "density")= chr "stats::dunif"
+       .. - attr(*, "support")= num [1:2] -3.93e-13 3.93e-13
+       .. - attr(*, "names")= chr [1:2] "min" "max"
+       .. - attr(*, "default")= num [1:2] 0 1
+       .. - attr(*, "continuous")= logi TRUE
+       @ residuals            : NULL
+       @ params               :List of 11
+       .. $ model                        :List of 4
+       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
+       ..  ..$ call   : chr "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
+       ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
+       ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
+       .. $ y_col                        : chr "vs"
+       .. $ parallel                     : num 0
+       .. $ model_packages               : NULL
+       .. $ random_model_call_string     : NULL
+       .. $ random_model_call_string_vars: chr(0) 
+       .. $ positive                     : logi TRUE
+       .. $ rand_it                      : NULL
+       .. $ seed                         : num 0
+       .. $ rand_it_ok                   : int 100
+       .. $ exactness                    : chr "surrogate"
       
       attr(,"params")$tidy_options
       list()
@@ -1622,486 +1639,7 @@
 # bootstrapped categorical outcome with full 1D and all variables set
 
     Code
-      ale_plots_to_data(plot(mb, type = "boot"))
-    Output
-      $setosa
-      $setosa$d1
-      $setosa$d1$Sepal.Length
-                  ymin          ymax   x             y PANEL group flipped_aes colour
-      1  -1.204530e-04 -2.528341e-05 4.3 -1.204530e-04     1    -1       FALSE     NA
-      2  -2.645848e-06 -1.047536e-06 4.9 -2.645848e-06     1    -1       FALSE     NA
-      3   2.641059e-06  5.922074e-06 5.1  2.641059e-06     1    -1       FALSE     NA
-      4   2.642966e-06  5.952723e-06 5.4  2.642966e-06     1    -1       FALSE     NA
-      5   2.938665e-06  7.888093e-06 5.7  2.938665e-06     1    -1       FALSE     NA
-      6   2.947452e-06  8.043728e-06 6.0  2.947452e-06     1    -1       FALSE     NA
-      7   2.978088e-06  8.622682e-06 6.3  2.978088e-06     1    -1       FALSE     NA
-      8   2.978112e-06  8.622685e-06 6.5  2.978112e-06     1    -1       FALSE     NA
-      9   3.019618e-06  9.410913e-06 6.9  3.019618e-06     1    -1       FALSE     NA
-      10  3.508112e-06  1.869231e-05 7.9  3.508112e-06     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      $setosa$d1$Petal.Width
-                 ymin          ymax   x             y PANEL group flipped_aes colour
-      1 -1.251960e-04 -9.060446e-06 0.1 -1.251960e-04     1    -1       FALSE     NA
-      2 -1.087651e-04 -8.114620e-06 0.2 -1.087651e-04     1    -1       FALSE     NA
-      3 -4.244482e-05 -2.672302e-06 0.6 -4.244482e-05     1    -1       FALSE     NA
-      4  4.067451e-06  5.702098e-05 1.3  4.067451e-06     1    -1       FALSE     NA
-      5  4.086904e-06  5.702230e-05 1.4  4.086904e-06     1    -1       FALSE     NA
-      6  4.088178e-06  5.702368e-05 1.6  4.088178e-06     1    -1       FALSE     NA
-      7  4.088166e-06  5.702368e-05 1.9  4.088166e-06     1    -1       FALSE     NA
-      8  4.088164e-06  5.702368e-05 2.2  4.088164e-06     1    -1       FALSE     NA
-      9  4.088163e-06  5.702368e-05 2.5  4.088163e-06     1    -1       FALSE     NA
-          fill linewidth linetype alpha
-      1 grey85       0.5        1   0.5
-      2 grey85       0.5        1   0.5
-      3 grey85       0.5        1   0.5
-      4 grey85       0.5        1   0.5
-      5 grey85       0.5        1   0.5
-      6 grey85       0.5        1   0.5
-      7 grey85       0.5        1   0.5
-      8 grey85       0.5        1   0.5
-      9 grey85       0.5        1   0.5
-      
-      
-      $setosa$d2
-      list()
-      
-      $setosa$eff
-      $setosa$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      
-      $setosa$eff[[2]]
-                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
-      1 -7.286821e-05 1.110021e-05 1     1     1 0.875 1.125  black       0.5
-      2 -6.712821e-05 3.055593e-05 2     1     2 1.875 2.125  black       0.5
-        linetype height alpha
-      1        1   0.25    NA
-      2        1   0.25    NA
-      
-      $setosa$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $setosa$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.9% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 27.5% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      
-      $setosa$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $setosa$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $setosa$eff[[7]]
-         x  label y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
-      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $setosa$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $versicolor
-      $versicolor$d1
-      $versicolor$d1$Sepal.Length
-                 ymin         ymax   x            y PANEL group flipped_aes colour
-      1  -0.027242357 -0.010048285 4.3 -0.027242357     1    -1       FALSE     NA
-      2  -0.016878424 -0.009520850 4.9 -0.016878424     1    -1       FALSE     NA
-      3  -0.016886969 -0.009524537 5.1 -0.016886969     1    -1       FALSE     NA
-      4  -0.016396728 -0.009497958 5.4 -0.016396728     1    -1       FALSE     NA
-      5  -0.016065866 -0.009338854 5.7 -0.016065866     1    -1       FALSE     NA
-      6  -0.006245933 -0.001431161 6.0 -0.006245933     1    -1       FALSE     NA
-      7  -0.003756492  0.023853548 6.3 -0.003756492     1    -1       FALSE     NA
-      8  -0.003616421  0.026509023 6.5 -0.003616421     1    -1       FALSE     NA
-      9   0.006690339  0.028023943 6.9  0.006690339     1    -1       FALSE     NA
-      10  0.036803392  0.153643807 7.9  0.036803392     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      $versicolor$d1$Petal.Width
-               ymin         ymax   x           y PANEL group flipped_aes colour
-      1  0.04758922  0.089015317 0.1  0.04758922     1    -1       FALSE     NA
-      2  0.04757279  0.089014371 0.2  0.04757279     1    -1       FALSE     NA
-      3  0.04750647  0.089008928 0.6  0.04750647     1    -1       FALSE     NA
-      4  0.04718593  0.088851930 1.3  0.04718593     1    -1       FALSE     NA
-      5  0.04711820  0.087585464 1.4  0.04711820     1    -1       FALSE     NA
-      6 -0.02420780  0.008703337 1.6 -0.02420780     1    -1       FALSE     NA
-      7 -0.15272099 -0.088759579 1.9 -0.15272099     1    -1       FALSE     NA
-      8 -0.16627128 -0.089485670 2.2 -0.16627128     1    -1       FALSE     NA
-      9 -0.16680675 -0.089529991 2.5 -0.16680675     1    -1       FALSE     NA
-          fill linewidth linetype alpha
-      1 grey85       0.5        1   0.5
-      2 grey85       0.5        1   0.5
-      3 grey85       0.5        1   0.5
-      4 grey85       0.5        1   0.5
-      5 grey85       0.5        1   0.5
-      6 grey85       0.5        1   0.5
-      7 grey85       0.5        1   0.5
-      8 grey85       0.5        1   0.5
-      9 grey85       0.5        1   0.5
-      
-      
-      $versicolor$d2
-      list()
-      
-      $versicolor$eff
-      $versicolor$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      
-      $versicolor$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.01865655 0.09522360 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.12816837 0.06830227 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
-      
-      $versicolor$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $versicolor$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 38.2% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 29.2% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      
-      $versicolor$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $versicolor$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $versicolor$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      
-      $versicolor$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $virginica
-      $virginica$d1
-      $virginica$d1$Sepal.Length
-                 ymin         ymax   x            y PANEL group flipped_aes colour
-      1   0.010134301  0.027423543 4.3  0.010134301     1    -1       FALSE     NA
-      2   0.009582630  0.016941803 4.9  0.009582630     1    -1       FALSE     NA
-      3   0.009582629  0.016941779 5.1  0.009582629     1    -1       FALSE     NA
-      4   0.009556048  0.016451508 5.4  0.009556048     1    -1       FALSE     NA
-      5   0.009396648  0.016118710 5.7  0.009396648     1    -1       FALSE     NA
-      6   0.001483850  0.006303718 6.0  0.001483850     1    -1       FALSE     NA
-      7  -0.023801438  0.003814247 6.3 -0.023801438     1    -1       FALSE     NA
-      8  -0.026456913  0.003674175 6.5 -0.026456913     1    -1       FALSE     NA
-      9  -0.027972621 -0.006632626 6.9 -0.027972621     1    -1       FALSE     NA
-      10 -0.153586582 -0.036761352 7.9 -0.153586582     1    -1       FALSE     NA
-           fill linewidth linetype alpha
-      1  grey85       0.5        1   0.5
-      2  grey85       0.5        1   0.5
-      3  grey85       0.5        1   0.5
-      4  grey85       0.5        1   0.5
-      5  grey85       0.5        1   0.5
-      6  grey85       0.5        1   0.5
-      7  grey85       0.5        1   0.5
-      8  grey85       0.5        1   0.5
-      9  grey85       0.5        1   0.5
-      10 grey85       0.5        1   0.5
-      
-      $virginica$d1$Petal.Width
-                ymin        ymax   x            y PANEL group flipped_aes colour
-      1 -0.088945523 -0.04740329 0.1 -0.088945523     1    -1       FALSE     NA
-      2 -0.088945523 -0.04740329 0.2 -0.088945523     1    -1       FALSE     NA
-      3 -0.088945523 -0.04740329 0.6 -0.088945523     1    -1       FALSE     NA
-      4 -0.088795265 -0.04718221 1.3 -0.088795265     1    -1       FALSE     NA
-      5 -0.087528818 -0.04711449 1.4 -0.087528818     1    -1       FALSE     NA
-      6 -0.008699628  0.02426445 1.6 -0.008699628     1    -1       FALSE     NA
-      7  0.088763288  0.15277763 1.9  0.088763288     1    -1       FALSE     NA
-      8  0.089489379  0.16632793 2.2  0.089489379     1    -1       FALSE     NA
-      9  0.089533700  0.16686340 2.5  0.089533700     1    -1       FALSE     NA
-          fill linewidth linetype alpha
-      1 grey85       0.5        1   0.5
-      2 grey85       0.5        1   0.5
-      3 grey85       0.5        1   0.5
-      4 grey85       0.5        1   0.5
-      5 grey85       0.5        1   0.5
-      6 grey85       0.5        1   0.5
-      7 grey85       0.5        1   0.5
-      8 grey85       0.5        1   0.5
-      9 grey85       0.5        1   0.5
-      
-      
-      $virginica$d2
-      list()
-      
-      $virginica$eff
-      $virginica$eff[[1]]
-        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      
-      $virginica$eff[[2]]
-               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
-      1 -0.09517397 0.01877892 1     1     1 0.875 1.125  black       0.5        1
-      2 -0.06817441 0.12819855 2     1     2 1.875 2.125  black       0.5        1
-        height alpha
-      1   0.25    NA
-      2   0.25    NA
-      
-      $virginica$eff[[3]]
-        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
-      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
-      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
-      
-      $virginica$eff[[4]]
-         x       label y PANEL group colour size angle hjust vjust alpha family
-      1 NA NALED 23.6% 1     1     1  black    3     0   0.5    -1    NA       
-      2 NA NALED 35.3% 2     1     2  black    3     0   0.5    -1    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      
-      $virginica$eff[[5]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $virginica$eff[[6]]
-         x label    y PANEL group colour size angle hjust vjust alpha family fontface
-      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
-      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
-        lineheight
-      1        1.2
-      2        1.2
-      
-      $virginica$eff[[7]]
-         x      label y PANEL group colour size angle hjust vjust alpha family
-      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
-      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
-        fontface lineheight
-      1        1        1.2
-      2        1        1.2
-      
-      $virginica$eff[[8]]
-        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
-      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
-        lineheight                                                              label
-      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
-      
-      
-      
-      $.all_cats
-      $.all_cats$d1
-      $.all_cats$d1$Sepal.Length
-      $.all_cats$d1$Sepal.Length$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 4.3 -5.777243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
-      28 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
-      29 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
-      30 #F8766D    solid 7.9 -9.517397e-02     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Sepal.Length$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  4.3 -5.777243e-05     1    -1       FALSE  black       0.5        1    NA
-      11 4.3 -1.867583e-02     1    -1       FALSE  black       0.5        1    NA
-      21 4.3  1.877892e-02     1    -1       FALSE  black       0.5        1    NA
-      2  4.9  1.324909e-05     1    -1       FALSE  black       0.5        1    NA
-      12 4.9 -1.323015e-02     1    -1       FALSE  black       0.5        1    NA
-      22 4.9  1.326222e-02     1    -1       FALSE  black       0.5        1    NA
-      3  5.1  1.937735e-05     1    -1       FALSE  black       0.5        1    NA
-      13 5.1 -1.323627e-02     1    -1       FALSE  black       0.5        1    NA
-      23 5.1  1.326220e-02     1    -1       FALSE  black       0.5        1    NA
-      4  5.4  1.939363e-05     1    -1       FALSE  black       0.5        1    NA
-      14 5.4 -1.297786e-02     1    -1       FALSE  black       0.5        1    NA
-      24 5.4  1.300378e-02     1    -1       FALSE  black       0.5        1    NA
-      5  5.7  2.050916e-05     1    -1       FALSE  black       0.5        1    NA
-      15 5.7 -1.273287e-02     1    -1       FALSE  black       0.5        1    NA
-      25 5.7  1.275768e-02     1    -1       FALSE  black       0.5        1    NA
-      6  6.0  2.059137e-05     1    -1       FALSE  black       0.5        1    NA
-      16 6.0 -3.869060e-03     1    -1       FALSE  black       0.5        1    NA
-      26 6.0  3.893784e-03     1    -1       FALSE  black       0.5        1    NA
-      7  6.3  2.089617e-05     1    -1       FALSE  black       0.5        1    NA
-      17 6.3  1.001801e-02     1    -1       FALSE  black       0.5        1    NA
-      27 6.3 -9.993596e-03     1    -1       FALSE  black       0.5        1    NA
-      8  6.5  2.089618e-05     1    -1       FALSE  black       0.5        1    NA
-      18 6.5  1.141579e-02     1    -1       FALSE  black       0.5        1    NA
-      28 6.5 -1.139137e-02     1    -1       FALSE  black       0.5        1    NA
-      9  6.9  2.131105e-05     1    -1       FALSE  black       0.5        1    NA
-      19 6.9  1.732663e-02     1    -1       FALSE  black       0.5        1    NA
-      29 6.9 -1.730262e-02     1    -1       FALSE  black       0.5        1    NA
-      10 7.9  2.619599e-05     1    -1       FALSE  black       0.5        1    NA
-      20 7.9  9.519309e-02     1    -1       FALSE  black       0.5        1    NA
-      30 7.9 -9.517397e-02     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      $.all_cats$d1$Petal.Width
-      $.all_cats$d1$Petal.Width$overlay
-          colour linetype   x             y PANEL group flipped_aes linewidth alpha
-      1  #F8766D    solid 0.1 -5.203243e-05     1     1       FALSE       0.5    NA
-      2  #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
-      3  #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
-      4  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
-      5  #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
-      6  #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
-      7  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
-      8  #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
-      9  #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
-      10 #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
-      11 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
-      12 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
-      13 #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
-      14 #F8766D    solid 1.4  6.732132e-02     1     1       FALSE       0.5    NA
-      15 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
-      16 #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
-      17 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
-      18 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
-      19 #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
-      20 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
-      21 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
-      22 #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
-      23 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
-      24 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
-      25 #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
-      26 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
-      27 #F8766D    solid 2.5  1.281985e-01     1     1       FALSE       0.5    NA
-      
-      $.all_cats$d1$Petal.Width$facet
-           x             y PANEL group flipped_aes colour linewidth linetype alpha
-      1  0.1 -5.203243e-05     1    -1       FALSE  black       0.5        1    NA
-      10 0.1  6.827175e-02     1    -1       FALSE  black       0.5        1    NA
-      19 0.1 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
-      2  0.2 -4.334409e-05     1    -1       FALSE  black       0.5        1    NA
-      11 0.2  6.826307e-02     1    -1       FALSE  black       0.5        1    NA
-      20 0.2 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
-      3  0.6 -7.462779e-06     1    -1       FALSE  black       0.5        1    NA
-      12 0.6  6.822718e-02     1    -1       FALSE  black       0.5        1    NA
-      21 0.6 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
-      4  1.3  4.564000e-05     1    -1       FALSE  black       0.5        1    NA
-      13 1.3  6.798841e-02     1    -1       FALSE  black       0.5        1    NA
-      22 1.3 -6.798874e-02     1    -1       FALSE  black       0.5        1    NA
-      5  1.4  4.565039e-05     1    -1       FALSE  black       0.5        1    NA
-      14 1.4  6.732132e-02     1    -1       FALSE  black       0.5        1    NA
-      23 1.4 -6.732165e-02     1    -1       FALSE  black       0.5        1    NA
-      6  1.6  4.565172e-05     1    -1       FALSE  black       0.5        1    NA
-      15 1.6 -7.782745e-03     1    -1       FALSE  black       0.5        1    NA
-      24 1.6  7.782409e-03     1    -1       FALSE  black       0.5        1    NA
-      7  1.9  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
-      16 1.9 -1.207708e-01     1    -1       FALSE  black       0.5        1    NA
-      25 1.9  1.207705e-01     1    -1       FALSE  black       0.5        1    NA
-      8  2.2  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
-      17 2.2 -1.279090e-01     1    -1       FALSE  black       0.5        1    NA
-      26 2.2  1.279087e-01     1    -1       FALSE  black       0.5        1    NA
-      9  2.5  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
-      18 2.5 -1.281989e-01     1    -1       FALSE  black       0.5        1    NA
-      27 2.5  1.281985e-01     1    -1       FALSE  black       0.5        1    NA
-      
-      
-      
-      $.all_cats$d2
-      list()
-      
-      $.all_cats$eff
-      NULL
-      
-      
-
----
-
-    Code
-      unclass(mb)
+      unclass(snap_mb)
     Output
       <object>
       attr(,"S7_class")
@@ -3333,5 +2871,1062 @@
       
       attr(,"params")$silent
       [1] TRUE
+      
+
+---
+
+    Code
+      get(mb, "Sepal.Length")
+    Output
+      $setosa
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n          .y       .y_lo    .y_mean .y_median    .y_hi
+                     <dbl> <int>       <dbl>       <dbl>      <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0000729  -0.000120     -7.29e-5  -7.29e-5 -2.53e-5
+       2               4.9    21 -0.00000186 -0.00000266   -1.86e-6  -1.86e-6 -1.06e-6
+       3               5.1    19  0.00000427  0.00000263    4.27e-6   4.27e-6  5.91e-6
+       4               5.4    11  0.00000429  0.00000263    4.29e-6   4.29e-6  5.94e-6
+       5               5.7    21  0.00000540  0.00000293    5.40e-6   5.40e-6  7.88e-6
+       6               6      16  0.00000549  0.00000294    5.49e-6   5.49e-6  8.03e-6
+       7               6.3    19  0.00000579  0.00000297    5.79e-6   5.79e-6  8.61e-6
+       8               6.5    12  0.00000579  0.00000297    5.79e-6   5.79e-6  8.61e-6
+       9               6.9    17  0.00000621  0.00000301    6.21e-6   6.21e-6  9.40e-6
+      10               7.9    13  0.0000111   0.00000350    1.11e-5   1.11e-5  1.87e-5
+      
+      $versicolor
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1 -0.0187  -0.0273  -0.0187   -0.0187  -0.0101 
+       2               4.9    21 -0.0132  -0.0169  -0.0132   -0.0132  -0.00957
+       3               5.1    19 -0.0133  -0.0169  -0.0133   -0.0133  -0.00957
+       4               5.4    11 -0.0130  -0.0164  -0.0130   -0.0130  -0.00954
+       5               5.7    21 -0.0127  -0.0161  -0.0127   -0.0127  -0.00938
+       6               6      16 -0.00388 -0.00629 -0.00388  -0.00388 -0.00148
+       7               6.3    19  0.0100  -0.00380  0.0100    0.0100   0.0238 
+       8               6.5    12  0.0114  -0.00366  0.0114    0.0114   0.0265 
+       9               6.9    17  0.0173   0.00664  0.0173    0.0173   0.0280 
+      10               7.9    13  0.0952   0.0368   0.0952    0.0952   0.154  
+      
+      $virginica
+      # A tibble: 10 x 7
+         Sepal.Length.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+                     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1               4.3     1  0.0188   0.0101   0.0188    0.0188   0.0274 
+       2               4.9    21  0.0132   0.00957  0.0132    0.0132   0.0169 
+       3               5.1    19  0.0132   0.00957  0.0132    0.0132   0.0169 
+       4               5.4    11  0.0130   0.00954  0.0130    0.0130   0.0164 
+       5               5.7    21  0.0127   0.00938  0.0127    0.0127   0.0161 
+       6               6      16  0.00388  0.00147  0.00388   0.00388  0.00629
+       7               6.3    19 -0.0100  -0.0238  -0.0100   -0.0100   0.00380
+       8               6.5    12 -0.0114  -0.0265  -0.0114   -0.0114   0.00366
+       9               6.9    17 -0.0173  -0.0280  -0.0173   -0.0173  -0.00665
+      10               7.9    13 -0.0952  -0.154   -0.0952   -0.0952  -0.0368 
+      
+
+---
+
+    Code
+      get(mb, "Petal.Width", type = "single")
+    Output
+      $setosa
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n          .y       .y_lo     .y_mean  .y_median    .y_hi
+                   <dbl> <int>       <dbl>       <dbl>       <dbl>      <dbl>    <dbl>
+      1              0.1     5 -0.0000201  -0.0000201  -0.0000201    -2.01e-5 -2.01e-5
+      2              0.2    29 -0.0000194  -0.0000194  -0.0000194    -1.94e-5 -1.94e-5
+      3              0.6    16 -0.00000443 -0.00000443 -0.00000443   -4.43e-6 -4.43e-6
+      4              1.3    28  0.0000107   0.0000107   0.0000107     1.07e-5  1.07e-5
+      5              1.4     8  0.0000107   0.0000107   0.0000107     1.07e-5  1.07e-5
+      6              1.6    16  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
+      7              1.9    19  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
+      8              2.2    15  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
+      9              2.5    14  0.0000108   0.0000108   0.0000108     1.08e-5  1.08e-5
+      
+      $versicolor
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+                   <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+      1              0.1     5  0.168   0.168   0.168     0.168   0.168 
+      2              0.2    29  0.168   0.168   0.168     0.168   0.168 
+      3              0.6    16  0.168   0.168   0.168     0.168   0.168 
+      4              1.3    28  0.168   0.168   0.168     0.168   0.168 
+      5              1.4     8  0.149   0.149   0.149     0.149   0.149 
+      6              1.6    16 -0.0415 -0.0415 -0.0415   -0.0415 -0.0415
+      7              1.9    19 -0.382  -0.382  -0.382    -0.382  -0.382 
+      8              2.2    15 -0.387  -0.387  -0.387    -0.387  -0.387 
+      9              2.5    14 -0.387  -0.387  -0.387    -0.387  -0.387 
+      
+      $virginica
+      # A tibble: 9 x 7
+        Petal.Width.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+                   <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+      1              0.1     5 -0.168  -0.168  -0.168    -0.168  -0.168 
+      2              0.2    29 -0.168  -0.168  -0.168    -0.168  -0.168 
+      3              0.6    16 -0.168  -0.168  -0.168    -0.168  -0.168 
+      4              1.3    28 -0.168  -0.168  -0.168    -0.168  -0.168 
+      5              1.4     8 -0.149  -0.149  -0.149    -0.149  -0.149 
+      6              1.6    16  0.0415  0.0415  0.0415    0.0415  0.0415
+      7              1.9    19  0.382   0.382   0.382     0.382   0.382 
+      8              2.2    15  0.387   0.387   0.387     0.387   0.387 
+      9              2.5    14  0.387   0.387   0.387     0.387   0.387 
+      
+
+---
+
+    Code
+      ale_plots_to_data(plot(mb, type = "boot"))
+    Output
+      $setosa
+      $setosa$d1
+      $setosa$d1$Sepal.Length
+                  ymin          ymax   x             y PANEL group flipped_aes colour
+      1  -1.204530e-04 -2.528341e-05 4.3 -1.204530e-04     1    -1       FALSE     NA
+      2  -2.645848e-06 -1.047536e-06 4.9 -2.645848e-06     1    -1       FALSE     NA
+      3   2.641059e-06  5.922074e-06 5.1  2.641059e-06     1    -1       FALSE     NA
+      4   2.642966e-06  5.952723e-06 5.4  2.642966e-06     1    -1       FALSE     NA
+      5   2.938665e-06  7.888093e-06 5.7  2.938665e-06     1    -1       FALSE     NA
+      6   2.947452e-06  8.043728e-06 6.0  2.947452e-06     1    -1       FALSE     NA
+      7   2.978088e-06  8.622682e-06 6.3  2.978088e-06     1    -1       FALSE     NA
+      8   2.978112e-06  8.622685e-06 6.5  2.978112e-06     1    -1       FALSE     NA
+      9   3.019618e-06  9.410913e-06 6.9  3.019618e-06     1    -1       FALSE     NA
+      10  3.508112e-06  1.869231e-05 7.9  3.508112e-06     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $setosa$d1$Petal.Width
+                 ymin          ymax   x             y PANEL group flipped_aes colour
+      1 -1.251960e-04 -9.060446e-06 0.1 -1.251960e-04     1    -1       FALSE     NA
+      2 -1.087651e-04 -8.114620e-06 0.2 -1.087651e-04     1    -1       FALSE     NA
+      3 -4.244482e-05 -2.672302e-06 0.6 -4.244482e-05     1    -1       FALSE     NA
+      4  4.067451e-06  5.702098e-05 1.3  4.067451e-06     1    -1       FALSE     NA
+      5  4.086904e-06  5.702230e-05 1.4  4.086904e-06     1    -1       FALSE     NA
+      6  4.088178e-06  5.702368e-05 1.6  4.088178e-06     1    -1       FALSE     NA
+      7  4.088166e-06  5.702368e-05 1.9  4.088166e-06     1    -1       FALSE     NA
+      8  4.088164e-06  5.702368e-05 2.2  4.088164e-06     1    -1       FALSE     NA
+      9  4.088163e-06  5.702368e-05 2.5  4.088163e-06     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $setosa$d2
+      list()
+      
+      $setosa$eff
+      $setosa$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $setosa$eff[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -7.286821e-05 1.110021e-05 1     1     1 0.875 1.125  black       0.5
+      2 -6.712821e-05 3.055593e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $setosa$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $setosa$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 23.9% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 27.5% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $setosa$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[7]]
+         x  label y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
+      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $versicolor
+      $versicolor$d1
+      $versicolor$d1$Sepal.Length
+                 ymin         ymax   x            y PANEL group flipped_aes colour
+      1  -0.027242357 -0.010048285 4.3 -0.027242357     1    -1       FALSE     NA
+      2  -0.016878424 -0.009520850 4.9 -0.016878424     1    -1       FALSE     NA
+      3  -0.016886969 -0.009524537 5.1 -0.016886969     1    -1       FALSE     NA
+      4  -0.016396728 -0.009497958 5.4 -0.016396728     1    -1       FALSE     NA
+      5  -0.016065866 -0.009338854 5.7 -0.016065866     1    -1       FALSE     NA
+      6  -0.006245933 -0.001431161 6.0 -0.006245933     1    -1       FALSE     NA
+      7  -0.003756492  0.023853548 6.3 -0.003756492     1    -1       FALSE     NA
+      8  -0.003616421  0.026509023 6.5 -0.003616421     1    -1       FALSE     NA
+      9   0.006690339  0.028023943 6.9  0.006690339     1    -1       FALSE     NA
+      10  0.036803392  0.153643807 7.9  0.036803392     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $versicolor$d1$Petal.Width
+               ymin         ymax   x           y PANEL group flipped_aes colour
+      1  0.04758922  0.089015317 0.1  0.04758922     1    -1       FALSE     NA
+      2  0.04757279  0.089014371 0.2  0.04757279     1    -1       FALSE     NA
+      3  0.04750647  0.089008928 0.6  0.04750647     1    -1       FALSE     NA
+      4  0.04718593  0.088851930 1.3  0.04718593     1    -1       FALSE     NA
+      5  0.04711820  0.087585464 1.4  0.04711820     1    -1       FALSE     NA
+      6 -0.02420780  0.008703337 1.6 -0.02420780     1    -1       FALSE     NA
+      7 -0.15272099 -0.088759579 1.9 -0.15272099     1    -1       FALSE     NA
+      8 -0.16627128 -0.089485670 2.2 -0.16627128     1    -1       FALSE     NA
+      9 -0.16680675 -0.089529991 2.5 -0.16680675     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $versicolor$d2
+      list()
+      
+      $versicolor$eff
+      $versicolor$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $versicolor$eff[[2]]
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.01865655 0.09522360 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.12816837 0.06830227 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $versicolor$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $versicolor$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 38.2% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 29.2% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $versicolor$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $versicolor$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $versicolor$eff[[7]]
+         x      label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $versicolor$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $virginica
+      $virginica$d1
+      $virginica$d1$Sepal.Length
+                 ymin         ymax   x            y PANEL group flipped_aes colour
+      1   0.010134301  0.027423543 4.3  0.010134301     1    -1       FALSE     NA
+      2   0.009582630  0.016941803 4.9  0.009582630     1    -1       FALSE     NA
+      3   0.009582629  0.016941779 5.1  0.009582629     1    -1       FALSE     NA
+      4   0.009556048  0.016451508 5.4  0.009556048     1    -1       FALSE     NA
+      5   0.009396648  0.016118710 5.7  0.009396648     1    -1       FALSE     NA
+      6   0.001483850  0.006303718 6.0  0.001483850     1    -1       FALSE     NA
+      7  -0.023801438  0.003814247 6.3 -0.023801438     1    -1       FALSE     NA
+      8  -0.026456913  0.003674175 6.5 -0.026456913     1    -1       FALSE     NA
+      9  -0.027972621 -0.006632626 6.9 -0.027972621     1    -1       FALSE     NA
+      10 -0.153586582 -0.036761352 7.9 -0.153586582     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $virginica$d1$Petal.Width
+                ymin        ymax   x            y PANEL group flipped_aes colour
+      1 -0.088945523 -0.04740329 0.1 -0.088945523     1    -1       FALSE     NA
+      2 -0.088945523 -0.04740329 0.2 -0.088945523     1    -1       FALSE     NA
+      3 -0.088945523 -0.04740329 0.6 -0.088945523     1    -1       FALSE     NA
+      4 -0.088795265 -0.04718221 1.3 -0.088795265     1    -1       FALSE     NA
+      5 -0.087528818 -0.04711449 1.4 -0.087528818     1    -1       FALSE     NA
+      6 -0.008699628  0.02426445 1.6 -0.008699628     1    -1       FALSE     NA
+      7  0.088763288  0.15277763 1.9  0.088763288     1    -1       FALSE     NA
+      8  0.089489379  0.16632793 2.2  0.089489379     1    -1       FALSE     NA
+      9  0.089533700  0.16686340 2.5  0.089533700     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $virginica$d2
+      list()
+      
+      $virginica$eff
+      $virginica$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $virginica$eff[[2]]
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.09517397 0.01877892 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.06817441 0.12819855 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $virginica$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $virginica$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 23.6% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 35.3% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $virginica$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $virginica$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $virginica$eff[[7]]
+         x      label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $virginica$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $.all_cats
+      $.all_cats$d1
+      $.all_cats$d1$Sepal.Length
+      $.all_cats$d1$Sepal.Length$overlay
+          colour linetype   x             y PANEL group flipped_aes linewidth alpha
+      1  #F8766D    solid 4.3 -5.777243e-05     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
+      30 #F8766D    solid 7.9 -9.517397e-02     1     1       FALSE       0.5    NA
+      
+      $.all_cats$d1$Sepal.Length$facet
+           x             y PANEL group flipped_aes colour linewidth linetype alpha
+      1  4.3 -5.777243e-05     1    -1       FALSE  black       0.5        1    NA
+      11 4.3 -1.867583e-02     1    -1       FALSE  black       0.5        1    NA
+      21 4.3  1.877892e-02     1    -1       FALSE  black       0.5        1    NA
+      2  4.9  1.324909e-05     1    -1       FALSE  black       0.5        1    NA
+      12 4.9 -1.323015e-02     1    -1       FALSE  black       0.5        1    NA
+      22 4.9  1.326222e-02     1    -1       FALSE  black       0.5        1    NA
+      3  5.1  1.937735e-05     1    -1       FALSE  black       0.5        1    NA
+      13 5.1 -1.323627e-02     1    -1       FALSE  black       0.5        1    NA
+      23 5.1  1.326220e-02     1    -1       FALSE  black       0.5        1    NA
+      4  5.4  1.939363e-05     1    -1       FALSE  black       0.5        1    NA
+      14 5.4 -1.297786e-02     1    -1       FALSE  black       0.5        1    NA
+      24 5.4  1.300378e-02     1    -1       FALSE  black       0.5        1    NA
+      5  5.7  2.050916e-05     1    -1       FALSE  black       0.5        1    NA
+      15 5.7 -1.273287e-02     1    -1       FALSE  black       0.5        1    NA
+      25 5.7  1.275768e-02     1    -1       FALSE  black       0.5        1    NA
+      6  6.0  2.059137e-05     1    -1       FALSE  black       0.5        1    NA
+      16 6.0 -3.869060e-03     1    -1       FALSE  black       0.5        1    NA
+      26 6.0  3.893784e-03     1    -1       FALSE  black       0.5        1    NA
+      7  6.3  2.089617e-05     1    -1       FALSE  black       0.5        1    NA
+      17 6.3  1.001801e-02     1    -1       FALSE  black       0.5        1    NA
+      27 6.3 -9.993596e-03     1    -1       FALSE  black       0.5        1    NA
+      8  6.5  2.089618e-05     1    -1       FALSE  black       0.5        1    NA
+      18 6.5  1.141579e-02     1    -1       FALSE  black       0.5        1    NA
+      28 6.5 -1.139137e-02     1    -1       FALSE  black       0.5        1    NA
+      9  6.9  2.131105e-05     1    -1       FALSE  black       0.5        1    NA
+      19 6.9  1.732663e-02     1    -1       FALSE  black       0.5        1    NA
+      29 6.9 -1.730262e-02     1    -1       FALSE  black       0.5        1    NA
+      10 7.9  2.619599e-05     1    -1       FALSE  black       0.5        1    NA
+      20 7.9  9.519309e-02     1    -1       FALSE  black       0.5        1    NA
+      30 7.9 -9.517397e-02     1    -1       FALSE  black       0.5        1    NA
+      
+      
+      $.all_cats$d1$Petal.Width
+      $.all_cats$d1$Petal.Width$overlay
+          colour linetype   x             y PANEL group flipped_aes linewidth alpha
+      1  #F8766D    solid 0.1 -5.203243e-05     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 1.4  6.732132e-02     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 2.5  1.281985e-01     1     1       FALSE       0.5    NA
+      
+      $.all_cats$d1$Petal.Width$facet
+           x             y PANEL group flipped_aes colour linewidth linetype alpha
+      1  0.1 -5.203243e-05     1    -1       FALSE  black       0.5        1    NA
+      10 0.1  6.827175e-02     1    -1       FALSE  black       0.5        1    NA
+      19 0.1 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      2  0.2 -4.334409e-05     1    -1       FALSE  black       0.5        1    NA
+      11 0.2  6.826307e-02     1    -1       FALSE  black       0.5        1    NA
+      20 0.2 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      3  0.6 -7.462779e-06     1    -1       FALSE  black       0.5        1    NA
+      12 0.6  6.822718e-02     1    -1       FALSE  black       0.5        1    NA
+      21 0.6 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      4  1.3  4.564000e-05     1    -1       FALSE  black       0.5        1    NA
+      13 1.3  6.798841e-02     1    -1       FALSE  black       0.5        1    NA
+      22 1.3 -6.798874e-02     1    -1       FALSE  black       0.5        1    NA
+      5  1.4  4.565039e-05     1    -1       FALSE  black       0.5        1    NA
+      14 1.4  6.732132e-02     1    -1       FALSE  black       0.5        1    NA
+      23 1.4 -6.732165e-02     1    -1       FALSE  black       0.5        1    NA
+      6  1.6  4.565172e-05     1    -1       FALSE  black       0.5        1    NA
+      15 1.6 -7.782745e-03     1    -1       FALSE  black       0.5        1    NA
+      24 1.6  7.782409e-03     1    -1       FALSE  black       0.5        1    NA
+      7  1.9  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      16 1.9 -1.207708e-01     1    -1       FALSE  black       0.5        1    NA
+      25 1.9  1.207705e-01     1    -1       FALSE  black       0.5        1    NA
+      8  2.2  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      17 2.2 -1.279090e-01     1    -1       FALSE  black       0.5        1    NA
+      26 2.2  1.279087e-01     1    -1       FALSE  black       0.5        1    NA
+      9  2.5  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      18 2.5 -1.281989e-01     1    -1       FALSE  black       0.5        1    NA
+      27 2.5  1.281985e-01     1    -1       FALSE  black       0.5        1    NA
+      
+      
+      
+      $.all_cats$d2
+      list()
+      
+      $.all_cats$eff
+      NULL
+      
+      
+
+---
+
+    Code
+      ale_plots_to_data(plot(mb, type = "single"))
+    Output
+      $setosa
+      $setosa$d1
+      $setosa$d1$Sepal.Length
+                  ymin          ymax   x             y PANEL group flipped_aes colour
+      1  -1.204530e-04 -2.528341e-05 4.3 -1.204530e-04     1    -1       FALSE     NA
+      2  -2.645848e-06 -1.047536e-06 4.9 -2.645848e-06     1    -1       FALSE     NA
+      3   2.641059e-06  5.922074e-06 5.1  2.641059e-06     1    -1       FALSE     NA
+      4   2.642966e-06  5.952723e-06 5.4  2.642966e-06     1    -1       FALSE     NA
+      5   2.938665e-06  7.888093e-06 5.7  2.938665e-06     1    -1       FALSE     NA
+      6   2.947452e-06  8.043728e-06 6.0  2.947452e-06     1    -1       FALSE     NA
+      7   2.978088e-06  8.622682e-06 6.3  2.978088e-06     1    -1       FALSE     NA
+      8   2.978112e-06  8.622685e-06 6.5  2.978112e-06     1    -1       FALSE     NA
+      9   3.019618e-06  9.410913e-06 6.9  3.019618e-06     1    -1       FALSE     NA
+      10  3.508112e-06  1.869231e-05 7.9  3.508112e-06     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $setosa$d1$Petal.Width
+                 ymin          ymax   x             y PANEL group flipped_aes colour
+      1 -1.251960e-04 -9.060446e-06 0.1 -1.251960e-04     1    -1       FALSE     NA
+      2 -1.087651e-04 -8.114620e-06 0.2 -1.087651e-04     1    -1       FALSE     NA
+      3 -4.244482e-05 -2.672302e-06 0.6 -4.244482e-05     1    -1       FALSE     NA
+      4  4.067451e-06  5.702098e-05 1.3  4.067451e-06     1    -1       FALSE     NA
+      5  4.086904e-06  5.702230e-05 1.4  4.086904e-06     1    -1       FALSE     NA
+      6  4.088178e-06  5.702368e-05 1.6  4.088178e-06     1    -1       FALSE     NA
+      7  4.088166e-06  5.702368e-05 1.9  4.088166e-06     1    -1       FALSE     NA
+      8  4.088164e-06  5.702368e-05 2.2  4.088164e-06     1    -1       FALSE     NA
+      9  4.088163e-06  5.702368e-05 2.5  4.088163e-06     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $setosa$d2
+      list()
+      
+      $setosa$eff
+      $setosa$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $setosa$eff[[2]]
+                 xmin         xmax y PANEL group  ymin  ymax colour linewidth
+      1 -7.286821e-05 1.110021e-05 1     1     1 0.875 1.125  black       0.5
+      2 -6.712821e-05 3.055593e-05 2     1     2 1.875 2.125  black       0.5
+        linetype height alpha
+      1        1   0.25    NA
+      2        1   0.25    NA
+      
+      $setosa$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $setosa$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 23.9% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 27.5% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $setosa$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[7]]
+         x  label y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA ALED 0 1     1     1  black    3     0   0.5     2    NA               1
+      2 NA ALED 0 2     1     2  black    3     0   0.5     2    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $setosa$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $versicolor
+      $versicolor$d1
+      $versicolor$d1$Sepal.Length
+                 ymin         ymax   x            y PANEL group flipped_aes colour
+      1  -0.027242357 -0.010048285 4.3 -0.027242357     1    -1       FALSE     NA
+      2  -0.016878424 -0.009520850 4.9 -0.016878424     1    -1       FALSE     NA
+      3  -0.016886969 -0.009524537 5.1 -0.016886969     1    -1       FALSE     NA
+      4  -0.016396728 -0.009497958 5.4 -0.016396728     1    -1       FALSE     NA
+      5  -0.016065866 -0.009338854 5.7 -0.016065866     1    -1       FALSE     NA
+      6  -0.006245933 -0.001431161 6.0 -0.006245933     1    -1       FALSE     NA
+      7  -0.003756492  0.023853548 6.3 -0.003756492     1    -1       FALSE     NA
+      8  -0.003616421  0.026509023 6.5 -0.003616421     1    -1       FALSE     NA
+      9   0.006690339  0.028023943 6.9  0.006690339     1    -1       FALSE     NA
+      10  0.036803392  0.153643807 7.9  0.036803392     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $versicolor$d1$Petal.Width
+               ymin         ymax   x           y PANEL group flipped_aes colour
+      1  0.04758922  0.089015317 0.1  0.04758922     1    -1       FALSE     NA
+      2  0.04757279  0.089014371 0.2  0.04757279     1    -1       FALSE     NA
+      3  0.04750647  0.089008928 0.6  0.04750647     1    -1       FALSE     NA
+      4  0.04718593  0.088851930 1.3  0.04718593     1    -1       FALSE     NA
+      5  0.04711820  0.087585464 1.4  0.04711820     1    -1       FALSE     NA
+      6 -0.02420780  0.008703337 1.6 -0.02420780     1    -1       FALSE     NA
+      7 -0.15272099 -0.088759579 1.9 -0.15272099     1    -1       FALSE     NA
+      8 -0.16627128 -0.089485670 2.2 -0.16627128     1    -1       FALSE     NA
+      9 -0.16680675 -0.089529991 2.5 -0.16680675     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $versicolor$d2
+      list()
+      
+      $versicolor$eff
+      $versicolor$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $versicolor$eff[[2]]
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.01865655 0.09522360 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.12816837 0.06830227 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $versicolor$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $versicolor$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 38.2% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 29.2% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $versicolor$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $versicolor$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $versicolor$eff[[7]]
+         x      label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $versicolor$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 2     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $virginica
+      $virginica$d1
+      $virginica$d1$Sepal.Length
+                 ymin         ymax   x            y PANEL group flipped_aes colour
+      1   0.010134301  0.027423543 4.3  0.010134301     1    -1       FALSE     NA
+      2   0.009582630  0.016941803 4.9  0.009582630     1    -1       FALSE     NA
+      3   0.009582629  0.016941779 5.1  0.009582629     1    -1       FALSE     NA
+      4   0.009556048  0.016451508 5.4  0.009556048     1    -1       FALSE     NA
+      5   0.009396648  0.016118710 5.7  0.009396648     1    -1       FALSE     NA
+      6   0.001483850  0.006303718 6.0  0.001483850     1    -1       FALSE     NA
+      7  -0.023801438  0.003814247 6.3 -0.023801438     1    -1       FALSE     NA
+      8  -0.026456913  0.003674175 6.5 -0.026456913     1    -1       FALSE     NA
+      9  -0.027972621 -0.006632626 6.9 -0.027972621     1    -1       FALSE     NA
+      10 -0.153586582 -0.036761352 7.9 -0.153586582     1    -1       FALSE     NA
+           fill linewidth linetype alpha
+      1  grey85       0.5        1   0.5
+      2  grey85       0.5        1   0.5
+      3  grey85       0.5        1   0.5
+      4  grey85       0.5        1   0.5
+      5  grey85       0.5        1   0.5
+      6  grey85       0.5        1   0.5
+      7  grey85       0.5        1   0.5
+      8  grey85       0.5        1   0.5
+      9  grey85       0.5        1   0.5
+      10 grey85       0.5        1   0.5
+      
+      $virginica$d1$Petal.Width
+                ymin        ymax   x            y PANEL group flipped_aes colour
+      1 -0.088945523 -0.04740329 0.1 -0.088945523     1    -1       FALSE     NA
+      2 -0.088945523 -0.04740329 0.2 -0.088945523     1    -1       FALSE     NA
+      3 -0.088945523 -0.04740329 0.6 -0.088945523     1    -1       FALSE     NA
+      4 -0.088795265 -0.04718221 1.3 -0.088795265     1    -1       FALSE     NA
+      5 -0.087528818 -0.04711449 1.4 -0.087528818     1    -1       FALSE     NA
+      6 -0.008699628  0.02426445 1.6 -0.008699628     1    -1       FALSE     NA
+      7  0.088763288  0.15277763 1.9  0.088763288     1    -1       FALSE     NA
+      8  0.089489379  0.16632793 2.2  0.089489379     1    -1       FALSE     NA
+      9  0.089533700  0.16686340 2.5  0.089533700     1    -1       FALSE     NA
+          fill linewidth linetype alpha
+      1 grey85       0.5        1   0.5
+      2 grey85       0.5        1   0.5
+      3 grey85       0.5        1   0.5
+      4 grey85       0.5        1   0.5
+      5 grey85       0.5        1   0.5
+      6 grey85       0.5        1   0.5
+      7 grey85       0.5        1   0.5
+      8 grey85       0.5        1   0.5
+      9 grey85       0.5        1   0.5
+      
+      
+      $virginica$d2
+      list()
+      
+      $virginica$eff
+      $virginica$eff[[1]]
+        y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
+      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      
+      $virginica$eff[[2]]
+               xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
+      1 -0.09517397 0.01877892 1     1     1 0.875 1.125  black       0.5        1
+      2 -0.06817441 0.12819855 2     1     2 1.875 2.125  black       0.5        1
+        height alpha
+      1   0.25    NA
+      2   0.25    NA
+      
+      $virginica$eff[[3]]
+        xmin xmax ymin ymax y PANEL group colour  fill linewidth linetype alpha
+      1   NA   NA  0.7  1.3 1     1     1     NA white       0.5        1    NA
+      2   NA   NA  1.7  2.3 2     1     2     NA white       0.5        1    NA
+      
+      $virginica$eff[[4]]
+         x       label y PANEL group colour size angle hjust vjust alpha family
+      1 NA NALED 23.6% 1     1     1  black    3     0   0.5    -1    NA       
+      2 NA NALED 35.3% 2     1     2  black    3     0   0.5    -1    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $virginica$eff[[5]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $virginica$eff[[6]]
+         x label    y PANEL group colour size angle hjust vjust alpha family fontface
+      1 NA     ) 1.02     1     1  black 3.88     0   0.5   0.5    NA               1
+      2 NA     ) 2.02     1     2  black 3.88     0   0.5   0.5    NA               1
+        lineheight
+      1        1.2
+      2        1.2
+      
+      $virginica$eff[[7]]
+         x      label y PANEL group colour size angle hjust vjust alpha family
+      1 NA ALED 0.016 1     1     1  black    3     0   0.5     2    NA       
+      2 NA ALED 0.076 2     1     2  black    3     0   0.5     2    NA       
+        fontface lineheight
+      1        1        1.2
+      2        1        1.2
+      
+      $virginica$eff[[8]]
+        x y PANEL group colour  fill size angle hjust vjust alpha family fontface
+      1 1 1     1    -1  black white    3     0     1   0.5    NA               1
+        lineheight                                                              label
+      1        1.2 Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max
+      
+      
+      
+      $.all_cats
+      $.all_cats$d1
+      $.all_cats$d1$Sepal.Length
+      $.all_cats$d1$Sepal.Length$overlay
+          colour linetype   x             y PANEL group flipped_aes linewidth alpha
+      1  #F8766D    solid 4.3 -5.777243e-05     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 4.3 -1.867583e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 4.3  1.877892e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 4.9  1.324909e-05     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 4.9 -1.323015e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 4.9  1.326222e-02     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 5.1  1.937735e-05     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 5.1 -1.323627e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 5.1  1.326220e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 5.4  1.939363e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 5.4 -1.297786e-02     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 5.4  1.300378e-02     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 5.7  2.050916e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 5.7 -1.273287e-02     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 5.7  1.275768e-02     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 6.0  2.059137e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 6.0 -3.869060e-03     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 6.0  3.893784e-03     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 6.3  2.089617e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 6.3  1.001801e-02     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 6.3 -9.993596e-03     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 6.5  2.089618e-05     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 6.5  1.141579e-02     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 6.5 -1.139137e-02     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 6.9  2.131105e-05     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 6.9  1.732663e-02     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 6.9 -1.730262e-02     1     1       FALSE       0.5    NA
+      28 #F8766D    solid 7.9  2.619599e-05     1     1       FALSE       0.5    NA
+      29 #F8766D    solid 7.9  9.519309e-02     1     1       FALSE       0.5    NA
+      30 #F8766D    solid 7.9 -9.517397e-02     1     1       FALSE       0.5    NA
+      
+      $.all_cats$d1$Sepal.Length$facet
+           x             y PANEL group flipped_aes colour linewidth linetype alpha
+      1  4.3 -5.777243e-05     1    -1       FALSE  black       0.5        1    NA
+      11 4.3 -1.867583e-02     1    -1       FALSE  black       0.5        1    NA
+      21 4.3  1.877892e-02     1    -1       FALSE  black       0.5        1    NA
+      2  4.9  1.324909e-05     1    -1       FALSE  black       0.5        1    NA
+      12 4.9 -1.323015e-02     1    -1       FALSE  black       0.5        1    NA
+      22 4.9  1.326222e-02     1    -1       FALSE  black       0.5        1    NA
+      3  5.1  1.937735e-05     1    -1       FALSE  black       0.5        1    NA
+      13 5.1 -1.323627e-02     1    -1       FALSE  black       0.5        1    NA
+      23 5.1  1.326220e-02     1    -1       FALSE  black       0.5        1    NA
+      4  5.4  1.939363e-05     1    -1       FALSE  black       0.5        1    NA
+      14 5.4 -1.297786e-02     1    -1       FALSE  black       0.5        1    NA
+      24 5.4  1.300378e-02     1    -1       FALSE  black       0.5        1    NA
+      5  5.7  2.050916e-05     1    -1       FALSE  black       0.5        1    NA
+      15 5.7 -1.273287e-02     1    -1       FALSE  black       0.5        1    NA
+      25 5.7  1.275768e-02     1    -1       FALSE  black       0.5        1    NA
+      6  6.0  2.059137e-05     1    -1       FALSE  black       0.5        1    NA
+      16 6.0 -3.869060e-03     1    -1       FALSE  black       0.5        1    NA
+      26 6.0  3.893784e-03     1    -1       FALSE  black       0.5        1    NA
+      7  6.3  2.089617e-05     1    -1       FALSE  black       0.5        1    NA
+      17 6.3  1.001801e-02     1    -1       FALSE  black       0.5        1    NA
+      27 6.3 -9.993596e-03     1    -1       FALSE  black       0.5        1    NA
+      8  6.5  2.089618e-05     1    -1       FALSE  black       0.5        1    NA
+      18 6.5  1.141579e-02     1    -1       FALSE  black       0.5        1    NA
+      28 6.5 -1.139137e-02     1    -1       FALSE  black       0.5        1    NA
+      9  6.9  2.131105e-05     1    -1       FALSE  black       0.5        1    NA
+      19 6.9  1.732663e-02     1    -1       FALSE  black       0.5        1    NA
+      29 6.9 -1.730262e-02     1    -1       FALSE  black       0.5        1    NA
+      10 7.9  2.619599e-05     1    -1       FALSE  black       0.5        1    NA
+      20 7.9  9.519309e-02     1    -1       FALSE  black       0.5        1    NA
+      30 7.9 -9.517397e-02     1    -1       FALSE  black       0.5        1    NA
+      
+      
+      $.all_cats$d1$Petal.Width
+      $.all_cats$d1$Petal.Width$overlay
+          colour linetype   x             y PANEL group flipped_aes linewidth alpha
+      1  #F8766D    solid 0.1 -5.203243e-05     1     1       FALSE       0.5    NA
+      2  #F8766D    solid 0.1  6.827175e-02     1     1       FALSE       0.5    NA
+      3  #F8766D    solid 0.1 -6.817441e-02     1     1       FALSE       0.5    NA
+      4  #F8766D    solid 0.2 -4.334409e-05     1     1       FALSE       0.5    NA
+      5  #F8766D    solid 0.2  6.826307e-02     1     1       FALSE       0.5    NA
+      6  #F8766D    solid 0.2 -6.817441e-02     1     1       FALSE       0.5    NA
+      7  #F8766D    solid 0.6 -7.462779e-06     1     1       FALSE       0.5    NA
+      8  #F8766D    solid 0.6  6.822718e-02     1     1       FALSE       0.5    NA
+      9  #F8766D    solid 0.6 -6.817441e-02     1     1       FALSE       0.5    NA
+      10 #F8766D    solid 1.3  4.564000e-05     1     1       FALSE       0.5    NA
+      11 #F8766D    solid 1.3  6.798841e-02     1     1       FALSE       0.5    NA
+      12 #F8766D    solid 1.3 -6.798874e-02     1     1       FALSE       0.5    NA
+      13 #F8766D    solid 1.4  4.565039e-05     1     1       FALSE       0.5    NA
+      14 #F8766D    solid 1.4  6.732132e-02     1     1       FALSE       0.5    NA
+      15 #F8766D    solid 1.4 -6.732165e-02     1     1       FALSE       0.5    NA
+      16 #F8766D    solid 1.6  4.565172e-05     1     1       FALSE       0.5    NA
+      17 #F8766D    solid 1.6 -7.782745e-03     1     1       FALSE       0.5    NA
+      18 #F8766D    solid 1.6  7.782409e-03     1     1       FALSE       0.5    NA
+      19 #F8766D    solid 1.9  4.565171e-05     1     1       FALSE       0.5    NA
+      20 #F8766D    solid 1.9 -1.207708e-01     1     1       FALSE       0.5    NA
+      21 #F8766D    solid 1.9  1.207705e-01     1     1       FALSE       0.5    NA
+      22 #F8766D    solid 2.2  4.565171e-05     1     1       FALSE       0.5    NA
+      23 #F8766D    solid 2.2 -1.279090e-01     1     1       FALSE       0.5    NA
+      24 #F8766D    solid 2.2  1.279087e-01     1     1       FALSE       0.5    NA
+      25 #F8766D    solid 2.5  4.565171e-05     1     1       FALSE       0.5    NA
+      26 #F8766D    solid 2.5 -1.281989e-01     1     1       FALSE       0.5    NA
+      27 #F8766D    solid 2.5  1.281985e-01     1     1       FALSE       0.5    NA
+      
+      $.all_cats$d1$Petal.Width$facet
+           x             y PANEL group flipped_aes colour linewidth linetype alpha
+      1  0.1 -5.203243e-05     1    -1       FALSE  black       0.5        1    NA
+      10 0.1  6.827175e-02     1    -1       FALSE  black       0.5        1    NA
+      19 0.1 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      2  0.2 -4.334409e-05     1    -1       FALSE  black       0.5        1    NA
+      11 0.2  6.826307e-02     1    -1       FALSE  black       0.5        1    NA
+      20 0.2 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      3  0.6 -7.462779e-06     1    -1       FALSE  black       0.5        1    NA
+      12 0.6  6.822718e-02     1    -1       FALSE  black       0.5        1    NA
+      21 0.6 -6.817441e-02     1    -1       FALSE  black       0.5        1    NA
+      4  1.3  4.564000e-05     1    -1       FALSE  black       0.5        1    NA
+      13 1.3  6.798841e-02     1    -1       FALSE  black       0.5        1    NA
+      22 1.3 -6.798874e-02     1    -1       FALSE  black       0.5        1    NA
+      5  1.4  4.565039e-05     1    -1       FALSE  black       0.5        1    NA
+      14 1.4  6.732132e-02     1    -1       FALSE  black       0.5        1    NA
+      23 1.4 -6.732165e-02     1    -1       FALSE  black       0.5        1    NA
+      6  1.6  4.565172e-05     1    -1       FALSE  black       0.5        1    NA
+      15 1.6 -7.782745e-03     1    -1       FALSE  black       0.5        1    NA
+      24 1.6  7.782409e-03     1    -1       FALSE  black       0.5        1    NA
+      7  1.9  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      16 1.9 -1.207708e-01     1    -1       FALSE  black       0.5        1    NA
+      25 1.9  1.207705e-01     1    -1       FALSE  black       0.5        1    NA
+      8  2.2  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      17 2.2 -1.279090e-01     1    -1       FALSE  black       0.5        1    NA
+      26 2.2  1.279087e-01     1    -1       FALSE  black       0.5        1    NA
+      9  2.5  4.565171e-05     1    -1       FALSE  black       0.5        1    NA
+      18 2.5 -1.281989e-01     1    -1       FALSE  black       0.5        1    NA
+      27 2.5  1.281985e-01     1    -1       FALSE  black       0.5        1    NA
+      
+      
+      
+      $.all_cats$d2
+      list()
+      
+      $.all_cats$eff
+      NULL
+      
       
 

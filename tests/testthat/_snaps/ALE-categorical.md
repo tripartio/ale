@@ -3199,6 +3199,5055 @@
 ---
 
     Code
+      get(cat_cars_ale)
+    Output
+      $Asia
+      $Asia$d1
+      $Asia$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Asia$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Asia$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n      .y    .y_lo .y_mean .y_median  .y_hi
+        <ord>  <int>   <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+      1 FALSE     38 0.00619 -0.0396  0.00619   0.0297  0.0320
+      2 TRUE      26 0.0155  -0.00990 0.0155   -0.00670 0.0597
+      
+      $Asia$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2 -0.0226 -0.288 -0.0226    0.0422 0.187
+       2 Cadillac Fleetwood      2  0.0932 -0.280  0.0932    0.195  0.380
+       3 Merc 450SL              2 -0.235  -0.766 -0.235    -0.305  0.355
+       4 Merc 450SLC             2 -0.235  -0.766 -0.235    -0.305  0.355
+       5 Camaro Z28              2  0.0975 -0.304  0.0975   -0.290  0.829
+       6 Chrysler Imperial       2  0.264  -0.279  0.264     0.210  0.854
+       7 Duster 360              2  0.264  -0.279  0.264     0.210  0.854
+       8 Merc 450SE              2  0.266  -0.279  0.266     0.216  0.854
+       9 Hornet Sportabout       2  0.433  -0.279  0.433     0.216  1.33 
+      10 AMC Javelin             2  0.446  -0.302  0.446    -0.244  1.78 
+      # i 22 more rows
+      
+      $Asia$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>    <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 three       30  0.118    0.0563  0.118      0.118   0.181 
+      2 four        24  0.00198 -0.150   0.00198    0.0718  0.0948
+      3 five        10 -0.330   -0.523  -0.330     -0.460  -0.0269
+      
+      $Asia$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median     .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
+      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549 
+      2         2    19 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      3         3     9 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      4         4    16 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      5         8     6 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      
+      $Asia$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1  0.0000319   0.0000319   0.0000319   0.0000319   0.0000319 
+       2    1.94     7 -0.00000143 -0.00000836 -0.00000143 -0.00000427  0.00000790
+       3    2.46     7 -0.00000906 -0.0000153  -0.00000906 -0.00000787 -0.00000385
+       4    2.79     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       5    3.19     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       6    3.44     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       7    3.52     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       8    3.73     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       9    4.05     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      10    5.45     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      
+      
+      $Asia$d2
+      $Asia$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Asia$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Asia$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Asia$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Asia$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Asia$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Asia$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Asia$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Asia$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Asia$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2 0.214   0.106  0.214      0.106 0.415
+       2 TRUE   Lincoln Continental     0 0.214  -1.28   0.214      0.512 1.46 
+       3 FALSE  Cadillac Fleetwood      2 0.323   0.106  0.323      0.106 0.723
+       4 TRUE   Cadillac Fleetwood      0 0.323  -1.27   0.323      0.837 1.48 
+       5 FALSE  Merc 450SL              2 0.0915 -0.552  0.0915     0.106 0.723
+       6 TRUE   Merc 450SL              0 0.0915 -1.27   0.0915     0.817 0.836
+       7 FALSE  Merc 450SLC             2 0.0915 -0.552  0.0915     0.106 0.723
+       8 TRUE   Merc 450SLC             0 0.0915 -1.27   0.0915     0.817 0.836
+       9 FALSE  Camaro Z28              2 0.0910 -0.552  0.0910     0.106 0.721
+      10 TRUE   Camaro Z28              0 0.0910 -1.27   0.0910     0.817 0.834
+      # i 54 more rows
+      
+      $Asia$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+      1 FALSE  three       30 -0.0927 -0.197 -0.0927   -0.0688 -0.00870
+      2 TRUE   three        0 -0.0927 -0.601 -0.0927   -0.104   0.425  
+      3 FALSE  four         8 -0.191  -0.332 -0.191    -0.165  -0.0736 
+      4 TRUE   four        16 -0.433  -0.832 -0.433    -0.507   0.0281 
+      5 FALSE  five         0 -0.191  -0.332 -0.191    -0.165  -0.0736 
+      6 TRUE   five        10 -0.766  -0.942 -0.766    -0.806  -0.555  
+      
+      $Asia$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>  <dbl>
+       1 FALSE          1     6  0.0166    0.0166   0.0166     0.0166  0.0166
+       2 TRUE           1     8  0.0166   -0.101    0.0166     0.0166  0.134 
+       3 FALSE          2    12  0.0134   -0.0621   0.0134     0.0163  0.0863
+       4 TRUE           2     7 -0.000253 -0.203   -0.000253   0.00468 0.198 
+       5 FALSE          3     7  0.0134    0.00415  0.0134     0.0163  0.0201
+       6 TRUE           3     2 -0.000226 -0.120   -0.000226   0.00468 0.116 
+       7 FALSE          4    11  0.190    -0.0514   0.190      0.229   0.399 
+       8 TRUE           4     5  0.454     0.357    0.454      0.423   0.579 
+       9 FALSE          8     2  0.190     0.0307   0.190      0.229   0.317 
+      10 TRUE           8     4  0.454     0.341    0.454      0.353   0.654 
+      
+      $Asia$d2$`am:wt`
+      # A tibble: 20 x 8
+         am.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>    <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 FALSE     1.50     0 0.0139  0.0139   0.0139    0.0139 0.0139
+       2 TRUE      1.50     1 0.0139 -0.00237  0.0139    0.0139 0.0301
+       3 FALSE     1.94     0 0.0139  0.00413  0.0139    0.0139 0.0236
+       4 TRUE      1.94     7 0.0138 -0.0225   0.0138    0.0138 0.0502
+       5 FALSE     2.46     1 0.0138 -0.00627  0.0138    0.0139 0.0339
+       6 TRUE      2.46     6 0.0138 -0.0225   0.0138    0.0138 0.0502
+       7 FALSE     2.79     1 0.0314 -0.00483  0.0314    0.0426 0.0582
+       8 TRUE      2.79     6 0.0538  0.0227   0.0538    0.0605 0.0793
+       9 FALSE     3.19     3 0.0481  0.0157   0.0481    0.0497 0.0792
+      10 TRUE      3.19     4 0.100   0.0512   0.100     0.0987 0.151 
+      11 FALSE     3.44     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      12 TRUE      3.44     0 0.109   0.0651   0.109     0.0987 0.161 
+      13 FALSE     3.52     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      14 TRUE      3.52     0 0.113   0.0772   0.113     0.0987 0.161 
+      15 FALSE     3.73     5 0.0481  0.0157   0.0481    0.0497 0.0792
+      16 TRUE      3.73     2 0.113   0.0973   0.113     0.0987 0.141 
+      17 FALSE     4.05     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      18 TRUE      4.05     0 0.113   0.0772   0.113     0.0987 0.161 
+      19 FALSE     5.45     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      20 TRUE      5.45     0 0.113   0.0772   0.113     0.0987 0.161 
+      
+      $Asia$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 -0.0681 -0.184 -0.0681   -0.184  0.146
+       2 Cadillac Fleetwood  three        2  0.0476 -0.184  0.0476   -0.184  0.476
+       3 Merc 450SL          three        2 -0.280  -1.12  -0.280    -0.184  0.476
+       4 Merc 450SLC         three        2 -0.114  -0.643 -0.114    -0.184  0.476
+       5 Camaro Z28          three        2  0.389  -0.158  0.389     0.342  0.975
+       6 Chrysler Imperial   three        2  0.223  -0.556  0.223     0.274  0.957
+       7 Duster 360          three        2  0.223  -0.970  0.223     0.272  1.37 
+       8 Merc 450SE          three        2  0.224  -0.687  0.224     0.250  1.11 
+       9 Hornet Sportabout   three        2  0.225  -0.686  0.225     0.250  1.11 
+      10 AMC Javelin         three        2 -0.0923 -1.59  -0.0923   -0.0198 1.34 
+      # i 86 more rows
+      
+      $Asia$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0  3.42  3.42     3.42      3.42  3.42
+       2 Cadillac Fleetwood          1     0  3.42  3.42     3.42      3.42  3.42
+       3 Merc 450SL                  1     0  3.42  3.42     3.42      3.42  3.42
+       4 Merc 450SLC                 1     0  3.42  3.42     3.42      3.42  3.42
+       5 Camaro Z28                  1     0  3.42  3.42     3.42      3.42  3.42
+       6 Chrysler Imperial           1     0  3.42  3.00     3.42      3.01  4.19
+       7 Duster 360                  1     0  3.42 -0.295    3.42      2.05  8.30
+       8 Merc 450SE                  1     0  3.42 -3.05     3.42      2.05 11.1 
+       9 Hornet Sportabout           1     0  3.42 -3.45     3.42      2.05 11.5 
+      10 AMC Javelin                 1     0  3.42 -3.81     3.42      2.05 11.8 
+      # i 150 more rows
+      
+      $Asia$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n    .y   .y_lo .y_mean .y_median .y_hi
+         <ord>                 <dbl> <int> <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental    1.50     0 0.342  0.342    0.342     0.342 0.342
+       2 Cadillac Fleetwood     1.50     0 0.342  0.342    0.342     0.342 0.342
+       3 Merc 450SL             1.50     0 0.342  0.342    0.342     0.342 0.342
+       4 Merc 450SLC            1.50     0 0.342  0.342    0.342     0.342 0.342
+       5 Camaro Z28             1.50     0 0.342  0.342    0.342     0.342 0.342
+       6 Chrysler Imperial      1.50     0 0.342  0.319    0.342     0.342 0.366
+       7 Duster 360             1.50     0 0.342  0.284    0.342     0.286 0.448
+       8 Merc 450SE             1.50     0 0.342 -0.0164   0.342     0.286 0.749
+       9 Hornet Sportabout      1.50     0 0.342 -0.0274   0.342     0.286 0.760
+      10 AMC Javelin            1.50     0 0.342 -0.0351   0.342     0.286 0.768
+      # i 310 more rows
+      
+      $Asia$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>        <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three            1     6 0.0284  0.0284   0.0284    0.0284 0.0284
+       2 four             1     8 0.0284 -0.0188   0.0284    0.0249 0.0785
+       3 five             1     0 0.0284 -0.0220   0.0284    0.0249 0.0817
+       4 three            2     8 0.0270 -0.0718   0.0270    0.0206 0.131 
+       5 four             2     7 0.118   0.0612   0.118     0.135  0.161 
+       6 five             2     4 0.0970  0.00282  0.0970    0.130  0.163 
+       7 three            3     7 0.0341 -0.0182   0.0341    0.0372 0.0838
+       8 four             3     2 0.149   0.120    0.149     0.140  0.185 
+       9 five             3     0 0.123   0.0471   0.123     0.139  0.187 
+      10 three            4     8 0.0456 -0.0699   0.0456    0.0598 0.149 
+      11 four             4     6 0.307   0.206    0.307     0.358  0.364 
+      12 five             4     2 0.285   0.221    0.285     0.270  0.361 
+      13 three            8     1 0.0456 -0.0204   0.0456    0.0574 0.102 
+      14 four             8     1 0.308   0.256    0.308     0.307  0.359 
+      15 five             8     4 0.285   0.217    0.285     0.273  0.364 
+      
+      $Asia$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 0.0363  0.0363   0.0363    0.0363 0.0363
+       2 four        1.50     0 0.0363  0.0274   0.0363    0.0364 0.0453
+       3 five        1.50     1 0.0363  0.0212   0.0363    0.0389 0.0493
+       4 three       1.94     0 0.0470  0.0108   0.0470    0.0619 0.0704
+       5 four        1.94     6 0.0550  0.00593  0.0550    0.0757 0.0864
+       6 five        1.94     1 0.0552  0.00661  0.0552    0.0757 0.0864
+       7 three       2.46     1 0.0487 -0.00963  0.0487    0.0762 0.0838
+       8 four        2.46     4 0.0623  0.0132   0.0623    0.0852 0.0919
+       9 five        2.46     2 0.0725  0.0313   0.0725    0.0923 0.0970
+      10 three       2.79     1 0.0489 -0.00962  0.0489    0.0764 0.0840
+      # i 20 more rows
+      
+      $Asia$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1         1    1.50     0 0.00454  0.00454 0.00454   0.00454 0.00454
+       2         2    1.50     1 0.00454 -0.0270  0.00454   0.00454 0.0361 
+       3         3    1.50     0 0.00454 -0.0216  0.00454   0.00454 0.0307 
+       4         4    1.50     0 0.00454 -0.0310  0.00454   0.00454 0.0401 
+       5         8    1.50     0 0.00454 -0.0316  0.00454   0.00454 0.0407 
+       6         1    1.94     4 0.00454 -0.00336 0.00454   0.00454 0.0124 
+       7         2    1.94     3 0.0185  -0.0159  0.0185    0.00668 0.0629 
+       8         3    1.94     0 0.0185  -0.00651 0.0185    0.00668 0.0535 
+       9         4    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      10         8    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      # i 40 more rows
+      
+      
+      
+      $Europe
+      $Europe$d1
+      $Europe$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Europe$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Europe$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>  <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 FALSE     38 -0.00619 -0.0320 -0.00619  -0.0297  0.0396 
+      2 TRUE      26 -0.0155  -0.0597 -0.0155    0.00670 0.00990
+      
+      $Europe$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2  0.217  -0.164  0.217      0.166 0.641
+       2 Cadillac Fleetwood      2  0.268  -0.494  0.268      0.166 1.12 
+       3 Merc 450SL              2  0.931  -0.444  0.931      1.17  2.10 
+       4 Merc 450SLC             2  0.764  -0.444  0.764      1.17  1.63 
+       5 Camaro Z28              2 -0.0688 -1.44  -0.0688     0.166 1.10 
+       6 Chrysler Imperial       2  0.0978 -0.967  0.0978     0.166 1.10 
+       7 Duster 360              2  0.0978 -0.967  0.0978     0.166 1.10 
+       8 Merc 450SE              2  0.596  -0.917  0.596      1.17  1.62 
+       9 Hornet Sportabout       2 -0.237  -1.92  -0.237      0.166 1.10 
+      10 AMC Javelin             2 -0.0841 -1.92  -0.0841     0.166 1.54 
+      # i 22 more rows
+      
+      $Europe$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30 -0.239 -0.366   -0.239    -0.239 -0.112
+      2 four        24  0.247  0.140    0.247     0.211  0.385
+      3 five        10  0.380 -0.0309   0.380     0.594  0.609
+      
+      $Europe$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.00549 -0.00549  -0.00549  -0.00549 -0.00549
+      2         2    19  0.00190  0.000117  0.00190   0.00191  0.00367
+      3         3     9  0.00190  0.000117  0.00190   0.00191  0.00367
+      4         4    16  0.00190  0.000117  0.00190   0.00191  0.00367
+      5         8     6  0.00190  0.000117  0.00190   0.00191  0.00367
+      
+      $Europe$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1 -0.0000319  -0.0000319  -0.0000319  -0.0000319  -0.0000319 
+       2    1.94     7  0.00000143 -0.00000790  0.00000143  0.00000427  0.00000836
+       3    2.46     7  0.00000906  0.00000385  0.00000906  0.00000787  0.0000153 
+       4    2.79     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       5    3.19     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       6    3.44     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       7    3.52     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       8    3.73     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       9    4.05     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      10    5.45     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      
+      
+      $Europe$d2
+      $Europe$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Europe$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Europe$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Europe$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Europe$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Europe$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Europe$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Europe$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Europe$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Europe$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin              .n      .y  .y_lo .y_mean .y_median   .y_hi
+         <ord>  <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
+       1 FALSE  Lincoln Continental     2 -0.193  -1.51  -0.193    -0.327   1.24  
+       2 TRUE   Lincoln Continental     0 -0.193  -0.393 -0.193    -0.0844 -0.0844
+       3 FALSE  Cadillac Fleetwood      2 -0.301  -1.52  -0.301    -0.652   1.22  
+       4 TRUE   Cadillac Fleetwood      0 -0.301  -0.701 -0.301    -0.0844 -0.0844
+       5 FALSE  Merc 450SL              2 -0.0689 -1.52  -0.0689   -0.652   1.88  
+       6 TRUE   Merc 450SL              0 -0.0689 -0.701 -0.0689   -0.0844  0.576 
+       7 FALSE  Merc 450SLC             2 -0.0689 -1.52  -0.0689   -0.652   1.88  
+       8 TRUE   Merc 450SLC             0 -0.0689 -0.701 -0.0689   -0.0844  0.576 
+       9 FALSE  Camaro Z28              2 -0.0683 -1.52  -0.0683   -0.650   1.88  
+      10 TRUE   Camaro Z28              0 -0.0683 -0.699 -0.0683   -0.0844  0.576 
+      # i 54 more rows
+      
+      $Europe$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       30 -0.0465 -0.476 -0.0465   -0.0254 0.365
+      2 TRUE   three        0 -0.0465 -0.348 -0.0465   -0.212  0.395
+      3 FALSE  four         8 -0.122  -0.584 -0.122    -0.145  0.359
+      4 TRUE   four        16 -0.198  -0.459 -0.198    -0.385  0.222
+      5 FALSE  five         0 -0.122  -0.584 -0.122    -0.145  0.359
+      6 TRUE   five        10  0.0371 -0.354  0.0371   -0.183  0.615
+      
+      $Europe$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
+       1 FALSE          1     6 -0.0166   -0.137   -0.0166    -0.0166   0.104  
+       2 TRUE           1     8 -0.0166   -0.0201  -0.0166    -0.0166  -0.0131 
+       3 FALSE          2    12 -0.0134   -0.216   -0.0134    -0.0163   0.192  
+       4 TRUE           2     7  0.000253 -0.00434  0.000253   0.00193  0.00342
+       5 FALSE          3     7 -0.0134   -0.134   -0.0134    -0.0163   0.110  
+       6 TRUE           3     2  0.000227 -0.0756   0.000227  -0.00468  0.0802 
+       7 FALSE          4    11 -0.190    -0.229   -0.190     -0.226   -0.121  
+       8 TRUE           4     5 -0.454    -0.542   -0.454     -0.464   -0.359  
+       9 FALSE          8     2 -0.190    -0.228   -0.190     -0.202   -0.143  
+      10 TRUE           8     4 -0.454    -0.620   -0.454     -0.377   -0.355  
+      
+      $Europe$d2$`am:wt`
+      # A tibble: 20 x 8
+         am.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 -0.0139 -0.0301 -0.0139   -0.0139  0.00238
+       2 TRUE      1.50     1 -0.0139 -0.0139 -0.0139   -0.0139 -0.0138 
+       3 FALSE     1.94     0 -0.0139 -0.0398 -0.0139   -0.0139  0.0122 
+       4 TRUE      1.94     7 -0.0138 -0.0340 -0.0138   -0.0138  0.00634
+       5 FALSE     2.46     1 -0.0138 -0.0502 -0.0138   -0.0139  0.0226 
+       6 TRUE      2.46     6 -0.0138 -0.0340 -0.0138   -0.0138  0.00634
+       7 FALSE     2.79     1 -0.0314 -0.0517 -0.0314   -0.0426 -0.00165
+       8 TRUE      2.79     6 -0.0538 -0.0630 -0.0538   -0.0605 -0.0389 
+       9 FALSE     3.19     3 -0.0481 -0.0783 -0.0481   -0.0327 -0.0310 
+      10 TRUE      3.19     4 -0.100  -0.104  -0.100    -0.0987 -0.0973 
+      11 FALSE     3.44     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      12 TRUE      3.44     0 -0.109  -0.122  -0.109    -0.105  -0.0990 
+      13 FALSE     3.52     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      14 TRUE      3.52     0 -0.113  -0.125  -0.113    -0.114  -0.0995 
+      15 FALSE     3.73     5 -0.0481 -0.0783 -0.0481   -0.0327 -0.0310 
+      16 TRUE      3.73     2 -0.113  -0.124  -0.113    -0.116  -0.0995 
+      17 FALSE     4.05     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      18 TRUE      4.05     0 -0.113  -0.134  -0.113    -0.105  -0.0990 
+      19 FALSE     5.45     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      20 TRUE      5.45     0 -0.113  -0.134  -0.113    -0.105  -0.0990 
+      
+      $Europe$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n     .y   .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 0.185  -0.0288  0.185     0.301  0.301
+       2 Cadillac Fleetwood  three        2 0.0696 -0.359   0.0696    0.301  0.301
+       3 Merc 450SL          three        2 0.399  -0.359   0.399     0.301  1.24 
+       4 Merc 450SLC         three        2 0.399  -0.359   0.399     0.301  1.24 
+       5 Camaro Z28          three        2 0.0663 -0.832   0.0663    0.301  0.765
+       6 Chrysler Imperial   three        2 0.0663 -0.450   0.0663   -0.0912 0.717
+       7 Duster 360          three        2 0.0663 -0.693   0.0663    0.211  0.703
+       8 Merc 450SE          three        2 0.0643 -0.692   0.0643    0.235  0.676
+       9 Hornet Sportabout   three        2 0.0643 -0.533   0.0643   -0.0418 0.752
+      10 AMC Javelin         three        2 0.218  -0.455   0.218     0.177  0.924
+      # i 86 more rows
+      
+      $Europe$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       2 Cadillac Fleetwood          1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       3 Merc 450SL                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       4 Merc 450SLC                 1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       5 Camaro Z28                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       6 Chrysler Imperial           1     0 -3.89  -5.43   -3.89     -5.05 -1.37
+       7 Duster 360                  1     0 -3.89  -8.50   -3.89     -5.26  1.88
+       8 Merc 450SE                  1     0 -3.89 -10.8    -3.89     -5.26  4.14
+       9 Hornet Sportabout           1     0 -3.89 -10.8    -3.89     -5.26  4.15
+      10 AMC Javelin                 1     0 -3.89 -11.1    -3.89     -5.26  4.50
+      # i 150 more rows
+      
+      $Europe$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n     .y  .y_lo .y_mean .y_median    .y_hi
+         <ord>                 <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+       1 Lincoln Continental    1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       2 Cadillac Fleetwood     1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       3 Merc 450SL             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       4 Merc 450SLC            1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       5 Camaro Z28             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       6 Chrysler Imperial      1.50     0 -0.403 -0.460  -0.403    -0.459 -0.297  
+       7 Duster 360             1.50     0 -0.403 -0.550  -0.403    -0.459 -0.208  
+       8 Merc 450SE             1.50     0 -0.403 -0.762  -0.403    -0.459  0.00423
+       9 Hornet Sportabout      1.50     0 -0.403 -0.773  -0.403    -0.459  0.0150 
+      10 AMC Javelin            1.50     0 -0.403 -0.780  -0.403    -0.459  0.0226 
+      # i 310 more rows
+      
+      $Europe$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6 0.00218 -0.0999 0.00218   0.00214 0.104
+       2 four             1     8 0.00218 -0.147  0.00218  -0.00135 0.154
+       3 five             1     0 0.00218 -0.150  0.00218  -0.00135 0.158
+       4 three            2     8 0.00616 -0.199  0.00616   0.0106  0.208
+       5 four             2     7 0.0104  -0.198  0.0104    0.0250  0.207
+       6 five             2     4 0.0315  -0.0678 0.0315    0.0249  0.137
+       7 three            3     7 0.00616 -0.147  0.00616   0.0106  0.155
+       8 four             3     2 0.0104  -0.149  0.0104    0.0227  0.159
+       9 five             3     0 0.0369  -0.152  0.0369    0.0214  0.239
+      10 three            4     8 0.00616 -0.199  0.00616   0.0129  0.206
+      11 four             4     6 0.0104  -0.0985 0.0104    0.0262  0.106
+      12 five             4     2 0.0369  -0.0995 0.0369    0.0214  0.187
+      13 three            8     1 0.00616 -0.150  0.00616   0.0106  0.158
+      14 four             8     1 0.00933 -0.201  0.00933   0.0227  0.209
+      15 five             8     4 0.0359  -0.155  0.0359    0.0236  0.237
+      
+      $Europe$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n       .y   .y_lo  .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 -0.00213 -0.0403 -0.00213 -0.00217  0.0361
+       2 four        1.50     0 -0.00213 -0.0492 -0.00213 -0.00213  0.0450
+       3 five        1.50     1 -0.00213 -0.0555 -0.00213  0.000424 0.0490
+       4 three       1.94     0 -0.00212 -0.0669 -0.00212  0.000451 0.0605
+       5 four        1.94     6 -0.00207 -0.0881 -0.00207  0.000513 0.0818
+       6 five        1.94     1 -0.00231 -0.0888 -0.00231  0.000513 0.0818
+       7 three       2.46     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+       8 four        2.46     4 -0.00205 -0.0881 -0.00205  0.000523 0.0818
+       9 five        2.46     2 -0.0123  -0.106  -0.0123  -0.0115   0.0812
+      10 three       2.79     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+      # i 20 more rows
+      
+      $Europe$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median      .y_hi
+             <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>      <dbl>
+       1         1    1.50     0 -0.00454 -0.0267  -0.00454  -0.00454  0.0176   
+       2         2    1.50     1 -0.00454 -0.0361  -0.00454  -0.00454  0.0270   
+       3         3    1.50     0 -0.00454 -0.0401  -0.00454  -0.00454  0.0310   
+       4         4    1.50     0 -0.00454 -0.00916 -0.00454  -0.00454  0.0000810
+       5         8    1.50     0 -0.00454 -0.0407  -0.00454  -0.00454  0.0316   
+       6         1    1.94     4 -0.00454 -0.0346  -0.00454  -0.00454  0.0255   
+       7         2    1.94     3 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       8         3    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       9         4    1.94     0 -0.0185  -0.0319  -0.0185   -0.0161  -0.00715  
+      10         8    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+      # i 40 more rows
+      
+      
+      
+      $`North America`
+      $`North America`$d1
+      $`North America`$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $`North America`$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $`North America`$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+      1 FALSE     38 -5.57e-10 -9.65e-10 -5.57e-10 -8.52e-10 1.02e-10
+      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.72e-11 7.00e-10
+      
+      $`North America`$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental     2 -0.195  -0.811 -0.195      0.139 0.139 
+       2 Cadillac Fleetwood      2 -0.361  -1.29  -0.361      0.139 0.139 
+       3 Merc 450SL              2 -0.695  -1.34  -0.695     -0.861 0.0888
+       4 Merc 450SLC             2 -0.529  -0.863 -0.529     -0.861 0.0888
+       5 Camaro Z28              2 -0.0287 -0.813 -0.0287     0.139 0.614 
+       6 Chrysler Imperial       2 -0.362  -1.29  -0.362      0.139 0.139 
+       7 Duster 360              2 -0.362  -1.29  -0.362      0.139 0.139 
+       8 Merc 450SE              2 -0.862  -1.81  -0.862     -0.861 0.0888
+       9 Hornet Sportabout       2 -0.195  -1.29  -0.195      0.139 0.614 
+      10 AMC Javelin             2 -0.362  -1.29  -0.362      0.139 0.139 
+      # i 22 more rows
+      
+      $`North America`$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
+        <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+      1 three       30  0.120   0.0527  0.120     0.0544  0.244 
+      2 four        24 -0.249  -0.280  -0.249    -0.232  -0.232 
+      3 five        10 -0.0498 -0.131  -0.0498   -0.0843  0.0603
+      
+      $`North America`$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n            .y         .y_lo       .y_mean  .y_median     .y_hi
+            <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>     <dbl>
+      1         1    14  0.000000108   0.000000108   0.000000108     1.08e-7  1.08e- 7
+      2         2    19 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.22e-10
+      3         3     9 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
+      4         4    16 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
+      5         8     6 -0.0000000413 -0.0000000817 -0.0000000413   -4.13e-8 -9.49e-10
+      
+      $`North America`$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
+       1    1.50     1 6.60e-10  6.60e-10 6.60e-10  6.60e-10 6.60e-10
+       2    1.94     7 2.64e-10 -1.50e-12 2.64e-10  1.40e-10 6.34e-10
+       3    2.46     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       4    2.79     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       5    3.19     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       6    3.44     7 2.19e-10 -4.29e-11 2.19e-10  6.88e-11 6.09e-10
+       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.09e-10
+       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+      
+      
+      $`North America`$d2
+      $`North America`$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $`North America`$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $`North America`$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $`North America`$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $`North America`$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $`North America`$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $`North America`$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $`North America`$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $`North America`$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $`North America`$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $`North America`$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $`North America`$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin              .n      .y   .y_lo .y_mean .y_median   .y_hi
+         <ord>  <ord>               <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1 FALSE  Lincoln Continental     2 -0.0218 -0.0218 -0.0218   -0.0218 -0.0218
+       2 TRUE   Lincoln Continental     0 -0.0218 -1.43   -0.0218    0.0596  1.32  
+       3 FALSE  Cadillac Fleetwood      2 -0.0218 -0.0218 -0.0218   -0.0218 -0.0218
+       4 TRUE   Cadillac Fleetwood      0 -0.0218 -1.43   -0.0218    0.0596  1.32  
+       5 FALSE  Merc 450SL              2 -0.0226 -0.0241 -0.0226   -0.0218 -0.0218
+       6 TRUE   Merc 450SL              0 -0.0226 -1.43   -0.0226    0.0596  1.31  
+       7 FALSE  Merc 450SLC             2 -0.0226 -0.0241 -0.0226   -0.0218 -0.0218
+       8 TRUE   Merc 450SLC             0 -0.0226 -1.43   -0.0226    0.0596  1.31  
+       9 FALSE  Camaro Z28              2 -0.0226 -0.0241 -0.0226   -0.0218 -0.0218
+      10 TRUE   Camaro Z28              0 -0.0226 -1.43   -0.0226    0.0596  1.31  
+      # i 54 more rows
+      
+      $`North America`$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n    .y  .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       30 0.139 -0.101   0.139     0.205 0.323
+      2 TRUE   three        0 0.139 -0.605   0.139     0.170 0.858
+      3 FALSE  four         8 0.313  0.153   0.313     0.205 0.566
+      4 TRUE   four        16 0.631 -0.263   0.631     0.746 1.43 
+      5 FALSE  five         0 0.313  0.153   0.313     0.205 0.566
+      6 TRUE   five        10 0.728 -0.259   0.728     0.843 1.62 
+      
+      $`North America`$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n            .y        .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>         <dbl>        <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     6 -0.0000000460 -0.00351     -4.60e-8   2.63e-8  3.51e-3
+       2 TRUE           1     8 -0.0000000460 -0.117       -4.60e-8   2.47e-7  1.17e-1
+       3 FALSE          2    12 -0.000000106  -0.0786      -1.06e-7   2.31e-8  7.86e-2
+       4 TRUE           2     7 -0.000000373  -0.121       -3.73e-7  -5.45e-8  1.21e-1
+       5 FALSE          3     7 -0.000000106  -0.00351     -1.06e-7   2.19e-8  3.50e-3
+       6 TRUE           3     2 -0.000000373  -0.199       -3.73e-7   1.90e-8  1.99e-1
+       7 FALSE          4    11 -0.000000109  -0.000000220 -1.09e-7  -5.33e-8 -4.64e-8
+       8 TRUE           4     5 -0.000000380  -0.117       -3.80e-7   1.25e-8  1.17e-1
+       9 FALSE          8     2 -0.000000110  -0.0786      -1.10e-7   1.95e-8  7.86e-2
+      10 TRUE           8     4 -0.000000380  -0.199       -3.80e-7   1.30e-8  1.99e-1
+      
+      $`North America`$d2$`am:wt`
+      # A tibble: 20 x 8
+         am.bin wt.ceil    .n        .y     .y_lo   .y_mean .y_median         .y_hi
+         <ord>    <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>         <dbl>
+       1 FALSE     1.50     0  9.93e-11 -1.11e- 5  9.93e-11  4.34e-10 0.0000111    
+       2 TRUE      1.50     1  9.93e-11 -1.62e- 2  9.93e-11  5.51e-10 0.0162       
+       3 FALSE     1.94     0  9.85e-11 -2.01e- 2  9.85e-11 -1.47e-10 0.0201       
+       4 TRUE      1.94     7 -4.37e-10 -3.64e- 2 -4.37e-10 -5.09e-11 0.0364       
+       5 FALSE     2.46     1  7.33e-11 -2.01e- 2  7.33e-11 -1.75e-10 0.0201       
+       6 TRUE      2.46     6 -5.10e-10 -3.64e- 2 -5.10e-10 -7.93e-11 0.0364       
+       7 FALSE     2.79     1  1.10e- 9  1.67e-10  1.10e- 9  1.45e- 9 0.00000000174
+       8 TRUE      2.79     6  1.32e- 9 -1.62e- 2  1.32e- 9  3.23e- 9 0.0162       
+       9 FALSE     3.19     3  1.34e- 9 -9.74e- 3  1.34e- 9  1.51e- 9 0.00974      
+      10 TRUE      3.19     4  1.56e- 9 -3.64e- 2  1.56e- 9  2.66e- 9 0.0364       
+      11 FALSE     3.44     7  1.34e- 9 -2.01e- 2  1.34e- 9  1.51e- 9 0.0201       
+      12 TRUE      3.44     0  1.56e- 9 -3.64e- 2  1.56e- 9  2.66e- 9 0.0364       
+      13 FALSE     3.52     7  1.34e- 9 -2.01e- 2  1.34e- 9  1.51e- 9 0.0201       
+      14 TRUE      3.52     0  1.56e- 9 -1.62e- 2  1.56e- 9  2.90e- 9 0.0162       
+      15 FALSE     3.73     5  1.34e- 9 -1.69e- 5  1.34e- 9  2.11e- 9 0.0000169    
+      16 TRUE      3.73     2  1.56e- 9 -2.60e- 2  1.56e- 9  2.66e- 9 0.0260       
+      17 FALSE     4.05     7  1.34e- 9 -2.01e- 2  1.34e- 9  1.51e- 9 0.0201       
+      18 TRUE      4.05     0  1.56e- 9 -3.64e- 2  1.56e- 9  2.66e- 9 0.0364       
+      19 FALSE     5.45     7  1.34e- 9 -2.01e- 2  1.34e- 9  1.51e- 9 0.0201       
+      20 TRUE      5.45     0  1.56e- 9 -3.64e- 2  1.56e- 9  2.66e- 9 0.0364       
+      
+      $`North America`$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental three        2 -0.117 -0.117  -0.117   -0.117  -0.117
+       2 Cadillac Fleetwood  three        2 -0.117 -0.117  -0.117   -0.117  -0.117
+       3 Merc 450SL          three        2 -0.119 -0.122  -0.119   -0.117  -0.117
+       4 Merc 450SLC         three        2 -0.285 -0.596  -0.285   -0.117  -0.117
+       5 Camaro Z28          three        2 -0.455 -1.08   -0.455   -0.117  -0.117
+       6 Chrysler Imperial   three        2 -0.289 -1.42   -0.289    0.305   0.337
+       7 Duster 360          three        2 -0.289 -1.15   -0.289    0.0335  0.303
+       8 Merc 450SE          three        2 -0.289 -1.15   -0.289    0.0334  0.303
+       9 Hornet Sportabout   three        2 -0.289 -1.59   -0.289    0.398   0.432
+      10 AMC Javelin         three        2 -0.125 -1.13   -0.125    0.285   0.534
+      # i 86 more rows
+      
+      $`North America`$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0 0.471  0.471   0.471     0.471 0.471
+       2 Cadillac Fleetwood          1     0 0.471  0.471   0.471     0.471 0.471
+       3 Merc 450SL                  1     0 0.471  0.471   0.471     0.471 0.471
+       4 Merc 450SLC                 1     0 0.471  0.471   0.471     0.471 0.471
+       5 Camaro Z28                  1     0 0.471  0.471   0.471     0.471 0.471
+       6 Chrysler Imperial           1     0 0.471 -1.49    0.471    -0.690 3.42 
+       7 Duster 360                  1     0 0.471 -5.32    0.471    -0.895 7.42 
+       8 Merc 450SE                  1     0 0.471 -6.40    0.471    -0.895 8.51 
+       9 Hornet Sportabout           1     0 0.471 -6.67    0.471    -0.895 8.77 
+      10 AMC Javelin                 1     0 0.471 -6.76    0.471    -0.895 8.87 
+      # i 150 more rows
+      
+      $`North America`$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>                 <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental    1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       2 Cadillac Fleetwood     1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       3 Merc 450SL             1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       4 Merc 450SLC            1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       5 Camaro Z28             1.50     0 0.0603  0.0527   0.0603   0.0602  0.0681
+       6 Chrysler Imperial      1.50     0 0.0603  0.00257  0.0603   0.00402 0.166 
+       7 Duster 360             1.50     0 0.0603 -0.239    0.0603   0.00402 0.407 
+       8 Merc 450SE             1.50     0 0.0603 -0.301    0.0603   0.00402 0.470 
+       9 Hornet Sportabout      1.50     0 0.0603 -0.317    0.0603   0.00402 0.486 
+      10 AMC Javelin            1.50     0 0.0603 -0.317    0.0603   0.00402 0.486 
+      # i 310 more rows
+      
+      $`North America`$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n      .y  .y_lo .y_mean .y_median    .y_hi
+         <ord>        <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+       1 three            1     6 -0.0306 -0.106 -0.0306   -0.0663  0.0748 
+       2 four             1     8 -0.0306 -0.153 -0.0306   -0.0698  0.125  
+       3 five             1     0 -0.0306 -0.156 -0.0306   -0.0698  0.128  
+       4 three            2     8 -0.0331 -0.206 -0.0331   -0.0775  0.177  
+       5 four             2     7 -0.129  -0.341 -0.129    -0.227   0.167  
+       6 five             2     4 -0.129  -0.241 -0.129    -0.226   0.0664 
+       7 three            3     7 -0.0403 -0.154 -0.0403   -0.0940  0.119  
+       8 four             3     2 -0.159  -0.322 -0.159    -0.257   0.0858 
+       9 five             3     0 -0.160  -0.374 -0.160    -0.257   0.135  
+      10 three            4     8 -0.0518 -0.208 -0.0518   -0.112   0.155  
+      11 four             4     6 -0.317  -0.437 -0.317    -0.427  -0.105  
+      12 five             4     2 -0.322  -0.494 -0.322    -0.433  -0.0547 
+      13 three            8     1 -0.0518 -0.158 -0.0518   -0.114   0.108  
+      14 four             8     1 -0.317  -0.534 -0.317    -0.431  -0.00255
+      15 five             8     4 -0.321  -0.544 -0.321    -0.432  -0.00476
+      
+      $`North America`$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+         <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1 three       1.50     0 -0.0342 -0.0869 -0.0342   -0.0210 0.00727
+       2 four        1.50     0 -0.0342 -0.0958 -0.0342   -0.0210 0.0162 
+       3 five        1.50     1 -0.0342 -0.102  -0.0342   -0.0184 0.0202 
+       4 three       1.94     0 -0.0448 -0.115  -0.0448   -0.0504 0.0301 
+       5 four        1.94     6 -0.0529 -0.152  -0.0529   -0.0553 0.0484 
+       6 five        1.94     1 -0.0529 -0.152  -0.0529   -0.0553 0.0484 
+       7 three       2.46     1 -0.0466 -0.137  -0.0466   -0.0557 0.0510 
+       8 four        2.46     4 -0.0603 -0.159  -0.0603   -0.0648 0.0428 
+       9 five        2.46     2 -0.0603 -0.159  -0.0603   -0.0648 0.0428 
+      10 three       2.79     1 -0.0468 -0.137  -0.0468   -0.0559 0.0509 
+      # i 20 more rows
+      
+      $`North America`$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n           .y    .y_lo      .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int>        <dbl>    <dbl>        <dbl>     <dbl>   <dbl>
+       1         1    1.50     0 0.0000000171 -0.0315  0.0000000171  -1.68e-7 0.0315 
+       2         2    1.50     1 0.0000000171 -0.00404 0.0000000171  -1.03e-8 0.00404
+       3         3    1.50     0 0.0000000171 -0.0356  0.0000000171  -1.96e-7 0.0356 
+       4         4    1.50     0 0.0000000171 -0.0267  0.0000000171  -1.34e-7 0.0267 
+       5         8    1.50     0 0.0000000171 -0.0362  0.0000000171  -1.95e-7 0.0362 
+       6         1    1.94     4 0.0000000171 -0.0394  0.0000000171  -1.98e-7 0.0394 
+       7         2    1.94     3 0.000000105  -0.00790 0.000000105   -5.22e-9 0.00790
+       8         3    1.94     0 0.000000105  -0.0394  0.000000105   -1.91e-7 0.0394 
+       9         4    1.94     0 0.000000105  -0.0300  0.000000105   -1.26e-7 0.0300 
+      10         8    1.94     0 0.000000105  -0.0394  0.000000105   -1.88e-7 0.0394 
+      # i 40 more rows
+      
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, what = "boot_data")
+    Output
+      $Asia
+      $Asia$d1
+      $Asia$d1$mpg
+      # A tibble: 30 x 6
+           .it   mpg .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4            0     1           0     0
+       2     0  14.4            0     7           0     0
+       3     0  15.2            0     7           0     0
+       4     0  16.4            0     7           0     0
+       5     0  18.7            0     7           0     0
+       6     0  19.8            0     7           0     0
+       7     0  21.4            0     7           0     0
+       8     0  22.9            0     7           0     0
+       9     0  30.1            0     7           0     0
+      10     0  33.9            0     7           0     0
+      # i 20 more rows
+      
+      $Asia$d1$vs
+      # A tibble: 6 x 6
+          .it vs    .y_composite    .n .y_distinct    .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+      1     0 FALSE            0    36           0     0
+      2     0 TRUE             0    28           0     0
+      3     1 FALSE            0    36           0     0
+      4     1 TRUE             0    28           0     0
+      5     2 FALSE            0    36           0     0
+      6     2 TRUE             0    28           0     0
+      
+      $Asia$d1$am
+      # A tibble: 6 x 6
+          .it am    .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 FALSE     -0.0432     38    -0.0432  -0.0432 
+      2     0 TRUE       0.0632     26     0.0632   0.0632 
+      3     1 FALSE      0.0321     38     0.0321   0.0321 
+      4     1 TRUE      -0.0101     26    -0.0101  -0.0101 
+      5     2 FALSE      0.0297     38     0.0297   0.0297 
+      6     2 TRUE      -0.00670    26    -0.00670 -0.00670
+      
+      $Asia$d1$model
+      # A tibble: 96 x 6
+           .it model               .y_composite    .n .y_distinct     .y
+         <dbl> <fct>                      <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental       -0.305     2      -0.305 -0.305
+       2     0 Cadillac Fleetwood        -0.305     2      -0.305 -0.305
+       3     0 Merc 450SL                -0.305     2      -0.305 -0.305
+       4     0 Merc 450SLC               -0.305     2      -0.305 -0.305
+       5     0 Camaro Z28                -0.305     2      -0.305 -0.305
+       6     0 Chrysler Imperial         -0.305     2      -0.305 -0.305
+       7     0 Duster 360                -0.305     2      -0.305 -0.305
+       8     0 Merc 450SE                -0.305     2      -0.305 -0.305
+       9     0 Hornet Sportabout         -0.305     2      -0.305 -0.305
+      10     0 AMC Javelin               -0.305     2      -0.305 -0.305
+      # i 86 more rows
+      
+      $Asia$d1$gear
+      # A tibble: 9 x 6
+          .it gear  .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 three      0.118      30     0.118    0.118  
+      2     0 four       0.0718     24     0.0718   0.0718 
+      3     0 five      -0.526      10    -0.526   -0.526  
+      4     1 three      0.0530     30     0.0530   0.0530 
+      5     1 four      -0.162      24    -0.162   -0.162  
+      6     1 five      -0.460      10    -0.460   -0.460  
+      7     2 three      0.184      30     0.184    0.184  
+      8     2 four       0.0960     24     0.0960   0.0960 
+      9     2 five      -0.00410    10    -0.00410 -0.00410
+      
+      $Asia$d1$carb
+      # A tibble: 15 x 6
+           .it  carb .y_composite    .n .y_distinct         .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>      <dbl>
+       1     0     1    0.00549      14   0.00549    0.00549  
+       2     0     2   -0.00191      19  -0.00191   -0.00191  
+       3     0     3   -0.00191       9  -0.00191   -0.00191  
+       4     0     4   -0.00191      16  -0.00191   -0.00191  
+       5     0     8   -0.00191       6  -0.00191   -0.00191  
+       6     1     1    0.00549      18   0.00549    0.00549  
+       7     1     2   -0.00377      16  -0.00377   -0.00377  
+       8     1     3   -0.00377      13  -0.00377   -0.00377  
+       9     1     4   -0.00377      15  -0.00377   -0.00377  
+      10     1     8   -0.00377       2  -0.00377   -0.00377  
+      11     2     1    0.00549      15   0.00549    0.00549  
+      12     2     2   -0.0000232    13  -0.0000232 -0.0000232
+      13     2     3   -0.0000232    13  -0.0000232 -0.0000232
+      14     2     4   -0.0000232    20  -0.0000232 -0.0000232
+      15     2     8   -0.0000232     3  -0.0000232 -0.0000232
+      
+      $Asia$d1$wt
+      # A tibble: 30 x 6
+           .it    wt .y_composite    .n .y_distinct          .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
+       1     0  1.50   0.0000319      1  0.0000319   0.0000319 
+       2     0  1.94   0.00000854     7  0.00000854  0.00000854
+       3     0  2.46  -0.00000364     7 -0.00000364 -0.00000364
+       4     0  2.79  -0.00000366     7 -0.00000366 -0.00000366
+       5     0  3.19  -0.00000366     7 -0.00000366 -0.00000366
+       6     0  3.44  -0.00000366     7 -0.00000366 -0.00000366
+       7     0  3.52  -0.00000366     7 -0.00000366 -0.00000366
+       8     0  3.73  -0.00000366     7 -0.00000366 -0.00000366
+       9     0  4.05  -0.00000366     7 -0.00000366 -0.00000366
+      10     0  5.45  -0.00000366     7 -0.00000366 -0.00000366
+      # i 20 more rows
+      
+      
+      $Asia$d2
+      $Asia$d2$`mpg:vs`
+      # A tibble: 60 x 7
+           .it   mpg vs    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     7           0     0
+       4     0  16.4 FALSE            0     7           0     0
+       5     0  18.7 FALSE            0     3           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     4           0     0
+       8     0  22.9 FALSE            0     0           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $Asia$d2$`mpg:am`
+      # A tibble: 60 x 7
+           .it   mpg am    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     5           0     0
+       4     0  16.4 FALSE            0     5           0     0
+       5     0  18.7 FALSE            0     7           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     1           0     0
+       8     0  22.9 FALSE            0     5           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $Asia$d2$`mpg:model`
+      # A tibble: 960 x 7
+           .it   mpg model               .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 Lincoln Continental            0     0           0     0
+       2     0  14.4 Lincoln Continental            0     2           0     0
+       3     0  15.2 Lincoln Continental            0     0           0     0
+       4     0  16.4 Lincoln Continental            0     0           0     0
+       5     0  18.7 Lincoln Continental            0     0           0     0
+       6     0  19.8 Lincoln Continental            0     0           0     0
+       7     0  21.4 Lincoln Continental            0     0           0     0
+       8     0  22.9 Lincoln Continental            0     0           0     0
+       9     0  30.1 Lincoln Continental            0     0           0     0
+      10     0  33.9 Lincoln Continental            0     0           0     0
+      # i 950 more rows
+      
+      $Asia$d2$`mpg:gear`
+      # A tibble: 90 x 7
+           .it   mpg gear  .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 three            0     1           0     0
+       2     0  14.4 three            0     7           0     0
+       3     0  15.2 three            0     5           0     0
+       4     0  16.4 three            0     5           0     0
+       5     0  18.7 three            0     5           0     0
+       6     0  19.8 three            0     3           0     0
+       7     0  21.4 three            0     1           0     0
+       8     0  22.9 three            0     3           0     0
+       9     0  30.1 three            0     0           0     0
+      10     0  33.9 three            0     0           0     0
+      # i 80 more rows
+      
+      $Asia$d2$`mpg:carb`
+      # A tibble: 150 x 7
+           .it   mpg  carb .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4     1            0     0           0     0
+       2     0  14.4     1            0     0           0     0
+       3     0  15.2     1            0     0           0     0
+       4     0  16.4     1            0     0           0     0
+       5     0  18.7     1            0     2           0     0
+       6     0  19.8     1            0     0           0     0
+       7     0  21.4     1            0     1           0     0
+       8     0  22.9     1            0     5           0     0
+       9     0  30.1     1            0     2           0     0
+      10     0  33.9     1            0     4           0     0
+      # i 140 more rows
+      
+      $Asia$d2$`mpg:wt`
+      # A tibble: 300 x 7
+           .it   mpg    wt .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4  1.50            0     0           0     0
+       2     0  14.4  1.50            0     0           0     0
+       3     0  15.2  1.50            0     0           0     0
+       4     0  16.4  1.50            0     0           0     0
+       5     0  18.7  1.50            0     0           0     0
+       6     0  19.8  1.50            0     0           0     0
+       7     0  21.4  1.50            0     0           0     0
+       8     0  22.9  1.50            0     0           0     0
+       9     0  30.1  1.50            0     1           0     0
+      10     0  33.9  1.50            0     0           0     0
+      # i 290 more rows
+      
+      $Asia$d2$`vs:am`
+      # A tibble: 12 x 7
+           .it vs    am    .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE FALSE            0    24           0     0
+       2     0 TRUE  FALSE            0    14           0     0
+       3     0 FALSE TRUE             0    12           0     0
+       4     0 TRUE  TRUE             0    14           0     0
+       5     1 FALSE FALSE            0    24           0     0
+       6     1 TRUE  FALSE            0    14           0     0
+       7     1 FALSE TRUE             0    12           0     0
+       8     1 TRUE  TRUE             0    14           0     0
+       9     2 FALSE FALSE            0    24           0     0
+      10     2 TRUE  FALSE            0    14           0     0
+      11     2 FALSE TRUE             0    12           0     0
+      12     2 TRUE  TRUE             0    14           0     0
+      
+      $Asia$d2$`vs:model`
+      # A tibble: 192 x 7
+           .it vs    model               .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE Lincoln Continental            0     2           0     0
+       2     0 TRUE  Lincoln Continental            0     0           0     0
+       3     0 FALSE Cadillac Fleetwood             0     2           0     0
+       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
+       5     0 FALSE Merc 450SL                     0     2           0     0
+       6     0 TRUE  Merc 450SL                     0     0           0     0
+       7     0 FALSE Merc 450SLC                    0     2           0     0
+       8     0 TRUE  Merc 450SLC                    0     0           0     0
+       9     0 FALSE Camaro Z28                     0     2           0     0
+      10     0 TRUE  Camaro Z28                     0     0           0     0
+      # i 182 more rows
+      
+      $Asia$d2$`vs:gear`
+      # A tibble: 18 x 7
+           .it vs    gear  .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE three            0    24           0     0
+       2     0 TRUE  three            0     6           0     0
+       3     0 FALSE four             0     4           0     0
+       4     0 TRUE  four             0    20           0     0
+       5     0 FALSE five             0     8           0     0
+       6     0 TRUE  five             0     2           0     0
+       7     1 FALSE three            0    24           0     0
+       8     1 TRUE  three            0     6           0     0
+       9     1 FALSE four             0     4           0     0
+      10     1 TRUE  four             0    20           0     0
+      11     1 FALSE five             0     8           0     0
+      12     1 TRUE  five             0     2           0     0
+      13     2 FALSE three            0    24           0     0
+      14     2 TRUE  three            0     6           0     0
+      15     2 FALSE four             0     4           0     0
+      16     2 TRUE  four             0    20           0     0
+      17     2 FALSE five             0     8           0     0
+      18     2 TRUE  five             0     2           0     0
+      
+      $Asia$d2$`vs:carb`
+      # A tibble: 30 x 7
+           .it vs     carb .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE     1            0     0           0     0
+       2     0 TRUE      1            0    14           0     0
+       3     0 FALSE     2            0    10           0     0
+       4     0 TRUE      2            0     9           0     0
+       5     0 FALSE     3            0     8           0     0
+       6     0 TRUE      3            0     1           0     0
+       7     0 FALSE     4            0    13           0     0
+       8     0 TRUE      4            0     3           0     0
+       9     0 FALSE     8            0     5           0     0
+      10     0 TRUE      8            0     1           0     0
+      # i 20 more rows
+      
+      $Asia$d2$`vs:wt`
+      # A tibble: 60 x 7
+           .it vs       wt .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE  1.50            0     0           0     0
+       2     0 TRUE   1.50            0     1           0     0
+       3     0 FALSE  1.94            0     0           0     0
+       4     0 TRUE   1.94            0     7           0     0
+       5     0 FALSE  2.46            0     2           0     0
+       6     0 TRUE   2.46            0     5           0     0
+       7     0 FALSE  2.79            0     4           0     0
+       8     0 TRUE   2.79            0     3           0     0
+       9     0 FALSE  3.19            0     4           0     0
+      10     0 TRUE   3.19            0     3           0     0
+      # i 50 more rows
+      
+      $Asia$d2$`am:model`
+      # A tibble: 192 x 7
+           .it am    model               .y_composite    .n .y_distinct     .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>  <dbl>
+       1     0 FALSE Lincoln Continental        0.106     2       0.106  0.106
+       2     0 TRUE  Lincoln Continental        0.106     0      -1.38  -1.38 
+       3     0 FALSE Cadillac Fleetwood         0.106     2       0.106  0.106
+       4     0 TRUE  Cadillac Fleetwood         0.106     0      -1.38  -1.38 
+       5     0 FALSE Merc 450SL                 0.106     2       0.106  0.106
+       6     0 TRUE  Merc 450SL                 0.106     0      -1.38  -1.38 
+       7     0 FALSE Merc 450SLC                0.106     2       0.106  0.106
+       8     0 TRUE  Merc 450SLC                0.106     0      -1.38  -1.38 
+       9     0 FALSE Camaro Z28                 0.106     2       0.106  0.106
+      10     0 TRUE  Camaro Z28                 0.106     0      -1.38  -1.38 
+      # i 182 more rows
+      
+      $Asia$d2$`am:gear`
+      # A tibble: 18 x 7
+           .it am    gear  .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE three     -0.0688     30    -0.0688  -0.0688 
+       2     0 TRUE  three     -0.0688      0     0.453    0.453  
+       3     0 FALSE four      -0.0688      8    -0.0688  -0.0688 
+       4     0 TRUE  four      -0.466      16     0.0563   0.0563 
+       5     0 FALSE five      -0.0688      0    -0.0688  -0.0688 
+       6     0 TRUE  five      -1.06       10    -0.541   -0.541  
+       7     1 FALSE three     -0.204      30    -0.204   -0.204  
+       8     1 TRUE  three     -0.204       0    -0.104   -0.104  
+       9     1 FALSE four      -0.340       8    -0.340   -0.340  
+      10     1 TRUE  four      -0.607      16    -0.507   -0.507  
+      11     1 FALSE five      -0.340       0    -0.340   -0.340  
+      12     1 TRUE  five      -0.905      10    -0.806   -0.806  
+      13     2 FALSE three     -0.00554    30    -0.00554 -0.00554
+      14     2 TRUE  three     -0.00554     0    -0.628   -0.628  
+      15     2 FALSE four      -0.165       8    -0.165   -0.165  
+      16     2 TRUE  four      -0.228      16    -0.850   -0.850  
+      17     2 FALSE five      -0.165       0    -0.165   -0.165  
+      18     2 TRUE  five      -0.328      10    -0.950   -0.950  
+      
+      $Asia$d2$`am:carb`
+      # A tibble: 30 x 7
+           .it am     carb .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE     1      0.0166      6      0.0166  0.0166
+       2     0 TRUE      1      0.0166      8     -0.107  -0.107 
+       3     0 FALSE     2      0.0166     12     -0.0662 -0.0662
+       4     0 TRUE      2     -0.00350     7     -0.213  -0.213 
+       5     0 FALSE     3      0.0166      7      0.0203  0.0203
+       6     0 TRUE      3     -0.00342     2     -0.127  -0.127 
+       7     0 FALSE     4      0.0166     11     -0.0662 -0.0662
+       8     0 TRUE      4      0.550       5      0.423   0.423 
+       9     0 FALSE     8      0.0166      2      0.0203  0.0203
+      10     0 TRUE      8      0.550       4      0.340   0.340 
+      # i 20 more rows
+      
+      $Asia$d2$`am:wt`
+      # A tibble: 60 x 7
+           .it am       wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE  1.50       0.0139     0     0.0139   0.0139 
+       2     0 TRUE   1.50       0.0139     1    -0.00322 -0.00322
+       3     0 FALSE  1.94       0.0139     0     0.00361  0.00361
+       4     0 TRUE   1.94       0.0138     7    -0.0244  -0.0244 
+       5     0 FALSE  2.46       0.0139     1    -0.00732 -0.00732
+       6     0 TRUE   2.46       0.0138     6    -0.0245  -0.0245 
+       7     0 FALSE  2.79       0.0139     1    -0.00732 -0.00732
+       8     0 TRUE   2.79       0.0378     6     0.0207   0.0207 
+       9     0 FALSE  3.19       0.0139     3     0.0139   0.0139 
+      10     0 TRUE   3.19       0.0761     4     0.0487   0.0487 
+      # i 50 more rows
+      
+      $Asia$d2$`model:gear`
+      # A tibble: 288 x 7
+           .it model               gear  .y_composite    .n .y_distinct      .y
+         <dbl> <fct>               <fct>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 Lincoln Continental three       -0.184     2     -0.184  -0.184 
+       2     0 Cadillac Fleetwood  three       -0.184     2     -0.184  -0.184 
+       3     0 Merc 450SL          three       -0.184     2     -0.184  -0.184 
+       4     0 Merc 450SLC         three       -0.184     2     -0.184  -0.184 
+       5     0 Camaro Z28          three       -0.184     2     -0.184  -0.184 
+       6     0 Chrysler Imperial   three       -0.184     2      0.274   0.274 
+       7     0 Duster 360          three       -0.184     2      0.272   0.272 
+       8     0 Merc 450SE          three       -0.184     2      0.250   0.250 
+       9     0 Hornet Sportabout   three       -0.184     2      0.250   0.250 
+      10     0 AMC Javelin         three       -0.184     2     -0.0198 -0.0198
+      # i 278 more rows
+      
+      $Asia$d2$`model:carb`
+      # A tibble: 480 x 7
+           .it model                carb .y_composite    .n .y_distinct     .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental     1         3.42     0       3.42   3.42 
+       2     0 Cadillac Fleetwood      1         3.42     0       3.42   3.42 
+       3     0 Merc 450SL              1         3.42     0       3.42   3.42 
+       4     0 Merc 450SLC             1         3.42     0       3.42   3.42 
+       5     0 Camaro Z28              1         3.42     0       3.42   3.42 
+       6     0 Chrysler Imperial       1         3.42     0       3.00   3.00 
+       7     0 Duster 360              1         3.42     0      -0.418 -0.418
+       8     0 Merc 450SE              1         3.42     0      -3.32  -3.32 
+       9     0 Hornet Sportabout       1         3.42     0      -3.74  -3.74 
+      10     0 AMC Javelin             1         3.42     0      -4.12  -4.12 
+      # i 470 more rows
+      
+      $Asia$d2$`model:wt`
+      # A tibble: 960 x 7
+           .it model                  wt .y_composite    .n .y_distinct      .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 Lincoln Continental  1.50        0.342     0      0.342   0.342 
+       2     0 Cadillac Fleetwood   1.50        0.342     0      0.342   0.342 
+       3     0 Merc 450SL           1.50        0.342     0      0.342   0.342 
+       4     0 Merc 450SLC          1.50        0.342     0      0.342   0.342 
+       5     0 Camaro Z28           1.50        0.342     0      0.342   0.342 
+       6     0 Chrysler Imperial    1.50        0.342     0      0.342   0.342 
+       7     0 Duster 360           1.50        0.342     0      0.284   0.284 
+       8     0 Merc 450SE           1.50        0.342     0     -0.0324 -0.0324
+       9     0 Hornet Sportabout    1.50        0.342     0     -0.0439 -0.0439
+      10     0 AMC Javelin          1.50        0.342     0     -0.0520 -0.0520
+      # i 950 more rows
+      
+      $Asia$d2$`gear:carb`
+      # A tibble: 45 x 7
+           .it gear   carb .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 three     1       0.0284     6      0.0284  0.0284
+       2     0 four      1       0.0284     8     -0.0211 -0.0211
+       3     0 five      1       0.0284     0     -0.0245 -0.0245
+       4     0 three     2       0.0284     8     -0.0766 -0.0766
+       5     0 four      2       0.162      7      0.0573  0.0573
+       6     0 five      2       0.130      4      0.130   0.130 
+       7     0 three     3       0.0284     7     -0.0211 -0.0211
+       8     0 four      3       0.193      2      0.140   0.140 
+       9     0 five      3       0.147      0      0.0422  0.0422
+      10     0 three     4       0.0284     8     -0.0767 -0.0767
+      # i 35 more rows
+      
+      $Asia$d2$`gear:wt`
+      # A tibble: 90 x 7
+           .it gear     wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 three  1.50       0.0363     0     0.0363   0.0363 
+       2     0 four   1.50       0.0363     0     0.0269   0.0269 
+       3     0 five   1.50       0.0363     1     0.0202   0.0202 
+       4     0 three  1.94       0.0363     0     0.00815  0.00815
+       5     0 four   1.94       0.0527     6     0.00226  0.00226
+       6     0 five   1.94       0.0535     1     0.00298  0.00298
+       7     0 three  2.46       0.0363     1    -0.0141  -0.0141 
+       8     0 four   2.46       0.0599     4     0.00943  0.00943
+       9     0 five   2.46       0.0786     2     0.0281   0.0281 
+      10     0 three  2.79       0.0363     1    -0.0141  -0.0141 
+      # i 80 more rows
+      
+      $Asia$d2$`carb:wt`
+      # A tibble: 150 x 7
+           .it  carb    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1  1.50      0.00454     0     0.00454  0.00454
+       2     0     2  1.50      0.00454     1    -0.0287  -0.0287 
+       3     0     3  1.50      0.00454     0    -0.0230  -0.0230 
+       4     0     4  1.50      0.00454     0    -0.0329  -0.0329 
+       5     0     8  1.50      0.00454     0    -0.0335  -0.0335 
+       6     0     1  1.94      0.00454     4    -0.00377 -0.00377
+       7     0     2  1.94      0.0244      3    -0.0171  -0.0171 
+       8     0     3  1.94      0.0244      0    -0.00721 -0.00721
+       9     0     4  1.94      0.0244      0    -0.0171  -0.0171 
+      10     0     8  1.94      0.0244      0    -0.0171  -0.0171 
+      # i 140 more rows
+      
+      
+      
+      $Europe
+      $Europe$d1
+      $Europe$d1$mpg
+      # A tibble: 30 x 6
+           .it   mpg .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4            0     1           0     0
+       2     0  14.4            0     7           0     0
+       3     0  15.2            0     7           0     0
+       4     0  16.4            0     7           0     0
+       5     0  18.7            0     7           0     0
+       6     0  19.8            0     7           0     0
+       7     0  21.4            0     7           0     0
+       8     0  22.9            0     7           0     0
+       9     0  30.1            0     7           0     0
+      10     0  33.9            0     7           0     0
+      # i 20 more rows
+      
+      $Europe$d1$vs
+      # A tibble: 6 x 6
+          .it vs    .y_composite    .n .y_distinct    .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+      1     0 FALSE            0    36           0     0
+      2     0 TRUE             0    28           0     0
+      3     1 FALSE            0    36           0     0
+      4     1 TRUE             0    28           0     0
+      5     2 FALSE            0    36           0     0
+      6     2 TRUE             0    28           0     0
+      
+      $Europe$d1$am
+      # A tibble: 6 x 6
+          .it am    .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 FALSE      0.0432     38     0.0432   0.0432 
+      2     0 TRUE      -0.0632     26    -0.0632  -0.0632 
+      3     1 FALSE     -0.0321     38    -0.0321  -0.0321 
+      4     1 TRUE       0.0101     26     0.0101   0.0101 
+      5     2 FALSE     -0.0297     38    -0.0297  -0.0297 
+      6     2 TRUE       0.00670    26     0.00670  0.00670
+      
+      $Europe$d1$model
+      # A tibble: 96 x 6
+           .it model               .y_composite    .n .y_distinct    .y
+         <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0 Lincoln Continental        0.166     2       0.166 0.166
+       2     0 Cadillac Fleetwood         0.166     2       0.166 0.166
+       3     0 Merc 450SL                 1.17      2       1.17  1.17 
+       4     0 Merc 450SLC                1.17      2       1.17  1.17 
+       5     0 Camaro Z28                 0.166     2       0.166 0.166
+       6     0 Chrysler Imperial          0.166     2       0.166 0.166
+       7     0 Duster 360                 0.166     2       0.166 0.166
+       8     0 Merc 450SE                 1.17      2       1.17  1.17 
+       9     0 Hornet Sportabout          0.166     2       0.166 0.166
+      10     0 AMC Javelin                0.166     2       0.166 0.166
+      # i 86 more rows
+      
+      $Europe$d1$gear
+      # A tibble: 9 x 6
+          .it gear  .y_composite    .n .y_distinct      .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+      1     0 three      -0.372     30     -0.372  -0.372 
+      2     0 four        0.211     24      0.211   0.211 
+      3     0 five        0.610     10      0.610   0.610 
+      4     1 three      -0.106     30     -0.106  -0.106 
+      5     1 four        0.394     24      0.394   0.394 
+      6     1 five        0.594     10      0.594   0.594 
+      7     2 three      -0.239     30     -0.239  -0.239 
+      8     2 four        0.136     24      0.136   0.136 
+      9     2 five       -0.0638    10     -0.0638 -0.0638
+      
+      $Europe$d1$carb
+      # A tibble: 15 x 6
+           .it  carb .y_composite    .n .y_distinct         .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>      <dbl>
+       1     0     1   -0.00549      14  -0.00549   -0.00549  
+       2     0     2    0.00191      19   0.00191    0.00191  
+       3     0     3    0.00191       9   0.00191    0.00191  
+       4     0     4    0.00191      16   0.00191    0.00191  
+       5     0     8    0.00191       6   0.00191    0.00191  
+       6     1     1   -0.00549      18  -0.00549   -0.00549  
+       7     1     2    0.00377      16   0.00377    0.00377  
+       8     1     3    0.00377      13   0.00377    0.00377  
+       9     1     4    0.00377      15   0.00377    0.00377  
+      10     1     8    0.00377       2   0.00377    0.00377  
+      11     2     1   -0.00549      15  -0.00549   -0.00549  
+      12     2     2    0.0000232    13   0.0000232  0.0000232
+      13     2     3    0.0000232    13   0.0000232  0.0000232
+      14     2     4    0.0000232    20   0.0000232  0.0000232
+      15     2     8    0.0000232     3   0.0000232  0.0000232
+      
+      $Europe$d1$wt
+      # A tibble: 30 x 6
+           .it    wt .y_composite    .n .y_distinct          .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>       <dbl>
+       1     0  1.50  -0.0000319      1 -0.0000319  -0.0000319 
+       2     0  1.94  -0.00000854     7 -0.00000854 -0.00000854
+       3     0  2.46   0.00000364     7  0.00000364  0.00000364
+       4     0  2.79   0.00000366     7  0.00000366  0.00000366
+       5     0  3.19   0.00000366     7  0.00000366  0.00000366
+       6     0  3.44   0.00000366     7  0.00000366  0.00000366
+       7     0  3.52   0.00000366     7  0.00000366  0.00000366
+       8     0  3.73   0.00000366     7  0.00000366  0.00000366
+       9     0  4.05   0.00000366     7  0.00000366  0.00000366
+      10     0  5.45   0.00000366     7  0.00000366  0.00000366
+      # i 20 more rows
+      
+      
+      $Europe$d2
+      $Europe$d2$`mpg:vs`
+      # A tibble: 60 x 7
+           .it   mpg vs    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     7           0     0
+       4     0  16.4 FALSE            0     7           0     0
+       5     0  18.7 FALSE            0     3           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     4           0     0
+       8     0  22.9 FALSE            0     0           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $Europe$d2$`mpg:am`
+      # A tibble: 60 x 7
+           .it   mpg am    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     5           0     0
+       4     0  16.4 FALSE            0     5           0     0
+       5     0  18.7 FALSE            0     7           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     1           0     0
+       8     0  22.9 FALSE            0     5           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $Europe$d2$`mpg:model`
+      # A tibble: 960 x 7
+           .it   mpg model               .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 Lincoln Continental            0     0           0     0
+       2     0  14.4 Lincoln Continental            0     2           0     0
+       3     0  15.2 Lincoln Continental            0     0           0     0
+       4     0  16.4 Lincoln Continental            0     0           0     0
+       5     0  18.7 Lincoln Continental            0     0           0     0
+       6     0  19.8 Lincoln Continental            0     0           0     0
+       7     0  21.4 Lincoln Continental            0     0           0     0
+       8     0  22.9 Lincoln Continental            0     0           0     0
+       9     0  30.1 Lincoln Continental            0     0           0     0
+      10     0  33.9 Lincoln Continental            0     0           0     0
+      # i 950 more rows
+      
+      $Europe$d2$`mpg:gear`
+      # A tibble: 90 x 7
+           .it   mpg gear  .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 three            0     1           0     0
+       2     0  14.4 three            0     7           0     0
+       3     0  15.2 three            0     5           0     0
+       4     0  16.4 three            0     5           0     0
+       5     0  18.7 three            0     5           0     0
+       6     0  19.8 three            0     3           0     0
+       7     0  21.4 three            0     1           0     0
+       8     0  22.9 three            0     3           0     0
+       9     0  30.1 three            0     0           0     0
+      10     0  33.9 three            0     0           0     0
+      # i 80 more rows
+      
+      $Europe$d2$`mpg:carb`
+      # A tibble: 150 x 7
+           .it   mpg  carb .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4     1            0     0           0     0
+       2     0  14.4     1            0     0           0     0
+       3     0  15.2     1            0     0           0     0
+       4     0  16.4     1            0     0           0     0
+       5     0  18.7     1            0     2           0     0
+       6     0  19.8     1            0     0           0     0
+       7     0  21.4     1            0     1           0     0
+       8     0  22.9     1            0     5           0     0
+       9     0  30.1     1            0     2           0     0
+      10     0  33.9     1            0     4           0     0
+      # i 140 more rows
+      
+      $Europe$d2$`mpg:wt`
+      # A tibble: 300 x 7
+           .it   mpg    wt .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4  1.50            0     0           0     0
+       2     0  14.4  1.50            0     0           0     0
+       3     0  15.2  1.50            0     0           0     0
+       4     0  16.4  1.50            0     0           0     0
+       5     0  18.7  1.50            0     0           0     0
+       6     0  19.8  1.50            0     0           0     0
+       7     0  21.4  1.50            0     0           0     0
+       8     0  22.9  1.50            0     0           0     0
+       9     0  30.1  1.50            0     1           0     0
+      10     0  33.9  1.50            0     0           0     0
+      # i 290 more rows
+      
+      $Europe$d2$`vs:am`
+      # A tibble: 12 x 7
+           .it vs    am    .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE FALSE            0    24           0     0
+       2     0 TRUE  FALSE            0    14           0     0
+       3     0 FALSE TRUE             0    12           0     0
+       4     0 TRUE  TRUE             0    14           0     0
+       5     1 FALSE FALSE            0    24           0     0
+       6     1 TRUE  FALSE            0    14           0     0
+       7     1 FALSE TRUE             0    12           0     0
+       8     1 TRUE  TRUE             0    14           0     0
+       9     2 FALSE FALSE            0    24           0     0
+      10     2 TRUE  FALSE            0    14           0     0
+      11     2 FALSE TRUE             0    12           0     0
+      12     2 TRUE  TRUE             0    14           0     0
+      
+      $Europe$d2$`vs:model`
+      # A tibble: 192 x 7
+           .it vs    model               .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE Lincoln Continental            0     2           0     0
+       2     0 TRUE  Lincoln Continental            0     0           0     0
+       3     0 FALSE Cadillac Fleetwood             0     2           0     0
+       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
+       5     0 FALSE Merc 450SL                     0     2           0     0
+       6     0 TRUE  Merc 450SL                     0     0           0     0
+       7     0 FALSE Merc 450SLC                    0     2           0     0
+       8     0 TRUE  Merc 450SLC                    0     0           0     0
+       9     0 FALSE Camaro Z28                     0     2           0     0
+      10     0 TRUE  Camaro Z28                     0     0           0     0
+      # i 182 more rows
+      
+      $Europe$d2$`vs:gear`
+      # A tibble: 18 x 7
+           .it vs    gear  .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE three            0    24           0     0
+       2     0 TRUE  three            0     6           0     0
+       3     0 FALSE four             0     4           0     0
+       4     0 TRUE  four             0    20           0     0
+       5     0 FALSE five             0     8           0     0
+       6     0 TRUE  five             0     2           0     0
+       7     1 FALSE three            0    24           0     0
+       8     1 TRUE  three            0     6           0     0
+       9     1 FALSE four             0     4           0     0
+      10     1 TRUE  four             0    20           0     0
+      11     1 FALSE five             0     8           0     0
+      12     1 TRUE  five             0     2           0     0
+      13     2 FALSE three            0    24           0     0
+      14     2 TRUE  three            0     6           0     0
+      15     2 FALSE four             0     4           0     0
+      16     2 TRUE  four             0    20           0     0
+      17     2 FALSE five             0     8           0     0
+      18     2 TRUE  five             0     2           0     0
+      
+      $Europe$d2$`vs:carb`
+      # A tibble: 30 x 7
+           .it vs     carb .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE     1            0     0           0     0
+       2     0 TRUE      1            0    14           0     0
+       3     0 FALSE     2            0    10           0     0
+       4     0 TRUE      2            0     9           0     0
+       5     0 FALSE     3            0     8           0     0
+       6     0 TRUE      3            0     1           0     0
+       7     0 FALSE     4            0    13           0     0
+       8     0 TRUE      4            0     3           0     0
+       9     0 FALSE     8            0     5           0     0
+      10     0 TRUE      8            0     1           0     0
+      # i 20 more rows
+      
+      $Europe$d2$`vs:wt`
+      # A tibble: 60 x 7
+           .it vs       wt .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE  1.50            0     0           0     0
+       2     0 TRUE   1.50            0     1           0     0
+       3     0 FALSE  1.94            0     0           0     0
+       4     0 TRUE   1.94            0     7           0     0
+       5     0 FALSE  2.46            0     2           0     0
+       6     0 TRUE   2.46            0     5           0     0
+       7     0 FALSE  2.79            0     4           0     0
+       8     0 TRUE   2.79            0     3           0     0
+       9     0 FALSE  3.19            0     4           0     0
+      10     0 TRUE   3.19            0     3           0     0
+      # i 50 more rows
+      
+      $Europe$d2$`am:model`
+      # A tibble: 192 x 7
+           .it am    model               .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE Lincoln Continental      -0.0844     2     -1.57   -1.57  
+       2     0 TRUE  Lincoln Continental      -0.0844     0     -0.0844 -0.0844
+       3     0 FALSE Cadillac Fleetwood       -0.0844     2     -1.57   -1.57  
+       4     0 TRUE  Cadillac Fleetwood       -0.0844     0     -0.0844 -0.0844
+       5     0 FALSE Merc 450SL               -0.0844     2     -1.57   -1.57  
+       6     0 TRUE  Merc 450SL               -0.0844     0     -0.0844 -0.0844
+       7     0 FALSE Merc 450SLC              -0.0844     2     -1.57   -1.57  
+       8     0 TRUE  Merc 450SLC              -0.0844     0     -0.0844 -0.0844
+       9     0 FALSE Camaro Z28               -0.0844     2     -1.57   -1.57  
+      10     0 TRUE  Camaro Z28               -0.0844     0     -0.0844 -0.0844
+      # i 182 more rows
+      
+      $Europe$d2$`am:gear`
+      # A tibble: 18 x 7
+           .it am    gear  .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE three     -0.00407    30      0.386   0.386 
+       2     0 TRUE  three     -0.00407     0      0.427   0.427 
+       3     0 FALSE four      -0.00407     8      0.386   0.386 
+       4     0 TRUE  four      -0.177      16      0.254   0.254 
+       5     0 FALSE five      -0.00407     0      0.386   0.386 
+       6     0 TRUE  five       0.226      10      0.657   0.657 
+       7     1 FALSE three     -0.0677     30     -0.0254 -0.0254
+       8     1 TRUE  three     -0.0677      0     -0.212  -0.212 
+       9     1 FALSE four      -0.187       8     -0.145  -0.145 
+      10     1 TRUE  four      -0.241      16     -0.385  -0.385 
+      11     1 FALSE five      -0.187       0     -0.145  -0.145 
+      12     1 TRUE  five      -0.0395     10     -0.183  -0.183 
+      13     2 FALSE three     -0.0677     30     -0.500  -0.500 
+      14     2 TRUE  three     -0.0677      0     -0.355  -0.355 
+      15     2 FALSE four      -0.176       8     -0.608  -0.608 
+      16     2 TRUE  four      -0.175      16     -0.463  -0.463 
+      17     2 FALSE five      -0.176       0     -0.608  -0.608 
+      18     2 TRUE  five      -0.0753     10     -0.363  -0.363 
+      
+      $Europe$d2$`am:carb`
+      # A tibble: 30 x 7
+           .it am     carb .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE     1     -0.0166      6    -0.144   -0.144  
+       2     0 TRUE      1     -0.0166      8    -0.0129  -0.0129 
+       3     0 FALSE     2     -0.0166     12    -0.226   -0.226  
+       4     0 TRUE      2      0.00350     7     0.00350  0.00350
+       5     0 FALSE     3     -0.0166      7    -0.140   -0.140  
+       6     0 TRUE      3      0.00342     2    -0.0793  -0.0793 
+       7     0 FALSE     4     -0.0166     11    -0.226   -0.226  
+       8     0 TRUE      4     -0.550       5    -0.546   -0.546  
+       9     0 FALSE     8     -0.0166      2    -0.140   -0.140  
+      10     0 TRUE      8     -0.550       4    -0.633   -0.633  
+      # i 20 more rows
+      
+      $Europe$d2$`am:wt`
+      # A tibble: 60 x 7
+           .it am       wt .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE  1.50      -0.0139     0     -0.0310 -0.0310
+       2     0 TRUE   1.50      -0.0139     1     -0.0138 -0.0138
+       3     0 FALSE  1.94      -0.0139     0     -0.0412 -0.0412
+       4     0 TRUE   1.94      -0.0138     7     -0.0350 -0.0350
+       5     0 FALSE  2.46      -0.0139     1     -0.0522 -0.0522
+       6     0 TRUE   2.46      -0.0138     6     -0.0350 -0.0350
+       7     0 FALSE  2.79      -0.0139     1     -0.0522 -0.0522
+       8     0 TRUE   2.79      -0.0378     6     -0.0378 -0.0378
+       9     0 FALSE  3.19      -0.0139     3     -0.0309 -0.0309
+      10     0 TRUE   3.19      -0.0761     4     -0.0973 -0.0973
+      # i 50 more rows
+      
+      $Europe$d2$`model:gear`
+      # A tibble: 288 x 7
+           .it model               gear  .y_composite    .n .y_distinct    .y
+         <dbl> <fct>               <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 Lincoln Continental three        0.301     2       0.301 0.301
+       2     0 Cadillac Fleetwood  three        0.301     2       0.301 0.301
+       3     0 Merc 450SL          three        0.301     2       0.301 0.301
+       4     0 Merc 450SLC         three        0.301     2       0.301 0.301
+       5     0 Camaro Z28          three        0.301     2       0.301 0.301
+       6     0 Chrysler Imperial   three        0.301     2       0.759 0.759
+       7     0 Duster 360          three        0.301     2       0.729 0.729
+       8     0 Merc 450SE          three        0.301     2       0.235 0.235
+       9     0 Hornet Sportabout   three        0.301     2       0.794 0.794
+      10     0 AMC Javelin         three        0.301     2       0.964 0.964
+      # i 278 more rows
+      
+      $Europe$d2$`model:carb`
+      # A tibble: 480 x 7
+           .it model                carb .y_composite    .n .y_distinct     .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental     1        -3.89     0       -3.89  -3.89
+       2     0 Cadillac Fleetwood      1        -3.89     0       -3.89  -3.89
+       3     0 Merc 450SL              1        -3.89     0       -3.89  -3.89
+       4     0 Merc 450SLC             1        -3.89     0       -3.89  -3.89
+       5     0 Camaro Z28              1        -3.89     0       -3.89  -3.89
+       6     0 Chrysler Imperial       1        -3.89     0       -5.45  -5.45
+       7     0 Duster 360              1        -3.89     0       -8.67  -8.67
+       8     0 Merc 450SE              1        -3.89     0      -11.1  -11.1 
+       9     0 Hornet Sportabout       1        -3.89     0      -11.1  -11.1 
+      10     0 AMC Javelin             1        -3.89     0      -11.4  -11.4 
+      # i 470 more rows
+      
+      $Europe$d2$`model:wt`
+      # A tibble: 960 x 7
+           .it model                  wt .y_composite    .n .y_distinct     .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental  1.50       -0.403     0      -0.403 -0.403
+       2     0 Cadillac Fleetwood   1.50       -0.403     0      -0.403 -0.403
+       3     0 Merc 450SL           1.50       -0.403     0      -0.403 -0.403
+       4     0 Merc 450SLC          1.50       -0.403     0      -0.403 -0.403
+       5     0 Camaro Z28           1.50       -0.403     0      -0.403 -0.403
+       6     0 Chrysler Imperial    1.50       -0.403     0      -0.460 -0.460
+       7     0 Duster 360           1.50       -0.403     0      -0.555 -0.555
+       8     0 Merc 450SE           1.50       -0.403     0      -0.778 -0.778
+       9     0 Hornet Sportabout    1.50       -0.403     0      -0.789 -0.789
+      10     0 AMC Javelin          1.50       -0.403     0      -0.797 -0.797
+      # i 950 more rows
+      
+      $Europe$d2$`gear:carb`
+      # A tibble: 45 x 7
+           .it gear   carb .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 three     1      0.00218     6     -0.105  -0.105 
+       2     0 four      1      0.00218     8     -0.155  -0.155 
+       3     0 five      1      0.00218     0     -0.158  -0.158 
+       4     0 three     2      0.00218     8     -0.210  -0.210 
+       5     0 four      2      0.00237     7     -0.210  -0.210 
+       6     0 five      2      0.0348      4     -0.0727 -0.0727
+       7     0 three     3      0.00218     7     -0.155  -0.155 
+       8     0 four      3      0.00237     2     -0.158  -0.158 
+       9     0 five      3      0.0510      0     -0.161  -0.161 
+      10     0 three     4      0.00218     8     -0.210  -0.210 
+      # i 35 more rows
+      
+      $Europe$d2$`gear:wt`
+      # A tibble: 90 x 7
+           .it gear     wt .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 three  1.50     -0.00213     0     -0.0423 -0.0423
+       2     0 four   1.50     -0.00213     0     -0.0517 -0.0517
+       3     0 five   1.50     -0.00213     1     -0.0584 -0.0584
+       4     0 three  1.94     -0.00213     0     -0.0705 -0.0705
+       5     0 four   1.94     -0.00210     6     -0.0927 -0.0927
+       6     0 five   1.94     -0.00282     1     -0.0935 -0.0935
+       7     0 three  2.46     -0.00213     1     -0.0928 -0.0928
+       8     0 four   2.46     -0.00208     4     -0.0927 -0.0927
+       9     0 five   2.46     -0.0208      2     -0.111  -0.111 
+      10     0 three  2.79     -0.00213     1     -0.0928 -0.0928
+      # i 80 more rows
+      
+      $Europe$d2$`carb:wt`
+      # A tibble: 150 x 7
+           .it  carb    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1  1.50     -0.00454     0    -0.0278  -0.0278 
+       2     0     2  1.50     -0.00454     1    -0.0377  -0.0377 
+       3     0     3  1.50     -0.00454     0    -0.0420  -0.0420 
+       4     0     4  1.50     -0.00454     0    -0.00941 -0.00941
+       5     0     8  1.50     -0.00454     0    -0.0426  -0.0426 
+       6     0     1  1.94     -0.00454     4    -0.0361  -0.0361 
+       7     0     2  1.94     -0.0244      3    -0.0659  -0.0659 
+       8     0     3  1.94     -0.0244      0    -0.0659  -0.0659 
+       9     0     4  1.94     -0.0244      0    -0.0327  -0.0327 
+      10     0     8  1.94     -0.0244      0    -0.0659  -0.0659 
+      # i 140 more rows
+      
+      
+      
+      $`North America`
+      $`North America`$d1
+      $`North America`$d1$mpg
+      # A tibble: 30 x 6
+           .it   mpg .y_composite    .n .y_distinct    .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4            0     1           0     0
+       2     0  14.4            0     7           0     0
+       3     0  15.2            0     7           0     0
+       4     0  16.4            0     7           0     0
+       5     0  18.7            0     7           0     0
+       6     0  19.8            0     7           0     0
+       7     0  21.4            0     7           0     0
+       8     0  22.9            0     7           0     0
+       9     0  30.1            0     7           0     0
+      10     0  33.9            0     7           0     0
+      # i 20 more rows
+      
+      $`North America`$d1$vs
+      # A tibble: 6 x 6
+          .it vs    .y_composite    .n .y_distinct    .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+      1     0 FALSE            0    36           0     0
+      2     0 TRUE             0    28           0     0
+      3     1 FALSE            0    36           0     0
+      4     1 TRUE             0    28           0     0
+      5     2 FALSE            0    36           0     0
+      6     2 TRUE             0    28           0     0
+      
+      $`North America`$d1$am
+      # A tibble: 6 x 6
+          .it am    .y_composite    .n .y_distinct        .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>     <dbl>
+      1     0 FALSE     1.52e-10    38    1.52e-10  1.52e-10
+      2     0 TRUE     -2.23e-10    26   -2.23e-10 -2.23e-10
+      3     1 FALSE    -9.71e-10    38   -9.71e-10 -9.71e-10
+      4     1 TRUE      7.39e-10    26    7.39e-10  7.39e-10
+      5     2 FALSE    -8.52e-10    38   -8.52e-10 -8.52e-10
+      6     2 TRUE     -4.72e-11    26   -4.72e-11 -4.72e-11
+      
+      $`North America`$d1$model
+      # A tibble: 96 x 6
+           .it model               .y_composite    .n .y_distinct     .y
+         <dbl> <fct>                      <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental        0.139     2       0.139  0.139
+       2     0 Cadillac Fleetwood         0.139     2       0.139  0.139
+       3     0 Merc 450SL                -0.861     2      -0.861 -0.861
+       4     0 Merc 450SLC               -0.861     2      -0.861 -0.861
+       5     0 Camaro Z28                 0.139     2       0.139  0.139
+       6     0 Chrysler Imperial          0.139     2       0.139  0.139
+       7     0 Duster 360                 0.139     2       0.139  0.139
+       8     0 Merc 450SE                -0.861     2      -0.861 -0.861
+       9     0 Hornet Sportabout          0.139     2       0.139  0.139
+      10     0 AMC Javelin                0.139     2       0.139  0.139
+      # i 86 more rows
+      
+      $`North America`$d1$gear
+      # A tibble: 9 x 6
+          .it gear  .y_composite    .n .y_distinct      .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>   <dbl>
+      1     0 three       0.254     30      0.254   0.254 
+      2     0 four       -0.283     24     -0.283  -0.283 
+      3     0 five       -0.0843    10     -0.0843 -0.0843
+      4     1 three       0.0526    30      0.0526  0.0526
+      5     1 four       -0.232     24     -0.232  -0.232 
+      6     1 five       -0.133     10     -0.133  -0.133 
+      7     2 three       0.0544    30      0.0544  0.0544
+      8     2 four       -0.232     24     -0.232  -0.232 
+      9     2 five        0.0679    10      0.0679  0.0679
+      
+      $`North America`$d1$carb
+      # A tibble: 15 x 6
+           .it  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1      1.08e-7    14     1.08e-7  1.08e-7
+       2     0     2     -3.71e-8    19    -3.71e-8 -3.71e-8
+       3     0     3     -3.71e-8     9    -3.71e-8 -3.71e-8
+       4     0     4     -3.71e-8    16    -3.71e-8 -3.71e-8
+       5     0     8     -4.13e-8     6    -4.13e-8 -4.13e-8
+       6     1     1      1.08e-7    18     1.08e-7  1.08e-7
+       7     1     2     -7.21e-8    16    -7.21e-8 -7.21e-8
+       8     1     3     -7.21e-8    13    -7.21e-8 -7.21e-8
+       9     1     4     -7.21e-8    15    -7.21e-8 -7.21e-8
+      10     1     8     -8.38e-8     2    -8.38e-8 -8.38e-8
+      11     2     1      1.08e-7    15     1.08e-7  1.08e-7
+      12     2     2      1.40e-9    13     1.40e-9  1.40e-9
+      13     2     3      1.40e-9    13     1.40e-9  1.40e-9
+      14     2     4      1.40e-9    20     1.40e-9  1.40e-9
+      15     2     8      1.17e-9     3     1.17e-9  1.17e-9
+      
+      $`North America`$d1$wt
+      # A tibble: 30 x 6
+           .it    wt .y_composite    .n .y_distinct        .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
+       1     0  1.50     6.60e-10     1    6.60e-10  6.60e-10
+       2     0  1.94    -8.93e-12     7   -8.93e-12 -8.93e-12
+       3     0  2.46    -4.95e-11     7   -4.95e-11 -4.95e-11
+       4     0  2.79    -4.95e-11     7   -4.95e-11 -4.95e-11
+       5     0  3.19    -4.95e-11     7   -4.95e-11 -4.95e-11
+       6     0  3.44    -4.87e-11     7   -4.87e-11 -4.87e-11
+       7     0  3.52    -4.87e-11     7   -4.87e-11 -4.87e-11
+       8     0  3.73    -4.87e-11     7   -4.87e-11 -4.87e-11
+       9     0  4.05    -4.87e-11     7   -4.87e-11 -4.87e-11
+      10     0  5.45    -4.87e-11     7   -4.87e-11 -4.87e-11
+      # i 20 more rows
+      
+      
+      $`North America`$d2
+      $`North America`$d2$`mpg:vs`
+      # A tibble: 60 x 7
+           .it   mpg vs    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     7           0     0
+       4     0  16.4 FALSE            0     7           0     0
+       5     0  18.7 FALSE            0     3           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     4           0     0
+       8     0  22.9 FALSE            0     0           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $`North America`$d2$`mpg:am`
+      # A tibble: 60 x 7
+           .it   mpg am    .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 FALSE            0     1           0     0
+       2     0  14.4 FALSE            0     7           0     0
+       3     0  15.2 FALSE            0     5           0     0
+       4     0  16.4 FALSE            0     5           0     0
+       5     0  18.7 FALSE            0     7           0     0
+       6     0  19.8 FALSE            0     5           0     0
+       7     0  21.4 FALSE            0     1           0     0
+       8     0  22.9 FALSE            0     5           0     0
+       9     0  30.1 FALSE            0     2           0     0
+      10     0  33.9 FALSE            0     0           0     0
+      # i 50 more rows
+      
+      $`North America`$d2$`mpg:model`
+      # A tibble: 960 x 7
+           .it   mpg model               .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 Lincoln Continental            0     0           0     0
+       2     0  14.4 Lincoln Continental            0     2           0     0
+       3     0  15.2 Lincoln Continental            0     0           0     0
+       4     0  16.4 Lincoln Continental            0     0           0     0
+       5     0  18.7 Lincoln Continental            0     0           0     0
+       6     0  19.8 Lincoln Continental            0     0           0     0
+       7     0  21.4 Lincoln Continental            0     0           0     0
+       8     0  22.9 Lincoln Continental            0     0           0     0
+       9     0  30.1 Lincoln Continental            0     0           0     0
+      10     0  33.9 Lincoln Continental            0     0           0     0
+      # i 950 more rows
+      
+      $`North America`$d2$`mpg:gear`
+      # A tibble: 90 x 7
+           .it   mpg gear  .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4 three            0     1           0     0
+       2     0  14.4 three            0     7           0     0
+       3     0  15.2 three            0     5           0     0
+       4     0  16.4 three            0     5           0     0
+       5     0  18.7 three            0     5           0     0
+       6     0  19.8 three            0     3           0     0
+       7     0  21.4 three            0     1           0     0
+       8     0  22.9 three            0     3           0     0
+       9     0  30.1 three            0     0           0     0
+      10     0  33.9 three            0     0           0     0
+      # i 80 more rows
+      
+      $`North America`$d2$`mpg:carb`
+      # A tibble: 150 x 7
+           .it   mpg  carb .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4     1            0     0           0     0
+       2     0  14.4     1            0     0           0     0
+       3     0  15.2     1            0     0           0     0
+       4     0  16.4     1            0     0           0     0
+       5     0  18.7     1            0     2           0     0
+       6     0  19.8     1            0     0           0     0
+       7     0  21.4     1            0     1           0     0
+       8     0  22.9     1            0     5           0     0
+       9     0  30.1     1            0     2           0     0
+      10     0  33.9     1            0     4           0     0
+      # i 140 more rows
+      
+      $`North America`$d2$`mpg:wt`
+      # A tibble: 300 x 7
+           .it   mpg    wt .y_composite    .n .y_distinct    .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0  10.4  1.50            0     0           0     0
+       2     0  14.4  1.50            0     0           0     0
+       3     0  15.2  1.50            0     0           0     0
+       4     0  16.4  1.50            0     0           0     0
+       5     0  18.7  1.50            0     0           0     0
+       6     0  19.8  1.50            0     0           0     0
+       7     0  21.4  1.50            0     0           0     0
+       8     0  22.9  1.50            0     0           0     0
+       9     0  30.1  1.50            0     1           0     0
+      10     0  33.9  1.50            0     0           0     0
+      # i 290 more rows
+      
+      $`North America`$d2$`vs:am`
+      # A tibble: 12 x 7
+           .it vs    am    .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE FALSE            0    24           0     0
+       2     0 TRUE  FALSE            0    14           0     0
+       3     0 FALSE TRUE             0    12           0     0
+       4     0 TRUE  TRUE             0    14           0     0
+       5     1 FALSE FALSE            0    24           0     0
+       6     1 TRUE  FALSE            0    14           0     0
+       7     1 FALSE TRUE             0    12           0     0
+       8     1 TRUE  TRUE             0    14           0     0
+       9     2 FALSE FALSE            0    24           0     0
+      10     2 TRUE  FALSE            0    14           0     0
+      11     2 FALSE TRUE             0    12           0     0
+      12     2 TRUE  TRUE             0    14           0     0
+      
+      $`North America`$d2$`vs:model`
+      # A tibble: 192 x 7
+           .it vs    model               .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE Lincoln Continental            0     2           0     0
+       2     0 TRUE  Lincoln Continental            0     0           0     0
+       3     0 FALSE Cadillac Fleetwood             0     2           0     0
+       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
+       5     0 FALSE Merc 450SL                     0     2           0     0
+       6     0 TRUE  Merc 450SL                     0     0           0     0
+       7     0 FALSE Merc 450SLC                    0     2           0     0
+       8     0 TRUE  Merc 450SLC                    0     0           0     0
+       9     0 FALSE Camaro Z28                     0     2           0     0
+      10     0 TRUE  Camaro Z28                     0     0           0     0
+      # i 182 more rows
+      
+      $`North America`$d2$`vs:gear`
+      # A tibble: 18 x 7
+           .it vs    gear  .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE three            0    24           0     0
+       2     0 TRUE  three            0     6           0     0
+       3     0 FALSE four             0     4           0     0
+       4     0 TRUE  four             0    20           0     0
+       5     0 FALSE five             0     8           0     0
+       6     0 TRUE  five             0     2           0     0
+       7     1 FALSE three            0    24           0     0
+       8     1 TRUE  three            0     6           0     0
+       9     1 FALSE four             0     4           0     0
+      10     1 TRUE  four             0    20           0     0
+      11     1 FALSE five             0     8           0     0
+      12     1 TRUE  five             0     2           0     0
+      13     2 FALSE three            0    24           0     0
+      14     2 TRUE  three            0     6           0     0
+      15     2 FALSE four             0     4           0     0
+      16     2 TRUE  four             0    20           0     0
+      17     2 FALSE five             0     8           0     0
+      18     2 TRUE  five             0     2           0     0
+      
+      $`North America`$d2$`vs:carb`
+      # A tibble: 30 x 7
+           .it vs     carb .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE     1            0     0           0     0
+       2     0 TRUE      1            0    14           0     0
+       3     0 FALSE     2            0    10           0     0
+       4     0 TRUE      2            0     9           0     0
+       5     0 FALSE     3            0     8           0     0
+       6     0 TRUE      3            0     1           0     0
+       7     0 FALSE     4            0    13           0     0
+       8     0 TRUE      4            0     3           0     0
+       9     0 FALSE     8            0     5           0     0
+      10     0 TRUE      8            0     1           0     0
+      # i 20 more rows
+      
+      $`North America`$d2$`vs:wt`
+      # A tibble: 60 x 7
+           .it vs       wt .y_composite    .n .y_distinct    .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
+       1     0 FALSE  1.50            0     0           0     0
+       2     0 TRUE   1.50            0     1           0     0
+       3     0 FALSE  1.94            0     0           0     0
+       4     0 TRUE   1.94            0     7           0     0
+       5     0 FALSE  2.46            0     2           0     0
+       6     0 TRUE   2.46            0     5           0     0
+       7     0 FALSE  2.79            0     4           0     0
+       8     0 TRUE   2.79            0     3           0     0
+       9     0 FALSE  3.19            0     4           0     0
+      10     0 TRUE   3.19            0     3           0     0
+      # i 50 more rows
+      
+      $`North America`$d2$`am:model`
+      # A tibble: 192 x 7
+           .it am    model               .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>   <dbl>
+       1     0 FALSE Lincoln Continental      -0.0218     2     -0.0218 -0.0218
+       2     0 TRUE  Lincoln Continental      -0.0218     0     -1.51   -1.51  
+       3     0 FALSE Cadillac Fleetwood       -0.0218     2     -0.0218 -0.0218
+       4     0 TRUE  Cadillac Fleetwood       -0.0218     0     -1.51   -1.51  
+       5     0 FALSE Merc 450SL               -0.0218     2     -0.0218 -0.0218
+       6     0 TRUE  Merc 450SL               -0.0218     0     -1.51   -1.51  
+       7     0 FALSE Merc 450SLC              -0.0218     2     -0.0218 -0.0218
+       8     0 TRUE  Merc 450SLC              -0.0218     0     -1.51   -1.51  
+       9     0 FALSE Camaro Z28               -0.0218     2     -0.0218 -0.0218
+      10     0 TRUE  Camaro Z28               -0.0218     0     -1.51   -1.51  
+      # i 182 more rows
+      
+      $`North America`$d2$`am:gear`
+      # A tibble: 18 x 7
+           .it am    gear  .y_composite    .n .y_distinct     .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 FALSE three       0.0729    30       0.205  0.205
+       2     0 TRUE  three       0.0729     0       0.894  0.894
+       3     0 FALSE four        0.0729     8       0.205  0.205
+       4     0 TRUE  four        0.643     16       1.46   1.46 
+       5     0 FALSE five        0.0729     0       0.205  0.205
+       6     0 TRUE  five        0.838     10       1.66   1.66 
+       7     1 FALSE three       0.271     30       0.329  0.329
+       8     1 TRUE  three       0.271      0       0.170  0.170
+       9     1 FALSE four        0.527      8       0.585  0.585
+      10     1 TRUE  four        0.848     16       0.746  0.746
+      11     1 FALSE five        0.527      0       0.585  0.585
+      12     1 TRUE  five        0.945     10       0.843  0.843
+      13     2 FALSE three       0.0732    30      -0.117 -0.117
+      14     2 TRUE  three       0.0732     0      -0.646 -0.646
+      15     2 FALSE four        0.340      8       0.150  0.150
+      16     2 TRUE  four        0.403     16      -0.317 -0.317
+      17     2 FALSE five        0.340      0       0.150  0.150
+      18     2 TRUE  five        0.403     10      -0.317 -0.317
+      
+      $`North America`$d2$`am:carb`
+      # A tibble: 30 x 7
+           .it am     carb  .y_composite    .n   .y_distinct            .y
+         <dbl> <fct> <dbl>         <dbl> <dbl>         <dbl>         <dbl>
+       1     0 FALSE     1 -0.0000000460     6  0.00370       0.00370     
+       2     0 TRUE      1 -0.0000000460     8 -0.123        -0.123       
+       3     0 FALSE     2 -0.0000000460    12 -0.0828       -0.0828      
+       4     0 TRUE      2 -0.000000439      7 -0.127        -0.127       
+       5     0 FALSE     3 -0.0000000460     7  0.00369       0.00369     
+       6     0 TRUE      3 -0.000000439      2 -0.210        -0.210       
+       7     0 FALSE     4 -0.0000000460    11 -0.0000000460 -0.0000000460
+       8     0 TRUE      4 -0.000000446      5 -0.123        -0.123       
+       9     0 FALSE     8 -0.0000000460     2 -0.0828       -0.0828      
+      10     0 TRUE      8 -0.000000447      4 -0.210        -0.210       
+      # i 20 more rows
+      
+      $`North America`$d2$`am:wt`
+      # A tibble: 60 x 7
+           .it am       wt .y_composite    .n .y_distinct        .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
+       1     0 FALSE  1.50     9.93e-11     0    1.17e- 5  1.17e- 5
+       2     0 TRUE   1.50     9.93e-11     1   -1.71e- 2 -1.71e- 2
+       3     0 FALSE  1.94     9.93e-11     0   -2.12e- 2 -2.12e- 2
+       4     0 TRUE   1.94    -5.71e-10     7   -3.83e- 2 -3.83e- 2
+       5     0 FALSE  2.46     9.93e-11     1   -2.12e- 2 -2.12e- 2
+       6     0 TRUE   2.46    -6.18e-10     6   -3.83e- 2 -3.83e- 2
+       7     0 FALSE  2.79     9.93e-11     1    9.93e-11  9.93e-11
+       8     0 TRUE   2.79     7.83e-10     6   -1.71e- 2 -1.71e- 2
+       9     0 FALSE  3.19     9.93e-11     3   -1.03e- 2 -1.03e- 2
+      10     0 TRUE   3.19     7.86e-10     4   -3.83e- 2 -3.83e- 2
+      # i 50 more rows
+      
+      $`North America`$d2$`model:gear`
+      # A tibble: 288 x 7
+           .it model               gear  .y_composite    .n .y_distinct     .y
+         <dbl> <fct>               <fct>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental three       -0.117     2      -0.117 -0.117
+       2     0 Cadillac Fleetwood  three       -0.117     2      -0.117 -0.117
+       3     0 Merc 450SL          three       -0.117     2      -0.117 -0.117
+       4     0 Merc 450SLC         three       -0.117     2      -0.117 -0.117
+       5     0 Camaro Z28          three       -0.117     2      -0.117 -0.117
+       6     0 Chrysler Imperial   three       -0.117     2       0.339  0.339
+       7     0 Duster 360          three       -0.117     2       0.317  0.317
+       8     0 Merc 450SE          three       -0.117     2       0.317  0.317
+       9     0 Hornet Sportabout   three       -0.117     2       0.434  0.434
+      10     0 AMC Javelin         three       -0.117     2       0.547  0.547
+      # i 278 more rows
+      
+      $`North America`$d2$`model:carb`
+      # A tibble: 480 x 7
+           .it model                carb .y_composite    .n .y_distinct     .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 Lincoln Continental     1        0.471     0       0.471  0.471
+       2     0 Cadillac Fleetwood      1        0.471     0       0.471  0.471
+       3     0 Merc 450SL              1        0.471     0       0.471  0.471
+       4     0 Merc 450SLC             1        0.471     0       0.471  0.471
+       5     0 Camaro Z28              1        0.471     0       0.471  0.471
+       6     0 Chrysler Imperial       1        0.471     0      -1.53  -1.53 
+       7     0 Duster 360              1        0.471     0      -5.55  -5.55 
+       8     0 Merc 450SE              1        0.471     0      -6.69  -6.69 
+       9     0 Hornet Sportabout       1        0.471     0      -6.97  -6.97 
+      10     0 AMC Javelin             1        0.471     0      -7.07  -7.07 
+      # i 470 more rows
+      
+      $`North America`$d2$`model:wt`
+      # A tibble: 960 x 7
+           .it model                  wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct>               <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 Lincoln Continental  1.50       0.0603     0     0.0603   0.0603 
+       2     0 Cadillac Fleetwood   1.50       0.0603     0     0.0603   0.0603 
+       3     0 Merc 450SL           1.50       0.0603     0     0.0603   0.0603 
+       4     0 Merc 450SLC          1.50       0.0603     0     0.0603   0.0603 
+       5     0 Camaro Z28           1.50       0.0603     0     0.0602   0.0602 
+       6     0 Chrysler Imperial    1.50       0.0603     0     0.00250  0.00250
+       7     0 Duster 360           1.50       0.0603     0    -0.252   -0.252  
+       8     0 Merc 450SE           1.50       0.0603     0    -0.318   -0.318  
+       9     0 Hornet Sportabout    1.50       0.0603     0    -0.334   -0.334  
+      10     0 AMC Javelin          1.50       0.0603     0    -0.334   -0.334  
+      # i 950 more rows
+      
+      $`North America`$d2$`gear:carb`
+      # A tibble: 45 x 7
+           .it gear   carb .y_composite    .n .y_distinct     .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>  <dbl>
+       1     0 three     1      -0.0306     6      -0.108 -0.108
+       2     0 four      1      -0.0306     8      -0.157 -0.157
+       3     0 five      1      -0.0306     0      -0.160 -0.160
+       4     0 three     2      -0.0306     8      -0.213 -0.213
+       5     0 four      2      -0.165      7      -0.347 -0.347
+       6     0 five      2      -0.165      4      -0.242 -0.242
+       7     0 three     3      -0.0306     7      -0.157 -0.157
+       8     0 four      3      -0.195      2      -0.325 -0.325
+       9     0 five      3      -0.198      0      -0.380 -0.380
+      10     0 three     4      -0.0306     8      -0.213 -0.213
+      # i 35 more rows
+      
+      $`North America`$d2$`gear:wt`
+      # A tibble: 90 x 7
+           .it gear     wt .y_composite    .n .y_distinct      .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>   <dbl>
+       1     0 three  1.50      -0.0342     0     -0.0903 -0.0903
+       2     0 four   1.50      -0.0342     0     -0.0997 -0.0997
+       3     0 five   1.50      -0.0342     1     -0.106  -0.106 
+       4     0 three  1.94      -0.0342     0     -0.119  -0.119 
+       5     0 four   1.94      -0.0506     6     -0.157  -0.157 
+       6     0 five   1.94      -0.0506     1     -0.157  -0.157 
+       7     0 three  2.46      -0.0342     1     -0.141  -0.141 
+       8     0 four   2.46      -0.0578     4     -0.164  -0.164 
+       9     0 five   2.46      -0.0578     2     -0.164  -0.164 
+      10     0 three  2.79      -0.0342     1     -0.141  -0.141 
+      # i 80 more rows
+      
+      $`North America`$d2$`carb:wt`
+      # A tibble: 150 x 7
+           .it  carb    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0     1  1.50 0.0000000171     0    -0.0332  -0.0332 
+       2     0     2  1.50 0.0000000171     1    -0.00425 -0.00425
+       3     0     3  1.50 0.0000000171     0    -0.0375  -0.0375 
+       4     0     4  1.50 0.0000000171     0    -0.0281  -0.0281 
+       5     0     8  1.50 0.0000000171     0    -0.0381  -0.0381 
+       6     0     1  1.94 0.0000000171     4    -0.0415  -0.0415 
+       7     0     2  1.94 0.000000145      3    -0.00831 -0.00831
+       8     0     3  1.94 0.000000145      0    -0.0415  -0.0415 
+       9     0     4  1.94 0.000000145      0    -0.0316  -0.0316 
+      10     0     8  1.94 0.000000145      0    -0.0415  -0.0415 
+      # i 140 more rows
+      
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, stats = "estimate")
+    Output
+      $Asia
+      $Asia$d1
+      # A tibble: 7 x 7
+        term       aled   aler_min  aler_max naled naler_min naler_max
+        <chr>     <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
+      1 mpg   0          0         0           0           0       0  
+      2 vs    0          0         0           0           0       0  
+      3 am    0.0218    -0.00838   0.0309     38.9       -50      31.2
+      4 model 1.17      -1.94      1.05       43.0       -50      40.6
+      5 gear  0.140     -0.232     0.119      37.7       -50      31.2
+      6 carb  0.00172   -0.00189   0.00549    40.9       -50      31.2
+      7 wt    0.0000118 -0.0000118 0.0000319  47.8       -50      31.2
+      
+      $Asia$d2
+      # A tibble: 21 x 7
+         term       aled aler_min aler_max naled naler_min naler_max
+         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 mpg:vs        0        0        0     0         0         0
+       2 mpg:am        0        0        0     0         0         0
+       3 mpg:model     0        0        0     0         0         0
+       4 mpg:gear      0        0        0     0         0         0
+       5 mpg:carb      0        0        0     0         0         0
+       6 mpg:wt        0        0        0     0         0         0
+       7 vs:am         0        0        0     0         0         0
+       8 vs:model      0        0        0     0         0         0
+       9 vs:gear       0        0        0     0         0         0
+      10 vs:carb       0        0        0     0         0         0
+      # i 11 more rows
+      
+      
+      $Europe
+      $Europe$d1
+      # A tibble: 7 x 7
+        term       aled   aler_min  aler_max naled naler_min naler_max
+        <chr>     <dbl>      <dbl>     <dbl> <dbl>     <dbl>     <dbl>
+      1 mpg   0          0         0           0         0        0   
+      2 vs    0          0         0           0         0        0   
+      3 am    0.0218    -0.0309    0.00838    32.2     -50        6.25
+      4 model 2.27      -0.680     4.28       45.9     -21.9     50   
+      5 gear  0.232     -0.172     0.365      30.2     -50        6.25
+      6 carb  0.00172   -0.00549   0.00189    27.4     -50        6.25
+      7 wt    0.0000118 -0.0000319 0.0000118  10.7     -50        6.25
+      
+      $Europe$d2
+      # A tibble: 21 x 7
+         term       aled aler_min aler_max naled naler_min naler_max
+         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 mpg:vs        0        0        0     0         0         0
+       2 mpg:am        0        0        0     0         0         0
+       3 mpg:model     0        0        0     0         0         0
+       4 mpg:gear      0        0        0     0         0         0
+       5 mpg:carb      0        0        0     0         0         0
+       6 mpg:wt        0        0        0     0         0         0
+       7 vs:am         0        0        0     0         0         0
+       8 vs:model      0        0        0     0         0         0
+       9 vs:gear       0        0        0     0         0         0
+      10 vs:carb       0        0        0     0         0         0
+      # i 11 more rows
+      
+      
+      $`North America`
+      $`North America`$d1
+      # A tibble: 7 x 7
+        term      aled  aler_min  aler_max naled naler_min naler_max
+        <chr>    <dbl>     <dbl>     <dbl> <dbl>     <dbl>     <dbl>
+      1 mpg   0         0         0         0         0         0   
+      2 vs    0         0         0         0         0         0   
+      3 am    7.01e-10 -9.12e-10  3.46e-10 41.7     -50       -20.3 
+      4 model 1.48e+ 0 -2.59e+ 0 -1.11e- 1 43.0     -50       -18.8 
+      5 gear  1.28e- 1 -2.32e- 1  6.02e- 2 29.5     -50        12.5 
+      6 carb  3.40e- 8 -4.13e- 8  1.08e- 7 20.4     -20.3      12.5 
+      7 wt    3.83e-10  3.53e-10  6.60e-10  8.06      7.81      9.38
+      
+      $`North America`$d2
+      # A tibble: 21 x 7
+         term       aled aler_min aler_max naled naler_min naler_max
+         <chr>     <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 mpg:vs        0        0        0     0         0         0
+       2 mpg:am        0        0        0     0         0         0
+       3 mpg:model     0        0        0     0         0         0
+       4 mpg:gear      0        0        0     0         0         0
+       5 mpg:carb      0        0        0     0         0         0
+       6 mpg:wt        0        0        0     0         0         0
+       7 vs:am         0        0        0     0         0         0
+       8 vs:model      0        0        0     0         0         0
+       9 vs:gear       0        0        0     0         0         0
+      10 vs:carb       0        0        0     0         0         0
+      # i 11 more rows
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, cats = c("Asia", "Europe"))
+    Output
+      $Asia
+      $Asia$d1
+      $Asia$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Asia$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Asia$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n      .y    .y_lo .y_mean .y_median  .y_hi
+        <ord>  <int>   <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+      1 FALSE     38 0.00619 -0.0396  0.00619   0.0297  0.0320
+      2 TRUE      26 0.0155  -0.00990 0.0155   -0.00670 0.0597
+      
+      $Asia$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2 -0.0226 -0.288 -0.0226    0.0422 0.187
+       2 Cadillac Fleetwood      2  0.0932 -0.280  0.0932    0.195  0.380
+       3 Merc 450SL              2 -0.235  -0.766 -0.235    -0.305  0.355
+       4 Merc 450SLC             2 -0.235  -0.766 -0.235    -0.305  0.355
+       5 Camaro Z28              2  0.0975 -0.304  0.0975   -0.290  0.829
+       6 Chrysler Imperial       2  0.264  -0.279  0.264     0.210  0.854
+       7 Duster 360              2  0.264  -0.279  0.264     0.210  0.854
+       8 Merc 450SE              2  0.266  -0.279  0.266     0.216  0.854
+       9 Hornet Sportabout       2  0.433  -0.279  0.433     0.216  1.33 
+      10 AMC Javelin             2  0.446  -0.302  0.446    -0.244  1.78 
+      # i 22 more rows
+      
+      $Asia$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>    <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 three       30  0.118    0.0563  0.118      0.118   0.181 
+      2 four        24  0.00198 -0.150   0.00198    0.0718  0.0948
+      3 five        10 -0.330   -0.523  -0.330     -0.460  -0.0269
+      
+      $Asia$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median     .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
+      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549 
+      2         2    19 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      3         3     9 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      4         4    16 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      5         8     6 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      
+      $Asia$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1  0.0000319   0.0000319   0.0000319   0.0000319   0.0000319 
+       2    1.94     7 -0.00000143 -0.00000836 -0.00000143 -0.00000427  0.00000790
+       3    2.46     7 -0.00000906 -0.0000153  -0.00000906 -0.00000787 -0.00000385
+       4    2.79     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       5    3.19     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       6    3.44     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       7    3.52     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       8    3.73     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       9    4.05     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      10    5.45     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      
+      
+      $Asia$d2
+      $Asia$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Asia$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Asia$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Asia$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Asia$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Asia$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Asia$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Asia$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Asia$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Asia$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2 0.214   0.106  0.214      0.106 0.415
+       2 TRUE   Lincoln Continental     0 0.214  -1.28   0.214      0.512 1.46 
+       3 FALSE  Cadillac Fleetwood      2 0.323   0.106  0.323      0.106 0.723
+       4 TRUE   Cadillac Fleetwood      0 0.323  -1.27   0.323      0.837 1.48 
+       5 FALSE  Merc 450SL              2 0.0915 -0.552  0.0915     0.106 0.723
+       6 TRUE   Merc 450SL              0 0.0915 -1.27   0.0915     0.817 0.836
+       7 FALSE  Merc 450SLC             2 0.0915 -0.552  0.0915     0.106 0.723
+       8 TRUE   Merc 450SLC             0 0.0915 -1.27   0.0915     0.817 0.836
+       9 FALSE  Camaro Z28              2 0.0910 -0.552  0.0910     0.106 0.721
+      10 TRUE   Camaro Z28              0 0.0910 -1.27   0.0910     0.817 0.834
+      # i 54 more rows
+      
+      $Asia$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+      1 FALSE  three       30 -0.0927 -0.197 -0.0927   -0.0688 -0.00870
+      2 TRUE   three        0 -0.0927 -0.601 -0.0927   -0.104   0.425  
+      3 FALSE  four         8 -0.191  -0.332 -0.191    -0.165  -0.0736 
+      4 TRUE   four        16 -0.433  -0.832 -0.433    -0.507   0.0281 
+      5 FALSE  five         0 -0.191  -0.332 -0.191    -0.165  -0.0736 
+      6 TRUE   five        10 -0.766  -0.942 -0.766    -0.806  -0.555  
+      
+      $Asia$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>  <dbl>
+       1 FALSE          1     6  0.0166    0.0166   0.0166     0.0166  0.0166
+       2 TRUE           1     8  0.0166   -0.101    0.0166     0.0166  0.134 
+       3 FALSE          2    12  0.0134   -0.0621   0.0134     0.0163  0.0863
+       4 TRUE           2     7 -0.000253 -0.203   -0.000253   0.00468 0.198 
+       5 FALSE          3     7  0.0134    0.00415  0.0134     0.0163  0.0201
+       6 TRUE           3     2 -0.000226 -0.120   -0.000226   0.00468 0.116 
+       7 FALSE          4    11  0.190    -0.0514   0.190      0.229   0.399 
+       8 TRUE           4     5  0.454     0.357    0.454      0.423   0.579 
+       9 FALSE          8     2  0.190     0.0307   0.190      0.229   0.317 
+      10 TRUE           8     4  0.454     0.341    0.454      0.353   0.654 
+      
+      $Asia$d2$`am:wt`
+      # A tibble: 20 x 8
+         am.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>    <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 FALSE     1.50     0 0.0139  0.0139   0.0139    0.0139 0.0139
+       2 TRUE      1.50     1 0.0139 -0.00237  0.0139    0.0139 0.0301
+       3 FALSE     1.94     0 0.0139  0.00413  0.0139    0.0139 0.0236
+       4 TRUE      1.94     7 0.0138 -0.0225   0.0138    0.0138 0.0502
+       5 FALSE     2.46     1 0.0138 -0.00627  0.0138    0.0139 0.0339
+       6 TRUE      2.46     6 0.0138 -0.0225   0.0138    0.0138 0.0502
+       7 FALSE     2.79     1 0.0314 -0.00483  0.0314    0.0426 0.0582
+       8 TRUE      2.79     6 0.0538  0.0227   0.0538    0.0605 0.0793
+       9 FALSE     3.19     3 0.0481  0.0157   0.0481    0.0497 0.0792
+      10 TRUE      3.19     4 0.100   0.0512   0.100     0.0987 0.151 
+      11 FALSE     3.44     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      12 TRUE      3.44     0 0.109   0.0651   0.109     0.0987 0.161 
+      13 FALSE     3.52     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      14 TRUE      3.52     0 0.113   0.0772   0.113     0.0987 0.161 
+      15 FALSE     3.73     5 0.0481  0.0157   0.0481    0.0497 0.0792
+      16 TRUE      3.73     2 0.113   0.0973   0.113     0.0987 0.141 
+      17 FALSE     4.05     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      18 TRUE      4.05     0 0.113   0.0772   0.113     0.0987 0.161 
+      19 FALSE     5.45     7 0.0481 -0.00341  0.0481    0.0709 0.0803
+      20 TRUE      5.45     0 0.113   0.0772   0.113     0.0987 0.161 
+      
+      $Asia$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 -0.0681 -0.184 -0.0681   -0.184  0.146
+       2 Cadillac Fleetwood  three        2  0.0476 -0.184  0.0476   -0.184  0.476
+       3 Merc 450SL          three        2 -0.280  -1.12  -0.280    -0.184  0.476
+       4 Merc 450SLC         three        2 -0.114  -0.643 -0.114    -0.184  0.476
+       5 Camaro Z28          three        2  0.389  -0.158  0.389     0.342  0.975
+       6 Chrysler Imperial   three        2  0.223  -0.556  0.223     0.274  0.957
+       7 Duster 360          three        2  0.223  -0.970  0.223     0.272  1.37 
+       8 Merc 450SE          three        2  0.224  -0.687  0.224     0.250  1.11 
+       9 Hornet Sportabout   three        2  0.225  -0.686  0.225     0.250  1.11 
+      10 AMC Javelin         three        2 -0.0923 -1.59  -0.0923   -0.0198 1.34 
+      # i 86 more rows
+      
+      $Asia$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0  3.42  3.42     3.42      3.42  3.42
+       2 Cadillac Fleetwood          1     0  3.42  3.42     3.42      3.42  3.42
+       3 Merc 450SL                  1     0  3.42  3.42     3.42      3.42  3.42
+       4 Merc 450SLC                 1     0  3.42  3.42     3.42      3.42  3.42
+       5 Camaro Z28                  1     0  3.42  3.42     3.42      3.42  3.42
+       6 Chrysler Imperial           1     0  3.42  3.00     3.42      3.01  4.19
+       7 Duster 360                  1     0  3.42 -0.295    3.42      2.05  8.30
+       8 Merc 450SE                  1     0  3.42 -3.05     3.42      2.05 11.1 
+       9 Hornet Sportabout           1     0  3.42 -3.45     3.42      2.05 11.5 
+      10 AMC Javelin                 1     0  3.42 -3.81     3.42      2.05 11.8 
+      # i 150 more rows
+      
+      $Asia$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n    .y   .y_lo .y_mean .y_median .y_hi
+         <ord>                 <dbl> <int> <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental    1.50     0 0.342  0.342    0.342     0.342 0.342
+       2 Cadillac Fleetwood     1.50     0 0.342  0.342    0.342     0.342 0.342
+       3 Merc 450SL             1.50     0 0.342  0.342    0.342     0.342 0.342
+       4 Merc 450SLC            1.50     0 0.342  0.342    0.342     0.342 0.342
+       5 Camaro Z28             1.50     0 0.342  0.342    0.342     0.342 0.342
+       6 Chrysler Imperial      1.50     0 0.342  0.319    0.342     0.342 0.366
+       7 Duster 360             1.50     0 0.342  0.284    0.342     0.286 0.448
+       8 Merc 450SE             1.50     0 0.342 -0.0164   0.342     0.286 0.749
+       9 Hornet Sportabout      1.50     0 0.342 -0.0274   0.342     0.286 0.760
+      10 AMC Javelin            1.50     0 0.342 -0.0351   0.342     0.286 0.768
+      # i 310 more rows
+      
+      $Asia$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>        <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three            1     6 0.0284  0.0284   0.0284    0.0284 0.0284
+       2 four             1     8 0.0284 -0.0188   0.0284    0.0249 0.0785
+       3 five             1     0 0.0284 -0.0220   0.0284    0.0249 0.0817
+       4 three            2     8 0.0270 -0.0718   0.0270    0.0206 0.131 
+       5 four             2     7 0.118   0.0612   0.118     0.135  0.161 
+       6 five             2     4 0.0970  0.00282  0.0970    0.130  0.163 
+       7 three            3     7 0.0341 -0.0182   0.0341    0.0372 0.0838
+       8 four             3     2 0.149   0.120    0.149     0.140  0.185 
+       9 five             3     0 0.123   0.0471   0.123     0.139  0.187 
+      10 three            4     8 0.0456 -0.0699   0.0456    0.0598 0.149 
+      11 four             4     6 0.307   0.206    0.307     0.358  0.364 
+      12 five             4     2 0.285   0.221    0.285     0.270  0.361 
+      13 three            8     1 0.0456 -0.0204   0.0456    0.0574 0.102 
+      14 four             8     1 0.308   0.256    0.308     0.307  0.359 
+      15 five             8     4 0.285   0.217    0.285     0.273  0.364 
+      
+      $Asia$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 0.0363  0.0363   0.0363    0.0363 0.0363
+       2 four        1.50     0 0.0363  0.0274   0.0363    0.0364 0.0453
+       3 five        1.50     1 0.0363  0.0212   0.0363    0.0389 0.0493
+       4 three       1.94     0 0.0470  0.0108   0.0470    0.0619 0.0704
+       5 four        1.94     6 0.0550  0.00593  0.0550    0.0757 0.0864
+       6 five        1.94     1 0.0552  0.00661  0.0552    0.0757 0.0864
+       7 three       2.46     1 0.0487 -0.00963  0.0487    0.0762 0.0838
+       8 four        2.46     4 0.0623  0.0132   0.0623    0.0852 0.0919
+       9 five        2.46     2 0.0725  0.0313   0.0725    0.0923 0.0970
+      10 three       2.79     1 0.0489 -0.00962  0.0489    0.0764 0.0840
+      # i 20 more rows
+      
+      $Asia$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1         1    1.50     0 0.00454  0.00454 0.00454   0.00454 0.00454
+       2         2    1.50     1 0.00454 -0.0270  0.00454   0.00454 0.0361 
+       3         3    1.50     0 0.00454 -0.0216  0.00454   0.00454 0.0307 
+       4         4    1.50     0 0.00454 -0.0310  0.00454   0.00454 0.0401 
+       5         8    1.50     0 0.00454 -0.0316  0.00454   0.00454 0.0407 
+       6         1    1.94     4 0.00454 -0.00336 0.00454   0.00454 0.0124 
+       7         2    1.94     3 0.0185  -0.0159  0.0185    0.00668 0.0629 
+       8         3    1.94     0 0.0185  -0.00651 0.0185    0.00668 0.0535 
+       9         4    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      10         8    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      # i 40 more rows
+      
+      
+      
+      $Europe
+      $Europe$d1
+      $Europe$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Europe$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Europe$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>  <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 FALSE     38 -0.00619 -0.0320 -0.00619  -0.0297  0.0396 
+      2 TRUE      26 -0.0155  -0.0597 -0.0155    0.00670 0.00990
+      
+      $Europe$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2  0.217  -0.164  0.217      0.166 0.641
+       2 Cadillac Fleetwood      2  0.268  -0.494  0.268      0.166 1.12 
+       3 Merc 450SL              2  0.931  -0.444  0.931      1.17  2.10 
+       4 Merc 450SLC             2  0.764  -0.444  0.764      1.17  1.63 
+       5 Camaro Z28              2 -0.0688 -1.44  -0.0688     0.166 1.10 
+       6 Chrysler Imperial       2  0.0978 -0.967  0.0978     0.166 1.10 
+       7 Duster 360              2  0.0978 -0.967  0.0978     0.166 1.10 
+       8 Merc 450SE              2  0.596  -0.917  0.596      1.17  1.62 
+       9 Hornet Sportabout       2 -0.237  -1.92  -0.237      0.166 1.10 
+      10 AMC Javelin             2 -0.0841 -1.92  -0.0841     0.166 1.54 
+      # i 22 more rows
+      
+      $Europe$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30 -0.239 -0.366   -0.239    -0.239 -0.112
+      2 four        24  0.247  0.140    0.247     0.211  0.385
+      3 five        10  0.380 -0.0309   0.380     0.594  0.609
+      
+      $Europe$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.00549 -0.00549  -0.00549  -0.00549 -0.00549
+      2         2    19  0.00190  0.000117  0.00190   0.00191  0.00367
+      3         3     9  0.00190  0.000117  0.00190   0.00191  0.00367
+      4         4    16  0.00190  0.000117  0.00190   0.00191  0.00367
+      5         8     6  0.00190  0.000117  0.00190   0.00191  0.00367
+      
+      $Europe$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1 -0.0000319  -0.0000319  -0.0000319  -0.0000319  -0.0000319 
+       2    1.94     7  0.00000143 -0.00000790  0.00000143  0.00000427  0.00000836
+       3    2.46     7  0.00000906  0.00000385  0.00000906  0.00000787  0.0000153 
+       4    2.79     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       5    3.19     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       6    3.44     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       7    3.52     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       8    3.73     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       9    4.05     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      10    5.45     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      
+      
+      $Europe$d2
+      $Europe$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Europe$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Europe$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Europe$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Europe$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Europe$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Europe$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Europe$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Europe$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Europe$d2$`am:model`
+      # A tibble: 64 x 8
+         am.bin model.bin              .n      .y  .y_lo .y_mean .y_median   .y_hi
+         <ord>  <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl>   <dbl>
+       1 FALSE  Lincoln Continental     2 -0.193  -1.51  -0.193    -0.327   1.24  
+       2 TRUE   Lincoln Continental     0 -0.193  -0.393 -0.193    -0.0844 -0.0844
+       3 FALSE  Cadillac Fleetwood      2 -0.301  -1.52  -0.301    -0.652   1.22  
+       4 TRUE   Cadillac Fleetwood      0 -0.301  -0.701 -0.301    -0.0844 -0.0844
+       5 FALSE  Merc 450SL              2 -0.0689 -1.52  -0.0689   -0.652   1.88  
+       6 TRUE   Merc 450SL              0 -0.0689 -0.701 -0.0689   -0.0844  0.576 
+       7 FALSE  Merc 450SLC             2 -0.0689 -1.52  -0.0689   -0.652   1.88  
+       8 TRUE   Merc 450SLC             0 -0.0689 -0.701 -0.0689   -0.0844  0.576 
+       9 FALSE  Camaro Z28              2 -0.0683 -1.52  -0.0683   -0.650   1.88  
+      10 TRUE   Camaro Z28              0 -0.0683 -0.699 -0.0683   -0.0844  0.576 
+      # i 54 more rows
+      
+      $Europe$d2$`am:gear`
+      # A tibble: 6 x 8
+        am.bin gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       30 -0.0465 -0.476 -0.0465   -0.0254 0.365
+      2 TRUE   three        0 -0.0465 -0.348 -0.0465   -0.212  0.395
+      3 FALSE  four         8 -0.122  -0.584 -0.122    -0.145  0.359
+      4 TRUE   four        16 -0.198  -0.459 -0.198    -0.385  0.222
+      5 FALSE  five         0 -0.122  -0.584 -0.122    -0.145  0.359
+      6 TRUE   five        10  0.0371 -0.354  0.0371   -0.183  0.615
+      
+      $Europe$d2$`am:carb`
+      # A tibble: 10 x 8
+         am.bin carb.ceil    .n        .y    .y_lo   .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>     <dbl>    <dbl>     <dbl>     <dbl>    <dbl>
+       1 FALSE          1     6 -0.0166   -0.137   -0.0166    -0.0166   0.104  
+       2 TRUE           1     8 -0.0166   -0.0201  -0.0166    -0.0166  -0.0131 
+       3 FALSE          2    12 -0.0134   -0.216   -0.0134    -0.0163   0.192  
+       4 TRUE           2     7  0.000253 -0.00434  0.000253   0.00193  0.00342
+       5 FALSE          3     7 -0.0134   -0.134   -0.0134    -0.0163   0.110  
+       6 TRUE           3     2  0.000227 -0.0756   0.000227  -0.00468  0.0802 
+       7 FALSE          4    11 -0.190    -0.229   -0.190     -0.226   -0.121  
+       8 TRUE           4     5 -0.454    -0.542   -0.454     -0.464   -0.359  
+       9 FALSE          8     2 -0.190    -0.228   -0.190     -0.202   -0.143  
+      10 TRUE           8     4 -0.454    -0.620   -0.454     -0.377   -0.355  
+      
+      $Europe$d2$`am:wt`
+      # A tibble: 20 x 8
+         am.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 -0.0139 -0.0301 -0.0139   -0.0139  0.00238
+       2 TRUE      1.50     1 -0.0139 -0.0139 -0.0139   -0.0139 -0.0138 
+       3 FALSE     1.94     0 -0.0139 -0.0398 -0.0139   -0.0139  0.0122 
+       4 TRUE      1.94     7 -0.0138 -0.0340 -0.0138   -0.0138  0.00634
+       5 FALSE     2.46     1 -0.0138 -0.0502 -0.0138   -0.0139  0.0226 
+       6 TRUE      2.46     6 -0.0138 -0.0340 -0.0138   -0.0138  0.00634
+       7 FALSE     2.79     1 -0.0314 -0.0517 -0.0314   -0.0426 -0.00165
+       8 TRUE      2.79     6 -0.0538 -0.0630 -0.0538   -0.0605 -0.0389 
+       9 FALSE     3.19     3 -0.0481 -0.0783 -0.0481   -0.0327 -0.0310 
+      10 TRUE      3.19     4 -0.100  -0.104  -0.100    -0.0987 -0.0973 
+      11 FALSE     3.44     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      12 TRUE      3.44     0 -0.109  -0.122  -0.109    -0.105  -0.0990 
+      13 FALSE     3.52     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      14 TRUE      3.52     0 -0.113  -0.125  -0.113    -0.114  -0.0995 
+      15 FALSE     3.73     5 -0.0481 -0.0783 -0.0481   -0.0327 -0.0310 
+      16 TRUE      3.73     2 -0.113  -0.124  -0.113    -0.116  -0.0995 
+      17 FALSE     4.05     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      18 TRUE      4.05     0 -0.113  -0.134  -0.113    -0.105  -0.0990 
+      19 FALSE     5.45     7 -0.0481 -0.0793 -0.0481   -0.0522 -0.0135 
+      20 TRUE      5.45     0 -0.113  -0.134  -0.113    -0.105  -0.0990 
+      
+      $Europe$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n     .y   .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 0.185  -0.0288  0.185     0.301  0.301
+       2 Cadillac Fleetwood  three        2 0.0696 -0.359   0.0696    0.301  0.301
+       3 Merc 450SL          three        2 0.399  -0.359   0.399     0.301  1.24 
+       4 Merc 450SLC         three        2 0.399  -0.359   0.399     0.301  1.24 
+       5 Camaro Z28          three        2 0.0663 -0.832   0.0663    0.301  0.765
+       6 Chrysler Imperial   three        2 0.0663 -0.450   0.0663   -0.0912 0.717
+       7 Duster 360          three        2 0.0663 -0.693   0.0663    0.211  0.703
+       8 Merc 450SE          three        2 0.0643 -0.692   0.0643    0.235  0.676
+       9 Hornet Sportabout   three        2 0.0643 -0.533   0.0643   -0.0418 0.752
+      10 AMC Javelin         three        2 0.218  -0.455   0.218     0.177  0.924
+      # i 86 more rows
+      
+      $Europe$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       2 Cadillac Fleetwood          1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       3 Merc 450SL                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       4 Merc 450SLC                 1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       5 Camaro Z28                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       6 Chrysler Imperial           1     0 -3.89  -5.43   -3.89     -5.05 -1.37
+       7 Duster 360                  1     0 -3.89  -8.50   -3.89     -5.26  1.88
+       8 Merc 450SE                  1     0 -3.89 -10.8    -3.89     -5.26  4.14
+       9 Hornet Sportabout           1     0 -3.89 -10.8    -3.89     -5.26  4.15
+      10 AMC Javelin                 1     0 -3.89 -11.1    -3.89     -5.26  4.50
+      # i 150 more rows
+      
+      $Europe$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n     .y  .y_lo .y_mean .y_median    .y_hi
+         <ord>                 <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+       1 Lincoln Continental    1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       2 Cadillac Fleetwood     1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       3 Merc 450SL             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       4 Merc 450SLC            1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       5 Camaro Z28             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       6 Chrysler Imperial      1.50     0 -0.403 -0.460  -0.403    -0.459 -0.297  
+       7 Duster 360             1.50     0 -0.403 -0.550  -0.403    -0.459 -0.208  
+       8 Merc 450SE             1.50     0 -0.403 -0.762  -0.403    -0.459  0.00423
+       9 Hornet Sportabout      1.50     0 -0.403 -0.773  -0.403    -0.459  0.0150 
+      10 AMC Javelin            1.50     0 -0.403 -0.780  -0.403    -0.459  0.0226 
+      # i 310 more rows
+      
+      $Europe$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6 0.00218 -0.0999 0.00218   0.00214 0.104
+       2 four             1     8 0.00218 -0.147  0.00218  -0.00135 0.154
+       3 five             1     0 0.00218 -0.150  0.00218  -0.00135 0.158
+       4 three            2     8 0.00616 -0.199  0.00616   0.0106  0.208
+       5 four             2     7 0.0104  -0.198  0.0104    0.0250  0.207
+       6 five             2     4 0.0315  -0.0678 0.0315    0.0249  0.137
+       7 three            3     7 0.00616 -0.147  0.00616   0.0106  0.155
+       8 four             3     2 0.0104  -0.149  0.0104    0.0227  0.159
+       9 five             3     0 0.0369  -0.152  0.0369    0.0214  0.239
+      10 three            4     8 0.00616 -0.199  0.00616   0.0129  0.206
+      11 four             4     6 0.0104  -0.0985 0.0104    0.0262  0.106
+      12 five             4     2 0.0369  -0.0995 0.0369    0.0214  0.187
+      13 three            8     1 0.00616 -0.150  0.00616   0.0106  0.158
+      14 four             8     1 0.00933 -0.201  0.00933   0.0227  0.209
+      15 five             8     4 0.0359  -0.155  0.0359    0.0236  0.237
+      
+      $Europe$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n       .y   .y_lo  .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 -0.00213 -0.0403 -0.00213 -0.00217  0.0361
+       2 four        1.50     0 -0.00213 -0.0492 -0.00213 -0.00213  0.0450
+       3 five        1.50     1 -0.00213 -0.0555 -0.00213  0.000424 0.0490
+       4 three       1.94     0 -0.00212 -0.0669 -0.00212  0.000451 0.0605
+       5 four        1.94     6 -0.00207 -0.0881 -0.00207  0.000513 0.0818
+       6 five        1.94     1 -0.00231 -0.0888 -0.00231  0.000513 0.0818
+       7 three       2.46     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+       8 four        2.46     4 -0.00205 -0.0881 -0.00205  0.000523 0.0818
+       9 five        2.46     2 -0.0123  -0.106  -0.0123  -0.0115   0.0812
+      10 three       2.79     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+      # i 20 more rows
+      
+      $Europe$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median      .y_hi
+             <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>      <dbl>
+       1         1    1.50     0 -0.00454 -0.0267  -0.00454  -0.00454  0.0176   
+       2         2    1.50     1 -0.00454 -0.0361  -0.00454  -0.00454  0.0270   
+       3         3    1.50     0 -0.00454 -0.0401  -0.00454  -0.00454  0.0310   
+       4         4    1.50     0 -0.00454 -0.00916 -0.00454  -0.00454  0.0000810
+       5         8    1.50     0 -0.00454 -0.0407  -0.00454  -0.00454  0.0316   
+       6         1    1.94     4 -0.00454 -0.0346  -0.00454  -0.00454  0.0255   
+       7         2    1.94     3 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       8         3    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       9         4    1.94     0 -0.0185  -0.0319  -0.0185   -0.0161  -0.00715  
+      10         8    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+      # i 40 more rows
+      
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, exclude_cols = list(d2_all = "am"))
+    Output
+      $Asia
+      $Asia$d1
+      $Asia$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Asia$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Asia$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n      .y    .y_lo .y_mean .y_median  .y_hi
+        <ord>  <int>   <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+      1 FALSE     38 0.00619 -0.0396  0.00619   0.0297  0.0320
+      2 TRUE      26 0.0155  -0.00990 0.0155   -0.00670 0.0597
+      
+      $Asia$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2 -0.0226 -0.288 -0.0226    0.0422 0.187
+       2 Cadillac Fleetwood      2  0.0932 -0.280  0.0932    0.195  0.380
+       3 Merc 450SL              2 -0.235  -0.766 -0.235    -0.305  0.355
+       4 Merc 450SLC             2 -0.235  -0.766 -0.235    -0.305  0.355
+       5 Camaro Z28              2  0.0975 -0.304  0.0975   -0.290  0.829
+       6 Chrysler Imperial       2  0.264  -0.279  0.264     0.210  0.854
+       7 Duster 360              2  0.264  -0.279  0.264     0.210  0.854
+       8 Merc 450SE              2  0.266  -0.279  0.266     0.216  0.854
+       9 Hornet Sportabout       2  0.433  -0.279  0.433     0.216  1.33 
+      10 AMC Javelin             2  0.446  -0.302  0.446    -0.244  1.78 
+      # i 22 more rows
+      
+      $Asia$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>    <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 three       30  0.118    0.0563  0.118      0.118   0.181 
+      2 four        24  0.00198 -0.150   0.00198    0.0718  0.0948
+      3 five        10 -0.330   -0.523  -0.330     -0.460  -0.0269
+      
+      $Asia$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y    .y_lo  .y_mean .y_median     .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
+      1         1    14  0.00549  0.00549  0.00549   0.00549  0.00549 
+      2         2    19 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      3         3     9 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      4         4    16 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      5         8     6 -0.00190 -0.00367 -0.00190  -0.00191 -0.000117
+      
+      $Asia$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1  0.0000319   0.0000319   0.0000319   0.0000319   0.0000319 
+       2    1.94     7 -0.00000143 -0.00000836 -0.00000143 -0.00000427  0.00000790
+       3    2.46     7 -0.00000906 -0.0000153  -0.00000906 -0.00000787 -0.00000385
+       4    2.79     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       5    3.19     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       6    3.44     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       7    3.52     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       8    3.73     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+       9    4.05     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      10    5.45     7 -0.00000907 -0.0000153  -0.00000907 -0.00000788 -0.00000387
+      
+      
+      $Asia$d2
+      $Asia$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Asia$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Asia$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Asia$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Asia$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Asia$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Asia$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Asia$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Asia$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Asia$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Asia$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 -0.0681 -0.184 -0.0681   -0.184  0.146
+       2 Cadillac Fleetwood  three        2  0.0476 -0.184  0.0476   -0.184  0.476
+       3 Merc 450SL          three        2 -0.280  -1.12  -0.280    -0.184  0.476
+       4 Merc 450SLC         three        2 -0.114  -0.643 -0.114    -0.184  0.476
+       5 Camaro Z28          three        2  0.389  -0.158  0.389     0.342  0.975
+       6 Chrysler Imperial   three        2  0.223  -0.556  0.223     0.274  0.957
+       7 Duster 360          three        2  0.223  -0.970  0.223     0.272  1.37 
+       8 Merc 450SE          three        2  0.224  -0.687  0.224     0.250  1.11 
+       9 Hornet Sportabout   three        2  0.225  -0.686  0.225     0.250  1.11 
+      10 AMC Javelin         three        2 -0.0923 -1.59  -0.0923   -0.0198 1.34 
+      # i 86 more rows
+      
+      $Asia$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0  3.42  3.42     3.42      3.42  3.42
+       2 Cadillac Fleetwood          1     0  3.42  3.42     3.42      3.42  3.42
+       3 Merc 450SL                  1     0  3.42  3.42     3.42      3.42  3.42
+       4 Merc 450SLC                 1     0  3.42  3.42     3.42      3.42  3.42
+       5 Camaro Z28                  1     0  3.42  3.42     3.42      3.42  3.42
+       6 Chrysler Imperial           1     0  3.42  3.00     3.42      3.01  4.19
+       7 Duster 360                  1     0  3.42 -0.295    3.42      2.05  8.30
+       8 Merc 450SE                  1     0  3.42 -3.05     3.42      2.05 11.1 
+       9 Hornet Sportabout           1     0  3.42 -3.45     3.42      2.05 11.5 
+      10 AMC Javelin                 1     0  3.42 -3.81     3.42      2.05 11.8 
+      # i 150 more rows
+      
+      $Asia$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n    .y   .y_lo .y_mean .y_median .y_hi
+         <ord>                 <dbl> <int> <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental    1.50     0 0.342  0.342    0.342     0.342 0.342
+       2 Cadillac Fleetwood     1.50     0 0.342  0.342    0.342     0.342 0.342
+       3 Merc 450SL             1.50     0 0.342  0.342    0.342     0.342 0.342
+       4 Merc 450SLC            1.50     0 0.342  0.342    0.342     0.342 0.342
+       5 Camaro Z28             1.50     0 0.342  0.342    0.342     0.342 0.342
+       6 Chrysler Imperial      1.50     0 0.342  0.319    0.342     0.342 0.366
+       7 Duster 360             1.50     0 0.342  0.284    0.342     0.286 0.448
+       8 Merc 450SE             1.50     0 0.342 -0.0164   0.342     0.286 0.749
+       9 Hornet Sportabout      1.50     0 0.342 -0.0274   0.342     0.286 0.760
+      10 AMC Javelin            1.50     0 0.342 -0.0351   0.342     0.286 0.768
+      # i 310 more rows
+      
+      $Asia$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>        <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three            1     6 0.0284  0.0284   0.0284    0.0284 0.0284
+       2 four             1     8 0.0284 -0.0188   0.0284    0.0249 0.0785
+       3 five             1     0 0.0284 -0.0220   0.0284    0.0249 0.0817
+       4 three            2     8 0.0270 -0.0718   0.0270    0.0206 0.131 
+       5 four             2     7 0.118   0.0612   0.118     0.135  0.161 
+       6 five             2     4 0.0970  0.00282  0.0970    0.130  0.163 
+       7 three            3     7 0.0341 -0.0182   0.0341    0.0372 0.0838
+       8 four             3     2 0.149   0.120    0.149     0.140  0.185 
+       9 five             3     0 0.123   0.0471   0.123     0.139  0.187 
+      10 three            4     8 0.0456 -0.0699   0.0456    0.0598 0.149 
+      11 four             4     6 0.307   0.206    0.307     0.358  0.364 
+      12 five             4     2 0.285   0.221    0.285     0.270  0.361 
+      13 three            8     1 0.0456 -0.0204   0.0456    0.0574 0.102 
+      14 four             8     1 0.308   0.256    0.308     0.307  0.359 
+      15 five             8     4 0.285   0.217    0.285     0.273  0.364 
+      
+      $Asia$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 0.0363  0.0363   0.0363    0.0363 0.0363
+       2 four        1.50     0 0.0363  0.0274   0.0363    0.0364 0.0453
+       3 five        1.50     1 0.0363  0.0212   0.0363    0.0389 0.0493
+       4 three       1.94     0 0.0470  0.0108   0.0470    0.0619 0.0704
+       5 four        1.94     6 0.0550  0.00593  0.0550    0.0757 0.0864
+       6 five        1.94     1 0.0552  0.00661  0.0552    0.0757 0.0864
+       7 three       2.46     1 0.0487 -0.00963  0.0487    0.0762 0.0838
+       8 four        2.46     4 0.0623  0.0132   0.0623    0.0852 0.0919
+       9 five        2.46     2 0.0725  0.0313   0.0725    0.0923 0.0970
+      10 three       2.79     1 0.0489 -0.00962  0.0489    0.0764 0.0840
+      # i 20 more rows
+      
+      $Asia$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n      .y    .y_lo .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int>   <dbl>    <dbl>   <dbl>     <dbl>   <dbl>
+       1         1    1.50     0 0.00454  0.00454 0.00454   0.00454 0.00454
+       2         2    1.50     1 0.00454 -0.0270  0.00454   0.00454 0.0361 
+       3         3    1.50     0 0.00454 -0.0216  0.00454   0.00454 0.0307 
+       4         4    1.50     0 0.00454 -0.0310  0.00454   0.00454 0.0401 
+       5         8    1.50     0 0.00454 -0.0316  0.00454   0.00454 0.0407 
+       6         1    1.94     4 0.00454 -0.00336 0.00454   0.00454 0.0124 
+       7         2    1.94     3 0.0185  -0.0159  0.0185    0.00668 0.0629 
+       8         3    1.94     0 0.0185  -0.00651 0.0185    0.00668 0.0535 
+       9         4    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      10         8    1.94     0 0.0185  -0.0159  0.0185    0.00668 0.0629 
+      # i 40 more rows
+      
+      
+      
+      $Europe
+      $Europe$d1
+      $Europe$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $Europe$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $Europe$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n       .y   .y_lo  .y_mean .y_median   .y_hi
+        <ord>  <int>    <dbl>   <dbl>    <dbl>     <dbl>   <dbl>
+      1 FALSE     38 -0.00619 -0.0320 -0.00619  -0.0297  0.0396 
+      2 TRUE      26 -0.0155  -0.0597 -0.0155    0.00670 0.00990
+      
+      $Europe$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental     2  0.217  -0.164  0.217      0.166 0.641
+       2 Cadillac Fleetwood      2  0.268  -0.494  0.268      0.166 1.12 
+       3 Merc 450SL              2  0.931  -0.444  0.931      1.17  2.10 
+       4 Merc 450SLC             2  0.764  -0.444  0.764      1.17  1.63 
+       5 Camaro Z28              2 -0.0688 -1.44  -0.0688     0.166 1.10 
+       6 Chrysler Imperial       2  0.0978 -0.967  0.0978     0.166 1.10 
+       7 Duster 360              2  0.0978 -0.967  0.0978     0.166 1.10 
+       8 Merc 450SE              2  0.596  -0.917  0.596      1.17  1.62 
+       9 Hornet Sportabout       2 -0.237  -1.92  -0.237      0.166 1.10 
+      10 AMC Javelin             2 -0.0841 -1.92  -0.0841     0.166 1.54 
+      # i 22 more rows
+      
+      $Europe$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
+        <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
+      1 three       30 -0.239 -0.366   -0.239    -0.239 -0.112
+      2 four        24  0.247  0.140    0.247     0.211  0.385
+      3 five        10  0.380 -0.0309   0.380     0.594  0.609
+      
+      $Europe$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
+      1         1    14 -0.00549 -0.00549  -0.00549  -0.00549 -0.00549
+      2         2    19  0.00190  0.000117  0.00190   0.00191  0.00367
+      3         3     9  0.00190  0.000117  0.00190   0.00191  0.00367
+      4         4    16  0.00190  0.000117  0.00190   0.00191  0.00367
+      5         8     6  0.00190  0.000117  0.00190   0.00191  0.00367
+      
+      $Europe$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n          .y       .y_lo     .y_mean   .y_median       .y_hi
+           <dbl> <int>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+       1    1.50     1 -0.0000319  -0.0000319  -0.0000319  -0.0000319  -0.0000319 
+       2    1.94     7  0.00000143 -0.00000790  0.00000143  0.00000427  0.00000836
+       3    2.46     7  0.00000906  0.00000385  0.00000906  0.00000787  0.0000153 
+       4    2.79     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       5    3.19     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       6    3.44     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       7    3.52     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       8    3.73     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+       9    4.05     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      10    5.45     7  0.00000907  0.00000387  0.00000907  0.00000788  0.0000153 
+      
+      
+      $Europe$d2
+      $Europe$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $Europe$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $Europe$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $Europe$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $Europe$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $Europe$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $Europe$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $Europe$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $Europe$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $Europe$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $Europe$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n     .y   .y_lo .y_mean .y_median .y_hi
+         <ord>               <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental three        2 0.185  -0.0288  0.185     0.301  0.301
+       2 Cadillac Fleetwood  three        2 0.0696 -0.359   0.0696    0.301  0.301
+       3 Merc 450SL          three        2 0.399  -0.359   0.399     0.301  1.24 
+       4 Merc 450SLC         three        2 0.399  -0.359   0.399     0.301  1.24 
+       5 Camaro Z28          three        2 0.0663 -0.832   0.0663    0.301  0.765
+       6 Chrysler Imperial   three        2 0.0663 -0.450   0.0663   -0.0912 0.717
+       7 Duster 360          three        2 0.0663 -0.693   0.0663    0.211  0.703
+       8 Merc 450SE          three        2 0.0643 -0.692   0.0643    0.235  0.676
+       9 Hornet Sportabout   three        2 0.0643 -0.533   0.0643   -0.0418 0.752
+      10 AMC Javelin         three        2 0.218  -0.455   0.218     0.177  0.924
+      # i 86 more rows
+      
+      $Europe$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       2 Cadillac Fleetwood          1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       3 Merc 450SL                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       4 Merc 450SLC                 1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       5 Camaro Z28                  1     0 -3.89  -3.89   -3.89     -3.89 -3.89
+       6 Chrysler Imperial           1     0 -3.89  -5.43   -3.89     -5.05 -1.37
+       7 Duster 360                  1     0 -3.89  -8.50   -3.89     -5.26  1.88
+       8 Merc 450SE                  1     0 -3.89 -10.8    -3.89     -5.26  4.14
+       9 Hornet Sportabout           1     0 -3.89 -10.8    -3.89     -5.26  4.15
+      10 AMC Javelin                 1     0 -3.89 -11.1    -3.89     -5.26  4.50
+      # i 150 more rows
+      
+      $Europe$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n     .y  .y_lo .y_mean .y_median    .y_hi
+         <ord>                 <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+       1 Lincoln Continental    1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       2 Cadillac Fleetwood     1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       3 Merc 450SL             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       4 Merc 450SLC            1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       5 Camaro Z28             1.50     0 -0.403 -0.403  -0.403    -0.403 -0.403  
+       6 Chrysler Imperial      1.50     0 -0.403 -0.460  -0.403    -0.459 -0.297  
+       7 Duster 360             1.50     0 -0.403 -0.550  -0.403    -0.459 -0.208  
+       8 Merc 450SE             1.50     0 -0.403 -0.762  -0.403    -0.459  0.00423
+       9 Hornet Sportabout      1.50     0 -0.403 -0.773  -0.403    -0.459  0.0150 
+      10 AMC Javelin            1.50     0 -0.403 -0.780  -0.403    -0.459  0.0226 
+      # i 310 more rows
+      
+      $Europe$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n      .y   .y_lo .y_mean .y_median .y_hi
+         <ord>        <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 three            1     6 0.00218 -0.0999 0.00218   0.00214 0.104
+       2 four             1     8 0.00218 -0.147  0.00218  -0.00135 0.154
+       3 five             1     0 0.00218 -0.150  0.00218  -0.00135 0.158
+       4 three            2     8 0.00616 -0.199  0.00616   0.0106  0.208
+       5 four             2     7 0.0104  -0.198  0.0104    0.0250  0.207
+       6 five             2     4 0.0315  -0.0678 0.0315    0.0249  0.137
+       7 three            3     7 0.00616 -0.147  0.00616   0.0106  0.155
+       8 four             3     2 0.0104  -0.149  0.0104    0.0227  0.159
+       9 five             3     0 0.0369  -0.152  0.0369    0.0214  0.239
+      10 three            4     8 0.00616 -0.199  0.00616   0.0129  0.206
+      11 four             4     6 0.0104  -0.0985 0.0104    0.0262  0.106
+      12 five             4     2 0.0369  -0.0995 0.0369    0.0214  0.187
+      13 three            8     1 0.00616 -0.150  0.00616   0.0106  0.158
+      14 four             8     1 0.00933 -0.201  0.00933   0.0227  0.209
+      15 five             8     4 0.0359  -0.155  0.0359    0.0236  0.237
+      
+      $Europe$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n       .y   .y_lo  .y_mean .y_median  .y_hi
+         <ord>      <dbl> <int>    <dbl>   <dbl>    <dbl>     <dbl>  <dbl>
+       1 three       1.50     0 -0.00213 -0.0403 -0.00213 -0.00217  0.0361
+       2 four        1.50     0 -0.00213 -0.0492 -0.00213 -0.00213  0.0450
+       3 five        1.50     1 -0.00213 -0.0555 -0.00213  0.000424 0.0490
+       4 three       1.94     0 -0.00212 -0.0669 -0.00212  0.000451 0.0605
+       5 four        1.94     6 -0.00207 -0.0881 -0.00207  0.000513 0.0818
+       6 five        1.94     1 -0.00231 -0.0888 -0.00231  0.000513 0.0818
+       7 three       2.46     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+       8 four        2.46     4 -0.00205 -0.0881 -0.00205  0.000523 0.0818
+       9 five        2.46     2 -0.0123  -0.106  -0.0123  -0.0115   0.0812
+      10 three       2.79     1 -0.00212 -0.0881 -0.00212  0.000462 0.0817
+      # i 20 more rows
+      
+      $Europe$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median      .y_hi
+             <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>      <dbl>
+       1         1    1.50     0 -0.00454 -0.0267  -0.00454  -0.00454  0.0176   
+       2         2    1.50     1 -0.00454 -0.0361  -0.00454  -0.00454  0.0270   
+       3         3    1.50     0 -0.00454 -0.0401  -0.00454  -0.00454  0.0310   
+       4         4    1.50     0 -0.00454 -0.00916 -0.00454  -0.00454  0.0000810
+       5         8    1.50     0 -0.00454 -0.0407  -0.00454  -0.00454  0.0316   
+       6         1    1.94     4 -0.00454 -0.0346  -0.00454  -0.00454  0.0255   
+       7         2    1.94     3 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       8         3    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+       9         4    1.94     0 -0.0185  -0.0319  -0.0185   -0.0161  -0.00715  
+      10         8    1.94     0 -0.0185  -0.0629  -0.0185   -0.00668  0.0159   
+      # i 40 more rows
+      
+      
+      
+      $`North America`
+      $`North America`$d1
+      $`North America`$d1$mpg
+      # A tibble: 10 x 7
+         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4     1     0     0       0         0     0
+       2     14.4     7     0     0       0         0     0
+       3     15.2     7     0     0       0         0     0
+       4     16.4     7     0     0       0         0     0
+       5     18.7     7     0     0       0         0     0
+       6     19.8     7     0     0       0         0     0
+       7     21.4     7     0     0       0         0     0
+       8     22.9     7     0     0       0         0     0
+       9     30.1     7     0     0       0         0     0
+      10     33.9     7     0     0       0         0     0
+      
+      $`North America`$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      $`North America`$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
+        <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
+      1 FALSE     38 -5.57e-10 -9.65e-10 -5.57e-10 -8.52e-10 1.02e-10
+      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.72e-11 7.00e-10
+      
+      $`North America`$d1$model
+      # A tibble: 32 x 7
+         model.bin              .n      .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <int>   <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental     2 -0.195  -0.811 -0.195      0.139 0.139 
+       2 Cadillac Fleetwood      2 -0.361  -1.29  -0.361      0.139 0.139 
+       3 Merc 450SL              2 -0.695  -1.34  -0.695     -0.861 0.0888
+       4 Merc 450SLC             2 -0.529  -0.863 -0.529     -0.861 0.0888
+       5 Camaro Z28              2 -0.0287 -0.813 -0.0287     0.139 0.614 
+       6 Chrysler Imperial       2 -0.362  -1.29  -0.362      0.139 0.139 
+       7 Duster 360              2 -0.362  -1.29  -0.362      0.139 0.139 
+       8 Merc 450SE              2 -0.862  -1.81  -0.862     -0.861 0.0888
+       9 Hornet Sportabout       2 -0.195  -1.29  -0.195      0.139 0.614 
+      10 AMC Javelin             2 -0.362  -1.29  -0.362      0.139 0.139 
+      # i 22 more rows
+      
+      $`North America`$d1$gear
+      # A tibble: 3 x 7
+        gear.bin    .n      .y   .y_lo .y_mean .y_median   .y_hi
+        <ord>    <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+      1 three       30  0.120   0.0527  0.120     0.0544  0.244 
+      2 four        24 -0.249  -0.280  -0.249    -0.232  -0.232 
+      3 five        10 -0.0498 -0.131  -0.0498   -0.0843  0.0603
+      
+      $`North America`$d1$carb
+      # A tibble: 5 x 7
+        carb.ceil    .n            .y         .y_lo       .y_mean  .y_median     .y_hi
+            <dbl> <int>         <dbl>         <dbl>         <dbl>      <dbl>     <dbl>
+      1         1    14  0.000000108   0.000000108   0.000000108     1.08e-7  1.08e- 7
+      2         2    19 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.22e-10
+      3         3     9 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
+      4         4    16 -0.0000000359 -0.0000000704 -0.0000000359   -3.71e-8 -5.24e-10
+      5         8     6 -0.0000000413 -0.0000000817 -0.0000000413   -4.13e-8 -9.49e-10
+      
+      $`North America`$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
+           <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
+       1    1.50     1 6.60e-10  6.60e-10 6.60e-10  6.60e-10 6.60e-10
+       2    1.94     7 2.64e-10 -1.50e-12 2.64e-10  1.40e-10 6.34e-10
+       3    2.46     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       4    2.79     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       5    3.19     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       6    3.44     7 2.19e-10 -4.29e-11 2.19e-10  6.88e-11 6.09e-10
+       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.09e-10
+       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+      
+      
+      $`North America`$d2
+      $`North America`$d2$`mpg:vs`
+      # A tibble: 20 x 8
+         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      7     0     0       0         0     0
+       4     16.4 FALSE      7     0     0       0         0     0
+       5     18.7 FALSE      3     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      4     0     0       0         0     0
+       8     22.9 FALSE      0     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       0     0     0       0         0     0
+      14     16.4 TRUE       0     0     0       0         0     0
+      15     18.7 TRUE       4     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       3     0     0       0         0     0
+      18     22.9 TRUE       7     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $`North America`$d2$`mpg:am`
+      # A tibble: 20 x 8
+         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 FALSE      1     0     0       0         0     0
+       2     14.4 FALSE      7     0     0       0         0     0
+       3     15.2 FALSE      5     0     0       0         0     0
+       4     16.4 FALSE      5     0     0       0         0     0
+       5     18.7 FALSE      7     0     0       0         0     0
+       6     19.8 FALSE      5     0     0       0         0     0
+       7     21.4 FALSE      1     0     0       0         0     0
+       8     22.9 FALSE      5     0     0       0         0     0
+       9     30.1 FALSE      2     0     0       0         0     0
+      10     33.9 FALSE      0     0     0       0         0     0
+      11     10.4 TRUE       0     0     0       0         0     0
+      12     14.4 TRUE       0     0     0       0         0     0
+      13     15.2 TRUE       2     0     0       0         0     0
+      14     16.4 TRUE       2     0     0       0         0     0
+      15     18.7 TRUE       0     0     0       0         0     0
+      16     19.8 TRUE       2     0     0       0         0     0
+      17     21.4 TRUE       6     0     0       0         0     0
+      18     22.9 TRUE       2     0     0       0         0     0
+      19     30.1 TRUE       5     0     0       0         0     0
+      20     33.9 TRUE       7     0     0       0         0     0
+      
+      $`North America`$d2$`mpg:model`
+      # A tibble: 320 x 8
+         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 Lincoln Continental     0     0     0       0         0     0
+       2     14.4 Lincoln Continental     2     0     0       0         0     0
+       3     15.2 Lincoln Continental     0     0     0       0         0     0
+       4     16.4 Lincoln Continental     0     0     0       0         0     0
+       5     18.7 Lincoln Continental     0     0     0       0         0     0
+       6     19.8 Lincoln Continental     0     0     0       0         0     0
+       7     21.4 Lincoln Continental     0     0     0       0         0     0
+       8     22.9 Lincoln Continental     0     0     0       0         0     0
+       9     30.1 Lincoln Continental     0     0     0       0         0     0
+      10     33.9 Lincoln Continental     0     0     0       0         0     0
+      # i 310 more rows
+      
+      $`North America`$d2$`mpg:gear`
+      # A tibble: 30 x 8
+         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4 three        1     0     0       0         0     0
+       2     14.4 three        7     0     0       0         0     0
+       3     15.2 three        5     0     0       0         0     0
+       4     16.4 three        5     0     0       0         0     0
+       5     18.7 three        5     0     0       0         0     0
+       6     19.8 three        3     0     0       0         0     0
+       7     21.4 three        1     0     0       0         0     0
+       8     22.9 three        3     0     0       0         0     0
+       9     30.1 three        0     0     0       0         0     0
+      10     33.9 three        0     0     0       0         0     0
+      # i 20 more rows
+      
+      $`North America`$d2$`mpg:carb`
+      # A tibble: 50 x 8
+         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4         1     0     0     0       0         0     0
+       2     14.4         1     0     0     0       0         0     0
+       3     15.2         1     0     0     0       0         0     0
+       4     16.4         1     0     0     0       0         0     0
+       5     18.7         1     2     0     0       0         0     0
+       6     19.8         1     0     0     0       0         0     0
+       7     21.4         1     1     0     0       0         0     0
+       8     22.9         1     5     0     0       0         0     0
+       9     30.1         1     2     0     0       0         0     0
+      10     33.9         1     4     0     0       0         0     0
+      # i 40 more rows
+      
+      $`North America`$d2$`mpg:wt`
+      # A tibble: 100 x 8
+         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1     10.4    1.50     0     0     0       0         0     0
+       2     14.4    1.50     0     0     0       0         0     0
+       3     15.2    1.50     0     0     0       0         0     0
+       4     16.4    1.50     0     0     0       0         0     0
+       5     18.7    1.50     0     0     0       0         0     0
+       6     19.8    1.50     0     0     0       0         0     0
+       7     21.4    1.50     0     0     0       0         0     0
+       8     22.9    1.50     0     0     0       0         0     0
+       9     30.1    1.50     1     0     0       0         0     0
+      10     33.9    1.50     0     0     0       0         0     0
+      # i 90 more rows
+      
+      $`North America`$d2$`vs:am`
+      # A tibble: 4 x 8
+        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  FALSE     24     0     0       0         0     0
+      2 TRUE   FALSE     14     0     0       0         0     0
+      3 FALSE  TRUE      12     0     0       0         0     0
+      4 TRUE   TRUE      14     0     0       0         0     0
+      
+      $`North America`$d2$`vs:model`
+      # A tibble: 64 x 8
+         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE  Lincoln Continental     2     0     0       0         0     0
+       2 TRUE   Lincoln Continental     0     0     0       0         0     0
+       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
+       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
+       5 FALSE  Merc 450SL              2     0     0       0         0     0
+       6 TRUE   Merc 450SL              0     0     0       0         0     0
+       7 FALSE  Merc 450SLC             2     0     0       0         0     0
+       8 TRUE   Merc 450SLC             0     0     0       0         0     0
+       9 FALSE  Camaro Z28              2     0     0       0         0     0
+      10 TRUE   Camaro Z28              0     0     0       0         0     0
+      # i 54 more rows
+      
+      $`North America`$d2$`vs:gear`
+      # A tibble: 6 x 8
+        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE  three       24     0     0       0         0     0
+      2 TRUE   three        6     0     0       0         0     0
+      3 FALSE  four         4     0     0       0         0     0
+      4 TRUE   four        20     0     0       0         0     0
+      5 FALSE  five         8     0     0       0         0     0
+      6 TRUE   five         2     0     0       0         0     0
+      
+      $`North America`$d2$`vs:carb`
+      # A tibble: 10 x 8
+         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE          1     0     0     0       0         0     0
+       2 TRUE           1    14     0     0       0         0     0
+       3 FALSE          2    10     0     0       0         0     0
+       4 TRUE           2     9     0     0       0         0     0
+       5 FALSE          3     8     0     0       0         0     0
+       6 TRUE           3     1     0     0       0         0     0
+       7 FALSE          4    13     0     0       0         0     0
+       8 TRUE           4     3     0     0       0         0     0
+       9 FALSE          8     5     0     0       0         0     0
+      10 TRUE           8     1     0     0       0         0     0
+      
+      $`North America`$d2$`vs:wt`
+      # A tibble: 20 x 8
+         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
+         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+       1 FALSE     1.50     0     0     0       0         0     0
+       2 TRUE      1.50     1     0     0       0         0     0
+       3 FALSE     1.94     0     0     0       0         0     0
+       4 TRUE      1.94     7     0     0       0         0     0
+       5 FALSE     2.46     2     0     0       0         0     0
+       6 TRUE      2.46     5     0     0       0         0     0
+       7 FALSE     2.79     4     0     0       0         0     0
+       8 TRUE      2.79     3     0     0       0         0     0
+       9 FALSE     3.19     4     0     0       0         0     0
+      10 TRUE      3.19     3     0     0       0         0     0
+      11 FALSE     3.44     2     0     0       0         0     0
+      12 TRUE      3.44     5     0     0       0         0     0
+      13 FALSE     3.52     3     0     0       0         0     0
+      14 TRUE      3.52     4     0     0       0         0     0
+      15 FALSE     3.73     7     0     0       0         0     0
+      16 TRUE      3.73     0     0     0       0         0     0
+      17 FALSE     4.05     7     0     0       0         0     0
+      18 TRUE      4.05     0     0     0       0         0     0
+      19 FALSE     5.45     7     0     0       0         0     0
+      20 TRUE      5.45     0     0     0       0         0     0
+      
+      $`North America`$d2$`model:gear`
+      # A tibble: 96 x 8
+         model.bin           gear.bin    .n     .y  .y_lo .y_mean .y_median  .y_hi
+         <ord>               <ord>    <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental three        2 -0.117 -0.117  -0.117   -0.117  -0.117
+       2 Cadillac Fleetwood  three        2 -0.117 -0.117  -0.117   -0.117  -0.117
+       3 Merc 450SL          three        2 -0.119 -0.122  -0.119   -0.117  -0.117
+       4 Merc 450SLC         three        2 -0.285 -0.596  -0.285   -0.117  -0.117
+       5 Camaro Z28          three        2 -0.455 -1.08   -0.455   -0.117  -0.117
+       6 Chrysler Imperial   three        2 -0.289 -1.42   -0.289    0.305   0.337
+       7 Duster 360          three        2 -0.289 -1.15   -0.289    0.0335  0.303
+       8 Merc 450SE          three        2 -0.289 -1.15   -0.289    0.0334  0.303
+       9 Hornet Sportabout   three        2 -0.289 -1.59   -0.289    0.398   0.432
+      10 AMC Javelin         three        2 -0.125 -1.13   -0.125    0.285   0.534
+      # i 86 more rows
+      
+      $`North America`$d2$`model:carb`
+      # A tibble: 160 x 8
+         model.bin           carb.ceil    .n    .y  .y_lo .y_mean .y_median .y_hi
+         <ord>                   <dbl> <int> <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Lincoln Continental         1     0 0.471  0.471   0.471     0.471 0.471
+       2 Cadillac Fleetwood          1     0 0.471  0.471   0.471     0.471 0.471
+       3 Merc 450SL                  1     0 0.471  0.471   0.471     0.471 0.471
+       4 Merc 450SLC                 1     0 0.471  0.471   0.471     0.471 0.471
+       5 Camaro Z28                  1     0 0.471  0.471   0.471     0.471 0.471
+       6 Chrysler Imperial           1     0 0.471 -1.49    0.471    -0.690 3.42 
+       7 Duster 360                  1     0 0.471 -5.32    0.471    -0.895 7.42 
+       8 Merc 450SE                  1     0 0.471 -6.40    0.471    -0.895 8.51 
+       9 Hornet Sportabout           1     0 0.471 -6.67    0.471    -0.895 8.77 
+      10 AMC Javelin                 1     0 0.471 -6.76    0.471    -0.895 8.87 
+      # i 150 more rows
+      
+      $`North America`$d2$`model:wt`
+      # A tibble: 320 x 8
+         model.bin           wt.ceil    .n     .y    .y_lo .y_mean .y_median  .y_hi
+         <ord>                 <dbl> <int>  <dbl>    <dbl>   <dbl>     <dbl>  <dbl>
+       1 Lincoln Continental    1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       2 Cadillac Fleetwood     1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       3 Merc 450SL             1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       4 Merc 450SLC            1.50     0 0.0603  0.0603   0.0603   0.0603  0.0603
+       5 Camaro Z28             1.50     0 0.0603  0.0527   0.0603   0.0602  0.0681
+       6 Chrysler Imperial      1.50     0 0.0603  0.00257  0.0603   0.00402 0.166 
+       7 Duster 360             1.50     0 0.0603 -0.239    0.0603   0.00402 0.407 
+       8 Merc 450SE             1.50     0 0.0603 -0.301    0.0603   0.00402 0.470 
+       9 Hornet Sportabout      1.50     0 0.0603 -0.317    0.0603   0.00402 0.486 
+      10 AMC Javelin            1.50     0 0.0603 -0.317    0.0603   0.00402 0.486 
+      # i 310 more rows
+      
+      $`North America`$d2$`gear:carb`
+      # A tibble: 15 x 8
+         gear.bin carb.ceil    .n      .y  .y_lo .y_mean .y_median    .y_hi
+         <ord>        <dbl> <int>   <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
+       1 three            1     6 -0.0306 -0.106 -0.0306   -0.0663  0.0748 
+       2 four             1     8 -0.0306 -0.153 -0.0306   -0.0698  0.125  
+       3 five             1     0 -0.0306 -0.156 -0.0306   -0.0698  0.128  
+       4 three            2     8 -0.0331 -0.206 -0.0331   -0.0775  0.177  
+       5 four             2     7 -0.129  -0.341 -0.129    -0.227   0.167  
+       6 five             2     4 -0.129  -0.241 -0.129    -0.226   0.0664 
+       7 three            3     7 -0.0403 -0.154 -0.0403   -0.0940  0.119  
+       8 four             3     2 -0.159  -0.322 -0.159    -0.257   0.0858 
+       9 five             3     0 -0.160  -0.374 -0.160    -0.257   0.135  
+      10 three            4     8 -0.0518 -0.208 -0.0518   -0.112   0.155  
+      11 four             4     6 -0.317  -0.437 -0.317    -0.427  -0.105  
+      12 five             4     2 -0.322  -0.494 -0.322    -0.433  -0.0547 
+      13 three            8     1 -0.0518 -0.158 -0.0518   -0.114   0.108  
+      14 four             8     1 -0.317  -0.534 -0.317    -0.431  -0.00255
+      15 five             8     4 -0.321  -0.544 -0.321    -0.432  -0.00476
+      
+      $`North America`$d2$`gear:wt`
+      # A tibble: 30 x 8
+         gear.bin wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+         <ord>      <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1 three       1.50     0 -0.0342 -0.0869 -0.0342   -0.0210 0.00727
+       2 four        1.50     0 -0.0342 -0.0958 -0.0342   -0.0210 0.0162 
+       3 five        1.50     1 -0.0342 -0.102  -0.0342   -0.0184 0.0202 
+       4 three       1.94     0 -0.0448 -0.115  -0.0448   -0.0504 0.0301 
+       5 four        1.94     6 -0.0529 -0.152  -0.0529   -0.0553 0.0484 
+       6 five        1.94     1 -0.0529 -0.152  -0.0529   -0.0553 0.0484 
+       7 three       2.46     1 -0.0466 -0.137  -0.0466   -0.0557 0.0510 
+       8 four        2.46     4 -0.0603 -0.159  -0.0603   -0.0648 0.0428 
+       9 five        2.46     2 -0.0603 -0.159  -0.0603   -0.0648 0.0428 
+      10 three       2.79     1 -0.0468 -0.137  -0.0468   -0.0559 0.0509 
+      # i 20 more rows
+      
+      $`North America`$d2$`carb:wt`
+      # A tibble: 50 x 8
+         carb.ceil wt.ceil    .n           .y    .y_lo      .y_mean .y_median   .y_hi
+             <dbl>   <dbl> <int>        <dbl>    <dbl>        <dbl>     <dbl>   <dbl>
+       1         1    1.50     0 0.0000000171 -0.0315  0.0000000171  -1.68e-7 0.0315 
+       2         2    1.50     1 0.0000000171 -0.00404 0.0000000171  -1.03e-8 0.00404
+       3         3    1.50     0 0.0000000171 -0.0356  0.0000000171  -1.96e-7 0.0356 
+       4         4    1.50     0 0.0000000171 -0.0267  0.0000000171  -1.34e-7 0.0267 
+       5         8    1.50     0 0.0000000171 -0.0362  0.0000000171  -1.95e-7 0.0362 
+       6         1    1.94     4 0.0000000171 -0.0394  0.0000000171  -1.98e-7 0.0394 
+       7         2    1.94     3 0.000000105  -0.00790 0.000000105   -5.22e-9 0.00790
+       8         3    1.94     0 0.000000105  -0.0394  0.000000105   -1.91e-7 0.0394 
+       9         4    1.94     0 0.000000105  -0.0300  0.000000105   -1.26e-7 0.0300 
+      10         8    1.94     0 0.000000105  -0.0394  0.000000105   -1.88e-7 0.0394 
+      # i 40 more rows
+      
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, stats = "conf_regions")
+    Output
+      $Asia
+      $Asia$d1
+      # A tibble: 45 x 12
+         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
+         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
+       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
+       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
+       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
+       4 am    FALSE         NA    NA           NA    38  59.4   0.00619      NA    NA
+       5 am    TRUE          NA    NA           NA    26  40.6   0.0155       NA    NA
+       6 model Lincoln C~    NA    NA           NA     2   3.12 -0.0226       NA    NA
+       7 model Cadillac ~    NA    NA           NA     2   3.12  0.0932       NA    NA
+       8 model Merc 450SL    NA    NA           NA     2   3.12 -0.235        NA    NA
+       9 model Merc 450S~    NA    NA           NA     2   3.12 -0.235        NA    NA
+      10 model Camaro Z28    NA    NA           NA     2   3.12  0.0975       NA    NA
+      # i 35 more rows
+      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      
+      $Asia$d2
+      # A tibble: 315 x 8
+         term1 x1          term2 x2    mid_bar     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+      # i 305 more rows
+      
+      
+      $Europe
+      $Europe$d1
+      # A tibble: 45 x 12
+         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
+         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
+       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
+       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
+       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
+       4 am    FALSE         NA    NA           NA    38  59.4  -0.00619      NA    NA
+       5 am    TRUE          NA    NA           NA    26  40.6  -0.0155       NA    NA
+       6 model Lincoln C~    NA    NA           NA     2   3.12  0.217        NA    NA
+       7 model Cadillac ~    NA    NA           NA     2   3.12  0.268        NA    NA
+       8 model Merc 450SL    NA    NA           NA     2   3.12  0.931        NA    NA
+       9 model Merc 450S~    NA    NA           NA     2   3.12  0.764        NA    NA
+      10 model Camaro Z28    NA    NA           NA     2   3.12 -0.0688       NA    NA
+      # i 35 more rows
+      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      
+      $Europe$d2
+      # A tibble: 310 x 8
+         term1 x1          term2 x2    mid_bar     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+      # i 300 more rows
+      
+      
+      $`North America`
+      $`North America`$d1
+      # A tibble: 44 x 12
+         term  x         start_x end_x x_span_pct     n    pct         y start_y end_y
+         <chr> <chr>       <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>   <dbl> <dbl>
+       1 mpg   <NA>         10.4  33.9        100    64 100    NA              0     0
+       2 vs    FALSE        NA    NA           NA    36  56.2   0             NA    NA
+       3 vs    TRUE         NA    NA           NA    28  43.8   0             NA    NA
+       4 am    FALSE        NA    NA           NA    38  59.4  -5.57e-10      NA    NA
+       5 am    TRUE         NA    NA           NA    26  40.6   1.57e-10      NA    NA
+       6 model Lincoln ~    NA    NA           NA     2   3.12 -1.95e- 1      NA    NA
+       7 model Cadillac~    NA    NA           NA     2   3.12 -3.61e- 1      NA    NA
+       8 model Merc 450~    NA    NA           NA     2   3.12 -6.95e- 1      NA    NA
+       9 model Merc 450~    NA    NA           NA     2   3.12 -5.29e- 1      NA    NA
+      10 model Camaro Z~    NA    NA           NA     2   3.12 -2.87e- 2      NA    NA
+      # i 34 more rows
+      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      
+      $`North America`$d2
+      # A tibble: 307 x 8
+         term1 x1          term2 x2    mid_bar     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+      # i 297 more rows
+      
+      
+
+---
+
+    Code
+      get(cat_cars_ale, stats = "conf_sig")
+    Output
+      $Asia
+      $Asia$d1
+      # A tibble: 8 x 12
+        term  x     start_x end_x x_span_pct     n   pct        y     start_y    end_y
+        <chr> <chr>   <dbl> <dbl>      <dbl> <int> <dbl>    <dbl>       <dbl>    <dbl>
+      1 gear  three   NA    NA          NA      30 46.9   0.118   NA          NA      
+      2 gear  four    NA    NA          NA      24 37.5   0.00198 NA          NA      
+      3 gear  five    NA    NA          NA      10 15.6  -0.330   NA          NA      
+      4 carb  <NA>     1     1           0      14 21.9  NA        0.00549     5.49e-3
+      5 carb  <NA>     2     8          85.7    50 78.1  NA       -0.00190    -1.90e-3
+      6 wt    <NA>     1.50  1.50        0       1  1.56 NA        0.0000319   3.19e-5
+      7 wt    <NA>     1.94  1.94        0       7 10.9  NA       -0.00000143 -1.43e-6
+      8 wt    <NA>     2.46  5.45       75.6    56 87.5  NA       -0.00000906 -9.07e-6
+      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      
+      $Asia$d2
+      # A tibble: 160 x 8
+         term1 x1    term2 x2                  mid_bar     n   pct      y
+         <chr> <chr> <chr> <chr>               <ord>   <int> <dbl>  <dbl>
+       1 am    FALSE model Lincoln Continental above       2  3.12 0.214 
+       2 am    FALSE model Cadillac Fleetwood  above       2  3.12 0.323 
+       3 am    FALSE model Merc 450SL          overlap     2  3.12 0.0915
+       4 am    FALSE model Merc 450SLC         overlap     2  3.12 0.0915
+       5 am    FALSE model Camaro Z28          overlap     2  3.12 0.0910
+       6 am    FALSE model Chrysler Imperial   overlap     2  3.12 0.0822
+       7 am    FALSE model Duster 360          overlap     2  3.12 0.0822
+       8 am    FALSE model Merc 450SE          overlap     2  3.12 0.0766
+       9 am    FALSE model Hornet Sportabout   overlap     2  3.12 0.0766
+      10 am    FALSE model AMC Javelin         overlap     2  3.12 0.0610
+      # i 150 more rows
+      
+      
+      $Europe
+      $Europe$d1
+      # A tibble: 40 x 12
+         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
+         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
+       1 model Linco~      NA    NA         NA     2  3.12  0.217       NA    NA    NA
+       2 model Cadil~      NA    NA         NA     2  3.12  0.268       NA    NA    NA
+       3 model Merc ~      NA    NA         NA     2  3.12  0.931       NA    NA    NA
+       4 model Merc ~      NA    NA         NA     2  3.12  0.764       NA    NA    NA
+       5 model Camar~      NA    NA         NA     2  3.12 -0.0688      NA    NA    NA
+       6 model Chrys~      NA    NA         NA     2  3.12  0.0978      NA    NA    NA
+       7 model Duste~      NA    NA         NA     2  3.12  0.0978      NA    NA    NA
+       8 model Merc ~      NA    NA         NA     2  3.12  0.596       NA    NA    NA
+       9 model Horne~      NA    NA         NA     2  3.12 -0.237       NA    NA    NA
+      10 model AMC J~      NA    NA         NA     2  3.12 -0.0841      NA    NA    NA
+      # i 30 more rows
+      # i 1 more variable: mid_bar <ord>
+      
+      $Europe$d2
+      # A tibble: 133 x 8
+         term1 x1    term2 x2         mid_bar     n   pct         y
+         <chr> <chr> <chr> <chr>      <ord>   <int> <dbl>     <dbl>
+       1 am    FALSE carb  [1,2]      overlap    18 28.1  -0.0150  
+       2 am    TRUE  carb  [1,2]      below       8 12.5  -0.0166  
+       3 am    TRUE  carb  [1,2]      overlap     7 10.9   0.000253
+       4 am    FALSE carb  (2,4]      overlap     7 10.9  -0.0134  
+       5 am    TRUE  carb  (2,4]      overlap     2  3.12  0.000227
+       6 am    FALSE carb  (2,4]      below      11 17.2  -0.190   
+       7 am    TRUE  carb  (2,4]      below       5  7.81 -0.454   
+       8 am    FALSE carb  (4,8]      below       2  3.12 -0.190   
+       9 am    TRUE  carb  (4,8]      below       4  6.25 -0.454   
+      10 am    TRUE  wt    [1.5,2.79] below       7 10.9  -0.0338  
+      # i 123 more rows
+      
+      
+      $`North America`
+      $`North America`$d1
+      # A tibble: 37 x 12
+         term  x      start_x end_x x_span_pct     n   pct       y start_y end_y trend
+         <chr> <chr>    <dbl> <dbl>      <dbl> <int> <dbl>   <dbl>   <dbl> <dbl> <dbl>
+       1 model Linco~      NA    NA         NA     2  3.12 -0.195       NA    NA    NA
+       2 model Cadil~      NA    NA         NA     2  3.12 -0.361       NA    NA    NA
+       3 model Merc ~      NA    NA         NA     2  3.12 -0.695       NA    NA    NA
+       4 model Merc ~      NA    NA         NA     2  3.12 -0.529       NA    NA    NA
+       5 model Camar~      NA    NA         NA     2  3.12 -0.0287      NA    NA    NA
+       6 model Chrys~      NA    NA         NA     2  3.12 -0.362       NA    NA    NA
+       7 model Duste~      NA    NA         NA     2  3.12 -0.362       NA    NA    NA
+       8 model Merc ~      NA    NA         NA     2  3.12 -0.862       NA    NA    NA
+       9 model Horne~      NA    NA         NA     2  3.12 -0.195       NA    NA    NA
+      10 model AMC J~      NA    NA         NA     2  3.12 -0.362       NA    NA    NA
+      # i 27 more rows
+      # i 1 more variable: mid_bar <ord>
+      
+      $`North America`$d2
+      # A tibble: 167 x 8
+         term1 x1    term2 x2                  mid_bar     n   pct       y
+         <chr> <chr> <chr> <chr>               <ord>   <int> <dbl>   <dbl>
+       1 am    FALSE model Lincoln Continental below       2  3.12 -0.0218
+       2 am    FALSE model Cadillac Fleetwood  below       2  3.12 -0.0218
+       3 am    FALSE model Merc 450SL          below       2  3.12 -0.0226
+       4 am    FALSE model Merc 450SLC         below       2  3.12 -0.0226
+       5 am    FALSE model Camaro Z28          below       2  3.12 -0.0226
+       6 am    FALSE model Chrysler Imperial   overlap     2  3.12 -0.0226
+       7 am    FALSE model Duster 360          overlap     2  3.12 -0.0226
+       8 am    FALSE model Merc 450SE          overlap     2  3.12 -0.0230
+       9 am    FALSE model Hornet Sportabout   overlap     2  3.12 -0.0230
+      10 am    FALSE model AMC Javelin         overlap     2  3.12 -0.0230
+      # i 157 more rows
+      
+      
+
+---
+
+    Code
       ale_plots_to_data(plot(cat_cars_ale, rug_sample_size = 25))
     Condition
       Warning:
@@ -56578,4 +61627,21 @@
       NULL
       
       
+
+---
+
+    Code
+      capture.output(print(cat_cars_ale))
+    Message
+      <ALE> object of a <multinom/nnet> model that predicts `continent` (a
+      categorical outcome) from a 64-row by 8-column dataset.
+      ALE data, statistics, surrogate p-values, confidence regions, and raw bootstrap
+      data are provided for the following terms:
+      7 1D terms: mpg, vs, am, model, gear, carb, and wt
+      21 2D terms: mpg:vs, mpg:am, mpg:model, mpg:gear, mpg:carb, mpg:wt, vs:am,
+      vs:model, vs:gear, vs:carb, vs:wt, am:model, am:gear, am:carb, am:wt,
+      model:gear, model:carb, model:wt, ..., gear:wt, and carb:wt
+      The results were bootstrapped with 2 iterations.
+    Output
+      character(0)
 

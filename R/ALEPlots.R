@@ -185,8 +185,8 @@ ALEPlots <- new_class(
                   seed        = seed
                 )
               }
-              else {
-                NULL
+              else {  # it.x_col_ale_data is NULL. But why might it be?
+                NULL  # nocov
               }
             }) |>
               set_names(it.all_cat_plot_types)

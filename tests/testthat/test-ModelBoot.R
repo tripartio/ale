@@ -9,9 +9,8 @@ test_that(
       ale_options = list(
         x_cols = c('wt', 'gear:carb')
       ),
-      ale_p = NULL,
-      # ale_p = 'auto',  # test for bugginess but not for snapshot
       boot_it = 2,
+      ale_p = NULL,
       parallel = 'all but one',
       silent = TRUE
     )
@@ -28,15 +27,15 @@ test_that(
 # Because it is complex to save entire ggplot objects, only save the core data from the plot
 
 test_that(
-  'bootstrapped numeric outcome with full 1D ALE', {
+  'numeric outcome with no bootstrapping', {
     skip_on_ci()
 
     mb <- ModelBoot(
       test_gam,
       data = test_cars,
       parallel = 0,
-      boot_it = 2,
-      seed = 5,  # avoid errors with tiny dataset
+      boot_it = 0,  # test with no bootstrapping
+      # seed = 5,  # avoid errors with tiny dataset
       ale_options = list(
         x_cols = c('wt', 'am', 'gear:carb')
       ),
@@ -57,18 +56,19 @@ test_that(
 
 
 test_that(
-  'binary outcome with full 1D ALE, no bootstrapping', {
+  'binary outcome with p-values and confidence regions', {
     skip_on_ci()
 
     mb <- ModelBoot(
       test_gam_binary,
       data = test_cars,
       parallel = 0,
+      # test surrogate generation by leaving ale_p at default
       boot_it = 2,
       ale_options = list(
         x_cols = c('wt', 'continent', 'gear:carb')
       ),
-      ale_p = NULL,
+      output_boot_data = TRUE,
       silent = TRUE
     )
 
@@ -125,13 +125,25 @@ test_that(
       silent = TRUE
     )
 
+    # Create serializable snapsho
+    snap_mb <- mb
+    snap_mb@ale$single <- unclass(mb@ale$single)
+    snap_mb |>
+      unclass() |>
+      expect_snapshot()
+
+
+    # Test methods
+
+    get(mb, 'Sepal.Length') |> expect_snapshot()
+    get(mb, 'Petal.Width', type = 'single') |> expect_snapshot()
+
     plot(mb, type = 'boot') |>
       ale_plots_to_data() |>
       expect_snapshot()
 
-    mb@ale$single <- unclass(mb@ale$single)
-    mb |>
-      unclass() |>
+    plot(mb, type = 'single') |>
+      ale_plots_to_data() |>
       expect_snapshot()
   }
 )
