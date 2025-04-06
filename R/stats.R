@@ -67,6 +67,7 @@ calc_stats <- function(
 
   # Normalized scores
   if (is.null(ale_y_norm_fun)) {
+    # browser()
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
@@ -240,12 +241,14 @@ create_ale_y_norm_function <- function(y_vals) {
   pre_median  <- if (median(centred_y) != max(centred_y)) {
     max(centred_y[centred_y < 0])
   } else {
+    # browser()
     0
   }
   # Value right above the median
   post_median <- if (median(centred_y) != min(centred_y)) {
     min(centred_y[centred_y > 0])
   } else {
+    # browser()
     0
   }
 
