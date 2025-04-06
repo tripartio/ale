@@ -315,6 +315,7 @@ plot_ale_1D <- function(
 
     # Rotate categorical labels if they are too long
     if ((ale_data[[1]] |> paste(collapse = ' ') |> nchar()) > 50) {
+      # browser()
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
@@ -441,6 +442,7 @@ plot_ale_2D <- function(
     sum()
 
   y_vals <- if (cat_plot != 'single') {
+    # browser()
     # Temporary workaround
     params$data$y_vals_sample[, 1]
   } else {
@@ -575,13 +577,14 @@ plot_ale_2D <- function(
       unname() |>
       sort()
 
-    if (length(custom_values) > length(unique(custom_values))) {
-      # If values are not unique, jitter them until they are
+    if (length(custom_values) > length(unique(custom_values))) {  # nocov start
+      # If values are not unique, jitter them until they are.
+      # nocov because this is a difficult condition to test.
       custom_values <- custom_values |> make_unique_jitter(
         jitter_scale = max(1e-6, y_summary['aler_hi_hi'] - y_summary['aler_lo_lo'])
       ) |>
         sort()
-    }
+    }  # nocov end
 
 
     # range_cv <- range(custom_values)
@@ -642,6 +645,7 @@ plot_ale_2D <- function(
       rows = if (params$boot_it > 0) vars('boot') else NULL,
       cols = if (cat_plot != 'single') vars('.cat') else NULL,
       labeller = if (params$boot_it > 0) {
+        # browser()
         labeller(
           # Specify only bootstrap renaming; categories are left as default
           boot = c(
