@@ -558,9 +558,8 @@ method(print, ModelBoot) <- function(x, ...) {
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param obj ALEPlots object from which to retrieve ALE elements.
-#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'eff'` for ALE effects plots. See `cats` argument for options for categorical plots.
+#' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'effect'` for ALE effects plots. See `cats` argument for options for categorical plots.
 #' @param cats character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", to avoid naming conflicts with categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
-#' @param include_eff See documentation for [subset.ALEPlots()]
 #'
 #' @returns A list of `ggplot` objects as described in the documentation for the return value of [get.ALE()]. This is different from [subset.ALEPlots()], which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions.
 #'
@@ -678,10 +677,12 @@ method(get, ALEPlots) <- function(
   ) {
     # If one dimension is empty, eliminate it and leave only the other
     req_plots <- compact(req_plots)
-    if (is.null(req_plots[['d1']])) {
-      req_plots <- compact(req_plots[['d2']])
-    } else if (is.null(req_plots[['d2']])) {
-      req_plots <- compact(req_plots[['d1']])
+    if (all(names(req_plots) %in% c('d1', 'd2'))) {
+      if (is.null(req_plots[['d1']])) {
+        req_plots <- compact(req_plots[['d2']])
+      } else if (is.null(req_plots[['d2']])) {
+        req_plots <- compact(req_plots[['d1']])
+      }
     }
 
     if (length(req_plots) == 1) {
