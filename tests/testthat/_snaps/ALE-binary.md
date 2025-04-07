@@ -700,9 +700,6 @@
       attr(,"params")$sample_size
       [1] 500
       
-      attr(,"params")$silent
-      [1] TRUE
-      
 
 ---
 
@@ -10220,9 +10217,6 @@
       
       attr(,"params")$sample_size
       [1] 25
-      
-      attr(,"params")$silent
-      [1] TRUE
       
 
 ---

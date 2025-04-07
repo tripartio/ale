@@ -807,18 +807,18 @@ calc_ale <- function(
         # This is faster than calling quantile() or median() individually.
         .q = list(
           stats::quantile(
-            .y,
+            .data$.y,
             probs = c(boot_alpha / 2, 0.5, 1 - boot_alpha / 2),
             na.rm = TRUE
           )
         ),
-        .y_mean = mean(.y, na.rm = TRUE)
+        .y_mean = mean(.data$.y, na.rm = TRUE)
       ) |>
       # Unpack the three quantiles
       mutate(
-        .y_lo     = purrr::map_dbl(.q, 1),
-        .y_median = purrr::map_dbl(.q, 2),
-        .y_hi     = purrr::map_dbl(.q, 3)
+        .y_lo     = purrr::map_dbl(.data$.q, 1),
+        .y_median = purrr::map_dbl(.data$.q, 2),
+        .y_hi     = purrr::map_dbl(.data$.q, 3)
       ) |>
       # Select and reorder columns as desired
       select(

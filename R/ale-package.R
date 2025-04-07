@@ -6,7 +6,7 @@
 #' @docType package
 #' @aliases ale-package NULL
 #'
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Lea<doi:10.48550/arXiv.2310.09877>rning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <https://arxiv.org/abs/2310.09877>.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 #'
 #' @import dplyr
 #' @import ggplot2

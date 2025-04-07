@@ -34,8 +34,8 @@
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
 #' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with `parallel = 0`.
 #' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.
-#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument of [ALEPlots()].
-#' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
+#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots in [ALEPlots()].
+#' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.
 #' @param .bins Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (`NULL`), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
 # @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
 #'
@@ -44,20 +44,21 @@
 #'
 #' @section Properties:
 #' \describe{
-#'   \item{effect}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
-#'   \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the `ALE` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
+#'   \item{effect}{Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.}
+#'   \item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the `ALE` object. These are either the values provided by the user or those used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
 #'     * `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
 #'     * `requested_x_cols`,`ordered_x_cols`: `requested_x_cols` is the resolved list of `x_cols` as requested by the user (that is, `x_cols` minus `exclude_cols`). `ordered_x_cols` is the same set of `x_cols` but arranged in the internal storage order.
 #'     * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_col`.
 #'     * `y_type`: high-level datatype of the y outcome variable.
-#'     * `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5%' element is the 5th percentile of y values. The following elements have special meanings:
+#'     * `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range, in which case `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric matrix. For most outcomes with a single value per predicted row, there is just one column with the same name as `y_col`. For categorical y outcomes, there is one column for each category in `y_cats` plus an additional column with the same name as `y_col`; this is the mean of the categorical columns. The rows are named mostly as the percentile of the y values. E.g., the '5%' row is the 5th percentile of y values. The following named rows have special meanings:
 #'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively. Note that the median is `50%`, the 50th percentile.
 #'     * `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `aler_alpha` argument to understand how these are determined. Without p-values, these elements are absent.
 #'     * `model`: selected elements that describe the `model` that the `ALE` object interprets.
-#'     * `data`: selected elements that describe the `data` used to produce the `ALE` object.
+#'     * `data`: selected elements that describe the `data` used to produce the `ALE` object. To avoid the large size of duplicating `data` entirely, only a sample of the size of the `sample_size` argument is retained.
 #'   }
 #' }
+#'
 #'
 #' @section Custom predict function:
 #' The calculation of ALE requires modifying several values of the original `data`. Thus, `ALE()` needs direct access to the `predict` function for the `model`. By default, `ALE()` uses a generic default `predict` function of the form `predict(object, newdata, type)` with the default prediction type of `'response'`. If, however, the desired prediction values are not generated with that format, the user must specify what they want. Very often, the only modification needed is to change the prediction type to some other value by setting the `pred_type` argument (e.g., to `'prob'` to generated classification probabilities). But if the desired predictions need a different function signature, then the user must create a custom prediction function and pass it to `pred_fun`. The requirements for this custom function are:
@@ -71,28 +72,30 @@
 #'
 #' You can see an example below of a custom prediction function.
 #'
-#' **Note:** `survival` models probably do not need a custom prediction function but `y_col` must be set to the name of the binary event column and `pred_type` must be set to the desired prediction type.
-#'
 #'
 #' @section ALE statistics and p-values:
 #' For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see `vignette('ale-statistics')`. For general details about the calculation of p-values, see [ALEpDist()]. Here, we clarify the automatic calculation of p-values with the [ALE()] constructor.
 #'
-#' As explained in the documentation above for the `p_values` argument, the default `p_values = "auto"` will try to automatically create a fast surrogate `ALEpDist` object. However, this is on the condition that statistics are requested (default, `output_stats = TRUE`) and bootstrapping is also requested (not default, `boot_it` is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an `ALEpDist` object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate `ALEpDist` object.
+#' As explained in the documentation above for the `p_values` argument, the default `p_values = "auto"` will try to automatically create a fast surrogate `ALEpDist` object. However, this is on the condition that statistics are requested (default, `output_stats = TRUE`) and bootstrapping is also requested (not default, if `boot_it` is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an `ALEpDist` object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate `ALEpDist` object.
 #'
 #'
 #' @section Parallel processing:
-#' Parallel processing using the `{furrr}` framework is enabled by default. The number of parallel threads (workers or cores) is specified with the `parallel` argument. By default (`parallel = "all"`), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set `parallel = "all but one")`, which will only use faster physical cores and reserve one core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set `parallel = 0`.
+#' Parallel processing using the `{furrr}` framework is enabled by default. The number of parallel threads (workers or cores) is specified with the `parallel` argument. By default (`parallel = "all"`), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set `parallel = "all but one")`, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set `parallel = 0`.
 #'
-#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the `model` to this argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
+#'  The `{ale}` package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with `silent = TRUE`). In that case, first try disabling parallel processing with `parallel = 0`. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the `model` to the `model_packages` argument, e.g., `model_packages = c('tidymodels', 'mgcv')`.
 #'
-#' @section Progress bars:
-#' Progress bars are implemented with the `{progressr}` package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
 #'
 #' @section Time-to-event (survival) models:
-#' For time-to-event (survival) models set the following arguments:
-#' * `y_col` must be the name of the binary event column.
-#' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+#' For time-to-event (survival) models, set the following arguments:
+#' * `y_col` must be the set to the name of the binary event column.
+#' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated, e.g., `exclude_cols = 'time'`. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 #' * `pred_type` must be specified according to the desired `type` argument for the `predict()` method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
+#' * `pred_fun` might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom `pred_fun` as specified above might be needed.
+#'
+#'
+#' @section Progress bars:
+#' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#'
 #'
 #'
 #'
@@ -108,7 +111,8 @@
 #' # Smooth all numeric variables and include all other variables
 #' gam_diamonds <- mgcv::gam(
 #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-#'     cut + color + clarity,
+#'     cut + color + clarity +
+#'     ti(carat, by = clarity),  # a 2D interaction
 #'   data = diamonds_sample
 #' )
 #' summary(gam_diamonds)
@@ -116,7 +120,7 @@
 #'
 #' \donttest{
 #'
-#' # Simple ALE without bootstrapping
+#' # Simple ALE without bootstrapping: all 1D ALE effects
 #' ale_gam_diamonds <- ALE(gam_diamonds)
 #'
 #' # Plot the ALE data
@@ -128,10 +132,13 @@
 #' # Create ALE with 100 bootstrap samples
 #' ale_gam_diamonds_boot <- ALE(
 #'   gam_diamonds,
+#'   # request all 1D ALE effects and only the carat:clarity 2D effect
+#'   list(d1 = TRUE, d2 = 'carat:clarity'),
 #'   boot_it = 100
 #' )
 #'
-#' # Bootstrapped ALEs print with confidence intervals
+#' # Bootstrapped ALE prints with confidence intervals
+#' # First page prints 1D ALE; second page prints 2D ALE
 #' plot(ale_gam_diamonds_boot)
 #'
 #'
@@ -151,24 +158,25 @@
 #'
 #'
 #' # How to retrieve specific types of ALE data from an ALE object.
-#' ale_diamonds_with__boot_data <- ALE(
+#' ale_diamonds_with_boot_data <- ALE(
 #'   gam_diamonds,
 #'   # For detailed options for x_cols, see examples at resolve_x_cols()
-#'   x_cols = ~ carat + cut + clarity + color:depth + x:y,
+#'   x_cols = ~ carat + cut + clarity + carat:clarity + color:depth,
 #'   output_boot_data = TRUE,
 #'   boot_it = 10  # just for demonstration
 #' )
 #'
 #' # See ?get.ALE for details on the various kinds of data that may be retrieved.
-#' get(ale_diamonds_with__boot_data, ~ carat + color:depth)  # default ALE data
-#' get(ale_diamonds_with__boot_data, what = 'boot_data')
-#' get(ale_diamonds_with__boot_data, stats = 'estimate')
-#' get(ale_diamonds_with__boot_data, stats = 'aled')
-#' get(ale_diamonds_with__boot_data, stats = 'all')
-#' get(ale_diamonds_with__boot_data, stats = 'conf_regions')
-#' get(ale_diamonds_with__boot_data, stats = 'conf_sig')
+#' get(ale_diamonds_with_boot_data, ~ carat + color:depth)  # default ALE data
+#' get(ale_diamonds_with_boot_data, what = 'boot_data')
+#' get(ale_diamonds_with_boot_data, stats = 'estimate')
+#' get(ale_diamonds_with_boot_data, stats = 'aled')
+#' get(ale_diamonds_with_boot_data, stats = 'all')
+#' get(ale_diamonds_with_boot_data, stats = 'conf_regions')
+#' get(ale_diamonds_with_boot_data, stats = 'conf_sig')
 
 #' }
+#'
 #'
 ALE <- new_class(
   'ALE',
@@ -183,7 +191,6 @@ ALE <- new_class(
     y_col = NULL,
     ...,
     exclude_cols = NULL,
-    # complete_d = 1L,
     parallel = 'all',
     model_packages = NULL,
     output_stats = TRUE,
@@ -202,7 +209,6 @@ ALE <- new_class(
     boot_centre = 'mean',
     seed = 0,
     y_type = NULL,
-    # median_band_pct = c(0.05, 0.5),
     sample_size = 500,
     .bins = NULL,
     silent = FALSE
@@ -407,7 +413,6 @@ ALE <- new_class(
     # Prepare to create ALE statistics
     ale_y_norm_funs <- NULL
     if (output_stats) {
-      # if ('stats' %in% output) {
       ale_y_norm_funs <-
         y_vals |>
         apply(2, \(it.cat) {
@@ -442,19 +447,17 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'pm', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'pm', 'silent', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments
     params$data <- params_data(
       data = data,
       y_vals = y_vals,
-      # data_name = var_name(data),
       sample_size = sample_size,
       seed = seed
     )
     params$model <- params_model(model)
-    # params$model <- params_model(model, var_name(model))
     params$pred_fun <- params_function(pred_fun)
 
 
@@ -647,17 +650,9 @@ ALE <- new_class(
           ale_struc$effect[[it.cat]]$d1$stats <-
             ale_struc$effect[[it.cat]]$d1$stats |>
             bind_rows()
-            # imap(\(it.term_tbl, it.term) {
-            #   it.term_tbl |>
-            #     mutate(term = it.term)
-            # }) |>
-            # bind_rows() |>
-            # select('term', everything()) |>
-            # pivot_stats()
 
           if (output_conf) {
             ale_struc$effect[[it.cat]]$d1$conf <-
-            # ale_struc$effect[[it.cat]]$d1$stats$conf_regions <-
               summarize_conf_regions_1D(
                 ale_struc$effect[[it.cat]]$d1$ale,
                 y_summary[, it.cat, drop = FALSE]
@@ -670,17 +665,9 @@ ALE <- new_class(
           ale_struc$effect[[it.cat]]$d2$stats <-
             ale_struc$effect[[it.cat]]$d2$stats |>
             bind_rows()
-          # imap(\(it.term_tbl, it.term) {
-            #   it.term_tbl |>
-            #     mutate(term = it.term)
-            # }) |>
-            # bind_rows() |>
-            # select('term', everything()) |>
-            # pivot_stats()
 
           if (output_conf) {
             ale_struc$effect[[it.cat]]$d2$conf <-
-              # ale_struc$effect[[it.cat]]$d2$stats$conf_regions <-
               summarize_conf_regions_2D(
                 ale_struc$effect[[it.cat]]$d2$ale,
                 y_summary[, it.cat, drop = FALSE]

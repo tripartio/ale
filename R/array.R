@@ -214,6 +214,8 @@ x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
 #'
 #' Note: because intrapolation requires at least three elements (left bound, missing value, right bound), an input vector of less than three will be returned unchanged.
 #'
+#' @noRd
+#'
 #' @param v numeric vector. A numeric vector.
 #'
 #' @return numeric vector of the same length as the input `v` with internal missing values linearly intrapolated.
@@ -570,6 +572,8 @@ extract_3D_diags <- function(ray) {
 #' * In addition, calculate intrapolations along the four directions of 3D diagonals: front northwest to back southeast, that is, front upper left down to back lower right  (FNWBSE), FSWBNE, FSEBNW, and FNEBSW.
 #' * The 3D intrapolation is the mean intrapolation from any of these 2D or 3D values. In taking the mean, missing intrapolations are removed.
 #' * When there is no intrapolation available from any of the directions, the missing value remains missing.
+#'
+#' @noRd
 #'
 #' @param ray numeric array of three dimensions.
 #' @param consolidate logical(1). See return value.

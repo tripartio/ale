@@ -8,7 +8,6 @@ ALEPlots(
   obj,
   ...,
   relative_y = "median",
-  p_aler = c(0.01, 0.05),
   y_1d_refs = c("25\%", "75\%"),
   y_nonsig_band = 0.05,
   rug_sample_size = obj@params$sample_size,
@@ -26,8 +25,6 @@ ALEPlots(
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{relative_y}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.}
-
-\item{p_aler}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing ALER bands around the median for single-variable plots if the \code{ALE} object has p-values. The inner band range will be the median value of y ± \code{p_aler[2]} of the p-value of the ALE range (ALER). For plots with a second outer band, its range will be the median ± \code{p_aler[1]}. For example, in the ALE plots, for the default \code{p_aler = c(0.01, 0.05)}, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.}
 
 \item{y_1d_refs}{character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, \code{y_1d_refs} values are names from \code{obj@params$y_summary} (usually quantile names). If a numeric vector, \code{y_1d_refs} values must be values within the range of y, that is, between \code{obj@params$y_summary$min} and \code{obj@params$y_summary$max} inclusive.}
 

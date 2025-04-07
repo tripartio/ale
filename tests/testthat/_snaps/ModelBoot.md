@@ -545,9 +545,6 @@
       attr(,"params")$sample_size
       [1] 500
       
-      attr(,"params")$silent
-      [1] TRUE
-      
       
       attr(,"params")
       attr(,"params")$calc_boot_valid
@@ -1300,9 +1297,6 @@
       
       attr(,"params")$sample_size
       [1] 500
-      
-      attr(,"params")$silent
-      [1] TRUE
       
       
       attr(,"ale")$boot
@@ -2289,9 +2283,6 @@
       
       attr(,"params")$sample_size
       [1] 500
-      
-      attr(,"params")$silent
-      [1] TRUE
       
       
       attr(,"ale")$boot

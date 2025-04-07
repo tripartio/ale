@@ -22,7 +22,7 @@ ALE(
  },
   pred_type = "response",
   p_values = "auto",
-  p_aler = c(0.01, 0.05),
+  aler_alpha = c(0.01, 0.05),
   max_num_bins = 10,
   boot_it = 0,
   boot_alpha = 0.05,
@@ -39,13 +39,13 @@ ALE(
 
 \item{x_cols, exclude_cols}{character, list, or formula. Columns names from \code{data} requested in one of the special \code{x_cols} formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in \code{data} except \code{y_col}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.}
 
-\item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
+\item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically if it is included in the \code{model} object.}
 
-\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically. For non-standard models, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
+\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically from the \code{model} object. For non-standard models, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the function. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set \code{parallel = 0} to disable parallel processing. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set \code{parallel = 0} to disable parallel processing. See details.}
 
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
@@ -61,16 +61,16 @@ ALE(
 \itemize{
 \item \code{NULL}: p-values are not calculated.
 \item An \code{ALEpDist} object: the object will be used to calculate p-values.
-\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then see documentation for \code{\link[=ALEpDist]{ALEpDist()}}. Note that although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
 
-\item{p_aler}{numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{p_aler[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{p_aler[1]}. For example, in the ALE plots, for the default \code{p_aler = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
+\item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
-\item{max_num_bins}{positive integer(1). Maximum number of bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}.}
+\item{max_num_bins}{positive integer(1). Maximum number of ALE bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.}
 
-\item{boot_it}{non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the \code{ModelBoot} class. See details there. The default \code{boot_it = 0} turns off bootstrapping.}
+\item{boot_it}{non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a \code{\link[=ModelBoot]{ModelBoot()}} class object. See details there. The default \code{boot_it = 0} turns off bootstrapping.}
 
-\item{boot_alpha}{numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the intervals will be from the 2.5 and 97.5 percentiles.}
+\item{boot_alpha}{numeric(1) from 0 to 1. When ALE is bootstrapped (\code{boot_it > 0}), \code{boot_alpha} specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest \code{(1 - 0.05) / 2} percentiles. For example, if \code{boot_alpha = 0.05} (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.}
 
 \item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
@@ -78,11 +78,11 @@ ALE(
 
 \item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.}
 
-\item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots. See the \code{min_rug_per_interval} argument.}
+\item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 
 \item{.bins}{Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (\code{NULL}), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{.bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with \code{\link[=ModelBoot]{ModelBoot()}}).}
 
-\item{silent}{logical(1), default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.}
+\item{silent}{logical(1), default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.}
 }
 \value{
 An object of class \code{ALE} with properties \code{effect} and \code{params}.
@@ -93,18 +93,18 @@ An \code{ALE} S7 object contains ALE data and statistics. For details, see \code
 \section{Properties}{
 
 \describe{
-\item{effect}{Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.}
-\item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the \code{ALE} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
+\item{effect}{Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.}
+\item{params}{The parameters used to calculate the ALE data. These include most of the arguments used to construct the \code{ALE} object. These are either the values provided by the user or those used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: the highest dimension of ALE data present. If only 1D ALE is present, then `max_d == 1`. If even one 2D ALE element is present (even with no 1D), then `max_d == 2`.
 * `requested_x_cols`,`ordered_x_cols`: `requested_x_cols` is the resolved list of `x_cols` as requested by the user (that is, `x_cols` minus `exclude_cols`). `ordered_x_cols` is the same set of `x_cols` but arranged in the internal storage order.
 * `y_cats`: categories for categorical classification models. For non-categorical models, this is the same as `y_col`.
 * `y_type`: high-level datatype of the y outcome variable.
-* `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5\%' element is the 5th percentile of y values. The following elements have special meanings:
+* `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range, in which case `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric matrix. For most outcomes with a single value per predicted row, there is just one column with the same name as `y_col`. For categorical y outcomes, there is one column for each category in `y_cats` plus an additional column with the same name as `y_col`; this is the mean of the categorical columns. The rows are named mostly as the percentile of the y values. E.g., the '5\%' row is the 5th percentile of y values. The following named rows have special meanings:
 * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively. Note that the median is `50\%`, the 50th percentile.
-* `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50\%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `p_aler` argument to understand how these are determined. Without p-values, these elements are absent.
+* `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50\%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `aler_alpha` argument to understand how these are determined. Without p-values, these elements are absent.
 * `model`: selected elements that describe the `model` that the `ALE` object interprets.
-* `data`: selected elements that describe the `data` used to produce the `ALE` object.
+* `data`: selected elements that describe the `data` used to produce the `ALE` object. To avoid the large size of duplicating `data` entirely, only a sample of the size of the `sample_size` argument is retained.
 }\if{html}{\out{</div>}}
 
 }
@@ -126,37 +126,36 @@ These argument names are according to the R convention for the generic \code{\li
 }
 
 You can see an example below of a custom prediction function.
-
-\strong{Note:} \code{survival} models probably do not need a custom prediction function but \code{y_col} must be set to the name of the binary event column and \code{pred_type} must be set to the desired prediction type.
 }
 
 \section{ALE statistics and p-values}{
 
 For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see \code{vignette('ale-statistics')}. For general details about the calculation of p-values, see \code{\link[=ALEpDist]{ALEpDist()}}. Here, we clarify the automatic calculation of p-values with the \code{\link[=ALE]{ALE()}} constructor.
 
-As explained in the documentation above for the \code{p_values} argument, the default \code{p_values = "auto"} will try to automatically create a fast surrogate \code{ALEpDist} object. However, this is on the condition that statistics are requested (default, \code{output_stats = TRUE}) and bootstrapping is also requested (not default, \code{boot_it} is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an \code{ALEpDist} object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate \code{ALEpDist} object.
+As explained in the documentation above for the \code{p_values} argument, the default \code{p_values = "auto"} will try to automatically create a fast surrogate \code{ALEpDist} object. However, this is on the condition that statistics are requested (default, \code{output_stats = TRUE}) and bootstrapping is also requested (not default, if \code{boot_it} is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an \code{ALEpDist} object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate \code{ALEpDist} object.
 }
 
 \section{Parallel processing}{
 
-Parallel processing using the \code{{furrr}} framework is enabled by default. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = "all"}), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set \verb{parallel = "all but one")}, which will only use faster physical cores and reserve one core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set \code{parallel = 0}.
+Parallel processing using the \code{{furrr}} framework is enabled by default. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = "all"}), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set \verb{parallel = "all but one")}, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set \code{parallel = 0}.
 
-The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the \code{model} to this argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
-}
-
-\section{Progress bars}{
-
-Progress bars are implemented with the \code{{progressr}} package, which lets the user fully control progress bars. For details on formatting progress bars to your liking, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the \code{model} to the \code{model_packages} argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
 }
 
 \section{Time-to-event (survival) models}{
 
-For time-to-event (survival) models set the following arguments:
+For time-to-event (survival) models, set the following arguments:
 \itemize{
-\item \code{y_col} must be the name of the binary event column.
-\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
+\item \code{y_col} must be the set to the name of the binary event column.
+\item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
+\item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom \code{pred_fun} as specified above might be needed.
 }
+}
+
+\section{Progress bars}{
+
+Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
 }
 
 \examples{
@@ -168,7 +167,8 @@ diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 # Smooth all numeric variables and include all other variables
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity,
+    cut + color + clarity +
+    ti(carat, by = clarity),  # a 2D interaction
   data = diamonds_sample
 )
 summary(gam_diamonds)
@@ -176,7 +176,7 @@ summary(gam_diamonds)
 
 \donttest{
 
-# Simple ALE without bootstrapping
+# Simple ALE without bootstrapping: all 1D ALE effects
 ale_gam_diamonds <- ALE(gam_diamonds)
 
 # Plot the ALE data
@@ -188,10 +188,13 @@ plot(ale_gam_diamonds)
 # Create ALE with 100 bootstrap samples
 ale_gam_diamonds_boot <- ALE(
   gam_diamonds,
+  # request all 1D ALE effects and only the carat:clarity 2D effect
+  list(d1 = TRUE, d2 = 'carat:clarity'),
   boot_it = 100
 )
 
-# Bootstrapped ALEs print with confidence intervals
+# Bootstrapped ALE prints with confidence intervals
+# First page prints 1D ALE; second page prints 2D ALE
 plot(ale_gam_diamonds_boot)
 
 
@@ -211,25 +214,26 @@ plot(ale_gam_diamonds_custom)
 
 
 # How to retrieve specific types of ALE data from an ALE object.
-ale_diamonds_with__boot_data <- ALE(
+ale_diamonds_with_boot_data <- ALE(
   gam_diamonds,
   # For detailed options for x_cols, see examples at resolve_x_cols()
-  x_cols = ~ carat + cut + clarity + color:depth + x:y,
+  x_cols = ~ carat + cut + clarity + carat:clarity + color:depth,
   output_boot_data = TRUE,
   boot_it = 10  # just for demonstration
 )
 
 # See ?get.ALE for details on the various kinds of data that may be retrieved.
-get(ale_diamonds_with__boot_data, ~ carat + color:depth)  # default ALE data
-get(ale_diamonds_with__boot_data, what = 'boot_data')
-get(ale_diamonds_with__boot_data, stats = 'estimate')
-get(ale_diamonds_with__boot_data, stats = 'aled')
-get(ale_diamonds_with__boot_data, stats = 'all')
-get(ale_diamonds_with__boot_data, stats = 'conf_regions')
-get(ale_diamonds_with__boot_data, stats = 'conf_sig')
+get(ale_diamonds_with_boot_data, ~ carat + color:depth)  # default ALE data
+get(ale_diamonds_with_boot_data, what = 'boot_data')
+get(ale_diamonds_with_boot_data, stats = 'estimate')
+get(ale_diamonds_with_boot_data, stats = 'aled')
+get(ale_diamonds_with_boot_data, stats = 'all')
+get(ale_diamonds_with_boot_data, stats = 'conf_regions')
+get(ale_diamonds_with_boot_data, stats = 'conf_sig')
 }
+
 
 }
 \references{
-Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
+Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. \url{doi:10.48550/arXiv.2310.09877}.
 }
