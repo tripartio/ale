@@ -252,6 +252,7 @@ number of physical cores.</p>
 <span class="r-in"><span>  <span class="co"># only 100 iterations for a quick demo; but usually should remain at 1000</span></span></span>
 <span class="r-in"><span>  rand_it <span class="op">=</span> <span class="fl">100</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: intervals</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pd_diamonds</span><span class="op">)</span></span></span>
@@ -265,13 +266,15 @@ number of physical cores.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ naler_min: num [1:4] -3 -3.8 -0.8 -0.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ..  ..$ naler_max: num [1:4] 3.4 3.6 4.4 1.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ residual_distribution: 'univariateML' Named num [1:4] 9.08 1052.62 2.88 1.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "names")= chr [1:4] "mean" "sd" "nu" "xi"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "logLik")= num -8123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "n")= int 1000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "model")= chr "Skew Student-t"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "density")= chr "fGarch::dsstd"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "logLik")= num -8123</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "support")= num [1:2] -Inf Inf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "n")= int 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "call")= language f(x = x, na.rm = na.rm)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "names")= chr [1:4] "mean" "sd" "nu" "xi"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "default")= num [1:4] 0 1 3 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. - attr(*, "continuous")= logi TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ rand_it_ok           : int 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  @ residuals            : NULL</span>
 <span class="r-in"><span><span class="co"># In RStudio: View(pd_diamonds)</span></span></span>
@@ -292,7 +295,7 @@ number of physical cores.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data. The horizontal bands in the plots use the p-values.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_gam_diamonds' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ale_gam_diamonds' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For non-standard models that give errors with the default settings,</span></span></span>
