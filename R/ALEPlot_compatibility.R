@@ -54,8 +54,6 @@ nn_na_delta_pred <- function(dp, xd) {
     }
 
     if (any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))) {
-      # closeAllConnections()
-      # browser()
       stop("ALEPlot_compatibility: any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))")
     }
 

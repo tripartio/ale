@@ -23,7 +23,6 @@ test_that(
       data = test_cars,
       p_values = pd,
       output_conf = FALSE,
-      # output = 'stats',
       boot_it = 3,
       parallel = 0,
       silent = TRUE,
@@ -89,8 +88,7 @@ test_that(
         mpg ~ model + s(wt) + am + gear + carb + random_variable,
         data = rand_data
       )',
-      # It is difficult to test random_model_call_string_vars because it is only for
-      # edge cases, but at least make sure it is a valid entry
+      # It is difficult to test random_model_call_string_vars because it is only for edge cases, but at least make sure it is a valid entry
       random_model_call_string_vars = 'rmcsv',
       surrogate = FALSE,
       output_residuals = TRUE,

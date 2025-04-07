@@ -23,7 +23,6 @@
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
 #' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
-# @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `calc_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -69,7 +68,6 @@ calc_stats <- function(
 
   # Normalized scores
   if (is.null(ale_y_norm_fun)) {
-    # browser()
     ale_y_norm_fun <- create_ale_y_norm_function(y_vals)
   }
 
@@ -129,7 +127,7 @@ calc_stats <- function(
 
 #' Calculate statistics from 2D ALE y values.
 #'
-#' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
+#' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
 #'
 #' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
@@ -150,8 +148,7 @@ calc_stats_2D <- function(
     x_cols,
     x_types,
     y_vals = NULL,
-    ale_y_norm_fun = NULL #,
-    # zeroed_ale = FALSE
+    ale_y_norm_fun = NULL
 ) {
   # ale_data=boot_summary
 
@@ -243,14 +240,12 @@ create_ale_y_norm_function <- function(y_vals) {
   pre_median  <- if (median(centred_y) != max(centred_y)) {
     max(centred_y[centred_y < 0])
   } else {
-    # browser()
     0
   }
   # Value right above the median
   post_median <- if (median(centred_y) != min(centred_y)) {
     min(centred_y[centred_y > 0])
   } else {
-    # browser()
     0
   }
 
@@ -259,8 +254,7 @@ create_ale_y_norm_function <- function(y_vals) {
       # Assign each ALE y value to its respective norm_ale_y (normalized half percentile).
       # ale_y == 0 is assigned at the 50th percentile.
       norm_ale_y <- case_when(
-        # When ale_y is between the values right below and above the median (0),
-        # normalize it to 0.
+        # When ale_y is between the values right below and above the median (0), normalize it to 0.
         (ale_y >= pre_median) & (ale_y <= post_median) ~ 0,
         # percentiles of the lower half of the y values (0 to 50%)
         # Note: the median is included in both halves.
@@ -268,7 +262,7 @@ create_ale_y_norm_function <- function(y_vals) {
         # The exact median.
         # Normally, the first condition should catch this case, but just in case...
         ale_y == 0 ~ 0,
-        # percentiles of the upper half of the y values (50 to 100%)
+        # Percentiles of the upper half of the y values (50 to 100%).
         # Note: the median is included in both halves.
         ale_y > 0  ~ stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
       )
@@ -412,72 +406,10 @@ var_summary <- function(
 }  # var_summary()
 
 
-# # Rearrange ALE statistics in multiple orientations
-# pivot_stats <- function(long_stats) {
-#
-#   return(list(
-#     by_term = long_stats |>
-#       split(~ term) |>
-#       # split() sort terms alphabetically; revert to the original provided order of terms
-#       (`[`)(unique(long_stats$term)) |>
-#       # Name each element on each row by its corresponding statistic
-#       map(\(it.term_tbl) {
-#         .row_names <- it.term_tbl[['statistic']]
-#
-#         it.term_tbl |>
-#           # Name each element on each row
-#           map(\(it.col) {
-#             names(it.col) <- .row_names
-#             it.col
-#           }) |>
-#           as_tibble() |>
-#           select(-'term')  # remove superfluous column
-#       }),
-#
-#     by_stat = long_stats |>
-#       split(~ statistic) |>
-#       # split() sort statistics alphabetically; revert to the original provided order of statistics
-#       (`[`)(unique(long_stats$statistic)) |>
-#       # Name each element on each row by its corresponding term
-#       map(\(.statistic_tbl) {
-#         .row_names <- .statistic_tbl[['term']]
-#
-#         .statistic_tbl |>
-#           # Name each element on each row
-#           map(\(it.col) {
-#             names(it.col) <- .row_names
-#             it.col
-#           }) |>
-#           as_tibble() |>
-#           select(-'statistic')  # remove superfluous column
-#       }),
-#
-#     estimate = long_stats |>
-#       # create single tibble with estimates (no confidence intervals) with
-#       # terms in rows and statistics in columns
-#       pivot_wider(
-#         id_cols = 'term',
-#         names_from = 'statistic',
-#         values_from = 'estimate'
-#       ) |>
-#       as_tibble() |>
-#       # name each element of each row with the term names (all_cols[[1]]).
-#       (\(all_cols) {
-#         map(all_cols, \(it.col) {
-#           names(it.col) <- all_cols[[1]]
-#           it.col
-#         }) |>
-#           as_tibble()
-#       })()
-#   ))
-# }  # pivot_stats()
-
-
 # Summarize overlapping confidence regions
 summarize_conf_regions_1D <- function(
     ale_data_list,  # list of ale_data elements
     y_summary  # result of var_summary(y_vals)
-    # sig_criterion  # string either 'p_values' or 'median_band_pct'
 ) {
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
@@ -586,16 +518,6 @@ summarize_conf_regions_1D <- function(
     )
 
   return(cr_by_term)
-
-  # sig_conf_regions <- cr_by_term |>
-  #   filter(.data$mid_bar != 'overlap')
-  #
-  # return(
-  #   list(
-  #     by_term = cr_by_term,
-  #     significant = sig_conf_regions
-  #   )
-  # )
 }  # summarize_conf_regions_1D()
 
 
@@ -683,7 +605,6 @@ summarize_conf_regions_2D <- function(
       cr <- cr |>
         summarize(
           .by = c('x1', 'x2', 'mid_bar'),
-          # .by = all_of(c(cr_groups, 'mid_bar')),
           n   = sum(.data$n),
           pct = (n / total_n) * 100,
           y   = mean(.data$y),
@@ -710,24 +631,10 @@ summarize_conf_regions_2D <- function(
 
 
   return(cr_by_term)
-
-  # # Highlight which confidence regions are statistically significant
-  # sig_conf_regions <- cr_by_term |>
-  #   filter(.data$mid_bar != 'overlap')
-  #
-  #
-  # return(
-  #   list(
-  #     by_term = cr_by_term,
-  #     significant = sig_conf_regions
-  #     # sig_criterion = sig_criterion
-  #   )
-  # )
 }  # summarize_conf_regions_1D()
 
 # nocov start
-# Receives a confidence region summary tibble and then converts its essential
-# contents in words.
+# Receives a confidence region summary tibble and then converts its essential contents in words.
 summarize_conf_regions_1D_in_words <- function(
     conf_region_summary,
     band_type = 'ALER'

@@ -9,22 +9,19 @@
 #' @description
 #' Resolve `x_cols` and `exclude_cols` to their standardized format of `x_cols` to specify which 1D and 2D ALE elements are required. This specification is used throughout the ALE package. `x_cols` specifies the desired columns or interactions whereas `exclude_cols` optionally specifies any columns or interactions to remove from `x_cols`. The result is `x_cols` – `exclude_cols`, giving considerable flexibility in specifying the precise columns desired.
 #'
-#' @param x_cols character, list, or formula. Columns and interactions requested in one of the special `x_cols` formats. `x_cols` values not found in `col_names` will error. See examples.
-#' @param col_names character. All the column names from a dataset.
+#' @param x_cols character, list, or formula. Columns and interactions requested in one of the special `x_cols` formats. `x_cols` variable names not found in `col_names` will error. See examples.
+#' @param col_names character. All the column names from a dataset. All values in `x_cols` must be contained among the values in `col_names`. For interaction terms in `x_cols`, e.g., `"a:b"`, the individual variable names must be contained in `col_names`, e.g, `c("a", "b")`.
 #' @param y_col character(1). The y outcome column. If found in any `x_cols` value, it will be silently removed.
 #' @param exclude_cols Same possible formats as `x_cols`. Columns and interactions to exclude from those requested in `x_cols`. `exclude_cols` values not found in `col_names` will be ignored with a message (which can be silenced with `silent`).
-#' @param silent logical(1). If `TRUE`, no message will be given; in particular, x_cols not found in col_names will be silently ignored. Default is `FALSE`. Regardless, warnings and errors are never silenced (e.g, invalid `x_cols` formats will still report errors).
+#' @param silent logical(1). If `TRUE`, no message will be given; in particular, `x_cols` not found in `col_names` will be silently ignored. Default is `FALSE`. Regardless, warnings and errors are never silenced (e.g, invalid `x_cols` formats will still report errors).
 #'
-#' @returns `x_cols` in canonical format, which is always a list with two elements:
-#' * `d1`: a character vector with each requested column for 1D ALE. If empty (no 1D ALE at all), its value is `list()`.
-#' * `d2`: a list of length-2 character vectors with each requested 2D ALE interaction pair. If empty (no 2D ALE at all), its value is `list()`.
+#' @returns `x_cols` in canonical format, which is always a list with two elements, `d1` and `d2`. Each element is a character vector with each requested column for 1D ALE (`d1`) or 2D ALE interaction pair (`d2`). If either dimension is empty, its value is an empty character, `character()`.
 #'
 #' See examples for details.
 #'
-#' @section x_cols format options:
+#' @section `x_cols` format options:
 #'
-#' The `x_cols` argument determines which predictor variables and interactions
-#' are included in the analysis. It supports multiple input formats:
+#' The `x_cols` argument determines which predictor variables and interactions are included in the analysis. It supports multiple input formats:
 #'
 #' - **Character vector**: Users can explicitly specify 1D terms and 2D ALE interactions, e.g., `c("a", "b", "a:b", "a:c")`.
 #'
@@ -42,10 +39,7 @@
 #'
 #' - **NULL (or unspecified)**: If `x_cols = NULL`, no variables are selected.
 #'
-#' The function ensures all variables are valid and in `col_names`, providing informative
-#' messages unless `silent = TRUE`. And regardless of the specification format,
-#' the result will always be standardized in the format specified in the return value.
-#' Note that `y_col` is not removed if included in `x_cols`. However, a message alerts when it is included, in case it is a mistake.
+#' The function ensures all variables are valid and in `col_names`, providing informative messages unless `silent = TRUE`. And regardless of the specification format, the result will always be standardized in the format specified in the return value. Note that `y_col` is not removed if included in `x_cols`. However, a message alerts when it is included, in case it is a mistake.
 #'
 #' Run examples for details.
 #'
@@ -222,17 +216,18 @@ resolve_x_cols <- function(
 
 #' Dimension-by-dimension setdiff of an x_cols list
 #'
+#' @noRd
+#'
 #' @param x1,x2 canonical `x_cols` lists. Each element of `x2` will be removed, if present, from each corresponding element in `x1`. Any element of `x2` with no corresponding element in `x1` will be ignored.
 #'
 #' @returns `x1` without any corresponding element specified in `x2`.
-#' @noRd
 #'
 setdiff_x_cols <- function(
     x1,
     x2
 ) {
   d1 <- setdiff(x1$d1, x2$d1)
-  d1 <- if (length(d1 > 0)) d1 else list()
+  d1 <- if (length(d1 > 0)) d1 else character()
 
   d2 <- setdiff(x1$d2, x2$d2)
 
@@ -288,9 +283,6 @@ validate_x_cols <- function(
       ))
     }
 
-    # browser()
-
-    # x_cols <- str_split(fmla_cols, ':')
     x_cols <- fmla_cols
   }
 
@@ -350,17 +342,10 @@ validate_x_cols <- function(
 
   # Standardize the x_cols format
 
-  # # Default case: x_cols is NULL; set it to all 1D columns
-  # if (is.null(x_cols)) {
-  #   x_cols <- list(d1 = col_names)
-  # }
-
   # A character vector: simple ALE with no interactions
   # # Result: c('a', 'b', 'c', 'd', 'e', 'f')
   if (is.character(x_cols)) {
     # x_cols <- list(d1 = x_cols)
-
-    # browser()
 
     # If non-canonical, x_cols should be an explicit character vector of 1D and 2D terms.
     validate(
@@ -495,11 +480,8 @@ validate_x_cols <- function(
   x_cols <- list(
     d1 = x_cols[['d1']] |>
       unique(),
-      # unique() |>
-      # setdiff(y_col),
     d2 = x_cols[['d2']] |>
       unique() |>
-      # map(\(it.d2) if (y_col %in% it.d2) NULL else it.d2) |>
       compact()
   ) |>
     compact()

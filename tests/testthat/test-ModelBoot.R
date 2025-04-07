@@ -35,7 +35,6 @@ test_that(
       data = test_cars,
       parallel = 0,
       boot_it = 0,  # test with no bootstrapping
-      # seed = 5,  # avoid errors with tiny dataset
       ale_options = list(
         x_cols = c('wt', 'am', 'gear:carb')
       ),
@@ -116,7 +115,6 @@ test_that(
       output_ale = TRUE,
       output_model_stats = TRUE,
       output_model_coefs = TRUE,
-      # output = c('ale', 'model_stats', 'model_coefs'),  # test all options
       ale_options = list(
         x_cols = c('Sepal.Length', 'Petal.Width'),
         pred_type = 'probs'

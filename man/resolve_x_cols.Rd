@@ -7,33 +7,28 @@
 resolve_x_cols(x_cols, col_names, y_col, exclude_cols = NULL, silent = FALSE)
 }
 \arguments{
-\item{x_cols}{character, list, or formula. Columns and interactions requested in one of the special \code{x_cols} formats. \code{x_cols} values not found in \code{col_names} will error. See examples.}
+\item{x_cols}{character, list, or formula. Columns and interactions requested in one of the special \code{x_cols} formats. \code{x_cols} variable names not found in \code{col_names} will error. See examples.}
 
-\item{col_names}{character. All the column names from a dataset.}
+\item{col_names}{character. All the column names from a dataset. All values in \code{x_cols} must be contained among the values in \code{col_names}. For interaction terms in \code{x_cols}, e.g., \code{"a:b"}, the individual variable names must be contained in \code{col_names}, e.g, \code{c("a", "b")}.}
 
 \item{y_col}{character(1). The y outcome column. If found in any \code{x_cols} value, it will be silently removed.}
 
 \item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}).}
 
-\item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, x_cols not found in col_names will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
+\item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, \code{x_cols} not found in \code{col_names} will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
 }
 \value{
-\code{x_cols} in canonical format, which is always a list with two elements:
-\itemize{
-\item \code{d1}: a character vector with each requested column for 1D ALE. If empty (no 1D ALE at all), its value is \code{list()}.
-\item \code{d2}: a list of length-2 character vectors with each requested 2D ALE interaction pair. If empty (no 2D ALE at all), its value is \code{list()}.
-}
+\code{x_cols} in canonical format, which is always a list with two elements, \code{d1} and \code{d2}. Each element is a character vector with each requested column for 1D ALE (\code{d1}) or 2D ALE interaction pair (\code{d2}). If either dimension is empty, its value is an empty character, \code{character()}.
 
 See examples for details.
 }
 \description{
 Resolve \code{x_cols} and \code{exclude_cols} to their standardized format of \code{x_cols} to specify which 1D and 2D ALE elements are required. This specification is used throughout the ALE package. \code{x_cols} specifies the desired columns or interactions whereas \code{exclude_cols} optionally specifies any columns or interactions to remove from \code{x_cols}. The result is \code{x_cols} – \code{exclude_cols}, giving considerable flexibility in specifying the precise columns desired.
 }
-\section{x_cols format options}{
+\section{\code{x_cols} format options}{
 
 
-The \code{x_cols} argument determines which predictor variables and interactions
-are included in the analysis. It supports multiple input formats:
+The \code{x_cols} argument determines which predictor variables and interactions are included in the analysis. It supports multiple input formats:
 \itemize{
 \item \strong{Character vector}: Users can explicitly specify 1D terms and 2D ALE interactions, e.g., \code{c("a", "b", "a:b", "a:c")}.
 \item \strong{Formula (\code{~})}: Allows specifying variables and interactions in
@@ -53,10 +48,7 @@ So, \code{~ a + b + a:b} produces results identical to \code{whatever ~ a + b + 
 \item \strong{NULL (or unspecified)}: If \code{x_cols = NULL}, no variables are selected.
 }
 
-The function ensures all variables are valid and in \code{col_names}, providing informative
-messages unless \code{silent = TRUE}. And regardless of the specification format,
-the result will always be standardized in the format specified in the return value.
-Note that \code{y_col} is not removed if included in \code{x_cols}. However, a message alerts when it is included, in case it is a mistake.
+The function ensures all variables are valid and in \code{col_names}, providing informative messages unless \code{silent = TRUE}. And regardless of the specification format, the result will always be standardized in the format specified in the return value. Note that \code{y_col} is not removed if included in \code{x_cols}. However, a message alerts when it is included, in case it is a mistake.
 
 Run examples for details.
 }

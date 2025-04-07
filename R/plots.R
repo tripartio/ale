@@ -4,55 +4,38 @@
 # None of the object-oriented code is in this file; such code is in dedicated object files such as ALEPlots.R.
 
 
-# Colours
-# https://coolors.co/09090b-4979c1-ff474a-f4ce67-adadad
+# # Colours
+# # https://coolors.co/09090b-4979c1-ff474a-f4ce67-adadad
+# #
+# # 2 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
 #
-# /* CSS HEX */
-#   --black: #09090bff;
-#   --glaucous: #4979c1ff;
-#   --imperial-red: #ff474aff;
-#   --naples-yellow: #f4ce67ff;
-#   --silver: #adadadff;
+# # 3 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
 #
-#   /* CSS HSL */
-#   --black: hsla(240, 10%, 4%, 1);
-# --glaucous: hsla(216, 49%, 52%, 1);
-# --imperial-red: hsla(359, 100%, 64%, 1);
-# --naples-yellow: hsla(44, 87%, 68%, 1);
-# --silver: hsla(0, 0%, 68%, 1);
+# # 4 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
 #
-# /* SCSS HEX */
-#   $black: #09090bff;
-#   $glaucous: #4979c1ff;
-#   $imperial-red: #ff474aff;
-#   $naples-yellow: #f4ce67ff;
-#   $silver: #adadadff;
+# # 5 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
+# --silver: '#adadadff';
 #
-#   /* SCSS HSL */
-#   $black: hsla(240, 10%, 4%, 1);
-# $glaucous: hsla(216, 49%, 52%, 1);
-# $imperial-red: hsla(359, 100%, 64%, 1);
-# $naples-yellow: hsla(44, 87%, 68%, 1);
-# $silver: hsla(0, 0%, 68%, 1);
-#
-# /* SCSS RGB */
-#   $black: rgba(9, 9, 11, 1);
-# $glaucous: rgba(73, 121, 193, 1);
-# $imperial-red: rgba(255, 71, 74, 1);
-# $naples-yellow: rgba(244, 206, 103, 1);
-# $silver: rgba(173, 173, 173, 1);
-#
-# /* SCSS Gradient */
-#   $gradient-top: linear-gradient(0deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                  $gradient-right: linear-gradient(90deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                   $gradient-bottom: linear-gradient(180deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                     $gradient-left: linear-gradient(270deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                                                     $gradient-top-right: linear-gradient(45deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                                                                                          $gradient-bottom-right: linear-gradient(135deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                                                                                                                                  $gradient-top-left: linear-gradient(225deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                                                                                                                                                                      $gradient-bottom-left: linear-gradient(315deg, #09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-#                                                                                                                                                                                                                                                                                             $gradient-radial: radial-gradient(#09090bff, #4979c1ff, #ff474aff, #f4ce67ff, #adadadff);
-
+# # 6 Colours
+# black: '#09090bff';
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
+# --silver: '#adadadff';
 
 
 
@@ -131,10 +114,7 @@ plot_ale_1D <- function(
   # Centre the y summary data on y_shift (it was originally centred on the median)
   y_summary <- y_summary - y_summary[['50%']] + y_shift
 
-
-
   x_is_numeric <- names(ale_data)[1] |> endsWith('.ceil')
-
 
   # Rename the x variable in ale_data for easier coding
   names(ale_data)[1] <- '.x'
@@ -169,11 +149,8 @@ plot_ale_1D <- function(
       alt = str_glue('ALE plot of {y_col} against {x_col}')
     )
 
-  # browser()
-
   # Add ALER band to show the average ± the confidence limits
   if (use_aler_band) {
-    # browser()
     plot <- plot +
       geom_rect(
         xmin = -Inf,
@@ -183,11 +160,10 @@ plot_ale_1D <- function(
         fill = 'lightgray'
       )
 
-    # Add a secondary axis to label the percentiles
+    # Add a secondary axis to label the percentiles.
     # Construct secondary (right) axis label from bottom to top.
     sec_labels <- c(
-        # To prevent overlapping text, summarize all details only in the
-        # centre label; leave the others empty
+        # To prevent overlapping text, summarize all details only in the centre label; leave the others empty
         '',  # empty
         str_glue(
           '{p_exactness}\n',
@@ -204,7 +180,7 @@ plot_ale_1D <- function(
       y_summary[['aler_hi_hi']]
     )
   } else {
-    # Add a secondary axis to label the percentiles
+    # Add a secondary axis to label the percentiles.
     # Construct secondary (right) axis label from bottom to top.
     sec_labels <- c(
         y_1d_refs[1],
@@ -280,7 +256,6 @@ plot_ale_1D <- function(
     else {
       # All categories: no bootstrap bands
       plot <- if (cat_plot == 'overlay') {
-        # browser()
         plot +
           geom_col(
             aes(fill = '.cat'),
@@ -288,7 +263,6 @@ plot_ale_1D <- function(
           )
       }
       else {  # facet
-        # browser()
         plot +
           geom_col(fill = 'gray') +
           facet_wrap(vars('.cat'), nrow = 1)
@@ -315,7 +289,6 @@ plot_ale_1D <- function(
 
     # Rotate categorical labels if they are too long
     if ((ale_data[[1]] |> paste(collapse = ' ') |> nchar()) > 50) {
-      # browser()
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     }
@@ -346,11 +319,9 @@ plot_ale_1D <- function(
 
     # If the data is too big, down-sample or else rug plots are too slow
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
-      # browser()
       rug_sample(
         rug_data,
         ale_data[[1]],
-        # ale_data$.ceil,
         rug_sample_size = rug_sample_size,
         min_rug_per_interval = min_rug_per_interval,
         seed = seed
@@ -393,13 +364,13 @@ plot_ale_1D <- function(
 
 #' Plot 2D ALE data
 #'
-#' Creates a 2D ALE plot as a `ggplot` object. For details about arguments not documented here, see [ALE()].
+#' Create a 2D ALE plot as a `ggplot` object. For details about arguments not documented here, see [ALE()].
 #'
 #' @noRd
 #'
 #' @param ale_data tibble. Output data from `calc_ale`.
-#' @param x1_col,x2_col character length 1. Name of single x1 and single x2 column whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted on the y axis.
-#' @param y_col character length 1. Name of y (output) column whose ALE data is to be plotted.
+#' @param x1_col,x2_col character(1). Name of single x1 and single x2 column whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted on the y axis.
+#' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
 #' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
 #' @param cat_plot character(1) in c('single', 'facet'). `'single'` (default) creates a typical 2D plot for a single category; `'facet'` creates a faceted plot across all categories.
@@ -413,7 +384,7 @@ plot_ale_2D <- function(
     relative_y = 'median'
 ) {
   ## Internal functions -----------------
-# browser()
+
   # Ensure that a vector is unique.
   # Needed for plotting scale breaks that require unique values.
   make_unique_jitter <- function(
@@ -442,7 +413,6 @@ plot_ale_2D <- function(
     sum()
 
   y_vals <- if (cat_plot != 'single') {
-    # browser()
     # Temporary workaround
     params$data$y_vals_sample[, 1]
   } else {
@@ -645,7 +615,6 @@ plot_ale_2D <- function(
       rows = if (params$boot_it > 0) vars('boot') else NULL,
       cols = if (cat_plot != 'single') vars('.cat') else NULL,
       labeller = if (params$boot_it > 0) {
-        # browser()
         labeller(
           # Specify only bootstrap renaming; categories are left as default
           boot = c(
@@ -664,20 +633,21 @@ plot_ale_2D <- function(
 }
 
 
-# Downsample x and y rows for a rug plot to match a target sample size
-# while respecting specified intervals in the random sample
-#
-# Not exported. Rug plots are slow with large datasets because each data point
-# must be plotted. [rug_sample()] tries to resolve this issue by sampling
-# `rug_sample_size` rows of data at the most (only if the data has more than that
-# number of lines lines). However, to be representative, the sampling must have
-# at least min_rug_per_interval in each bin.
-#
-# @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
-# @param rug_sample_size See documentation for [ALE()]
-# @param min_rug_per_interval See documentation for [ALE()]
-# @param seed See documentation for [ALE()]
-#
+#' Downsampl rows for a rug plot
+#'
+#' Downsample x and y rows for a rug plot to match a target sample size while respecting specified intervals in the random sample.
+#'
+#' Rug plots are slow with large datasets because each data point must be plotted. [rug_sample()] tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
+#'
+#' @noRd
+#'
+#' @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
+#' @param max_num_bins ??
+#' @param y_intervals ??
+#' @param rug_sample_size See documentation for [ALE()]
+#' @param min_rug_per_interval See documentation for [ALE()]
+#' @param seed See documentation for [ALE()]
+#'
 rug_sample <- function(
     x_y,
     max_num_bins,
@@ -686,7 +656,6 @@ rug_sample <- function(
     min_rug_per_interval = 1,
     seed = 0
 ) {
-  # browser()
   names(x_y) <- c('rug_x', 'rug_y')
 
   # Only sample small datasets
@@ -704,9 +673,8 @@ rug_sample <- function(
     ) |>
     select('row', 'rug_x', 'x_interval', 'rug_y', 'y_interval')
 
-  # rs_idxs: row indexes of the rug sample
-  # First, ensure there are at least min_rug_per_interval rows
-  # selected per x_interval and y_interval.
+  # rs_idxs: row indexes of the rug sample.
+  # First, ensure there are at least min_rug_per_interval rows selected per x_interval and y_interval.
   original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
   set.seed(seed)
@@ -726,7 +694,6 @@ rug_sample <- function(
       sample(rug_sample_size - length(rs_idxs))  # only sample enough to match rug_sample_size
   )
   }
-
 
   return(
     x_y[rs_idxs, ] |>
@@ -807,7 +774,6 @@ plot_effects <- function(
     ) +
     # Even if the ALE values are extreme, zoom in to natural Y value limits
     coord_cartesian(xlim = c(y_summary['min'], y_summary['max'])) +
-    # coord_cartesian(xlim = range(y_vals)) +
     theme(
       panel.grid.major.x = element_line(colour = "grey75", linewidth = 0.5),
       panel.grid.minor.x = element_line(colour = "grey90", linewidth = 0.1)
@@ -862,9 +828,7 @@ plot_effects <- function(
       geom = 'label',
       # Position as far to the right as possible
       x = y_summary['max'],
-      # x = max(y_vals),
-      # Position next to variable with the least aler_max; this reduces
-      # the likelihood that the annotation will overlap any data.
+      # Position next to variable with the least aler_max; this reduces the likelihood that the annotation will overlap any data.
       y = which(estimates$aler_max == min(estimates$aler_max))[1],
       label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
       size = 3,

@@ -61,7 +61,6 @@ ale_plots_to_data <- function(
     ale_plots  # ALEPlots object
 ) {
   purrr::imap(ale_plots@plots, \(it.cat_plots, it.cat_name) {
-    # if (it.cat_name == '.all_cats') browser()
     list(
       d1  = if (it.cat_name != '.all_cats') {
         it.cat_plots$d1 |>
@@ -83,14 +82,9 @@ ale_plots_to_data <- function(
             ggplot2::ggplot_build(it.plot)$data[[1]]
           })
       } else {
-        # browser()
         it.cat_plots$d2 |>
           purrr::map(\(it.plot) {
             ggplot2::ggplot_build(it.plot)$data[[1]]
-            # it.x_cols |>
-            #   purrr::map(\(it.plot) {
-            #     ggplot2::ggplot_build(it.plot)$data[[1]]
-            #   })
           })
       },
       eff = if (it.cat_name != '.all_cats') {
@@ -110,32 +104,6 @@ ale_plots_to_data <- function(
   })
 }
 
-
-# ale_plots_to_data <- function(
-#     ale_plots  # ALEPlots object
-# ) {
-#   ale_plots@plots |>
-#     purrr::map(\(it.cat_plots) {
-#       list(
-#         d1  = it.cat_plots$plots$d1 |>
-#           purrr::map(\(it.plot) {
-#             ggplot2::ggplot_build(it.plot)$data[[1]]
-#           }),
-#         d2  = it.cat_plots$plots$d2 |>
-#           purrr::map(\(it.plot) {
-#             ggplot2::ggplot_build(it.plot)$data[[1]]
-#           }),
-#         eff = if (!is.null(it.cat_plots$plots$eff)) {
-#           it.cat_plots$plots$eff |>
-#             ggplot2::ggplot_build() |>
-#             (`[[`)('data')
-#         } else {
-#           # No effects plot if no 1D data or no statistics
-#           NULL
-#         }
-#       )
-#     })
-# }
 
 # custom predict function ------------
 test_predict <- function(object, newdata, type = pred_type) {

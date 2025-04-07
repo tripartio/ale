@@ -16,18 +16,6 @@ test_that(
     # Test the print ALE() method
     print(pll_ale) |>
       expect_snapshot()
-
-#     expect_equal(
-#       (print(pll_ale) |>
-#         capture.output()) |>
-#         paste(collapse = "\n"),
-#       "<ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome) from a 64-row by 8-column
-# dataset.
-# ALE data, statistics, surrogate p-values, and confidence regions are provided for the following terms:
-# 2 1D terms: model and carb
-# 1 2D term: am:wt
-# The results were bootstrapped with 2 iterations."
-#     )
   }
 )
 

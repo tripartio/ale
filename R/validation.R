@@ -64,8 +64,7 @@ validate_y_col <- function(
 }
 
 # Validate model predictions.
-# This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows
-# in the dataset.
+# This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows in the dataset.
 validate_y_preds <- function(
     pred_fun,
     model,

@@ -9,6 +9,8 @@
 #'
 #' This function calculates the mode(s) of an atomic vector, including numeric, logical, and factor types. If there is more than one mode, all modes are returned sorted.
 #'
+#' The function is named "modes" (plural) instead of "mode" to alert the user that it might return more than one mode.
+#'
 #' @noRd
 #'
 #' @param x An atomic vector (numeric, logical, or factor).
@@ -21,7 +23,6 @@
 #' modes(factor(c("apple", "banana", "apple", "cherry", "cherry", "banana", "banana")))
 #'
 modes <- function(x) {
-  # browser()
   if (!is.atomic(x)) {
     cli_abort(c(
       'x' = '{.arg x} must be an atomic datatype.',
@@ -68,7 +69,6 @@ modes <- function(x) {
 #'
 #' @param data input dataframe
 #' @param y_vals y values, y predictions, or a sample thereof
-# @param data_name name of the data argument
 #' @param sample_size size of data to sample
 #' @param seed random seed
 #'
@@ -76,7 +76,6 @@ modes <- function(x) {
 params_data <- function(
     data,
     y_vals,
-    # data_name = var_name(data),
     sample_size = 500,
     seed = 0
 ) {
@@ -92,7 +91,6 @@ params_data <- function(
   }
 
   list(
-    # name = data_name,
     data_sample = data,
     y_vals_sample = y_vals,
     nrow = n_rows
@@ -102,7 +100,6 @@ params_data <- function(
 
 # Reduce a model to text descriptions of its key elements
 params_model <- function(model) {
-# params_model <- function(model, model_name = var_name(model)) {
   # Some calls to summary(model) crash, so wrap in tryCatch
   model_summary <- tryCatch(
     {
@@ -117,7 +114,6 @@ params_model <- function(model) {
   )
 
   list(
-    # name = model_name,
     class = class(model),
     call = insight::model_name(model, include_call = TRUE) |>
       paste0(collapse = '\n'),
@@ -143,28 +139,63 @@ params_function <- function(func) {
 # Miscellaneous ------------
 
 
-# # Guess the user-defined variable name of an R object
-# #
-# # Adapted from checkmate::vname(data) (BSD license).
-# # Returns the user-defined variable name of an R object as a character string. If the parsing attempt fails in any way, returns NULL.
-# # It's rather buggy, especially when called within many layers deep in package functions.
-# var_name <- function (x, max_width = 50L)
-# {
-#   tryCatch(
-#     {
-#       x |>
-#         substitute() |>
-#         substitute() |>
-#         eval.parent() |>
-#         deparse(width.cutoff = max_width) |>
-#         # Keep only the first element of size max_width characters; discard longer names
-#         (`[`)(1)
-#         # paste0(collapse = '\n')
-#     },
-#     error = \(e) NULL
-#   )
-# }
+#' Find Non-Character Elements in a Nested List
+#'
+#' Recursively traverses a nested list structure and returns all non-character elements found within a specified maximum recursion depth. The top-level of the list is considered depth 1. Any elements nested deeper than the specified `max_depth` are ignored.
+#'
+#' @noRd
+#'
+#' @param x A list (possibly nested) or an atomic element. If `x` is a list, the function will recursively search its elements.
+#' @param max_depth An integer specifying the maximum depth to inspect. Elements at a depth greater than `max_depth` will be ignored. The default value is 2.
+#' @param current_depth Internal parameter to track the current recursion depth. This parameter is managed by the function and should not be supplied by the user.
+#'
+#' @returns A list of non-character elements found within the list at depths less than or equal to `max_depth`. If no such elements are found, the function returns `NULL`.
+#'
+#' @details The function uses recursion to traverse the list. It starts with a default `current_depth` of 0, meaning that the top-level elements are at depth 1. When `max_depth` is set to 2, only elements in the top-level list and one level deep are inspected.
+#'
+#' @examples
+#' lst1 <- list("a", "b", list("c", "d"))            # All character – should return NULL
+#' lst2 <- list("a", 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#' lst3 <- list("a", "b", list("c", 2))                # Numeric in nested list – should return list(2)
+#' lst4 <- list("a", 1, list("c", 2, list(3)))         # Numeric 3 is at depth 3 and should be ignored
+#' lst5 <- list(NULL, 1, list("c", "d"))                # Contains a numeric – should return list(1)
+#'
+#' extract_non_characters(lst1, max_depth = 2)
+#' extract_non_characters(lst2, max_depth = 2)
+#' extract_non_characters(lst3, max_depth = 2)
+#' extract_non_characters(lst4, max_depth = 2)
+#' extract_non_characters(lst5, max_depth = 2)
+#'
+extract_non_characters <- function(x, max_depth = 2, current_depth = 0) {
+  # validate(is.list(x))
 
+  # If x is atomic (not a list), then its "depth" is current_depth.
+  if (!is.list(x)) {
+    # If we are within the allowed depth and x is not a character, return it.
+    if (current_depth <= max_depth && !is.character(x)) {
+      return(list(x))
+    } else {
+      return(list())  # nocov
+    }
+  }
 
+  # x is a list. If we are already at the max depth, then do not descend any further.
+  if (current_depth == max_depth) {
+    return(list())
+  }
+
+  # Otherwise, we are allowed to look inside this list.
+  # Increase the depth by 1 for its elements.
+  result <- x |>
+    map(\(it.el) extract_non_characters(it.el, max_depth, current_depth + 1)) |>
+    purrr::list_flatten()
+
+  # At the very top (current_depth == 0), if nothing was found, return NULL.
+  if (current_depth == 0 && length(result) == 0) {
+    return(NULL)
+  }
+
+  result
+}
 
 

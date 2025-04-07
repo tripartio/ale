@@ -112,7 +112,6 @@ test_that("resolve_x_cols processes canonical formats properly", {
   expect_error(
     resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
     "are not characters:"
-    # "x_cols$d1 must be a character vector"
   )
 })
 
@@ -131,7 +130,6 @@ test_that("resolve_x_cols correctly expands d2_all", {
   expect_error(
     resolve_x_cols(list(d1 = list("a", 42)), col_names, y_col),
     "are not characters:"
-    # "x_cols$d1 must be a character vector"
   )
 })
 
