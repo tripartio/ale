@@ -8,22 +8,22 @@
 
 \item{x_cols, exclude_cols}{character, list, or formula. Columns names and interaction terms from \code{obj} requested in one of the special \code{x_cols} formats. The default value of \code{NULL} for \code{x_cols} retrieves all available data of the output requested in \code{what}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.}
 
-\item{what}{character(1). What kind of output is requested. Must be one (and only one) of \code{c('ale', 'boot_data')}. Default is \code{'ale'}. If \code{stats} is specified and \code{what = 'ale'}, then ALE statistics are retrieved. Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value.}
+\item{what}{character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the \code{stats} argument.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}. See the return value details below for valid values for \code{stats}.}
+\item{stats}{character(1). Retrieve ALE statistics. If \code{stats} is specified, then \code{what} must be left at the default ("ale"). Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value. See the return value details below for valid values for \code{stats}.}
 
 \item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
-\item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest structure possible to give the requested results.}
+\item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest list structure possible to give the requested results. If \code{FALSE}, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.}
 
 \item{silent}{See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}}
 }
 \value{
 Regardless of the requested data, all \code{\link[=get.ALE]{get.ALE()}} have a common structure:
 \itemize{
-\item If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the \code{cats} argument, then the top level never has categories, regardless of the value of \code{simplify}.
+\item If more than one category of the y outcome is returned, then the top level is a list named by each category. If, however, the y outcome is not categorical or only one category of multiple possibilities is specified using the \code{cats} argument, then the top level never has categories, regardless of the value of \code{simplify}.
 \item The next level (or top level if there are zero or one category) is a list with one or two levels:
 \itemize{
 \item \code{d1}: 1D ALE elements.
@@ -65,7 +65,7 @@ While all results follow the general structure just described, the specific type
 \item{\code{what = 'ale'} (default) and \code{stats = 'conf_regions'}}{A list with elements \code{d1} and \code{d2} with the confidence regions for the requested variables and interactions. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see \code{vignette('ale-statistics')}.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats = 'conf_sig'}}{A list with elements \code{d1} and \code{d2} filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see \code{vignette('ale-statistics')}.
+\item{\code{what = 'ale'} (default) and \code{stats = 'conf_sig'}}{Identical structure as \code{stats = 'conf_regions'} except that the elements are filtered for the terms (variables or interactions) that have statistically significant confidence regions exceeding the threshold of the inner ALER band, specifically, at least \code{obj@params$aler_alpha[2]} of the rows of data. See \code{vignette("ale-statistics")} for details.
 }
 }
 }
@@ -73,7 +73,7 @@ While all results follow the general structure just described, the specific type
 Retrieve specific elements from an \code{ALE} object.
 }
 \examples{
-# See examples at ALE() for a demonstration us the get() method.
+# See examples at ALE() for a demonstration of how to use the get() method.
 
 
 }

@@ -177,9 +177,9 @@
 #'
 #' # See ?get.ALE for details on the various kinds of data that may be retrieved.
 #' get(ale_diamonds_with_boot_data, ~ carat + color:depth)  # default ALE data
-#' get(ale_diamonds_with_boot_data, what = 'boot_data')
-#' get(ale_diamonds_with_boot_data, stats = 'estimate')
-#' get(ale_diamonds_with_boot_data, stats = 'aled')
+#' get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
+#' get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
+#' get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
 #' get(ale_diamonds_with_boot_data, stats = 'all')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_regions')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_sig')

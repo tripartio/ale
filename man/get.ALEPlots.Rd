@@ -8,13 +8,13 @@
 
 \item{type}{character(1). What type of ALEPlots to retrieve: \code{'ale'} for standard ALE plots or \code{'effect'} for ALE effects plots. See \code{cats} argument for options for categorical plots.}
 
-\item{cats}{character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", to avoid naming conflicts with categories that might be named "all".) For such all-category plots, \code{type} must be set to "overlay" or "facet" for the specific desired type of categorical plot.}
+\item{cats}{character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, \code{type} must be set to "overlay" or "facet" for the specific desired type of categorical plot.}
 }
 \value{
 A list of \code{ggplot} objects as described in the documentation for the return value of \code{\link[=get.ALE]{get.ALE()}}. This is different from \code{\link[=subset.ALEPlots]{subset.ALEPlots()}}, which returns an \code{ALEPlots} object with the subsetted \code{x_cols} variables and interactions.
 }
 \description{
-Retrieve specific plots from a \code{ALEPlots} object. Unlike \code{\link[=subset.ALEPlots]{subset.ALEPlots()}} which returns an \code{ALEPlots} object with the subsetted \code{x_cols} variables and interactions, this \code{get.ALEPlots()} method returns a list of \code{ggplot} objects as specified in the return value description. If you want to retain special \code{ALEPlots} behaviour like plotting, printing, and summarizing multiple plots, then use \code{\link[=subset.ALEPlots]{subset.ALEPlots()}} instead.
+Retrieve specific plots from a \code{ALEPlots} object. Unlike \code{\link[=subset.ALEPlots]{subset.ALEPlots()}} which returns an \code{ALEPlots} object with the subsetted \code{x_cols} variables and interactions, this \code{get.ALEPlots()} method returns a list of \code{ggplot2::ggplot} objects as specified in the return value description. To retain special \code{ALEPlots} behaviour like plotting, printing, and summarizing multiple plots, use \code{\link[=subset.ALEPlots]{subset.ALEPlots()}} instead.
 
 See \code{\link[=get.ALE]{get.ALE()}} for explanation of parameters not described here.
 }

@@ -12,16 +12,16 @@
 #'
 #' @param obj ALE object from which to retrieve elements.
 #' @param x_cols,exclude_cols character, list, or formula. Columns names and interaction terms from `obj` requested in one of the special `x_cols` formats. The default value of `NULL` for `x_cols` retrieves all available data of the output requested in `what`. See details in the documentation for [resolve_x_cols()].
-#' @param what character(1). What kind of output is requested. Must be one (and only one) of `c('ale', 'boot_data')`. Default is `'ale'`. If `stats` is specified and `what = 'ale'`, then ALE statistics are retrieved. Otherwise, `get()` errors if `stats` is specified and `what` has some other value.
+#' @param what character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the `stats` argument.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param stats character(1). Retrieve statistics. If `stats` is specified, then `what` must be `'ale'`. See the return value details below for valid values for `stats`.
+#' @param stats character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
-#' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest structure possible to give the requested results.
+#' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 #' @param silent See documentation for [resolve_x_cols()]
 #'
 #' @returns
 #' Regardless of the requested data, all [get.ALE()] have a common structure:
-#'   * If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the `cats` argument, then the top level never has categories, regardless of the value of `simplify`.
+#'   * If more than one category of the y outcome is returned, then the top level is a list named by each category. If, however, the y outcome is not categorical or only one category of multiple possibilities is specified using the `cats` argument, then the top level never has categories, regardless of the value of `simplify`.
 #'   * The next level (or top level if there are zero or one category) is a list with one or two levels:
 #'       * `d1`: 1D ALE elements.
 #'       * `d2`: 2D ALE elements.
@@ -60,12 +60,12 @@
 #'   \item{`what = 'ale'` (default) and `stats = 'conf_regions'`}{A list with elements `d1` and `d2` with the confidence regions for the requested variables and interactions. Each element is a list with the requested `d1` and `d2` sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see `vignette('ale-statistics')`.
 #'   }
 #'
-#'   \item{`what = 'ale'` (default) and `stats = 'conf_sig'`}{A list with elements `d1` and `d2` filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see `vignette('ale-statistics')`.
+#'   \item{`what = 'ale'` (default) and `stats = 'conf_sig'`}{Identical structure as `stats = 'conf_regions'` except that the elements are filtered for the terms (variables or interactions) that have statistically significant confidence regions exceeding the threshold of the inner ALER band, specifically, at least `obj@params$aler_alpha[2]` of the rows of data. See `vignette("ale-statistics")` for details.
 #'   }
 #' }
 #'
 #' @examples
-#' # See examples at ALE() for a demonstration us the get() method.
+#' # See examples at ALE() for a demonstration of how to use the get() method.
 #'
 #'
 #' @method get ALE
@@ -128,8 +128,6 @@ method(get, ALE) <- function(
   validate(
     is.null(cats) ||
       all(cats %in% y_cats),
-    # is.null(cats) || is_string(cats, y_cats),
-    # is.null(cats) || cats %in% names(prop(obj, comp)),
     msg = 'The values in the {.arg cats} argument must be one or more of the following categories of the outcome variable: {y_cats}.'
   )
 
@@ -148,7 +146,7 @@ method(get, ALE) <- function(
   # Rename what depending on what the user requests.
   # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
-    if (stats %in% c('conf_regions', 'conf_sig')) 'conf' else 'stats'
+    if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'conf' else 'stats'
   } else {
     what
   }
@@ -167,7 +165,7 @@ method(get, ALE) <- function(
             it.d_stats <- it.d_stats |>
               filter(term %in% x_cols[[it.d]])
 
-            it.d_stats <- if (stats == 'estimate') {
+            it.d_stats <- if (stats |> is_string('estimate')) {
               it.d_stats |>
                 pivot_wider(
                   id_cols = 'term',
@@ -175,11 +173,11 @@ method(get, ALE) <- function(
                   values_from = 'estimate'
                 )
             }
-            else if (stats %in% stats_names) {
+            else if (all(stats %in% stats_names)) {
               it.d_stats |>
                 filter(statistic %in% stats)
             }
-            else if (stats == 'all') {
+            else if (stats |> is_string('all')) {
               it.d_stats
             }
             else {
@@ -197,18 +195,18 @@ method(get, ALE) <- function(
         it.cat_el_d1 <- it.cat_el$d1 |>
           filter(term %in% x_cols$d1)
 
-        it.cat_el_d1 <- if (stats == 'conf_regions') {
+        it.cat_el_d1 <- if (stats |> is_string('conf_regions')) {
           it.cat_el_d1
         }
-        else if (stats == 'conf_sig') {
-          # Find terms with greater than obj@params$boot_alpha % of significant values
+        else if (stats |> is_string('conf_sig')) {
+          # Find terms with greater than obj@params$aler_alpha[2] % of significant values
           sig_1D_terms <- it.cat_el_d1 |>
             filter(mid_bar != 'overlap') |>
             summarize(
               .by = 'term',
               sig_pct = sum(pct)
             ) |>
-            filter(sig_pct >= (obj@params$boot_alpha * 100)) |>
+            filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
             pull(term)
 
           it.cat_el_d1 |>
@@ -219,18 +217,18 @@ method(get, ALE) <- function(
         it.cat_el_d2 <- it.cat_el$d2 |>
           filter(paste0(term1, ':', term2) %in% x_cols$d2)
 
-        it.cat_el_d2 <- if (stats == 'conf_regions') {
+        it.cat_el_d2 <- if (stats |> is_string('conf_regions')) {
           it.cat_el_d2
         }
-        else if (stats == 'conf_sig') {
-          # Find terms with greater than obj@params$boot_alpha % of significant values
+        else if (stats |> is_string('conf_sig')) {
+          # Find terms with greater than obj@params$aler_alpha[2] % of significant values
           sig_2D_terms <- it.cat_el_d2 |>
             filter(mid_bar != 'overlap') |>
             summarize(
               .by = all_of(c('term1', 'term2')),
               sig_pct = sum(pct)
             ) |>
-            filter(sig_pct >= (obj@params$boot_alpha * 100)) |>
+            filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
             mutate(term = paste0(term1, ':', term2)) |>
             pull(term)
 
@@ -277,11 +275,6 @@ method(get, ALE) <- function(
         ) {
           it.cat_el <- compact(it.cat_el$d1)
         }
-        # if (is.null(it.cat_el[['d1']])) {
-        #   it.cat_el <- compact(it.cat_el[['d2']])
-        # } else if (is.null(it.cat_el[['d2']])) {
-        #   it.cat_el <- compact(it.cat_el[['d1']])
-        # }
 
         if (length(it.cat_el) == 1) {
           it.cat_el <- it.cat_el[[1]]
@@ -533,15 +526,6 @@ method(print, ModelBoot) <- function(x, ...) {
     )
   }
 
-
-
-  # cat(
-  #   "'ModelBoot' object of the ", x@params$model$name, " model on a ",
-  #   x@params$data$nrow , "x", length(x@params$data$data_sample), " dataset ",
-  #   "with ", x@params$boot_it, " bootstrap iterations.\n",
-  #   sep = ''
-  # )
-
   invisible(x)
 }
 
@@ -553,13 +537,13 @@ method(print, ModelBoot) <- function(x, ...) {
 #' @title get method for ALEPlots objects
 #'
 #' @description
-#' Retrieve specific plots from a `ALEPlots` object. Unlike [subset.ALEPlots()] which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions, this `get.ALEPlots()` method returns a list of `ggplot` objects as specified in the return value description. If you want to retain special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots, then use [subset.ALEPlots()] instead.
+#' Retrieve specific plots from a `ALEPlots` object. Unlike [subset.ALEPlots()] which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions, this `get.ALEPlots()` method returns a list of `ggplot2::ggplot` objects as specified in the return value description. To retain special `ALEPlots` behaviour like plotting, printing, and summarizing multiple plots, use [subset.ALEPlots()] instead.
 #'
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param obj ALEPlots object from which to retrieve ALE elements.
 #' @param type character(1). What type of ALEPlots to retrieve: `'ale'` for standard ALE plots or `'effect'` for ALE effects plots. See `cats` argument for options for categorical plots.
-#' @param cats character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", to avoid naming conflicts with categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
+#' @param cats character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave `cats` at the default `NULL`. For categorical plots that combine all categories, specify `cats = ".all"`. (Don't forget the "." in ".all", which avoids naming conflicts with legitimate categories that might be named "all".) For such all-category plots, `type` must be set to "overlay" or "facet" for the specific desired type of categorical plot.
 #'
 #' @returns A list of `ggplot` objects as described in the documentation for the return value of [get.ALE()]. This is different from [subset.ALEPlots()], which returns an `ALEPlots` object with the subsetted `x_cols` variables and interactions.
 #'
@@ -702,7 +686,7 @@ method(get, ALEPlots) <- function(
 #' Plot an `ALEPlots` object.
 #'
 #' @param x An object of class `ALEPlots`.
-#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed separately, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
+#' @param max_print integer(1). The maximum number of plots that may be printed at a time. 1D plots and 2D are printed on separate pages, so this maximum applies separately to each dimension of ALE plots, not to all dimensions combined.
 #' @param ... Arguments to pass to [patchwork::wrap_plots()]
 #'
 #' @return Invisibly returns `x`.
@@ -713,7 +697,8 @@ method(plot, ALEPlots) <- function(
     max_print = 20L,
     ...
 ) {
-  plot_obj <- x  # rename
+  plot_obj <- x  # rename internally
+  rm(x)
 
   n_1D <- length(plot_obj@params$requested_x_cols$d1)
   n_2D <- length(plot_obj@params$requested_x_cols$d2)
@@ -859,14 +844,13 @@ method(summary, ALEPlots) <- function(
     ''
   }
 
-  smy <- str_glue(
+  summ <- str_glue(
     '"ALEPlots" object with {cats_text}',
     '{length(object@params$requested_x_cols$d1)} 1D and ',
     '{length(object@params$requested_x_cols$d2)} 2D ALE plots.'
-    # "'ALEPlots' object with {count_1D} 1D and {count_2D} 2D ALE plots."
   )
 
-  return(smy)
+  return(summ)
 }  # summary.ALEPlots()
 
 
