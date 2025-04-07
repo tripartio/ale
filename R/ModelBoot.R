@@ -1236,7 +1236,7 @@ ModelBoot <- new_class(
           var_name = y_col,
           var_vals = ar$single@params$data$y_vals_sample,
           p_dist   = ale_p,
-          p_aler   = ar$single@params$p_aler
+          aler_alpha   = ar$single@params$aler_alpha
         )
       }
 

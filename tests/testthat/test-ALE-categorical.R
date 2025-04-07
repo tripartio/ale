@@ -83,7 +83,7 @@ test_that(
 #       pred_type = "probs",
 #       # test p-values with ALEpDist
 #       p_values = NULL,
-#       # p_aler = c(0.01, 0.05),
+#       # aler_alpha = c(0.01, 0.05),
 #       max_num_bins = 12,
 #       boot_it = 0,  # edge case
 #       seed = 100,

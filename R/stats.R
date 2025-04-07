@@ -288,7 +288,7 @@ var_summary <- function(
     var_vals,
     ...,
     p_dist = NULL,
-    p_aler = c(0.01, 0.05)
+    aler_alpha = c(0.01, 0.05)
 ) {
   if (!is.null(p_dist)) {
     rand_stats <- p_dist@rand_stats
@@ -313,8 +313,8 @@ var_summary <- function(
     })
 
   # Calculate the p-values necessary to obtain the desired joint probabilities.
-  # For example, if the p_aler is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
-  joint_p <- 1 - sqrt(1 - p_aler)
+  # For example, if the aler_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
+  joint_p <- 1 - sqrt(1 - aler_alpha)
 
   s <- map(1:ncol(s), \(it.col_idx) {
 

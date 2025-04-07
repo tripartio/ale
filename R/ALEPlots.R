@@ -13,7 +13,6 @@
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
-#' @param p_aler numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing ALER bands around the median for single-variable plots if the `ALE` object has p-values. The inner band range will be the median value of y ± `p_aler[2]` of the p-value of the ALE range (ALER). For plots with a second outer band, its range will be the median ± `p_aler[1]`. For example, in the ALE plots, for the default `p_aler = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
 #' @param y_1d_refs character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, `y_1d_refs` values are names from `obj@params$y_summary` (usually quantile names). If a numeric vector, `y_1d_refs` values must be values within the range of y, that is, between `obj@params$y_summary$min` and `obj@params$y_summary$max` inclusive.
 #' @param y_nonsig_band numeric(1) from 0 to 1. If there are no p-values, some plots (notably 2D ALE and 1D effects) will shade grey the inner `y_nonsig_band` quantile below and above the `relative_y` average (the median, by default) to indicate nonsignificant effects. See details.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
@@ -60,7 +59,7 @@ ALEPlots <- new_class(
     obj,
     ...,
     relative_y = 'median',
-    p_aler = c(0.01, 0.05),
+    # aler_alpha = c(0.01, 0.05),
     y_1d_refs = c('25%', '75%'),
     y_nonsig_band = 0.05,
     # median_band_pct = c(0.05, 0.5),
@@ -178,7 +177,7 @@ ALEPlots <- new_class(
                   },
                   x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
                   relative_y  = relative_y,
-                  p_aler      = p_aler,
+                  aler_alpha      = obj@params$aler_alpha,
                   y_1d_refs   = y_1d_refs,
                   rug_sample_size = rug_sample_size,
                   min_rug_per_interval = min_rug_per_interval,

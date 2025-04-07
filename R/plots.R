@@ -70,9 +70,9 @@
 #' @param y_type See documentation for [ALEPlots()]
 #' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
+#' @param aler_alpha See documentation for [ALE()]
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
 #' @param relative_y See documentation for [ALEPlots()]
-#' @param p_aler See documentation for [ALE()]
 #' @param y_1d_refs See documentation for [ALEPlots()]
 #' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
 #' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
@@ -88,9 +88,9 @@ plot_ale_1D <- function(
     y_type,
     y_summary,
     p_exactness,
+    aler_alpha,
     ...,
     relative_y = 'median',
-    p_aler = c(0.01, 0.05),
     y_1d_refs = c('25%', '75%'),
     x_y = NULL,
     rug_sample_size = 500,
@@ -193,8 +193,8 @@ plot_ale_1D <- function(
           '{p_exactness}\n',
           'p(ALER)\n',
           # Unicode ± must be replaced by \u00B1 for CRAN
-          '\u00B1{format(p_aler[2], nsmall = 3)},\n',
-          '\u00B1{format(p_aler[1], nsmall = 3)}'),
+          '\u00B1{format(aler_alpha[2], nsmall = 3)},\n',
+          '\u00B1{format(aler_alpha[1], nsmall = 3)}'),
         ''  # empty
       )
 

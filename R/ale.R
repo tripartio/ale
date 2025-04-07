@@ -14,10 +14,10 @@
 #'
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
 #' @param x_cols,exclude_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See details in the documentation for [resolve_x_cols()].
-#' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `data` should be provided.
-#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically. For non-standard models, `y_col` should be provided. For time-to-event (survival) models, see details.
+#' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically if it is included in the `model` object.
+#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. For non-standard models, `y_col` should be provided. For time-to-event (survival) models, see details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the function. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
+#' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
 #' @param output_conf logical(1). If `TRUE`, return ALE confidence regions but only if statistics are requested (`output_stats = TRUE`), bootstrapping is requested (`boot_it > 0`), and `p_values` are available; otherwise raises an error. The default `NULL` will generate confidence regions if these conditions are met.
@@ -26,15 +26,15 @@
 #' @param p_values instructions for calculating p-values. Possible values are:
 #' * `NULL`: p-values are not calculated.
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
-#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then see documentation for [ALEpDist()]. Note that although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
-#' @param p_aler numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `p_aler[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `p_aler[1]`. For example, in the ALE plots, for the default `p_aler = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
-#' @param max_num_bins positive integer(1). Maximum number of bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`.
-#' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the `ModelBoot` class. See details there. The default `boot_it = 0` turns off bootstrapping.
-#' @param boot_alpha numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the intervals will be from the 2.5 and 97.5 percentiles.
+#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+#' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
+#' @param max_num_bins positive integer(1). Maximum number of ALE bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.
+#' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
+#' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
 #' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with `parallel = 0`.
 #' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.
-#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument.
+#' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots. See the `min_rug_per_interval` argument of [ALEPlots()].
 #' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.
 #' @param .bins Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (`NULL`), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
 # @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
@@ -53,7 +53,7 @@
 #'     * `y_type`: high-level datatype of the y outcome variable.
 #'     * `y_summary`: summary statistics of y values used for the ALE calculation. These statistics are based on the actual values of `y_col` unless if `y_type` is a probability or other value that is constrained in the `[0, 1]` range. In that case, `y_summary` is based on the predictions of `y_col` from `model` on the `data`. `y_summary` is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the '5%' element is the 5th percentile of y values. The following elements have special meanings:
 #'     * `min`, `mean`, `max`: the minimum, mean, and maximum y values, respectively. Note that the median is `50%`, the 50th percentile.
-#'     * `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `p_aler` argument to understand how these are determined. Without p-values, these elements are absent.
+#'     * `aler_lo_lo`, `aler_lo`, `aler_hi`, `aler_hi_hi`: When p-values are present, `aler_lo` and `aler_hi` are the inner lower and upper confidence intervals of `y_col` values with respect to the median (`50%`); `aler_lo_lo` and `aler_hi_hi` are the outer confidence intervals. See the documentation for the `aler_alpha` argument to understand how these are determined. Without p-values, these elements are absent.
 #'     * `model`: selected elements that describe the `model` that the `ALE` object interprets.
 #'     * `data`: selected elements that describe the `data` used to produce the `ALE` object.
 #'   }
@@ -195,7 +195,7 @@ ALE <- new_class(
     },
     pred_type = 'response',
     p_values = 'auto',
-    p_aler = c(0.01, 0.05),
+    aler_alpha = c(0.01, 0.05),
     max_num_bins = 10,
     boot_it = 0,
     boot_alpha = 0.05,
@@ -330,14 +330,14 @@ ALE <- new_class(
     }
 
     validate(
-      is.numeric(p_aler),
-      length(p_aler) == 2,
-      !any(is.na(p_aler)),
-      all(p_aler |> between(0, 0.5)),
-      p_aler[1] <= p_aler[2],
+      is.numeric(aler_alpha),
+      length(aler_alpha) == 2,
+      !any(is.na(aler_alpha)),
+      all(aler_alpha |> between(0, 0.5)),
+      aler_alpha[1] <= aler_alpha[2],
       msg = c(
-        'x' = '{.arg p_aler} must be a pair of numbers each between 0 and 0.5.',
-        'i' = 'p_aler[1] must be less than or equal to p_aler[2].'
+        'x' = '{.arg aler_alpha} must be a pair of numbers each between 0 and 0.5.',
+        'i' = 'aler_alpha[1] must be less than or equal to aler_alpha[2].'
       )
     )
 
@@ -393,12 +393,12 @@ ALE <- new_class(
         cli_abort('Invalid datatype for y outcome variable: must be binary, categorical, ordinal, or numeric.')
       }  # nocov end
 
-    # Generate summary statistics for y for plotting
+    # Generate summary statistics for y
     y_summary <- var_summary(
       var_name = y_col,
       var_vals = y_vals,
       p_dist = p_values,
-      p_aler = p_aler
+      aler_alpha = aler_alpha
     )
 
     # Store the categories of y. For most cases with non-categorical y, y_cats == y_col.

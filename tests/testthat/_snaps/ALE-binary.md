@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -676,7 +676,7 @@
       attr(,"params")$p_values
       NULL
       
-      attr(,"params")$p_aler
+      attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
       attr(,"params")$max_num_bins
@@ -9947,7 +9947,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_aler, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -10197,7 +10197,7 @@
       attr(,"params")$p_values
       NULL
       
-      attr(,"params")$p_aler
+      attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
       attr(,"params")$max_num_bins
