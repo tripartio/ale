@@ -30,7 +30,7 @@ inference.
 
 For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
 Machine Learning and Classical Techniques Based on Accumulated Local
-Effects (ALE).” arXiv. <https://doi.org/10.48550/arXiv.2310.09877>.
+Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 
 The `{ale}` package currently defines three main `{S7}` classes:
 
@@ -40,8 +40,8 @@ The `{ale}` package currently defines three main `{S7}` classes:
   values. This function returns the bootstrapped model statistics and
   coefficients as well as the bootstrapped ALE values. This is the
   appropriate approach for models that have not been cross-validated.
-- `ALEpDist`: a distribution object for calculating the p-values for ALE
-  statistics when an `ALE` object is created.
+- `ALEpDist`: a distribution object for calculating the p-values for the
+  ALE statistics of an `ALE` object.
 
 ## Documentation
 
@@ -66,15 +66,14 @@ install.packages('ale')
 ```
 
 The CRAN releases are extensively tested and should have relatively few
-bugs. However, note that this package is still in beta stage. For the
-`{ale}` package, that means that there will occasionally be new features
-with changes in the function interface that might break the
-functionality of earlier versions. Please excuse us for this as we move
-towards a stable version that flexibly meets the needs of the broadest
-user base.
+bugs. However, this package is still in beta stage. For the `{ale}`
+package, that means that there will occasionally be new features with
+changes in the function interface that might break the functionality of
+earlier versions. Please excuse us for this as we move towards a stable
+version that flexibly meets the needs of the broadest user base.
 
 To get the most recent features, you can install the development version
-of ale from [GitHub](https://github.com/tripartio/ale) with:
+of the package from [GitHub](https://github.com/tripartio/ale) with:
 
 ``` r
 # install.packages('pak')
@@ -84,20 +83,6 @@ pak::pak('tripartio/ale')
 The development version in the main branch of GitHub is always
 thoroughly checked. However, the documentation might not be fully
 up-to-date with the functionality.
-
-There is one more optional but recommended setup option. To enable
-**progress bars** to see how long procedures will take, you should run
-the following code at the beginning of your R session:
-
-``` r
-# Run this in an R console; it will not work directly within an R Markdown or Quarto block
-progressr::handlers(global = TRUE)
-progressr::handlers('cli')
-```
-
-The `{ale}` package will normally run this automatically for you the
-first time you execute a function from the package in an R session. To
-see how to configure this permanently, see `help(ale)`.
 
 ## Usage
 
@@ -119,12 +104,13 @@ library(ale)
 set.seed(0)
 diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
-# Create a GAM model with flexible curves to predict diamond price
-# Smooth all numeric variables and include all other variables
+# Create a GAM model with flexible curves to predict diamond price.
+# Smooth all numeric variables and include all other variables.
 # Build model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity,
+    cut + color + clarity +
+    ti(carat, by = clarity),  # a 2D interaction
   data = diamonds_sample
 )
 ```
@@ -136,12 +122,11 @@ For the simple demonstration, we directly create ALE data with the
 
 ``` r
 # Create ALE data
-ale_gam_diamonds <- ALE(gam_diamonds)
+ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds_sample)
 
 # Plot the ALE data
 plot(ale_gam_diamonds) |> 
   print(ncol = 2)
-#> 'ALEPlots' object with 9 1D and 0 2D ALE plots.
 ```
 
 <img src="man/figures/README-simple-ale-1.png" width="100%" />
@@ -168,13 +153,12 @@ statistics can be properly distinguished from random effects.
 # # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.
 # gam_diamonds_p_readme <- ALEpDist(
 #   gam_diamonds, diamonds_sample,
-#   'precise slow',
 #   # Normally should be default 1000, but just 100 for quicker demo
 #   rand_it = 100
 # )
 # saveRDS(gam_diamonds_p_readme, file.choose())
 gam_diamonds_p_readme <- 
-  url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.rds') |> 
+  url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.0.5.0.rds') |> 
   readRDS()
 ```
 
@@ -192,13 +176,12 @@ in the plots of bootstrapped ALE with p-values:
 # )
 # saveRDS(ale_gam_diamonds_stats_readme, file.choose())
 ale_gam_diamonds_stats_readme <- 
-  url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.rds') |> 
+  url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.0.5.0.rds') |> 
   readRDS()
 
 # Plot the ALE data
 plot(ale_gam_diamonds_stats_readme) |> 
   print(ncol = 2)
-#> 'ALEPlots' object with 9 1D and 0 2D ALE plots.
 ```
 
 <img src="man/figures/README-stats-ale-1.png" width="100%" />
