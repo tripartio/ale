@@ -262,17 +262,28 @@ method(get, ALE) <- function(
   }
 
   ## Simplify the results ----------------
-
   if (simplify) {
     # If one dimension is empty, eliminate it and leave only the other
     specific_what <- specific_what |>
       map(\(it.cat_el) {
         it.cat_el <- compact(it.cat_el)
-        if (is.null(it.cat_el[['d1']])) {
-          it.cat_el <- compact(it.cat_el[['d2']])
-        } else if (is.null(it.cat_el[['d2']])) {
-          it.cat_el <- compact(it.cat_el[['d1']])
+        # browser()
+        if (
+          length(it.cat_el$d1) == 0 ||
+          (is.data.frame(it.cat_el$d1) && nrow(it.cat_el$d1) == 0)
+        ) {
+          it.cat_el <- compact(it.cat_el$d2)
+        } else if (
+          length(it.cat_el$d2) == 0 ||
+          (is.data.frame(it.cat_el$d2) && nrow(it.cat_el$d2) == 0)
+        ) {
+          it.cat_el <- compact(it.cat_el$d1)
         }
+        # if (is.null(it.cat_el[['d1']])) {
+        #   it.cat_el <- compact(it.cat_el[['d2']])
+        # } else if (is.null(it.cat_el[['d2']])) {
+        #   it.cat_el <- compact(it.cat_el[['d1']])
+        # }
 
         if (length(it.cat_el) == 1) {
           it.cat_el <- it.cat_el[[1]]
