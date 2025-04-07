@@ -28,8 +28,6 @@ get <- new_generic("get", "obj", function(obj, ...) {
     args$x <- if (is.character(obj)) obj else as.character(substitute(obj))
     args$envir <- args$envir %||% parent.frame()
     do.call(base::get, args)
-    # obj_name <- if (is.character(obj)) obj else as.character(substitute(obj))
-    # base::get(x = obj_name, envir = parent.frame(), ...)
   }
 })
 
