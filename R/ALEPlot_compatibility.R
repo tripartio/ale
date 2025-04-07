@@ -80,6 +80,8 @@ nn_na_delta_pred <- function(dp, xd) {
 
 #' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
 #'
+#' @noRd
+#'
 #' @param X X data
 #' @param x_col character
 #' @param n_bins integer

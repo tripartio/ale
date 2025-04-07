@@ -8,6 +8,8 @@
 #'
 #' For details about arguments not documented here, see [ALE()].
 #'
+#' @noRd
+#'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
 #' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 #'
@@ -1066,6 +1068,8 @@ calc_ale <- function(
 #' Compute preparatory data for ALE calculation
 #'
 #' Computes data needed to calculate a variable's ALE values.
+#'
+#' @noRd
 #'
 #' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
 #' @param x_type character(1). var_type() of x_col.

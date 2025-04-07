@@ -7,7 +7,7 @@
 
 #' Calculate statistics from ALE y values.
 #'
-#' Not exported. The following statistics are calculated based on a vector of ALE y values:
+#' The following statistics are calculated based on a vector of ALE y values:
 #'
 #' * ALE deviation (ALED)
 #' * ALE range (ALER): range from minimum value of any ALE `y` to the maximum value of any `y`. This is a very simple indication of the dispersion in ALE `y` values.
@@ -15,6 +15,8 @@
 #' * Normalized ALE range (NALER)
 #'
 #' Note that if any ALE `y` values are missing, they will be deleted from the calculation (with their corresponding bin_n).
+#'
+#' @noRd
 #'
 #' @param y numeric. Vector of ALE y values.
 #' @param bin_n numeric. Vector of counts of rows in each ALE bin. Must be the same length as `y`.

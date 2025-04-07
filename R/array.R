@@ -6,24 +6,26 @@
 #'
 #' Adaptation of [base::colSums()] that, when all values in a column are NA, sets the sum to NA rather than zero as [base::colSums()] does. Calls [base::colSums()] internally.
 #'
+#' @noRd
+#'
 #' @param mx numeric matrix
 #' @param na.rm logical(1). TRUE if missing values (`NA`) should be ignored in the summation. If FALSE (default), even one missing value will result in `NA` for the entire column.
 #' @param dims See documentation for [base::colSums()]
 #'
 #' @return numeric vector whose length is number of columns of `mx`, whose values are the sums of each column of `mx`.
 #'
-# @examples
-# set.seed(1)
-# mx <- matrix(
-#   sample(1:6, 24, replace = TRUE),
-#   nrow = 4
-# )
-# # Randomly set some values as missing
-# mx[sample(1:24, 12)] <- NA
-# mx
-# col_sums(mx, na.rm = FALSE)
-# col_sums(mx, na.rm = TRUE)
-#
+#' @examples
+#' set.seed(1)
+#' mx <- matrix(
+#'   sample(1:6, 24, replace = TRUE),
+#'   nrow = 4
+#' )
+#' # Randomly set some values as missing
+#' mx[sample(1:24, 12)] <- NA
+#' mx
+#' col_sums(mx, na.rm = FALSE)
+#' col_sums(mx, na.rm = TRUE)
+#'
 col_sums <- function(mx, na.rm = FALSE, dims = 1) {
   cs <- colSums(x = mx, na.rm = na.rm, dims = dims)
 
@@ -41,20 +43,22 @@ col_sums <- function(mx, na.rm = FALSE, dims = 1) {
 #'
 #' Array or matrix addition in base R sets all sums in an element position to NA if any element in that position is NA in either of the arrays being added. In contrast, this function ignores NA values by default in its addition.
 #'
+#' @noRd
+#'
 #' @param ary1,ary2 numeric arrays or matrices. The arrays to be added. They must be of the same dimension.
 #' @param na.rm logical(1). TRUE (default) if missing values (`NA`) should be ignored in the summation. If both elements in a given position are missing, then the result will be  `NA`.
 #'
 #' @return An array or matrix of the same dimensions as `ary1` and `ary2` whose values are the sums of `ary1` and `ary2` in each corresponding element.
 #'
-# @examples
-# (x1 <- matrix(c(NA,NA,2,2),2,2))
-# (x2 <- matrix(c(NA,3,NA,NA),2,2))
-# (x3 <- matrix(c(NA,NA,NA,NA),2,2))
-# (x4 <- matrix(c(1,2,3,4),2,2))
-#
-# add_array_na.rm(x1, x2)
-# add_array_na.rm(x1, x3)
-# add_array_na.rm(x1, x4)
+#' @examples
+#' (x1 <- matrix(c(NA,NA,2,2),2,2))
+#' (x2 <- matrix(c(NA,3,NA,NA),2,2))
+#' (x3 <- matrix(c(NA,NA,NA,NA),2,2))
+#' (x4 <- matrix(c(1,2,3,4),2,2))
+#'
+#' add_array_na.rm(x1, x2)
+#' add_array_na.rm(x1, x3)
+#' add_array_na.rm(x1, x4)
 #'
 #' Reduce(add_array_na.rm, list(x1, x2, x3))
 #'
@@ -270,18 +274,20 @@ intrapolate_1D <- function(v) {
 #'
 #' Extracts all diagonals from a matrix in the NWSE direction (upper left down to lower right).
 #'
+#' @noRd
+#'
 #' @param mx matrix
 #'
 #' @return A list whose elements each represent one diagonal of `mx`. Each diagonal element is a list of two elements: `coords` is a numeric vector pair of row-column coordinates; `values` is the value of the diagonal at the coordinate give by `coords`.
 #'
-# @examples
-# x <- matrix(
-#   sample(1:6, 35, replace = TRUE),
-#   nrow = 5
-# )
-# x
-# extract_2D_diags(x)
-#'
+#' @examples
+#' x <- matrix(
+#'   sample(1:6, 35, replace = TRUE),
+#'   nrow = 5
+#' )
+#' x
+#' extract_2D_diags(x)
+#' #'
 extract_2D_diags <- function(mx) {
   i.r <- 1
   i.c <- ncol(mx) + 1
@@ -323,19 +329,19 @@ extract_2D_diags <- function(mx) {
 #'
 #' @returns If `consolidate = TRUE` (default), returns a numeric matrix of the same dimensions as the input `mx` with internal missing values linearly intrapolated. If `consolidate = FALSE`, returns a list of intrapolations for missing values from each of the four directions (rows, columns, NWSE diagonal, and SWNE diagonal).
 #'
-# @examples
-# set.seed(1)
-# x <- matrix(
-#   sample(1:6, 35, replace = TRUE),
-#   nrow = 5
-# )
-# x
-#
-# # Add some random missing values
-# x[sample(1:35,15)] <- NA
-# x
-#
-# intrapolate_2D(x)
+#' @examples
+#' set.seed(1)
+#' x <- matrix(
+#'   sample(1:6, 35, replace = TRUE),
+#'   nrow = 5
+#' )
+#' x
+#'
+#' # Add some random missing values
+#' x[sample(1:35,15)] <- NA
+#' x
+#'
+#' intrapolate_2D(x)
 #'
 intrapolate_2D <- function(mx, consolidate = TRUE) {
   # Internal function to extract the NWSE diagonals of a matrix then apply 1D intrapolation on each of them.
@@ -479,13 +485,15 @@ mean_array_intrap <- function(ip) {
 #'
 #' Extracts all diagonals from a 3D array in the FNWBSE direction (front upper left down to back lower right).
 #'
+#' @noRd
+#'
 #' @param ray a 3-dimensional array
 #'
 #' @return A list whose elements each represent one diagonal of `ray`. Each diagonal element is a list of two elements: `origin` is the 3D coordinates (row, column, depth) of the first element of the diagonal; `values` is a vector of the diagonal that starts from `origin`.
 #'
-# @examples
-# arr <- array(1:60, 5:3)
-# extract_3D_diags(arr)
+#' @examples
+#' arr <- array(1:60, 5:3)
+#' extract_3D_diags(arr)
 #'
 extract_3D_diags <- function(ray) {
   find_diag <- function(r, c, d) {
@@ -580,12 +588,12 @@ extract_3D_diags <- function(ray) {
 #'
 #' @returns If `consolidate = TRUE` (default), returns a numeric array of the same dimensions as the input `ray` with internal missing values linearly intrapolated. If `consolidate = FALSE`, returns a list of intrapolations for missing values from each slice and diagonal direction.
 #'
-# @examples
-# set.seed(2)
-# arr <- array(1:60, dim = c(5, 4, 3))
-# arr[sample(1:60, 20)] <- NA
-# arr
-# intrapolate_3D(arr)
+#' @examples
+#' set.seed(2)
+#' arr <- array(1:60, dim = c(5, 4, 3))
+#' arr[sample(1:60, 20)] <- NA
+#' arr
+#' intrapolate_3D(arr)
 #'
 intrapolate_3D <- function(ray, consolidate = TRUE) {
 
