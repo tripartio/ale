@@ -30,8 +30,8 @@ ALE(
   seed = 0,
   y_type = NULL,
   sample_size = 500,
-  .bins = NULL,
-  silent = FALSE
+  silent = FALSE,
+  .bins = NULL
 )
 }
 \arguments{
@@ -80,9 +80,9 @@ ALE(
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 
-\item{.bins}{Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (\code{NULL}), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{.bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with \code{\link[=ModelBoot]{ModelBoot()}}).}
-
 \item{silent}{logical(1), default \code{FALSE.} If \code{TRUE}, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.}
+
+\item{.bins}{Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (\code{NULL}), \code{\link[=ALE]{ALE()}} automatically calculates the bins. \code{.bins} is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with \code{\link[=ModelBoot]{ModelBoot()}}).}
 }
 \value{
 An object of class \code{ALE} with properties \code{effect} and \code{params}.

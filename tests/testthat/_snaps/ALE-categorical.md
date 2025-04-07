@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -3158,12 +3158,12 @@
        ..  ..$ print  : chr "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALS"| __truncated__
        ..  ..$ summary: chr "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALS"| __truncated__
        .. $ y_col                        : chr "continent"
+       .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
        .. $ model_packages               : NULL
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
-       .. $ rand_it                      : NULL
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"

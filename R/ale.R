@@ -210,8 +210,8 @@ ALE <- new_class(
     seed = 0,
     y_type = NULL,
     sample_size = 500,
-    .bins = NULL,
-    silent = FALSE
+    silent = FALSE,
+    .bins = NULL
   )
   {
     # Validate arguments --------------

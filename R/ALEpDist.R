@@ -6,26 +6,26 @@
 
 # ALEpDist object -------------
 
-#' @title Object with the ALE statistics of a random variable for generating p-values
+#' @title Random variable distributions of ALE statistics for generating p-values
 #' @export
 #'
 #' @description
-#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An `ALEpDist` object contains the necessary distribution data for generating such p-values.
+#' ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE effects and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An `ALEpDist` S7 object contains the necessary distribution data for generating such p-values.
 #'
 #'
 #' @param model See documentation for [ALE()]
 #' @param data See documentation for [ALE()]
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param surrogate logical(1). Create p-value distributionS based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details.
+#' @param y_col See documentation for [ALE()]
+#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of `NULL` will generate 1000 iterations, which should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
+#' @param surrogate logical(1). Create p-value distributions based on a surrogate linear model (`TRUE`) instead of on the original `model` (default `FALSE`). Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details.
 #' @param parallel See documentation for [ALE()]. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.
 #' @param model_packages See documentation for [ALE()]
-#' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
+#' @param random_model_call_string character(1). If `NULL`, the `ALEpDist()` constructor tries to automatically detect and construct the call for p-values. If it cannot, the constructor will fail. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
-#' @param y_col See documentation for [ALE()]
 #' @param positive See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()]
-#' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If `FALSE` (default), does not return the residuals.
-#' @param rand_it non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of `NULL` will generate 1000 iterations, which should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. `rand_it` below 100 is not allowed as such p-values are inaccurate.
+#' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default `FALSE` does not return the residuals.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
 #' @param .skip_validation Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default `FALSE` risks crashing with incomprehensible error messages.
@@ -47,9 +47,10 @@
 #'   \item{params}{
 #'     Parameters used to generate p-value distributions. Most of these repeat selected arguments passed to `ALEpDist()`. These are either values provided by the user or used by default if the user did not change them but the following additional or modified objects are notable:
 #'
+#'     * `model`: selected elements that describe the `model` used to generate the random distributions.
 #'     * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 #'     * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
-#'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model.
+#'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
 #'   }
 #' }
 #'
@@ -95,7 +96,8 @@
 #' # Smooth all numeric variables and include all other variables
 #' gam_diamonds <- mgcv::gam(
 #'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-#'     cut + color + clarity,
+#'     cut + color + clarity +
+#'     ti(carat, by = clarity),  # a 2D interaction
 #'   data = diamonds_sample
 #' )
 #' summary(gam_diamonds)
@@ -109,7 +111,7 @@
 #' )
 #'
 #' # Examine the structure of the returned object
-#' str(pd_diamonds)
+#' print(pd_diamonds)
 #' # In RStudio: View(pd_diamonds)
 #'
 #' # Calculate ALEs with p-values
@@ -138,6 +140,10 @@
 #'   rand_it = 100
 #' )
 #'
+#' # Examine the structure of the returned object
+#' print(pd_diamonds)
+#' # In RStudio: View(pd_diamonds)
+#'
 #' }
 #'
 ALEpDist <- new_class(
@@ -153,8 +159,9 @@ ALEpDist <- new_class(
     model,
     data = NULL,
     ...,
-    surrogate = FALSE,
     y_col = NULL,
+    rand_it = NULL,
+    surrogate = FALSE,
     parallel = 'all',
     model_packages = NULL,
     random_model_call_string = NULL,
@@ -165,7 +172,6 @@ ALEpDist <- new_class(
     },
     pred_type = "response",
     output_residuals = FALSE,
-    rand_it = NULL,
     seed = 0,
     silent = FALSE,
     .skip_validation = FALSE
@@ -275,7 +281,6 @@ ALEpDist <- new_class(
         str_replace_all(
           'rand_data',
           'it.rand_data'
-          # 'package_scope$rand_data'
         )
     }
 
@@ -389,19 +394,12 @@ ALEpDist <- new_class(
         model_call$formula |>
         # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
         eval(envir = call_env) |>
-        # stats::as.formula(env = call_env) |>
         stats::terms(data = data) |>
         attr('term.labels')
     }
 
-
-
-
     # Create ALEs for random variables based on residual_distribution
-    # package_scope$rand_data <- data
     n_rows <- nrow(data)
-
-
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
@@ -435,11 +433,9 @@ ALEpDist <- new_class(
         set.seed(seed + it)
 
         it.rand_data <- data
-        # tmp_rand_data <- data
         tryCatch(
           {
             it.rand_data$random_variable <- univariateML::rml(
-              # tmp_rand_data$random_variable <- univariateML::rml(
               n = n_rows,
               obj = residual_distribution
             )
@@ -454,11 +450,8 @@ ALEpDist <- new_class(
             return(NULL)
           }  # nocov end
         )
-        # package_scope$rand_data <- tmp_rand_data
-        # rm(tmp_rand_data)
 
         # Train model with the random variable: convert model call string to an expression
-
         tryCatch(
           {
             # If random_model_call_string was provided, prefer it to automatic detection
@@ -466,18 +459,10 @@ ALEpDist <- new_class(
               it.rand_model <- random_model_call_string |>
                 parse(text = _) |>
                 eval()
-              # assign(
-              #   envir = package_scope,
-              #   'rand_model',
-              #   random_model_call_string |>
-              #     parse(text = _) |>
-              #     eval()
-              # )
             }
             else {  # use the automatically detected model call
               # Update the model call to add random_variable and to train on rand_data
               model_call$data <- it.rand_data
-              # model_call$data <- package_scope$rand_data
 
               model_call$formula <-
                 paste0(
@@ -487,12 +472,7 @@ ALEpDist <- new_class(
                 ) |>
                 stats::as.formula(env = call_env)
 
-              # model_call$formula <- model_call$formula |>
-              #   eval(envir = call_env) |>  # without this, some objects in model_call might not be resolved
-              #   stats::update.formula(~ . + random_variable)
-
               it.rand_model <- eval(model_call)
-              # assign('rand_model', eval(model_call), package_scope)
             }
           },
           error = \(e) {  # nocov start
@@ -511,14 +491,11 @@ ALEpDist <- new_class(
             # eval() required to avoid scoping bugs for arguments with environments
             it.rand_ale <- ALE(
               model = eval(it.rand_model),
-              # model = package_scope$rand_model,
               x_cols = 'random_variable',
               data = eval(it.rand_data),
-              # data = package_scope$rand_data,
               y_col = y_col,
               parallel = 0,  # avoid recursive parallelization
               model_packages = model_packages,
-              # model_packages = c(model_packages, 'ale'),
               output_stats = FALSE,
               pred_fun = eval(pred_fun),
               pred_type = pred_type,
@@ -528,7 +505,6 @@ ALEpDist <- new_class(
               } else {
                 100  # fine capture of extreme random ALE intervals
               },
-              # max_num_bins = 100,  # fine capture of extreme random ALE intervals
               silent = TRUE
             )
           },

@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -52,6 +52,9 @@
       attr(,"params")$y_col
       [1] "mpg"
       
+      attr(,"params")$rand_it
+      [1] 10
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -66,9 +69,6 @@
       
       attr(,"params")$positive
       [1] TRUE
-      
-      attr(,"params")$rand_it
-      [1] 10
       
       attr(,"params")$seed
       [1] 0
@@ -89,7 +89,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -402,12 +402,12 @@
        ..  ..$ print  : chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated "| __truncated__
        ..  ..$ summary: chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric"| __truncated__
        .. $ y_col                        : chr "mpg"
+       .. $ rand_it                      : num 10
        .. $ parallel                     : num 0
        .. $ model_packages               : NULL
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
-       .. $ rand_it                      : num 10
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 10
        .. $ exactness                    : chr "invalid"
@@ -472,7 +472,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -532,6 +532,9 @@
       attr(,"params")$y_col
       [1] "mpg"
       
+      attr(,"params")$rand_it
+      [1] 3
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -546,9 +549,6 @@
       
       attr(,"params")$positive
       [1] TRUE
-      
-      attr(,"params")$rand_it
-      [1] 3
       
       attr(,"params")$seed
       [1] 0
@@ -607,7 +607,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -659,6 +659,9 @@
       attr(,"params")$y_col
       [1] "mpg"
       
+      attr(,"params")$rand_it
+      [1] 3
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -673,9 +676,6 @@
       
       attr(,"params")$positive
       [1] TRUE
-      
-      attr(,"params")$rand_it
-      [1] 3
       
       attr(,"params")$seed
       [1] 0
@@ -696,7 +696,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -741,6 +741,9 @@
       attr(,"params")$y_col
       [1] "vs"
       
+      attr(,"params")$rand_it
+      [1] 10
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -755,9 +758,6 @@
       
       attr(,"params")$positive
       [1] TRUE
-      
-      attr(,"params")$rand_it
-      [1] 10
       
       attr(,"params")$seed
       [1] 0
@@ -778,7 +778,7 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, ..., surrogate, y_col, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .skip_validation) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
@@ -853,6 +853,9 @@
       attr(,"params")$y_col
       [1] "continent"
       
+      attr(,"params")$rand_it
+      [1] 10
+      
       attr(,"params")$parallel
       [1] 0
       
@@ -867,9 +870,6 @@
       
       attr(,"params")$positive
       [1] TRUE
-      
-      attr(,"params")$rand_it
-      [1] 10
       
       attr(,"params")$seed
       [1] 0

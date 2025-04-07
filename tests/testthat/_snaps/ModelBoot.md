@@ -257,7 +257,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -967,7 +967,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -1264,12 +1264,12 @@
        ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
        ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
        .. $ y_col                        : chr "vs"
+       .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
        .. $ model_packages               : NULL
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
-       .. $ rand_it                      : NULL
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"
@@ -1610,12 +1610,12 @@
        ..  ..$ print  : chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degr"| __truncated__
        ..  ..$ summary: chr "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coe"| __truncated__
        .. $ y_col                        : chr "vs"
+       .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
        .. $ model_packages               : NULL
        .. $ random_model_call_string     : NULL
        .. $ random_model_call_string_vars: chr(0) 
        .. $ positive                     : logi TRUE
-       .. $ rand_it                      : NULL
        .. $ seed                         : num 0
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"
@@ -1676,7 +1676,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
