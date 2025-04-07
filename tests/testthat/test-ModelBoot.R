@@ -47,6 +47,7 @@ test_that(
       ale_plots_to_data() |>
       expect_snapshot()
 
+    # Create serializable snapshot
     mb@ale$single <- unclass(mb@ale$single)
     mb |>
       unclass() |>
@@ -76,6 +77,7 @@ test_that(
       ale_plots_to_data() |>
       expect_snapshot()
 
+    # Create serializable snapshot
     mb@ale$single <- unclass(mb@ale$single)
     mb |>
       unclass() |>
@@ -125,7 +127,7 @@ test_that(
       silent = TRUE
     )
 
-    # Create serializable snapsho
+    # Create serializable snapshot
     snap_mb <- mb
     snap_mb@ale$single <- unclass(mb@ale$single)
     snap_mb |>
