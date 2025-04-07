@@ -6,11 +6,9 @@
 \arguments{
 \item{obj}{ALEPlots object from which to retrieve ALE elements.}
 
-\item{type}{character(1). What type of ALEPlots to retrieve: \code{'ale'} for standard ALE plots or \code{'eff'} for ALE effects plots. See \code{cats} argument for options for categorical plots.}
+\item{type}{character(1). What type of ALEPlots to retrieve: \code{'ale'} for standard ALE plots or \code{'effect'} for ALE effects plots. See \code{cats} argument for options for categorical plots.}
 
 \item{cats}{character. The categories (one or more) of a categorical outcome variable to retrieve. To retrieve all categories as individual category plots, leave \code{cats} at the default \code{NULL}. For categorical plots that combine all categories, specify \code{cats = ".all"}. (Don't forget the "." in ".all", to avoid naming conflicts with categories that might be named "all".) For such all-category plots, \code{type} must be set to "overlay" or "facet" for the specific desired type of categorical plot.}
-
-\item{include_eff}{See documentation for \code{\link[=subset.ALEPlots]{subset.ALEPlots()}}}
 }
 \value{
 A list of \code{ggplot} objects as described in the documentation for the return value of \code{\link[=get.ALE]{get.ALE()}}. This is different from \code{\link[=subset.ALEPlots]{subset.ALEPlots()}}, which returns an \code{ALEPlots} object with the subsetted \code{x_cols} variables and interactions.

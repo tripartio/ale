@@ -120,10 +120,10 @@
 #'
 #' \donttest{
 #'
-#' # Simple ALE without bootstrapping: all 1D ALE effects
+#' # Simple ALE without bootstrapping: by default, all 1D ALE effects
 #' ale_gam_diamonds <- ALE(gam_diamonds)
 #'
-#' # Plot the ALE data
+#' # Simple printing of all plots
 #' plot(ale_gam_diamonds)
 #'
 #' # Bootstrapped ALE
@@ -137,9 +137,18 @@
 #'   boot_it = 100
 #' )
 #'
-#' # Bootstrapped ALE prints with confidence intervals
-#' # First page prints 1D ALE; second page prints 2D ALE
-#' plot(ale_gam_diamonds_boot)
+#' #' More advanced plot manipulation
+#' ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
+#'
+#' # Print the plots: First page prints 1D ALE; second page prints 2D ALE
+#' ale_plots  # or print(ale_plots) to be explicit
+#'
+#' # Extract specific plots (as lists of ggplot objects)
+#' get(ale_plots, 'carat')  # extract a specific 1D plot
+#' get(ale_plots, 'carat:clarity')  # extract a specific 2D plot
+#' get(ale_plots, type = 'effect')  # ALE effects plot
+#' # See help(get.ALEPlots) for more options, such as for categorical plots
+#'
 #'
 #'
 #' # If the predict function you want is non-standard, you may define a

@@ -50,12 +50,20 @@ test_that(
 
     ## Test plot.ALE methods --------------------
     # Because it is complex to save entire ggplot objects, only save the core data from the plots
-    plot(
+    cat_cars_ale_plots <- plot(
       cat_cars_ale,
       rug_sample_size = 25  # test sampled rug plots
-    ) |>
+    )
+
+    cat_cars_ale_plots |>
       ale_plots_to_data() |>
       expect_snapshot()
+
+    # # Create snapshot tests
+    # get(cat_cars_ale_plots, 'wt', cats = 'Asia')
+    # get(cat_cars_ale_plots, 'gear:carb', cats = c('Europe', 'North America'))
+    # get(cat_cars_ale_plots, type = 'effect')
+
 
 
     ## Test print.ALE methods --------------------
@@ -65,37 +73,5 @@ test_that(
       expect_snapshot()
   }
 )
-
-# test_that(
-#   'categorical outcome works with every parameter set to something, with multiple x datatypes', {
-#     skip_on_ci()
-#
-#     cars_ale <- ALE(
-#       test_nn_categorical,
-#       x_cols = ~ wt + model + carb:gear,
-#       data = test_cars,
-#       y_col = 'continent',
-#       # exclude_cols = NULL,  # test exclude_cols separately
-#       parallel = 0,
-#       # model_packages = NULL,  # not tested here; requires parallelization
-#       output_conf = FALSE,
-#       # pred_fun = test_predict,  # don't test for nnet
-#       pred_type = "probs",
-#       # test p-values with ALEpDist
-#       p_values = NULL,
-#       # aler_alpha = c(0.01, 0.05),
-#       max_num_bins = 12,
-#       boot_it = 0,  # edge case
-#       seed = 100,
-#       boot_alpha = 0.1,
-#       boot_centre = 'median',
-#       y_type = 'categorical',
-#       sample_size = 15,
-#       # .bins = NULL,  # too complicated to test
-#       silent = TRUE  # always TRUE in tests
-#     )
-#     expect_snapshot(unclass(cars_ale))
-#   }
-# )
 
 

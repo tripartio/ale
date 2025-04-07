@@ -8245,7 +8245,7 @@
 ---
 
     Code
-      ale_plots_to_data(plot(cat_cars_ale, rug_sample_size = 25))
+      ale_plots_to_data(cat_cars_ale_plots)
     Condition
       Warning:
       Position guide is perpendicular to the intended axis.

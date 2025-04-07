@@ -9,12 +9,9 @@ ALEPlots(
   ...,
   relative_y = "median",
   y_1d_refs = c("25\%", "75\%"),
-  y_nonsig_band = 0.05,
   rug_sample_size = obj@params$sample_size,
   min_rug_per_interval = 1,
-  n_x1_bins = NULL,
-  n_x2_bins = NULL,
-  n_y_quant = 10,
+  y_nonsig_band = 0.05,
   seed = 0,
   silent = FALSE
 )
@@ -28,13 +25,9 @@ ALEPlots(
 
 \item{y_1d_refs}{character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, \code{y_1d_refs} values are names from \code{obj@params$y_summary} (usually quantile names). If a numeric vector, \code{y_1d_refs} values must be values within the range of y, that is, between \code{obj@params$y_summary$min} and \code{obj@params$y_summary$max} inclusive.}
 
-\item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably 2D ALE and 1D effects) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{relative_y} average (the median, by default) to indicate nonsignificant effects. See details.}
-
 \item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
 
-\item{n_x1_bins, n_x2_bins}{positive integer(1). Number of bins for the x1 or x2 axes respectively for 2D interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).}
-
-\item{n_y_quant}{positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.}
+\item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{relative_y} average (the median, by default) to indicate nonsignificant effects.}
 
 \item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 
@@ -44,7 +37,7 @@ ALEPlots(
 An object of class \code{ALEPlots} with properties \code{plots} and \code{params}.
 }
 \description{
-An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to its constructor---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. In addition to specific ALE See examples there or examples with the \link{ALE} and \link{ModelBoot} objects.
+An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} constructor creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. See the examples with the \link{ALE} and \link{ModelBoot} objects for how to manipulate \code{ALEPlots} objects.
 }
 \section{Properties}{
 
@@ -52,25 +45,13 @@ An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{Mod
 \item{plots}{Stores the ALE plots. Use \code{\link[=get.ALEPlots]{get.ALEPlots()}} to access them.}
 \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the \code{ALEPlots} object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{* `max_d`: See documentation for [ALE()]
-* `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `requested_x_cols`.
-* `y_col`: See documentation for [ALE()]
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `y_col`, `y_cats`: See documentation for [ALE()]
+* `max_d`: See documentation for [ALE()]
+* `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
 }\if{html}{\out{</div>}}
 
 }
 }
-}
-
-\section{2D interaction plots}{
-
-For the 2D interaction plots, \code{n_y_quant} is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
-\itemize{
-\item The middle quantile is either the inner ALER band (not yet implemented) or the boundaries of \code{y_nonsig_band} around the median.
-This middle quantile is special because it generally represents no meaningful interaction.
-\item The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
-}
-
-There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If \code{n_y_quant} is even, then a middle quantile will be added to it. If \code{n_y_quant} is odd, then the number specified will be used, including the middle quantile.
 }
 
 \examples{
