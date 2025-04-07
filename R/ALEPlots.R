@@ -108,18 +108,16 @@ ALEPlots <- new_class(
 
       # Assign ale_p to adapted object
       obj@params$p_values <- obj_p
-
-      # browser()
-      # # The default value for rug_sample_size assumes an ALE object. So, ensure that a valid value is assigned for ModelBoot objects.
-      # if (is.null(rug_sample_size)) {
-      #   browser()
-      #   rug_sample_size <- if (!is.null(obj@params$sample_size)) {
-      #     obj@params$sample_size
-      #   } else {
-      #     500
-      #   }
-      # }
     }
+
+    # Validation must come after setting ModelBoot to obj or else ModelBoot errors
+    validate(
+      (is.numeric(y_1d_refs) &&
+         (y_1d_refs |> between(obj@params$y_summary$min, obj@params$y_summary$max))) ||
+        (is.character(y_1d_refs) &&
+           all(y_1d_refs %in% rownames(obj@params$y_summary))),
+      msg = 'Invalid value for {.arg y_1d_refs}. See {.fn ALEPlots()} for details.'
+    )
 
     # Initialize plot lists
     plots_1D <- NULL

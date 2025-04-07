@@ -125,7 +125,6 @@ method(get, ALE) <- function(
   }
 
   y_cats <- names(prop(obj, comp))
-  # browser()
   validate(
     is.null(cats) ||
       all(cats %in% y_cats),
@@ -267,7 +266,6 @@ method(get, ALE) <- function(
     specific_what <- specific_what |>
       map(\(it.cat_el) {
         it.cat_el <- compact(it.cat_el)
-        # browser()
         if (
           length(it.cat_el$d1) == 0 ||
           (is.data.frame(it.cat_el$d1) && nrow(it.cat_el$d1) == 0)
@@ -513,8 +511,6 @@ method(print, ModelBoot) <- function(x, ...) {
   }
   cat('\n')
 
-  # browser()
-
   if (!is.null(x@ale)) {
     ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
     ale_p <- !is.null(x@params$ale_p)
@@ -576,13 +572,11 @@ method(get, ALEPlots) <- function(
     exclude_cols = NULL,
     type = 'ale',
     cats = NULL,
-    include_eff = TRUE,
     simplify = TRUE,
     silent = FALSE
 ) {
   comp = 'plots'
   ## Validate inputs -------------
-
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
   rlang::check_dots_empty()
@@ -593,7 +587,8 @@ method(get, ALEPlots) <- function(
     x = obj,
     x_cols = x_cols,
     exclude_cols = exclude_cols,
-    include_eff = include_eff,
+    # never exclude effects plots at this point, in case they are requested
+    include_eff = TRUE,
     silent = silent
   )
 
@@ -604,11 +599,10 @@ method(get, ALEPlots) <- function(
     is_string(type, valid_type),
     msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
   )
-
   y_cats <- obj@params$y_cats
   all_cats <- is_string(cats, c('.all', '.all_cats'))  # all-category plots requested
   validate(
-    is.null(cats) || is_string(cats, y_cats) || all_cats,
+    is.null(cats) || all(cats %in% y_cats) || all_cats,
     msg = c(
       'x' = 'The {.arg cats} argument must be {.val NULL}, {".all"}, or one or more of the following categories of the outcome variable: {y_cats}.',
       'i' = '{.arg cats} is {cats}.'
