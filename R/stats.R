@@ -427,17 +427,17 @@ summarize_conf_regions_1D <- function(
       cr <-
         it.ale_data |>
         mutate(
-          # where is the current point relative to the median band?
-          mid_bar = case_when(
+          # where is the current point relative to the ALER band?
+          aler_band = case_when(
             .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
             .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
-          # new_streak == TRUE if current row has different mid_bar from previous row
-          new_streak = .data$mid_bar != lag(
-            .data$mid_bar,
-            default = first(.data$mid_bar)
+          # new_streak == TRUE if current row has different aler_band from previous row
+          new_streak = .data$aler_band != lag(
+            .data$aler_band,
+            default = first(.data$aler_band)
           ),
           # unique ID for each consecutive streak
           streak_id = cumsum(.data$new_streak)
@@ -458,7 +458,7 @@ summarize_conf_regions_1D <- function(
             end_y = last(.data$.y),
             n = sum(.data$.n),
             pct = (n / sum(it.ale_data$.n)) * 100,
-            mid_bar = first(.data$mid_bar),
+            aler_band = first(.data$aler_band),
           ) |>
           mutate(
             # diff between start_x and end_x as percentage of the domain of x
@@ -478,7 +478,7 @@ summarize_conf_regions_1D <- function(
           select(
             'start_x', 'end_x', 'x_span_pct',
             'start_y', 'end_y', 'trend',
-            'mid_bar',
+            'aler_band',
             'n', 'pct'
           )
 
@@ -496,7 +496,7 @@ summarize_conf_regions_1D <- function(
             # Convert x column from ordinal to character for consistency across terms
             x = as.character(.data$x),
           ) |>
-          select('x', 'y', 'mid_bar', 'n', 'pct')
+          select('x', 'y', 'aler_band', 'n', 'pct')
       }
 
       cr |>
@@ -514,7 +514,7 @@ summarize_conf_regions_1D <- function(
       any_of(c('x', 'start_x', 'end_x', 'x_span_pct')),
       'n', 'pct',
       any_of(c('y', 'start_y', 'end_y', 'trend')),
-      'mid_bar'
+      'aler_band'
     )
 
   return(cr_by_term)
@@ -569,8 +569,8 @@ summarize_conf_regions_2D <- function(
         it.ale_data |>
         filter(.data$.n != 0) |>
         mutate(
-          # where is the current point relative to the median band?
-          mid_bar = case_when(
+          # where is the current point relative to the ALER band?
+          aler_band = case_when(
             .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
             .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
@@ -604,7 +604,7 @@ summarize_conf_regions_2D <- function(
 
       cr <- cr |>
         summarize(
-          .by = c('x1', 'x2', 'mid_bar'),
+          .by = c('x1', 'x2', 'aler_band'),
           n   = sum(.data$n),
           pct = (n / total_n) * 100,
           y   = mean(.data$y),
@@ -647,9 +647,9 @@ summarize_conf_regions_1D_in_words <- function(
           'From {round_dp(start_x)} to {round_dp(end_x)}, ',
           'ALE ',
           if_else(
-            mid_bar == 'overlap',
+            aler_band == 'overlap',
             'overlaps',
-            paste0('is ', mid_bar)
+            paste0('is ', aler_band)
           ),
           ' the {band_type} band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
@@ -658,9 +658,9 @@ summarize_conf_regions_1D_in_words <- function(
         str_glue(
           'For {x}, the ALE of {round_dp(y)} ',
           if_else(
-            mid_bar == 'overlap',
+            aler_band == 'overlap',
             'overlaps',
-            paste0('is ', mid_bar)
+            paste0('is ', aler_band)
           ),
           ' the {band_type} band.'
         )
