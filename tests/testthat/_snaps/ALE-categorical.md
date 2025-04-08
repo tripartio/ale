@@ -505,22 +505,22 @@
        9 model Merc 450S~    NA    NA           NA     2   3.12 -0.235        NA    NA
       10 model Camaro Z28    NA    NA           NA     2   3.12  0.0975       NA    NA
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       attr(,"effect")$Asia$conf$d2
       # A tibble: 315 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 305 more rows
       
       
@@ -1478,22 +1478,22 @@
        9 model Merc 450S~    NA    NA           NA     2   3.12  0.764        NA    NA
       10 model Camaro Z28    NA    NA           NA     2   3.12 -0.0688       NA    NA
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       attr(,"effect")$Europe$conf$d2
       # A tibble: 310 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 300 more rows
       
       
@@ -2451,22 +2451,22 @@
        9 model Merc 450~    NA    NA           NA     2   3.12 -5.29e- 1      NA    NA
       10 model Camaro Z~    NA    NA           NA     2   3.12 -2.87e- 2      NA    NA
       # i 34 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       attr(,"effect")$`North America`$conf$d2
       # A tibble: 307 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 297 more rows
       
       
@@ -3202,25 +3202,25 @@
       $Asia$d1
       $Asia$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE      28 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$am
       # A tibble: 2 x 7
@@ -3282,193 +3282,193 @@
       $Asia$d2
       $Asia$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 Lincoln Contine~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 310 more rows
       
       $Asia$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 three        7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 20 more rows
       
       $Asia$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4         1     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9         1     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9         1     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 40 more rows
       
       $Asia$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1    1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 90 more rows
       
       $Asia$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   FALSE     14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  TRUE      12 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   TRUE      14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE   Lincoln Continent~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE  Cadillac Fleetwood     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE   Cadillac Fleetwood     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE  Merc 450SL             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE   Merc 450SL             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE  Merc 450SLC            2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE   Merc 450SLC            0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE  Camaro Z28             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE   Camaro Z28             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 54 more rows
       
       $Asia$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   three        6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  four         4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   four        20 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      5 FALSE  five         8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      6 TRUE   five         2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE           1    14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE          2    10 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE           2     9 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE          3     8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE           3     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE          4    13 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE           4     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE          8     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE           8     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE      1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE     1.94     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE      1.94     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE     2.46     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE      2.46     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE     2.79     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE      2.79     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE     3.19     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE      3.19     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11 FALSE     3.44     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12 TRUE      3.44     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13 FALSE     3.52     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14 TRUE      3.52     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15 FALSE     3.73     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16 TRUE      3.73     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17 FALSE     4.05     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18 TRUE      4.05     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19 FALSE     5.45     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20 TRUE      5.45     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`am:model`
       # A tibble: 64 x 8
@@ -3643,25 +3643,25 @@
       $Europe$d1
       $Europe$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE      28 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$am
       # A tibble: 2 x 7
@@ -3723,193 +3723,193 @@
       $Europe$d2
       $Europe$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 Lincoln Contine~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 310 more rows
       
       $Europe$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 three        7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 20 more rows
       
       $Europe$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4         1     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9         1     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9         1     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 40 more rows
       
       $Europe$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1    1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 90 more rows
       
       $Europe$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   FALSE     14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  TRUE      12 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   TRUE      14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE   Lincoln Continent~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE  Cadillac Fleetwood     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE   Cadillac Fleetwood     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE  Merc 450SL             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE   Merc 450SL             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE  Merc 450SLC            2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE   Merc 450SLC            0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE  Camaro Z28             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE   Camaro Z28             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 54 more rows
       
       $Europe$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   three        6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  four         4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   four        20 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      5 FALSE  five         8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      6 TRUE   five         2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE           1    14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE          2    10 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE           2     9 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE          3     8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE           3     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE          4    13 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE           4     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE          8     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE           8     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE      1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE     1.94     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE      1.94     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE     2.46     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE      2.46     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE     2.79     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE      2.79     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE     3.19     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE      3.19     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11 FALSE     3.44     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12 TRUE      3.44     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13 FALSE     3.52     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14 TRUE      3.52     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15 FALSE     3.73     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16 TRUE      3.73     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17 FALSE     4.05     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18 TRUE      4.05     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19 FALSE     5.45     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20 TRUE      5.45     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`am:model`
       # A tibble: 64 x 8
@@ -4084,32 +4084,32 @@
       $`North America`$d1
       $`North America`$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE      28 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d1$am
       # A tibble: 2 x 7
         am.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
         <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
       1 FALSE     38 -5.57e-10 -9.65e-10 -5.57e-10 -8.52e-10 1.02e-10
-      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.72e-11 7.00e-10
+      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.71e-11 7.00e-10
       
       $`North America`$d1$model
       # A tibble: 32 x 7
@@ -4150,207 +4150,207 @@
          wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
        1    1.50     1 6.60e-10  6.60e-10 6.60e-10  6.60e-10 6.60e-10
-       2    1.94     7 2.64e-10 -1.50e-12 2.64e-10  1.40e-10 6.34e-10
-       3    2.46     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       2    1.94     7 2.64e-10 -1.47e-12 2.64e-10  1.40e-10 6.34e-10
+       3    2.46     7 2.19e-10 -4.35e-11 2.19e-10  6.88e-11 6.08e-10
        4    2.79     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
        5    3.19     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
-       6    3.44     7 2.19e-10 -4.29e-11 2.19e-10  6.88e-11 6.09e-10
-       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.09e-10
-       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
-       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
-      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+       6    3.44     7 2.19e-10 -4.28e-11 2.19e-10  6.88e-11 6.09e-10
+       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
       
       
       $`North America`$d2
       $`North America`$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 FALSE      3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 FALSE      4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 FALSE      2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11     10.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12     14.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13     15.2 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14     16.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15     18.7 TRUE       4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16     19.8 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17     21.4 TRUE       3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18     22.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19     30.1 TRUE       5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20     33.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 FALSE      2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11     10.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12     14.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13     15.2 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14     16.4 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15     18.7 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16     19.8 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17     21.4 TRUE       6 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18     22.9 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19     30.1 TRUE       5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20     33.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 Lincoln Contine~     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 310 more rows
       
       $`North America`$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 three        7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 three        3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 three        1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 three        3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 three        0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 three        0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 20 more rows
       
       $`North America`$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7         1     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4         1     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9         1     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1         1     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9         1     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 40 more rows
       
       $`North America`$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1    1.50     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 90 more rows
       
       $`North America`$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE   FALSE     14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      3 FALSE  TRUE      12 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      4 TRUE   TRUE      14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE   Lincoln Continent~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE  Cadillac Fleetwood     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE   Cadillac Fleetwood     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE  Merc 450SL             2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE   Merc 450SL             0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE  Merc 450SLC            2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE   Merc 450SLC            0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE  Camaro Z28             2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE   Camaro Z28             0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 54 more rows
       
       $`North America`$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE   three        6 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      3 FALSE  four         4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      4 TRUE   four        20 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      5 FALSE  five         8 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      6 TRUE   five         2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE           1    14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE          2    10 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE           2     9 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE          3     8 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE           3     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE          4    13 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE           4     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE          8     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE           8     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE      1.50     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE     1.94     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE      1.94     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE     2.46     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE      2.46     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE     2.79     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE      2.79     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE     3.19     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE      3.19     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11 FALSE     3.44     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12 TRUE      3.44     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13 FALSE     3.52     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14 TRUE      3.52     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15 FALSE     3.73     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16 TRUE      3.73     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17 FALSE     4.05     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18 TRUE      4.05     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19 FALSE     5.45     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20 TRUE      5.45     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`am:model`
       # A tibble: 64 x 8
@@ -4403,9 +4403,9 @@
        3 FALSE     1.94     0  9.85e-11 -2.01e- 2  9.85e-11 -1.47e-10 0.0201       
        4 TRUE      1.94     7 -4.37e-10 -3.64e- 2 -4.37e-10 -5.09e-11 0.0364       
        5 FALSE     2.46     1  7.33e-11 -2.01e- 2  7.33e-11 -1.75e-10 0.0201       
-       6 TRUE      2.46     6 -5.10e-10 -3.64e- 2 -5.10e-10 -7.93e-11 0.0364       
+       6 TRUE      2.46     6 -5.10e-10 -3.64e- 2 -5.10e-10 -7.92e-11 0.0364       
        7 FALSE     2.79     1  1.10e- 9  1.67e-10  1.10e- 9  1.45e- 9 0.00000000174
-       8 TRUE      2.79     6  1.32e- 9 -1.62e- 2  1.32e- 9  3.23e- 9 0.0162       
+       8 TRUE      2.79     6  1.32e- 9 -1.62e- 2  1.32e- 9  3.24e- 9 0.0162       
        9 FALSE     3.19     3  1.34e- 9 -9.74e- 3  1.34e- 9  1.51e- 9 0.00974      
       10 TRUE      3.19     4  1.56e- 9 -3.64e- 2  1.56e- 9  2.66e- 9 0.0364       
       11 FALSE     3.44     7  1.34e- 9 -2.01e- 2  1.34e- 9  1.51e- 9 0.0201       
@@ -4531,30 +4531,30 @@
       $Asia$d1
       $Asia$d1$mpg
       # A tibble: 30 x 6
-           .it   mpg .y_composite    .n .y_distinct    .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4            0     1           0     0
-       2     0  14.4            0     7           0     0
-       3     0  15.2            0     7           0     0
-       4     0  16.4            0     7           0     0
-       5     0  18.7            0     7           0     0
-       6     0  19.8            0     7           0     0
-       7     0  21.4            0     7           0     0
-       8     0  22.9            0     7           0     0
-       9     0  30.1            0     7           0     0
-      10     0  33.9            0     7           0     0
+           .it   mpg .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     1.20e-14     1    1.20e-14 1.20e-14
+       2     0  14.4     1.20e-14     7    1.20e-14 1.20e-14
+       3     0  15.2     1.20e-14     7    1.20e-14 1.20e-14
+       4     0  16.4     1.20e-14     7    1.20e-14 1.20e-14
+       5     0  18.7     1.20e-14     7    1.20e-14 1.20e-14
+       6     0  19.8     1.20e-14     7    1.20e-14 1.20e-14
+       7     0  21.4     1.20e-14     7    1.20e-14 1.20e-14
+       8     0  22.9     1.20e-14     7    1.20e-14 1.20e-14
+       9     0  30.1     1.20e-14     7    1.20e-14 1.20e-14
+      10     0  33.9     1.20e-14     7    1.20e-14 1.20e-14
       # i 20 more rows
       
       $Asia$d1$vs
       # A tibble: 6 x 6
-          .it vs    .y_composite    .n .y_distinct    .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-      1     0 FALSE            0    36           0     0
-      2     0 TRUE             0    28           0     0
-      3     1 FALSE            0    36           0     0
-      4     1 TRUE             0    28           0     0
-      5     2 FALSE            0    36           0     0
-      6     2 TRUE             0    28           0     0
+          .it vs    .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 FALSE     1.20e-14    36    1.20e-14 1.20e-14
+      2     0 TRUE      1.20e-14    28    1.20e-14 1.20e-14
+      3     1 FALSE     1.20e-14    36    1.20e-14 1.20e-14
+      4     1 TRUE      1.20e-14    28    1.20e-14 1.20e-14
+      5     2 FALSE     1.20e-14    36    1.20e-14 1.20e-14
+      6     2 TRUE      1.20e-14    28    1.20e-14 1.20e-14
       
       $Asia$d1$am
       # A tibble: 6 x 6
@@ -4637,186 +4637,186 @@
       $Asia$d2
       $Asia$d2$`mpg:vs`
       # A tibble: 60 x 7
-           .it   mpg vs    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     7           0     0
-       4     0  16.4 FALSE            0     7           0     0
-       5     0  18.7 FALSE            0     3           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     4           0     0
-       8     0  22.9 FALSE            0     0           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg vs    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     1.20e-14     1    1.20e-14 1.20e-14
+       2     0  14.4 FALSE     1.20e-14     7    1.20e-14 1.20e-14
+       3     0  15.2 FALSE     1.20e-14     7    1.20e-14 1.20e-14
+       4     0  16.4 FALSE     1.20e-14     7    1.20e-14 1.20e-14
+       5     0  18.7 FALSE     1.20e-14     3    1.20e-14 1.20e-14
+       6     0  19.8 FALSE     1.20e-14     5    1.20e-14 1.20e-14
+       7     0  21.4 FALSE     1.20e-14     4    1.20e-14 1.20e-14
+       8     0  22.9 FALSE     1.20e-14     0    1.20e-14 1.20e-14
+       9     0  30.1 FALSE     1.20e-14     2    1.20e-14 1.20e-14
+      10     0  33.9 FALSE     1.20e-14     0    1.20e-14 1.20e-14
       # i 50 more rows
       
       $Asia$d2$`mpg:am`
       # A tibble: 60 x 7
-           .it   mpg am    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     5           0     0
-       4     0  16.4 FALSE            0     5           0     0
-       5     0  18.7 FALSE            0     7           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     1           0     0
-       8     0  22.9 FALSE            0     5           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg am    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     1.20e-14     1    1.20e-14 1.20e-14
+       2     0  14.4 FALSE     1.20e-14     7    1.20e-14 1.20e-14
+       3     0  15.2 FALSE     1.20e-14     5    1.20e-14 1.20e-14
+       4     0  16.4 FALSE     1.20e-14     5    1.20e-14 1.20e-14
+       5     0  18.7 FALSE     1.20e-14     7    1.20e-14 1.20e-14
+       6     0  19.8 FALSE     1.20e-14     5    1.20e-14 1.20e-14
+       7     0  21.4 FALSE     1.20e-14     1    1.20e-14 1.20e-14
+       8     0  22.9 FALSE     1.20e-14     5    1.20e-14 1.20e-14
+       9     0  30.1 FALSE     1.20e-14     2    1.20e-14 1.20e-14
+      10     0  33.9 FALSE     1.20e-14     0    1.20e-14 1.20e-14
       # i 50 more rows
       
       $Asia$d2$`mpg:model`
       # A tibble: 960 x 7
-           .it   mpg model               .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 Lincoln Continental            0     0           0     0
-       2     0  14.4 Lincoln Continental            0     2           0     0
-       3     0  15.2 Lincoln Continental            0     0           0     0
-       4     0  16.4 Lincoln Continental            0     0           0     0
-       5     0  18.7 Lincoln Continental            0     0           0     0
-       6     0  19.8 Lincoln Continental            0     0           0     0
-       7     0  21.4 Lincoln Continental            0     0           0     0
-       8     0  22.9 Lincoln Continental            0     0           0     0
-       9     0  30.1 Lincoln Continental            0     0           0     0
-      10     0  33.9 Lincoln Continental            0     0           0     0
+           .it   mpg model               .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       2     0  14.4 Lincoln Continental     1.20e-14     2    1.20e-14 1.20e-14
+       3     0  15.2 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       4     0  16.4 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       5     0  18.7 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       6     0  19.8 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       7     0  21.4 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       8     0  22.9 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       9     0  30.1 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+      10     0  33.9 Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
       # i 950 more rows
       
       $Asia$d2$`mpg:gear`
       # A tibble: 90 x 7
-           .it   mpg gear  .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 three            0     1           0     0
-       2     0  14.4 three            0     7           0     0
-       3     0  15.2 three            0     5           0     0
-       4     0  16.4 three            0     5           0     0
-       5     0  18.7 three            0     5           0     0
-       6     0  19.8 three            0     3           0     0
-       7     0  21.4 three            0     1           0     0
-       8     0  22.9 three            0     3           0     0
-       9     0  30.1 three            0     0           0     0
-      10     0  33.9 three            0     0           0     0
+           .it   mpg gear  .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 three     1.20e-14     1    1.20e-14 1.20e-14
+       2     0  14.4 three     1.20e-14     7    1.20e-14 1.20e-14
+       3     0  15.2 three     1.20e-14     5    1.20e-14 1.20e-14
+       4     0  16.4 three     1.20e-14     5    1.20e-14 1.20e-14
+       5     0  18.7 three     1.20e-14     5    1.20e-14 1.20e-14
+       6     0  19.8 three     1.20e-14     3    1.20e-14 1.20e-14
+       7     0  21.4 three     1.20e-14     1    1.20e-14 1.20e-14
+       8     0  22.9 three     1.20e-14     3    1.20e-14 1.20e-14
+       9     0  30.1 three     1.20e-14     0    1.20e-14 1.20e-14
+      10     0  33.9 three     1.20e-14     0    1.20e-14 1.20e-14
       # i 80 more rows
       
       $Asia$d2$`mpg:carb`
       # A tibble: 150 x 7
-           .it   mpg  carb .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4     1            0     0           0     0
-       2     0  14.4     1            0     0           0     0
-       3     0  15.2     1            0     0           0     0
-       4     0  16.4     1            0     0           0     0
-       5     0  18.7     1            0     2           0     0
-       6     0  19.8     1            0     0           0     0
-       7     0  21.4     1            0     1           0     0
-       8     0  22.9     1            0     5           0     0
-       9     0  30.1     1            0     2           0     0
-      10     0  33.9     1            0     4           0     0
+           .it   mpg  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     1     1.20e-14     0    1.20e-14 1.20e-14
+       2     0  14.4     1     1.20e-14     0    1.20e-14 1.20e-14
+       3     0  15.2     1     1.20e-14     0    1.20e-14 1.20e-14
+       4     0  16.4     1     1.20e-14     0    1.20e-14 1.20e-14
+       5     0  18.7     1     1.20e-14     2    1.20e-14 1.20e-14
+       6     0  19.8     1     1.20e-14     0    1.20e-14 1.20e-14
+       7     0  21.4     1     1.20e-14     1    1.20e-14 1.20e-14
+       8     0  22.9     1     1.20e-14     5    1.20e-14 1.20e-14
+       9     0  30.1     1     1.20e-14     2    1.20e-14 1.20e-14
+      10     0  33.9     1     1.20e-14     4    1.20e-14 1.20e-14
       # i 140 more rows
       
       $Asia$d2$`mpg:wt`
       # A tibble: 300 x 7
-           .it   mpg    wt .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4  1.50            0     0           0     0
-       2     0  14.4  1.50            0     0           0     0
-       3     0  15.2  1.50            0     0           0     0
-       4     0  16.4  1.50            0     0           0     0
-       5     0  18.7  1.50            0     0           0     0
-       6     0  19.8  1.50            0     0           0     0
-       7     0  21.4  1.50            0     0           0     0
-       8     0  22.9  1.50            0     0           0     0
-       9     0  30.1  1.50            0     1           0     0
-      10     0  33.9  1.50            0     0           0     0
+           .it   mpg    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       2     0  14.4  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       3     0  15.2  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       4     0  16.4  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       5     0  18.7  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       6     0  19.8  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       7     0  21.4  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       8     0  22.9  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       9     0  30.1  1.50     1.20e-14     1    1.20e-14 1.20e-14
+      10     0  33.9  1.50     1.20e-14     0    1.20e-14 1.20e-14
       # i 290 more rows
       
       $Asia$d2$`vs:am`
       # A tibble: 12 x 7
-           .it vs    am    .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE FALSE            0    24           0     0
-       2     0 TRUE  FALSE            0    14           0     0
-       3     0 FALSE TRUE             0    12           0     0
-       4     0 TRUE  TRUE             0    14           0     0
-       5     1 FALSE FALSE            0    24           0     0
-       6     1 TRUE  FALSE            0    14           0     0
-       7     1 FALSE TRUE             0    12           0     0
-       8     1 TRUE  TRUE             0    14           0     0
-       9     2 FALSE FALSE            0    24           0     0
-      10     2 TRUE  FALSE            0    14           0     0
-      11     2 FALSE TRUE             0    12           0     0
-      12     2 TRUE  TRUE             0    14           0     0
+           .it vs    am    .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE FALSE     1.20e-14    24    1.20e-14 1.20e-14
+       2     0 TRUE  FALSE     1.20e-14    14    1.20e-14 1.20e-14
+       3     0 FALSE TRUE      1.20e-14    12    1.20e-14 1.20e-14
+       4     0 TRUE  TRUE      1.20e-14    14    1.20e-14 1.20e-14
+       5     1 FALSE FALSE     1.20e-14    24    1.20e-14 1.20e-14
+       6     1 TRUE  FALSE     1.20e-14    14    1.20e-14 1.20e-14
+       7     1 FALSE TRUE      1.20e-14    12    1.20e-14 1.20e-14
+       8     1 TRUE  TRUE      1.20e-14    14    1.20e-14 1.20e-14
+       9     2 FALSE FALSE     1.20e-14    24    1.20e-14 1.20e-14
+      10     2 TRUE  FALSE     1.20e-14    14    1.20e-14 1.20e-14
+      11     2 FALSE TRUE      1.20e-14    12    1.20e-14 1.20e-14
+      12     2 TRUE  TRUE      1.20e-14    14    1.20e-14 1.20e-14
       
       $Asia$d2$`vs:model`
       # A tibble: 192 x 7
-           .it vs    model               .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE Lincoln Continental            0     2           0     0
-       2     0 TRUE  Lincoln Continental            0     0           0     0
-       3     0 FALSE Cadillac Fleetwood             0     2           0     0
-       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
-       5     0 FALSE Merc 450SL                     0     2           0     0
-       6     0 TRUE  Merc 450SL                     0     0           0     0
-       7     0 FALSE Merc 450SLC                    0     2           0     0
-       8     0 TRUE  Merc 450SLC                    0     0           0     0
-       9     0 FALSE Camaro Z28                     0     2           0     0
-      10     0 TRUE  Camaro Z28                     0     0           0     0
+           .it vs    model               .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE Lincoln Continental     1.20e-14     2    1.20e-14 1.20e-14
+       2     0 TRUE  Lincoln Continental     1.20e-14     0    1.20e-14 1.20e-14
+       3     0 FALSE Cadillac Fleetwood      1.20e-14     2    1.20e-14 1.20e-14
+       4     0 TRUE  Cadillac Fleetwood      1.20e-14     0    1.20e-14 1.20e-14
+       5     0 FALSE Merc 450SL              1.20e-14     2    1.20e-14 1.20e-14
+       6     0 TRUE  Merc 450SL              1.20e-14     0    1.20e-14 1.20e-14
+       7     0 FALSE Merc 450SLC             1.20e-14     2    1.20e-14 1.20e-14
+       8     0 TRUE  Merc 450SLC             1.20e-14     0    1.20e-14 1.20e-14
+       9     0 FALSE Camaro Z28              1.20e-14     2    1.20e-14 1.20e-14
+      10     0 TRUE  Camaro Z28              1.20e-14     0    1.20e-14 1.20e-14
       # i 182 more rows
       
       $Asia$d2$`vs:gear`
       # A tibble: 18 x 7
-           .it vs    gear  .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE three            0    24           0     0
-       2     0 TRUE  three            0     6           0     0
-       3     0 FALSE four             0     4           0     0
-       4     0 TRUE  four             0    20           0     0
-       5     0 FALSE five             0     8           0     0
-       6     0 TRUE  five             0     2           0     0
-       7     1 FALSE three            0    24           0     0
-       8     1 TRUE  three            0     6           0     0
-       9     1 FALSE four             0     4           0     0
-      10     1 TRUE  four             0    20           0     0
-      11     1 FALSE five             0     8           0     0
-      12     1 TRUE  five             0     2           0     0
-      13     2 FALSE three            0    24           0     0
-      14     2 TRUE  three            0     6           0     0
-      15     2 FALSE four             0     4           0     0
-      16     2 TRUE  four             0    20           0     0
-      17     2 FALSE five             0     8           0     0
-      18     2 TRUE  five             0     2           0     0
+           .it vs    gear  .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE three     1.20e-14    24    1.20e-14 1.20e-14
+       2     0 TRUE  three     1.20e-14     6    1.20e-14 1.20e-14
+       3     0 FALSE four      1.20e-14     4    1.20e-14 1.20e-14
+       4     0 TRUE  four      1.20e-14    20    1.20e-14 1.20e-14
+       5     0 FALSE five      1.20e-14     8    1.20e-14 1.20e-14
+       6     0 TRUE  five      1.20e-14     2    1.20e-14 1.20e-14
+       7     1 FALSE three     1.20e-14    24    1.20e-14 1.20e-14
+       8     1 TRUE  three     1.20e-14     6    1.20e-14 1.20e-14
+       9     1 FALSE four      1.20e-14     4    1.20e-14 1.20e-14
+      10     1 TRUE  four      1.20e-14    20    1.20e-14 1.20e-14
+      11     1 FALSE five      1.20e-14     8    1.20e-14 1.20e-14
+      12     1 TRUE  five      1.20e-14     2    1.20e-14 1.20e-14
+      13     2 FALSE three     1.20e-14    24    1.20e-14 1.20e-14
+      14     2 TRUE  three     1.20e-14     6    1.20e-14 1.20e-14
+      15     2 FALSE four      1.20e-14     4    1.20e-14 1.20e-14
+      16     2 TRUE  four      1.20e-14    20    1.20e-14 1.20e-14
+      17     2 FALSE five      1.20e-14     8    1.20e-14 1.20e-14
+      18     2 TRUE  five      1.20e-14     2    1.20e-14 1.20e-14
       
       $Asia$d2$`vs:carb`
       # A tibble: 30 x 7
-           .it vs     carb .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE     1            0     0           0     0
-       2     0 TRUE      1            0    14           0     0
-       3     0 FALSE     2            0    10           0     0
-       4     0 TRUE      2            0     9           0     0
-       5     0 FALSE     3            0     8           0     0
-       6     0 TRUE      3            0     1           0     0
-       7     0 FALSE     4            0    13           0     0
-       8     0 TRUE      4            0     3           0     0
-       9     0 FALSE     8            0     5           0     0
-      10     0 TRUE      8            0     1           0     0
+           .it vs     carb .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE     1     1.20e-14     0    1.20e-14 1.20e-14
+       2     0 TRUE      1     1.20e-14    14    1.20e-14 1.20e-14
+       3     0 FALSE     2     1.20e-14    10    1.20e-14 1.20e-14
+       4     0 TRUE      2     1.20e-14     9    1.20e-14 1.20e-14
+       5     0 FALSE     3     1.20e-14     8    1.20e-14 1.20e-14
+       6     0 TRUE      3     1.20e-14     1    1.20e-14 1.20e-14
+       7     0 FALSE     4     1.20e-14    13    1.20e-14 1.20e-14
+       8     0 TRUE      4     1.20e-14     3    1.20e-14 1.20e-14
+       9     0 FALSE     8     1.20e-14     5    1.20e-14 1.20e-14
+      10     0 TRUE      8     1.20e-14     1    1.20e-14 1.20e-14
       # i 20 more rows
       
       $Asia$d2$`vs:wt`
       # A tibble: 60 x 7
-           .it vs       wt .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE  1.50            0     0           0     0
-       2     0 TRUE   1.50            0     1           0     0
-       3     0 FALSE  1.94            0     0           0     0
-       4     0 TRUE   1.94            0     7           0     0
-       5     0 FALSE  2.46            0     2           0     0
-       6     0 TRUE   2.46            0     5           0     0
-       7     0 FALSE  2.79            0     4           0     0
-       8     0 TRUE   2.79            0     3           0     0
-       9     0 FALSE  3.19            0     4           0     0
-      10     0 TRUE   3.19            0     3           0     0
+           .it vs       wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE  1.50     1.20e-14     0    1.20e-14 1.20e-14
+       2     0 TRUE   1.50     1.20e-14     1    1.20e-14 1.20e-14
+       3     0 FALSE  1.94     1.20e-14     0    1.20e-14 1.20e-14
+       4     0 TRUE   1.94     1.20e-14     7    1.20e-14 1.20e-14
+       5     0 FALSE  2.46     1.20e-14     2    1.20e-14 1.20e-14
+       6     0 TRUE   2.46     1.20e-14     5    1.20e-14 1.20e-14
+       7     0 FALSE  2.79     1.20e-14     4    1.20e-14 1.20e-14
+       8     0 TRUE   2.79     1.20e-14     3    1.20e-14 1.20e-14
+       9     0 FALSE  3.19     1.20e-14     4    1.20e-14 1.20e-14
+      10     0 TRUE   3.19     1.20e-14     3    1.20e-14 1.20e-14
       # i 50 more rows
       
       $Asia$d2$`am:model`
@@ -4992,30 +4992,30 @@
       $Europe$d1
       $Europe$d1$mpg
       # A tibble: 30 x 6
-           .it   mpg .y_composite    .n .y_distinct    .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4            0     1           0     0
-       2     0  14.4            0     7           0     0
-       3     0  15.2            0     7           0     0
-       4     0  16.4            0     7           0     0
-       5     0  18.7            0     7           0     0
-       6     0  19.8            0     7           0     0
-       7     0  21.4            0     7           0     0
-       8     0  22.9            0     7           0     0
-       9     0  30.1            0     7           0     0
-      10     0  33.9            0     7           0     0
+           .it   mpg .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     1.31e-14     1    1.31e-14 1.31e-14
+       2     0  14.4     1.31e-14     7    1.31e-14 1.31e-14
+       3     0  15.2     1.31e-14     7    1.31e-14 1.31e-14
+       4     0  16.4     1.31e-14     7    1.31e-14 1.31e-14
+       5     0  18.7     1.31e-14     7    1.31e-14 1.31e-14
+       6     0  19.8     1.31e-14     7    1.31e-14 1.31e-14
+       7     0  21.4     1.31e-14     7    1.31e-14 1.31e-14
+       8     0  22.9     1.31e-14     7    1.31e-14 1.31e-14
+       9     0  30.1     1.31e-14     7    1.31e-14 1.31e-14
+      10     0  33.9     1.31e-14     7    1.31e-14 1.31e-14
       # i 20 more rows
       
       $Europe$d1$vs
       # A tibble: 6 x 6
-          .it vs    .y_composite    .n .y_distinct    .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-      1     0 FALSE            0    36           0     0
-      2     0 TRUE             0    28           0     0
-      3     1 FALSE            0    36           0     0
-      4     1 TRUE             0    28           0     0
-      5     2 FALSE            0    36           0     0
-      6     2 TRUE             0    28           0     0
+          .it vs    .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 FALSE     1.31e-14    36    1.31e-14 1.31e-14
+      2     0 TRUE      1.31e-14    28    1.31e-14 1.31e-14
+      3     1 FALSE     1.31e-14    36    1.31e-14 1.31e-14
+      4     1 TRUE      1.31e-14    28    1.31e-14 1.31e-14
+      5     2 FALSE     1.31e-14    36    1.31e-14 1.31e-14
+      6     2 TRUE      1.31e-14    28    1.31e-14 1.31e-14
       
       $Europe$d1$am
       # A tibble: 6 x 6
@@ -5098,186 +5098,186 @@
       $Europe$d2
       $Europe$d2$`mpg:vs`
       # A tibble: 60 x 7
-           .it   mpg vs    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     7           0     0
-       4     0  16.4 FALSE            0     7           0     0
-       5     0  18.7 FALSE            0     3           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     4           0     0
-       8     0  22.9 FALSE            0     0           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg vs    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     1.31e-14     1    1.31e-14 1.31e-14
+       2     0  14.4 FALSE     1.31e-14     7    1.31e-14 1.31e-14
+       3     0  15.2 FALSE     1.31e-14     7    1.31e-14 1.31e-14
+       4     0  16.4 FALSE     1.31e-14     7    1.31e-14 1.31e-14
+       5     0  18.7 FALSE     1.31e-14     3    1.31e-14 1.31e-14
+       6     0  19.8 FALSE     1.31e-14     5    1.31e-14 1.31e-14
+       7     0  21.4 FALSE     1.31e-14     4    1.31e-14 1.31e-14
+       8     0  22.9 FALSE     1.31e-14     0    1.31e-14 1.31e-14
+       9     0  30.1 FALSE     1.31e-14     2    1.31e-14 1.31e-14
+      10     0  33.9 FALSE     1.31e-14     0    1.31e-14 1.31e-14
       # i 50 more rows
       
       $Europe$d2$`mpg:am`
       # A tibble: 60 x 7
-           .it   mpg am    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     5           0     0
-       4     0  16.4 FALSE            0     5           0     0
-       5     0  18.7 FALSE            0     7           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     1           0     0
-       8     0  22.9 FALSE            0     5           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg am    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     1.31e-14     1    1.31e-14 1.31e-14
+       2     0  14.4 FALSE     1.31e-14     7    1.31e-14 1.31e-14
+       3     0  15.2 FALSE     1.31e-14     5    1.31e-14 1.31e-14
+       4     0  16.4 FALSE     1.31e-14     5    1.31e-14 1.31e-14
+       5     0  18.7 FALSE     1.31e-14     7    1.31e-14 1.31e-14
+       6     0  19.8 FALSE     1.31e-14     5    1.31e-14 1.31e-14
+       7     0  21.4 FALSE     1.31e-14     1    1.31e-14 1.31e-14
+       8     0  22.9 FALSE     1.31e-14     5    1.31e-14 1.31e-14
+       9     0  30.1 FALSE     1.31e-14     2    1.31e-14 1.31e-14
+      10     0  33.9 FALSE     1.31e-14     0    1.31e-14 1.31e-14
       # i 50 more rows
       
       $Europe$d2$`mpg:model`
       # A tibble: 960 x 7
-           .it   mpg model               .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 Lincoln Continental            0     0           0     0
-       2     0  14.4 Lincoln Continental            0     2           0     0
-       3     0  15.2 Lincoln Continental            0     0           0     0
-       4     0  16.4 Lincoln Continental            0     0           0     0
-       5     0  18.7 Lincoln Continental            0     0           0     0
-       6     0  19.8 Lincoln Continental            0     0           0     0
-       7     0  21.4 Lincoln Continental            0     0           0     0
-       8     0  22.9 Lincoln Continental            0     0           0     0
-       9     0  30.1 Lincoln Continental            0     0           0     0
-      10     0  33.9 Lincoln Continental            0     0           0     0
+           .it   mpg model               .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       2     0  14.4 Lincoln Continental     1.31e-14     2    1.31e-14 1.31e-14
+       3     0  15.2 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       4     0  16.4 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       5     0  18.7 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       6     0  19.8 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       7     0  21.4 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       8     0  22.9 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       9     0  30.1 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+      10     0  33.9 Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
       # i 950 more rows
       
       $Europe$d2$`mpg:gear`
       # A tibble: 90 x 7
-           .it   mpg gear  .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 three            0     1           0     0
-       2     0  14.4 three            0     7           0     0
-       3     0  15.2 three            0     5           0     0
-       4     0  16.4 three            0     5           0     0
-       5     0  18.7 three            0     5           0     0
-       6     0  19.8 three            0     3           0     0
-       7     0  21.4 three            0     1           0     0
-       8     0  22.9 three            0     3           0     0
-       9     0  30.1 three            0     0           0     0
-      10     0  33.9 three            0     0           0     0
+           .it   mpg gear  .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 three     1.31e-14     1    1.31e-14 1.31e-14
+       2     0  14.4 three     1.31e-14     7    1.31e-14 1.31e-14
+       3     0  15.2 three     1.31e-14     5    1.31e-14 1.31e-14
+       4     0  16.4 three     1.31e-14     5    1.31e-14 1.31e-14
+       5     0  18.7 three     1.31e-14     5    1.31e-14 1.31e-14
+       6     0  19.8 three     1.31e-14     3    1.31e-14 1.31e-14
+       7     0  21.4 three     1.31e-14     1    1.31e-14 1.31e-14
+       8     0  22.9 three     1.31e-14     3    1.31e-14 1.31e-14
+       9     0  30.1 three     1.31e-14     0    1.31e-14 1.31e-14
+      10     0  33.9 three     1.31e-14     0    1.31e-14 1.31e-14
       # i 80 more rows
       
       $Europe$d2$`mpg:carb`
       # A tibble: 150 x 7
-           .it   mpg  carb .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4     1            0     0           0     0
-       2     0  14.4     1            0     0           0     0
-       3     0  15.2     1            0     0           0     0
-       4     0  16.4     1            0     0           0     0
-       5     0  18.7     1            0     2           0     0
-       6     0  19.8     1            0     0           0     0
-       7     0  21.4     1            0     1           0     0
-       8     0  22.9     1            0     5           0     0
-       9     0  30.1     1            0     2           0     0
-      10     0  33.9     1            0     4           0     0
+           .it   mpg  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     1     1.31e-14     0    1.31e-14 1.31e-14
+       2     0  14.4     1     1.31e-14     0    1.31e-14 1.31e-14
+       3     0  15.2     1     1.31e-14     0    1.31e-14 1.31e-14
+       4     0  16.4     1     1.31e-14     0    1.31e-14 1.31e-14
+       5     0  18.7     1     1.31e-14     2    1.31e-14 1.31e-14
+       6     0  19.8     1     1.31e-14     0    1.31e-14 1.31e-14
+       7     0  21.4     1     1.31e-14     1    1.31e-14 1.31e-14
+       8     0  22.9     1     1.31e-14     5    1.31e-14 1.31e-14
+       9     0  30.1     1     1.31e-14     2    1.31e-14 1.31e-14
+      10     0  33.9     1     1.31e-14     4    1.31e-14 1.31e-14
       # i 140 more rows
       
       $Europe$d2$`mpg:wt`
       # A tibble: 300 x 7
-           .it   mpg    wt .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4  1.50            0     0           0     0
-       2     0  14.4  1.50            0     0           0     0
-       3     0  15.2  1.50            0     0           0     0
-       4     0  16.4  1.50            0     0           0     0
-       5     0  18.7  1.50            0     0           0     0
-       6     0  19.8  1.50            0     0           0     0
-       7     0  21.4  1.50            0     0           0     0
-       8     0  22.9  1.50            0     0           0     0
-       9     0  30.1  1.50            0     1           0     0
-      10     0  33.9  1.50            0     0           0     0
+           .it   mpg    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       2     0  14.4  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       3     0  15.2  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       4     0  16.4  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       5     0  18.7  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       6     0  19.8  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       7     0  21.4  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       8     0  22.9  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       9     0  30.1  1.50     1.31e-14     1    1.31e-14 1.31e-14
+      10     0  33.9  1.50     1.31e-14     0    1.31e-14 1.31e-14
       # i 290 more rows
       
       $Europe$d2$`vs:am`
       # A tibble: 12 x 7
-           .it vs    am    .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE FALSE            0    24           0     0
-       2     0 TRUE  FALSE            0    14           0     0
-       3     0 FALSE TRUE             0    12           0     0
-       4     0 TRUE  TRUE             0    14           0     0
-       5     1 FALSE FALSE            0    24           0     0
-       6     1 TRUE  FALSE            0    14           0     0
-       7     1 FALSE TRUE             0    12           0     0
-       8     1 TRUE  TRUE             0    14           0     0
-       9     2 FALSE FALSE            0    24           0     0
-      10     2 TRUE  FALSE            0    14           0     0
-      11     2 FALSE TRUE             0    12           0     0
-      12     2 TRUE  TRUE             0    14           0     0
+           .it vs    am    .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE FALSE     1.31e-14    24    1.31e-14 1.31e-14
+       2     0 TRUE  FALSE     1.31e-14    14    1.31e-14 1.31e-14
+       3     0 FALSE TRUE      1.31e-14    12    1.31e-14 1.31e-14
+       4     0 TRUE  TRUE      1.31e-14    14    1.31e-14 1.31e-14
+       5     1 FALSE FALSE     1.31e-14    24    1.31e-14 1.31e-14
+       6     1 TRUE  FALSE     1.31e-14    14    1.31e-14 1.31e-14
+       7     1 FALSE TRUE      1.31e-14    12    1.31e-14 1.31e-14
+       8     1 TRUE  TRUE      1.31e-14    14    1.31e-14 1.31e-14
+       9     2 FALSE FALSE     1.31e-14    24    1.31e-14 1.31e-14
+      10     2 TRUE  FALSE     1.31e-14    14    1.31e-14 1.31e-14
+      11     2 FALSE TRUE      1.31e-14    12    1.31e-14 1.31e-14
+      12     2 TRUE  TRUE      1.31e-14    14    1.31e-14 1.31e-14
       
       $Europe$d2$`vs:model`
       # A tibble: 192 x 7
-           .it vs    model               .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE Lincoln Continental            0     2           0     0
-       2     0 TRUE  Lincoln Continental            0     0           0     0
-       3     0 FALSE Cadillac Fleetwood             0     2           0     0
-       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
-       5     0 FALSE Merc 450SL                     0     2           0     0
-       6     0 TRUE  Merc 450SL                     0     0           0     0
-       7     0 FALSE Merc 450SLC                    0     2           0     0
-       8     0 TRUE  Merc 450SLC                    0     0           0     0
-       9     0 FALSE Camaro Z28                     0     2           0     0
-      10     0 TRUE  Camaro Z28                     0     0           0     0
+           .it vs    model               .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE Lincoln Continental     1.31e-14     2    1.31e-14 1.31e-14
+       2     0 TRUE  Lincoln Continental     1.31e-14     0    1.31e-14 1.31e-14
+       3     0 FALSE Cadillac Fleetwood      1.31e-14     2    1.31e-14 1.31e-14
+       4     0 TRUE  Cadillac Fleetwood      1.31e-14     0    1.31e-14 1.31e-14
+       5     0 FALSE Merc 450SL              1.31e-14     2    1.31e-14 1.31e-14
+       6     0 TRUE  Merc 450SL              1.31e-14     0    1.31e-14 1.31e-14
+       7     0 FALSE Merc 450SLC             1.31e-14     2    1.31e-14 1.31e-14
+       8     0 TRUE  Merc 450SLC             1.31e-14     0    1.31e-14 1.31e-14
+       9     0 FALSE Camaro Z28              1.31e-14     2    1.31e-14 1.31e-14
+      10     0 TRUE  Camaro Z28              1.31e-14     0    1.31e-14 1.31e-14
       # i 182 more rows
       
       $Europe$d2$`vs:gear`
       # A tibble: 18 x 7
-           .it vs    gear  .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE three            0    24           0     0
-       2     0 TRUE  three            0     6           0     0
-       3     0 FALSE four             0     4           0     0
-       4     0 TRUE  four             0    20           0     0
-       5     0 FALSE five             0     8           0     0
-       6     0 TRUE  five             0     2           0     0
-       7     1 FALSE three            0    24           0     0
-       8     1 TRUE  three            0     6           0     0
-       9     1 FALSE four             0     4           0     0
-      10     1 TRUE  four             0    20           0     0
-      11     1 FALSE five             0     8           0     0
-      12     1 TRUE  five             0     2           0     0
-      13     2 FALSE three            0    24           0     0
-      14     2 TRUE  three            0     6           0     0
-      15     2 FALSE four             0     4           0     0
-      16     2 TRUE  four             0    20           0     0
-      17     2 FALSE five             0     8           0     0
-      18     2 TRUE  five             0     2           0     0
+           .it vs    gear  .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE three     1.31e-14    24    1.31e-14 1.31e-14
+       2     0 TRUE  three     1.31e-14     6    1.31e-14 1.31e-14
+       3     0 FALSE four      1.31e-14     4    1.31e-14 1.31e-14
+       4     0 TRUE  four      1.31e-14    20    1.31e-14 1.31e-14
+       5     0 FALSE five      1.31e-14     8    1.31e-14 1.31e-14
+       6     0 TRUE  five      1.31e-14     2    1.31e-14 1.31e-14
+       7     1 FALSE three     1.31e-14    24    1.31e-14 1.31e-14
+       8     1 TRUE  three     1.31e-14     6    1.31e-14 1.31e-14
+       9     1 FALSE four      1.31e-14     4    1.31e-14 1.31e-14
+      10     1 TRUE  four      1.31e-14    20    1.31e-14 1.31e-14
+      11     1 FALSE five      1.31e-14     8    1.31e-14 1.31e-14
+      12     1 TRUE  five      1.31e-14     2    1.31e-14 1.31e-14
+      13     2 FALSE three     1.31e-14    24    1.31e-14 1.31e-14
+      14     2 TRUE  three     1.31e-14     6    1.31e-14 1.31e-14
+      15     2 FALSE four      1.31e-14     4    1.31e-14 1.31e-14
+      16     2 TRUE  four      1.31e-14    20    1.31e-14 1.31e-14
+      17     2 FALSE five      1.31e-14     8    1.31e-14 1.31e-14
+      18     2 TRUE  five      1.31e-14     2    1.31e-14 1.31e-14
       
       $Europe$d2$`vs:carb`
       # A tibble: 30 x 7
-           .it vs     carb .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE     1            0     0           0     0
-       2     0 TRUE      1            0    14           0     0
-       3     0 FALSE     2            0    10           0     0
-       4     0 TRUE      2            0     9           0     0
-       5     0 FALSE     3            0     8           0     0
-       6     0 TRUE      3            0     1           0     0
-       7     0 FALSE     4            0    13           0     0
-       8     0 TRUE      4            0     3           0     0
-       9     0 FALSE     8            0     5           0     0
-      10     0 TRUE      8            0     1           0     0
+           .it vs     carb .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE     1     1.31e-14     0    1.31e-14 1.31e-14
+       2     0 TRUE      1     1.31e-14    14    1.31e-14 1.31e-14
+       3     0 FALSE     2     1.31e-14    10    1.31e-14 1.31e-14
+       4     0 TRUE      2     1.31e-14     9    1.31e-14 1.31e-14
+       5     0 FALSE     3     1.31e-14     8    1.31e-14 1.31e-14
+       6     0 TRUE      3     1.31e-14     1    1.31e-14 1.31e-14
+       7     0 FALSE     4     1.31e-14    13    1.31e-14 1.31e-14
+       8     0 TRUE      4     1.31e-14     3    1.31e-14 1.31e-14
+       9     0 FALSE     8     1.31e-14     5    1.31e-14 1.31e-14
+      10     0 TRUE      8     1.31e-14     1    1.31e-14 1.31e-14
       # i 20 more rows
       
       $Europe$d2$`vs:wt`
       # A tibble: 60 x 7
-           .it vs       wt .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE  1.50            0     0           0     0
-       2     0 TRUE   1.50            0     1           0     0
-       3     0 FALSE  1.94            0     0           0     0
-       4     0 TRUE   1.94            0     7           0     0
-       5     0 FALSE  2.46            0     2           0     0
-       6     0 TRUE   2.46            0     5           0     0
-       7     0 FALSE  2.79            0     4           0     0
-       8     0 TRUE   2.79            0     3           0     0
-       9     0 FALSE  3.19            0     4           0     0
-      10     0 TRUE   3.19            0     3           0     0
+           .it vs       wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE  1.50     1.31e-14     0    1.31e-14 1.31e-14
+       2     0 TRUE   1.50     1.31e-14     1    1.31e-14 1.31e-14
+       3     0 FALSE  1.94     1.31e-14     0    1.31e-14 1.31e-14
+       4     0 TRUE   1.94     1.31e-14     7    1.31e-14 1.31e-14
+       5     0 FALSE  2.46     1.31e-14     2    1.31e-14 1.31e-14
+       6     0 TRUE   2.46     1.31e-14     5    1.31e-14 1.31e-14
+       7     0 FALSE  2.79     1.31e-14     4    1.31e-14 1.31e-14
+       8     0 TRUE   2.79     1.31e-14     3    1.31e-14 1.31e-14
+       9     0 FALSE  3.19     1.31e-14     4    1.31e-14 1.31e-14
+      10     0 TRUE   3.19     1.31e-14     3    1.31e-14 1.31e-14
       # i 50 more rows
       
       $Europe$d2$`am:model`
@@ -5453,30 +5453,30 @@
       $`North America`$d1
       $`North America`$d1$mpg
       # A tibble: 30 x 6
-           .it   mpg .y_composite    .n .y_distinct    .y
-         <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4            0     1           0     0
-       2     0  14.4            0     7           0     0
-       3     0  15.2            0     7           0     0
-       4     0  16.4            0     7           0     0
-       5     0  18.7            0     7           0     0
-       6     0  19.8            0     7           0     0
-       7     0  21.4            0     7           0     0
-       8     0  22.9            0     7           0     0
-       9     0  30.1            0     7           0     0
-      10     0  33.9            0     7           0     0
+           .it   mpg .y_composite    .n .y_distinct       .y
+         <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     2.64e-14     1    2.64e-14 2.64e-14
+       2     0  14.4     2.64e-14     7    2.64e-14 2.64e-14
+       3     0  15.2     2.64e-14     7    2.64e-14 2.64e-14
+       4     0  16.4     2.64e-14     7    2.64e-14 2.64e-14
+       5     0  18.7     2.64e-14     7    2.64e-14 2.64e-14
+       6     0  19.8     2.64e-14     7    2.64e-14 2.64e-14
+       7     0  21.4     2.64e-14     7    2.64e-14 2.64e-14
+       8     0  22.9     2.64e-14     7    2.64e-14 2.64e-14
+       9     0  30.1     2.64e-14     7    2.64e-14 2.64e-14
+      10     0  33.9     2.64e-14     7    2.64e-14 2.64e-14
       # i 20 more rows
       
       $`North America`$d1$vs
       # A tibble: 6 x 6
-          .it vs    .y_composite    .n .y_distinct    .y
-        <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-      1     0 FALSE            0    36           0     0
-      2     0 TRUE             0    28           0     0
-      3     1 FALSE            0    36           0     0
-      4     1 TRUE             0    28           0     0
-      5     2 FALSE            0    36           0     0
-      6     2 TRUE             0    28           0     0
+          .it vs    .y_composite    .n .y_distinct       .y
+        <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+      1     0 FALSE     2.64e-14    36    2.64e-14 2.64e-14
+      2     0 TRUE      2.64e-14    28    2.64e-14 2.64e-14
+      3     1 FALSE     2.64e-14    36    2.64e-14 2.64e-14
+      4     1 TRUE      2.64e-14    28    2.64e-14 2.64e-14
+      5     2 FALSE     2.64e-14    36    2.64e-14 2.64e-14
+      6     2 TRUE      2.64e-14    28    2.64e-14 2.64e-14
       
       $`North America`$d1$am
       # A tibble: 6 x 6
@@ -5487,7 +5487,7 @@
       3     1 FALSE    -9.71e-10    38   -9.71e-10 -9.71e-10
       4     1 TRUE      7.39e-10    26    7.39e-10  7.39e-10
       5     2 FALSE    -8.52e-10    38   -8.52e-10 -8.52e-10
-      6     2 TRUE     -4.72e-11    26   -4.72e-11 -4.72e-11
+      6     2 TRUE     -4.71e-11    26   -4.71e-11 -4.71e-11
       
       $`North America`$d1$model
       # A tibble: 96 x 6
@@ -5544,7 +5544,7 @@
            .it    wt .y_composite    .n .y_distinct        .y
          <dbl> <dbl>        <dbl> <dbl>       <dbl>     <dbl>
        1     0  1.50     6.60e-10     1    6.60e-10  6.60e-10
-       2     0  1.94    -8.93e-12     7   -8.93e-12 -8.93e-12
+       2     0  1.94    -8.90e-12     7   -8.90e-12 -8.90e-12
        3     0  2.46    -4.95e-11     7   -4.95e-11 -4.95e-11
        4     0  2.79    -4.95e-11     7   -4.95e-11 -4.95e-11
        5     0  3.19    -4.95e-11     7   -4.95e-11 -4.95e-11
@@ -5559,186 +5559,186 @@
       $`North America`$d2
       $`North America`$d2$`mpg:vs`
       # A tibble: 60 x 7
-           .it   mpg vs    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     7           0     0
-       4     0  16.4 FALSE            0     7           0     0
-       5     0  18.7 FALSE            0     3           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     4           0     0
-       8     0  22.9 FALSE            0     0           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg vs    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     2.64e-14     1    2.64e-14 2.64e-14
+       2     0  14.4 FALSE     2.64e-14     7    2.64e-14 2.64e-14
+       3     0  15.2 FALSE     2.64e-14     7    2.64e-14 2.64e-14
+       4     0  16.4 FALSE     2.64e-14     7    2.64e-14 2.64e-14
+       5     0  18.7 FALSE     2.64e-14     3    2.64e-14 2.64e-14
+       6     0  19.8 FALSE     2.64e-14     5    2.64e-14 2.64e-14
+       7     0  21.4 FALSE     2.64e-14     4    2.64e-14 2.64e-14
+       8     0  22.9 FALSE     2.64e-14     0    2.64e-14 2.64e-14
+       9     0  30.1 FALSE     2.64e-14     2    2.64e-14 2.64e-14
+      10     0  33.9 FALSE     2.64e-14     0    2.64e-14 2.64e-14
       # i 50 more rows
       
       $`North America`$d2$`mpg:am`
       # A tibble: 60 x 7
-           .it   mpg am    .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 FALSE            0     1           0     0
-       2     0  14.4 FALSE            0     7           0     0
-       3     0  15.2 FALSE            0     5           0     0
-       4     0  16.4 FALSE            0     5           0     0
-       5     0  18.7 FALSE            0     7           0     0
-       6     0  19.8 FALSE            0     5           0     0
-       7     0  21.4 FALSE            0     1           0     0
-       8     0  22.9 FALSE            0     5           0     0
-       9     0  30.1 FALSE            0     2           0     0
-      10     0  33.9 FALSE            0     0           0     0
+           .it   mpg am    .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 FALSE     2.64e-14     1    2.64e-14 2.64e-14
+       2     0  14.4 FALSE     2.64e-14     7    2.64e-14 2.64e-14
+       3     0  15.2 FALSE     2.64e-14     5    2.64e-14 2.64e-14
+       4     0  16.4 FALSE     2.64e-14     5    2.64e-14 2.64e-14
+       5     0  18.7 FALSE     2.64e-14     7    2.64e-14 2.64e-14
+       6     0  19.8 FALSE     2.64e-14     5    2.64e-14 2.64e-14
+       7     0  21.4 FALSE     2.64e-14     1    2.64e-14 2.64e-14
+       8     0  22.9 FALSE     2.64e-14     5    2.64e-14 2.64e-14
+       9     0  30.1 FALSE     2.64e-14     2    2.64e-14 2.64e-14
+      10     0  33.9 FALSE     2.64e-14     0    2.64e-14 2.64e-14
       # i 50 more rows
       
       $`North America`$d2$`mpg:model`
       # A tibble: 960 x 7
-           .it   mpg model               .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 Lincoln Continental            0     0           0     0
-       2     0  14.4 Lincoln Continental            0     2           0     0
-       3     0  15.2 Lincoln Continental            0     0           0     0
-       4     0  16.4 Lincoln Continental            0     0           0     0
-       5     0  18.7 Lincoln Continental            0     0           0     0
-       6     0  19.8 Lincoln Continental            0     0           0     0
-       7     0  21.4 Lincoln Continental            0     0           0     0
-       8     0  22.9 Lincoln Continental            0     0           0     0
-       9     0  30.1 Lincoln Continental            0     0           0     0
-      10     0  33.9 Lincoln Continental            0     0           0     0
+           .it   mpg model               .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       2     0  14.4 Lincoln Continental     2.64e-14     2    2.64e-14 2.64e-14
+       3     0  15.2 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       4     0  16.4 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       5     0  18.7 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       6     0  19.8 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       7     0  21.4 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       8     0  22.9 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       9     0  30.1 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+      10     0  33.9 Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
       # i 950 more rows
       
       $`North America`$d2$`mpg:gear`
       # A tibble: 90 x 7
-           .it   mpg gear  .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4 three            0     1           0     0
-       2     0  14.4 three            0     7           0     0
-       3     0  15.2 three            0     5           0     0
-       4     0  16.4 three            0     5           0     0
-       5     0  18.7 three            0     5           0     0
-       6     0  19.8 three            0     3           0     0
-       7     0  21.4 three            0     1           0     0
-       8     0  22.9 three            0     3           0     0
-       9     0  30.1 three            0     0           0     0
-      10     0  33.9 three            0     0           0     0
+           .it   mpg gear  .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4 three     2.64e-14     1    2.64e-14 2.64e-14
+       2     0  14.4 three     2.64e-14     7    2.64e-14 2.64e-14
+       3     0  15.2 three     2.64e-14     5    2.64e-14 2.64e-14
+       4     0  16.4 three     2.64e-14     5    2.64e-14 2.64e-14
+       5     0  18.7 three     2.64e-14     5    2.64e-14 2.64e-14
+       6     0  19.8 three     2.64e-14     3    2.64e-14 2.64e-14
+       7     0  21.4 three     2.64e-14     1    2.64e-14 2.64e-14
+       8     0  22.9 three     2.64e-14     3    2.64e-14 2.64e-14
+       9     0  30.1 three     2.64e-14     0    2.64e-14 2.64e-14
+      10     0  33.9 three     2.64e-14     0    2.64e-14 2.64e-14
       # i 80 more rows
       
       $`North America`$d2$`mpg:carb`
       # A tibble: 150 x 7
-           .it   mpg  carb .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4     1            0     0           0     0
-       2     0  14.4     1            0     0           0     0
-       3     0  15.2     1            0     0           0     0
-       4     0  16.4     1            0     0           0     0
-       5     0  18.7     1            0     2           0     0
-       6     0  19.8     1            0     0           0     0
-       7     0  21.4     1            0     1           0     0
-       8     0  22.9     1            0     5           0     0
-       9     0  30.1     1            0     2           0     0
-      10     0  33.9     1            0     4           0     0
+           .it   mpg  carb .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4     1     2.64e-14     0    2.64e-14 2.64e-14
+       2     0  14.4     1     2.64e-14     0    2.64e-14 2.64e-14
+       3     0  15.2     1     2.64e-14     0    2.64e-14 2.64e-14
+       4     0  16.4     1     2.64e-14     0    2.64e-14 2.64e-14
+       5     0  18.7     1     2.64e-14     2    2.64e-14 2.64e-14
+       6     0  19.8     1     2.64e-14     0    2.64e-14 2.64e-14
+       7     0  21.4     1     2.64e-14     1    2.64e-14 2.64e-14
+       8     0  22.9     1     2.64e-14     5    2.64e-14 2.64e-14
+       9     0  30.1     1     2.64e-14     2    2.64e-14 2.64e-14
+      10     0  33.9     1     2.64e-14     4    2.64e-14 2.64e-14
       # i 140 more rows
       
       $`North America`$d2$`mpg:wt`
       # A tibble: 300 x 7
-           .it   mpg    wt .y_composite    .n .y_distinct    .y
-         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0  10.4  1.50            0     0           0     0
-       2     0  14.4  1.50            0     0           0     0
-       3     0  15.2  1.50            0     0           0     0
-       4     0  16.4  1.50            0     0           0     0
-       5     0  18.7  1.50            0     0           0     0
-       6     0  19.8  1.50            0     0           0     0
-       7     0  21.4  1.50            0     0           0     0
-       8     0  22.9  1.50            0     0           0     0
-       9     0  30.1  1.50            0     1           0     0
-      10     0  33.9  1.50            0     0           0     0
+           .it   mpg    wt .y_composite    .n .y_distinct       .y
+         <dbl> <dbl> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0  10.4  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       2     0  14.4  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       3     0  15.2  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       4     0  16.4  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       5     0  18.7  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       6     0  19.8  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       7     0  21.4  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       8     0  22.9  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       9     0  30.1  1.50     2.64e-14     1    2.64e-14 2.64e-14
+      10     0  33.9  1.50     2.64e-14     0    2.64e-14 2.64e-14
       # i 290 more rows
       
       $`North America`$d2$`vs:am`
       # A tibble: 12 x 7
-           .it vs    am    .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE FALSE            0    24           0     0
-       2     0 TRUE  FALSE            0    14           0     0
-       3     0 FALSE TRUE             0    12           0     0
-       4     0 TRUE  TRUE             0    14           0     0
-       5     1 FALSE FALSE            0    24           0     0
-       6     1 TRUE  FALSE            0    14           0     0
-       7     1 FALSE TRUE             0    12           0     0
-       8     1 TRUE  TRUE             0    14           0     0
-       9     2 FALSE FALSE            0    24           0     0
-      10     2 TRUE  FALSE            0    14           0     0
-      11     2 FALSE TRUE             0    12           0     0
-      12     2 TRUE  TRUE             0    14           0     0
+           .it vs    am    .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE FALSE     2.64e-14    24    2.64e-14 2.64e-14
+       2     0 TRUE  FALSE     2.64e-14    14    2.64e-14 2.64e-14
+       3     0 FALSE TRUE      2.64e-14    12    2.64e-14 2.64e-14
+       4     0 TRUE  TRUE      2.64e-14    14    2.64e-14 2.64e-14
+       5     1 FALSE FALSE     2.64e-14    24    2.64e-14 2.64e-14
+       6     1 TRUE  FALSE     2.64e-14    14    2.64e-14 2.64e-14
+       7     1 FALSE TRUE      2.64e-14    12    2.64e-14 2.64e-14
+       8     1 TRUE  TRUE      2.64e-14    14    2.64e-14 2.64e-14
+       9     2 FALSE FALSE     2.64e-14    24    2.64e-14 2.64e-14
+      10     2 TRUE  FALSE     2.64e-14    14    2.64e-14 2.64e-14
+      11     2 FALSE TRUE      2.64e-14    12    2.64e-14 2.64e-14
+      12     2 TRUE  TRUE      2.64e-14    14    2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:model`
       # A tibble: 192 x 7
-           .it vs    model               .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE Lincoln Continental            0     2           0     0
-       2     0 TRUE  Lincoln Continental            0     0           0     0
-       3     0 FALSE Cadillac Fleetwood             0     2           0     0
-       4     0 TRUE  Cadillac Fleetwood             0     0           0     0
-       5     0 FALSE Merc 450SL                     0     2           0     0
-       6     0 TRUE  Merc 450SL                     0     0           0     0
-       7     0 FALSE Merc 450SLC                    0     2           0     0
-       8     0 TRUE  Merc 450SLC                    0     0           0     0
-       9     0 FALSE Camaro Z28                     0     2           0     0
-      10     0 TRUE  Camaro Z28                     0     0           0     0
+           .it vs    model               .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>                      <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE Lincoln Continental     2.64e-14     2    2.64e-14 2.64e-14
+       2     0 TRUE  Lincoln Continental     2.64e-14     0    2.64e-14 2.64e-14
+       3     0 FALSE Cadillac Fleetwood      2.64e-14     2    2.64e-14 2.64e-14
+       4     0 TRUE  Cadillac Fleetwood      2.64e-14     0    2.64e-14 2.64e-14
+       5     0 FALSE Merc 450SL              2.64e-14     2    2.64e-14 2.64e-14
+       6     0 TRUE  Merc 450SL              2.64e-14     0    2.64e-14 2.64e-14
+       7     0 FALSE Merc 450SLC             2.64e-14     2    2.64e-14 2.64e-14
+       8     0 TRUE  Merc 450SLC             2.64e-14     0    2.64e-14 2.64e-14
+       9     0 FALSE Camaro Z28              2.64e-14     2    2.64e-14 2.64e-14
+      10     0 TRUE  Camaro Z28              2.64e-14     0    2.64e-14 2.64e-14
       # i 182 more rows
       
       $`North America`$d2$`vs:gear`
       # A tibble: 18 x 7
-           .it vs    gear  .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE three            0    24           0     0
-       2     0 TRUE  three            0     6           0     0
-       3     0 FALSE four             0     4           0     0
-       4     0 TRUE  four             0    20           0     0
-       5     0 FALSE five             0     8           0     0
-       6     0 TRUE  five             0     2           0     0
-       7     1 FALSE three            0    24           0     0
-       8     1 TRUE  three            0     6           0     0
-       9     1 FALSE four             0     4           0     0
-      10     1 TRUE  four             0    20           0     0
-      11     1 FALSE five             0     8           0     0
-      12     1 TRUE  five             0     2           0     0
-      13     2 FALSE three            0    24           0     0
-      14     2 TRUE  three            0     6           0     0
-      15     2 FALSE four             0     4           0     0
-      16     2 TRUE  four             0    20           0     0
-      17     2 FALSE five             0     8           0     0
-      18     2 TRUE  five             0     2           0     0
+           .it vs    gear  .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <fct>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE three     2.64e-14    24    2.64e-14 2.64e-14
+       2     0 TRUE  three     2.64e-14     6    2.64e-14 2.64e-14
+       3     0 FALSE four      2.64e-14     4    2.64e-14 2.64e-14
+       4     0 TRUE  four      2.64e-14    20    2.64e-14 2.64e-14
+       5     0 FALSE five      2.64e-14     8    2.64e-14 2.64e-14
+       6     0 TRUE  five      2.64e-14     2    2.64e-14 2.64e-14
+       7     1 FALSE three     2.64e-14    24    2.64e-14 2.64e-14
+       8     1 TRUE  three     2.64e-14     6    2.64e-14 2.64e-14
+       9     1 FALSE four      2.64e-14     4    2.64e-14 2.64e-14
+      10     1 TRUE  four      2.64e-14    20    2.64e-14 2.64e-14
+      11     1 FALSE five      2.64e-14     8    2.64e-14 2.64e-14
+      12     1 TRUE  five      2.64e-14     2    2.64e-14 2.64e-14
+      13     2 FALSE three     2.64e-14    24    2.64e-14 2.64e-14
+      14     2 TRUE  three     2.64e-14     6    2.64e-14 2.64e-14
+      15     2 FALSE four      2.64e-14     4    2.64e-14 2.64e-14
+      16     2 TRUE  four      2.64e-14    20    2.64e-14 2.64e-14
+      17     2 FALSE five      2.64e-14     8    2.64e-14 2.64e-14
+      18     2 TRUE  five      2.64e-14     2    2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:carb`
       # A tibble: 30 x 7
-           .it vs     carb .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE     1            0     0           0     0
-       2     0 TRUE      1            0    14           0     0
-       3     0 FALSE     2            0    10           0     0
-       4     0 TRUE      2            0     9           0     0
-       5     0 FALSE     3            0     8           0     0
-       6     0 TRUE      3            0     1           0     0
-       7     0 FALSE     4            0    13           0     0
-       8     0 TRUE      4            0     3           0     0
-       9     0 FALSE     8            0     5           0     0
-      10     0 TRUE      8            0     1           0     0
+           .it vs     carb .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE     1     2.64e-14     0    2.64e-14 2.64e-14
+       2     0 TRUE      1     2.64e-14    14    2.64e-14 2.64e-14
+       3     0 FALSE     2     2.64e-14    10    2.64e-14 2.64e-14
+       4     0 TRUE      2     2.64e-14     9    2.64e-14 2.64e-14
+       5     0 FALSE     3     2.64e-14     8    2.64e-14 2.64e-14
+       6     0 TRUE      3     2.64e-14     1    2.64e-14 2.64e-14
+       7     0 FALSE     4     2.64e-14    13    2.64e-14 2.64e-14
+       8     0 TRUE      4     2.64e-14     3    2.64e-14 2.64e-14
+       9     0 FALSE     8     2.64e-14     5    2.64e-14 2.64e-14
+      10     0 TRUE      8     2.64e-14     1    2.64e-14 2.64e-14
       # i 20 more rows
       
       $`North America`$d2$`vs:wt`
       # A tibble: 60 x 7
-           .it vs       wt .y_composite    .n .y_distinct    .y
-         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl> <dbl>
-       1     0 FALSE  1.50            0     0           0     0
-       2     0 TRUE   1.50            0     1           0     0
-       3     0 FALSE  1.94            0     0           0     0
-       4     0 TRUE   1.94            0     7           0     0
-       5     0 FALSE  2.46            0     2           0     0
-       6     0 TRUE   2.46            0     5           0     0
-       7     0 FALSE  2.79            0     4           0     0
-       8     0 TRUE   2.79            0     3           0     0
-       9     0 FALSE  3.19            0     4           0     0
-      10     0 TRUE   3.19            0     3           0     0
+           .it vs       wt .y_composite    .n .y_distinct       .y
+         <dbl> <fct> <dbl>        <dbl> <dbl>       <dbl>    <dbl>
+       1     0 FALSE  1.50     2.64e-14     0    2.64e-14 2.64e-14
+       2     0 TRUE   1.50     2.64e-14     1    2.64e-14 2.64e-14
+       3     0 FALSE  1.94     2.64e-14     0    2.64e-14 2.64e-14
+       4     0 TRUE   1.94     2.64e-14     7    2.64e-14 2.64e-14
+       5     0 FALSE  2.46     2.64e-14     2    2.64e-14 2.64e-14
+       6     0 TRUE   2.46     2.64e-14     5    2.64e-14 2.64e-14
+       7     0 FALSE  2.79     2.64e-14     4    2.64e-14 2.64e-14
+       8     0 TRUE   2.79     2.64e-14     3    2.64e-14 2.64e-14
+       9     0 FALSE  3.19     2.64e-14     4    2.64e-14 2.64e-14
+      10     0 TRUE   3.19     2.64e-14     3    2.64e-14 2.64e-14
       # i 50 more rows
       
       $`North America`$d2$`am:model`
@@ -6016,25 +6016,25 @@
       $Asia$d1
       $Asia$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE      28 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$am
       # A tibble: 2 x 7
@@ -6096,193 +6096,193 @@
       $Asia$d2
       $Asia$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 Lincoln Contine~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 310 more rows
       
       $Asia$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 three        7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 20 more rows
       
       $Asia$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4         1     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9         1     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9         1     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 40 more rows
       
       $Asia$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1    1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 90 more rows
       
       $Asia$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   FALSE     14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  TRUE      12 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   TRUE      14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE   Lincoln Continent~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE  Cadillac Fleetwood     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE   Cadillac Fleetwood     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE  Merc 450SL             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE   Merc 450SL             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE  Merc 450SLC            2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE   Merc 450SLC            0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE  Camaro Z28             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE   Camaro Z28             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 54 more rows
       
       $Asia$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   three        6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  four         4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   four        20 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      5 FALSE  five         8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      6 TRUE   five         2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE           1    14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE          2    10 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE           2     9 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE          3     8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE           3     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE          4    13 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE           4     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE          8     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE           8     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE      1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE     1.94     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE      1.94     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE     2.46     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE      2.46     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE     2.79     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE      2.79     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE     3.19     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE      3.19     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11 FALSE     3.44     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12 TRUE      3.44     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13 FALSE     3.52     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14 TRUE      3.52     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15 FALSE     3.73     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16 TRUE      3.73     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17 FALSE     4.05     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18 TRUE      4.05     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19 FALSE     5.45     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20 TRUE      5.45     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`am:model`
       # A tibble: 64 x 8
@@ -6457,25 +6457,25 @@
       $Europe$d1
       $Europe$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE      28 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$am
       # A tibble: 2 x 7
@@ -6537,193 +6537,193 @@
       $Europe$d2
       $Europe$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 Lincoln Contine~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 310 more rows
       
       $Europe$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 three        7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 20 more rows
       
       $Europe$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4         1     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9         1     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9         1     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 40 more rows
       
       $Europe$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1    1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 90 more rows
       
       $Europe$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   FALSE     14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  TRUE      12 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   TRUE      14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE   Lincoln Continent~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE  Cadillac Fleetwood     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE   Cadillac Fleetwood     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE  Merc 450SL             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE   Merc 450SL             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE  Merc 450SLC            2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE   Merc 450SLC            0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE  Camaro Z28             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE   Camaro Z28             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 54 more rows
       
       $Europe$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   three        6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  four         4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   four        20 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      5 FALSE  five         8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      6 TRUE   five         2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE           1    14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE          2    10 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE           2     9 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE          3     8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE           3     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE          4    13 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE           4     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE          8     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE           8     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE      1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE     1.94     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE      1.94     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE     2.46     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE      2.46     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE     2.79     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE      2.79     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE     3.19     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE      3.19     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11 FALSE     3.44     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12 TRUE      3.44     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13 FALSE     3.52     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14 TRUE      3.52     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15 FALSE     3.73     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16 TRUE      3.73     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17 FALSE     4.05     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18 TRUE      4.05     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19 FALSE     5.45     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20 TRUE      5.45     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`am:model`
       # A tibble: 64 x 8
@@ -6904,25 +6904,25 @@
       $Asia$d1
       $Asia$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE      28 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d1$am
       # A tibble: 2 x 7
@@ -6984,193 +6984,193 @@
       $Asia$d2
       $Asia$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 FALSE      7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 FALSE      1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 FALSE      5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 FALSE      2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 FALSE      0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11     10.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12     14.4 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13     15.2 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14     16.4 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15     18.7 TRUE       0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16     19.8 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17     21.4 TRUE       6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18     22.9 TRUE       2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19     30.1 TRUE       5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20     33.9 TRUE       7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 Lincoln Contine~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 Lincoln Contine~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 310 more rows
       
       $Asia$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4 three        7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7 three        5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4 three        1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9 three        3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9 three        0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 20 more rows
       
       $Asia$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8         1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4         1     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9         1     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1         1     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9         1     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 40 more rows
       
       $Asia$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2     14.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3     15.2    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4     16.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5     18.7    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6     19.8    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7     21.4    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8     22.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9     30.1    1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10     33.9    1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 90 more rows
       
       $Asia$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   FALSE     14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  TRUE      12 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   TRUE      14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE   Lincoln Continent~     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE  Cadillac Fleetwood     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE   Cadillac Fleetwood     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE  Merc 450SL             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE   Merc 450SL             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE  Merc 450SLC            2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE   Merc 450SLC            0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE  Camaro Z28             2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE   Camaro Z28             0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       # i 54 more rows
       
       $Asia$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      2 TRUE   three        6 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      3 FALSE  four         4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      4 TRUE   four        20 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      5 FALSE  five         8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      6 TRUE   five         2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE           1    14 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE          2    10 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE           2     9 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE          3     8 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE           3     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE          4    13 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE           4     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE          8     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE           8     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       2 TRUE      1.50     1 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       3 FALSE     1.94     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       4 TRUE      1.94     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       5 FALSE     2.46     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       6 TRUE      2.46     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       7 FALSE     2.79     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       8 TRUE      2.79     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+       9 FALSE     3.19     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      10 TRUE      3.19     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      11 FALSE     3.44     2 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      12 TRUE      3.44     5 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      13 FALSE     3.52     3 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      14 TRUE      3.52     4 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      15 FALSE     3.73     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      16 TRUE      3.73     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      17 FALSE     4.05     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      18 TRUE      4.05     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      19 FALSE     5.45     7 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
+      20 TRUE      5.45     0 1.20e-14 1.20e-14 1.20e-14  1.20e-14 1.20e-14
       
       $Asia$d2$`model:gear`
       # A tibble: 96 x 8
@@ -7278,25 +7278,25 @@
       $Europe$d1
       $Europe$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE      28 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d1$am
       # A tibble: 2 x 7
@@ -7358,193 +7358,193 @@
       $Europe$d2
       $Europe$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 FALSE      7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 FALSE      1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 FALSE      5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 FALSE      2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 FALSE      0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11     10.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12     14.4 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13     15.2 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14     16.4 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15     18.7 TRUE       0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16     19.8 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17     21.4 TRUE       6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18     22.9 TRUE       2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19     30.1 TRUE       5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20     33.9 TRUE       7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 Lincoln Contine~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 Lincoln Contine~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 310 more rows
       
       $Europe$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4 three        7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7 three        5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4 three        1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9 three        3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9 three        0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 20 more rows
       
       $Europe$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8         1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4         1     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9         1     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1         1     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9         1     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 40 more rows
       
       $Europe$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2     14.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3     15.2    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4     16.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5     18.7    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6     19.8    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7     21.4    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8     22.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9     30.1    1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10     33.9    1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 90 more rows
       
       $Europe$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   FALSE     14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  TRUE      12 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   TRUE      14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE   Lincoln Continent~     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE  Cadillac Fleetwood     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE   Cadillac Fleetwood     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE  Merc 450SL             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE   Merc 450SL             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE  Merc 450SLC            2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE   Merc 450SLC            0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE  Camaro Z28             2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE   Camaro Z28             0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       # i 54 more rows
       
       $Europe$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      2 TRUE   three        6 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      3 FALSE  four         4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      4 TRUE   four        20 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      5 FALSE  five         8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      6 TRUE   five         2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE           1    14 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE          2    10 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE           2     9 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE          3     8 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE           3     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE          4    13 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE           4     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE          8     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE           8     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       2 TRUE      1.50     1 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       3 FALSE     1.94     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       4 TRUE      1.94     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       5 FALSE     2.46     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       6 TRUE      2.46     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       7 FALSE     2.79     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       8 TRUE      2.79     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+       9 FALSE     3.19     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      10 TRUE      3.19     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      11 FALSE     3.44     2 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      12 TRUE      3.44     5 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      13 FALSE     3.52     3 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      14 TRUE      3.52     4 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      15 FALSE     3.73     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      16 TRUE      3.73     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      17 FALSE     4.05     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      18 TRUE      4.05     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      19 FALSE     5.45     7 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
+      20 TRUE      5.45     0 1.31e-14 1.31e-14 1.31e-14  1.31e-14 1.31e-14
       
       $Europe$d2$`model:gear`
       # A tibble: 96 x 8
@@ -7652,32 +7652,32 @@
       $`North America`$d1
       $`North America`$d1$mpg
       # A tibble: 10 x 7
-         mpg.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4     1     0     0       0         0     0
-       2     14.4     7     0     0       0         0     0
-       3     15.2     7     0     0       0         0     0
-       4     16.4     7     0     0       0         0     0
-       5     18.7     7     0     0       0         0     0
-       6     19.8     7     0     0       0         0     0
-       7     21.4     7     0     0       0         0     0
-       8     22.9     7     0     0       0         0     0
-       9     30.1     7     0     0       0         0     0
-      10     33.9     7     0     0       0         0     0
+         mpg.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d1$vs
       # A tibble: 2 x 7
-        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36     0     0       0         0     0
-      2 TRUE      28     0     0       0         0     0
+        vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE     36 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE      28 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d1$am
       # A tibble: 2 x 7
         am.bin    .n        .y     .y_lo   .y_mean .y_median    .y_hi
         <ord>  <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
       1 FALSE     38 -5.57e-10 -9.65e-10 -5.57e-10 -8.52e-10 1.02e-10
-      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.72e-11 7.00e-10
+      2 TRUE      26  1.57e-10 -2.14e-10  1.57e-10 -4.71e-11 7.00e-10
       
       $`North America`$d1$model
       # A tibble: 32 x 7
@@ -7718,207 +7718,207 @@
          wt.ceil    .n       .y     .y_lo  .y_mean .y_median    .y_hi
            <dbl> <int>    <dbl>     <dbl>    <dbl>     <dbl>    <dbl>
        1    1.50     1 6.60e-10  6.60e-10 6.60e-10  6.60e-10 6.60e-10
-       2    1.94     7 2.64e-10 -1.50e-12 2.64e-10  1.40e-10 6.34e-10
-       3    2.46     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
+       2    1.94     7 2.64e-10 -1.47e-12 2.64e-10  1.40e-10 6.34e-10
+       3    2.46     7 2.19e-10 -4.35e-11 2.19e-10  6.88e-11 6.08e-10
        4    2.79     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
        5    3.19     7 2.19e-10 -4.36e-11 2.19e-10  6.88e-11 6.08e-10
-       6    3.44     7 2.19e-10 -4.29e-11 2.19e-10  6.88e-11 6.09e-10
-       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.09e-10
-       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
-       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
-      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.89e-11 6.09e-10
+       6    3.44     7 2.19e-10 -4.28e-11 2.19e-10  6.88e-11 6.09e-10
+       7    3.52     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+       8    3.73     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+       9    4.05     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
+      10    5.45     7 2.19e-10 -4.28e-11 2.19e-10  6.90e-11 6.10e-10
       
       
       $`North America`$d2
       $`North America`$d2$`mpg:vs`
       # A tibble: 20 x 8
-         mpg.ceil vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      7     0     0       0         0     0
-       4     16.4 FALSE      7     0     0       0         0     0
-       5     18.7 FALSE      3     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      4     0     0       0         0     0
-       8     22.9 FALSE      0     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       0     0     0       0         0     0
-      14     16.4 TRUE       0     0     0       0         0     0
-      15     18.7 TRUE       4     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       3     0     0       0         0     0
-      18     22.9 TRUE       7     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil vs.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 FALSE      3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 FALSE      4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 FALSE      2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11     10.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12     14.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13     15.2 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14     16.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15     18.7 TRUE       4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16     19.8 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17     21.4 TRUE       3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18     22.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19     30.1 TRUE       5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20     33.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`mpg:am`
       # A tibble: 20 x 8
-         mpg.ceil am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 FALSE      1     0     0       0         0     0
-       2     14.4 FALSE      7     0     0       0         0     0
-       3     15.2 FALSE      5     0     0       0         0     0
-       4     16.4 FALSE      5     0     0       0         0     0
-       5     18.7 FALSE      7     0     0       0         0     0
-       6     19.8 FALSE      5     0     0       0         0     0
-       7     21.4 FALSE      1     0     0       0         0     0
-       8     22.9 FALSE      5     0     0       0         0     0
-       9     30.1 FALSE      2     0     0       0         0     0
-      10     33.9 FALSE      0     0     0       0         0     0
-      11     10.4 TRUE       0     0     0       0         0     0
-      12     14.4 TRUE       0     0     0       0         0     0
-      13     15.2 TRUE       2     0     0       0         0     0
-      14     16.4 TRUE       2     0     0       0         0     0
-      15     18.7 TRUE       0     0     0       0         0     0
-      16     19.8 TRUE       2     0     0       0         0     0
-      17     21.4 TRUE       6     0     0       0         0     0
-      18     22.9 TRUE       2     0     0       0         0     0
-      19     30.1 TRUE       5     0     0       0         0     0
-      20     33.9 TRUE       7     0     0       0         0     0
+         mpg.ceil am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 FALSE      7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 FALSE      1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 FALSE      5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 FALSE      2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 FALSE      0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11     10.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12     14.4 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13     15.2 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14     16.4 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15     18.7 TRUE       0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16     19.8 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17     21.4 TRUE       6 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18     22.9 TRUE       2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19     30.1 TRUE       5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20     33.9 TRUE       7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`mpg:model`
       # A tibble: 320 x 8
-         mpg.ceil model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 Lincoln Continental     0     0     0       0         0     0
-       2     14.4 Lincoln Continental     2     0     0       0         0     0
-       3     15.2 Lincoln Continental     0     0     0       0         0     0
-       4     16.4 Lincoln Continental     0     0     0       0         0     0
-       5     18.7 Lincoln Continental     0     0     0       0         0     0
-       6     19.8 Lincoln Continental     0     0     0       0         0     0
-       7     21.4 Lincoln Continental     0     0     0       0         0     0
-       8     22.9 Lincoln Continental     0     0     0       0         0     0
-       9     30.1 Lincoln Continental     0     0     0       0         0     0
-      10     33.9 Lincoln Continental     0     0     0       0         0     0
+         mpg.ceil model.bin           .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>            <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 Lincoln Contine~     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 Lincoln Contine~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 310 more rows
       
       $`North America`$d2$`mpg:gear`
       # A tibble: 30 x 8
-         mpg.ceil gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl> <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4 three        1     0     0       0         0     0
-       2     14.4 three        7     0     0       0         0     0
-       3     15.2 three        5     0     0       0         0     0
-       4     16.4 three        5     0     0       0         0     0
-       5     18.7 three        5     0     0       0         0     0
-       6     19.8 three        3     0     0       0         0     0
-       7     21.4 three        1     0     0       0         0     0
-       8     22.9 three        3     0     0       0         0     0
-       9     30.1 three        0     0     0       0         0     0
-      10     33.9 three        0     0     0       0         0     0
+         mpg.ceil gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl> <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4 three        1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4 three        7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7 three        5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8 three        3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4 three        1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9 three        3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1 three        0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9 three        0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 20 more rows
       
       $`North America`$d2$`mpg:carb`
       # A tibble: 50 x 8
-         mpg.ceil carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>     <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4         1     0     0     0       0         0     0
-       2     14.4         1     0     0     0       0         0     0
-       3     15.2         1     0     0     0       0         0     0
-       4     16.4         1     0     0     0       0         0     0
-       5     18.7         1     2     0     0       0         0     0
-       6     19.8         1     0     0     0       0         0     0
-       7     21.4         1     1     0     0       0         0     0
-       8     22.9         1     5     0     0       0         0     0
-       9     30.1         1     2     0     0       0         0     0
-      10     33.9         1     4     0     0       0         0     0
+         mpg.ceil carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>     <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7         1     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8         1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4         1     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9         1     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1         1     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9         1     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 40 more rows
       
       $`North America`$d2$`mpg:wt`
       # A tibble: 100 x 8
-         mpg.ceil wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-            <dbl>   <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1     10.4    1.50     0     0     0       0         0     0
-       2     14.4    1.50     0     0     0       0         0     0
-       3     15.2    1.50     0     0     0       0         0     0
-       4     16.4    1.50     0     0     0       0         0     0
-       5     18.7    1.50     0     0     0       0         0     0
-       6     19.8    1.50     0     0     0       0         0     0
-       7     21.4    1.50     0     0     0       0         0     0
-       8     22.9    1.50     0     0     0       0         0     0
-       9     30.1    1.50     1     0     0       0         0     0
-      10     33.9    1.50     0     0     0       0         0     0
+         mpg.ceil wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+            <dbl>   <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1     10.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2     14.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3     15.2    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4     16.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5     18.7    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6     19.8    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7     21.4    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8     22.9    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9     30.1    1.50     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10     33.9    1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 90 more rows
       
       $`North America`$d2$`vs:am`
       # A tibble: 4 x 8
-        vs.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  FALSE     24     0     0       0         0     0
-      2 TRUE   FALSE     14     0     0       0         0     0
-      3 FALSE  TRUE      12     0     0       0         0     0
-      4 TRUE   TRUE      14     0     0       0         0     0
+        vs.bin am.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>  <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  FALSE     24 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE   FALSE     14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      3 FALSE  TRUE      12 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      4 TRUE   TRUE      14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:model`
       # A tibble: 64 x 8
-         vs.bin model.bin              .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>  <ord>               <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE  Lincoln Continental     2     0     0       0         0     0
-       2 TRUE   Lincoln Continental     0     0     0       0         0     0
-       3 FALSE  Cadillac Fleetwood      2     0     0       0         0     0
-       4 TRUE   Cadillac Fleetwood      0     0     0       0         0     0
-       5 FALSE  Merc 450SL              2     0     0       0         0     0
-       6 TRUE   Merc 450SL              0     0     0       0         0     0
-       7 FALSE  Merc 450SLC             2     0     0       0         0     0
-       8 TRUE   Merc 450SLC             0     0     0       0         0     0
-       9 FALSE  Camaro Z28              2     0     0       0         0     0
-      10 TRUE   Camaro Z28              0     0     0       0         0     0
+         vs.bin model.bin             .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>  <ord>              <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE  Lincoln Continent~     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE   Lincoln Continent~     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE  Cadillac Fleetwood     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE   Cadillac Fleetwood     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE  Merc 450SL             2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE   Merc 450SL             0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE  Merc 450SLC            2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE   Merc 450SLC            0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE  Camaro Z28             2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE   Camaro Z28             0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       # i 54 more rows
       
       $`North America`$d2$`vs:gear`
       # A tibble: 6 x 8
-        vs.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
-        <ord>  <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE  three       24     0     0       0         0     0
-      2 TRUE   three        6     0     0       0         0     0
-      3 FALSE  four         4     0     0       0         0     0
-      4 TRUE   four        20     0     0       0         0     0
-      5 FALSE  five         8     0     0       0         0     0
-      6 TRUE   five         2     0     0       0         0     0
+        vs.bin gear.bin    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+        <ord>  <ord>    <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+      1 FALSE  three       24 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      2 TRUE   three        6 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      3 FALSE  four         4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      4 TRUE   four        20 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      5 FALSE  five         8 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      6 TRUE   five         2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:carb`
       # A tibble: 10 x 8
-         vs.bin carb.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>      <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE          1     0     0     0       0         0     0
-       2 TRUE           1    14     0     0       0         0     0
-       3 FALSE          2    10     0     0       0         0     0
-       4 TRUE           2     9     0     0       0         0     0
-       5 FALSE          3     8     0     0       0         0     0
-       6 TRUE           3     1     0     0       0         0     0
-       7 FALSE          4    13     0     0       0         0     0
-       8 TRUE           4     3     0     0       0         0     0
-       9 FALSE          8     5     0     0       0         0     0
-      10 TRUE           8     1     0     0       0         0     0
+         vs.bin carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>      <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE          1     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE           1    14 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE          2    10 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE           2     9 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE          3     8 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE           3     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE          4    13 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE           4     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE          8     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE           8     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`vs:wt`
       # A tibble: 20 x 8
-         vs.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-         <ord>    <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1 FALSE     1.50     0     0     0       0         0     0
-       2 TRUE      1.50     1     0     0       0         0     0
-       3 FALSE     1.94     0     0     0       0         0     0
-       4 TRUE      1.94     7     0     0       0         0     0
-       5 FALSE     2.46     2     0     0       0         0     0
-       6 TRUE      2.46     5     0     0       0         0     0
-       7 FALSE     2.79     4     0     0       0         0     0
-       8 TRUE      2.79     3     0     0       0         0     0
-       9 FALSE     3.19     4     0     0       0         0     0
-      10 TRUE      3.19     3     0     0       0         0     0
-      11 FALSE     3.44     2     0     0       0         0     0
-      12 TRUE      3.44     5     0     0       0         0     0
-      13 FALSE     3.52     3     0     0       0         0     0
-      14 TRUE      3.52     4     0     0       0         0     0
-      15 FALSE     3.73     7     0     0       0         0     0
-      16 TRUE      3.73     0     0     0       0         0     0
-      17 FALSE     4.05     7     0     0       0         0     0
-      18 TRUE      4.05     0     0     0       0         0     0
-      19 FALSE     5.45     7     0     0       0         0     0
-      20 TRUE      5.45     0     0     0       0         0     0
+         vs.bin wt.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
+         <ord>    <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
+       1 FALSE     1.50     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       2 TRUE      1.50     1 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       3 FALSE     1.94     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       4 TRUE      1.94     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       5 FALSE     2.46     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       6 TRUE      2.46     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       7 FALSE     2.79     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       8 TRUE      2.79     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+       9 FALSE     3.19     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      10 TRUE      3.19     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      11 FALSE     3.44     2 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      12 TRUE      3.44     5 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      13 FALSE     3.52     3 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      14 TRUE      3.52     4 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      15 FALSE     3.73     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      16 TRUE      3.73     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      17 FALSE     4.05     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      18 TRUE      4.05     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      19 FALSE     5.45     7 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
+      20 TRUE      5.45     0 2.64e-14 2.64e-14 2.64e-14  2.64e-14 2.64e-14
       
       $`North America`$d2$`model:gear`
       # A tibble: 96 x 8
@@ -8044,22 +8044,22 @@
        9 model Merc 450S~    NA    NA           NA     2   3.12 -0.235        NA    NA
       10 model Camaro Z28    NA    NA           NA     2   3.12  0.0975       NA    NA
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       $Asia$d2
       # A tibble: 315 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 305 more rows
       
       
@@ -8079,22 +8079,22 @@
        9 model Merc 450S~    NA    NA           NA     2   3.12  0.764        NA    NA
       10 model Camaro Z28    NA    NA           NA     2   3.12 -0.0688       NA    NA
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       $Europe$d2
       # A tibble: 310 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 300 more rows
       
       
@@ -8114,22 +8114,22 @@
        9 model Merc 450~    NA    NA           NA     2   3.12 -5.29e- 1      NA    NA
       10 model Camaro Z~    NA    NA           NA     2   3.12 -2.87e- 2      NA    NA
       # i 34 more rows
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       $`North America`$d2
       # A tibble: 307 x 8
-         term1 x1          term2 x2    mid_bar     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>   <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap    25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap     9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap     2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap     4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap     5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap    19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap    18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap    13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap     7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap     4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct     y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
       # i 297 more rows
       
       
@@ -8152,23 +8152,23 @@
       6 wt    <NA>     1.50  1.50        0       1  1.56 NA        0.0000319   3.19e-5
       7 wt    <NA>     1.94  1.94        0       7 10.9  NA       -0.00000143 -1.43e-6
       8 wt    <NA>     2.46  5.45       75.6    56 87.5  NA       -0.00000906 -9.07e-6
-      # i 2 more variables: trend <dbl>, mid_bar <ord>
+      # i 2 more variables: trend <dbl>, aler_band <ord>
       
       $Asia$d2
-      # A tibble: 160 x 8
-         term1 x1    term2 x2                  mid_bar     n   pct      y
-         <chr> <chr> <chr> <chr>               <ord>   <int> <dbl>  <dbl>
-       1 am    FALSE model Lincoln Continental above       2  3.12 0.214 
-       2 am    FALSE model Cadillac Fleetwood  above       2  3.12 0.323 
-       3 am    FALSE model Merc 450SL          overlap     2  3.12 0.0915
-       4 am    FALSE model Merc 450SLC         overlap     2  3.12 0.0915
-       5 am    FALSE model Camaro Z28          overlap     2  3.12 0.0910
-       6 am    FALSE model Chrysler Imperial   overlap     2  3.12 0.0822
-       7 am    FALSE model Duster 360          overlap     2  3.12 0.0822
-       8 am    FALSE model Merc 450SE          overlap     2  3.12 0.0766
-       9 am    FALSE model Hornet Sportabout   overlap     2  3.12 0.0766
-      10 am    FALSE model AMC Javelin         overlap     2  3.12 0.0610
-      # i 150 more rows
+      # A tibble: 128 x 8
+         term1 x1    term2 x2    aler_band     n   pct         y
+         <chr> <chr> <chr> <chr> <ord>     <int> <dbl>     <dbl>
+       1 am    FALSE gear  three below        30 46.9  -0.0927  
+       2 am    FALSE gear  four  below         8 12.5  -0.191   
+       3 am    TRUE  gear  four  overlap      16 25    -0.433   
+       4 am    TRUE  gear  five  below        10 15.6  -0.766   
+       5 am    FALSE carb  [1,2] above         6  9.38  0.0166  
+       6 am    TRUE  carb  [1,2] overlap      15 23.4   0.00816 
+       7 am    FALSE carb  [1,2] overlap      12 18.8   0.0134  
+       8 am    FALSE carb  (2,4] above         7 10.9   0.0134  
+       9 am    TRUE  carb  (2,4] overlap       2  3.12 -0.000226
+      10 am    FALSE carb  (2,4] overlap      11 17.2   0.190   
+      # i 118 more rows
       
       
       $Europe
@@ -8187,22 +8187,22 @@
        9 model Horne~      NA    NA         NA     2  3.12 -0.237       NA    NA    NA
       10 model AMC J~      NA    NA         NA     2  3.12 -0.0841      NA    NA    NA
       # i 30 more rows
-      # i 1 more variable: mid_bar <ord>
+      # i 1 more variable: aler_band <ord>
       
       $Europe$d2
       # A tibble: 133 x 8
-         term1 x1    term2 x2         mid_bar     n   pct         y
-         <chr> <chr> <chr> <chr>      <ord>   <int> <dbl>     <dbl>
-       1 am    FALSE carb  [1,2]      overlap    18 28.1  -0.0150  
-       2 am    TRUE  carb  [1,2]      below       8 12.5  -0.0166  
-       3 am    TRUE  carb  [1,2]      overlap     7 10.9   0.000253
-       4 am    FALSE carb  (2,4]      overlap     7 10.9  -0.0134  
-       5 am    TRUE  carb  (2,4]      overlap     2  3.12  0.000227
-       6 am    FALSE carb  (2,4]      below      11 17.2  -0.190   
-       7 am    TRUE  carb  (2,4]      below       5  7.81 -0.454   
-       8 am    FALSE carb  (4,8]      below       2  3.12 -0.190   
-       9 am    TRUE  carb  (4,8]      below       4  6.25 -0.454   
-      10 am    TRUE  wt    [1.5,2.79] below       7 10.9  -0.0338  
+         term1 x1    term2 x2         aler_band     n   pct         y
+         <chr> <chr> <chr> <chr>      <ord>     <int> <dbl>     <dbl>
+       1 am    FALSE carb  [1,2]      overlap      18 28.1  -0.0150  
+       2 am    TRUE  carb  [1,2]      below         8 12.5  -0.0166  
+       3 am    TRUE  carb  [1,2]      overlap       7 10.9   0.000253
+       4 am    FALSE carb  (2,4]      overlap       7 10.9  -0.0134  
+       5 am    TRUE  carb  (2,4]      overlap       2  3.12  0.000227
+       6 am    FALSE carb  (2,4]      below        11 17.2  -0.190   
+       7 am    TRUE  carb  (2,4]      below         5  7.81 -0.454   
+       8 am    FALSE carb  (4,8]      below         2  3.12 -0.190   
+       9 am    TRUE  carb  (4,8]      below         4  6.25 -0.454   
+      10 am    TRUE  wt    [1.5,2.79] below         7 10.9  -0.0338  
       # i 123 more rows
       
       
@@ -8222,22 +8222,22 @@
        9 model Horne~      NA    NA         NA     2  3.12 -0.195       NA    NA    NA
       10 model AMC J~      NA    NA         NA     2  3.12 -0.362       NA    NA    NA
       # i 27 more rows
-      # i 1 more variable: mid_bar <ord>
+      # i 1 more variable: aler_band <ord>
       
       $`North America`$d2
       # A tibble: 167 x 8
-         term1 x1    term2 x2                  mid_bar     n   pct       y
-         <chr> <chr> <chr> <chr>               <ord>   <int> <dbl>   <dbl>
-       1 am    FALSE model Lincoln Continental below       2  3.12 -0.0218
-       2 am    FALSE model Cadillac Fleetwood  below       2  3.12 -0.0218
-       3 am    FALSE model Merc 450SL          below       2  3.12 -0.0226
-       4 am    FALSE model Merc 450SLC         below       2  3.12 -0.0226
-       5 am    FALSE model Camaro Z28          below       2  3.12 -0.0226
-       6 am    FALSE model Chrysler Imperial   overlap     2  3.12 -0.0226
-       7 am    FALSE model Duster 360          overlap     2  3.12 -0.0226
-       8 am    FALSE model Merc 450SE          overlap     2  3.12 -0.0230
-       9 am    FALSE model Hornet Sportabout   overlap     2  3.12 -0.0230
-      10 am    FALSE model AMC Javelin         overlap     2  3.12 -0.0230
+         term1 x1    term2 x2                  aler_band     n   pct       y
+         <chr> <chr> <chr> <chr>               <ord>     <int> <dbl>   <dbl>
+       1 am    FALSE model Lincoln Continental below         2  3.12 -0.0218
+       2 am    FALSE model Cadillac Fleetwood  below         2  3.12 -0.0218
+       3 am    FALSE model Merc 450SL          below         2  3.12 -0.0226
+       4 am    FALSE model Merc 450SLC         below         2  3.12 -0.0226
+       5 am    FALSE model Camaro Z28          below         2  3.12 -0.0226
+       6 am    FALSE model Chrysler Imperial   overlap       2  3.12 -0.0226
+       7 am    FALSE model Duster 360          overlap       2  3.12 -0.0226
+       8 am    FALSE model Merc 450SE          overlap       2  3.12 -0.0230
+       9 am    FALSE model Hornet Sportabout   overlap       2  3.12 -0.0230
+      10 am    FALSE model AMC Javelin         overlap       2  3.12 -0.0230
       # i 157 more rows
       
       

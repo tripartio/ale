@@ -16,6 +16,7 @@
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param stats character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
+#' @param relative_y Same as in documentation for [ALEPlots()]
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 #' @param silent See documentation for [resolve_x_cols()]
 #'
@@ -77,6 +78,7 @@ method(get, ALE) <- function(
     exclude_cols = NULL,
     stats = NULL,
     cats = NULL,
+    relative_y = 'median',
     simplify = TRUE,
     silent = FALSE
 ) {
@@ -132,6 +134,11 @@ method(get, ALE) <- function(
   )
 
   validate(
+    is_string(relative_y, c('median', 'mean', 'zero')),
+    msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
+  )
+
+  validate(
     is_bool(simplify),
     msg = '{.arg simplify} must be {.val TRUE} or {.val FALSE}.'
   )
@@ -146,7 +153,8 @@ method(get, ALE) <- function(
   # Rename what depending on what the user requests.
   # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
-    if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'conf' else 'stats'
+    if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'ale' else 'stats'
+    # if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'conf' else 'stats'
   } else {
     what
   }
@@ -156,6 +164,24 @@ method(get, ALE) <- function(
     map(\(it.cat_el) {
       it.cat_el[[what]]
     })
+
+  # Shift ale_data and y_summary by relative_y.
+  # Calculate shift amount.
+  y_shift <- relative_y |> case_match(
+    'median' ~ obj@params$y_summary['50%', cats, drop = FALSE],
+    'mean' ~ obj@params$y_summary['mean', cats, drop = FALSE],
+    'zero' ~ matrix(
+      0,
+      nrow = 1, ncol = length(cats),
+      dimnames = list('zero', cats)
+    )
+  )
+  dimnames(y_shift) <- list(rownames(y_shift), cats)
+  # y_shift <- case_when(
+  #   relative_y == 'median' ~ obj@params$y_summary['50%', cats, drop = FALSE],
+  #   relative_y == 'mean' ~ obj@params$y_summary['mean', cats, drop = FALSE],
+  #   relative_y == 'zero' ~ 0
+  # )
 
   if (what == 'stats') {
     specific_what <- all_what |>
@@ -188,57 +214,137 @@ method(get, ALE) <- function(
           })
       })
   }
-  else if (what == 'conf') {
+  else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
+  # else if (what == 'conf') {
+    browser()
+    if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {  # nocov start
+      if (!silent) cli_inform(c(
+        '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
+        'i' = 'There {?is/are} {obj@params$boot_it} bootstrap iteration{?s}.',
+        'i' = 'p-values {?is/are} based on {obj@params$p_values@params$rand_it_ok} iteration{?s}.'
+      ))
+    }  # nocov end
+
     specific_what <- all_what |>
       imap(\(it.cat_el, it.cat_name) {
         # Filter by requested 1D x_cols
-        it.cat_el_d1 <- it.cat_el$d1 |>
-          filter(term %in% x_cols$d1)
+        it.conf_1D <- if (length(x_cols$d1) > 0) {
+          it.c1 <- summarize_conf_regions_1D(
+            it.cat_el$d1[x_cols$d1],
+            obj@params$y_summary
+          )
 
-        it.cat_el_d1 <- if (stats |> is_string('conf_regions')) {
-          it.cat_el_d1
-        }
-        else if (stats |> is_string('conf_sig')) {
-          # Find terms with greater than obj@params$aler_alpha[2] % of significant values
-          sig_1D_terms <- it.cat_el_d1 |>
-            filter(mid_bar != 'overlap') |>
-            summarize(
-              .by = 'term',
-              sig_pct = sum(pct)
-            ) |>
-            filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
-            pull(term)
+          if (stats |> is_string('conf_sig')) {
+            # Find terms with greater than obj@params$aler_alpha[2] % of significant values
+            sig_1D_terms <- it.c1 |>
+              filter(aler_band != 'overlap') |>
+              summarize(
+                .by = 'term',
+                sig_pct = sum(pct)
+              ) |>
+              filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
+              pull(term)
 
-          it.cat_el_d1 |>
-            filter(term %in% sig_1D_terms)
+            it.c1 <- it.c1 |>
+              filter(term %in% sig_1D_terms)
+          }
+
+          it.c1
+        } else {
+          NULL
         }
 
         # Filter by requested 2D x_cols
-        it.cat_el_d2 <- it.cat_el$d2 |>
-          filter(paste0(term1, ':', term2) %in% x_cols$d2)
+        it.conf_2D <- if (length(x_cols$d2) > 0) {
+          it.c2 <- summarize_conf_regions_2D(
+            it.cat_el$d2[x_cols$d2],
+            obj@params$y_summary
+          )
 
-        it.cat_el_d2 <- if (stats |> is_string('conf_regions')) {
-          it.cat_el_d2
-        }
-        else if (stats |> is_string('conf_sig')) {
-          # Find terms with greater than obj@params$aler_alpha[2] % of significant values
-          sig_2D_terms <- it.cat_el_d2 |>
-            filter(mid_bar != 'overlap') |>
-            summarize(
-              .by = all_of(c('term1', 'term2')),
-              sig_pct = sum(pct)
-            ) |>
-            filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
-            mutate(term = paste0(term1, ':', term2)) |>
-            pull(term)
+          if (stats |> is_string('conf_sig')) {
+            # Find terms with greater than obj@params$aler_alpha[2] % of significant values
+            sig_2D_terms <- it.c2 |>
+              filter(aler_band != 'overlap') |>
+              summarize(
+                .by = all_of(c('term1', 'term2')),
+                sig_pct = sum(pct)
+              ) |>
+              filter(sig_pct >= (obj@params$aler_alpha[2] * 200)) |>
+              mutate(term = paste0(term1, ':', term2)) |>
+              pull(term)
 
-          it.cat_el_d2 |>
-            filter(paste0(term1, ':', term2) %in% sig_2D_terms)
+            it.c2 <- it.c2 |>
+              filter(paste0(term1, ':', term2) %in% sig_2D_terms)
+          }
+
+          it.c2
+        } else {
+          NULL
         }
+        # it.cat_el_d1 <- if (!is.null(it.cat_el$d1)) {
+        #   it.ced1 <- it.cat_el$d1 |>
+        #     filter(term %in% x_cols$d1)
+        #
+        #   it.ced1 <- if (stats |> is_string('conf_regions')) {
+        #     it.ced1
+        #   }
+        #   else if (stats |> is_string('conf_sig')) {
+        #     # Find terms with greater than obj@params$aler_alpha[2] % of significant values
+        #     sig_1D_terms <- it.ced1 |>
+        #       filter(aler_band != 'overlap') |>
+        #       summarize(
+        #         .by = 'term',
+        #         sig_pct = sum(pct)
+        #       ) |>
+        #       filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
+        #       pull(term)
+        #
+        #     it.ced1 |>
+        #       filter(term %in% sig_1D_terms)
+        #   }
+        #
+        #   browser()
+        #   it.ced1
+        # } else {  # it.cat_el$d1 is NULL
+        #   NULL
+        # }
+#
+#         # Filter by requested 2D x_cols
+#         it.cat_el_d2 <- if (!is.null(it.cat_el$d2)) {
+#           it.ced2 <- it.cat_el$d2 |>
+#             filter(paste0(term1, ':', term2) %in% x_cols$d2)
+#
+#           it.ced2 <- if (stats |> is_string('conf_regions')) {
+#             it.ced2
+#           }
+#           else if (stats |> is_string('conf_sig')) {
+#             # Find terms with greater than obj@params$aler_alpha[2] % of significant values
+#             sig_2D_terms <- it.ced2 |>
+#               filter(aler_band != 'overlap') |>
+#               summarize(
+#                 .by = all_of(c('term1', 'term2')),
+#                 sig_pct = sum(pct)
+#               ) |>
+#               filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
+#               mutate(term = paste0(term1, ':', term2)) |>
+#               pull(term)
+#
+#             it.ced2 |>
+#               filter(paste0(term1, ':', term2) %in% sig_2D_terms)
+#           }
+#
+#           browser()
+#           it.ced2
+#         } else {  # it.cat_el$d1 is NULL
+#           NULL
+#         }
+
 
         list(
-          d1 = it.cat_el_d1,
-          d2 = it.cat_el_d2
+          d1 = it.conf_1D,
+          d2 = it.conf_2D
+          # d1 = it.cat_el_d1,
+          # d2 = it.cat_el_d2
         )
       })
   }
@@ -250,7 +356,12 @@ method(get, ALE) <- function(
           map(\(it.d) {
             x_cols[[it.d]] |>
               map(\(it.d_term) {
-                all_what[[it.cat_name]][[it.d]][[it.d_term]]
+                # browser()
+                all_what[[it.cat_name]][[it.d]][[it.d_term]] |>
+                  mutate(across(
+                    starts_with('.y'),
+                    \(col.y) col.y + y_shift[, it.cat_name]
+                  ))
               }) |>
               set_names(x_cols[[it.d]])
           }) |>
@@ -389,6 +500,7 @@ method(get, ModelBoot) <- function(
     type = 'auto',
     stats = NULL,
     cats = NULL,
+    relative_y = 'median',
     simplify = TRUE
 ) {
 
@@ -421,6 +533,7 @@ method(get, ModelBoot) <- function(
     what = what,
     stats = stats,
     cats = cats,
+    relative_y = relative_y,
     simplify = simplify
   )
 }
