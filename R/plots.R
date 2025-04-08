@@ -272,7 +272,7 @@ plot_ale_1D <- function(
     plot <- plot +
       geom_errorbar(
         aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
-        width = 1,
+        width = if (is_string(cat_plot, 'overlay')) 1 else 0.1,
         position = position_dodge2(preserve = 'single')
       ) +
       # Add labels for percentage of dataset. This serves the equivalent function of rugs for numeric data.
