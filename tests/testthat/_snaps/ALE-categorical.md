@@ -7,7 +7,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -487,41 +487,6 @@
        9 aler_max         0       1 mpg:am        0     0      0         0
       10 naled            0       0 mpg:am        0     0      0         0
       # i 116 more rows
-      
-      
-      attr(,"effect")$Asia$conf
-      attr(,"effect")$Asia$conf$d1
-      # A tibble: 45 x 12
-         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
-         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
-       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
-       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
-       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
-       4 am    FALSE         NA    NA           NA    38  59.4   0.00619      NA    NA
-       5 am    TRUE          NA    NA           NA    26  40.6   0.0155       NA    NA
-       6 model Lincoln C~    NA    NA           NA     2   3.12 -0.0226       NA    NA
-       7 model Cadillac ~    NA    NA           NA     2   3.12  0.0932       NA    NA
-       8 model Merc 450SL    NA    NA           NA     2   3.12 -0.235        NA    NA
-       9 model Merc 450S~    NA    NA           NA     2   3.12 -0.235        NA    NA
-      10 model Camaro Z28    NA    NA           NA     2   3.12  0.0975       NA    NA
-      # i 35 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
-      
-      attr(,"effect")$Asia$conf$d2
-      # A tibble: 315 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
-      # i 305 more rows
       
       
       attr(,"effect")$Asia$boot_data
@@ -1462,41 +1427,6 @@
       # i 116 more rows
       
       
-      attr(,"effect")$Europe$conf
-      attr(,"effect")$Europe$conf$d1
-      # A tibble: 45 x 12
-         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
-         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
-       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
-       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
-       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
-       4 am    FALSE         NA    NA           NA    38  59.4  -0.00619      NA    NA
-       5 am    TRUE          NA    NA           NA    26  40.6  -0.0155       NA    NA
-       6 model Lincoln C~    NA    NA           NA     2   3.12  0.217        NA    NA
-       7 model Cadillac ~    NA    NA           NA     2   3.12  0.268        NA    NA
-       8 model Merc 450SL    NA    NA           NA     2   3.12  0.931        NA    NA
-       9 model Merc 450S~    NA    NA           NA     2   3.12  0.764        NA    NA
-      10 model Camaro Z28    NA    NA           NA     2   3.12 -0.0688       NA    NA
-      # i 35 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
-      
-      attr(,"effect")$Europe$conf$d2
-      # A tibble: 310 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
-      # i 300 more rows
-      
-      
       attr(,"effect")$Europe$boot_data
       attr(,"effect")$Europe$boot_data$d1
       attr(,"effect")$Europe$boot_data$d1$mpg
@@ -2435,41 +2365,6 @@
       # i 116 more rows
       
       
-      attr(,"effect")$`North America`$conf
-      attr(,"effect")$`North America`$conf$d1
-      # A tibble: 44 x 12
-         term  x         start_x end_x x_span_pct     n    pct         y start_y end_y
-         <chr> <chr>       <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>   <dbl> <dbl>
-       1 mpg   <NA>         10.4  33.9        100    64 100    NA              0     0
-       2 vs    FALSE        NA    NA           NA    36  56.2   0             NA    NA
-       3 vs    TRUE         NA    NA           NA    28  43.8   0             NA    NA
-       4 am    FALSE        NA    NA           NA    38  59.4  -5.57e-10      NA    NA
-       5 am    TRUE         NA    NA           NA    26  40.6   1.57e-10      NA    NA
-       6 model Lincoln ~    NA    NA           NA     2   3.12 -1.95e- 1      NA    NA
-       7 model Cadillac~    NA    NA           NA     2   3.12 -3.61e- 1      NA    NA
-       8 model Merc 450~    NA    NA           NA     2   3.12 -6.95e- 1      NA    NA
-       9 model Merc 450~    NA    NA           NA     2   3.12 -5.29e- 1      NA    NA
-      10 model Camaro Z~    NA    NA           NA     2   3.12 -2.87e- 2      NA    NA
-      # i 34 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
-      
-      attr(,"effect")$`North America`$conf$d2
-      # A tibble: 307 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
-      # i 297 more rows
-      
-      
       attr(,"effect")$`North America`$boot_data
       attr(,"effect")$`North America`$boot_data$d1
       attr(,"effect")$`North America`$boot_data$d1$mpg
@@ -3102,9 +2997,6 @@
       NULL
       
       attr(,"params")$output_stats
-      [1] TRUE
-      
-      attr(,"params")$output_conf
       [1] TRUE
       
       attr(,"params")$output_boot_data
@@ -8027,6 +7919,10 @@
 
     Code
       get(cat_cars_ale, stats = "conf_regions")
+    Message
+      ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
+      i There are 2 bootstrap iterations.
+      i p-values are based on 100 iterations.
     Output
       $Asia
       $Asia$d1
@@ -8138,6 +8034,10 @@
 
     Code
       get(cat_cars_ale, stats = "conf_sig")
+    Message
+      ! Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.
+      i There are 2 bootstrap iterations.
+      i p-values are based on 100 iterations.
     Output
       $Asia
       $Asia$d1
@@ -61632,8 +61532,8 @@
     Message
       <ALE> object of a <multinom/nnet> model that predicts `continent` (a
       categorical outcome) from a 64-row by 8-column dataset.
-      ALE data, statistics, surrogate p-values, confidence regions, and raw bootstrap
-      data are provided for the following terms:
+      ALE data, statistics, surrogate p-values, and raw bootstrap data are provided
+      for the following terms:
       7 1D terms: mpg, vs, am, model, gear, carb, and wt
       21 2D terms: mpg:vs, mpg:am, mpg:model, mpg:gear, mpg:carb, mpg:wt, vs:am,
       vs:model, vs:gear, vs:carb, vs:wt, am:model, am:gear, am:carb, am:wt,

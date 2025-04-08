@@ -5,8 +5,8 @@
     Message
       <ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome)
       from a 64-row by 8-column dataset.
-      ALE data, statistics, surrogate p-values, and confidence regions are provided
-      for the following terms:
+      ALE data, statistics, and surrogate p-values are provided for the following
+      terms:
       2 1D terms: model and carb
       1 2D term: am:wt
       The results were bootstrapped with 2 iterations.
@@ -20,7 +20,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -469,9 +469,6 @@
       # i 116 more rows
       
       
-      attr(,"effect")$mpg$conf
-      NULL
-      
       attr(,"effect")$mpg$boot_data
       NULL
       
@@ -647,9 +644,6 @@
       
       attr(,"params")$output_stats
       [1] TRUE
-      
-      attr(,"params")$output_conf
-      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE

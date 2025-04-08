@@ -257,7 +257,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -505,9 +505,6 @@
       
       attr(,"params")$output_stats
       [1] TRUE
-      
-      attr(,"params")$output_conf
-      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE
@@ -961,7 +958,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -1046,9 +1043,6 @@
       5 gear:carb naler_min -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0
       6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
-      
-      attr(,"effect")$vs$conf
-      NULL
       
       attr(,"effect")$vs$boot_data
       NULL
@@ -1217,9 +1211,6 @@
       
       attr(,"params")$output_stats
       [1] TRUE
-      
-      attr(,"params")$output_conf
-      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE
@@ -1664,7 +1655,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -1723,9 +1714,6 @@
       12 Petal.Width  naler_max  15.3         15.3          1.53e+1  1.53e+1   1.53e+1
       
       
-      attr(,"effect")$setosa$conf
-      NULL
-      
       attr(,"effect")$setosa$boot_data
       NULL
       
@@ -1783,9 +1771,6 @@
       12 Petal.Width  naler_max  14.7     14.7     14.7     14.7      14.7   
       
       
-      attr(,"effect")$versicolor$conf
-      NULL
-      
       attr(,"effect")$versicolor$boot_data
       NULL
       
@@ -1842,9 +1827,6 @@
       11 Petal.Width  naler_min -50      -50      -50      -50       -50     
       12 Petal.Width  naler_max  16       16       16       16        16     
       
-      
-      attr(,"effect")$virginica$conf
-      NULL
       
       attr(,"effect")$virginica$boot_data
       NULL
@@ -2232,9 +2214,6 @@
       
       attr(,"params")$output_stats
       [1] TRUE
-      
-      attr(,"params")$output_conf
-      [1] FALSE
       
       attr(,"params")$output_boot_data
       [1] FALSE

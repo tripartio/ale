@@ -22,7 +22,6 @@ test_that(
       test_gam,
       data = test_cars,
       p_values = pd,
-      output_conf = FALSE,
       boot_it = 3,
       parallel = 0,
       silent = TRUE,

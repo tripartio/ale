@@ -20,7 +20,6 @@
 #' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
-#' @param output_conf logical(1). If `TRUE`, return ALE confidence regions but only if statistics are requested (`output_stats = TRUE`), bootstrapping is requested (`boot_it > 0`), and `p_values` are available; otherwise raises an error. The default `NULL` will generate confidence regions if these conditions are met.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
 #' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
 #' @param p_values instructions for calculating p-values. Possible values are:
@@ -203,9 +202,7 @@ ALE <- new_class(
     parallel = 'all',
     model_packages = NULL,
     output_stats = TRUE,
-    output_conf = NULL,
     output_boot_data = FALSE,
-    # output = c('ale_data', 'stats', 'conf'),
     pred_fun = function(object, newdata, type = pred_type) {
       stats::predict(object = object, newdata = newdata, type = type)
     },
@@ -270,23 +267,6 @@ ALE <- new_class(
     validate(is_scalar_whole(boot_it))
 
     validate(is_bool(output_stats))
-
-    output_conf <- if (is.null(output_conf)) {
-      output_stats && boot_it > 0 && !is.null(p_values)
-    } else {
-      validate(
-        is_bool(output_conf),
-        msg = '{.arg output_conf} must be TRUE, FALSE, or NULL.'
-      )
-
-      if (output_conf) {  # nocov start
-        validate(
-          output_stats && boot_it > 0 && !is.null(p_values),
-          msg = 'If {.arg output_conf} is set to {.val TRUE}, {.arg output_stats} must also be {.val TRUE}, {.arg boot_it} must be positive, and {.arg p_values} must be provided. Otherwise, leave {.arg output_conf} at its default {.val NULL}.'
-        )
-      }  # nocov end
-      output_conf
-    }
 
     validate(is_bool(output_boot_data))
 
@@ -642,31 +622,12 @@ ALE <- new_class(
     # Calculate summary statistics ---------------------
 
     if (output_stats) {
-      if (
-        output_conf &&
-        (boot_it < 100 || p_values@params$rand_it_ok < 100)
-      ) {  # nocov start
-        if (!silent) cli_inform(c(
-          '!' = 'Note that confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
-          'i' = '{.arg boot_it} = {boot_it}.',
-          'i' = '{.arg p_values} is based on {p_values@params$rand_it_ok} iterations.'
-        ))
-      }  # nocov end
-
       for (it.cat in y_cats) {
         # 1D ALE statistics
         if (length(x_cols$d1) >= 1) {
           ale_struc$effect[[it.cat]]$d1$stats <-
             ale_struc$effect[[it.cat]]$d1$stats |>
             bind_rows()
-
-          if (output_conf) {
-            ale_struc$effect[[it.cat]]$d1$conf <-
-              summarize_conf_regions_1D(
-                ale_struc$effect[[it.cat]]$d1$ale,
-                y_summary[, it.cat, drop = FALSE]
-              )
-          }  # if (output_conf)
         }  # if (length(x_cols$d1) >= 1) {
 
         # 2D ALE statistics
@@ -674,14 +635,6 @@ ALE <- new_class(
           ale_struc$effect[[it.cat]]$d2$stats <-
             ale_struc$effect[[it.cat]]$d2$stats |>
             bind_rows()
-
-          if (output_conf) {
-            ale_struc$effect[[it.cat]]$d2$conf <-
-              summarize_conf_regions_2D(
-                ale_struc$effect[[it.cat]]$d2$ale,
-                y_summary[, it.cat, drop = FALSE]
-              )
-          }  # if (output_conf)
         }  # if (length(x_cols$d2) >= 1) {
       }  # for (it.cat in y_cats)
     }  # if (output_stats) {
@@ -695,7 +648,6 @@ ALE <- new_class(
         list(
           ale       = it.cat_el$ale,
           stats     = if (output_stats) it.cat_el$stats else NULL,
-          conf      = if (output_conf) it.cat_el$conf else NULL,
           boot_data = if (output_boot_data) it.cat_el$boot_data else NULL
         )
       })

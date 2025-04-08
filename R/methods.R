@@ -151,10 +151,9 @@ method(get, ALE) <- function(
   }
 
   # Rename what depending on what the user requests.
-  # # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
+  # The bootstrap option is named 'boot_data' for users to distinguish it from the 'boot' option in ModelBoot.
   what <- if (!is.null(stats)) {
     if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'ale' else 'stats'
-    # if (stats |> is_string(c('conf_regions', 'conf_sig'))) 'conf' else 'stats'
   } else {
     what
   }
@@ -215,8 +214,6 @@ method(get, ALE) <- function(
       })
   }
   else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
-  # else if (what == 'conf') {
-    browser()
     if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {  # nocov start
       if (!silent) cli_inform(c(
         '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
@@ -281,70 +278,10 @@ method(get, ALE) <- function(
         } else {
           NULL
         }
-        # it.cat_el_d1 <- if (!is.null(it.cat_el$d1)) {
-        #   it.ced1 <- it.cat_el$d1 |>
-        #     filter(term %in% x_cols$d1)
-        #
-        #   it.ced1 <- if (stats |> is_string('conf_regions')) {
-        #     it.ced1
-        #   }
-        #   else if (stats |> is_string('conf_sig')) {
-        #     # Find terms with greater than obj@params$aler_alpha[2] % of significant values
-        #     sig_1D_terms <- it.ced1 |>
-        #       filter(aler_band != 'overlap') |>
-        #       summarize(
-        #         .by = 'term',
-        #         sig_pct = sum(pct)
-        #       ) |>
-        #       filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
-        #       pull(term)
-        #
-        #     it.ced1 |>
-        #       filter(term %in% sig_1D_terms)
-        #   }
-        #
-        #   browser()
-        #   it.ced1
-        # } else {  # it.cat_el$d1 is NULL
-        #   NULL
-        # }
-#
-#         # Filter by requested 2D x_cols
-#         it.cat_el_d2 <- if (!is.null(it.cat_el$d2)) {
-#           it.ced2 <- it.cat_el$d2 |>
-#             filter(paste0(term1, ':', term2) %in% x_cols$d2)
-#
-#           it.ced2 <- if (stats |> is_string('conf_regions')) {
-#             it.ced2
-#           }
-#           else if (stats |> is_string('conf_sig')) {
-#             # Find terms with greater than obj@params$aler_alpha[2] % of significant values
-#             sig_2D_terms <- it.ced2 |>
-#               filter(aler_band != 'overlap') |>
-#               summarize(
-#                 .by = all_of(c('term1', 'term2')),
-#                 sig_pct = sum(pct)
-#               ) |>
-#               filter(sig_pct >= (obj@params$aler_alpha[2] * 100)) |>
-#               mutate(term = paste0(term1, ':', term2)) |>
-#               pull(term)
-#
-#             it.ced2 |>
-#               filter(paste0(term1, ':', term2) %in% sig_2D_terms)
-#           }
-#
-#           browser()
-#           it.ced2
-#         } else {  # it.cat_el$d1 is NULL
-#           NULL
-#         }
-
 
         list(
           d1 = it.conf_1D,
           d2 = it.conf_2D
-          # d1 = it.cat_el_d1,
-          # d2 = it.cat_el_d2
         )
       })
   }
@@ -449,7 +386,6 @@ method(print, ALE) <- function(x, ...) {
     'ALE data',
     if (x@params$output_stats) 'statistics' else NULL,
     if (!is.null(x@params$p_values)) x@params$p_values@params$exactness %+% ' p-values' else NULL,
-    if (x@params$output_conf) 'confidence regions' else NULL,
     if (x@params$output_boot_data) 'raw bootstrap data' else NULL
   )
 
@@ -620,12 +556,10 @@ method(print, ModelBoot) <- function(x, ...) {
   if (!is.null(x@ale)) {
     ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
     ale_p <- !is.null(x@params$ale_p)
-    ale_conf <- !is.null(x@ale$boot$effect[[1]]$conf) || x@ale$single@params$output_conf
     output_string <- c(
       'Accumulated local effects (ALE) data',
       if (ale_stats) 'statistics' else NULL,
-      if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL,
-      if (ale_conf) 'confidence regions' else NULL
+      if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL
     )
 
     cli_text(
