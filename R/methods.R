@@ -224,7 +224,11 @@ method(get, ALE) <- function(
           it.c1 <- summarize_conf_regions_1D(
             it.cat_el$d1[x_cols$d1],
             obj@params$y_summary
-          )
+          ) |>
+            mutate(across(
+              any_of(c('y', 'start_y', 'end_y')),
+              \(col.y) col.y + y_shift[, it.cat_name]
+            ))
 
           if (stats |> is_string('conf_sig')) {
             # Find terms with greater than obj@params$aler_alpha[2] % of significant values
@@ -251,7 +255,8 @@ method(get, ALE) <- function(
           it.c2 <- summarize_conf_regions_2D(
             it.cat_el$d2[x_cols$d2],
             obj@params$y_summary
-          )
+          ) |>
+            mutate(y = y + y_shift[, it.cat_name])
 
           if (stats |> is_string('conf_sig')) {
             # Find terms with greater than obj@params$aler_alpha[2] % of significant values
@@ -288,7 +293,6 @@ method(get, ALE) <- function(
           map(\(it.d) {
             x_cols[[it.d]] |>
               map(\(it.d_term) {
-                # browser()
                 all_what[[it.cat_name]][[it.d]][[it.d_term]] |>
                   mutate(across(
                     starts_with('.y'),

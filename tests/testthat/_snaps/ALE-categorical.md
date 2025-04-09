@@ -7927,105 +7927,105 @@
       $Asia
       $Asia$d1
       # A tibble: 45 x 12
-         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
-         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
-       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
-       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
-       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
-       4 am    FALSE         NA    NA           NA    38  59.4   0.00619      NA    NA
-       5 am    TRUE          NA    NA           NA    26  40.6   0.0155       NA    NA
-       6 model Lincoln C~    NA    NA           NA     2   3.12 -0.0226       NA    NA
-       7 model Cadillac ~    NA    NA           NA     2   3.12  0.0932       NA    NA
-       8 model Merc 450SL    NA    NA           NA     2   3.12 -0.235        NA    NA
-       9 model Merc 450S~    NA    NA           NA     2   3.12 -0.235        NA    NA
-      10 model Camaro Z28    NA    NA           NA     2   3.12  0.0975       NA    NA
+         term  x             start_x end_x x_span_pct     n    pct         y   start_y
+         <chr> <chr>           <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>     <dbl>
+       1 mpg   <NA>             10.4  33.9        100    64 100    NA         1.20e-14
+       2 vs    FALSE            NA    NA           NA    36  56.2   1.20e-14 NA       
+       3 vs    TRUE             NA    NA           NA    28  43.8   1.20e-14 NA       
+       4 am    FALSE            NA    NA           NA    38  59.4   6.19e- 3 NA       
+       5 am    TRUE             NA    NA           NA    26  40.6   1.55e- 2 NA       
+       6 model Lincoln Cont~    NA    NA           NA     2   3.12 -2.26e- 2 NA       
+       7 model Cadillac Fle~    NA    NA           NA     2   3.12  9.32e- 2 NA       
+       8 model Merc 450SL       NA    NA           NA     2   3.12 -2.35e- 1 NA       
+       9 model Merc 450SLC      NA    NA           NA     2   3.12 -2.35e- 1 NA       
+      10 model Camaro Z28       NA    NA           NA     2   3.12  9.75e- 2 NA       
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
+      # i 3 more variables: end_y <dbl>, trend <dbl>, aler_band <ord>
       
       $Asia$d2
       # A tibble: 315 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct        y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl>    <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1  1.20e-14
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1  1.20e-14
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12 1.20e-14
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25 1.20e-14
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81 1.20e-14
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7  1.20e-14
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1  1.20e-14
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3  1.20e-14
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9  1.20e-14
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25 1.20e-14
       # i 305 more rows
       
       
       $Europe
       $Europe$d1
       # A tibble: 45 x 12
-         term  x          start_x end_x x_span_pct     n    pct        y start_y end_y
-         <chr> <chr>        <dbl> <dbl>      <dbl> <int>  <dbl>    <dbl>   <dbl> <dbl>
-       1 mpg   <NA>          10.4  33.9        100    64 100    NA             0     0
-       2 vs    FALSE         NA    NA           NA    36  56.2   0            NA    NA
-       3 vs    TRUE          NA    NA           NA    28  43.8   0            NA    NA
-       4 am    FALSE         NA    NA           NA    38  59.4  -0.00619      NA    NA
-       5 am    TRUE          NA    NA           NA    26  40.6  -0.0155       NA    NA
-       6 model Lincoln C~    NA    NA           NA     2   3.12  0.217        NA    NA
-       7 model Cadillac ~    NA    NA           NA     2   3.12  0.268        NA    NA
-       8 model Merc 450SL    NA    NA           NA     2   3.12  0.931        NA    NA
-       9 model Merc 450S~    NA    NA           NA     2   3.12  0.764        NA    NA
-      10 model Camaro Z28    NA    NA           NA     2   3.12 -0.0688       NA    NA
+         term  x             start_x end_x x_span_pct     n    pct         y   start_y
+         <chr> <chr>           <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>     <dbl>
+       1 mpg   <NA>             10.4  33.9        100    64 100    NA         1.31e-14
+       2 vs    FALSE            NA    NA           NA    36  56.2   1.31e-14 NA       
+       3 vs    TRUE             NA    NA           NA    28  43.8   1.31e-14 NA       
+       4 am    FALSE            NA    NA           NA    38  59.4  -6.19e- 3 NA       
+       5 am    TRUE             NA    NA           NA    26  40.6  -1.55e- 2 NA       
+       6 model Lincoln Cont~    NA    NA           NA     2   3.12  2.17e- 1 NA       
+       7 model Cadillac Fle~    NA    NA           NA     2   3.12  2.68e- 1 NA       
+       8 model Merc 450SL       NA    NA           NA     2   3.12  9.31e- 1 NA       
+       9 model Merc 450SLC      NA    NA           NA     2   3.12  7.64e- 1 NA       
+      10 model Camaro Z28       NA    NA           NA     2   3.12 -6.88e- 2 NA       
       # i 35 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
+      # i 3 more variables: end_y <dbl>, trend <dbl>, aler_band <ord>
       
       $Europe$d2
       # A tibble: 310 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct        y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl>    <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1  1.31e-14
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1  1.31e-14
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12 1.31e-14
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25 1.31e-14
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81 1.31e-14
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7  1.31e-14
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1  1.31e-14
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3  1.31e-14
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9  1.31e-14
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25 1.31e-14
       # i 300 more rows
       
       
       $`North America`
       $`North America`$d1
       # A tibble: 44 x 12
-         term  x         start_x end_x x_span_pct     n    pct         y start_y end_y
-         <chr> <chr>       <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>   <dbl> <dbl>
-       1 mpg   <NA>         10.4  33.9        100    64 100    NA              0     0
-       2 vs    FALSE        NA    NA           NA    36  56.2   0             NA    NA
-       3 vs    TRUE         NA    NA           NA    28  43.8   0             NA    NA
-       4 am    FALSE        NA    NA           NA    38  59.4  -5.57e-10      NA    NA
-       5 am    TRUE         NA    NA           NA    26  40.6   1.57e-10      NA    NA
-       6 model Lincoln ~    NA    NA           NA     2   3.12 -1.95e- 1      NA    NA
-       7 model Cadillac~    NA    NA           NA     2   3.12 -3.61e- 1      NA    NA
-       8 model Merc 450~    NA    NA           NA     2   3.12 -6.95e- 1      NA    NA
-       9 model Merc 450~    NA    NA           NA     2   3.12 -5.29e- 1      NA    NA
-      10 model Camaro Z~    NA    NA           NA     2   3.12 -2.87e- 2      NA    NA
+         term  x             start_x end_x x_span_pct     n    pct         y   start_y
+         <chr> <chr>           <dbl> <dbl>      <dbl> <int>  <dbl>     <dbl>     <dbl>
+       1 mpg   <NA>             10.4  33.9        100    64 100    NA         2.64e-14
+       2 vs    FALSE            NA    NA           NA    36  56.2   2.64e-14 NA       
+       3 vs    TRUE             NA    NA           NA    28  43.8   2.64e-14 NA       
+       4 am    FALSE            NA    NA           NA    38  59.4  -5.57e-10 NA       
+       5 am    TRUE             NA    NA           NA    26  40.6   1.57e-10 NA       
+       6 model Lincoln Cont~    NA    NA           NA     2   3.12 -1.95e- 1 NA       
+       7 model Cadillac Fle~    NA    NA           NA     2   3.12 -3.61e- 1 NA       
+       8 model Merc 450SL       NA    NA           NA     2   3.12 -6.95e- 1 NA       
+       9 model Merc 450SLC      NA    NA           NA     2   3.12 -5.29e- 1 NA       
+      10 model Camaro Z28       NA    NA           NA     2   3.12 -2.87e- 2 NA       
       # i 34 more rows
-      # i 2 more variables: trend <dbl>, aler_band <ord>
+      # i 3 more variables: end_y <dbl>, trend <dbl>, aler_band <ord>
       
       $`North America`$d2
       # A tibble: 307 x 8
-         term1 x1          term2 x2    aler_band     n   pct     y
-         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl> <dbl>
-       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1      0
-       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1      0
-       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12     0
-       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25     0
-       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81     0
-       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7      0
-       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1      0
-       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3      0
-       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9      0
-      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25     0
+         term1 x1          term2 x2    aler_band     n   pct        y
+         <chr> <chr>       <chr> <chr> <ord>     <int> <dbl>    <dbl>
+       1 mpg   [10.4,18.7] vs    FALSE overlap      25 39.1  2.64e-14
+       2 mpg   (18.7,21.4] vs    FALSE overlap       9 14.1  2.64e-14
+       3 mpg   (21.4,33.9] vs    FALSE overlap       2  3.12 2.64e-14
+       4 mpg   [10.4,18.7] vs    TRUE  overlap       4  6.25 2.64e-14
+       5 mpg   (18.7,21.4] vs    TRUE  overlap       5  7.81 2.64e-14
+       6 mpg   (21.4,33.9] vs    TRUE  overlap      19 29.7  2.64e-14
+       7 mpg   [10.4,16.4] am    FALSE overlap      18 28.1  2.64e-14
+       8 mpg   (16.4,21.4] am    FALSE overlap      13 20.3  2.64e-14
+       9 mpg   (21.4,33.9] am    FALSE overlap       7 10.9  2.64e-14
+      10 mpg   [10.4,16.4] am    TRUE  overlap       4  6.25 2.64e-14
       # i 297 more rows
       
       
