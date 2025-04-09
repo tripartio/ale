@@ -507,7 +507,7 @@ plot_ale_2D <- function(
     labs(
       x = x1_col,
       y = x2_col,
-      fill = paste0(y_col, ' interaction'),
+      fill = paste0(y_col, '\ninteraction'),
       alt = str_glue(
         'ALE interaction plot of {y_col} encoded as a heatmap of its interaction ',
         'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
@@ -587,7 +587,7 @@ plot_ale_2D <- function(
         limits = c(min_y, max_y),
         breaks = breaks,
         labels = labels,
-        name = y_col %+% ' interaction',
+        name = y_col %+% '\ninteraction',
         guide = guide_colorbar(
           ticks = TRUE,
           ticks.colour = "black",
