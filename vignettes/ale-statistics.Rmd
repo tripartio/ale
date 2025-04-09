@@ -1,7 +1,7 @@
 ---
 title: "ALE-based statistics for statistical inference and effect sizes"
 author: "Chitu Okoli"
-date: "February 14, 2025"
+date: "April 9, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ALE-based statistics for statistical inference and effect sizes}
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Accumulated local effects (ALE) was developed by Daniel Apley and Jingyu Zhu <doi:10.1111/rssb.12377> as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette presents the initial effort at extending ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <doi:10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
+Accumulated local effects (ALE) was developed by Daniel Apley and Jingyu Zhu <doi:10.1111/rssb.12377> as a global explanation approach for interpretable machine learning (IML). However, the [`ale` package](ale-intro.html) aims to extend it for statistical inference, among other extensions. This vignette introduces the extensions of ALE for statistical inference. In particular, we present some effect size measures specific to ALE. We introduce these statistics in detail in a working paper: Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. <doi:10.48550/arXiv.2310.09877>. Please note that they might be further refined after peer review.
 
 We begin by loading the necessary libraries.
 
@@ -84,7 +84,7 @@ math <-
 glimpse(math)
 ```
 
-The structure has 160 rows, each of which refers to a school whose students have taken a mathematics achievement test. We describe the data here based on documentation from the `nlme` package but many details are not quite clear:
+The structure has 160 rows, each of which refers to a school whose students have taken a mathematics achievement test. We describe the data here based on documentation from the `nlme` package but some details are not quite clear:
 
 | variable       | format  | description                                                                                                                             |
 |------------------------------|------------------|------------------------|
@@ -106,18 +106,6 @@ The outcome variable that is the focus of our analysis is `math_avg`, the averag
 ```{r y summary}
 summary(math$math_avg)
 ```
-
-## Enable progress bars
-
-Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
-
-```{r enable progressr, eval = FALSE}
-# Run this in an R console; it will not work directly within an R Markdown or Quarto block
-progressr::handlers(global = TRUE)
-progressr::handlers('cli')
-```
-
-If you forget to do that, the `ale` package will do it automatically for you with a notification message.
 
 ## Full model bootstrap
 
@@ -145,24 +133,23 @@ The implication of this for p-values is that the distribution of the data must b
 * A random variable is added to the dataset.
 * The model is retrained with all variables including this new random variable.
 * ALE statistics are calculated for the random variable.
-* This procedure is repeated 1,000 times or so to get 1,000 statistic values from the 1,000 random  variables.
+* This procedure is repeated 1,000 times or so to get 1,000 ALE statistic values from the 1,000 random  variables.
 * p-values are calculated based on the frequency of times that the random variables obtain specific statistic values.
 
 As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The `ale` package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
 
-To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), we can create a `ALEpDist` object that can be run once for a given model-dataset pair. The `ALEpDist` object is used ton generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `ALEpDist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `ALEpDist()` constructor will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
+To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), we can create a `ALEpDist` object that can be run once for a given model-dataset pair. The `ALEpDist` object is used to generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `ALEpDist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `ALEpDist()` constructor will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
 We now demonstrate how to create the `ALEpDist` object for our case.
 
 ```{r ALEpDist}
 # # To generate the code, uncomment the following lines.
 # # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.
-# gam_math_p_dist <- ALEpDist(
-#   gam_math,
-#   math,
-# )
+# # For standard models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# gam_math_p_dist <- ALEpDist(gam_math)
 # saveRDS(gam_math_p_dist, file.choose())
-gam_math_p_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds') |> 
+gam_math_p_dist <- url('https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.0.5.0.rds') |> 
   readRDS()
 ```
 
@@ -185,11 +172,11 @@ By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be cont
 #   boot_it = 100  # default
 # )
 # saveRDS(mb_gam_math, file.choose())
-mb_gam_math <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.rds') |> 
+mb_gam_math <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.0.5.0.rds') |> 
   readRDS()
 ```
 
-We can see the bootstrapped values of various overall model statistics by printing the `model_stats` element of the model bootstrap object:
+We can see the bootstrapped values of various overall model statistics by printing the `model_stats` property of the model bootstrap object:
 
 ```{r model_stats}
 mb_gam_math@model_stats
@@ -200,7 +187,7 @@ The names of the columns follow the `broom` package conventions:
 -   `name` is the specific overall model statistic described in the row.
 -   `boot_valid` is the bootstrap-validated value of the performance metric specified in the `name` column. This is available only for machine-learning–style performance metrics like MAE and AUC; they are validated with (bootstrap validation with the .632 correction)[https://www.jstor.org/stable/2288636].
 -   `conf.low` and `conf.high` are the lower and upper confidence intervals respectively. `ModelBoot` defaults to a 95% confidence interval; this can be changed by setting the `boot_alpha` argument of its constructor (the default is 0.05 for a 95% confidence interval).
--   `median` and `mean` are the average bootstrapped estimates of the statistic.
+-   `median` and `mean` are the average bootstrapped estimates of the statistic. They are not relevant for bootstrap-validated metrics because those values are calculated with the .632 correction.
 -   `sd` is the standard deviation of the bootstrapped estimate.
 
 Our focus, however, in this vignette is on the effects of individual variables. These are available in the `model_coefs` element of the model bootstrap object:
@@ -209,7 +196,7 @@ Our focus, however, in this vignette is on the effects of individual variables. 
 mb_gam_math@model_coefs
 ```
 
-In this vignette, we cannot go into the details of how GAM models work (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")). However, for our model illustration here, the estimates for the parametric variables (the non-numeric ones in our model) are interpreted as regular statistical regression coefficients whereas the estimates for the non-parametric smoothed variables (those whose variable names are encapsulated by the smooth `s()` function) are actually estimates for expected degrees of freedom (EDF in GAM). The smooth function `s()` lets GAM model these numeric variables as flexible curves that fit the data better than a straight line. The `estimate` values for the smooth variables above are not so straightforward to interpret, but suffice it to say that they are completely different from regular regression coefficients.
+In this vignette, we cannot go into the details of how GAM models work (you can learn more with [Noam Ross's excellent tutorial](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM")). However, for our model illustration here, the estimates for the parametric variables (the non-numeric ones in our model) are interpreted as regular statistical regression coefficients whereas the estimates for the non-parametric smoothed variables (those whose variable names are encapsulated by the smooth `s()` function) are actually estimates for expected degrees of freedom (EDF in GAM). The smooth function `s()` lets GAM model these numeric variables as flexible curves that might fit the data better than a straight line. The `estimate` values for the smooth variables above are not so straightforward to interpret, but suffice it to say that they are completely different from regular regression coefficients.
 
 The `ale` package uses bootstrap-based confidence intervals, not p-values that assume predetermined distributions, to determine statistical significance. Although they are not quite as simple to interpret as counting the number of stars next to a p-value, they are not that complicated, either. Based on the default 95% confidence intervals, a coefficient is statistically significant if `conf.low` and `conf.high` are both positive or both negative. We can filter the results on this criterion:
 
@@ -222,7 +209,7 @@ mb_gam_math@model_coefs |>
 
 The statistical significance of the `estimate` (EDF) of the smooth terms is meaningless here because EDF cannot go below 1.0. Thus, even the random term `s(rand_norm)` appears to be "statistically significant". Only the values for the non-smooth (parametric terms) `public` and `high_minority` should be considered here. So, we find that neither of the coefficient estimates of `public` nor of `high_minority` has an effect that is statistically significantly different from zero. (The intercept is not conceptually meaningful here; it is a statistical artifact.)
 
-This initial analysis highlights two limitations of classical hypothesis-testing analysis. First, it might work suitably well when we use models that have traditional linear regression coefficients. But once we use more advanced models like GAM that flexibly fit the data, we cannot interpret coefficients meaningfully and so it is not so clear how to reach inferential conclusions. Second, a basic challenge with models that are based on the general linear model (including GAM and almost all other statistical analyses) is that their coefficient significance compares the estimates with the null hypothesis that there is no effect. However, even if there is an effect, it might not be practically meaningful. As we will see, ALE-based statistics are explicitly tailored to emphasize practical implications beyond the notion of "statistical significance".
+This initial analysis highlights two limitations of classical hypothesis-testing analysis. First, it might work suitably well when we use models that have traditional linear regression coefficients. But once we use more advanced models like GAM that flexibly fit the data, we cannot interpret coefficients meaningfully and so it is not so clear how to reach inferential conclusions. Second, a basic challenge with models that are based on the general linear model (including GAM and almost all other statistical analyses) is that their coefficient significance compares the estimates with the null hypothesis that there is no effect. However, even if there is an effect, it might not be practically meaningful. As we will see, ALE-based statistics are explicitly tailored to emphasize practical implications beyond the notion of mere "statistical significance".
 
 ## ALE effect size measures
 
@@ -237,17 +224,17 @@ print(mb_gam_plots, ncol = 2)
 
 We can see that most variables seem to have some sort of mean effect across various values. However, for statistical inference, our focus must be on the bootstrap intervals. Crucial to our interpretation is the middle grey band that indicates the median ± 5% of random values. Below, we will explain what exactly the ALE range (ALER) means, but for now, we can say this:
 
-* The approximate middle of the grey band is the median of the y outcome variables in the dataset (`math_avg`, in our case). The middle tick on the right y axis indicates the exact median. (The `plot()` function lets you centre the data on the mean or on zero if you prefer with the `relative_y` argument.)
+* The approximate middle of the grey band is the median of the *y* outcome variables in the dataset (`math_avg`, in our case). The middle tick on the right y-axis indicates the exact median. (If you prefer, the `plot()` function lets you centre the data on the mean or on zero with the `ale_centre` argument.)
 * We call this grey band the "ALER band". 95% of random variables had ALE values that fully lay within the ALER band. 
-* The dashed lines above and below the ALER band expand the boundaries to where 99% of the random variables were constrained. These boundaries could be considered as demarcating an extended or outward ALER band.
+* The dashed lines above and below the ALER band expand the boundaries to where 99% of the random variables were constrained. These boundaries could be considered as demarcating an extended or outer ALER band.
 
-The idea is that if the ALE values of any predictor variable falls fully within the ALER band, then it has no greater effect than 95% of purely random variables. Moreover, to consider any effect in the ALE plot to be statistically significant (that is, non-random), there should be no overlap between the bootstrapped confidence regions of a predictor variable and the ALER band. (For the threshold p-values, We use the conventional defaults of 0.05 for 95% confidence and 0.01 for 99% confidence, but the value can be changed with the `p_alpha` argument.)
+The idea is that if the ALE values of any predictor variable falls fully within the ALER band, then it has no greater effect than 95% of purely random variables. Moreover, to consider any effect in the ALE plot to be statistically significant (that is, non-random), there should be no overlap between the bootstrapped confidence regions of a predictor variable and the ALER band. (For the threshold p-values, We use the conventional defaults of 0.05 for 95% confidence and 0.01 for 99% confidence, but the value can be changed with the `aler_alpha` argument.)
 
-For categorical variables (`public` and `high_minority` above), the confidence interval bars for all categories overlap the ALER band. The confidence interval bars indicate two useful pieces of information to us. When we compare them to the ALER band, their overlap or lack thereof tells us about the practical significance of the category. When we compare the confidence bars of one category with those of others, it allows us to assess if the category has a statistically significant effect that is different from that of the other categories; this is equivalent to the regular interpretation of coefficients for GAM and other GLM models. In both cases, the confidence interval bars of the TRUE and FALSE categories overlap each other, indicating that there is no statistically significant difference between categories. Whereas the coefficient table above based on classic statistics indicated this conclusion for `public`, it indicated that `high_minority` had a statistically significant effect; our ALE analysis indicates that `high_minority` does not. In addition, each confidence interval band overlaps the ALER band, indicating that none of the effects is meaningfully different from random results, either.
+For the categorical variables (`public` and `high_minority` above), the confidence interval bars for all categories overlap the ALER band. The confidence interval bars indicate two useful pieces of information to us. When we compare them to the ALER band, their overlap or lack thereof tells us about the practical significance of the category. When we compare the confidence bars of one category with those of others, it allows us to assess if the category has a statistically significant effect that is different from that of the other categories; this is equivalent to the regular interpretation of coefficients for GAM and other GLM models. In both cases, the confidence interval bars of the TRUE and FALSE categories overlap each other, indicating that there is no statistically significant difference between categories. In addition, each confidence interval band overlaps the ALER band, indicating that none of the effects is meaningfully different from random results, either.
 
-For numeric variables, the confidence regions overlap the ALER band for most of the domains of the predictor variables except for some regions that we will examine. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the ALER band, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the ALER band for the entirety of their domains, so any apparent trends are not supported by the data.
+For numeric variables, the confidence regions overlap the ALER band for most of the domains of the predictor variables except for some regions that we examine below. The extreme points of each variable (except for `discrim` and `female_ratio`) are usually either slightly below or slightly above the ALER band, indicating that extreme values have the most extreme effects: math achievement increases with increasing school size, academic track ratio, and mean socioeconomic status, whereas it decreases with increasing minority ratio. The ratio of females and the discrimination climate both overlap the ALER band for the entirety of their domains, so the data do not support any apparent trends.
 
-Of particular interest is the random variable `rand_norm`, whose average ALE appears to show some sort of pattern. However, we note that the 95% confidence intervals we use mean that if we were to retry the analysis for twenty different random seeds, we would expect at least one of the random variables to partially escape the bounds of the ALER band. We will return below to the implications of random variables in ALE analysis.
+Of particular interest is the random variable `rand_norm`, whose average ALE appears to show some sort of pattern. However, we note that the 95% confidence intervals we use mean that if we were to retry the analysis for 100 different random seeds, we would expect around five of the random variables to partially escape the bounds of the ALER band. We will return below to the implications of random variables in ALE analysis.
 
 ### ALE plots without p-values
 
@@ -258,13 +245,14 @@ Before we continue, let us take a brief detour to see what we get if we create a
 # # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
 # mb_gam_no_p <- ModelBoot(
 #   gam_math,
+#   ale_p = NULL,  # disable ALE p-values
 #   # For the GAM model coefficients, show details of all variables, parametric or not
 #   tidy_options = list(parametric = TRUE),
 #   # tidy_options = list(parametric = NULL),
 #   boot_it = 40  # 100 by default but reduced here for a faster demonstration
 # )
 # saveRDS(mb_gam_no_p, file.choose())
-mb_gam_no_p <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.rds') |> 
+mb_gam_no_p <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.0.5.0.rds') |> 
   readRDS()
 
 plot(mb_gam_no_p) |> 
@@ -275,34 +263,34 @@ In the absence of p-values, the `ale` packages uses simpler visualizations to of
 
 For most of the rest of this article, we will only analyze the results with ALER bands generated from p-values, though we will briefly revisit ALE plots without p-values.
 
-### ALE effect size measures on the scale of the y outcome variable
+### ALE effect size measures on the scale of the *y* outcome variable
 
-Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated by calling the `plot()` method on an `ALE` object that has statistics calculated:
+Although ALE plots allow rapid and intuitive conclusions for statistical inference, it is often helpful to have summary numbers that quantify the average strengths of the effects of a variable. Thus, we have developed a collection of effect size measures based on ALE tailored for intuitive interpretation. To understand the intuition underlying the various ALE effect size measures, it is useful to first examine the **ALE effects plot**, which graphically summarizes the effect sizes of all the variables in the ALE analysis. This is generated with the `get()` method on an `ALEPlots` object with `type = 'effect'`:
 
 ```{r ALE-effects-plot, fig.width=8, fig.height=6}
-get(mb_gam_plots, type = 'eff')
+get(mb_gam_plots, type = 'effect')
 ```
 
 This plot is unusual, so it requires some explanation:
 
--   The y (vertical) axis displays the x variables, rather than the x axis. This is consistent with most effect size plots because they list the full names of variables. It is more readable to list them as labels on the y axis than the other way around.
--   The x (horizontal) axis thus displays the y (outcome) variable. But there are two representations of this same axis, one at the bottom and one at the top.
--   On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks default to five units each from 5 to 20, evenly spaced.
--   On the top, the outcome variable is expressed as percentiles ranging from 0 (the minimum outcome value in the dataset) to 100 (the maximum). It is divided into 10 deciles of 10% each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
--   Thus, this plot has two x axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slightly lighter align with the percentiles (upper axis).
--   The vertical grey band in the middle is the NALED band. Its width is the 0.05 p_value of the NALED (explained below). That is, 95% of random variables had a NALED equal or smaller than that width.
+-   The y- (vertical) axis displays the *x* variables, rather than the x-axis. This is consistent with most effect size plots because they list the full names of variables. It is more readable to list them as labels on the y-axis than the other way around.
+-   The x- (horizontal) axis thus displays the *y* (outcome) variable. But there are two representations of this same axis, one at the bottom and one at the top.
+-   On the bottom is a more typical axis of the outcome variable, in our case, `math_avg`. It is scaled as expected. In our case, the axis breaks by default to four to six units each from 5 to 20, evenly spaced.
+-   On the top, the outcome variable is expressed as percentiles ranging from -50‰ below the median (the minimum outcome value in the dataset) to +50‰ above the median (the maximum). It is divided into 10 deciles of 10‰ each. Because percentiles are usually not evenly distributed in a dataset, the decile breaks are not evenly spaced.
+-   Thus, this plot has two x-axes, the lower one in units of the outcome variable and the upper one in percentiles of the outcome variable. To reduce the confusion, the major vertical gridlines that are slightly darker align with the units of the outcome (lower axis) and the minor vertical gridlines that are slightly lighter align with the percentiles (upper axis).
+-   The vertical grey band in the middle is the NALED band. Its width is the 0.05 p-value of the NALED (explained below). That is, 95% of random variables had a NALED equal or smaller than that width.
 -   The variables on the horizontal axis are sorted by decreasing ALED and then NALED value (explained below).
 
 Although it is somewhat confusing to have two axes, the percentiles are a direct transformation of the raw outcome values. The first two base ALE effect size measures below are in units of the outcome variable while their normalized versions are in percentiles of the outcome. Thus, the same plot can display the two kinds of measures simultaneously. Referring to this plot can help understand each of the measures, which we proceed to explain in detail.
 
-Before we explain these measures in detail, we must reiterate the timeless reminder that correlation is not causation. So, none of the scores necessarily means that an x variable *causes* a certain effect on the y outcome; we can only say that the ALE effect size measures indicate associated or related variations between the two variables.
+Before we explain these measures in detail, we must reiterate the timeless reminder that correlation is not causation. So, none of the scores necessarily means that an *x* variable or "predictor" *causes* a certain effect on the *y* outcome; we can only say that the ALE effect size measures indicate associated or related variations between the two variables.
 
 #### ALE range (ALER)
 
 The easiest ALE statistic to understand is the ALE range (ALER), so we begin there. It is simply the range from the minimum to the maximum of any `ale_y` value for that variable. Mathematically, that is
 
 $$\mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}$$\
-where $\mathrm{ale\_y}$ is the vector of ALE y values for a variable.
+where $\mathrm{ale\_y}$ is the vector of ALE *y* values for a variable.
 
 All the ALE effect size measures are centred on zero so that they are consistent regardless of if the user chooses to centre their plots on zero, the median, or the mean. Specifically,
 
@@ -325,9 +313,9 @@ Here are the effect size measures for the categorical `public`:
 get(mb_gam_math, 'public', stats = 'all')
 ```
 
-We see there that `public` has an ALER of [`r c(get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min'], get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max']) |> round(2)`]. When we consider that the median math score in the dataset is `r median(math$math_avg) |> round(1)`, this ALER indicates that the minimum of any ALE y value for `public` (when `public == TRUE`) is `r get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min'] |> round(2)` below the median. This is shown at the `r (median(math$math_avg) + get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min']) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max'] |> round(2)` above the median, shown at the `r (median(math$math_avg) + get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max']) |> round(1)` point above.
+We see there that `public` has an ALER of [`r c(get(mb_gam_math, 'public', stats = 'aler_min')$estimate, get(mb_gam_math, 'public', stats = 'aler_max')$estimate) |> round(2)`]. When we consider that the median math score in the dataset is `r median(math$math_avg) |> round(1)`, this ALER indicates that the minimum of any ALE *y* value for `public` (when `public == TRUE`) is `r get(mb_gam_math, 'public', stats = 'aler_min')$estimate |> round(2)` below the median. This is shown at the `r (median(math$math_avg) + get(mb_gam_math, 'public', stats = 'aler_min')$estimate) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r get(mb_gam_math, 'public', stats = 'aler_max')$estimate |> round(2)` above the median, shown at the `r (median(math$math_avg) + get(mb_gam_math, 'public', stats = 'aler_max')$estimate) |> round(1)` point above.
 
-The unit for ALER is the same unit as the outcome variable; in our case, that is `math_avg` ranging from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`. No matter what the average ALE values might be, the ALER quickly shows the minimum and maximum effects of any value of the x variable on the y variable.
+The unit for ALER is the same unit as the outcome variable; in our case, that is `math_avg` ranging from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`. No matter what the average ALE values might be, the ALER quickly shows the minimum and maximum effects of any value of the *x* variable on the *y* variable.
 
 For contrast, let us look at a numeric variable, `academic_ratio`:
 
@@ -341,23 +329,41 @@ Here are its ALE effect size measures:
 get(mb_gam_math, 'academic_ratio', stats = 'all')
 ```
 
-The ALER for `academic_ratio` is considerably broader with `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['aler_min'] |> round(2)` below and `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['aler_max'] |> round(2)` above the median.
+The ALER for `academic_ratio` is considerably broader with `r get(mb_gam_math, 'academic_ratio', stats = 'aler_min')$estimate |> round(2)` below and `r get(mb_gam_math, 'academic_ratio', stats = 'aler_max')$estimate |> round(2)` above the median.
 
 #### ALE deviation (ALED)
 
-While the ALE range shows the most extreme effects a variable might have on the outcome, the ALE deviation indicates its average effect over its full domain of values. With the zero-centred ALE values, it is conceptually similar to the weighted mean absolute error (MAE) of the ALE y values. Mathematically, it is
+While the ALE range shows the most extreme effects a variable might have on the outcome, the ALE deviation indicates its average effect over its full domain of values. Based on the zero-centred ALE values, ALED is conceptually similar to the weighted mean absolute error (MAE) of the ALE *y* values. Mathematically, it is
 
 $$
 \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
-$$ where $i$ is the index of $k$ ALE x intervals for the variable (for a categorical variable, this is the number of distinct categories), $\mathrm{ale\_y}_i$ is the ALE y value for the $i$th ALE x interval, and $\mathrm{ale\_n}_i$ is the number of rows of data in the $i$th ALE x interval.
+$$ 
 
-Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r get(mb_gam_math, 'public', stats = 'all')$estimate['aled'] |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). In the effects plot above, the ALED is indicated by a white box bounded by parentheses ( and ). As it is centred on the median, we can readily see that the average effect of school sector barely exceeds the limits of the ALER band, indicating that it barely exceeds our threshold of practical relevance. The average effect for ratio of academic track students is slightly higher at `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['aled'] |> round(2)`. We can see on the plot that it slightly exceeds the ALER band on both sides, indicating its slightly stronger effect. We will comment on the values of other variables when we discuss the normalized versions of these scores, to which we proceed next.
+where $i$ is the index of $k$ ALE *x* intervals for the variable (for a categorical variable, this is the number of distinct categories), $\mathrm{ale\_y}_i$ is the ALE *y* value for the $i$th ALE *x* interval, and $\mathrm{ale\_n}_i$ is the number of rows in the $i$th ALE *x* interval.
+
+However, whereas @eq-aled-categorical describes ALED for non-numeric values where each ALE *x* interval is a distinct *x* value with a corresponding ALE *y* value, it requires some adjustment for numeric *x* values where `.ceil` represents the upper bound of each bin. Thus, for numeric values, two adjustments are needed. First, to convert the `.ceil` boundaries into proper discrete bins, the number of rows (`.n`) in the first element (representing the minimum) is added to the second element. Second, rather than the `.y` values at the bin boundaries, `.y` for each bin is recalculated as the midpoint between consecutive `.ceil` boundaries. The adjusted ALED formula for numeric *x* variables is given in @eq-aled-numeric.
+
+$$
+\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k-1} \left|  \frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right) \times \mathrm{ale\_n}_i' \right|}{\sum_{i=1}^{k-1} \mathrm{ale\_n}_i'}
+$$ {#eq-aled-numeric} where: 
+
+- ${ale\_n}_i'$ is the adjusted number of rows for the $i$th interval, with the first element adjusted to include the number of rows from the minimum interval (@eq-aled-numeric-adjustment). $$
+  \mathrm{ale\_n}_i' = 
+  \begin{cases}
+  \mathrm{ale\_n}_i + \mathrm{ale\_n}_{i+1} & \text{if } i = 1 \\
+  \mathrm{ale\_n}_i & \text{otherwise}
+  \end{cases}
+$$ {#eq-aled-numeric-adjustment}
+
+- $\frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right)$ represents the recalculated ALE $y$ value for each bin, taken as the midpoint between consecutive $ale\_y$ values.
+
+Based on its ALED, we can say that the average effect on math scores of whether a school is in the public or Catholic sector is `r get(mb_gam_math, 'public', stats = 'aled')$estimate |> round(2)` (again, out of a range from `r round(min(math$math_avg, 2))` to `r round(max(math$math_avg, 2))`). In the effects plot above, the ALED is indicated by a white box bounded by parentheses `(` and `)`. As it is centred on the median, we can readily see that the average effect of school sector barely exceeds the limits of the ALER band, indicating that it barely exceeds our threshold of practical relevance. The average effect for ratio of academic track students is slightly higher at `r get(mb_gam_math, 'academic_ratio', stats = 'aled')$estimate |> round(2)`. We can see on the plot that it slightly exceeds the ALER band on both sides, indicating its slightly stronger effect. We will comment on the values of other variables when we discuss the normalized versions of these scores, to which we proceed next.
 
 ### Normalized ALE effect size measures
 
-Since ALER and ALED scores are scaled on the range of y for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred y values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE y values, all negative and zero values are converted to their percentile score relative to the lower half of the original y values while all positive ALE y values are converted to their percentile score relative to the upper half. (Technically, this percentile assignment is called the empirical cumulative distribution function (ECDF) of each half.) Each half is then divided by two to scale them from 0 to 50 so that together they can represent 100 percentiles. (Note: when a centred ALE y value of exactly 0 occurs, we choose to include the score of zero ALE y in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.) The transformed maximum ALE y is then scaled as a percentile from 0 to 100%.
+Since ALER and ALED scores are scaled on the range of *y* for a given dataset, these scores cannot be compared across datasets. Thus, we present normalized versions of each with intuitive, comparable values. For intuitive interpretation, we normalize the scores on the minimum, median, and maximum of any dataset. In principle, we divide the zero-centred *y* values in a dataset into two halves: the lower half from the 0th to the 50th percentile (the median) and the upper half from the 50th to the 100th percentile. (Note that the median is included in both halves). With zero-centred ALE *y* values, all negative and zero values are converted to their percentile score relative to the lower half of the original *y* values while all positive ALE *y* values are converted to their percentile score relative to the upper half. (Technically, this percentile assignment is called the empirical cumulative distribution function (ECDF) of each half.) Each half is then divided by two to scale them from 0 to 50 so that together they can represent 100 percentiles. (Note: when a centred ALE *y* value of exactly 0 occurs, we choose to include the score of zero ALE *y* in the lower half because it is analogous to the 50th percentile of all values, which more intuitively belongs in the lower half of 100 percentiles.) The transformed maximum ALE *y* is then scaled as a percentile from 0 to 100%.
 
-There is a notable complication. This normalization smoothly distributes ALE y values when there are many distinct values, but when there are only a few distinct ALE y values, then even a minimal ALE y deviation can have a relatively large percentile difference. If any ALE y value is less than the difference between the median in the data and the value either immediately below or above the median, we consider that it has virtually no effect. Thus, the normalization sets such minimal ALE y values as zero.
+There is a notable complication. This normalization smoothly distributes ALE *y* values when there are many distinct values, but when there are only a few distinct ALE *y* values, then even a minimal ALE *y* deviation can have a relatively large percentile difference. If any ALE *y* value is less than the difference between the median in the data and the value either immediately below or above the median, we consider that it has virtually no effect. Thus, the normalization sets such minimal ALE *y* values as zero.
 
 Its formula is:
 
@@ -373,7 +379,7 @@ Of course, the formula could be simplified by multiplying by 50 instead of by 10
 
 #### Normalized ALER (NALER)
 
-Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE y values from -50% to +50%, centred on 0%, which represents the median:
+Based on this normalization, we first have the normalized ALER (NALER), which scales the minimum and maximum ALE *y* values from -50% to +50%, centred on 0%, which represents the median:
 
 $$
 \mathrm{NALER}(\mathrm{y, ale\_y}) = 
@@ -381,23 +387,23 @@ $$
 \max(\mathrm{norm\_ale\_y}) + 50 \}
 $$
 
-where $y$ is the full vector of y values in the original dataset, required to calculate $\mathrm{norm\_ale\_y}$.
+where $y$ is the full vector of *y* values in the original dataset, required to calculate $\mathrm{norm\_ale\_y}$.
 
-ALER shows the extreme values of a variable's effect on the outcome. In the effects plot above, it is indicated by the extreme ends of the horizontal bars for each variable. We see there that `public` has an ALER of `r c(get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min'], get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max']) |> round(2)`. When we consider that the median math score in the dataset is `r math$math_avg |> median() |> round(1)`, this ALER indicates that the minimum of any ALE y value for `public` (when `public == TRUE`) is `r get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min'] |> round(2)` below the median. This is shown at the `r (math$math_avg |> median() + get(mb_gam_math, 'public', stats = 'all')$estimate['aler_min']) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max'] |> round(2)` above the median, shown at the `r (math$math_avg |> median() + get(mb_gam_math, 'public', stats = 'all')$estimate['aler_max']) |> round(1)` point above. The ALER for `academic_ratio` is considerably broader with `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['aler_min'] |> round(2)` below and `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['aler_max'] |> round(2)` above the median.
+ALER shows the extreme values of a variable's effect on the outcome. In the effects plot above, it is indicated by the extreme ends of the horizontal bars for each variable. We see there that `public` has an ALER of `r c(get(mb_gam_math, 'public', stats = 'aler_min')$estimate, get(mb_gam_math, 'public', stats = 'aler_max')$estimate) |> round(2)`. When we consider that the median math score in the dataset is `r math$math_avg |> median() |> round(1)`, this ALER indicates that the minimum of any ALE *y* value for `public` (when `public == TRUE`) is `r get(mb_gam_math, 'public', stats = 'aler_min')$estimate |> round(2)` below the median. This is shown at the `r (math$math_avg |> median() + get(mb_gam_math, 'public', stats = 'aler_min')$estimate) |> round(1)` mark in the plot above. The maximum (`public == FALSE`) is `r get(mb_gam_math, 'public', stats = 'aler_max')$estimate |> round(2)` above the median, shown at the `r (math$math_avg |> median() + get(mb_gam_math, 'public', stats = 'aler_max')$estimate) |> round(1)` point above. The ALER for `academic_ratio` is considerably broader with `r get(mb_gam_math, 'academic_ratio', stats = 'aler_min')$estimate |> round(2)` below and `r get(mb_gam_math, 'academic_ratio', stats = 'aler_max')$estimate |> round(2)` above the median.
 
-The result of this transformation is that NALER values can be interpreted as percentile effects of y below or above the median, which is centred at 0%. Their numbers represent the limits of the effect of the x variable with units in percentile scores of y. In the effects plot above, because the percentile scale on the top corresponds exactly to the raw scale below, the NALER limits are represented by exactly the same points as the ALER limits; only the scale changes. The scale for ALER and ALED is the lower scale of the raw outcomes; the scale for NALER and NALED is the upper scale of percentiles.
+The result of this transformation is that NALER values can be interpreted as percentile effects of *y* below or above the median, which is centred at 0%. Their numbers represent the limits of the effect of the *x* variable with units in percentile scores of y. In the effects plot above, because the percentile scale on the top corresponds exactly to the raw scale below, the NALER limits are represented by exactly the same points as the ALER limits; only the scale changes. The scale for ALER and ALED is the lower scale of the raw outcomes; the scale for NALER and NALED is the upper scale of percentiles.
 
-So, with a NALER of `r c(get(mb_gam_math, 'public', stats = 'all')$estimate['naler_min'], get(mb_gam_math, 'public', stats = 'all')$estimate['naler_max']) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores by `r get(mb_gam_math, 'public', stats = 'all')$estimate['naler_min'] |> round()` percentile y points whereas the maximum (`public == FALSE`) shifts math scores by `r get(mb_gam_math, 'public', stats = 'all')$estimate['naler_max'] |> round()` percentile points. Academic track ratio has a NALER of `r c(get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naler_min'], get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naler_max']) |> round(2)`, ranging from `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naler_min'] |> round()` to `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naler_max'] |> round()` percentile points of math scores.
+So, with a NALER of `r c(get(mb_gam_math, 'public', stats = 'naler_min')$estimate, get(mb_gam_math, 'public', stats = 'naler_max')$estimate) |> round(2)`, the minimum of any ALE value for `public` (`public == TRUE`) shifts math scores by `r get(mb_gam_math, 'public', stats = 'naler_min')$estimate |> round()` percentile *y* points whereas the maximum (`public == FALSE`) shifts math scores by `r get(mb_gam_math, 'public', stats = 'naler_max')$estimate |> round()` percentile points. Academic track ratio has a NALER of `r c(get(mb_gam_math, 'academic_ratio', stats = 'naler_min')$estimate, get(mb_gam_math, 'academic_ratio', stats = 'naler_max')$estimate) |> round(2)`, ranging from `r get(mb_gam_math, 'academic_ratio', stats = 'naler_min')$estimate |> round()` to `r get(mb_gam_math, 'academic_ratio', stats = 'naler_max')$estimate |> round()` percentile points of math scores.
 
 #### Normalized ALED (NALED)
 
-The normalization of ALED scores applies the same ALED formula as before but on the normalized ALE values instead of on the original ALE y values:
+The normalization of ALED scores applies the same ALED formula as before but on the normalized ALE values instead of on the original ALE *y* values:
 
 $$
 \mathrm{NALED}(y, \mathrm{ale\_y}, \mathrm{ale\_n}) = \mathrm{ALED}(\mathrm{norm\_ale\_y}, \mathrm{ale\_n})
 $$
 
-NALED produces a score that ranges from 0 to 100%. It is essentially the ALED expressed in percentiles, that is, the average effect of a variable over its full domain of values. So, the NALED of public school status of `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` indicates that its average effect on math scores spans the middle `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` percent of scores. Academic ratio has an average effect expressed in NALED of `r get(mb_gam_math, 'academic_ratio', stats = 'all')$estimate['naled'] |> round(1)`% of scores.
+NALED produces a score that ranges from 0 to 100%. It is essentially the ALED expressed in percentiles, that is, the average effect of a variable over its full domain of values. So, the NALED of public school status of `r get(mb_gam_math, 'public', stats = 'naled')$estimate |> round(1)` indicates that its average effect on math scores spans the middle `r get(mb_gam_math, 'public', stats = 'naled')$estimate |> round(1)` percent of scores. Academic ratio has an average effect expressed in NALED of `r get(mb_gam_math, 'academic_ratio', stats = 'naled')$estimate |> round(1)`% of scores.
 
 ### The ALER band and random variables
 
@@ -412,7 +418,7 @@ get(mb_gam_plots, 'rand_norm')
 get(mb_gam_math, 'rand_norm', stats = 'all')
 ```
 
-`rand_norm` has a NALED of `r get(mb_gam_math, 'rand_norm', stats = 'all')$estimate['naled'] |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of but statistically, it must have some numeric value or the other. In informal tests with several different random seeds, the random variables on this dataset did not exceed a threshold of 5%. So, if we do not have p-values, the NALED is particularly helpful in comparing the practical relevance of variables. As a rule of thumb, we suggest that a variable needs to shift the outcome on average by at least 5% of the median values to be considered meaningful. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r get(mb_gam_math, 'public', stats = 'all')$estimate['naled'] |> round(1)` just barely crosses our threshold.
+`rand_norm` has a NALED of `r get(mb_gam_math, 'rand_norm', stats = 'naled')$estimate |> round(1)`. It might be surprising that a purely random value has any "effect size" to speak of but statistically, it must have some numeric value or the other. In informal tests with several different random seeds, the random variables on this dataset did not exceed a threshold of 5%. So, if we do not have p-values, the NALED is particularly helpful in comparing the practical relevance of variables. As a rule of thumb, we suggest that a variable needs to shift the outcome on average by at least 5% of the median values to be considered meaningful. This threshold is the same scale as the NALED. So, we can tell that public school status with its NALED of `r get(mb_gam_math, 'public', stats = 'naled')$estimate |> round(1)` just barely crosses our threshold.
 
 ### Interpretation of normalized ALE effect sizes
 
@@ -428,16 +434,17 @@ Here we summarize some general principles for interpreting normalized ALE effect
     -   0% means no effect at all. It indicates that the only effect of the input variable is to keep the outcome at the median of its range of values.
     -   NALER minimum of *n* means that, regardless of the effect size of NALED, the minimum effect of any input value shifts the outcome by *n* percentile points of the outcome range. Lower values (closer to –50%) mean a stronger extreme effect.
     -   NALER maximum of *x* means that, regardless of the effect size of NALED, the maximum effect of any input value shifts the outcome by *x* percentile points of the outcome range. Greater values (closer to +50%) mean a stronger extreme effect.
+    -    However, NALER values are normalized such that even if the actual effect of a variable exceeds ±50%, its normalized value is capped at ±50%.
 
-In general, regardless of the values of ALE statistics, we should always visually inspect the ALE plots to identify and interpret patterns of relationships between inputs and the outcome. 
+In general, regardless of the values of ALE statistics, we should visually inspect the ALE plots to identify and interpret patterns of relationships between inputs and the outcome. However, if NALER values are quite low (< ±5%), there is probably not much to see in the plot.
 
-A common question for interpreting effect sizes is, "How strong does an effect need to be to be considered 'strong' or 'weak'?" On one hand, we refuse to offer general guidelines for how "strong" is "strong". The simple answer is that it depends entirely on the applied context. It is not meaningful to try to propose numerical values for statistics that are supposed to be useful for all applied contexts.
+A common question for interpreting effect sizes is, "How strong does an effect need to be to be considered 'strong' or 'weak'?" On one hand, we decline to offer general guidelines for how "strong" is "strong". The simple answer is that it depends entirely on the applied context. It is not meaningful to try to propose numerical values for statistics that are supposed to be useful for all applied contexts.
 
 On the other hand, we do consider it very important to delineate the threshold between random effects and non-random effects. It is always important to distinguish between a weak but real effect from one that is just a statistical artifact due to random chance. For that, we can offer some general guidelines based on whether or not we have p-values.
 
-When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p_value ALER minimum of a random variable and greater than the 0.05 p_value maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `ale` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p_value threshold. 
+When we have p-values for ALE statistics, then the boundaries of ALER should generally be used to determine the acceptable risk of considering a statistic to be meaningful. Statistically significant ALE effects are those that are less than the 0.05 p-value of ALER minimum of a random variable and greater than the 0.05 p-value ALER maximum of a random variable. As we explained above when introducing the ALER band, this is precisely what the `ale` package does, especially in the plots that highlight the ALER band and the confidence region tables that use the specified ALER p-value threshold. 
 
-In the absence of p-values, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, the average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sensitive to exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
+In the absence of p-values, we suggest that NALED can be a general guide for non-random values. In our informal tests, we find that NALED values below 5% have the same average effect as a random variable. That is, such an average effect is not reliable; it might be random. However, regardless of the average effect indicated by NALED, large NALER effects indicate that the ALE plot should be inspected to interpret the exceptional cases. This caveat is very important; unlike GLM coefficients, ALE analysis is sufficiently sensitive to detect exceptions to the overall trend. This is precisely what makes it valuable for detecting non-linear effects. 
 
 In general, if NALED \< 5%, NALER minimum \> –5%, and NALER maximum \< +5%, the input variable has no meaningful effect. All other cases are worth inspecting the ALE plots for careful interpretation:
 -   NALED \> 5% means a meaningful average effect.
@@ -458,12 +465,12 @@ get(mb_gam_math, 'public')
 
 Here is the meaning of each column of `ale$data` for a categorical variable:
 
--   `.bin`: the different categories that exist in the categorical variable.
+-   `x.bin`: the different categories that exist in the categorical variable.
 -   `.n`: the number of rows for that category in the dataset provided to the function.
--   `ale_y`: the ALE function value calculated for that category. For bootstrapped ALE, this is the same as `ale_y_mean` by default or `ale_y_median` if the `boot_centre = 'median'` argument is specified.
--   `ale_y_lo` and `ale_y_hi`: the lower and upper confidence intervals for the bootstrapped `ale_y` value.
+-   `.y`: the ALE function value calculated for that category. For bootstrapped ALE, this is the same as `.y_mean` by default or `.y_median` if the `boot_centre = 'median'` argument is specified.
+-   `.y_lo` and `.y_hi`: the lower and upper confidence intervals for the bootstrapped `.y` value.
 
-By default, the `ale` package centres ALE values on the median of the outcome variable; in our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE y values (weighted on `.n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE y approximately equals the median.
+While the `ale` package internally centres ALE values on zero, the outputs such as plots and the `get()` method centres the displayed values on the median of the outcome variable; this can be changed to mean- or zero-centring with the `ale_centre` argument to `plot()` or `get()`. In our dataset, the median of all the schools' average mathematics achievement scores is `r math$math_avg |> median() |> round(1)`. With ALE centred on the median, the weighted sum of ALE *y* values (weighted on `.n`) above the median is approximately equal to the weighted sum of those below the median. So, in the ALE plots above, when you consider the number of instances indicated by the rug plots and category percentages, the average weighted ALE *y* approximately equals the median.
 
 Here is the ALE data structure for a numeric variable, `academic_ratio`:
 
@@ -471,7 +478,7 @@ Here is the ALE data structure for a numeric variable, `academic_ratio`:
 get(mb_gam_math, 'academic_ratio')
 ```
 
-The columns are the same as with a categorical variable, but instead of `.bin`, we have `.ceil` since there are no categories. To calculate ALE for numeric variables, the range of *x* values is divided into bins (by default 100, customizable with the `max_num_bins` argument). Because numeric variables often have multiple values in a bin, the ALE data stores the ceilings (upper bounds) of the bins. If the *x* values have fewer than 100 distinct values in the data, then each distinct value becomes its own bin and we record its value as the ceiling of the bin. (This is often the case with smaller datasets like ours; here `academic_ratio` has only `r get(mb_gam_math, 'academic_ratio') |> nrow()` distinct values.) If there are more than 100 distinct values, then the range is divided into 100 percentile groups. The other columns mean the same thing as with categorical variables: `.n` is the number of rows of data in each bin and `.y` is the calculated ALE for the bin whose ceiling is `.ceil`.
+The columns are the same as with a categorical variable, but instead of `x.bin`, we have `x.ceil` since there are no categories. To calculate ALE for numeric variables, the range of *x* values is divided into bins (by default 10, customizable with the `max_num_bins` argument). Because numeric variables often have multiple values in a bin, the ALE data stores the ceilings (upper bounds) of the bins. If the *x* values have fewer than 10 distinct values in the data, then each distinct value becomes its own bin and we record its value as the ceiling of the bin. If there are more than 10 distinct values, then the range is divided into 10 decile groups. The first bin includes all rows with a value exactly equal to the minimum value of that variable, thus it often has very few elements---sometimes only one. The other columns mean the same thing as with categorical variables: `.n` is the number of rows of data in each bin and `.y` is the calculated ALE for the bin whose ceiling is `.ceil`.
 
 ### Bootstrap-based inference with ALE
 
@@ -486,21 +493,21 @@ get(mb_gam_plots, 'mean_ses')
 It might not always be easy to tell from a plot which regions are relevant, so the results of statistical significance are summarized with the `ale$conf_regions$by_term` element, which can be accessed for each variable from its `by_term` element:
 
 ```{r conf_regions for mean_ses}
-get(mb_gam_math, 'mean_ses', stats = 'all')
+get(mb_gam_math, 'mean_ses', stats = 'conf_regions')
 ```
 
-For numeric variables, the confidence regions summary has one row for each consecutive sequence of x values that have the same status: all values in the region are below the ALER band, they overlap the band, or they are all above the band. Here are the summary components:
+For numeric variables, the confidence regions summary has one row for each consecutive sequence of *x* values that have the same status: all values in the region are below the ALER band, they overlap the band, or they are all above the band. Here are the summary components:
 
--   `start_x` is the first and `end_x` is the last x value in the sequence. `start_y` is the y value that corresponds to `start_x` while `end_y` corresponds to `end_x`.
--   `n` is the number of data elements in the sequence; `pct` is the percentage of total data elements out of the total number.
--   `x_span` is the length of x of the sequence that has the same confidence status. However, so that it may be comparable across variables with different units of x, `x_span` is expressed as a percentage of the full domain of x values.
--   `trend` is the average slope from the point `(start_x, start_y)` to `(end_x, end_y)`. Because only the start and end points are used to calculate `trend`, it does not reflect any ups and downs that might occur between those two points. Since the various x values in a dataset are on different scales, the scales of the x and y values in calculating the `trend` are normalized on a scale of 100 each so that the trends for all variables are directly comparable. A positive `trend` means that, on average, y increases with x; a negative `trend` means that, on average, y decreases with x; a zero `trend` means that y has the same value at its start and end points--this is always the case if there is only one point in the indicated sequence.
--   **`mid_bar`** is the key information here. It indicates if all the values in sequence from `start_x` to `end_x` are below, overlapping, or above the middle ALER band:
-    -   below: the higher limit of the confidence interval of ALE y (`ale_y_hi`) is below the lower limit of the ALER band.
-    -   above: the lower limit of the confidence interval of ALE y (`ale_y_lo`) is above the higher limit of the ALER band.
-    -   overlap: neither of the first two conditions holds; that is, the confidence region from `ale_y_lo` to `ale_y_hi` at least partially overlaps the ALER band.
+-   `start_x` is the first and `end_x` is the last *x* value in the sequence. `start_y` is the *y* value that corresponds to `start_x` while `end_y` corresponds to `end_x`.
+-   `n` is the number of data elements (rows) in the sequence; `pct` is the percentage of total data elements out of the total number.
+-   `x_span_pct` is the percentage of the domain of *x* of the sequence that has the same confidence status (`aler_band`). It is is expressed as a percentage of the full domain of *x* values so that it may be comparable across variables with different units of x.
+-   `trend` is the average slope from the point `(start_x, start_y)` to `(end_x, end_y)`. Because only the start and end points are used to calculate `trend`, it does not reflect any ups and downs that might occur between those two points. Since the various *x* values in a dataset are on different scales, the scales of the *x* and *y* values in calculating the `trend` are normalized on a scale of 100 each so that the trends for all variables are directly comparable. A positive `trend` means that, on average, *y* increases with x; a negative `trend` means that, on average, *y* decreases with x; a zero `trend` means that *y* has the same value at its start and end points--this is always the case if there is only one point in the indicated sequence.
+-   **`aler_band`** is the key information here. It indicates if all the values in the sequence from `start_x` to `end_x` are below, overlapping, or above the middle ALER band:
+    -   below: the higher limit of the confidence interval of ALE *y* (`.y_hi`) is below the lower limit of the ALER band.
+    -   above: the lower limit of the confidence interval of ALE *y* (`.y_lo`) is above the higher limit of the ALER band.
+    -   overlap: neither of the first two conditions holds; that is, the confidence region from `.y_lo` to `.y_hi` at least partially overlaps the ALER band.
 
-These results tell us that, for `mean_ses`, from -1.19 to -1.04, ALE is below the ALER band from 6.1 to 7.6. From -0.792 to -0.792, ALE overlaps the ALER band from 10.2 to 10.2. From -0.756 to -0.674, ALE is below the ALER band from 10.2 to 10.8. From -0.663 to -0.663, ALE overlaps the ALER band from 10.9 to 10.9. From -0.643 to -0.484, ALE is below the ALER band from 10.8 to 11.2. From -0.467 to -0.467, ALE overlaps the ALER band from 11.5 to 11.5. From -0.46 to -0.46, ALE is below the ALER band from 11.4 to 11.4. A few other regions briefly exceeded the ALER band.
+These results tell us that, for `mean_ses`, `r get(mb_gam_math, 'mean_ses', stats = 'conf_regions') |> ale:::summarize_conf_regions_1D_in_words(start_cap = FALSE)`
 
 Interestingly, most of the text of the previous paragraph was generated automatically by an internal (unexported function) `ale:::summarize_conf_regions_1D_in_words`. (Since the function is not exported, you must use `ale:::` with three colons, not just two, if you want to access it.)
 
@@ -523,9 +530,9 @@ And here is its confidence regions summary table:
 get(mb_gam_math, 'public', stats = 'conf_regions')
 ```
 
-Since we have categories here, there is no start or end positions and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `pct` of the respective category and `mid_bar` as before to indicate whether the indicated category is below, overlaps with, or is above the ALER band.
+Since we have categories here, there is no start or end position and there is no trend. We instead have each `x` category and its single ALE `y` value, with the `n` and `pct` of the respective category. We have `aler_band` as before to indicate whether the indicated category is below, overlaps with, or is above the ALER band.
 
-Again with the help of `ale:::summarize_conf_regions_1D_in_words()`, these results tell us that, for `public`, for FALSE, the ALE of 13.3 overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER band.
+Again with the help of `ale:::summarize_conf_regions_1D_in_words()`, we can summarize the results for `public`: `r get(mb_gam_math, 'public', stats = 'conf_regions') |> ale:::summarize_conf_regions_1D_in_words(start_cap = FALSE)`
 
 Again, our random variable `rand_norm` is particularly interesting. Here is its ALE plot:
 
@@ -539,7 +546,7 @@ And here is its confidence regions summary table:
 get(mb_gam_math, 'rand_norm', stats = 'conf_regions')
 ```
 
-Despite any apparent pattern, we see that from -2.4 to 2.61, ALE overlaps the ALER band from 12 to 12.8. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
+Despite any apparent pattern (even though we deliberately selected a random seed for a particularly erratic random variable), we see that `r get(mb_gam_math, 'rand_norm', stats = 'conf_regions') |> ale:::summarize_conf_regions_1D_in_words(start_cap = FALSE)`. So, despite the random highs and lows in the bootstrap confidence interval, there is no reason to suppose that the random variable has any effect anywhere in its domain.
 
 We can conveniently summarize all the confidence regions from all variables that are statistically significant or meaningful by accessing the `conf_regions$significant` element:
 
@@ -547,7 +554,7 @@ We can conveniently summarize all the confidence regions from all variables that
 get(mb_gam_math, stats = 'conf_sig')
 ```
 
-This summary focuses only on the x variables that have meaningful ALE regions anywhere in their domain. We can also conveniently isolate which variables have any such meaningful region by extracting the unique values in the `term` column:
+This summary focuses only on the *x* variables that have meaningful ALE regions anywhere in their domain. We can also conveniently isolate which variables have any such meaningful region by extracting the unique values in the `term` column:
 
 
 ```{r variables with significant conf_regions}
