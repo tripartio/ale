@@ -67,12 +67,14 @@
 
 <p>Accumulated Local Effects (ALE) were initially developed as a <a href="https://www.doi.org/10.1111/rssb.12377" title="Apley, Daniel W., and Jingyu Zhu. 'Visualizing the effects of predictor variables in black box supervised learning models.' Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086" class="external-link">model-agnostic approach for global explanations of the results of black-box machine learning algorithms</a>. ALE has two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package reimplements the algorithms for calculating ALE data and develops highly interpretable visualizations for plotting these ALE values. It also extends the original ALE concept to add bootstrap-based confidence intervals and ALE-based statistics that can be used for statistical inference.</p>
 <p>For more details, see Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <a href="doi:10.48550/arXiv.2310.09877" class="uri">doi:10.48550/arXiv.2310.09877</a>.</p>
-<p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package currently defines three main <a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> classes:</p>
+<p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package defines four main <a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> classes:</p>
 <ul>
 <li>
-<code>ALE</code>: data for 1D ALE (single variables) and 2D ALE (two-way interactions). ALE values may be bootstrapped.</li>
+<code>ALE</code>: data for 1D ALE (single variables) and 2D ALE (two-way interactions). ALE values may be bootstrapped with ALE statistics calcuated.</li>
 <li>
 <code>ModelBoot</code>: bootstrap results an entire model, not just the ALE values. This function returns the bootstrapped model statistics and coefficients as well as the bootstrapped ALE values. This is the appropriate approach for models that have not been cross-validated.</li>
+<li>
+<code>ALEPlots</code>: store ALE plots generated from either <code>ALE</code> or <code>ModelBoot</code> with convenient <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>, and <code><a href="reference/get.html">get()</a></code> methods.</li>
 <li>
 <code>ALEpDist</code>: a distribution object for calculating the p-values for the ALE statistics of an <code>ALE</code> object.</li>
 </ul>
