@@ -96,7 +96,7 @@ The `ModelBoot` object automatically carries out full-model bootstrapping suitab
 -   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 -   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 
-The constructor for S7 `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
+The constructor for `{S7}` `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
 
 ```{r lm_full_call}
 mb_lm <- ModelBoot(
