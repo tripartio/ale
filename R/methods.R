@@ -460,6 +460,13 @@ method(get, ModelBoot) <- function(
   if (type == 'boot') {
     # Replace the base structure with the bootstrapped data
     obj_type@effect <- obj@ale$boot$effect
+    obj_type@params <- obj@params
+
+    # Correct params that differ between ModelBoot and ALE objects
+    missing_params <- names(obj@ale$single@params) |>
+      setdiff(names(obj_type@params))
+    obj_type@params[missing_params] <- obj@ale$single@params[missing_params]
+    obj_type@params$ale_p <- NULL  # duplicates p_values
   }
 
   method(get, ale::ALE)(
