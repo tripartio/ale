@@ -637,9 +637,9 @@ summarize_conf_regions_2D <- function(
 # Receives a confidence region summary tibble and then converts its essential contents in words.
 summarize_conf_regions_1D_in_words <- function(
     conf_region_summary,
-    band_type = 'ALER'
+    start_cap = TRUE  # first character capitalized
 ) {
-  map_chr(1:nrow(conf_region_summary), \(.row_num) {
+  summ <- map_chr(1:nrow(conf_region_summary), \(.row_num) {
     with(
       conf_region_summary[.row_num, ],
       if (exists('start_x')) { # conf_region_summary is numeric
@@ -651,7 +651,7 @@ summarize_conf_regions_1D_in_words <- function(
             'overlaps',
             paste0('is ', aler_band)
           ),
-          ' the {band_type} band ',
+          ' the ALER band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
@@ -662,11 +662,17 @@ summarize_conf_regions_1D_in_words <- function(
             'overlaps',
             paste0('is ', aler_band)
           ),
-          ' the {band_type} band.'
+          ' the ALER band.'
         )
       }
     )
   }) |>
     paste(collapse = ' ')
+
+  if (!start_cap) {
+    summ <- tolower(str_sub(summ, 1, 1)) %+% str_sub(summ, 2)
+  }
+
+  return(summ)
 }  # summarize_conf_regions_in_words()
 # nocov end
