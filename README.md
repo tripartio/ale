@@ -32,14 +32,17 @@ For more details, see Okoli, Chitu. 2023. “Statistical Inference Using
 Machine Learning and Classical Techniques Based on Accumulated Local
 Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 
-The `{ale}` package currently defines three main `{S7}` classes:
+The `{ale}` package defines four main `{S7}` classes:
 
 - `ALE`: data for 1D ALE (single variables) and 2D ALE (two-way
-  interactions). ALE values may be bootstrapped.
+  interactions). ALE values may be bootstrapped with ALE statistics
+  calcuated.
 - `ModelBoot`: bootstrap results an entire model, not just the ALE
   values. This function returns the bootstrapped model statistics and
   coefficients as well as the bootstrapped ALE values. This is the
   appropriate approach for models that have not been cross-validated.
+- `ALEPlots`: store ALE plots generated from either `ALE` or `ModelBoot`
+  with convenient `print()`, `plot()`, and `get()` methods.
 - `ALEpDist`: a distribution object for calculating the p-values for the
   ALE statistics of an `ALE` object.
 

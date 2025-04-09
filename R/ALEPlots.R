@@ -8,7 +8,7 @@
 #' @title ALE plots with print and plot methods
 #'
 #' @description
-#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` constructor creates all possible plots from the `ALE` or `ModelBoot` passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. See the examples with the [ALE] and [ModelBoot] objects for how to manipulate `ALEPlots` objects.
+#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` constructor creates all possible plots from the `ALE` or `ModelBoot` passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. See the examples with the [ALE()] and [ModelBoot()] objects for how to manipulate `ALEPlots` objects.
 
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.

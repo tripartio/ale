@@ -37,7 +37,7 @@ ALEPlots(
 An object of class \code{ALEPlots} with properties \code{plots} and \code{params}.
 }
 \description{
-An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} constructor creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. See the examples with the \link{ALE} and \link{ModelBoot} objects for how to manipulate \code{ALEPlots} objects.
+An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{ModelBoot} objects stored as \code{ggplot} objects. The \code{ALEPlots} constructor creates all possible plots from the \code{ALE} or \code{ModelBoot} passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an \code{ALEPlots} object is a collection of plots, almost never a single plot. To retrieve specific plots, use the \code{\link[=get.ALEPlots]{get.ALEPlots()}} method. See the examples with the \code{\link[=ALE]{ALE()}} and \code{\link[=ModelBoot]{ModelBoot()}} objects for how to manipulate \code{ALEPlots} objects.
 }
 \section{Properties}{
 
