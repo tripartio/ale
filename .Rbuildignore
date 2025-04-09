@@ -18,3 +18,4 @@
 ^tests/testthat/test-ALEPlot\.R$
 ^vignettes/.*_cache$
 ^vignettes/articles$
+^revdep$
