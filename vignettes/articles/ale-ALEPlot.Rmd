@@ -24,7 +24,7 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 
 -   It uses `ggplot2` instead of base R graphics. We consider `ggplot2` to be a more modern and versatile graphics system.
 -   It saves plots as ggplot objects to a "plots" element of the return value; it does not automatically print the plot to the screen. As we show, this lets the user manipulate the plots more flexibly.
--   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `relative_y` argument to [plot()], as we demonstrate.) We believe that such plots more easily interpretable.
+-   In the plot, the Y outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `ale_centre` argument to [plot()], as we demonstrate.) We believe that such plots more easily interpretable.
 -   In addition, there are numerous design choices to simply the function interface based on [tidyverse](https://www.tidyverse.org/) design principles.
 
 One notable difference between the two packages is that the `{ale}` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
@@ -180,7 +180,7 @@ It might not be clear that the previous plots display exactly the same data as t
 
 ```{r ale nnet one-way zeroed, fig.width=7, fig.height=5}
 # Zero-centred ALE plots
-plot(nn_ale, relative_y = 'zero')
+plot(nn_ale, ale_centre = 'zero')
 ```
 
 With these zero-centred plots, the full range of y values and the rug plots give some context that aids interpretation. (If the rugs look slightly different, it is because they are randomly jittered to avoid overplotting.)

@@ -55,7 +55,7 @@
 #' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
 #' @param aler_alpha See documentation for [ALE()]
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
-#' @param relative_y See documentation for [ALEPlots()]
+#' @param ale_centre See documentation for [ALEPlots()]
 #' @param y_1d_refs See documentation for [ALEPlots()]
 #' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
 #' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
@@ -73,7 +73,7 @@ plot_ale_1D <- function(
     p_exactness,
     aler_alpha,
     ...,
-    relative_y = 'median',
+    ale_centre = 'median',
     y_1d_refs = c('25%', '75%'),
     x_y = NULL,
     rug_sample_size = 500,
@@ -90,12 +90,12 @@ plot_ale_1D <- function(
 
   all_cats <- '.cat' %in% names(ale_data)
 
-  # Shift ale_data and y_summary by relative_y.
+  # Shift ale_data and y_summary by ale_centre.
   # Calculate shift amount.
   y_shift <- case_when(
-    relative_y == 'median' ~ y_summary[['50%']],
-    relative_y == 'mean' ~ y_summary[['mean']],
-    relative_y == 'zero' ~ 0,
+    ale_centre == 'median' ~ y_summary[['50%']],
+    ale_centre == 'mean' ~ y_summary[['mean']],
+    ale_centre == 'zero' ~ 0,
   )
 
   # Shift all y data for plotting
@@ -176,7 +176,7 @@ plot_ale_1D <- function(
 
     sec_breaks <- c(
       y_summary[['aler_lo_lo']],
-      if (relative_y == 'median') y_summary[['50%']] else y_summary[['mean']],
+      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
       y_summary[['aler_hi_hi']]
     )
   } else {
@@ -184,13 +184,13 @@ plot_ale_1D <- function(
     # Construct secondary (right) axis label from bottom to top.
     sec_labels <- c(
         y_1d_refs[1],
-        relative_y,
+        ale_centre,
         y_1d_refs[2]
       )
 
     sec_breaks <- c(
       y_summary[[y_1d_refs[1]]],
-      if (relative_y == 'median') y_summary[['50%']] else y_summary[['mean']],
+      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
       y_summary[[y_1d_refs[2]]]
     )
   }
@@ -374,14 +374,14 @@ plot_ale_1D <- function(
 #' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
 #' @param ... not used. Enforces explicit naming of subsequent arguments.
 #' @param cat_plot character(1) in c('single', 'facet'). `'single'` (default) creates a typical 2D plot for a single category; `'facet'` creates a faceted plot across all categories.
-#' @param relative_y See documentation for [ALE()]
+#' @param ale_centre See documentation for [ALE()]
 #'
 plot_ale_2D <- function(
     ale_data, x1_col, x2_col, y_col,
     params,
     ...,
     cat_plot = 'single',
-    relative_y = 'median'
+    ale_centre = 'median'
 ) {
   ## Internal functions -----------------
 
@@ -421,12 +421,12 @@ plot_ale_2D <- function(
 
   y_summary <- params$y_summary[, y_col]
 
-  # Shift ale_data and y_summary by relative_y.
+  # Shift ale_data and y_summary by ale_centre.
   # Calculate shift amount.
   y_shift <- case_when(
-    relative_y == 'median' ~ y_summary[['50%']],
-    relative_y == 'mean' ~ y_summary[['mean']],
-    relative_y == 'zero' ~ 0,
+    ale_centre == 'median' ~ y_summary[['50%']],
+    ale_centre == 'mean' ~ y_summary[['mean']],
+    ale_centre == 'zero' ~ 0,
   )
 
   # Shift all y data for plotting

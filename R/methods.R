@@ -16,7 +16,7 @@
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param stats character(1). Retrieve ALE statistics. If `stats` is specified, then `what` must be left at the default ("ale"). Otherwise, `get()` errors if `stats` is specified and `what` has some other value. See the return value details below for valid values for `stats`.
 #' @param cats character. Optional category names to retrieve if the ALE is for a categorical y outcome model.
-#' @param relative_y Same as in documentation for [ALEPlots()]
+#' @param ale_centre Same as in documentation for [ALEPlots()]
 #' @param simplify logical(1). If `TRUE` (default), the results will be simplified to the simplest list structure possible to give the requested results. If `FALSE`, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.
 #' @param silent See documentation for [resolve_x_cols()]
 #'
@@ -78,7 +78,7 @@ method(get, ALE) <- function(
     exclude_cols = NULL,
     stats = NULL,
     cats = NULL,
-    relative_y = 'median',
+    ale_centre = 'median',
     simplify = TRUE,
     silent = FALSE
 ) {
@@ -134,8 +134,8 @@ method(get, ALE) <- function(
   )
 
   validate(
-    is_string(relative_y, c('median', 'mean', 'zero')),
-    msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
+    is_string(ale_centre, c('median', 'mean', 'zero')),
+    msg = '{.arg ale_centre} must be one of "median", "mean", or "zero".'
   )
 
   validate(
@@ -164,9 +164,9 @@ method(get, ALE) <- function(
       it.cat_el[[what]]
     })
 
-  # Shift ale_data and y_summary by relative_y.
+  # Shift ale_data and y_summary by ale_centre.
   # Calculate shift amount.
-  y_shift <- relative_y |> case_match(
+  y_shift <- ale_centre |> case_match(
     'median' ~ obj@params$y_summary['50%', cats, drop = FALSE],
     'mean' ~ obj@params$y_summary['mean', cats, drop = FALSE],
     'zero' ~ matrix(
@@ -176,11 +176,6 @@ method(get, ALE) <- function(
     )
   )
   dimnames(y_shift) <- list(rownames(y_shift), cats)
-  # y_shift <- case_when(
-  #   relative_y == 'median' ~ obj@params$y_summary['50%', cats, drop = FALSE],
-  #   relative_y == 'mean' ~ obj@params$y_summary['mean', cats, drop = FALSE],
-  #   relative_y == 'zero' ~ 0
-  # )
 
   if (what == 'stats') {
     specific_what <- all_what |>
@@ -436,7 +431,7 @@ method(get, ModelBoot) <- function(
     type = 'auto',
     stats = NULL,
     cats = NULL,
-    relative_y = 'median',
+    ale_centre = 'median',
     simplify = TRUE
 ) {
 
@@ -476,7 +471,7 @@ method(get, ModelBoot) <- function(
     what = what,
     stats = stats,
     cats = cats,
-    relative_y = relative_y,
+    ale_centre = ale_centre,
     simplify = simplify
   )
 }
