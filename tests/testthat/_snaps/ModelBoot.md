@@ -1366,32 +1366,6 @@
       6 gear:carb naler_max  6.89e+ 0  4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
       
       
-      attr(,"ale")$boot$effect$vs$conf
-      attr(,"ale")$boot$effect$vs$conf$d1
-      # A tibble: 4 x 12
-        term      x     start_x end_x x_span_pct     n   pct     y   start_y     end_y
-        <chr>     <chr>   <dbl> <dbl>      <dbl> <int> <dbl> <dbl>     <dbl>     <dbl>
-      1 continent Nort~   NA    NA            NA    24  37.5     0 NA        NA       
-      2 continent Euro~   NA    NA            NA    28  43.8     0 NA        NA       
-      3 continent Asia    NA    NA            NA    12  18.8     0 NA        NA       
-      4 wt        <NA>     1.50  5.45        100    64 100      NA  2.04e-22 -4.90e-22
-      # i 2 more variables: trend <dbl>, aler_band <ord>
-      
-      attr(,"ale")$boot$effect$vs$conf$d2
-      # A tibble: 9 x 8
-        term1 x1    term2 x2    aler_band     n   pct         y
-        <chr> <chr> <chr> <chr> <ord>     <int> <dbl>     <dbl>
-      1 gear  three carb  [1,2] overlap      14 21.9  -2.11e-23
-      2 gear  four  carb  [1,2] overlap      15 23.4  -2.76e-23
-      3 gear  five  carb  [1,2] overlap       4  6.25 -1.60e-22
-      4 gear  three carb  (2,4] overlap      15 23.4  -1.66e-23
-      5 gear  four  carb  (2,4] overlap       8 12.5   1.45e-22
-      6 gear  five  carb  (2,4] overlap       2  3.12  1.45e-22
-      7 gear  three carb  (4,8] overlap       1  1.56  8.04e-22
-      8 gear  four  carb  (4,8] overlap       1  1.56 -3.99e-22
-      9 gear  five  carb  (4,8] overlap       4  6.25 -3.99e-22
-      
-      
       
       
       
@@ -2307,9 +2281,6 @@
       12 Petal.Width  naler_max  18.4         16.6          1.84e+1  1.84e+1   2.02e+1
       
       
-      attr(,"ale")$boot$effect$setosa$conf
-      NULL
-      
       
       attr(,"ale")$boot$effect$versicolor
       attr(,"ale")$boot$effect$versicolor$ale
@@ -2364,9 +2335,6 @@
       12 Petal.Width  naler_max  17.3     16.9     17.3     17.3      17.7   
       
       
-      attr(,"ale")$boot$effect$versicolor$conf
-      NULL
-      
       
       attr(,"ale")$boot$effect$virginica
       attr(,"ale")$boot$effect$virginica$ale
@@ -2420,9 +2388,6 @@
       11 Petal.Width  naler_min -50      -50      -50      -50       -50     
       12 Petal.Width  naler_max  10.3      8.73    10.3     10.3      11.8   
       
-      
-      attr(,"ale")$boot$effect$virginica$conf
-      NULL
       
       
       

@@ -1141,45 +1141,10 @@ ModelBoot <- new_class(
           NULL  # nocov
         }
 
-        # Calculate confidence regions if criteria are met
-        it.ale_conf_regions <- if (
-          full_ale@params$output_stats &&
-          boot_it > 0 &&
-          !is.null(ale_p)
-        ) {
-          if (boot_it < 100 || ale_p@params$rand_it_ok < 100) {  # nocov start
-            if (!silent) cli_inform(c(
-              '!' = 'Note that ALE confidence regions are not reliable if {.arg boot_it} < 100 or p-values are based on fewer than 100 random iterations.',
-              'i' = '{.arg boot_it} = {boot_it}.',
-              'i' = '{.arg ale_p} is based on {ale_p@params$rand_it_ok} iterations.'
-            ))
-          }  # nocov end
-
-          it.conf_d1 <- summarize_conf_regions_1D(
-            it.ale_summary_data$d1,
-            full_ale@params$y_summary[, it.cat, drop = FALSE]
-          )
-          it.conf_d2 <- summarize_conf_regions_2D(
-            it.ale_summary_data$d2,
-            full_ale@params$y_summary[, it.cat, drop = FALSE]
-          )
-
-          list(
-            d1 = it.conf_d1,
-            d2 = it.conf_d2
-          ) |>
-            compact()
-        }
-        else {
-          # Confidence regions conditions not fulfilled
-          NULL
-        }
-
         # Return ALE results
         list(
           ale   = it.ale_summary_data,
-          stats = it.ale_summary_stats,
-          conf  = it.ale_conf_regions
+          stats = it.ale_summary_stats
         )
       }) |>
         set_names(y_cats)
@@ -1229,10 +1194,8 @@ ModelBoot <- new_class(
         )
       }
 
-      for (it.cat in names(ale_summary)) {
-        if (boot_it == 0) {
-          ar$single@effect[[it.cat]]$conf <- ale_summary[[it.cat]]$conf
-        } else {
+      if (boot_it != 0) {
+        for (it.cat in names(ale_summary)) {
           ar$boot$effect <- ale_summary
         }
       }
