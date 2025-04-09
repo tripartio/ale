@@ -189,7 +189,7 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-stats-ale and 1D plot-1.png" width="100%" />
+<img src="man/figures/README-ale-p-and-1D-plot-1.png" width="100%" />
 
 ``` r
 # Plot a selected 2D plot
@@ -198,7 +198,7 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-<img src="man/figures/README-2D plot-1.png" width="100%" />
+<img src="man/figures/README-2D-plot-1.png" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect

@@ -122,7 +122,7 @@ gam_diamonds_p_readme <-
 
 Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:
 
-```{r stats-ale and 1D plot, fig.width=7, fig.height=11}
+```{r ale-p-and-1D-plot, fig.width=7, fig.height=11}
 # Create ALE data
 ale_gam_diamonds_stats_readme <- ALE(
   gam_diamonds,
@@ -147,7 +147,7 @@ ale_plots |>
 ```
 
 
-```{r 2D plot, fig.width=7, fig.height=5}
+```{r 2D-plot, fig.width=7, fig.height=5}
 # Plot a selected 2D plot
 ale_plots |> 
   # get() retrieves a specific desired plot

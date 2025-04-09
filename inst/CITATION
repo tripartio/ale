@@ -5,7 +5,7 @@ citHeader("To cite scientific or statistical use of package 'ale' in publication
 
 bibentry(
   key = "alestatsarxiv",
-  bibtype = "article",
+  bibtype = "Article",
   title = "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE)",
   author = person('Chitu', 'Okoli'),
   year = "2023",
@@ -17,7 +17,8 @@ bibentry(
 
 bibentry(
   key = "aleinforms24",
-  bibtype = "conference",
+  bibtype = "Unpublished",
+  note = "Conference",
   author = person('Chitu', 'Okoli'),
   title = "Reliable Inference from Human-Centred Datasets with Accumulated Local Effects",
   booktitle = "2024 INFORMS Annual Meeting",
@@ -27,7 +28,8 @@ bibentry(
 
 bibentry(
   key = "alestatsinformsds",
-  bibtype = "conference",
+  bibtype = "Unpublished",
+  note = "Conference",
   author = person('Chitu', 'Okoli'),
   title = "Model-Agnostic Interpretability: Effect Size Measures from Accumulated Local Effects (ALE)
 ",
@@ -39,7 +41,7 @@ bibentry(
 citHeader("To cite the software package itself use:")
 
 bibentry(
-  bibtype = "manual",
+  bibtype = "Manual",
   title = paste0(meta$Package, ': ', meta$Title),
   author = person('Chitu', 'Okoli'),
   year = Sys.Date() |> format('%Y'),
