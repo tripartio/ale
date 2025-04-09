@@ -338,7 +338,7 @@ gbm_link_plots <- plot(gbm_ale_link)
 # Print only 1D ALE plots
 gbm_link_plots |> 
   # Use subset() instead of get() to keep the special ALEPlots object 
-  #plot and print functionality
+  # plot and print functionality
   subset(list(d1 = TRUE)) |>  # 1D plots only
   print(ncol = 2)  # print in 2 columns
 ```
@@ -349,7 +349,7 @@ Now we plot all the 2D interactions involving `age`:
 # Print only 2D ALE plots involving age
 gbm_link_plots |> 
   # Use subset() instead of get() to keep the special ALEPlots object 
-  #plot and print functionality
+  # plot and print functionality
   subset(list(d2_all = 'age')) |>
   print(ncol = 1)  # print in 1 column
 ```
@@ -360,7 +360,7 @@ For direct comparison with `{ALEPlot}`, we can select the 1D plots for `age`, `e
 # Print only 2D ALE plots involving age
 gbm_link_plots |> 
   # Use subset() instead of get() to keep the special ALEPlots object 
-  #plot and print functionality
+  # plot and print functionality
   get(~ age + education_num + hours_per_week + age:hours_per_week) |>
   purrr::list_flatten() |> 
   patchwork::wrap_plots()
@@ -412,7 +412,7 @@ gbm_probs_plots <- plot(gbm_ale_probs)
 # Print only 1D ALE plots
 gbm_probs_plots |> 
   # Use subset() instead of get() to keep the special ALEPlots object 
-  #plot and print functionality
+  # plot and print functionality
   subset(list(d1 = TRUE)) |>  # 1D plots only
   print(ncol = 2)  # print in 2 columns
 ```
@@ -423,7 +423,7 @@ Finally, we again generate 2D interactions, this time based on probabilities ins
 # Print only 2D ALE plots involving age
 gbm_probs_plots |> 
   # Use subset() instead of get() to keep the special ALEPlots object 
-  #plot and print functionality
+  # plot and print functionality
   subset(list(d2_all = 'age')) |>
   print(ncol = 1)  # print in 1 column
 ```

@@ -167,24 +167,38 @@ in the plots of bootstrapped ALE with p-values:
 
 ``` r
 # Create ALE data
-# # To generate the code, uncomment the following lines.
-# # But it is slow because it bootstraps the ALE data 100 times, so this vignette loads a pre-created ALE object.
-# ale_gam_diamonds_stats_readme <- ALE(
-#   gam_diamonds,
-#   p_values = gam_diamonds_p_readme,
-#   boot_it = 100
-# )
-# saveRDS(ale_gam_diamonds_stats_readme, file.choose())
-ale_gam_diamonds_stats_readme <- 
-  url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.0.5.0.rds') |> 
-  readRDS()
+ale_gam_diamonds_stats_readme <- ALE(
+  gam_diamonds,
+  # generate all for all 1D variables and the carat:clarity 2D interaction
+  x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+  data = diamonds_sample,
+  p_values = gam_diamonds_p_readme,
+  # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+  boot_it = 10
+)
 
-# Plot the ALE data
-plot(ale_gam_diamonds_stats_readme) |> 
+# Create an ALEPlots object for fine-tuned plotting
+ale_plots <- plot(ale_gam_diamonds_stats_readme)
+
+# Plot 1D ALE plots 
+ale_plots |> 
+  # Only select 1D ALE plots.
+  # Use subset() instead of get() to keep the special ALEPlots object 
+  # plot and print functionality.
+  subset(list(d1 = TRUE)) |> 
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-stats-ale-1.png" width="100%" />
+<img src="man/figures/README-stats-ale and 1D plot-1.png" width="100%" />
+
+``` r
+# Plot a selected 2D plot
+ale_plots |> 
+  # get() retrieves a specific desired plot
+  get('carat:clarity') 
+```
+
+<img src="man/figures/README-2D plot-1.png" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect
@@ -202,3 +216,42 @@ always include a minimal reproducible example for your usage requests.
 If you cannot include your own dataset in the question, then use one of
 the built-in datasets to frame your help request: `var_cars` or
 `census`. You may also use `ggplot2::diamonds` for a larger sample.
+
+## Citations
+
+If you find this package useful, I would appreciate it if you would cite
+the appropriate sources as follows, depending on what aspects you use.
+
+### Core idea of accumulated local effects
+
+Apley, Daniel W., and Jingyu Zhu (2020). “Visualizing the effects of
+predictor variables in black box supervised learning models.” *Journal
+of the Royal Statistical Society Series B: Statistical Methodology* 82,
+no. 4: 1059-1086.
+
+### ALE statistics (ALED, ALER, NALED, NALER)
+
+Okoli, Chitu (2023). “Statistical inference using machine learning and
+classical techniques based on accumulated local effects (ALE).” *arXiv
+preprint* arXiv:2310.09877.
+
+Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
+Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
+Science 2024. Seattle
+
+### ALE-based inference (confidence regions)
+
+Okoli, Chitu (2023). “Statistical inference using machine learning and
+classical techniques based on accumulated local effects (ALE).” *arXiv
+preprint* arXiv:2310.09877.
+
+Okoli, Chitu (2024). “Model-Agnostic Interpretability: Effect Size
+Measures from Accumulated Local Effects (ALE)”. INFORMS Workshop on Data
+Science 2024. Seattle
+
+### Use of the `ale` package (the software itself)
+
+Okoli, Chitu (\[year of package version used\]). “ale: Interpretable
+Machine Learning and Statistical Inference with Accumulated Local
+Effects (ALE)”. R software package version \[enter version number\].
+<https://CRAN.R-project.org/package=ale>.
