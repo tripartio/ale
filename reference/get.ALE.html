@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
 
 
 <dt id="arg-what">what<a class="anchor" aria-label="anchor" href="#arg-what"></a></dt>
-<dd><p>character(1). What kind of output is requested. Must be one (and only one) of <code>c('ale', 'boot_data')</code>. Default is <code>'ale'</code>. If <code>stats</code> is specified and <code>what = 'ale'</code>, then ALE statistics are retrieved. Otherwise, <code><a href="get.html">get()</a></code> errors if <code>stats</code> is specified and <code>what</code> has some other value.</p></dd>
+<dd><p>character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the <code>stats</code> argument.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -66,15 +66,19 @@
 
 
 <dt id="arg-stats">stats<a class="anchor" aria-label="anchor" href="#arg-stats"></a></dt>
-<dd><p>character(1). Retrieve statistics. If <code>stats</code> is specified, then <code>what</code> must be <code>'ale'</code>. See the return value details below for valid values for <code>stats</code>.</p></dd>
+<dd><p>character(1). Retrieve ALE statistics. If <code>stats</code> is specified, then <code>what</code> must be left at the default ("ale"). Otherwise, <code><a href="get.html">get()</a></code> errors if <code>stats</code> is specified and <code>what</code> has some other value. See the return value details below for valid values for <code>stats</code>.</p></dd>
 
 
 <dt id="arg-cats">cats<a class="anchor" aria-label="anchor" href="#arg-cats"></a></dt>
 <dd><p>character. Optional category names to retrieve if the ALE is for a categorical y outcome model.</p></dd>
 
 
+<dt id="arg-ale-centre">ale_centre<a class="anchor" aria-label="anchor" href="#arg-ale-centre"></a></dt>
+<dd><p>Same as in documentation for <code><a href="ALEPlots.html">ALEPlots()</a></code></p></dd>
+
+
 <dt id="arg-simplify">simplify<a class="anchor" aria-label="anchor" href="#arg-simplify"></a></dt>
-<dd><p>logical(1). If <code>TRUE</code> (default), the results will be simplified to the simplest structure possible to give the requested results.</p></dd>
+<dd><p>logical(1). If <code>TRUE</code> (default), the results will be simplified to the simplest list structure possible to give the requested results. If <code>FALSE</code>, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.</p></dd>
 
 
 <dt id="arg-silent">silent<a class="anchor" aria-label="anchor" href="#arg-silent"></a></dt>
@@ -83,12 +87,11 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Regardless of the requested data, all <code>get.ALE()</code> have a common structure:</p><ul><li><p>If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the <code>cats</code> argument, then the top level never has categories, regardless of the value of <code>simplify</code>.</p></li>
+    <p>Regardless of the requested data, all <code>get.ALE()</code> have a common structure:</p><ul><li><p>If more than one category of the y outcome is returned, then the top level is a list named by each category. If, however, the y outcome is not categorical or only one category of multiple possibilities is specified using the <code>cats</code> argument, then the top level never has categories, regardless of the value of <code>simplify</code>.</p></li>
 <li><p>The next level (or top level if there are zero or one category) is a list with one or two levels:</p><ul><li><p><code>d1</code>: 1D ALE elements.</p></li>
 <li><p><code>d2</code>: 2D ALE elements.
 However, if elements of only one dimension (either 1D or 2D) are requested and <code>simplify = TRUE</code> (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no <code>d1</code> sublist but only a list of the ALE data as described for the next level. If <code>simplify = FALSE</code>, both <code>d1</code> and <code>d2</code> sublists will always be returned; the empty sublist will be <code>NULL</code>.</p></li>
 </ul></li>
-<li><p>For the <code>d1</code> sublist, there is no further hierarchy: the returned data is as described below. For the <code>d2</code> sublist representing <code>var1</code> by <code>var2</code> interactions, the next level is a named list of all <code>var1</code> elements. This level in turn consists of a named list of <code>var2</code> elements with the actual data as described below. For example, for ALE data, <code>result &lt;- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))</code> would return <code>result</code> as a list where the 1D ALE data is in <code>result$d1$var1</code> and the 2D ALE data in <code>result$d2$var1$var2</code>.</p></li>
 </ul><p>While all results follow the general structure just described, the specific type of data returned depends on the values of the <code>what</code> and <code>stats</code> arguments:</p><dl><dt><code>what = 'ale'</code> (default) and <code>stats = NULL</code> (default)</dt>
 <dd><p>A list whose elements, named by each requested x variable, are each a tibble. The rows each represent one ALE bin. The tibble has the following columns:
 * <code>var.bin</code> or <code>var.ceil</code> where <code>var</code> is the name of a variable (column): For non-numeric x, <code>var.bin</code> is the value of each of the ALE categories. For numeric x, <code>var.ceil</code> is the value of the upper bound (ceiling) of each ALE bin. The first "bin" of numeric variables represents the minimum value. For 2D ALE with an <code>var1</code> by <code>var2</code> interaction, both <code>var1.bin</code> and <code>var2.bin</code> columns are returned (or <code>var1.ceil</code> or <code>var2.ceil</code>for numeric <code>var1</code> or <code>var2</code>).
@@ -106,22 +109,20 @@ However, if elements of only one dimension (either 1D or 2D) are requested and <
 
 <dt><code>what = 'ale'</code> (default) and <code>stats = 'estimate'</code></dt>
 <dd><p>A list with elements <code>d1</code> and <code>d2</code> with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
-* <code>term</code> or <code>term1</code> and <code>term2</code>: The variable or column for the 1D (<code>term</code>) or 2D (<code>term1</code> by <code>term2</code>) ALE statistic.
+* <code>term</code>: The variables or columns for the 1D or 2D ALE statistic.
 * <code>aled</code>, <code>aler_min</code>, <code>aler_max</code>, <code>naled</code>, <code>naler_min</code>, <code>naler_max</code>: the respective ALE statistic for the variable or interaction.</p></dd>
 
 
-<dt><code>what = 'ale'</code> (default) and <code>stats</code> is one value in <code>c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')</code></dt>
-<dd><p>A list with elements <code>d1</code> and <code>d2</code> with the distribution value of the single requested ALE statistic. Each element <code>d1</code> and <code>d2</code> is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
-* <code>term</code> or <code>term1</code> and <code>term2</code>: Same as for <code>stats = 'estimate'</code>.
+<dt><code>what = 'ale'</code> (default) and <code>stats</code> is one or more values in <code>c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')</code></dt>
+<dd><p>A list with elements <code>d1</code> and <code>d2</code> with the distribution value of the single requested ALE statistic. Each element <code>d1</code> and <code>d2</code> is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+* <code>term</code>: Same as for <code>stats = 'estimate'</code>.
+* <code>statistic</code>: The requested ALE statistic(s).
 * <code>estimate</code>, <code>mean</code>, <code>median</code>: The average of the bootstrapped value of the requested statistic. <code>estimate</code> is equal to either <code>mean</code> or <code>median</code> depending on the <code>boot_centre</code> argument in the <code><a href="ale.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>mean</code>, and <code>median</code> are equal.
 * <code>conf.low</code>, <code>conf.high</code>: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the <code>boot_alpha</code> argument in the <code><a href="ale.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>conf.low</code>, and <code>conf.high</code> are equal.</p></dd>
 
 
 <dt><code>what = 'ale'</code> (default) and <code>stats = 'all'</code></dt>
-<dd><p>A list with elements <code>d1</code> and <code>d2</code> with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the <code>stats = 'aled'</code> (for example) format returns data for a single statistic, <code>stats = 'all'</code> returns all statistics for the requested variables. Each element is a list with the requested <code>d1</code> and <code>d2</code> sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
-* <code>term</code> or <code>term1</code> and <code>term2</code>: Same as for <code>stats = 'estimate'</code>.
-* <code>estimate</code>, <code>mean</code>, <code>median</code>: Same as above for individual ALE statistics.
-* <code>conf.low</code>, <code>conf.high</code>: Same as above for individual ALE statistics.</p></dd>
+<dd><p>A list with elements <code>d1</code> and <code>d2</code> with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the <code>stats = 'aled'</code> (for example) format returns data for a single statistic, <code>stats = 'all'</code> returns all statistics for the requested variables. Thus, the data structure and columns are identical as for single statistics above, except that all available ALE statistics are returned.</p></dd>
 
 
 <dt><code>what = 'ale'</code> (default) and <code>stats = 'conf_regions'</code></dt>
@@ -129,14 +130,14 @@ However, if elements of only one dimension (either 1D or 2D) are requested and <
 
 
 <dt><code>what = 'ale'</code> (default) and <code>stats = 'conf_sig'</code></dt>
-<dd><p>A list with elements <code>d1</code> and <code>d2</code> filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see <code><a href="../articles/ale-statistics.html">vignette('ale-statistics')</a></code>.</p></dd>
+<dd><p>Identical structure as <code>stats = 'conf_regions'</code> except that the elements are filtered for the terms (variables or interactions) that have statistically significant confidence regions exceeding the threshold of the inner ALER band, specifically, at least <code>obj@params$aler_alpha[2]</code> of the rows of data. See <code><a href="../articles/ale-statistics.html">vignette("ale-statistics")</a></code> for details.</p></dd>
 
 
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># See examples at ALE() for a demonstration us the get() method.</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># See examples at ALE() for a demonstration of how to use the get() method.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

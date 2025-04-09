@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,15 +40,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="ale-development-version">ale (development version)<a class="anchor" aria-label="anchor" href="#ale-development-version"></a></h2>
-<p>We have deeply rethought the vision of this package and have completely rewritten it to support existing, new, and future planned functionality.</p>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="ale-050">ale 0.5.0<a class="anchor" aria-label="anchor" href="#ale-050"></a></h2>
+<p>We have deeply rethought the vision of this package and have completely rewritten the entire package to support existing, new, and future planned functionality. The changes are so radical that there is no continuity with the previous version 0.3.1. Thus, we’ve skipped a version number and now are at version 0.5.0.</p>
+<p>Honestly, we can’t keep track of all the changes; experienced users are advised to rerun the vignettes to get up to speed with the new version. We apologize for the discontinuity but we trust that the latest version is easier to use and much more functional. What follows is a list of some of the most notable changes we’ve kept track of.</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-0"></a></h3>
 <ul><li>The underlying algorithm for calculating ALE has been completely rewritten to be more scalable.</li>
 <li>In addition to rewriting the code under the hood, the structure of all <code>ale</code> package objects has been completely rewritten. The latest objects are not compatible with earlier versions. However, the new structure supports the roadmap of future functionality, so we hope that there will be minimal changes in the future that interrupt backward compatibility.</li>
-<li>We have created several S7 objects to represent different kinds of <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package objects:
+<li>We have created four new <a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> classes to represent different kinds of <code>ale</code> package objects:
 <ul><li>
-<code>ALE</code>: the core <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package object that holds ALE data for a model (replaces the former <code><a href="../reference/ale-package.html">ale()</a></code> and <code>ale_ixn()</code> functions).</li>
+<code>ALE</code>: the core <code>ale</code> package object that holds ALE data for a model (replaces the former <code><a href="../reference/ale-package.html">ale()</a></code> and <code>ale_ixn()</code> functions).</li>
 <li>
 <code>ModelBoot</code>: results of full-model bootstrapping (replaces the former <code>model_bootstrap()</code> function).</li>
 <li>
@@ -56,19 +57,19 @@
 <li>
 <code>ALEpDist</code>: p-value distribution information (replaces the former <code>create_p_dist()</code> function).</li>
 </ul></li>
-<li>With the extensive rewrite, we no longer depend on <code>{ALEPlot}</code> code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.</li>
-<li>Renamed the <code>rug_sample_size</code> argument of the <code>ALE</code> constructor to <code>sample_size</code>. Now it reflects the size of <code>data</code> that should be sampled in the <code>ale</code> object, which can be used not only for rug plots but for other purposes.</li>
+<li>With the extensive rewrite, we no longer depend on <code>{ALEPlot}</code> package code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.</li>
 <li>
 <code>ale_ixn()</code> has been eliminated and now both 1D and 2D ALE are calculated with the <code><a href="../reference/ale.html">ALE()</a></code> constructor for .</li>
 <li>The <code>ALE</code> object constructor no longer produces plots directly. ALE plots are now created as <code>ale_plot</code> objects using the newly added <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods that create all possible plots from the ALE data from <code>ALE</code> or <code>ale_boot</code> objects. Thus, serializing <code>ALE</code> objects now avoids the previous problems of environment bloat of the included <code>ggplot</code> objects.</li>
+<li>Renamed the <code>rug_sample_size</code> argument of the <code>ALE</code> constructor to <code>sample_size</code>. Now it reflects the size of <code>data</code> that should be sampled in the <code>ale</code> object, which can be used not only for rug plots but for other purposes.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0"></a></h3>
 <p>We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.</p>
 <ul><li>Gracefully fails instead of crashing when the input data has missing values.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-user-visible-changes-development-version">Other user-visible changes<a class="anchor" aria-label="anchor" href="#other-user-visible-changes-development-version"></a></h3>
+<h3 id="other-user-visible-changes-0-5-0">Other user-visible changes<a class="anchor" aria-label="anchor" href="#other-user-visible-changes-0-5-0"></a></h3>
 <ul><li>The <code>x_cols</code> argument in <code><a href="../reference/ale.html">ALE()</a></code> now supports a complex syntax for specifying which specific columns for 1D ALE or pairs of columns for 2D interactions are desired. It also supports specification using standard R formula syntax.</li>
 <li>New <code><a href="../reference/get.html">get()</a></code> methods now provide convenient access to <code>ALE</code>, <code>ModelBoot</code>, and <code>ALEPlots</code> objects.</li>
 <li>Confidence regions for 1D ALE are now reported more compactly.</li>
@@ -78,17 +79,22 @@
 <li>A <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method has been added to the <code>ALE</code> object.</li>
 <li>Interactions are now supported between pairs of categorical variables. (Before, only numerical pairs or pairs with one numerical and one categorical were supported.)</li>
 <li>Bootstrapping is now supported for ALE interactions.</li>
+<li>2D ALE plots have been completely rewritten. They are still implemented as tiled heatmaps but now are faceted by bootstrap quantile when ALE is bootstrapped.</li>
 <li>ALE statistics are now supported for interactions, including confidence regions.</li>
-<li>Categorical y outcomes are now supported. The plots, though, only plot one category at a time.</li>
+<li>Categorical y outcomes are now supported.</li>
+<li>For categorical y outcomes, plots are created for one category at a time and also for all categories combined. For 1D ALE, separate plots are available for categories overlaid on one plot and for categories faceted. For 2D ALE, plots faceted by category are available.</li>
 <li>‘boot_data’ is now an output option from ale(). It outputs the ALE values from each bootstrap iteration.</li>
 <li>
 <code>model_bootstrap()</code> has added various model performance measures that are validated using bootstrap validation with the .632 correction.</li>
 <li>The structure of <code>p_funs</code> has been completely changed; it has now been converted to an object named <code>ale_p</code> and the functions are separated from the object as internal functions. The function <code>create_p_funs()</code> has been renamed <code>create_p_dist()</code>.</li>
-<li>create_p_dist()<code>now produces two types of p-values via the</code>p_speed` argument: ‘approx fast’ for relatively faster but only approximate values (the default) or ‘precise slow’ for very slow but more exact values.</li>
+<li>
+<code><a href="../reference/ALEpDist.html">ALEpDist()</a></code> now produces three types of p-values: “exact” (very slow) with at least 1000 random iterations on the original model; “approx” for 100 to 999 iterations on the original model; and “surrogate” for much faster but less reliable p-values based on a surrogate linear model. See <code><a href="../reference/ALEpDist.html">ALEpDist()</a></code> for details.</li>
 <li>Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.</li>
+<li>Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.</li>
+<li>Although the standard {ALE} class supports 2D ALE interactions with ALE bootstrapping, {ModelBoot} does not yet support full-model bootstrapping for 2D ALE interactions.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="under-the-hood-development-version">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood-development-version"></a></h3>
+<h3 id="under-the-hood-0-5-0">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood-0-5-0"></a></h3>
 <p>One of the most fundamental changes is not directly visible but affects how some ALE values are calculated. In certain very specific cases, the ALE values are now slightly different from those of the reference <code>{ALEPlot}</code> package. These are only for non-numerical variables for some prediction types other than predictions scaled on the response variable. (E.g., a binary or categorical variable for a logarithmic prediction not scaled to the same scale as the response variable.) We made this change for two reasons:</p>
 <ul><li>We can understand our implementation and its interpretation for these edge cases much better than that of the reference <code>{ALEPlot}</code> implementation. These cases are not covered at all in the base ALE scientific article and they are poorly documented in the <code>{ALEPlot}</code> code. We cannot help users to interpret results that we do not understand ourselves.</li>
 <li>Our implementation lets us write code that scales smoothly for interactions of arbitrary depth. In contrast, the <code>{ALEPlot}</code> reference implementation is not scalable: custom code must be written for each type and each degree of interaction.</li>
@@ -107,10 +113,8 @@
 <li>Add testing code coverage with <a href="https://covr.r-lib.org" class="external-link">covr</a>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="known-issues-to-be-addressed-in-a-future-version-development-version">Known issues to be addressed in a future version<a class="anchor" aria-label="anchor" href="#known-issues-to-be-addressed-in-a-future-version-development-version"></a></h3>
-<ul><li>Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.</li>
-<li>Effects plots for interactions have not yet been implemented.</li>
-<li>Although the standard {ALE} class supports 2D ALE interactions with ALE bootstrapping, {ModelBoot} does not yet support full-model bootstrapping for 2D ALE interactions.</li>
+<h3 id="known-issues-to-be-addressed-in-a-future-version-0-5-0">Known issues to be addressed in a future version<a class="anchor" aria-label="anchor" href="#known-issues-to-be-addressed-in-a-future-version-0-5-0"></a></h3>
+<ul><li>Effects plots for interactions have not yet been implemented.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -118,7 +122,7 @@
 <p>The most significant updates are the addition of p-values for the ALE statistics, the launching of a pkgdown website which will henceforth host the development version of the package, and parallelization of core functions with a resulting performance boost.</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-3-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-0"></a></h3>
-<ul><li><p>One of the key goals for the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for <code>tidymodels</code> objects and various survival models (but for now, only those that return single-vector predictions). So, <strong>in addition to taking required <code>object</code> and <code>newdata</code> arguments, the custom predict function <code>pred_fun</code> in the <code><a href="../reference/ale-package.html">ale()</a></code> function now also requires an argument for <code>type</code> to specify the prediction type</strong>, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows <a href="https://github.com/tripartio/ale" class="external-link">ale</a> to analyze many new model types than before. Code that did not require custom predict functions should not be affected by this change. See the updated documentation of the <code><a href="../reference/ale-package.html">ale()</a></code> function for details.</p></li>
+<ul><li><p>One of the key goals for the <code>ale</code> package is that it would be truly model-agnostic: it should support any R object that can be considered a model, where a model is defined as an object that makes a prediction for each input row of data that it is provided. Towards this goal, we had to adjust the custom predict function to make it more flexible for various kinds of model objects. We are happy that our changes now enable support for <code>tidymodels</code> objects and various survival models (but for now, only those that return single-vector predictions). So, <strong>in addition to taking required <code>object</code> and <code>newdata</code> arguments, the custom predict function <code>pred_fun</code> in the <code><a href="../reference/ale-package.html">ale()</a></code> function now also requires an argument for <code>type</code> to specify the prediction type</strong>, whether it is used or not. This change breaks previous code that used custom predict functions, but it allows <code>ale</code> to analyze many new model types than before. Code that did not require custom predict functions should not be affected by this change. See the updated documentation of the <code><a href="../reference/ale-package.html">ale()</a></code> function for details.</p></li>
 <li><p>Another change that breaks former code is that the arguments for <code>model_bootstrap()</code> have been modified. Instead of a cumbersome <code>model_call_string</code>, <strong><code>model_bootstrap()</code> now uses the <a href="https://easystats.github.io/insight/" class="external-link">insight</a> package to automatically detect many R models and directly manipulate the model object as needed</strong>. So, the second argument is now the <code>model</code> object. However, for non-standard models that <a href="https://easystats.github.io/insight/" class="external-link">insight</a> cannot automatically parse, a modified <code>model_call_string</code> is still available to assure model-agnostic functionality. Although this change breaks former code that ran <code>model_bootstrap()</code>, we believe that the new function interface is much more user-friendly.</p></li>
 <li><p>A slight change that might break some existing code is that the <code>conf_regions</code> output associated with ALE statistics has been restructured. The new structure provides more useful information. See <code><a href="../reference/ale-package.html">help(ale)</a></code> for details.</p></li>
 </ul></div>
@@ -130,7 +134,7 @@
 <li>The <strong>normalization formula for ALE statistics</strong> was changed such that very minor differences from the median are normalized as zero. Before this adjustment, the former normalization formula could give some tiny differences apparently large normalized effects. See the updated documentation in <code><a href="../articles/ale-statistics.html">vignette('ale-statistics')</a></code> for details. The vignette has been expanded with more details on how to properly interpret normalized ALE statistics.</li>
 <li>
 <strong>Normalized ALE range (NALER) is now expressed as percentile points relative to the median</strong> (ranging from -50% to +50%) rather than its original formulation as absolute percentiles (ranging from 0 to 100%). See the updated documentation in <code><a href="../articles/ale-statistics.html">vignette('ale-statistics')</a></code> for details.</li>
-<li>Performance has been dramatically improved by the addition of <strong>parallelization</strong> by default. We use the <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> library. In our tests, practically, we typically found speed-ups of <code>n – 2</code> where <code>n</code> is the number of physical cores (machine learning is generally unable to use logical cores). For example, a computer with 4 physical cores should see at least ×2 speed-up and a computer with 6 physical cores should see at least ×4 speed-up. However, parallelization is tricky with our model-agnostic design. When users work with models that follow standard R conventions, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package should be able to automatically configure the system for parallelization. But for some non-standard models users may have to explicitly list the model’s packages in the new <code>model_packages</code> argument so that each parallel thread can find all necessary functions. This is only a concern if you get weird errors. See <code><a href="../reference/ale-package.html">help(ale)</a></code> for details.</li>
+<li>Performance has been dramatically improved by the addition of <strong>parallelization</strong> by default. We use the <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> library. In our tests, practically, we typically found speed-ups of <code>n – 2</code> where <code>n</code> is the number of physical cores (machine learning is generally unable to use logical cores). For example, a computer with 4 physical cores should see at least ×2 speed-up and a computer with 6 physical cores should see at least ×4 speed-up. However, parallelization is tricky with our model-agnostic design. When users work with models that follow standard R conventions, the <code>ale</code> package should be able to automatically configure the system for parallelization. But for some non-standard models users may have to explicitly list the model’s packages in the new <code>model_packages</code> argument so that each parallel thread can find all necessary functions. This is only a concern if you get weird errors. See <code><a href="../reference/ale-package.html">help(ale)</a></code> for details.</li>
 <li>Fully documented the output of the <code><a href="../reference/ale-package.html">ale()</a></code> function. See <code><a href="../reference/ale-package.html">help(ale)</a></code> for details.</li>
 <li>The <code>median_band_pct</code> argument to <code><a href="../reference/ale-package.html">ale()</a></code> now takes a vector of two numbers, one for the inner band and one for the outer.</li>
 <li>Switched recommendation of calculating ALE data on test data to instead calculate it on the full dataset with the final deployment model.</li>
@@ -144,7 +148,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="under-the-hood-0-3-0">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood-0-3-0"></a></h3>
-<ul><li>Uses the <a href="https://easystats.github.io/insight/" class="external-link">insight</a> package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package in general.</li>
+<ul><li>Uses the <a href="https://easystats.github.io/insight/" class="external-link">insight</a> package to automatically detect y_col and model call objects when possible; this increases the range of automatic model detection of the <code>ale</code> package in general.</li>
 <li>We have switched to using the <a href="https://progressr.futureverse.org" class="external-link">progressr</a> package for progress bars. With the <code>cli</code> progression handler, this enables accurate estimated times of arrival (ETA) for long procedures, even with parallel computing. A message is displayed once per session informing users of how to customize their progress bars. For details, see <code><a href="../reference/ale-package.html">help(ale)</a></code>, particularly the documentation on progress bars and the <code>silent</code> argument.</li>
 <li>Moved <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> from a dependency to an import. So, it is no longer automatically loaded with the package.</li>
 <li>More detailed information from internal <code>var_summary()</code> function. In particular, encodes whether the user is using p-values (ALER band) or not (median band).</li>
@@ -174,7 +178,7 @@
 <ul><li>We added new <strong>ALE-based statistics: ALED and ALER</strong> with their normalized versions <strong>NALED and NALER</strong>. <code><a href="../reference/ale-package.html">ale()</a></code> and <code>model_bootstrap()</code> now output these statistics. (<code>ale_ixn()</code> will come later.)</li>
 <li>We added <strong>rug plots</strong> to numeric values and <strong>percentage frequencies</strong> to the plots of categories. These indicators give a quick visual indication of the distribution of plotted data.</li>
 <li>We added a vignette that introduces <strong>ALE-based statistics</strong>, especially effect size measures, and demonstrates how to use them for statistical inference: “ALE-based statistics for statistical inference and effect sizes” (available from the vignettes link on the main CRAN page at <a href="https://CRAN.R-project.org/package=ale" class="external-link uri">https://CRAN.R-project.org/package=ale</a>).</li>
-<li>We added a vignette that compares the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package with the reference <strong><code>{ALEPlot}</code> package</strong>: “Comparison between <code>{ALEPlot}</code> and <a href="https://github.com/tripartio/ale" class="external-link">ale</a> packages” (available from the vignettes link on the main CRAN page at <a href="https://CRAN.R-project.org/package=ale" class="external-link uri">https://CRAN.R-project.org/package=ale</a>).</li>
+<li>We added a vignette that compares the <code>ale</code> package with the reference <strong><code>{ALEPlot}</code> package</strong>: “Comparison between <code>{ALEPlot}</code> and <code>ale</code> packages” (available from the vignettes link on the main CRAN page at <a href="https://CRAN.R-project.org/package=ale" class="external-link uri">https://CRAN.R-project.org/package=ale</a>).</li>
 <li>We added two <strong>datasets</strong>:
 <ul><li>
 <code>var_cars</code> is a modified version of mtcars that features many different types of variables.</li>
@@ -204,7 +208,7 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="ale-010">ale 0.1.0<a class="anchor" aria-label="anchor" href="#ale-010"></a></h2><p class="text-muted">CRAN release: 2023-08-29</p>
-<p>This is the first CRAN release of the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package. Here is its official description with the initial release:</p>
+<p>This is the first CRAN release of the <code>ale</code> package. Here is its official description with the initial release:</p>
 <p>Accumulated Local Effects (ALE) were initially developed as a model-agnostic approach for global explanations of the results of black-box machine learning algorithms. (Apley, Daniel W., and Jingyu Zhu. “Visualizing the effects of predictor variables in black box supervised learning models.” Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086 <a href="doi:10.1111/rssb.12377" class="uri">doi:10.1111/rssb.12377</a>.) ALE has two primary advantages over other approaches like partial dependency plots (PDP) and SHapley Additive exPlanations (SHAP): its values are not affected by the presence of interactions among variables in a model and its computation is relatively rapid. This package rewrites the original code from the ‘ALEPlot’ package for calculating ALE data and it completely reimplements the plotting of ALE values.</p>
 <p>(This package uses the same GPL-2 license as the <code>{ALEPlot}</code> package.)</p>
 <p>This initial release replicates the full functionality of the <code>{ALEPlot}</code> package and a lot more. It currently presents three functions:</p>
@@ -215,7 +219,7 @@
 <li>
 <code>model_bootstrap()</code>: bootstrap an entire model, not just the ALE values. This function returns the bootstrapped model statistics and coefficients as well as the bootstrapped ALE values. This is the appropriate approach for small samples.</li>
 </ul><p>This release provides more details in the following vignettes (they are all available from the vignettes link on the main CRAN page at <a href="https://CRAN.R-project.org/package=ale" class="external-link uri">https://CRAN.R-project.org/package=ale</a>):</p>
-<ul><li>Introduction to the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package</li>
+<ul><li>Introduction to the <code>ale</code> package</li>
 <li>Analyzing small datasets (fewer than 2000 rows) with ALE</li>
 <li>
 <code><a href="../reference/ale-package.html">ale()</a></code> function handling of various datatypes for x</li>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,10 +64,26 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lm_cars</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="ModelBoot.html">ModelBoot</a></span><span class="op">(</span><span class="va">lm_cars</span>, boot_it <span class="op">=</span> <span class="fl">2</span>, parallel <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">lm_cars</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">gear</span>, <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="ModelBoot.html">ModelBoot</a></span><span class="op">(</span><span class="va">lm_cars</span>, boot_it <span class="op">=</span> <span class="fl">2</span>, ale_p <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'ModelBoot' object of the model model on a 32x10 dataset with 2 bootstrap iterations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;ModelBoot&gt;</span> object of a <span style="color: #0000BB;">&lt;lm&gt;</span> model that predicts `mpg` (a numeric outcome) from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> a 32-row by 3-column dataset.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * The model was retrained with 2 bootstrap iterations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following overall model summary statistics are available:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * Overall average statistics: r.squared, adj.r.squared, sigma, statistic,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> p.value, df, df.residual, and nobs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Statistics for the following specific variables or interactions are available:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> (Intercept), wt, and gear</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Accumulated local effects (ALE) data and statistics are provided for the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> following terms:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 1D terms: wt and gear</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> no 2D terms:</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

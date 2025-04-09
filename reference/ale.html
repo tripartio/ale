@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,28 +53,26 @@
 <span>  y_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  exclude_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  parallel <span class="op">=</span> <span class="fu">future</span><span class="fu">::</span><span class="fu"><a href="https://parallelly.futureverse.org/reference/availableCores.html" class="external-link">availableCores</a></span><span class="op">(</span>logical <span class="op">=</span> <span class="cn">FALSE</span>, omit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  parallel <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  model_packages <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_stats <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  output_conf <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  output_boot_data <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  pred_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">type</span> <span class="op">=</span> <span class="va">pred_type</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>object <span class="op">=</span></span>
 <span>    <span class="va">object</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, type <span class="op">=</span> <span class="va">type</span><span class="op">)</span></span>
 <span> <span class="op">}</span>,</span>
 <span>  pred_type <span class="op">=</span> <span class="st">"response"</span>,</span>
-<span>  p_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  p_alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  p_values <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  aler_alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>,</span>
 <span>  max_num_bins <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  boot_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  boot_centre <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  y_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  median_band_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>  sample_size <span class="op">=</span> <span class="fl">500</span>,</span>
-<span>  .bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  silent <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  silent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  .bins <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,11 +89,11 @@
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which <code>model</code> was trained. If not provided, <code>ALE()</code> will try to detect it automatically. For non-standard models, <code>data</code> should be provided.</p></dd>
+<dd><p>dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which <code>model</code> was trained. If not provided, <code>ALE()</code> will try to detect it automatically if it is included in the <code>model</code> object.</p></dd>
 
 
 <dt id="arg-y-col">y_col<a class="anchor" aria-label="anchor" href="#arg-y-col"></a></dt>
-<dd><p>character(1). Name of the outcome target label (y) variable. If not provided, <code>ALE()</code> will try to detect it automatically. For non-standard models, <code>y_col</code> should be provided. For survival models, set <code>y_col</code> to the name of the binary event column; in that case, <code>pred_type</code> should also be specified.</p></dd>
+<dd><p>character(1). Name of the outcome target label (y) variable. If not provided, <code>ALE()</code> will try to detect it automatically from the <code>model</code> object. For non-standard models, <code>y_col</code> should be provided. For time-to-event (survival) models, see details.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -103,7 +101,7 @@
 
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
-<dd><p>non-negative integer(1). Number of parallel threads (workers or tasks) for parallel execution of the function. Set <code>parallel = 0</code> to disable parallel processing. See details.</p></dd>
+<dd><p>non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set <code>parallel = 0</code> to disable parallel processing. See details.</p></dd>
 
 
 <dt id="arg-model-packages">model_packages<a class="anchor" aria-label="anchor" href="#arg-model-packages"></a></dt>
@@ -112,10 +110,6 @@
 
 <dt id="arg-output-stats">output_stats<a class="anchor" aria-label="anchor" href="#arg-output-stats"></a></dt>
 <dd><p>logical(1). If <code>TRUE</code> (default), return ALE statistics.</p></dd>
-
-
-<dt id="arg-output-conf">output_conf<a class="anchor" aria-label="anchor" href="#arg-output-conf"></a></dt>
-<dd><p>logical(1). If <code>TRUE</code> (default), return ALE confidence regions. If <code>output_stats</code> is <code>FALSE</code>, <code>output_conf</code> is ignored since confidence regions cannot be produced without ALE statistics.</p></dd>
 
 
 <dt id="arg-output-boot-data">output_boot_data<a class="anchor" aria-label="anchor" href="#arg-output-boot-data"></a></dt>
@@ -127,23 +121,26 @@
 
 
 <dt id="arg-p-values">p_values<a class="anchor" aria-label="anchor" href="#arg-p-values"></a></dt>
-<dd><p>instructions for calculating p-values and to determine the median band. If <code>NULL</code> (default), no p-values are calculated and <code>median_band_pct</code> is used to determine the median band. To calculate p-values, an <code><a href="ALEpDist.html">ALEpDist()</a></code> object must be provided here. If <code>p_values</code> is set to 'auto', this <code>ALE()</code> function will try to automatically create the p-values distribution; this only works with standard R model types. An error message will be given if p-values cannot be generated. Any other input provided to this argument will result in an error. For more details about creating p-values, see documentation for <code><a href="ALEpDist.html">ALEpDist()</a></code>. Note that p-values will not be generated if <code>output_stats</code> is <code>FALSE</code>.</p></dd>
+<dd><p>instructions for calculating p-values. Possible values are:</p><ul><li><p><code>NULL</code>: p-values are not calculated.</p></li>
+<li><p>An <code>ALEpDist</code> object: the object will be used to calculate p-values.</p></li>
+<li><p><code>"auto"</code> (default): If statistics are requested (<code>output_stats = TRUE</code>) and bootstrapping is requested (<code>boot_it &gt; 0</code>), the constructor will try to automatically create a fast surrogate <code>ALEpDist</code> object; otherwise, no p-values are calculated. However, automatic creation of a surrogate <code>ALEpDist</code> object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an <code><a href="ALEpDist.html">ALEpDist()</a></code> object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.</p></li>
+</ul></dd>
 
 
-<dt id="arg-p-alpha">p_alpha<a class="anchor" aria-label="anchor" href="#arg-p-alpha"></a></dt>
-<dd><p>numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if <code>p_values</code> are provided. If <code>p_values</code> are not provided, then <code>median_band_pct</code> is used instead. The inner band range will be the median value of y ± <code>p_alpha[2]</code> of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± <code>p_alpha[1]</code>. For example, in the ALE plots, for the default <code>p_alpha = c(0.01, 0.05)</code>, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.</p></dd>
+<dt id="arg-aler-alpha">aler_alpha<a class="anchor" aria-label="anchor" href="#arg-aler-alpha"></a></dt>
+<dd><p>numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if <code>p_values</code> are provided (that is, not <code>NULL</code>). The inner band range will be the median value of y ± <code>aler_alpha[2]</code> of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± <code>aler_alpha[1]</code>. For example, in the ALE plots, for the default <code>aler_alpha = c(0.01, 0.05)</code>, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.</p></dd>
 
 
 <dt id="arg-max-num-bins">max_num_bins<a class="anchor" aria-label="anchor" href="#arg-max-num-bins"></a></dt>
-<dd><p>positive integer(1). Maximum number of bins for numeric <code>x_cols</code> variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and <code>max_num_bins</code>.</p></dd>
+<dd><p>positive integer(1). Maximum number of ALE bins for numeric <code>x_cols</code> variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and <code>max_num_bins</code>. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.</p></dd>
 
 
 <dt id="arg-boot-it">boot_it<a class="anchor" aria-label="anchor" href="#arg-boot-it"></a></dt>
-<dd><p>non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with the <code>ModelBoot</code> class. See details there. The default <code>boot_it = 0</code> turns off bootstrapping.</p></dd>
+<dd><p>non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a <code><a href="ModelBoot.html">ModelBoot()</a></code> class object. See details there. The default <code>boot_it = 0</code> turns off bootstrapping.</p></dd>
 
 
 <dt id="arg-boot-alpha">boot_alpha<a class="anchor" aria-label="anchor" href="#arg-boot-alpha"></a></dt>
-<dd><p>numeric(1) from 0 to 1. Alpha for percentile-based confidence interval range for the bootstrap intervals; the bootstrap confidence intervals will be the lowest and highest <code>(1 - 0.05) / 2</code> percentiles. For example, if <code>boot_alpha = 0.05</code> (default), the intervals will be from the 2.5 and 97.5 percentiles.</p></dd>
+<dd><p>numeric(1) from 0 to 1. When ALE is bootstrapped (<code>boot_it &gt; 0</code>), <code>boot_alpha</code> specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest <code>(1 - 0.05) / 2</code> percentiles. For example, if <code>boot_alpha = 0.05</code> (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.</p></dd>
 
 
 <dt id="arg-boot-centre">boot_centre<a class="anchor" aria-label="anchor" href="#arg-boot-centre"></a></dt>
@@ -151,56 +148,47 @@
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
-<dd><p>integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified.</p></dd>
+<dd><p>integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with <code>parallel = 0</code>.</p></dd>
 
 
 <dt id="arg-y-type">y_type<a class="anchor" aria-label="anchor" href="#arg-y-type"></a></dt>
 <dd><p>character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.</p></dd>
 
 
-<dt id="arg-median-band-pct">median_band_pct<a class="anchor" aria-label="anchor" href="#arg-median-band-pct"></a></dt>
-<dd><p>numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if <code>p_values</code> are not provided. If <code>p_values</code> are provided, then <code>median_band_pct</code> is ignored. The inner band range will be the median value of y ± <code>median_band_pct[1]/2</code>. For plots with a second outer band, its range will be the median ± <code>median_band_pct[2]/2</code>. For example, for the default <code>median_band_pct = c(0.05, 0.5)</code>, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.</p></dd>
-
-
 <dt id="arg-sample-size">sample_size<a class="anchor" aria-label="anchor" href="#arg-sample-size"></a></dt>
-<dd><p>non-negative integer(1). Size of the sample of <code>data</code> to be returned with the <code>ALE</code> object. This is primarily used for rug plots. See the <code>min_rug_per_interval</code> argument.</p></dd>
-
-
-<dt id="arg--bins">.bins<a class="anchor" aria-label="anchor" href="#arg--bins"></a></dt>
-<dd><p>Internal. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (NULL), <code>ALE()</code> automatically calculates the bins. <code>.bins</code> is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with <code><a href="ModelBoot.html">ModelBoot()</a></code>).</p></dd>
+<dd><p>non-negative integer(1). Size of the sample of <code>data</code> to be returned with the <code>ALE</code> object. This is primarily used for rug plots in <code><a href="ALEPlots.html">ALEPlots()</a></code>.</p></dd>
 
 
 <dt id="arg-silent">silent<a class="anchor" aria-label="anchor" href="#arg-silent"></a></dt>
-<dd><p>logical(1), default <code>FALSE.</code> If <code>TRUE</code>, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to enable progress bars.</p></dd>
+<dd><p>logical(1), default <code>FALSE.</code> If <code>TRUE</code>, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.</p></dd>
+
+
+<dt id="arg--bins">.bins<a class="anchor" aria-label="anchor" href="#arg--bins"></a></dt>
+<dd><p>Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (<code>NULL</code>), <code>ALE()</code> automatically calculates the bins. <code>.bins</code> is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with <code><a href="ModelBoot.html">ModelBoot()</a></code>).</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>ALE</code> with properties <code>distinct</code> and <code>params</code>.</p>
+    <p>An object of class <code>ALE</code> with properties <code>effect</code> and <code>params</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="properties">Properties<a class="anchor" aria-label="anchor" href="#properties"></a></h2>
 
 
-<dl><dt>distinct</dt>
-<dd><p>Stores the optional ALE data, ALE statistics, and bootstrap data for one or more categories.</p></dd>
+<dl><dt>effect</dt>
+<dd><p>Stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories.</p></dd>
 
 <dt>params</dt>
-<dd><p>The parameters used to calculate the ALE data. These include most of the arguments used to construct the <code>ALE</code> object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:</p>
+<dd><p>The parameters used to calculate the ALE data. These include most of the arguments used to construct the <code>ALE</code> object. These are either the values provided by the user or those used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">max_d</span><span class="st">`</span><span class="sc">:</span> the highest dimension of ALE data present. If only <span class="dv">1</span>D ALE is present, then <span class="st">`</span><span class="at">max_d == 1</span><span class="st">`</span>. If even one <span class="dv">2</span>D ALE element is <span class="fu">present</span> (even with no <span class="dv">1</span>D), then <span class="st">`</span><span class="at">max_d == 2</span><span class="st">`</span>.</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">requested_x_cols</span><span class="st">`</span>,<span class="st">`</span><span class="at">ordered_x_cols</span><span class="st">`</span><span class="sc">:</span> <span class="st">`</span><span class="at">requested_x_cols</span><span class="st">`</span> is the resolved list of <span class="st">`</span><span class="at">x_cols</span><span class="st">`</span> as requested by the <span class="fu">user</span> (that is, <span class="st">`</span><span class="at">x_cols</span><span class="st">`</span> minus <span class="st">`</span><span class="at">exclude_cols</span><span class="st">`</span>). <span class="st">`</span><span class="at">ordered_x_cols</span><span class="st">`</span> is the same set of <span class="st">`</span><span class="at">x_cols</span><span class="st">`</span> but arranged <span class="cf">in</span> the internal storage order.</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">y_cats</span><span class="st">`</span><span class="sc">:</span> categories <span class="cf">for</span> categorical classification models. For non<span class="sc">-</span>categorical models, this is the same as <span class="st">`</span><span class="at">y_col</span><span class="st">`</span>.</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">y_type</span><span class="st">`</span><span class="sc">:</span> high<span class="sc">-</span>level datatype of the y outcome variable.</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span><span class="sc">:</span> summary statistics of y values used <span class="cf">for</span> the ALE calculation. These statistics are based on the actual values of <span class="st">`</span><span class="at">y_col</span><span class="st">`</span> unless <span class="cf">if</span> <span class="st">`</span><span class="at">y_type</span><span class="st">`</span> is a probability or other value that is constrained <span class="cf">in</span> the <span class="st">`</span><span class="at">[0, 1]</span><span class="st">`</span> range. In that case, <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span> is based on the predicted values of <span class="st">`</span><span class="at">y_col</span><span class="st">`</span> by applying <span class="st">`</span><span class="at">model</span><span class="st">`</span> to the <span class="st">`</span><span class="at">data</span><span class="st">`</span>. <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span> is a named numeric vector. Most of the elements are the percentile of the y values. E.g., the <span class="st">'5%'</span> element is the <span class="dv">5</span>th percentile of y values. The following elements have special meanings<span class="sc">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="er">*</span> The first element is named either <span class="st">`</span><span class="at">p</span><span class="st">`</span> or <span class="st">`</span><span class="at">q</span><span class="st">`</span> and its value is always <span class="fl">0.</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  The value is not used; only the name of the element is meaningful.</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="st">`</span><span class="at">p</span><span class="st">`</span> means that the following special <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span> elements are based on</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  the provided <span class="st">`</span><span class="at">ALEpDist</span><span class="st">`</span> object. <span class="st">`</span><span class="at">q</span><span class="st">`</span> means that quantiles were calculated</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  based on <span class="st">`</span><span class="at">median_band_pct</span><span class="st">`</span> because <span class="st">`</span><span class="at">p_values</span><span class="st">`</span> was not provided.</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">min</span><span class="st">`</span>, <span class="st">`</span><span class="at">mean</span><span class="st">`</span>, <span class="st">`</span><span class="at">max</span><span class="st">`</span><span class="sc">:</span> the minimum, mean, and maximum y values, respectively. Note that the median is <span class="st">`</span><span class="at">50%</span><span class="st">`</span>, the <span class="dv">50</span>th percentile.</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">med_lo_2</span><span class="st">`</span>, <span class="st">`</span><span class="at">med_lo</span><span class="st">`</span>, <span class="st">`</span><span class="at">med_hi</span><span class="st">`</span>, <span class="st">`</span><span class="at">med_hi_2</span><span class="st">`</span><span class="sc">:</span> <span class="st">`</span><span class="at">med_lo</span><span class="st">`</span> and <span class="st">`</span><span class="at">med_hi</span><span class="st">`</span> are the inner lower and upper confidence intervals of y values with respect to the <span class="fu">median</span> (<span class="st">`</span><span class="at">50%</span><span class="st">`</span>); <span class="st">`</span><span class="at">med_lo_2</span><span class="st">`</span> and <span class="st">`</span><span class="at">med_hi_2</span><span class="st">`</span> are the outer confidence intervals. See the documentation <span class="cf">for</span> the <span class="st">`</span><span class="at">p_alpha</span><span class="st">`</span> and <span class="st">`</span><span class="at">median_band_pct</span><span class="st">`</span> arguments to understand how these are determined.</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">model</span><span class="st">`</span><span class="sc">:</span> same as <span class="st">`</span><span class="at">ALE@params$model</span><span class="st">`</span> (see documentation there).</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">data</span><span class="st">`</span><span class="sc">:</span> same as <span class="st">`</span><span class="at">ALE@params$model</span><span class="st">`</span> (see documentation there).</span></code></pre><p></p></div></dd>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span><span class="sc">:</span> summary statistics of y values used <span class="cf">for</span> the ALE calculation. These statistics are based on the actual values of <span class="st">`</span><span class="at">y_col</span><span class="st">`</span> unless <span class="cf">if</span> <span class="st">`</span><span class="at">y_type</span><span class="st">`</span> is a probability or other value that is constrained <span class="cf">in</span> the <span class="st">`</span><span class="at">[0, 1]</span><span class="st">`</span> range, <span class="cf">in</span> which case <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span> is based on the predictions of <span class="st">`</span><span class="at">y_col</span><span class="st">`</span> from <span class="st">`</span><span class="at">model</span><span class="st">`</span> on the <span class="st">`</span><span class="at">data</span><span class="st">`</span>. <span class="st">`</span><span class="at">y_summary</span><span class="st">`</span> is a named numeric matrix. For most outcomes with a single value per predicted row, there is just one column with the same name as <span class="st">`</span><span class="at">y_col</span><span class="st">`</span>. For categorical y outcomes, there is one column <span class="cf">for</span> each category <span class="cf">in</span> <span class="st">`</span><span class="at">y_cats</span><span class="st">`</span> plus an additional column with the same name as <span class="st">`</span><span class="at">y_col</span><span class="st">`</span>; this is the mean of the categorical columns. The rows are named mostly as the percentile of the y values. E.g., the <span class="st">'5%'</span> row is the <span class="dv">5</span>th percentile of y values. The following named rows have special meanings<span class="sc">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="er">*</span> <span class="st">`</span><span class="at">min</span><span class="st">`</span>, <span class="st">`</span><span class="at">mean</span><span class="st">`</span>, <span class="st">`</span><span class="at">max</span><span class="st">`</span><span class="sc">:</span> the minimum, mean, and maximum y values, respectively. Note that the median is <span class="st">`</span><span class="at">50%</span><span class="st">`</span>, the <span class="dv">50</span>th percentile.</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">aler_lo_lo</span><span class="st">`</span>, <span class="st">`</span><span class="at">aler_lo</span><span class="st">`</span>, <span class="st">`</span><span class="at">aler_hi</span><span class="st">`</span>, <span class="st">`</span><span class="at">aler_hi_hi</span><span class="st">`</span><span class="sc">:</span> When p<span class="sc">-</span>values are present, <span class="st">`</span><span class="at">aler_lo</span><span class="st">`</span> and <span class="st">`</span><span class="at">aler_hi</span><span class="st">`</span> are the inner lower and upper confidence intervals of <span class="st">`</span><span class="at">y_col</span><span class="st">`</span> values with respect to the <span class="fu">median</span> (<span class="st">`</span><span class="at">50%</span><span class="st">`</span>); <span class="st">`</span><span class="at">aler_lo_lo</span><span class="st">`</span> and <span class="st">`</span><span class="at">aler_hi_hi</span><span class="st">`</span> are the outer confidence intervals. See the documentation <span class="cf">for</span> the <span class="st">`</span><span class="at">aler_alpha</span><span class="st">`</span> argument to understand how these are determined. Without p<span class="sc">-</span>values, these elements are absent.</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">model</span><span class="st">`</span><span class="sc">:</span> selected elements that describe the <span class="st">`</span><span class="at">model</span><span class="st">`</span> that the <span class="st">`</span><span class="at">ALE</span><span class="st">`</span> object interprets.</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">data</span><span class="st">`</span><span class="sc">:</span> selected elements that describe the <span class="st">`</span><span class="at">data</span><span class="st">`</span> used to produce the <span class="st">`</span><span class="at">ALE</span><span class="st">`</span> object. To avoid the large size of duplicating <span class="st">`</span><span class="at">data</span><span class="st">`</span> entirely, only a sample of the size of the <span class="st">`</span><span class="at">sample_size</span><span class="st">`</span> argument is retained.</span></code></pre><p></p></div></dd>
 
 
 </dl></div>
@@ -215,34 +203,39 @@ These argument names are according to the R convention for the generic <code><a 
 </ul></li>
 <li><p>It must return a vector or matrix of numeric values as the prediction.</p></li>
 </ul><p>You can see an example below of a custom prediction function.</p>
-<p><strong>Note:</strong> <code>survival</code> models probably do not need a custom prediction function but <code>y_col</code> must be set to the name of the binary event column and <code>pred_type</code> must be set to the desired prediction type.</p>
     </div>
     <div class="section level2">
-    <h2 id="ale-statistics">ALE statistics<a class="anchor" aria-label="anchor" href="#ale-statistics"></a></h2>
+    <h2 id="ale-statistics-and-p-values">ALE statistics and p-values<a class="anchor" aria-label="anchor" href="#ale-statistics-and-p-values"></a></h2>
 
 
-<p>For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see <code><a href="../articles/ale-statistics.html">vignette('ale-statistics')</a></code>.</p>
+<p>For details about the ALE-based statistics (ALED, ALER, NALED, and NALER), see <code><a href="../articles/ale-statistics.html">vignette('ale-statistics')</a></code>. For general details about the calculation of p-values, see <code><a href="ALEpDist.html">ALEpDist()</a></code>. Here, we clarify the automatic calculation of p-values with the <code>ALE()</code> constructor.</p>
+<p>As explained in the documentation above for the <code>p_values</code> argument, the default <code>p_values = "auto"</code> will try to automatically create a fast surrogate <code>ALEpDist</code> object. However, this is on the condition that statistics are requested (default, <code>output_stats = TRUE</code>) and bootstrapping is also requested (not default, if <code>boot_it</code> is any value greater than 0). Requesting statistics is necessary otherwise p-values are not needed. However, the requirement for requiring bootstrapping is a pragmatic design choice. The challenge is that creating an <code>ALEpDist</code> object can be slow. (Even the fast surrogate option rarely takes less than 10 seconds, even with parallelization.) Thus, to optimize speed, p-values will not be calculated unless requested. However, if the user requests bootstrapping (which is slower than not requesting it), it can be assumed that they are willing to sacrifice some speed for the sake of greater precision in their ALE analysis; thus, extra time is taken to at least create a relatively faster surrogate <code>ALEpDist</code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="parallel-processing">Parallel processing<a class="anchor" aria-label="anchor" href="#parallel-processing"></a></h2>
 
 
-<p>Parallel processing using the <code>{furrr}</code> framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting <code>parallel = future::availableCores(logical = FALSE, omit = 1)</code>. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer. If you will dedicate the entire computer to running this function (and you don't mind everything else becoming very slow while it runs), you may use all cores by setting <code>parallel = future::availableCores(logical = FALSE)</code>. To disable parallel processing, set <code>parallel = 0</code>.</p>
-<p>#'  The <code>{ale}</code> package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with <code>silent = TRUE</code>). In that case, first try disabling parallel processing with <code>parallel = 0</code>. If that resolves the problem, then to get faster parallel processing to work, try adding the package names needed for the <code>model</code> to this argument, e.g., <code>model_packages = c('tidymodels', 'mgcv')</code>.</p>
+<p>Parallel processing using the <code>{furrr}</code> framework is enabled by default. The number of parallel threads (workers or cores) is specified with the <code>parallel</code> argument. By default (<code>parallel = "all"</code>), it will use all the available physical and logical CPU cores. However, if the procedure is very slow (with a large dataset and slow prediction algorithm), you might want to set <code>parallel = "all but one")</code>, which will only use faster physical cores and reserve one physical core so that your computer does not slow down as you continue working on other tasks while the procedure runs. To disable parallel processing, set <code>parallel = 0</code>.</p>
+<p>The <code>{ale}</code> package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with <code>silent = TRUE</code>). In that case, first try disabling parallel processing with <code>parallel = 0</code>. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the <code>model</code> to the <code>model_packages</code> argument, e.g., <code>model_packages = c('tidymodels', 'mgcv')</code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="time-to-event-survival-models">Time-to-event (survival) models<a class="anchor" aria-label="anchor" href="#time-to-event-survival-models"></a></h2>
+
+
+<p>For time-to-event (survival) models, set the following arguments:</p><ul><li><p><code>y_col</code> must be the set to the name of the binary event column.</p></li>
+<li><p>Include the time column in the <code>exclude_cols</code> argument so that its ALE will not be calculated, e.g., <code>exclude_cols = 'time'</code>. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.</p></li>
+<li><p><code>pred_type</code> must be specified according to the desired <code>type</code> argument for the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).</p></li>
+<li><p><code>pred_fun</code> might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom <code>pred_fun</code> as specified above might be needed.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="progress-bars">Progress bars<a class="anchor" aria-label="anchor" href="#progress-bars"></a></h2>
 
 
-<p>Progress bars are implemented with the <code>{progressr}</code> package, which lets the user fully control progress bars. To disable progress bars, set <code>silent = TRUE</code>. The first time a function is called in the <code>{ale}</code> package that requires progress bars, it checks if the user has activated the necessary <code>{progressr}</code> settings. If not, the <code>{ale}</code> package automatically enables <code>{progressr}</code> progress bars with the <code>cli</code> handler and prints a message notifying the user.</p>
-<p>If you like the default progress bars and you want to make them permanent, you can add the following lines of code to your <code>.Rprofile</code> configuration file and they will become your defaults for every R session; you will not see the message again:</p>
-<p></p><div class="sourceCode R"><pre><code><span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>This would apply not only to the <code>{ale}</code> package but to any package that uses <code>{progressr}</code> progress bars. For more details on formatting progress bars to your liking, see the introduction to the <a href="https://progressr.futureverse.org/articles/progressr-intro.html" class="external-link"><code>{progressr}</code> package</a>.</p>
+<p>Progress bars are implemented with the <code>{progressr}</code> package. For details on customizing the progress bars, see the introduction to the <a href="https://progressr.futureverse.org/articles/progressr-intro.html" class="external-link"><code>{progressr}</code> package</a>. To disable progress bars when calling a function in the <code>ale</code> package, set <code>silent = TRUE</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <a href="https://arxiv.org/abs/2310.09877" class="external-link">https://arxiv.org/abs/2310.09877</a>.</p>
+    <p>Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <a href="doi:10.48550/arXiv.2310.09877">doi:10.48550/arXiv.2310.09877</a>.</p>
     </div>
 
     <div class="section level2">
@@ -255,7 +248,8 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span><span class="co"># Smooth all numeric variables and include all other variables</span></span></span>
 <span class="r-in"><span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span></span>
+<span class="r-in"><span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">ti</span><span class="op">(</span><span class="va">carat</span>, by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span>,  <span class="co"># a 2D interaction</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">diamonds_sample</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></span>
@@ -265,60 +259,67 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) + </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut + color + clarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cut + color + clarity + ti(carat, by = clarity)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parametric coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3421.412     74.903  45.678  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         261.339    171.630   1.523 0.128170    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q          53.684    129.990   0.413 0.679710    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -71.942    103.804  -0.693 0.488447    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          -8.657     80.614  -0.107 0.914506    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1778.903    113.669 -15.650  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -482.225    104.675  -4.607 4.64e-06 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color.C        58.724     95.983   0.612 0.540807    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^4       125.640     87.111   1.442 0.149548    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -241.194     81.913  -2.945 0.003314 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> color^6       -49.305     74.435  -0.662 0.507883    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L    4141.841    226.713  18.269  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -2367.820    217.185 -10.902  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C    1026.214    180.295   5.692 1.67e-08 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4    -602.066    137.258  -4.386 1.28e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5     408.336    105.344   3.876 0.000113 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6     -82.379     88.434  -0.932 0.351815    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7       4.017     78.816   0.051 0.959362    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  3001.89     260.67  11.516  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.L         127.31     153.83   0.828 0.408134    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.Q          72.52     111.14   0.653 0.514238    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut.C         -55.92      83.03  -0.673 0.500810    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cut^4          51.68      64.61   0.800 0.423979    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.L     -1632.19      91.78 -17.785  &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.Q      -472.22      83.82  -5.634 2.34e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color.C       -35.91      76.97  -0.467 0.640944    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^4        27.23      70.13   0.388 0.697875    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^5      -142.75      65.77  -2.170 0.030237 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> color^6         1.52      59.47   0.026 0.979618    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.L   -1523.84    1015.27  -1.501 0.133718    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.Q   -3469.55     893.39  -3.884 0.000110 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity.C   -1380.98     790.93  -1.746 0.081137 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^4     678.13     761.51   0.890 0.373429    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^5    1437.67     622.47   2.310 0.021127 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^6    1305.16     379.50   3.439 0.000609 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> clarity^7     653.21     159.89   4.085 4.78e-05 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Approximate significance of smooth terms:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            edf Ref.df      F  p-value    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat) 7.503  8.536  4.114 3.65e-05 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth) 1.486  1.874  0.601 0.614753    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(table) 2.929  3.738  1.294 0.240011    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)     8.897  8.967  3.323 0.000542 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)     3.875  5.118 11.075  &lt; 2e-16 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)     9.000  9.000  2.648 0.004938 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         edf Ref.df      F p-value    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(carat)              8.594  8.888  6.954 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(depth)              2.177  2.874  0.778 0.42173    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(table)              1.000  1.000  0.107 0.74371    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(x)                  7.954  8.513  2.788 0.00401 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(y)                  5.234  6.467  8.077 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s(z)                  3.404  4.479  1.623 0.15244    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):claritySI2  3.737  3.948 14.107 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):claritySI1  1.000  1.000 52.139 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):clarityVS2  2.884  3.390 22.095 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):clarityVS1  3.948  3.996 33.200 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):clarityVVS2 2.279  2.660 55.728 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):clarityVVS1 3.924  3.994 36.573 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ti(carat):clarityIF   3.911  3.992 38.323 &lt; 2e-16 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =   0.94   Deviance explained = 94.3%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 9.7669e+05  Scale est. = 9.262e+05  n = 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.962   Deviance explained = 96.5%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 6.2787e+05  Scale est. = 5.8514e+05  n = 1000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Simple ALE without bootstrapping</span></span></span>
+<span class="r-in"><span><span class="co"># Simple ALE without bootstrapping: by default, all 1D ALE effects</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">ALE</span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not recover model data from environment. Please make sure your</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   data is available in your workspace.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   Trying to retrieve data from the model frame now.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = list("cut", "color", "clarity"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = c("cut", "color"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `predict.gam()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> newdata is a model.frame: it should contain all required variables</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Plot the ALE data</span></span></span>
+<span class="r-in"><span><span class="co"># Simple printing of all plots</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ale_gam_diamonds' not found</span>
 <span class="r-in"><span></span></span>
@@ -328,20 +329,36 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span><span class="co"># Create ALE with 100 bootstrap samples</span></span></span>
 <span class="r-in"><span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu">ALE</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>  <span class="co"># request all 1D ALE effects and only the carat:clarity 2D effect</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span>, d2 <span class="op">=</span> <span class="st">'carat:clarity'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not recover model data from environment. Please make sure your</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   data is available in your workspace.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   Trying to retrieve data from the model frame now.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = list("cut", "color", "clarity"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = c("carat:clarity", "cut", "color"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `predict.gam()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> newdata is a model.frame: it should contain all required variables</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Bootstrapped ALEs print with confidence intervals</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#' More advanced plot manipulation</span></span></span>
+<span class="r-in"><span><span class="va">ale_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="co"># Create an ALEPlots object</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ale_gam_diamonds_boot' not found</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Print the plots: First page prints 1D ALE; second page prints 2D ALE</span></span></span>
+<span class="r-in"><span><span class="va">ale_plots</span>  <span class="co"># or print(ale_plots) to be explicit</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_plots' not found</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract specific plots (as lists of ggplot objects)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_plots</span>, <span class="st">'carat'</span><span class="op">)</span>  <span class="co"># extract a specific 1D plot</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_plots' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_plots</span>, <span class="st">'carat:clarity'</span><span class="op">)</span>  <span class="co"># extract a specific 2D plot</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_plots' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_plots</span>, type <span class="op">=</span> <span class="st">'effect'</span><span class="op">)</span>  <span class="co"># ALE effects plot</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_plots' not found</span>
+<span class="r-in"><span><span class="co"># See help(get.ALEPlots) for more options, such as for categorical plots</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If the predict function you want is non-standard, you may define a</span></span></span>
@@ -357,7 +374,7 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not recover model data from environment. Please make sure your</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   data is available in your workspace.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   Trying to retrieve data from the model frame now.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = list("cut", "color", "clarity"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = c("cut", "color"), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `predict.gam()`:</span></span>
@@ -369,38 +386,39 @@ These argument names are according to the R convention for the generic <code><a 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># How to retrieve specific types of ALE data from an ALE object.</span></span></span>
-<span class="r-in"><span><span class="va">ale_diamonds_with__boot_data</span> <span class="op">&lt;-</span> <span class="fu">ALE</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">ale_diamonds_with_boot_data</span> <span class="op">&lt;-</span> <span class="fu">ALE</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">gam_diamonds</span>,</span></span>
 <span class="r-in"><span>  <span class="co"># For detailed options for x_cols, see examples at resolve_x_cols()</span></span></span>
-<span class="r-in"><span>  x_cols <span class="op">=</span> <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">clarity</span> <span class="op">+</span> <span class="va">color</span><span class="op">:</span><span class="va">depth</span> <span class="op">+</span> <span class="va">x</span><span class="op">:</span><span class="va">y</span>,</span></span>
+<span class="r-in"><span>  x_cols <span class="op">=</span> <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">clarity</span> <span class="op">+</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span> <span class="op">+</span> <span class="va">color</span><span class="op">:</span><span class="va">depth</span>,</span></span>
 <span class="r-in"><span>  output_boot_data <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># just for demonstration</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not recover model data from environment. Please make sure your</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   data is available in your workspace.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   Trying to retrieve data from the model frame now.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = list(c("color", "depth"), c("x", "y")), .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (.x, .f, ..., .progress = FALSE) {    map_("list", .x, .f, ..., .progress = .progress)})(.x = "color:depth", .f = function (...) {    {        ...furrr_chunk_seeds_i &lt;- ...furrr_chunk_seeds_env[["i"]]        ...furrr_chunk_seeds_env[["i"]] &lt;- ...furrr_chunk_seeds_i +             1L        assign(x = ".Random.seed", value = ...furrr_chunk_seeds[[...furrr_chunk_seeds_i]],             envir = globalenv(), inherits = FALSE)    }    NULL    ...furrr_out &lt;- ...furrr_fn(...)    ...furrr_out}):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `predict.gam()`:</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> newdata is a model.frame: it should contain all required variables</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># See ?get.ALE for details on the various kinds of data that may be retrieved.</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">color</span><span class="op">:</span><span class="va">depth</span><span class="op">)</span>  <span class="co"># default ALE data</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, what <span class="op">=</span> <span class="st">'boot_data'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, stats <span class="op">=</span> <span class="st">'estimate'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, stats <span class="op">=</span> <span class="st">'aled'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with__boot_data</span>, stats <span class="op">=</span> <span class="st">'conf_sig'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with__boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">color</span><span class="op">:</span><span class="va">depth</span><span class="op">)</span>  <span class="co"># default ALE data</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, what <span class="op">=</span> <span class="st">'boot_data'</span><span class="op">)</span>  <span class="co"># raw bootstrap data</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">'estimate'</span><span class="op">)</span>  <span class="co"># summary statistics</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'aled'</span>, <span class="st">'naled'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">ale_diamonds_with_boot_data</span>, stats <span class="op">=</span> <span class="st">'conf_sig'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ale_diamonds_with_boot_data' not found</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

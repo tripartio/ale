@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">February 14, 2025</h4>
+            <h4 data-toc-skip class="date">April 7, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-x-datatypes.Rmd" class="external-link"><code>vignettes/ale-x-datatypes.Rmd</code></a></small>
       <div class="d-none name"><code>ale-x-datatypes.Rmd</code></div>
@@ -236,9 +236,11 @@ smoothed. Our goal here is not to demonstrate the best modelling
 procedure but rather to demonstrate the flexibility of the
 <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gam_cars</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">drat</span> <span class="op">+</span> <span class="va">wt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">qsec</span><span class="op">)</span> <span class="op">+</span></span>
-<span>                  <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">gear</span> <span class="op">+</span> <span class="va">carb</span> <span class="op">+</span> <span class="va">country</span>,</span>
-<span>                data <span class="op">=</span> <span class="va">var_cars</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">gam_cars</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
+<span>  <span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">drat</span> <span class="op">+</span> <span class="va">wt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">qsec</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">gear</span> <span class="op">+</span> <span class="va">carb</span> <span class="op">+</span> <span class="va">country</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">var_cars</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family: gaussian </span></span>
@@ -277,18 +279,9 @@ procedure but rather to demonstrate the flexibility of the
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; R-sq.(adj) =  0.955   Deviance explained = 98.8%</span></span>
 <span><span class="co">#&gt; GCV = 6.4263  Scale est. = 1.6474    n = 32</span></span></code></pre></div>
-<p>Before starting, we recommend that you enable progress bars to see
-how long procedures will take. Simply run the following code at the
-beginning of your R session:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
-<p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
-automatically for you with a notification message.</p>
 <p>Now we generate ALE data from the <code>gam_cars</code> GAM model and
 plot it.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
@@ -303,11 +296,11 @@ charts for everything else.</p>
 of the x (predictor) and y (<code>mpg</code>) values data actually
 exists in the dataset. This helps us to not over-interpret regions where
 data is sparse. Since column charts are on a discrete scale, they cannot
-rug plots. Instead, the percentage of data represented by each column is
-displayed.</p>
+display rug plots. Instead, the percentage of data represented by each
+column is displayed.</p>
 <p>We can also generate and plot the ALE data for all two-way
 interactions.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ale_cars_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_cars</span>,</span>
 <span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -321,28 +314,28 @@ interactions.</p>
 <span>    max_print <span class="op">=</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/ale_cars_2D-1.png" width="672"></p>
-<p>There are no interactions in this dataset. (To see what ALE
-interaction plots look like in the presence of interactions, see the <a href="https://tripartio.github.io/ale/articles/ale-ALEPlot.html">{ALEPlot}
+<p>There are no interactions in this model but the point of this
+demonstration is to show that the <code>ale</code> package can handle 2D
+interactions between just about any pair of interaction types:
+numeric-numeric, ordinal-binary, categorical-ordinal, etc. (To see what
+ALE interaction plots look like in the presence of interactions, see the
+<a href="https://tripartio.github.io/ale/articles/ale-ALEPlot.html">{ALEPlot}
 comparison vignette</a>, which explains the interaction plots in more
 detail.)</p>
 <p>Finally, as explained in the vignette on modelling with <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>, a more
 appropriate modelling workflow would require bootstrapping the entire
 model, not just the ALE data. So, let’s do that now.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_cars</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
 <span>  seed <span class="op">=</span> <span class="fl">2</span>  <span class="co"># workaround to avoid random error on such a small dataset</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in predict.gam(object = object, newdata = newdata, type = type): factor</span></span>
-<span><span class="co">#&gt; levels UK not in original fit</span></span>
-<span><span class="co">#&gt; Warning: ALE calculation failed for iteration 1...</span></span>
-<span><span class="co">#&gt; Warning in predict.gam(object = object, newdata = newdata, type = type): factor</span></span>
-<span><span class="co">#&gt; levels UK not in original fit</span></span>
-<span><span class="co">#&gt; Warning: ALE calculation failed for iteration 2...</span></span>
-<span></span>
-<span><span class="co"># Warnings are because it is difficult to bootstrap such a small dataset.</span></span>
-<span><span class="co"># However, most bootstrap iterations succeed nonetheless.</span></span>
+<span><span class="co">#&gt; Loading required package: intervals</span></span>
+<span><span class="co">#&gt; Warning in min(y): no non-missing arguments to min; returning Inf</span></span>
+<span><span class="co">#&gt; Warning in max(y): no non-missing arguments to max; returning -Inf</span></span>
+<span><span class="co">#&gt; Warning in min(norm_y): no non-missing arguments to min; returning Inf</span></span>
+<span><span class="co">#&gt; Warning in max(norm_y): no non-missing arguments to max; returning -Inf</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -351,12 +344,12 @@ model, not just the ALE data. So, let’s do that now.</p>
 samples but, so that this illustration runs faster, we demonstrate it
 here with only 10 iterations.)</p>
 <p>With such a small dataset, the bootstrap confidence interval always
-overlap with the middle band, indicating that this dataset cannot
-support any claims that any of its variables has a meaningful effect on
-fuel efficiency (mpg). Considering that the average bootstrapped ALE
-values suggest various intriguing patterns, the problem is no doubt that
-the dataset is too small–if more data were collected and analyzed, some
-of the patterns would probably be confirmed.</p>
+overlap the median, indicating that this dataset cannot support any
+claims that any of its variables has a meaningful effect on fuel
+efficiency (mpg). Considering that the average bootstrapped ALE values
+suggest various intriguing patterns, the problem is no doubt that the
+dataset is too small–if more data were collected and analyzed, some of
+the patterns would probably be confirmed.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

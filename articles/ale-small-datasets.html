@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">February 14, 2025</h4>
+            <h4 data-toc-skip class="date">April 7, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-small-datasets.Rmd" class="external-link"><code>vignettes/ale-small-datasets.Rmd</code></a></small>
       <div class="d-none name"><code>ale-small-datasets.Rmd</code></div>
@@ -112,22 +112,14 @@ techniques mentioned in this vignette.</p>
 <div class="section level3">
 <h3 id="attitude-dataset">attitude dataset<a class="anchor" aria-label="anchor" href="#attitude-dataset"></a>
 </h3>
-<p>Most analyses use the <code>attitude</code> dataset, built-in with R:
-“From a survey of the clerical employees of a large financial
+<p>For this analysis, we use the <code>attitude</code> dataset, built-in
+with R: “From a survey of the clerical employees of a large financial
 organization, the data are aggregated from the questionnaires of the
 approximately 35 employees for each of 30 (randomly selected)
-departments.” Since we’re talking about “small” datasets, we figure that
-we might as well demonstrate principles with extremely small
-examples.</p>
-<div class="section level4">
-<h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h4>
-<p>From a survey of the clerical employees of a large financial
-organization, the data are aggregated from the questionnaires of the
-approximately 35 employees for each of 30 (randomly selected)
-departments. The numbers give the percent proportion of favourable
-responses to seven questions in each department.</p>
-</div>
+departments.” The numbers give the percent proportion of favourable
+responses to seven questions in each department. Since we’re talking
+about “small” datasets, we figure that we might as well demonstrate
+principles with extremely small examples.</p>
 <div class="section level4">
 <h4 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a>
 </h4>
@@ -263,24 +255,13 @@ analysis of small data samples.</p>
 <span><span class="co">#&gt; Multiple R-squared:  0.7326, Adjusted R-squared:  0.6628 </span></span>
 <span><span class="co">#&gt; F-statistic:  10.5 on 6 and 23 DF,  p-value: 1.24e-05</span></span></code></pre></div>
 <p>At the very least, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is useful for
-visualizing the effects of model variables.</p>
-<p>Before starting, we recommend that you enable progress bars to see
-how long procedures will take. Simply run the following code at the
-beginning of your R session:</p>
+visualizing the effects of model variables. Note that for now, we run
+<code><a href="../reference/ale.html">ALE()</a></code> with no bootstrapping (the default) because small
+samples require a special bootstrap approach, as explained below. For
+now, all we are doing is using ALE to accurately visualize what the
+model estimates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
-<p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
-automatically for you with a notification message.</p>
-<p>Note that for now, we run <code><a href="../reference/ale.html">ALE()</a></code> with no bootstrapping
-(the default) because small samples require a special bootstrap
-approach, as explained below. For now, all we are doing is using ALE to
-accurately visualize what the model estimates.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">lm_attitude</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">lm_attitude</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_lm_attitude_simple</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -293,30 +274,6 @@ of advance than the regression coefficients suggest. The other variables
 have relatively little effect on ratings. We will see shortly that
 proper bootstrapping of the model can shed some light on the
 discrepancies.</p>
-<p>What is unique about ALE compared to other approaches is that it
-visualizes the effect of each variable irrespective of interactions that
-might or might not exist with other variables, whether these other
-interacting variables are included in the model or not.</p>
-<p>We can also use <code><a href="../reference/ale.html">ALE()</a></code> to visualize the possible
-existence of any interactions by specifying
-<code>x_cols = list(d2 = TRUE)</code> to calculate all 2D
-interactions:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_lm_attitude_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">lm_attitude</span>,</span>
-<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create an ALEPlots object</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_lm_attitude_2D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-small-datasets_files/figure-html/lm_2D-1.png" width="672"></p>
-<p>This is a powerful use-case for the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package: it
-can be used to explore the existence of interactions after the fact;
-they do not need to be hypothesized beforehand. However, without
-bootstrapping, such findings cannot be considered reliable. In this
-case, there are no interactions in this dataset, so we will not explore
-them further.</p>
 </div>
 <div class="section level3">
 <h3 id="full-model-bootstrapping">Full model bootstrapping<a class="anchor" aria-label="anchor" href="#full-model-bootstrapping"></a>
@@ -325,16 +282,16 @@ them further.</p>
 of our model results, with or without ALE, should be considered reliable
 without being bootstrapped. For large datasets whose models have been
 properly trained and evaluated on separate subsets before ALE analysis,
-<code><a href="../reference/ale.html">ALE()</a></code> bootstraps the ALE results of the final deployment
-model on the full dataset. However, when a dataset is too small to be
+an <code>ALE</code> object can bootstrap the ALE results of the model
+trained on the full dataset. However, when a dataset is too small to be
 subdivided into training and test sets, then the entire model should be
-bootstrapped, not just the ALE data from a single deployment model. That
+bootstrapped, not just the ALE data from a single trained model. That
 is, multiple models should be trained, one on each bootstrap sample. The
 reliable results are the average results of all the bootstrap models,
 however many there are.</p>
 <p>The <code>ModelBoot</code> object automatically carries out
-full-model bootstrapping suitable for small datasets. Specifically,
-it:</p>
+full-model bootstrapping suitable for relatively smaller datasets.
+Specifically, it:</p>
 <ul>
 <li>Creates multiple bootstrap samples (default 100; the user can
 specify any number);</li>
@@ -344,18 +301,19 @@ values for each model on each bootstrap sample;</li>
 <li>Calculates the mean, median, and lower and upper confidence
 intervals for each of those values across all bootstrap samples.</li>
 </ul>
-<p>The constructor for <code>ModelBoot</code> has two required
-arguments. Consistent with tidyverse conventions, its first argument is
-a dataset, <code>data.</code> The second argument is the model object to
-be analyzed. For objects that follow standard R modelling conventions,
+<p>The constructor for <a href="https://rconsortium.github.io/S7/" class="external-link">S7</a> <code>ModelBoot</code> object
+requires a model object as its first argument–any R model object that
+can generate numeric predictions. The second argument is the dataset.
+For objects that follow standard R modelling conventions,
 <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> should be able to automatically recognize and
-parse the model object. So, here is the creation of a
-<code>ModelBoot</code> object:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+parse the model object, so the data object is often optional. So, here
+is the creation of a <code>ModelBoot</code> object:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
 <span>  <span class="va">lm_attitude</span>,</span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: intervals</span></span></code></pre></div>
 <p>By default, a <code>ModelBoot</code> object creates 100 bootstrap
 samples of the provided dataset and creates 100 + 1 models on the data
 (one for each bootstrap sample and then once for the original dataset).
@@ -381,13 +339,13 @@ values requested in the <code>output</code> argument:</p>
 <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom::tidy()</a></code>
 </li>
 <li>
-<code>ale_data</code>: bootstrapped ALE data and plots</li>
+<code>ale</code>: bootstrapped ALE data and plots</li>
 <li>
 <code>boot_data</code>: full bootstrap data (not returned by
 default)</li>
 </ul>
 <p>Here are the bootstrapped overall model statistics:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 7</span></span></span>
 <span><span class="co">#&gt;    name          boot_valid conf.low       median       mean  conf.high       sd</span></span>
@@ -401,11 +359,11 @@ default)</li>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> df.residual       <span style="color: #BB0000;">NA</span>      2.3 <span style="color: #949494;">e</span>+1 23           23         23          0   <span style="color: #949494;"> </span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> nobs              <span style="color: #BB0000;">NA</span>      3   <span style="color: #949494;">e</span>+1 30           30         30          0   <span style="color: #949494;"> </span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mae                7.08   5.70<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         10.2        1.62<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> sa_mae_mad         0.597  3.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.709      1.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> sa_mae             0.597  3.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.709      1.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> rmse               8.34   6.47<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         11.9        1.85<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> sa_rmse_sd         0.638  4.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.748      9.47<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> sa_rmse            0.638  4.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.748      9.47<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span></code></pre></div>
 <p>Here are the bootstrapped model coefficients:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">@</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low  median    mean conf.high std.error</span></span>
@@ -418,46 +376,41 @@ default)</li>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> critical     -<span style="color: #BB0000;">0.303</span>   0.120   0.030<span style="text-decoration: underline;">0</span>     0.302     0.235</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advance      -<span style="color: #BB0000;">0.509</span>  -<span style="color: #BB0000;">0.081</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.173</span>      0.133     0.239</span></span></code></pre></div>
 <p>Here we can visualize the results of the ALE plots.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_lm</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/lm_full_ale-1.png" width="672"></p>
-<p>The key to interpreting the effects in these models is contrasting
-the grey bootstrapped confidence bands surrounding the average (median)
-ALE effect with the thin horizontal grey band labelled ‘median
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>±</mo><annotation encoding="application/x-tex">\pm</annotation></semantics></math>
-2.5%’. Anything within
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>±</mo><annotation encoding="application/x-tex">\pm</annotation></semantics></math>
-2.5% of the median is in the 5% middle of the data. Only bootstrapped
-effects that are clearly beyond this middle band may be considered
-significant. By this criteria, considering that the median rating was
-65.5%, we can conclude that:</p>
+<p>To draw formal conclusions from this analysis, we need a more formal
+statistical framework based on ALE, which is what we describe in the
+vignette on <a href="ale-statistics.html">ALE-based statistics for
+statistical inference</a>. However, we can generally infer that:</p>
 <ul>
-<li>Complaints that were handled at below around 68% led to
+<li>Complaints that were handled at below around 55% led to
 below-average overall ratings; complaints that were handled above around
 72% are associated with above-average overall ratings.</li>
 <li>The 95% bootstrapped confidence intervals of every other variable
-fully overlap the entire 5% median band. Thus, despite the general
-trends of some of the data (in particular learning’s positive trend and
-advance’s negative trend), the data does not support claims that any
-other factor had a convincingly meaningful effect on ratings.</li>
+fully overlap almost the entirety of the median. Thus, despite the
+general trends of some of the data (in particular learning’s positive
+trend and advance’s negative trend), the data does not seem to support
+claims that any other factor had a convincingly meaningful effect on
+ratings.</li>
 </ul>
 <p>Although this is a basic demonstration, it readily shows how crucial
 proper bootstrapping is to make meaningful inferences from data
 analysis.</p>
 </div>
 <div class="section level3">
-<h3 id="ale-for-general-additive-models-gam">ALE for general additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-general-additive-models-gam"></a>
+<h3 id="ale-for-generalized-additive-models-gam">ALE for generalized additive models (GAM)<a class="anchor" aria-label="anchor" href="#ale-for-generalized-additive-models-gam"></a>
 </h3>
 <p>A major limitation of OLS regression is that it models all
 relationships between the x variables and y as straight lines. But it is
 unlikely that all relationships are truly linear. OLS cannot accurately
 capture non-linear relationships.</p>
-<p>Because the samples here are relatively small, we will use general
-additive models (GAM) for the modelling. To grossly oversimplify things,
-GAM is an extension of statistical regression analysis that lets the
-model fit flexible patterns in the data instead of being restricted to
-the best-fitting straight line. It is an <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM; introduction explains why GAM should be used" class="external-link">ideal
+<p>Because the samples here are relatively small, we will use
+generalized additive models (GAM) for the modelling. To grossly
+oversimplify things, GAM is an extension of statistical regression
+analysis that lets the model fit flexible patterns in the data instead
+of being restricted to the best-fitting straight line. It is an <a href="https://noamross.github.io/gams-in-r-course/chapter1/" title="Tutorial on GAM; introduction explains why GAM should be used" class="external-link">ideal
 approach for samples that are too small for machine learning</a> because
 it provides flexible curves unlike ordinary least squares regression yet
 will not overfit excessively as would most machine learning techniques
@@ -466,10 +419,11 @@ when working with such small samples.</p>
 wrapped in the <code>s</code> (smooth) function, e.g.,
 <code>s(complaints)</code>. For this example, we will smooth all our
 numerical input variables:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gam_attitude</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">learning</span><span class="op">)</span> <span class="op">+</span></span>
-<span>                            <span class="va">raises</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">critical</span><span class="op">)</span> <span class="op">+</span> <span class="va">advance</span>,</span>
-<span>                          data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gam_attitude</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
+<span>  <span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">learning</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="va">raises</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">critical</span><span class="op">)</span> <span class="op">+</span> <span class="va">advance</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_attitude</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family: gaussian </span></span>
@@ -505,10 +459,8 @@ provides a superior fit to the data.</p>
 the results for the smooth terms in GAM are not readily interpretable.
 They need to be visualized for effective interpretation—ALE is perfect
 for such purposes.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_attitude</span></span>
-<span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_attitude</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_attitude_simple</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -520,10 +472,11 @@ and very high criticism negatively affect ratings. However, before
 trying to interpret these results, we must remember that results that
 are not bootstrapped are simply not reliable. So, let us see what
 bootstrapping will give us.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_attitude</span>, </span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
+<span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
+<span>  pred_type <span class="op">=</span> <span class="st">'response'</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
@@ -535,26 +488,26 @@ bootstrapping will give us.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.00   0.067<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low median  mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     1.20   4.55  4.92      8.98      3.34</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     1.97   4.56  4.49      7.12      2.19</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/gam_full_ale-1.png" width="672"></p>
 <p>The bootstrapped GAM results tell a rather different story from the
 OLS results. In this case, the bootstrap confidence bands of all the
-variables (even of complaints) fully overlap with the entirety of the
-median non-significance region. Even the average slopes have vanished
-from all variables except for complaint, where it remains positive, yet
-insignificant because of the wide confidence interval.</p>
+variables (even of complaints) fully overlap with the median. Even the
+average slopes have vanished from all variables except for complaint,
+where it remains positive, yet insignificant because of the wide
+confidence interval.</p>
 <p>So, what should we conclude? First, it is tempting to retain the OLS
 results because they tell a more interesting story. But we consider that
 this would be irresponsible since the GAM model is clearly superior in
@@ -594,10 +547,11 @@ object needs such special treatment. To construct, the
 <code>model_call_string</code>, we must first execute the model and make
 sure that it works. We did that earlier but we repeat it here for this
 demonstration</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gam_attitude_again</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">learning</span><span class="op">)</span> <span class="op">+</span></span>
-<span>                                  <span class="va">raises</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">critical</span><span class="op">)</span> <span class="op">+</span> <span class="va">advance</span>,</span>
-<span>                                data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gam_attitude_again</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
+<span>  <span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">learning</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="va">raises</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">critical</span><span class="op">)</span> <span class="op">+</span> <span class="va">advance</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">gam_attitude_again</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family: gaussian </span></span>
@@ -640,14 +594,15 @@ named).</li>
 </ol>
 <p>So, here is the form for constructing a <code>ModelBoot</code> for a
 non-standard model object type:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
 <span>  <span class="va">gam_attitude_again</span>,</span>
-<span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(rating ~ complaints + privileges + s(learning) +</span></span>
-<span><span class="st">                                  raises + s(critical) + advance,</span></span>
-<span><span class="st">                                data = boot_data)'</span>, </span>
+<span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span>
+<span><span class="st">    rating ~ complaints + privileges + s(learning) +</span></span>
+<span><span class="st">      raises + s(critical) + advance,</span></span>
+<span><span class="st">    data = boot_data)'</span>, </span>
 <span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">mb_gam_non_standard</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low median   mean conf.high      sd</span></span>
@@ -658,9 +613,9 @@ non-standard model object type:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.00   0.067<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
 <p>Everything else works as usual.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

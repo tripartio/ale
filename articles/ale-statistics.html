@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.20250217</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">February 14, 2025</h4>
+            <h4 data-toc-skip class="date">April 9, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-statistics.Rmd" class="external-link"><code>vignettes/ale-statistics.Rmd</code></a></small>
       <div class="d-none name"><code>ale-statistics.Rmd</code></div>
@@ -71,17 +71,16 @@ Okoli</h4>
 
     
     
-<p>Accumulated local effects (ALE) was developed by <a href="https://www.doi.org/10.1111/rssb.12377" class="external-link">Daniel Apley and Jingyu
-Zhu</a> as a global explanation approach for interpretable machine
-learning (IML). However, the <a href="ale-intro.html"><code>{ale}</code>
-package</a> aims to extend it for statistical inference, among other
-extensions. This vignette presents the initial effort at extending ALE
-for statistical inference. In particular, we present some effect size
-measures specific to ALE. We introduce these statistics in detail in a
-working paper: Okoli, Chitu. 2023. “Statistical Inference Using Machine
-Learning and Classical Techniques Based on Accumulated Local Effects
-(ALE).” arXiv. <a href="https://doi.org/10.48550/arXiv.2310.09877" class="external-link uri">https://doi.org/10.48550/arXiv.2310.09877</a>. Please note
-that they might be further refined after peer review.</p>
+<p>Accumulated local effects (ALE) was developed by Daniel Apley and
+Jingyu Zhu <a href="doi:10.1111/rssb.12377" class="uri">doi:10.1111/rssb.12377</a> as a global explanation approach
+for interpretable machine learning (IML). However, the <a href="ale-intro.html"><code>ale</code> package</a> aims to extend it for
+statistical inference, among other extensions. This vignette introduces
+the extensions of ALE for statistical inference. In particular, we
+present some effect size measures specific to ALE. We introduce these
+statistics in detail in a working paper: Okoli, Chitu. 2023.
+“Statistical Inference Using Machine Learning and Classical Techniques
+Based on Accumulated Local Effects (ALE).” arXiv. <a href="doi:10.48550/arXiv.2310.09877" class="uri">doi:10.48550/arXiv.2310.09877</a>. Please note that they
+might be further refined after peer review.</p>
 <p>We begin by loading the necessary libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>   <span class="co"># for datasets and the gam function</span></span>
@@ -180,7 +179,7 @@ that we will work with:</p>
 <span><span class="co">#&gt; $ rand_norm      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.26960598<span style="color: #949494;">, </span>-0.62998541<span style="color: #949494;">, </span>0.86865983<span style="color: #949494;">, </span>1.72719552<span style="color: #949494;">, </span>0.0241…</span></span></code></pre></div>
 <p>The structure has 160 rows, each of which refers to a school whose
 students have taken a mathematics achievement test. We describe the data
-here based on documentation from the <code>nlme</code> package but many
+here based on documentation from the <code>nlme</code> package but some
 details are not quite clear:</p>
 <table class="table">
 <colgroup>
@@ -267,19 +266,6 @@ students in each school. Here are its descriptive statistics:</p>
 <span><span class="co">#&gt;    4.24   10.47   12.90   12.62   14.65   19.72</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="enable-progress-bars">Enable progress bars<a class="anchor" aria-label="anchor" href="#enable-progress-bars"></a>
-</h2>
-<p>Before starting, we recommend that you enable progress bars to see
-how long procedures will take. Simply run the following code at the
-beginning of your R session:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run this in an R console; it will not work directly within an R Markdown or Quarto block</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span>global <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">progressr</span><span class="fu">::</span><span class="fu"><a href="https://progressr.futureverse.org/reference/handlers.html" class="external-link">handlers</a></span><span class="op">(</span><span class="st">'cli'</span><span class="op">)</span></span></code></pre></div>
-<p>If you forget to do that, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package will do it
-automatically for you with a notification message.</p>
-</div>
-<div class="section level2">
 <h2 id="full-model-bootstrap">Full model bootstrap<a class="anchor" aria-label="anchor" href="#full-model-bootstrap"></a>
 </h2>
 <p>Now we create a model and compute statistics on it. Because this is a
@@ -288,7 +274,7 @@ carry out full model bootstrapping with a <code>ModelBoot</code>
 object.</p>
 <p>First, we create a generalized additive model (GAM) so that we can
 capture non-linear relationships in the data.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
 <span>     <span class="va">math_avg</span> <span class="op">~</span> <span class="va">public</span> <span class="op">+</span> <span class="va">high_minority</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">size</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">academic_ratio</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">female_ratio</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">mean_ses</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -337,21 +323,21 @@ the following:</p>
 <li>The model is retrained with all variables including this new random
 variable.</li>
 <li>ALE statistics are calculated for the random variable.</li>
-<li>This procedure is repeated 1,000 times or so to get 1,000 statistic
-values from the 1,000 random variables.</li>
+<li>This procedure is repeated 1,000 times or so to get 1,000 ALE
+statistic values from the 1,000 random variables.</li>
 <li>p-values are calculated based on the frequency of times that the
 random variables obtain specific statistic values.</li>
 </ul>
 <p>As you can imagine, this procedure is very slow: it involves
-retraining the entire model on the full dataset 1,000 times. The {ale}
-package speeds of the process significantly through parallel processing
-(implemented by default), but it still involves the speed of retraining
-the model hundreds of times.</p>
+retraining the entire model on the full dataset 1,000 times. The
+<code>ale</code> package speeds of the process significantly through
+parallel processing (implemented by default), but it still involves the
+speed of retraining the model hundreds of times.</p>
 <p>To avoid having to repeat this procedure several times (as would be
 the case when you are doing exploratory analyses), we can create a
 <code>ALEpDist</code> object that can be run once for a given
-model-dataset pair. The <code>ALEpDist</code> object is used ton
-generate p-values based on statistics for any variable from the same
+model-dataset pair. The <code>ALEpDist</code> object is used to generate
+p-values based on statistics for any variable from the same
 model-dataset pair. It generates these p-values when passed to the
 <code><a href="../reference/ale.html">ALE()</a></code> or <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> constructors. For very
 large datasets, the process of generating the <code>ALEpDist</code>
@@ -362,16 +348,14 @@ constructor will not allow fewer than 100 iterations, otherwise the
 p-values thus generated would be meaningless.)</p>
 <p>We now demonstrate how to create the <code>ALEpDist</code> object for
 our case.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.</span></span>
-<span><span class="co"># gam_math_p_dist &lt;- ALEpDist(</span></span>
-<span><span class="co">#   gam_math,</span></span>
-<span><span class="co">#   p_speed = 'precise slow',</span></span>
-<span><span class="co">#   math,</span></span>
-<span><span class="co"># )</span></span>
+<span><span class="co"># # For standard models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># gam_math_p_dist &lt;- ALEpDist(gam_math)</span></span>
 <span><span class="co"># saveRDS(gam_math_p_dist, file.choose())</span></span>
-<span><span class="va">gam_math_p_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">gam_math_p_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We can now proceed to bootstrap the model for ALE analysis.</p>
 </div>
@@ -389,25 +373,25 @@ should be sufficiently stable for model building, when you would want to
 run the bootstrapped algorithm several times and you do not want it to
 be too slow each time. For definitive conclusions, you could run 1,000
 bootstraps or more to confirm the results of 100 bootstraps.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.</span></span>
 <span><span class="co"># mb_gam_math &lt;- ModelBoot(</span></span>
 <span><span class="co">#   gam_math,</span></span>
 <span><span class="co">#   # Pass the ALEpDist object so that p-values will be generated</span></span>
-<span><span class="co">#   ale_options = list(p_values = gam_math_p_dist),</span></span>
+<span><span class="co">#   ale_p = gam_math_p_dist,</span></span>
 <span><span class="co">#   # For the GAM model coefficients, show details of all variables, parametric or not</span></span>
 <span><span class="co">#   tidy_options = list(parametric = TRUE),</span></span>
 <span><span class="co">#   # tidy_options = list(parametric = NULL),</span></span>
 <span><span class="co">#   boot_it = 100  # default</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(mb_gam_math, file.choose())</span></span>
-<span><span class="va">mb_gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mb_gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We can see the bootstrapped values of various overall model
-statistics by printing the <code>model_stats</code> element of the model
-bootstrap object:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+statistics by printing the <code>model_stats</code> property of the
+model bootstrap object:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low  median    mean conf.high     sd</span></span>
@@ -418,9 +402,9 @@ bootstrap object:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.844   0.896   0.895     0.938 0.024<span style="text-decoration: underline;">9</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       66      66      66        66     0     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae                1.35     1.25   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         2.13  0.211 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae_mad         0.726    0.541  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.754 0.051<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.726    0.541  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.754 0.051<span style="text-decoration: underline;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse               1.71     1.58   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         2.77  0.294 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse_sd         0.724    0.574  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.748 0.052<span style="text-decoration: underline;">8</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.724    0.574  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>         0.748 0.052<span style="text-decoration: underline;">8</span></span></span></code></pre></div>
 <p>The names of the columns follow the <code>broom</code> package
 conventions:</p>
 <ul>
@@ -441,7 +425,9 @@ to a 95% confidence interval; this can be changed by setting the
 for a 95% confidence interval).</li>
 <li>
 <code>median</code> and <code>mean</code> are the average
-bootstrapped estimates of the statistic.</li>
+bootstrapped estimates of the statistic. They are not relevant for
+bootstrap-validated metrics because those values are calculated with the
+.632 correction.</li>
 <li>
 <code>sd</code> is the standard deviation of the bootstrapped
 estimate.</li>
@@ -449,7 +435,7 @@ estimate.</li>
 <p>Our focus, however, in this vignette is on the effects of individual
 variables. These are available in the <code>model_coefs</code> element
 of the model bootstrap object:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math</span><span class="op">@</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   term              conf.low median   mean conf.high std.error</span></span>
@@ -466,11 +452,11 @@ non-parametric smoothed variables (those whose variable names are
 encapsulated by the smooth <code><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s()</a></code> function) are actually
 estimates for expected degrees of freedom (EDF in GAM). The smooth
 function <code><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s()</a></code> lets GAM model these numeric variables as
-flexible curves that fit the data better than a straight line. The
+flexible curves that might fit the data better than a straight line. The
 <code>estimate</code> values for the smooth variables above are not so
 straightforward to interpret, but suffice it to say that they are
 completely different from regular regression coefficients.</p>
-<p>The <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package uses bootstrap-based confidence
+<p>The <code>ale</code> package uses bootstrap-based confidence
 intervals, not p-values that assume predetermined distributions, to
 determine statistical significance. Although they are not quite as
 simple to interpret as counting the number of stars next to a p-value,
@@ -478,7 +464,7 @@ they are not that complicated, either. Based on the default 95%
 confidence intervals, a coefficient is statistically significant if
 <code>conf.low</code> and <code>conf.high</code> are both positive or
 both negative. We can filter the results on this criterion:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_math</span><span class="op">@</span><span class="va">model_coefs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="co"># filter is TRUE if conf.low and conf.high are both positive or both negative because</span></span>
 <span>  <span class="co"># multiplying two numbers of the same sign results in a positive number.</span></span>
@@ -508,8 +494,8 @@ other statistical analyses) is that their coefficient significance
 compares the estimates with the null hypothesis that there is no effect.
 However, even if there is an effect, it might not be practically
 meaningful. As we will see, ALE-based statistics are explicitly tailored
-to emphasize practical implications beyond the notion of “statistical
-significance”.</p>
+to emphasize practical implications beyond the notion of mere
+“statistical significance”.</p>
 </div>
 </div>
 <div class="section level2">
@@ -523,7 +509,7 @@ plots for each variable.</p>
 <div class="section level3">
 <h3 id="ale-plots-with-p-values">ALE plots with p-values<a class="anchor" aria-label="anchor" href="#ale-plots-with-p-values"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_math</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/all-ALE-plots-1.png" width="672"></p>
@@ -534,17 +520,17 @@ middle grey band that indicates the median ± 5% of random values. Below,
 we will explain what exactly the ALE range (ALER) means, but for now, we
 can say this:</p>
 <ul>
-<li>The approximate middle of the grey band is the median of the y
-outcome variables in the dataset (<code>math_avg</code>, in our case).
-The middle tick on the right y axis indicates the exact median. (The
-<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function lets you centre the data on the mean or on
-zero if you prefer with the <code>relative_y</code> argument.)</li>
+<li>The approximate middle of the grey band is the median of the
+<em>y</em> outcome variables in the dataset (<code>math_avg</code>, in
+our case). The middle tick on the right y-axis indicates the exact
+median. (If you prefer, the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function lets you centre
+the data on the mean or on zero with the <code>ale_centre</code>
+argument.)</li>
 <li>We call this grey band the “ALER band”. 95% of random variables had
 ALE values that fully lay within the ALER band.</li>
 <li>The dashed lines above and below the ALER band expand the boundaries
 to where 99% of the random variables were constrained. These boundaries
-could be considered as demarcating an extended or outward ALER
-band.</li>
+could be considered as demarcating an extended or outer ALER band.</li>
 </ul>
 <p>The idea is that if the ALE values of any predictor variable falls
 fully within the ALER band, then it has no greater effect than 95% of
@@ -553,9 +539,9 @@ plot to be statistically significant (that is, non-random), there should
 be no overlap between the bootstrapped confidence regions of a predictor
 variable and the ALER band. (For the threshold p-values, We use the
 conventional defaults of 0.05 for 95% confidence and 0.01 for 99%
-confidence, but the value can be changed with the <code>p_alpha</code>
-argument.)</p>
-<p>For categorical variables (<code>public</code> and
+confidence, but the value can be changed with the
+<code>aler_alpha</code> argument.)</p>
+<p>For the categorical variables (<code>public</code> and
 <code>high_minority</code> above), the confidence interval bars for all
 categories overlap the ALER band. The confidence interval bars indicate
 two useful pieces of information to us. When we compare them to the ALER
@@ -567,31 +553,27 @@ the other categories; this is equivalent to the regular interpretation
 of coefficients for GAM and other GLM models. In both cases, the
 confidence interval bars of the TRUE and FALSE categories overlap each
 other, indicating that there is no statistically significant difference
-between categories. Whereas the coefficient table above based on classic
-statistics indicated this conclusion for <code>public</code>, it
-indicated that <code>high_minority</code> had a statistically
-significant effect; our ALE analysis indicates that
-<code>high_minority</code> does not. In addition, each confidence
-interval band overlaps the ALER band, indicating that none of the
-effects is meaningfully different from random results, either.</p>
+between categories. In addition, each confidence interval band overlaps
+the ALER band, indicating that none of the effects is meaningfully
+different from random results, either.</p>
 <p>For numeric variables, the confidence regions overlap the ALER band
 for most of the domains of the predictor variables except for some
-regions that we will examine. The extreme points of each variable
+regions that we examine below. The extreme points of each variable
 (except for <code>discrim</code> and <code>female_ratio</code>) are
 usually either slightly below or slightly above the ALER band,
 indicating that extreme values have the most extreme effects: math
 achievement increases with increasing school size, academic track ratio,
 and mean socioeconomic status, whereas it decreases with increasing
 minority ratio. The ratio of females and the discrimination climate both
-overlap the ALER band for the entirety of their domains, so any apparent
-trends are not supported by the data.</p>
+overlap the ALER band for the entirety of their domains, so the data do
+not support any apparent trends.</p>
 <p>Of particular interest is the random variable <code>rand_norm</code>,
 whose average ALE appears to show some sort of pattern. However, we note
 that the 95% confidence intervals we use mean that if we were to retry
-the analysis for twenty different random seeds, we would expect at least
-one of the random variables to partially escape the bounds of the ALER
-band. We will return below to the implications of random variables in
-ALE analysis.</p>
+the analysis for 100 different random seeds, we would expect around five
+of the random variables to partially escape the bounds of the ALER band.
+We will return below to the implications of random variables in ALE
+analysis.</p>
 </div>
 <div class="section level3">
 <h3 id="ale-plots-without-p-values">ALE plots without p-values<a class="anchor" aria-label="anchor" href="#ale-plots-without-p-values"></a>
@@ -602,57 +584,39 @@ we create a <code>ModelBoot</code> object without giving it a
 or because we want to see quick results without the slow process of
 first generating a <code>ALEpDist</code> object. Let us create another
 <code>ModelBoot</code> object, but this time, one without p-values.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
 <span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.</span></span>
 <span><span class="co"># mb_gam_no_p &lt;- ModelBoot(</span></span>
 <span><span class="co">#   gam_math,</span></span>
+<span><span class="co">#   ale_p = NULL,  # disable ALE p-values</span></span>
 <span><span class="co">#   # For the GAM model coefficients, show details of all variables, parametric or not</span></span>
 <span><span class="co">#   tidy_options = list(parametric = TRUE),</span></span>
 <span><span class="co">#   # tidy_options = list(parametric = NULL),</span></span>
 <span><span class="co">#   boot_it = 40  # 100 by default but reduced here for a faster demonstration</span></span>
 <span><span class="co"># )</span></span>
 <span><span class="co"># saveRDS(mb_gam_no_p, file.choose())</span></span>
-<span><span class="va">mb_gam_no_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mb_gam_no_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_no_p</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/model-bootstrap-without-p-1.png" width="672"></p>
-<p>In the absence of p-values, the {ale} packages uses alternate
-visualizations to offer meaningful results, but with somewhat different
-interpretations of the middle grey band. Without p-values, we do not
-have any point of reference for the ALER statistics, so we use
-percentiles around the median as the reference. The middle grey band
-here indicates the median ± 2.5%, that is, the middle 5% of all average
-mathematics achievement scores (<code>math_avg</code>) values in the
-dataset. We call this the “median band”. The idea is that if any
-predictor can do no better than influencing <code>math_avg</code> to
-fall within this middle median band, then it only has a minimal effect.
-For an effect to be considered statistically significant, there should
-be no overlap between the confidence regions of a predictor variable and
-the median band. (We use 5% around the median by default, but the value
-can be changed with the <code>median_band_pct</code> argument.) For
-further reference, the outer dashed lines indicate the interquartile
-range of the outcome values, that is, the 25th and 75th percentiles.</p>
-<p>We can see that in this case, the 5% median band is much narrower
-than the 5% ALER band when p-values are calculated, though they might be
-more similar for a different dataset. This should give us pause to
-skipping the calculation of p-values, since we might be overly lax in
-interpreting apparent relationships as meaningful whereas the ALER band
-indicates that they might not be that different from what random
-variables might produce.</p>
+<p>In the absence of p-values, the <code>ale</code> packages uses
+simpler visualizations to offer meaningful results. There is no ALER
+band; there are simply reference lines that indicate the interquartile
+range of the outcome values, that is, the 25th and 75th percentiles,
+with the median in between. While these references do not give us a
+precise measure of the strength of effects, they do give a general,
+intuitive indication.</p>
 <p>For most of the rest of this article, we will only analyze the
 results with ALER bands generated from p-values, though we will briefly
-revisit median bands without p-values.</p>
+revisit ALE plots without p-values.</p>
 </div>
 <div class="section level3">
-<h3 id="ale-effect-size-measures-on-the-scale-of-the-y-outcome-variable">ALE effect size measures on the scale of the y outcome variable<a class="anchor" aria-label="anchor" href="#ale-effect-size-measures-on-the-scale-of-the-y-outcome-variable"></a>
+<h3 id="ale-effect-size-measures-on-the-scale-of-the-y-outcome-variable">ALE effect size measures on the scale of the <em>y</em> outcome
+variable<a class="anchor" aria-label="anchor" href="#ale-effect-size-measures-on-the-scale-of-the-y-outcome-variable"></a>
 </h3>
-<!-- ```{r mb_gam_math_stas} -->
-<!-- # Create object for convenient access to the relevant stats -->
-<!-- mb_gam_math_stats <- mb_gam_math@ale$boot$distinct$math_avg$stats$d1 -->
-<!-- ``` -->
 <p>Although ALE plots allow rapid and intuitive conclusions for
 statistical inference, it is often helpful to have summary numbers that
 quantify the average strengths of the effects of a variable. Thus, we
@@ -661,36 +625,37 @@ tailored for intuitive interpretation. To understand the intuition
 underlying the various ALE effect size measures, it is useful to first
 examine the <strong>ALE effects plot</strong>, which graphically
 summarizes the effect sizes of all the variables in the ALE analysis.
-This is generated by calling the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method on an
-<code>ALE</code> object that has statistics calculated:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, type <span class="op">=</span> <span class="st">'eff'</span><span class="op">)</span></span></code></pre></div>
+This is generated with the <code><a href="../reference/get.html">get()</a></code> method on an
+<code>ALEPlots</code> object with <code>type = 'effect'</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, type <span class="op">=</span> <span class="st">'effect'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-effects-plot-1.png" width="768"></p>
 <p>This plot is unusual, so it requires some explanation:</p>
 <ul>
-<li>The y (vertical) axis displays the x variables, rather than the x
-axis. This is consistent with most effect size plots because they list
-the full names of variables. It is more readable to list them as labels
-on the y axis than the other way around.</li>
-<li>The x (horizontal) axis thus displays the y (outcome) variable. But
-there are two representations of this same axis, one at the bottom and
-one at the top.</li>
+<li>The y- (vertical) axis displays the <em>x</em> variables, rather
+than the x-axis. This is consistent with most effect size plots because
+they list the full names of variables. It is more readable to list them
+as labels on the y-axis than the other way around.</li>
+<li>The x- (horizontal) axis thus displays the <em>y</em> (outcome)
+variable. But there are two representations of this same axis, one at
+the bottom and one at the top.</li>
 <li>On the bottom is a more typical axis of the outcome variable, in our
 case, <code>math_avg</code>. It is scaled as expected. In our case, the
-axis breaks default to five units each from 5 to 20, evenly spaced.</li>
+axis breaks by default to four to six units each from 5 to 20, evenly
+spaced.</li>
 <li>On the top, the outcome variable is expressed as percentiles ranging
-from 0 (the minimum outcome value in the dataset) to 100 (the maximum).
-It is divided into 10 deciles of 10% each. Because percentiles are
-usually not evenly distributed in a dataset, the decile breaks are not
-evenly spaced.</li>
-<li>Thus, this plot has two x axes, the lower one in units of the
+from -50‰ below the median (the minimum outcome value in the dataset) to
++50‰ above the median (the maximum). It is divided into 10 deciles of
+10‰ each. Because percentiles are usually not evenly distributed in a
+dataset, the decile breaks are not evenly spaced.</li>
+<li>Thus, this plot has two x-axes, the lower one in units of the
 outcome variable and the upper one in percentiles of the outcome
 variable. To reduce the confusion, the major vertical gridlines that are
 slightly darker align with the units of the outcome (lower axis) and the
 minor vertical gridlines that are slightly lighter align with the
 percentiles (upper axis).</li>
 <li>The vertical grey band in the middle is the NALED band. Its width is
-the 0.05 p_value of the NALED (explained below). That is, 95% of random
+the 0.05 p-value of the NALED (explained below). That is, 95% of random
 variables had a NALED equal or smaller than that width.</li>
 <li>The variables on the horizontal axis are sorted by decreasing ALED
 and then NALED value (explained below).</li>
@@ -704,10 +669,10 @@ Referring to this plot can help understand each of the measures, which
 we proceed to explain in detail.</p>
 <p>Before we explain these measures in detail, we must reiterate the
 timeless reminder that correlation is not causation. So, none of the
-scores necessarily means that an x variable <em>causes</em> a certain
-effect on the y outcome; we can only say that the ALE effect size
-measures indicate associated or related variations between the two
-variables.</p>
+scores necessarily means that an <em>x</em> variable or “predictor”
+<em>causes</em> a certain effect on the <em>y</em> outcome; we can only
+say that the ALE effect size measures indicate associated or related
+variations between the two variables.</p>
 <div class="section level4">
 <h4 id="ale-range-aler">ALE range (ALER)<a class="anchor" aria-label="anchor" href="#ale-range-aler"></a>
 </h4>
@@ -718,7 +683,7 @@ is</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">R</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathrm{ALER}(\mathrm{ale\_y}) = \{ \min(\mathrm{ale\_y}), \max(\mathrm{ale\_y}) \}</annotation></semantics></math><br>
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><annotation encoding="application/x-tex">\mathrm{ale\_y}</annotation></semantics></math>
-is the vector of ALE y values for a variable.</p>
+is the vector of ALE <em>y</em> values for a variable.</p>
 <p>All the ALE effect size measures are centred on zero so that they are
 consistent regardless of if the user chooses to centre their plots on
 zero, the median, or the mean. Specifically,</p>
@@ -738,25 +703,25 @@ result object, with multiple views. To focus on all the measures for a
 specific variable, we can access the <code>ale$stats$by_term</code>
 element.</p>
 <p>Let’s focus on <code>public</code>. Here is its ALE plot:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'public'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-1-1.png" width="700"></p>
 <p>Here are the effect size measures for the categorical
 <code>public</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'public'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   statistic estimate p.value conf.low median   mean conf.high</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.375 0         0.018<span style="text-decoration: underline;">4</span>  0.332  0.375    0.968 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">0.344</span> 0.349    -<span style="color: #BB0000;">0.846</span>  -<span style="color: #BB0000;">0.320</span> -<span style="color: #BB0000;">0.344</span>   -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     0.421 0.245     0.017<span style="text-decoration: underline;">4</span>  0.369  0.421    1.20  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        5.03  0.005<span style="text-decoration: underline;">00</span>   0       4.72   5.03    11.7   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">4.26</span>  0.651   -<span style="color: #BB0000;">11.2</span>    -<span style="color: #BB0000;">3.41</span>  -<span style="color: #BB0000;">4.26</span>     0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    6.07  0.405     0       5.62   6.07    17.8</span></span></code></pre></div>
+<span><span class="co">#&gt;   term   statistic estimate conf.low median   mean conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> public aled         0.375   0.018<span style="text-decoration: underline;">4</span>  0.332  0.375    0.968 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> public aler_min    -<span style="color: #BB0000;">0.344</span>  -<span style="color: #BB0000;">0.846</span>  -<span style="color: #BB0000;">0.320</span> -<span style="color: #BB0000;">0.344</span>   -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> public aler_max     0.421   0.017<span style="text-decoration: underline;">4</span>  0.369  0.421    1.20  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> public naled        5.03    0       4.72   5.03    11.7   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> public naler_min   -<span style="color: #BB0000;">4.26</span>  -<span style="color: #BB0000;">11.2</span>    -<span style="color: #BB0000;">3.41</span>  -<span style="color: #BB0000;">4.26</span>     0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> public naler_max    6.07    0       5.62   6.07    17.8</span></span></code></pre></div>
 <p>We see there that <code>public</code> has an ALER of [-0.34, 0.42].
 When we consider that the median math score in the dataset is 12.9, this
-ALER indicates that the minimum of any ALE y value for
+ALER indicates that the minimum of any ALE <em>y</em> value for
 <code>public</code> (when <code>public == TRUE</code>) is -0.34 below
 the median. This is shown at the 12.6 mark in the plot above. The
 maximum (<code>public == FALSE</code>) is 0.42 above the median, shown
@@ -764,96 +729,135 @@ at the 13.3 point above.</p>
 <p>The unit for ALER is the same unit as the outcome variable; in our
 case, that is <code>math_avg</code> ranging from 2 to 20. No matter what
 the average ALE values might be, the ALER quickly shows the minimum and
-maximum effects of any value of the x variable on the y variable.</p>
+maximum effects of any value of the <em>x</em> variable on the
+<em>y</em> variable.</p>
 <p>For contrast, let us look at a numeric variable,
 <code>academic_ratio</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'academic_ratio'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-forl-academic_ratio-1-1.png" width="700"></p>
 <p>Here are its ALE effect size measures:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'academic_ratio'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   statistic estimate p.value conf.low  median    mean conf.high</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.825       0    0.418   0.805   0.825     1.35 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">4.17</span>        0   -<span style="color: #BB0000;">7.78</span>   -<span style="color: #BB0000;">4.45</span>   -<span style="color: #BB0000;">4.17</span>     -<span style="color: #BB0000;">0.597</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     2.12        0    0.900   2.10    2.12      3.45 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled       10.3         0    4.37   10.1    10.3      16.4  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">34.2</span>         0  -<span style="color: #BB0000;">48.5</span>   -<span style="color: #BB0000;">39.5</span>   -<span style="color: #BB0000;">34.2</span>      -<span style="color: #BB0000;">5.56</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   28.6         0   11.7    30      28.6      42.3</span></span></code></pre></div>
+<span><span class="co">#&gt;   term           statistic estimate conf.low  median    mean conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> academic_ratio aled         0.810    0.408   0.795   0.810     1.29 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> academic_ratio aler_min    -<span style="color: #BB0000;">4.09</span>    -<span style="color: #BB0000;">7.78</span>   -<span style="color: #BB0000;">4.41</span>   -<span style="color: #BB0000;">4.09</span>     -<span style="color: #BB0000;">0.568</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> academic_ratio aler_max     2.09     0.895   2.08    2.09      3.43 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> academic_ratio naled       10.2      4.39   10.2    10.2      15.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> academic_ratio naler_min  -<span style="color: #BB0000;">33.3</span>    -<span style="color: #BB0000;">48.1</span>   -<span style="color: #BB0000;">38.8</span>   -<span style="color: #BB0000;">33.3</span>      -<span style="color: #BB0000;">5.23</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> academic_ratio naler_max   28.1     11.7    27.7    28.1      42.3</span></span></code></pre></div>
 <p>The ALER for <code>academic_ratio</code> is considerably broader with
--4.17 below and 2.12 above the median.</p>
+-4.09 below and 2.09 above the median.</p>
 </div>
 <div class="section level4">
 <h4 id="ale-deviation-aled">ALE deviation (ALED)<a class="anchor" aria-label="anchor" href="#ale-deviation-aled"></a>
 </h4>
 <p>While the ALE range shows the most extreme effects a variable might
 have on the outcome, the ALE deviation indicates its average effect over
-its full domain of values. With the zero-centred ALE values, it is
+its full domain of values. Based on the zero-centred ALE values, ALED is
 conceptually similar to the weighted mean absolute error (MAE) of the
-ALE y values. Mathematically, it is</p>
+ALE <em>y</em> values. Mathematically, it is</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">D</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo>,</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><mrow><mo stretchy="true" form="prefix">|</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mi>i</mi></msub><mo>×</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow></mrow><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k} \left| \mathrm{ale\_y}_i \times \mathrm{ale\_n}_i \right|}{\sum_{i=1}^{k} \mathrm{ale\_n}_i}
-</annotation></semantics></math> where
+</annotation></semantics></math></p>
+<p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 is the index of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-ALE x intervals for the variable (for a categorical variable, this is
-the number of distinct categories),
+ALE <em>x</em> intervals for the variable (for a categorical variable,
+this is the number of distinct categories),
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">\mathrm{ale\_y}_i</annotation></semantics></math>
-is the ALE y value for the
+is the ALE <em>y</em> value for the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
-ALE x interval, and
+ALE <em>x</em> interval, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">\mathrm{ale\_n}_i</annotation></semantics></math>
-is the number of rows of data in the
+is the number of rows in the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
-ALE x interval.</p>
+ALE <em>x</em> interval.</p>
+<p>However, whereas this equation describes ALED for non-numeric values
+where each ALE <em>x</em> interval is a distinct <em>x</em> value with a
+corresponding ALE <em>y</em> value, it requires some adjustment for
+numeric <em>x</em> values where <code>.ceil</code> represents the upper
+bound of each bin. Thus, for numeric values, two adjustments are needed.
+First, to convert the <code>.ceil</code> boundaries into proper discrete
+bins, the number of rows (<code>.n</code>) in the first element
+(representing the minimum) is added to the second element. Second,
+rather than the <code>.y</code> values at the bin boundaries,
+<code>.y</code> for each bin is recalculated as the midpoint between
+consecutive <code>.ceil</code> boundaries. The adjusted ALED formula for
+numeric <em>x</em> variables is given in the following equation:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">D</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo>,</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mi>i</mi></msub><mo>+</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><mi>′</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><mi>′</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+\mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k-1} \left|  \frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right) \times \mathrm{ale\_n}_i' \right|}{\sum_{i=1}^{k-1} \mathrm{ale\_n}_i'}
+</annotation></semantics></math> where:</p>
+<ul>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>n</mi></mrow><mi>i</mi></msub><mi>′</mi></mrow><annotation encoding="application/x-tex">{ale\_n}_i'</annotation></semantics></math>
+is the adjusted number of rows for the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th
+interval, with the first element adjusted to include the number of rows
+from the minimum interval.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><mi>′</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub><mo>+</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mo>=</mo><mn>1</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mi>i</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">otherwise</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+\mathrm{ale\_n}_i' = 
+\begin{cases}
+\mathrm{ale\_n}_i + \mathrm{ale\_n}_{i+1} &amp; \text{if } i = 1 \\
+\mathrm{ale\_n}_i &amp; \text{otherwise}
+\end{cases}
+</annotation></semantics></math></p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mi>i</mi></msub><mo>+</mo><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right)</annotation></semantics></math>
+represents the recalculated ALE
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+value for each bin, taken as the midpoint between consecutive
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">ale\_y</annotation></semantics></math>
+values.</p></li>
+</ul>
 <p>Based on its ALED, we can say that the average effect on math scores
 of whether a school is in the public or Catholic sector is 0.38 (again,
 out of a range from 2 to 20). In the effects plot above, the ALED is
-indicated by a white box bounded by parentheses ( and ). As it is
-centred on the median, we can readily see that the average effect of
-school sector barely exceeds the limits of the ALER band, indicating
-that it barely exceeds our threshold of practical relevance. The average
-effect for ratio of academic track students is slightly higher at 0.82.
-We can see on the plot that it slightly exceeds the ALER band on both
-sides, indicating its slightly stronger effect. We will comment on the
-values of other variables when we discuss the normalized versions of
-these scores, to which we proceed next.</p>
+indicated by a white box bounded by parentheses <code>(</code> and
+<code>)</code>. As it is centred on the median, we can readily see that
+the average effect of school sector barely exceeds the limits of the
+ALER band, indicating that it barely exceeds our threshold of practical
+relevance. The average effect for ratio of academic track students is
+slightly higher at 0.81. We can see on the plot that it slightly exceeds
+the ALER band on both sides, indicating its slightly stronger effect. We
+will comment on the values of other variables when we discuss the
+normalized versions of these scores, to which we proceed next.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="normalized-ale-effect-size-measures">Normalized ALE effect size measures<a class="anchor" aria-label="anchor" href="#normalized-ale-effect-size-measures"></a>
 </h3>
-<p>Since ALER and ALED scores are scaled on the range of y for a given
-dataset, these scores cannot be compared across datasets. Thus, we
-present normalized versions of each with intuitive, comparable values.
-For intuitive interpretation, we normalize the scores on the minimum,
-median, and maximum of any dataset. In principle, we divide the
-zero-centred y values in a dataset into two halves: the lower half from
-the 0th to the 50th percentile (the median) and the upper half from the
-50th to the 100th percentile. (Note that the median is included in both
-halves). With zero-centred ALE y values, all negative and zero values
-are converted to their percentile score relative to the lower half of
-the original y values while all positive ALE y values are converted to
-their percentile score relative to the upper half. (Technically, this
-percentile assignment is called the empirical cumulative distribution
-function (ECDF) of each half.) Each half is then divided by two to scale
-them from 0 to 50 so that together they can represent 100 percentiles.
-(Note: when a centred ALE y value of exactly 0 occurs, we choose to
-include the score of zero ALE y in the lower half because it is
-analogous to the 50th percentile of all values, which more intuitively
-belongs in the lower half of 100 percentiles.) The transformed maximum
-ALE y is then scaled as a percentile from 0 to 100%.</p>
+<p>Since ALER and ALED scores are scaled on the range of <em>y</em> for
+a given dataset, these scores cannot be compared across datasets. Thus,
+we present normalized versions of each with intuitive, comparable
+values. For intuitive interpretation, we normalize the scores on the
+minimum, median, and maximum of any dataset. In principle, we divide the
+zero-centred <em>y</em> values in a dataset into two halves: the lower
+half from the 0th to the 50th percentile (the median) and the upper half
+from the 50th to the 100th percentile. (Note that the median is included
+in both halves). With zero-centred ALE <em>y</em> values, all negative
+and zero values are converted to their percentile score relative to the
+lower half of the original <em>y</em> values while all positive ALE
+<em>y</em> values are converted to their percentile score relative to
+the upper half. (Technically, this percentile assignment is called the
+empirical cumulative distribution function (ECDF) of each half.) Each
+half is then divided by two to scale them from 0 to 50 so that together
+they can represent 100 percentiles. (Note: when a centred ALE <em>y</em>
+value of exactly 0 occurs, we choose to include the score of zero ALE
+<em>y</em> in the lower half because it is analogous to the 50th
+percentile of all values, which more intuitively belongs in the lower
+half of 100 percentiles.) The transformed maximum ALE <em>y</em> is then
+scaled as a percentile from 0 to 100%.</p>
 <p>There is a notable complication. This normalization smoothly
-distributes ALE y values when there are many distinct values, but when
-there are only a few distinct ALE y values, then even a minimal ALE y
-deviation can have a relatively large percentile difference. If any ALE
-y value is less than the difference between the median in the data and
-the value either immediately below or above the median, we consider that
-it has virtually no effect. Thus, the normalization sets such minimal
-ALE y values as zero.</p>
+distributes ALE <em>y</em> values when there are many distinct values,
+but when there are only a few distinct ALE <em>y</em> values, then even
+a minimal ALE <em>y</em> deviation can have a relatively large
+percentile difference. If any ALE <em>y</em> value is less than the
+difference between the median in the data and the value either
+immediately below or above the median, we consider that it has virtually
+no effect. Thus, the normalization sets such minimal ALE <em>y</em>
+values as zero.</p>
 <p>Its formula is:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>_</mi><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo>=</mo><mn>100</mn><mo>×</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>_</mi><mi>y</mi><mo>&lt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo>≤</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>_</mi><mi>y</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mfrac><mrow><mo>−</mo><mi>E</mi><mi>C</mi><mi>D</mi><msub><mi>F</mi><msub><mi>y</mi><mrow><mo>≤</mo><mn>0</mn></mrow></msub></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo>&lt;</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mfrac><mrow><mi>E</mi><mi>C</mi><mi>D</mi><msub><mi>F</mi><msub><mi>y</mi><mrow><mo>≥</mo><mn>0</mn></mrow></msub></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mi>l</mi><mi>e</mi><mi>_</mi><mi>y</mi><mo>&gt;</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
 norm\_ale\_y = 100 \times \begin{cases} 
@@ -879,8 +883,8 @@ percentiles.</p>
 <h4 id="normalized-aler-naler">Normalized ALER (NALER)<a class="anchor" aria-label="anchor" href="#normalized-aler-naler"></a>
 </h4>
 <p>Based on this normalization, we first have the normalized ALER
-(NALER), which scales the minimum and maximum ALE y values from -50% to
-+50%, centred on 0%, which represents the median:</p>
+(NALER), which scales the minimum and maximum ALE <em>y</em> values from
+-50% to +50%, centred on 0%, which represents the median:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">N</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">R</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">y</mi><mo mathvariant="normal">,</mo><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>50</mn><mo>,</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>50</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
 \mathrm{NALER}(\mathrm{y, ale\_y}) = 
 \{\min(\mathrm{norm\_ale\_y}) + 50, 
@@ -888,42 +892,43 @@ percentiles.</p>
 </annotation></semantics></math></p>
 <p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
-is the full vector of y values in the original dataset, required to
-calculate
+is the full vector of <em>y</em> values in the original dataset,
+required to calculate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><annotation encoding="application/x-tex">\mathrm{norm\_ale\_y}</annotation></semantics></math>.</p>
 <p>ALER shows the extreme values of a variable’s effect on the outcome.
 In the effects plot above, it is indicated by the extreme ends of the
 horizontal bars for each variable. We see there that <code>public</code>
 has an ALER of -0.34, 0.42. When we consider that the median math score
 in the dataset is 12.9, this ALER indicates that the minimum of any ALE
-y value for <code>public</code> (when <code>public == TRUE</code>) is
--0.34 below the median. This is shown at the 12.6 mark in the plot
-above. The maximum (<code>public == FALSE</code>) is 0.42 above the
-median, shown at the 13.3 point above. The ALER for
-<code>academic_ratio</code> is considerably broader with -4.17 below and
-2.12 above the median.</p>
+<em>y</em> value for <code>public</code> (when
+<code>public == TRUE</code>) is -0.34 below the median. This is shown at
+the 12.6 mark in the plot above. The maximum
+(<code>public == FALSE</code>) is 0.42 above the median, shown at the
+13.3 point above. The ALER for <code>academic_ratio</code> is
+considerably broader with -4.09 below and 2.09 above the median.</p>
 <p>The result of this transformation is that NALER values can be
-interpreted as percentile effects of y below or above the median, which
-is centred at 0%. Their numbers represent the limits of the effect of
-the x variable with units in percentile scores of y. In the effects plot
-above, because the percentile scale on the top corresponds exactly to
-the raw scale below, the NALER limits are represented by exactly the
-same points as the ALER limits; only the scale changes. The scale for
-ALER and ALED is the lower scale of the raw outcomes; the scale for
-NALER and NALED is the upper scale of percentiles.</p>
+interpreted as percentile effects of <em>y</em> below or above the
+median, which is centred at 0%. Their numbers represent the limits of
+the effect of the <em>x</em> variable with units in percentile scores of
+y. In the effects plot above, because the percentile scale on the top
+corresponds exactly to the raw scale below, the NALER limits are
+represented by exactly the same points as the ALER limits; only the
+scale changes. The scale for ALER and ALED is the lower scale of the raw
+outcomes; the scale for NALER and NALED is the upper scale of
+percentiles.</p>
 <p>So, with a NALER of -4.26, 6.07, the minimum of any ALE value for
 <code>public</code> (<code>public == TRUE</code>) shifts math scores by
--4 percentile y points whereas the maximum
+-4 percentile <em>y</em> points whereas the maximum
 (<code>public == FALSE</code>) shifts math scores by 6 percentile
-points. Academic track ratio has a NALER of -34.23, 28.59, ranging from
--34 to 29 percentile points of math scores.</p>
+points. Academic track ratio has a NALER of -33.32, 28.08, ranging from
+-33 to 28 percentile points of math scores.</p>
 </div>
 <div class="section level4">
 <h4 id="normalized-aled-naled">Normalized ALED (NALED)<a class="anchor" aria-label="anchor" href="#normalized-aled-naled"></a>
 </h4>
 <p>The normalization of ALED scores applies the same ALED formula as
-before but on the normalized ALE values instead of on the original ALE y
-values:</p>
+before but on the normalized ALE values instead of on the original ALE
+<em>y</em> values:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">N</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">D</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo>,</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">D</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">y</mi></mrow><mo>,</mo><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">n</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
 \mathrm{NALED}(y, \mathrm{ale\_y}, \mathrm{ale\_n}) = \mathrm{ALED}(\mathrm{norm\_ale\_y}, \mathrm{ale\_n})
 </annotation></semantics></math></p>
@@ -932,54 +937,39 @@ the ALED expressed in percentiles, that is, the average effect of a
 variable over its full domain of values. So, the NALED of public school
 status of 5 indicates that its average effect on math scores spans the
 middle 5 percent of scores. Academic ratio has an average effect
-expressed in NALED of 10.3% of scores.</p>
+expressed in NALED of 10.2% of scores.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="the-median-band-and-random-variables">The median band and random variables<a class="anchor" aria-label="anchor" href="#the-median-band-and-random-variables"></a>
+<h3 id="the-aler-band-and-random-variables">The ALER band and random variables<a class="anchor" aria-label="anchor" href="#the-aler-band-and-random-variables"></a>
 </h3>
-<p>When we do not have p-values, the NALED is particularly helpful in
-comparing the practical relevance of variables against our threshold for
-the median band by which we consider that a variable needs to shift the
-outcome on average by more than 5% of the median values. This threshold
-is the same scale as the NALED. So, we can tell that public school
-status with its NALED of 5 just barely crosses our threshold.</p>
 <p>It is particularly striking to note the ALE effect size measures for
 the random <code>rand_norm</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'rand_norm'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/math-rand_norm-ALE-plot-1.png" width="336"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'rand_norm'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   statistic estimate p.value conf.low  median    mean conf.high</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled         0.322 0.001<span style="text-decoration: underline;">00</span>    0.104   0.287   0.322     0.760</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min    -<span style="color: #BB0000;">1.42</span>  0         -<span style="color: #BB0000;">4.39</span>   -<span style="color: #BB0000;">1.26</span>   -<span style="color: #BB0000;">1.42</span>     -<span style="color: #BB0000;">0.219</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max     1.27  0          0.276   0.751   1.27      6.24 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        4.31  0.024<span style="text-decoration: underline;">0</span>     1.47    3.79    4.31      9.98 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min  -<span style="color: #BB0000;">15.4</span>   0.007    -<span style="color: #BB0000;">38.3</span>   -<span style="color: #BB0000;">13.8</span>   -<span style="color: #BB0000;">15.4</span>      -<span style="color: #BB0000;">3.75</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max   15.1   0.008<span style="text-decoration: underline;">00</span>    2.17   10.9    15.1      49.1</span></span></code></pre></div>
-<p><code>rand_norm</code> has a NALED of 4.3. It might be surprising
-that a purely random value has any “effect size” to speak of, but
-statistically, it must have some numeric value or the other. However, by
-setting our default value for the median band at 5%, we effectively
-exclude <code>rand_norm</code> from serious consideration. In informal
-tests with several different random seeds, the random variables never
-exceeded this 5% threshold. Setting the median band too low at a value
-like 1% would not have excluded the random variable, but 5% seems like a
-nice balance. Thus, the effect of a variable like the discrimination
-climate score (discrim, 5.2) should probably not be considered
-practically meaningful.</p>
-<p>We realize that 5% as a threshold for the median band is rather
-arbitrary, inspired by traditional
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
-= 0.05 for statistical significance and confidence intervals. A proper
-analysis should use p-values, as most of this article does. However, our
-initial analyses here show that 5% seems to be an effective choice for
-excluding a purely random variable from consideration, even for quick
-initial analyses.</p>
-<p>We return to using p-values for the rest of this article.</p>
+<span><span class="co">#&gt;   term      statistic estimate conf.low  median    mean conf.high</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rand_norm aled         0.295    0.107   0.282   0.295     0.631</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> rand_norm aler_min    -<span style="color: #BB0000;">1.26</span>    -<span style="color: #BB0000;">3.98</span>   -<span style="color: #BB0000;">1.01</span>   -<span style="color: #BB0000;">1.26</span>     -<span style="color: #BB0000;">0.180</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> rand_norm aler_max     0.978    0.287   0.788   0.978     2.63 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> rand_norm naled        4.00     1.31    3.65    4.00      7.93 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> rand_norm naler_min  -<span style="color: #BB0000;">13.7</span>    -<span style="color: #BB0000;">37.5</span>   -<span style="color: #BB0000;">11.2</span>   -<span style="color: #BB0000;">13.7</span>      -<span style="color: #BB0000;">3.75</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rand_norm naler_max   13.4      2.5    11.2    13.4      35.5</span></span></code></pre></div>
+<p><code>rand_norm</code> has a NALED of 4. It might be surprising that
+a purely random value has any “effect size” to speak of but
+statistically, it must have some numeric value or the other. In informal
+tests with several different random seeds, the random variables on this
+dataset did not exceed a threshold of 5%. So, if we do not have
+p-values, the NALED is particularly helpful in comparing the practical
+relevance of variables. As a rule of thumb, we suggest that a variable
+needs to shift the outcome on average by at least 5% of the median
+values to be considered meaningful. This threshold is the same scale as
+the NALED. So, we can tell that public school status with its NALED of 5
+just barely crosses our threshold.</p>
 </div>
 <div class="section level3">
 <h3 id="interpretation-of-normalized-ale-effect-sizes">Interpretation of normalized ALE effect sizes<a class="anchor" aria-label="anchor" href="#interpretation-of-normalized-ale-effect-sizes"></a>
@@ -1020,15 +1010,20 @@ by <em>n</em> percentile points of the outcome range. Lower values
 size of NALED, the maximum effect of any input value shifts the outcome
 by <em>x</em> percentile points of the outcome range. Greater values
 (closer to +50%) mean a stronger extreme effect.</li>
+<li>However, NALER values are normalized such that even if the actual
+effect of a variable exceeds ±50%, its normalized value is capped at
+±50%.</li>
 </ul>
 </li>
 </ul>
 <p>In general, regardless of the values of ALE statistics, we should
-always visually inspect the ALE plots to identify and interpret patterns
-of relationships between inputs and the outcome.</p>
+visually inspect the ALE plots to identify and interpret patterns of
+relationships between inputs and the outcome. However, if NALER values
+are quite low (&lt; ±5%), there is probably not much to see in the
+plot.</p>
 <p>A common question for interpreting effect sizes is, “How strong does
 an effect need to be to be considered ‘strong’ or ‘weak’?” On one hand,
-we refuse to offer general guidelines for how “strong” is “strong”. The
+we decline to offer general guidelines for how “strong” is “strong”. The
 simple answer is that it depends entirely on the applied context. It is
 not meaningful to try to propose numerical values for statistics that
 are supposed to be useful for all applied contexts.</p>
@@ -1040,22 +1035,22 @@ some general guidelines based on whether or not we have p-values.</p>
 <p>When we have p-values for ALE statistics, then the boundaries of ALER
 should generally be used to determine the acceptable risk of considering
 a statistic to be meaningful. Statistically significant ALE effects are
-those that are less than the 0.05 p_value ALER minimum of a random
-variable and greater than the 0.05 p_value maximum of a random variable.
-As we explained above when introducing the ALER band, this is precisely
-what the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package does, especially in the plots that
-highlight the ALER band and the confidence region tables that use the
-specified ALER p_value threshold.</p>
+those that are less than the 0.05 p-value of ALER minimum of a random
+variable and greater than the 0.05 p-value ALER maximum of a random
+variable. As we explained above when introducing the ALER band, this is
+precisely what the <code>ale</code> package does, especially in the
+plots that highlight the ALER band and the confidence region tables that
+use the specified ALER p-value threshold.</p>
 <p>In the absence of p-values, we suggest that NALED can be a general
 guide for non-random values. In our informal tests, we find that NALED
 values below 5% have the same average effect as a random variable. That
-is, the average effect is not reliable; it might be random. However,
+is, such an average effect is not reliable; it might be random. However,
 regardless of the average effect indicated by NALED, large NALER effects
 indicate that the ALE plot should be inspected to interpret the
 exceptional cases. This caveat is very important; unlike GLM
-coefficients, ALE analysis is sensitive to exceptions to the overall
-trend. This is precisely what makes it valuable for detecting non-linear
-effects.</p>
+coefficients, ALE analysis is sufficiently sensitive to detect
+exceptions to the overall trend. This is precisely what makes it
+valuable for detecting non-linear effects.</p>
 <p>In general, if NALED &lt; 5%, NALER minimum &gt; –5%, and NALER
 maximum &lt; +5%, the input variable has no meaningful effect. All other
 cases are worth inspecting the ALE plots for careful interpretation: -
@@ -1081,73 +1076,77 @@ effect depending on its specific value.</p>
 inference, we must understand the structure of ALE data. Let’s begin
 simple with a binary variable with just two categories,
 <code>public</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'public'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 7</span></span></span>
-<span><span class="co">#&gt;   public.bin    .n     .y  .y_lo .y_mean .y_median .y_hi</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE         70  0.383 -<span style="color: #BB0000;">0.219</span>   0.383     0.356 1.20 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> TRUE          90 -<span style="color: #BB0000;">0.306</span> -<span style="color: #BB0000;">0.846</span>  -<span style="color: #BB0000;">0.306</span>    -<span style="color: #BB0000;">0.308</span> 0.196</span></span></code></pre></div>
+<span><span class="co">#&gt;   public.bin    .n    .y .y_lo .y_mean .y_median .y_hi</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE         70  13.3  12.7    13.3      13.3  14.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> TRUE          90  12.6  12.1    12.6      12.6  13.1</span></span></code></pre></div>
 <p>Here is the meaning of each column of <code>ale$data</code> for a
 categorical variable:</p>
 <ul>
 <li>
-<code>.bin</code>: the different categories that exist in the
+<code>x.bin</code>: the different categories that exist in the
 categorical variable.</li>
 <li>
 <code>.n</code>: the number of rows for that category in the dataset
 provided to the function.</li>
 <li>
-<code>ale_y</code>: the ALE function value calculated for that
-category. For bootstrapped ALE, this is the same as
-<code>ale_y_mean</code> by default or <code>ale_y_median</code> if the
+<code>.y</code>: the ALE function value calculated for that
+category. For bootstrapped ALE, this is the same as <code>.y_mean</code>
+by default or <code>.y_median</code> if the
 <code>boot_centre = 'median'</code> argument is specified.</li>
 <li>
-<code>ale_y_lo</code> and <code>ale_y_hi</code>: the lower and upper
-confidence intervals for the bootstrapped <code>ale_y</code> value.</li>
+<code>.y_lo</code> and <code>.y_hi</code>: the lower and upper
+confidence intervals for the bootstrapped <code>.y</code> value.</li>
 </ul>
-<p>By default, the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package centres ALE values on the
-median of the outcome variable; in our dataset, the median of all the
-schools’ average mathematics achievement scores is 12.9. With ALE
-centred on the median, the weighted sum of ALE y values (weighted on
+<p>While the <code>ale</code> package internally centres ALE values on
+zero, the outputs such as plots and the <code><a href="../reference/get.html">get()</a></code> method
+centres the displayed values on the median of the outcome variable; this
+can be changed to mean- or zero-centring with the
+<code>ale_centre</code> argument to <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> or
+<code><a href="../reference/get.html">get()</a></code>. In our dataset, the median of all the schools’
+average mathematics achievement scores is 12.9. With ALE centred on the
+median, the weighted sum of ALE <em>y</em> values (weighted on
 <code>.n</code>) above the median is approximately equal to the weighted
 sum of those below the median. So, in the ALE plots above, when you
 consider the number of instances indicated by the rug plots and category
-percentages, the average weighted ALE y approximately equals the
-median.</p>
+percentages, the average weighted ALE <em>y</em> approximately equals
+the median.</p>
 <p>Here is the ALE data structure for a numeric variable,
 <code>academic_ratio</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'academic_ratio'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 7</span></span></span>
-<span><span class="co">#&gt;    academic_ratio.ceil    .n     .y   .y_lo .y_mean .y_median  .y_hi</span></span>
-<span><span class="co">#&gt;                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                0        1 -<span style="color: #BB0000;">4.15</span>  -<span style="color: #BB0000;">7.78</span>    -<span style="color: #BB0000;">4.15</span>     -<span style="color: #BB0000;">4.45</span>  -<span style="color: #BB0000;">0.528</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                0.2     19 -<span style="color: #BB0000;">0.409</span> -<span style="color: #BB0000;">1.30</span>    -<span style="color: #BB0000;">0.409</span>    -<span style="color: #BB0000;">0.415</span>  0.742</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                0.28    16 -<span style="color: #BB0000;">0.402</span> -<span style="color: #BB0000;">1.08</span>    -<span style="color: #BB0000;">0.402</span>    -<span style="color: #BB0000;">0.404</span>  0.439</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                0.38    18 -<span style="color: #BB0000;">0.196</span> -<span style="color: #BB0000;">0.781</span>   -<span style="color: #BB0000;">0.196</span>    -<span style="color: #BB0000;">0.247</span>  0.534</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                0.45    18 -<span style="color: #BB0000;">0.223</span> -<span style="color: #BB0000;">1.03</span>    -<span style="color: #BB0000;">0.223</span>    -<span style="color: #BB0000;">0.226</span>  0.490</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                0.53    17  0.119 -<span style="color: #BB0000;">0.550</span>    0.119     0.100  0.888</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                0.6     18  0.515 -<span style="color: #BB0000;">0.126</span>    0.515     0.471  1.35 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                0.71    18  0.745 -<span style="color: #BB0000;">0.361</span>    0.745     0.748  1.73 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                0.9     18  1.22   0.010<span style="text-decoration: underline;">4</span>   1.22      1.29   2.26 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                1       17  2.07   0.588    2.07      2.10   3.45</span></span></code></pre></div>
+<span><span class="co">#&gt;    academic_ratio.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span></span>
+<span><span class="co">#&gt;                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>                0        1  7.79  5.08    7.79      7.83  11.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>                0.2     19 12.5  11.6    12.5      12.5   13.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>                0.28    16 12.5  11.8    12.5      12.5   13.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>                0.38    18 12.7  12.3    12.7      12.7   13.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>                0.45    18 12.7  11.9    12.7      12.7   13.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>                0.53    17 13.0  12.5    13.0      13.0   13.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>                0.6     18 13.3  12.7    13.3      13.2   13.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>                0.71    18 13.4  12.4    13.4      13.5   14.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>                0.9     18 13.9  12.8    13.9      13.7   15.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>                1       17 14.9  13.4    14.9      15.0   16.3</span></span></code></pre></div>
 <p>The columns are the same as with a categorical variable, but instead
-of <code>.bin</code>, we have <code>.ceil</code> since there are no
+of <code>x.bin</code>, we have <code>x.ceil</code> since there are no
 categories. To calculate ALE for numeric variables, the range of
-<em>x</em> values is divided into bins (by default 100, customizable
-with the <code>max_num_bins</code> argument). Because numeric variables
-often have multiple values in a bin, the ALE data stores the ceilings
-(upper bounds) of the bins. If the <em>x</em> values have fewer than 100
+<em>x</em> values is divided into bins (by default 10, customizable with
+the <code>max_num_bins</code> argument). Because numeric variables often
+have multiple values in a bin, the ALE data stores the ceilings (upper
+bounds) of the bins. If the <em>x</em> values have fewer than 10
 distinct values in the data, then each distinct value becomes its own
-bin and we record its value as the ceiling of the bin. (This is often
-the case with smaller datasets like ours; here
-<code>academic_ratio</code> has only 10 distinct values.) If there are
-more than 100 distinct values, then the range is divided into 100
-percentile groups. The other columns mean the same thing as with
-categorical variables: <code>.n</code> is the number of rows of data in
-each bin and <code>.y</code> is the calculated ALE for the bin whose
-ceiling is <code>.ceil</code>.</p>
+bin and we record its value as the ceiling of the bin. If there are more
+than 10 distinct values, then the range is divided into 10 decile
+groups. The first bin includes all rows with a value exactly equal to
+the minimum value of that variable, thus it often has very few
+elements—sometimes only one. The other columns mean the same thing as
+with categorical variables: <code>.n</code> is the number of rows of
+data in each bin and <code>.y</code> is the calculated ALE for the bin
+whose ceiling is <code>.ceil</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="bootstrap-based-inference-with-ale">Bootstrap-based inference with ALE<a class="anchor" aria-label="anchor" href="#bootstrap-based-inference-with-ale"></a>
@@ -1155,161 +1154,153 @@ ceiling is <code>.ceil</code>.</p>
 <p>In a bootstrapped ALE plot, values within the confidence intervals
 are statistically significant; values outside of the ALER band can be
 considered at least somewhat meaningful. Thus, <strong>the essence of
-ALE-based statistical inference is that only effects that are
-simultaneously within the confidence intervals AND outside of the ALER
-band should be considered conceptually meaningful.</strong></p>
+ALE-based inference is that only when a variable has at least some
+effects whose confidence intervals are outside of the ALER band should
+it be considered conceptually meaningful.</strong></p>
 <p>We can see this, for example, with the plot of
 <code>mean_ses</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'mean_ses'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-mean_ses-1.png" width="700"></p>
 <p>It might not always be easy to tell from a plot which regions are
 relevant, so the results of statistical significance are summarized with
 the <code>ale$conf_regions$by_term</code> element, which can be accessed
 for each variable from its <code>by_term</code> element:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'mean_ses'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   statistic estimate p.value conf.low median   mean conf.high</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aled          1.30       0    0.860   1.29   1.30      1.89</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aler_min     -<span style="color: #BB0000;">7.17</span>       0  -<span style="color: #BB0000;">10.2</span>    -<span style="color: #BB0000;">7.33</span>  -<span style="color: #BB0000;">7.17</span>     -<span style="color: #BB0000;">3.23</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aler_max      2.85       0    1.25    2.49   2.85      5.96</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> naled        15.1        0    9.43   14.9   15.1      20.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> naler_min   -<span style="color: #BB0000;">46.3</span>        0  -<span style="color: #BB0000;">50</span>     -<span style="color: #BB0000;">47.5</span>  -<span style="color: #BB0000;">46.3</span>     -<span style="color: #BB0000;">33.6</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> naler_max    33.6        0   17.7    34.4   33.6      46.9</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'mean_ses'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 10</span></span></span>
+<span><span class="co">#&gt;   term     start_x  end_x x_span_pct     n   pct start_y end_y trend aler_band</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mean_ses  -<span style="color: #BB0000;">1.19</span>  -<span style="color: #BB0000;">0.517</span>       33.2    18  11.2    5.32  11.3 1.20  below    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mean_ses  -<span style="color: #BB0000;">0.335</span>  0.831       57.8   142  88.8   12.3   15.0 0.314 overlap</span></span></code></pre></div>
 <p>For numeric variables, the confidence regions summary has one row for
-each consecutive sequence of x values that have the same status: all
-values in the region are below the middle irrelevance band, they overlap
+each consecutive sequence of <em>x</em> values that have the same
+status: all values in the region are below the ALER band, they overlap
 the band, or they are all above the band. Here are the summary
 components:</p>
 <ul>
 <li>
 <code>start_x</code> is the first and <code>end_x</code> is the last
-x value in the sequence. <code>start_y</code> is the y value that
-corresponds to <code>start_x</code> while <code>end_y</code> corresponds
-to <code>end_x</code>.</li>
+<em>x</em> value in the sequence. <code>start_y</code> is the <em>y</em>
+value that corresponds to <code>start_x</code> while <code>end_y</code>
+corresponds to <code>end_x</code>.</li>
 <li>
-<code>n</code> is the number of data elements in the sequence;
-<code>pct</code> is the percentage of total data elements out of the
-total number.</li>
+<code>n</code> is the number of data elements (rows) in the
+sequence; <code>pct</code> is the percentage of total data elements out
+of the total number.</li>
 <li>
-<code>x_span</code> is the length of x of the sequence that has the
-same confidence status. However, so that it may be comparable across
-variables with different units of x, <code>x_span</code> is expressed as
-a percentage of the full domain of x values.</li>
+<code>x_span_pct</code> is the percentage of the domain of
+<em>x</em> of the sequence that has the same confidence status
+(<code>aler_band</code>). It is is expressed as a percentage of the full
+domain of <em>x</em> values so that it may be comparable across
+variables with different units of x.</li>
 <li>
 <code>trend</code> is the average slope from the point
 <code>(start_x, start_y)</code> to <code>(end_x, end_y)</code>. Because
 only the start and end points are used to calculate <code>trend</code>,
 it does not reflect any ups and downs that might occur between those two
-points. Since the various x values in a dataset are on different scales,
-the scales of the x and y values in calculating the <code>trend</code>
-are normalized on a scale of 100 each so that the trends for all
-variables are directly comparable. A positive <code>trend</code> means
-that, on average, y increases with x; a negative <code>trend</code>
-means that, on average, y decreases with x; a zero <code>trend</code>
-means that y has the same value at its start and end points–this is
-always the case if there is only one point in the indicated
-sequence.</li>
+points. Since the various <em>x</em> values in a dataset are on
+different scales, the scales of the <em>x</em> and <em>y</em> values in
+calculating the <code>trend</code> are normalized on a scale of 100 each
+so that the trends for all variables are directly comparable. A positive
+<code>trend</code> means that, on average, <em>y</em> increases with x;
+a negative <code>trend</code> means that, on average, <em>y</em>
+decreases with x; a zero <code>trend</code> means that <em>y</em> has
+the same value at its start and end points–this is always the case if
+there is only one point in the indicated sequence.</li>
 <li>
-<strong><code>mid_bar</code></strong> is the key information here.
-It indicates if all the values in sequence from <code>start_x</code> to
-<code>end_x</code> are below, overlapping, or above the middle ALER
+<strong><code>aler_band</code></strong> is the key information here.
+It indicates if all the values in the sequence from <code>start_x</code>
+to <code>end_x</code> are below, overlapping, or above the middle ALER
 band:
 <ul>
-<li>below: the higher limit of the confidence interval of ALE y
-(<code>ale_y_hi</code>) is below the lower limit of the ALER band.</li>
-<li>above: the lower limit of the confidence interval of ALE y
-(<code>ale_y_lo</code>) is above the higher limit of the ALER band.</li>
+<li>below: the higher limit of the confidence interval of ALE <em>y</em>
+(<code>.y_hi</code>) is below the lower limit of the ALER band.</li>
+<li>above: the lower limit of the confidence interval of ALE <em>y</em>
+(<code>.y_lo</code>) is above the higher limit of the ALER band.</li>
 <li>overlap: neither of the first two conditions holds; that is, the
-confidence region from <code>ale_y_lo</code> to <code>ale_y_hi</code> at
-least partially overlaps the ALER band.</li>
+confidence region from <code>.y_lo</code> to <code>.y_hi</code> at least
+partially overlaps the ALER band.</li>
 </ul>
 </li>
 </ul>
 <p>These results tell us that, for <code>mean_ses</code>, from -1.19 to
--1.04, ALE is below the median band from 6.1 to 7.6. From -0.792 to
--0.792, ALE overlaps the median band from 10.2 to 10.2. From -0.756 to
--0.674, ALE is below the median band from 10.2 to 10.8. From -0.663 to
--0.663, ALE overlaps the median band from 10.9 to 10.9. From -0.643 to
--0.484, ALE is below the median band from 10.8 to 11.2. From -0.467 to
--0.467, ALE overlaps the median band from 11.5 to 11.5. From -0.46 to
--0.46, ALE is below the median band from 11.4 to 11.4. A few other
-regions briefly exceeded the ALER band.-</p>
+-0.517, ALE is below the ALER band from 5.32 to 11.3. From -0.335 to
+0.831, ALE overlaps the ALER band from 12.3 to 15.</p>
 <p>Interestingly, most of the text of the previous paragraph was
 generated automatically by an internal (unexported function)
 <code>ale:::summarize_conf_regions_1D_in_words</code>. (Since the
 function is not exported, you must use <code>ale:::</code> with three
 colons, not just two, if you want to access it.)</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'mean_ses'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ale</span><span class="fu">:::</span><span class="fu">summarize_conf_regions_1D_in_words</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "From -1.19 to -1.19, ALE is below the median band from -7.17 to -7.17. From -0.517 to 0.831, ALE overlaps the median band from -1.74 to 2.64."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "From -1.19 to -0.517, ALE is below the ALER band from 5.32 to 11.3. From -0.335 to 0.831, ALE overlaps the ALER band from 12.3 to 15."</span></span></code></pre></div>
 <p>While the wording is rather mechanical, it nonetheless illustrates
 the potential value of being able to summarize the inferentially
 relevant conclusions in tabular form.</p>
 <p>Confidence region summary tables are available not only for numeric
 but also for categorical variables, as we see with <code>public</code>.
 Here is its ALE plot again:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'public'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-2-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'public'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 12</span></span></span>
-<span><span class="co">#&gt;   term   x     start_x end_x x_span_pct     n   pct      y start_y end_y trend</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> public FALSE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    70  43.8  0.383      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> public TRUE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    90  56.2 -<span style="color: #BB0000;">0.306</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
-<p>Since we have categories here, there is no start or end positions and
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
+<span><span class="co">#&gt;   term   x         n   pct     y aler_band</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> public FALSE    70  43.8  13.3 overlap  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> public TRUE     90  56.2  12.6 overlap</span></span></code></pre></div>
+<p>Since we have categories here, there is no start or end position and
 there is no trend. We instead have each <code>x</code> category and its
 single ALE <code>y</code> value, with the <code>n</code> and
-<code>pct</code> of the respective category and <code>mid_bar</code> as
-before to indicate whether the indicated category is below, overlaps
-with, or is above the ALER band.</p>
+<code>pct</code> of the respective category. We have
+<code>aler_band</code> as before to indicate whether the indicated
+category is below, overlaps with, or is above the ALER band.</p>
 <p>Again with the help of
-<code>ale:::summarize_conf_regions_1D_in_words()</code>, these results
-tell us that, for <code>public</code>, for FALSE, the ALE of 13.3
-overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER
+<code>ale:::summarize_conf_regions_1D_in_words()</code>, we can
+summarize the results for <code>public</code>: for FALSE, the ALE of
+13.3 overlaps the ALER band. For TRUE, the ALE of 12.6 overlaps the ALER
 band.</p>
 <p>Again, our random variable <code>rand_norm</code> is particularly
 interesting. Here is its ALE plot:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'rand_norm'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-plot-for-rand_norm-1.png" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'rand_norm'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 12</span></span></span>
-<span><span class="co">#&gt;   term    x     start_x end_x x_span_pct     n   pct     y start_y  end_y  trend</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rand_n… <span style="color: #BB0000;">NA</span>      -<span style="color: #BB0000;">2.40</span>  2.61        100   160   100    <span style="color: #BB0000;">NA</span>  -<span style="color: #BB0000;">0.577</span> -<span style="color: #BB0000;">0.171</span> 0.027<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
-<p>Despite any apparent pattern, we see that from -2.4 to 2.61, ALE
-overlaps the median band from 12 to 12.8. So, despite the random highs
-and lows in the bootstrap confidence interval, there is no reason to
-suppose that the random variable has any effect anywhere in its
-domain.</p>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 10</span></span></span>
+<span><span class="co">#&gt;   term      start_x end_x x_span_pct     n   pct start_y end_y  trend aler_band</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rand_norm   -<span style="color: #BB0000;">2.40</span>  2.61        100   160   100    11.7  12.5 0.055<span style="text-decoration: underline;">5</span> overlap</span></span></code></pre></div>
+<p>Despite any apparent pattern (even though we deliberately selected a
+random seed for a particularly erratic random variable), we see that
+from -2.4 to 2.61, ALE overlaps the ALER band from 11.7 to 12.5.. So,
+despite the random highs and lows in the bootstrap confidence interval,
+there is no reason to suppose that the random variable has any effect
+anywhere in its domain.</p>
 <p>We can conveniently summarize all the confidence regions from all
 variables that are statistically significant or meaningful by accessing
 the <code>conf_regions$significant</code> element:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, stats <span class="op">=</span> <span class="st">'conf_sig'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 12</span></span></span>
-<span><span class="co">#&gt;   term     x     start_x end_x x_span_pct     n    pct     y start_y end_y trend</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mean_ses <span style="color: #BB0000;">NA</span>      -<span style="color: #BB0000;">1.19</span> -<span style="color: #BB0000;">1.19</span>          0     1  0.625    <span style="color: #BB0000;">NA</span>   -<span style="color: #BB0000;">7.17</span> -<span style="color: #BB0000;">7.17</span>     0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> minorit… <span style="color: #BB0000;">NA</span>       0     0             0    20 12.5      <span style="color: #BB0000;">NA</span>    1.66  1.66     0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> minorit… <span style="color: #BB0000;">NA</span>       1     1             0    17 10.6      <span style="color: #BB0000;">NA</span>   -<span style="color: #BB0000;">3.80</span> -<span style="color: #BB0000;">3.80</span>     0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: mid_bar &lt;ord&gt;</span></span></span></code></pre></div>
-<p>This summary focuses only on the x variables that have meaningful ALE
-regions anywhere in their domain. We can also conveniently isolate which
-variables have any such meaningful region by extracting the unique
-values in the <code>term</code> column:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 12</span></span></span>
+<span><span class="co">#&gt;   term   x     start_x   end_x x_span_pct     n   pct     y start_y end_y  trend</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mean_… <span style="color: #BB0000;">NA</span>    -<span style="color: #BB0000;">1.19</span>   -<span style="color: #BB0000;">0.517</span>       33.2     18  11.2    <span style="color: #BB0000;">NA</span>    5.32 11.3   1.20 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> mean_… <span style="color: #BB0000;">NA</span>    -<span style="color: #BB0000;">0.335</span>   0.831       57.8    142  88.8    <span style="color: #BB0000;">NA</span>   12.3  15.0   0.314</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> minor… <span style="color: #BB0000;">NA</span>     0       0.033<span style="text-decoration: underline;">9</span>       3.39    36  22.5    <span style="color: #BB0000;">NA</span>   14.5  14.2  -<span style="color: #BB0000;">0.742</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> minor… <span style="color: #BB0000;">NA</span>     0.063<span style="text-decoration: underline;">8</span>  0.792       72.8    107  66.9    <span style="color: #BB0000;">NA</span>   13.8  11.8  -<span style="color: #BB0000;">0.184</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> minor… <span style="color: #BB0000;">NA</span>     1       1            0       17  10.6    <span style="color: #BB0000;">NA</span>    9.10  9.10  0    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: aler_band &lt;ord&gt;</span></span></span></code></pre></div>
+<p>This summary focuses only on the <em>x</em> variables that have
+meaningful ALE regions anywhere in their domain. We can also
+conveniently isolate which variables have any such meaningful region by
+extracting the unique values in the <code>term</code> column:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, stats <span class="op">=</span> <span class="st">'conf_sig'</span><span class="op">)</span><span class="op">$</span><span class="va">term</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "mean_ses"       "minority_ratio"</span></span></code></pre></div>
