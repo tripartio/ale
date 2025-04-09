@@ -515,10 +515,17 @@ plot_ale_2D <- function(
     ) +
     geom_point(
       aes(size = .data$.n * 100 / total_n),
-      shape = 15,  # square
+      # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
+      shape = 0,  # hollow square
       alpha = 0.1
     ) +
-    scale_size_area(name = "% data") +  # Size legend title
+    scale_size_area(
+      name = "% data",  # Size legend title
+      # append % to the labels
+      labels = \(breaks) {
+        breaks |> round_dp() |> paste0('%')
+      }
+    ) +
     theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
