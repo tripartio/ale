@@ -23,6 +23,7 @@ doi
 downloadable
 ECDF
 ECDFs
+Efron
 FNEBSW
 FNWBSE
 FSEBNW
@@ -58,6 +59,7 @@ MMDD
 Mmmm
 ModelBoot
 mtcars
+multivariable
 na
 naled
 NALED
@@ -65,6 +67,7 @@ naler
 NALER
 Noam
 noncrucial
+nonsignificant
 NWSE
 overfit
 parallelization
@@ -95,6 +98,7 @@ terciles
 testthat
 tibble
 tibbles
+Tibshirani
 tidyverse
 unordered
 unvalidated

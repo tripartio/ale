@@ -156,7 +156,7 @@ No modelling results, with or without ALE, should be considered reliable without
 # attitude dataset
 attitude
 
-## ALE for general additive models (GAM)
+## ALE for generalized additive models (GAM)
 ## GAM is tweaked to work on the small dataset.
 gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
                             raises + s(critical) + advance,

@@ -16,6 +16,8 @@
 
 \item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
+\item{ale_centre}{Same as in documentation for \code{\link[=ALEPlots]{ALEPlots()}}}
+
 \item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest list structure possible to give the requested results. If \code{FALSE}, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.}
 
 \item{silent}{See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}}

@@ -7,7 +7,7 @@
 ALEPlots(
   obj,
   ...,
-  relative_y = "median",
+  ale_centre = "median",
   y_1d_refs = c("25\%", "75\%"),
   rug_sample_size = obj@params$sample_size,
   min_rug_per_interval = 1,
@@ -21,13 +21,13 @@ ALEPlots(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{relative_y}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.}
+\item{ale_centre}{character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.}
 
 \item{y_1d_refs}{character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, \code{y_1d_refs} values are names from \code{obj@params$y_summary} (usually quantile names). If a numeric vector, \code{y_1d_refs} values must be values within the range of y, that is, between \code{obj@params$y_summary$min} and \code{obj@params$y_summary$max} inclusive.}
 
 \item{rug_sample_size, min_rug_per_interval}{non-negative integer(1). Rug plots are down-sampled to \code{rug_sample_size} rows, otherwise they can be very slow for large datasets. By default, their size is the value of \code{obj@params$sample_size}. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least \code{min_rug_per_interval} elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set \code{rug_sample_size} to \code{Inf} (but then the \code{ALEPlots} object would store the entire dataset, so could become very large).}
 
-\item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{relative_y} average (the median, by default) to indicate nonsignificant effects.}
+\item{y_nonsig_band}{numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner \code{y_nonsig_band} quantile below and above the \code{ale_centre} average (the median, by default) to indicate nonsignificant effects.}
 
 \item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 

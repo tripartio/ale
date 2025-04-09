@@ -14,7 +14,6 @@ ALE(
   parallel = "all",
   model_packages = NULL,
   output_stats = TRUE,
-  output_conf = NULL,
   output_boot_data = FALSE,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
@@ -50,8 +49,6 @@ ALE(
 \item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
 \item{output_stats}{logical(1). If \code{TRUE} (default), return ALE statistics.}
-
-\item{output_conf}{logical(1). If \code{TRUE}, return ALE confidence regions but only if statistics are requested (\code{output_stats = TRUE}), bootstrapping is requested (\code{boot_it > 0}), and \code{p_values} are available; otherwise raises an error. The default \code{NULL} will generate confidence regions if these conditions are met.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the raw ALE data for each bootstrap iteration. Default is \code{FALSE}.}
 

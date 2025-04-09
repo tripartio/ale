@@ -341,19 +341,19 @@ $$
 
 where $i$ is the index of $k$ ALE *x* intervals for the variable (for a categorical variable, this is the number of distinct categories), $\mathrm{ale\_y}_i$ is the ALE *y* value for the $i$th ALE *x* interval, and $\mathrm{ale\_n}_i$ is the number of rows in the $i$th ALE *x* interval.
 
-However, whereas @eq-aled-categorical describes ALED for non-numeric values where each ALE *x* interval is a distinct *x* value with a corresponding ALE *y* value, it requires some adjustment for numeric *x* values where `.ceil` represents the upper bound of each bin. Thus, for numeric values, two adjustments are needed. First, to convert the `.ceil` boundaries into proper discrete bins, the number of rows (`.n`) in the first element (representing the minimum) is added to the second element. Second, rather than the `.y` values at the bin boundaries, `.y` for each bin is recalculated as the midpoint between consecutive `.ceil` boundaries. The adjusted ALED formula for numeric *x* variables is given in @eq-aled-numeric.
+However, whereas this equation describes ALED for non-numeric values where each ALE *x* interval is a distinct *x* value with a corresponding ALE *y* value, it requires some adjustment for numeric *x* values where `.ceil` represents the upper bound of each bin. Thus, for numeric values, two adjustments are needed. First, to convert the `.ceil` boundaries into proper discrete bins, the number of rows (`.n`) in the first element (representing the minimum) is added to the second element. Second, rather than the `.y` values at the bin boundaries, `.y` for each bin is recalculated as the midpoint between consecutive `.ceil` boundaries. The adjusted ALED formula for numeric *x* variables is given in the following equation:
 
 $$
 \mathrm{ALED}(\mathrm{ale\_y}, \mathrm{ale\_n}) = \frac{\sum_{i=1}^{k-1} \left|  \frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right) \times \mathrm{ale\_n}_i' \right|}{\sum_{i=1}^{k-1} \mathrm{ale\_n}_i'}
-$$ {#eq-aled-numeric} where: 
+$$  where: 
 
-- ${ale\_n}_i'$ is the adjusted number of rows for the $i$th interval, with the first element adjusted to include the number of rows from the minimum interval (@eq-aled-numeric-adjustment). $$
+- ${ale\_n}_i'$ is the adjusted number of rows for the $i$th interval, with the first element adjusted to include the number of rows from the minimum interval. $$
   \mathrm{ale\_n}_i' = 
   \begin{cases}
   \mathrm{ale\_n}_i + \mathrm{ale\_n}_{i+1} & \text{if } i = 1 \\
   \mathrm{ale\_n}_i & \text{otherwise}
   \end{cases}
-$$ {#eq-aled-numeric-adjustment}
+$$
 
 - $\frac{1}{2} \left( \mathrm{ale\_y}_i + \mathrm{ale\_y}_{i+1} \right)$ represents the recalculated ALE $y$ value for each bin, taken as the midpoint between consecutive $ale\_y$ values.
 
