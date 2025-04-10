@@ -1,4 +1,4 @@
-## ale_stats.R
+## calc_stats.R
 #
 # Calculate statistical measures based on ALE
 #
@@ -7,7 +7,7 @@
 
 #' Calculate statistics from ALE y values.
 #'
-#' Not exported. The following statistics are calculated based on a vector of ALE y values:
+#' The following statistics are calculated based on a vector of ALE y values:
 #'
 #' * ALE deviation (ALED)
 #' * ALE range (ALER): range from minimum value of any ALE `y` to the maximum value of any `y`. This is a very simple indication of the dispersion in ALE `y` values.
@@ -16,12 +16,13 @@
 #'
 #' Note that if any ALE `y` values are missing, they will be deleted from the calculation (with their corresponding bin_n).
 #'
+#' @noRd
+#'
 #' @param y numeric. Vector of ALE y values.
 #' @param bin_n numeric. Vector of counts of rows in each ALE bin. Must be the same length as `y`.
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
-#' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `ale_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
+#' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
-# @param zeroed_ale logical. TRUE if the ALE `y` values are zero-based. If `FALSE` (default), `ale_stats` will convert `y` to their zeroed values, but the function will run slightly slower because of this extra calculation. In the current version, `y` must be zeroed or else this function will fail. So, zeroed_ale must always be explicitly set to `TRUE`.
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -31,13 +32,12 @@
 #' * naler_min: Normalized minimum (lower value) of the ALE range (ALER)
 #' * naler_max: Normalized maximum (upper value) of the ALE range (ALER)
 #'
-ale_stats <- function(
+calc_stats <- function(
     y,
     bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    x_type = 'numeric' #,
-    # zeroed_ale = FALSE  # temporary until non-zeroed is implemented
+    x_type = 'numeric'
 ) {
 
   ## Validate data -------------
@@ -46,10 +46,6 @@ ale_stats <- function(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
     msg = cli_alert_danger('Either {.arg y_vals} or {.arg ale_y_norm_fun} must be provided.')
   )
-
-  # if (!zeroed_ale) {
-  #   cli_abort('Zeroed ALE required for now.')
-  # }
 
   y <- as.vector(y)  # flatten from 1D matrix inputs to vector
 
@@ -126,34 +122,33 @@ ale_stats <- function(
     naler_min = naler[1],
     naler_max = naler[2]
   ))
-}  # ale_stats()
+}  # calc_stats()
 
 
 #' Calculate statistics from 2D ALE y values.
 #'
-#' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
+#' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
 #'
-#' After these possible adjustments, the ALE y values and bin counts are passed to [ale_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
+#' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
-#' Not exported.
+#' @noRd
 #'
 #'
 #' @param ale_data dataframe. ALE data
 #' @param x_cols character. Names of the x columns in `ale_data`.
-#' @param x_types character same length as `x_cols`. Variable types (output of [var_type()]) of corresponding `x_cols`.
-#' @param y_vals See documentation for [ale_stats()]
-#' @param ale_y_norm_fun See documentation for [ale_stats()]
-# @param zeroed_ale See documentation for [ale_stats()]
+#' @param x_types character same length as `x_cols`. Variable types (output of var_type()) of corresponding `x_cols`.
+#' @param y_vals See documentation for [calc_stats()]
+#' @param ale_y_norm_fun See documentation for [calc_stats()]
+# @param zeroed_ale See documentation for [calc_stats()]
 #'
-#' @returns Same as [ale_stats()].
+#' @returns Same as [calc_stats()].
 #'
-ale_stats_2D <- function(
+calc_stats_2D <- function(
     ale_data,
     x_cols,
     x_types,
     y_vals = NULL,
-    ale_y_norm_fun = NULL #,
-    # zeroed_ale = FALSE
+    ale_y_norm_fun = NULL
 ) {
   # ale_data=boot_summary
 
@@ -221,16 +216,15 @@ ale_stats_2D <- function(
     ale_n <- ale_n_ray
   }
 
-  return(ale_stats(
+  return(calc_stats(
     y = ale_y,
     bin_n = ale_n,
     y_vals = y_vals,
     ale_y_norm_fun = ale_y_norm_fun,
     # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
-    x_type = 'ordered' #,
-    # zeroed_ale = TRUE
+    x_type = 'ordered'
   ))
-}  # ale_stats_2D()
+}  # calc_stats_2D()
 
 
 # Create a function that normalizes ALE y values
@@ -241,6 +235,7 @@ create_ale_y_norm_function <- function(y_vals) {
   centred_y <- y_vals - stats::median(y_vals)
 
   # Find the values right below and right above median y (0 for centred_y)
+
   # Value right below the median
   pre_median  <- if (median(centred_y) != max(centred_y)) {
     max(centred_y[centred_y < 0])
@@ -254,17 +249,12 @@ create_ale_y_norm_function <- function(y_vals) {
     0
   }
 
-  # # Find the values right below and right above median y (0 for centred_y)
-  # pre_median  <- max(centred_y[centred_y < 0])  # Value right below the median
-  # post_median <- min(centred_y[centred_y > 0]) # Value right above the median
-
   return(
     function(ale_y) {
       # Assign each ALE y value to its respective norm_ale_y (normalized half percentile).
       # ale_y == 0 is assigned at the 50th percentile.
-      norm_ale_y <- dplyr::case_when(
-        # When ale_y is between the values right below and above the median (0),
-        # normalize it to 0.
+      norm_ale_y <- case_when(
+        # When ale_y is between the values right below and above the median (0), normalize it to 0.
         (ale_y >= pre_median) & (ale_y <= post_median) ~ 0,
         # percentiles of the lower half of the y values (0 to 50%)
         # Note: the median is included in both halves.
@@ -272,7 +262,7 @@ create_ale_y_norm_function <- function(y_vals) {
         # The exact median.
         # Normally, the first condition should catch this case, but just in case...
         ale_y == 0 ~ 0,
-        # percentiles of the upper half of the y values (50 to 100%)
+        # Percentiles of the upper half of the y values (50 to 100%).
         # Note: the median is included in both halves.
         ale_y > 0  ~ stats::ecdf(centred_y[centred_y >= 0])(ale_y) / 2,
       )
@@ -293,108 +283,96 @@ var_summary <- function(
     var_name,
     var_vals,
     ...,
-    median_band_pct = c(0.05, 0.5),
     p_dist = NULL,
-    p_alpha = c(0.01, 0.05)
+    aler_alpha = c(0.01, 0.05)
 ) {
   if (!is.null(p_dist)) {
     rand_stats <- p_dist@rand_stats
-    # rand_stats <- p_dist$rand_stats
   }
 
   # Convert vector to matrix
   if (!is.matrix(var_vals)) {
-    var_vals <- as.matrix(var_vals, ncol = 1)
+    var_vals <- as.matrix(var_vals, ncol = 1)  # nocov
   }
 
   s <-
     var_vals |>
-    apply(MARGIN = 2, \(.col) {
+    apply(MARGIN = 2, \(it.col) {
       stats::quantile(
-        .col,
+        it.col,
         probs = c(
           0.01, 0.025, 0.05, 0.1, 0.2, 0.25, 0.3, 0.4,
-          # Insert the median_band_pct requested percentiles. If duplicated or unnecessary, they will be removed later. If duplicated, the first occurrence will be retrieved (which is identical to any duplicates, so it doesn't matter.)
-          0.5 - (median_band_pct[2] / 2),
-          0.5 - (median_band_pct[1] / 2),
           0.5,
-          0.5 + (median_band_pct[1] / 2),
-          0.5 + (median_band_pct[2] / 2),
-          # 0.5 - (median_band_pct / 2), 0.5, 0.5 + (median_band_pct / 2),
           0.6, 0.7, 0.75, 0.8, 0.9, 0.95, 0.975, 0.99
         )
       )
     })
 
   # Calculate the p-values necessary to obtain the desired joint probabilities.
-  # For example, if the p_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
-  joint_p <- 1 - sqrt(1 - p_alpha)
+  # For example, if the aler_alpha is 0.05, the user wants to ensure 0.95 confidence that aler_min < .y AND .y < aler_max. The p_value for this joint probability is smaller than the untransformed p_value
+  joint_p <- 1 - sqrt(1 - aler_alpha)
 
-  # s <- s |>
-  #   apply(MARGIN = 2, \(.col) {
-  s <- map(1:ncol(s), \(.col_idx) {
+  s <- map(1:ncol(s), \(it.col_idx) {
 
-    .col <- s[, .col_idx]
+    it.col <- s[, it.col_idx]
 
-    .col <- c(
+    it.col <- c(
       # Retain first half of values
-      .col[1:match('40%', names(.col))],
-      # .col[1:match('25%', names(.col))],
+      it.col[1:match('40%', names(it.col))],
 
       # Create lower confidence bounds just below the midpoint
-      med_lo_2 = if (!is.null(p_dist)) {
-        (.col[['50%']] +
-           p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[1])) |>
+      aler_lo_lo = if (!is.null(p_dist)) {
+        (it.col[['50%']] +
+           p_to_random_value(rand_stats[[it.col_idx]], 'aler_min', joint_p[1])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 - (median_band_pct[2] / 2)) * 100), '%')]]
+        NULL
       },
-      med_lo = if (!is.null(p_dist)) {
-        (.col[['50%']] +
-           p_to_random_value(rand_stats[[.col_idx]], 'aler_min', joint_p[2])) |>
+      aler_lo = if (!is.null(p_dist)) {
+        (it.col[['50%']] +
+           p_to_random_value(rand_stats[[it.col_idx]], 'aler_min', joint_p[2])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 - (median_band_pct[1] / 2)) * 100), '%')]]
+        NULL
       },
 
-      .col[match('50%', names(.col))],
+      it.col[match('50%', names(it.col))],
 
       mean = mean(var_vals, na.rm = TRUE),
 
       # Create upper confidence bounds just above the midpoint
-      med_hi = if (!is.null(p_dist)) {
-        (.col[['50%']] +
-           p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[2])) |>
+      aler_hi = if (!is.null(p_dist)) {
+        (it.col[['50%']] +
+           p_to_random_value(rand_stats[[it.col_idx]], 'aler_max', joint_p[2])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 + (median_band_pct[1] / 2)) * 100), '%')]]
+        NULL
       },
-      med_hi_2 = if (!is.null(p_dist)) {
-        (.col[['50%']] +
-           p_to_random_value(rand_stats[[.col_idx]], 'aler_max', joint_p[1])) |>
+      aler_hi_hi = if (!is.null(p_dist)) {
+        (it.col[['50%']] +
+           p_to_random_value(rand_stats[[it.col_idx]], 'aler_max', joint_p[1])) |>
           unname()
       } else {
-        .col[[paste0(format((0.5 + (median_band_pct[2] / 2)) * 100), '%')]]
+        NULL
       },
 
       # Retain latter half of values
-      .col[match('60%', names(.col)):length(.col)]
-      # .col[match('75%', names(.col)):length(.col)]
+      it.col[match('60%', names(it.col)):length(it.col)]
     )
 
     # Determine the limits and average of y.
     # min and max are needed only for plotting, but avg is needed for data.
     # Set the plotting boundaries for the y axis
     if (min(var_vals) >= 0 && max(var_vals) <= 1) {  # var is a probability
-      .col <- c(min = 0, .col)
-      .col <- c(.col, max = 1)
+      it.col <- c(min = 0, it.col)
+      it.col <- c(it.col, max = 1)
     }
     else {
-      .col <- c(min = .col[['1%']], .col)
-      .col <- c(.col, max = .col[['99%']])
+      it.col <- c(min = it.col[['1%']], it.col)
+      it.col <- c(it.col, max = it.col[['99%']])
     }   # as of now, no treatment and no error for non-numeric y
 
-    .col
+    it.col
   }) |>
   set_names(colnames(s)) |>
   do.call(cbind, args = _)
@@ -404,13 +382,16 @@ var_summary <- function(
     var_s <- apply(s, 1, median)
 
     var_s['min']      <- min(s['min', ])
-    var_s['med_lo_2'] <- min(s['med_lo_2', ])
-    var_s['med_lo']   <- min(s['med_lo', ])
     var_s['mean']     <- mean(s['mean', ])
     var_s['50%']      <- median(s['50%', ])
-    var_s['med_hi']   <- max(s['med_hi', ])
-    var_s['med_hi_2'] <- max(s['med_hi_2', ])
     var_s['max']      <- max(s['max', ])
+
+    if (!is.null(p_dist)) {
+      var_s['aler_lo_lo'] <- min(s['aler_lo_lo', ])
+      var_s['aler_lo']   <- min(s['aler_lo', ])
+      var_s['aler_hi']   <- max(s['aler_hi', ])
+      var_s['aler_hi_hi'] <- max(s['aler_hi_hi', ])
+    }
 
     s <- cbind(
       var_s,
@@ -421,93 +402,14 @@ var_summary <- function(
   # The first column should always be named for the var_name, whether it is the only column or not
   colnames(s)[1] <- var_name
 
-
-  # Encode whether the med values represent p-values or not:
-  # names(s[1]) == 'p': base p_value
-  # names(s[1]) == 'q': base quantile (that is, median_band_pct not replaced by p-values)
-  s <- if (is.null(p_dist)) {
-    rbind(
-      q = rep(median_band_pct[1], ncol(s)),
-      s
-    )
-  }
-  else {
-    rbind(
-      p = rep(p_alpha[2], ncol(s)),
-      s
-    )
-  }
-
   return(s)
 }  # var_summary()
-
-
-# Rearrange ALE statistics in multiple orientations
-pivot_stats <- function(long_stats) {
-
-  return(list(
-    by_term = long_stats |>
-      split(~ term) |>
-      # split() sort terms alphabetically; revert to the original provided order of terms
-      (`[`)(unique(long_stats$term)) |>
-      # Name each element on each row by its corresponding statistic
-      map(\(it.term_tbl) {
-        .row_names <- it.term_tbl[['statistic']]
-
-        it.term_tbl |>
-          # Name each element on each row
-          map(\(.col) {
-            names(.col) <- .row_names
-            .col
-          }) |>
-          as_tibble() |>
-          select(-'term')  # remove superfluous column
-      }),
-
-    by_stat = long_stats |>
-      split(~ statistic) |>
-      # split() sort statistics alphabetically; revert to the original provided order of statistics
-      (`[`)(unique(long_stats$statistic)) |>
-      # Name each element on each row by its corresponding term
-      map(\(.statistic_tbl) {
-        .row_names <- .statistic_tbl[['term']]
-
-        .statistic_tbl |>
-          # Name each element on each row
-          map(\(.col) {
-            names(.col) <- .row_names
-            .col
-          }) |>
-          as_tibble() |>
-          select(-'statistic')  # remove superfluous column
-      }),
-
-    estimate = long_stats |>
-      # create single tibble with estimates (no confidence intervals) with
-      # terms in rows and statistics in columns
-      tidyr::pivot_wider(
-        id_cols = 'term',
-        names_from = 'statistic',
-        values_from = 'estimate'
-      ) |>
-      as_tibble() |>
-      # name each element of each row with the term names (all_cols[[1]]).
-      (\(all_cols) {
-        map(all_cols, \(.col) {
-          names(.col) <- all_cols[[1]]
-          .col
-        }) |>
-          as_tibble()
-      })()
-  ))
-}  # pivot_stats()
 
 
 # Summarize overlapping confidence regions
 summarize_conf_regions_1D <- function(
     ale_data_list,  # list of ale_data elements
-    y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'p_values' or 'median_band_pct'
+    y_summary  # result of var_summary(y_vals)
 ) {
   # Create zeroed version of y_summary to correspond to zeroed ALE y values.
   # Note: Shifting by the median seems more appropriate than by the mean based on experimenting with the random x4 on the ALEPlot nnet simulation.
@@ -518,24 +420,24 @@ summarize_conf_regions_1D <- function(
     ale_data_list |>
     map(\(it.ale_data) {
       x_name <- names(it.ale_data)[1] |>
-        stringr::str_remove("\\.bin$|\\.ceil$")
+        str_remove("\\.bin$|\\.ceil$")
 
 
       # cr is the confidence regions for a single variable (term) at a time
       cr <-
         it.ale_data |>
         mutate(
-          # where is the current point relative to the median band?
-          mid_bar = case_when(
-            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
-            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+          # where is the current point relative to the ALER band?
+          aler_band = case_when(
+            .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
-          # new_streak == TRUE if current row has different mid_bar from previous row
-          new_streak = .data$mid_bar != lag(
-            .data$mid_bar,
-            default = first(.data$mid_bar)
+          # new_streak == TRUE if current row has different aler_band from previous row
+          new_streak = .data$aler_band != lag(
+            .data$aler_band,
+            default = first(.data$aler_band)
           ),
           # unique ID for each consecutive streak
           streak_id = cumsum(.data$new_streak)
@@ -556,7 +458,7 @@ summarize_conf_regions_1D <- function(
             end_y = last(.data$.y),
             n = sum(.data$.n),
             pct = (n / sum(it.ale_data$.n)) * 100,
-            mid_bar = first(.data$mid_bar),
+            aler_band = first(.data$aler_band),
           ) |>
           mutate(
             # diff between start_x and end_x as percentage of the domain of x
@@ -576,7 +478,7 @@ summarize_conf_regions_1D <- function(
           select(
             'start_x', 'end_x', 'x_span_pct',
             'start_y', 'end_y', 'trend',
-            'mid_bar',
+            'aler_band',
             'n', 'pct'
           )
 
@@ -594,7 +496,7 @@ summarize_conf_regions_1D <- function(
             # Convert x column from ordinal to character for consistency across terms
             x = as.character(.data$x),
           ) |>
-          select('x', 'y', 'mid_bar', 'n', 'pct')
+          select('x', 'y', 'aler_band', 'n', 'pct')
       }
 
       cr |>
@@ -612,27 +514,17 @@ summarize_conf_regions_1D <- function(
       any_of(c('x', 'start_x', 'end_x', 'x_span_pct')),
       'n', 'pct',
       any_of(c('y', 'start_y', 'end_y', 'trend')),
-      'mid_bar'
+      'aler_band'
     )
 
-  sig_conf_regions <- cr_by_term |>
-    filter(.data$mid_bar != 'overlap')
-
-  return(
-    list(
-      by_term = cr_by_term,
-      significant = sig_conf_regions,
-      sig_criterion = sig_criterion
-    )
-  )
+  return(cr_by_term)
 }  # summarize_conf_regions_1D()
 
 
 # Summarize overlapping confidence regions for 2D ALE
 summarize_conf_regions_2D <- function(
     ale_data_list,  # list of ale_data elements
-    y_summary,  # result of var_summary(y_vals)
-    sig_criterion  # string either 'p_values' or 'median_band_pct'
+    y_summary  # result of var_summary(y_vals)
 ) {
   # Create terciles of a numeric vector
   terciles <- function(x) {
@@ -648,13 +540,13 @@ summarize_conf_regions_2D <- function(
         )
       },
       # if cut() crashes, fall back on the more robust .bincode() without pretty printing
-      error = \(e) {
+      error = \(e) {  # nocov start
         .bincode(
           x,
           breaks = quantile(x, probs = c(0, 1/3, 2/3, 1)),
           include.lowest = TRUE
         )
-      }
+      }  # nocov end
     )
   }
 
@@ -677,10 +569,10 @@ summarize_conf_regions_2D <- function(
         it.ale_data |>
         filter(.data$.n != 0) |>
         mutate(
-          # where is the current point relative to the median band?
-          mid_bar = case_when(
-            .data$.y_hi < y_zeroed_summary['med_lo'] ~ 'below',
-            .data$.y_lo > y_zeroed_summary['med_hi'] ~ 'above',
+          # where is the current point relative to the ALER band?
+          aler_band = case_when(
+            .data$.y_hi < y_zeroed_summary['aler_lo'] ~ 'below',
+            .data$.y_lo > y_zeroed_summary['aler_hi'] ~ 'above',
             .default = 'overlap'
           ) |>
             factor(ordered = TRUE, levels = c('below', 'overlap', 'above')),
@@ -710,43 +602,9 @@ summarize_conf_regions_2D <- function(
         names(cr)[2] <- 'x2'
       }
 
-      # # Initialize cr_groups, used only if one or both x variables is non-numeric
-      # cr_groups <- character()
-      #
-      # # Group numeric x variables into quantiles of three (terciles), if available
-      # if ((x1_x2_names[1] |> endsWith('.ceil'))) {
-      #   # Use .bincode() instead of cut() to give evenly spread terciles, even if some tertiles are duplicated. Otherwise, cut() crashes with duplicated tertiles.
-      #   # https://stackoverflow.com/a/26305952/2449926
-      #   cr$.n1 <- .bincode(
-      #     cr[[1]],
-      #     breaks = quantile(cr[[1]], probs = c(0, 1/3, 2/3, 1)),
-      #     include.lowest = TRUE
-      #   )
-      #   cr_groups <- c(cr_groups, '.n1')
-      # }
-      # if ((x1_x2_names[2] |> endsWith('.ceil'))) {
-      #   cr$.n2 <- .bincode(
-      #     cr[[2]],
-      #     breaks = quantile(cr[[2]], probs = c(0, 1/3, 2/3, 1)),
-      #     include.lowest = TRUE
-      #   )
-      #   cr_groups <- c(cr_groups, '.n2')
-      # }
-      #
-      # # Rename ordinal x variables for easier coding
-      # if ((x1_x2_names[1] |> endsWith('.bin'))) {
-      #   names(cr)[1] <- '.o1'
-      #   cr_groups <- c(cr_groups, '.o1')
-      # }
-      # if ((x1_x2_names[2] |> endsWith('.bin'))) {
-      #   names(cr)[2] <- '.o2'
-      #   cr_groups <- c(cr_groups, '.o2')
-      # }
-
       cr <- cr |>
         summarize(
-          .by = c('x1', 'x2', 'mid_bar'),
-          # .by = all_of(c(cr_groups, 'mid_bar')),
+          .by = c('x1', 'x2', 'aler_band'),
           n   = sum(.data$n),
           pct = (n / total_n) * 100,
           y   = mean(.data$y),
@@ -758,14 +616,7 @@ summarize_conf_regions_2D <- function(
 
       # Rename the x variables with their original variable names
       x1_x2_names <- x1_x2_names |>
-        stringr::str_remove("\\.bin$|\\.ceil$")
-
-      # # Convert x data columns uniformly to character format
-      # cr[[1]] <- as.character(cr[[1]])
-      # cr[[2]] <- as.character(cr[[2]])
-#
-#       # Rename the x data columns consistently
-#       names(cr)[1:2] <- c('x1', 'x2')
+        str_remove("\\.bin$|\\.ceil$")
 
       # Return value for map function
       cr |>
@@ -778,28 +629,17 @@ summarize_conf_regions_2D <- function(
     set_names(names(ale_data_list)) |>
     bind_rows()
 
-  # Highlight which confidence regions are statistically significant
-  sig_conf_regions <- cr_by_term |>
-    filter(.data$mid_bar != 'overlap')
 
-
-  return(
-    list(
-      by_term = cr_by_term,
-      significant = sig_conf_regions,
-      sig_criterion = sig_criterion
-    )
-  )
+  return(cr_by_term)
 }  # summarize_conf_regions_1D()
 
-
-# Receives a confidence region summary tibble and then converts its essential
-# contents in words.
+# nocov start
+# Receives a confidence region summary tibble and then converts its essential contents in words.
 summarize_conf_regions_1D_in_words <- function(
     conf_region_summary,
-    band_type = 'median'
+    start_cap = TRUE  # first character capitalized
 ) {
-  map_chr(1:nrow(conf_region_summary), \(.row_num) {
+  summ <- map_chr(1:nrow(conf_region_summary), \(.row_num) {
     with(
       conf_region_summary[.row_num, ],
       if (exists('start_x')) { # conf_region_summary is numeric
@@ -807,26 +647,32 @@ summarize_conf_regions_1D_in_words <- function(
           'From {round_dp(start_x)} to {round_dp(end_x)}, ',
           'ALE ',
           if_else(
-            mid_bar == 'overlap',
+            aler_band == 'overlap',
             'overlaps',
-            paste0('is ', mid_bar)
+            paste0('is ', aler_band)
           ),
-          ' the {band_type} band ',
+          ' the ALER band ',
           'from {round_dp(start_y)} to {round_dp(end_y)}.'
         )
       } else { # conf_region_summary is NOT numeric
         str_glue(
           'For {x}, the ALE of {round_dp(y)} ',
           if_else(
-            mid_bar == 'overlap',
+            aler_band == 'overlap',
             'overlaps',
-            paste0('is ', mid_bar)
+            paste0('is ', aler_band)
           ),
-          ' the {band_type} band.'
+          ' the ALER band.'
         )
       }
     )
   }) |>
     paste(collapse = ' ')
-}  # summarize_conf_regions_in_words()
 
+  if (!start_cap) {
+    summ <- tolower(str_sub(summ, 1, 1)) %+% str_sub(summ, 2)
+  }
+
+  return(summ)
+}  # summarize_conf_regions_in_words()
+# nocov end

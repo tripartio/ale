@@ -13,6 +13,7 @@ test_that(
       data = test_cars,
       boot_it = 2,
       parallel = 0,
+      p_values = NULL,
       silent = TRUE
     )
 
@@ -32,27 +33,25 @@ test_that(
 
     cars_ale <- ALE(
       test_gam_binary,
-      x_cols = ~ hp + am + gear:drat,
-      # x_cols = ~ model + cyl + vs:disp,
-      data = var_cars,
+      x_cols = ~ wt + am + gear:carb,
+      data = test_cars,
       y_col = 'vs',
       # exclude_cols = NULL,  # test exclude_cols separately
       parallel = 0,
       # model_packages = NULL,  # not tested here; requires parallelization
       output_stats = FALSE,
       output_boot_data = TRUE,
-      # output = c('boot_data'),
       pred_fun = test_predict,  # function defined in setup.R
       pred_type = "link",
-      # p_values = NULL,  # test p-values with ALEpDist
-      # p_alpha = c(0.01, 0.05),
+      # test p-values with ALEpDist
+      p_values = NULL,
+      # aler_alpha = c(0.01, 0.05),
       max_num_bins = 12,
       boot_it = 1,  # edge case
       seed = 1234,
       boot_alpha = 0.01,
       boot_centre = 'median',
       y_type = 'binary',
-      median_band_pct = c(0.01, 0.2),
       sample_size = 25,
       # .bins = NULL,  # too complicated to test
       silent = TRUE  # always TRUE in tests

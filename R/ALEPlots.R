@@ -8,41 +8,30 @@
 #' @title ALE plots with print and plot methods
 #'
 #' @description
-#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` creates all possible plots from the `ALE` or `ModelBoot` passed to its constructor---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. In addition to specific ALE See examples there or examples with the [ALE] and [ModelBoot] objects.
+#' An `ALEPlots` S7 object contains the ALE plots from `ALE` or `ModelBoot` objects stored as `ggplot` objects. The `ALEPlots` constructor creates all possible plots from the `ALE` or `ModelBoot` passed to it---not only individual 1D and 2D ALE plots, but also special plots like the ALE effects plot. So, an `ALEPlots` object is a collection of plots, almost never a single plot. To retrieve specific plots, use the [get.ALEPlots()] method. See the examples with the [ALE()] and [ModelBoot()] objects for how to manipulate `ALEPlots` objects.
 
 #' @param obj `ALE` or `ModelBoot` object. The object containing ALE data to be plotted.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
-#' @param relative_y character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be adjusted relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are relative to zero.
-#' @param p_alpha numeric(2) from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are provided. If `p_values` are not provided, then `median_band_pct` is used instead. The inner band range will be the median value of y ± `p_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). For plots with a second outer band, its range will be the median ± `p_alpha[1]`. For example, in the ALE plots, for the default `p_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALE minimum or maximum at p = 0.05 and the outer band will be the median ± ALE minimum or maximum at p = 0.01.
-#' @param median_band_pct numeric length 2 from 0 to 1. Alpha for "confidence interval" ranges for printing bands around the median for single-variable plots. These are the default values used if `p_values` are not provided. If `p_values` are provided, then `median_band_pct` is ignored. The inner band range will be the median value of y ± `median_band_pct[1]/2`. For plots with a second outer band, its range will be the median ± `median_band_pct[2]/2`. For example, for the default `median_band_pct = c(0.05, 0.5)`, the inner band will be the median ± 2.5% and the outer band will be the median ± 25%.
+#' @param ale_centre character(1) in c('median', 'mean', 'zero'). The ALE y values in the plots will be centred relative to this value. 'median' is the default. 'zero' will maintain the actual ALE values, which are centred on zero.
+#' @param y_1d_refs character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, `y_1d_refs` values are names from `obj@params$y_summary` (usually quantile names). If a numeric vector, `y_1d_refs` values must be values within the range of y, that is, between `obj@params$y_summary$min` and `obj@params$y_summary$max` inclusive.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
-#' @param n_x1_bins,n_x2_bins positive integer(1). Number of bins for the x1 or x2 axes respectively for 2D interaction plot. These values are ignored if x1 or x2 are not numeric (i.e, if they are logical or factors).
-#' @param n_y_quant positive integer(1). Number of intervals over which the range of y values is divided for the colour bands of the interaction plot. See details.
+#' @param y_nonsig_band numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner `y_nonsig_band` quantile below and above the `ale_centre` average (the median, by default) to indicate nonsignificant effects.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
 #'
 #'
-#' @returns An object of class `ALEPlots` with properties `distinct` and `params`.
+#' @returns An object of class `ALEPlots` with properties `plots` and `params`.
 #'
 #' @section Properties:
 #' \describe{
-#'   \item{distinct}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
+#'   \item{plots}{Stores the ALE plots. Use [get.ALEPlots()] to access them.}
 #'   \item{params}{The parameters used to calculate the ALE plots. These include most of the arguments used to construct the `ALEPlots` object. These are either the values provided by the user or used by default if the user did not change them but also includes several objects that are created within the constructor. These extra objects are described here, as well as those parameters that are stored differently from the form in the arguments:
 #'
+#'     * `y_col`, `y_cats`: See documentation for [ALE()]
 #'     * `max_d`: See documentation for [ALE()]
 #'     * `requested_x_cols`: See documentation for [ALE()]. Note, however, that `ALEPlots` does not store `ordered_x_cols`.
-#'     * `y_col`: See documentation for [ALE()]
 #'   }
 #' }
-#'
-#'
-#' @section 2D interaction plots:
-#' #' For the 2D interaction plots, `n_y_quant` is the number of quantiles into which to divide the predicted variable (y). The middle quantiles are grouped specially:
-#' * The middle quantile is the first confidence interval of `median_band_pct` (`median_band_pct[1]`) around the median.
-#' This middle quantile is special because it generally represents no meaningful interaction.
-#' * The quantiles above and below the middle are extended from the borders of the middle quantile to the regular borders of the other quantiles.
-#'
-#' There will always be an odd number of quantiles: the special middle quantile plus an equal number of quantiles on each side of it. If `n_y_quant` is even, then a middle quantile will be added to it. If `n_y_quant` is odd, then the number specified will be used, including the middle quantile.
 #'
 #'
 #' @examples
@@ -51,44 +40,47 @@
 ALEPlots <- new_class(
   'ALEPlots',
   properties = list(
-    distinct = class_list,
+    plots = class_list,
     params   = class_list
   ),
 
   constructor = function(
     obj,
     ...,
-    relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
+    ale_centre = 'median',
+    y_1d_refs = c('25%', '75%'),
     rug_sample_size = obj@params$sample_size,
     min_rug_per_interval = 1,
-    n_x1_bins = NULL,
-    n_x2_bins = NULL,
-    n_y_quant = 10,
+    y_nonsig_band = 0.05,
     seed = 0,
     silent = FALSE
   ) {
+
     ## Validate arguments -------------
     validate(
       obj |> S7_inherits(ALE) || obj |> S7_inherits(ModelBoot),
-      msg = '{.arg obj} must be a {.cls ALE} or {.cls ModelBoot} object.'
+      msg = '{.arg obj} must be an {.cls ALE} or {.cls ModelBoot} object.'
     )
 
     validate(
-      is_string(relative_y) && (relative_y %in% c('median', 'mean', 'zero')),
-      msg = '{.arg relative_y} must be one of "median", "mean", or "zero".'
+      is_string(ale_centre, c('median', 'mean', 'zero')),
+      msg = '{.arg ale_centre} must be one of "median", "mean", or "zero".'
     )
+
+    ## Prepare settings and objects --------------
 
     if (obj |> S7_inherits(ModelBoot)) {
       # Adapt ModelBoot object to behave like a regular ALE object
+
+      # Temporarily save ale_p
+      obj_p <- obj@params$ale_p
+
       if (!is.null(obj@ale$boot)) {
         # Prefer plots based on the bootstrapped object, if available.
-        # Start with the single ALE object to give it the right ALE object type
+        # Start with the single ALE object to give it the right ALE object type.
         alt_obj <- obj@ale$single
         # Replace the ALE data with the bootstrapped version
-        alt_obj@distinct <- obj@ale$boot$distinct
-        # alt_obj$params <- obj@ale$single@params
+        alt_obj@effect <- obj@ale$boot$effect
 
         obj <- alt_obj
       }
@@ -97,116 +89,150 @@ ALEPlots <- new_class(
         obj <- obj@ale$single
       }
 
-      # The default value for rug_sample_size assumes an ale object. So, ensure that a valid value is assigned for ale_boot objects.
-      if (is.null(rug_sample_size)) {
-        rug_sample_size <- if (!is.null(obj@params$sample_size)) {
-          obj@params$sample_size
-        } else {
-          500
-        }
-      }
+      # Assign ale_p to adapted object
+      obj@params$p_values <- obj_p
     }
+
+    # Validation must come after setting ModelBoot to obj or else ModelBoot errors
+    validate(
+      (is.numeric(y_1d_refs) &&
+         (y_1d_refs |> between(obj@params$y_summary$min, obj@params$y_summary$max))) ||
+        (is.character(y_1d_refs) &&
+           all(y_1d_refs %in% rownames(obj@params$y_summary))),
+      msg = 'Invalid value for {.arg y_1d_refs}. See {.fn ALEPlots()} for details.'
+    )
 
     # Initialize plot lists
     plots_1D <- NULL
     plots_2D <- NULL
     eff_plot <- NULL
 
-    if (length(obj@params$ordered_x_cols$d1) >= 1) {
-      # There is at least 1 1D ALE data element
-      plots_1D <-
-        imap(obj@distinct, \(it.cat_data, it.cat_name) {
-          imap(it.cat_data$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
-            if (!is.null(it.x_col_ale_data)) {
-              plot_ale_1D(
-                ale_data  = it.x_col_ale_data,
-                x_col     = it.x_col_name,
-                y_col     = it.cat_name,
-                # y_col     = obj@params$y_col,
-                y_type    = obj@params$y_type,
-                y_summary = obj@params$y_summary[, it.cat_name],
-                x_y       = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
-                relative_y = relative_y,
-                p_alpha = p_alpha,
-                median_band_pct = median_band_pct,
-                rug_sample_size = rug_sample_size,
-                min_rug_per_interval = min_rug_per_interval,
-                seed = seed
-              )
-            }
-            else {
-              NULL
-            }
-          })
+    y_cats <- obj@params$y_cats
+    if (length(y_cats) > 1) {
+      # Create composite .all_cats ALE data
+      obj@effect$.all_cats <- list(
+        ale = imap(obj@params$requested_x_cols, \(it.x_cols_d, it.d) {
+          map(it.x_cols_d, \(it.x_cols) {
+            map(y_cats, \(it.cat_name) {
+              obj@effect[[it.cat_name]]$ale[[it.d]][[it.x_cols]] |>
+                mutate(.cat = it.cat_name)
+            }) |>
+              bind_rows()
+          }) |>
+            set_names(it.x_cols_d)
         })
+      )
 
-      # Create a 1D effects plot when 1D stats are available
-      if (obj@params$output_stats) {  #'stats' %in% obj@params$output) {
-        eff_plot <-
-          imap(obj@distinct, \(it.cat_data, it.cat_name) {
-            plot_effects(
-              estimates = it.cat_data$stats$d1$estimate,
-              y_summary = obj@params$y_summary[, it.cat_name],
-              y_col = it.cat_name,
-              middle_band = if (is.null(obj@params$p_values)) {
-                obj@params$median_band_pct
-              } else {
-                # Use p_value of NALED:
-                # like median_band_pct, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
-                # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
-                obj@params$p_values@rand_stats[[it.cat_name]] |>
-                  # obj@params$p_values$rand_stats[[it.cat_name]] |>
-                  p_to_random_value('naled', obj@params$median_band_pct) |>
-                  unname() |>
-                  (`/`)(100)  # scale NALED from percentage to 0 to 1
+      y_cats <- c(y_cats, '.all_cats')
+    }
+
+    plots <- imap(obj@effect, \(it.cat_el, it.cat_name) {
+      if (length(obj@params$requested_x_cols$d1) >= 1) {
+
+        it.all_cat_plot_types <- if (it.cat_name == '.all_cats') {
+          c('overlay', 'facet')
+        } else {
+          'single'
+        }
+
+        # There is at least 1 1D ALE data element
+        plots_1D <-
+          imap(it.cat_el$ale$d1, \(it.x_col_ale_data, it.x_col_name) {
+            it.p <- map(it.all_cat_plot_types, \(it.cat_plot_type) {
+              if (!is.null(it.x_col_ale_data)) {
+                plot_ale_1D(
+                  ale_data    = it.x_col_ale_data,
+                  x_col       = it.x_col_name,
+                  y_col       = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+                  cat_plot    = if (it.cat_plot_type == 'single') NULL else it.cat_plot_type,
+                  y_type      = obj@params$y_type,
+                  y_summary   = obj@params$y_summary[
+                    ,
+                    if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name
+                  ],
+                  p_exactness = if (is.null(obj@params$p_values)) {
+                    NULL
+                  } else {
+                    obj@params$p_values@params$exactness
+                  },
+                  x_y         = obj@params$data$data_sample[, c(it.x_col_name, obj@params$y_col)],
+                  ale_centre  = ale_centre,
+                  aler_alpha      = obj@params$aler_alpha,
+                  y_1d_refs   = y_1d_refs,
+                  rug_sample_size = rug_sample_size,
+                  min_rug_per_interval = min_rug_per_interval,
+                  seed        = seed
+                )
               }
+              else {  # it.x_col_ale_data is NULL. But why might it be?
+                NULL  # nocov
+              }
+            }) |>
+              set_names(it.all_cat_plot_types)
+
+            it.p <- if (length(it.p) == 1 && names(it.p) == 'single') {
+              # Remove the extra layer for single plots
+              it.p[[1]]
+            } else {
+              it.p
+            }
+
+            it.p
+          })
+
+        # Create a 1D effects plot when 1D stats are available
+        if (obj@params$output_stats && it.cat_name != '.all_cats') {
+          estimates <- it.cat_el$stats$d1 |>
+            pivot_wider(
+              id_cols = 'term',
+              names_from = 'statistic',
+              values_from = 'estimate'
+            )
+
+          eff_plot <- plot_effects(
+            estimates = estimates,
+            y_summary = obj@params$y_summary[, it.cat_name],
+            y_col = it.cat_name,
+            y_nonsig_band = if (is.null(obj@params$p_values)) {
+              y_nonsig_band
+            } else {
+              # Use p_value of NALED:
+              # like y_nonsig_band, NALED is a percentage value, so it can be a drop-in replacement, but based on p-values
+              # ALEpDist functions are vectorized, so return as many NALED values as median_band_pct values are provided (2 in this case)
+              obj@params$p_values@rand_stats[[it.cat_name]] |>
+                p_to_random_value('naled', y_nonsig_band) |>
+                unname() |>
+                (`/`)(100)  # scale NALED from percentage to 0 to 1
+            }
+          )
+        }
+      }
+
+      if (obj@params$max_d >= 2) {
+        plots_2D <-
+          imap(it.cat_el$ale$d2, \(it.x_cols_ale_data, it.x_cols_name) {
+            it.x_cols_split <- it.x_cols_name |>
+              strsplit(":", fixed = TRUE) |>
+              unlist()
+
+            plot_ale_2D(
+              ale_data  = it.x_cols_ale_data,
+              x1_col    = it.x_cols_split[1],
+              x2_col    = it.x_cols_split[2],
+              y_col     = if (it.cat_name == '.all_cats') obj@params$y_col else it.cat_name,
+              params    = obj@params,
+              cat_plot  = if (it.cat_name == '.all_cats') 'facet' else 'single',
+              ale_centre = ale_centre
             )
           })
       }
-    }
 
-    # browser()
-
-    if (obj@params$max_d >= 2) {
-      plots_2D <-
-        imap(obj@distinct, \(it.cat_data, it.cat_name) {
-          imap(it.cat_data$ale$d2, \(it.x1_ales, it.x1_col_name) {
-            imap(it.x1_ales, \(it.x1_x2_ale, it.x2_col_name) {
-              # browser()
-              plot_ale_2D(
-                ale_data  = it.x1_x2_ale,
-                x1_col    = it.x1_col_name,
-                x2_col    = it.x2_col_name,
-                y_col     = obj@params$y_col,
-                y_type    = obj@params$y_type,
-                y_summary = obj@params$y_summary[, it.cat_name],
-                y_vals    = obj@params$data$y_vals_sample[, it.cat_name],
-                n_x1_bins = if (is.null(n_x1_bins)) {
-                  attributes(it.x1_x2_ale)$x[[1]]$n_bins
-                } else {
-                  20
-                },
-                n_x2_bins = if (is.null(n_x2_bins)) {
-                  attributes(it.x1_x2_ale)$x[[2]]$n_bins
-                } else {
-                  20
-                },
-                n_y_quant = n_y_quant,
-                x1_x2_y = obj@params$data$data_sample[
-                  , c(it.x1_col_name, it.x2_col_name, obj@params$y_col)
-                ],
-                relative_y = relative_y,
-                p_alpha = p_alpha,
-                median_band_pct = median_band_pct,
-                rug_sample_size = rug_sample_size,
-                min_rug_per_interval = min_rug_per_interval,
-                seed = seed
-              )
-            })
-          })
-        })
-    }
-
+      list(
+        d1  = plots_1D,
+        d2  = plots_2D,
+        eff = eff_plot
+      )
+    })
 
 
     # Create S7 ALEPlots object ----------------------
@@ -215,40 +241,19 @@ ALEPlots <- new_class(
     params <- c(as.list(environment()), list(...))
     # Create list of objects to delete
     temp_objs <- c(
-      'eff_plot', 'obj', 'plots_1D', 'plots_2D', 'temp_objs'
+      'eff_plot', 'estimates', 'obj', 'obj_p', 'plots', 'plots_1D', 'plots_2D', 'silent', 'temp_objs'
     )
     params <- params[names(params) |> setdiff(temp_objs)]
-    params$max_d <- obj@params$max_d
 
-    # Add the 1D and 2D plots
-    distinct <-
-      # Iterate by y category
-      obj@params$y_cats |>
-      map(\(it.cat) {
-        # Always add a d1 plot list, even if it is NULL
-        rtn_list <- list(
-          plots = list(d1 = plots_1D[[it.cat]])
-        )
-
-        if (params$max_d >= 2) {
-          rtn_list$plots$d2 <- plots_2D[[it.cat]]
-        }
-
-        # Always add the effects plot, even if it is NULL
-        rtn_list$plots$eff <- eff_plot[[it.cat]]
-        # rtn_list$eff_plot <- eff_plot[[it.cat]]
-
-        rtn_list
-      }) |>
-      set_names(obj@params$y_cats)
-
+    params$max_d  <- obj@params$max_d
     params$requested_x_cols <- obj@params$requested_x_cols
-    params$y_col            <- obj@params$y_col
+    params$y_col  <- obj@params$y_col
+    params$y_cats <- obj@params$y_cats
 
     # Return S7 ALEPlots object
     return(new_object(
       S7_object(),
-      distinct = distinct,
+      plots = plots,
       params = params
     ))
   }  # ALEPlots constructor

@@ -2,29 +2,29 @@
 % Please edit documentation in R/ALEpDist.R
 \name{ALEpDist}
 \alias{ALEpDist}
-\title{Object with the ALE statistics of a random variable for generating p-values}
+\title{Random variable distributions of ALE statistics for generating p-values}
 \usage{
 ALEpDist(
   model,
   data = NULL,
-  p_speed = "approx fast",
   ...,
-  parallel = future::availableCores(logical = FALSE, omit = 1),
+  y_col = NULL,
+  rand_it = NULL,
+  surrogate = FALSE,
+  parallel = "all",
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
-  y_col = NULL,
-  binary_true_value = TRUE,
+  positive = TRUE,
   pred_fun = function(object, newdata, type = pred_type) {
      stats::predict(object =
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
   output_residuals = FALSE,
-  rand_it = 1000,
   seed = 0,
   silent = FALSE,
-  .testing_mode = FALSE
+  .skip_validation = FALSE
 )
 }
 \arguments{
@@ -32,45 +32,79 @@ ALEpDist(
 
 \item{data}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{p_speed}{character(1). Either 'approx fast' (default) or 'precise slow'. See details.}
-
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
-
-\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}}
-
-\item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
-
-\item{random_model_call_string}{character(1). If \code{NULL}, the \code{ALEpDist()} constructor tries to automatically detect and construct the call for p-values. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
-
-\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=ModelBoot]{ModelBoot()}}; their operation is very similar.}
 
 \item{y_col}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{binary_true_value}{See documentation for \code{\link[=ModelBoot]{ModelBoot()}}}
+\item{rand_it}{non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of \code{NULL} will generate 1000 iterations, which should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for approximate ("approx") p-values as low as 100 for faster test runs but then the p-values are not as stable. \code{rand_it} below 100 is not allowed as such p-values are inaccurate.}
 
-\item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}.}
+\item{surrogate}{logical(1). Create p-value distributions based on a surrogate linear model (\code{TRUE}) instead of on the original \code{model} (default \code{FALSE}). Note that while faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details.}
 
-\item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). If \code{FALSE} (default), does not return the residuals.}
+\item{parallel}{See documentation for \code{\link[=ALE]{ALE()}}. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.}
 
-\item{rand_it}{non-negative integer(1). Number of times that the model should be retrained with a new random variable. The default of 1000 should give reasonably stable p-values; these are considered "exact" p-values. It can be reduced for "approximate" p-values as low as 100 for faster test runs but then the p-values are not as stable.}
+\item{model_packages}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{random_model_call_string}{character(1). If \code{NULL}, the \code{ALEpDist()} constructor tries to automatically detect and construct the call for p-values. If it cannot, the constructor will fail. In that case, a character string of the full call for the model must be provided that includes the random variable. See details.}
+
+\item{random_model_call_string_vars}{See documentation for \code{model_call_string_vars} in \code{\link[=ModelBoot]{ModelBoot()}}; their operation is very similar.}
+
+\item{positive}{See documentation for \code{\link[=ModelBoot]{ModelBoot()}}}
+
+\item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default \code{FALSE} does not return the residuals.}
 
 \item{seed}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{silent}{See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{.testing_mode}{logical(1). Internal use only. Disables some data validation checks to allow for debugging.}
+\item{.skip_validation}{Internal use only. logical(1). Skip non-mutating data validation checks. Changing the default \code{FALSE} risks crashing with incomprehensible error messages.}
 }
 \value{
-An object of class \code{ALEpDist} with properties \code{rand_stats}, \code{residual_distribution}, \code{rand_it_ok}, and \code{residuals}.
-\itemize{
-\item \code{rand_it_ok}: An integer with the number of \code{rand_it} iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The \code{rand_it} - \code{rand_it_ok} failed attempts are discarded.
-\item \code{rand_stats}: A named list of tibbles. There is normally one element whose name is the same as \code{y_col} except if \code{y_col} is a categorical variable; in that case, the elements are named for each category of \code{y_col}. Each element is a tibble whose rows are each of the \code{rand_it_ok} iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
-\item \code{residual_distribution}: A \code{univariateML} object with the closest estimated distribution for the \code{residuals} as determined by \code{\link[univariateML:model_select]{univariateML::model_select()}}. This is the distribution used to generate all the random variables.
-\item \code{residuals}: If \code{output_residuals == TRUE}, returns a matrix of the actual \code{y_col} values from \code{data} minus the predicted values from the \code{model} (without random variables) on the \code{data}. If \code{output_residuals == FALSE}, (default), does not return these residuals. The rows correspond to each row of \code{data}. The columns correspond to the named elements (\code{y_col} or categories) described above for \code{rand_stats}.
-}
+An object of class \code{ALEpDist} with properties \code{rand_stats}, \code{residual_distribution}, \code{residuals}, and \code{params}.
 }
 \description{
-ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE measures and ALE statistics to give a range of the possible likely values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. Calculating p-values is not trivial for ALE statistics because ALE is non-parametric and model-agnostic. Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the \code{{ale}} package generates p-values by calculating ALE for many random variables; this makes the procedure somewhat slow. For this reason, they are not calculated by default; they must be explicitly requested. Because the \code{{ale}} package is model-agnostic (that is, it works with any kind of R model), the \code{\link[=ALE]{ALE()}} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all built-in R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALE()} constructor correctly manipulate its model object:
+ALE statistics are accompanied with two indicators of the confidence of their values. First, bootstrapping creates confidence intervals for ALE effects and ALE statistics to give a range of the possible ALE values. Second, we calculate p-values, an indicator of the probability that a given ALE statistic is random. An \code{ALEpDist} S7 object contains the necessary distribution data for generating such p-values.
+}
+\section{Properties}{
+
+\describe{
+\item{rand_stats}{
+A named list of tibbles. There is normally one element whose name is the same as \code{y_col} except if \code{y_col} is a categorical variable; in that case, the elements are named for each category of \code{y_col}. Each element is a tibble whose rows are each of the \code{rand_it_ok} iterations of the random variable analysis and whose columns are the ALE statistics obtained for each random variable.
+}
+\item{residual_distribution}{
+A \code{univariateML} object with the closest estimated distribution for the \code{residuals} as determined by \code{\link[univariateML:model_select]{univariateML::model_select()}}. This is the distribution used to generate all the random variables.
+}
+\item{residuals}{
+If \code{output_residuals == TRUE}, returns a matrix of the actual \code{y_col} values from \code{data} minus the predicted values from the \code{model} (without random variables) on the \code{data}. The rows correspond to each row of \code{data}. The columns correspond to the named elements (\code{y_col} or categories) described above for \code{rand_stats}. \code{NULL} if \code{output_residuals == FALSE} (default).
+}
+
+\item{params}{
+Parameters used to generate p-value distributions. Most of these repeat selected arguments passed to \code{ALEpDist()}. These are either values provided by the user or used by default if the user did not change them but the following additional or modified objects are notable:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `model`: selected elements that describe the `model` used to generate the random distributions.
+* `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
+* `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
+* `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
+}\if{html}{\out{</div>}}
+
+}
+}
+}
+
+\section{Exact p-values for ALE statistics}{
+
+
+Because ALE is non-parametric (that is, it does not assume any particular distribution of data), the \code{{ale}} package takes a literal frequentist approach to the calculation of empirical (Monte Carlo) p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the \code{rand_it} argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
+\itemize{
+\item The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
+\item The closest distribution of the residuals is detected with \code{univariateML::model_select()}.
+\item 1000 new models are trained by generating a random variable each time with \code{univariateML::rml()} and then training a new model with that random variable added.
+\item The ALEs and ALE statistics are calculated for each random variable.
+\item For each ALE statistic, the empirical cumulative distribution function (\code{stats::ecdf()}) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
+}
+
+Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{ALEpDist()} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALEpDist()} constructor correctly manipulate its model object:
 \itemize{
 \item The full model call must be passed as a character string in the argument \code{random_model_call_string}, with two slight modifications as follows.
 \item In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
@@ -78,29 +112,17 @@ ALE statistics are accompanied with two indicators of the confidence of their va
 }
 
 See the example below for how this is implemented.
-}
-\section{Approach to calculating p-values}{
 
-The \code{{ale}} package takes a literal frequentist approach to the calculation of p-values. That is, it literally retrains the model 1000 times, each time modifying it by adding a distinct random variable to the model. (The number of iterations is customizable with the \code{rand_it} argument.) The ALEs and ALE statistics are calculated for each random variable. The percentiles of the distribution of these random-variable ALEs are then used to determine p-values for non-random variables. Thus, p-values are interpreted as the frequency of random variable ALE statistics that exceed the value of ALE statistic of the actual variable in question. The specific steps are as follows:
-\itemize{
-\item The residuals of the original model trained on the training data are calculated (residuals are the actual y target value minus the predicted values).
-\item The closest distribution of the residuals is detected with \code{univariateML::model_select()}.
-\item 1000 new models are trained by generating a random variable each time with \code{univariateML::rml()} and then training a new model with that random variable added.
-\item The ALEs and ALE statistics are calculated for each random variable.
-\item For each ALE statistic, the empirical cumulative distribution function (from \code{stats::ecdf()}) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
+If the model generation is unstable (because of a small dataset size or a finicky model algorithm), then one or more iterations might fail, possibly dropping the number of successful iterations to below 1000. Then the p-values are only considered approximate; they are no longer exact. If that is the case, then request rand_it at a sufficiently high number such that even if some iterations fail, at least 1000 will succeed. For example, for an \code{ALEpDist} object named \code{p_dist}, if \code{p_dist@params$rand_it_ok} is 950, you could rerun \code{ALEpDist()} with \code{rand_it = 1100} or higher to allow for up to 100 possible failures.
 }
 
-What we have just described is the precise approach to calculating p-values with the argument \code{p_speed = 'precise slow'}. Because it is so slow, by default, the \code{ALEpDist} constructor implements an approximate algorithm by default (\code{p_speed = 'approx fast'}) which trains only a few random variables up to the number of physical parallel processing threads available, with a minimum of four. To increase speed, the random variable uses only 10 ALE bins instead of the default 100. Although approximate p-values are much faster than precise ones, they are still somewhat slow: at the very quickest, they take at least the amount of time that it would take to train the original model two or three times. See the "Parallel processing" section below for more details on the speed of computation.
-}
+\section{Faster approximate and surrogate p-values}{
 
-\section{Parallel processing}{
+The procedure we have just described requires at least 1000 random iterations for p-values to be considered \strong{"exact"}. Unfortunately, this procedure is rather slow--it takes at least 1000 times as long as the time it takes to train the model once.
 
-Parallel processing using the \code{{furrr}} framework is enabled by default. By default, it will use all the available physical CPU cores (minus the core being used for the current R session) with the setting \code{parallel = future::availableCores(logical = FALSE, omit = 1)}. Note that only physical cores are used (not logical cores or "hyperthreading") because machine learning can only take advantage of the floating point processors on physical cores, which are absent from logical cores. Trying to use logical cores will not speed up processing and might actually slow it down with useless data transfer.
+With fewer iterations (at least 100), p-values can only be considered \strong{approximate ("approx")}. Fewer than 100 such p-values are invalid. There might be fewer iterations either because the user requests them with the \code{rand_it} argument or because some iterations fail for whatever reason. As long as at least 1000 iterations succeed, p-values will be considered exact.
 
-For exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow. However, an \code{ALEpDist} object trained with a specific model on a specific dataset can be reused as often as needed for the identical model-dataset pair.
-
-For approximate p-values (the default), at least four random variables are trained to give some minimal variation. With parallel processing, more random variables can be trained to increase the accuracy of the p_value estimates up to the maximum
-number of physical cores.
+Because the procedure can be very slow, a faster version of the algorithm generates \strong{"surrogate"} p-values by substituting the original \code{model} with a linear model that predicts the same \code{y_col} outcome from all the other columns in \code{data}. By default, these surrogate p-values use only 100 iterations and if the dataset is large, the surrogate model samples 1000 rows. Thus, the surrogate p-values can be generated much faster than for slower model algorithms on larger datasets. Although they are suitable for model development and analysis because they are faster to generate, they are less reliable than approximate p-values based on the original model. In any case, \strong{definitive conclusions (e.g., for publication) always require exact p-values with at least 1000 iterations on the original model}. Note that surrogate p-values are always marked as "surrogate"; even if they are generated based on over 1000 iterations, they can never be considered exact because they are not based on the original \code{model}.
 }
 
 \examples{
@@ -113,7 +135,8 @@ diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 # Smooth all numeric variables and include all other variables
 gam_diamonds <- mgcv::gam(
   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity,
+    cut + color + clarity +
+    ti(carat, by = clarity),  # a 2D interaction
   data = diamonds_sample
 )
 summary(gam_diamonds)
@@ -123,11 +146,11 @@ pd_diamonds <- ALEpDist(
   gam_diamonds,
   diamonds_sample,
   # only 100 iterations for a quick demo; but usually should remain at 1000
-  rand_it = 100,
+  rand_it = 100
 )
 
 # Examine the structure of the returned object
-str(pd_diamonds)
+print(pd_diamonds)
 # In RStudio: View(pd_diamonds)
 
 # Calculate ALEs with p-values
@@ -156,9 +179,13 @@ pd_diamonds <- ALEpDist(
   rand_it = 100
 )
 
+# Examine the structure of the returned object
+print(pd_diamonds)
+# In RStudio: View(pd_diamonds)
+
 }
 
 }
 \references{
-Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. \url{https://arxiv.org/abs/2310.09877}.
+Okoli, Chitu. 2023. "Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE)." arXiv. \url{doi:10.48550/arXiv.2310.09877}.
 }

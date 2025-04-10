@@ -4,4 +4,4 @@
 
 ### Notes
 
-* All issues from R CMD resolved (locally, r-hub.io, and win-builder.r-project.org)
+* All issues from R CMD resolved (locally, rhub::rhub_check(), and win-builder.r-project.org)

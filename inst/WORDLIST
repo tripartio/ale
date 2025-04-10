@@ -23,6 +23,7 @@ doi
 downloadable
 ECDF
 ECDFs
+Efron
 FNEBSW
 FNWBSE
 FSEBNW
@@ -58,6 +59,7 @@ MMDD
 Mmmm
 ModelBoot
 mtcars
+multivariable
 na
 naled
 NALED
@@ -65,11 +67,13 @@ naler
 NALER
 Noam
 noncrucial
+nonsignificant
 NWSE
 overfit
 parallelization
 PDP
 pkgdown
+preprint
 preprocesses
 pretrained
 programmatically
@@ -95,6 +99,7 @@ terciles
 testthat
 tibble
 tibbles
+Tibshirani
 tidyverse
 unordered
 unvalidated
@@ -152,3 +157,4 @@ Kohavi
 UCI
 C5XW20
 conf
+ve

@@ -25,13 +25,13 @@ validate_data <- function(
     }
   }
   # If NULL, try to identify data from the model
-  else {
+  else {  # nocov start
     data <- insight::get_data(model)
 
     if (is.null(data)) {
       cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
     }
-  }
+  }  # nocov end
 
   data
 }
@@ -55,17 +55,16 @@ validate_y_col <- function(
   else {
     y_col <- insight::find_response(model)
 
-    if (is.null(y_col)) {
+    if (is.null(y_col)) {  # nocov start
       cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
-    }
+    }  # nocov end
   }
 
   y_col
 }
 
 # Validate model predictions.
-# This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows
-# in the dataset.
+# This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows in the dataset.
 validate_y_preds <- function(
     pred_fun,
     model,
@@ -76,18 +75,18 @@ validate_y_preds <- function(
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
-    error = \(e) {
-      if (stringr::str_detect(as.character(e), "^Error: object .* not found\n$")) {
+    error = \(e) {  # nocov start
+      if (str_detect(as.character(e), "^Error: object .* not found\n$")) {
         cli_abort('{e}')
       }
       else {
         cli_abort(
-          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ale::ale} for how to create a custom predict function for non-standard models. Here is the full error message:
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for non-standard models. Here is the full error message:
 
         {e}'
         )
       }
-    },
+    },  # nocov end
     finally = NULL
   )
 
@@ -120,8 +119,33 @@ validate_y_preds <- function(
 
 
 # Validate parallel processing inputs: parallel, model_packages.
-validated_parallel_packages <- function(parallel, model, model_packages) {
-  validate(is_scalar_whole(parallel))
+validate_parallel <- function(parallel, model, model_packages) {
+  validate(
+    is_string(parallel, c('all', 'all but one')) || is_scalar_whole(parallel),
+    msg = c(
+      'x' = "{.arg parallel} must either be a whole number or a value in {c('all', 'all but one')}.",
+      'i' = '{.arg parallel} set to {parallel}.'
+    )
+  )
+
+  parallel <- if (parallel == 'all') {
+    future::availableCores(logical = TRUE)
+  } else if (parallel == 'all but one') {
+    future::availableCores(logical = FALSE, omit = 1)
+  } else {
+    max_cores <- future::availableCores(logical = TRUE)
+    if (parallel > max_cores) {  # nocov start
+      cli_alert_info(c(
+        '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
+        'i' = '{.arg parallel} set to {max_cores}.',
+        'i' = 'To use all available parallel threads without this notification, leave the default parallel = "all".'
+      ))
+
+      max_cores
+    } else {  # nocov end
+      parallel
+    }
+  }
 
   # Validate or set model_packages for parallel processing.
   # If execution is not parallel, then skip all that follows; essentially, ignore the model_packages argument.
@@ -173,7 +197,10 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
     }
   }
 
-  return(model_packages)
+  return(list(
+    parallel = parallel,
+    model_packages = model_packages
+  ))
 }
 
 
@@ -182,19 +209,16 @@ validated_parallel_packages <- function(parallel, model, model_packages) {
 validate_silent <- function(silent) {
   validate(is_bool(silent))
 
-  if (!silent) {
+  if (!silent) {  # nocov start
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
       if (interactive() && !getOption("rstudio.notebook.executing")) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
-        cli_alert_info(
-          '{.pkg cli} progress bar activated for this R session. (This is not an error.) See documentation on {.fun ale::ale} to permanently configure progress bar settings and end these periodic messages.'
-        )
       }
     }
-  }
+  }  # nocov end
 }
 
 

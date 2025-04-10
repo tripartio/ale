@@ -15,17 +15,3 @@ test_that("get generic handles non-S7 objects correctly", {
   )
 })
 
-# test_that("get generic dispatches correctly for S7 objects", {
-#   # Register methods for dummy classes
-#   get.dummy_class <- function(obj, ...) {
-#     return(obj@data)
-#   }
-#
-#   get.other_dummy_class <- function(obj, ...) {
-#     return(obj@info)
-#   }
-#
-#   # Test S7-specific dispatch
-#   expect_equal(get(dummy_obj), "dummy_data")
-#   expect_equal(get(other_dummy_obj), 1234)
-# })

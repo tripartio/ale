@@ -2,6 +2,8 @@
 # Functions for compatibility with the ALEPlot package
 
 
+# nocov start
+
 # For missing (NA) cells in 2D interactions, replace delta_pred (dp) with the nearest valid neighbour
 nn_na_delta_pred <- function(dp, xd) {
   # Hack to silence R-CMD-CHECK
@@ -24,7 +26,6 @@ nn_na_delta_pred <- function(dp, xd) {
     not_na_delta_idx <- which(!na_delta, arr.ind = TRUE, useNames = TRUE)
 
     range_x1 <- if (xd[[1]]$x_type == 'numeric') {
-      # range_x1 <- if (numeric_x1) {
         max(x1_ceilings) - min(x1_ceilings)
     } else {
       xd[[1]]$n_bins - 1
@@ -33,7 +34,6 @@ nn_na_delta_pred <- function(dp, xd) {
 
     # Data Values of na_delta_idx and not_na_delta_idx, but normalized according to ALEPlot formulas
     if (xd[[1]]$x_type == 'numeric') {
-      # if (numeric_x1) {
       norm_na_delta <- cbind(
         (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1,
         (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
@@ -53,29 +53,8 @@ nn_na_delta_pred <- function(dp, xd) {
       )
     }
 
-
-    # # Data Values of na_delta_idx and not_na_delta_idx, but normalized according to ALEPlot formulas
-    # norm_na_delta <- cbind(
-    #   if (numeric_x1) {
-    #     (x1_ceilings[na_delta_idx[, 1]]     + x1_ceilings[na_delta_idx[, 1]+1])     / 2 / range_x1
-    #   } else {
-    #     na_delta_idx[, 1] / range_x1
-    #   },
-    #   (x2_ceilings[na_delta_idx[, 2]]     + x2_ceilings[na_delta_idx[, 2]+1])     / 2 / range_x2
-    # )
-    # norm_not_na_delta <- cbind(
-    #   if (numeric_x1) {
-    #     (x1_ceilings[not_na_delta_idx[, 1]] + x1_ceilings[not_na_delta_idx[, 1]+1]) / 2 / range_x1
-    #   } else {
-    #     not_na_delta_idx[, 1] / range_x1
-    #   },
-    #   (x2_ceilings[not_na_delta_idx[, 2]] + x2_ceilings[not_na_delta_idx[, 2]+1]) / 2 / range_x2
-    # )
-
-
     if (any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))) {
-      closeAllConnections()
-      browser()
+      stop("ALEPlot_compatibility: any(is.na(norm_not_na_delta)) || any(is.na(norm_na_delta))")
     }
 
     # Use yaImpute::ann() for fast nearest non-NA neighbours of NA cells (consistency with ALEPlot)
@@ -90,16 +69,16 @@ nn_na_delta_pred <- function(dp, xd) {
 
     # drop = FALSE needed to prevent occasionally collapsing into a vector
     dp[na_delta_idx] <- dp[not_na_delta_idx[na_nbrs,], drop = FALSE]
-
-    # # Adapted note from ALEPlot: "The matrix() command is needed, because if there is only one empty cell, not_na_delta_idx[na_nbrs] is created as a 2-length vector instead of a 1x2 matrix, which does not index dp properly"
-    # dp[na_delta_idx] <- dp[matrix(not_na_delta_idx[na_nbrs,], ncol = 2)]
   } # end if (nrow(na_delta_idx) > 0)
 
   dp
 }
+# nocov end
 
 
 #' Sorted categorical indices based on Kolmogorov-Smirnov distances for empirically ordering categorical categories.
+#'
+#' @noRd
 #'
 #' @param X X data
 #' @param x_col character
@@ -119,7 +98,6 @@ idxs_kolmogorov_smirnov <- function(
   for (j_col in setdiff(names(X), x_col)) {
     # distance matrix for numeric j_col
     if (is.numeric(X[[j_col]])) {  # Don't use var_type or dates will crash
-    # if (var_type(X[[j_col]]) == 'numeric') {  # distance matrix for numeric j_col
       # list of ECDFs for X[[j_col]] by intervals of X[[x_col]]
       x_by_j_ecdf <- tapply(
         X[[j_col]],
@@ -142,8 +120,6 @@ idxs_kolmogorov_smirnov <- function(
                               x_by_j_ecdf[[k]](j_quantiles)) |>
             abs() |>
             max()
-          # dist_mx[i, k] <- max(abs(x_by_j_ecdf[[i]](j_quantiles) -
-          #                            x_by_j_ecdf[[k]](j_quantiles)))
           dist_mx[k, i] <- dist_mx[i, k]
         }
       }

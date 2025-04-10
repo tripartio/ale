@@ -8,29 +8,30 @@
 
 \item{x_cols, exclude_cols}{character, list, or formula. Columns names and interaction terms from \code{obj} requested in one of the special \code{x_cols} formats. The default value of \code{NULL} for \code{x_cols} retrieves all available data of the output requested in \code{what}. See details in the documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}.}
 
-\item{what}{character(1). What kind of output is requested. Must be one (and only one) of \code{c('ale', 'boot_data')}. Default is \code{'ale'}. If \code{stats} is specified and \code{what = 'ale'}, then ALE statistics are retrieved. Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value.}
+\item{what}{character(1). What kind of output is requested. Must be either "ale" (default) or "boot_data". To retrieve ALE statistics, see the \code{stats} argument.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{stats}{character(1). Retrieve statistics. If \code{stats} is specified, then \code{what} must be \code{'ale'}. See the return value details below for valid values for \code{stats}.}
+\item{stats}{character(1). Retrieve ALE statistics. If \code{stats} is specified, then \code{what} must be left at the default ("ale"). Otherwise, \code{get()} errors if \code{stats} is specified and \code{what} has some other value. See the return value details below for valid values for \code{stats}.}
 
 \item{cats}{character. Optional category names to retrieve if the ALE is for a categorical y outcome model.}
 
-\item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest structure possible to give the requested results.}
+\item{ale_centre}{Same as in documentation for \code{\link[=ALEPlots]{ALEPlots()}}}
+
+\item{simplify}{logical(1). If \code{TRUE} (default), the results will be simplified to the simplest list structure possible to give the requested results. If \code{FALSE}, a complex but consistent list structure will be returned; this might be preferred for programmatic and non-interactive use.}
 
 \item{silent}{See documentation for \code{\link[=resolve_x_cols]{resolve_x_cols()}}}
 }
 \value{
 Regardless of the requested data, all \code{\link[=get.ALE]{get.ALE()}} have a common structure:
 \itemize{
-\item If more than one category of the y outcome is returned, then the top level is a list named by each category. However, the y outcome is not categorical or only one category of multiple possibilities is specified using the \code{cats} argument, then the top level never has categories, regardless of the value of \code{simplify}.
+\item If more than one category of the y outcome is returned, then the top level is a list named by each category. If, however, the y outcome is not categorical or only one category of multiple possibilities is specified using the \code{cats} argument, then the top level never has categories, regardless of the value of \code{simplify}.
 \item The next level (or top level if there are zero or one category) is a list with one or two levels:
 \itemize{
 \item \code{d1}: 1D ALE elements.
 \item \code{d2}: 2D ALE elements.
 However, if elements of only one dimension (either 1D or 2D) are requested and \code{simplify = TRUE} (default), the empty list is eliminated and the level is skipped to provide only the elements present. For example, if only 1D ALE data is requested, then there will be no \code{d1} sublist but only a list of the ALE data as described for the next level. If \code{simplify = FALSE}, both \code{d1} and \code{d2} sublists will always be returned; the empty sublist will be \code{NULL}.
 }
-\item For the \code{d1} sublist, there is no further hierarchy: the returned data is as described below. For the \code{d2} sublist representing \code{var1} by \code{var2} interactions, the next level is a named list of all \code{var1} elements. This level in turn consists of a named list of \code{var2} elements with the actual data as described below. For example, for ALE data, \code{result <- get(obj, list(d1 = "var1", d2 = list(c("var1", "var2"))))} would return \code{result} as a list where the 1D ALE data is in \code{result$d1$var1} and the 2D ALE data in \code{result$d2$var1$var2}.
 }
 
 While all results follow the general structure just described, the specific type of data returned depends on the values of the \code{what} and \code{stats} arguments:
@@ -49,26 +50,24 @@ While all results follow the general structure just described, the specific type
 }
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'estimate'}}{A list with elements \code{d1} and \code{d2} with the value of each ALE statistic. Each row represents one variable or interaction. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: The variable or column for the 1D (\code{term}) or 2D (\code{term1} by \code{term2}) ALE statistic.
+* \code{term}: The variables or columns for the 1D or 2D ALE statistic.
 * \code{aled}, \code{aler_min}, \code{aler_max}, \code{naled}, \code{naler_min}, \code{naler_max}: the respective ALE statistic for the variable or interaction.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats} is one value in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one variable or interaction. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
+\item{\code{what = 'ale'} (default) and \code{stats} is one or more values in \code{c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')}}{A list with elements \code{d1} and \code{d2} with the distribution value of the single requested ALE statistic. Each element \code{d1} and \code{d2} is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
+* \code{term}: Same as for \code{stats = 'estimate'}.
+* \code{statistic}: The requested ALE statistic(s).
 * \code{estimate}, \code{mean}, \code{median}: The average of the bootstrapped value of the requested statistic. \code{estimate} is equal to either \code{mean} or \code{median} depending on the \code{boot_centre} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{mean}, and \code{median} are equal.
 * \code{conf.low}, \code{conf.high}: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the \code{boot_alpha} argument in the \code{\link[=ALE]{ALE()}} constructor. If ALE is not bootstrapped, then \code{estimate}, \code{conf.low}, and \code{conf.high} are equal.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats = 'all'}}{A list with elements \code{d1} and \code{d2} with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the \code{stats = 'aled'} (for example) format returns data for a single statistic, \code{stats = 'all'} returns all statistics for the requested variables. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble. Each row represents one ALE statistic. The tibble has the following columns:
-* \code{term} or \code{term1} and \code{term2}: Same as for \code{stats = 'estimate'}.
-* \code{estimate}, \code{mean}, \code{median}: Same as above for individual ALE statistics.
-* \code{conf.low}, \code{conf.high}: Same as above for individual ALE statistics.
+\item{\code{what = 'ale'} (default) and \code{stats = 'all'}}{A list with elements \code{d1} and \code{d2} with the distribution values of all available ALE statistics for the requested variables and interactions. Whereas the \code{stats = 'aled'} (for example) format returns data for a single statistic, \code{stats = 'all'} returns all statistics for the requested variables. Thus, the data structure and columns are identical as for single statistics above, except that all available ALE statistics are returned.
 }
 
 \item{\code{what = 'ale'} (default) and \code{stats = 'conf_regions'}}{A list with elements \code{d1} and \code{d2} with the confidence regions for the requested variables and interactions. Each element is a list with the requested \code{d1} and \code{d2} sub-elements as described in the general structure above. Each data element is a tibble with confidence regions for a single variable or interaction. For an explanation of the columns, see \code{vignette('ale-statistics')}.
 }
 
-\item{\code{what = 'ale'} (default) and \code{stats = 'conf_sig'}}{A list with elements \code{d1} and \code{d2} filtered for the statistically significant confidence regions for the requested variables and interactions. Each element is a tibble. Each row is a single statistically significant confidence region. If there are no statistically significant confidence regions at all, an empty tibble is returned. For an explanation of the columns, see \code{vignette('ale-statistics')}.
+\item{\code{what = 'ale'} (default) and \code{stats = 'conf_sig'}}{Identical structure as \code{stats = 'conf_regions'} except that the elements are filtered for the terms (variables or interactions) that have statistically significant confidence regions exceeding the threshold of the inner ALER band, specifically, at least \code{obj@params$aler_alpha[2]} of the rows of data. See \code{vignette("ale-statistics")} for details.
 }
 }
 }
@@ -76,7 +75,7 @@ While all results follow the general structure just described, the specific type
 Retrieve specific elements from an \code{ALE} object.
 }
 \examples{
-# See examples at ALE() for a demonstration us the get() method.
+# See examples at ALE() for a demonstration of how to use the get() method.
 
 
 }

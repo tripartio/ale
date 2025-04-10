@@ -1,4 +1,4 @@
-# ALEpDist works with default inputs (approx fast) on ALE()
+# ALEpDist works with default inputs (exact) on ALE()
 
     Code
       unclass(pd)
@@ -7,29 +7,78 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 4 x 6
-             aled  aler_min aler_max naled naler_min naler_max
-            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.0000560 -0.000317 0.000205 0          0         0   
-      2 0.00239   -0.00711  0.00898  0.537     -1.56      1.56
-      3 0.000514  -0.00206  0.00152  0          0         0   
-      4 0.00233   -0.00774  0.0109   0.366     -1.56      1.56
+      # A tibble: 10 x 6
+             aled aler_min aler_max  naled naler_min naler_max
+            <dbl>    <dbl>    <dbl>  <dbl>     <dbl>     <dbl>
+       1 0.000484 -0.00330  0.00201 0           0         0   
+       2 0.00211  -0.00659  0.00835 0.342      -1.56      1.56
+       3 0.00196  -0.00644  0.00866 0.220      -1.56      1.56
+       4 0.000908 -0.00363  0.00524 0.0244     -1.56      1.56
+       5 0.000352 -0.00166  0.00139 0           0         0   
+       6 0.000389 -0.00192  0.00158 0           0         0   
+       7 0.00136  -0.00551  0.00407 0.0977     -1.56      1.56
+       8 0.000976 -0.00361  0.00715 0.0488     -1.56      1.56
+       9 0.00280  -0.0136   0.00822 0.439      -1.56      1.56
+      10 0.000472 -0.00171  0.00149 0           0         0   
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 4
+      1.303e-11  3.587e-03  
+      attr(,"params")
+      attr(,"params")$model
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
+      
+      attr(,"params")$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
+      
+      attr(,"params")$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
+      
+      attr(,"params")$model$summary
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      
+      
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 ---
 
@@ -40,447 +89,108 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_conf, output_boot_data, pred_fun, pred_type, p_values, p_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, median_band_pct, sample_size, .bins, silent) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
-       $ distinct: <list>
-       $ params  : <list>
-      attr(,"distinct")
-      attr(,"distinct")$mpg
-      attr(,"distinct")$mpg$ale
-      attr(,"distinct")$mpg$ale$d1
-      attr(,"distinct")$mpg$ale$d1$model
+       $ effect: <list>
+       $ params: <list>
+      attr(,"effect")
+      attr(,"effect")$mpg
+      attr(,"effect")$mpg$ale
+      attr(,"effect")$mpg$ale$d1
+      attr(,"effect")$mpg$ale$d1$vs
+      # A tibble: 2 x 7
+        vs.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     36     0     0       0         0     0
+      2 TRUE      28     0     0       0         0     0
+      
+      attr(,"effect")$mpg$ale$d1$continent
+      # A tibble: 3 x 7
+        continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 North America    24     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 Asia             12     0     0       0         0     0
+      
+      attr(,"effect")$mpg$ale$d1$am
+      # A tibble: 2 x 7
+        am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
+        <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
+      1 FALSE     38 -1.61 -5.01   -1.61    -1.01  0.775
+      2 TRUE      26  1.60 -1.75    1.60     0.219 7.28 
+      
+      attr(,"effect")$mpg$ale$d1$model
       # A tibble: 32 x 7
-         model.bin              .n     .y   .y_lo .y_mean .y_median .y_hi
-         <ord>               <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
-       1 Duster 360              2   1.85  -0.341    1.85      1.82  4.08
-       2 Camaro Z28              2  -1.53  -6.82    -1.53     -1.62  3.94
-       3 Chrysler Imperial       2  -4.83 -14.6     -4.83     -6.44  7.65
-       4 Cadillac Fleetwood      2 -10.9  -20.4    -10.9     -13.2   2.28
-       5 Lincoln Continental     2 -13.6  -24.5    -13.6     -16.7   2.67
-       6 Pontiac Firebird        2 -15.2  -27.7    -15.2     -19.8   5.26
-       7 Hornet Sportabout       2 -21.6  -36.4    -21.6     -26.9   2.23
-       8 AMC Javelin             2 -25.0  -40.9    -25.0     -28.1  -3.75
-       9 Dodge Challenger        2 -23.8  -41.5    -23.8     -26.6  -1.45
-      10 Merc 450SLC             2 -25.6  -42.0    -25.6     -29.1  -3.06
+         model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
+         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
+       1 Camaro Z28              2 -1.22  -3.83   -1.22     -1.74   2.27
+       2 Cadillac Fleetwood      2 -0.330 -9.42   -0.330     0.233  7.80
+       3 Lincoln Continental     2  7.05  -9.18    7.05      7.26  22.9 
+       4 Chrysler Imperial       2 15.5   -4.52   15.5      14.3   37.4 
+       5 Duster 360              2 21.7   -0.182  21.7      21.6   43.9 
+       6 Hornet Sportabout       2 31.8    5.16   31.8      37.6   48.4 
+       7 Pontiac Firebird        2 25.1    3.36   25.1      29.3   39.7 
+       8 Dodge Challenger        2 20.3    0.910  20.3      21.6   37.4 
+       9 AMC Javelin             2 20.4    1.16   20.4      22.0   36.9 
+      10 Merc 450SL              2 20.8    1.13   20.8      15.1   50.2 
       # i 22 more rows
       
-      attr(,"distinct")$mpg$ale$d1$cyl
-      # A tibble: 7 x 7
-        cyl.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-           <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1        3     1  0.0196   0.0196   0.0196    0.0196   0.0196 
-      2        4    17  0.0124   0.0124   0.0124    0.0124   0.0124 
-      3        5     6  0.00517  0.00517  0.00517   0.00517  0.00517
-      4        6    11 -0.00202 -0.00202 -0.00202  -0.00202 -0.00202
-      5        7     5 -0.00922 -0.00922 -0.00922  -0.00922 -0.00922
-      6        8    21 -0.0164  -0.0164  -0.0164   -0.0164  -0.0164 
-      7        9     3 -0.0236  -0.0236  -0.0236   -0.0236  -0.0236 
-      
-      attr(,"distinct")$mpg$ale$d1$disp
-      # A tibble: 10 x 7
-         disp.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
-             <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-       1      70.9     1  4.75  4.75    4.75      4.75  4.75
-       2      79.0     7  4.49  4.49    4.49      4.49  4.49
-       3     120.      7  3.18  3.18    3.18      3.18  3.18
-       4     146.      7  2.34  2.34    2.34      2.34  2.34
-       5     166.      7  1.68  1.68    1.68      1.68  1.68
-       6     258.      7 -1.18 -1.18   -1.18     -1.18 -1.18
-       7     300.      7 -2.40 -2.40   -2.40     -2.40 -2.40
-       8     350.      7 -3.71 -3.71   -3.71     -3.71 -3.71
-       9     397.      7 -4.58 -4.58   -4.58     -4.58 -4.58
-      10     472       7 -5.74 -5.74   -5.74     -5.74 -5.74
-      
-      attr(,"distinct")$mpg$ale$d1$hp
-      # A tibble: 10 x 7
-         hp.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1     52      1  2.66   2.66    2.66      2.66   2.66 
-       2     66      8  2.24   2.24    2.24      2.24   2.24 
-       3     95      6  1.23   1.23    1.23      1.23   1.23 
-       4    109      7  0.709  0.709   0.709     0.709  0.709
-       5    112.     7  0.603  0.603   0.603     0.603  0.603
-       6    150      8 -0.618 -0.618  -0.618    -0.618 -0.618
-       7    176.     6 -1.18  -1.18   -1.18     -1.18  -1.18 
-       8    181.     7 -1.26  -1.26   -1.26     -1.26  -1.26 
-       9    245      8 -2.18  -2.18   -2.18     -2.18  -2.18 
-      10    335      6 -3.19  -3.19   -3.19     -3.19  -3.19 
-      
-      attr(,"distinct")$mpg$ale$d1$drat
-      # A tibble: 10 x 7
-         drat.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
-             <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
-       1      2.74     1 -0.965  -0.965  -0.965    -0.965  -0.965 
-       2      3.02     7 -0.652  -0.652  -0.652    -0.652  -0.652 
-       3      3.08     8 -0.578  -0.578  -0.578    -0.578  -0.578 
-       4      3.18     6 -0.467  -0.467  -0.467    -0.467  -0.467 
-       5      3.62     7  0.0383  0.0383  0.0383    0.0383  0.0383
-       6      3.73     7  0.165   0.165   0.165     0.165   0.165 
-       7      3.9      8  0.340   0.340   0.340     0.340   0.340 
-       8      3.93     6  0.374   0.374   0.374     0.374   0.374 
-       9      4.21     7  0.671   0.671   0.671     0.671   0.671 
-      10      4.98     7  1.47    1.47    1.47      1.47    1.47  
-      
-      attr(,"distinct")$mpg$ale$d1$wt
-      # A tibble: 10 x 7
-         wt.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-           <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1    1.50     1  6.90   6.90    6.90      6.90   6.90 
-       2    1.94     7  5.08   5.08    5.08      5.08   5.08 
-       3    2.46     7  2.80   2.80    2.80      2.80   2.80 
-       4    2.79     7  1.39   1.39    1.39      1.39   1.39 
-       5    3.19     7 -0.264 -0.264  -0.264    -0.264 -0.264
-       6    3.44     7 -1.26  -1.26   -1.26     -1.26  -1.26 
-       7    3.52     7 -1.58  -1.58   -1.58     -1.58  -1.58 
-       8    3.73     7 -2.40  -2.40   -2.40     -2.40  -2.40 
-       9    4.05     7 -3.60  -3.60   -3.60     -3.60  -3.60 
-      10    5.45     7 -8.94  -8.94   -8.94     -8.94  -8.94 
-      
-      attr(,"distinct")$mpg$ale$d1$qsec
-      # A tibble: 10 x 7
-         qsec.ceil    .n     .y  .y_lo .y_mean .y_median  .y_hi
-             <dbl> <int>  <dbl>  <dbl>   <dbl>     <dbl>  <dbl>
-       1      14.5     1 -7.56  -7.56   -7.56     -7.56  -7.56 
-       2      15.6     7 -4.82  -4.82   -4.82     -4.82  -4.82 
-       3      16.7     7 -2.27  -2.27   -2.27     -2.27  -2.27 
-       4      17.0     7 -1.61  -1.61   -1.61     -1.61  -1.61 
-       5      17.4     7 -0.707 -0.707  -0.707    -0.707 -0.707
-       6      18.0     7  0.509  0.509   0.509     0.509  0.509
-       7      18.6     7  1.72   1.72    1.72      1.72   1.72 
-       8      18.9     7  2.33   2.33    2.33      2.33   2.33 
-       9      20       7  4.54   4.54    4.54      4.54   4.54 
-      10      23.0     7  9.93   9.93    9.93      9.93   9.93 
-      
-      attr(,"distinct")$mpg$ale$d1$vs
-      # A tibble: 2 x 7
-        vs.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
-        <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     36  0.414 -0.217   0.414     0.129 1.53 
-      2 TRUE      28 -0.532 -1.95   -0.532    -0.166 0.269
-      
-      attr(,"distinct")$mpg$ale$d1$am
-      # A tibble: 2 x 7
-        am.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
-        <ord>  <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-      1 FALSE     38 -0.490 -1.53   -0.490   -0.307  0.236
-      2 TRUE      26  0.487 -0.533   0.487    0.0668 2.22 
-      
-      attr(,"distinct")$mpg$ale$d1$gear
+      attr(,"effect")$mpg$ale$d1$gear
       # A tibble: 3 x 7
-        gear.bin    .n     .y   .y_lo .y_mean .y_median  .y_hi
-        <ord>    <int>  <dbl>   <dbl>   <dbl>     <dbl>  <dbl>
-      1 three       30  0.488  0.0750   0.488     0.337  1.16 
-      2 four        24 -1.16  -1.76    -1.16     -1.07  -0.698
-      3 five        10  0.521 -0.0278   0.521     0.571  0.985
+        gear.bin    .n    .y .y_lo .y_mean .y_median   .y_hi
+        <ord>    <int> <dbl> <dbl>   <dbl>     <dbl>   <dbl>
+      1 three       30 -1.06 -2.54   -1.06    -0.758 -0.0935
+      2 four        24  2.66  1.49    2.66     2.42   4.22  
+      3 five        10 -1.60 -2.46   -1.60    -1.85  -0.331 
       
-      attr(,"distinct")$mpg$ale$d1$carb
+      attr(,"effect")$mpg$ale$d1$carb
       # A tibble: 5 x 7
-        carb.ceil    .n       .y    .y_lo  .y_mean .y_median    .y_hi
-            <dbl> <int>    <dbl>    <dbl>    <dbl>     <dbl>    <dbl>
-      1         1    14 -0.0123  -0.0123  -0.0123   -0.0123  -0.0123 
-      2         2    19 -0.00441 -0.00441 -0.00441  -0.00441 -0.00441
-      3         3     9  0.00343  0.00343  0.00343   0.00343  0.00343
-      4         4    16  0.0113   0.0113   0.0113    0.0113   0.0113 
-      5         8     6  0.0427   0.0427   0.0427    0.0427   0.0427 
+        carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
+            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1         1    14  0.000490  0.000490  0.000490  0.000490  0.000490
+      2         2    19  0.000176  0.000176  0.000176  0.000176  0.000176
+      3         3     9 -0.000137 -0.000137 -0.000137 -0.000137 -0.000137
+      4         4    16 -0.000451 -0.000451 -0.000451 -0.000451 -0.000451
+      5         8     6 -0.00170  -0.00170  -0.00170  -0.00170  -0.00170 
       
-      attr(,"distinct")$mpg$ale$d1$country
-      # A tibble: 6 x 7
-        country.bin    .n     .y  .y_lo .y_mean .y_median .y_hi
-        <ord>       <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-      1 Sweden          2 -0.999 -3.38   -0.999    -0.859  1.15
-      2 UK              2  1.38  -1.21    1.38      1.03   4.57
-      3 Italy           8  2.44  -1.40    2.44      2.72   5.79
-      4 Japan          12  4.47   0.877   4.47      4.79   7.52
-      5 Germany        16  3.11  -1.52    3.11      3.59   6.92
-      6 USA            24  5.52   1.98    5.52      5.41   9.27
-      
-      attr(,"distinct")$mpg$ale$d1$continent
-      # A tibble: 3 x 7
-        continent.bin    .n     .y  .y_lo .y_mean .y_median    .y_hi
-        <ord>         <int>  <dbl>  <dbl>   <dbl>     <dbl>    <dbl>
-      1 North America    24 -0.383 -0.682  -0.383    -0.427 -0.00985
-      2 Europe           28  0.685 -0.217   0.685     0.452  1.98   
-      3 Asia             12 -2.17  -3.91   -2.17     -1.80  -1.07   
+      attr(,"effect")$mpg$ale$d1$wt
+      # A tibble: 10 x 7
+         wt.ceil    .n      .y   .y_lo .y_mean .y_median   .y_hi
+           <dbl> <int>   <dbl>   <dbl>   <dbl>     <dbl>   <dbl>
+       1    1.50     1 -18.1   -18.1   -18.1     -18.1   -18.1  
+       2    1.94     7 -10.2   -10.2   -10.2     -10.2   -10.2  
+       3    2.46     7  -3.51   -3.51   -3.51     -3.51   -3.51 
+       4    2.79     7  -0.882  -0.882  -0.882    -0.882  -0.882
+       5    3.19     7   2.07    2.07    2.07      2.07    2.07 
+       6    3.44     7   3.65    3.65    3.65      3.65    3.65 
+       7    3.52     7   4.05    4.05    4.05      4.05    4.05 
+       8    3.73     7   4.92    4.92    4.92      4.92    4.92 
+       9    4.05     7   6.38    6.38    6.38      6.38    6.38 
+      10    5.45     7   9.11    9.11    9.11      9.11    9.11 
       
       
       
-      attr(,"distinct")$mpg$stats
-      attr(,"distinct")$mpg$stats$d1
-      attr(,"distinct")$mpg$stats$d1$by_term
-      attr(,"distinct")$mpg$stats$d1$by_term$model
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         19.8        0   4.10    19.8   17.6      39.2 
-      2 aler_min    -31.9        0 -56.3    -31.9  -31.4      -8.45
-      3 aler_max      9.12       0  -0.0170   9.12   6.30     23.1 
-      4 naled        39.4        0  23.0     39.4   43.9      48.1 
-      5 naler_min   -48.5        0 -50      -48.5  -50       -44.4 
-      6 naler_max    27.7        0  -3.45    27.7   33.3      49.1 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$cyl
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low    mean  median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled        0.0108     0     0.0106  0.0108  0.0107    0.0111
-      2 aler_min   -0.0236     0    -0.0236 -0.0236 -0.0236   -0.0236
-      3 aler_max    0.0196     0     0.0196  0.0196  0.0196    0.0196
-      4 naled       0          0.5   0       0       0         0     
-      5 naler_min   0          1     0       0       0         0     
-      6 naler_max   0          0.5   0       0       0         0     
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$disp
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          3.08       0     2.96   3.08   3.10      3.15
-      2 aler_min     -5.74       0    -5.74  -5.74  -5.74     -5.74
-      3 aler_max      4.75       0     4.75   4.75   4.75      4.75
-      4 naled        23.0        0    22.6   23.0   23.0      23.5 
-      5 naler_min   -40.9        0   -40.9  -40.9  -40.9     -40.9 
-      6 naler_max    28.8        0    28.8   28.8   28.8      28.8 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$hp
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          1.31       0     1.20   1.31   1.29      1.46
-      2 aler_min     -3.19       0    -3.19  -3.19  -3.19     -3.19
-      3 aler_max      2.66       0     2.66   2.66   2.66      2.66
-      4 naled        10.2        0     9.37  10.2   10.2      11.0 
-      5 naler_min   -19.7        0   -19.7  -19.7  -19.7     -19.7 
-      6 naler_max    22.7        0    22.7   22.7   22.7      22.7 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$drat
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         0.517       0    0.467  0.517  0.523     0.558
-      2 aler_min    -0.965       0   -0.965 -0.965 -0.965    -0.965
-      3 aler_max     1.47        0    1.47   1.47   1.47      1.47 
-      4 naled        6.19        0    6.06   6.19   6.14      6.40 
-      5 naler_min   -7.58        0   -7.58  -7.58  -7.58     -7.58 
-      6 naler_max    7.58        0    7.58   7.58   7.58      7.58 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$wt
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          3.00       0     2.69   3.00   2.94      3.40
-      2 aler_min     -8.94       0    -8.94  -8.94  -8.94     -8.94
-      3 aler_max      6.90       0     6.90   6.90   6.90      6.90
-      4 naled        20.6        0    19.0   20.6   20.2      22.8 
-      5 naler_min   -50          0   -50    -50    -50       -50   
-      6 naler_max    34.8        0    34.8   34.8   34.8      34.8 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$qsec
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled          2.80       0     2.51   2.80   2.85      3.01
-      2 aler_min     -7.56       0    -7.56  -7.56  -7.56     -7.56
-      3 aler_max      9.93       0     9.93   9.93   9.93      9.93
-      4 naled        17.6        0    16.3   17.6   17.5      19.1 
-      5 naler_min   -43.9        0   -43.9  -43.9  -43.9     -43.9 
-      6 naler_max    37.9        0    37.9   37.9   37.9      37.9 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$vs
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         0.603       0    0.150  0.603  0.218    1.71  
-      2 aler_min    -0.613       0   -1.95  -0.613 -0.166   -0.0314
-      3 aler_max     0.495       0   -0.194  0.495  0.292    1.53  
-      4 naled        5.16        0    2.03   5.16   3.55    11.0   
-      5 naler_min   -5.30        0  -15.8   -5.30  -2.27     0     
-      6 naler_max    3.03        0   -3.86   3.03   4.55     7.35  
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$am
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         0.758       0    0.315  0.758  0.403     1.80 
-      2 aler_min    -0.588       0   -1.53  -0.588 -0.504     0.213
-      3 aler_max     0.585       0   -0.373  0.585  0.187     2.22 
-      4 naled        8.43        0    5.21   8.43   5.92     15.9  
-      5 naler_min   -5.68        0  -13.2   -5.68  -6.82      3.75 
-      6 naler_max    4.17        0   -5.95   4.17   0.758    20.1  
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$gear
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low    mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>   <dbl>  <dbl>     <dbl>
-      1 aled         0.750       0    0.401   0.750  0.634     1.30 
-      2 aler_min    -1.16        0   -1.76   -1.16  -1.07     -0.698
-      3 aler_max     0.685       0    0.100   0.685  0.731     1.19 
-      4 naled        7.27        0    5.76    7.27   6.77      9.62 
-      5 naler_min  -10.2         0  -13.5   -10.2   -9.85     -7.58 
-      6 naler_max    6.06        0    4.55    6.06   6.06      7.58 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$carb
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low     mean   median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-      1 aled       0.00808     0    0.00711  0.00808  0.00802   0.00913
-      2 aler_min  -0.0123      0   -0.0123  -0.0123  -0.0123   -0.0123 
-      3 aler_max   0.0427      0    0.0427   0.0427   0.0427    0.0427 
-      4 naled      0           0.5  0        0        0         0      
-      5 naler_min  0           1    0        0        0         0      
-      6 naler_max  0           0.5  0        0        0         0      
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$country
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low   mean median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-      1 aled         4.44        0     1.72  4.44   4.24       7.48
-      2 aler_min    -0.999       0    -3.38 -0.999 -0.859      1.15
-      3 aler_max     5.53        0     1.98  5.53   5.41       9.27
-      4 naled       24.4         0    12.5  24.4   25.7       34.0 
-      5 naler_min   -7.20        0   -22.0  -7.20  -6.82       7.01
-      6 naler_max   28.4         0    13.4  28.4   31.8       37.7 
-      
-      attr(,"distinct")$mpg$stats$d1$by_term$continent
-      # A tibble: 6 x 7
-        statistic estimate p.value conf.low    mean  median conf.high
-        <chr>        <dbl>   <dbl>    <dbl>   <dbl>   <dbl>     <dbl>
-      1 aled         0.914       0    0.422   0.914   0.707      1.76
-      2 aler_min    -2.17        0   -3.91   -2.17   -1.80      -1.07
-      3 aler_max     0.685       0   -0.217   0.685   0.452      1.98
-      4 naled        7.88        0    3.66    7.88    7.10      13.4 
-      5 naler_min  -16.3         0  -29.1   -16.3   -13.6       -8.03
-      6 naler_max    4.55        0   -3.86    4.55    4.55      13.0 
+      attr(,"effect")$mpg$stats
+      attr(,"effect")$mpg$stats$d1
+      # A tibble: 42 x 8
+         statistic estimate p.value term      conf.low  mean median conf.high
+         <chr>        <dbl>   <dbl> <chr>        <dbl> <dbl>  <dbl>     <dbl>
+       1 aled             0     1   vs               0     0      0         0
+       2 aler_min         0     1   vs               0     0      0         0
+       3 aler_max         0     1   vs               0     0      0         0
+       4 naled            0     0.6 vs               0     0      0         0
+       5 naler_min        0     1   vs               0     0      0         0
+       6 naler_max        0     0.6 vs               0     0      0         0
+       7 aled             0     1   continent        0     0      0         0
+       8 aler_min         0     1   continent        0     0      0         0
+       9 aler_max         0     1   continent        0     0      0         0
+      10 naled            0     0.6 continent        0     0      0         0
+      # i 32 more rows
       
       
-      attr(,"distinct")$mpg$stats$d1$by_stat
-      attr(,"distinct")$mpg$stats$d1$by_stat$aled
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low     mean   median conf.high
-         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model     19.8           0  4.10    19.8     17.6      39.2    
-       2 cyl        0.0108        0  0.0106   0.0108   0.0107    0.0111 
-       3 disp       3.08          0  2.96     3.08     3.10      3.15   
-       4 hp         1.31          0  1.20     1.31     1.29      1.46   
-       5 drat       0.517         0  0.467    0.517    0.523     0.558  
-       6 wt         3.00          0  2.69     3.00     2.94      3.40   
-       7 qsec       2.80          0  2.51     2.80     2.85      3.01   
-       8 vs         0.603         0  0.150    0.603    0.218     1.71   
-       9 am         0.758         0  0.315    0.758    0.403     1.80   
-      10 gear       0.750         0  0.401    0.750    0.634     1.30   
-      11 carb       0.00808       0  0.00711  0.00808  0.00802   0.00913
-      12 country    4.44          0  1.72     4.44     4.24      7.48   
-      13 continent  0.914         0  0.422    0.914    0.707     1.76   
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$aler_min
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low     mean   median conf.high
-         <chr>        <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
-       1 model     -31.9          0 -56.3    -31.9    -31.4      -8.45  
-       2 cyl        -0.0236       0  -0.0236  -0.0236  -0.0236   -0.0236
-       3 disp       -5.74         0  -5.74    -5.74    -5.74     -5.74  
-       4 hp         -3.19         0  -3.19    -3.19    -3.19     -3.19  
-       5 drat       -0.965        0  -0.965   -0.965   -0.965    -0.965 
-       6 wt         -8.94         0  -8.94    -8.94    -8.94     -8.94  
-       7 qsec       -7.56         0  -7.56    -7.56    -7.56     -7.56  
-       8 vs         -0.613        0  -1.95    -0.613   -0.166    -0.0314
-       9 am         -0.588        0  -1.53    -0.588   -0.504     0.213 
-      10 gear       -1.16         0  -1.76    -1.16    -1.07     -0.698 
-      11 carb       -0.0123       0  -0.0123  -0.0123  -0.0123   -0.0123
-      12 country    -0.999        0  -3.38    -0.999   -0.859     1.15  
-      13 continent  -2.17         0  -3.91    -2.17    -1.80     -1.07  
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$aler_max
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low   mean median conf.high
-         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 model       9.12         0  -0.0170 9.12   6.30     23.1   
-       2 cyl         0.0196       0   0.0196 0.0196 0.0196    0.0196
-       3 disp        4.75         0   4.75   4.75   4.75      4.75  
-       4 hp          2.66         0   2.66   2.66   2.66      2.66  
-       5 drat        1.47         0   1.47   1.47   1.47      1.47  
-       6 wt          6.90         0   6.90   6.90   6.90      6.90  
-       7 qsec        9.93         0   9.93   9.93   9.93      9.93  
-       8 vs          0.495        0  -0.194  0.495  0.292     1.53  
-       9 am          0.585        0  -0.373  0.585  0.187     2.22  
-      10 gear        0.685        0   0.100  0.685  0.731     1.19  
-      11 carb        0.0427       0   0.0427 0.0427 0.0427    0.0427
-      12 country     5.53         0   1.98   5.53   5.41      9.27  
-      13 continent   0.685        0  -0.217  0.685  0.452     1.98  
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naled
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low  mean median conf.high
-         <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model        39.4      0      23.0  39.4   43.9      48.1 
-       2 cyl           0        0.5     0     0      0         0   
-       3 disp         23.0      0      22.6  23.0   23.0      23.5 
-       4 hp           10.2      0       9.37 10.2   10.2      11.0 
-       5 drat          6.19     0       6.06  6.19   6.14      6.40
-       6 wt           20.6      0      19.0  20.6   20.2      22.8 
-       7 qsec         17.6      0      16.3  17.6   17.5      19.1 
-       8 vs            5.16     0       2.03  5.16   3.55     11.0 
-       9 am            8.43     0       5.21  8.43   5.92     15.9 
-      10 gear          7.27     0       5.76  7.27   6.77      9.62
-      11 carb          0        0.5     0     0      0         0   
-      12 country      24.4      0      12.5  24.4   25.7      34.0 
-      13 continent     7.88     0       3.66  7.88   7.10     13.4 
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naler_min
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low   mean median conf.high
-         <chr>        <dbl>   <dbl>    <dbl>  <dbl>  <dbl>     <dbl>
-       1 model       -48.5        0   -50    -48.5  -50       -44.4 
-       2 cyl           0          1     0      0      0         0   
-       3 disp        -40.9        0   -40.9  -40.9  -40.9     -40.9 
-       4 hp          -19.7        0   -19.7  -19.7  -19.7     -19.7 
-       5 drat         -7.58       0    -7.58  -7.58  -7.58     -7.58
-       6 wt          -50          0   -50    -50    -50       -50   
-       7 qsec        -43.9        0   -43.9  -43.9  -43.9     -43.9 
-       8 vs           -5.30       0   -15.8   -5.30  -2.27      0   
-       9 am           -5.68       0   -13.2   -5.68  -6.82      3.75
-      10 gear        -10.2        0   -13.5  -10.2   -9.85     -7.58
-      11 carb          0          1     0      0      0         0   
-      12 country      -7.20       0   -22.0   -7.20  -6.82      7.01
-      13 continent   -16.3        0   -29.1  -16.3  -13.6      -8.03
-      
-      attr(,"distinct")$mpg$stats$d1$by_stat$naler_max
-      # A tibble: 13 x 7
-         term      estimate p.value conf.low  mean median conf.high
-         <chr>        <dbl>   <dbl>    <dbl> <dbl>  <dbl>     <dbl>
-       1 model        27.7      0      -3.45 27.7  33.3       49.1 
-       2 cyl           0        0.5     0     0     0          0   
-       3 disp         28.8      0      28.8  28.8  28.8       28.8 
-       4 hp           22.7      0      22.7  22.7  22.7       22.7 
-       5 drat          7.58     0       7.58  7.58  7.58       7.58
-       6 wt           34.8      0      34.8  34.8  34.8       34.8 
-       7 qsec         37.9      0      37.9  37.9  37.9       37.9 
-       8 vs            3.03     0      -3.86  3.03  4.55       7.35
-       9 am            4.17     0      -5.95  4.17  0.758     20.1 
-      10 gear          6.06     0       4.55  6.06  6.06       7.58
-      11 carb          0        0.5     0     0     0          0   
-      12 country      28.4      0      13.4  28.4  31.8       37.7 
-      13 continent     4.55     0      -3.86  4.55  4.55      13.0 
-      
-      
-      attr(,"distinct")$mpg$stats$d1$estimate
-      # A tibble: 13 x 7
-         term          aled aler_min aler_max naled naler_min naler_max
-         <chr>        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 model     19.8     -31.9      9.12   39.4     -48.5      27.7 
-       2 cyl        0.0108   -0.0236   0.0196  0         0         0   
-       3 disp       3.08     -5.74     4.75   23.0     -40.9      28.8 
-       4 hp         1.31     -3.19     2.66   10.2     -19.7      22.7 
-       5 drat       0.517    -0.965    1.47    6.19     -7.58      7.58
-       6 wt         3.00     -8.94     6.90   20.6     -50        34.8 
-       7 qsec       2.80     -7.56     9.93   17.6     -43.9      37.9 
-       8 vs         0.603    -0.613    0.495   5.16     -5.30      3.03
-       9 am         0.758    -0.588    0.585   8.43     -5.68      4.17
-      10 gear       0.750    -1.16     0.685   7.27    -10.2       6.06
-      11 carb       0.00808  -0.0123   0.0427  0         0         0   
-      12 country    4.44     -0.999    5.53   24.4      -7.20     28.4 
-      13 continent  0.914    -2.17     0.685   7.88    -16.3       4.55
-      
-      
+      attr(,"effect")$mpg$boot_data
+      NULL
       
       
       attr(,"params")
@@ -489,89 +199,82 @@
       
       attr(,"params")$ordered_x_cols
       attr(,"params")$ordered_x_cols$d1
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      [1] "vs"        "continent" "am"        "model"     "gear"      "carb"     
+      [7] "wt"       
       
       attr(,"params")$ordered_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$requested_x_cols
       attr(,"params")$requested_x_cols$d1
-       [1] "model"     "cyl"       "disp"      "hp"        "drat"      "wt"       
-       [7] "qsec"      "vs"        "am"        "gear"      "carb"      "country"  
-      [13] "continent"
+      [1] "vs"        "continent" "am"        "model"     "gear"      "carb"     
+      [7] "wt"       
       
       attr(,"params")$requested_x_cols$d2
-      list()
+      character(0)
       
       
       attr(,"params")$y_cats
       [1] "mpg"
       
       attr(,"params")$y_summary
-                    mpg
-      p         0.05000
-      min      10.39108
-      1%       10.39108
-      2.5%     10.40000
-      5%       10.88271
-      10%      14.33418
-      20%      15.16500
-      25%      15.43921
-      30%      15.79628
-      40%      17.83840
-      med_lo_2 19.19227
-      med_lo   19.19231
-      50%      19.20000
-      mean     20.09462
-      med_hi   19.21078
-      med_hi_2 19.21089
-      60%      21.00000
-      70%      21.51193
-      75%      22.80000
-      80%      24.48680
-      90%      30.31124
-      95%      32.14486
-      97.5%    33.08402
-      99%      33.84876
-      max      33.84876
+                      mpg
+      min        10.39108
+      1%         10.39108
+      2.5%       10.40000
+      5%         10.88271
+      10%        14.33418
+      20%        15.16500
+      25%        15.43921
+      30%        15.79628
+      40%        17.83840
+      aler_lo_lo 19.18669
+      aler_lo    19.18797
+      50%        19.20000
+      mean       20.09462
+      aler_hi    19.20859
+      aler_hi_hi 19.20864
+      60%        21.00000
+      70%        21.51193
+      75%        22.80000
+      80%        24.48680
+      90%        30.31124
+      95%        32.14486
+      97.5%      33.08402
+      99%        33.84876
+      max        33.84876
       
       attr(,"params")$model
-      attr(,"params")$model$name
-      [1] "test_gam"
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$call
-      [1] "mgcv::gam(formula = mpg ~ model + cyl + s(disp) + s(hp) + s(drat) + \n    s(wt) + s(qsec) + vs + am + gear + carb + country + continent, \n    data = test_cars)"
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
       
       attr(,"params")$model$print
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nEstimated degrees of freedom:\n2.87 2.89 2.24 2.10 7.44  total = 51.53 \n\nGCV score: 0.0001269535     rank: 79/90"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + cyl + s(disp) + s(hp) + s(drat) + s(wt) + s(qsec) + \n    vs + am + gear + carb + country + continent\n\nParametric coefficients:\n                          Estimate Std. Error t value Pr(>|t|)    \n(Intercept)              12.292914   0.394283  31.178 3.31e-13 ***\nmodelCadillac Fleetwood   5.095367   1.226091   4.156 0.001231 ** \nmodelCamaro Z28           6.063637   3.145084   1.928 0.076948 .  \nmodelChrysler Imperial   10.484237   1.827615   5.737 8.07e-05 ***\nmodelDatsun 710          -1.023754   0.671720  -1.524 0.152448    \nmodelDodge Challenger     2.452177   0.566370   4.330 0.000898 ***\nmodelDuster 360           5.856358   2.354656   2.487 0.027927 *  \nmodelFerrari Dino        -1.545775   1.107870  -1.395 0.187294    \nmodelFiat 128             0.350545   0.851716   0.412 0.687639    \nmodelFiat X1-9           -4.723605   0.832454  -5.674 8.93e-05 ***\nmodelFord Pantera L       4.430999   2.214752   2.001 0.067691 .  \nmodelHonda Civic          0.248578   1.281192   0.194 0.849286    \nmodelHornet 4 Drive       2.095459   0.539557   3.884 0.002029 ** \nmodelHornet Sportabout    6.105740   0.922248   6.620 2.04e-05 ***\nmodelLincoln Continental  5.964616   1.428138   4.176 0.001185 ** \nmodelLotus Europa         0.503454   0.547595   0.919 0.375338    \nmodelMaserati Bora        6.086807   2.508543   2.426 0.031254 *  \nmodelMazda RX4            1.683278   0.383941   4.384 0.000814 ***\nmodelMazda RX4 Wag        1.482112   0.624340   2.374 0.034439 *  \nmodelMerc 230            -4.236453   0.952299  -4.449 0.000725 ***\nmodelMerc 240D            2.099782   0.954306   2.200 0.047310 *  \nmodelMerc 280             3.881632   1.314514   2.953 0.011652 *  \nmodelMerc 280C            1.307655   1.078036   1.213 0.247615    \nmodelMerc 450SE           4.439663   0.624272   7.112 9.97e-06 ***\nmodelMerc 450SL           3.603878   0.607266   5.935 5.88e-05 ***\nmodelMerc 450SLC          0.840471   0.530070   1.586 0.137861    \nmodelPontiac Firebird     8.896109   0.959139   9.275 5.96e-07 ***\nmodelPorsche 914-2       -4.723157   2.202022  -2.145 0.052299 .  \nmodelToyota Corolla       2.904642   0.699033   4.155 0.001232 ** \nmodelToyota Corona       -2.836764   0.502870  -5.641 9.43e-05 ***\nmodelValiant             -2.589631   1.481974  -1.747 0.105131    \nmodelVolvo 142E          -1.703757   0.418113  -4.075 0.001427 ** \ncyl                      -0.007195   0.003255  -2.210 0.046470 *  \nvsTRUE                   -3.722217   1.670975  -2.228 0.045025 *  \namTRUE                    3.970366   0.793027   5.007 0.000273 ***\ngear.L                   -0.366001   1.442529  -0.254 0.803847    \ngear.Q                    2.237590   0.852348   2.625 0.021588 *  \ncarb                      0.007848   0.004296   1.827 0.091753 .  \ncountryItaly              0.167973   0.437285   0.384 0.707356    \ncountryJapan              2.458091   0.291381   8.436 1.67e-06 ***\ncountrySweden            -1.703757   0.418113  -4.075 0.001427 ** \ncountryUK                 0.503454   0.547595   0.919 0.375338    \ncountryUSA                3.653683   0.508735   7.182 9.02e-06 ***\ncontinentEurope           6.181141   0.386846  15.978 1.13e-09 ***\ncontinentNorth America    3.653683   0.508735   7.182 9.02e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n          edf Ref.df     F p-value   \ns(disp) 2.872  3.448 2.235 0.23422   \ns(hp)   2.890  3.513 0.911 0.46769   \ns(drat) 2.236  2.730 0.175 0.90458   \ns(wt)   2.097  2.573 3.721 0.04678 * \ns(qsec) 7.440  8.168 6.874 0.00216 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 79/90\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00012695  Scale est. = 2.4729e-05  n = 64"
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
       
       
       attr(,"params")$data
-      attr(,"params")$data$name
-      [1] "structure(list(model = c(\"Mazda RX4\", \"Mazda RX4 Wag\", "
-      
       attr(,"params")$data$data_sample
-      # A tibble: 64 x 14
-         model         mpg   cyl  disp    hp  drat    wt  qsec vs    am    gear   carb
-         <chr>       <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <lgl> <lgl> <ord> <int>
-       1 Mazda RX4    21       6  160    110  3.9   2.62  16.5 FALSE TRUE  four      4
-       2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0 FALSE TRUE  four      4
-       3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6 TRUE  TRUE  four      1
-       4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4 TRUE  FALSE three     1
-       5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0 FALSE FALSE three     2
-       6 Valiant      18.1     6  225    105  2.76  3.46  20.2 TRUE  FALSE three     1
-       7 Duster 360   14.3     8  360    245  3.21  3.57  15.8 FALSE FALSE three     4
-       8 Merc 240D    24.4     4  147.    62  3.69  3.19  20   TRUE  FALSE four      2
-       9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9 TRUE  FALSE four      2
-      10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3 TRUE  FALSE four      4
+      # A tibble: 64 x 8
+           mpg vs    continent     am    model             gear   carb    wt
+         <dbl> <lgl> <fct>         <lgl> <chr>             <ord> <int> <dbl>
+       1  21   FALSE Asia          TRUE  Mazda RX4         four      4  2.62
+       2  21   FALSE Asia          TRUE  Mazda RX4 Wag     four      4  2.88
+       3  22.8 TRUE  Asia          TRUE  Datsun 710        four      1  2.32
+       4  21.4 TRUE  North America FALSE Hornet 4 Drive    three     1  3.22
+       5  18.7 FALSE North America FALSE Hornet Sportabout three     2  3.44
+       6  18.1 TRUE  North America FALSE Valiant           three     1  3.46
+       7  14.3 FALSE North America FALSE Duster 360        three     4  3.57
+       8  24.4 TRUE  Europe        FALSE Merc 240D         four      2  3.19
+       9  22.8 TRUE  Europe        FALSE Merc 230          four      2  3.15
+      10  19.2 TRUE  Europe        FALSE Merc 280          four      4  3.44
       # i 54 more rows
-      # i 2 more variables: country <fct>, continent <fct>
       
       attr(,"params")$data$y_vals_sample
                  mpg
@@ -656,9 +359,6 @@
       attr(,"params")$output_stats
       [1] TRUE
       
-      attr(,"params")$output_conf
-      [1] FALSE
-      
       attr(,"params")$output_boot_data
       [1] FALSE
       
@@ -671,15 +371,15 @@
       attr(,"params")$p_values
       <ale::ALEpDist>
        @ rand_stats           :List of 1
-       .. $ mpg: tibble [4 x 6] (S3: tbl_df/tbl/data.frame)
-       ..  ..$ aled     : num [1:4] 0.000056 0.002385 0.000514 0.002325
-       ..  ..$ aler_min : num [1:4] -0.000317 -0.007115 -0.002059 -0.007737
-       ..  ..$ aler_max : num [1:4] 0.000205 0.008979 0.001518 0.010923
-       ..  ..$ naled    : num [1:4] 0 0.537 0 0.366
-       ..  ..$ naler_min: num [1:4] 0 -1.56 0 -1.56
-       ..  ..$ naler_max: num [1:4] 0 1.56 0 1.56
-       @ residual_distribution: 'univariateML' Named num [1:2] 1.52e-12 1.48e-03
-       .. - attr(*, "logLik")= num 309
+       .. $ mpg: tibble [10 x 6] (S3: tbl_df/tbl/data.frame)
+       ..  ..$ aled     : num [1:10] 0.000484 0.002108 0.001961 0.000908 0.000352 ...
+       ..  ..$ aler_min : num [1:10] -0.0033 -0.00659 -0.00644 -0.00363 -0.00166 ...
+       ..  ..$ aler_max : num [1:10] 0.00201 0.00835 0.00866 0.00524 0.00139 ...
+       ..  ..$ naled    : num [1:10] 0 0.3418 0.2197 0.0244 0 ...
+       ..  ..$ naler_min: num [1:10] 0 -1.56 -1.56 -1.56 0 ...
+       ..  ..$ naler_max: num [1:10] 0 1.56 1.56 1.56 0 ...
+       @ residual_distribution: 'univariateML' Named num [1:2] 1.30e-11 3.59e-03
+       .. - attr(*, "logLik")= num 252
        .. - attr(*, "call")= language f(x = x, na.rm = na.rm)
        .. - attr(*, "n")= int 64
        .. - attr(*, "model")= chr "Laplace"
@@ -688,10 +388,25 @@
        .. - attr(*, "names")= chr [1:2] "mu" "sigma"
        .. - attr(*, "default")= num [1:2] 0 1
        .. - attr(*, "continuous")= logi TRUE
-       @ rand_it_ok           : int 4
        @ residuals            : NULL
+       @ params               :List of 11
+       .. $ model                        :List of 4
+       ..  ..$ class  : chr [1:3] "gam" "glm" "lm"
+       ..  ..$ call   : chr "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
+       ..  ..$ print  : chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated "| __truncated__
+       ..  ..$ summary: chr "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric"| __truncated__
+       .. $ y_col                        : chr "mpg"
+       .. $ rand_it                      : num 10
+       .. $ parallel                     : num 0
+       .. $ model_packages               : NULL
+       .. $ random_model_call_string     : NULL
+       .. $ random_model_call_string_vars: chr(0) 
+       .. $ positive                     : logi TRUE
+       .. $ seed                         : num 0
+       .. $ rand_it_ok                   : int 10
+       .. $ exactness                    : chr "invalid"
       
-      attr(,"params")$p_alpha
+      attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
       attr(,"params")$max_num_bins
@@ -712,14 +427,8 @@
       attr(,"params")$y_type
       [1] "numeric"
       
-      attr(,"params")$median_band_pct
-      [1] 0.05 0.50
-      
       attr(,"params")$sample_size
       [1] 500
-      
-      attr(,"params")$silent
-      [1] TRUE
       
 
 ---
@@ -739,16 +448,16 @@
        [1] 1 1 1 1 1 0 0 0 0 0 0
       
       $naled
-       [1] 1.00 1.00 1.00 1.00 0.50 0.50 0.50 0.25 0.00 0.00 0.00
+       [1] 1.0 1.0 1.0 1.0 0.6 0.4 0.3 0.0 0.0 0.0 0.0
       
       $naler_min
-       [1] 0.0 0.0 0.5 0.5 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+       [1] 0.0 0.0 0.6 0.6 1.0 1.0 1.0 1.0 1.0 1.0 1.0
       
       $naler_max
-       [1] 1.0 1.0 1.0 1.0 0.5 0.5 0.5 0.5 0.5 0.0 0.0
+       [1] 1.0 1.0 1.0 1.0 0.6 0.6 0.6 0.6 0.6 0.0 0.0
       
 
-# ALEpDist works with precise slow
+# Surrogate ALEpDist works
 
     Code
       unclass(pd)
@@ -757,101 +466,93 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 10 x 6
-              aled  aler_min aler_max naled naler_min naler_max
-             <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-       1 0.0000475 -0.000324 0.000197 0          0         0   
-       2 0.00227   -0.00710  0.00899  0.513     -1.56      1.56
-       3 0.000465  -0.00205  0.00153  0          0         0   
-       4 0.00191   -0.00763  0.0110   0.464     -1.56      1.56
-       5 0.000997  -0.00471  0.00393  0.171     -1.56      1.56
-       6 0.00201   -0.00998  0.00819  0.391     -1.56      1.56
-       7 0.00216   -0.00876  0.00648  0.537     -1.56      1.56
-       8 0.000262  -0.000969 0.00192  0          0         0   
-       9 0.00261   -0.0127   0.00767  0.610     -1.56      1.56
-      10 0.00377   -0.0137   0.0119   0.757     -1.56      1.56
+      # A tibble: 100 x 6
+            aled aler_min aler_max naled naler_min naler_max
+           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 0.00199  -0.0112  0.00727 0.366     -1.56      1.56
+       2 0.00394  -0.0118  0.0148  0.708     -1.56      1.56
+       3 0.00425  -0.0170  0.0126  0.708     -1.56      1.56
+       4 0.00647  -0.0215  0.0304  0.708     -1.56      1.56
+       5 0.00365  -0.0149  0.0124  0.537     -1.56      1.56
+       6 0.00281  -0.0121  0.0100  0.366     -1.56      1.56
+       7 0.00599  -0.0172  0.0227  0.879     -1.56      1.56
+       8 0.00574  -0.0333  0.0175  0.708     -1.56      1.56
+       9 0.00733  -0.0321  0.0203  0.879     -1.56      1.56
+      10 0.00729  -0.0228  0.0257  1.05      -1.56      1.56
+      # i 90 more rows
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 10
+      1.303e-11  3.587e-03  
       attr(,"residuals")
-                      mpg
-       [1,]  2.076210e-03
-       [2,] -2.146996e-03
-       [3,] -4.072358e-03
-       [4,]  1.358163e-03
-       [5,] -6.932315e-04
-       [6,]  1.864576e-05
-       [7,]  1.657480e-04
-       [8,] -3.094497e-03
-       [9,]  7.467605e-06
-      [10,] -2.920556e-03
-      [11,] -7.720871e-04
-      [12,]  3.597297e-04
-      [13,]  9.247980e-04
-      [14,] -2.529141e-04
-      [15,] -6.795272e-04
-      [16,] -1.926095e-04
-      [17,]  3.857874e-04
-      [18,] -5.532813e-03
-      [19,]  3.561379e-05
-      [20,] -1.668717e-03
-      [21,]  6.626139e-03
-      [22,]  7.115782e-04
-      [23,] -3.586712e-03
-      [24,]  3.537339e-04
-      [25,]  2.118393e-03
-      [26,] -4.730990e-04
-      [27,] -1.188763e-03
-      [28,]  2.783307e-03
-      [29,] -4.171311e-04
-      [30,] -4.459260e-04
-      [31,]  8.025595e-04
-      [32,]  4.463587e-04
-      [33,] -2.076210e-03
-      [34,]  2.146996e-03
-      [35,]  4.072358e-03
-      [36,] -1.358163e-03
-      [37,]  6.932315e-04
-      [38,] -1.864577e-05
-      [39,] -1.657480e-04
-      [40,]  3.094497e-03
-      [41,] -7.467602e-06
-      [42,]  2.920556e-03
-      [43,]  7.720871e-04
-      [44,] -3.597296e-04
-      [45,] -9.247980e-04
-      [46,]  2.529142e-04
-      [47,]  6.795272e-04
-      [48,]  1.926095e-04
-      [49,] -3.857873e-04
-      [50,]  5.532813e-03
-      [51,] -3.561375e-05
-      [52,]  1.668717e-03
-      [53,] -6.626139e-03
-      [54,] -7.115782e-04
-      [55,]  3.586712e-03
-      [56,] -3.537339e-04
-      [57,] -2.118393e-03
-      [58,]  4.730990e-04
-      [59,]  1.188763e-03
-      [60,] -2.783307e-03
-      [61,]  4.171310e-04
-      [62,]  4.459260e-04
-      [63,] -8.025594e-04
-      [64,] -4.463587e-04
+       [1] -9.470698e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
+       [6]  7.516518e-04  2.728091e-03 -8.853029e-03 -3.016706e-04 -1.794893e-03
+      [11] -3.673897e-03 -2.816578e-03  5.414042e-03  2.979146e-03  2.219206e-03
+      [16]  8.324011e-04 -4.976941e-05 -1.115543e-02  1.437735e-03  2.200997e-03
+      [21]  2.625747e-03  5.178720e-04 -9.802341e-03  7.118944e-03  5.255702e-03
+      [26] -9.746617e-03 -2.976337e-03  6.542735e-03 -8.071930e-03  4.016990e-03
+      [31] -2.747836e-04 -6.032700e-05  9.470698e-04  1.130145e-03  3.078035e-03
+      [36] -7.415332e-04  4.678952e-03 -7.516518e-04 -2.728091e-03  8.853029e-03
+      [41]  3.016706e-04  1.794893e-03  3.673897e-03  2.816578e-03 -5.414042e-03
+      [46] -2.979146e-03 -2.219206e-03 -8.324011e-04  4.976944e-05  1.115543e-02
+      [51] -1.437735e-03 -2.200997e-03 -2.625747e-03 -5.178720e-04  9.802341e-03
+      [56] -7.118944e-03 -5.255702e-03  9.746617e-03  2.976337e-03 -6.542735e-03
+      [61]  8.071930e-03 -4.016990e-03  2.747836e-04  6.032702e-05
+      attr(,"params")
+      attr(,"params")$model
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
+      
+      attr(,"params")$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
+      
+      attr(,"params")$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
+      
+      attr(,"params")$model$summary
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      
+      
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$rand_it
+      [1] 3
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 100
+      
+      attr(,"params")$exactness
+      [1] "surrogate"
+      
 
 ---
 
@@ -862,25 +563,25 @@
     Output
       $aled
                  0        0.001         0.01         0.01         0.05          0.1 
-      3.774163e-03 3.763716e-03 3.669690e-03 3.669690e-03 3.251801e-03 2.729438e-03 
+      2.145276e-02 2.092763e-02 1.620142e-02 1.620142e-02 1.331799e-02 1.160576e-02 
                0.5            1 
-      1.962555e-03 4.753915e-05 
+      5.855495e-03 2.343212e-05 
       
       $aler_min
                   0         0.001          0.01          0.01          0.05 
-      -0.0137111960 -0.0137022413 -0.0136216489 -0.0136216489 -0.0132634607 
+      -8.018319e-02 -7.889883e-02 -6.733957e-02 -6.733957e-02 -4.856189e-02 
                 0.1           0.5             1 
-      -0.0128157255 -0.0073679468 -0.0003240953 
+      -4.264222e-02 -1.985118e-02 -8.389436e-05 
       
       $aler_max
-                0       0.001        0.01        0.01        0.05         0.1 
-      0.011942953 0.011934704 0.011860467 0.011860467 0.011530521 0.011118088 
-              0.5           1 
-      0.007073919 0.000197209 
+                 0        0.001         0.01         0.01         0.05          0.1 
+      6.705638e-02 6.689973e-02 6.548988e-02 6.548988e-02 5.404877e-02 5.006009e-02 
+               0.5            1 
+      2.010266e-02 5.471472e-05 
       
       $naled
               0     0.001      0.01      0.01      0.05       0.1       0.5         1 
-      0.7568359 0.7555176 0.7436523 0.7436523 0.6909180 0.6250000 0.4272461 0.0000000 
+      1.3916016 1.3916016 1.3916016 1.3916016 1.2207031 1.2207031 0.7080078 0.0000000 
       
       $naler_min
             0   0.001    0.01    0.01    0.05     0.1     0.5       1 
@@ -888,7 +589,7 @@
       
       $naler_max
            0  0.001   0.01   0.01   0.05    0.1    0.5      1 
-      1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 1.5625 0.0000 
+      3.1250 3.1250 3.1250 3.1250 3.1250 3.1250 1.5625 0.0000 
       
 
 # ALEpDist works with custom random_model_call_string
@@ -900,95 +601,85 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$mpg
-      # A tibble: 4 x 6
-           aled aler_min aler_max naled naler_min naler_max
-          <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1 0.0416   -0.152    0.235   1.73     -3.12      3.12
-      2 0.00658  -0.0196   0.0248  1.05     -1.56      1.56
-      3 0.0352   -0.141    0.104   1.76     -1.56      3.12
-      4 0.0212   -0.0706   0.0997  1.56     -1.56      3.12
+      # A tibble: 3 x 6
+            aled aler_min aler_max naled naler_min naler_max
+           <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+      1 0.000484 -0.00330  0.00201 0          0         0   
+      2 0.00211  -0.00659  0.00835 0.342     -1.56      1.56
+      3 0.00196  -0.00644  0.00866 0.220     -1.56      1.56
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Laplace model 
              mu      sigma  
-      1.524e-12  1.479e-03  
-      attr(,"rand_it_ok")
-      [1] 4
+      1.303e-11  3.587e-03  
       attr(,"residuals")
-                      mpg
-       [1,]  2.076210e-03
-       [2,] -2.146996e-03
-       [3,] -4.072358e-03
-       [4,]  1.358163e-03
-       [5,] -6.932315e-04
-       [6,]  1.864576e-05
-       [7,]  1.657480e-04
-       [8,] -3.094497e-03
-       [9,]  7.467605e-06
-      [10,] -2.920556e-03
-      [11,] -7.720871e-04
-      [12,]  3.597297e-04
-      [13,]  9.247980e-04
-      [14,] -2.529141e-04
-      [15,] -6.795272e-04
-      [16,] -1.926095e-04
-      [17,]  3.857874e-04
-      [18,] -5.532813e-03
-      [19,]  3.561379e-05
-      [20,] -1.668717e-03
-      [21,]  6.626139e-03
-      [22,]  7.115782e-04
-      [23,] -3.586712e-03
-      [24,]  3.537339e-04
-      [25,]  2.118393e-03
-      [26,] -4.730990e-04
-      [27,] -1.188763e-03
-      [28,]  2.783307e-03
-      [29,] -4.171311e-04
-      [30,] -4.459260e-04
-      [31,]  8.025595e-04
-      [32,]  4.463587e-04
-      [33,] -2.076210e-03
-      [34,]  2.146996e-03
-      [35,]  4.072358e-03
-      [36,] -1.358163e-03
-      [37,]  6.932315e-04
-      [38,] -1.864577e-05
-      [39,] -1.657480e-04
-      [40,]  3.094497e-03
-      [41,] -7.467602e-06
-      [42,]  2.920556e-03
-      [43,]  7.720871e-04
-      [44,] -3.597296e-04
-      [45,] -9.247980e-04
-      [46,]  2.529142e-04
-      [47,]  6.795272e-04
-      [48,]  1.926095e-04
-      [49,] -3.857873e-04
-      [50,]  5.532813e-03
-      [51,] -3.561375e-05
-      [52,]  1.668717e-03
-      [53,] -6.626139e-03
-      [54,] -7.115782e-04
-      [55,]  3.586712e-03
-      [56,] -3.537339e-04
-      [57,] -2.118393e-03
-      [58,]  4.730990e-04
-      [59,]  1.188763e-03
-      [60,] -2.783307e-03
-      [61,]  4.171310e-04
-      [62,]  4.459260e-04
-      [63,] -8.025594e-04
-      [64,] -4.463587e-04
+       [1] -9.470698e-04 -1.130145e-03 -3.078035e-03  7.415332e-04 -4.678952e-03
+       [6]  7.516518e-04  2.728091e-03 -8.853029e-03 -3.016706e-04 -1.794893e-03
+      [11] -3.673897e-03 -2.816578e-03  5.414042e-03  2.979146e-03  2.219206e-03
+      [16]  8.324011e-04 -4.976941e-05 -1.115543e-02  1.437735e-03  2.200997e-03
+      [21]  2.625747e-03  5.178720e-04 -9.802341e-03  7.118944e-03  5.255702e-03
+      [26] -9.746617e-03 -2.976337e-03  6.542735e-03 -8.071930e-03  4.016990e-03
+      [31] -2.747836e-04 -6.032700e-05  9.470698e-04  1.130145e-03  3.078035e-03
+      [36] -7.415332e-04  4.678952e-03 -7.516518e-04 -2.728091e-03  8.853029e-03
+      [41]  3.016706e-04  1.794893e-03  3.673897e-03  2.816578e-03 -5.414042e-03
+      [46] -2.979146e-03 -2.219206e-03 -8.324011e-04  4.976944e-05  1.115543e-02
+      [51] -1.437735e-03 -2.200997e-03 -2.625747e-03 -5.178720e-04  9.802341e-03
+      [56] -7.118944e-03 -5.255702e-03  9.746617e-03  2.976337e-03 -6.542735e-03
+      [61]  8.071930e-03 -4.016990e-03  2.747836e-04  6.032702e-05
+      attr(,"params")
+      attr(,"params")$model
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
+      
+      attr(,"params")$model$call
+      [1] "mgcv::gam(formula = mpg ~ model + s(wt) + am + gear + carb, data = test_cars)"
+      
+      attr(,"params")$model$print
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n8.03  total = 41.03 \n\nGCV score: 0.0001770391     rank: 42/45"
+      
+      attr(,"params")$model$summary
+      [1] "\nFamily: gaussian \nLink function: identity \n\nFormula:\nmpg ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error  t value Pr(>|t|)    \n(Intercept)               1.432e+01  1.353e-01  105.784  < 2e-16 ***\nmodelCadillac Fleetwood  -9.910e+00  1.259e+00   -7.873 5.68e-08 ***\nmodelCamaro Z28          -3.700e+00  7.268e-02  -50.911  < 2e-16 ***\nmodelChrysler Imperial   -5.777e+00  1.276e+00   -4.526 0.000152 ***\nmodelDatsun 710          -3.793e+00  1.131e-01  -33.550  < 2e-16 ***\nmodelDodge Challenger    -1.266e-01  2.060e-02   -6.147 2.87e-06 ***\nmodelDuster 360          -1.547e+00  2.851e-02  -54.276  < 2e-16 ***\nmodelFerrari Dino        -4.088e+00  1.542e-01  -26.506  < 2e-16 ***\nmodelFiat 128             7.211e+00  9.518e-02   75.763  < 2e-16 ***\nmodelFiat X1-9            5.916e+00  1.941e-01   30.488  < 2e-16 ***\nmodelFord Pantera L      -1.094e+01  1.737e-01  -63.000  < 2e-16 ***\nmodelHonda Civic          1.474e+01  2.896e-01   50.893  < 2e-16 ***\nmodelHornet 4 Drive       7.569e+00  5.315e-02  142.406  < 2e-16 ***\nmodelHornet Sportabout    3.468e+00  9.616e-03  360.698  < 2e-16 ***\nmodelLincoln Continental -1.023e+01  1.279e+00   -7.998 4.34e-08 ***\nmodelLotus Europa         2.341e+01  3.392e-01   69.015  < 2e-16 ***\nmodelMaserati Bora       -1.408e+01  1.903e-01  -74.006  < 2e-16 ***\nmodelMazda RX4           -8.359e+00  1.638e-01  -51.017  < 2e-16 ***\nmodelMazda RX4 Wag       -1.030e+01  1.761e-01  -58.494  < 2e-16 ***\nmodelMerc 230             2.481e+00  5.506e-02   45.064  < 2e-16 ***\nmodelMerc 240D            3.804e+00  5.586e-02   68.099  < 2e-16 ***\nmodelMerc 280            -2.984e+00  6.794e-02  -43.926  < 2e-16 ***\nmodelMerc 280C           -4.382e+00  6.668e-02  -65.723  < 2e-16 ***\nmodelMerc 450SE          -1.661e+00  1.075e-01  -15.448 1.26e-13 ***\nmodelMerc 450SL           7.892e-01  5.311e-02   14.861 2.83e-13 ***\nmodelMerc 450SLC         -1.524e+00  6.416e-02  -23.749  < 2e-16 ***\nmodelPontiac Firebird     2.178e+00  7.002e-02   31.102  < 2e-16 ***\nmodelPorsche 914-2        8.306e+00  1.409e-01   58.945  < 2e-16 ***\nmodelToyota Corolla       1.419e+01  2.372e-01   59.809  < 2e-16 ***\nmodelToyota Corona        1.342e+01  2.208e-01   60.795  < 2e-16 ***\nmodelValiant              2.760e+00  1.050e-02  262.897  < 2e-16 ***\nmodelVolvo 142E          -9.189e+00  1.720e-01  -53.428  < 2e-16 ***\namTRUE                    1.302e+01  1.792e-01   72.629  < 2e-16 ***\ngear.L                    1.571e-01  2.703e-02    5.811 6.42e-06 ***\ngear.Q                   -5.584e+00  4.818e-02 -115.914  < 2e-16 ***\ncarb                     -3.135e-04  4.119e-03   -0.076 0.939977    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nApproximate significance of smooth terms:\n        edf Ref.df   F p-value    \ns(wt) 8.027  8.693 449  <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nGCV = 0.00017704  Scale est. = 6.3549e-05  n = 64"
+      
+      
+      attr(,"params")$y_col
+      [1] "mpg"
+      
+      attr(,"params")$rand_it
+      [1] 3
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      [1] "mgcv::gam(\n        mpg ~ model + s(wt) + am + gear + carb + random_variable,\n        data = it.rand_data\n      )"
+      
+      attr(,"params")$random_model_call_string_vars
+      [1] "rmcsv"
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 3
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 # ALEpDist works with binary outcome
 
@@ -999,29 +690,78 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$vs
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+             aled  aler_min aler_max naled naler_min naler_max
+            <dbl>     <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1 5.16e-25 -1.32e-24 9.89e-25  3.64     -7.81      6.25
+       2 2.70e-25 -6.53e-25 6.73e-25  2.56     -1.56      4.69
+       3 1.43e-25 -3.61e-25 3.58e-25  2.22     -1.56      4.69
+       4 2.86e-25 -5.04e-25 4.75e-25  2.81     -1.56      4.69
+       5 8.00e-23 -1.39e-22 1.57e-22 23.8     -50         6.25
+       6 8.44e-26 -2.01e-25 1.96e-25  2.17     -1.56      3.12
+       7 1.12e-23 -2.59e-23 2.06e-23 22.8     -50         6.25
+       8 1.28e-21 -2.04e-21 2.84e-21 26.1     -50         6.25
+       9 0         0        0         0         0         0   
+      10 6.51e-24 -1.16e-23 1.15e-23 19.7     -50         6.25
       
       attr(,"residual_distribution")
       Maximum likelihood estimates for the Uniform model 
              min         max  
       -3.926e-13   3.926e-13  
-      attr(,"rand_it_ok")
-      [1] 4
+      attr(,"params")
+      attr(,"params")$model
+      attr(,"params")$model$class
+      [1] "gam" "glm" "lm" 
+      
+      attr(,"params")$model$call
+      [1] "mgcv::gam(formula = vs ~ model + s(wt) + am + gear + carb, family = stats::binomial(), \n    data = test_cars)"
+      
+      attr(,"params")$model$print
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
+      
+      attr(,"params")$model$summary
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               9.522e+00  1.068e+06       0        1\nmodelCadillac Fleetwood   1.310e-09  2.420e+07       0        1\nmodelCamaro Z28           2.970e-10  5.648e+06       0        1\nmodelChrysler Imperial    1.380e-09  2.550e+07       0        1\nmodelDatsun 710           7.775e-08  9.376e+06       0        1\nmodelDodge Challenger     7.967e-11  1.760e+06       0        1\nmodelDuster 360           1.078e-10  2.390e+06       0        1\nmodelFerrari Dino        -5.713e+01  1.689e+07       0        1\nmodelFiat 128             4.992e-08  7.891e+06       0        1\nmodelFiat X1-9            8.312e-08  4.293e+06       0        1\nmodelFord Pantera L      -5.713e+01  2.207e+07       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout    1.906e-11  1.054e+06       0        1\nmodelLincoln Continental  1.451e-09  2.680e+07       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -5.713e+01  2.726e+07       0        1\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -1.764e-05  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280             3.537e-08  3.387e+06       0        1\nmodelMerc 280C           -1.763e-05  3.113e+06       0        1\nmodelMerc 450SE           4.560e-10  8.472e+06       0        1\nmodelMerc 450SL           2.063e-10  3.993e+06       0        1\nmodelMerc 450SLC          2.581e-10  4.887e+06       0        1\nmodelPontiac Firebird     2.934e-10  5.495e+06       0        1\nmodelPorsche 914-2       -5.713e+01  8.485e+06       0        1\nmodelToyota Corolla      -1.764e-05  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E           8.495e-07  1.543e+07       0        1\namTRUE                   -6.645e-09  2.111e+07       0        1\ngear.L                    4.040e+01  3.334e+06       0        1\ngear.Q                   -2.332e+01  7.942e+05       0        1\ncarb                      3.703e-12  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      
+      
+      attr(,"params")$y_col
+      [1] "vs"
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      NULL
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 
 # ALEpDist works with categorical outcome
 
@@ -1032,45 +772,106 @@
       attr(,"S7_class")
       <ale::ALEpDist> class
       @ parent     : <S7_object>
-      @ constructor: function(model, data, p_speed, ..., parallel, model_packages, random_model_call_string, random_model_call_string_vars, y_col, binary_true_value, pred_fun, pred_type, output_residuals, rand_it, seed, silent, .testing_mode) {...}
+      @ constructor: function(model, data, ..., y_col, rand_it, surrogate, parallel, model_packages, random_model_call_string, random_model_call_string_vars, positive, pred_fun, pred_type, output_residuals, seed, silent, .skip_validation) {...}
       @ validator  : <NULL>
       @ properties :
        $ rand_stats           : <list>            
        $ residual_distribution: S3<univariateML>  
-       $ rand_it_ok           : <integer>         
        $ residuals            : <double> or <NULL>
+       $ params               : <list>            
       attr(,"rand_stats")
       attr(,"rand_stats")$Asia
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"rand_stats")$Europe
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"rand_stats")$`North America`
-      # A tibble: 4 x 6
-         aled aler_min aler_max naled naler_min naler_max
-        <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
-      1     0        0        0     0         0         0
-      2     0        0        0     0         0         0
-      3     0        0        0     0         0         0
-      4     0        0        0     0         0         0
+      # A tibble: 10 x 6
+          aled aler_min aler_max naled naler_min naler_max
+         <dbl>    <dbl>    <dbl> <dbl>     <dbl>     <dbl>
+       1     0        0        0     0         0         0
+       2     0        0        0     0         0         0
+       3     0        0        0     0         0         0
+       4     0        0        0     0         0         0
+       5     0        0        0     0         0         0
+       6     0        0        0     0         0         0
+       7     0        0        0     0         0         0
+       8     0        0        0     0         0         0
+       9     0        0        0     0         0         0
+      10     0        0        0     0         0         0
       
       attr(,"residual_distribution")
-      Maximum likelihood estimates for the Normal model 
-            mean          sd  
-      -7.759e-19   2.898e-17  
-      attr(,"rand_it_ok")
-      [1] 4
+      Maximum likelihood estimates for the Laplace model 
+              mu       sigma  
+      -2.043e-23   1.503e-17  
+      attr(,"params")
+      attr(,"params")$model
+      attr(,"params")$model$class
+      [1] "multinom" "nnet"    
+      
+      attr(,"params")$model$call
+      [1] "nnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)"
+      
+      attr(,"params")$model$print
+      [1] "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope          -21.86205               -2.222771       -6.526356\nNorth America   -12.29302               -2.006450       14.817906\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                    -3.5495185       -42.28844             -3.766810\nNorth America             -0.4119232       -22.35666              7.689393\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -7.046867          5.545836     42.144872      43.426334\nNorth America       20.851301         -3.241914      2.522922       2.870462\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -23.11127      -27.5878163           -2.495884\nNorth America            29.30682       -0.1513286            7.771946\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                     -5.036042                -1.780289         14.561696\nNorth America              12.103127                -2.891703         -1.631007\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                  6.999218      -33.61112          -35.88135\nNorth America          -7.857123       -3.27005          -10.72975\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope           14.2684900     14.2452958     11.590028     10.4496565\nNorth America    -0.5204999     -0.6708756      1.228568      0.8928993\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope               39.49499         34.5616         36.09627\nNorth America       -38.59611        -31.8537        -34.17067\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                    -3.057543          15.344405          -34.531039\nNorth America              4.399831          -4.102117           -8.804816\n              modelToyota Corona modelValiant modelVolvo 142E       wt\nEurope                 -44.72605    -2.073514       34.932615 4.534617\nNorth America          -52.77315     5.537827        2.626442 3.625818\n                 amTRUE     gear.L    gear.Q      carb\nEurope        -34.05607 40.7995829 -5.443825 10.524876\nNorth America -24.81811  0.6220113 39.516400  5.894396\n\nResidual Deviance: 0.0001161393 \nAIC: 136.0001 "
+      
+      attr(,"params")$model$summary
+      [1] "Call:\nnnet::multinom(formula = continent ~ model + wt + am + gear + \n    carb, data = test_cars, trace = FALSE)\n\nCoefficients:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope          -21.86205               -2.222771       -6.526356\nNorth America   -12.29302               -2.006450       14.817906\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                    -3.5495185       -42.28844             -3.766810\nNorth America             -0.4119232       -22.35666              7.689393\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope              -7.046867          5.545836     42.144872      43.426334\nNorth America       20.851301         -3.241914      2.522922       2.870462\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                  -23.11127      -27.5878163           -2.495884\nNorth America            29.30682       -0.1513286            7.771946\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                     -5.036042                -1.780289         14.561696\nNorth America              12.103127                -2.891703         -1.631007\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                  6.999218      -33.61112          -35.88135\nNorth America          -7.857123       -3.27005          -10.72975\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope           14.2684900     14.2452958     11.590028     10.4496565\nNorth America    -0.5204999     -0.6708756      1.228568      0.8928993\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope               39.49499         34.5616         36.09627\nNorth America       -38.59611        -31.8537        -34.17067\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                    -3.057543          15.344405          -34.531039\nNorth America              4.399831          -4.102117           -8.804816\n              modelToyota Corona modelValiant modelVolvo 142E       wt\nEurope                 -44.72605    -2.073514       34.932615 4.534617\nNorth America          -52.77315     5.537827        2.626442 3.625818\n                 amTRUE     gear.L    gear.Q      carb\nEurope        -34.05607 40.7995829 -5.443825 10.524876\nNorth America -24.81811  0.6220113 39.516400  5.894396\n\nStd. Errors:\n              (Intercept) modelCadillac Fleetwood modelCamaro Z28\nEurope           35852.83                64.65729             NaN\nNorth America    12968.78                64.70730    2.870067e-08\n              modelChrysler Imperial modelDatsun 710 modelDodge Challenger\nEurope                      477.3874    1.590757e-08          2.858243e-08\nNorth America               477.3874    2.200012e-18          6.428719e+00\n              modelDuster 360 modelFerrari Dino modelFiat 128 modelFiat X1-9\nEurope           5.486580e-10          2660.898  1.805399e+04   1.525317e+04\nNorth America    7.249665e-11          2660.898  1.192455e-12   4.867466e-13\n              modelFord Pantera L modelHonda Civic modelHornet 4 Drive\nEurope                 0.09603878     5.871595e-07        3.863891e-10\nNorth America          0.09624948     9.331882e-08        7.163294e+03\n              modelHornet Sportabout modelLincoln Continental modelLotus Europa\nEurope                  4.655689e-09                 285.0759          32194.07\nNorth America           5.351209e-02                 285.1436          20099.45\n              modelMaserati Bora modelMazda RX4 modelMazda RX4 Wag\nEurope                0.01739745   644.72277405       1.000913e+02\nNorth America         0.01739745     0.04282998       3.394594e-05\n              modelMerc 230 modelMerc 240D modelMerc 280 modelMerc 280C\nEurope         1.329222e+02   1.088958e+02  4.023889e-07   2.701645e-06\nNorth America  4.475756e-08   3.800080e-08  2.855911e-10   1.280090e-09\n              modelMerc 450SE modelMerc 450SL modelMerc 450SLC\nEurope            92448.24826        22918.50        1179.3388\nNorth America        12.05893        21677.09         776.0876\n              modelPontiac Firebird modelPorsche 914-2 modelToyota Corolla\nEurope                 1.504060e-06           29024.38        9.393802e-15\nNorth America          6.422677e+01           62881.87        2.008891e-13\n              modelToyota Corona modelValiant modelVolvo 142E       wt   amTRUE\nEurope              2.042457e-17 7.332842e-09    5.751337e+04 26852.73 81773.79\nNorth America       1.689525e+01 3.329289e+04    5.749185e-12 97682.05 57698.40\n                 gear.L    gear.Q     carb\nEurope        120502.95 45794.583 77388.60\nNorth America  84695.32  5294.488 34719.66\n\nResidual Deviance: 0.0001161393 \nAIC: 136.0001 "
+      
+      
+      attr(,"params")$y_col
+      [1] "continent"
+      
+      attr(,"params")$rand_it
+      [1] 10
+      
+      attr(,"params")$parallel
+      [1] 0
+      
+      attr(,"params")$model_packages
+      [1] "nnet"
+      
+      attr(,"params")$random_model_call_string
+      NULL
+      
+      attr(,"params")$random_model_call_string_vars
+      character(0)
+      
+      attr(,"params")$positive
+      [1] TRUE
+      
+      attr(,"params")$seed
+      [1] 0
+      
+      attr(,"params")$rand_it_ok
+      [1] 10
+      
+      attr(,"params")$exactness
+      [1] "invalid"
+      
 

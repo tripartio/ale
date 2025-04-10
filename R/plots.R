@@ -4,41 +4,77 @@
 # None of the object-oriented code is in this file; such code is in dedicated object files such as ALEPlots.R.
 
 
+# # Colours
+# # https://coolors.co/09090b-4979c1-ff474a-f4ce67-adadad
+# #
+# # 2 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+#
+# # 3 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+#
+# # 4 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
+#
+# # 5 Colours
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
+# --silver: '#adadadff';
+#
+# # 6 Colours
+# black: '#09090bff';
+# --glaucous: '#4979c1ff';
+# --imperial-red: '#ff474aff';
+# --aquamarine: '#47FFC8'
+# --naples-yellow: '#f4ce67ff';
+# --silver: '#adadadff';
 
-#  Plot ALE data
-#
-#  This function is not exported. It creates a ggplot object that plots the input
-#  ALE data generated from `calc_ale`.
-#  This function is not usually called directly by the user. For details about
-#  arguments not documented here, see [ALE()].
-#
-#
-#  @param ale_data tibble. Output data from `calc_ale`.
-#  @param x_col character length 1. Name of single column whose ALE data is to
-#  be plotted.
-#  @param y_col character length 1. Name of y (output) column whose ALE data is to
-#  be plotted.
-#  @param y_type See documentation for [ALE()]
-#  @param y_summary named double. Named vector of y summary statistics to be used for plotting. Unlike the direct result of var_summary(), this y_summary is the vector that represents only a single categorical class.
-#  @param ... not used. Enforces explicit naming of subsequent arguments.
-#  @param relative_y See documentation for [ALE()]
-#  @param median_band_pct See documentation for [ALE()]
-#  @param x_y dataframe with two columns: x_col and y_col.
-#  If provided, used to generate rug plots.
-#@param data dataframe. If provided, used to generate rug plots. Must at least
-#contain columns x_col and y_col; any other columns are not used.
-#  @param rug_sample_size,min_rug_per_interval See documentation for [ALE()]
-#  @param seed See documentation for [ALE()]
-#
-#
+
+
+
+#' Plot 1D ALE data
+#'
+#' Create a ggplot object that plots the 1D ALE data from an `ALE` object. For details about arguments not documented here, see [ALE()].
+#'
+#' @noRd
+#'
+#' @param ale_data tibble. Output data from `calc_ale`.
+#' @param x_col character(1). Name of a single column whose ALE data is to be plotted.
+#' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
+#' @param cat_plot character(1) in c('overlay', 'facet'). If not `NULL` (default), type of categorical plot to create.
+#' @param y_type See documentation for [ALEPlots()]
+#' @param y_summary See documentation for [ALE()]: `ale_obj@params$y_summary`
+#' @param p_exactness See documentation for [ALEpDist()]: `alepdist_obj@params$exactness`
+#' @param aler_alpha See documentation for [ALE()]
+#' @param ... not used. Enforces explicit naming of subsequent arguments.
+#' @param ale_centre See documentation for [ALEPlots()]
+#' @param y_1d_refs See documentation for [ALEPlots()]
+#' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
+#' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
+#' @param seed See documentation for [ALE()]
+#'
+#' @returns a `ggplot` with a 1D ALE plot
+#'
 plot_ale_1D <- function(
-    ale_data, x_col, y_col, y_type,
+    ale_data,
+    x_col,
+    y_col,
+    cat_plot = NULL,
+    y_type,
     y_summary,
+    p_exactness,
+    aler_alpha,
     ...,
-    # ggplot_custom,
-    relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
+    ale_centre = 'median',
+    y_1d_refs = c('25%', '75%'),
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
@@ -50,39 +86,16 @@ plot_ale_1D <- function(
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
+  use_aler_band <- !is.null(p_exactness)
 
-  # # For now ensure that plots are not categorical
-  # if (ncol(y_summary) > 1) {
-  #   # Not yet ready to create categorical plots
-  #   return(NULL)
-  # }
-  #
-  # # Adjust inputs according to new (202404) data structure
-  # ale_data <- ale_data[[1]]  # remove extra category level
+  all_cats <- '.cat' %in% names(ale_data)
 
-  # # convert y_summary to a vector instead of a matrix
-  # y_summary <- y_summary |>
-  #   as.numeric() |>
-  #   setNames(rownames(y_summary))
-
-
-  # # Default relative_y is median. If it is mean or zero, then the y axis
-  # # must be shifted for appropriate plotting
-  # y_shift <- case_when(
-  #   relative_y == 'median' ~ 0,  # no shift since median is the default
-  #   relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
-  #   relative_y == 'zero' ~ -y_summary[['50%']],
-  # )
-  #
-  # # Then shift all the y summary data
-  # y_summary <- y_summary + y_shift
-
-  # Shift ale_data and y_summary by relative_y.
-  # Calculate shift amount
+  # Shift ale_data and y_summary by ale_centre.
+  # Calculate shift amount.
   y_shift <- case_when(
-    relative_y == 'median' ~ y_summary[['50%']],
-    relative_y == 'mean' ~ y_summary[['mean']],
-    relative_y == 'zero' ~ 0,
+    ale_centre == 'median' ~ y_summary[['50%']],
+    ale_centre == 'mean' ~ y_summary[['mean']],
+    ale_centre == 'zero' ~ 0,
   )
 
   # Shift all y data for plotting
@@ -101,50 +114,33 @@ plot_ale_1D <- function(
   # Centre the y summary data on y_shift (it was originally centred on the median)
   y_summary <- y_summary - y_summary[['50%']] + y_shift
 
-
-
   x_is_numeric <- names(ale_data)[1] |> endsWith('.ceil')
-  # # Determine if datatype of ale_x
-  # # Note: all non-numeric ale_x are ordered factors (ordinal)
-  # x_type <- var_type(ale_data$ale_x)
-
-
-  total_n <- sum(ale_data$.n)
 
   # Rename the x variable in ale_data for easier coding
   names(ale_data)[1] <- '.x'
+
+  total_n <- ale_data |>
+    # Summarize by x and .n in case current ale_data is for all_cats
+    summarize(.by = c('.x', '.n')) |>
+    pull('.n') |>
+    sum()
 
   ## Create base plot --------------------
   plot <-
     ale_data |>
     ggplot(aes(
       x = .data$.x,
-      # x = if (!is.null(ale_data$.ceil)) {   # numeric x
-      #   .data$.ceil
-      # } else {  # ordinal x
-      #   .data$.bin
-      # },
       y = .data$.y
     )) +
     theme_bw() +
     # Zoom y-axis to the range of actual Y and ALE Y values.
-    # In particular, ignore extreme .y_lo or .y_hi values, or else they
-    # could distort the scale.
-    # With this setting most plots will be on the same y_min to y_max scale;
-    # only a few with extreme .y values would zoom out to show these.
+    # In particular, ignore extreme .y_lo or .y_hi values, or else they could distort the scale.
+    # With this setting most plots will be on the same y_min to y_max scale; only a few with extreme .y values would zoom out to show these.
     coord_cartesian(
       ylim = c(
         min(y_summary[['min']], ale_data$.y),
         max(y_summary[['max']], ale_data$.y)
       )
-    ) +
-    # Add a band to show the average ± the confidence limits
-    geom_rect(
-      xmin = -Inf,
-      xmax = Inf,
-      ymin = y_summary[['med_lo']],
-      ymax = y_summary[['med_hi']],
-      fill = 'lightgray'
     ) +
     theme(axis.text.y.right = element_text(size = 8)) +
     labs(
@@ -153,36 +149,51 @@ plot_ale_1D <- function(
       alt = str_glue('ALE plot of {y_col} against {x_col}')
     )
 
-  # Add a secondary axis to label the percentiles
-  # Construct secondary (right) axis label from bottom to top.
-  sec_labels <- if (names(y_summary[1]) == 'p') {
-    # p-values were provided for y_summary; ALER is used
-    c(
-      # To prevent overlapping text, summarize all details only in the
-      # centre label; leave the others empty
-      '',  #empty
-      str_glue(
-        'p(ALER)\n',
-        # Unicode ± must be replaced by \u00B1 for CRAN
-        '\u00B1{format(p_alpha[2], nsmall = 3)},\n',
-        '\u00B1{format(p_alpha[1], nsmall = 3)}'),
-      ''  #empty
-    )
-  }
-  else {
-    # without p-values, quantiles are used
-    c(
-      str_glue('{50-(median_band_pct[2]*100/2)}%'),
-      relative_y,
-      str_glue('{50+(median_band_pct[2]*100/2)}%')
-    )
-  }
+  # Add ALER band to show the average ± the confidence limits
+  if (use_aler_band) {
+    plot <- plot +
+      geom_rect(
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = y_summary[['aler_lo']],
+        ymax = y_summary[['aler_hi']],
+        fill = 'lightgray'
+      )
 
-  sec_breaks <- c(
-    y_summary[['med_lo_2']],
-    if_else(relative_y == 'median', y_summary[['50%']],  y_summary[['mean']]),
-    y_summary[['med_hi_2']]
-  )
+    # Add a secondary axis to label the percentiles.
+    # Construct secondary (right) axis label from bottom to top.
+    sec_labels <- c(
+        # To prevent overlapping text, summarize all details only in the centre label; leave the others empty
+        '',  # empty
+        str_glue(
+          '{p_exactness}\n',
+          'p(ALER)\n',
+          # Unicode ± must be replaced by \u00B1 for CRAN
+          '\u00B1{format(aler_alpha[2], nsmall = 3)},\n',
+          '\u00B1{format(aler_alpha[1], nsmall = 3)}'),
+        ''  # empty
+      )
+
+    sec_breaks <- c(
+      y_summary[['aler_lo_lo']],
+      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
+      y_summary[['aler_hi_hi']]
+    )
+  } else {
+    # Add a secondary axis to label the percentiles.
+    # Construct secondary (right) axis label from bottom to top.
+    sec_labels <- c(
+        y_1d_refs[1],
+        ale_centre,
+        y_1d_refs[2]
+      )
+
+    sec_breaks <- c(
+      y_summary[[y_1d_refs[1]]],
+      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
+      y_summary[[y_1d_refs[2]]]
+    )
+  }
 
   plot <- plot +
     scale_y_continuous(
@@ -194,21 +205,76 @@ plot_ale_1D <- function(
         )
     )
 
-
   ## Differentiate numeric x (line chart) from categorical x (bar charts) -------------
 
-  # if (x_type == 'numeric') {
-  # if (!is.null(ale_data$.ceil)) {   # numeric x
   if (x_is_numeric) {
+    if (!all_cats) {
+      plot <- plot +
+        # Bootstrap band (ribbon)
+        geom_ribbon(
+          aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
+          fill = 'grey85', alpha = 0.5
+        ) +
+        # x line
+        geom_line()
+    }
+    else {
+      # All categories: no bootstrap bands
+      plot <- if (cat_plot == 'overlay') {
+        plot +
+          geom_line(aes(
+            colour = '.cat',
+            linetype = '.cat'
+          )) +
+          labs(
+            colour = y_col,
+            linetype = y_col
+          )
+      }
+      else {  # facet
+        plot +
+          geom_line() +
+          facet_wrap(vars('.cat'), nrow = 1)
+      }
+    }
+
     plot <- plot +
-      geom_ribbon(aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
-                  fill = 'grey85', alpha = 0.5) +
+      # Bootstrap band (ribbon)
+      geom_ribbon(
+        aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
+        fill = 'grey85', alpha = 0.5
+      ) +
+      # x line
       geom_line()
   }
-  else {  # x is not numeric
+  else {
+    # x is not numeric: use column charts
+    if (!all_cats) {
+      plot <- plot +
+        geom_col(fill = 'gray')
+    }
+    else {
+      # All categories: no bootstrap bands
+      plot <- if (cat_plot == 'overlay') {
+        plot +
+          geom_col(
+            aes(fill = '.cat'),
+            position = 'dodge'  # side-by-side columns
+          )
+      }
+      else {  # facet
+        plot +
+          geom_col(fill = 'gray') +
+          facet_wrap(vars('.cat'), nrow = 1)
+      }
+    }
+
     plot <- plot +
-      geom_col(fill = 'gray') +
-      geom_errorbar(aes(ymin = .data$.y_lo, ymax = .data$.y_hi), width = 0.05) +
+      geom_errorbar(
+        aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
+        width = if (is_string(cat_plot, 'overlay')) 1 else 0.1,
+        position = position_dodge2(preserve = 'single')
+      ) +
       # Add labels for percentage of dataset. This serves the equivalent function of rugs for numeric data.
       # Varying column width is an idea, but it usually does not work well visually.
       geom_text(
@@ -222,7 +288,6 @@ plot_ale_1D <- function(
       )
 
     # Rotate categorical labels if they are too long
-    # if ((ale_data$.bin |> paste(collapse = ' ') |> nchar()) > 50) {
     if ((ale_data[[1]] |> paste(collapse = ' ') |> nchar()) > 50) {
       plot <- plot +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -232,33 +297,31 @@ plot_ale_1D <- function(
   # Add guides to show the median and the outer median band.
   # Add them late so that they superimpose most other elements.
   plot <- plot +
-    geom_hline(yintercept = y_summary[['med_lo_2']], linetype = "dashed") +
-    geom_hline(yintercept = y_summary[['50%']],      linetype = "solid") +
-    geom_hline(yintercept = y_summary[['med_hi_2']], linetype = "dashed")
+    geom_hline(
+      yintercept = if (use_aler_band) y_summary[['aler_lo_lo']] else y_summary[[y_1d_refs[1]]],
+      linetype = "dashed"
+    ) +
+    geom_hline(yintercept = y_summary[['50%']], linetype = "solid") +
+    geom_hline(
+      yintercept = if (use_aler_band) y_summary[['aler_hi_hi']] else y_summary[[y_1d_refs[2]]],
+      linetype = "dashed"
+    )
 
 
   ## Add rug plot if data is provided ------------
   # Add them late so that they superimpose most other elements.
   if (
     x_is_numeric &&
-    # !is.null(ale_data$.ceil) &&   # x is numeric
     !is.null(x_y) && rug_sample_size > 0
   ) {
-  # if (x_type == 'numeric' && !is.null(x_y) && rug_sample_size > 0) {
     rug_data <- x_y
     names(rug_data) <- c('rug_x', 'rug_y')
-
-    # tibble(
-    #   rug_x = x_y[[x_col]],
-    #   rug_y = x_y[[y_col]] + y_shift,
-    # )
 
     # If the data is too big, down-sample or else rug plots are too slow
     rug_data <- if (nrow(rug_data) > rug_sample_size) {
       rug_sample(
         rug_data,
         ale_data[[1]],
-        # ale_data$.ceil,
         rug_sample_size = rug_sample_size,
         min_rug_per_interval = min_rug_per_interval,
         seed = seed
@@ -299,79 +362,71 @@ plot_ale_1D <- function(
 
 
 
-# Plot ALE data
-#
-# This function is not exported. It creates a ggplot object that plots the input
-# ALE data generated from `calc_ale`.
-# This function is not usually called directly by the user. For details about
-# arguments not documented here, see [ALE()].
-#
-#
-# @param ale_data tibble. Output data from `calc_ale`.
-# @param x1_col,x2_col character length 1. Name of single x1 and single x2 column
-# whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted
-# on the y axis.
-# @param y_col character length 1. Name of y (output) column whose ALE data is to
-# be plotted by colour.
-# @param y_type See documentation for [ALE()]
-# @param y_summary named double. Named vector of y summary statistics to be used
-# for plotting.
-# @param y_vals numeric. Vector of all values of y in the dataset used to create
-# `ale_data`.
-# @param ... not used. Enforces explicit naming of subsequent arguments.
-# @param relative_y See documentation for [ALE()]
-# @param median_band_pct See documentation for [ALE()]
-# @param n_x1_bins,n_x2_bins See documentation for [plot.ALE()]
-# @param n_y_quant See documentation for [plot.ALE()]
-# @param x1_x2_y dataframe with three columns: x1_col, x2_col, and y_col.
-# If provided, used to generate rug plots.
-#@param data See documentation for `plot_ale_1D`
-# @param rug_sample_size,min_rug_per_interval See documentation for [ALE()]
-# @param seed See documentation for [ALE()]
-#
-#
+#' Plot 2D ALE data
+#'
+#' Create a 2D ALE plot as a `ggplot` object. For details about arguments not documented here, see [ALE()].
+#'
+#' @noRd
+#'
+#' @param ale_data tibble. Output data from `calc_ale`.
+#' @param x1_col,x2_col character(1). Name of single x1 and single x2 column whose ALE data is to be plotted. x1 is plotted on the x-axis while x2 is plotted on the y axis.
+#' @param y_col character(1). Name of y (output) column whose ALE data is to be plotted.
+#' @param params ALE object params property. Parameters for the object for which 2D plots will be created.
+#' @param ... not used. Enforces explicit naming of subsequent arguments.
+#' @param cat_plot character(1) in c('single', 'facet'). `'single'` (default) creates a typical 2D plot for a single category; `'facet'` creates a faceted plot across all categories.
+#' @param ale_centre See documentation for [ALE()]
+#'
 plot_ale_2D <- function(
-    ale_data, x1_col, x2_col, y_col, y_type,
-    y_summary,
-    y_vals,
+    ale_data, x1_col, x2_col, y_col,
+    params,
     ...,
-    # ggplot_custom, marginal, gg_marginal_custom,
-    relative_y = 'median',
-    p_alpha = c(0.01, 0.05),
-    median_band_pct = c(0.05, 0.5),
-    n_x1_bins = 20, n_x2_bins = 20, n_y_quant = 10,
-    x1_x2_y = NULL,
-    # data = NULL,
-    rug_sample_size = 500,
-    min_rug_per_interval = 1,
-    seed = 0
+    cat_plot = 'single',
+    ale_centre = 'median'
 ) {
+  ## Internal functions -----------------
+
+  # Ensure that a vector is unique.
+  # Needed for plotting scale breaks that require unique values.
+  make_unique_jitter <- function(
+    x,
+    jitter_scale = 0.001,
+    max_tries = 1000
+  ) {  # nocov start
+    x_jit <- x
+    for (i in seq_len(max_tries)) {
+      x_jit <- x + stats::runif(length(x), -jitter_scale, jitter_scale)
+      if (length(unique(x_jit)) == length(x)) return(x_jit)
+    }
+    cli::cli_abort("Could not make all values unique after {max_tries} tries.")
+  }  # nocov end
 
   ## Prepare data for plotting -----------------------
 
   # Validate arguments
   rlang::check_dots_empty()  # error if any unlisted argument is used (captured in ...)
 
-  # # For now ensure that plots are not categorical
-  # if (ncol(y_summary) > 1) {
-  #   # Not yet ready to create categorical plots
-  #   return(NULL)
-  # }
+  # Establish base variables
+  total_n <- ale_data |>
+    # Summarize by x1, x2, and .n in case current ale_data is for all_cats
+    summarize(.by = c(1, 2, '.n')) |>
+    pull('.n') |>
+    sum()
 
-  # # Adjust inputs according to new (202404) data structure
-  # # ale_data <- ale_data[[1]]  # remove extra category level
-  # # convert y_summary to a vector instead of a matrix
-  # y_summary <- y_summary |>
-  #   as.numeric() |>
-  #   setNames(rownames(y_summary))
+  y_vals <- if (cat_plot != 'single') {
+    # Temporary workaround
+    params$data$y_vals_sample[, 1]
+  } else {
+    params$data$y_vals_sample[, y_col]
+  }
 
+  y_summary <- params$y_summary[, y_col]
 
-  # Shift ale_data and y_summary by relative_y.
-  # Calculate shift amount
+  # Shift ale_data and y_summary by ale_centre.
+  # Calculate shift amount.
   y_shift <- case_when(
-    relative_y == 'median' ~ y_summary[['50%']],
-    relative_y == 'mean' ~ y_summary[['mean']],
-    relative_y == 'zero' ~ 0,
+    ale_centre == 'median' ~ y_summary[['50%']],
+    ale_centre == 'mean' ~ y_summary[['mean']],
+    ale_centre == 'zero' ~ 0,
   )
 
   # Shift all y data for plotting
@@ -381,173 +436,177 @@ plot_ale_2D <- function(
       \(col.y) col.y + y_shift
     ))
   y_summary <- y_summary - y_summary[['50%']] + y_shift
-  # y_vals <- y_vals - y_summary[['50%']] + y_shift
 
   # Shift the x1_x2_y y data for rug plots
-  if (y_type == 'numeric') {
+  x1_x2_y <- params$data$data_sample[
+    ,
+    # Use original params$y_col from params here because internal y_col might be a categorical category.
+    c(x1_col, x2_col, params$y_col)
+  ]
+  if (params$y_type == 'numeric') {
     x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
   }
-  # x1_x2_y[[3]] <- x1_x2_y[[3]] - y_summary[['50%']] + y_shift
 
   # Centre the y summary data on y_shift (it was originally centred on the median)
   y_summary <- y_summary - y_summary[['50%']] + y_shift
 
-  # # Default relative_y is median. If it is mean or zero, then the y axis must be shifted for appropriate plotting
-  # y_shift <- case_when(
-  #   relative_y == 'median' ~ 0,  # no shift since median is the default
-  #   relative_y == 'mean' ~ y_summary[['mean']] - y_summary[['50%']],
-  #   relative_y == 'zero' ~ -y_summary[['50%']],
-  # )
-  #
-  # # Then shift all the y values data
-  # y_vals <- y_vals + y_shift
-
-
-  # If n_y_quant is odd, internally make it even for quantile creation below
-  if (n_y_quant %% 2 == 1) {  # n_y_quant is odd
-    n_y_quant <- n_y_quant + 1
-  }
-
-  # Create quantiles for y
-  y_quantiles <-
-    y_vals |>
-    stats::quantile(
-      probs = c(
-        seq(0, 1, 1 / n_y_quant),
-        0.5 - (median_band_pct[1] / 2),
-        0.5 + (median_band_pct[1] / 2)
-      ) |>
-        sort()
-    )
-  # Delete the middle, the middle - 1, and the middle + 1 quantiles
-  y_quantiles <- y_quantiles[-c(
-    n_y_quant / 2,
-    (n_y_quant / 2) + 2,
-    (n_y_quant / 2) + 4
-  )]
-  y_quantile_names <- names(y_quantiles) |>
-    stringr::str_sub(end = -2)
-
-  quantile_mids <-
-    c(
-      (y_quantiles[1:(n_y_quant - 1)] + y_quantiles[2:n_y_quant]) / 2,
-      NA
-    )
-  # set the middle quantile to the median
-  quantile_mids[n_y_quant / 2] <- y_summary[['50%']]
-  quantile_mids <- quantile_mids|>
-    round(1) |>
-    format(digits = 2, big.mark = ',')
-
-  y_legend <-
-    map_chr(1:n_y_quant, function(i) {
-    lgd <- paste0(
-      quantile_mids[i],
-      ' [', y_quantile_names[i], '-', y_quantile_names[i + 1], '%)'
-    )
-
-    # Label special cases
-    lgd <- lgd <-
-      case_when(
-        i == 1 ~ paste0(lgd, ' (strong -)'),
-        i == (n_y_quant / 2) ~ paste0(lgd, ' (none)'),
-        # Replace ')' at the end of 100 with ']'
-        i == (n_y_quant - 1) ~ paste0(stringr::str_sub(lgd, end = -2),
-                                      '] (strong +)'),
-        .default = lgd
-      )
-  }) |>
-    (`[`)(-n_y_quant)  # delete final superfluous element
-
-  if (
-    y_type == 'binary' &&
-    y_summary[['min']] > 0 && y_summary[['max']] < 1
-  ) {  # y is a probability
-      # min(y_vals) > 0 && max(y_vals) < 1) {  # y is a probability
-      # Adjust the minimum and maximum deciles to ensure all .y values are included
-    y_quantiles[1] <- 0
-    y_quantiles[n_y_quant + 1] <- 1
-  }
+  # Store if x1 or x2 are numeric
+  x_is_numeric <- map_lgl(c(1, 2), \(i) {
+    (names(ale_data)[i] |> str_sub(-5)) == '.ceil'
+  })
 
   # Rename x1 and x2 columns for easier manipulation
   names(ale_data)[1] <- '.x1'
   names(ale_data)[2] <- '.x2'
 
-  # Assign each ALE x1, x2, and y value to its appropriate quantile for plotting
-  ale_data$y_quantile <- ale_data$.y |>
-    findInterval(y_quantiles) |>
-    # levels must be set so that all quantiles appear in legend
-    ordered(levels = 1:(n_y_quant - 1))
+  # Create bins for heatmap (tile) plotting.
+  # Numerical x is converted to ordinal bins; non-numeric x is just copied without changes.
+  for (i in 1:2) {
+    ale_data[[str_glue('.x{i}_bin')]] <- if (x_is_numeric[i]) {
+      it.ceilings <- ale_data[[str_glue('.x{i}')]] |>
+        unique() |>
+        sort()
+      it.floors <- c(
+        it.ceilings[1],
+        it.ceilings[-length(it.ceilings)]
+      )
+      it.bin_mids <- (it.ceilings + it.floors) / 2
 
-  ale_data$x1_quantile <- if (attr(ale_data, 'x')[[1]]$type == 'numeric') {
-    # ntile (the bin number) is divided by the number of bins (n_x1_bins) and then scaled by max(.x1) to fill the range of .x1 values.
-    (((max(ale_data$.x1) - min(ale_data$.x1)) *
-        (ntile(ale_data$.x1, n_x1_bins) - 1) / (n_x1_bins - 1))
-     + min(ale_data$.x1))
-  } else {
-    ale_data$.x1
-  }
-  ale_data$x2_quantile <- if (attr(ale_data, 'x')[[2]]$type == 'numeric') {
-    (((max(ale_data$.x2) - min(ale_data$.x2)) *
-        (ntile(ale_data$.x2, n_x2_bins) - 1) / (n_x2_bins - 1))
-     + min(ale_data$.x2))
-  } else {
-    ale_data$.x2
+      it.bins <- factor(it.bin_mids |> round_dp(), ordered = TRUE)
+
+      # Replace ale_data$.x_ with corresponding it.bins value
+      ale_data[[str_glue('.x{i}')]] |>
+        match(it.ceilings) |>
+        (\(idx) it.bins[idx])()
+    } else {
+      ale_data[[str_glue('.x{i}')]]
+    }
   }
 
+  ale_data <- ale_data |>
+    pivot_longer(
+      cols = c('.y_lo', '.y', '.y_hi'),
+      names_to = 'boot',
+      values_to = 'estimate'
+    ) |>
+    mutate(
+      boot = factor(
+        'boot',
+        levels = c('.y_hi', '.y', '.y_lo'),
+        ordered = TRUE
+      )
+    )
 
   plot <-
     ale_data |>
-    ggplot(aes(x = .data$x1_quantile, y = .data$x2_quantile, fill = .data$y_quantile)) +
+    # Even for numeric x, use ordinal bin labels.
+    # A future extension could try to adjust this when there are more than 10 bins, since that could get crowded.
+    ggplot(aes(x = .data$.x1_bin, y = .data$.x2_bin, fill = .data$estimate)) +
     theme_bw() +
     geom_tile() +
-    scale_fill_manual(
-      values = rev(grDevices::hcl.colors(n_y_quant - 1, 'Blue-Red 2')),
-      guide = guide_legend(reverse = TRUE),
-      drop = FALSE,  # show all levels in legend, even those that don't occur
-      labels = y_legend,
-    ) +
     labs(
       x = x1_col,
       y = x2_col,
-      fill = paste0(y_col, ' interaction'),
+      fill = paste0(y_col, '\ninteraction'),
       alt = str_glue(
-        'ALE interaction plot of {y_col} encoded as contours of its interaction ',
+        'ALE interaction plot of {y_col} encoded as a heatmap of its interaction ',
         'effect of {x1_col} on the horizontal axis and {x2_col} on the vertical axis'
       )
     ) +
-  theme(legend.title = element_text(size = 10)) +
+    geom_point(
+      aes(size = .data$.n * 100 / total_n),
+      # shapes: https://ggplot2.tidyverse.org/articles/ggplot2-specs.html
+      shape = 0,  # hollow square
+      alpha = 0.1
+    ) +
+    scale_size_area(
+      name = "% data",  # Size legend title
+      # append % to the labels
+      labels = \(breaks) {
+        breaks |> round_dp() |> paste0('%')
+      }
+    ) +
+    theme(legend.title = element_text(size = 10)) +
     theme(legend.text = element_text(size = 8)) +
     theme(legend.key.size = unit(4, "mm"))
 
-  # Add rug plot if x1_x2_y is provided
-  if (!is.null(x1_x2_y) && rug_sample_size > 0) {
-    rug_data <- tibble(
-      rug_x = x1_x2_y[[x1_col]],
-      rug_y = x1_x2_y[[x2_col]],
+  min_y <- min(y_summary['min'], min(ale_data$estimate))
+  max_y <- max(y_summary['max'], max(ale_data$estimate))
+
+  if (!is.null(params$p_values)) {
+    # Use the ALER band
+
+    custom_colours <- c(
+      "#FF0000", "#FFBBBB",    # < ALER band
+      "#FFDDBB", "#FFDDBB",    # lower ALER band
+      "#D2D2D2", "#D2D2D2",    # inner ALER band
+      "#BBDDFF", "#BBDDFF",    # upper ALER band
+      "#BBBBFF", "#0000FF"     # > ALER band
     )
 
-    # If the data is too big, down-sample for rug plots
-    rug_data <- if (nrow(rug_data) > rug_sample_size) {
-      rug_sample(
-        rug_data,
-        ale_data$x1_quantile |> unique(),
-        ale_data$x2_quantile |> unique(),
-        rug_sample_size = rug_sample_size,
-        min_rug_per_interval = min_rug_per_interval,
-        seed = seed
-      )
-    } else {
-      rug_data
-    }
+    custom_values <- c(
+      min_y, y_summary['aler_lo_lo'] - 1e-6,                # < ALER band
+      y_summary['aler_lo_lo'], y_summary['aler_lo'] - 1e-6, # lower ALER band
+      y_summary['aler_lo'], y_summary['aler_hi'],             # inner ALER band
+      y_summary['aler_hi'] + 1e-6, y_summary['aler_hi_hi'], # upper ALER band
+      y_summary['aler_hi_hi'] + 1e-6, max_y                 # > ALER band
+    ) |>
+      unname() |>
+      sort()
+
+    if (length(custom_values) > length(unique(custom_values))) {  # nocov start
+      # If values are not unique, jitter them until they are.
+      # nocov because this is a difficult condition to test.
+      custom_values <- custom_values |> make_unique_jitter(
+        jitter_scale = max(1e-6, y_summary['aler_hi_hi'] - y_summary['aler_lo_lo'])
+      ) |>
+        sort()
+    }  # nocov end
+
+
+    # range_cv <- range(custom_values)
+    scaled_custom_values <- (custom_values - min(custom_values)) / (max_y - min_y)
+    # scaled_custom_values <- (custom_values - min(custom_values)) / (range_cv[2] - range_cv[1])
+
+    breaks <- c(min_y, y_summary[['50%']], max_y)
+    labels <- c(
+      str_glue("{round_dp(min_y)} to {round_dp(y_summary['aler_lo_lo'])}"),
+      str_glue(
+        "ALER band:
+      [{round_dp(y_summary['aler_hi'])}, {round_dp(y_summary['aler_hi_hi'])}) upper
+      [{round_dp(y_summary['aler_lo'])}, {round_dp(y_summary['aler_hi'])}) inner
+      [{round_dp(y_summary['aler_lo_lo'])}, {round_dp(y_summary['aler_lo'])}) lower"
+      ),
+      str_glue("{round_dp(y_summary['aler_hi_hi'])} to {round_dp(max_y)}")
+    )
 
     plot <- plot +
-      geom_rug(
-        aes(
-          x = .data$rug_x, y = .data$rug_y,
-          fill = NULL  # remove the fill from the previous layer
-        ),
-        data = rug_data
+      scale_fill_gradientn(
+        colours = custom_colours,
+        values = scaled_custom_values,
+        limits = c(min_y, max_y),
+        breaks = breaks,
+        labels = labels,
+        name = y_col %+% '\ninteraction',
+        guide = guide_colorbar(
+          ticks = TRUE,
+          ticks.colour = "black",
+          nbin = 100,               # number of color segments
+          barheight = unit(5, "cm"), # stretch bar vertically
+          label.theme = element_text(size = 9),  # reduce font size if needed
+          label.position = "right"  # avoid cramming under ticks
+        )
+      )
+  }
+  else {
+    # No p-values available
+    plot <- plot +
+      scale_fill_gradient2(
+        high = "#0000FF",
+        mid = "#D2D2D2",
+        low = "#FF0000",
+        limits = c(min_y, max_y),
+        midpoint = y_summary['50%']
       )
   }
 
@@ -557,24 +616,45 @@ plot_ale_2D <- function(
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   }
 
+  # Conditionally facet the plot
+  plot <- plot +
+    facet_grid(
+      rows = if (params$boot_it > 0) vars('boot') else NULL,
+      cols = if (cat_plot != 'single') vars('.cat') else NULL,
+      labeller = if (params$boot_it > 0) {
+        labeller(
+          # Specify only bootstrap renaming; categories are left as default
+          boot = c(
+          '.y_lo' = 'conf.lo',
+          '.y' = y_col,
+          '.y_hi' = 'conf.hi'
+          )
+        )
+      } else {
+        # If not bootstrapped, leave labels as default
+        'label_value'
+      }
+    )
+
   return(plot)
 }
 
 
-# Downsample x and y rows for a rug plot to match a target sample size
-# while respecting specified intervals in the random sample
-#
-# Not exported. Rug plots are slow with large datasets because each data point
-# must be plotted. [rug_sample()] tries to resolve this issue by sampling
-# `rug_sample_size` rows of data at the most (only if the data has more than that
-# number of lines lines). However, to be representative, the sampling must have
-# at least min_rug_per_interval in each bin.
-#
-# @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
-# @param rug_sample_size See documentation for [ALE()]
-# @param min_rug_per_interval See documentation for [ALE()]
-# @param seed See documentation for [ALE()]
-#
+#' Downsampl rows for a rug plot
+#'
+#' Downsample x and y rows for a rug plot to match a target sample size while respecting specified intervals in the random sample.
+#'
+#' Rug plots are slow with large datasets because each data point must be plotted. [rug_sample()] tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
+#'
+#' @noRd
+#'
+#' @param x_y dataframe with two columns: rug_x (any basic datatype) and rug_y (numeric)
+#' @param max_num_bins ??
+#' @param y_intervals ??
+#' @param rug_sample_size See documentation for [ALE()]
+#' @param min_rug_per_interval See documentation for [ALE()]
+#' @param seed See documentation for [ALE()]
+#'
 rug_sample <- function(
     x_y,
     max_num_bins,
@@ -600,9 +680,8 @@ rug_sample <- function(
     ) |>
     select('row', 'rug_x', 'x_interval', 'rug_y', 'y_interval')
 
-  # rs_idxs: row indexes of the rug sample
-  # First, ensure there are at least min_rug_per_interval rows
-  # selected per x_interval and y_interval.
+  # rs_idxs: row indexes of the rug sample.
+  # First, ensure there are at least min_rug_per_interval rows selected per x_interval and y_interval.
   original_seed <- if (exists('.Random.seed')) .Random.seed else seed
   on.exit(set.seed(original_seed))
   set.seed(seed)
@@ -623,7 +702,6 @@ rug_sample <- function(
   )
   }
 
-
   return(
     x_y[rs_idxs, ] |>
       select('rug_x', 'rug_y')
@@ -634,9 +712,8 @@ rug_sample <- function(
 plot_effects <- function(
     estimates,
     y_summary,
-    # y_vals,
     y_col,
-    middle_band
+    y_nonsig_band
 ) {
   # Essential functionality of labeling::extended or scales::breaks_extended()
   nice_breaks <- function(limits, n) {
@@ -651,32 +728,8 @@ plot_effects <- function(
     seq(floor(limits[1] / step) * step, ceiling(limits[2] / step) * step, by = step)
   }
 
-  # # Create deciles for NALED and NALER axis
-  # norm_deciles <-
-  #   y_vals |>
-  #   quantile(seq(0, 1, 0.1)) |>
-  #   stats::setNames(seq(-50, 50, 10) |> paste0('%'))
-  #
-  # # Determine key points for the middle_band: naled_band or median_band
-  # middle_band_quantiles <- quantile(
-  #   y_vals, c(
-  #     # effects plot only uses the inner median band
-  #     0.5 - (middle_band[1] / 2),
-  #     0.5,
-  #     0.5 + (middle_band[1] / 2)
-  #   )
-  # )
-  # middle_band_lo <- middle_band_quantiles[1]
-  # median_y       <- middle_band_quantiles[2]
-  # middle_band_hi <- middle_band_quantiles[3]
-
-  # # Set y_summary to only one category set of values
-  # y_summary <- y_summary[, 1]
-
-  # ALED and NALED should be centred not on the median, but on the middle of the
-  # median band. This is visually more intuitive.
-  middle_band_mid <- (y_summary['med_lo'] + y_summary['med_hi']) / 2
-  # middle_band_mid <- (middle_band_lo + middle_band_hi) / 2
+  # ALED and NALED should be centred not on the median, but on the middle of the median band. This is visually more intuitive.
+  y_nonsig_band_mid <- (y_summary['aler_lo'] + y_summary['aler_hi']) / 2
 
   # Sort estimates by ALED and convert term to an ordered factor for proper sorting.
   # NALED sometimes gives unusual values because of the normalization.
@@ -710,8 +763,6 @@ plot_effects <- function(
       limits = c(
         min(y_summary['min'], estimates$aler_min),
         max(y_summary['max'], estimates$aler_max)
-        # min(min(y_vals, estimates$aler_min)),
-        # max(max(y_vals, estimates$aler_max))
       ),
       # Regular breaks plus the median
       breaks = \(it.limits) {
@@ -730,15 +781,14 @@ plot_effects <- function(
     ) +
     # Even if the ALE values are extreme, zoom in to natural Y value limits
     coord_cartesian(xlim = c(y_summary['min'], y_summary['max'])) +
-    # coord_cartesian(xlim = range(y_vals)) +
     theme(
       panel.grid.major.x = element_line(colour = "grey75", linewidth = 0.5),
       panel.grid.minor.x = element_line(colour = "grey90", linewidth = 0.1)
     ) +
     # Plot the median band: the average ± the confidence limits
     geom_rect(
-      xmin = y_summary['med_lo'],
-      xmax = y_summary['med_hi'],
+      xmin = y_summary['aler_lo'],
+      xmax = y_summary['aler_hi'],
       ymin = -Inf,
       ymax = Inf,
       fill = 'lightgray'
@@ -755,29 +805,29 @@ plot_effects <- function(
     # ALED/NALED as annotated text above and below white box
     geom_rect(
       aes(
-        xmin = middle_band_mid - (.data$aled / 2),
-        xmax = middle_band_mid + (.data$aled / 2),
+        xmin = y_nonsig_band_mid - (.data$aled / 2),
+        xmax = y_nonsig_band_mid + (.data$aled / 2),
         ymin = as.integer(as.factor(.data$term)) - 0.3,
         ymax = as.integer(as.factor(.data$term)) + 0.3,
       ),
       fill = 'white'
     ) +
     geom_text(
-      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = middle_band_mid),
+      aes(label = paste0('NALED ', format(round_dp(.data$naled)), '%'), x = y_nonsig_band_mid),
       size = 3, vjust = -1
     ) +
     # Use ( ) as the demarcators of the plot.
     # This visualization should not be confused with a box plot.
     geom_text(
-      aes(label = '(', x = middle_band_mid - (.data$aled / 2)),
+      aes(label = '(', x = y_nonsig_band_mid - (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = ')', x = middle_band_mid + (.data$aled / 2)),
+      aes(label = ')', x = y_nonsig_band_mid + (.data$aled / 2)),
       nudge_y = 0.02
     ) +
     geom_text(
-      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = middle_band_mid),
+      aes(label = paste0('ALED ', format(round_dp(.data$aled))), x = y_nonsig_band_mid),
       size = 3, vjust = 2
     ) +
     # annotation to explain symbols
@@ -785,9 +835,7 @@ plot_effects <- function(
       geom = 'label',
       # Position as far to the right as possible
       x = y_summary['max'],
-      # x = max(y_vals),
-      # Position next to variable with the least aler_max; this reduces
-      # the likelihood that the annotation will overlap any data.
+      # Position next to variable with the least aler_max; this reduces the likelihood that the annotation will overlap any data.
       y = which(estimates$aler_max == min(estimates$aler_max))[1],
       label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
       size = 3,
@@ -797,3 +845,5 @@ plot_effects <- function(
 
   return(plot)
 }
+
+

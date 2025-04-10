@@ -1,9 +1,10 @@
 # For references to the package itself with meta, see https://stackoverflow.com/questions/72506674/get-version-number-from-the-description-file-in-an-r-package#comment132057305_72506909
 
 
-citHeader("To cite package 'ale' in publications use:")
+citHeader("To cite scientific or statistical use of package 'ale' in publications use:")
 
 bibentry(
+  key = "alestatsarxiv",
   bibtype = "Article",
   title = "Statistical inference using machine learning and classical techniques based on accumulated local effects (ALE)",
   author = person('Chitu', 'Okoli'),
@@ -14,13 +15,37 @@ bibentry(
   pages = "1-30"
 )
 
-citHeader("For the package itself use:")
+bibentry(
+  key = "aleinforms24",
+  bibtype = "Unpublished",
+  note = "Conference",
+  author = person('Chitu', 'Okoli'),
+  title = "Reliable Inference from Human-Centred Datasets with Accumulated Local Effects",
+  booktitle = "2024 INFORMS Annual Meeting",
+  year = "2024",
+  url = "https://submissions.mirasmart.com/InformsAnnual2024/Itinerary/PresentationDetail.aspx?evdid=6275"
+)
+
+bibentry(
+  key = "alestatsinformsds",
+  bibtype = "Unpublished",
+  note = "Conference",
+  author = person('Chitu', 'Okoli'),
+  title = "Model-Agnostic Interpretability: Effect Size Measures from Accumulated Local Effects (ALE)
+",
+  booktitle = "INFORMS Workshop on Data Science 2024",
+  year = "2024",
+  url = "https://sites.google.com/view/data-science-2024/program"
+)
+
+citHeader("To cite the software package itself use:")
 
 bibentry(
   bibtype = "Manual",
   title = paste0(meta$Package, ': ', meta$Title),
   author = person('Chitu', 'Okoli'),
-  year = "2023",
+  year = Sys.Date() |> format('%Y'),
   note = paste0("R package version ", meta$Version),
   url = "https://CRAN.R-project.org/package=ale"
 )
+

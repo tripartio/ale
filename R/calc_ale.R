@@ -4,15 +4,16 @@
 
 #' Calculate ALE data
 #'
-#' This function is not exported. It is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
+#' This is a complete reimplementation of the ALE algorithm relative to the reference in [ALEPlot::ALEPlot()]. In addition to adding bootstrapping and handling of categorical y variables, it reimplements categorical x interactions.
 #'
 #' For details about arguments not documented here, see [ALE()].
 #'
+#' @noRd
+#'
 #' @references Apley, Daniel W., and Jingyu Zhu. "Visualizing the effects of predictor variables in black box supervised learning models." Journal of the Royal Statistical Society Series B: Statistical Methodology 82.4 (2020): 1059-1086.
-#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. doi:10.48550/arXiv.2310.09877.
+#' @references Okoli, Chitu. 2023. “Statistical Inference Using Machine Learning and Classical Techniques Based on Accumulated Local Effects (ALE).” arXiv. <doi:10.48550/arXiv.2310.09877>.
 #'
 #' @param data See documentation for [ALE()]
-# @param X dataframe. Data for which ALE is to be calculated. The y (outcome) column is absent.
 #' @param model See documentation for [ALE()]
 #' @param x_cols character(1 or 2). Names of columns in X for which ALE data is to be calculated. Length 1 for 1D ALE and length 2 for 2D ALE.
 #' @param y_col character(1). Name of the target y column.
@@ -26,22 +27,21 @@
 #' @param boot_centre See documentation for [ALE()]
 #' @param boot_ale_y logical(1). If `TRUE`, return the bootstrap matrix of ALE y values. If `FALSE` (default) return NULL for the `boot_ale_y` element of the return value.
 #' @param .bins See documentation for [ALE()]
-# @param bins,ns numeric or ordinal vector,integer vector. Normally generated automatically (if `bins == NULL`), but if provided, the provided values will be used instead. They would mainly be provided from [ModelBoot()].
 #' @param ale_y_norm_funs list of functions. Custom functions for normalizing ALE y for statistics. It is usually a list(1), but for categorical y, there is a distinct function for each y category. If provided, ale_y_norm_funs saves some time since it is usually the same for all all variables throughout one call to [ALE()]. For now, used as a flag to determine whether statistics will be calculated or not; if NULL, statistics will not be calculated.
 #' @param p_dist See documentation for `p_values` in [ALE()]
 #'
 calc_ale <- function(
-    data, model,
+    data,
+    model,
     x_cols,
     y_col,
     y_cats,
-    pred_fun, pred_type,
+    pred_fun,
+    pred_type,
     max_num_bins,
     boot_it, seed, boot_alpha, boot_centre,
     boot_ale_y = FALSE,
     .bins = NULL,
-    # bins = NULL,
-    # ns = NULL,
     ale_y_norm_funs = NULL,
     p_dist = NULL
 ) {
@@ -87,10 +87,6 @@ calc_ale <- function(
         var_type(.bins[[2]])
       )
     }
-    # x_types <- if (!is.null(bins)) {
-    # map_chr(x_cols, \(it.x_col) {
-    #   var_type(bins[[it.x_col]])
-    # })
   } else {
     map_chr(x_cols, \(it.x_col) {
       var_type(X[[it.x_col]])
@@ -106,8 +102,6 @@ calc_ale <- function(
       x_vals = X[[it.x_col]],
       bins = .bins[[which(x_cols == it.x_col)]],
       n = .bins[['ns']],
-      # bins = bins[[it.x_col]],
-      # n = ns[[it.x_col]],
       max_num_bins,
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
@@ -185,11 +179,6 @@ calc_ale <- function(
     ## Iteratively set btit.X_lo and btit.X_hi values for each x variable in the interaction set ------------------
     for (it.x_col in x_cols) {
       if (xd[[it.x_col]]$x_type == 'numeric') {
-        # closeAllConnections()
-        # if (!is.null(.bins)) {
-        #   print(x_cols)
-        #   if (x_cols == 'wt') browser()
-        # }
 
         # bin_idxs: n_row-length index vector indicating into which bin the rows fall
         btit.x_vars[[it.x_col]]$bin_idxs <- cut(
@@ -200,7 +189,6 @@ calc_ale <- function(
             utils::head(xd[[it.x_col]]$ceilings, -1),
             # Add a tiny amount to the top ceiling to make sure the max value is included
             utils::tail(xd[[it.x_col]]$ceilings, 1) + 1e-8
-            # xd[[it.x_col]]$ceilings
           ),
           # right=TRUE is crucial otherwise dates crash because their cut method has different defaults
           right = TRUE
@@ -231,8 +219,17 @@ calc_ale <- function(
           it.dec_bin_idxs
         ] |>
           # Cast imputed column into appropriate datatype.
-          # Especially necessary to cast into logical when needed.
+          # Especially necessary to cast into logical or factor when needed.
           methods::as(class(X[[it.x_col]])[1])
+
+        # For unordered factors, precise recasting is needed
+        if (is.factor(X[[it.x_col]]) && !is.ordered(X[[it.x_col]])) {
+          btit.x_vars[[it.x_col]]$lo  <- factor(
+            btit.x_vars[[it.x_col]]$lo,
+            levels = levels(X[[it.x_col]]),
+            ordered = FALSE
+          )
+        }
 
         # For non-numeric x, btit.X_hi stays at its default base level; only btit.X_lo is decremented
         btit.x_vars[[it.x_col]]$hi <- btit.X[[it.x_col]]
@@ -271,7 +268,7 @@ calc_ale <- function(
         (pred_fun(model, btit.X_lo_hi, pred_type) - pred_fun(model, btit.X_lo_lo, pred_type))
     }
     else {
-      stop('Interactions beyond 2 are not yet supported.')
+      stop('Interactions beyond 2 are not yet supported.')  # nocov
     }
 
 
@@ -285,7 +282,7 @@ calc_ale <- function(
     }
     else if (is.null(colnames(btit.delta_pred))) {
       # This captures some odd model cases
-      colnames(btit.delta_pred) <- y_cats
+      colnames(btit.delta_pred) <- y_cats  # nocov
     }
 
     # Calculate the mean predictions differences (btit.delta_pred) for each interaction combination.
@@ -319,15 +316,9 @@ calc_ale <- function(
       ) |>
       # Strip the '.bin' or '.ceil' from column names
       rename_with(
-        ~ stringr::str_replace(.x, '(.*)(\\.bin)|(\\.ceil)$', '\\1'),
-        # ~ stringr::str_replace(.x, '.*(\\.bin)|(\\.ceil)$', ''),
+        ~ str_replace(.x, '(.*)(\\.bin)|(\\.ceil)$', '\\1'),
         ends_with(c('.bin', '.ceil'))
       )
-
-    # names(btit.local_eff_tbl) <- names(btit.local_eff_tbl) |>
-    #   stringr::str_replace('.*(\\.bin)|(\\.ceil)$', '')
-    # # stringr::str_replace('.*\\.[bin|ceil]$', 'dodo')
-
 
     # Convert the mean prediction differences to a multidimensional array
 
@@ -338,7 +329,6 @@ calc_ale <- function(
       dim = c(
         length(y_cats),  # The first dimension is the categories
         xd |>
-         # list_transpose(simplify = FALSE) |>
          list_transpose() |>
          pluck('n_bins')
       ),
@@ -349,10 +339,6 @@ calc_ale <- function(
             (if (!is.null(it.x_col$ceilings)) it.x_col$ceilings else it.x_col$bins) |>
               as.character()
           })
-        # xd |>
-        #   list_transpose(simplify = FALSE) |>
-        #   pluck('bin') |>
-        #   unname()
       )
     )
     # Initialize the cumulative predictions arrays similarly
@@ -444,39 +430,39 @@ calc_ale <- function(
       }  # else if (ixn_d == 2) {
 
       ### 3D ALE ----------------------
-      else if (ixn_d == 3) {
-
-        # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
-        btit.local_eff_ray[it.cat, , , ] <- add_array_na.rm(
-          btit.local_eff_ray[it.cat, , , ],
-          intrapolate_3D(btit.local_eff_ray[it.cat, , , ])
-        )
-
-        # Set any indeterminate missing values to zero; this includes the values in the first row and first column
-        btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , , ])] <- 0
-
-        # Accumulate interaction local effects first over rows then over columns then over depth.
-        # The order is arbitrary: any order would give identical results.
-        btit.acc_local_eff[it.cat, , , ] <- btit.local_eff_ray[it.cat, , , ] |>
-          # First accumulate over rows...
-          apply(c(2, 3), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          # apply() transposes its results when iterating over rows, so we need to transpose them back.
-          apply(c(2, 3), t) |>
-          # ... then accumulate over columns...
-          apply(c(1, 3), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          apply(c(1, 3), t) |>
-          # ... and then accumulate over depth.
-          apply(c(2, 1), \(it.cat.ale) {
-            cumsum(it.cat.ale)
-          }) |>
-          apply(c(2, 1), t)
-      }
+      # else if (ixn_d == 3) {
+      #
+      #   # For interactions, first intrapolate missing values: necessary for calculating cumulative sums.
+      #   btit.local_eff_ray[it.cat, , , ] <- add_array_na.rm(
+      #     btit.local_eff_ray[it.cat, , , ],
+      #     intrapolate_3D(btit.local_eff_ray[it.cat, , , ])
+      #   )
+      #
+      #   # Set any indeterminate missing values to zero; this includes the values in the first row and first column
+      #   btit.local_eff_ray[is.na(btit.local_eff_ray[it.cat, , , ])] <- 0
+      #
+      #   # Accumulate interaction local effects first over rows then over columns then over depth.
+      #   # The order is arbitrary: any order would give identical results.
+      #   btit.acc_local_eff[it.cat, , , ] <- btit.local_eff_ray[it.cat, , , ] |>
+      #     # First accumulate over rows...
+      #     apply(c(2, 3), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     # apply() transposes its results when iterating over rows, so we need to transpose them back.
+      #     apply(c(2, 3), t) |>
+      #     # ... then accumulate over columns...
+      #     apply(c(1, 3), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     apply(c(1, 3), t) |>
+      #     # ... and then accumulate over depth.
+      #     apply(c(2, 1), \(it.cat.ale) {
+      #       cumsum(it.cat.ale)
+      #     }) |>
+      #     apply(c(2, 1), t)
+      # }
       else {
-        cli_abort('Internal error: ixn_d not in c(1, 2, 3).')
+        cli_abort('Internal error: ixn_d not in c(1, 2, 3).')  # nocov
       }
 
     }  # for (it.cat in y_cats)
@@ -522,8 +508,6 @@ calc_ale <- function(
         levels = if (x1$x_type == 'numeric') x1$ceilings else x1$bins
       )
     )
-    # x1_counts <- table(x1_idxs)
-    # names(x1_counts) <- c(x1$bins, x1$ceilings)  # either bins or ceilings but not both since one is NULL
   }
 
   if (ixn_d >= 2) {
@@ -542,21 +526,15 @@ calc_ale <- function(
 
     # Count how many times each index occurs
     x12_counts <- table(
-      # factor(x1_idxs, levels = x1$idx_ord_orig_int),
       factor(
-        # x1$ceilings[x1_idxs],
         if (x1$x_type == 'numeric') x1$ceilings[x1_idxs] else x1$bins[x1_idxs],
         levels = if (x1$x_type == 'numeric') x1$ceilings else x1$bins
       ),
       factor(
-        # x2$ceilings[x2_idxs],
         if (x2$x_type == 'numeric') x2$ceilings[x2_idxs] else x2$bins[x2_idxs],
         levels = if (x2$x_type == 'numeric') x2$ceilings else x2$bins
       )
     )
-    # x12_counts <- table(x1_idxs, x2_idxs)
-    # rownames(x12_counts) <- if (x1$x_type == 'numeric') x1$ceilings else x1$bins
-    # colnames(x12_counts) <- if (x2$x_type == 'numeric') x2$ceilings else x2$bins
   }
 
   ## 1D ---------------
@@ -574,14 +552,12 @@ calc_ale <- function(
         it.cat_ale |>
           (`*`)(x1$x_int_probs[x1$idx_ord_orig_int] |> as.numeric()) |>
           sum(na.rm = TRUE)
-          # colSums(na.rm = TRUE)
       }
 
       # return from map
       list(
         shift     = shift,
         distinct  = NULL,
-        # distinct  = it.cat_ale,
         composite = NULL
       )
     }) |>
@@ -644,9 +620,9 @@ calc_ale <- function(
   }
 
   ## 3D ---------------
-  else if (ixn_d >= 3) {
+  else if (ixn_d >= 3) {  # nocov start
     stop('Interactions beyond 2 are not yet supported.')
-  }
+  }  # nocov end
 
 
   ## Apply the centring ----------------
@@ -669,9 +645,7 @@ calc_ale <- function(
     }) |>
     bind_rows() |>
     as_tibble() |>
-    # rename(.ale_n = .data$.n) |>
     mutate(.n = if_else(is.na(.data$.n), 0, .data$.n)) |>
-    # mutate(.ale_n = if_else(is.na(.ale_n), 0, .ale_n)) |>
     select(-all_of(y_cats)) |>
     select('.it', everything())
 
@@ -683,7 +657,6 @@ calc_ale <- function(
         as.character() |>
         # Cast to the precise original class (e.g., Date)
         cast(xd[[it.x_col]]$ceilings |> class())
-      # as.numeric()
     }
   }
 
@@ -705,8 +678,7 @@ calc_ale <- function(
         # Replicate boot_it + 1 times: all bootstrap iterations plus the full dataset
         rep.int(it.cat, boot_it + 1)
       }) |>
-      unlist()  # |> # flatten in order of y_cats
-    # as.numeric()  # remove names
+      unlist()  # flatten in order of y_cats
 
 
     # Calculate distinct ALE from bootstrapped .y_composite in boot_ale_tbl.
@@ -798,10 +770,27 @@ calc_ale <- function(
     bsumm <- boot_ale_tbl |>
       summarize(
         .by = c('.cat', all_of(x_cols)),
-        .y_lo     = stats::quantile(.data$.y, probs = boot_alpha / 2, na.rm = TRUE),
-        .y_mean   = mean(.data$.y, na.rm = TRUE),
-        .y_median = median(.data$.y, na.rm = TRUE),
-        .y_hi     = stats::quantile(.data$.y, probs = 1 - boot_alpha / 2, na.rm = TRUE),
+        # Retrieve the lower, median, and upper quantiles in a single list column.
+        # This is faster than calling quantile() or median() individually.
+        .q = list(
+          stats::quantile(
+            .data$.y,
+            probs = c(boot_alpha / 2, 0.5, 1 - boot_alpha / 2),
+            na.rm = TRUE
+          )
+        ),
+        .y_mean = mean(.data$.y, na.rm = TRUE)
+      ) |>
+      # Unpack the three quantiles
+      mutate(
+        .y_lo     = purrr::map_dbl(.data$.q, 1),
+        .y_median = purrr::map_dbl(.data$.q, 2),
+        .y_hi     = purrr::map_dbl(.data$.q, 3)
+      ) |>
+      # Select and reorder columns as desired
+      select(
+        -any_of(c('.q', '.y_lo', '.y_mean', '.y_median', '.y_hi')),
+        all_of(c('.y_lo', '.y_mean', '.y_median', '.y_hi'))
       )
 
     xn_counts <- if (ixn_d == 1) {
@@ -809,7 +798,7 @@ calc_ale <- function(
     } else if (ixn_d == 2) {
       x12_counts
     } else {
-      stop('Interactions beyond 2 are not yet supported.')
+      stop('Interactions beyond 2 are not yet supported.')  # nocov
     }
     xn_counts <- xn_counts |>
       as.data.frame.table(responseName = '.n') |>
@@ -846,46 +835,49 @@ calc_ale <- function(
 
   # Calculate ALE statistics ------------------
 
-  # Call ale_stats for each bootstrap iteration and summarize results
-  boot_stats <- NULL
+  # Call calc_stats for each bootstrap iteration and summarize results
+  boot_stats_summary <- NULL
   # Only get stats if ale_y_norm_funs is provided
   if (!is.null(ale_y_norm_funs)) {
-    boot_stats <- boot_ale_tbl |>
-      split(boot_ale_tbl$.cat) |>
-      imap(\(it.cat_ale_data, it.cat) {
+    boot_stats_detailed <- boot_ale_tbl
+    if (boot_it > 0) {
+      # Delete the first row (full data, not a bootstrap iteration)
+      boot_stats_detailed <- boot_stats_detailed[boot_stats_detailed$.it != 0, ]
+    }
+
+    boot_stats_detailed <- boot_stats_detailed |>
+      split(boot_stats_detailed$.cat) |>
+      imap(\(it.cat_ale_data, it.cat_name) {
         it.cat_ale_data |>
           split(it.cat_ale_data$.it) |>
           map(\(btit.cat_ale_data) {
             if (ixn_d == 1) {
-              ale_stats(
+              calc_stats(
                 y = btit.cat_ale_data$.y,
                 bin_n = btit.cat_ale_data$.n,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
+                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
                 y_vals = NULL,
-                x_type = xd[[1]]$x_type # ,
-                # zeroed_ale = TRUE
+                x_type = xd[[1]]$x_type
               )
             }
             else if (ixn_d == 2) {
-              ale_stats_2D(
+              calc_stats_2D(
                 ale_data = btit.cat_ale_data,
                 x_cols = x_cols,
                 x_types = x_types,
-                ale_y_norm_fun = ale_y_norm_funs[[it.cat]],
-                y_vals = NULL #,
-                # zeroed_ale = FALSE
+                ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
+                y_vals = NULL
               )            }
             else {
-              stop('Statistics not yet supported for higher than 2 dimensions.')
+              cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
             }
 
           }) |>
           bind_rows()
       })
 
-
     # Summarize stats across all bootstrap iterations
-    boot_stats <- boot_stats |>
+    boot_stats_summary <- boot_stats_detailed |>
       map(\(it.cat_boot_stats) {
         it.cbs <- as.matrix(it.cat_boot_stats)
 
@@ -904,21 +896,23 @@ calc_ale <- function(
             boot_centre == 'median' ~ median,
           ),
         )  |>
-          select('statistic', 'estimate', everything())
+          mutate(
+            term = paste0(x_cols, collapse = ':'),
+          ) |>
+          select('term', 'statistic', 'estimate', everything())
       })
 
     # If p_dist is provided, calculate p-values
     if (!is.null(p_dist)) {
-      boot_stats <- boot_stats |>
-        imap(\(it.cat_stats, it.cat) {
+      boot_stats_summary <- boot_stats_summary |>
+        imap(\(it.cat_stats, it.cat_name) {
           it.cat_stats |>
             mutate(
               p.value = map2_dbl(
                 .data$estimate, .data$statistic,
                 \(it.stat, it.stat_name) {
                   # Call the p_value function corresponding to the named statistic
-                  p_dist@rand_stats[[it.cat]] |>
-                    # p_dist$rand_stats[[it.cat]] |>
+                  p_dist@rand_stats[[it.cat_name]] |>
                     value_to_p(it.stat_name, it.stat)
                 })
             ) |>
@@ -945,47 +939,31 @@ calc_ale <- function(
   # Set proper datatypes for bin columns
   for (it.x_col in x_cols) {
     boot_summary <- if (xd[[it.x_col]]$x_type == 'numeric') {
-      # boot_summary[[it.x_col]] <- as.numeric(boot_summary[[it.x_col]])
       boot_summary |>
         mutate(!!it.x_col := as.numeric(.data[[it.x_col]])) |>
         rename(!!paste0(it.x_col, '.ceil') := all_of(it.x_col))
-      # rename(!!paste0(it.x_col, '.ceil') := it.x_col)
     } else {
       # Everything else becomes an ordered factor
       boot_summary |>
         mutate(
           !!it.x_col := factor(
-            # all_of(it.x_col),
             .data[[it.x_col]],
-            # boot_summary[[it.x_col]],
             ordered = TRUE, levels = xd[[it.x_col]]$bins
           )
         ) |>
         rename(!!paste0(it.x_col, '.bin') := all_of(it.x_col))
-      # boot_summary[[it.x_col]] <- boot_summary[[it.x_col]] |>
-      #   factor(ordered = TRUE, levels = xd[[it.x_col]]$bins)
     }
   }
 
   # Set .n to integer
   boot_summary$.n <- as.integer(boot_summary$.n)
 
-  # # Temporarily restore the data structure with compatibility with older versions
-  # if (ixn_d == 1) {
-  #   names(boot_summary)[2] <- 'ale_x'
-  # } else if (ixn_d == 2) {
-  #   names(boot_summary)[[2]] <- 'ale_x1'
-  #   names(boot_summary)[[3]] <- 'ale_x2'
-  # }
-
   boot_summary <- boot_summary |>
-    # rename_with(~ stringr::str_sub(.x, 2), starts_with('.')) |>
     select(-any_of(c('.y_composite', '.y_distinct'))) |>
     split(boot_summary$.cat) |>
     map(\(it.ale_data) {
       it.ale_data |> select(-'.cat')
     })
-  boot_stats <- boot_stats
 
   # Add attributes to ALE tibble that describe the column characteristics
   boot_summary <- boot_summary |>
@@ -993,7 +971,6 @@ calc_ale <- function(
       attr(it.cat, 'x') <- map(x_cols, \(it.x_col) {
         list(
           class = class(data[[it.x_col]]),  # original class before any internal transformations
-          # class = class(X[[it.x_col]]),
           type = xd[[it.x_col]]$x_type,
           n_bins = xd[[it.x_col]]$n_bins
         )
@@ -1006,24 +983,13 @@ calc_ale <- function(
 
   rtn_list <- list(summary = boot_summary)
   if (!is.null(ale_y_norm_funs)) {
-    rtn_list$stats <- boot_stats
+    rtn_list$stats <- boot_stats_summary
   }
   if (boot_ale_y) {
     rtn_list$boot_ale_y <- boot_ale_tbl
   }
 
   return(rtn_list)
-
-  # return(list(
-  #   summary = boot_summary,
-  #   stats = boot_stats,
-  #   boot_ale_y = if (boot_ale_y) {
-  #     boot_ale_tbl
-  #   } else {
-  #     NULL
-  #   }
-  # ))
-
 }  # calc_ale()
 
 
@@ -1034,6 +1000,8 @@ calc_ale <- function(
 #' Compute preparatory data for ALE calculation
 #'
 #' Computes data needed to calculate a variable's ALE values.
+#'
+#' @noRd
 #'
 #' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
 #' @param x_type character(1). var_type() of x_col.
@@ -1107,7 +1075,7 @@ prep_var_for_ale <- function(
         if (.i %in% names(x_int_counts)) {
           x_int_counts[[as.character(.i)]]
         } else {
-          0
+          0  # nocov
         }
       })
 

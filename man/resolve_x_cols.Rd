@@ -7,60 +7,48 @@
 resolve_x_cols(x_cols, col_names, y_col, exclude_cols = NULL, silent = FALSE)
 }
 \arguments{
-\item{x_cols}{character, list, or formula. Columns and interactions requested in one of the special \code{x_cols} formats. \code{x_cols} values not found in \code{col_names} will error. See examples.}
+\item{x_cols}{character, list, or formula. Columns and interactions requested in one of the special \code{x_cols} formats. \code{x_cols} variable names not found in \code{col_names} will error. See examples.}
 
-\item{col_names}{character. All the column names from a dataset.}
+\item{col_names}{character. All the column names from a dataset. All values in \code{x_cols} must be contained among the values in \code{col_names}. For interaction terms in \code{x_cols}, e.g., \code{"a:b"}, the individual variable names must be contained in \code{col_names}, e.g, \code{c("a", "b")}.}
 
 \item{y_col}{character(1). The y outcome column. If found in any \code{x_cols} value, it will be silently removed.}
 
 \item{exclude_cols}{Same possible formats as \code{x_cols}. Columns and interactions to exclude from those requested in \code{x_cols}. \code{exclude_cols} values not found in \code{col_names} will be ignored with a message (which can be silenced with \code{silent}).}
 
-\item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, x_cols not found in col_names will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
+\item{silent}{logical(1). If \code{TRUE}, no message will be given; in particular, \code{x_cols} not found in \code{col_names} will be silently ignored. Default is \code{FALSE}. Regardless, warnings and errors are never silenced (e.g, invalid \code{x_cols} formats will still report errors).}
 }
 \value{
-\code{x_cols} in canonical format, which is always a list with two elements:
-\itemize{
-\item \code{d1}: a character vector with each requested column for 1D ALE. If empty (no 1D ALE at all), its value is \code{list()}.
-\item \code{d2}: a list of length-2 character vectors with each requested 2D ALE interaction pair. If empty (no 2D ALE at all), its value is \code{list()}.
-}
+\code{x_cols} in canonical format, which is always a list with two elements, \code{d1} and \code{d2}. Each element is a character vector with each requested column for 1D ALE (\code{d1}) or 2D ALE interaction pair (\code{d2}). If either dimension is empty, its value is an empty character, \code{character()}.
 
 See examples for details.
 }
 \description{
 Resolve \code{x_cols} and \code{exclude_cols} to their standardized format of \code{x_cols} to specify which 1D and 2D ALE elements are required. This specification is used throughout the ALE package. \code{x_cols} specifies the desired columns or interactions whereas \code{exclude_cols} optionally specifies any columns or interactions to remove from \code{x_cols}. The result is \code{x_cols} – \code{exclude_cols}, giving considerable flexibility in specifying the precise columns desired.
 }
-\section{x_cols format options}{
+\section{\code{x_cols} format options}{
 
 
-The \code{x_cols} argument determines which predictor variables and interactions
-are included in the analysis. It supports multiple input formats:
+The \code{x_cols} argument determines which predictor variables and interactions are included in the analysis. It supports multiple input formats:
 \itemize{
-\item \strong{Character vector}: A simple vector of column names (e.g., \code{c("a", "b")})
-selects individual columns for 1D ALE analysis.
+\item \strong{Character vector}: Users can explicitly specify 1D terms and 2D ALE interactions, e.g., \code{c("a", "b", "a:b", "a:c")}.
 \item \strong{Formula (\code{~})}: Allows specifying variables and interactions in
 formula notation (e.g., \code{~ a + b + a:b}), which is automatically converted
 into a structured format. The outcome term is optional and will be ignored regardless.
 So, \code{~ a + b + a:b} produces results identical to \code{whatever ~ a + b + a:b}.
-\item \strong{List format}: Users can explicitly separate 1D and 2D ALE interactions:
+\item \strong{List format}:
 \itemize{
-\item A character vector named \code{d1} like \code{list(d1 = c("a", "b"))} specifies 1D ALE variables.
-\item A list of 2-character vectors named \code{d2} like \code{list(d2 = list(c("a", "b"), c("a", "c")))} specifies 2D interactions.
-\item \code{list(d1 = c("a", "b"), d2 = list(c("a", "b"), c("a", "c")))} combines both.
-}
+\item The basic list format is a list of character vectors named \code{d1} for 1D ALE terms, \code{d2} for 2D interactions, or both. For example, \code{list(d1 = c("a", "b"), d2 = c("a:b", "a:c"))}
 \item \strong{Boolean selection for an entire dimension}:
 \itemize{
 \item \code{list(d1 = TRUE)} selects all available variables for 1D ALE, excluding \code{y_col}.
 \item \code{list(d2 = TRUE)} selects all possible 2D interactions among all columns in \code{col_names}, excluding \code{y_col}.
 }
-\item \strong{Selective 2D expansion}: \code{list(d2_all = "a")} includes all 2D interactions
-where \code{"a"} is one of the interacting variables.
+\item A character vector of 1D terms only named \code{d2_all} may be used to include all 2D interactions that include the specified 1D terms. For example, specifying \code{list(d2_all = "a")} would select \code{c("a:b", "a:c", "a:d")}, etc. This is in addition to any terms requested in the \code{d1} or \code{d2} elements.
+}
 \item \strong{NULL (or unspecified)}: If \code{x_cols = NULL}, no variables are selected.
 }
 
-Regardless of format, \code{y_col} is always removed automatically. The function
-ensures all variables are valid and in \code{col_names}, providing informative
-messages unless \code{silent = TRUE}. And regardless of the specification format,
-the result will always be standardized in the format specified in the return value.
+The function ensures all variables are valid and in \code{col_names}, providing informative messages unless \code{silent = TRUE}. And regardless of the specification format, the result will always be standardized in the format specified in the return value. Note that \code{y_col} is not removed if included in \code{x_cols}. However, a message alerts when it is included, in case it is a mistake.
 
 Run examples for details.
 }
@@ -87,11 +75,8 @@ resolve_x_cols(c("a", "b"), col_names, y_col)
 # Character string: Select just one 1D element
 resolve_x_cols("c", col_names, y_col)
 
-# Character string: Select just one 1D element
-resolve_x_cols("c", col_names, y_col)
-
 # list of 1- and 2-length character vectors: specify precise 1D and 2D elements desired
-resolve_x_cols(list(c("a", "b"), "c", c("c", "a"), "b"), col_names, y_col)
+resolve_x_cols(c('a:b', "c", 'c:a', "b"), col_names, y_col)
 
 # Formula: Converts to a list of individual elements
 resolve_x_cols(~ a + b, col_names, y_col)
@@ -105,10 +90,10 @@ resolve_x_cols(whatever ~ a + b + a:b + c:b, col_names, y_col)
 resolve_x_cols(list(d1 = c("a", "b")), col_names, y_col)
 
 # List specifying d2 (2D ALE)
-resolve_x_cols(list(d2 = list(c("a", "b"))), col_names, y_col)
+resolve_x_cols(list(d2 = 'a:b'), col_names, y_col)
 
 # List specifying both d1 and d2
-resolve_x_cols(list(d1 = c("a", "b"), d2 = list(c("a", "b"))), col_names, y_col)
+resolve_x_cols(list(d1 = c("a", "b"), d2 = 'a:b'), col_names, y_col)
 
 # d1 as TRUE (select all columns except y_col)
 resolve_x_cols(list(d1 = TRUE), col_names, y_col)
@@ -168,7 +153,7 @@ resolve_x_cols(
 
 # Exclude one column from a list-based input
 resolve_x_cols(
-  x_cols = list(d1 = c("a", "b"), d2 = list(c("a", "b"), c("a", "c"))),
+  x_cols = list(d1 = c("a", "b"), d2 = c("a:b", "a:c")),
   col_names = col_names,
   y_col = y_col,
   exclude_cols = list(d1 = "a")
@@ -176,18 +161,18 @@ resolve_x_cols(
 
 # Exclude interactions only
 resolve_x_cols(
-  x_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c"))),
+  x_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c")),
   col_names = col_names,
   y_col = y_col,
-  exclude_cols = list(d2 = list(c("a", "b")))
+  exclude_cols = list(d2 = 'a:b')
 )
 
 # Exclude everything, including interactions
 resolve_x_cols(
-  x_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c"))),
+  x_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c")),
   col_names = col_names,
   y_col = y_col,
-  exclude_cols = list(d1 = c("a", "b", "c"), d2 = list(c("a", "b"), c("a", "c")))
+  exclude_cols = list(d1 = c("a", "b", "c"), d2 = c("a:b", "a:c"))
 )
 
 # Exclude a column implicitly removed by y_col
@@ -195,12 +180,12 @@ resolve_x_cols(
   x_cols = c("y", "a", "b"),
   col_names = col_names,
   y_col = "y",
-  exclude_cols = "y"
+  exclude_cols = "a"
 )
 
 # Exclude entire 2D dimension from x_cols with d2 = TRUE
 resolve_x_cols(
-  x_cols = list(d1 = TRUE, d2 = list(c("a", "b"), c("a", "c"))),
+  x_cols = list(d1 = TRUE, d2 = c("a:b", "a:c")),
   col_names = col_names,
   y_col = y_col,
   exclude_cols = list(d1 = c("a"), d2 = TRUE)

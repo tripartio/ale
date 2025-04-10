@@ -1,7 +1,7 @@
 ---
 title: "Analyzing small datasets (fewer than 2000 rows) with ALE"
 author: "Chitu Okoli"
-date: "February 14, 2025"
+date: "April 7, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Analyzing small datasets (fewer than 2000 rows) with ALE}
@@ -31,11 +31,7 @@ library(ale)
 
 ## attitude dataset
 
-Most analyses use the `attitude` dataset, built-in with R: "From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments." Since we're talking about "small" datasets, we figure that we might as well demonstrate principles with extremely small examples.
-
-### Description
-
-From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments. The numbers give the percent proportion of favourable responses to seven questions in each department.
+For this analysis, we use the `attitude` dataset, built-in with R: "From a survey of the clerical employees of a large financial organization, the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) departments." The numbers give the percent proportion of favourable responses to seven questions in each department. Since we're talking about "small" datasets, we figure that we might as well demonstrate principles with extremely small examples.
 
 ### Format
 
@@ -77,24 +73,10 @@ lm_attitude <- lm(rating ~ ., data = attitude)
 summary(lm_attitude)
 ```
 
-At the very least, the `{ale}` package is useful for visualizing the effects of model variables.
-
-Before starting, we recommend that you enable progress bars to see how long procedures will take. Simply run the following code at the beginning of your R session:
-
-```{r enable progressr, eval = FALSE}
-# Run this in an R console; it will not work directly within an R Markdown or Quarto block
-progressr::handlers(global = TRUE)
-progressr::handlers('cli')
-```
-
-If you forget to do that, the `{ale}` package will do it automatically for you with a notification message.
-
-Note that for now, we run `ALE()` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
+At the very least, the `{ale}` package is useful for visualizing the effects of model variables. Note that for now, we run `ALE()` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
 ```{r lm_simple, fig.width=7, fig.height=6}
-ale_lm_attitude_simple <- ALE(
-  lm_attitude
-)
+ale_lm_attitude_simple <- ALE(lm_attitude)
 
 # Print all plots
 plot(ale_lm_attitude_simple) |> 
@@ -103,35 +85,18 @@ plot(ale_lm_attitude_simple) |>
 
 This visualization confirms what we see in the model coefficients above: complaints have a strong positive effect on ratings and learning has a more moderate effect. However, the ALE indicates a stronger effect of advance than the regression coefficients suggest. The other variables have relatively little effect on ratings. We will see shortly that proper bootstrapping of the model can shed some light on the discrepancies.
 
-What is unique about ALE compared to other approaches is that it visualizes the effect of each variable irrespective of interactions that might or might not exist with other variables, whether these other interacting variables are included in the model or not.
-
-We can also use `ALE()` to visualize the possible existence of any interactions by specifying `x_cols = list(d2 = TRUE)` to calculate all 2D interactions:
-
-```{r lm_2D, fig.width=7, fig.height=16}
-ale_lm_attitude_2D <- ALE(
-  lm_attitude,
-  x_cols = list(d2 = TRUE)
-)
-
-# Create an ALEPlots object
-plot(ale_lm_attitude_2D) |> 
-  print(ncol = 2)
-```
-
-This is a powerful use-case for the `{ale}` package: it can be used to explore the existence of interactions after the fact; they do not need to be hypothesized beforehand. However, without bootstrapping, such findings cannot be considered reliable. In this case, there are no interactions in this dataset, so we will not explore them further.
-
 ## Full model bootstrapping
 
-We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets whose models have been properly trained and evaluated on separate subsets before ALE analysis, `ALE()` bootstraps the ALE results of the final deployment model on the full dataset. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped, not just the ALE data from a single deployment model. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
+We have referred frequently to the importance of bootstrapping. None of our model results, with or without ALE, should be considered reliable without being bootstrapped. For large datasets whose models have been properly trained and evaluated on separate subsets before ALE analysis, an `ALE` object can bootstrap the ALE results of the model trained on the full dataset. However, when a dataset is too small to be subdivided into training and test sets, then the entire model should be bootstrapped, not just the ALE data from a single trained model. That is, multiple models should be trained, one on each bootstrap sample. The reliable results are the average results of all the bootstrap models, however many there are.
 
-The `ModelBoot` object automatically carries out full-model bootstrapping suitable for small datasets. Specifically, it:
+The `ModelBoot` object automatically carries out full-model bootstrapping suitable for relatively smaller datasets. Specifically, it:
 
 -   Creates multiple bootstrap samples (default 100; the user can specify any number);
 -   Creates a model on each bootstrap sample;
 -   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 -   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 
-The constructor for `ModelBoot` has two required arguments. Consistent with tidyverse conventions, its first argument is a dataset, `data.` The second argument is the model object to be analyzed. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object. So, here is the creation of a `ModelBoot` object:
+The constructor for `{S7}` `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
 
 ```{r lm_full_call}
 mb_lm <- ModelBoot(
@@ -146,7 +111,7 @@ A `ModelBoot` has the following properties (depending on values requested in the
 
 * `model_stats`: bootstrapped results from `broom::glance()`
 * `model_coefs`: bootstrapped results from `broom::tidy()`
-* `ale_data`: bootstrapped ALE data and plots
+* `ale`: bootstrapped ALE data and plots
 * `boot_data`: full bootstrap data (not returned by default)
 
 Here are the bootstrapped overall model statistics:
@@ -168,25 +133,26 @@ plot(mb_lm) |>
   print(ncol = 2)
 ```
 
-The key to interpreting the effects in these models is contrasting the grey bootstrapped confidence bands surrounding the average (median) ALE effect with the thin horizontal grey band labelled 'median $\pm$ 2.5%'. Anything within $\pm$ 2.5% of the median is in the 5% middle of the data. Only bootstrapped effects that are clearly beyond this middle band may be considered significant. By this criteria, considering that the median rating was 65.5%, we can conclude that:
+To draw formal conclusions from this analysis, we need a more formal statistical framework based on ALE, which is what we describe in the vignette on [ALE-based statistics for statistical inference](ale-statistics.html). However, we can generally infer that:
 
--   Complaints that were handled at below around 68% led to below-average overall ratings; complaints that were handled above around 72% are associated with above-average overall ratings.
--   The 95% bootstrapped confidence intervals of every other variable fully overlap the entire 5% median band. Thus, despite the general trends of some of the data (in particular learning's positive trend and advance's negative trend), the data does not support claims that any other factor had a convincingly meaningful effect on ratings.
+-   Complaints that were handled at below around 55% led to below-average overall ratings; complaints that were handled above around 72% are associated with above-average overall ratings.
+-   The 95% bootstrapped confidence intervals of every other variable fully overlap almost the entirety of the median. Thus, despite the general trends of some of the data (in particular learning's positive trend and advance's negative trend), the data does not seem to support claims that any other factor had a convincingly meaningful effect on ratings.
 
 Although this is a basic demonstration, it readily shows how crucial proper bootstrapping is to make meaningful inferences from data analysis.
 
-## ALE for general additive models (GAM)
+## ALE for generalized additive models (GAM)
 
 A major limitation of OLS regression is that it models all relationships between the x variables and y as straight lines. But it is unlikely that all relationships are truly linear. OLS cannot accurately capture non-linear relationships.
 
-Because the samples here are relatively small, we will use general additive models (GAM) for the modelling. To grossly oversimplify things, GAM is an extension of statistical regression analysis that lets the model fit flexible patterns in the data instead of being restricted to the best-fitting straight line. It is an [ideal approach for samples that are too small for machine learning](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM; introduction explains why GAM should be used") because it provides flexible curves unlike ordinary least squares regression yet will not overfit excessively as would most machine learning techniques when working with such small samples.
+Because the samples here are relatively small, we will use generalized additive models (GAM) for the modelling. To grossly oversimplify things, GAM is an extension of statistical regression analysis that lets the model fit flexible patterns in the data instead of being restricted to the best-fitting straight line. It is an [ideal approach for samples that are too small for machine learning](https://noamross.github.io/gams-in-r-course/chapter1/ "Tutorial on GAM; introduction explains why GAM should be used") because it provides flexible curves unlike ordinary least squares regression yet will not overfit excessively as would most machine learning techniques when working with such small samples.
 
 With GAM, the variables that we want to become flexible need to be wrapped in the `s` (smooth) function, e.g., `s(complaints)`. For this example, we will smooth all our numerical input variables:
 
 ```{r gam_summary}
-gam_attitude <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
-                            raises + s(critical) + advance,
-                          data = attitude)
+gam_attitude <- mgcv::gam(
+  rating ~ complaints + privileges + s(learning) +
+    raises + s(critical) + advance,
+  data = attitude)
 summary(gam_attitude)
 ```
 
@@ -195,9 +161,7 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
 ```{r gam_simple, fig.width=7, fig.height=6}
-ale_gam_attitude_simple <- ALE(
-  gam_attitude
-)
+ale_gam_attitude_simple <- ALE(gam_attitude)
 
 plot(ale_gam_attitude_simple) |> 
   print(ncol = 2)
@@ -208,7 +172,8 @@ Compared to the OLS results above, the GAM results provide quite a surprise conc
 ```{r gam_full_stats}
 mb_gam <- ModelBoot(
   gam_attitude, 
-  boot_it = 10  # 100 by default but reduced here for a faster demonstration
+  boot_it = 10,  # 100 by default but reduced here for a faster demonstration
+  pred_type = 'response'
   )
 mb_gam@model_stats
 ```
@@ -222,7 +187,7 @@ plot(mb_gam) |>
   print(ncol = 2)
 ```
 
-The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the entirety of the median non-significance region. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
+The bootstrapped GAM results tell a rather different story from the OLS results. In this case, the bootstrap confidence bands of all the variables (even of complaints) fully overlap with the median. Even the average slopes have vanished from all variables except for complaint, where it remains positive, yet insignificant because of the wide confidence interval.
 
 So, what should we conclude? First, it is tempting to retain the OLS results because they tell a more interesting story. But we consider that this would be irresponsible since the GAM model is clearly superior in terms of adjusted R^2^: it is the model that far more reliably tells us what is really going on. And what does it tell us?
 
@@ -238,9 +203,10 @@ The `ModelBoot()` constructor accesses the model object and internally modifies 
 To show how this works, let's pretend that the `mgcv::gam` object needs such special treatment. To construct, the `model_call_string`, we must first execute the model and make sure that it works. We did that earlier but we repeat it here for this demonstration
 
 ```{r gam_summary_repeat}
-gam_attitude_again <- mgcv::gam(rating ~ complaints + privileges + s(learning) +
-                                  raises + s(critical) + advance,
-                                data = attitude)
+gam_attitude_again <- mgcv::gam(
+  rating ~ complaints + privileges + s(learning) +
+    raises + s(critical) + advance,
+  data = attitude)
 summary(gam_attitude_again)
 ```
 
@@ -255,11 +221,12 @@ So, here is the form for constructing a `ModelBoot` for a non-standard model obj
 ```{r model_call_string}
 mb_gam_non_standard <- ModelBoot(
   gam_attitude_again,
-  model_call_string = 'mgcv::gam(rating ~ complaints + privileges + s(learning) +
-                                  raises + s(critical) + advance,
-                                data = boot_data)', 
+  model_call_string = 'mgcv::gam(
+    rating ~ complaints + privileges + s(learning) +
+      raises + s(critical) + advance,
+    data = boot_data)', 
   boot_it = 10  # 100 by default but reduced here for a faster demonstration
-  )
+)
 mb_gam_non_standard@model_stats
 ```
 
