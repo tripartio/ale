@@ -81,8 +81,6 @@ In the following table, we list some key characteristics of alternative software
 +---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
 
 
-
-
 # Scientific basis
 
 The scientific basis of the **ale** package is best described in a working paper that describes ALE statistics in detail and introduces ALE-based inference [@okoli2023b]. This research has been presented at @okoli2024 and @okoli2024a.
