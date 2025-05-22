@@ -23,7 +23,7 @@ affiliations:
 
 date: 28 April 2025
 
-bibliography: joss.bib
+bibliography: ale.bib
 ---
 
 # Summary
