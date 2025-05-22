@@ -91,131 +91,39 @@ unique features of the **ale** package.
 
 **Software packages that implement ALE**
 
-<table style="width:97%;">
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 27%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 11%" />
-<col style="width: 11%" />
-<col style="width: 22%" />
-</colgroup>
-<thead>
-<tr>
-<th>Primary focus</th>
-<th>Package</th>
-<th style="text-align: right;">Latest release</th>
-<th>Language</th>
-<th>Confidence intervals</th>
-<th>Bootstrap type</th>
-<th>ALE statistics</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ALE</td>
-<td><strong>ALEPlot</strong> <span class="citation"
-data-cites="apley2018">(Apley 2018)</span></td>
-<td style="text-align: right;">2018</td>
-<td>R</td>
-<td>No</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>ALE</td>
-<td><strong>ALEPython</strong> <span class="citation"
-data-cites="jumelle2020">(Jumelle, Kuhn-Regnier, and Rajaratnam
-2020)</span></td>
-<td style="text-align: right;">2020</td>
-<td>Python</td>
-<td>Monte Carlo</td>
-<td>data-only</td>
-<td>None</td>
-</tr>
-<tr>
-<td>IML</td>
-<td><strong>iml</strong> <span class="citation"
-data-cites="molnar2022a">(Molnar and Schratz 2022)</span></td>
-<td style="text-align: right;">2025</td>
-<td>R</td>
-<td>No</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>IML</td>
-<td><strong>DALEX</strong> <span class="citation"
-data-cites="biecek2023">(Biecek, Maksymiuk, and Baniecki
-2023)</span></td>
-<td style="text-align: right;">2023</td>
-<td>R and Python</td>
-<td>No</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>ALE</td>
-<td><strong>PyALE</strong> <span class="citation"
-data-cites="jomar2023">(Jomar 2023)</span></td>
-<td style="text-align: right;">2024</td>
-<td>Python</td>
-<td>T-statistic</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>IML</td>
-<td><strong>Interpretation</strong> <span class="citation"
-data-cites="rapidminer2023">(RapidMiner 2023)</span></td>
-<td style="text-align: right;">2024</td>
-<td>RapidMiner</td>
-<td>No</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>IML</td>
-<td><strong>Alibi</strong> <span class="citation"
-data-cites="seldontechnologies2023">(Seldon Technologies
-2023)</span></td>
-<td style="text-align: right;">2024</td>
-<td>Python</td>
-<td>No</td>
-<td>N/A</td>
-<td>None</td>
-</tr>
-<tr>
-<td>IML</td>
-<td><strong>scikit-explain</strong> <span class="citation"
-data-cites="flora2023">(Flora 2023)</span></td>
-<td style="text-align: right;">2023</td>
-<td>Python</td>
-<td>Bootstrap</td>
-<td>data-only</td>
-<td><ul>
-<li><p>Friedman H-statistic for interactions</p></li>
-<li><p>Interaction strength (IAS)</p></li>
-<li><p>Main effect complexity (MEC)</p></li>
-</ul></td>
-</tr>
-<tr>
-<td>ALE</td>
-<td><strong>ale (introduced in this article)</strong></td>
-<td style="text-align: right;">2025</td>
-<td>R</td>
-<td>Bootstrap</td>
-<td>data-only and model</td>
-<td><ul>
-<li><p>ALE deviation (ALED)</p></li>
-<li><p>ALE range (ALER)</p></li>
-<li><p>Normalized ALED (NALED)</p></li>
-<li><p>Normalized ALER (NALER)</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| Primary focus | Package                                            | Latest release | Language     | Confidence intervals | Bootstrap type      | ALE statistics                            |
++===============+====================================================+===============:+==============+======================+=====================+===========================================+
+| ALE           | **ALEPlot** [@apley2018]                           | 2018           | R            | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **ALEPython** [@jumelle2020]                       | 2020           | Python       | Monte Carlo          | data-only           | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **iml** [@molnar2022a]                             | 2025           | R            | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **DALEX** [@biecek2023]                            | 2023           | R and Python | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **PyALE** [@jomar2023]                             | 2024           | Python       | T-statistic          | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **Interpretation** [@rapidminer2023]               | 2024           | RapidMiner   | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **Alibi** [@seldontechnologies2023]                | 2024           | Python       | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **scikit-explain** [@flora2023]                    | 2023           | Python       | Bootstrap            | data-only           | -   Friedman H-statistic for interactions |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Interaction strength (IAS)            |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Main effect complexity (MEC)          |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **ale (introduced in this article)**               | 2025           | R            | Bootstrap            | data-only and model | -   ALE deviation (ALED)                  |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   ALE range (ALER)                      |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Normalized ALED (NALED)               |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Normalized ALER (NALER)               |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+
 
 # Simple demonstration
 
