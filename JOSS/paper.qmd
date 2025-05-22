@@ -1,0 +1,177 @@
+---
+title: 'ale: An R package for interpretable machine learning and statistical inference with accumulated local effects (ALE)'
+format: gfm
+tags:
+  - R
+  - accumulated local effects (ALE)
+  - machine learning
+  - interpretable machine learning (IML)
+  - explainable artificial intelligence (XAI)
+  - statistical inference
+  - confidence intervals
+  - bootstrap
+  - effect size
+
+authors:
+  - name: Chitu Okoli
+    orcid: 0000-0001-5574-7572
+    affiliation: 1
+
+affiliations:
+  - name: SKEMA Business School, Paris -- Université Côte d'Azur
+    index: 1
+
+date: 28 April 2025
+
+bibliography: ale.bib
+
+---
+
+# Summary
+
+Machine learning (ML) models, particularly those referred to as "black-box" models, achieve high predictive accuracy at the cost of interpretability. Interpretable Machine Learning (IML) aims to provide tools to understand these complex models. The Accumulated Local Effects (ALE) methodology, introduced by @apley2020, has emerged as a powerful, model-agnostic IML technique to visualize and interpret black-box model predictions. Unlike alternative methods such as Partial Dependence Plots (PDP) or SHapley Additive exPlanations (SHAP), ALE plots clearly represent variable effects independent of interaction complexities and computationally scale better with large datasets.
+
+The **ale** package for R provides advanced implementations of ALE, addressing existing limitations and introducing critical statistical inference tools to enhance interpretability. It offers robust bootstrapped confidence intervals for ALE plots, effect size measures on both outcome-variable and normalized scales, and intuitive visualization methods, empowering users to draw statistically sound inferences from their models. First published in 2023, its current version is 0.5.0.
+
+## Statement of Need
+
+While ALE methods hold considerable promise, their effective application faces three main challenges:
+
+1. **Reliability in small datasets:** Typical machine learning techniques, including ALE, assume large datasets capable of supporting training-test splits for validation. However, statistical analyses frequently involve smaller datasets (fewer than 2,000 observations), posing risks of overfitting and limiting the generalizability of results. The **ale** package implements specialized bootstrapped confidence intervals adapted for small datasets, ensuring that ALE results remain reliable across diverse research contexts.
+
+2. **Intuitive characterization of variable effects:** Existing IML methods often lack intuitive, interpretable effect-size metrics that summarize the overall impact of predictor variables clearly and meaningfully. The **ale** package introduces novel ALE effect size measures (ALE Deviation (ALED), ALE Range (ALER), Normalized ALE Deviation (NALED), and Normalized ALE Range (NALER)), explicitly designed for ease of interpretation and comparability across different datasets and models.
+
+3. **Robust statistical inference with ML:** Traditional statistical inference typically relies on parametric assumptions and linear models. However, ML models frequently violate these assumptions due to their inherent flexibility. By integrating rigorous bootstrapping methods and effect-size-based inference mechanisms, **ale** bridges ML flexibility with the rigor of classical statistical methods. The package clearly delineates statistically significant effects, distinguishing meaningful relationships from random variations via carefully constructed confidence intervals and p-value distributions.
+
+# Software implementations of ALE
+
+In the following table, we list some key characteristics of alternative software implementations of ALE, contrasting them with some of the key unique features of the **ale** package.
+
+**Software packages that implement ALE**
+
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| Primary focus | Package                                            | Latest release | Language     | Confidence intervals | Bootstrap type      | ALE statistics                            |
++===============+====================================================+===============:+==============+======================+=====================+===========================================+
+| ALE           | **ALEPlot** [@apley2018]                           | 2018           | R            | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **ALEPython** [@jumelle2020]                       | 2020           | Python       | Monte Carlo          | data-only           | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **iml** [@molnar2022a]                             | 2025           | R            | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **DALEX** [@biecek2023]                            | 2023           | R and Python | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **PyALE** [@jomar2023]                             | 2024           | Python       | T-statistic          | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **Interpretation** [@rapidminer2023]               | 2024           | RapidMiner   | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **Alibi** [@seldontechnologies2023]                | 2024           | Python       | No                   | N/A                 | None                                      |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| IML           | **scikit-explain** [@flora2023]                    | 2023           | Python       | Bootstrap            | data-only           | -   Friedman H-statistic for interactions |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Interaction strength (IAS)            |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Main effect complexity (MEC)          |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+| ALE           | **ale (introduced in this article)**               | 2025           | R            | Bootstrap            | data-only and model | -   ALE deviation (ALED)                  |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   ALE range (ALER)                      |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Normalized ALED (NALED)               |
+|               |                                                    |                |              |                      |                     |                                           |
+|               |                                                    |                |              |                      |                     | -   Normalized ALER (NALER)               |
++---------------+----------------------------------------------------+----------------+--------------+----------------------+---------------------+-------------------------------------------+
+
+# Simple demonstration
+
+To demonstrate some capabilities of the package, we will give two demonstrations: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset. 
+
+```{r gam}
+library(ale)
+
+# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
+set.seed(0)
+diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+
+# Create a GAM model with flexible curves to predict diamond price.
+# Smooth all numeric variables and include all other variables.
+# Build model on training data, not on the full dataset.
+gam_diamonds <- mgcv::gam(
+  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
+    cut + color + clarity +
+    ti(carat, by = clarity),  # a 2D interaction
+  data = diamonds_sample
+)
+
+```
+
+First, we directly create ALE data with the `ALE()` constructor and then plot the `ggplot` plot objects.
+
+```{r simple-ale, fig.width=7, fig.height=11}
+
+# Create ALE data
+ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds_sample)
+
+# Plot the ALE data
+plot(ale_gam_diamonds) |> 
+  print(ncol = 2)
+```
+
+To demonstrate the ALE statistics functionality, we need to create a p-value distribution object so that the ALE statistics can be properly distinguished from random effects.
+
+```{r p_values}
+# Create p_value distribution object
+
+# # To generate the code, uncomment the following lines.
+# # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.
+# gam_diamonds_p_readme <- ALEpDist(
+#   gam_diamonds, diamonds_sample,
+#   # Normally should be default 1000, but just 100 for quicker demo
+#   rand_it = 100
+# )
+# saveRDS(gam_diamonds_p_readme, file.choose())
+gam_diamonds_p_readme <- 
+  url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.0.5.0.rds') |> 
+  readRDS()
+
+```
+
+Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:
+
+```{r ale-p-and-1D-plot, fig.width=7, fig.height=11}
+# Create ALE data
+ale_gam_diamonds_stats_readme <- ALE(
+  gam_diamonds,
+  # generate all for all 1D variables and the carat:clarity 2D interaction
+  x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+  data = diamonds_sample,
+  p_values = gam_diamonds_p_readme,
+  # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+  boot_it = 10
+)
+
+# Create an ALEPlots object for fine-tuned plotting
+ale_plots <- plot(ale_gam_diamonds_stats_readme)
+
+# Plot 1D ALE plots 
+ale_plots |> 
+  # Only select 1D ALE plots.
+  # Use subset() instead of get() to keep the special ALEPlots object 
+  # plot and print functionality.
+  subset(list(d1 = TRUE)) |> 
+  print(ncol = 2)
+```
+
+
+```{r 2D-plot, fig.width=7, fig.height=5}
+# Plot a selected 2D plot
+ale_plots |> 
+  # get() retrieves a specific desired plot
+  get('carat:clarity') 
+```
+
+# Scientific basis
+
+The scientific basis of the **ale** package is best described in a working paper that describes ALE statistics in detail and introduces ALE-based inference [@okoli2023b]. This research has been presented at @okoli2024 and @okoli2024a.
+
+# References
+
