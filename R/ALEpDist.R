@@ -329,12 +329,14 @@ ALEpDist <- new_class(
     }
 
     residuals <- as.numeric(residuals)  # convert to simple vector
-    # residuals <- unname(residuals)
 
-    # Determine the closest distribution of the residuals
+    # Determine the closest distribution of the residuals.
+    # univariateML::model_select() often generates warnings without a specific class, so silently suppress them so that they don't propagate to the ale package.
     suppressWarnings({
-      # univariateML::model_select() often generates warnings without a specific class, so silently suppress them so that they don't propagate to the ale package
-      residual_distribution <- univariateML::model_select(residuals)
+      suppressPackageStartupMessages({
+        # Suppress load messages from intervals package within univariateML
+        residual_distribution <- univariateML::model_select(residuals)
+      })
     })
 
 
