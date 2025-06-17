@@ -96,10 +96,12 @@ validate_y_preds <- function(
     msg = 'The model predictions must be atomic (that is, not a list object type).'
   )
   validate(
-    var_type(y_preds) == 'numeric',
-    msg = 'The model predictions must be numeric (but not binary).'
+    var_type(y_preds) == 'numeric' ||
+      (var_type(y_preds) == 'binary' && is.numeric(y_preds)),
+    msg = 'The model predictions must be numeric.'
+    #   var_type(y_preds) == 'numeric',
+    #   msg = 'The model predictions must be numeric (but not binary).'
   )
-  # validate(is.numeric(y_preds) && is.atomic(y_preds))
   if (is.matrix(y_preds)) {
     validate(nrow(y_preds) == nrow(data))
   }
@@ -110,7 +112,6 @@ validate_y_preds <- function(
       as.numeric() |>
       matrix(dimnames = list(NULL, y_col))
   }
-  # validate(is.numeric(y_preds) && length(y_preds) == nrow(data))
 
   y_preds
 }
