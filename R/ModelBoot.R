@@ -208,7 +208,7 @@ ModelBoot <- new_class(
         !is.null(model_call),
         msg = c(
           'x' = 'The model call could not be automatically detected.',
-          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot()} for details.'
+          'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot} for details.'
         )
       )
     }
@@ -218,7 +218,7 @@ ModelBoot <- new_class(
         str_detect(model_call_string, 'boot_data'),
         msg = c(
           'x' = 'The {.arg data} argument for {.arg model_call_string} must be "boot_data".',
-          'i' = 'See {.fun ModelBoot()} for details.'
+          'i' = 'See {.fun ModelBoot} for details.'
         )
       )
 
@@ -1165,14 +1165,20 @@ ModelBoot <- new_class(
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
-
     # Simplify some very large elements, especially closures that contain environments
-    params$data <- params_data(
-      data = data,
-      y_vals = if (output_ale) full_ale@params$data$y_vals_sample else NA,
-      sample_size = if (output_ale) full_ale@params$sample_size else 500,
-      seed = seed
-    )
+    params$data <- if (output_ale) {
+      full_ale@params$data
+    } else {
+      params_data(
+        data = data,
+        y_vals = if (exists('y_vals')) {
+          y_vals
+        } else {
+          data[y_col]
+        },
+        seed = seed
+      )
+    }
     params$model <- params_model(model)
     params$pred_fun <- params_function(pred_fun)
 
