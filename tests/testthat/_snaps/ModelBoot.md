@@ -294,21 +294,21 @@
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
-       2 four             1     8 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
-       3 five             1     0  2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
-       4 three            2     8  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
-       5 four             2     7 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
-       6 five             2     4  2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
-       7 three            3     7  2.93e-17  2.93e-17  2.93e-17  2.93e-17  2.93e-17
-       8 four             3     2 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16 -4.39e-16
-       9 five             3     0  4.49e-16  4.49e-16  4.49e-16  4.49e-16  4.49e-16
-      10 three            4     8 -4.89e-16 -4.89e-16 -4.89e-16 -4.89e-16 -4.89e-16
-      11 four             4     6  1.41e-15  1.41e-15  1.41e-15  1.41e-15  1.41e-15
-      12 five             4     2 -1.25e-15 -1.25e-15 -1.25e-15 -1.25e-15 -1.25e-15
-      13 three            8     1 -3.45e-15 -3.45e-15 -3.45e-15 -3.45e-15 -3.45e-15
-      14 four             8     1  2.00e-15  2.00e-15  2.00e-15  2.00e-15  2.00e-15
-      15 five             8     4  2.27e-16  2.27e-16  2.27e-16  2.27e-16  2.27e-16
+       1 three            1     6 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16 -3.92e-16
+       2 four             1     8  1.26e-15  1.26e-15  1.26e-15  1.26e-15  1.26e-15
+       3 five             1     0 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15 -1.41e-15
+       4 three            2     8  4.10e-16  4.10e-16  4.10e-16  4.10e-16  4.10e-16
+       5 four             2     7  2.91e-17  2.91e-17  2.91e-17  2.91e-17  2.91e-17
+       6 five             2     4 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15 -2.64e-15
+       7 three            3     7  6.07e-16  6.07e-16  6.07e-16  6.07e-16  6.07e-16
+       8 four             3     2 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15 -1.55e-15
+       9 five             3     0 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15 -2.44e-15
+      10 three            4     8  3.85e-16  3.85e-16  3.85e-16  3.85e-16  3.85e-16
+      11 four             4     6 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15 -1.77e-15
+      12 five             4     2  8.93e-16  8.93e-16  8.93e-16  8.93e-16  8.93e-16
+      13 three            8     1  6.81e-16  6.81e-16  6.81e-16  6.81e-16  6.81e-16
+      14 four             8     1 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15 -1.48e-15
+      15 five             8     4  3.01e-16  3.01e-16  3.01e-16  3.01e-16  3.01e-16
       
       
       
@@ -334,9 +334,9 @@
       # A tibble: 6 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       4.42e-16  4.42e-16  4.42e-16  4.42e-16  4.42e-16
-      2 gear:carb aler_min  -1.97e-15 -1.97e-15 -1.97e-15 -1.97e-15 -1.97e-15
-      3 gear:carb aler_max   2.23e-15  2.23e-15  2.23e-15  2.23e-15  2.23e-15
+      1 gear:carb aled       6.71e-16  6.71e-16  6.71e-16  6.71e-16  6.71e-16
+      2 gear:carb aler_min  -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15 -2.54e-15
+      3 gear:carb aler_max   6.44e-16  6.44e-16  6.44e-16  6.44e-16  6.44e-16
       4 gear:carb naled      0         0         0         0         0       
       5 gear:carb naler_min  0         0         0         0         0       
       6 gear:carb naler_max  0         0         0         0         0       
@@ -741,10 +741,10 @@
       4  2.790481 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
       5  3.190000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
       6  3.439356 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
+      7  3.520000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
+      8  3.730000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
+      9  4.046066 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
+      10 5.453272 3.925670e-13     1    -1     NA lightgray       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 3.925671e-13 3.925674e-13
       2  -Inf  Inf 3.925671e-13 3.925674e-13
@@ -866,7 +866,7 @@
       $vs$eff[[2]]
                 xmin         xmax y PANEL group  ymin  ymax colour linewidth linetype
       1 3.925673e-13 3.925673e-13 1     1     1 0.875 1.125  black       0.5        1
-      2 3.925673e-13 3.925673e-13 2     1     2 1.875 2.125  black       0.5        1
+      2 3.925669e-13 3.925674e-13 2     1     2 1.875 2.125  black       0.5        1
         height alpha
       1   0.25    NA
       2   0.25    NA
@@ -874,7 +874,7 @@
       $vs$eff[[3]]
                 xmin         xmax ymin ymax y PANEL group colour  fill linewidth
       1 3.925673e-13 3.925673e-13  0.7  1.3 1     1     1     NA white       0.5
-      2 3.925673e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
+      2 3.925672e-13 3.925673e-13  1.7  2.3 2     1     2     NA white       0.5
         linetype alpha
       1        1    NA
       2        1    NA
@@ -882,7 +882,7 @@
       $vs$eff[[4]]
                    x       label y PANEL group colour size angle hjust vjust alpha
       1 3.925673e-13 NALED  0.0% 1     1     1  black    3     0   0.5    -1    NA
-      2 3.925673e-13 NALED 28.5% 2     1     2  black    3     0   0.5    -1    NA
+      2 3.925673e-13 NALED 26.3% 2     1     2  black    3     0   0.5    -1    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
@@ -890,7 +890,7 @@
       $vs$eff[[5]]
                    x label    y PANEL group colour size angle hjust vjust alpha
       1 3.925673e-13     ( 1.02     1     1  black 3.88     0   0.5   0.5    NA
-      2 3.925673e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
+      2 3.925672e-13     ( 2.02     1     2  black 3.88     0   0.5   0.5    NA
         family fontface lineheight
       1               1        1.2
       2               1        1.2
@@ -951,7 +951,7 @@
       # A tibble: 1 x 6
         term  conf.low median  mean conf.high std.error
         <chr>    <dbl>  <dbl> <dbl>     <dbl>     <dbl>
-      1 s(wt)     1.00   1.00  1.00      1.00  1.28e-14
+      1 s(wt)     1.00   1.00  1.00      1.00  5.02e-15
       attr(,"ale")
       attr(,"ale")$single
       <object>
@@ -979,16 +979,16 @@
       # A tibble: 10 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1    1.50     1  1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
-       2    1.94     7  1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
-       3    2.46     7  1.35e-22  1.35e-22  1.35e-22  1.35e-22  1.35e-22
-       4    2.79     7  8.26e-23  8.26e-23  8.26e-23  8.26e-23  8.26e-23
-       5    3.19     7  1.78e-23  1.78e-23  1.78e-23  1.78e-23  1.78e-23
-       6    3.44     7 -2.46e-24 -2.46e-24 -2.46e-24 -2.46e-24 -2.46e-24
-       7    3.52     7 -1.23e-23 -1.23e-23 -1.23e-23 -1.23e-23 -1.23e-23
-       8    3.73     7 -7.19e-23 -7.19e-23 -7.19e-23 -7.19e-23 -7.19e-23
-       9    4.05     7 -1.62e-22 -1.62e-22 -1.62e-22 -1.62e-22 -1.62e-22
-      10    5.45     7 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22
+       1    1.50     1 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24
+       2    1.94     7 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24
+       3    2.46     7 -2.09e-24 -2.09e-24 -2.09e-24 -2.09e-24 -2.09e-24
+       4    2.79     7 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24 -1.28e-24
+       5    3.19     7 -2.75e-25 -2.75e-25 -2.75e-25 -2.75e-25 -2.75e-25
+       6    3.44     7  3.79e-26  3.79e-26  3.79e-26  3.79e-26  3.79e-26
+       7    3.52     7  1.90e-25  1.90e-25  1.90e-25  1.90e-25  1.90e-25
+       8    3.73     7  1.11e-24  1.11e-24  1.11e-24  1.11e-24  1.11e-24
+       9    4.05     7  2.50e-24  2.50e-24  2.50e-24  2.50e-24  2.50e-24
+      10    5.45     7  8.68e-24  8.68e-24  8.68e-24  8.68e-24  8.68e-24
       
       
       attr(,"effect")$vs$ale$d2
@@ -996,21 +996,21 @@
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -3.42e-25 -3.42e-25 -3.42e-25 -3.42e-25 -3.42e-25
-       2 four             1     8  5.38e-25  5.38e-25  5.38e-25  5.38e-25  5.38e-25
-       3 five             1     0  5.38e-25  5.38e-25  5.38e-25  5.38e-25  5.38e-25
-       4 three            2     8  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
-       5 four             2     7 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-       6 five             2     4 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-       7 three            3     7  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
-       8 four             3     2 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-       9 five             3     0 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-      10 three            4     8  2.33e-25  2.33e-25  2.33e-25  2.33e-25  2.33e-25
-      11 four             4     6 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-      12 five             4     2 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25 -3.44e-25
-      13 three            8     1  4.59e-24  4.59e-24  4.59e-24  4.59e-24  4.59e-24
-      14 four             8     1 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
-      15 five             8     4 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24 -1.80e-24
+       1 three            1     6  1.74e-26  1.74e-26  1.74e-26  1.74e-26  1.74e-26
+       2 four             1     8 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26 -6.69e-26
+       3 five             1     0  2.35e-25  2.35e-25  2.35e-25  2.35e-25  2.35e-25
+       4 three            2     8 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
+       5 four             2     7  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
+       6 five             2     4  2.55e-25  2.55e-25  2.55e-25  2.55e-25  2.55e-25
+       7 three            3     7 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26 -3.02e-26
+       8 four             3     2  2.50e-26  2.50e-26  2.50e-26  2.50e-26  2.50e-26
+       9 five             3     0  1.50e-25  1.50e-25  1.50e-25  1.50e-25  1.50e-25
+      10 three            4     8 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26 -2.15e-26
+      11 four             4     6  3.37e-26  3.37e-26  3.37e-26  3.37e-26  3.37e-26
+      12 five             4     2  1.93e-26  1.93e-26  1.93e-26  1.93e-26  1.93e-26
+      13 three            8     1 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25 -2.55e-25
+      14 four             8     1  3.60e-25  3.60e-25  3.60e-25  3.60e-25  3.60e-25
+      15 five             8     4 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25 -2.13e-25
       
       
       
@@ -1025,10 +1025,10 @@
        4 continent naled      0         0         0         0         0       
        5 continent naler_min  0         0         0         0         0       
        6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       1.15e-22  1.15e-22  1.15e-22  1.15e-22  1.15e-22
-       8 wt        aler_min  -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22 -5.61e-22
-       9 wt        aler_max   1.78e-22  1.78e-22  1.78e-22  1.78e-22  1.78e-22
-      10 wt        naled      2.44e+ 1  2.44e+ 1  2.44e+ 1  2.44e+ 1  2.44e+ 1
+       7 wt        aled       1.79e-24  1.79e-24  1.79e-24  1.79e-24  1.79e-24
+       8 wt        aler_min  -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24 -2.76e-24
+       9 wt        aler_max   8.68e-24  8.68e-24  8.68e-24  8.68e-24  8.68e-24
+      10 wt        naled      2.92e+ 1  2.92e+ 1  2.92e+ 1  2.92e+ 1  2.92e+ 1
       11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
       12 wt        naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
@@ -1036,11 +1036,11 @@
       # A tibble: 6 x 7
         term      statistic  estimate  conf.low      mean    median conf.high
         <chr>     <chr>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       2.70e-25  2.70e-25  2.70e-25  2.70e-25  2.70e-25
-      2 gear:carb aler_min  -1.07e-24 -1.07e-24 -1.07e-24 -1.07e-24 -1.07e-24
-      3 gear:carb aler_max   2.41e-24  2.41e-24  2.41e-24  2.41e-24  2.41e-24
-      4 gear:carb naled      2.95e+ 0  2.95e+ 0  2.95e+ 0  2.95e+ 0  2.95e+ 0
-      5 gear:carb naler_min -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0 -3.12e+ 0
+      1 gear:carb aled       4.56e-26  4.56e-26  4.56e-26  4.56e-26  4.56e-26
+      2 gear:carb aler_min  -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25 -1.38e-25
+      3 gear:carb aler_max   2.45e-25  2.45e-25  2.45e-25  2.45e-25  2.45e-25
+      4 gear:carb naled      7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0  7.01e+ 0
+      5 gear:carb naler_min -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1 -3.75e+ 1
       6 gear:carb naler_max  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0  6.25e+ 0
       
       
@@ -1109,7 +1109,7 @@
       [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               9.522e+00  1.068e+06       0        1\nmodelCadillac Fleetwood   1.310e-09  2.420e+07       0        1\nmodelCamaro Z28           2.970e-10  5.648e+06       0        1\nmodelChrysler Imperial    1.380e-09  2.550e+07       0        1\nmodelDatsun 710           7.775e-08  9.376e+06       0        1\nmodelDodge Challenger     7.967e-11  1.760e+06       0        1\nmodelDuster 360           1.078e-10  2.390e+06       0        1\nmodelFerrari Dino        -5.713e+01  1.689e+07       0        1\nmodelFiat 128             4.992e-08  7.891e+06       0        1\nmodelFiat X1-9            8.312e-08  4.293e+06       0        1\nmodelFord Pantera L      -5.713e+01  2.207e+07       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout    1.906e-11  1.054e+06       0        1\nmodelLincoln Continental  1.451e-09  2.680e+07       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -5.713e+01  2.726e+07       0        1\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -1.764e-05  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280             3.537e-08  3.387e+06       0        1\nmodelMerc 280C           -1.763e-05  3.113e+06       0        1\nmodelMerc 450SE           4.560e-10  8.472e+06       0        1\nmodelMerc 450SL           2.063e-10  3.993e+06       0        1\nmodelMerc 450SLC          2.581e-10  4.887e+06       0        1\nmodelPontiac Firebird     2.934e-10  5.495e+06       0        1\nmodelPorsche 914-2       -5.713e+01  8.485e+06       0        1\nmodelToyota Corolla      -1.764e-05  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E           8.495e-07  1.543e+07       0        1\namTRUE                   -6.645e-09  2.111e+07       0        1\ngear.L                    4.040e+01  3.334e+06       0        1\ngear.Q                   -2.332e+01  7.942e+05       0        1\ncarb                      3.703e-12  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)              -9.522e+00  9.377e+06       0        1\nmodelCadillac Fleetwood  -1.984e-11  2.420e+07       0        1\nmodelCamaro Z28          -4.005e-12  5.648e+06       0        1\nmodelChrysler Imperial   -2.065e-11  2.550e+07       0        1\nmodelDatsun 710          -1.927e-05  9.376e+06       0        1\nmodelDodge Challenger    -1.424e-12  1.760e+06       0        1\nmodelDuster 360          -1.155e-12  2.390e+06       0        1\nmodelFerrari Dino         8.279e-12  1.044e+07       0        1\nmodelFiat 128            -1.846e-05  7.891e+06       0        1\nmodelFiat X1-9           -7.764e-07  4.293e+06       0        1\nmodelFord Pantera L       3.008e-12  5.414e+06       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout   -2.434e-13  1.054e+06       0        1\nmodelLincoln Continental -2.204e-11  2.680e+07       0        1\nmodelLotus Europa         5.713e+01  2.726e+07       0        1\nmodelMaserati Bora        0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -9.288e-09  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280            -4.166e-09  3.387e+06       0        1\nmodelMerc 280C           -1.305e-08  3.113e+06       0        1\nmodelMerc 450SE          -6.968e-12  8.472e+06       0        1\nmodelMerc 450SL          -2.832e-12  3.993e+06       0        1\nmodelMerc 450SLC         -3.838e-12  4.887e+06       0        1\nmodelPontiac Firebird    -4.516e-12  5.495e+06       0        1\nmodelPorsche 914-2        1.410e-11  1.889e+07       0        1\nmodelToyota Corolla       3.631e-09  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E          -8.364e-07  1.543e+07       0        1\namTRUE                    8.051e-07  2.111e+07       0        1\ngear.L                   -5.693e-07  1.612e+07       0        1\ngear.Q                   -4.665e+01  1.170e+07       0        1\ncarb                     -3.560e-13  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
       
       
       attr(,"params")$data
@@ -1228,8 +1228,8 @@
        ..  ..$ aled     : num [1:100] 2.85e-23 3.38e-23 9.55e-25 1.74e-24 1.27e-23 ...
        ..  ..$ aler_min : num [1:100] -5.50e-23 -7.07e-23 -2.47e-24 -3.09e-24 -2.43e-23 ...
        ..  ..$ aler_max : num [1:100] 6.80e-23 6.77e-23 2.17e-24 3.09e-24 2.65e-23 ...
-       ..  ..$ naled    : num [1:100] 25.05 28.64 4.93 7.1 21.63 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -12.5 -17.2 -50 ...
+       ..  ..$ naled    : num [1:100] 30.2 30.2 25.6 25.4 26.1 ...
+       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
        ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
        @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
        .. - attr(*, "logLik")= num 1784
@@ -1301,16 +1301,16 @@
       # A tibble: 10 x 7
          wt.ceil    .n        .y     .y_lo   .y_mean .y_median    .y_hi
            <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>    <dbl>
-       1    1.50     1  2.04e-22 -6.06e-23  2.04e-22  2.04e-22 4.69e-22
-       2    1.94     7  2.04e-22 -6.06e-23  2.04e-22  2.04e-22 4.69e-22
-       3    2.46     7  1.77e-22 -6.20e-23  1.77e-22  1.77e-22 4.15e-22
-       4    2.79     7  8.54e-23 -4.56e-23  8.54e-23  8.54e-23 2.16e-22
-       5    3.19     7  2.34e-23 -7.67e-24  2.34e-23  2.34e-23 5.45e-23
-       6    3.44     7 -9.39e-24 -2.15e-23 -9.39e-24 -9.39e-24 2.70e-24
-       7    3.52     7 -1.35e-23 -3.20e-23 -1.35e-23 -1.35e-23 5.09e-24
-       8    3.73     7 -6.52e-23 -1.60e-22 -6.52e-23 -6.52e-23 2.95e-23
-       9    4.05     7 -1.43e-22 -3.52e-22 -1.43e-22 -1.43e-22 6.62e-23
-      10    5.45     7 -4.90e-22 -1.21e-21 -4.90e-22 -4.90e-22 2.30e-22
+       1    1.50     1  7.84e-20 -8.21e-21  7.84e-20  7.84e-20 1.65e-19
+       2    1.94     7  7.84e-20 -8.21e-21  7.84e-20  7.84e-20 1.65e-19
+       3    2.46     7  7.92e-20 -6.78e-21  7.92e-20  7.92e-20 1.65e-19
+       4    2.79     7  5.68e-20 -2.77e-21  5.68e-20  5.68e-20 1.16e-19
+       5    3.19     7  9.85e-21 -9.17e-22  9.85e-21  9.85e-21 2.06e-20
+       6    3.44     7 -3.50e-21 -7.39e-21 -3.50e-21 -3.50e-21 3.80e-22
+       7    3.52     7 -6.46e-21 -1.34e-20 -6.46e-21 -6.46e-21 5.05e-22
+       8    3.73     7 -3.70e-20 -7.64e-20 -3.70e-20 -3.70e-20 2.29e-21
+       9    4.05     7 -8.30e-20 -1.71e-19 -8.30e-20 -8.30e-20 4.97e-21
+      10    5.45     7 -2.88e-19 -5.93e-19 -2.88e-19 -2.88e-19 1.69e-20
       
       
       attr(,"ale")$boot$effect$vs$ale$d2
@@ -1318,21 +1318,21 @@
       # A tibble: 15 x 8
          gear.bin carb.ceil    .n        .y     .y_lo   .y_mean .y_median     .y_hi
          <ord>        <dbl> <int>     <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 three            1     6 -5.96e-23 -1.16e-22 -5.96e-23 -5.96e-23 -3.39e-24
-       2 four             1     8  1.05e-22  6.98e-24  1.05e-22  1.05e-22  2.02e-22
-       3 five             1     0  1.05e-22  6.98e-24  1.05e-22  1.05e-22  2.02e-22
-       4 three            2     8  1.74e-23  1.26e-24  1.74e-23  1.74e-23  3.35e-23
-       5 four             2     7 -1.60e-22 -3.12e-22 -1.60e-22 -1.60e-22 -7.74e-24
-       6 five             2     4 -1.60e-22 -3.12e-22 -1.60e-22 -1.60e-22 -7.73e-24
-       7 three            3     7 -1.66e-23 -3.28e-23 -1.66e-23 -1.66e-23 -3.13e-25
-       8 four             3     2  1.45e-22  5.35e-24  1.45e-22  1.45e-22  2.85e-22
-       9 five             3     0  1.45e-22  5.36e-24  1.45e-22  1.45e-22  2.85e-22
-      10 three            4     8 -1.66e-23 -3.28e-23 -1.66e-23 -1.66e-23 -4.65e-25
-      11 four             4     6  1.45e-22  5.67e-24  1.45e-22  1.45e-22  2.85e-22
-      12 five             4     2  1.45e-22  5.67e-24  1.45e-22  1.45e-22  2.85e-22
-      13 three            8     1  8.04e-22  4.88e-23  8.04e-22  8.04e-22  1.56e-21
-      14 four             8     1 -3.99e-22 -7.76e-22 -3.99e-22 -3.99e-22 -2.25e-23
-      15 five             8     4 -3.99e-22 -7.76e-22 -3.99e-22 -3.99e-22 -2.25e-23
+       1 three            1     6 -1.46e-21 -3.61e-21 -1.46e-21 -1.46e-21  6.89e-22
+       2 four             1     8  1.53e-21 -3.19e-21  1.53e-21  1.53e-21  6.26e-21
+       3 five             1     0  1.54e-21 -3.19e-21  1.54e-21  1.54e-21  6.26e-21
+       4 three            2     8  1.58e-22 -7.16e-22  1.58e-22  1.58e-22  1.03e-21
+       5 four             2     7 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
+       6 five             2     4 -5.28e-21 -9.81e-21 -5.28e-21 -5.28e-21 -7.44e-22
+       7 three            3     7 -1.03e-21 -1.06e-21 -1.03e-21 -1.03e-21 -1.01e-21
+       8 four             3     2  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
+       9 five             3     0  6.46e-21  3.88e-21  6.46e-21  6.46e-21  9.04e-21
+      10 three            4     8 -8.89e-22 -1.05e-21 -8.89e-22 -8.89e-22 -7.30e-22
+      11 four             4     6  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
+      12 five             4     2  6.16e-21  3.28e-21  6.16e-21  6.16e-21  9.03e-21
+      13 three            8     1  1.66e-20 -1.52e-20  1.66e-20  1.66e-20  4.85e-20
+      14 four             8     1 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
+      15 five             8     4 -1.00e-20 -2.43e-20 -1.00e-20 -1.00e-20  4.18e-21
       
       
       
@@ -1347,23 +1347,23 @@
        4 continent naled      0         0         0         0         0       
        5 continent naler_min  0         0         0         0         0       
        6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       1.59e-22  5.66e-23  1.59e-22  1.59e-22  2.61e-22
-       8 wt        aler_min  -6.61e-22 -1.22e-21 -6.61e-22 -6.61e-22 -1.04e-22
-       9 wt        aler_max   3.75e-22  2.73e-22  3.75e-22  3.75e-22  4.78e-22
-      10 wt        naled      2.85e+ 1  2.82e+ 1  2.85e+ 1  2.85e+ 1  2.89e+ 1
-      11 wt        naler_min -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1 -5   e+ 1
-      12 wt        naler_max  6.89e+ 0  4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+       7 wt        aled       6.18e-20  9.77e-21  6.18e-20  6.18e-20  1.14e-19
+       8 wt        aler_min  -3.11e-19 -5.94e-19 -3.11e-19 -3.11e-19 -2.77e-20
+       9 wt        aler_max   1.01e-19  3.64e-20  1.01e-19  1.01e-19  1.66e-19
+      10 wt        naled      2.63e+ 1  2.32e+ 1  2.63e+ 1  2.63e+ 1  2.94e+ 1
+      11 wt        naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      12 wt        naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       attr(,"ale")$boot$effect$vs$stats$d2
       # A tibble: 6 x 7
         term      statistic  estimate  conf.low    median      mean conf.high
         <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       4.15e-23  2.85e-24  4.15e-23  4.15e-23  8.01e-23
-      2 gear:carb aler_min  -1.27e-22 -2.46e-22 -1.27e-22 -1.27e-22 -8.40e-24
-      3 gear:carb aler_max   3.94e-22  2.42e-23  3.94e-22  3.94e-22  7.63e-22
-      4 gear:carb naled      2.47e+ 1  1.30e+ 1  2.47e+ 1  2.47e+ 1  3.64e+ 1
+      1 gear:carb aled       2.05e-21  1.56e-21  2.05e-21  2.05e-21  2.55e-21
+      2 gear:carb aler_min  -8.36e-21 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
+      3 gear:carb aler_max   1.43e-20  4.55e-21  1.43e-20  1.43e-20  2.41e-20
+      4 gear:carb naled      2.13e+ 1  5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
       5 gear:carb naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      6 gear:carb naler_max  6.89e+ 0  4.80e+ 0  6.89e+ 0  6.89e+ 0  8.98e+ 0
+      6 gear:carb naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       
       
@@ -1394,7 +1394,7 @@
       [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nEstimated degrees of freedom:\n1  total = 34 \n\nUBRE score: 0.0625     rank: 42/45"
       
       attr(,"params")$model$summary
-      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)               9.522e+00  1.068e+06       0        1\nmodelCadillac Fleetwood   1.310e-09  2.420e+07       0        1\nmodelCamaro Z28           2.970e-10  5.648e+06       0        1\nmodelChrysler Imperial    1.380e-09  2.550e+07       0        1\nmodelDatsun 710           7.775e-08  9.376e+06       0        1\nmodelDodge Challenger     7.967e-11  1.760e+06       0        1\nmodelDuster 360           1.078e-10  2.390e+06       0        1\nmodelFerrari Dino        -5.713e+01  1.689e+07       0        1\nmodelFiat 128             4.992e-08  7.891e+06       0        1\nmodelFiat X1-9            8.312e-08  4.293e+06       0        1\nmodelFord Pantera L      -5.713e+01  2.207e+07       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout    1.906e-11  1.054e+06       0        1\nmodelLincoln Continental  1.451e-09  2.680e+07       0        1\nmodelLotus Europa         0.000e+00  0.000e+00     NaN      NaN\nmodelMaserati Bora       -5.713e+01  2.726e+07       0        1\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -1.764e-05  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280             3.537e-08  3.387e+06       0        1\nmodelMerc 280C           -1.763e-05  3.113e+06       0        1\nmodelMerc 450SE           4.560e-10  8.472e+06       0        1\nmodelMerc 450SL           2.063e-10  3.993e+06       0        1\nmodelMerc 450SLC          2.581e-10  4.887e+06       0        1\nmodelPontiac Firebird     2.934e-10  5.495e+06       0        1\nmodelPorsche 914-2       -5.713e+01  8.485e+06       0        1\nmodelToyota Corolla      -1.764e-05  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E           8.495e-07  1.543e+07       0        1\namTRUE                   -6.645e-09  2.111e+07       0        1\ngear.L                    4.040e+01  3.334e+06       0        1\ngear.Q                   -2.332e+01  7.942e+05       0        1\ncarb                      3.703e-12  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
+      [1] "\nFamily: binomial \nLink function: logit \n\nFormula:\nvs ~ model + s(wt) + am + gear + carb\n\nParametric coefficients:\n                           Estimate Std. Error z value Pr(>|z|)\n(Intercept)              -9.522e+00  9.377e+06       0        1\nmodelCadillac Fleetwood  -1.984e-11  2.420e+07       0        1\nmodelCamaro Z28          -4.005e-12  5.648e+06       0        1\nmodelChrysler Imperial   -2.065e-11  2.550e+07       0        1\nmodelDatsun 710          -1.927e-05  9.376e+06       0        1\nmodelDodge Challenger    -1.424e-12  1.760e+06       0        1\nmodelDuster 360          -1.155e-12  2.390e+06       0        1\nmodelFerrari Dino         8.279e-12  1.044e+07       0        1\nmodelFiat 128            -1.846e-05  7.891e+06       0        1\nmodelFiat X1-9           -7.764e-07  4.293e+06       0        1\nmodelFord Pantera L       3.008e-12  5.414e+06       0        1\nmodelHonda Civic          0.000e+00  0.000e+00     NaN      NaN\nmodelHornet 4 Drive       5.713e+01  2.914e+06       0        1\nmodelHornet Sportabout   -2.434e-13  1.054e+06       0        1\nmodelLincoln Continental -2.204e-11  2.680e+07       0        1\nmodelLotus Europa         5.713e+01  2.726e+07       0        1\nmodelMaserati Bora        0.000e+00  0.000e+00     NaN      NaN\nmodelMazda RX4           -5.713e+01  1.339e+07       0        1\nmodelMazda RX4 Wag       -5.713e+01  1.657e+07       0        1\nmodelMerc 230            -9.288e-09  1.169e+06       0        1\nmodelMerc 240D            0.000e+00  0.000e+00     NaN      NaN\nmodelMerc 280            -4.166e-09  3.387e+06       0        1\nmodelMerc 280C           -1.305e-08  3.113e+06       0        1\nmodelMerc 450SE          -6.968e-12  8.472e+06       0        1\nmodelMerc 450SL          -2.832e-12  3.993e+06       0        1\nmodelMerc 450SLC         -3.838e-12  4.887e+06       0        1\nmodelPontiac Firebird    -4.516e-12  5.495e+06       0        1\nmodelPorsche 914-2        1.410e-11  1.889e+07       0        1\nmodelToyota Corolla       3.631e-09  3.047e+06       0        1\nmodelToyota Corona        5.713e+01  1.270e+07       0        1\nmodelValiant              5.713e+01  1.128e+06       0        1\nmodelVolvo 142E          -8.364e-07  1.543e+07       0        1\namTRUE                    8.051e-07  2.111e+07       0        1\ngear.L                   -5.693e-07  1.612e+07       0        1\ngear.Q                   -4.665e+01  1.170e+07       0        1\ncarb                     -3.560e-13  4.368e+05       0        1\n\nApproximate significance of smooth terms:\n      edf Ref.df Chi.sq p-value\ns(wt)   1      1      0       1\n\nRank: 42/45\nR-sq.(adj) =      1   Deviance explained =  100%\nUBRE = 0.0625  Scale est. = 1         n = 64"
       
       
       attr(,"params")$data
@@ -1545,8 +1545,8 @@
        ..  ..$ aled     : num [1:100] 2.85e-23 3.38e-23 9.55e-25 1.74e-24 1.27e-23 ...
        ..  ..$ aler_min : num [1:100] -5.50e-23 -7.07e-23 -2.47e-24 -3.09e-24 -2.43e-23 ...
        ..  ..$ aler_max : num [1:100] 6.80e-23 6.77e-23 2.17e-24 3.09e-24 2.65e-23 ...
-       ..  ..$ naled    : num [1:100] 25.05 28.64 4.93 7.1 21.63 ...
-       ..  ..$ naler_min: num [1:100] -50 -50 -12.5 -17.2 -50 ...
+       ..  ..$ naled    : num [1:100] 30.2 30.2 25.6 25.4 26.1 ...
+       ..  ..$ naler_min: num [1:100] -50 -50 -50 -50 -50 -50 -50 -50 -50 -50 ...
        ..  ..$ naler_max: num [1:100] 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 6.25 ...
        @ residual_distribution: 'univariateML' Named num [1:2] -3.93e-13 3.93e-13
        .. - attr(*, "logLik")= num 1784
