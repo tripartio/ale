@@ -213,7 +213,11 @@ validate_silent <- function(silent) {
   if (!silent) {  # nocov start
     if (!progressr::handlers(global = NA)) {
       # If no progressr bar settings are configured, then set cli as the default.
-      if (interactive() && !getOption("rstudio.notebook.executing")) {
+      # rstudio_notebook: TRUE when execution context is an RStudio notebook.
+      # For non-RStudio environments, returns NULL, so set as FALSE.
+      rstudio_notebook <- getOption("rstudio.notebook.executing") %||% FALSE
+      if (interactive() && !rstudio_notebook) {
+        # if (interactive() && !getOption("rstudio.notebook.executing")) {
         # interactive execution outside of Rmd knitr context: enable progress bars
         progressr::handlers(global = TRUE)
         progressr::handlers('cli')
