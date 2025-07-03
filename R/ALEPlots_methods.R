@@ -144,15 +144,15 @@ method(plot, ALEPlots) <- function(
     max_print = 20L,
     ...
 ) {
-  plot_obj <- x  # rename internally
+  plots_obj <- x  # rename internally
   rm(x)
 
-  n_1D <- length(plot_obj@params$requested_x_cols$d1)
-  n_2D <- length(plot_obj@params$requested_x_cols$d2)
+  n_1D <- length(plots_obj@params$requested_x_cols$d1)
+  n_2D <- length(plots_obj@params$requested_x_cols$d2)
 
   # Print one page per category per dimension.
   # Skip .all_cats; silently just don't print it.
-  plot_obj@plots[names(plot_obj@plots) |> setdiff('.all_cats')] |>
+  plots_obj@plots[names(plots_obj@plots) |> setdiff('.all_cats')] |>
     purrr::iwalk(\(it.cat_plots, i.cat_name) {
       purrr::iwalk(c(n_1D, n_2D), \(it.n, i.d) {
         if ((0 < it.n) && (it.n <= max_print)) {
@@ -163,7 +163,7 @@ method(plot, ALEPlots) <- function(
         else if (
           it.n > max_print &&
           # issue the warning only for the 1st category; don't repeat it
-          i.cat_name == plot_obj@params$y_cats[1]
+          i.cat_name == plots_obj@params$y_cats[1]
         ) {
           cli_warn(c(
             '!' = 'With more than {max_print} {i.d}D plots, either filter the specific plots to print using {.fn get} or call {.fn print} with a higher value of the {.arg max_print} argument.',
@@ -173,7 +173,7 @@ method(plot, ALEPlots) <- function(
       })
     })
 
-  invisible(plot_obj)
+  invisible(plots_obj)
 }  # plot.ALEPlots()
 
 
@@ -230,10 +230,10 @@ method(subset, ALEPlots) <- function(
     return(x)
   }
 
-  plot_obj <- x  # rename
+  plots_obj <- x  # rename
   rm(x)
 
-  col_names <- plot_obj@params$requested_x_cols |>
+  col_names <- plots_obj@params$requested_x_cols |>
     unlist() |>
     str_split(':') |>
     unlist()
@@ -241,13 +241,13 @@ method(subset, ALEPlots) <- function(
   x_cols <- resolve_x_cols(
     x_cols = x_cols,
     col_names = col_names,
-    y_col = plot_obj@params$y_col,
+    y_col = plots_obj@params$y_col,
     exclude_cols = exclude_cols,
     silent = silent
   )
 
   # Subset plots
-  plot_obj@plots <- plot_obj@plots |>
+  plots_obj@plots <- plots_obj@plots |>
     map(\(it.plot_cat) {
       it.plot_cat$d1 <- it.plot_cat$d1[x_cols$d1]
       it.plot_cat$d2 <- it.plot_cat$d2[x_cols$d2]
@@ -261,9 +261,9 @@ method(subset, ALEPlots) <- function(
     })
 
   # Align params to the new subset
-  plot_obj@params$requested_x_cols <- x_cols
+  plots_obj@params$requested_x_cols <- x_cols
 
-  return(plot_obj)
+  return(plots_obj)
 }
 
 
