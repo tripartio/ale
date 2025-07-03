@@ -346,3 +346,150 @@ validate_ALEPlots_method_args <- function(
   ))
 }
 
+#' @title Customize plots contained in an ALEPlots object
+#'
+#' @export
+#'
+#' @description
+#' Customize an `ALEPlots` object by modifying plots indicated by the combination of `x_cols`, `type`, and `cats` as specified. Some arguments indicate some common customizations such as zooming in or out; see the argument documentation for available simple options.
+#'
+#' The most flexible option is to specify a list of `ggplot` geoms with the `geoms` argument; this appends the provided geoms to each plot by applying the [ggplot2::`+.gg`()] method to them. Thus, any customization supported by appending `ggplot` geoms can be applied. If both `geoms` and simple options like `zoom_y` are specified, then the `geoms` layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide `geoms`.
+#'
+#' See [get.ALE()] for explanation of parameters not described here.
+#'
+#' @param plots_obj ALEPlots object to customize.
+#' @param type See documentation for [get.ALE()]
+#' @param cats See documentation for [get.ALE()]
+#' @param geoms List of `ggplot` geoms. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.
+#' @param zoom_x,zoom_y numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default `NULL` does not zoom.
+#'
+#' @returns An `ALEPlots` object where elements specified by x_cols and exclude_cols are modified accordingly. Non-specified elements are not modified.
+#'
+customize <- function(
+    plots_obj,
+    x_cols,
+    ...,
+    exclude_cols = NULL,
+    type = 'ale',
+    cats = NULL,
+    geoms = NULL,
+    zoom_x = NULL,
+    zoom_y = NULL
+) {
+  ## Validate inputs -------------
+  # Error if any unlisted argument is used (captured in ...).
+  # Never skip this validation step!
+  rlang::check_dots_empty()
+
+  all_plot_cols <- plots_obj@params$requested_x_cols |>
+    unlist() |>
+    str_split(':') |>
+    unlist()
+
+  x_cols <- resolve_x_cols(
+    x_cols = x_cols,
+    col_names = all_plot_cols,
+    y_col = plots_obj@params$y_col,
+    exclude_cols = exclude_cols
+  )
+
+  vap <- validate_ALEPlots_method_args(plots_obj, type, cats)
+  type <- vap$type
+  y_cats <- vap$y_cats
+  all_cats <- vap$all_cats
+
+  validate(
+    # A LayerInstance is a ggplot layer object
+    is.null(geoms) || inherits(geoms, 'LayerInstance')
+  )
+
+  validate(
+    is.null(zoom_x) ||
+      (is.numeric(zoom_x) && length(zoom_x) == 2 && zoom_x[1] <= zoom_x[2]),
+    msg = '{.arg zoom_x} must be either {.val NULL} or else a two-element numeric vector where the first element <= the second.'
+  )
+  validate(
+    is.null(zoom_y) ||
+      (is.numeric(zoom_y) && length(zoom_y) == 2 && zoom_y[1] <= zoom_y[2]),
+    msg = '{.arg zoom_y} must be either {.val NULL} or else a two-element numeric vector where the first element <= the second.'
+  )
+
+  ## Create customization layers ------------
+
+  custom_layers <- geoms %||% list()
+  # custom_layers <- geoms %||% geom_blank()
+
+  # Add zoom layers
+  if (!is.null(zoom_x) || !is.null(zoom_y)) {
+    custom_layers <- c(
+      custom_layers,
+      coord_cartesian(xlim = zoom_x, ylim = zoom_y)
+    )
+  }
+
+
+  ## Append layers to specified plots --------------
+
+  # if (!all_cats) {
+    cats <- if (is.null(cats)) {
+      y_cats
+    } else if (all_cats) {
+      '.all_cats'
+    } else {
+      cats
+    }
+
+    plots_obj@plots <- plots_obj@plots |>
+      imap(\(it.cat_plots, it.cat_name) {
+        if (it.cat_name %in% cats) {
+          if (type == 'ale') {
+            it.cat_plots |>
+              imap(\(it.el, it.el_name) {
+                if (it.el_name %in% names(x_cols)) {
+                  x_cols[[it.el_name]] |>
+                    map(\(it.term) {
+                      it.el[[it.term]] +
+                        custom_layers
+                    }) |>
+                    set_names(x_cols[[it.el_name]])
+                } else {
+                  it.el
+                }
+              })
+          }
+          else if (type == 'effect') {
+            it.cat_plots$eff +
+              custom_layers
+          }
+          else if (it.cat_name == '.all_cats') {
+            ## TODO: cat plots need careful debugging
+            it.cat_plots |>
+              imap(\(it.el, it.el_name) {
+                if (it.el_name %in% names(x_cols)) {
+                  x_cols[[it.el_name]] |>
+                    map(\(it.term) {
+                      it.el[[it.term]][[type]] +
+                        custom_layers
+                    }) |>
+                    set_names(x_cols[[it.el_name]])
+                } else {
+                  it.el
+                }
+              })
+          }
+        }
+        else {
+          # it.cat_name not specified; return it unmodified
+          it.cat_plots
+        }
+      }) |>
+      # Suppress "Coordinate system already present" message
+      suppressMessages()
+
+
+  ## Return ----------
+
+  return(plots_obj)
+}
+
+
