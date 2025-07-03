@@ -1,6 +1,7 @@
 # ALEPlots_methods.R
 
 
+# S7 methods ----------------
 
 #' @name get.ALEPlots
 #' @title get method for ALEPlots objects
@@ -27,7 +28,6 @@ method(get, ALEPlots) <- function(
     simplify = TRUE,
     silent = FALSE
 ) {
-  comp = 'plots'
   ## Validate inputs -------------
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
@@ -46,33 +46,11 @@ method(get, ALEPlots) <- function(
 
   x_cols <- obj@params$requested_x_cols
 
-  valid_type <- c('ale', 'effect', 'overlay', 'facet')
-  validate(
-    is_string(type, valid_type),
-    msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
-  )
-  y_cats <- obj@params$y_cats
-  all_cats <- is_string(cats, c('.all', '.all_cats'))  # all-category plots requested
-  validate(
-    is.null(cats) || all(cats %in% y_cats) || all_cats,
-    msg = c(
-      'x' = 'The {.arg cats} argument must be {.val NULL}, {".all"}, or one or more of the following categories of the outcome variable: {y_cats}.',
-      'i' = '{.arg cats} is {cats}.'
-    )
-  )
+  vap <- validate_ALEPlots_method_args(obj, type, cats)
+  type <- vap$type
+  y_cats <- vap$y_cats
+  all_cats <- vap$all_cats
 
-  if (all_cats) {
-    validate(
-      type %in% c('ale', 'overlay', 'facet'),
-      msg = c(
-        'x' = "For categorical plots that span all categories together, the {.arg type} argument must be one of {c('overlay', 'facet')}.",
-        'i' = 'The {.arg type} argument was {type}.'
-      )
-    )
-
-    # If unchanged for all_cats, set default type ('ale') to 'facet'
-    type <- if (type == 'ale') 'facet' else type
-  }
 
   ## Retrieve requested plots --------------
 
@@ -81,7 +59,7 @@ method(get, ALEPlots) <- function(
       cats <- y_cats
     }
 
-    req_plots <- prop(obj, comp)[cats]
+    req_plots <- prop(obj, 'plots')[cats]
 
     req_plots <- map(req_plots, \(it.cat_plots) {
       if (type == 'ale') {
@@ -324,4 +302,47 @@ method(summary, ALEPlots) <- function(
 
 
 
+# Functions specific to ALEPlots -------------
+
+validate_ALEPlots_method_args <- function(
+    aleplots_obj,
+    type,
+    cats
+  )
+{
+  valid_type <- c('ale', 'effect', 'overlay', 'facet')
+  validate(
+    is_string(type, valid_type),
+    msg = 'The {.arg type} argument must be one (and only one) of the following values: {valid_type}.'
+  )
+
+  y_cats <- aleplots_obj@params$y_cats
+  all_cats <- is_string(cats, c('.all', '.all_cats'))  # all-category plots requested
+  validate(
+    is.null(cats) || all(cats %in% y_cats) || all_cats,
+    msg = c(
+      'x' = 'The {.arg cats} argument must be {.val NULL}, {".all"}, or one or more of the following categories of the outcome variable: {y_cats}.',
+      'i' = '{.arg cats} is {cats}.'
+    )
+  )
+
+  if (all_cats) {
+    validate(
+      type %in% c('ale', 'overlay', 'facet'),
+      msg = c(
+        'x' = "For categorical plots that span all categories together, the {.arg type} argument must be one of {c('overlay', 'facet')}.",
+        'i' = 'The {.arg type} argument was {type}.'
+      )
+    )
+
+    # If unchanged for all_cats, set default type ('ale') to 'facet'
+    type <- if (type == 'ale') 'facet' else type
+  }
+
+  return(list(
+    type = type,
+    y_cats = y_cats,
+    all_cats = all_cats
+  ))
+}
 
