@@ -446,12 +446,12 @@ customize <- function(
             it.cat_plots |>
               imap(\(it.el, it.el_name) {
                 if (it.el_name %in% names(x_cols)) {
-                  x_cols[[it.el_name]] |>
-                    map(\(it.term) {
-                      it.el[[it.term]] +
-                        custom_layers
-                    }) |>
-                    set_names(x_cols[[it.el_name]])
+                  for (it.term in x_cols[[it.el_name]]) {
+                    it.el[[it.term]] <- it.el[[it.term]] +
+                      custom_layers
+                  }
+
+                  it.el
                 } else {
                   it.el
                 }
@@ -476,6 +476,9 @@ customize <- function(
                   it.el
                 }
               })
+          } else {
+            # that type was not specified; return it unmodified
+            it.cat_plots
           }
         }
         else {
