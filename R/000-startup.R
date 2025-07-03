@@ -1,8 +1,42 @@
+## aaa.R
+# Define package-wide environment variables
+
+# Register S7 methods.
+# https://rconsortium.github.io/S7/articles/packages.html#method-registration
+.onLoad <- function(...) {
+  methods_register()  # nocov
+}
+
+
+.onAttach <- function(libname, pkgname) {
+  if (interactive()) {  # nocov start
+    # Conditionally print a startup message
+
+    sys_calls <- sys.calls() |>
+      as.character()
+
+    dev_load_all <- sys_calls |>
+      str_detect('load_all') |>
+      any()
+
+    suppress_pkg_msg <- sys_calls |>
+      str_detect('suppressPackageStartupMessages') |>
+      any()
+
+    if (!(dev_load_all || suppress_pkg_msg)) {
+      packageStartupMessage(
+        "The 'ale' package implements a 'get()' generic that is fully compatible with 'base::get()' without modification."
+      )
+    }
+  }  # nocov end
+}
+
+
 # generics.R
 # S7 generics
 
 
-# get generic ----------
+# Register generics ----------
 
 #' S7 generic get method for objects in the ale package
 #' @export
@@ -20,7 +54,7 @@ get <- new_generic("get", "obj", function(obj, ...) {
     S7_inherits(obj) &&
     class(obj)[1] %in% c('ale::ALE', 'ale::ModelBoot', 'ale::ALEPlots', 'ale::ALEpDist')
   ) {
-      S7_dispatch()  # nocov
+    S7_dispatch()  # nocov
   }
   # Call base::get() for everything else
   else {
