@@ -3,6 +3,7 @@
 export(ALE)
 export(ALEpDist)
 export(ModelBoot)
+export(customize)
 export(get)
 export(resolve_x_cols)
 import(S7)

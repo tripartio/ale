@@ -353,7 +353,7 @@ validate_ALEPlots_method_args <- function(
 #' @description
 #' Customize an `ALEPlots` object by modifying plots indicated by the combination of `x_cols`, `type`, and `cats` as specified. Some arguments indicate some common customizations such as zooming in or out; see the argument documentation for available simple options.
 #'
-#' The most flexible option is to specify a list of `ggplot` geoms with the `geoms` argument; this appends the provided geoms to each plot by applying the [ggplot2::`+.gg`()] method to them. Thus, any customization supported by appending `ggplot` geoms can be applied. If both `geoms` and simple options like `zoom_y` are specified, then the `geoms` layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide `geoms`.
+#' The most flexible option is to specify a list of `ggplot` geoms with the `geoms` argument; this appends the provided geoms to each plot by applying the [ggplot2::+.gg()] method to them. Thus, any customization supported by appending `ggplot` geoms can be applied. If both `geoms` and simple options like `zoom_y` are specified, then the `geoms` layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide `geoms`.
 #'
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
