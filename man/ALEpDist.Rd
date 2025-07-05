@@ -86,6 +86,8 @@ Parameters used to generate p-value distributions. Most of these repeat selected
 * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
 * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
+
+* `probs_inverted`: `TRUE` if the original probability values of the `ALEpDist` object have been inverted. This is accomplished using [invert_probs()] on an `ALE` object. `FALSE`, `NULL`, or absent otherwise.
 }\if{html}{\out{</div>}}
 
 }

@@ -302,7 +302,7 @@ method(summary, ALEPlots) <- function(
 
 
 
-# Functions specific to ALEPlots -------------
+# Functions specific to ALEPlots objects -------------
 
 validate_ALEPlots_method_args <- function(
     aleplots_obj,

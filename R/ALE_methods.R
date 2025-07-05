@@ -1,5 +1,6 @@
 # ALE_methods.R
-# S7 methods for ALE objects
+
+# S7 methods --------
 
 
 #' @name get.ALE
@@ -379,6 +380,12 @@ method(print, ALE) <- function(x, ...) {
     '{.cls ALE} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
   )
 
+  if (x@params$probs_inverted |> isTRUE()) {
+    cli_text(
+      'ALE probabilities have been inverted relative to the original model probability predictions.\n'
+    )
+  }
+
   output_string <- c(
     'ALE data',
     if (x@params$output_stats) 'statistics' else NULL,
@@ -407,4 +414,162 @@ method(print, ALE) <- function(x, ...) {
   invisible(x)
 }
 
+
+
+# Functions specific to ALE objects -------------
+
+#' Invert ALE Probabilities
+#'
+#' Inverts the predicted probabilities in an `ALE` object to reflect complementary outcomes (i.e., `1 - p`). This is particularly useful when the model probability predictions are opposite to what is desired for easy interpretability. With [invert_probs()], there is no need to change the original data or retrain the model; the ALE data, p-values, and subsequent ALE plots will reflect the desired inverted probabilities.
+#'
+#' @export
+#'
+#' @param ale_obj An object of class `ALE`.
+#' @param rename_y_col character(1). If provided, renames the y outcome column. When probabilities are inverted, the name of the outcome column often needs to change for more intuitive interpretability. The default `NULL` does not change the outcome column name.
+#' @param force logical(1). If `TRUE`, inverts probabilities even if they have already been inverted once before (reverting them). The default `FALSE` will error if probabilities have already been inverted.
+#'
+#' @returns An updated `ALE` object with all probabilities and relevant statistics inverted.
+#'
+#' @details
+#' This function inverts the ALE y-values (i.e., `.y`, `.y_mean`, `.y_median`, etc.) for all terms, including the main ALE effects, bootstrap data, and ALE statistics (`aler_min`, `aler_max`, etc.).
+#' It also updates the `y_col` name and `y_summary` column names if `rename_y_col` is provided.
+#'
+#' If the `ALE` object has already been inverted (`probs_inverted = TRUE`), the function throws an error by default.
+#' To force reinversion (i.e., revert to original probabilities), set `force = TRUE`.
+#'
+#' This operation is only permitted if the y-summary probabilities are all in the `[0, 1]` interval.
+#'
+#' @examples
+#' \donttest{
+#' # Create ALE object for a binary model
+#' ale_obj <- ALE(glm(Species == "setosa" ~ ., data = iris, family = binomial()))
+#'
+#' # Invert the predicted probabilities
+#' ale_inverted <- invert_probs(ale_obj)
+#'
+#' # Revert back to original by inverting again
+#' ale_reverted <- invert_probs(ale_inverted, force = TRUE)
+#' }
+#'
+invert_probs <- function(
+  ale_obj,
+  rename_y_col = NULL,
+  force = FALSE
+)
+{
+  ## Validate inputs ----------
+
+  validate(ale_obj |> S7_inherits(ale::ALE))
+  validate(is.null(rename_y_col) || is_string(rename_y_col))
+
+  if (!all(ale_obj@params$y_summary[, 1] |> between(0, 1))) {
+    cli_abort(c(
+      'x' = '{.val {ale_obj@params$y_col}} probabilities cannot be inverted because some values are not between 0 and 1.'
+    ))
+  }
+
+  if (ale_obj@params$probs_inverted |> isTRUE()) {
+    if (force) {
+      cli_inform(c(
+        '!' = 'Probabilities are already inverted; they will now be reverted.'
+      ))
+    } else {
+      cli_abort(c(
+        'x' = 'Probabilities are already inverted.',
+        'i' = 'To revert inverted probabilities, set {.arg force = TRUE}.'
+      ))
+    }
+  }
+
+  ## Rename y_col if rename_y_col is provided ----------
+  if (!is.null(rename_y_col)) {
+    ale_obj@params$y_col <- rename_y_col
+    colnames(ale_obj@params$y_summary)[1] <- rename_y_col
+  }
+
+
+  ## Invert probabilities ----------
+
+  ale_obj@effect <- ale_obj@effect |>
+    map(\(it.cat_effect) {
+      it.ale <- it.cat_effect$ale |>
+        map(\(it.ale_d) {
+          it.ale_d |>
+            map(\(it.term_ale) {
+              it.term_ale |>
+                mutate(across(
+                  starts_with('.y'),
+                  \(it.y) 1 - it.y
+                ))
+            })
+        })
+
+      it.stats <- it.cat_effect$stats |>
+        map(\(it.stats_d) {
+          it.stats_d |>
+            split(it.stats_d$term) |>
+            map(\(it.term_stats) {
+              # Invert ALER min and max
+              it.replaced_aler <- bind_rows(
+                it.term_stats[it.term_stats$statistic == 'aler_min', ] |>
+                  mutate(statistic = 'aler_max'),
+                it.term_stats[it.term_stats$statistic == 'aler_max', ] |>
+                  mutate(statistic = 'aler_min'),
+                it.term_stats[it.term_stats$statistic == 'naler_min', ] |>
+                  mutate(statistic = 'naler_max'),
+                it.term_stats[it.term_stats$statistic == 'naler_max', ] |>
+                  mutate(statistic = 'naler_min'),
+              ) |>
+                # Flip signs of relevant columns
+                mutate(across(
+                  any_of(c(
+                    'estimate', 'conf.low', 'mean', 'median', 'conf.high'
+                  )),
+                  \(it.val) -it.val
+                ))
+
+              # Return modified stats
+              it.term_stats |>
+                rows_update(it.replaced_aler, by = 'statistic')
+            })
+        })
+
+      it.boot_data <- it.cat_effect$boot_data |>
+        map(\(it.boot_d) {
+          it.boot_d |>
+            map(\(it.term_boot) {
+              it.term_boot |>
+                mutate(across(
+                  starts_with('.y'),
+                  \(it.y) 1 - it.y
+                ))
+            })
+        })
+
+      list(
+        ale = it.ale,
+        stats = it.stats,
+        boot_data = it.boot_data
+      )
+    })
+
+  ale_obj@params$probs_inverted <- TRUE
+
+
+
+  # Invert p-value statistics if applicable
+  if (!is.null(ale_obj@params$p_values)) {
+    # ALEpDist object is present
+    if (!isTRUE(ale_obj@params$p_values@params$probs_inverted)) {
+      # ALEpDist probabilities have not already been inverted
+      ale_obj@params$p_values <- ale_obj@params$p_values |>
+        invert_probs_p(rename_y_col)
+    }
+  }
+
+
+  ## Return ---------------
+
+  return(ale_obj)
+}
 

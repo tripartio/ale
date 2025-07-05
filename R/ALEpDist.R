@@ -51,6 +51,8 @@
 #'     * `rand_it`: the number of random iterations requested by the user either explicitly (by specifying a whole number) or implicitly with the default `NULL`: exact p distributions imply 1000 iterations and surrogate distributions imply 100 unless an explicit number of iterations is requested.
 #'     * `rand_it_ok`: A whole number with the number of `rand_it` iterations that successfully generated a random variable, that is, those that did not fail for whatever reason. The `rand_it` - `rand_it_ok` failed attempts are discarded.
 #'     * `exactness`: A string. For regular p-values generated from the original model, `'exact'` if `rand_it_ok >= 1000` and `'approx'` otherwise. `'surrogate'` for p-values generated from a surrogate model. `'invalid'` if `rand_it_ok < 100`.
+#'
+#'     * `probs_inverted`: `TRUE` if the original probability values of the `ALEpDist` object have been inverted. This is accomplished using [invert_probs()] on an `ALE` object. `FALSE`, `NULL`, or absent otherwise.
 #'   }
 #' }
 #'
@@ -638,7 +640,10 @@ ALEpDist <- new_class(
 )  # ALEpDist
 
 
-# p_value functions ---------------
+
+# Functions specific to ALEpDist objects -------------
+
+## p_value functions ---------------
 
 
 # Return p-values given an ALE statistic value (x can be a vector)
@@ -686,4 +691,83 @@ p_to_random_value <- function(
   }
 }  # p_to_random_value()
 
+
+## Other functions ---------------
+
+
+#' Invert ALE p Distribution Probabilities
+#'
+#' Inverts the predicted probabilities of relevant statistics (ALER and NALER) in an `ALEpDist` object to reflect complementary outcomes (i.e., `1 - p`). This is particularly useful when the model probability predictions are opposite to what is desired for easy interpretability. This unexported function is usually called indirectly from within [invert_probs()] to invert ALE statistics p-value distributions when ALE probabilities are being inverted.
+#'
+#' @noRd
+#'
+#' @seealso [invert_probs()]
+#'
+#' @param p_obj An object of class `ALEpDist`.
+#' @param rename_y_col See documentation for [invert_probs()]
+#' @param force See documentation for [invert_probs()]
+#'
+#' @returns An updated `ALEpDist` object with all relevant statistics distributions inverted.
+#'
+invert_probs_p <- function(
+    p_obj,
+    rename_y_col = NULL,
+    force = FALSE
+)
+{
+  ## Validate inputs ----------
+
+  validate(p_obj |> S7_inherits(ale::ALEpDist))
+  validate(is.null(rename_y_col) || is_string(rename_y_col))
+
+  if (!all(
+    p_obj@rand_stats[[1]]$aler_min |> between(-1, 1),
+    p_obj@rand_stats[[1]]$aler_max |> between(-1, 1)
+  )) {
+    cli_abort(c(
+      x = '{.val {p_obj@params$y_col}} ALE statistics probabilities cannot be inverted because some values are not between 0 and 1.'
+    ))
+  }
+
+  if (p_obj@params$probs_inverted |> isTRUE()) {
+    if (force) {
+      cli_inform(c(
+        '!' = 'ALE statistics probability distributions are already inverted; they will now be reverted.'
+      ))
+    } else {
+      cli_abort(c(
+        'x' = 'ALE statistics probability distributions are already inverted.',
+        'i' = 'To revert inverted probabilities, set {.arg force = TRUE}.'
+      ))
+    }
+  }
+
+  ## Rename y_col if rename_y_col is provided ----------
+  if (!is.null(rename_y_col)) {
+    p_obj@params$y_col <- rename_y_col
+  }
+
+
+  ## Invert probabilities ----------
+
+  p_obj@rand_stats <- p_obj@rand_stats |>
+    map(\(it.cat_stats) {
+      it.cat_stats |>
+        mutate(
+          tmp_aler = .data$aler_min,
+          aler_min = -.data$aler_max,
+          aler_max = -.data$tmp_aler,
+          tmp_naler = .data$naler_min,
+          naler_min = -.data$naler_max,
+          naler_max = -.data$tmp_naler,
+        ) |>
+        select(-all_of(c('tmp_aler', 'tmp_naler')))
+    })
+
+  p_obj@params$probs_inverted <- TRUE
+
+  ## Return ---------------
+
+  return(p_obj)
+}
 
