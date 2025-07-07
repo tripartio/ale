@@ -11,7 +11,7 @@ customize(
   exclude_cols = NULL,
   type = "ale",
   cats = NULL,
-  geoms = NULL,
+  layers = NULL,
   zoom_x = NULL,
   zoom_y = NULL
 )
@@ -23,7 +23,7 @@ customize(
 
 \item{cats}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
 
-\item{geoms}{List of \code{ggplot} geoms. These are appended to each plot indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} by applying the \code{ggplot2} \code{+} operator to them.}
+\item{layers}{List of \code{ggplot} layers. These are appended to each plot indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} by applying the \code{ggplot2} \code{+} operator to them.}
 
 \item{zoom_x, zoom_y}{numeric(2). Zoom the specified plots in or out to match the specified x or y limits, respectively. Must be a two-element numeric vector where the first element <= the second. Default \code{NULL} does not zoom.}
 }
@@ -33,7 +33,7 @@ An \code{ALEPlots} object where elements specified by x_cols and exclude_cols ar
 \description{
 Customize an \code{ALEPlots} object by modifying plots indicated by the combination of \code{x_cols}, \code{type}, and \code{cats} as specified. Some arguments indicate some common customizations such as zooming in or out; see the argument documentation for available simple options.
 
-The most flexible option is to specify a list of \code{ggplot} geoms with the \code{geoms} argument; this appends the provided geoms to each plot by applying the \code{\link[ggplot2:gg-add]{ggplot2::+.gg()}} method to them. Thus, any customization supported by appending \code{ggplot} geoms can be applied. If both \code{geoms} and simple options like \code{zoom_y} are specified, then the \code{geoms} layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide \code{geoms}.
+The most flexible option is to specify a list of \code{ggplot} layers with the \code{layers} argument; this appends the provided layers to each plot by applying the \code{\link[ggplot2:gg-add]{ggplot2::+.gg()}} method to them. Thus, any customization supported by appending \code{ggplot} layers can be applied. If both \code{layers} and simple options like \code{zoom_y} are specified, then the \code{layers} layers are applied first and then any other option is applied in the order presented in the argument list. For full control over the order of customizations, only provide \code{layers}.
 
 See \code{\link[=get.ALE]{get.ALE()}} for explanation of parameters not described here.
 }
