@@ -401,7 +401,7 @@ customize <- function(
   validate(
     # A LayerInstance is a ggplot layer object
     # I think ggproto is the correct root class: https://ggplot2-book.org/internals.html#sec-ggproto
-    is.null(layers) || inherits(layers, 'ggproto')
+    is.null(layers) || inherits(layers, 'gg')
   )
 
   validate(
