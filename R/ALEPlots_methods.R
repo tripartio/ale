@@ -367,7 +367,7 @@ validate_ALEPlots_method_args <- function(
 #'
 customize <- function(
     plots_obj,
-    x_cols,
+    x_cols = NULL,
     ...,
     exclude_cols = NULL,
     type = 'ale',
@@ -385,6 +385,26 @@ customize <- function(
     unlist() |>
     str_split(':') |>
     unlist()
+
+  if (is.null(x_cols)) {
+    len_d1 <- length(plots_obj@params$requested_x_cols$d1)
+    len_d2 <- length(plots_obj@params$requested_x_cols$d2)
+
+    if (len_d1 >= 1 && len_d2 == 0) {
+      x_cols <- plots_obj@params$requested_x_cols$d1
+    } else if (len_d2 >= 1 && len_d1 == 0) {
+      x_cols <- plots_obj@params$requested_x_cols$d2
+    } else if (len_d1 >= 1 && len_d2 >= 1) {
+      cli_abort(c(
+        'When both 1D and 2D plots exist, you must specify only one kind in {.arg x_cols} since they are very different kinds of plots.'
+      ))
+    } else if (len_d1 == 0 && len_d2 == 0) {
+      cli_abort(c(
+        'There are no plots available to customize.'
+      ))
+    }
+  }
+
 
   x_cols <- resolve_x_cols(
     x_cols = x_cols,
