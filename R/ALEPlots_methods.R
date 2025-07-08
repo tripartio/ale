@@ -376,6 +376,23 @@ customize <- function(
     zoom_x = NULL,
     zoom_y = NULL
 ) {
+  ## Internal functions -----------
+  add_layers <- function(plot, lyrs) {
+    tryCatch(
+      {
+        plot + lyrs
+      },
+      error = \(e) {
+        cli_abort(c(
+          'Error attempting to add {.arg layers} to one or more plots.',
+          'i' = 'Are they valid ggplot layers?',
+          'i' = '{layers}',
+          'x' = '{e}'
+        ))
+      }
+    )
+  }
+
   ## Validate inputs -------------
   # Error if any unlisted argument is used (captured in ...).
   # Never skip this validation step!
@@ -418,11 +435,8 @@ customize <- function(
   y_cats <- vap$y_cats
   all_cats <- vap$all_cats
 
-  validate(
-    # A LayerInstance is a ggplot layer object
-    # I think ggproto is the correct root class: https://ggplot2-book.org/internals.html#sec-ggproto
-    is.null(layers) || inherits(layers, 'gg')
-  )
+  # Note: layers will not be validated directly because there are too many valid possibilities.
+  # Its validation will be handled via a tryCatch block later.
 
   validate(
     is.null(zoom_x) ||
@@ -467,8 +481,9 @@ customize <- function(
               imap(\(it.el, it.el_name) {
                 if (it.el_name %in% names(x_cols)) {
                   for (it.term in x_cols[[it.el_name]]) {
-                    it.el[[it.term]] <- it.el[[it.term]] +
-                      custom_layers
+                    it.el[[it.term]] <- add_layers(it.el[[it.term]], custom_layers)
+                    # it.el[[it.term]] <- it.el[[it.term]] +
+                    #   custom_layers
                   }
 
                   it.el
@@ -478,8 +493,9 @@ customize <- function(
               })
           }
           else if (type == 'effect') {
-            it.cat_plots$eff +
-              custom_layers
+            add_layers(it.cat_plots$eff, custom_layers)
+            # it.cat_plots$eff +
+            #   custom_layers
           }
           else if (it.cat_name == '.all_cats') {
             ## TODO: cat plots need careful debugging
@@ -488,8 +504,9 @@ customize <- function(
                 if (it.el_name %in% names(x_cols)) {
                   x_cols[[it.el_name]] |>
                     map(\(it.term) {
-                      it.el[[it.term]][[type]] +
-                        custom_layers
+                      add_layers(it.el[[it.term]][[type]], custom_layers)
+                      # it.el[[it.term]][[type]] +
+                      #   custom_layers
                     }) |>
                     set_names(x_cols[[it.el_name]])
                 } else {
