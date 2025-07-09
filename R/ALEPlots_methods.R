@@ -453,6 +453,12 @@ customize <- function(
 
   custom_layers <- layers %||% list()
 
+  # The procedure is sometimes problematic if the input isn't wrapped in a list, so, automatically wrap a single layer that is not a bare list.
+  if (!rlang::is_bare_list(layers)) {
+    layers <- list(layers)
+  }
+
+
   # Add zoom layers
   if (!is.null(zoom_x) || !is.null(zoom_y)) {
     custom_layers <- c(
