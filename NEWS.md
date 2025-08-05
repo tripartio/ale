@@ -1,3 +1,17 @@
+# ale 0.5.1
+
+For some unknown reason, the ale package was delisted from CRAN. So, this bug fix version pushes in-development new features and bug fixes as a patch release.
+
+## New features
+
+* Customize `ALEPlots` by appending `ggplot` layers with the [customize()] function.
+* Function [invert_probs()] inverts probabilities (subtracts from 1) for `ALE` and `ALEpDist` objects.
+
+## Bug fixes
+
+* Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
+* Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
+
 # ale 0.5.0
 
 We have deeply rethought the vision of this package and have completely rewritten the entire package to support existing, new, and future planned functionality. The changes are so radical that there is no continuity with the previous version 0.3.1. Thus, we've skipped a version number and now are at version 0.5.0.
