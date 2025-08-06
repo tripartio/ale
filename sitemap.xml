@@ -2,7 +2,6 @@
 <url><loc>https://tripartio.github.io/ale/404.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/LICENSE-text.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/LICENSE.html</loc></url>
-<url><loc>https://tripartio.github.io/ale/articles/ale-ALEPlot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-intro.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-small-datasets.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/articles/ale-statistics.html</loc></url>
@@ -17,11 +16,13 @@
 <url><loc>https://tripartio.github.io/ale/reference/ale-package.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/ale.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/census.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/customize.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/get.ALE.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/get.ALEPlots.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/get.ModelBoot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/get.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/index.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/invert_probs.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/plot.ALEPlots.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/plot.ModelBoot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/plot.ale.html</loc></url>
