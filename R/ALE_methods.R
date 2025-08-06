@@ -441,14 +441,21 @@ method(print, ALE) <- function(x, ...) {
 #'
 #' @examples
 #' \donttest{
-#' # Create ALE object for a binary model
-#' ale_obj <- ALE(glm(Species == "setosa" ~ ., data = iris, family = binomial()))
+#' # Binary model
+#' setosa <- iris |>
+#'   as_tibble() |>
+#'   mutate(setosa = Species == "setosa") |>
+#'   select(-Species)
+#'
+#' ale_obj <- glm(setosa ~ ., data = setosa, family = binomial()) |>
+#'   ALE()
 #'
 #' # Invert the predicted probabilities
 #' ale_inverted <- invert_probs(ale_obj)
 #'
 #' # Revert back to original by inverting again
 #' ale_reverted <- invert_probs(ale_inverted, force = TRUE)
+#'
 #' }
 #'
 invert_probs <- function(
@@ -531,7 +538,8 @@ invert_probs <- function(
               # Return modified stats
               it.term_stats |>
                 rows_update(it.replaced_aler, by = 'statistic')
-            })
+            }) |>
+            bind_rows()
         })
 
       it.boot_data <- it.cat_effect$boot_data |>
