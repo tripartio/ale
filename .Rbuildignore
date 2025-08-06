@@ -15,7 +15,7 @@
 ^R/refALEPlot\.R$
 ^README\.Rmd$
 ^scholar$
-^tests/testthat/test-ALEPlot\.R$
+^tests/testthat/test-ALEPlot-gold-standard\.R$
 ^vignettes/.*_cache$
 ^vignettes/articles$
 ^revdep$

@@ -2,12 +2,13 @@
 
 ## New features
 
-* Customize `ALEPlots` by appending `ggplot` layers with the [customize()] function.
-* Function [invert_probs()] inverts probabilities (subtracts from 1) for `ALE` and `ALEpDist` objects.
+* Customize `ALEPlots` by appending `ggplot` layers with the `customize()` function.
+* Function `invert_probs()` inverts probabilities (subtracts from 1) for `ALE` and `ALEpDist` objects.
 
 ## Bug fixes
 
-* The ALEPlot package has been delisted from CRAN, so replace it with internal copy refALEPlot().
+* The ALEPlot package has been delisted from CRAN, so replace it with internal copy `refALEPlot()`.
+* Accordingly, the former vignette or article comparing the {ale} and {ALEPlot} packages has been removed.
 * Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
 * Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
 
