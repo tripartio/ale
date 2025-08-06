@@ -6,3 +6,4 @@ inst/doc
 R/refALEPlot.R
 scholar
 tests/testthat/Rplots.pdf
+vignettes/articles/ale-ALEPlot.Rmd
