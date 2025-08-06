@@ -358,6 +358,8 @@ validate_ALEPlots_method_args <- function(
 #' See [get.ALE()] for explanation of parameters not described here.
 #'
 #' @param plots_obj ALEPlots object to customize.
+#' @param x_cols,exclude_cols See documentation for [get.ALE()]
+#' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param type See documentation for [get.ALE()]
 #' @param cats See documentation for [get.ALE()]
 #' @param layers List of `ggplot` layers. These are appended to each plot indicated by the combination of `x_cols`, `type`, and `cats` by applying the `ggplot2` `+` operator to them.

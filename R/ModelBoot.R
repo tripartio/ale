@@ -1171,11 +1171,12 @@ ModelBoot <- new_class(
     } else {
       params_data(
         data = data,
-        y_vals = if (exists('y_vals')) {
-          y_vals
-        } else {
-          data[y_col]
-        },
+        y_vals = data[y_col],
+        # y_vals = if (exists('y_vals')) {
+        #   y_vals
+        # } else {
+        #   data[y_col]
+        # },
         seed = seed
       )
     }

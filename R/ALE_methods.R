@@ -443,9 +443,8 @@ method(print, ALE) <- function(x, ...) {
 #' \donttest{
 #' # Binary model
 #' setosa <- iris |>
-#'   as_tibble() |>
-#'   mutate(setosa = Species == "setosa") |>
-#'   select(-Species)
+#'   dplyr::mutate(setosa = Species == "setosa") |>
+#'   dplyr::select(-Species)
 #'
 #' ale_obj <- glm(setosa ~ ., data = setosa, family = binomial()) |>
 #'   ALE()

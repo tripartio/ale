@@ -6,7 +6,7 @@
 \usage{
 customize(
   plots_obj,
-  x_cols,
+  x_cols = NULL,
   ...,
   exclude_cols = NULL,
   type = "ale",
@@ -18,6 +18,10 @@ customize(
 }
 \arguments{
 \item{plots_obj}{ALEPlots object to customize.}
+
+\item{x_cols, exclude_cols}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
+
+\item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
 \item{type}{See documentation for \code{\link[=get.ALE]{get.ALE()}}}
 

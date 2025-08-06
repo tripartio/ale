@@ -38,7 +38,7 @@ The `{ale}` package defines four main `{S7}` classes:
 
 - `ALE`: data for 1D ALE (single variables) and 2D ALE (two-way
   interactions). ALE values may be bootstrapped with ALE statistics
-  calcuated.
+  calculated.
 - `ModelBoot`: bootstrap results an entire model, not just the ALE
   values. This function returns the bootstrapped model statistics and
   coefficients as well as the bootstrapped ALE values. This is the
@@ -128,6 +128,24 @@ For the simple demonstration, we directly create ALE data with the
 ``` r
 # Create ALE data
 ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds_sample)
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
 
 # Plot the ALE data
 plot(ale_gam_diamonds) |> 
@@ -181,6 +199,26 @@ ale_gam_diamonds_stats_readme <- ALE(
   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
   boot_it = 10
 )
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> Loading required package: nlme
+#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
 
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)

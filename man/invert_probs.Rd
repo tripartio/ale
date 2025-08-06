@@ -30,14 +30,20 @@ This operation is only permitted if the y-summary probabilities are all in the \
 }
 \examples{
 \donttest{
-# Create ALE object for a binary model
-ale_obj <- ALE(glm(Species == "setosa" ~ ., data = iris, family = binomial()))
+# Binary model
+setosa <- iris |>
+  dplyr::mutate(setosa = Species == "setosa") |>
+  dplyr::select(-Species)
+
+ale_obj <- glm(setosa ~ ., data = setosa, family = binomial()) |>
+  ALE()
 
 # Invert the predicted probabilities
 ale_inverted <- invert_probs(ale_obj)
 
 # Revert back to original by inverting again
 ale_reverted <- invert_probs(ale_inverted, force = TRUE)
+
 }
 
 }
