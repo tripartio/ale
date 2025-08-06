@@ -99,7 +99,7 @@ plot(ale_cars_2D) |>
   )
 ```
 
-There are no interactions in this model but the point of this demonstration is to show that the `ale` package can handle 2D interactions between just about any pair of interaction types: numeric-numeric, ordinal-binary, categorical-ordinal, etc. (To see what ALE interaction plots look like in the presence of interactions, see the [{ALEPlot} comparison vignette](https://tripartio.github.io/ale/articles/ale-ALEPlot.html), which explains the interaction plots in more detail.)
+There are no interactions in this model but the point of this demonstration is to show that the `ale` package can handle 2D interactions between just about any pair of interaction types: numeric-numeric, ordinal-binary, categorical-ordinal, etc.
 
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
