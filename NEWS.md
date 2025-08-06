@@ -1,7 +1,5 @@
 # ale 0.5.1
 
-For some unknown reason, the ale package was delisted from CRAN. So, this bug fix version pushes in-development new features and bug fixes as a patch release.
-
 ## New features
 
 * Customize `ALEPlots` by appending `ggplot` layers with the [customize()] function.
@@ -9,6 +7,7 @@ For some unknown reason, the ale package was delisted from CRAN. So, this bug fi
 
 ## Bug fixes
 
+* The ALEPlot package has been delisted from CRAN, so replace it with internal copy refALEPlot().
 * Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
 * Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
 

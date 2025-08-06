@@ -82,7 +82,7 @@ test_that('ale function matches output of ALEPlot with nnet', {
   # Create list of ALEPlot data that can be readily compared for accuracy
   nnet_ALEPlot <-
     map(1:4, \(it.col_idx) {
-      ALEPlot::ALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = it.col_idx, K = 10) |>
+      refALEPlot(DAT[,2:5], nnet.DAT, pred.fun = nnet_pred_fun_ALEPlot, J = it.col_idx, K = 10) |>
         as_tibble() |>
         select(-K)
     }) |>
@@ -133,7 +133,7 @@ test_that('ale function matches output of ALEPlot with gbm', {
   # These are column indexes c(1, 2, 3, 8)
   gbm_ALEPlot <-
     map(c(1, 2, 3, 8), \(it.col_idx) {
-      ALEPlot::ALEPlot(
+      refALEPlot(
         adult_data[,-c(3,4,15)], gbm.data, pred.fun = gbm_pred_fun_ALEPlot,
         J = it.col_idx,
         K = 10, NA.plot = TRUE
@@ -190,7 +190,7 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
   for (it.x1 in 1:4) {
     for (it.x2 in 1:4) {
       if (it.x1 < it.x2) {
-        ap_data <- ALEPlot::ALEPlot(
+        ap_data <- refALEPlot(
           DAT[,2:5],
           nnet.DAT,
           pred.fun = nnet_pred_fun_ALEPlot,
@@ -271,7 +271,7 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
   for (it.x1 in c(1, 2, 3, 8)) {
     for (it.x2 in c(1, 3, 11)) {
       if (it.x1 < it.x2) {
-        ap_data <- ALEPlot::ALEPlot(
+        ap_data <- refALEPlot(
           adult_data_subset,
           gbm.data,
           pred.fun = gbm_pred_fun_ALEPlot,

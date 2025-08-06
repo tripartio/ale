@@ -1,7 +1,7 @@
 ---
 title: "Comparison between ALEPlot and ale packages"
 author: "Chitu Okoli"
-date: "April 9, 2025"
+date: "August 6, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Comparison between ALEPlot and ale packages}
@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The [`ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot) is the reference implementation of the brilliant idea of accumulated local effects (ALE) by Daniel Apley and Jingyu Zhu <doi:10.1111/rssb.12377>. However, it has not been updated since 2018. The [`ale` package](ale-intro.html "Introduction to the ale package") rewrites and extends the original base work.
+The [`ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot) was the reference implementation of the brilliant idea of accumulated local effects (ALE) by Daniel Apley and Jingyu Zhu <doi:10.1111/rssb.12377>. However, it has not been updated since 2018 and was delisted from CRAN in 2025. The [`ale` package](ale-intro.html "Introduction to the ale package") rewrites and extends the original base work.
 
-In developing the `ale` package, we must ensure that we correctly implement the original ALE algorithm while extending it. Indeed, some permanent unit tests call `{ALEPlot}` to make sure that `ale` provides identical results for identical inputs. We thought that presenting some of these comparisons as a vignette might be helpful. We focus here on the [examples from the `ALEPlot` package](https://CRAN.r-project.org/package=ALEPlot/vignettes/AccumulatedLocalEffectPlot.pdf) so that results are directly comparable.
+In developing the `ale` package, we must ensure that we correctly implement the original ALE algorithm while extending it. Indeed, some permanent unit tests call the original `{ALEPlot}` code to ensure that `ale` provides identical results for identical inputs. We thought that presenting some of these comparisons as a vignette might be helpful. We focus here on the [examples from the original `ALEPlot` package](https://cran.r-project.org/src/contrib/Archive/ALEPlot/) so that results are directly comparable.
 
 Other than its [extensions for ALE-based statistics](ale-statistics.html), here are some of the main points in which `ale` differs from `{ALEPlot}` where it provides otherwise similar functionality:
 
@@ -27,26 +27,29 @@ Other than its [extensions for ALE-based statistics](ale-statistics.html), here 
 -   In the plot, the *y* outcome variable is displayed by default on its full absolute scale, centred on the median or mean, not on a scale relative to zero. (This option can be controlled with the `ale_centre` argument to `plot()`, as we demonstrate.) We believe that median-centring makes plots more easily interpretable.
 -   In addition, there are numerous design choices to simplify the function interface based on [tidyverse](https://www.tidyverse.org/) design principles.
 
-One notable difference between the two packages is that the `ale` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use `{ALEPlot}` or other implementations.
+One notable difference between the two packages is that the `ale` package does not and will not implement partial dependency plots (PDP). The package is focused exclusively on accumulated local effects (ALE); users who need PDPs may use other packages with such functionality.
 
 In each section here, we cover an example from `{ALEPlot}` and then reimplement it with `ale`.
 
-We begin by loading the necessary libraries.
+We begin by loading the necessary packages.
 
 ```{r load libraries}
 library(dplyr)
 ```
 
+Because the `{ALEPlot}` package is no longer available, we implement internally with an unexported function that we will make visible in this article.
+
+```{r load ALEPlot function}
+ALEPlot <- ale:::refALEPlot
+```
 
 
 ## Simulated data with numeric outcomes (ALEPlot Example 2)
 
-We begin with the second code example directly from the `{ALEPlot}` package. (We skip the first example because it is a subset of the second, simply without interactions.) Here is the code from the example to create a simulated dataset and train a neural network on it:
+We begin with the second code example directly from the original `{ALEPlot}` package. (We skip the first example because it is a subset of the second, simply without interactions.) Here is the code from the example to create a simulated dataset and train a neural network on it:
 
 ```{r nnet setup, fig.width=10, fig.height=8}
 ## R code for Example 2
-## Load relevant packages
-library(ALEPlot)
 
 ## Generate some data and fit a neural network supervised learning model
 set.seed(0)  # not in the original, but added for reproducibility
@@ -68,7 +71,7 @@ For the demonstration, `x1` has a linear relationship with `y`, `x2` and `x3` ha
 
 ### ALEPlot code
 
-To create ALE data and plots, `{ALEPlot}` requires the creation of a custom prediction function:
+To create ALE data and plots, `ALEPlot()` requires the creation of a custom prediction function:
 
 ```{r ALEPlot nnet yhat}
 ## Define the predictive function
@@ -76,7 +79,7 @@ yhat <- function(X.model, newdata) as.numeric(predict(X.model, newdata, type = "
 
 ```
 
-Now the `{ALEPlot}` function can be called to create the ALE data and plot it. The function returns a specially formatted list with the ALE data; it can be saved for subsequent custom plotting.
+Now the `ALEPlot()` function can be called to create the ALE data and plot it. The function returns a specially formatted list with the ALE data; it can be saved for subsequent custom plotting.
 
 ```{r ALEPlot nnet 1D}
 ## Calculate and plot the ALE main effects of x1, x2, x3, and x4
@@ -94,7 +97,7 @@ ALE.4 <- ALEPlot(
 )
 ```
 
-In the `{ALEPlot}` implementation, calling the function automatically prints a plot. While this provides some convenience if that is what the user wants, it is not so convenient if the user does not want to print a plot at the very point of ALE creation. It is particularly inconvenient for script building. Although it is possible to configure R to suspend graphic output before the `{ALEPlot}` is called and then restart it after the function call, this is not so straightforward---the function itself does not give any option to control this behaviour.
+In the original `{ALEPlot}` implementation, calling the function automatically prints a plot. While this provides some convenience if that is what the user wants, it is not so convenient if the user does not want to print a plot at the very point of ALE creation. It is particularly inconvenient for script building. Although it is possible to configure R to suspend graphic output before the `ALEPlot()` is called and then restart it after the function call, this is not so straightforward---the function itself does not give any option to control this behaviour.
 
 ALE interactions can also be calculated and plotted:
 
@@ -108,7 +111,7 @@ ALE.14 <- ALEPlot(
 )
 ```
 
-If the output of the `{ALEPlot}` has been saved to variables, then its contents can be plotted with finer user control using the generic R `plot` method:
+If the output of the `ALEPlot()` function call has been saved to variables, then its contents can be plotted with finer user control using the generic R `plot` method:
 
 ```{r ALEPlot nnet organized plots, fig.width=7, fig.height=10}
 ## Manually plot the ALE main effects on the same scale for easier comparison
@@ -170,7 +173,7 @@ nn_ale <- ALE(
 
 Here are some notable differences compared to `ALEPlot`:
 
--   Unlike `{ALEPlot}` that functions on only one variable at a time, `ale` generates ALE data for multiple variables in a dataset at once. By default, it generates ALE elements for all the individual predictor variables in the dataset that it is given ("first order" or 1D ALE); the user can specify a single variable or any subset of variables. We will cover more details in another vignette, but for our purposes here, we note the `get()` method can subsequently retrieve ALE data or plots for specific variables.
+-   Unlike `ALEPlot()` that functions on only one variable at a time, `ale` generates ALE data for multiple variables in a dataset at once. By default, it generates ALE elements for all the individual predictor variables in the dataset that it is given ("first order" or 1D ALE); the user can specify a single variable or any subset of variables. We will cover more details in another vignette, but for our purposes here, we note the `get()` method can subsequently retrieve ALE data or plots for specific variables.
 -   The `ALE()` constructor creates a default generic predict function that matches most standard R models. When the prediction type is not the default "response", as in our case, the user can set the desired type with the `pred_type` argument. However, for more complex or non-standard prediction functions, `ale` supports custom functions with the `pred_fun` argument. See `help(ALE)` for details.
 
 The plots can easily be printed out all at once by calling the `plot()` method. This generates an `{S7}` `ALEPlots` object that contains all possible plots from the ALE data, along with convenient `plot()`, `print()`, and other methods. Simply calling `plot()` on the `ALE` object plots all the ALE plots together:
@@ -229,12 +232,11 @@ The interpretation of these interaction plots is that in any given region, the i
 
 ## Real data with binary outcomes (ALEPlot Example 3)
 
-The next code example from the `{ALEPlot}` package analyzes a real dataset with a binary outcome variable. Whereas the `{ALEPlot}` has the user load a CSV file that might not be readily available, we make that dataset available as the census dataset. We load it here with the adjustments necessary to run the `{ALEPlot}` example.
+The next code example from the `{ALEPlot}` package analyzes a real dataset with a binary outcome variable. Whereas the `{ALEPlot}` example has the user load a CSV file that might not be readily available, we make that dataset available as the census dataset. We load it here with the adjustments necessary to run the `{ALEPlot}` example.
 
 ```{r gbm data setup}
 ## R code for Example 3
 ## Load relevant packages
-library(ALEPlot)
 library(gbm, quietly = TRUE)
 
 ## Read data and fit a boosted tree supervised learning model
@@ -268,7 +270,7 @@ gbm.data
 
 ### ALEPlot code
 
-As before, we create a custom prediction function and then call the `{ALEPlot}` function to generate the plots. The prediction type here is "link", which represents the log odds in the `gbm` package.
+As before, we create a custom prediction function and then call the `ALEPlot()` function to generate the plots. The prediction type here is "link", which represents the log odds in the `gbm` package.
 
 Creation of the ALE plots here is rather slow because the `gbm` predict function is slow. In this example, only `age`, `education_num` (number of years of education), and `hours_per_week` are plotted, along with the interaction between `age` and `hours_per_week`.
 
@@ -302,7 +304,7 @@ Here is the analogous code using the `ale` package. In this case, we also need t
 
 #### Log odds
 
-We generate ALE for all 1D variables and for all 2D interactions involving `age`. However, we focus on `age`, `education_num`, and `hours_per_week` for comparison with `{ALEPlot}`. If the shapes of these plots look different, it is because `ale` tries as much as possible to display plots on the same y-axis coordinate scale for easy comparison across plots.
+We generate ALE for all 1D variables and for all 2D interactions involving `age`. However, we focus on `age`, `education_num`, and `hours_per_week` for comparison with `ALEPlot()`. If the shapes of these plots look different, it is because `ale` tries as much as possible to display plots on the same y-axis coordinate scale for easy comparison across plots.
 
 ```{r ale 1D link, fig.width=7, fig.height=20}
 # Custom predict function that returns log odds
@@ -354,7 +356,7 @@ gbm_link_plots |>
   print(ncol = 1)  # print in 1 column
 ```
 
-For direct comparison with `{ALEPlot}`, we can select the 1D plots for `age`, `education_num`, and `hours_per_week`, with the `age-hours_per_week` interaction. If the shapes of these plots look different, it is because `ale` tries as much as possible to display plots on the same y-axis coordinate scale for easy comparison across plots:
+For direct comparison with `ALEPlot()`, we can select the 1D plots for `age`, `education_num`, and `hours_per_week`, with the `age-hours_per_week` interaction. If the shapes of these plots look different, it is because `ale` tries as much as possible to display plots on the same y-axis coordinate scale for easy comparison across plots:
 
 ```{r ale age-education-hours, fig.width=7, fig.height=7}
 # Print only 2D ALE plots involving age
@@ -366,7 +368,7 @@ gbm_link_plots |>
   patchwork::wrap_plots()
 ```
 
-In the `age:hours_per_week` interaction plot, we can see that the interactions, if existent, are very week. The consistent-colour coding of the `ale` package makes this much clearer than the `{ALEPlot}` package.
+In the `age:hours_per_week` interaction plot, we can see that the interactions, if existent, are very week. The consistent-colour coding of the `ale` package makes this much clearer than the `ALEPlot()` package.
 
 
 #### Predicted probabilities
