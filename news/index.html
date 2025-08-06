@@ -42,12 +42,13 @@
 <h2 class="pkg-version" data-toc-text="0.5.1" id="ale-051">ale 0.5.1<a class="anchor" aria-label="anchor" href="#ale-051"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-5-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-1"></a></h3>
-<ul><li>Customize <code>ALEPlots</code> by appending <code>ggplot</code> layers with the [customize()] function.</li>
-<li>Function [invert_probs()] inverts probabilities (subtracts from 1) for <code>ALE</code> and <code>ALEpDist</code> objects.</li>
+<ul><li>Customize <code>ALEPlots</code> by appending <code>ggplot</code> layers with the <code><a href="../reference/customize.html">customize()</a></code> function.</li>
+<li>Function <code><a href="../reference/invert_probs.html">invert_probs()</a></code> inverts probabilities (subtracts from 1) for <code>ALE</code> and <code>ALEpDist</code> objects.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-5-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-1"></a></h3>
-<ul><li>The ALEPlot package has been delisted from CRAN, so replace it with internal copy refALEPlot().</li>
+<ul><li>The ALEPlot package has been delisted from CRAN, so replace it with internal copy <code>refALEPlot()</code>.</li>
+<li>Accordingly, the former vignette or article comparing the {ale} and {ALEPlot} packages has been removed.</li>
 <li>Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.</li>
 <li>Larger datasets now properly sample. For datasets &gt; 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.</li>
 </ul></div>
