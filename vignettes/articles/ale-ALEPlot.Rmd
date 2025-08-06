@@ -35,6 +35,7 @@ We begin by loading the necessary packages.
 
 ```{r load libraries}
 library(dplyr)
+library(ale)
 ```
 
 Because the `{ALEPlot}` package is no longer available, we implement internally with an unexported function that we will make visible in this article.
@@ -161,8 +162,6 @@ Now we demonstrate the same functionality with the `ale` package. We will work w
 To create the model, we invoke the `ALE()` constructor which returns an `ALE` `{S7}` object:
 
 ```{r ale nnet 1D creation}
-library(ale)
-
 nn_ale <- ALE(
   nnet.DAT, 
   data = DAT,
