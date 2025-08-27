@@ -55,6 +55,6 @@ An \code{ALEPlots} S7 object contains the ALE plots from \code{ALE} or \code{Mod
 }
 
 \examples{
-# See examples with ALE and ModelBoot objects
+# See examples with ALE() and ModelBoot() objects.
 
 }

@@ -103,17 +103,30 @@
 #'
 #'
 #' @examples
-#' # Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example)
-#' set.seed(0)
-#' diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+#'
+#' # Load diamonds dataset with some cleanup
+#' library(dplyr)
+#' diamonds <- ggplot2::diamonds |>
+#'   filter(!(x == 0 | y == 0 | z == 0)) |>
+#'   # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
+#'   distinct(
+#'     price, carat, cut, color, clarity,
+#'     .keep_all = TRUE
+#'   ) |>
+#'   rename(
+#'     x_length = x,
+#'     y_width = y,
+#'     z_depth = z,
+#'     depth_pct = depth
+#'   )
+#'
 #'
 #' # Create a GAM model with flexible curves to predict diamond price
 #' # Smooth all numeric variables and include all other variables
 #' gam_diamonds <- mgcv::gam(
-#'   price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-#'     cut + color + clarity +
-#'     ti(carat, by = clarity),  # a 2D interaction
-#'   data = diamonds_sample
+#'   price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+#'     cut + color + clarity,
+#'   data = diamonds
 #' )
 #' summary(gam_diamonds)
 #'
@@ -121,23 +134,41 @@
 #' \donttest{
 #'
 #' # Simple ALE without bootstrapping: by default, all 1D ALE effects
-#' ale_gam_diamonds <- ALE(gam_diamonds)
+#'
+#' # # To generate the code, uncomment the following lines.
+#' # # For speed, these examples load pre-created objects.
+#' # # For standard models like mgcv::gam that store their data,
+#' # # there is no need to specify the data argument.
+#' # ale_gam_diamonds <- ALE(gam_diamonds)
+#' # saveRDS(ale_gam_diamonds, file.choose())
+#' ale_gam_diamonds <- url(paste0(
+#'   'https://github.com/tripartio/ale/raw/main/download/',
+#'   'ale_gam_diamonds.0.5.2.rds'
+#'   )) |>
+#'   readRDS()
 #'
 #' # Simple printing of all plots
 #' plot(ale_gam_diamonds)
 #'
 #' # Bootstrapped ALE
-#' # This can be slow, since bootstrapping runs the algorithm boot_it times
+#' # This can be slow, since bootstrapping runs the algorithm boot_it times.
+#' # In addition, bootstrapping automatically generates surrogate p-values by default.
 #'
 #' # Create ALE with 100 bootstrap samples
-#' ale_gam_diamonds_boot <- ALE(
-#'   gam_diamonds,
-#'   # request all 1D ALE effects and only the carat:clarity 2D effect
-#'   list(d1 = TRUE, d2 = 'carat:clarity'),
-#'   boot_it = 100
-#' )
+#' # ale_gam_diamonds_boot <- ALE(
+#' #   gam_diamonds,
+#' #   # request all 1D ALE effects and only the carat:clarity 2D effect
+#' #   list(d1 = TRUE, d2 = 'carat:clarity'),
+#' #   boot_it = 100
+#' # )
+#' # saveRDS(ale_gam_diamonds_boot, file.choose())
+#' ale_gam_diamonds_boot <- url(paste0(
+#'   'https://github.com/tripartio/ale/raw/main/download/',
+#'   'ale_gam_diamonds_boot.0.5.2.rds'
+#'   )) |>
+#'   readRDS()
 #'
-#' #' More advanced plot manipulation
+#' #' #' More advanced plot manipulation
 #' ale_plots <- plot(ale_gam_diamonds_boot) # Create an ALEPlots object
 #'
 #' # Print the plots: First page prints 1D ALE; second page prints 2D ALE
@@ -157,33 +188,45 @@
 #'   predict(object, newdata, type = type, se.fit = TRUE)$fit
 #' }
 #'
-#' ale_gam_diamonds_custom <- ALE(
-#'   gam_diamonds,
-#'   pred_fun = custom_predict, pred_type = 'link'
-#' )
+#' # ale_gam_diamonds_custom <- ALE(
+#' #   gam_diamonds,
+#' #   pred_fun = custom_predict,
+#' #   pred_type = 'link'
+#' # )
+#' # saveRDS(ale_gam_diamonds_custom, file.choose())
+#' ale_gam_diamonds_custom <- url(paste0(
+#'   'https://github.com/tripartio/ale/raw/main/download/',
+#'   'ale_gam_diamonds_custom.0.5.2.rds'
+#'   )) |>
+#'   readRDS()
 #'
 #' # Plot the ALE data
 #' plot(ale_gam_diamonds_custom)
 #'
 #'
-#' # How to retrieve specific types of ALE data from an ALE object.
-#' ale_diamonds_with_boot_data <- ALE(
-#'   gam_diamonds,
-#'   # For detailed options for x_cols, see examples at resolve_x_cols()
-#'   x_cols = ~ carat + cut + clarity + carat:clarity + color:depth,
-#'   output_boot_data = TRUE,
-#'   boot_it = 10  # just for demonstration
-#' )
+#' # # How to retrieve specific types of ALE data from an ALE object.
+#' # ale_diamonds_with_boot_data <- ALE(
+#' #   gam_diamonds,
+#' #   # For detailed options for x_cols, see examples at resolve_x_cols()
+#' #   x_cols = ~ carat + cut + clarity + carat:clarity + color:depth_pct,
+#' #   output_boot_data = TRUE,
+#' #   boot_it = 10  # just for demonstration
+#' # )
+#' # saveRDS(ale_diamonds_with_boot_data, file.choose())
+#' ale_diamonds_with_boot_data <- url(paste0(
+#'   'https://github.com/tripartio/ale/raw/main/download/',
+#'   'ale_diamonds_with_boot_data.0.5.2.rds'
+#'   )) |>
+#'   readRDS()
 #'
 #' # See ?get.ALE for details on the various kinds of data that may be retrieved.
-#' get(ale_diamonds_with_boot_data, ~ carat + color:depth)  # default ALE data
+#' get(ale_diamonds_with_boot_data, ~ carat + color:depth_pct)  # default ALE data
 #' get(ale_diamonds_with_boot_data, what = 'boot_data')  # raw bootstrap data
 #' get(ale_diamonds_with_boot_data, stats = 'estimate')  # summary statistics
 #' get(ale_diamonds_with_boot_data, stats = c('aled', 'naled'))
 #' get(ale_diamonds_with_boot_data, stats = 'all')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_regions')
 #' get(ale_diamonds_with_boot_data, stats = 'conf_sig')
-
 #' }
 #'
 #'

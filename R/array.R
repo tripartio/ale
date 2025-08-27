@@ -224,8 +224,8 @@ x_rotate_3d <- function(x, axis = "x", clockwise = FALSE) {
 #'
 #' @return numeric vector of the same length as the input `v` with internal missing values linearly intrapolated.
 #'
-# @examples
-# intrapolate_1D(c(NA, NA, 1, NA, 5, NA, NA, 1, NA))
+#' @examples
+#' intrapolate_1D(c(NA, NA, 1, NA, 5, NA, NA, 1, NA))
 #'
 intrapolate_1D <- function(v) {
   v_length <- length(v)
@@ -287,7 +287,7 @@ intrapolate_1D <- function(v) {
 #' )
 #' x
 #' extract_2D_diags(x)
-#' #'
+#'
 extract_2D_diags <- function(mx) {
   i.r <- 1
   i.c <- ncol(mx) + 1

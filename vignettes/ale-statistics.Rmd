@@ -161,7 +161,7 @@ By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be cont
 
 ```{r model bootstrap}
 # # To generate the code, uncomment the following lines.
-# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
+# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.
 # mb_gam_math <- ModelBoot(
 #   gam_math,
 #   # Pass the ALEpDist object so that p-values will be generated
@@ -242,7 +242,7 @@ Before we continue, let us take a brief detour to see what we get if we create a
 
 ```{r model-bootstrap-without-p, fig.width=7, fig.height=10}
 # # To generate the code, uncomment the following lines.
-# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.
+# # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.
 # mb_gam_no_p <- ModelBoot(
 #   gam_math,
 #   ale_p = NULL,  # disable ALE p-values

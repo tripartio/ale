@@ -1,4 +1,4 @@
-# ale 0.5.1
+# ale 0.5.2
 
 ## New features
 
@@ -11,6 +11,10 @@
 * Accordingly, the former vignette or article comparing the {ale} and {ALEPlot} packages has been removed.
 * Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
 * Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
+
+## Other changes
+
+* Serialize all slow-generating objects in vignettes, examples, and other documentation so that they can be more quickly run by users. They are now all downloaded directly from GitHub. This significantly speeds up package checking and building (though this speedup is invisible to users).
 
 # ale 0.5.0
 

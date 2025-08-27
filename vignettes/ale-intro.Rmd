@@ -1,7 +1,7 @@
 ---
 title: "Introduction to the ale package"
 author: "Chitu Okoli"
-date: "April 7, 2025"
+date: "August 27, 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to the ale package}
@@ -49,10 +49,6 @@ diamonds <- ggplot2::diamonds |>
     z_depth = z,
     depth_pct = depth
   )
-
-# Optional: sample 1000 rows so that the code executes faster.
-set.seed(0)
-diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
 
 summary(diamonds)
 ```
@@ -103,9 +99,19 @@ summary(gam_diamonds)
 
 The core object in the `{ale}` package is the `{S7}` `ALE` object. `effect` stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. The first argument to the `ALE()` constructor is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates 1D (or "first order") ALE on all the variables in the dataset that was used to train the model, if the dataset is included in the model object. If not, the dataset can be specified with the `data` argument. It can optionally create ALE only for specified variables and interactions using the `x_cols` argument. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or to use a custom, non-standard predict function for the model), see details in the help file for the object: `help(ALE)`. In this introduction, we only demonstrate The basics of retrieving and plotting ALE data. For details on ALE statistics see [the dedicated vignette](ale-statistics.html "ALE-based statistics") on that topic.
 
+For faster demonstrations, this vignette uses precreated ALE objects. For the full experience, you can uncomment the relevant lines in the code below.
+
 ```{r ale_simple}
 # Simple ALE without bootstrapping
-ale_gam_diamonds <- ALE(gam_diamonds)
+
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ALE object.
+# # For standard models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_gam_diamonds <- ALE(gam_diamonds)
+# saveRDS(ale_gam_diamonds, file.choose())
+ale_gam_diamonds <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds') |> 
+  readRDS()
 ```
 
 By default, most core functions in the `{ale}` package use parallel processing. If your computer has problems with this, you can disable parallelization with the argument `parallel = 0`.
@@ -135,25 +141,23 @@ plot(diamonds_plots, ncol = 2)
 
 One of the key features of the ALE package is bootstrapping of the ALE results to ensure that the results are reliable, that is, generalizable to data beyond the sample on which the model was trained. As mentioned above, this assumes that IML analysis is carried out on a model whose hyperparameters were determined by cross-validation. When samples are too small for cross-validation, we provide a different approach by bootstrapping the entire model with a `ModelBoot` object, explained in the vignette for [small datasets](ale-small-datasets.html "ale package for small datasets").
 
-Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies that time by the number of bootstrap iterations. Since this vignette is just a demonstration of package functionality rather than a real analysis, we will demonstrate bootstrapping on a small subset of the test data. This will run much faster as the speed of the ALE algorithm depends on the size of the dataset. So, let us take a random sample of 200 rows.
+Although ALE is faster than most other IML techniques for global explanation such as partial dependence plots (PDP) and SHAP, it still requires some time to run. Bootstrapping multiplies much of that time by the number of bootstrap iterations. 
 
-```{r diamonds_new}
-# Bootstraping is rather slow, so create a smaller subset of new data for demonstration
-set.seed(0)
-new_rows <- sample(nrow(diamonds), 200, replace = FALSE)
-diamonds_small_test <- diamonds[new_rows, ]
-```
-
-Now we create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. However, so that this introduction runs faster, we demonstrate it here with only 10 iterations. 
+We create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a relatively stable IML algorithm (compared to others like PDP), so 100 bootstrap samples should be sufficient for relatively stable results, especially for model development. Final results could be confirmed with 1000 bootstrap samples or more, but there should not be much difference in the results beyond 100 iterations. 
 
 ```{r ale_boot, fig.width=7, fig.height=11}
 
-ale_gam_diamonds_boot <- ALE(
-  model = gam_diamonds, 
-  data = diamonds_small_test, 
-  # Normally boot_it should be set to at least 100, but just 10 here for a faster demonstration
-  boot_it = 10
-)
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ALE object.
+# # For standard models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_gam_diamonds_boot <- ALE(
+#   gam_diamonds, 
+#   boot_it = 100
+# )
+# saveRDS(ale_gam_diamonds_boot, file.choose())
+ale_gam_diamonds_boot <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_boot.0.5.2.rds') |> 
+  readRDS()
 
 # Bootstrapping produces confidence intervals
 plot(ale_gam_diamonds_boot) |> 
@@ -168,10 +172,19 @@ Another advantage of ALE is that it provides data for 2D interactions between va
 
 ```{r ale_2D}
 # ALE two-way interactions
-ale_2D_gam_diamonds <- ALE(
-  gam_diamonds,
-  x_cols = list(d2 = TRUE)
-)
+
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ALE object.
+# # For standard models like mgcv::gam that store their data,
+# # there is no need to specify the data argument.
+# ale_2D_gam_diamonds <- ALE(
+#   gam_diamonds,
+#   x_cols = list(d2 = TRUE)
+# )
+# saveRDS(ale_2D_gam_diamonds, file.choose())
+ale_2D_gam_diamonds <- url('https://github.com/tripartio/ale/raw/main/download/ale_2D_gam_diamonds.0.5.2.rds') |> 
+  readRDS()
+
 ```
 
 The `plot()` method similarly creates 2D ALE plots from the `ALE` object. The `subset()` method of `ALEPlots` extracts a new `ALEPlots` object with only the selected variables or interaction terms:
@@ -193,4 +206,4 @@ get(diamonds_2D_plots, ~ carat:clarity)
 
 This is not the best dataset to use to illustrate ALE interactions because there are none here. This is expressed in the graphs by the ALE y values all being grey, the middle range of data. In the plots, the darker squares indicate the relative percentage of actual data in each interaction intersection. So, there is very little actual data for 0.2 carats; there is much more higher carat ranges.
 
-Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course `x_length` and `y_width` both have effects on the price, as the one-way ALE plots show, but their interaction has no additional composite effect. To see what ALE interaction plots look like in the presence of interactions, see the [ALEPlot comparison vignette](https://tripartio.github.io/ale/articles/ale-ALEPlot.html), which explains the interaction plots in more detail.
+Note that ALE interactions are very particular: an ALE interaction means that two variables have a composite effect over and above their separate independent effects. So, of course `x_length` and `y_width` both have effects on the price, as the one-way ALE plots show, but their interaction has no additional composite effect.

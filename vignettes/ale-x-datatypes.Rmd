@@ -1,10 +1,10 @@
 ---
-title: "ale function handling of various datatypes for x"
+title: "ale package handling of various input datatypes"
 author: "Chitu Okoli"
-date: "April 7, 2025"
+date: "August 27, 2025"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ale function handling of various datatypes for x}
+  %\VignetteIndexEntry{ale package handling of various input datatypes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette demonstrates how `{ale}` works for various datatypes of input (x) values. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
+This vignette demonstrates how `{ale}` works for various input datatypes. You should first read the [introductory vignette](ale-intro.html "Introduction to the ale package") that explains general functionality of the package; this vignette is a demonstration of specific functionality.
 
 We begin by loading the necessary libraries.
 
@@ -70,11 +70,19 @@ summary(gam_cars)
 
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
-```{r ale_cars, fig.width=7, fig.height=14}
-ale_cars <- ALE(gam_cars)
+```{r ale_cars_1D, fig.width=7, fig.height=14}
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ALE object.
+# # For standard models like gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_1D <- ALE(gam_cars)
+# saveRDS(ale_cars_1D, file.choose())
+ale_cars_1D <- url('https://github.com/tripartio/ale/raw/main/download/ale_cars_1D.0.5.2.rds') |> 
+  readRDS()
+
 
 # Print all plots
-plot(ale_cars) |> 
+plot(ale_cars_1D) |> 
   print(ncol = 2)
 ```
 
@@ -85,10 +93,17 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r ale_cars_2D, fig.width=7, fig.height=28}
-ale_cars_2D <- ALE(
-  gam_cars,
-  x_cols = list(d2 = TRUE)
-)
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ALE object.
+# # For standard models like gam that store their data,
+# # there is no need to specify the data argument.
+# ale_cars_2D <- ALE(
+#   gam_cars,
+#   x_cols = list(d2 = TRUE)
+# )
+# saveRDS(ale_cars_2D, file.choose())
+ale_cars_2D <- url('https://github.com/tripartio/ale/raw/main/download/ale_cars_2D.0.5.2.rds') |> 
+  readRDS()
 
 # Print plots
 plot(ale_cars_2D) |> 
@@ -104,13 +119,17 @@ There are no interactions in this model but the point of this demonstration is t
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
 ```{r cars_full, fig.width=7, fig.height=14}
-mb <- ModelBoot(
-  gam_cars,
-  boot_it = 10,  # 100 by default but reduced here for a faster demonstration
-  seed = 2  # workaround to avoid random error on such a small dataset
-)
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ModelBoot object.
+# # For standard models like lm that store their data,
+# # there is no need to specify the data argument.
+# # 100 bootstrap iterations by default.
+# mb_cars <- ModelBoot(gam_cars)
+# saveRDS(mb_cars, file.choose())
+mb_cars <- url('https://github.com/tripartio/ale/raw/main/download/mb_cars.0.5.2.rds') |> 
+  readRDS()
 
-plot(mb) |> 
+plot(mb_cars) |> 
   print(ncol = 2)
 ```
 

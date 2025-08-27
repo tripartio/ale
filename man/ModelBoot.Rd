@@ -165,37 +165,43 @@ summary(gam_attitude)
 
 \donttest{
 # Full model bootstrapping
-# Only 4 bootstrap iterations for a rapid example; default is 100
-# Increase value of boot_it for more realistic results
-mb_gam <- ModelBoot(
-  gam_attitude,
-  boot_it = 4
-)
+
+# # To generate the code, uncomment the following lines.
+# # For speed, this vignette loads a pre-created ModelBoot object.
+# # For standard models like lm that store their data,
+# # there is no need to specify the data argument.
+# # 100 bootstrap iterations by default.
+# mb_gam_attitude <- ModelBoot(gam_attitude)
+# saveRDS(mb_gam_attitude, file.choose())
+mb_gam_attitude <- url(paste0(
+  'https://github.com/tripartio/ale/raw/main/download/',
+  'mb_gam_attitude.0.5.2.rds'
+  )) |>
+  readRDS()
 
 # If the model is not standard, supply model_call_string with 'data = boot_data'
 # in the string instead of the actual dataset name (in addition to the actual dataset
 # as the 'data' argument directly to the `ModelBoot` constructor).
-mb_gam <- ModelBoot(
-  gam_attitude,
-  data = attitude,  # the actual dataset
-  model_call_string = 'mgcv::gam(
-    rating ~ complaints + privileges + s(learning) +
-      raises + s(critical) + advance,
-    data = boot_data  # required for model_call_string
-  )',
-  boot_it = 4
-)
+# mb_gam_attitude <- ModelBoot(
+#   gam_attitude,
+#   data = attitude,  # the actual dataset
+#   model_call_string = 'mgcv::gam(
+#     rating ~ complaints + privileges + s(learning) +
+#       raises + s(critical) + advance,
+#     data = boot_data  # required for model_call_string
+#   )'
+# )
 
 # Model statistics and coefficients
-mb_gam@model_stats
-mb_gam@model_coefs
+mb_gam_attitude@model_stats
+mb_gam_attitude@model_coefs
 
 # Plot ALE
-plot(mb_gam)
+plot(mb_gam_attitude)
 
 # Retrieve ALE data
-get(mb_gam, type = 'boot')    # bootstrapped
-get(mb_gam, type = 'single')  # full (unbootstrapped) model
+get(mb_gam_attitude, type = 'boot')    # bootstrapped
+get(mb_gam_attitude, type = 'single')  # full (unbootstrapped) model
 # See get.ALE() for other options
 
 }

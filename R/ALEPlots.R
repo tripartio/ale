@@ -35,7 +35,7 @@
 #'
 #'
 #' @examples
-#' # See examples with ALE and ModelBoot objects
+#' # See examples with ALE() and ModelBoot() objects.
 #'
 ALEPlots <- new_class(
   'ALEPlots',
