@@ -10,8 +10,7 @@ status](https://www.r-pkg.org/badges/version/ale)](https://CRAN.R-project.org/pa
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale)
+<!-- [![Codecov test coverage](https://codecov.io/gh/tripartio/ale/graph/badge.svg)](https://app.codecov.io/gh/tripartio/ale) -->
 <!-- badges: end -->
 
 Accumulated Local Effects (ALE) were initially developed as a
@@ -98,25 +97,42 @@ demonstrations, we begin by fitting a GAM model. We assume that this is
 a final deployment model that needs to be fitted to the entire dataset.
 
 ``` r
-library(ale)
-#> 
-#> Attaching package: 'ale'
-#> The following object is masked from 'package:base':
-#> 
-#>     get
 
-# Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).
-set.seed(0)
-diamonds_sample <- ggplot2::diamonds[sample(nrow(ggplot2::diamonds), 1000), ]
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
-# Create a GAM model with flexible curves to predict diamond price.
-# Smooth all numeric variables and include all other variables.
-# Build model on training data, not on the full dataset.
+# Load diamonds dataset with some cleanup
+diamonds <- ggplot2::diamonds |>
+  filter(!(x == 0 | y == 0 | z == 0)) |>
+  # https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/
+  distinct(
+    price, carat, cut, color, clarity,
+    .keep_all = TRUE
+  ) |>
+  rename(
+    x_length = x,
+    y_width = y,
+    z_depth = z,
+    depth_pct = depth
+  )
+```
+
+``` r
+
+# Create a GAM model with flexible curves to predict diamond price
+# Smooth all numeric variables and include all other variables
+# Build the model on training data, not on the full dataset.
 gam_diamonds <- mgcv::gam(
-  price ~ s(carat) + s(depth) + s(table) + s(x) + s(y) + s(z) +
-    cut + color + clarity +
-    ti(carat, by = clarity),  # a 2D interaction
-  data = diamonds_sample
+  price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+    cut + color + clarity,
+  data = diamonds
 )
 ```
 
@@ -126,26 +142,21 @@ For the simple demonstration, we directly create ALE data with the
 `ALE()` function and then plot the `ggplot` plot objects.
 
 ``` r
-# Create ALE data
-ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds_sample)
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+library(ale)
+#> 
+#> Attaching package: 'ale'
+#> The following object is masked from 'package:base':
+#> 
+#>     get
+
+# # To generate the code, uncomment the following lines.
+# # For speed, these examples load pre-created objects.
+# # Create ALE data
+# ale_gam_diamonds <- ALE(gam_diamonds, data = diamonds)
+# saveRDS(ale_gam_diamonds, file.choose())
+ale_gam_diamonds <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds') |>
+  readRDS()
+
 
 # Plot the ALE data
 plot(ale_gam_diamonds) |> 
@@ -173,15 +184,15 @@ statistics can be properly distinguished from random effects.
 # Create p_value distribution object
 
 # # To generate the code, uncomment the following lines.
-# # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.
-# gam_diamonds_p_readme <- ALEpDist(
-#   gam_diamonds, diamonds_sample,
+# # But it is slow because it retrains the model 100 times, so this demo loads a pre-created p_value distribution object.
+# p_dist_gam_diamonds_readme <- ALEpDist(
+#   gam_diamonds, diamonds,
 #   # Normally should be default 1000, but just 100 for quicker demo
 #   rand_it = 100
 # )
-# saveRDS(gam_diamonds_p_readme, file.choose())
-gam_diamonds_p_readme <- 
-  url('https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.0.5.0.rds') |> 
+# saveRDS(p_dist_gam_diamonds_readme, file.choose())
+p_dist_gam_diamonds_readme <- 
+  url('https://github.com/tripartio/ale/raw/main/download/p_dist_gam_diamonds_readme.0.5.2.rds') |> 
   readRDS()
 ```
 
@@ -189,36 +200,21 @@ Now we can create bootstrapped ALE data and see some of the differences
 in the plots of bootstrapped ALE with p-values:
 
 ``` r
-# Create ALE data
-ale_gam_diamonds_stats_readme <- ALE(
-  gam_diamonds,
-  # generate all for all 1D variables and the carat:clarity 2D interaction
-  x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
-  data = diamonds_sample,
-  p_values = gam_diamonds_p_readme,
-  # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
-  boot_it = 10
-)
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
-#> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+# Create ALE data with p-values
+
+# ale_gam_diamonds_stats_readme <- ALE(
+#   gam_diamonds,
+#   # generate ALE for all 1D variables and the carat:clarity 2D interaction
+#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+#   data = diamonds,
+#   p_values = p_dist_gam_diamonds_readme,
+#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+#   boot_it = 10
+# )
+# saveRDS(ale_gam_diamonds_stats_readme, file.choose())
+ale_gam_diamonds_stats_readme <- 
+  url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.0.5.2.rds') |> 
+  readRDS()
 
 # Create an ALEPlots object for fine-tuned plotting
 ale_plots <- plot(ale_gam_diamonds_stats_readme)
