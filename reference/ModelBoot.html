@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -293,144 +293,150 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Full model bootstrapping</span></span></span>
-<span class="r-in"><span><span class="co"># Only 4 bootstrap iterations for a rapid example; default is 100</span></span></span>
-<span class="r-in"><span><span class="co"># Increase value of boot_it for more realistic results</span></span></span>
-<span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">ModelBoot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">gam_attitude</span>,</span></span>
-<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">4</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span></span>
+<span class="r-in"><span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span></span>
+<span class="r-in"><span><span class="co"># # For standard models like lm that store their data,</span></span></span>
+<span class="r-in"><span><span class="co"># # there is no need to specify the data argument.</span></span></span>
+<span class="r-in"><span><span class="co"># # 100 bootstrap iterations by default.</span></span></span>
+<span class="r-in"><span><span class="co"># mb_gam_attitude &lt;- ModelBoot(gam_attitude)</span></span></span>
+<span class="r-in"><span><span class="co"># saveRDS(mb_gam_attitude, file.choose())</span></span></span>
+<span class="r-in"><span><span class="va">mb_gam_attitude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">'https://github.com/tripartio/ale/raw/main/download/'</span>,</span></span>
+<span class="r-in"><span>  <span class="st">'mb_gam_attitude.0.5.2.rds'</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If the model is not standard, supply model_call_string with 'data = boot_data'</span></span></span>
 <span class="r-in"><span><span class="co"># in the string instead of the actual dataset name (in addition to the actual dataset</span></span></span>
 <span class="r-in"><span><span class="co"># as the 'data' argument directly to the `ModelBoot` constructor).</span></span></span>
-<span class="r-in"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu">ModelBoot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">gam_attitude</span>,</span></span>
-<span class="r-in"><span>  data <span class="op">=</span> <span class="va">attitude</span>,  <span class="co"># the actual dataset</span></span></span>
-<span class="r-in"><span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span></span>
-<span class="r-in"><span><span class="st">    rating ~ complaints + privileges + s(learning) +</span></span></span>
-<span class="r-in"><span><span class="st">      raises + s(critical) + advance,</span></span></span>
-<span class="r-in"><span><span class="st">    data = boot_data  # required for model_call_string</span></span></span>
-<span class="r-in"><span><span class="st">  )'</span>,</span></span>
-<span class="r-in"><span>  boot_it <span class="op">=</span> <span class="fl">4</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># mb_gam_attitude &lt;- ModelBoot(</span></span></span>
+<span class="r-in"><span><span class="co">#   gam_attitude,</span></span></span>
+<span class="r-in"><span><span class="co">#   data = attitude,  # the actual dataset</span></span></span>
+<span class="r-in"><span><span class="co">#   model_call_string = 'mgcv::gam(</span></span></span>
+<span class="r-in"><span><span class="co">#     rating ~ complaints + privileges + s(learning) +</span></span></span>
+<span class="r-in"><span><span class="co">#       raises + s(critical) + advance,</span></span></span>
+<span class="r-in"><span><span class="co">#     data = boot_data  # required for model_call_string</span></span></span>
+<span class="r-in"><span><span class="co">#   )'</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Model statistics and coefficients</span></span></span>
-<span class="r-in"><span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_stats</span></span></span>
+<span class="r-in"><span><span class="va">mb_gam_attitude</span><span class="op">@</span><span class="va">model_stats</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name          boot_valid conf.low median   mean conf.high       sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> df               <span style="color: #BB0000;">NA</span>        15.2   18.5   18.3      20.9   2.50<span style="color: #949494;">e</span>+ 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> df.residual      <span style="color: #BB0000;">NA</span>         9.15  11.5   11.7      14.8   2.50<span style="color: #949494;">e</span>+ 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nobs             <span style="color: #BB0000;">NA</span>        30     30     30        30     0   <span style="color: #949494;"> </span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> adj.r.squared    <span style="color: #BB0000;">NA</span>         1.000  1.000  1.000     1.000 1.93<span style="color: #949494;">e</span><span style="color: #BB0000;">-15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> npar             <span style="color: #BB0000;">NA</span>        23     23     23        23     0   <span style="color: #949494;"> </span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> mae              19.7      13.7   <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        58.4   2.20<span style="color: #949494;">e</span>+ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> sa_mae            0.063<span style="text-decoration: underline;">9</span>   -<span style="color: #BB0000;">1.42</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.268 8.09<span style="color: #949494;">e</span><span style="color: #BB0000;">- 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> rmse             24.9      17.8   <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        76.9   2.98<span style="color: #949494;">e</span>+ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> sa_rmse           0.052<span style="text-decoration: underline;">3</span>   -<span style="color: #BB0000;">1.66</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.240 9.46<span style="color: #949494;">e</span><span style="color: #BB0000;">- 1</span></span>
-<span class="r-in"><span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_coefs</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   name          boot_valid conf.low median   mean conf.high      sd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.36  17.0   15.8      21.0    4.08  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.00  13.0   14.2      21.6    4.08  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>       30     30     30        30      0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.746  1.000  0.945     1      0.083<span style="text-decoration: underline;">2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> mae               12.9      4.50  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        62.6   15.0   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> sa_mae             0.307   -<span style="color: #BB0000;">2.00</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.769  0.772 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> rmse              16.3      5.51  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        79.4   19.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> sa_rmse            0.332   -<span style="color: #BB0000;">2.08</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.786  0.754 </span>
+<span class="r-in"><span><span class="va">mb_gam_attitude</span><span class="op">@</span><span class="va">model_coefs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term        conf.low median  mean conf.high std.error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> s(learning)     6.92   7.63  7.77      8.85     0.874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> s(critical)     2.80   6.10  5.49      7.13     2.13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> s(learning)     1.00   7.94  6.10      9.00      3.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> s(critical)     1.74   4.34  4.69      8.96      2.24</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot ALE</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ModelBoot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve ALE data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">mb_gam</span>, type <span class="op">=</span> <span class="st">'boot'</span><span class="op">)</span>    <span class="co"># bootstrapped</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span>, type <span class="op">=</span> <span class="st">'boot'</span><span class="op">)</span>    <span class="co"># bootstrapped</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $complaints</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    complaints.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>              67     3  63.8  63.8    63.8      63.8  63.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>              78     3  55.3  55.3    55.3      55.3  55.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>              83     3  65.4  52.2    65.4      65.4  78.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>              37     1  47.0  46.2    47.0      47.0  47.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>              60     3  66.0  63.8    66.0      65.8  68.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>              75     4  73.9  73.9    73.9      73.9  73.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>              90     3  68.5  53.6    68.5      68.5  83.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>              57     3  70.1  70.1    70.1      70.1  70.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>              53     3  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>              63     4  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>              37     1  49.4  29.9    49.4      47.9  90.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>              53     3  60.9  48.7    60.9      58.6  80.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>              57     3  60.5  54.6    60.5      59.7  70.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>              60     3  62.8  59.3    62.8      62.4  69.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>              63     4  64.7  61.8    64.7      64.6  68.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>              67     3  66.5  62.5    66.5      66.3  71.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>              75     4  70.0  51.2    70.0      71.2  79.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>              78     3  73.8  58.4    73.8      73.4  82.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>              83     3  74.0  51.6    74.0      74.8  89.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>              90     3  79.9  49.6    79.9      80.9  99.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $privileges</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    privileges.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>              30     1  66.2  55.7    66.2      69.5  71.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>              42     5  65.5  61.0    65.5      67.1  67.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>              83     3  66.4  58.8    66.4      59.5  79.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>              52     3  64.7  64.1    64.7      64.7  65.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>              68     3  58.8  58.8    58.8      58.8  58.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>              46     3  66.1  66.1    66.1      66.1  66.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>              50     4  65.6  65.4    65.6      65.6  65.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>              44     1  66.9  66.9    66.9      66.9  66.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>              57     4  64.4  64.4    64.4      64.4  64.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>              65     3  62.9  62.9    62.9      62.9  62.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>              30     1  67.1  49.9    67.1      68.0  80.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>              42     5  66.3  58.6    66.3      66.8  72.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>              44     1  65.5  59.8    65.5      66.1  68.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>              46     3  66.2  61.6    66.2      66.2  70.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>              50     4  65.5  62.8    65.5      65.6  67.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>              52     3  65.6  64.4    65.6      65.5  68.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>              57     4  65.3  59.5    65.3      65.0  70.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>              65     3  65.1  54.6    65.1      63.7  78.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>              68     3  63.5  55.2    63.5      63.5  74.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>              83     3  59.9  46.3    59.9      59.4  76.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $learning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    learning.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>            34     1  44.2  30.6    44.2      44.2  57.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>            45     3  74.9  68.0    74.9      68.3  87.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>            48     3  73.0  71.1    73.0      71.9  75.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>            75     2  73.7  61.9    73.7      63.5  94.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>            58     4  66.5  66.5    66.5      66.5  66.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>            63     3  60.5  60.5    60.5      60.5  60.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>            72     3  70.0  70.0    70.0      70.0  70.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>            42     3  58.8  55.3    58.8      58.8  62.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>            55     4  59.3  59.3    59.3      59.3  59.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>            69     4  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>            34     1  61.9  27.4    61.9      62.0 105. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>            42     3  63.5  48.2    63.5      63.6  94.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>            45     3  64.6  49.8    64.6      62.8  86.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>            48     3  64.1  40.7    64.1      63.7  86.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>            55     4  61.9  44.3    61.9      61.9  84.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>            58     4  62.8  25.5    62.8      65.3  79.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>            63     3  65.5  43.2    65.5      67.2  77.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>            69     4  72.7  57.5    72.7      71.6  95.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>            72     3  72.2  56.3    72.2      72.2  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>            75     2  74.7  58.2    74.7      75.0  95.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $raises</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    raises.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>          43     1  39.6  38.9    39.6      39.6  40.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>          54     4  62.2  55.2    62.2      65.0  67.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>          59     3  62.9  61.2    62.9      62.1  65.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>          75     3  72.2  62.9    72.2      72.2  81.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>          63     5  66.2  65.1    66.2      65.5  67.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>          64     2  65.6  65.6    65.6      65.6  65.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>          79     4  64.0  61.7    64.0      64.0  66.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>          88     2  85.6  67.8    85.6      85.6 103. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>          55     2  61.6  56.6    61.6      61.6  66.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>          70     4  63.6  63.6    63.6      63.6  63.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>          43     1  61.1  3.74    61.1      64.5  88.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>          54     4  64.9 49.2     64.9      65.8  82.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>          55     2  63.8 44.0     63.8      65.1  72.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>          59     3  64.7 57.8     64.7      65.2  67.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>          63     5  65.7 62.8     65.7      65.5  69.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>          64     2  65.8 63.8     65.8      65.6  69.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>          70     4  65.9 55.5     65.9      65.6  78.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>          75     3  69.8 60.1     69.8      67.1  97.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>          79     4  66.1 31.1     66.1      65.4  94.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>          88     2  69.5 44.1     69.5      66.1 116. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $critical</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    critical.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>            67     3  68.5  52.6    68.5      68.5  84.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>            77     4  61.8  57.3    61.8      61.8  66.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>            80     5  62.2  56.2    62.2      61.7  69.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>            83     3  60.8  57.6    60.8      60.8  64.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>            84     1  66.9  66.9    66.9      66.9  66.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>            92     3  53.0  46.0    53.0      48.4  68.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>            49     1  54.7  45.3    54.7      53.7  65.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>            74     4  68.1  68.1    68.1      68.1  68.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>            78     3  72.8  66.0    72.8      72.8  79.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>            63     3  79.6  70.0    79.6      79.6  89.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>            49     1  54.1 34.0     54.1      54.5  68.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>            63     3  74.2 53.8     74.2      72.9  96.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>            67     3  68.9 54.2     68.9      67.5  88.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>            74     4  70.7 57.2     70.7      70.6  81.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>            77     4  66.8 51.9     66.8      67.3  81.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>            78     3  66.6 54.1     66.6      66.8  79.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>            80     5  64.9 51.6     64.9      65.5  79.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>            83     3  63.2 46.5     63.2      64.6  74.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>            84     1  59.9 45.6     59.9      62.6  67.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>            92     3  56.1  8.94    56.1      56.1  99.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $advance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   advance.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           33     3  65.2  60.6    65.2      63.8  72.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           35     5  65.5  62.2    65.5      63.6  70.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           41     7  66.1  64.6    66.1      66.3  67.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           47     5  71.5  70.7    71.5      71.5  72.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           72     3  49.5  32.8    49.5      49.5  66.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           25     1  69.6  58.4    69.6      69.6  80.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>           55     2  49.8  49.8    49.8      49.8  49.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>           36     1  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>           49     3  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           25     1  67.7  50.0    67.7      69.4  79.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           33     3  67.5  60.4    67.5      67.0  79.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           35     5  67.1  62.0    67.1      66.5  74.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           36     1  67.2  62.8    67.2      66.5  75.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           41     7  65.7  64.8    65.7      65.6  68.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           47     5  65.2  57.7    65.2      64.7  75.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>           49     3  65.2  58.3    65.2      64.3  74.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>           55     2  62.9  47.6    62.9      63.7  74.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>           72     3  56.6  23.6    56.6      57.7  81.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">mb_gam</span>, type <span class="op">=</span> <span class="st">'single'</span><span class="op">)</span>  <span class="co"># full (unbootstrapped) model</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span>, type <span class="op">=</span> <span class="st">'single'</span><span class="op">)</span>  <span class="co"># full (unbootstrapped) model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $complaints</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    complaints.ceil    .n    .y .y_lo .y_mean .y_median .y_hi</span>

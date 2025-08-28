@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -374,7 +374,7 @@ be too slow each time. For definitive conclusions, you could run 1,000
 bootstraps or more to confirm the results of 100 bootstraps.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.</span></span>
+<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.</span></span>
 <span><span class="co"># mb_gam_math &lt;- ModelBoot(</span></span>
 <span><span class="co">#   gam_math,</span></span>
 <span><span class="co">#   # Pass the ALEpDist object so that p-values will be generated</span></span>
@@ -585,7 +585,7 @@ first generating a <code>ALEpDist</code> object. Let us create another
 <code>ModelBoot</code> object, but this time, one without p-values.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ale_boot object.</span></span>
+<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.</span></span>
 <span><span class="co"># mb_gam_no_p &lt;- ModelBoot(</span></span>
 <span><span class="co">#   gam_math,</span></span>
 <span><span class="co">#   ale_p = NULL,  # disable ALE p-values</span></span>

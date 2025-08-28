@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>ale function handling of various datatypes for x • ale</title>
+<title>ale package handling of various input datatypes • ale</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ale function handling of various datatypes for x">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ale package handling of various input datatypes">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -58,11 +58,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>ale function handling of various datatypes for x</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>ale package handling of various input datatypes</h1>
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">April 7, 2025</h4>
+            <h4 data-toc-skip class="date">August 27, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-x-datatypes.Rmd" class="external-link"><code>vignettes/ale-x-datatypes.Rmd</code></a></small>
       <div class="d-none name"><code>ale-x-datatypes.Rmd</code></div>
@@ -71,7 +71,7 @@ Okoli</h4>
     
     
 <p>This vignette demonstrates how <a href="https://github.com/tripartio/ale" class="external-link">ale</a> works for various
-datatypes of input (x) values. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
+input datatypes. You should first read the <a href="ale-intro.html" title="Introduction to the ale package">introductory vignette</a> that
 explains general functionality of the package; this vignette is a
 demonstration of specific functionality.</p>
 <p>We begin by loading the necessary libraries.</p>
@@ -281,12 +281,20 @@ procedure but rather to demonstrate the flexibility of the
 <p>Now we generate ALE data from the <code>gam_cars</code> GAM model and
 plot it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_cars_1D &lt;- ALE(gam_cars)</span></span>
+<span><span class="co"># saveRDS(ale_cars_1D, file.choose())</span></span>
+<span><span class="va">ale_cars_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_cars_1D.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars_1D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-x-datatypes_files/figure-html/ale_cars-1.png" width="672"></p>
+<p><img src="ale-x-datatypes_files/figure-html/ale_cars_1D-1.png" width="672"></p>
 <p>We can see that <code><a href="../reference/ale.html">ALE()</a></code> has no trouble modelling any of
 the datatypes in our sample (logical, factor, ordered, integer, or
 double). It plots line charts for the numeric predictors and column
@@ -300,10 +308,17 @@ column is displayed.</p>
 <p>We can also generate and plot the ALE data for all two-way
 interactions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_cars_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_cars</span>,</span>
-<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_cars_2D &lt;- ALE(</span></span>
+<span><span class="co">#   gam_cars,</span></span>
+<span><span class="co">#   x_cols = list(d2 = TRUE)</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(ale_cars_2D, file.choose())</span></span>
+<span><span class="va">ale_cars_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_cars_2D.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars_2D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -321,17 +336,17 @@ numeric-numeric, ordinal-binary, categorical-ordinal, etc.</p>
 appropriate modelling workflow would require bootstrapping the entire
 model, not just the ALE data. So, let’s do that now.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_cars</span>,</span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  seed <span class="op">=</span> <span class="fl">2</span>  <span class="co"># workaround to avoid random error on such a small dataset</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in min(y): no non-missing arguments to min; returning Inf</span></span>
-<span><span class="co">#&gt; Warning in max(y): no non-missing arguments to max; returning -Inf</span></span>
-<span><span class="co">#&gt; Warning in min(norm_y): no non-missing arguments to min; returning Inf</span></span>
-<span><span class="co">#&gt; Warning in max(norm_y): no non-missing arguments to max; returning -Inf</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span>
+<span><span class="co"># # For standard models like lm that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># # 100 bootstrap iterations by default.</span></span>
+<span><span class="co"># mb_cars &lt;- ModelBoot(gam_cars)</span></span>
+<span><span class="co"># saveRDS(mb_cars, file.choose())</span></span>
+<span><span class="va">mb_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_cars.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_cars</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_full-1.png" width="672"></p>
 <p>(By default, a <code>ModelBoot</code> object creates 100 bootstrap

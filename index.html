@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
 <li><a class="dropdown-item" href="articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -104,6 +104,46 @@
 </h2>
 <p>We will give two demonstrations of how to use the package: first, a simple demonstration of ALE plots, and second, a more sophisticated demonstration suitable for statistical inference with p-values. For both demonstrations, we begin by fitting a GAM model. We assume that this is a final deployment model that needs to be fitted to the entire dataset.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="co"># Load diamonds dataset with some cleanup</span></span>
+<span><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># https://lorentzen.ch/index.php/2021/04/16/a-curious-fact-on-the-diamonds-dataset/</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span></span>
+<span>    <span class="va">price</span>, <span class="va">carat</span>, <span class="va">cut</span>, <span class="va">color</span>, <span class="va">clarity</span>,</span>
+<span>    .keep_all <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span></span>
+<span>    x_length <span class="op">=</span> <span class="va">x</span>,</span>
+<span>    y_width <span class="op">=</span> <span class="va">y</span>,</span>
+<span>    z_depth <span class="op">=</span> <span class="va">z</span>,</span>
+<span>    depth_pct <span class="op">=</span> <span class="va">depth</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Create a GAM model with flexible curves to predict diamond price</span></span>
+<span><span class="co"># Smooth all numeric variables and include all other variables</span></span>
+<span><span class="co"># Build the model on training data, not on the full dataset.</span></span>
+<span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
+<span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth_pct</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x_length</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y_width</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z_depth</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">diamonds</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="simple-demonstration">Simple demonstration<a class="anchor" aria-label="anchor" href="#simple-demonstration"></a>
+</h3>
+<p>For the simple demonstration, we directly create ALE data with the <code><a href="reference/ale.html">ALE()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ale'</span></span>
@@ -111,44 +151,14 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     get</span></span>
 <span></span>
-<span><span class="co"># Sample 1000 rows from the ggplot2::diamonds dataset (for a simple example).</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">diamonds_sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, these examples load pre-created objects.</span></span>
+<span><span class="co"># # Create ALE data</span></span>
+<span><span class="co"># ale_gam_diamonds &lt;- ALE(gam_diamonds, data = diamonds)</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds, file.choose())</span></span>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Create a GAM model with flexible curves to predict diamond price.</span></span>
-<span><span class="co"># Smooth all numeric variables and include all other variables.</span></span>
-<span><span class="co"># Build model on training data, not on the full dataset.</span></span>
-<span><span class="va">gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span></span>
-<span>  <span class="va">price</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">depth</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">table</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">clarity</span> <span class="op">+</span></span>
-<span>    <span class="fu">ti</span><span class="op">(</span><span class="va">carat</span>, by <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span>,  <span class="co"># a 2D interaction</span></span>
-<span>  data <span class="op">=</span> <span class="va">diamonds_sample</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="simple-demonstration">Simple demonstration<a class="anchor" aria-label="anchor" href="#simple-demonstration"></a>
-</h3>
-<p>For the simple demonstration, we directly create ALE data with the <code><a href="reference/ale.html">ALE()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create ALE data</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_diamonds</span>, data <span class="op">=</span> <span class="va">diamonds_sample</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
 <span></span>
 <span><span class="co"># Plot the ALE data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -161,52 +171,37 @@
 </h3>
 <p>The statistical functionality of the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package is rather slow because it typically involves 100 bootstrap iterations and sometimes a 1,000 random simulations. Even though most functions in the package implement parallel processing by default, such procedures still take some time. So, this statistical demonstration gives you downloadable objects for a rapid demonstration.</p>
 <p>First, we need to create a p-value distribution object so that the ALE statistics can be properly distinguished from random effects.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create p_value distribution object</span></span>
 <span></span>
 <span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow because it retrains the model 100 times, so this vignette loads a pre-created p_value distribution object.</span></span>
-<span><span class="co"># gam_diamonds_p_readme &lt;- ALEpDist(</span></span>
-<span><span class="co">#   gam_diamonds, diamonds_sample,</span></span>
+<span><span class="co"># # But it is slow because it retrains the model 100 times, so this demo loads a pre-created p_value distribution object.</span></span>
+<span><span class="co"># p_dist_gam_diamonds_readme &lt;- ALEpDist(</span></span>
+<span><span class="co">#   gam_diamonds, diamonds,</span></span>
 <span><span class="co">#   # Normally should be default 1000, but just 100 for quicker demo</span></span>
 <span><span class="co">#   rand_it = 100</span></span>
 <span><span class="co"># )</span></span>
-<span><span class="co"># saveRDS(gam_diamonds_p_readme, file.choose())</span></span>
-<span><span class="va">gam_diamonds_p_readme</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gam_diamonds_p_readme.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="co"># saveRDS(p_dist_gam_diamonds_readme, file.choose())</span></span>
+<span><span class="va">p_dist_gam_diamonds_readme</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/p_dist_gam_diamonds_readme.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create ALE data</span></span>
-<span><span class="va">ale_gam_diamonds_stats_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_diamonds</span>,</span>
-<span>  <span class="co"># generate all for all 1D variables and the carat:clarity 2D interaction</span></span>
-<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span>, d2 <span class="op">=</span> <span class="st">'carat:clarity'</span><span class="op">)</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">diamonds_sample</span>,</span>
-<span>  p_values <span class="op">=</span> <span class="va">gam_diamonds_p_readme</span>,</span>
-<span>  <span class="co"># Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
-<span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create ALE data with p-values</span></span>
+<span></span>
+<span><span class="co"># ale_gam_diamonds_stats_readme &lt;- ALE(</span></span>
+<span><span class="co">#   gam_diamonds,</span></span>
+<span><span class="co">#   # generate ALE for all 1D variables and the carat:clarity 2D interaction</span></span>
+<span><span class="co">#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),</span></span>
+<span><span class="co">#   data = diamonds,</span></span>
+<span><span class="co">#   p_values = p_dist_gam_diamonds_readme,</span></span>
+<span><span class="co">#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span>
+<span><span class="co">#   boot_it = 10</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds_stats_readme, file.choose())</span></span>
+<span><span class="va">ale_gam_diamonds_stats_readme</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create an ALEPlots object for fine-tuned plotting</span></span>
 <span><span class="va">ale_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_stats_readme</span><span class="op">)</span></span>
@@ -219,7 +214,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-ale-p-and-1D-plot-1.png" width="100%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot a selected 2D plot</span></span>
 <span><span class="va">ale_plots</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="co"># get() retrieves a specific desired plot</span></span>
@@ -299,7 +294,6 @@
 <li><a href="https://CRAN.R-project.org/package=ale" class="external-link"><img src="https://www.r-pkg.org/badges/version/ale" alt="CRAN status"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tripartio/ale/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/tripartio/ale" class="external-link"><img src="https://codecov.io/gh/tripartio/ale/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 

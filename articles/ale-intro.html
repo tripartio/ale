@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -62,7 +62,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">April 7, 2025</h4>
+            <h4 data-toc-skip class="date">August 27, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-intro.Rmd" class="external-link"><code>vignettes/ale-intro.Rmd</code></a></small>
       <div class="d-none name"><code>ale-intro.Rmd</code></div>
@@ -135,10 +135,6 @@ invalid entries where the length (x), width (y), or depth (z) is 0.</p>
 <span>    z_depth <span class="op">=</span> <span class="va">z</span>,</span>
 <span>    depth_pct <span class="op">=</span> <span class="va">depth</span></span>
 <span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Optional: sample 1000 rows so that the code executes faster.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">diamonds_sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      carat               cut        color       clarity       depth_pct    </span></span>
@@ -333,9 +329,20 @@ details in the help file for the object: <code><a href="../reference/ale.html">h
 introduction, we only demonstrate The basics of retrieving and plotting
 ALE data. For details on ALE statistics see <a href="ale-statistics.html" title="ALE-based statistics">the dedicated
 vignette</a> on that topic.</p>
+<p>For faster demonstrations, this vignette uses precreated ALE objects.
+For the full experience, you can uncomment the relevant lines in the
+code below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simple ALE without bootstrapping</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_diamonds</span><span class="op">)</span></span></code></pre></div>
+<span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_gam_diamonds &lt;- ALE(gam_diamonds)</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds, file.choose())</span></span>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>By default, most core functions in the <a href="https://github.com/tripartio/ale" class="external-link">ale</a> package use
 parallel processing. If your computer has problems with this, you can
 disable parallelization with the argument <code>parallel = 0</code>.</p>
@@ -379,38 +386,33 @@ approach by bootstrapping the entire model with a <code>ModelBoot</code>
 object, explained in the vignette for <a href="ale-small-datasets.html" title="ale package for small datasets">small datasets</a>.</p>
 <p>Although ALE is faster than most other IML techniques for global
 explanation such as partial dependence plots (PDP) and SHAP, it still
-requires some time to run. Bootstrapping multiplies that time by the
-number of bootstrap iterations. Since this vignette is just a
-demonstration of package functionality rather than a real analysis, we
-will demonstrate bootstrapping on a small subset of the test data. This
-will run much faster as the speed of the ALE algorithm depends on the
-size of the dataset. So, let us take a random sample of 200 rows.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Bootstraping is rather slow, so create a smaller subset of new data for demonstration</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">new_rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>, <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">diamonds_small_test</span> <span class="op">&lt;-</span> <span class="va">diamonds</span><span class="op">[</span><span class="va">new_rows</span>, <span class="op">]</span></span></code></pre></div>
-<p>Now we create bootstrapped ALE data and plots using the
+requires some time to run. Bootstrapping multiplies much of that time by
+the number of bootstrap iterations.</p>
+<p>We create bootstrapped ALE data and plots using the
 <code>boot_it</code> argument. ALE is a relatively stable IML algorithm
 (compared to others like PDP), so 100 bootstrap samples should be
 sufficient for relatively stable results, especially for model
 development. Final results could be confirmed with 1000 bootstrap
 samples or more, but there should not be much difference in the results
-beyond 100 iterations. However, so that this introduction runs faster,
-we demonstrate it here with only 10 iterations.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+beyond 100 iterations.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  model <span class="op">=</span> <span class="va">gam_diamonds</span>, </span>
-<span>  data <span class="op">=</span> <span class="va">diamonds_small_test</span>, </span>
-<span>  <span class="co"># Normally boot_it should be set to at least 100, but just 10 here for a faster demonstration</span></span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span></span>
-<span><span class="op">)</span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_gam_diamonds_boot &lt;- ALE(</span></span>
+<span><span class="co">#   gam_diamonds, </span></span>
+<span><span class="co">#   boot_it = 100</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds_boot, file.choose())</span></span>
+<span><span class="va">ale_gam_diamonds_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_boot.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bootstrapping produces confidence intervals</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_boot</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"><img src="ale-intro_files/figure-html/ale_boot-2.png" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE results. In principle, we should always bootstrap
 the results and trust only in bootstrapped results. The most unusual
@@ -436,17 +438,25 @@ ALE data on all possible 2D interactions from the input dataset. To
 change the default options (e.g., to calculate interactions for only
 certain pairs of variables), see details in the help file for the
 object: <code><a href="../reference/ale.html">help(ALE)</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALE two-way interactions</span></span>
-<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_diamonds</span>,</span>
-<span>  x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like mgcv::gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_2D_gam_diamonds &lt;- ALE(</span></span>
+<span><span class="co">#   gam_diamonds,</span></span>
+<span><span class="co">#   x_cols = list(d2 = TRUE)</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(ale_2D_gam_diamonds, file.choose())</span></span>
+<span><span class="va">ale_2D_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_2D_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> method similarly creates 2D ALE plots from
 the <code>ALE</code> object. The <code><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset()</a></code> method of
 <code>ALEPlots</code> extracts a new <code>ALEPlots</code> object with
 only the selected variables or interaction terms:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds_2D_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_2D_gam_diamonds</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">diamonds_2D_plots</span> <span class="op">|&gt;</span></span>
@@ -461,7 +471,7 @@ specific plot. The <code>ale</code> package supports the standard R
 formula notation for specifying variables. For example, we can print the
 interaction plot between carat and depth by referring to it thus:
 <code>get(diamonds_2D_plots, ~ carat:clarity)</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_2D_plots</span>, <span class="op">~</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
@@ -474,11 +484,8 @@ carats; there is much more higher carat ranges.</p>
 means that two variables have a composite effect over and above their
 separate independent effects. So, of course <code>x_length</code> and
 <code>y_width</code> both have effects on the price, as the one-way ALE
-plots show, but their interaction has no additional composite effect. To
-see what ALE interaction plots look like in the presence of
-interactions, see the <a href="https://tripartio.github.io/ale/articles/ale-ALEPlot.html">ALEPlot
-comparison vignette</a>, which explains the interaction plots in more
-detail.</p>
+plots show, but their interaction has no additional composite
+effect.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

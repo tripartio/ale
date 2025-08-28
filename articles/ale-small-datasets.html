@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/ale-intro.html">Introduction to the ale package</a></li>
     <li><a class="dropdown-item" href="../articles/ale-small-datasets.html">Analyzing small datasets (fewer than 2000 rows) with ALE</a></li>
     <li><a class="dropdown-item" href="../articles/ale-statistics.html">ALE-based statistics for statistical inference and effect sizes</a></li>
-    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale function handling of various datatypes for x</a></li>
+    <li><a class="dropdown-item" href="../articles/ale-x-datatypes.html">ale package handling of various input datatypes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -62,7 +62,7 @@
                         <h4 data-toc-skip class="author">Chitu
 Okoli</h4>
             
-            <h4 data-toc-skip class="date">April 7, 2025</h4>
+            <h4 data-toc-skip class="date">August 27, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tripartio/ale/blob/main/vignettes/ale-small-datasets.Rmd" class="external-link"><code>vignettes/ale-small-datasets.Rmd</code></a></small>
       <div class="d-none name"><code>ale-small-datasets.Rmd</code></div>
@@ -260,7 +260,15 @@ samples require a special bootstrap approach, as explained below. For
 now, all we are doing is using ALE to accurately visualize what the
 model estimates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">lm_attitude</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like lm that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_lm_attitude_simple &lt;- ALE(lm_attitude)</span></span>
+<span><span class="co"># saveRDS(ale_lm_attitude_simple, file.choose())</span></span>
+<span><span class="va">ale_lm_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_lm_attitude_simple.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_lm_attitude_simple</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -308,10 +316,14 @@ For objects that follow standard R modelling conventions,
 parse the model object, so the data object is often optional. So, here
 is the creation of a <code>ModelBoot</code> object:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
-<span>  <span class="va">lm_attitude</span>,</span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span>
+<span><span class="co"># # For standard models like lm that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># mb_lm_attitude &lt;- ModelBoot(lm_attitude) # 100 bootstrap iterations by default</span></span>
+<span><span class="co"># saveRDS(mb_lm_attitude, file.choose())</span></span>
+<span><span class="va">mb_lm_attitude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_lm_attitude.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>By default, a <code>ModelBoot</code> object creates 100 bootstrap
 samples of the provided dataset and creates 100 + 1 models on the data
 (one for each bootstrap sample and then once for the original dataset).
@@ -344,38 +356,38 @@ default)</li>
 </ul>
 <p>Here are the bootstrapped overall model statistics:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">@</span><span class="va">model_stats</span></span>
+<code class="sourceCode R"><span><span class="va">mb_lm_attitude</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 7</span></span></span>
-<span><span class="co">#&gt;    name          boot_valid conf.low       median       mean  conf.high       sd</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> r.squared         <span style="color: #BB0000;">NA</span>      6.78<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.822        0.793      0.874      7.58<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> adj.r.squared     <span style="color: #BB0000;">NA</span>      5.94<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.775        0.739      0.841      9.56<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> sigma             <span style="color: #BB0000;">NA</span>      4.62<span style="color: #949494;">e</span>+0  5.91         6.03       7.65       1.05<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> statistic         <span style="color: #BB0000;">NA</span>      8.07<span style="color: #949494;">e</span>+0 17.7         16.9       26.7        6.86<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> p.value           <span style="color: #BB0000;">NA</span>      3.53<span style="color: #949494;">e</span><span style="color: #BB0000;">-9</span>  0.000<span style="text-decoration: underline;">000</span>159  0.000<span style="text-decoration: underline;">020</span>3  0.000<span style="text-decoration: underline;">092</span>2  3.62<span style="color: #949494;">e</span><span style="color: #BB0000;">-5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> df                <span style="color: #BB0000;">NA</span>      6   <span style="color: #949494;">e</span>+0  6            6          6          0   <span style="color: #949494;"> </span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> df.residual       <span style="color: #BB0000;">NA</span>      2.3 <span style="color: #949494;">e</span>+1 23           23         23          0   <span style="color: #949494;"> </span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> nobs              <span style="color: #BB0000;">NA</span>      3   <span style="color: #949494;">e</span>+1 30           30         30          0   <span style="color: #949494;"> </span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mae                7.08   5.70<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         10.2        1.62<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> sa_mae             0.597  3.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.709      1.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> rmse               8.34   6.47<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         11.9        1.85<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> sa_rmse            0.638  4.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.748      9.47<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    name          boot_valid conf.low       median       mean conf.high       sd</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> r.squared         <span style="color: #BB0000;">NA</span>      6.12<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.788        0.767      0.877    0.072<span style="text-decoration: underline;">6</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> adj.r.squared     <span style="color: #BB0000;">NA</span>      5.11<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.733        0.706      0.845    0.091<span style="text-decoration: underline;">5</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> sigma             <span style="color: #BB0000;">NA</span>      4.59<span style="color: #949494;">e</span>+0  6.27         6.25       7.55     0.823   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> statistic         <span style="color: #BB0000;">NA</span>      6.05<span style="color: #949494;">e</span>+0 14.2         14.3       27.3      5.86    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> p.value           <span style="color: #BB0000;">NA</span>      2.35<span style="color: #949494;">e</span><span style="color: #BB0000;">-9</span>  0.000<span style="text-decoration: underline;">000</span>983  0.000<span style="text-decoration: underline;">073</span>0  0.000<span style="text-decoration: underline;">651</span> 0.000<span style="text-decoration: underline;">261</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> df                <span style="color: #BB0000;">NA</span>      6   <span style="color: #949494;">e</span>+0  6            6          6        0       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> df.residual       <span style="color: #BB0000;">NA</span>      2.3 <span style="color: #949494;">e</span>+1 23           23         23        0       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> nobs              <span style="color: #BB0000;">NA</span>      3   <span style="color: #949494;">e</span>+1 30           30         30        0       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> mae                6.77   5.35<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         10.8      1.57    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> sa_mae             0.629  3.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.745    0.117   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> rmse               8.09   6.16<span style="color: #949494;">e</span>+0 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>         12.9      1.82    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> sa_rmse            0.661  4.34<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>          0.759    0.094<span style="text-decoration: underline;">4</span></span></span></code></pre></div>
 <p>Here are the bootstrapped model coefficients:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_lm</span><span class="op">@</span><span class="va">model_coefs</span></span>
+<code class="sourceCode R"><span><span class="va">mb_lm_attitude</span><span class="op">@</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low  median    mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept) -<span style="color: #BB0000;">15.4</span>     6.57    8.40      37.1      19.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> complaints    0.370   0.556   0.561      0.772     0.144</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> privileges   -<span style="color: #BB0000;">0.325</span>   0.032<span style="text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.057</span><span style="color: #BB0000; text-decoration: underline;">5</span>     0.187     0.199</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> learning      0.038<span style="text-decoration: underline;">5</span>  0.233   0.227      0.434     0.131</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> raises       -<span style="color: #BB0000;">0.010</span><span style="color: #BB0000; text-decoration: underline;">5</span>  0.169   0.215      0.472     0.179</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> critical     -<span style="color: #BB0000;">0.303</span>   0.120   0.030<span style="text-decoration: underline;">0</span>     0.302     0.235</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advance      -<span style="color: #BB0000;">0.509</span>  -<span style="color: #BB0000;">0.081</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.173</span>      0.133     0.239</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (Intercept)  -<span style="color: #BB0000;">17.8</span>   11.2    11.7       44.8      15.4  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> complaints     0.347  0.648   0.632      0.903     0.141</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> privileges    -<span style="color: #BB0000;">0.321</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.068</span><span style="color: #BB0000; text-decoration: underline;">9</span>     0.269     0.162</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> learning      -<span style="color: #BB0000;">0.110</span>  0.272   0.260      0.624     0.196</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> raises        -<span style="color: #BB0000;">0.225</span>  0.095<span style="text-decoration: underline;">8</span>  0.114      0.508     0.203</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> critical      -<span style="color: #BB0000;">0.366</span>  0.039<span style="text-decoration: underline;">7</span>  0.019<span style="text-decoration: underline;">0</span>     0.320     0.194</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advance       -<span style="color: #BB0000;">0.683</span> -<span style="color: #BB0000;">0.197</span>  -<span style="color: #BB0000;">0.205</span>      0.193     0.219</span></span></code></pre></div>
 <p>Here we can visualize the results of the ALE plots.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_lm</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_lm_attitude</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/lm_full_ale-1.png" width="672"></p>
 <p>To draw formal conclusions from this analysis, we need a more formal
@@ -458,7 +470,14 @@ the results for the smooth terms in GAM are not readily interpretable.
 They need to be visualized for effective interpretation—ALE is perfect
 for such purposes.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ale.html">ALE</a></span><span class="op">(</span><span class="va">gam_attitude</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
+<span><span class="co"># # For standard models like gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># ale_gam_attitude_simple &lt;- ALE(gam_attitude)</span></span>
+<span><span class="co"># saveRDS(ale_gam_attitude_simple, file.choose())</span></span>
+<span><span class="va">ale_gam_attitude_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_attitude_simple.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_attitude_simple</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -471,33 +490,38 @@ trying to interpret these results, we must remember that results that
 are not bootstrapped are simply not reliable. So, let us see what
 bootstrapping will give us.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_attitude</span>, </span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span>  pred_type <span class="op">=</span> <span class="st">'response'</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_stats</span></span>
+<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span>
+<span><span class="co"># # For standard models like lm that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># # 100 bootstrap iterations by default.</span></span>
+<span><span class="co"># mb_gam_attitude &lt;- ModelBoot(gam_attitude)</span></span>
+<span><span class="co"># saveRDS(mb_gam_attitude, file.choose())</span></span>
+<span><span class="va">mb_gam_attitude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mb_gam_attitude</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low median   mean conf.high      sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.6    4.62  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.45  15.5   15.6      21.8    4.62  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.36  17.0   15.8      21.0    4.08  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.00  13.0   14.2      21.6    4.08  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>       30     30     30        30      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.000  0.067<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.746  1.000  0.945     1      0.083<span style="text-decoration: underline;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.9      4.50  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        62.6   15.0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.307   -<span style="color: #BB0000;">2.00</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.769  0.772 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              16.3      5.51  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        79.4   19.5   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.332   -<span style="color: #BB0000;">2.08</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.786  0.754</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam</span><span class="op">@</span><span class="va">model_coefs</span></span>
+<code class="sourceCode R"><span><span class="va">mb_gam_attitude</span><span class="op">@</span><span class="va">model_coefs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   term        conf.low median  mean conf.high std.error</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     1.20   4.55  4.92      8.98      3.34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     1.97   4.56  4.49      7.12      2.19</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> s(learning)     1.00   7.94  6.10      9.00      3.12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> s(critical)     1.74   4.34  4.69      8.96      2.24</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-small-datasets_files/figure-html/gam_full_ale-1.png" width="672"></p>
 <p>The bootstrapped GAM results tell a rather different story from the
@@ -593,27 +617,36 @@ named).</li>
 <p>So, here is the form for constructing a <code>ModelBoot</code> for a
 non-standard model object type:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mb_gam_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
-<span>  <span class="va">gam_attitude_again</span>,</span>
-<span>  model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span>
-<span><span class="st">    rating ~ complaints + privileges + s(learning) +</span></span>
-<span><span class="st">      raises + s(critical) + advance,</span></span>
-<span><span class="st">    data = boot_data)'</span>, </span>
-<span>  boot_it <span class="op">=</span> <span class="fl">10</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">mb_gam_non_standard</span><span class="op">@</span><span class="va">model_stats</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
+<span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span>
+<span><span class="co"># # For standard models like gam that store their data,</span></span>
+<span><span class="co"># # there is no need to specify the data argument.</span></span>
+<span><span class="co"># # 100 bootstrap iterations by default.</span></span>
+<span><span class="co"># mb_gam_attitude_non_standard &lt;- ModelBoot(</span></span>
+<span><span class="co">#   gam_attitude_again,</span></span>
+<span><span class="co">#   model_call_string = 'mgcv::gam(</span></span>
+<span><span class="co">#     rating ~ complaints + privileges + s(learning) +</span></span>
+<span><span class="co">#       raises + s(critical) + advance,</span></span>
+<span><span class="co">#     data = boot_data)'</span></span>
+<span><span class="co"># )</span></span>
+<span><span class="co"># saveRDS(mb_gam_attitude_non_standard, file.choose())</span></span>
+<span><span class="va">mb_gam_attitude_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude_non_standard.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mb_gam_attitude_non_standard</span><span class="op">@</span><span class="va">model_stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
 <span><span class="co">#&gt;   name          boot_valid conf.low median   mean conf.high      sd</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.18  14.5   14.4      20.6    4.62  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.45  15.5   15.6      21.8    4.62  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> df                <span style="color: #BB0000;">NA</span>        8.36  17.0   15.8      21.0    4.08  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> df.residual       <span style="color: #BB0000;">NA</span>        9.00  13.0   14.2      21.6    4.08  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> nobs              <span style="color: #BB0000;">NA</span>       30     30     30        30      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.851  0.981  0.943     1.000  0.067<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> adj.r.squared     <span style="color: #BB0000;">NA</span>        0.746  1.000  0.945     1      0.083<span style="text-decoration: underline;">2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> npar              <span style="color: #BB0000;">NA</span>       23     23     23        23      0     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.1      6.20  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        53.0   16.6   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.364   -<span style="color: #BB0000;">1.25</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.681  0.653 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              15.1      7.49  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        68.8   22.1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.383   -<span style="color: #BB0000;">1.41</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.699  0.730</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> mae               12.9      4.50  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        62.6   15.0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> sa_mae             0.307   -<span style="color: #BB0000;">2.00</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.769  0.772 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> rmse              16.3      5.51  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        79.4   19.5   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> sa_rmse            0.332   -<span style="color: #BB0000;">2.08</span>  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>         0.786  0.754</span></span></code></pre></div>
 <p>Everything else works as usual.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
