@@ -10,11 +10,11 @@
 <url><loc>https://tripartio.github.io/ale/authors.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/index.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/news/index.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/ALE.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/ALEPlots.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/ALEpDist.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/ModelBoot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/ale-package.html</loc></url>
-<url><loc>https://tripartio.github.io/ale/reference/ale.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/census.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/customize.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/get.ALE.html</loc></url>
@@ -30,6 +30,7 @@
 <url><loc>https://tripartio.github.io/ale/reference/print.ModelBoot.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/print.ale.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/resolve_x_cols.html</loc></url>
+<url><loc>https://tripartio.github.io/ale/reference/retrieve_rds.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/subset.ALEPlots.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/summary.ALEPlots.html</loc></url>
 <url><loc>https://tripartio.github.io/ale/reference/var_cars.html</loc></url>

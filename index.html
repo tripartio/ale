@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,7 @@
 <div class="section level3">
 <h3 id="simple-demonstration">Simple demonstration<a class="anchor" aria-label="anchor" href="#simple-demonstration"></a>
 </h3>
-<p>For the simple demonstration, we directly create ALE data with the <code><a href="reference/ale.html">ALE()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
+<p>For the simple demonstration, we directly create ALE data with the <code><a href="reference/ALE.html">ALE()</a></code> function and then plot the <code>ggplot</code> plot objects.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tripartio/ale" class="external-link">ale</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -151,14 +151,21 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     get</span></span>
 <span></span>
-<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # For speed, these examples load pre-created objects.</span></span>
-<span><span class="co"># # Create ALE data</span></span>
-<span><span class="co"># ale_gam_diamonds &lt;- ALE(gam_diamonds, data = diamonds)</span></span>
-<span><span class="co"># saveRDS(ale_gam_diamonds, file.choose())</span></span>
-<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
+<span><span class="co"># from an online repository.</span></span>
+<span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span>
 <span></span>
+<span><span class="co"># Create ALE data</span></span>
+<span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="fu"><a href="reference/ALE.html">ALE</a></span><span class="op">(</span><span class="va">gam_diamonds</span>, data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># saveRDS(ale_gam_diamonds, file.choose())</span></span>
 <span></span>
 <span><span class="co"># Plot the ALE data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -173,35 +180,41 @@
 <p>First, we need to create a p-value distribution object so that the ALE statistics can be properly distinguished from random effects.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create p_value distribution object</span></span>
-<span></span>
-<span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow because it retrains the model 100 times, so this demo loads a pre-created p_value distribution object.</span></span>
-<span><span class="co"># p_dist_gam_diamonds_readme &lt;- ALEpDist(</span></span>
-<span><span class="co">#   gam_diamonds, diamonds,</span></span>
-<span><span class="co">#   # Normally should be default 1000, but just 100 for quicker demo</span></span>
-<span><span class="co">#   rand_it = 100</span></span>
-<span><span class="co"># )</span></span>
-<span><span class="co"># saveRDS(p_dist_gam_diamonds_readme, file.choose())</span></span>
-<span><span class="va">p_dist_gam_diamonds_readme</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/p_dist_gam_diamonds_readme.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">p_dist_gam_diamonds_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'p_dist_gam_diamonds_readme.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># Rather slow because it retrains the model 100 times.</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="fu"><a href="reference/ALEpDist.html">ALEpDist</a></span><span class="op">(</span></span>
+<span>      <span class="va">gam_diamonds</span>, <span class="va">diamonds</span>,</span>
+<span>      <span class="co"># Normally should be default 1000, but just 100 for a quicker demo.</span></span>
+<span>      rand_it <span class="op">=</span> <span class="fl">100</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># saveRDS(p_dist_gam_diamonds_readme, file.choose())</span></span></code></pre></div>
 <p>Now we can create bootstrapped ALE data and see some of the differences in the plots of bootstrapped ALE with p-values:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create ALE data with p-values</span></span>
 <span></span>
-<span><span class="co"># ale_gam_diamonds_stats_readme &lt;- ALE(</span></span>
-<span><span class="co">#   gam_diamonds,</span></span>
-<span><span class="co">#   # generate ALE for all 1D variables and the carat:clarity 2D interaction</span></span>
-<span><span class="co">#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),</span></span>
-<span><span class="co">#   data = diamonds,</span></span>
-<span><span class="co">#   p_values = p_dist_gam_diamonds_readme,</span></span>
-<span><span class="co">#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span>
-<span><span class="co">#   boot_it = 10</span></span>
-<span><span class="co"># )</span></span>
+<span><span class="va">ale_gam_diamonds_stats_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds_stats_readme.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="fu"><a href="reference/ALE.html">ALE</a></span><span class="op">(</span></span>
+<span>      <span class="va">gam_diamonds</span>,</span>
+<span>      <span class="co"># generate ALE for all 1D variables and the carat:clarity 2D interaction</span></span>
+<span>      x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span>, d2 <span class="op">=</span> <span class="st">'carat:clarity'</span><span class="op">)</span>,</span>
+<span>      data <span class="op">=</span> <span class="va">diamonds</span>,</span>
+<span>      p_values <span class="op">=</span> <span class="va">p_dist_gam_diamonds_readme</span>,</span>
+<span>      <span class="co"># Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span>
+<span>      boot_it <span class="op">=</span> <span class="fl">10</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># saveRDS(ale_gam_diamonds_stats_readme, file.choose())</span></span>
-<span><span class="va">ale_gam_diamonds_stats_readme</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_stats_readme.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create an ALEPlots object for fine-tuned plotting</span></span>
 <span><span class="va">ale_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds_stats_readme</span><span class="op">)</span></span>

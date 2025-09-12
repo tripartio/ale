@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -281,21 +281,31 @@ procedure but rather to demonstrate the flexibility of the
 <p>Now we generate ALE data from the <code>gam_cars</code> GAM model and
 plot it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
-<span><span class="co"># # For standard models like gam that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># ale_cars_1D &lt;- ALE(gam_cars)</span></span>
-<span><span class="co"># saveRDS(ale_cars_1D, file.choose())</span></span>
-<span><span class="va">ale_cars_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_cars_1D.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
+<span><span class="co"># from an online repository.</span></span>
+<span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span>
 <span></span>
+<span><span class="va">ale_cars_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_cars_1D.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># saveRDS(ale_cars_1D, file.choose())</span></span>
 <span></span>
 <span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars_1D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
+<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/ale_cars_1D-1.png" width="672"></p>
-<p>We can see that <code><a href="../reference/ale.html">ALE()</a></code> has no trouble modelling any of
+<p>We can see that <code><a href="../reference/ALE.html">ALE()</a></code> has no trouble modelling any of
 the datatypes in our sample (logical, factor, ordered, integer, or
 double). It plots line charts for the numeric predictors and column
 charts for everything else.</p>
@@ -308,17 +318,20 @@ column is displayed.</p>
 <p>We can also generate and plot the ALE data for all two-way
 interactions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # For speed, this vignette loads a pre-created ALE object.</span></span>
-<span><span class="co"># # For standard models like gam that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># ale_cars_2D &lt;- ALE(</span></span>
-<span><span class="co">#   gam_cars,</span></span>
-<span><span class="co">#   x_cols = list(d2 = TRUE)</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="va">ale_cars_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_cars_2D.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="fu"><a href="../reference/ALE.html">ALE</a></span><span class="op">(</span></span>
+<span>      <span class="va">gam_cars</span>,</span>
+<span>      x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># saveRDS(ale_cars_2D, file.choose())</span></span>
-<span><span class="va">ale_cars_2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/ale_cars_2D.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_cars_2D</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -336,18 +349,22 @@ numeric-numeric, ordinal-binary, categorical-ordinal, etc.</p>
 appropriate modelling workflow would require bootstrapping the entire
 model, not just the ALE data. So, let’s do that now.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span>
-<span><span class="co"># # For standard models like lm that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># # 100 bootstrap iterations by default.</span></span>
-<span><span class="co"># mb_cars &lt;- ModelBoot(gam_cars)</span></span>
+<code class="sourceCode R"><span><span class="va">mb_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'mb_cars.0.5.2.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span><span class="va">gam_cars</span><span class="op">)</span> <span class="co"># 100 bootstrap iterations by default</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># saveRDS(mb_cars, file.choose())</span></span>
-<span><span class="va">mb_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_cars.0.5.2.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_cars</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
+<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
 <p><img src="ale-x-datatypes_files/figure-html/cars_full-1.png" width="672"></p>
 <p>(By default, a <code>ModelBoot</code> object creates 100 bootstrap
 samples but, so that this illustration runs faster, we demonstrate it

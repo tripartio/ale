@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 
 
 <dl><dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
-<dd><p>Required. See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>Required. See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
@@ -97,15 +97,15 @@
 
 
 <dt id="arg-model-call-string-vars">model_call_string_vars<a class="anchor" aria-label="anchor" href="#arg-model-call-string-vars"></a></dt>
-<dd><p>character. Names of variables included in <code>model_call_string</code> that are not columns in <code>data</code>. If any such variables exist, they must be specified here or else parallel processing may produce an error. If parallelization is disabled with <code>parallel = 0</code>, then this is not a concern. See documentation for the <code>model_packages</code> argument in <code><a href="ale.html">ALE()</a></code>.</p></dd>
+<dd><p>character. Names of variables included in <code>model_call_string</code> that are not columns in <code>data</code>. If any such variables exist, they must be specified here or else parallel processing may produce an error. If parallelization is disabled with <code>parallel = 0</code>, then this is not a concern. See documentation for the <code>model_packages</code> argument in <code><a href="ALE.html">ALE()</a></code>.</p></dd>
 
 
 <dt id="arg-parallel-model-packages">parallel, model_packages<a class="anchor" aria-label="anchor" href="#arg-parallel-model-packages"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-y-col-pred-fun-pred-type">y_col, pred_fun, pred_type<a class="anchor" aria-label="anchor" href="#arg-y-col-pred-fun-pred-type"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code>. Used to calculate bootstrapped performance measures. If left at their default values, then the relevant performance measures are calculated only if these arguments can be automatically detected. Otherwise, they should be specified.</p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code>. Used to calculate bootstrapped performance measures. If left at their default values, then the relevant performance measures are calculated only if these arguments can be automatically detected. Otherwise, they should be specified.</p></dd>
 
 
 <dt id="arg-positive">positive<a class="anchor" aria-label="anchor" href="#arg-positive"></a></dt>
@@ -113,7 +113,7 @@
 
 
 <dt id="arg-boot-it">boot_it<a class="anchor" aria-label="anchor" href="#arg-boot-it"></a></dt>
-<dd><p>non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if <code><a href="ale.html">ALE()</a></code> with bootstrapping is not more appropriate than <code>ModelBoot()</code>. If <code>boot_it = 0</code>, then the model is run as normal once on the full <code>data</code> with no bootstrapping.</p></dd>
+<dd><p>non-negative integer(1). Number of bootstrap iterations for full-model bootstrapping. For bootstrapping of ALE values, see details to verify if <code><a href="ALE.html">ALE()</a></code> with bootstrapping is not more appropriate than <code>ModelBoot()</code>. If <code>boot_it = 0</code>, then the model is run as normal once on the full <code>data</code> with no bootstrapping.</p></dd>
 
 
 <dt id="arg-boot-alpha">boot_alpha<a class="anchor" aria-label="anchor" href="#arg-boot-alpha"></a></dt>
@@ -125,7 +125,7 @@
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
-<dd><p>integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for <code><a href="ale.html">ALE()</a></code> for further details.</p></dd>
+<dd><p>integer. Random seed. Supply this between runs to assure identical bootstrap samples are generated each time on the same data. See documentation for <code><a href="ALE.html">ALE()</a></code> for further details.</p></dd>
 
 
 <dt id="arg-output-model-stats">output_model_stats<a class="anchor" aria-label="anchor" href="#arg-output-model-stats"></a></dt>
@@ -145,15 +145,15 @@
 
 
 <dt id="arg-ale-options-tidy-options-glance-options">ale_options, tidy_options, glance_options<a class="anchor" aria-label="anchor" href="#arg-ale-options-tidy-options-glance-options"></a></dt>
-<dd><p>list of named arguments. Arguments to pass to the <code><a href="ale.html">ALE()</a></code> constructor when <code>ale = TRUE</code>, <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code> when <code>model_coefs = TRUE</code>, or <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::glance()</a></code> when <code>model_stats = TRUE</code>, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the <code>ale_p</code> argument.</p></dd>
+<dd><p>list of named arguments. Arguments to pass to the <code><a href="ALE.html">ALE()</a></code> constructor when <code>ale = TRUE</code>, <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::tidy()</a></code> when <code>model_coefs = TRUE</code>, or <code><a href="https://broom.tidymodels.org/reference/reexports.html" class="external-link">broom::glance()</a></code> when <code>model_stats = TRUE</code>, respectively, beyond (or overriding) their defaults. Note: to obtain p-values for ALE statistics, see the <code>ale_p</code> argument.</p></dd>
 
 
 <dt id="arg-ale-p">ale_p<a class="anchor" aria-label="anchor" href="#arg-ale-p"></a></dt>
-<dd><p>Same as the <code>p_values</code> argument for the <code><a href="ale.html">ALE()</a></code> constructor; see documentation there. This argument overrides the <code>p_values</code> element of the <code>ale_options</code> argument.</p></dd>
+<dd><p>Same as the <code>p_values</code> argument for the <code><a href="ALE.html">ALE()</a></code> constructor; see documentation there. This argument overrides the <code>p_values</code> element of the <code>ale_options</code> argument.</p></dd>
 
 
 <dt id="arg-silent">silent<a class="anchor" aria-label="anchor" href="#arg-silent"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -180,7 +180,7 @@
 <code>NULL</code> if <code>model_coefs</code> argument is <code>FALSE</code>.</p></dd>
 
 <dt>ale</dt>
-<dd><p>A list of bootstrapped ALE results using default <code><a href="ale.html">ALE()</a></code> settings unless if overridden with <code>ale_options</code>. <code>NULL</code> if <code>ale</code> argument is <code>FALSE</code>. Elements are:</p>
+<dd><p>A list of bootstrapped ALE results using default <code><a href="ALE.html">ALE()</a></code> settings unless if overridden with <code>ale_options</code>. <code>NULL</code> if <code>ale</code> argument is <code>FALSE</code>. Elements are:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="sc">*</span> <span class="st">`</span><span class="at">single</span><span class="st">`</span><span class="sc">:</span> an <span class="st">`</span><span class="at">ALE</span><span class="st">`</span> object of ALE calculations on the full dataset without bootstrapping.</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="sc">*</span> <span class="st">`</span><span class="at">boot</span><span class="st">`</span><span class="sc">:</span> a list of bootstrapped ALE data and statistics. This element is not an <span class="st">`</span><span class="at">ALE</span><span class="st">`</span> object; it uses a special internal format.</span></code></pre><p></p></div></dd>
 
@@ -294,22 +294,28 @@
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Full model bootstrapping</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span></span>
-<span class="r-in"><span><span class="co"># # For speed, this vignette loads a pre-created ModelBoot object.</span></span></span>
-<span class="r-in"><span><span class="co"># # For standard models like lm that store their data,</span></span></span>
-<span class="r-in"><span><span class="co"># # there is no need to specify the data argument.</span></span></span>
-<span class="r-in"><span><span class="co"># # 100 bootstrap iterations by default.</span></span></span>
-<span class="r-in"><span><span class="co"># mb_gam_attitude &lt;- ModelBoot(gam_attitude)</span></span></span>
-<span class="r-in"><span><span class="co"># saveRDS(mb_gam_attitude, file.choose())</span></span></span>
-<span class="r-in"><span><span class="va">mb_gam_attitude</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">'https://github.com/tripartio/ale/raw/main/download/'</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'mb_gam_attitude.0.5.2.rds'</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># If the model is not standard, supply model_call_string with 'data = boot_data'</span></span></span>
-<span class="r-in"><span><span class="co"># in the string instead of the actual dataset name (in addition to the actual dataset</span></span></span>
-<span class="r-in"><span><span class="co"># as the 'data' argument directly to the `ModelBoot` constructor).</span></span></span>
+<span class="r-in"><span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects</span></span></span>
+<span class="r-in"><span><span class="co"># from an online repository.</span></span></span>
+<span class="r-in"><span><span class="co"># To run the code yourself, execute the code blocks directly.</span></span></span>
+<span class="r-in"><span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create ALE data</span></span></span>
+<span class="r-in"><span><span class="va">mb_gam_attitude</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="co"># For speed, load a pre-created object by default.</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'mb_gam_attitude.0.5.2.rds'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
+<span class="r-in"><span>    <span class="co"># For standard models like lm that store their data,</span></span></span>
+<span class="r-in"><span>    <span class="co"># there is no need to specify the data argument.</span></span></span>
+<span class="r-in"><span>    <span class="co"># 100 bootstrap iterations by default.</span></span></span>
+<span class="r-in"><span>    <span class="fu">ModelBoot</span><span class="op">(</span><span class="va">gam_attitude</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># # If the model is not standard, supply model_call_string with 'data = boot_data'</span></span></span>
+<span class="r-in"><span><span class="co"># # in the string instead of the actual dataset name (in addition to the actual dataset</span></span></span>
+<span class="r-in"><span><span class="co"># # as the 'data' argument directly to the `ModelBoot` constructor).</span></span></span>
 <span class="r-in"><span><span class="co"># mb_gam_attitude &lt;- ModelBoot(</span></span></span>
 <span class="r-in"><span><span class="co">#   gam_attitude,</span></span></span>
 <span class="r-in"><span><span class="co">#   data = attitude,  # the actual dataset</span></span></span>
@@ -343,6 +349,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot ALE</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_attitude</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ModelBoot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve ALE data</span></span></span>

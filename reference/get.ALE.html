@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,12 +96,12 @@ However, if elements of only one dimension (either 1D or 2D) are requested and <
 * <code>var.bin</code> or <code>var.ceil</code> where <code>var</code> is the name of a variable (column): For non-numeric x, <code>var.bin</code> is the value of each of the ALE categories. For numeric x, <code>var.ceil</code> is the value of the upper bound (ceiling) of each ALE bin. The first "bin" of numeric variables represents the minimum value. For 2D ALE with an <code>var1</code> by <code>var2</code> interaction, both <code>var1.bin</code> and <code>var2.bin</code> columns are returned (or <code>var1.ceil</code> or <code>var2.ceil</code>for numeric <code>var1</code> or <code>var2</code>).
 * <code>.n</code>: the number of rows of data in each bin represented by <code>var.bin</code> or <code>var.ceil</code>. For numeric x, the first bin contains all data elements that have exactly the minimum value of x. This is often 1, but might be more than 1 if more than one data element has exactly the minimum value.
 * <code>.y</code>: the ALE function value calculated for that bin. For bootstrapped ALE, this is the same as <code>.y_mean</code> by default or <code>.y_median</code> if <code>boot_centre = 'median'</code>. Regardless, both <code>.y_mean</code> and <code>.y_median</code> are returned as columns here.
-* <code>.y_lo</code>, <code>.y_hi</code>: the lower and upper confidence intervals, respectively, for the bootstrapped <code>.y</code> value based on the <code>boot_alpha</code> argument in the <code><a href="ale.html">ALE()</a></code> constructor.</p></dd>
+* <code>.y_lo</code>, <code>.y_hi</code>: the lower and upper confidence intervals, respectively, for the bootstrapped <code>.y</code> value based on the <code>boot_alpha</code> argument in the <code><a href="ALE.html">ALE()</a></code> constructor.</p></dd>
 
 
 <dt><code>what = 'boot_data'</code> and <code>stats = NULL</code> (default)</dt>
 <dd><p>A list whose elements, named by each requested x variable, are each a tibble. These are the data from which <code>.y_mean</code>, <code>.y_median</code>, <code>.y_lo</code>, and <code>.y_hi</code> are summarized when <code>what = 'ale'</code>. The rows each represent one ALE bin for a specified bootstrap iteration. The tibble has the following columns:
-* <code>.it</code>: The bootstrap iteration. Iteration 0 represents the ALE calculations on the full dataset; the remaining values of <code>.it</code> are from 1 to <code>boot_it</code> (number of bootstrap iterations specified in the <code><a href="ale.html">ALE()</a></code> constructor.
+* <code>.it</code>: The bootstrap iteration. Iteration 0 represents the ALE calculations on the full dataset; the remaining values of <code>.it</code> are from 1 to <code>boot_it</code> (number of bootstrap iterations specified in the <code><a href="ALE.html">ALE()</a></code> constructor.
 * <code>var</code> where <code>var</code> is the name of a variable (column): For non-numeric x, <code>var</code> is the value of each of the ALE categories. For numeric x, <code>var</code> is the value of the upper bound (ceiling) of each ALE bin. They are otherwise similar to their meanings described for <code>what = 'ale'</code> above.
 * <code>.n</code> and <code>.y</code>: Same as for <code>what = 'ale'</code>.</p></dd>
 
@@ -116,8 +116,8 @@ However, if elements of only one dimension (either 1D or 2D) are requested and <
 <dd><p>A list with elements <code>d1</code> and <code>d2</code> with the distribution value of the single requested ALE statistic. Each element <code>d1</code> and <code>d2</code> is a tibble. Each row represents one statistic for one variable or interaction. The tibble has the following columns:
 * <code>term</code>: Same as for <code>stats = 'estimate'</code>.
 * <code>statistic</code>: The requested ALE statistic(s).
-* <code>estimate</code>, <code>mean</code>, <code>median</code>: The average of the bootstrapped value of the requested statistic. <code>estimate</code> is equal to either <code>mean</code> or <code>median</code> depending on the <code>boot_centre</code> argument in the <code><a href="ale.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>mean</code>, and <code>median</code> are equal.
-* <code>conf.low</code>, <code>conf.high</code>: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the <code>boot_alpha</code> argument in the <code><a href="ale.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>conf.low</code>, and <code>conf.high</code> are equal.</p></dd>
+* <code>estimate</code>, <code>mean</code>, <code>median</code>: The average of the bootstrapped value of the requested statistic. <code>estimate</code> is equal to either <code>mean</code> or <code>median</code> depending on the <code>boot_centre</code> argument in the <code><a href="ALE.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>mean</code>, and <code>median</code> are equal.
+* <code>conf.low</code>, <code>conf.high</code>: the lower and upper confidence intervals, respectively, for the bootstrapped statistic based on the <code>boot_alpha</code> argument in the <code><a href="ALE.html">ALE()</a></code> constructor. If ALE is not bootstrapped, then <code>estimate</code>, <code>conf.low</code>, and <code>conf.high</code> are equal.</p></dd>
 
 
 <dt><code>what = 'ale'</code> (default) and <code>stats = 'all'</code></dt>

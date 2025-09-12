@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,11 +74,11 @@
 
 
 <dl><dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -86,7 +86,7 @@
 
 
 <dt id="arg-y-col">y_col<a class="anchor" aria-label="anchor" href="#arg-y-col"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-rand-it">rand_it<a class="anchor" aria-label="anchor" href="#arg-rand-it"></a></dt>
@@ -98,11 +98,11 @@
 
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code>. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.</p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code>. Note that for exact p-values, by default 1000 random variables are trained. So, even with parallel processing, the procedure is very slow.</p></dd>
 
 
 <dt id="arg-model-packages">model_packages<a class="anchor" aria-label="anchor" href="#arg-model-packages"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-random-model-call-string">random_model_call_string<a class="anchor" aria-label="anchor" href="#arg-random-model-call-string"></a></dt>
@@ -118,7 +118,7 @@
 
 
 <dt id="arg-pred-fun-pred-type">pred_fun, pred_type<a class="anchor" aria-label="anchor" href="#arg-pred-fun-pred-type"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-output-residuals">output_residuals<a class="anchor" aria-label="anchor" href="#arg-output-residuals"></a></dt>
@@ -126,11 +126,11 @@
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg-silent">silent<a class="anchor" aria-label="anchor" href="#arg-silent"></a></dt>
-<dd><p>See documentation for <code><a href="ale.html">ALE()</a></code></p></dd>
+<dd><p>See documentation for <code><a href="ALE.html">ALE()</a></code></p></dd>
 
 
 <dt id="arg--skip-validation">.skip_validation<a class="anchor" aria-label="anchor" href="#arg--skip-validation"></a></dt>
@@ -200,14 +200,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load diamonds dataset with some cleanup</span></span></span>
 <span class="r-in"><span><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op">|&gt;</span></span></span>
@@ -278,19 +270,25 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> R-sq.(adj) =  0.929   Deviance explained = 92.9%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GCV = 1.2602e+06  Scale est. = 1.2581e+06  n = 39739</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span></span>
-<span class="r-in"><span><span class="co"># # But it is slow because it retrains the model 100 times,</span></span></span>
-<span class="r-in"><span><span class="co"># # so this example loads a pre-created p_value distribution object.</span></span></span>
-<span class="r-in"><span><span class="co"># p_dist_gam_diamonds &lt;- ALEpDist(</span></span></span>
-<span class="r-in"><span><span class="co">#   gam_diamonds, diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   # Normally should be default 1000, but just 100 for quicker demo</span></span></span>
-<span class="r-in"><span><span class="co">#   rand_it = 100</span></span></span>
-<span class="r-in"><span><span class="co"># )</span></span></span>
-<span class="r-in"><span><span class="va">p_dist_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">'https://github.com/tripartio/ale/raw/main/download/'</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'p_dist_gam_diamonds_readme.0.5.2.rds'</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects</span></span></span>
+<span class="r-in"><span><span class="co"># from an online repository.</span></span></span>
+<span class="r-in"><span><span class="co"># To run the code yourself, execute the code blocks directly.</span></span></span>
+<span class="r-in"><span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generating p_value distribution objects is slow because it retrains the model 100 times,</span></span></span>
+<span class="r-in"><span><span class="co"># so this example loads a pre-created ALEpDist object.</span></span></span>
+<span class="r-in"><span><span class="va">p_dist_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'p_dist_gam_diamonds_readme.0.5.2.rds'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
+<span class="r-in"><span>    <span class="fu">ALEpDist</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">gam_diamonds</span>, <span class="va">diamonds</span>,</span></span>
+<span class="r-in"><span>      <span class="co"># Normally should be default 1000, but just 100 for quicker demo</span></span></span>
+<span class="r-in"><span>      rand_it <span class="op">=</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p_dist_gam_diamonds</span><span class="op">)</span></span></span>
@@ -333,23 +331,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. $ exactness                    : chr "approx"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate ALEs with p-values</span></span></span>
-<span class="r-in"><span><span class="co"># ale_gam_diamonds &lt;- ALE(</span></span></span>
-<span class="r-in"><span><span class="co">#   gam_diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   # generate ALE for all 1D variables and the carat:clarity 2D interaction</span></span></span>
-<span class="r-in"><span><span class="co">#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),</span></span></span>
-<span class="r-in"><span><span class="co">#   data = diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   p_values = p_dist_gam_diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span></span>
-<span class="r-in"><span><span class="co">#   boot_it = 10</span></span></span>
-<span class="r-in"><span><span class="co"># )</span></span></span>
-<span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">'https://github.com/tripartio/ale/raw/main/download/'</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'ale_gam_diamonds_stats_readme.0.5.2.rds'</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ale_gam_diamonds</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="co"># For speed, load a pre-created object by default.</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'ale_gam_diamonds_stats_readme.0.5.2.rds'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ALE.html">ALE</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>      <span class="co"># generate ALE for all 1D variables and the carat:clarity 2D interaction,</span></span></span>
+<span class="r-in"><span>      x_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="cn">TRUE</span>, d2 <span class="op">=</span> <span class="st">'carat:clarity'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      data <span class="op">=</span> <span class="va">diamonds</span>,</span></span>
+<span class="r-in"><span>      p_values <span class="op">=</span> <span class="va">p_dist_gam_diamonds</span>,</span></span>
+<span class="r-in"><span>      <span class="co"># Usually at least 100 bootstrap iterations, but just 10 here for a faster demo</span></span></span>
+<span class="r-in"><span>      boot_it <span class="op">=</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the ALE data. The horizontal bands in the plots use the p-values.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ale_gam_diamonds</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `label.size`</span>
 <span class="r-plt img"><img src="ALEpDist-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="ALEpDist-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -359,23 +360,25 @@
 <span class="r-in"><span><span class="co"># of p-values from random variables as in this example.</span></span></span>
 <span class="r-in"><span><span class="co"># See details above for an explanation.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># pd_diamonds_non_standard &lt;- ALEpDist(</span></span></span>
-<span class="r-in"><span><span class="co">#   gam_diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   diamonds,</span></span></span>
-<span class="r-in"><span><span class="co">#   random_model_call_string = 'mgcv::gam(</span></span></span>
-<span class="r-in"><span><span class="co">#     price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +</span></span></span>
-<span class="r-in"><span><span class="co">#       cut + color + clarity + random_variable,</span></span></span>
-<span class="r-in"><span><span class="co">#     data = rand_data</span></span></span>
-<span class="r-in"><span><span class="co">#   )',</span></span></span>
-<span class="r-in"><span><span class="co">#   # Normally should be default 1000, but just 100 for quicker demo</span></span></span>
-<span class="r-in"><span><span class="co">#   rand_it = 100</span></span></span>
-<span class="r-in"><span><span class="co"># )</span></span></span>
+<span class="r-in"><span><span class="va">pd_diamonds_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="co"># For speed, load a pre-created object by default.</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'pd_diamonds_non_standard.0.5.2.rds'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span></span>
+<span class="r-in"><span>    <span class="fu">ALEpDist</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">gam_diamonds</span>,</span></span>
+<span class="r-in"><span>      <span class="va">diamonds</span>,</span></span>
+<span class="r-in"><span>      random_model_call_string <span class="op">=</span> <span class="st">'mgcv::gam(</span></span></span>
+<span class="r-in"><span><span class="st">        price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +</span></span></span>
+<span class="r-in"><span><span class="st">          cut + color + clarity + random_variable,</span></span></span>
+<span class="r-in"><span><span class="st">        data = rand_data</span></span></span>
+<span class="r-in"><span><span class="st">      )'</span>,</span></span>
+<span class="r-in"><span>      <span class="co"># Normally should be default 1000, but just 100 for quicker demo</span></span></span>
+<span class="r-in"><span>      rand_it <span class="op">=</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># saveRDS(pd_diamonds_non_standard, file.choose())</span></span></span>
-<span class="r-in"><span><span class="va">pd_diamonds_non_standard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">'https://github.com/tripartio/ale/raw/main/download/'</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'pd_diamonds_non_standard.0.5.2.rds'</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Examine the structure of the returned object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pd_diamonds_non_standard</span><span class="op">)</span></span></span>

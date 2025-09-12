@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ale</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -338,7 +338,7 @@ the case when you are doing exploratory analyses), we can create a
 model-dataset pair. The <code>ALEpDist</code> object is used to generate
 p-values based on statistics for any variable from the same
 model-dataset pair. It generates these p-values when passed to the
-<code><a href="../reference/ale.html">ALE()</a></code> or <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> constructors. For very
+<code><a href="../reference/ALE.html">ALE()</a></code> or <code><a href="../reference/ModelBoot.html">ModelBoot()</a></code> constructors. For very
 large datasets, the process of generating the <code>ALEpDist</code>
 object could be sped up by only using a subset of the data and by
 running fewer than 1,000 random iterations by setting the
@@ -348,14 +348,24 @@ p-values thus generated would be meaningless.)</p>
 <p>We now demonstrate how to create the <code>ALEpDist</code> object for
 our case.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But it is slow because it retrains the model 1000 times, so this vignette loads a pre-created ALEpDist object.</span></span>
-<span><span class="co"># # For standard models like mgcv::gam that store their data,</span></span>
-<span><span class="co"># # there is no need to specify the data argument.</span></span>
-<span><span class="co"># gam_math_p_dist &lt;- ALEpDist(gam_math)</span></span>
-<span><span class="co"># saveRDS(gam_math_p_dist, file.choose())</span></span>
-<span><span class="va">gam_math_p_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/gam_math_p_dist.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># For speed, these examples use retrieve_rds() to load pre-created objects </span></span>
+<span><span class="co"># from an online repository.</span></span>
+<span><span class="co"># To run the code yourself, execute the code blocks directly.  </span></span>
+<span><span class="va">serialized_objects_site</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/tripartio/ale/raw/main/download"</span></span>
+<span></span>
+<span><span class="va">gam_math_p_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'gam_math_p_dist.0.5.0.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="co"># Rather slow because it retrains the model 1000 times.</span></span>
+<span>    <span class="fu"><a href="../reference/ALEpDist.html">ALEpDist</a></span><span class="op">(</span><span class="va">gam_math</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># saveRDS(gam_math_p_dist, file.choose())</span></span></code></pre></div>
 <p>We can now proceed to bootstrap the model for ALE analysis.</p>
 </div>
 <div class="section level3">
@@ -373,20 +383,26 @@ run the bootstrapped algorithm several times and you do not want it to
 be too slow each time. For definitive conclusions, you could run 1,000
 bootstraps or more to confirm the results of 100 bootstraps.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.</span></span>
-<span><span class="co"># mb_gam_math &lt;- ModelBoot(</span></span>
-<span><span class="co">#   gam_math,</span></span>
-<span><span class="co">#   # Pass the ALEpDist object so that p-values will be generated</span></span>
-<span><span class="co">#   ale_p = gam_math_p_dist,</span></span>
-<span><span class="co">#   # For the GAM model coefficients, show details of all variables, parametric or not</span></span>
-<span><span class="co">#   tidy_options = list(parametric = TRUE),</span></span>
-<span><span class="co">#   # tidy_options = list(parametric = NULL),</span></span>
-<span><span class="co">#   boot_it = 100  # default</span></span>
-<span><span class="co"># )</span></span>
-<span><span class="co"># saveRDS(mb_gam_math, file.choose())</span></span>
-<span><span class="va">mb_gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_math_stats_vignette.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mb_gam_math</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'mb_gam_math_stats_vignette.0.5.0.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="co"># 100 bootstrap iterations by default (rather slow).</span></span>
+<span>    <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
+<span>      <span class="va">gam_math</span>,</span>
+<span>      <span class="co"># Pass the ALEpDist object so that p-values will be generated</span></span>
+<span>      ale_p <span class="op">=</span> <span class="va">gam_math_p_dist</span>,</span>
+<span>      <span class="co"># For the GAM model coefficients, show details of all variables, parametric or not</span></span>
+<span>      tidy_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parametric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      <span class="co"># tidy_options = list(parametric = NULL),</span></span>
+<span>      boot_it <span class="op">=</span> <span class="fl">100</span>  <span class="co"># default</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># saveRDS(mb_gam_math, file.choose())</span></span></code></pre></div>
 <p>We can see the bootstrapped values of various overall model
 statistics by printing the <code>model_stats</code> property of the
 model bootstrap object:</p>
@@ -510,6 +526,8 @@ plots for each variable.</p>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mb_gam_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_math</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
+<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/all-ALE-plots-1.png" width="672"></p>
 <p>We can see that most variables seem to have some sort of mean effect
@@ -584,22 +602,29 @@ or because we want to see quick results without the slow process of
 first generating a <code>ALEpDist</code> object. Let us create another
 <code>ModelBoot</code> object, but this time, one without p-values.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># # To generate the code, uncomment the following lines.</span></span>
-<span><span class="co"># # But bootstrapping is slow because it retrains the model, so this vignette loads a pre-created ModelBoot object.</span></span>
-<span><span class="co"># mb_gam_no_p &lt;- ModelBoot(</span></span>
-<span><span class="co">#   gam_math,</span></span>
-<span><span class="co">#   ale_p = NULL,  # disable ALE p-values</span></span>
-<span><span class="co">#   # For the GAM model coefficients, show details of all variables, parametric or not</span></span>
-<span><span class="co">#   tidy_options = list(parametric = TRUE),</span></span>
-<span><span class="co">#   # tidy_options = list(parametric = NULL),</span></span>
-<span><span class="co">#   boot_it = 40  # 100 by default but reduced here for a faster demonstration</span></span>
-<span><span class="co"># )</span></span>
+<code class="sourceCode R"><span><span class="va">mb_gam_no_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/retrieve_rds.html">retrieve_rds</a></span><span class="op">(</span></span>
+<span>  <span class="co"># For speed, load a pre-created object by default.</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">serialized_objects_site</span>, <span class="st">'mb_gam_no_p_stats_vignette.0.5.0.rds'</span><span class="op">)</span>,</span>
+<span>  <span class="op">{</span></span>
+<span>    <span class="co"># To run the code yourself, execute this code block directly.</span></span>
+<span>    <span class="co"># For standard models like mgcv::gam that store their data,</span></span>
+<span>    <span class="co"># there is no need to specify the data argument.</span></span>
+<span>    <span class="fu"><a href="../reference/ModelBoot.html">ModelBoot</a></span><span class="op">(</span></span>
+<span>      <span class="va">gam_math</span>,</span>
+<span>      ale_p <span class="op">=</span> <span class="cn">NULL</span>,  <span class="co"># disable ALE p-values</span></span>
+<span>      <span class="co"># For the GAM model coefficients, show details of all variables, parametric or not</span></span>
+<span>      tidy_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parametric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      <span class="co"># tidy_options = list(parametric = NULL),</span></span>
+<span>      boot_it <span class="op">=</span> <span class="fl">40</span>  <span class="co"># 100 by default but reduced here for a faster demonstration</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># saveRDS(mb_gam_no_p, file.choose())</span></span>
-<span><span class="va">mb_gam_no_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">'https://github.com/tripartio/ale/raw/main/download/mb_gam_no_p_stats_vignette.0.5.0.rds'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mb_gam_no_p</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
+<span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/model-bootstrap-without-p-1.png" width="672"></p>
 <p>In the absence of p-values, the <code>ale</code> packages uses
 simpler visualizations to offer meaningful results. There is no ALER
@@ -627,7 +652,8 @@ summarizes the effect sizes of all the variables in the ALE analysis.
 This is generated with the <code><a href="../reference/get.html">get()</a></code> method on an
 <code>ALEPlots</code> object with <code>type = 'effect'</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, type <span class="op">=</span> <span class="st">'effect'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, type <span class="op">=</span> <span class="st">'effect'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `height` was translated to `width`.</span></span></code></pre></div>
 <p><img src="ale-statistics_files/figure-html/ALE-effects-plot-1.png" width="768"></p>
 <p>This plot is unusual, so it requires some explanation:</p>
 <ul>
