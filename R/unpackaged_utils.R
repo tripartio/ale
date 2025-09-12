@@ -218,7 +218,22 @@ cast <- function(x, new_cls) {
 #' @param x numeric. Vector of numbers to round off.
 #' @param default_dp integer(1). Number of decimal places for numbers less than 1.
 #'
-#' @returns `x` rounded by an intuitive number of decimal places.
+#' @returns `x` rounded to an intuitive number of decimal places.
+#'
+#' @examples
+#' round_dp(0.123456789)
+#' round_dp(1.23456789)
+#' round_dp(12.3456789)
+#' round_dp(123.456789)
+#' round_dp(1234.56789)
+#' round_dp(123456789)
+#' round_dp(NA_real_)
+#' round_dp(c(0.123456789, 1.23456789, 12.3456789, 123.456789, 1234, NA))
+#' round_dp(
+#'   c(0.123456789, 1.23456789, 12.3456789, 123.456789, 1234, NA),
+#'   default_dp = 1
+#' )
+#'
 #'
 round_dp <- function(x, default_dp = 3L) {
   # Validate with a fast "if" check rather than the heavier validate()
