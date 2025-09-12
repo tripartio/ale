@@ -1,3 +1,9 @@
+# ale (development version)
+
+## New features
+
+* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes and other documentation to create or retrieve large objects that are too slow to create on the spot.
+
 # ale 0.5.2
 
 ## New features
@@ -7,12 +13,12 @@
 
 ## Bug fixes
 
-* The ALEPlot package has been delisted from CRAN, so replace it with internal copy `refALEPlot()`.
+* The ALEPlot package has been delisted from CRAN, so remove all references to it.
 * Accordingly, the former vignette or article comparing the {ale} and {ALEPlot} packages has been removed.
 * Allow numeric binary predictions. Formerly, binary predictions errored, even if they were numeric.
 * Larger datasets now properly sample. For datasets > 500 lines, the code had a mismatch in the size of the original dataset and the sampled dataset.
 
-## Other changes
+## Documentation
 
 * Serialize all slow-generating objects in vignettes, examples, and other documentation so that they can be more quickly run by users. They are now all downloaded directly from GitHub. This significantly speeds up package checking and building (though this speedup is invisible to users).
 
@@ -32,18 +38,12 @@ Honestly, we can't keep track of all the changes; experienced users are advised 
     * `ALEPlots`: store ALE plots generated from either `ALE` or `ModelBoot` with convenient `print()` and `plot()` methods.
     * `ALEpDist`: p-value distribution information (replaces the former `create_p_dist()` function).
 * With the extensive rewrite, we no longer depend on `{ALEPlot}` package code and so now claim full authorship of the code. One of the most significant implications of this is that we have decided to change the package license from the GPL 2 to MIT, which permits maximum dissemination of our algorithms.
-* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ALE()` constructor for .
-* The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ale_plot` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ale_boot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
+* `ale_ixn()` has been eliminated and now both 1D and 2D ALE are calculated with the `ALE()` constructor.
+* The `ALE` object constructor no longer produces plots directly. ALE plots are now created as `ALEPlots` objects using the newly added `plot()` methods that create all possible plots from the ALE data from `ALE` or `ModelBoot` objects. Thus, serializing `ALE` objects now avoids the previous problems of environment bloat of the included `ggplot` objects.
 * Renamed the `rug_sample_size` argument of the `ALE` constructor to `sample_size`. Now it reflects the size of `data` that should be sampled in the `ale` object, which can be used not only for rug plots but for other purposes.
 
 
-## Bug fixes
-
-We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
-
-* Gracefully fails instead of crashing when the input data has missing values.
-
-## Other user-visible changes
+## New features
 
 * The `x_cols` argument in `ALE()` now supports a complex syntax for specifying which specific columns for 1D ALE or pairs of columns for 2D interactions are desired. It also supports specification using standard R formula syntax.
 * New `get()` methods now provide convenient access to `ALE`, `ModelBoot`, and `ALEPlots` objects.
@@ -64,6 +64,12 @@ We have dealt with innumerable bugs during our development journey but, fortunat
 * Character input data is now accepted as a categorical datatype. It is handled the same as unordered factors.
 * Plots that display categorical outcomes all on one plot are yet to be implemented. For now, each class or category must be plotted at a time.
 * Although the standard {ALE} class supports 2D ALE interactions with ALE bootstrapping, {ModelBoot} does not yet support full-model bootstrapping for 2D ALE interactions.
+
+## Bug fixes
+
+We have dealt with innumerable bugs during our development journey but, fortunately, very few publicly signalled bugs. Only fixes for publicly reported bugs are indicated here.
+
+* Gracefully fails instead of crashing when the input data has missing values.
 
 ## Under the hood
 
