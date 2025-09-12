@@ -298,7 +298,7 @@ round_dp <- function(x, default_dp = 3L) {
 #' - **Evaluation environment**: Expressions are evaluated in the caller’s
 #'   environment via [rlang::eval_tidy()] with `env = rlang::caller_env()`,
 #'   so symbols resolve exactly as if the code were written at the call site.
-#' - **Character-as-URL behavior** (enabled by default):
+#' - **Character-as-URL behaviour** (enabled by default):
 #'   the character vector is pasted with `'/'` separators (no leading/trailing
 #'   slash normalization), passed to [base::url()], then to [base::readRDS()].
 #'   Any error during this step is caught and skipped so that the next

@@ -1,4 +1,4 @@
-# ale (development version)
+# ale (0.5.3)
 
 ## New features
 

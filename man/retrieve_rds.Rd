@@ -51,7 +51,7 @@ not executed until \code{retrieve_rds()} chooses to evaluate them.
 \item \strong{Evaluation environment}: Expressions are evaluated in the caller’s
 environment via \code{\link[rlang:eval_tidy]{rlang::eval_tidy()}} with \code{env = rlang::caller_env()},
 so symbols resolve exactly as if the code were written at the call site.
-\item \strong{Character-as-URL behavior} (enabled by default):
+\item \strong{Character-as-URL behaviour} (enabled by default):
 the character vector is pasted with \code{'/'} separators (no leading/trailing
 slash normalization), passed to \code{\link[base:connections]{base::url()}}, then to \code{\link[base:readRDS]{base::readRDS()}}.
 Any error during this step is caught and skipped so that the next
