@@ -71,15 +71,23 @@ summary(gam_cars)
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
 ```{r ale_cars_1D, fig.width=7, fig.height=14}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like gam that store their data,
-# # there is no need to specify the data argument.
-# ale_cars_1D <- ALE(gam_cars)
-# saveRDS(ale_cars_1D, file.choose())
-ale_cars_1D <- url('https://github.com/tripartio/ale/raw/main/download/ale_cars_1D.0.5.2.rds') |> 
-  readRDS()
 
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+ale_cars_1D <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_cars_1D.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ALE(gam_cars)
+  }
+)
+# saveRDS(ale_cars_1D, file.choose())
 
 # Print all plots
 plot(ale_cars_1D) |> 
@@ -93,17 +101,20 @@ The numeric predictors have rug plots that indicate in which ranges of the x (pr
 We can also generate and plot the ALE data for all two-way interactions.
 
 ```{r ale_cars_2D, fig.width=7, fig.height=28}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like gam that store their data,
-# # there is no need to specify the data argument.
-# ale_cars_2D <- ALE(
-#   gam_cars,
-#   x_cols = list(d2 = TRUE)
-# )
+ale_cars_2D <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_cars_2D.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ALE(
+      gam_cars,
+      x_cols = list(d2 = TRUE)
+    )
+  }
+)
 # saveRDS(ale_cars_2D, file.choose())
-ale_cars_2D <- url('https://github.com/tripartio/ale/raw/main/download/ale_cars_2D.0.5.2.rds') |> 
-  readRDS()
 
 # Print plots
 plot(ale_cars_2D) |> 
@@ -119,15 +130,17 @@ There are no interactions in this model but the point of this demonstration is t
 Finally, as explained in the vignette on modelling with [small datasets](ale-small-datasets.html "ale package for small datasets"), a more appropriate modelling workflow would require bootstrapping the entire model, not just the ALE data. So, let's do that now.
 
 ```{r cars_full, fig.width=7, fig.height=14}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ModelBoot object.
-# # For standard models like lm that store their data,
-# # there is no need to specify the data argument.
-# # 100 bootstrap iterations by default.
-# mb_cars <- ModelBoot(gam_cars)
+mb_cars <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_cars.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ModelBoot(gam_cars) # 100 bootstrap iterations by default
+  }
+)
 # saveRDS(mb_cars, file.choose())
-mb_cars <- url('https://github.com/tripartio/ale/raw/main/download/mb_cars.0.5.2.rds') |> 
-  readRDS()
 
 plot(mb_cars) |> 
   print(ncol = 2)

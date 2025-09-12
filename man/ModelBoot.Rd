@@ -166,22 +166,28 @@ summary(gam_attitude)
 \donttest{
 # Full model bootstrapping
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ModelBoot object.
-# # For standard models like lm that store their data,
-# # there is no need to specify the data argument.
-# # 100 bootstrap iterations by default.
-# mb_gam_attitude <- ModelBoot(gam_attitude)
-# saveRDS(mb_gam_attitude, file.choose())
-mb_gam_attitude <- url(paste0(
-  'https://github.com/tripartio/ale/raw/main/download/',
-  'mb_gam_attitude.0.5.2.rds'
-  )) |>
-  readRDS()
 
-# If the model is not standard, supply model_call_string with 'data = boot_data'
-# in the string instead of the actual dataset name (in addition to the actual dataset
-# as the 'data' argument directly to the `ModelBoot` constructor).
+# For speed, these examples use retrieve_rds() to load pre-created objects
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+# Create ALE data
+mb_gam_attitude <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like lm that store their data,
+    # there is no need to specify the data argument.
+    # 100 bootstrap iterations by default.
+    ModelBoot(gam_attitude)
+  }
+)
+
+# # If the model is not standard, supply model_call_string with 'data = boot_data'
+# # in the string instead of the actual dataset name (in addition to the actual dataset
+# # as the 'data' argument directly to the `ModelBoot` constructor).
 # mb_gam_attitude <- ModelBoot(
 #   gam_attitude,
 #   data = attitude,  # the actual dataset

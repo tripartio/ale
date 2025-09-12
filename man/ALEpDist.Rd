@@ -157,38 +157,46 @@ gam_diamonds <- mgcv::gam(
 )
 summary(gam_diamonds)
 
-# # To generate the code, uncomment the following lines.
-# # But it is slow because it retrains the model 100 times,
-# # so this example loads a pre-created p_value distribution object.
-# p_dist_gam_diamonds <- ALEpDist(
-#   gam_diamonds, diamonds,
-#   # Normally should be default 1000, but just 100 for quicker demo
-#   rand_it = 100
-# )
-p_dist_gam_diamonds <- url(paste0(
-  'https://github.com/tripartio/ale/raw/main/download/',
-  'p_dist_gam_diamonds_readme.0.5.2.rds'
-  )) |>
-  readRDS()
+
+# For speed, these examples use retrieve_rds() to load pre-created objects
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+# Generating p_value distribution objects is slow because it retrains the model 100 times,
+# so this example loads a pre-created ALEpDist object.
+p_dist_gam_diamonds <- retrieve_rds(
+  c(serialized_objects_site, 'p_dist_gam_diamonds_readme.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALEpDist(
+      gam_diamonds, diamonds,
+      # Normally should be default 1000, but just 100 for quicker demo
+      rand_it = 100
+    )
+  }
+)
 
 # Examine the structure of the returned object
 print(p_dist_gam_diamonds)
 
 # Calculate ALEs with p-values
-# ale_gam_diamonds <- ALE(
-#   gam_diamonds,
-#   # generate ALE for all 1D variables and the carat:clarity 2D interaction
-#   x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
-#   data = diamonds,
-#   p_values = p_dist_gam_diamonds,
-#   # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
-#   boot_it = 10
-# )
-ale_gam_diamonds <- url(paste0(
-  'https://github.com/tripartio/ale/raw/main/download/',
-  'ale_gam_diamonds_stats_readme.0.5.2.rds'
-  )) |>
-  readRDS()
+ale_gam_diamonds <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_gam_diamonds_stats_readme.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALE(
+      gam_diamonds,
+      # generate ALE for all 1D variables and the carat:clarity 2D interaction,
+      x_cols = list(d1 = TRUE, d2 = 'carat:clarity'),
+      data = diamonds,
+      p_values = p_dist_gam_diamonds,
+      # Usually at least 100 bootstrap iterations, but just 10 here for a faster demo
+      boot_it = 10
+    )
+  }
+)
 
 # Plot the ALE data. The horizontal bands in the plots use the p-values.
 plot(ale_gam_diamonds)
@@ -199,23 +207,25 @@ plot(ale_gam_diamonds)
 # of p-values from random variables as in this example.
 # See details above for an explanation.
 
-# pd_diamonds_non_standard <- ALEpDist(
-#   gam_diamonds,
-#   diamonds,
-#   random_model_call_string = 'mgcv::gam(
-#     price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
-#       cut + color + clarity + random_variable,
-#     data = rand_data
-#   )',
-#   # Normally should be default 1000, but just 100 for quicker demo
-#   rand_it = 100
-# )
+pd_diamonds_non_standard <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'pd_diamonds_non_standard.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALEpDist(
+      gam_diamonds,
+      diamonds,
+      random_model_call_string = 'mgcv::gam(
+        price ~ s(carat) + s(depth_pct) + s(table) + s(x_length) + s(y_width) + s(z_depth) +
+          cut + color + clarity + random_variable,
+        data = rand_data
+      )',
+      # Normally should be default 1000, but just 100 for quicker demo
+      rand_it = 100
+    )
+  }
+)
 # saveRDS(pd_diamonds_non_standard, file.choose())
-pd_diamonds_non_standard <- url(paste0(
-  'https://github.com/tripartio/ale/raw/main/download/',
-  'pd_diamonds_non_standard.0.5.2.rds'
-  )) |>
-  readRDS()
 
 # Examine the structure of the returned object
 print(pd_diamonds_non_standard)

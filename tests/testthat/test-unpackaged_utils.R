@@ -114,7 +114,7 @@ test_that("%notin% works properly", {
 # We mock base::url() / base::readRDS() so no network/filesystem is touched.
 
 test_that("URL succeeds: returns serialized object; block not evaluated", {
-  serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/"
+  serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
   flag <- new.env(parent = emptyenv()); flag$ran <- FALSE
 
   testthat::with_mocked_bindings(
@@ -139,7 +139,7 @@ test_that("URL succeeds: returns serialized object; block not evaluated", {
 })
 
 test_that("URL fails: evaluates code block and returns its value", {
-  serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/"
+  serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
   flag <- new.env(parent = emptyenv()); flag$ran <- FALSE
 
   testthat::with_mocked_bindings(

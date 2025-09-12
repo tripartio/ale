@@ -104,14 +104,23 @@ For faster demonstrations, this vignette uses precreated ALE objects. For the fu
 ```{r ale_simple}
 # Simple ALE without bootstrapping
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like mgcv::gam that store their data,
-# # there is no need to specify the data argument.
-# ale_gam_diamonds <- ALE(gam_diamonds)
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+# Create ALE data
+ale_gam_diamonds <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ALE(gam_diamonds)
+  }
+)
 # saveRDS(ale_gam_diamonds, file.choose())
-ale_gam_diamonds <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds.0.5.2.rds') |> 
-  readRDS()
 ```
 
 By default, most core functions in the `{ale}` package use parallel processing. If your computer has problems with this, you can disable parallelization with the argument `parallel = 0`.
@@ -147,17 +156,20 @@ We create bootstrapped ALE data and plots using the `boot_it` argument. ALE is a
 
 ```{r ale_boot, fig.width=7, fig.height=11}
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like mgcv::gam that store their data,
-# # there is no need to specify the data argument.
-# ale_gam_diamonds_boot <- ALE(
-#   gam_diamonds, 
-#   boot_it = 100
-# )
+ale_gam_diamonds_boot <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_gam_diamonds_boot.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ALE(
+      gam_diamonds,
+      boot_it = 100
+    )
+  }
+)
 # saveRDS(ale_gam_diamonds_boot, file.choose())
-ale_gam_diamonds_boot <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_diamonds_boot.0.5.2.rds') |> 
-  readRDS()
 
 # Bootstrapping produces confidence intervals
 plot(ale_gam_diamonds_boot) |> 
@@ -173,17 +185,18 @@ Another advantage of ALE is that it provides data for 2D interactions between va
 ```{r ale_2D}
 # ALE two-way interactions
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like mgcv::gam that store their data,
-# # there is no need to specify the data argument.
-# ale_2D_gam_diamonds <- ALE(
-#   gam_diamonds,
-#   x_cols = list(d2 = TRUE)
-# )
+ale_2D_gam_diamonds <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_2D_gam_diamonds.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    ALE(
+      gam_diamonds,
+      x_cols = list(d2 = TRUE)
+    )
+  }
+)
 # saveRDS(ale_2D_gam_diamonds, file.choose())
-ale_2D_gam_diamonds <- url('https://github.com/tripartio/ale/raw/main/download/ale_2D_gam_diamonds.0.5.2.rds') |> 
-  readRDS()
 
 ```
 

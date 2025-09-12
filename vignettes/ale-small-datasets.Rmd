@@ -77,14 +77,22 @@ At the very least, the `{ale}` package is useful for visualizing the effects of 
 
 ```{r lm_simple, fig.width=7, fig.height=6}
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like lm that store their data,
-# # there is no need to specify the data argument.
-# ale_lm_attitude_simple <- ALE(lm_attitude)
+# For speed, these examples use retrieve_rds() to load pre-created objects 
+# from an online repository.
+# To run the code yourself, execute the code blocks directly.  
+serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
+
+ale_lm_attitude_simple <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_lm_attitude_simple.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like lm that store their data,
+    # there is no need to specify the data argument.
+    ALE(lm_attitude)
+  }
+)
 # saveRDS(ale_lm_attitude_simple, file.choose())
-ale_lm_attitude_simple <- url('https://github.com/tripartio/ale/raw/main/download/ale_lm_attitude_simple.0.5.2.rds') |> 
-  readRDS()
 
 # Print all plots
 plot(ale_lm_attitude_simple) |> 
@@ -107,15 +115,17 @@ The `ModelBoot` object automatically carries out full-model bootstrapping suitab
 The constructor for `{S7}` `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
 
 ```{r lm_full_call}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ModelBoot object.
-# # For standard models like lm that store their data,
-# # there is no need to specify the data argument.
-# mb_lm_attitude <- ModelBoot(lm_attitude) # 100 bootstrap iterations by default
+mb_lm_attitude <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_lm_attitude.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like lm that store their data,
+    # there is no need to specify the data argument.
+    ModelBoot(lm_attitude) # 100 bootstrap iterations by default
+  }
+)
 # saveRDS(mb_lm_attitude, file.choose())
-mb_lm_attitude <- url('https://github.com/tripartio/ale/raw/main/download/mb_lm_attitude.0.5.2.rds') |> 
-  readRDS()
-
 ```
 
 By default, a `ModelBoot` object creates 100 bootstrap samples of the provided dataset and creates 100 + 1 models on the data (one for each bootstrap sample and then once for the original dataset). (However, so that this illustration runs faster, we demonstrate it here with only 10 iterations.) Beyond ALE data, it also provides bootstrapped overall model statistics (provided through `broom::glance()`) and bootstrapped model coefficients (provided through `broom::tidy()`). Any of the default options for `broom::glance()`, `broom::tidy()`, and `ALE()` can be customized, along with defaults for the `ModelBoot` constructor, such as the number of bootstrap iterations. You can consult the help file for these details with `help(ModelBoot)`.
@@ -174,14 +184,17 @@ By comparing the adjusted R^2^ of the OLS model (`r summary(lm_attitude)[["adj.r
 To understand which variables were responsible for this relationship, the results for the smooth terms in GAM are not readily interpretable. They need to be visualized for effective interpretation---ALE is perfect for such purposes.
 
 ```{r gam_simple, fig.width=7, fig.height=6}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ALE object.
-# # For standard models like gam that store their data,
-# # there is no need to specify the data argument.
-# ale_gam_attitude_simple <- ALE(gam_attitude)
+ale_gam_attitude_simple <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'ale_gam_attitude_simple.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ALE(gam_attitude)
+  }
+)
 # saveRDS(ale_gam_attitude_simple, file.choose())
-ale_gam_attitude_simple <- url('https://github.com/tripartio/ale/raw/main/download/ale_gam_attitude_simple.0.5.2.rds') |> 
-  readRDS()
 
 plot(ale_gam_attitude_simple) |> 
   print(ncol = 2)
@@ -190,15 +203,17 @@ plot(ale_gam_attitude_simple) |>
 Compared to the OLS results above, the GAM results provide quite a surprise concerning the shape of the effect of employees' perceptions that their department is too critical--it seems that both low criticism and very high criticism negatively affect ratings. However, before trying to interpret these results, we must remember that results that are not bootstrapped are simply not reliable. So, let us see what bootstrapping will give us.
 
 ```{r gam_full_stats}
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ModelBoot object.
-# # For standard models like lm that store their data,
-# # there is no need to specify the data argument.
-# # 100 bootstrap iterations by default.
-# mb_gam_attitude <- ModelBoot(gam_attitude)
+mb_gam_attitude <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    ModelBoot(gam_attitude) # 100 bootstrap iterations by default
+  }
+)
 # saveRDS(mb_gam_attitude, file.choose())
-mb_gam_attitude <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude.0.5.2.rds') |> 
-  readRDS()
 
 mb_gam_attitude@model_stats
 ```
@@ -245,21 +260,24 @@ So, here is the form for constructing a `ModelBoot` for a non-standard model obj
 
 ```{r model_call_string}
 
-# # To generate the code, uncomment the following lines.
-# # For speed, this vignette loads a pre-created ModelBoot object.
-# # For standard models like gam that store their data,
-# # there is no need to specify the data argument.
-# # 100 bootstrap iterations by default.
-# mb_gam_attitude_non_standard <- ModelBoot(
-#   gam_attitude_again,
-#   model_call_string = 'mgcv::gam(
-#     rating ~ complaints + privileges + s(learning) +
-#       raises + s(critical) + advance,
-#     data = boot_data)'
-# )
+mb_gam_attitude_non_standard <- retrieve_rds(
+  # For speed, load a pre-created object by default.
+  c(serialized_objects_site, 'mb_gam_attitude_non_standard.0.5.2.rds'),
+  {
+    # To run the code yourself, execute this code block directly.
+    # For standard models like mgcv::gam that store their data,
+    # there is no need to specify the data argument.
+    # 100 bootstrap iterations by default.
+    ModelBoot(
+      gam_attitude_again,
+      model_call_string = 'mgcv::gam(
+        rating ~ complaints + privileges + s(learning) +
+          raises + s(critical) + advance,
+        data = boot_data)'
+    )
+  }
+)
 # saveRDS(mb_gam_attitude_non_standard, file.choose())
-mb_gam_attitude_non_standard <- url('https://github.com/tripartio/ale/raw/main/download/mb_gam_attitude_non_standard.0.5.2.rds') |> 
-  readRDS()
 
 mb_gam_attitude_non_standard@model_stats
 ```

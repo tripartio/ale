@@ -326,7 +326,7 @@ round_dp <- function(x, default_dp = 3L) {
 #' # - If it fails, the code block within curly quotes is evaluated in the
 #' #   caller's environment and its value is returned (here it would assign and
 #' #   return `ale_gam_diamonds`).
-#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/"
+#' serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download"
 #' retrieve_rds(
 #'   c(serialized_objects_site, "ale_gam_diamonds.0.5.2.rds"),
 #'   {
