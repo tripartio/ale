@@ -22,13 +22,13 @@ ALE(
   pred_type = "response",
   p_values = "auto",
   aler_alpha = c(0.01, 0.05),
-  max_num_bins = 10,
-  boot_it = 0,
+  max_num_bins = 10L,
+  boot_it = 0L,
   boot_alpha = 0.05,
   boot_centre = "mean",
   seed = 0,
   y_type = NULL,
-  sample_size = 500,
+  sample_size = 500L,
   silent = FALSE,
   .bins = NULL
 )
@@ -63,7 +63,15 @@ ALE(
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
-\item{max_num_bins}{positive integer(1). Maximum number of ALE bins for numeric \code{x_cols} variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and \code{max_num_bins}. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.}
+\item{max_num_bins}{integer(1) > 1 or list. For numeric \code{x_cols}, this sets an upper bound on
+the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
+\itemize{
+\item Single integer > 1: used for all numeric \code{x_cols}.
+\item List with overrides: list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
+Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
+An example of the list format would be
+\code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
+}}
 
 \item{boot_it}{non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a \code{\link[=ModelBoot]{ModelBoot()}} class object. See details there. The default \code{boot_it = 0} turns off bootstrapping.}
 

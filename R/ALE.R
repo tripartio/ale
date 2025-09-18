@@ -27,7 +27,13 @@
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
 #' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
-#' @param max_num_bins positive integer(1). Maximum number of ALE bins for numeric `x_cols` variables. The number of bins is eventually the lower of the number of unique values of a numeric variable and `max_num_bins`. Non-numeric variables such as (binary or categorical) always use all their actual values for ALE bins.
+#' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
+#'   the number of ALE bins, where actual bins are the lesser of the number of unique values and `max_num_bins`. Valid formats are:
+#'   * Single integer > 1: used for all numeric `x_cols`.
+#'   * List with overrides: list with exactly two elements: `default` is a single integer > 1 used as the default value; `except` is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
+#'   Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
+#'   An example of the list format would be
+#'   `max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))`
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
@@ -266,13 +272,13 @@ ALE <- new_class(
     pred_type = 'response',
     p_values = 'auto',
     aler_alpha = c(0.01, 0.05),
-    max_num_bins = 10,
-    boot_it = 0,
+    max_num_bins = 10L,
+    boot_it = 0L,
     boot_alpha = 0.05,
     boot_centre = 'mean',
     seed = 0,
     y_type = NULL,
-    sample_size = 500,
+    sample_size = 500L,
     silent = FALSE,
     .bins = NULL
   )
@@ -393,7 +399,35 @@ ALE <- new_class(
       )
     )
 
-    validate(is_scalar_natural(max_num_bins) && (max_num_bins > 1))
+    # Validate max_num_bins
+    invalid_msg_max_num_bins <- c(
+      x = 'Invalid format for {.arg max_num_bins} .',
+      # i = 'Provided value: {max_num_bins}',
+      i = 'See documentation for the {.arg max_num_bins} argument for valid formats.'
+    )
+    validate(
+      # Typical valid format: integer > 1
+      (is_scalar_natural(max_num_bins) && (max_num_bins > 1)) ||
+        # List will be validated separately
+        is.list(max_num_bins),
+      msg = invalid_msg_max_num_bins
+    )
+    if (is.list(max_num_bins)) {
+      validate(
+        all(names(max_num_bins) %in% c('default', 'except')),
+        is_scalar_natural(max_num_bins$default) && (max_num_bins$default > 1),
+        (max_num_bins$except |> rlang::is_integerish()) && all(max_num_bins$except > 1),
+        msg = invalid_msg_max_num_bins
+      )
+
+      invalid_col_names <- max_num_bins$except |>
+        names() |>
+        setdiff(col_names)
+      if (length(invalid_col_names) > 0) {
+        cli_warn('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_col_names}')
+      }
+    }
+
     validate(is_scalar_number(seed))
     validate(is_scalar_number(boot_alpha) && between(boot_alpha, 0, 1))
     validate(
@@ -493,7 +527,7 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'pm', 'silent', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'invalid_msg_max_num_bins', 'pm', 'silent', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments
@@ -567,10 +601,27 @@ ALE <- new_class(
             NULL
           }
 
+          # Determine specific max_num_bins for each column.
+          # Result is a named integer vector.
+          it.max_num_bins <- it.x_cols_split |>
+            map_dbl(\(it.x_col) {
+              if (is_scalar_natural(max_num_bins)) {
+                max_num_bins
+              } else {
+                # max_num_bins is in list format
+                if (!is.na(max_num_bins$except[it.x_col])) {
+                  max_num_bins$except[it.x_col]
+                } else {
+                  max_num_bins$default
+                }
+              }
+            }) |>
+            set_names(it.x_cols_split)
+
           ale_results <-
             calc_ale(
               data, model, it.x_cols_split, y_col, y_cats,
-              pred_fun, pred_type, max_num_bins,
+              pred_fun, pred_type, it.max_num_bins,
               boot_it, seed, boot_alpha, boot_centre,
               boot_ale_y = output_boot_data,
               .bins = it.bins,

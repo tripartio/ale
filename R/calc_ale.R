@@ -102,7 +102,7 @@ calc_ale <- function(
       x_vals = X[[it.x_col]],
       bins = .bins[[which(x_cols == it.x_col)]],
       n = .bins[['ns']],
-      max_num_bins,
+      max_num_bins[it.x_col],
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
   }) |>

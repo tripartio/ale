@@ -1,8 +1,14 @@
+# ale (development version)
+
+## New features
+
+* The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
+
 # ale (0.5.3)
 
 ## New features
 
-* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes and other documentation to create or retrieve large objects that are too slow to create on the spot.
+* `retrieve_rds()` is a documentation utility function to either retrieve a serialized RDS file from a URL or else run a code block if the URL retrieval fails. It is used in vignettes and other documentation to create or retrieve large objects that are too slow to be created on the spot.
 
 # ale 0.5.2
 
