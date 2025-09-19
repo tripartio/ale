@@ -1126,24 +1126,21 @@ prep_var_for_ale <- function(
       }
       else if (x_type == 'categorical') {
         # calculate the indices of the original intervals after ordering them
-        idx_ord_orig_int <-
-          # Call function to order categorical categories
-          idxs_kolmogorov_smirnov(
-            X, x_col,
-            n_bins = x_vals |> unique() |> length(),
-            x_int_counts
-          )
+
+        # Call function to order categorical categories
+        idx_ord_orig_int <- idxs_kolmogorov_smirnov(
+          X, x_col,
+          n_bins = x_vals |> unique() |> length(),
+          x_int_counts
+        )
 
         # index of x_col value according to ordered indices
         x_ordered_idx <-
-          idx_ord_orig_int |>
-          sort(index.return = TRUE) |>
-          (`[[`)('ix') |>
-          (`[`)(
+          idx_ord_orig_int[
             x_vals |>
               factor() |>  # required to handle character vectors
               as.numeric()
-          )
+          ]
 
         # x intervals sorted in ALE order
         int_ale_order <-
