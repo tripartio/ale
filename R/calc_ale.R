@@ -21,6 +21,7 @@
 #' @param pred_fun See documentation for [ALE()]
 #' @param pred_type See documentation for [ALE()]
 #' @param max_num_bins See documentation for [ALE()]
+#' @param fct_order See documentation for [ALE()]
 #' @param boot_it See documentation for [ALE()]
 #' @param seed See documentation for [ALE()]
 #' @param boot_alpha See documentation for [ALE()]
@@ -39,7 +40,11 @@ calc_ale <- function(
     pred_fun,
     pred_type,
     max_num_bins,
-    boot_it, seed, boot_alpha, boot_centre,
+    fct_order,
+    boot_it,
+    seed,
+    boot_alpha,
+    boot_centre,
     boot_ale_y = FALSE,
     .bins = NULL,
     ale_y_norm_funs = NULL,
@@ -102,7 +107,8 @@ calc_ale <- function(
       x_vals = X[[it.x_col]],
       bins = .bins[[which(x_cols == it.x_col)]],
       n = .bins[['ns']],
-      max_num_bins[it.x_col],
+      max_num_bins = max_num_bins[it.x_col],
+      fct_order = fct_order[[it.x_col]],
       X = if (x_types[[it.x_col]] == 'categorical') X
     )
   }) |>
@@ -1008,6 +1014,7 @@ calc_ale <- function(
 #' @param x_vals vector. The values of x_col.
 #' @param bins,n  See documentation for [calc_ale()]
 #' @param max_num_bins See documentation for [ALE()]
+#' @param fct_order See documentation for [ALE()]
 #' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
 #'
 prep_var_for_ale <- function(
@@ -1017,6 +1024,7 @@ prep_var_for_ale <- function(
     bins,
     n,
     max_num_bins,
+    fct_order,
     X = NULL
 ) {
 
@@ -1127,12 +1135,16 @@ prep_var_for_ale <- function(
       else if (x_type == 'categorical') {
         # calculate the indices of the original intervals after ordering them
 
-        # Call function to order categorical categories
-        idx_ord_orig_int <- idxs_kolmogorov_smirnov(
-          X, x_col,
-          n_bins = x_vals |> unique() |> length(),
-          x_int_counts
-        )
+        # Up until here, fct_order can store different orders for each y_col category.
+        # Until we develop code that can properly handle distinct orders for each category,
+        # just take the first category's order and ignore the others.
+        fct_order <- fct_order[[1]]
+
+        # x intervals sorted in ALE order
+        int_ale_order <- fct_order
+
+        # calculate the indices of the original intervals after ordering them
+        idx_ord_orig_int <- match(int_ale_order, unique(x_vals))
 
         # index of x_col value according to ordered indices
         x_ordered_idx <-
@@ -1141,13 +1153,6 @@ prep_var_for_ale <- function(
               factor() |>  # required to handle character vectors
               as.numeric()
           ]
-
-        # x intervals sorted in ALE order
-        int_ale_order <-
-          x_int_counts |>
-          names() |>
-          (`[`)(idx_ord_orig_int)
-
       }
       else if (x_type == 'ordinal') {
 

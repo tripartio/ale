@@ -161,6 +161,8 @@ test_that('ale function matches output of ALEPlot with gbm', {
     # specific options requested by ALEPlot example
     pred_fun = gbm_pred_fun_ale, pred_type = 'link',
     max_num_bins = 10 + 1,
+    # Use Kolmogorov-Smirnov distances for compatibility
+    fct_order = 'ksd',
     silent = TRUE
   ) |>
     suppressMessages()

@@ -30,10 +30,21 @@
 #' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
 #'   the number of ALE bins, where actual bins are the lesser of the number of unique values and `max_num_bins`. Valid formats are:
 #'   * Single integer > 1: used for all numeric `x_cols`.
-#'   * List with overrides: list with exactly two elements: `default` is a single integer > 1 used as the default value; `except` is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
+#'   * List with overrides: a list with exactly two elements: `default` is a single integer > 1 used as the default value; `except` is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
 #'   Non-numeric `x_cols` (binary/ordinal/categorical) always use all observed levels.
 #'   An example of the list format would be
 #'   `max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))`
+#'
+#'   The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.
+#' @param fct_order character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+#' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
+#' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.
+#' * `"ksd"`: Not recommended except for compatibility with the original ALEPlot reference implementation.
+#' * List with overrides: a list with exactly two elements: `default` is a character string with one of the above as the default value; `except` is a named character vector with per-column orderings. Unknown names are ignored with a warning.
+#'   An example of the list format would be
+#'   `fct_order = list(default = "levels", except = c(continent = "y_col"))`
+#'
+#' See details.
 #' @param boot_it non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a [ModelBoot()] class object. See details there. The default `boot_it = 0` turns off bootstrapping.
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
@@ -101,6 +112,16 @@
 #'
 #' @section Progress bars:
 #' Progress bars are implemented with the `{progressr}` package. For details on customizing the progress bars, see the introduction to the [`{progressr}` package](https://progressr.futureverse.org/articles/progressr-intro.html). To disable progress bars when calling a function in the `ale` package, set `silent = TRUE`.
+#'
+#'
+#' @section Sorting of unordered factors:
+#' The ALE algorithm requires an order for the values of all variables. All basic datatypes have a natural order except for unordered factors and characters. `fct_order` specifies how unordered factors will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) Note that factor ordering has no effect on the discriminativeness of the ALE algorithm; it only affects which level is listed first, second, and so on in comparison with each other, which is relevant for interpretation. The first level according to `fct_order` is always calculated as having zero effect; ALE for all other levels are relative to the first level. We recommend that users explicitly set the levels of each factor in an order that is meaningful for interpretation and then leave `fct_order` at its default value (`"levels"`).
+#'
+#' Character columns treat their unique values as factor levels. With `fct_order = "levels"`, the order of values is alphabetical to make it easier to find results in plots.
+#'
+#' An alternative ordering is to set `fct_order = "y_col"`, which sorts levels based on the increasing mean values of the predictions of `y_col` for each factor level. Thus, the ALE results show how the isolated effects of each level of a factor might differ from the average effects when all other variables come into play.
+#'
+#' The original `ALEPlot` reference implementation sorts factor levels based on their similarity to each other, using an algorithm based on Kolmogorov-Smirnov distances and multidimensional scaling. However, that implementation calculates distances using all the data that happen to be in the dataset, even if some of that data is not used in the model at all. This results in arbitrary different sort orders unless all columns not used in the model are excluded from the dataset. We do not recommend this approach, but we include it with the `"ksd"` option for compatibility with the original `ALEPlot` reference implementation.
 #'
 #'
 #'
@@ -273,6 +294,7 @@ ALE <- new_class(
     p_values = 'auto',
     aler_alpha = c(0.01, 0.05),
     max_num_bins = 10L,
+    fct_order = 'levels',
     boot_it = 0L,
     boot_alpha = 0.05,
     boot_centre = 'mean',
@@ -402,7 +424,6 @@ ALE <- new_class(
     # Validate max_num_bins
     invalid_msg_max_num_bins <- c(
       x = 'Invalid format for {.arg max_num_bins} .',
-      # i = 'Provided value: {max_num_bins}',
       i = 'See documentation for the {.arg max_num_bins} argument for valid formats.'
     )
     validate(
@@ -420,11 +441,37 @@ ALE <- new_class(
         msg = invalid_msg_max_num_bins
       )
 
-      invalid_col_names <- max_num_bins$except |>
+      invalid_max_num_bins_col_names <- max_num_bins$except |>
         names() |>
         setdiff(col_names)
-      if (length(invalid_col_names) > 0) {
-        cli_warn('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_col_names}')
+      if (length(invalid_max_num_bins_col_names) > 0) {
+        cli_warn('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
+      }
+    }
+
+    # Validate fct_order
+    valid_fct_order_vals <- c('levels', 'y_col', 'ksd')
+    invalid_msg_fct_order <- c(
+      x = 'Invalid format for {.arg fct_order} .',
+      i = 'See documentation for the {.arg fct_order} argument for valid formats.'
+    )
+    validate(
+      (fct_order |> is_string(valid_fct_order_vals)) || is.list(fct_order),
+      msg = invalid_msg_fct_order
+    )
+    if (is.list(fct_order)) {
+      validate(
+        all(names(fct_order) %in% c('default', 'except')),
+        fct_order$default |> is_string(valid_fct_order_vals),
+        all(fct_order$except %in% valid_fct_order_vals),
+        msg = invalid_msg_fct_order
+      )
+
+      invalid_fct_order_col_names <- fct_order$except |>
+        names() |>
+        setdiff(col_names)
+      if (length(invalid_fct_order_col_names) > 0) {
+        cli_warn('The following columns listed as exceptions to the default {.arg fct_order} of {fct_order$default} were not found in the {.arg data}: {invalid_fct_order_col_names}')
       }
     }
 
@@ -518,6 +565,92 @@ ALE <- new_class(
       max()
 
 
+    # Determine fct_order when relevant
+    cols_used <- x_cols |>
+      unlist() |>
+      str_split(':') |>
+      unlist() |>
+      unique()
+
+    unordered_fcts <- data |>
+      select(any_of(cols_used)) |>
+      select(
+        where(\(it.col) (is.factor(it.col) || is.character(it.col)) && !is.ordered(it.col))
+      )
+
+    # First verify requested fct_order type for each unordered factor
+    requested_fct_order <- if (is_string(fct_order)) {
+      # Vector whose values are fct_order, named by unordered_fcts
+      rep(fct_order, length(unordered_fcts)) |>
+        set_names(names(unordered_fcts))
+    } else {
+      # fct_order is in special list format
+      unordered_fcts |>
+        purrr::imap_chr(\(it.fct, it.fct_name) {
+          if (!is.na(fct_order$except[it.fct_name])) {
+            fct_order$except[it.fct_name]
+          } else {
+            fct_order$default |>
+              set_names(it.fct_name)
+          }
+        })
+    }
+
+    # Now establish precise order for each unordered factor
+    requested_fct_order <- requested_fct_order |>
+      imap(\(it.fct_order_type, it.fct_name) {
+        if (it.fct_order_type == 'levels') {
+          it.lvls <- if (is.factor(data[[it.fct_name]])) {
+            levels(data[[it.fct_name]])
+          } else {
+            # Normally, a character vector
+            data[[it.fct_name]] |>
+              unique() |>
+              sort()
+          }
+
+          it.lvls |>
+            list() |>
+            rep(length(y_cats)) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'y_col') {
+          # Order based on y_col values per category
+          it.mean_preds <- y_vals |>
+            as_tibble() |>
+            mutate(.fct = data[[it.fct_name]]) |>
+            summarize(
+              .by = '.fct',
+              across(everything(), \(it.y_cat) mean(it.y_cat, na.rm = TRUE))
+            )
+
+          y_cats |>
+            map(\(it.cat) {
+              it.mean_preds |>
+                arrange(pick(it.cat)) |>
+                pull('.fct') |>
+                as.character()
+            }) |>
+            set_names(y_cats)
+        } else if (it.fct_order_type == 'ksd') {
+          # Order based on Kolmogorov-Smirnov distances
+
+          it.levels <- data[[it.fct_name]] |> levels()
+
+          it.iks <- idxs_kolmogorov_smirnov(
+            X = data |> select(-all_of(y_col)),
+            x_col = it.fct_name,
+            n_bins = length(it.levels),
+            x_int_counts = data[[it.fct_name]] |> table()
+          )
+
+          it.levels[it.iks] |>
+            list() |>
+            rep(length(y_cats)) |>
+            set_names(y_cats)
+        }
+      })
+
+
     ## Capture params ------------------
     # Capture all parameters used to construct the ALE values.
     # This includes the arguments in the original model call (both user-specified and default) with any values changed by the function, as well as many variables calculated by the function.
@@ -527,7 +660,11 @@ ALE <- new_class(
     it_objs <- names(params)[  # iterators
       names(params) |> str_detect('^it\\.')
     ]
-    temp_objs <- c('ale_y_norm_funs', 'col_names', 'exclude_cols', 'invalid_msg_max_num_bins', 'pm', 'silent', 'temp_objs', 'valid_d', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds')
+    temp_objs <- c(
+      'ale_y_norm_funs', 'col_names', 'cols_used', 'exclude_cols',
+      'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_max_num_bins_col_names', 'invalid_msg_fct_order', 'invalid_msg_max_num_bins',
+      'pm', 'requested_fct_order', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds'
+    )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
     # Simplify some very large elements, especially closures that contain environments
@@ -618,11 +755,24 @@ ALE <- new_class(
             }) |>
             set_names(it.x_cols_split)
 
+          # Specify specific fct_order for each column.
+          # Result is a list in the same structure as requested_fct_order.
+          # Values are NULL for non-ordered factors.
+          it.fct_order <- it.x_cols_split |>
+            map(\(it.col) requested_fct_order[[it.col]]) |>
+            set_names(it.x_cols_split)
+
+
           ale_results <-
             calc_ale(
-              data, model, it.x_cols_split, y_col, y_cats,
-              pred_fun, pred_type, it.max_num_bins,
-              boot_it, seed, boot_alpha, boot_centre,
+              data = data, model = model,
+              x_cols = it.x_cols_split,
+              y_col = y_col, y_cats = y_cats,
+              pred_fun = pred_fun, pred_type = pred_type,
+              max_num_bins = it.max_num_bins,
+              fct_order = it.fct_order,
+              boot_it = boot_it, seed = seed,
+              boot_alpha = boot_alpha, boot_centre = boot_centre,
               boot_ale_y = output_boot_data,
               .bins = it.bins,
               ale_y_norm_funs = ale_y_norm_funs,

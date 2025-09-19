@@ -2,6 +2,7 @@
 
 ## New features
 
+* With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` allows compatibility with the original ALEPlot reference implementation.
 * The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
 
 # ale (0.5.3)

@@ -89,7 +89,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -109,9 +109,9 @@
       # A tibble: 3 x 7
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
-      1 North America    24     0     0       0         0     0
-      2 Europe           28     0     0       0         0     0
-      3 Asia             12     0     0       0         0     0
+      1 Asia             12     0     0       0         0     0
+      2 Europe           24     0     0       0         0     0
+      3 North America    28     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
@@ -122,18 +122,18 @@
       
       attr(,"effect")$mpg$ale$d1$model
       # A tibble: 32 x 7
-         model.bin              .n     .y  .y_lo .y_mean .y_median .y_hi
-         <ord>               <int>  <dbl>  <dbl>   <dbl>     <dbl> <dbl>
-       1 Camaro Z28              2 -1.22  -3.83   -1.22     -1.74   2.27
-       2 Cadillac Fleetwood      2 -0.330 -9.42   -0.330     0.233  7.80
-       3 Lincoln Continental     2  7.05  -9.18    7.05      7.26  22.9 
-       4 Chrysler Imperial       2 15.5   -4.52   15.5      14.3   37.4 
-       5 Duster 360              2 21.7   -0.182  21.7      21.6   43.9 
-       6 Hornet Sportabout       2 31.8    5.16   31.8      37.6   48.4 
-       7 Pontiac Firebird        2 25.1    3.36   25.1      29.3   39.7 
-       8 Dodge Challenger        2 20.3    0.910  20.3      21.6   37.4 
-       9 AMC Javelin             2 20.4    1.16   20.4      22.0   36.9 
-      10 Merc 450SL              2 20.8    1.13   20.8      15.1   50.2 
+         model.bin             .n     .y   .y_lo .y_mean .y_median .y_hi
+         <ord>              <int>  <dbl>   <dbl>   <dbl>     <dbl> <dbl>
+       1 AMC Javelin            2 -12.2  -17.5    -12.2    -11.7   -7.57
+       2 Cadillac Fleetwood     2 -15.1  -27.0    -15.1    -11.1   -9.98
+       3 Camaro Z28             2  -1.82 -20.8     -1.82     0.713 12.8 
+       4 Chrysler Imperial      2  -1.20 -10.3     -1.20    -0.746  7.15
+       5 Datsun 710             2  13.0   -0.747   13.0     11.1   30.1 
+       6 Dodge Challenger       2  20.5    5.86    20.5     21.0   34.2 
+       7 Duster 360             2  21.1    4.54    21.1     21.4   37.2 
+       8 Ferrari Dino           2  24.5   10.0     24.5     25.7   36.9 
+       9 Fiat 128               2  27.7   16.3     27.7     28.6   37.6 
+      10 Fiat X1-9              2  20.5    6.52    20.5     22.6   30.9 
       # i 22 more rows
       
       attr(,"effect")$mpg$ale$d1$gear
@@ -411,6 +411,9 @@
       
       attr(,"params")$max_num_bins
       [1] 10
+      
+      attr(,"params")$fct_order
+      [1] "levels"
       
       attr(,"params")$boot_it
       [1] 3

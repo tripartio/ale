@@ -23,6 +23,7 @@ ALE(
   p_values = "auto",
   aler_alpha = c(0.01, 0.05),
   max_num_bins = 10L,
+  fct_order = "levels",
   boot_it = 0L,
   boot_alpha = 0.05,
   boot_centre = "mean",
@@ -67,11 +68,25 @@ ALE(
 the number of ALE bins, where actual bins are the lesser of the number of unique values and \code{max_num_bins}. Valid formats are:
 \itemize{
 \item Single integer > 1: used for all numeric \code{x_cols}.
-\item List with overrides: list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
+\item List with overrides: a list with exactly two elements: \code{default} is a single integer > 1 used as the default value; \code{except} is a named integer vector with values > 1 of per-column upper bounds. Unknown names are ignored with a warning.
 Non-numeric \code{x_cols} (binary/ordinal/categorical) always use all observed levels.
 An example of the list format would be
 \code{max_num_bins = list(default = 10, except = c(wt = 25, carb = 4))}
-}}
+}
+
+The default value of 10 is recommended for speed; it should adequately express most relationships. Increase it (e.g., to 100) for complex relationships. However, higher values are slower, especially for ALE interactions.}
+
+\item{fct_order}{character(1) or list. Specifies how unordered factors and characters will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) The following options are possible:
+\itemize{
+\item \code{"levels"} (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
+\item \code{"y_col"}: Sort based on the increasing mean values of the predictions of \code{y_col} for each factor level.
+\item \code{"ksd"}: Not recommended except for compatibility with the original ALEPlot reference implementation.
+\item List with overrides: a list with exactly two elements: \code{default} is a character string with one of the above as the default value; \code{except} is a named character vector with per-column orderings. Unknown names are ignored with a warning.
+An example of the list format would be
+\code{fct_order = list(default = "levels", except = c(continent = "y_col"))}
+}
+
+See details.}
 
 \item{boot_it}{non-negative integer(1). Number of bootstrap iterations for data-only bootstrapping on ALE data. This is appropriate for models that have been developed with cross-validation. For models that have not been validated, full-model bootstrapping should be used instead with a \code{\link[=ModelBoot]{ModelBoot()}} class object. See details there. The default \code{boot_it = 0} turns off bootstrapping.}
 
@@ -162,6 +177,17 @@ For time-to-event (survival) models, set the following arguments:
 \section{Progress bars}{
 
 Progress bars are implemented with the \code{{progressr}} package. For details on customizing the progress bars, see the introduction to the \href{https://progressr.futureverse.org/articles/progressr-intro.html}{\code{{progressr}} package}. To disable progress bars when calling a function in the \code{ale} package, set \code{silent = TRUE}.
+}
+
+\section{Sorting of unordered factors}{
+
+The ALE algorithm requires an order for the values of all variables. All basic datatypes have a natural order except for unordered factors and characters. \code{fct_order} specifies how unordered factors will be ordered for ALE calculation. (Ordered factors ignore this setting; they always use their intrinsic order.) Note that factor ordering has no effect on the discriminativeness of the ALE algorithm; it only affects which level is listed first, second, and so on in comparison with each other, which is relevant for interpretation. The first level according to \code{fct_order} is always calculated as having zero effect; ALE for all other levels are relative to the first level. We recommend that users explicitly set the levels of each factor in an order that is meaningful for interpretation and then leave \code{fct_order} at its default value (\code{"levels"}).
+
+Character columns treat their unique values as factor levels. With \code{fct_order = "levels"}, the order of values is alphabetical to make it easier to find results in plots.
+
+An alternative ordering is to set \code{fct_order = "y_col"}, which sorts levels based on the increasing mean values of the predictions of \code{y_col} for each factor level. Thus, the ALE results show how the isolated effects of each level of a factor might differ from the average effects when all other variables come into play.
+
+The original \code{ALEPlot} reference implementation sorts factor levels based on their similarity to each other, using an algorithm based on Kolmogorov-Smirnov distances and multidimensional scaling. However, that implementation calculates distances using all the data that happen to be in the dataset, even if some of that data is not used in the model at all. This results in arbitrary different sort orders unless all columns not used in the model are excluded from the dataset. We do not recommend this approach, but we include it with the \code{"ksd"} option for compatibility with the original \code{ALEPlot} reference implementation.
 }
 
 \examples{
