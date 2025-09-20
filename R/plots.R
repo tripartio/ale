@@ -339,7 +339,7 @@ plot_ale_1D <- function(
         data = rug_data,
         # Omit y-axis (left, l) rug plot for non-numeric y
         sides = if (y_type == 'numeric') 'bl' else 'b',
-        alpha = 0.5,
+        alpha = 0.25,
         position = position_jitter(
           # randomly jitter by 1% of the domain and range
           width = 0.01 * diff(range(ale_data[[1]])),
