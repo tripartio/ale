@@ -1,3 +1,16 @@
+# Parallelized ALE prints
+
+    Code
+      print(pll_ale)
+    Message
+      <ALE> object of a <gam/glm/lm> model that predicts `mpg` (a numeric outcome)
+      from a 64-row by 8-column dataset.
+      ALE data, statistics, and surrogate p-values are provided for the following
+      terms:
+      2 1D terms: model and carb
+      1 2D term: am:wt
+      The results were bootstrapped with 2 iterations.
+
 # bootstrapped numeric outcome with full 1D and 2D ALE
 
     Code
@@ -706,39 +719,17 @@
       2       0.5        1    NA
       
       $mpg$d1$model
-          x         y PANEL group flipped_aes       ymin      ymax  xmin  xmax colour
-      1   1  6.522453     1     1       FALSE   0.000000  6.522453  0.55  1.45     NA
-      2   2  2.765758     1     2       FALSE   0.000000  2.765758  1.55  2.45     NA
-      3   3 14.899740     1     3       FALSE   0.000000 14.899740  2.55  3.45     NA
-      4   4 16.821852     1     4       FALSE   0.000000 16.821852  3.55  4.45     NA
-      5   5 26.087895     1     5       FALSE   0.000000 26.087895  4.55  5.45     NA
-      6   6 34.872734     1     6       FALSE   0.000000 34.872734  5.55  6.45     NA
-      7   7 34.647015     1     7       FALSE   0.000000 34.647015  6.55  7.45     NA
-      8   8 39.297712     1     8       FALSE   0.000000 39.297712  7.55  8.45     NA
-      9   9 43.428103     1     9       FALSE   0.000000 43.428103  8.55  9.45     NA
-      10 10 36.010315     1    10       FALSE   0.000000 36.010315  9.55 10.45     NA
-      11 11 24.022691     1    11       FALSE   0.000000 24.022691 10.55 11.45     NA
-      12 12 30.301807     1    12       FALSE   0.000000 30.301807 11.55 12.45     NA
-      13 13 17.359963     1    13       FALSE   0.000000 17.359963 12.55 13.45     NA
-      14 14  6.627005     1    14       FALSE   0.000000  6.627005 13.55 14.45     NA
-      15 15  0.000000     1    15       FALSE  -0.465399  0.000000 14.55 15.45     NA
-      16 16  7.382231     1    16       FALSE   0.000000  7.382231 15.55 16.45     NA
-      17 17  0.000000     1    17       FALSE -17.334496  0.000000 16.55 17.45     NA
-      18 18  0.000000     1    18       FALSE  -3.722157  0.000000 17.55 18.45     NA
-      19 19  4.838731     1    19       FALSE   0.000000  4.838731 18.55 19.45     NA
-      20 20 19.824271     1    20       FALSE   0.000000 19.824271 19.55 20.45     NA
-      21 21 18.641320     1    21       FALSE   0.000000 18.641320 20.55 21.45     NA
-      22 22 14.298519     1    22       FALSE   0.000000 14.298519 21.55 22.45     NA
-      23 23 17.623996     1    23       FALSE   0.000000 17.623996 22.55 23.45     NA
-      24 24 21.428545     1    24       FALSE   0.000000 21.428545 23.55 24.45     NA
-      25 25 21.287657     1    25       FALSE   0.000000 21.287657 24.55 25.45     NA
-      26 26 21.381070     1    26       FALSE   0.000000 21.381070 25.55 26.45     NA
-      27 27 31.931355     1    27       FALSE   0.000000 31.931355 26.55 27.45     NA
-      28 28 39.347919     1    28       FALSE   0.000000 39.347919 27.55 28.45     NA
-      29 29 29.847992     1    29       FALSE   0.000000 29.847992 28.55 29.45     NA
-      30 30 11.569551     1    30       FALSE   0.000000 11.569551 29.55 30.45     NA
-      31 31  0.000000     1    31       FALSE  -5.503236  0.000000 30.55 31.45     NA
-      32 32  0.000000     1    32       FALSE -10.989353  0.000000 31.55 32.45     NA
+          x        y PANEL group flipped_aes       ymin     ymax xmin  xmax colour
+      1   1 39.29771     1     1       FALSE   0.000000 39.29771 0.55  1.45     NA
+      2   2 43.42810     1     2       FALSE   0.000000 43.42810 1.55  2.45     NA
+      3   3 36.01031     1     3       FALSE   0.000000 36.01031 2.55  3.45     NA
+      4   4  0.00000     1     4       FALSE  -0.465399  0.00000 3.55  4.45     NA
+      5   5  0.00000     1     5       FALSE -17.334496  0.00000 4.55  5.45     NA
+      6   6  0.00000     1     6       FALSE  -3.722157  0.00000 5.55  6.45     NA
+      7   7 39.34792     1     7       FALSE   0.000000 39.34792 6.55  7.45     NA
+      8   8  0.00000     1     8       FALSE  -5.503236  0.00000 7.55  8.45     NA
+      9   9  0.00000     1     9       FALSE -10.989353  0.00000 8.55  9.45     NA
+      10 10 18.91235     1    10       FALSE   0.000000 18.91235 9.55 10.45     NA
          fill linewidth linetype alpha
       1  gray       0.5        1    NA
       2  gray       0.5        1    NA
@@ -750,28 +741,6 @@
       8  gray       0.5        1    NA
       9  gray       0.5        1    NA
       10 gray       0.5        1    NA
-      11 gray       0.5        1    NA
-      12 gray       0.5        1    NA
-      13 gray       0.5        1    NA
-      14 gray       0.5        1    NA
-      15 gray       0.5        1    NA
-      16 gray       0.5        1    NA
-      17 gray       0.5        1    NA
-      18 gray       0.5        1    NA
-      19 gray       0.5        1    NA
-      20 gray       0.5        1    NA
-      21 gray       0.5        1    NA
-      22 gray       0.5        1    NA
-      23 gray       0.5        1    NA
-      24 gray       0.5        1    NA
-      25 gray       0.5        1    NA
-      26 gray       0.5        1    NA
-      27 gray       0.5        1    NA
-      28 gray       0.5        1    NA
-      29 gray       0.5        1    NA
-      30 gray       0.5        1    NA
-      31 gray       0.5        1    NA
-      32 gray       0.5        1    NA
       
       $mpg$d1$gear
         x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill

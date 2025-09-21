@@ -40,7 +40,7 @@
 #' * `"levels"` (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 #' * `"y_col"`: Sort based on the increasing mean values of the predictions of `y_col` for each factor level.
 #' * `"ksd"`: Not recommended except for compatibility with the original ALEPlot reference implementation.
-#' * List with overrides: a list with exactly two elements: `default` is a character string with one of the above as the default value; `except` is a named character vector with per-column orderings. Unknown names are ignored with a warning.
+#' * List with overrides: a list with exactly two elements: `default` is a character string with one of the above as the default value; `except` is a named character vector with per-column orderings. Unknown names trigger an error.
 #'   An example of the list format would be
 #'   `fct_order = list(default = "levels", except = c(continent = "y_col"))`
 #'
@@ -445,7 +445,8 @@ ALE <- new_class(
         names() |>
         setdiff(col_names)
       if (length(invalid_max_num_bins_col_names) > 0) {
-        cli_warn('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
+        # Fail early even for typos
+        cli_abort('The following columns listed as exceptions to the default {.arg max_num_bins} of {max_num_bins$default} were not found in the {.arg data}: {invalid_max_num_bins_col_names}')
       }
     }
 
@@ -471,7 +472,8 @@ ALE <- new_class(
         names() |>
         setdiff(col_names)
       if (length(invalid_fct_order_col_names) > 0) {
-        cli_warn('The following columns listed as exceptions to the default {.arg fct_order} of {fct_order$default} were not found in the {.arg data}: {invalid_fct_order_col_names}')
+        # Fail early even for typos
+        cli_abort('The following columns listed as exceptions to the default {.arg fct_order} of {fct_order$default} were not found in the {.arg data}: {invalid_fct_order_col_names}')
       }
     }
 

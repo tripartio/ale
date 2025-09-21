@@ -81,7 +81,7 @@ The default value of 10 is recommended for speed; it should adequately express m
 \item \code{"levels"} (default): For ordered factors, use the order of the factor levels. Recommended for meaningful interpretation because this lets the user explicitly control their semantic sort order as desired. For characters, order unique values alphabetically.
 \item \code{"y_col"}: Sort based on the increasing mean values of the predictions of \code{y_col} for each factor level.
 \item \code{"ksd"}: Not recommended except for compatibility with the original ALEPlot reference implementation.
-\item List with overrides: a list with exactly two elements: \code{default} is a character string with one of the above as the default value; \code{except} is a named character vector with per-column orderings. Unknown names are ignored with a warning.
+\item List with overrides: a list with exactly two elements: \code{default} is a character string with one of the above as the default value; \code{except} is a named character vector with per-column orderings. Unknown names trigger an error.
 An example of the list format would be
 \code{fct_order = list(default = "levels", except = c(continent = "y_col"))}
 }
