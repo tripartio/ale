@@ -1,27 +1,3 @@
-# Parallelized ModelBoot prints
-
-    Code
-      print(pll_mb)
-    Message
-      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric
-      outcome) from a 64-row by 8-column dataset.
-      * The model was retrained with 2 bootstrap iterations.
-    Output
-      
-    Message
-      The following overall model summary statistics are available:
-      * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
-      * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse
-      Statistics for the following specific variables or interactions are available:
-      s(wt)
-    Output
-      
-    Message
-      Accumulated local effects (ALE) data and statistics are provided for the
-      following terms:
-      1 1D term: wt
-      1 2D term: gear:carb
-
 # numeric outcome with no bootstrapping
 
     Code
@@ -30,12 +6,12 @@
       $mpg
       $mpg$d1
       $mpg$d1$am
-        x        y PANEL group flipped_aes ymin     ymax xmin xmax colour fill
-      1 1 13.91157     1     1       FALSE    0 13.91157 0.55 1.45     NA gray
-      2 2 26.92924     1     2       FALSE    0 26.92924 1.55 2.45     NA gray
-        linewidth linetype alpha
-      1       0.5        1    NA
-      2       0.5        1    NA
+        x        y PANEL group flipped_aes ymin     ymax     xmin     xmax xid newx
+      1 1 13.91157     1     1       FALSE    0 13.91157 0.500000 1.500000   1    1
+      2 2 26.92924     1     2       FALSE    0 26.92924 1.657895 2.342105   2    2
+        new_width colour fill linewidth linetype alpha
+      1 1.0000000     NA grey       0.5        1    NA
+      2 0.6842105     NA grey       0.5        1    NA
       
       $mpg$d1$wt
               ymin      ymax        x         y PANEL group flipped_aes colour   fill
@@ -161,8 +137,8 @@
       $mpg$eff
       $mpg$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $mpg$eff[[2]]
              xmin     xmax y PANEL group  ymin  ymax colour linewidth linetype height
@@ -728,9 +704,9 @@
       $vs$d1
       $vs$d1$continent
         x            y PANEL group colour      fill linewidth linetype alpha xmin
-      1 1 3.925673e-13     1     1     NA lightgray       0.5        1    NA -Inf
-      2 2 3.925673e-13     1     2     NA lightgray       0.5        1    NA -Inf
-      3 3 3.925673e-13     1     3     NA lightgray       0.5        1    NA -Inf
+      1 1 3.925673e-13     1     1     NA lightgrey       0.5        1    NA -Inf
+      2 2 3.925673e-13     1     2     NA lightgrey       0.5        1    NA -Inf
+      3 3 3.925673e-13     1     3     NA lightgrey       0.5        1    NA -Inf
         xmax         ymin         ymax
       1  Inf 3.925671e-13 3.925674e-13
       2  Inf 3.925671e-13 3.925674e-13
@@ -738,16 +714,16 @@
       
       $vs$d1$wt
                 x            y PANEL group colour      fill linewidth linetype alpha
-      1  1.498275 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      2  1.935000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      3  2.465000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      4  2.790481 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      5  3.190000 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      6  3.439356 3.925673e-13     1    -1     NA lightgray       0.5        1    NA
-      7  3.520000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      8  3.730000 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      9  4.046066 3.925672e-13     1    -1     NA lightgray       0.5        1    NA
-      10 5.453272 3.925670e-13     1    -1     NA lightgray       0.5        1    NA
+      1  1.498275 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      2  1.935000 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      3  2.465000 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      4  2.790481 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      5  3.190000 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      6  3.439356 3.925673e-13     1    -1     NA lightgrey       0.5        1    NA
+      7  3.520000 3.925672e-13     1    -1     NA lightgrey       0.5        1    NA
+      8  3.730000 3.925672e-13     1    -1     NA lightgrey       0.5        1    NA
+      9  4.046066 3.925672e-13     1    -1     NA lightgrey       0.5        1    NA
+      10 5.453272 3.925670e-13     1    -1     NA lightgrey       0.5        1    NA
          xmin xmax         ymin         ymax
       1  -Inf  Inf 3.925671e-13 3.925674e-13
       2  -Inf  Inf 3.925671e-13 3.925674e-13
@@ -860,8 +836,8 @@
       $vs$eff
       $vs$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha         xmin
-      1 1     1     1     NA lightgray       0.5        1    NA 3.925671e-13
-      2 2     1     2     NA lightgray       0.5        1    NA 3.925671e-13
+      1 1     1     1     NA lightgrey       0.5        1    NA 3.925671e-13
+      2 2     1     2     NA lightgrey       0.5        1    NA 3.925671e-13
                 xmax ymin ymax
       1 3.925674e-13 -Inf  Inf
       2 3.925674e-13 -Inf  Inf
@@ -2958,8 +2934,8 @@
       $setosa$eff
       $setosa$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $setosa$eff[[2]]
                  xmin         xmax y PANEL group  ymin  ymax colour linewidth
@@ -3069,8 +3045,8 @@
       $versicolor$eff
       $versicolor$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $versicolor$eff[[2]]
                xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
@@ -3180,8 +3156,8 @@
       $virginica$eff
       $virginica$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $virginica$eff[[2]]
                xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
@@ -3437,8 +3413,8 @@
       $setosa$eff
       $setosa$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $setosa$eff[[2]]
                  xmin         xmax y PANEL group  ymin  ymax colour linewidth
@@ -3548,8 +3524,8 @@
       $versicolor$eff
       $versicolor$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $versicolor$eff[[2]]
                xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype
@@ -3659,8 +3635,8 @@
       $virginica$eff
       $virginica$eff[[1]]
         y PANEL group colour      fill linewidth linetype alpha xmin xmax ymin ymax
-      1 1     1     1     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
-      2 2     1     2     NA lightgray       0.5        1    NA   NA   NA -Inf  Inf
+      1 1     1     1     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
+      2 2     1     2     NA lightgrey       0.5        1    NA   NA   NA -Inf  Inf
       
       $virginica$eff[[2]]
                xmin       xmax y PANEL group  ymin  ymax colour linewidth linetype

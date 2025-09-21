@@ -59,6 +59,7 @@
 #' @param y_1d_refs See documentation for [ALEPlots()]
 #' @param x_y dataframe with at least two columns: `x_col` and `y_col`; any other columns are not used. If provided, used to generate rug plots.
 #' @param rug_sample_size,min_rug_per_interval See documentation for [ALEPlots()]
+#' @param min_col_width See documentation for [ALEPlots()]
 #' @param seed See documentation for [ALE()]
 #'
 #' @returns a `ggplot` with a 1D ALE plot
@@ -78,6 +79,7 @@ plot_ale_1D <- function(
     x_y = NULL,
     rug_sample_size = 500,
     min_rug_per_interval = 1,
+    min_col_width = 0.05,
     seed = 0
     ) {
 
@@ -165,7 +167,7 @@ plot_ale_1D <- function(
         xmax = Inf,
         ymin = y_summary[['aler_lo']],
         ymax = y_summary[['aler_hi']],
-        fill = 'lightgray'
+        fill = 'lightgrey'
       )
 
     # Add a secondary axis to label the percentiles.
@@ -257,9 +259,21 @@ plot_ale_1D <- function(
   }
   else {
     # x is not numeric: use column charts
+
+    # Scale all widths relative to the largest category
+    col_width <- pmax(
+      ale_data$.n / max(ale_data$.n),
+      # pmax() ensures that no column is shown less than min_col_width
+      rep(min_col_width, nrow(ale_data))
+    )
+
     if (!all_cats) {
       plot <- plot +
-        geom_col(fill = 'gray')
+        geom_col(
+          fill = 'grey',
+          width = col_width,
+          position = position_dodge2(),
+        )
     }
     else {
       # All categories: no bootstrap bands
@@ -267,12 +281,18 @@ plot_ale_1D <- function(
         plot +
           geom_col(
             aes(fill = '.cat'),
-            position = 'dodge'  # side-by-side columns
+            # position = 'dodge'  # side-by-side columns
+            width = col_width,
+            position = position_dodge2(),
           )
       }
       else {  # facet
         plot +
-          geom_col(fill = 'gray') +
+          geom_col(
+            fill = 'grey',
+            width = col_width,
+            position = position_dodge2(),
+          ) +
           facet_wrap(vars('.cat'), nrow = 1)
       }
     }
@@ -282,17 +302,6 @@ plot_ale_1D <- function(
         aes(ymin = .data$.y_lo, ymax = .data$.y_hi),
         width = if (is_string(cat_plot, 'overlay')) 1 else 0.1,
         position = position_dodge2(preserve = 'single')
-      ) +
-      # Add labels for percentage of dataset. This serves the equivalent function of rugs for numeric data.
-      # Varying column width is an idea, but it usually does not work well visually.
-      geom_text(
-        aes(
-          label = paste0(round((.data$.n / total_n) * 100), '%'),
-          y = y_summary[['min']]
-        ),
-        size = 3,
-        alpha = 0.5,
-        vjust = -0.2
       )
 
     # Rotate categorical labels if they are too long
@@ -799,7 +808,7 @@ plot_effects <- function(
       xmax = y_summary['aler_hi'],
       ymin = -Inf,
       ymax = Inf,
-      fill = 'lightgray'
+      fill = 'lightgrey'
     ) +
     # ALER/NALER bands as error bars
     geom_errorbarh(

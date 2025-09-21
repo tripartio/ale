@@ -20,6 +20,7 @@
 #'   `consolid_cats = list(max = 10, include = list(model = c("Cadillac Fleetwood", "Volvo 142E")))`
 #' @param y_1d_refs character or numeric vector. For 1D ALE plots, the y outcome values for which a reference line should be drawn. If a character vector, `y_1d_refs` values are names from `obj@params$y_summary` (usually quantile names). If a numeric vector, `y_1d_refs` values must be values within the range of y, that is, between `obj@params$y_summary$min` and `obj@params$y_summary$max` inclusive.
 #' @param rug_sample_size,min_rug_per_interval non-negative integer(1). Rug plots are down-sampled to `rug_sample_size` rows, otherwise they can be very slow for large datasets. By default, their size is the value of `obj@params$sample_size`. They maintain representativeness of the data by guaranteeing that each of the ALE bins will retain at least `min_rug_per_interval` elements; usually set to just 1 (default) or 2. To prevent this down-sampling, set `rug_sample_size` to `Inf` (but then the `ALEPlots` object would store the entire dataset, so could become very large).
+#' @param min_col_width numeric(1) in [0.01, 1]. Column charts scale each column such that the column representing the category with the most elements has a scale of 1 and all other columns have a width that is a fraction of the largest category proportional to their numbers of elements. However, for visibility, no column is displayed narrower than a scale of `min_col_width`. To disable scaling by width, set `min_col_width = 1`.
 #' @param y_nonsig_band numeric(1) from 0 to 1. If there are no p-values, some plots (notably the 1D effects plot) will shade grey the inner `y_nonsig_band` quantile below and above the `ale_centre` average (the median, by default) to indicate nonsignificant effects.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
@@ -70,6 +71,7 @@ ALEPlots <- new_class(
     y_1d_refs = c('25%', '75%'),
     rug_sample_size = obj@params$sample_size,
     min_rug_per_interval = 1L,
+    min_col_width = 0.05,
     y_nonsig_band = 0.05,
     seed = 0,
     silent = FALSE
@@ -136,6 +138,7 @@ ALEPlots <- new_class(
       }
     }
 
+    validate(min_col_width |> between(0.01, 1))
 
 
     ## Prepare settings and objects --------------
@@ -330,6 +333,7 @@ ALEPlots <- new_class(
                   y_1d_refs   = y_1d_refs,
                   rug_sample_size = rug_sample_size,
                   min_rug_per_interval = min_rug_per_interval,
+                  min_col_width = min_col_width,
                   seed        = seed
                 )
               }
