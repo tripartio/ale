@@ -137,10 +137,18 @@ plot_ale_1D <- function(
     # In particular, ignore extreme .y_lo or .y_hi values, or else they could distort the scale.
     # With this setting most plots will be on the same y_min to y_max scale; only a few with extreme .y values would zoom out to show these.
     coord_cartesian(
-      ylim = c(
-        min(y_summary[['min']], ale_data$.y),
-        max(y_summary[['max']], ale_data$.y)
-      )
+      ylim = if (x_is_numeric) {
+        c(
+          min(y_summary[['min']], ale_data$.y),
+          max(y_summary[['max']], ale_data$.y, 0)
+        )
+      } else {
+        # Always include 0 in categorical column charts
+        c(
+          min(0, y_summary[['min']], ale_data$.y),
+          max(y_summary[['max']], ale_data$.y)
+        )
+      }
     ) +
     theme(axis.text.y.right = element_text(size = 8)) +
     labs(
