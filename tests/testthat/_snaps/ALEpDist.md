@@ -110,8 +110,8 @@
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia             12     0     0       0         0     0
-      2 Europe           24     0     0       0         0     0
-      3 North America    28     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7

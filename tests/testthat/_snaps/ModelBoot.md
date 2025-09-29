@@ -1,3 +1,27 @@
+# Parallelized ModelBoot prints
+
+    Code
+      print(pll_mb)
+    Message
+      <ModelBoot> object of a <gam/glm/lm> model that predicts `mpg` (a numeric
+      outcome) from a 64-row by 8-column dataset.
+      * The model was retrained with 2 bootstrap iterations.
+    Output
+      
+    Message
+      The following overall model summary statistics are available:
+      * Overall average statistics: df, df.residual, nobs, adj.r.squared, and npar
+      * Bootstrap-validated model accuracy: mae, sa_mae, rmse, and sa_rmse
+      Statistics for the following specific variables or interactions are available:
+      s(wt)
+    Output
+      
+    Message
+      Accumulated local effects (ALE) data and statistics are provided for the
+      following terms:
+      1 1D term: wt
+      1 2D term: gear:carb
+
 # numeric outcome with no bootstrapping
 
     Code
@@ -951,8 +975,8 @@
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia             12     0     0       0         0     0
-      2 Europe           24     0     0       0         0     0
-      3 North America    28     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d1$wt
       # A tibble: 10 x 7
@@ -1276,8 +1300,8 @@
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia             12     0     0       0         0     0
-      2 Europe           24     0     0       0         0     0
-      3 North America    28     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"ale")$boot$effect$vs$ale$d1$wt
       # A tibble: 10 x 7

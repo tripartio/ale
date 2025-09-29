@@ -373,7 +373,7 @@ calc_ale <- function(
       # Generate the cumulative ALE y predictions.
       if (ixn_d == 1) {
         if (xd[[x_cols]]$x_type == 'numeric') {
-          # For 1D ALE, set origin effect for minimum numeric valueto zero; there should be no other missing values.
+          # For 1D ALE, set origin effect for minimum numeric value to zero; there should be no other missing values.
           btit.local_eff_ray[it.cat, 1] <- 0
         }
 
@@ -545,7 +545,7 @@ calc_ale <- function(
 
   ## 1D ---------------
   if (ixn_d == 1) {
-    # For 1D ALE, there is no difference between distinct and and composite ALE.
+    # For 1D ALE, there is no difference between distinct and composite ALE.
     # So, calculate only the offset shift. And calculate it based only on the full dataset (ale_y_full) since there is no point bootstrapping the shift.
     ale_diff <- map(y_cats, \(it.cat) {
       it.cat_ale <- ale_y_full[it.cat, , drop = FALSE]
@@ -712,8 +712,8 @@ calc_ale <- function(
   # Apply the centring
   boot_ale_tbl <- boot_ale_tbl |>
     mutate(
-      across(starts_with('.y'), \(v.col) {
-        v.col - unname(ale_y_shift[.data$.cat])
+      across(starts_with('.y'), \(it.col) {
+        it.col - unname(ale_y_shift[.data$.cat])
       }),
       .y = .data$.y_distinct
     )
@@ -1144,7 +1144,11 @@ prep_var_for_ale <- function(
         int_ale_order <- fct_order
 
         # calculate the indices of the original intervals after ordering them
-        idx_ord_orig_int <- match(int_ale_order, unique(x_vals))
+        idx_ord_orig_int <- match(
+          int_ale_order,
+          # factors have levels; characters don't
+          if (is.factor(x_vals)) levels(x_vals) else unique(x_vals)
+        )
 
         # index of x_col value according to ordered indices
         x_ordered_idx <-

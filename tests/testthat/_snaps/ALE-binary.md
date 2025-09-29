@@ -36,8 +36,8 @@
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia             12     0     0       0         0     0
-      2 Europe           24     0     0       0         0     0
-      3 North America    28     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d1$am
       # A tibble: 2 x 7
@@ -207,11 +207,11 @@
         continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia          FALSE      2     0     0       0         0     0
-      2 Europe        FALSE     22     0     0       0         0     0
-      3 North America FALSE     14     0     0       0         0     0
+      2 Europe        FALSE     14     0     0       0         0     0
+      3 North America FALSE     22     0     0       0         0     0
       4 Asia          TRUE      10     0     0       0         0     0
-      5 Europe        TRUE       2     0     0       0         0     0
-      6 North America TRUE      14     0     0       0         0     0
+      5 Europe        TRUE      14     0     0       0         0     0
+      6 North America TRUE       2     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d2$`continent:model`
       # A tibble: 96 x 8
@@ -234,14 +234,14 @@
         continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia          three        2     0     0       0         0     0
-      2 Europe        three       22     0     0       0         0     0
-      3 North America three        6     0     0       0         0     0
+      2 Europe        three        6     0     0       0         0     0
+      3 North America three       22     0     0       0         0     0
       4 Asia          four        10     0     0       0         0     0
-      5 Europe        four         0     0     0       0         0     0
-      6 North America four        14     0     0       0         0     0
+      5 Europe        four        14     0     0       0         0     0
+      6 North America four         0     0     0       0         0     0
       7 Asia          five         0     0     0       0         0     0
-      8 Europe        five         2     0     0       0         0     0
-      9 North America five         8     0     0       0         0     0
+      8 Europe        five         8     0     0       0         0     0
+      9 North America five         2     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d2$`continent:carb`
       # A tibble: 15 x 8
@@ -251,31 +251,31 @@
        2 Europe                1     4     0     0       0         0     0
        3 North America         1     4     0     0       0         0     0
        4 Asia                  2     2     0     0       0         0     0
-       5 Europe                2     7     0     0       0         0     0
-       6 North America         2    10     0     0       0         0     0
+       5 Europe                2    10     0     0       0         0     0
+       6 North America         2     7     0     0       0         0     0
        7 Asia                  3     1     0     0       0         0     0
-       8 Europe                3     3     0     0       0         0     0
-       9 North America         3     5     0     0       0         0     0
+       8 Europe                3     5     0     0       0         0     0
+       9 North America         3     3     0     0       0         0     0
       10 Asia                  4     3     0     0       0         0     0
-      11 Europe                4     9     0     0       0         0     0
-      12 North America         4     4     0     0       0         0     0
+      11 Europe                4     4     0     0       0         0     0
+      12 North America         4     9     0     0       0         0     0
       13 Asia                  8     0     0     0       0         0     0
-      14 Europe                8     1     0     0       0         0     0
-      15 North America         8     5     0     0       0         0     0
+      14 Europe                8     5     0     0       0         0     0
+      15 North America         8     1     0     0       0         0     0
       
       attr(,"effect")$vs$ale$d2$`continent:wt`
       # A tibble: 30 x 8
          continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1 Asia             1.50     0     0     0       0         0     0
-       2 Europe           1.50     0     0     0       0         0     0
-       3 North America    1.50     1     0     0       0         0     0
+       2 Europe           1.50     1     0     0       0         0     0
+       3 North America    1.50     0     0     0       0         0     0
        4 Asia             1.94     4     0     0       0         0     0
-       5 Europe           1.94     0     0     0       0         0     0
-       6 North America    1.94     3     0     0       0         0     0
+       5 Europe           1.94     3     0     0       0         0     0
+       6 North America    1.94     0     0     0       0         0     0
        7 Asia             2.46     3     0     0       0         0     0
-       8 Europe           2.46     0     0     0       0         0     0
-       9 North America    2.46     4     0     0       0         0     0
+       8 Europe           2.46     4     0     0       0         0     0
+       9 North America    2.46     0     0     0       0         0     0
       10 Asia             2.79     3     0     0       0         0     0
       # i 20 more rows
       
@@ -732,12 +732,12 @@
       $vs$d1$continent
         x            y PANEL group flipped_aes ymin         ymax      xmin     xmax
       1 1 3.925673e-13     1     1       FALSE    0 3.925673e-13 0.7857143 1.214286
-      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.5714286 2.428571
-      3 3 3.925673e-13     1     3       FALSE    0 3.925673e-13 2.5000000 3.500000
+      2 2 3.925673e-13     1     2       FALSE    0 3.925673e-13 1.5000000 2.500000
+      3 3 3.925673e-13     1     3       FALSE    0 3.925673e-13 2.5714286 3.428571
         xid newx new_width colour fill linewidth linetype alpha
       1   1    1 0.4285714     NA grey       0.5        1    NA
-      2   2    2 0.8571429     NA grey       0.5        1    NA
-      3   3    3 1.0000000     NA grey       0.5        1    NA
+      2   2    2 1.0000000     NA grey       0.5        1    NA
+      3   3    3 0.8571429     NA grey       0.5        1    NA
       
       $vs$d1$am
         x            y PANEL group flipped_aes ymin         ymax     xmin     xmax
