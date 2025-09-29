@@ -200,7 +200,13 @@ plot_ale_1D <- function(
 
     sec_breaks <- c(
       y_summary[[y_1d_refs[1]]],
-      if (ale_centre == 'median') y_summary[['50%']] else y_summary[['mean']],
+      if (ale_centre == 'median') {
+        y_summary[['50%']]
+      } else if (ale_centre == 'mean') {
+        y_summary[['mean']]
+      } else if (ale_centre == 'zero') {
+        0
+      },
       y_summary[[y_1d_refs[2]]]
     )
   }
