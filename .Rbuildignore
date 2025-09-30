@@ -14,8 +14,8 @@
 ^pkgdown$
 ^R/refALEPlot\.R$
 ^README\.Rmd$
+^revdep$
 ^scholar$
 ^tests/testthat/test-ALEPlot-gold-standard\.R$
 ^vignettes/.*_cache$
 ^vignettes/articles$
-^revdep$
