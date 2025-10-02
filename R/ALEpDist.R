@@ -25,6 +25,7 @@
 #' @param random_model_call_string_vars See documentation for `model_call_string_vars` in [ModelBoot()]; their operation is very similar.
 #' @param positive See documentation for [ModelBoot()]
 #' @param pred_fun,pred_type See documentation for [ALE()]
+#' @param aled_fun See documentation for [ALE()]
 #' @param output_residuals logical(1). If `TRUE`, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default `FALSE` does not return the residuals.
 #' @param seed See documentation for [ALE()]
 #' @param silent See documentation for [ALE()]
@@ -219,6 +220,7 @@ ALEpDist <- new_class(
       stats::predict(object = object, newdata = newdata, type = type)
     },
     pred_type = "response",
+    aled_fun = 'mad',
     output_residuals = FALSE,
     seed = 0,
     silent = FALSE,
@@ -550,6 +552,7 @@ ALEpDist <- new_class(
               pred_fun = eval(pred_fun),
               pred_type = pred_type,
               p_values = NULL,  # avoid infinite recursion
+              aled_fun = aled_fun,
               max_num_bins = if (surrogate) {
                 10  # "quicker calculation" but tictoc says it's the same timing
               } else {

@@ -23,6 +23,7 @@
 #' @param y_vals numeric. Entire vector of y values. Needed for normalization. If not provided, ale_y_norm_fun must be provided.
 #' @param ale_y_norm_fun function. Result of `create_ale_y_norm_function()`. If not provided, `y_vals` must be provided. `calc_stats()` could be faster if `ale_y_norm_fun` is provided, especially in bootstrap workflows that call the same function many, many times.
 #' @param x_type character(1). Datatype of the x variable on which the ALE y is based. Values are the result of `var_type()`. Used to determine how to correctly calculate ALE, so if the value is not the default `"numeric"`, then it must be set correctly.
+#' @param aled_fun See documentation for [ALE()]
 #'
 #' @returns Named numeric vector:
 #' * aled: ALE deviation (ALED)
@@ -37,10 +38,11 @@ calc_stats <- function(
     bin_n,
     y_vals = NULL,
     ale_y_norm_fun = NULL,
-    x_type = 'numeric'
+    x_type = 'numeric',
+    aled_fun = 'mad'
 ) {
 
-  ## Validate data -------------
+  # Validate data -------------
 
   validate(
     !(is.null(y_vals) && is.null(ale_y_norm_fun)),
@@ -55,15 +57,22 @@ calc_stats <- function(
   bin_n <- bin_n[!na_y]
 
 
-  ## Prepare internally used functions and data ---------
+  # Prepare internally used functions and data ---------
 
   # ALED formula.
   # Internal function because it will be reused for both ALED and NALED.
   aled_score <- function(y, n) {
-    (y * n) |>
-      abs() |>
-      sum() |>
-      (`/`)(sum(n))
+    if (aled_fun == 'mad') {
+      (y * n) |>
+        abs() |>
+        sum() |>
+        (`/`)(sum(n))
+    } else if (aled_fun == 'sd') {
+      (y^2 * n) |>
+        sum() |>
+        (`/`)(sum(n)) |>
+        sqrt()
+    }
   }
 
   # Normalized scores
@@ -72,7 +81,7 @@ calc_stats <- function(
   }
 
 
-  ## Calculate the statistics ------------
+  # Calculate the statistics ------------
 
   # ALER and NALER: minimum negative and positive effects in units of y
   aler <- c(min(y), max(y))
@@ -112,7 +121,7 @@ calc_stats <- function(
   )
 
 
-  ## Return ----------
+  # Return ----------
 
   return(c(
     aled = aled,

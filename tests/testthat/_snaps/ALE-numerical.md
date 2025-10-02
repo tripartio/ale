@@ -20,7 +20,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -41,8 +41,8 @@
         continent.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia             12     0     0       0         0     0
-      2 Europe           24     0     0       0         0     0
-      3 North America    28     0     0       0         0     0
+      2 Europe           28     0     0       0         0     0
+      3 North America    24     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d1$am
       # A tibble: 2 x 7
@@ -108,10 +108,10 @@
         <ord>  <ord>         <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 FALSE  Asia              4     0     0       0         0     0
       2 TRUE   Asia              8     0     0       0         0     0
-      3 FALSE  Europe           20     0     0       0         0     0
-      4 TRUE   Europe            4     0     0       0         0     0
-      5 FALSE  North America    12     0     0       0         0     0
-      6 TRUE   North America    16     0     0       0         0     0
+      3 FALSE  Europe           12     0     0       0         0     0
+      4 TRUE   Europe           16     0     0       0         0     0
+      5 FALSE  North America    20     0     0       0         0     0
+      6 TRUE   North America     4     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`vs:am`
       # A tibble: 4 x 8
@@ -194,11 +194,11 @@
         continent.bin am.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>  <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia          FALSE      2     0     0       0         0     0
-      2 Europe        FALSE     22     0     0       0         0     0
-      3 North America FALSE     14     0     0       0         0     0
+      2 Europe        FALSE     14     0     0       0         0     0
+      3 North America FALSE     22     0     0       0         0     0
       4 Asia          TRUE      10     0     0       0         0     0
-      5 Europe        TRUE       2     0     0       0         0     0
-      6 North America TRUE      14     0     0       0         0     0
+      5 Europe        TRUE      14     0     0       0         0     0
+      6 North America TRUE       2     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:model`
       # A tibble: 96 x 8
@@ -221,14 +221,14 @@
         continent.bin gear.bin    .n    .y .y_lo .y_mean .y_median .y_hi
         <ord>         <ord>    <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
       1 Asia          three        2     0     0       0         0     0
-      2 Europe        three       22     0     0       0         0     0
-      3 North America three        6     0     0       0         0     0
+      2 Europe        three        6     0     0       0         0     0
+      3 North America three       22     0     0       0         0     0
       4 Asia          four        10     0     0       0         0     0
-      5 Europe        four         0     0     0       0         0     0
-      6 North America four        14     0     0       0         0     0
+      5 Europe        four        14     0     0       0         0     0
+      6 North America four         0     0     0       0         0     0
       7 Asia          five         0     0     0       0         0     0
-      8 Europe        five         2     0     0       0         0     0
-      9 North America five         8     0     0       0         0     0
+      8 Europe        five         8     0     0       0         0     0
+      9 North America five         2     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:carb`
       # A tibble: 15 x 8
@@ -238,31 +238,31 @@
        2 Europe                1     4     0     0       0         0     0
        3 North America         1     4     0     0       0         0     0
        4 Asia                  2     2     0     0       0         0     0
-       5 Europe                2     7     0     0       0         0     0
-       6 North America         2    10     0     0       0         0     0
+       5 Europe                2    10     0     0       0         0     0
+       6 North America         2     7     0     0       0         0     0
        7 Asia                  3     1     0     0       0         0     0
-       8 Europe                3     3     0     0       0         0     0
-       9 North America         3     5     0     0       0         0     0
+       8 Europe                3     5     0     0       0         0     0
+       9 North America         3     3     0     0       0         0     0
       10 Asia                  4     3     0     0       0         0     0
-      11 Europe                4     9     0     0       0         0     0
-      12 North America         4     4     0     0       0         0     0
+      11 Europe                4     4     0     0       0         0     0
+      12 North America         4     9     0     0       0         0     0
       13 Asia                  8     0     0     0       0         0     0
-      14 Europe                8     1     0     0       0         0     0
-      15 North America         8     5     0     0       0         0     0
+      14 Europe                8     5     0     0       0         0     0
+      15 North America         8     1     0     0       0         0     0
       
       attr(,"effect")$mpg$ale$d2$`continent:wt`
       # A tibble: 30 x 8
          continent.bin wt.ceil    .n    .y .y_lo .y_mean .y_median .y_hi
          <ord>           <dbl> <int> <dbl> <dbl>   <dbl>     <dbl> <dbl>
        1 Asia             1.50     0     0     0       0         0     0
-       2 Europe           1.50     0     0     0       0         0     0
-       3 North America    1.50     1     0     0       0         0     0
+       2 Europe           1.50     1     0     0       0         0     0
+       3 North America    1.50     0     0     0       0         0     0
        4 Asia             1.94     4     0     0       0         0     0
-       5 Europe           1.94     0     0     0       0         0     0
-       6 North America    1.94     3     0     0       0         0     0
+       5 Europe           1.94     3     0     0       0         0     0
+       6 North America    1.94     0     0     0       0         0     0
        7 Asia             2.46     3     0     0       0         0     0
-       8 Europe           2.46     0     0     0       0         0     0
-       9 North America    2.46     4     0     0       0         0     0
+       8 Europe           2.46     4     0     0       0         0     0
+       9 North America    2.46     0     0     0       0         0     0
       10 Asia             2.79     3     0     0       0         0     0
       # i 20 more rows
       
@@ -660,6 +660,9 @@
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
+      attr(,"params")$aled_fun
+      [1] "mad"
+      
       attr(,"params")$max_num_bins
       [1] 10
       
@@ -703,12 +706,12 @@
       $mpg$d1$continent
         x    y PANEL group flipped_aes ymin ymax      xmin     xmax xid newx
       1 1 19.2     1     1       FALSE    0 19.2 0.7857143 1.214286   1    1
-      2 2 19.2     1     2       FALSE    0 19.2 1.5714286 2.428571   2    2
-      3 3 19.2     1     3       FALSE    0 19.2 2.5000000 3.500000   3    3
+      2 2 19.2     1     2       FALSE    0 19.2 1.5000000 2.500000   2    2
+      3 3 19.2     1     3       FALSE    0 19.2 2.5714286 3.428571   3    3
         new_width colour fill linewidth linetype alpha
       1 0.4285714     NA grey       0.5        1    NA
-      2 0.8571429     NA grey       0.5        1    NA
-      3 1.0000000     NA grey       0.5        1    NA
+      2 1.0000000     NA grey       0.5        1    NA
+      3 0.8571429     NA grey       0.5        1    NA
       
       $mpg$d1$am
         x        y PANEL group flipped_aes ymin     ymax     xmin     xmax xid newx

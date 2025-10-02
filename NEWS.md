@@ -2,6 +2,7 @@
 
 ## New features
 
+* With the `aled_fun` argument of the `ALE()` and `ALEpDist()` constructors, we may optionally choose to calculate ALE deviation based on standard deviations instead of the default mean absolute deviation.
 * The widths of 1D ALE plots for non-numerical variables are now proportional to the frequency of the data. We find these proportional widths more intuitive than the text annotations that indicated the percentages, which have now been removed. The minimum width can be controlled with the `min_col_widths` argument of `plot.ALE()`. 
 * For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
 * With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` allows compatibility with the original ALEPlot reference implementation.

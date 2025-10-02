@@ -21,6 +21,7 @@ ALEpDist(
     object, newdata = newdata, type = type)
  },
   pred_type = "response",
+  aled_fun = "mad",
   output_residuals = FALSE,
   seed = 0,
   silent = FALSE,
@@ -51,6 +52,8 @@ ALEpDist(
 \item{positive}{See documentation for \code{\link[=ModelBoot]{ModelBoot()}}}
 
 \item{pred_fun, pred_type}{See documentation for \code{\link[=ALE]{ALE()}}}
+
+\item{aled_fun}{See documentation for \code{\link[=ALE]{ALE()}}}
 
 \item{output_residuals}{logical(1). If \code{TRUE}, returns the residuals in addition to the raw data of the generated random statistics (which are always returned). The default \code{FALSE} does not return the residuals.}
 

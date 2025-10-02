@@ -27,6 +27,7 @@
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
 #' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
+#' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
 #' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
 #'   the number of ALE bins, where actual bins are the lesser of the number of unique values and `max_num_bins`. Valid formats are:
 #'   * Single integer > 1: used for all numeric `x_cols`.
@@ -293,6 +294,7 @@ ALE <- new_class(
     pred_type = 'response',
     p_values = 'auto',
     aler_alpha = c(0.01, 0.05),
+    aled_fun = NULL,
     max_num_bins = 10L,
     fct_order = 'levels',
     boot_it = 0L,
@@ -380,8 +382,8 @@ ALE <- new_class(
           }
         }
         else {  # nocov start
+          # p_values must be an `ALEpDist` object
           validate(
-            # p_values must be an `ALEpDist` object
             p_values |> S7_inherits(ALEpDist),
             msg = c(
               'x' = 'The value passed to {.arg p_values} is not a valid {.cls ALEpDist} object.',
@@ -409,6 +411,15 @@ ALE <- new_class(
       p_values <- NULL
     }
 
+    # Set NULL aled_fun to either value from p_values or default 'mad'
+    if (is.null(aled_fun)) {
+      aled_fun <- if (p_values |> S7_inherits(ALEpDist)) {
+        p_values@params$aled_fun
+      } else {
+        'mad'
+      }
+    }
+
     validate(
       is.numeric(aler_alpha),
       length(aler_alpha) == 2,
@@ -419,6 +430,11 @@ ALE <- new_class(
         'x' = '{.arg aler_alpha} must be a pair of numbers each between 0 and 0.5.',
         'i' = 'aler_alpha[1] must be less than or equal to aler_alpha[2].'
       )
+    )
+
+    validate(
+      is.null(aled_fun) || (aled_fun |> is_string(c('mad', 'sd'))),
+      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
     )
 
     # Validate max_num_bins
