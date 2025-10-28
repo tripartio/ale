@@ -138,7 +138,7 @@ calc_stats <- function(
 #'
 #' When calculating second-order (2D) ALE statistics, there is no difficulty if both variables are categorical. The regular formulas for ALE operate normally. However, if one or both variables is numeric, the calculation is complicated by the necessity to determine the ALE midpoints between the ALE bin ceilings of the numeric variables. This function calculates these ALE midpoints for the numeric variables and resets the ALE bins to these values. The ALE values for ordinal variables are not changed. As part of the adjustment, the lowest numeric bin is merged into the second: the ALE values are completely deleted (since they do not represent a midpoint) and their counts are added to the first true bin.
 #'
-#' After these possible adjustments, the ALE y values and bin counts are passed to [calc_stats()], which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
+#' After these possible adjustments, the ALE y values and bin counts are passed to \code{[calc_stats()]}, which calculates their statistics as an ordinal variable since the numeric variables have thus been discretized.
 #'
 #' @noRd
 #'
@@ -146,11 +146,11 @@ calc_stats <- function(
 #' @param ale_data dataframe. ALE data
 #' @param x_cols character. Names of the x columns in `ale_data`.
 #' @param x_types character same length as `x_cols`. Variable types (output of var_type()) of corresponding `x_cols`.
-#' @param y_vals See documentation for [calc_stats()]
-#' @param ale_y_norm_fun See documentation for [calc_stats()]
-# @param zeroed_ale See documentation for [calc_stats()]
+#' @param y_vals See documentation for \code{[calc_stats()]}
+#' @param ale_y_norm_fun See documentation for \code{[calc_stats()]}
+# @param zeroed_ale See documentation for \code{[calc_stats()]}
 #'
-#' @returns Same as [calc_stats()].
+#' @returns Same as \code{[calc_stats()]}.
 #'
 calc_stats_2D <- function(
     ale_data,

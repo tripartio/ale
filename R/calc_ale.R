@@ -1012,10 +1012,10 @@ calc_ale <- function(
 #' @param x_col character(1). Name of single column in X for which ALE data is to be calculated.
 #' @param x_type character(1). var_type() of x_col.
 #' @param x_vals vector. The values of x_col.
-#' @param bins,n  See documentation for [calc_ale()]
+#' @param bins,n  See documentation for \code{[calc_ale()]}
 #' @param max_num_bins See documentation for [ALE()]
 #' @param fct_order See documentation for [ALE()]
-#' @param X  See documentation for [calc_ale()]. Used only for categorical x_col.
+#' @param X  See documentation for \code{[calc_ale()]}. Used only for categorical x_col.
 #'
 prep_var_for_ale <- function(
     x_col,

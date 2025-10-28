@@ -667,7 +667,7 @@ plot_ale_2D <- function(
 #'
 #' Downsample x and y rows for a rug plot to match a target sample size while respecting specified intervals in the random sample.
 #'
-#' Rug plots are slow with large datasets because each data point must be plotted. [rug_sample()] tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
+#' Rug plots are slow with large datasets because each data point must be plotted. \code{[rug_sample()]} tries to resolve this issue by sampling `rug_sample_size` rows of data at the most (only if the data has more than that number of lines lines). However, to be representative, the sampling must have at least min_rug_per_interval in each bin.
 #'
 #' @noRd
 #'
