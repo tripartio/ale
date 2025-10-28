@@ -181,29 +181,34 @@ method(get, ALE) <- function(
       imap(\(it.cat_el, it.cat_name) {
         it.cat_el |>
           imap(\(it.d_stats, it.d) {
-            it.d_stats <- it.d_stats |>
-              filter(term %in% x_cols[[it.d]])
+            if (it.d_stats |> is.data.frame()) {
+              it.d_stats <- it.d_stats |>
+                filter(term %in% x_cols[[it.d]])
 
-            it.d_stats <- if (stats |> is_string('estimate')) {
-              it.d_stats |>
-                pivot_wider(
-                  id_cols = 'term',
-                  names_from = 'statistic',
-                  values_from = 'estimate'
-                )
-            }
-            else if (all(stats %in% stats_names)) {
-              it.d_stats |>
-                filter(statistic %in% stats)
-            }
-            else if (stats |> is_string('all')) {
+              it.d_stats <- if (stats |> is_string('estimate')) {
+                it.d_stats |>
+                  pivot_wider(
+                    id_cols = 'term',
+                    names_from = 'statistic',
+                    values_from = 'estimate'
+                  )
+              }
+              else if (all(stats %in% stats_names)) {
+                it.d_stats |>
+                  filter(statistic %in% stats)
+              }
+              else if (stats |> is_string('all')) {
+                it.d_stats
+              }
+              else {
+                cli_abort('Invalid value for {.arg stats}: {stats}')
+              }
+
               it.d_stats
             }
             else {
-              cli_abort('Invalid value for {.arg stats}: {stats}')
+              NULL
             }
-
-            it.d_stats
           })
       })
   }
