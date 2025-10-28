@@ -817,11 +817,12 @@ plot_effects <- function(
       fill = 'lightgrey'
     ) +
     # ALER/NALER bands as error bars
-    geom_errorbarh(
+    geom_errorbar(
       aes(
         xmin = y_summary['50%'] + .data$aler_min,
         xmax = y_summary['50%'] + .data$aler_max
       ),
+      orientation = 'y',
       na.rm = TRUE,
       height = 0.25
     ) +
@@ -863,7 +864,7 @@ plot_effects <- function(
       label = 'Explanation of symbols:\n[N]ALER min |--( [N]ALED )--| [N]ALER max',
       size = 3,
       hjust = 1,
-      label.size = 0
+      linewidth = 0
     )
 
   return(plot)
