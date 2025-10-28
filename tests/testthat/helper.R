@@ -1,7 +1,14 @@
 # Prepare common environment for testing
 # https://testthat.r-lib.org/articles/special-files.html
 # setup.R is only available for tests
-# helper.R is also available for package devoloment with devtools::load_all()
+# helper.R is also available for package development with devtools::load_all()
+
+
+# Global test settings -------------
+
+# Disable progressr
+options(progressr.enable = FALSE)
+
 
 # Train a GAM on var_cars dataset -------------------
 
