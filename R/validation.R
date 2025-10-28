@@ -48,7 +48,7 @@ validate_y_col <- function(
     validate(is_string(y_col))
     validate(
       y_col %in% names(data),
-      msg = cli_alert_danger('{.arg y_col} is not found in {.arg data}.')
+      msg = cli_alert_danger('{.arg y_col} ("{y_col}") is not found in {.arg data}.')
     )
   }
   # If NULL, identify y column from the Y term of a standard R model call
