@@ -81,7 +81,7 @@ validate_y_preds <- function(
       }
       else {
         cli_abort(
-          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for non-standard models. Here is the full error message:
+          'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}. See {.fun ALE} for how to create a custom predict function for models with unique predict function formats. Here is the full error message:
 
         {e}'
         )
@@ -93,17 +93,32 @@ validate_y_preds <- function(
   # Validate the resulting predictions and make sure the result is a matrix
   validate(
     is.atomic(y_preds),
-    msg = 'The model predictions must be atomic (that is, not a list object type).'
+    msg = 'The model predictions must be atomic (that is, not recursive [list-like]).'
   )
   validate(
     var_type(y_preds) == 'numeric' ||
       (var_type(y_preds) == 'binary' && is.numeric(y_preds)),
     msg = 'The model predictions must be numeric.'
-    #   var_type(y_preds) == 'numeric',
-    #   msg = 'The model predictions must be numeric (but not binary).'
   )
+
   if (is.matrix(y_preds)) {
-    validate(nrow(y_preds) == nrow(data))
+    if (y_preds |> colnames() |> is.null()) {
+      # Create colnames from factor levels or unique values
+      col_names <- data[[y_col]] |>
+        as.factor() |>
+        levels()
+
+      validate(
+        ncol(y_preds) == length(col_names),
+        msg = c(
+          x = 'There is an error with the predict function {.arg pred_fun} or with the prediction type {.arg pred_type}.',
+          i = 'The {.arg pred_fun} produces a matrix output but column names cannot be created for that matrix.',
+          i = 'Modify the matrix output to have properly named columns.'
+        )
+      )
+
+      colnames(y_preds) <- col_names
+    }
   }
   else {  # validate and create a single-column matrix
     validate(length(y_preds) == nrow(data))
@@ -112,6 +127,14 @@ validate_y_preds <- function(
       as.numeric() |>
       matrix(dimnames = list(NULL, y_col))
   }
+
+  validate(
+    nrow(y_preds) == nrow(data),
+    msg = c(
+      x = 'The predict function {.arg pred_fun} must produce one value or one row of predictions for each row of data.',
+      i = 'There are {nrow(data)} rows in {.arg data} but {.arg pred_fun} produces {nrow(y_preds)} predictions or rows.'
+    )
+  )
 
   y_preds
 }
