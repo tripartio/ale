@@ -378,7 +378,7 @@ ModelBoot <- new_class(
 
       if (!call_glance) {  # nocov start
         cli_warn(c(
-          '!' = 'No {.fun boot::glance} methods found for the class {.cls {class(model)}}.',
+          '!' = 'No {.fun broom::glance} methods found for the class {.cls {class(model)}}.',
           'i' = 'Some general model statistics will not be provided',
           'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
         ))
@@ -395,7 +395,7 @@ ModelBoot <- new_class(
 
       if (!output_model_coefs) {  # nocov start
         cli_warn(c(
-          '!' = 'No {.fun boot::tidy} methods found for the class {.cls {class(model)}}.',
+          '!' = 'No {.fun broom::tidy} methods found for the class {.cls {class(model)}}.',
           'i' = 'Model coefficient summaries will not be provided.',
           'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
         ))
