@@ -154,7 +154,7 @@ gam_math_p_dist <- retrieve_rds(
   c(serialized_objects_site, 'gam_math_p_dist.0.5.0.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     # Rather slow because it retrains the model 1000 times.
     ALEpDist(gam_math)
@@ -175,7 +175,7 @@ mb_gam_math <- retrieve_rds(
   c(serialized_objects_site, 'mb_gam_math_stats_vignette.0.5.0.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     # 100 bootstrap iterations by default (rather slow).
     ModelBoot(
@@ -262,7 +262,7 @@ mb_gam_no_p <- retrieve_rds(
   c(serialized_objects_site, 'mb_gam_no_p_stats_vignette.0.5.0.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ModelBoot(
       gam_math,

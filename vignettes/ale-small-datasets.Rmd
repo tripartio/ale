@@ -87,7 +87,7 @@ ale_lm_attitude_simple <- retrieve_rds(
   c(serialized_objects_site, 'ale_lm_attitude_simple.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
+    # For models like lm that store their data,
     # there is no need to specify the data argument.
     ALE(lm_attitude)
   }
@@ -112,7 +112,7 @@ The `ModelBoot` object automatically carries out full-model bootstrapping suitab
 -   Calculates model overall statistics, variable coefficients, and ALE values for each model on each bootstrap sample;
 -   Calculates the mean, median, and lower and upper confidence intervals for each of those values across all bootstrap samples.
 
-The constructor for `{S7}` `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow standard R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
+The constructor for `{S7}` `ModelBoot` object requires a model object as its first argument--any R model object that can generate numeric predictions. The second argument is the dataset. For objects that follow base R modelling conventions, `ModelBoot()` should be able to automatically recognize and parse the model object, so the data object is often optional. So, here is the creation of a `ModelBoot` object:
 
 ```{r lm_full_call}
 mb_lm_attitude <- retrieve_rds(
@@ -120,7 +120,7 @@ mb_lm_attitude <- retrieve_rds(
   c(serialized_objects_site, 'mb_lm_attitude.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
+    # For models like lm that store their data,
     # there is no need to specify the data argument.
     ModelBoot(lm_attitude) # 100 bootstrap iterations by default
   }
@@ -189,7 +189,7 @@ ale_gam_attitude_simple <- retrieve_rds(
   c(serialized_objects_site, 'ale_gam_attitude_simple.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_attitude)
   }
@@ -208,7 +208,7 @@ mb_gam_attitude <- retrieve_rds(
   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ModelBoot(gam_attitude) # 100 bootstrap iterations by default
   }
@@ -236,9 +236,9 @@ So, what should we conclude? First, it is tempting to retain the OLS results bec
 
 No doubt, the inconclusive results are because the dataset is so small (only 30 rows). A dataset even double that size might show significant effects at least for complaints, if not for other variables.
 
-# `model_call_string` argument for non-standard models
+# `model_call_string` argument for models not automatically detected
 
-The `ModelBoot()` constructor accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow standard conventions for R model objects, `ModelBoot()` might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the `model_call_string` argument with a character string of the full call for the model with `boot_data` as the data argument for the call. (`boot_data` is a placeholder for the bootstrap datasets that the `ModelBoot()` constructor will internally work with.)
+The `ModelBoot()` constructor accesses the model object and internally modifies it to retrain the model on bootstrapped datasets. It should be able to automatically manipulate most R model objects that are used for statistical analysis. However, if an object does not follow base R conventions for model objects, `ModelBoot()` might not be able to manipulate it. If so, the function will fail early with an appropriate error message. In that case, the user must specify the `model_call_string` argument with a character string of the full call for the model with `boot_data` as the data argument for the call. (`boot_data` is a placeholder for the bootstrap datasets that the `ModelBoot()` constructor will internally work with.)
 
 To show how this works, let's pretend that the `mgcv::gam` object needs such special treatment. To construct, the `model_call_string`, we must first execute the model and make sure that it works. We did that earlier but we repeat it here for this demonstration
 
@@ -256,16 +256,16 @@ Once we're sure that the model call works, then the `model_call_string` is const
 2. Replace the dataset in the data argument with `boot_data`.
 3. Pass the quoted string to `ModelBoot()` as the `model_call_string` argument (the argument must be explicitly named).
 
-So, here is the form for constructing a `ModelBoot` for a non-standard model object type:
+So, here is the form for constructing a `ModelBoot` for a model object type that is not automatically detected:
 
 ```{r model_call_string}
 
-mb_gam_attitude_non_standard <- retrieve_rds(
+mb_gam_attitude_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'mb_gam_attitude_non_standard.0.5.2.rds'),
+  c(serialized_objects_site, 'mb_gam_attitude_special.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     # 100 bootstrap iterations by default.
     ModelBoot(
@@ -277,9 +277,9 @@ mb_gam_attitude_non_standard <- retrieve_rds(
     )
   }
 )
-# saveRDS(mb_gam_attitude_non_standard, file.choose())
+# saveRDS(mb_gam_attitude_special, file.choose())
 
-mb_gam_attitude_non_standard@model_stats
+mb_gam_attitude_special@model_stats
 ```
 
 Everything else works as usual.

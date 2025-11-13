@@ -7,7 +7,7 @@
 
 
 # Validate data
-# If data is NULL and model is a standard R model type, data can be automatically detected.
+# If data is NULL, try to automatically detect it.
 validate_data <- function(
     data,
     model,
@@ -29,7 +29,7 @@ validate_data <- function(
     data <- insight::get_data(model)
 
     if (is.null(data)) {
-      cli_abort('This model seems to be non-standard, so {.arg data} must be provided.')
+      cli_abort('The model data could not be found in the {.arg model} object, so {.arg data} must be provided.')
     }
   }  # nocov end
 
@@ -38,7 +38,7 @@ validate_data <- function(
 
 
 # Validate y_col.
-# If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+# If y_col is NULL, try to automatically detect it.
 validate_y_col <- function(
     y_col,
     data,
@@ -51,12 +51,12 @@ validate_y_col <- function(
       msg = cli_alert_danger('{.arg y_col} ("{y_col}") is not found in {.arg data}.')
     )
   }
-  # If NULL, identify y column from the Y term of a standard R model call
+  # If NULL, try to identify y column from the Y term of the R model call
   else {
     y_col <- insight::find_response(model)
 
     if (is.null(y_col)) {  # nocov start
-      cli_abort('This model seems to be non-standard, so {.arg y_col} must be provided.')
+      cli_abort('The name of the target outcome variable could not be automatically determined, so {.arg y_col} must be provided.')
     }  # nocov end
   }
 

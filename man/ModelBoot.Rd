@@ -37,7 +37,7 @@ ModelBoot(
 \arguments{
 \item{model}{Required. See documentation for \code{\link[=ALE]{ALE()}}}
 
-\item{data}{dataframe. Dataset to be bootstrapped. This must be the same data on which the \code{model} was trained. If not provided, \code{ModelBoot()} will try to detect it automatically. For non-standard models, \code{data} should be provided.}
+\item{data}{dataframe. Dataset to be bootstrapped. This must be the same data on which the \code{model} was trained. If not provided, \code{ModelBoot()} will try to detect it automatically. For \code{model} objects that do not contain their data within them, \code{data} should be provided.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -178,14 +178,14 @@ mb_gam_attitude <- retrieve_rds(
   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like lm that store their data,
+    # For models like lm that store their data,
     # there is no need to specify the data argument.
     # 100 bootstrap iterations by default.
     ModelBoot(gam_attitude)
   }
 )
 
-# # If the model is not standard, supply model_call_string with 'data = boot_data'
+# # If default settings cause errors, supply model_call_string with 'data = boot_data'
 # # in the string instead of the actual dataset name (in addition to the actual dataset
 # # as the 'data' argument directly to the `ModelBoot` constructor).
 # mb_gam_attitude <- ModelBoot(

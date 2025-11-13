@@ -82,7 +82,7 @@ ale_cars_1D <- retrieve_rds(
   c(serialized_objects_site, 'ale_cars_1D.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_cars)
   }
@@ -106,7 +106,7 @@ ale_cars_2D <- retrieve_rds(
   c(serialized_objects_site, 'ale_cars_2D.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(
       gam_cars,
@@ -135,7 +135,7 @@ mb_cars <- retrieve_rds(
   c(serialized_objects_site, 'mb_cars.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ModelBoot(gam_cars) # 100 bootstrap iterations by default
   }

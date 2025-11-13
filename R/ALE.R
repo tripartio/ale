@@ -15,7 +15,7 @@
 #' @param model model object. Required. Model for which ALE should be calculated. May be any kind of R object that can make predictions from data.
 #' @param x_cols,exclude_cols character, list, or formula. Columns names from `data` requested in one of the special `x_cols` formats for which ALE data is to be calculated. Defaults to 1D ALE for all columns in `data` except `y_col`. See details in the documentation for [resolve_x_cols()].
 #' @param data dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which `model` was trained. If not provided, `ALE()` will try to detect it automatically if it is included in the `model` object.
-#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. For non-standard models, `y_col` should be provided. For time-to-event (survival) models, see details.
+#' @param y_col character(1). Name of the outcome target label (y) variable. If not provided, `ALE()` will try to detect it automatically from the `model` object. If not found automatically, `y_col` should be provided. For time-to-event (survival) models, see details.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param parallel non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all" uses all available physical and logical CPU cores. "all but one" uses only physical cores and reserves one core for the system. Set `parallel = 0` to disable parallel processing. See details.
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
@@ -25,7 +25,7 @@
 #' @param p_values instructions for calculating p-values. Possible values are:
 #' * `NULL`: p-values are not calculated.
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
-#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+#' * `"auto"` (default): If statistics are requested (`output_stats = TRUE`) and bootstrapping is requested (`boot_it > 0`), the constructor will try to automatically create a fast surrogate `ALEpDist` object; otherwise, no p-values are calculated. However, automatic creation of a surrogate `ALEpDist` object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an [ALEpDist()] object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 #' @param aler_alpha numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if `p_values` are provided (that is, not `NULL`). The inner band range will be the median value of y ± `aler_alpha[2]` of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± `aler_alpha[1]`. For example, in the ALE plots, for the default `aler_alpha = c(0.01, 0.05)`, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.
 #' @param aled_fun character(1) in c("mad", "sd"), or NULL. Deviation function used to calculated ALE deviation. `"mad"` is the mean absolute deviation; `"sd"` is the standard deviation. The default `NULL` will normally use `"mad"` except if an `ALEpDist` object is provided for `p_values`; in that case, the `aled_fun` is taken from the `ALEpDist` object.
 #' @param max_num_bins integer(1) > 1 or list. For numeric `x_cols`, this sets an upper bound on
@@ -50,7 +50,7 @@
 #' @param boot_alpha numeric(1) from 0 to 1. When ALE is bootstrapped (`boot_it > 0`), `boot_alpha` specifies the thresholds for p-values ("alpha") for percentile-based confidence interval range for the bootstrapped ALE values. The bootstrap confidence intervals will be the lowest and highest `(1 - 0.05) / 2` percentiles. For example, if `boot_alpha = 0.05` (default), the confidence intervals will be from the 2.5 (low) and 97.5 (high) percentiles.
 #' @param boot_centre character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be `boot_centre`. Regardless of the value specified here, both the mean and median will be available.
 #' @param seed integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with `parallel = 0`.
-#' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.
+#' @param y_type character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.
 #' @param sample_size non-negative integer(1). Size of the sample of `data` to be returned with the `ALE` object. This is primarily used for rug plots in [ALEPlots()].
 #' @param silent logical(1), default `FALSE.` If `TRUE`, do not display any non-essential messages during execution (such as progress bars). Regardless, any warnings and errors will always display. See details for how to customize progress bars.
 #' @param .bins Internal use only. List of ALE bin and n count vectors. If provided, these vectors will be used to set the intervals of the ALE x axis for each variable. By default (`NULL`), [ALE()] automatically calculates the bins. `.bins` is normally used in advanced analyses where the bins from a previous analysis are reused for subsequent analyses (for example, for full model bootstrapping with [ModelBoot()]).
@@ -108,7 +108,7 @@
 #' * `y_col` must be the set to the name of the binary event column.
 #' * Include the time column in the `exclude_cols` argument so that its ALE will not be calculated, e.g., `exclude_cols = 'time'`. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 #' * `pred_type` must be specified according to the desired `type` argument for the `predict()` method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
-#' * `pred_fun` might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom `pred_fun` as specified above might be needed.
+#' * `pred_fun` might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom `pred_fun` as specified above might be needed.
 #'
 #'
 #' @section Progress bars:
@@ -174,7 +174,7 @@
 #'   c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
-#'     # For standard models like mgcv::gam that store their data,
+#'     # For models like mgcv::gam that store their data,
 #'     # there is no need to specify the data argument.
 #'     ALE(gam_diamonds)
 #'   }
@@ -217,8 +217,8 @@
 #'
 #'
 #'
-#' # If the predict function you want is non-standard, you may define a
-#' # custom predict function. It must return a single numeric vector.
+#' # If the predict function you want does not work automatically, you may
+#' # define a custom predict function. It must return a single numeric vector.
 #' custom_predict <- function(object, newdata, type = pred_type) {
 #'   predict(object, newdata, type = type, se.fit = TRUE)$fit
 #' }
@@ -247,7 +247,7 @@
 #'   c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
-#'     # For standard models like mgcv::gam that store their data,
+#'     # For models like mgcv::gam that store their data,
 #'     # there is no need to specify the data argument.
 #'     ALE(
 #'       gam_diamonds,
@@ -324,7 +324,7 @@ ALE <- new_class(
     data <- validate_data(data, model)
 
     # Validate y_col.
-    # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+    # If y_col is NULL, try to automatically detect it.
     # Note: validate_y_col() must come before validate_y_preds().
     y_col <- validate_y_col(
       y_col = y_col,
@@ -335,7 +335,7 @@ ALE <- new_class(
     validate(is_string(pred_type))
 
     # Validate the model:
-    # A valid model is one that, when passed to a predict function with a valid  dataset, produces a numeric vector with length equal to the number of rows in the dataset.
+    # A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector with length equal to the number of rows in the dataset.
     # Note: y_preds will be used later in this function.
     y_preds <- validate_y_preds(
       pred_fun = pred_fun,

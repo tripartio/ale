@@ -109,7 +109,7 @@ Because ALE is non-parametric (that is, it does not assume any particular distri
 \item For each ALE statistic, the empirical cumulative distribution function (\code{stats::ecdf()}) is used to create a function to determine p-values according to the distribution of the random variables' ALE statistics.
 }
 
-Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{ALEpDist()} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow the standard R statistical modelling conventions, which includes almost all base R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but which excludes most machine learning algorithms (like \code{tidymodels} and \code{caret}). For non-standard algorithms, the user needs to do a little work to help the \code{ALEpDist()} constructor correctly manipulate its model object:
+Because the \code{ale} package is model-agnostic (that is, it works with any kind of R model), the \code{ALEpDist()} constructor cannot always automatically manipulate the model object to create the p-values. It can only do so for models that follow modelling conventions similar to those of base R algorithms (like \code{\link[stats:lm]{stats::lm()}} and \code{\link[stats:glm]{stats::glm()}}) and many widely used statistics packages (like \code{mgcv} and \code{survival}), but probably not for most machine learning algorithms (like \code{tidymodels} and \code{caret}). For algorithms that do not follow base R conventions, the user needs to do a little work to help the \code{ALEpDist()} constructor correctly manipulate its model object:
 \itemize{
 \item The full model call must be passed as a character string in the argument \code{random_model_call_string}, with two slight modifications as follows.
 \item In the formula that specifies the model, you must add a variable named 'random_variable'. This corresponds to the random variables that the constructor will use to estimate p-values.
@@ -205,14 +205,14 @@ ale_gam_diamonds <- retrieve_rds(
 plot(ale_gam_diamonds)
 
 
-# For non-standard models that give errors with the default settings,
+# For models that give errors with the default settings,
 # you can use 'random_model_call_string' to specify a model for the estimation
 # of p-values from random variables as in this example.
 # See details above for an explanation.
 
-pd_diamonds_non_standard <- retrieve_rds(
+pd_diamonds_special <- retrieve_rds(
   # For speed, load a pre-created object by default.
-  c(serialized_objects_site, 'pd_diamonds_non_standard.0.5.2.rds'),
+  c(serialized_objects_site, 'pd_diamonds_special.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
     ALEpDist(
@@ -228,10 +228,10 @@ pd_diamonds_non_standard <- retrieve_rds(
     )
   }
 )
-# saveRDS(pd_diamonds_non_standard, file.choose())
+# saveRDS(pd_diamonds_special, file.choose())
 
 # Examine the structure of the returned object
-print(pd_diamonds_non_standard)
+print(pd_diamonds_special)
 
 
 }

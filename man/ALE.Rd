@@ -42,7 +42,7 @@ ALE(
 
 \item{data}{dataframe. Dataset from which to create predictions for the ALE. It should normally be the same dataset on which \code{model} was trained. If not provided, \code{ALE()} will try to detect it automatically if it is included in the \code{model} object.}
 
-\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically from the \code{model} object. For non-standard models, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
+\item{y_col}{character(1). Name of the outcome target label (y) variable. If not provided, \code{ALE()} will try to detect it automatically from the \code{model} object. If not found automatically, \code{y_col} should be provided. For time-to-event (survival) models, see details.}
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
@@ -60,7 +60,7 @@ ALE(
 \itemize{
 \item \code{NULL}: p-values are not calculated.
 \item An \code{ALEpDist} object: the object will be used to calculate p-values.
-\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object only works with standard R model types. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
+\item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
@@ -99,7 +99,7 @@ See details.}
 
 \item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with \code{parallel = 0}.}
 
-\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex non-standard model requires it.}
+\item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.}
 
 \item{sample_size}{non-negative integer(1). Size of the sample of \code{data} to be returned with the \code{ALE} object. This is primarily used for rug plots in \code{\link[=ALEPlots]{ALEPlots()}}.}
 
@@ -173,7 +173,7 @@ For time-to-event (survival) models, set the following arguments:
 \item \code{y_col} must be the set to the name of the binary event column.
 \item Include the time column in the \code{exclude_cols} argument so that its ALE will not be calculated, e.g., \code{exclude_cols = 'time'}. This is not essential but if it is not excluded, it will always result in an exactly zero ALE effect because time is an outcome, not a predictor, of the time-to-event model's outcome, so calculating it is a waste of time.
 \item \code{pred_type} must be specified according to the desired \code{type} argument for the \code{predict()} method of the time-to-event algorithm (e.g., "risk", "survival", "time", etc.).
-\item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, for non-standard time-to-event models, a custom \code{pred_fun} as specified above might be needed.
+\item \code{pred_fun} might work fine without modification as long as the settings above are configured. However, if there is an error with some time-to-event models, a custom \code{pred_fun} as specified above might be needed.
 }
 }
 
@@ -237,7 +237,7 @@ ale_gam_diamonds <- retrieve_rds(
   c(serialized_objects_site, 'ale_gam_diamonds.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(gam_diamonds)
   }
@@ -280,8 +280,8 @@ get(ale_plots, type = 'effect')  # ALE effects plot
 
 
 
-# If the predict function you want is non-standard, you may define a
-# custom predict function. It must return a single numeric vector.
+# If the predict function you want does not work automatically, you may
+# define a custom predict function. It must return a single numeric vector.
 custom_predict <- function(object, newdata, type = pred_type) {
   predict(object, newdata, type = type, se.fit = TRUE)$fit
 }
@@ -310,7 +310,7 @@ ale_diamonds_with_boot_data <- retrieve_rds(
   c(serialized_objects_site, 'ale_diamonds_with_boot_data.0.5.2.rds'),
   {
     # To run the code yourself, execute this code block directly.
-    # For standard models like mgcv::gam that store their data,
+    # For models like mgcv::gam that store their data,
     # there is no need to specify the data argument.
     ALE(
       gam_diamonds,

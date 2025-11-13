@@ -13,7 +13,7 @@
 #'
 #'
 #' @param model Required. See documentation for [ALE()]
-#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For non-standard models, `data` should be provided.
+#' @param data dataframe. Dataset to be bootstrapped. This must be the same data on which the `model` was trained. If not provided, `ModelBoot()` will try to detect it automatically. For `model` objects that do not contain their data within them, `data` should be provided.
 #' @param ... not used. Inserted to require explicit naming of subsequent arguments.
 #' @param model_call_string character(1). If `NULL` (default), the `ModelBoot` tries to automatically detect and construct the call for bootstrapped datasets. If it cannot, the function will fail early. In that case, a character string of the full call for the model must be provided that includes `boot_data` as the data argument for the call. See examples.
 #' @param model_call_string_vars character. Names of variables included in `model_call_string` that are not columns in `data`. If any such variables exist, they must be specified here or else parallel processing may produce an error. If parallelization is disabled with `parallel = 0`, then this is not a concern. See documentation for the `model_packages` argument in [ALE()].
@@ -121,14 +121,14 @@
 #'   c(serialized_objects_site, 'mb_gam_attitude.0.5.2.rds'),
 #'   {
 #'     # To run the code yourself, execute this code block directly.
-#'     # For standard models like lm that store their data,
+#'     # For models like lm that store their data,
 #'     # there is no need to specify the data argument.
 #'     # 100 bootstrap iterations by default.
 #'     ModelBoot(gam_attitude)
 #'   }
 #' )
 #'
-#' # # If the model is not standard, supply model_call_string with 'data = boot_data'
+#' # # If default settings cause errors, supply model_call_string with 'data = boot_data'
 #' # # in the string instead of the actual dataset name (in addition to the actual dataset
 #' # # as the 'data' argument directly to the `ModelBoot` constructor).
 #' # mb_gam_attitude <- ModelBoot(
@@ -254,7 +254,7 @@ ModelBoot <- new_class(
         {
           validate(is_string(pred_type))
 
-          # If y_col is NULL and model is a standard R model type, y_col can be automatically detected.
+          # If y_col is NULL, try to automatically detect y_col.
           y_col <- validate_y_col(
             y_col = y_col,
             data = data,
