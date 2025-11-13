@@ -313,6 +313,14 @@ ALE <- new_class(
     # Never skip this validation step!
     rlang::check_dots_empty()
 
+    # Catch and handle a common error with the data argument
+    validate(
+      !inherits(x_cols, 'data.frame'),
+      msg = c(
+        x = '{.arg x_cols} (the second argument) cannot be a {.cls data.frame}.',
+        i = 'If you skip the {.arg x_cols} argument, you must explicitly name the {.arg data} argument (e.g., {.val data = dataset_name}).'
+      )
+    )
     data <- validate_data(data, model)
 
     # Validate y_col.
