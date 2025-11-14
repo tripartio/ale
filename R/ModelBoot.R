@@ -223,6 +223,10 @@ ModelBoot <- new_class(
           'i' = '{.arg model_call_string} must be provided. See {.fun ModelBoot} for details.'
         )
       )
+
+      # Keep track of if there is a data argument in model_call.
+      # If not, errors might result later.
+      data_in_model_call <- 'data' %in% names(model_call)
     }
     else {  # validate model_call_string
       validate(is_string(model_call_string))
@@ -513,6 +517,15 @@ ModelBoot <- new_class(
             error = \(e) {  # nocov start
               if (btit == 0) {
                 # If the full model call fails, then abort altogether. Nothing else will probably work.
+
+                # Identify one known reason for model failure
+                if (!data_in_model_call) {
+                  cli_warn(c(
+                    '!' = 'No "data" argument found in the `model` call.',
+                    i = 'If there is a weird error, try explicitly specifying the "data" argument.'
+                  ))
+                }
+
                 cli_abort(paste0(
                   'The {.arg ',
                   if (!is.null(model_call_string)) 'model_call_string' else 'model',
@@ -1173,7 +1186,7 @@ ModelBoot <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'calc_boot_valid', 'call_glance', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'vp', 'y_preds'
+      'calc_boot_valid', 'call_glance', 'data_in_model_call', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'vp', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
