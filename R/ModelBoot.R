@@ -564,12 +564,17 @@ ModelBoot <- new_class(
                 {
                   do.call(
                     broom::glance,
-                    list(btit.model, unlist(glance_options))
+                    c(
+                      list(btit.model),  # model object
+                      glance_options  # any parameters
+                    )
                   )
                 },
-                error = \(e) {
-                  NULL  # nocov
-                }
+                error = \(e) {  # nocov start
+                  cli_warn(e)
+
+                  NULL
+                }  # nocov end
               )
             } else {
               NULL  # nocov
@@ -692,9 +697,9 @@ ModelBoot <- new_class(
                     broom::tidy,
                     c(
                       list(btit.model),  # model object
-                      tidy_options
+                      tidy_options  # any parameters
                     )
-                  )  # any parameters
+                  )
                 },
                 error = \(e) {
                   NULL  # nocov
@@ -709,54 +714,46 @@ ModelBoot <- new_class(
           ## Bootstrap ALE --------------
 
           if (output_ale) {
-            boot_ale <- if (is.na(sum(btit.model$coefficients, na.rm = FALSE))) {
-              # One or more coefficients are not defined.
-              # This might be due to collinearity in a bootstrapped sample, which yields the warning: "Coefficients: (_ not defined because of singularities)".
-              NA
-            }
-            else {  # Valid model and ALE requested
-
-              # Calculate ALE. Use do.call so that ale_options can be passed.
-              # If an iteration fails for any reason, set it as NULL.
-              tryCatch(
-                {
-                  do.call(
-                    ALE,
-                    utils::modifyList(
-                      list(
-                        model = btit.model,
-                        data = btit.data,
-                        parallel = 0,  # do not parallelize at this inner level
-                        boot_it = 0,  # do not bootstrap at this inner level
-                        p_values = NULL,
-                        .bins = if (btit == 0) NULL else ale_bins,
-                        silent = TRUE  # silence inner bootstrap loop
-                      ),
-                      # pass all other desired options, e.g., specific x_col
-                      ale_options
+            # Calculate ALE. Use do.call so that ale_options can be passed.
+            # If an iteration fails for any reason in the tryCatch, set it as NULL.
+            boot_ale <- tryCatch(
+              {
+                do.call(
+                  ALE,
+                  utils::modifyList(
+                    list(
+                      model = btit.model,
+                      data = btit.data,
+                      parallel = 0,  # do not parallelize at this inner level
+                      boot_it = 0,  # do not bootstrap at this inner level
+                      p_values = NULL,
+                      .bins = if (btit == 0) NULL else ale_bins,
+                      silent = TRUE  # silence inner bootstrap loop
                     ),
-                    # assure appropriate scoping with do.call()
-                    envir = parent.frame(1)
+                    # pass all other desired options, e.g., specific x_col
+                    ale_options
+                  ),
+                  # assure appropriate scoping with do.call()
+                  envir = parent.frame(1)
+                )
+              },
+              error = \(e) {  # nocov start
+                if (btit == 0) {
+                  # Terminate early if the full model cannot produce ALE
+                  cli_alert_danger('Could not calculate ALE:\n')
+                  print(e)
+                  stop()
+                } else {
+                  cli_warn(
+                    'ALE calculation failed for iteration {btit}...',
+                    class = 'ale_fail'
                   )
-                },
-                error = \(e) {  # nocov start
-                  if (btit == 0) {
-                    # Terminate early if the full model cannot produce ALE
-                    cli_alert_danger('Could not calculate ALE:\n')
-                    print(e)
-                    stop()
-                  } else {
-                    cli_warn(
-                      'ALE calculation failed for iteration {btit}...',
-                      class = 'ale_fail'
-                    )
-                    # print(e)  # uncomment to debug; TODO: log all errors in params
+                  # print(e)  # uncomment to debug; TODO: log all errors in params
 
-                    NULL
-                  }
-                }  # nocov end
-              )
-            }  # else {  # Valid model and ALE requested
+                  NULL
+                }
+              }  # nocov end
+            )  # tryCatch
 
             # From full dataset (btit == 0), calculate common bins for all subsequent iterations
             if (btit == 0) {
