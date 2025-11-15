@@ -420,6 +420,75 @@ method(print, ALE) <- function(x, ...) {
 }
 
 
+#' @name summary.ALE
+#' @title summary Method for ALE object
+#'
+#' @description
+#' Prints out a statistical summary of an `ALE` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
+#'
+#' @param object An object of class `ALE`.
+#' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' @param ... Additional arguments (currently not used).
+#'
+#' @return Invisibly returns `object`. The printout is a side effect.
+#'
+#' @examples
+#' \donttest{
+#' lm_cars <- stats::lm(mpg ~ ., mtcars)
+#' ale_cars <- ALE(lm_cars, boot_it = 3)
+#' summary(ale_cars)
+#' }
+#'
+#' @method summary ALE
+method(summary, ALE) <- function(
+    object,
+    stats = c('aled', 'naled'),
+    all_conf = FALSE,
+    ...
+) {
+
+  if (!object@params$output_stats) {
+    cli_inform('There are no ALE statistics to summarize.')
+
+    return(invisible(object))
+  }
+
+  print(object)
+
+  cat('\n')
+  cli_text('M{str_sub(object@params$boot_centre, 2)} ALE statistics:')
+  ale_estimates <- object |> get(stats = 'estimate')
+  print(ale_estimates, n = nrow(ale_estimates))
+
+  cat('\n')
+  cli_text('ALE statistic distributions:')
+  ale_stats <- object |>
+    get(stats = stats) |>
+    select(c('statistic', 'term'), everything())|>
+    # convert statistic column to factor to respect user-supplied sort order
+    mutate(statistic = factor(.data$statistic, levels = stats, ordered = TRUE)) |>
+    arrange(.data$statistic)
+  print(ale_stats, n = nrow(ale_stats))
+
+  cat('\n')
+  cli_text('Statistically significant confidence regions:')
+  conf_sig <- object |>
+    get(stats = 'conf_sig')
+  print(conf_sig, n = nrow(conf_sig))
+
+  if (all_conf) {
+    cat('\n')
+    cli_text('All confidence regions:')
+    conf_regions <- object |>
+      get(stats = 'conf_regions')
+    print(conf_regions, n = nrow(conf_regions))
+  }
+
+  invisible(object)
+}
+
+
 
 # Functions specific to ALE objects -------------
 
