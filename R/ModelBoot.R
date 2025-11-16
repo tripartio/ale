@@ -726,7 +726,8 @@ ModelBoot <- new_class(
                       data = btit.data,
                       parallel = 0,  # do not parallelize at this inner level
                       boot_it = 0,  # do not bootstrap at this inner level
-                      p_values = NULL,
+                      p_values = if (btit == 0) NULL else ale_p,
+                      require_same_p = FALSE,  # must be disabled for bootstrapping
                       .bins = if (btit == 0) NULL else ale_bins,
                       silent = TRUE  # silence inner bootstrap loop
                     ),
@@ -1144,13 +1145,25 @@ ModelBoot <- new_class(
               mean = mean(.data$estimate, na.rm = TRUE),
               conf.high = quantile(.data$estimate, probs = 1 - (boot_alpha / 2), na.rm = TRUE),
               estimate = if_else(boot_centre == 'mean', .data$mean, .data$median),
-            ) |>
-            select('term', 'statistic', 'estimate', everything()) |>
-            mutate(across(
-              c('term', 'statistic'), factor
-            ))
+            )
+
+          if (!is.null(ale_p)) {
+            # Add p-values if p distribution is available
+            iass$p.value <- as.numeric(NA)
+            for (i.r in 1:nrow(iass)) {
+              iass$p.value[i.r] <- value_to_p(
+                p_dist_cat = ale_p@rand_stats[[it.cat]],
+                stat = iass$statistic[i.r],
+                x = iass$estimate[i.r]
+              )
+            }
+          }
 
           iass <- iass |>
+            select(any_of(c('term', 'statistic', 'estimate', 'p.value')), everything()) |>
+            mutate(across(
+              c('term', 'statistic'), factor
+            )) |>
             split(iass$d) |>
             map(\(it.d_stats) {
               it.d_stats |>

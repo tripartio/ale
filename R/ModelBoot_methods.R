@@ -53,7 +53,7 @@ method(get, ModelBoot) <- function(
     missing_params <- names(obj@ale$single@params) |>
       setdiff(names(obj_type@params))
     obj_type@params[missing_params] <- obj@ale$single@params[missing_params]
-    obj_type@params$ale_p <- NULL  # duplicates p_values
+    obj_type@params$p_values <- obj@params$ale_p
   }
 
   method(get, ale::ALE)(
