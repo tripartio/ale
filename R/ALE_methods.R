@@ -213,12 +213,19 @@ method(get, ALE) <- function(
       })
   }
   else if (stats |> is_string(c('conf_regions', 'conf_sig'))) {
-    if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {  # nocov start
-      if (!silent) cli_inform(c(
-        '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
-        'i' = 'There {?is/are} {obj@params$boot_it} bootstrap iteration{?s}.',
-        'i' = 'p-values {?is/are} based on {obj@params$p_values@params$rand_it_ok} iteration{?s}.'
-      ))
+    if (!silent) {  # nocov start
+      if (is.null(obj@params$p_values)) {
+        cli_inform(c(
+          '!' = 'Confidence regions are meaningless without p-values.',
+          'i' = 'The ALE statistics were calculated without p-values.'
+        ))
+      } else if (obj@params$boot_it < 100 || obj@params$p_values@params$rand_it_ok < 100) {
+        cli_inform(c(
+          '!' = 'Note that confidence regions are not reliable with fewer than 100 bootstrap iterations or p-values based on fewer than 100 random iterations.',
+          'i' = 'There {?is/are} {obj@params$boot_it} bootstrap iteration{?s}.',
+          'i' = 'p-values {?is/are} based on {obj@params$p_values@params$rand_it_ok} iteration{?s}.'
+        ))
+      }
     }  # nocov end
 
     specific_what <- all_what |>
@@ -367,6 +374,7 @@ method(plot, ALE) <- function(x, ...) {
 #' Print an ALE object.
 #'
 #' @param x An object of class `ALE`.
+#' @param details logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
@@ -379,7 +387,11 @@ method(plot, ALE) <- function(x, ...) {
 #' }
 #'
 #' @method print ALE
-method(print, ALE) <- function(x, ...) {
+method(print, ALE) <- function(
+    x,
+    details = TRUE,
+    ...
+) {
 
   cli_text(
     '{.cls ALE} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
@@ -391,22 +403,24 @@ method(print, ALE) <- function(x, ...) {
     )
   }
 
-  output_string <- c(
-    'ALE data',
-    if (x@params$output_stats) 'statistics' else NULL,
-    if (!is.null(x@params$p_values)) x@params$p_values@params$exactness %+% ' p-values' else NULL,
-    if (x@params$output_boot_data) 'raw bootstrap data' else NULL
-  )
+  if (details) {
+    output_string <- c(
+      'ALE data',
+      if (x@params$output_stats) 'statistics' else NULL,
+      if (!is.null(x@params$p_values)) x@params$p_values@params$exactness %+% ' p-values' else NULL,
+      if (x@params$output_boot_data) 'raw bootstrap data' else NULL
+    )
 
-  cli_text(
-    '{output_string} {?is/are} provided for the following terms:'
-  )
-  cli_text(
-    '{cli::no(length(x@params$requested_x_cols$d1))}  1D term{?s}: {x@params$requested_x_cols$d1}'
-  )
-  cli_text(
-    '{cli::no(length(x@params$requested_x_cols$d2))}  2D term{?s}: {x@params$requested_x_cols$d2}'
-  )
+    cli_text(
+      '{output_string} {?is/are} provided for the following terms:'
+    )
+    cli_text(
+      '{cli::no(length(x@params$requested_x_cols$d1))}  1D term{?s}: {x@params$requested_x_cols$d1}'
+    )
+    cli_text(
+      '{cli::no(length(x@params$requested_x_cols$d2))}  2D term{?s}: {x@params$requested_x_cols$d2}'
+    )
+  }
 
   cli_text(
     if (x@params$boot_it > 0) {
@@ -418,6 +432,60 @@ method(print, ALE) <- function(x, ...) {
 
   invisible(x)
 }
+
+
+# Code shared between summary.ALE and summary.ModelBoot
+summary_ALE_stats <- function(
+    object,
+    p_dist,
+    stats,
+    all_conf,
+    boot_centre,
+    round_digits = 4
+) {
+  cat('\n')
+  cli_text('M{str_sub(boot_centre, 2)} ALE statistics:')
+  ale_estimates <- object |>
+    get(stats = 'estimate') |>
+    bind_rows() |>
+    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits)))
+  print(ale_estimates, n = nrow(ale_estimates))
+
+  cat('\n')
+  if (!is.null(p_dist)) {
+    cli_text('ALE statistic distributions ({p_dist@params$exactness} p-values, {p_dist@params$rand_it_ok} iterations):')
+  } else {
+    cli_text('ALE statistic distributions (no p-values requested):')
+  }
+  ale_stats <- object |>
+    get(stats = stats) |>
+    bind_rows() |>
+    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
+    select(c('statistic', 'term'), everything()) |>
+    # convert statistic column to factor to respect user-supplied sort order
+    mutate(statistic = factor(.data$statistic, levels = stats, ordered = TRUE)) |>
+    arrange(.data$statistic)
+  print(ale_stats, n = nrow(ale_stats))
+
+  cat('\n')
+  cli_text('Statistically significant confidence regions:')
+  conf_sig <- object |>
+    get(stats = 'conf_sig') |>
+    bind_rows()
+  print(conf_sig, n = nrow(conf_sig))
+
+  if (all_conf) {
+    cat('\n')
+    cli_text('All confidence regions:')
+    conf_regions <- object |>
+      get(stats = 'conf_regions') |>
+      bind_rows() |>
+      select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
+    print(conf_regions, n = nrow(conf_regions))
+  }
+}
+
+
 
 
 #' @name summary.ALE
@@ -447,42 +515,18 @@ method(summary, ALE) <- function(
     all_conf = FALSE,
     ...
 ) {
-
   if (!object@params$output_stats) {
     cli_inform('There are no ALE statistics to summarize.')
+  } else {
+    print(object, details = FALSE)
 
-    return(invisible(object))
-  }
-
-  print(object)
-
-  cat('\n')
-  cli_text('M{str_sub(object@params$boot_centre, 2)} ALE statistics:')
-  ale_estimates <- object |> get(stats = 'estimate')
-  print(ale_estimates, n = nrow(ale_estimates))
-
-  cat('\n')
-  cli_text('ALE statistic distributions:')
-  ale_stats <- object |>
-    get(stats = stats) |>
-    select(c('statistic', 'term'), everything())|>
-    # convert statistic column to factor to respect user-supplied sort order
-    mutate(statistic = factor(.data$statistic, levels = stats, ordered = TRUE)) |>
-    arrange(.data$statistic)
-  print(ale_stats, n = nrow(ale_stats))
-
-  cat('\n')
-  cli_text('Statistically significant confidence regions:')
-  conf_sig <- object |>
-    get(stats = 'conf_sig')
-  print(conf_sig, n = nrow(conf_sig))
-
-  if (all_conf) {
-    cat('\n')
-    cli_text('All confidence regions:')
-    conf_regions <- object |>
-      get(stats = 'conf_regions')
-    print(conf_regions, n = nrow(conf_regions))
+    summary_ALE_stats(
+      object = object,
+      p_dist = object@params$p_values,
+      stats = stats,
+      all_conf = all_conf,
+      boot_centre = object@params$boot_centre
+    )
   }
 
   invisible(object)

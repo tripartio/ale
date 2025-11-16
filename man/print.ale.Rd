@@ -6,6 +6,8 @@
 \arguments{
 \item{x}{An object of class \code{ALE}.}
 
+\item{details}{logical(1). If \code{TRUE} (default), all brief details are printed. If \code{FALSE}, only minimal information is printed.}
+
 \item{...}{Additional arguments (currently not used).}
 }
 \value{

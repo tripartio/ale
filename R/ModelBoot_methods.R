@@ -94,6 +94,7 @@ method(plot, ModelBoot) <- function(
 #' Print a ModelBoot object.
 #'
 #' @param x An object of class `ModelBoot`.
+#' @param details logical(1). If `TRUE` (default), all brief details are printed. If `FALSE`, only minimal information is printed.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `x`.
@@ -106,8 +107,11 @@ method(plot, ModelBoot) <- function(
 #' }
 #'
 #' @method print ModelBoot
-method(print, ModelBoot) <- function(x, ...) {
-
+method(print, ModelBoot) <- function(
+    x,
+    details = TRUE,
+    ...
+) {
   cli_text(
     '{.cls ModelBoot} object of a {.cls {x@params$model$class}} model that predicts {.var {x@params$y_col}} (a {x@params$y_type} outcome) from a {x@params$data$nrow}-row by {length(x@params$data$data_sample)}-column dataset.\n'
   )
@@ -120,53 +124,110 @@ method(print, ModelBoot) <- function(x, ...) {
       '* The model was trained once on the entire dataset without bootstrapping.'
     }
   )
-  cat('\n')
 
-  if (!is.null(x@model_stats)) {
-    cli_text(
-      'The following overall model summary statistics are available:'
-    )
-    average_stats <- x@model_stats |>
-      filter(!is.na(mean)) |>
-      pull(name)
-    cli_text(
-      '* Overall average statistics: {average_stats}'
-    )
-    boot_valid_stats <- x@model_stats |>
-      filter(!is.na(boot_valid)) |>
-      pull(name)
-    cli_text(
-      '* Bootstrap-validated model accuracy: {boot_valid_stats}'
-    )
-  }
+  if (details) {
+    cat('\n')
+    if (!is.null(x@model_stats)) {
+      cli_text(
+        'The following overall model summary statistics are available:'
+      )
+      average_stats <- x@model_stats |>
+        filter(!is.na(mean)) |>
+        pull(name)
+      cli_text(
+        '* Overall average statistics: {average_stats}'
+      )
+      boot_valid_stats <- x@model_stats |>
+        filter(!is.na(boot_valid)) |>
+        pull(name)
+      cli_text(
+        '* Bootstrap-validated model accuracy: {boot_valid_stats}'
+      )
+    }
 
-  if (!is.null(x@model_coefs)) {
-    cli_text(
-      'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}'
-    )
-  }
-  cat('\n')
+    if (!is.null(x@model_coefs)) {
+      cli_text(
+        'Statistics for the following specific variables or interactions are available: {x@model_coefs |> pull(term)}'
+      )
+    }
+    cat('\n')
 
-  if (!is.null(x@ale)) {
-    ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
-    ale_p <- !is.null(x@params$ale_p)
-    output_string <- c(
-      'Accumulated local effects (ALE) data',
-      if (ale_stats) 'statistics' else NULL,
-      if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL
-    )
+    if (!is.null(x@ale)) {
+      ale_stats <- !is.null(x@ale$boot$effect[[1]]$stats) || x@ale$single@params$output_stats
+      ale_p <- !is.null(x@params$ale_p)
+      output_string <- c(
+        'Accumulated local effects (ALE) data',
+        if (ale_stats) 'statistics' else NULL,
+        if (ale_p) x@params$ale_p@params$exactness %+% ' ALE p-values' else NULL
+      )
 
-    cli_text(
-      '{output_string} {?is/are} provided for the following terms:'
-    )
-    cli_text(
-      '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}'
-    )
-    cli_text(
-      '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}'
-    )
+      cli_text(
+        '{output_string} {?is/are} provided for the following terms:'
+      )
+      cli_text(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d1))}  1D term{?s}: {x@ale$single@params$requested_x_cols$d1}'
+      )
+      cli_text(
+        '{cli::no(length(x@ale$single@params$requested_x_cols$d2))}  2D term{?s}: {x@ale$single@params$requested_x_cols$d2}'
+      )
+    }
   }
 
   invisible(x)
+}
+
+
+#' @name summary.ModelBoot
+#' @title summary Method for ModelBoot object
+#'
+#' @description
+#' Prints out a statistical summary of an `ModelBoot` object. If there are no ALE statistics, a message says so. Summarized statistics are mean or median depending on the `boot_centre` argument used for [ALE()] bootstrapping.
+#'
+#' @param object An object of class `ModelBoot`.
+#' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
+#' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' @param ... Additional arguments (currently not used).
+#'
+#' @return Invisibly returns `object`. The printout is a side effect.
+#'
+#' @examples
+#' \donttest{
+#' lm_cars <- stats::lm(mpg ~ ., mtcars)
+#' ale_cars <- ModelBoot(lm_cars, boot_it = 3)
+#' summary(ale_cars)
+#' }
+#'
+#' @method summary ModelBoot
+method(summary, ModelBoot) <- function(
+    object,
+    stats = c('aled', 'naled'),
+    all_conf = FALSE,
+    ...
+) {
+  print(object, details = FALSE)
+
+  cat('\n')
+  cli_text('Overall model statistics:')
+  print(object@model_stats, n = nrow(object@model_stats))
+
+  cat('\n')
+  cli_text('Summary model term estimates:')
+  print(object@model_coefs, n = nrow(object@model_coefs))
+
+  if (!is.null(object@ale)) {
+    if (!object@ale$single@params$output_stats) {
+      cli_inform('There are no ALE statistics to summarize.')
+    } else {
+      summary_ALE_stats(
+        object = object,
+        p_dist = object@params$ale_p,
+        stats = stats,
+        all_conf = all_conf,
+        boot_centre = object@ale$single@params$boot_centre
+      )
+    }
+  }
+
+  invisible(object)
 }
 
