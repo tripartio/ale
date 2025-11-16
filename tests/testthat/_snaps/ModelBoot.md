@@ -259,7 +259,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -519,6 +519,9 @@
       
       attr(,"params")$p_values
       NULL
+      
+      attr(,"params")$require_same_p
+      [1] FALSE
       
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
@@ -970,7 +973,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -1272,6 +1275,9 @@
        .. $ rand_it_ok                   : int 100
        .. $ exactness                    : chr "surrogate"
       
+      attr(,"params")$require_same_p
+      [1] FALSE
+      
       attr(,"params")$aler_alpha
       [1] 0.01 0.05
       
@@ -1357,32 +1363,32 @@
       
       attr(,"ale")$boot$effect$vs$stats
       attr(,"ale")$boot$effect$vs$stats$d1
-      # A tibble: 12 x 7
-         term      statistic  estimate  conf.low    median      mean conf.high
-         <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-       1 continent aled       0         0         0         0         0       
-       2 continent aler_min   0         0         0         0         0       
-       3 continent aler_max   0         0         0         0         0       
-       4 continent naled      0         0         0         0         0       
-       5 continent naler_min  0         0         0         0         0       
-       6 continent naler_max  0         0         0         0         0       
-       7 wt        aled       6.18e-20  9.77e-21  6.18e-20  6.18e-20  1.14e-19
-       8 wt        aler_min  -3.11e-19 -5.94e-19 -3.11e-19 -3.11e-19 -2.77e-20
-       9 wt        aler_max   1.01e-19  3.64e-20  1.01e-19  1.01e-19  1.66e-19
-      10 wt        naled      2.63e+ 1  2.32e+ 1  2.63e+ 1  2.63e+ 1  2.94e+ 1
-      11 wt        naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      12 wt        naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      # A tibble: 12 x 8
+         term      statistic  estimate p.value  conf.low    median      mean conf.high
+         <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+       1 continent aled       0         1       0         0         0         0       
+       2 continent aler_min   0         1       0         0         0         0       
+       3 continent aler_max   0         1       0         0         0         0       
+       4 continent naled      0         1       0         0         0         0       
+       5 continent naler_min  0         1       0         0         0         0       
+       6 continent naler_max  0         1       0         0         0         0       
+       7 wt        aled       6.18e-20  0.0400  9.77e-21  6.18e-20  6.18e-20  1.14e-19
+       8 wt        aler_min  -3.11e-19  0.01   -5.94e-19 -3.11e-19 -3.11e-19 -2.77e-20
+       9 wt        aler_max   1.01e-19  0.0500  3.64e-20  1.01e-19  1.01e-19  1.66e-19
+      10 wt        naled      2.63e+ 1  0.54    2.32e+ 1  2.63e+ 1  2.63e+ 1  2.94e+ 1
+      11 wt        naler_min -4.92e+ 1  1      -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      12 wt        naler_max  7.58e+ 0  0       7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       attr(,"ale")$boot$effect$vs$stats$d2
-      # A tibble: 6 x 7
-        term      statistic  estimate  conf.low    median      mean conf.high
-        <fct>     <fct>         <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
-      1 gear:carb aled       2.05e-21  1.56e-21  2.05e-21  2.05e-21  2.55e-21
-      2 gear:carb aler_min  -8.36e-21 -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
-      3 gear:carb aler_max   1.43e-20  4.55e-21  1.43e-20  1.43e-20  2.41e-20
-      4 gear:carb naled      2.13e+ 1  5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
-      5 gear:carb naler_min -4.92e+ 1 -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
-      6 gear:carb naler_max  7.58e+ 0  7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
+      # A tibble: 6 x 8
+        term      statistic  estimate p.value  conf.low    median      mean conf.high
+        <fct>     <fct>         <dbl>   <dbl>     <dbl>     <dbl>     <dbl>     <dbl>
+      1 gear:carb aled       2.05e-21    0.34  1.56e-21  2.05e-21  2.05e-21  2.55e-21
+      2 gear:carb aler_min  -8.36e-21    0.3  -8.79e-21 -8.36e-21 -8.36e-21 -7.93e-21
+      3 gear:carb aler_max   1.43e-20    0.24  4.55e-21  1.43e-20  1.43e-20  2.41e-20
+      4 gear:carb naled      2.13e+ 1    1     5.84e+ 0  2.13e+ 1  2.13e+ 1  3.68e+ 1
+      5 gear:carb naler_min -4.92e+ 1    1    -5.00e+ 1 -4.92e+ 1 -4.92e+ 1 -4.85e+ 1
+      6 gear:carb naler_max  7.58e+ 0    0     7.36e+ 0  7.58e+ 0  7.58e+ 0  7.80e+ 0
       
       
       
@@ -1649,7 +1655,7 @@
       attr(,"S7_class")
       <ale::ALE> class
       @ parent     : <S7_object>
-      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
+      @ constructor: function(model, x_cols, data, y_col, ..., exclude_cols, parallel, model_packages, output_stats, output_boot_data, pred_fun, pred_type, p_values, require_same_p, aler_alpha, aled_fun, max_num_bins, fct_order, boot_it, boot_alpha, boot_centre, seed, y_type, sample_size, silent, .bins) {...}
       @ validator  : <NULL>
       @ properties :
        $ effect: <list>
@@ -2220,6 +2226,9 @@
       
       attr(,"params")$p_values
       NULL
+      
+      attr(,"params")$require_same_p
+      [1] FALSE
       
       attr(,"params")$aler_alpha
       [1] 0.01 0.05

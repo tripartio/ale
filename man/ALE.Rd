@@ -21,6 +21,7 @@ ALE(
  },
   pred_type = "response",
   p_values = "auto",
+  require_same_p = TRUE,
   aler_alpha = c(0.01, 0.05),
   aled_fun = NULL,
   max_num_bins = 10L,
@@ -62,6 +63,8 @@ ALE(
 \item An \code{ALEpDist} object: the object will be used to calculate p-values.
 \item \code{"auto"} (default): If statistics are requested (\code{output_stats = TRUE}) and bootstrapping is requested (\code{boot_it > 0}), the constructor will try to automatically create a fast surrogate \code{ALEpDist} object; otherwise, no p-values are calculated. However, automatic creation of a surrogate \code{ALEpDist} object might not work with all R models. If the automatic process errors, then you must explicitly create and provide an \code{\link[=ALEpDist]{ALEpDist()}} object. Note: although faster surrogate p-values are convenient for interactive analysis, they are not acceptable for definitive conclusions or publication. See details below.
 }}
+
+\item{require_same_p}{logical(1). If \code{TRUE} (default), \code{p_values} must be generated with exactly the same \code{model} object, even in the case of surrogate p-values. Only disable this option with \code{FALSE} if certain that a deliberate exception is appropriate, otherwise calculated p-values may be completely invalid. A notable valid exception is resampling the same model specification on various samples, such as with bootstrapping or cross-validation.}
 
 \item{aler_alpha}{numeric(2) from 0 to 1. Thresholds for p-values ("alpha") for confidence interval ranges for the ALER band if \code{p_values} are provided (that is, not \code{NULL}). The inner band range will be the median value of y ± \code{aler_alpha[2]} of the relevant ALE statistic (usually ALE range or normalized ALE range). When there is a second outer band, its range will be the median ± \code{aler_alpha[1]}. For example, in the ALE plots, for the default \code{aler_alpha = c(0.01, 0.05)}, the inner band will be the median ± ALER minimum or maximum at p = 0.05 and the outer band will be the median ± ALER minimum or maximum at p = 0.01.}
 
