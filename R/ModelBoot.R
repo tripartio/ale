@@ -1021,18 +1021,19 @@ ModelBoot <- new_class(
     ale_summary <- if (output_ale) {
       full_ale <- boot_data$ale[[1]]
 
-      # Remove first element (not bootstrapped) if bootstrapping is requested
-      boot_data_ale <-
-        if (boot_it == 0) {  # only one full iteration; it is valid
-          # Normally y_cats is calculated for bootstrapping;
-          # so make sure it is available for ALE summarization.
-          y_cats <- full_ale@params$y_cats
+      # Retrieve all bootstrapped elements, if any
+      boot_data_ale <- boot_data$ale[-1] |>
+        compact()  # remove NULL elements from failed iterations
 
-          boot_data$ale
-        } else {  # for regular bootstraps, delete the first full model ALE
-          boot_data$ale[-1] |>
-            compact()  # remove NULL elements from failed iterations
-        }
+      if (length(boot_data_ale) == 0) {
+        # No successful bootstrap iteration
+
+        # Normally y_cats is calculated for bootstrapping;
+        # so make sure it is available for ALE summarization.
+        y_cats <- full_ale@params$y_cats
+
+        boot_data_ale <- boot_data$ale[1]
+      }
 
       # Use only one loop across the categories
       map(y_cats, \(it.cat) {
