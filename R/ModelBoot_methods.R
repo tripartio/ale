@@ -186,6 +186,7 @@ method(print, ModelBoot) <- function(
 #' @param object An object of class `ModelBoot`.
 #' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
 #' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `object`. The printout is a side effect.
@@ -202,17 +203,24 @@ method(summary, ModelBoot) <- function(
     object,
     stats = c('aled', 'naled'),
     all_conf = FALSE,
+    round_digits = 4L,
     ...
 ) {
   print(object, details = FALSE)
 
   cat('\n')
   cli_text('Overall model statistics:')
-  print(object@model_stats, n = nrow(object@model_stats))
+  model_stats <- object@model_stats
+  model_stats |>
+    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
+    print(n = nrow(model_stats))
 
   cat('\n')
   cli_text('Summary model term estimates:')
-  print(object@model_coefs, n = nrow(object@model_coefs))
+  model_coefs <- object@model_coefs
+  model_coefs |>
+    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
+    print(n = nrow(model_coefs))
 
   if (!is.null(object@ale)) {
     if (!object@ale$single@params$output_stats) {
@@ -223,7 +231,8 @@ method(summary, ModelBoot) <- function(
         p_dist = object@params$ale_p,
         stats = stats,
         all_conf = all_conf,
-        boot_centre = object@ale$single@params$boot_centre
+        boot_centre = object@ale$single@params$boot_centre,
+        round_digits = round_digits
       )
     }
   }
