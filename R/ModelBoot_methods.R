@@ -209,14 +209,14 @@ method(summary, ModelBoot) <- function(
   print(object, details = FALSE)
 
   cat('\n')
-  cli_text('Overall model statistics:')
+  cli_text('Overall model statistics (object@model_stats):')
   model_stats <- object@model_stats
   model_stats |>
     mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
     print(n = nrow(model_stats))
 
   cat('\n')
-  cli_text('Summary model term estimates:')
+  cli_text('Summary model term estimates (object@model_coefs):')
   model_coefs <- object@model_coefs
   model_coefs |>
     mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>

@@ -444,7 +444,7 @@ summary_ALE_stats <- function(
     round_digits = 4
 ) {
   cat('\n')
-  cli_text('M{str_sub(boot_centre, 2)} ALE statistics:')
+  cli_text('M{str_sub(boot_centre, 2)} ALE statistics [get(object, stats = "estimate")]:')
   ale_estimates <- object |>
     get(stats = 'estimate') |>
     bind_rows() |>
@@ -452,11 +452,17 @@ summary_ALE_stats <- function(
   print(ale_estimates, n = nrow(ale_estimates))
 
   cat('\n')
-  if (!is.null(p_dist)) {
-    cli_text('ALE statistic distributions ({p_dist@params$exactness} p-values, {p_dist@params$rand_it_ok} iterations):')
-  } else {
-    cli_text('ALE statistic distributions (no p-values requested):')
-  }
+  cli_text(paste0(
+    'ALE statistic distributions ',
+    if (!is.null(p_dist)) {
+      '({p_dist@params$exactness} p-values, {p_dist@params$rand_it_ok} iterations)'
+    } else {
+      '(no p-values requested)'
+    },
+    ' [get(object, stats = c(',
+    paste0('"', stats, '"', collapse = ', '),
+    '))]:'
+  ))
   ale_stats <- object |>
     get(stats = stats) |>
     bind_rows() |>
@@ -468,7 +474,7 @@ summary_ALE_stats <- function(
   print(ale_stats, n = nrow(ale_stats))
 
   cat('\n')
-  cli_text('Statistically significant confidence regions:')
+  cli_text('Statistically significant confidence regions [get(object, stats = "conf_sig")]:')
   conf_sig <- object |>
     get(stats = 'conf_sig') |>
     bind_rows()
@@ -476,7 +482,7 @@ summary_ALE_stats <- function(
 
   if (all_conf) {
     cat('\n')
-    cli_text('All confidence regions:')
+    cli_text('All confidence regions [get(object, stats = "conf_regions")]:')
     conf_regions <- object |>
       get(stats = 'conf_regions') |>
       bind_rows() |>
