@@ -10,6 +10,8 @@
 
 \item{all_conf}{logical(1). By default (\code{FALSE}), only statistically significant confidence regions are reported. If \code{TRUE}, all regions are reported as well.}
 
+\item{round_digits}{integer(1). Numbers in tables will be rounded to \code{round_digits} decimal places.}
+
 \item{...}{Additional arguments (currently not used).}
 }
 \value{
