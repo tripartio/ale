@@ -717,8 +717,9 @@ ALE <- new_class(
     # https://cran.r-project.org/web/packages/future/vignettes/future-7-for-package-developers.html
     # However, don't presume that all users will use future, so just use on.exit strategy.
     if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan), add = TRUE)
+      future::plan(future::multisession, workers = parallel) |>
+        # https://github.com/tripartio/ale/issues/17
+        with(local = TRUE)
     }
 
     # Create progress bar iterator only if not in an outer loop with bins
