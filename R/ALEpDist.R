@@ -455,8 +455,9 @@ ALEpDist <- new_class(
 
     # Enable parallel processing and restore former parallel plan on exit
     if (parallel > 0) {
-      original_parallel_plan <- future::plan(future::multisession, workers = parallel)
-      on.exit(future::plan(original_parallel_plan))
+      future::plan(future::multisession, workers = parallel) |>
+        # https://github.com/tripartio/ale/issues/17
+        with(local = TRUE)
     }
 
     # Create progress bar iterator
