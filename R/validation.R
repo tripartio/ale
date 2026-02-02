@@ -153,11 +153,11 @@ validate_parallel <- function(parallel, model, model_packages) {
   )
 
   parallel <- if (parallel == 'all') {
-    future::availableCores(logical = TRUE)
+    future::availableCores(constraints = "connections-16", logical = TRUE)
   } else if (parallel == 'all but one') {
-    future::availableCores(logical = FALSE, omit = 1)
+    future::availableCores(constraints = "connections-16", logical = FALSE, omit = 1)
   } else {
-    max_cores <- future::availableCores(logical = TRUE)
+    max_cores <- future::availableCores(constraints = "connections-16", logical = TRUE)
     if (parallel > max_cores) {  # nocov start
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
