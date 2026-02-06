@@ -367,6 +367,20 @@ ALE <- new_class(
 
     validate(is_bool(output_boot_data))
 
+    # Set NULL aled_fun to either value from p_values or default 'mad'
+    if (is.null(aled_fun)) {
+      aled_fun <- if (p_values |> S7_inherits(ALEpDist)) {
+        p_values@params$aled_fun
+      } else {
+        'mad'
+      }
+    }
+
+    validate(
+      aled_fun |> is_string(c('mad', 'sd')),
+      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
+    )
+
     if (output_stats) {
       if (!is.null(p_values)) {
         # The user wants p-values
@@ -382,6 +396,7 @@ ALE <- new_class(
               model_packages = model_packages,
               pred_fun = pred_fun,
               pred_type = pred_type,
+              aled_fun = aled_fun,
               seed = seed,
               silent = silent,
               .skip_validation = TRUE
@@ -425,15 +440,6 @@ ALE <- new_class(
       p_values <- NULL
     }
 
-    # Set NULL aled_fun to either value from p_values or default 'mad'
-    if (is.null(aled_fun)) {
-      aled_fun <- if (p_values |> S7_inherits(ALEpDist)) {
-        p_values@params$aled_fun
-      } else {
-        'mad'
-      }
-    }
-
     validate(
       is.numeric(aler_alpha),
       length(aler_alpha) == 2,
@@ -444,11 +450,6 @@ ALE <- new_class(
         'x' = '{.arg aler_alpha} must be a pair of numbers each between 0 and 0.5.',
         'i' = 'aler_alpha[1] must be less than or equal to aler_alpha[2].'
       )
-    )
-
-    validate(
-      is.null(aled_fun) || (aled_fun |> is_string(c('mad', 'sd'))),
-      msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
     )
 
     # Validate max_num_bins
@@ -809,7 +810,8 @@ ALE <- new_class(
               boot_ale_y = output_boot_data,
               .bins = it.bins,
               ale_y_norm_funs = ale_y_norm_funs,
-              p_dist = p_values
+              p_dist = p_values,
+              aled_fun = aled_fun
             ) |>
             list_transpose(simplify = FALSE)
 

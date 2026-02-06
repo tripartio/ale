@@ -48,7 +48,8 @@ calc_ale <- function(
     boot_ale_y = FALSE,
     .bins = NULL,
     ale_y_norm_funs = NULL,
-    p_dist = NULL
+    p_dist = NULL,
+    aled_fun = 'mad'
 ) {
 
   # Set up base variables --------------
@@ -863,7 +864,8 @@ calc_ale <- function(
                 bin_n = btit.cat_ale_data$.n,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
                 y_vals = NULL,
-                x_type = xd[[1]]$x_type
+                x_type = xd[[1]]$x_type,
+                aled_fun = aled_fun
               )
             }
             else if (ixn_d == 2) {
@@ -872,8 +874,10 @@ calc_ale <- function(
                 x_cols = x_cols,
                 x_types = x_types,
                 ale_y_norm_fun = ale_y_norm_funs[[it.cat_name]],
-                y_vals = NULL
-              )            }
+                y_vals = NULL,
+                aled_fun = aled_fun
+              )
+            }
             else {
               cli_abort('Statistics not yet supported for higher than 2 dimensions.')  # nocov
             }

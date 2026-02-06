@@ -634,8 +634,8 @@ ALEpDist <- new_class(
               y = it.rand.cat$ale$d1$random_variable$.y,
               bin_n = it.rand.cat$ale$d1$random_variable$.n,
               ale_y_norm_fun = ale_y_norm_fun,
-              x_type = 'numeric' #,  # the random variables are always numeric
-              # zeroed_ale = TRUE
+              x_type = 'numeric', #,  # the random variables are always numeric
+              aled_fun = aled_fun
             )
           })
       }) |>

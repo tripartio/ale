@@ -148,7 +148,7 @@ calc_stats <- function(
 #' @param x_types character same length as `x_cols`. Variable types (output of var_type()) of corresponding `x_cols`.
 #' @param y_vals See documentation for \code{[calc_stats()]}
 #' @param ale_y_norm_fun See documentation for \code{[calc_stats()]}
-# @param zeroed_ale See documentation for \code{[calc_stats()]}
+#' @param aled_fun See documentation for [ALE()]
 #'
 #' @returns Same as \code{[calc_stats()]}.
 #'
@@ -157,7 +157,8 @@ calc_stats_2D <- function(
     x_cols,
     x_types,
     y_vals = NULL,
-    ale_y_norm_fun = NULL
+    ale_y_norm_fun = NULL,
+    aled_fun = 'mad'
 ) {
   # ale_data=boot_summary
 
@@ -231,7 +232,8 @@ calc_stats_2D <- function(
     y_vals = y_vals,
     ale_y_norm_fun = ale_y_norm_fun,
     # Now ALE stats can be calculated as ordinal ALE since all the necessary preprocessing has been done.
-    x_type = 'ordered'
+    x_type = 'ordered',
+    aled_fun = aled_fun
   ))
 }  # calc_stats_2D()
 
