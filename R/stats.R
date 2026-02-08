@@ -72,6 +72,23 @@ calc_stats <- function(
         sum() |>
         (`/`)(sum(n)) |>
         sqrt()
+    } else if (aled_fun == 'linear') {
+      # Although experimentally implemented here as a third ALE deviation function, this "linear" option will probably end up as an entirely new kind of ALE statistic, probably "ALE coefficient (ALEC)", which lets direct comparison of the relative strengths of effects from one variable to another in terms of linear weights. I doubt it would have a normalized transformation.
+      min_y <- min(y, na.rm = TRUE)  # needs max for negative weights
+
+      non_neg_y <- y - min_y
+      (non_neg_y * n) |>
+        sum() |>
+        (`/`)(sum(n))
+
+      # (y * n) |>
+      #   sum() |>
+      #   (`/`)(sum(n))
+
+      # non_neg_y <- y - min(y, na.rm = TRUE)
+      # (non_neg_y * n) |>
+      #   sum() |>
+      #   (`/`)(sum(n))
     }
   }
 

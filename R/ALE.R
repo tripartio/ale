@@ -377,7 +377,8 @@ ALE <- new_class(
     }
 
     validate(
-      aled_fun |> is_string(c('mad', 'sd')),
+      aled_fun |> is_string(c('linear', 'mad', 'sd')),
+      # "linear" experimental option is not documented for now
       msg = '{.arg aled_fun} must be "mad", "sd", or NULL.'
     )
 
