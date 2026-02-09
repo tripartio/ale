@@ -11,7 +11,7 @@ test_that(
       ),
       boot_it = 2,
       ale_p = NULL,
-      parallel = 'all but one',
+      parallel = 2,  # minimal list for x_cols
       silent = TRUE
     )
 

@@ -7,6 +7,7 @@ test_that(
     pll_ale <- ALE(
       test_gam,
       x_cols = ~ model + carb + am:wt,
+      parallel = 3,  # 1 core per term in x_cols
       data = test_cars,
       p_values = 'auto',
       boot_it = 2,

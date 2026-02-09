@@ -6,6 +6,10 @@
 
 # Global test settings -------------
 
+# # Disable parallel tests
+# options(testthat.parallel = FALSE)
+# Sys.setenv(TESTTHAT_PARALLEL = "false")
+
 # Disable progressr
 options(progressr.enable = FALSE)
 
