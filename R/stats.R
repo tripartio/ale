@@ -73,22 +73,23 @@ calc_stats <- function(
         (`/`)(sum(n)) |>
         sqrt()
     } else if (aled_fun == 'linear') {
-      # Although experimentally implemented here as a third ALE deviation function, this "linear" option will probably end up as an entirely new kind of ALE statistic, probably "ALE coefficient (ALEC)", which lets direct comparison of the relative strengths of effects from one variable to another in terms of linear weights. I doubt it would have a normalized transformation.
-      min_y <- min(y, na.rm = TRUE)  # needs max for negative weights
+      # Although experimentally implemented here as a third ALE deviation function, this "linear" option will probably end up as an entirely new kind of ALE statistic, probably "ALE coefficient (ALEC)", which allows direct comparison of the relative strengths of effects from one variable to another in terms of linear weights.
+      # A future normalized version (scaled on 100% of linear weights) will require composite ALE.
+      sum_n <- sum(n)
+      min_y <- min(y, na.rm = TRUE)
+      max_y <- max(y, na.rm = TRUE)
 
-      non_neg_y <- y - min_y
-      (non_neg_y * n) |>
+      pos_coef <- ((y - min_y) * n) |>
         sum() |>
-        (`/`)(sum(n))
+        (`/`)(sum_n)
+      neg_coef <- ((y - max_y) * n) |>
+        sum() |>
+        (`/`)(sum_n)
 
-      # (y * n) |>
-      #   sum() |>
-      #   (`/`)(sum(n))
-
-      # non_neg_y <- y - min(y, na.rm = TRUE)
-      # (non_neg_y * n) |>
-      #   sum() |>
-      #   (`/`)(sum(n))
+      # Both pos_coef and neg_coef are "correct"; they simply express the data as signed inverses one of the other.
+      # Choose to express the data as the simpler of the two: the coefficient with the smaller unsigned magnitude.
+      # Though this approach cannot reliably reproduce an artificially simulated linear weight, it accurately represents or rerepresents the empirical data.
+      if (abs(pos_coef) <= abs(neg_coef)) pos_coef else neg_coef
     }
   }
 
