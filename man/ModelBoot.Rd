@@ -10,7 +10,7 @@ ModelBoot(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = "all",
+  parallel = "all but one",
   model_packages = NULL,
   y_col = NULL,
   positive = TRUE,

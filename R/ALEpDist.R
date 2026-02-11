@@ -211,7 +211,7 @@ ALEpDist <- new_class(
     y_col = NULL,
     rand_it = NULL,
     surrogate = FALSE,
-    parallel = 'all',
+    parallel = 'all but one',
     model_packages = NULL,
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
