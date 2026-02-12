@@ -33,7 +33,6 @@ test_that(
       x_cols = list(d1 = TRUE, d2 = TRUE),
       data = test_cars,
       boot_it = 2,
-      parallel = 0,
       p_values = NULL,
       silent = TRUE
     )

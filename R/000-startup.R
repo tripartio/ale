@@ -1,10 +1,19 @@
-## aaa.R
+## 000-startup.R
 # Define package-wide environment variables
 
 # Register S7 methods.
 # https://rconsortium.github.io/S7/articles/packages.html#method-registration
-.onLoad <- function(...) {
+.onLoad <- function(libname, pkgname) {
   methods_register()  # nocov
+
+  # Set default option values
+  op <- options()
+
+  if (is.null(op$ale.parallel)) {
+    options(ale.parallel = "all but one")
+  }
+
+  invisible()
 }
 
 
@@ -32,11 +41,10 @@
 }
 
 
-# generics.R
-# S7 generics
 
 
 # Register generics ----------
+# get() must be loaded before anything else, or else whacky bugs result.
 
 #' S7 generic get method for objects in the ale package
 #' @export

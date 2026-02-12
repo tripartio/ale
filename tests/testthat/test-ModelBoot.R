@@ -33,7 +33,6 @@ test_that(
     mb <- ModelBoot(
       test_gam,
       data = test_cars,
-      parallel = 0,
       boot_it = 0,  # test with no bootstrapping
       ale_options = list(
         x_cols = c('wt', 'am', 'gear:carb')
@@ -62,7 +61,6 @@ test_that(
     mb <- ModelBoot(
       test_gam_binary,
       data = test_cars,
-      parallel = 0,
       # test surrogate generation by leaving ale_p at default
       boot_it = 2,
       ale_options = list(
@@ -102,7 +100,6 @@ test_that(
       model_call_string =
         'nnet::multinom(Species ~ ., data = boot_data, trace = FALSE)',
       # model_call_string_vars = character(),  # not tested
-      parallel = 0,
       model_packages = 'nnet',
       y_col = 'Species',
       positive = FALSE,  # not used here

@@ -347,6 +347,9 @@ ALE <- new_class(
       pred_type = pred_type
     )
 
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
     vp <- validate_parallel(parallel, model, model_packages)
     parallel <- vp$parallel
     model_packages <- vp$model_packages

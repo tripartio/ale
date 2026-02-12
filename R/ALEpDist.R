@@ -291,6 +291,9 @@ ALEpDist <- new_class(
       msg = cli_alert_danger('All predictions are identical. p-values cannot be created.')
     )
 
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
     vp <- validate_parallel(parallel, model, model_packages)
     parallel <- vp$parallel
     model_packages <- vp$model_packages

@@ -100,7 +100,6 @@ test_that('ale function matches output of ALEPlot with nnet', {
     model = nnet.DAT,
     data = DAT,
     # make ale equivalent to ALEPlot
-    parallel = 0,
     output_stats = FALSE,
     boot_it = 0,
     # specific options requested by ALEPlot example
@@ -155,7 +154,6 @@ test_that('ale function matches output of ALEPlot with gbm', {
     x_cols = c('age', 'workclass', 'education_num', 'sex'),
     data = adult_data[,-c(3,4)],  # unlike ALEPlot, include the y column (15)
     # make ale equivalent to ALEPlot
-    parallel = 0,
     output_stats = FALSE,
     boot_it = 0,
     # specific options requested by ALEPlot example
@@ -236,7 +234,6 @@ test_that('2D ALE matches output of ALEPlot interactions with nnet', {
     model = nnet.DAT,
     data = DAT,
     x_cols = list(d2 = TRUE),
-    parallel = 0,
     output_stats = FALSE,
     pred_fun = nnet_pred_fun_ale,
     pred_type = "raw", max_num_bins = 10 + 1,  # specific options requested
@@ -323,7 +320,6 @@ test_that('2D ALE matches output of ALEPlot interactions with gbm', {
       'education_num:hours_per_week',
       'sex:hours_per_week'
     ),
-    parallel = 0,
     output_stats = FALSE,
     pred_fun = gbm_pred_fun_ale,
     pred_type = 'link', max_num_bins = 10 + 1,  # specific options requested

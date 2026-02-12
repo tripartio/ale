@@ -123,7 +123,7 @@ ale_gam_diamonds <- retrieve_rds(
 # saveRDS(ale_gam_diamonds, file.choose())
 ```
 
-By default, most core functions in the `{ale}` package use parallel processing. If your computer has problems with this, you can disable parallelization with the argument `parallel = 0`.
+By default, most core functions in the `{ale}` package use parallel processing. If your computer has problems with this, you can disable parallelization with the global option  `options(ale.parallel = 0)` or the argument `parallel = 0` in specific functions like `ALE()`.
 
 To access the plot for a specific variable, we must first create an `ALEPlots` object by calling the `plot()` method on the `ALE` object which internally generates `ggplot` objects with the full flexibility of {ggplot2}:
 

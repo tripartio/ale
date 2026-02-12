@@ -10,8 +10,6 @@ test_that(
       test_gam,
       data = test_cars,
       y_col = 'mpg',
-      # disable parallelization for testing
-      parallel = 0,
       rand_it = 10,
       .skip_validation = TRUE,
       silent = TRUE
@@ -23,7 +21,6 @@ test_that(
       data = test_cars,
       p_values = pd,
       boot_it = 3,
-      parallel = 0,
       silent = TRUE,
     )
     expect_snapshot(unclass(cars_ale))
@@ -55,8 +52,7 @@ test_that(
       .skip_validation = TRUE,
       surrogate = TRUE,
       output_residuals = TRUE,
-      silent = TRUE,
-      parallel = 0  # disable parallelization for testing
+      silent = TRUE
     )
     expect_snapshot(unclass(pd))
 
@@ -92,7 +88,6 @@ test_that(
       surrogate = FALSE,
       output_residuals = TRUE,
       silent = TRUE,
-      parallel = 0,  # disable parallelization for testing
       rand_it = 3,
       .skip_validation = TRUE
     )
@@ -109,7 +104,6 @@ test_that(
       test_gam_binary,
       data = test_cars,
       y_col = 'vs',
-      parallel = 0,  # disable parallelization for testing
       silent = TRUE,
       rand_it = 10,
       .skip_validation = TRUE
@@ -128,7 +122,6 @@ test_that(
       data = test_cars,
       y_col = 'continent',
       pred_type = 'probs',
-      parallel = 0,  # disable parallelization for testing
       silent = TRUE,
       rand_it = 10,
       .skip_validation = TRUE

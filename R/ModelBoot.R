@@ -243,6 +243,9 @@ ModelBoot <- new_class(
         str_replace_all('([^.])(boot_data)', '\\1btit.data')
     }
 
+    if (missing(parallel)) {
+      parallel <- getOption("ale.parallel", parallel)
+    }
     vp <- validate_parallel(parallel, model, model_packages)
     parallel <- vp$parallel
     model_packages <- vp$model_packages

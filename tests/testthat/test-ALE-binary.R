@@ -12,7 +12,6 @@ test_that(
       x_cols = list(d1 = TRUE, d2 = TRUE),
       data = test_cars,
       boot_it = 2,
-      parallel = 0,
       p_values = NULL,
       silent = TRUE
     )
@@ -37,7 +36,6 @@ test_that(
       data = test_cars,
       y_col = 'vs',
       # exclude_cols = NULL,  # test exclude_cols separately
-      parallel = 0,
       # model_packages = NULL,  # not tested here; requires parallelization
       output_stats = FALSE,
       output_boot_data = TRUE,
