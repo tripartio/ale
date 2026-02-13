@@ -175,9 +175,7 @@ ModelBoot <- new_class(
     model_packages = NULL,
     y_col = NULL,
     positive = TRUE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = "response",
     boot_it = 100,
     boot_alpha = 0.05,
@@ -246,9 +244,9 @@ ModelBoot <- new_class(
     if (missing(parallel)) {
       parallel <- getOption("ale.parallel", parallel)
     }
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
 
     # Determine if the information for calculating performance measures can be obtained.
@@ -269,13 +267,15 @@ ModelBoot <- new_class(
           )
 
           # Obtain the predictions of y. This operation simultaneously validates pred_fun, model, and pred_type.
-          y_preds <- validate_y_preds(
+          val_pred <- validate_prediction(
             pred_fun = pred_fun,
             model = model,
             data = data,
             y_col = y_col,
             pred_type = pred_type
           )
+          pred_fun <- val_pred$pred_fun
+          y_preds <- val_pred$y_preds
 
           y_cats <- colnames(y_preds)
           y_type <- var_type(data[[y_col]])
@@ -374,6 +374,8 @@ ModelBoot <- new_class(
 
     ## Verify glance and tidy methods ------------
 
+    class_model <- class(model)
+
     # Define call_glance since it is possible to output_model_stats without broom::glance results
     call_glance <- FALSE
     if (output_model_stats) {
@@ -381,14 +383,17 @@ ModelBoot <- new_class(
         str_remove("^glance\\.") |>  # Remove leading "glance."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      call_glance <- any(class(model) %in% glance_methods)
+      call_glance <- any(class_model %in% glance_methods)
 
       if (!call_glance) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun broom::glance} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Some general model statistics will not be provided',
-          'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::glance} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Some general model statistics will not be provided',
+            'i' = 'To silence this warning, set {.code output_model_stats = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -398,14 +403,17 @@ ModelBoot <- new_class(
         str_remove("^tidy\\.") |>  # Remove leading "tidy."
         str_remove("\\*$")           # Remove trailing "*" if present
 
-      output_model_coefs <- any(class(model) %in% tidy_methods)
+      output_model_coefs <- any(class_model %in% tidy_methods)
 
       if (!output_model_coefs) {  # nocov start
-        cli_warn(c(
-          '!' = 'No {.fun broom::tidy} methods found for the class {.cls {class(model)}}.',
-          'i' = 'Model coefficient summaries will not be provided.',
-          'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
-        ))
+        if (!any(class_model %in% 'ranger')) {
+          cli_warn(c(
+            '!' = 'No {.fun broom::tidy} methods found for the class {.cls {class(model)}}.',
+            'i' = 'Model coefficient summaries will not be provided.',
+            'i' = 'To silence this warning, set {.code output_model_coefs = FALSE}.'
+          ))
+          # No warning for ranger, which is known to lack broom support
+        }
       }  # nocov end
     }
 
@@ -1201,7 +1209,7 @@ ModelBoot <- new_class(
       names(params) |> str_detect('^it\\.')
     ]
     temp_objs <- c(
-      'calc_boot_valid', 'call_glance', 'data_in_model_call', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'vp', 'y_preds'
+      'calc_boot_valid', 'call_glance', 'data_in_model_call', 'glance_methods', 'model_call', 'n_rows', 'resolved_x_cols', 'silent', 'tidy_methods', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 

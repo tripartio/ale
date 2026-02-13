@@ -216,9 +216,7 @@ ALEpDist <- new_class(
     random_model_call_string = NULL,
     random_model_call_string_vars = character(),
     positive = TRUE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = "response",
     aled_fun = 'mad',
     output_residuals = FALSE,
@@ -277,13 +275,15 @@ ALEpDist <- new_class(
 
     # Validate the prediction function with the model and the dataset
     # Note: y_preds will be used later in this function.
-    y_preds <- validate_y_preds(
+    val_pred <- validate_prediction(
       pred_fun = pred_fun,
       model = model,
       data = data,
       y_col = y_col,
       pred_type = pred_type
     )
+    pred_fun <- val_pred$pred_fun
+    y_preds <- val_pred$y_preds
 
     # Nip in the bud rubbish results due to identical predictions
     validate(
@@ -294,9 +294,9 @@ ALEpDist <- new_class(
     if (missing(parallel)) {
       parallel <- getOption("ale.parallel", parallel)
     }
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
     model_call <- NULL  # Initialize
     if (is.null(random_model_call_string)) {
@@ -445,6 +445,15 @@ ALEpDist <- new_class(
 
     if (!is.null(model_call)) {
       # Get the predictors when model_call is automatically detected
+
+      if (is.null(model_call$formula)) {
+        # Some models assign the formula as the default first argument without naming it.
+        # In such cases, element 1 is the function call and element 2 is the formula.
+        model_call$formula <- model_call[[2]]
+        # Element 2 must be subsequently deleted, or else it is passed to the next unnamed argument
+        model_call[[2]] <- NULL
+      }
+
       model_predictors <-
         model_call$formula |>
         # Regardless of the format of the formula (e.g., a symbol variable, evaluate it in the calling environment to convert it to a valid formula object)
@@ -655,7 +664,7 @@ ALEpDist <- new_class(
     ]
     temp_objs <- c(
       'data', 'model_call', 'n_rows', 'output_residuals', 'pred_fun',
-      'pred_type', 'silent', 'surrogate', 'vp', 'y_preds'
+      'pred_type', 'silent', 'surrogate', 'val_pll', 'val_pred', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 

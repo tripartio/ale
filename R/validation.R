@@ -51,9 +51,14 @@ validate_y_col <- function(
       msg = cli_alert_danger('{.arg y_col} ("{y_col}") is not found in {.arg data}.')
     )
   }
-  # If NULL, try to identify y column from the Y term of the R model call
-  else {
-    y_col <- insight::find_response(model)
+  else {  # y_col is NULL
+    # Try to identify y column from the Y term of the R model call
+    y_col <- if (any(class(model) %in% 'ranger')) {
+      model$dependent.variable.name
+    } else {
+      # Generic attempt to find y_col
+      insight::find_response(model)
+    }
 
     if (is.null(y_col)) {  # nocov start
       cli_abort('The name of the target outcome variable could not be automatically determined, so {.arg y_col} must be provided.')
@@ -63,15 +68,40 @@ validate_y_col <- function(
   y_col
 }
 
-# Validate model predictions.
+# Validate model predictions and a custom predict function.
 # This function actually mainly validates the model argument because it ensures that the model validly generates predictions from data. A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector or matrix with length equal to the number of rows in the dataset.
-validate_y_preds <- function(
+validate_prediction <- function(
     pred_fun,
     model,
     data,
     y_col,
     pred_type
 ) {
+  # Establish the custom prediction function
+  pred_fun <- if (is.null(pred_fun)) {
+    if (any(class(model) %in% 'ranger')) {
+      function(object, newdata, type = pred_type) {
+        ranger:::predict.ranger(
+          object = object,
+          data = newdata,
+          type = type
+        )$predictions
+      }
+    } else {
+      # Generic prediction function
+      function(object, newdata, type = pred_type) {
+        stats::predict(
+          object = object,
+          newdata = newdata,
+          type = type
+        )
+      }
+    }
+  } else {
+    # Use the provided non-NULL pred_fun
+    pred_fun
+  }
+
   # Validate the prediction function with the model and the dataset
   y_preds <- tryCatch(
     pred_fun(object = model, newdata = data, type = pred_type),
@@ -136,7 +166,10 @@ validate_y_preds <- function(
     )
   )
 
-  y_preds
+  list(
+    pred_fun = pred_fun,
+    y_preds = y_preds
+  )
 }
 
 

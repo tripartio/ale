@@ -21,7 +21,7 @@
 #' @param model_packages character. Character vector of names of packages that `model` depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting `parallel = 0`, you might need to specify `model_packages`. See details.
 #' @param output_stats logical(1). If `TRUE` (default), return ALE statistics.
 #' @param output_boot_data logical(1). If `TRUE`, return the raw ALE data for each bootstrap iteration. Default is `FALSE`.
-#' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. See details.
+#' @param pred_fun,pred_type function,character(1). `pred_fun` is a function that returns a vector of predicted values of type `pred_type` from `model` on `data`. The default `NULL` for `pred_fun` will often work; if you get an error message, see details.
 #' @param p_values instructions for calculating p-values. Possible values are:
 #' * `NULL`: p-values are not calculated.
 #' * An `ALEpDist` object: the object will be used to calculate p-values.
@@ -289,9 +289,7 @@ ALE <- new_class(
     model_packages = NULL,
     output_stats = TRUE,
     output_boot_data = FALSE,
-    pred_fun = function(object, newdata, type = pred_type) {
-      stats::predict(object = object, newdata = newdata, type = type)
-    },
+    pred_fun = NULL,
     pred_type = 'response',
     p_values = 'auto',
     require_same_p = TRUE,
@@ -327,7 +325,7 @@ ALE <- new_class(
 
     # Validate y_col.
     # If y_col is NULL, try to automatically detect it.
-    # Note: validate_y_col() must come before validate_y_preds().
+    # Note: validate_y_col() must come before validate_prediction().
     y_col <- validate_y_col(
       y_col = y_col,
       data = data,
@@ -339,20 +337,22 @@ ALE <- new_class(
     # Validate the model:
     # A valid model is one that, when passed to a predict function with a valid dataset, produces a numeric vector with length equal to the number of rows in the dataset.
     # Note: y_preds will be used later in this function.
-    y_preds <- validate_y_preds(
+    val_pred <- validate_prediction(
       pred_fun = pred_fun,
       model = model,
       data = data,
       y_col = y_col,
       pred_type = pred_type
     )
+    pred_fun <- val_pred$pred_fun
+    y_preds <- val_pred$y_preds
 
     if (missing(parallel)) {
       parallel <- getOption("ale.parallel", parallel)
     }
-    vp <- validate_parallel(parallel, model, model_packages)
-    parallel <- vp$parallel
-    model_packages <- vp$model_packages
+    val_pll <- validate_parallel(parallel, model, model_packages)
+    parallel <- val_pll$parallel
+    model_packages <- val_pll$model_packages
 
     # Validate and resolve x_cols and exclude_cols
     col_names <- names(data)
@@ -700,7 +700,7 @@ ALE <- new_class(
     temp_objs <- c(
       'ale_y_norm_funs', 'col_names', 'cols_used', 'exclude_cols',
       'invalid_col_names', 'invalid_fct_order_col_names', 'invalid_max_num_bins_col_names', 'invalid_msg_fct_order', 'invalid_msg_max_num_bins',
-      'pm', 'requested_fct_order', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'vp', 'x_cols', 'y_vals', 'y_preds'
+      'pm', 'requested_fct_order', 'silent', 'temp_objs', 'unordered_fcts', 'valid_d', 'valid_fct_order_vals', 'valid_output_types', 'valid_x_cols', 'val_pll', 'val_pred', 'x_cols', 'y_vals', 'y_preds'
     )
     params <- params[names(params) |> setdiff(c(temp_objs, it_objs))]
 
