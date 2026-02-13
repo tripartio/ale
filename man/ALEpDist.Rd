@@ -11,15 +11,12 @@ ALEpDist(
   y_col = NULL,
   rand_it = NULL,
   surrogate = FALSE,
-  parallel = "all but one",
+  parallel = 0,
   model_packages = NULL,
   random_model_call_string = NULL,
   random_model_call_string_vars = character(),
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   aled_fun = "mad",
   output_residuals = FALSE,

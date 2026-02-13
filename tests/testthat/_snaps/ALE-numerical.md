@@ -649,7 +649,7 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x000001a225d0b7d8>"
       
       attr(,"params")$pred_type
       [1] "response"

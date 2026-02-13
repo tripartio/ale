@@ -512,7 +512,7 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x0000027250e8f0e8>"
       
       attr(,"params")$pred_type
       [1] "response"
@@ -555,6 +555,9 @@
       
       
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "gam" "glm" "lm" 
+      
       attr(,"params")$model
       attr(,"params")$model$class
       [1] "gam" "glm" "lm" 
@@ -676,7 +679,7 @@
       [1] TRUE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] ""
       
       attr(,"params")$pred_type
       [1] "response"
@@ -1231,7 +1234,7 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x0000027250e8f0e8>"
       
       attr(,"params")$pred_type
       [1] "response"
@@ -1402,6 +1405,9 @@
       2     1 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       3     2 <int [64]> <gam>  <ale::ALE> <tibble [1 x 5]> <tibble [1 x 9]> <tibble>
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "gam" "glm" "lm" 
+      
       attr(,"params")$y_type
       [1] "binary"
       
@@ -1529,7 +1535,7 @@
       [1] TRUE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x0000027250e8f0e8>"
       
       attr(,"params")$pred_type
       [1] "response"
@@ -2219,7 +2225,7 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x0000027250e8f0e8>"
       
       attr(,"params")$pred_type
       [1] "probs"
@@ -2428,6 +2434,9 @@
       
       
       attr(,"params")
+      attr(,"params")$class_model
+      [1] "multinom" "nnet"    
+      
       attr(,"params")$y_type
       [1] "categorical"
       
@@ -2778,7 +2787,7 @@
       [1] FALSE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }\n<bytecode: 0x0000027250e8f0e8>"
       
       attr(,"params")$pred_type
       [1] "probs"

@@ -170,7 +170,7 @@ plot(ale_gam_diamonds) |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-simple-ale-1.png" width="100%" />
+<img src="man/figures/README-simple-ale-1.png" alt="" width="100%" />
 
 For an explanation of these basic features, see the [introductory
 vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
@@ -178,11 +178,11 @@ vignette](https://tripartio.github.io/ale/articles/ale-intro.html).
 ### Statistical inference with ALE
 
 The statistical functionality of the `{ale}` package is rather slow
-because it typically involves 100 bootstrap iterations and sometimes a
+because it typically involves 100 bootstrap iterations and sometimes
 1,000 random simulations. Even though most functions in the package
-implement parallel processing by default, such procedures still take
-some time. So, this statistical demonstration gives you downloadable
-objects for a rapid demonstration.
+support parallel processing, such procedures still take some time. So,
+this statistical demonstration gives you downloadable objects for a
+rapid demonstration.
 
 First, we need to create a p-value distribution object so that the ALE
 statistics can be properly distinguished from random effects.
@@ -241,7 +241,7 @@ ale_plots |>
   print(ncol = 2)
 ```
 
-<img src="man/figures/README-ale-p-and-1D-plot-1.png" width="100%" />
+<img src="man/figures/README-ale-p-and-1D-plot-1.png" alt="" width="100%" />
 
 ``` r
 # Plot a selected 2D plot
@@ -250,7 +250,7 @@ ale_plots |>
   get('carat:clarity') 
 ```
 
-<img src="man/figures/README-2D-plot-1.png" width="100%" />
+<img src="man/figures/README-2D-plot-1.png" alt="" width="100%" />
 
 For a detailed explanation of how to interpret these plots, see the
 vignette on [ALE-based statistics for statistical inference and effect

@@ -3003,7 +3003,7 @@
       [1] TRUE
       
       attr(,"params")$pred_fun
-      [1] "function(object, newdata, type = pred_type) {\n      stats::predict(object = object, newdata = newdata, type = type)\n    }"
+      [1] "function(object, newdata, type = pred_type) {\n        stats::predict(\n          object = object,\n          newdata = newdata,\n          type = type\n        )\n      }"
       
       attr(,"params")$pred_type
       [1] "probs"

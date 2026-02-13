@@ -8,12 +8,12 @@
 * For 1D plots of categorical variables, only a maximum of 10 distinct values (e.g., factor levels) are now shown (the default 10 is adjustable with the `consolid_cats` argument of `plot.ALE()`). The top `consolid_cats - 1` values in ALE strength are shown and all other values are consolidated into an "other" category. 
 * With the default value `"levels"` of the `fct_order` argument to the `ALE()` constructor, unordered factors are now sorted in the order of the factor levels (characters columns are sorted in alphabetical order of their unique values). An alternative `"y_col"` sorts based on the increasing mean values of the predictions of the outcome variable for each factor level. The `"ksd"` option allows compatibility with the original ALEPlot reference implementation.
 * The `max_num_bins` argument to the `ALE()` constructor now accepts a special list format that allows the specification of per-column maximum ALE bin sizes for numeric input columns, with a default for columns not named. For details, see documentation for `ALE()`.
-* Parallelization can now be controlled with a global option `ale.parallel`. For example, you can disable parallelization by default with `options(ale.parallel = 0)`.
+* Parallelization can now be controlled with a global option `ale.parallel`. For example, you can set 4 CPU cores with `options(ale.parallel = 4)`.
 * The `{ranger}` package is now automatically recognized so that `y_col` and `pred_fun` don't need to be specified. In the future, a very few other very popular packages and frameworks will also be automatically recognized, but there will be no attempt to cover most packages.
 
 ## Changed functionality
 
-* The `parallel` argument default has been changed to "all but one" (all physical processors minus one) from the previous default of "all" (all physical and logical processors).
+* Parallelization has been disabled by default (`parallel` = 0) (#16).
 * The `pred_fun` argument in `ALE()` and other constructors now defaults to `NULL`. However, the functionality is the unchanged: the default still creates the same generic custom prediction function.
 
 ## Bug fixes

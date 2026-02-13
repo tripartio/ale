@@ -10,7 +10,7 @@
   op <- options()
 
   if (is.null(op$ale.parallel)) {
-    options(ale.parallel = "all but one")
+    options(ale.parallel = 0)
   }
 
   invisible()

@@ -171,7 +171,7 @@ ModelBoot <- new_class(
     ...,
     model_call_string = NULL,
     model_call_string_vars = character(),
-    parallel = 'all but one',
+    parallel = 0,
     model_packages = NULL,
     y_col = NULL,
     positive = TRUE,

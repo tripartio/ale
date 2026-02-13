@@ -11,14 +11,11 @@ ALE(
   y_col = NULL,
   ...,
   exclude_cols = NULL,
-  parallel = "all but one",
+  parallel = 0,
   model_packages = NULL,
   output_stats = TRUE,
   output_boot_data = FALSE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   p_values = "auto",
   require_same_p = TRUE,
@@ -47,15 +44,15 @@ ALE(
 
 \item{...}{not used. Inserted to require explicit naming of subsequent arguments.}
 
-\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default "all but one" uses all available physical CPU cores minus one, reserved for the system. "all" uses all physical and logical cores reported by the system. Set \code{parallel = 0} to disable parallel processing. See details.}
+\item{parallel}{non-negative integer(1) or character(1) in c("all", "all but one"). Number of parallel threads (workers or tasks) for parallel execution of the constructor. The default \code{parallel = 0} disables parallel processing. "all but one" uses all available physical CPU cores minus one, reserved for the system, whereas "all" uses all physical and logical cores reported by the system. See details.}
 
-\item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled (which is the default) but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
+\item{model_packages}{character. Character vector of names of packages that \code{model} depends on that might not be obvious with parallel processing. If you get weird error messages when parallel processing is enabled but they are resolved by setting \code{parallel = 0}, you might need to specify \code{model_packages}. See details.}
 
 \item{output_stats}{logical(1). If \code{TRUE} (default), return ALE statistics.}
 
 \item{output_boot_data}{logical(1). If \code{TRUE}, return the raw ALE data for each bootstrap iteration. Default is \code{FALSE}.}
 
-\item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. See details.}
+\item{pred_fun, pred_type}{function,character(1). \code{pred_fun} is a function that returns a vector of predicted values of type \code{pred_type} from \code{model} on \code{data}. The default \code{NULL} for \code{pred_fun} will often work; if you get an error message, see details.}
 
 \item{p_values}{instructions for calculating p-values. Possible values are:
 \itemize{
@@ -100,7 +97,7 @@ See details.}
 
 \item{boot_centre}{character(1) in c('mean', 'median'). When bootstrapping, the main estimate for the ALE y value is considered to be \code{boot_centre}. Regardless of the value specified here, both the mean and median will be available.}
 
-\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled (as it is by default), only the exact computing setup will give reproducible results. For reproducible results across different computers, turn off parallelization with \code{parallel = 0}.}
+\item{seed}{integer(1). Random seed. Supply this between runs to assure that identical random ALE data is generated each time when bootstrapping. Without bootstrapping, ALE is a deterministic algorithm that should result in identical results each time regardless of the seed specified. However, with parallel processing enabled, only the exact computing setup will give reproducible results. For reproducible results across different computers, leave parallelization disabled with \code{parallel = 0}.}
 
 \item{y_type}{character(1) in c('binary', 'numeric', 'categorical', 'ordinal'). Datatype of the y (outcome) variable. Normally determined automatically; only provide if an error message for a complex model requires it.}
 
@@ -164,9 +161,9 @@ As explained in the documentation above for the \code{p_values} argument, the de
 
 \section{Parallel processing}{
 
-Parallel processing using the \code{{furrr}} framework is enabled by default. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = "all but one"}), it will use all the available physical CPU cores except for one, reserved so that your computer does not slow down as you continue working on other tasks while the procedure runs. The \code{parallel = "all"} option will use all physical and logical CPU cores reported by the system, but the result might sometimes be slower if inappropriate allocation of these parallel processors chokes the system. To disable parallel processing, set \code{parallel = 0}.
+Parallel processing is possible using the \code{{furrr}} framework. The number of parallel threads (workers or cores) is specified with the \code{parallel} argument. By default (\code{parallel = 0}), it is disabled. \code{parallel = "all but one"} will use all the available physical CPU cores except for one, reserved so that your computer does not slow down as you continue working on other tasks while the procedure runs. The \code{parallel = "all"} option will use all physical and logical CPU cores reported by the system, but the result might sometimes be slower if inappropriate allocation of these parallel processors chokes the system.
 
-The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled (which is the default), some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the \code{model} to the \code{model_packages} argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
+The \code{{ale}} package should be able to automatically recognize and load most packages that are needed, but with parallel processing enabled, some packages might not be properly loaded. This problem might be indicated if you get a strange error message that mentions something somewhere about "progress interrupted" or "future", especially if you see such errors after the progress bars begin displaying (assuming you did not disable progress bars with \code{silent = TRUE}). In that case, first try disabling parallel processing with \code{parallel = 0}. If that resolves the problem, then to get faster parallel processing to work, try adding all the package names needed for the \code{model} to the \code{model_packages} argument, e.g., \code{model_packages = c('tidymodels', 'mgcv')}.
 }
 
 \section{Time-to-event (survival) models}{

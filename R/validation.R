@@ -195,7 +195,7 @@ validate_parallel <- function(parallel, model, model_packages) {
       cli_alert_info(c(
         '!' = 'More parallel cores requested ({parallel}) than are available ({max_cores}).',
         'i' = '{.arg parallel} set to {max_cores}.',
-        'i' = 'To use all available parallel threads without this notification, leave the default parallel = "all".'
+        'i' = 'To use all available parallel threads without this notification, set parallel = "all".'
       ))
 
       max_cores

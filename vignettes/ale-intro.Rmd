@@ -99,6 +99,12 @@ summary(gam_diamonds)
 
 The core object in the `{ale}` package is the `{S7}` `ALE` object. `effect` stores the ALE data and, optionally, ALE statistics and bootstrap data for one or more categories. The first argument to the `ALE()` constructor is a model object--any R model object that can generate numeric predictions is acceptable. By default, it generates 1D (or "first order") ALE on all the variables in the dataset that was used to train the model, if the dataset is included in the model object. If not, the dataset can be specified with the `data` argument. It can optionally create ALE only for specified variables and interactions using the `x_cols` argument. To change these options (e.g., to calculate ALE for only a subset of variables; to output the data only or to use a custom predict function for the model), see details in the help file for the object: `help(ALE)`. In this introduction, we only demonstrate The basics of retrieving and plotting ALE data. For details on ALE statistics see [the dedicated vignette](ale-statistics.html "ALE-based statistics") on that topic.
 
+```{r parallel}
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+
+```
+
 For faster demonstrations, this vignette uses precreated ALE objects. For the full experience, you can uncomment the relevant lines in the code below.
 
 ```{r ale_simple}
@@ -123,7 +129,7 @@ ale_gam_diamonds <- retrieve_rds(
 # saveRDS(ale_gam_diamonds, file.choose())
 ```
 
-By default, most core functions in the `{ale}` package use parallel processing. If your computer has problems with this, you can disable parallelization with the global option  `options(ale.parallel = 0)` or the argument `parallel = 0` in specific functions like `ALE()`.
+Most core functions in the `{ale}` package support parallel processing. You can enable parallelization globally with `options(ale.parallel = x)`, where "x" is the number of CPU cores you want to use. It can also be enabled for specific function runs with the `parallel` argument. Parallelization is disabled by default with `parallel = 0`. See the documentation for `ALE()` for details.
 
 To access the plot for a specific variable, we must first create an `ALEPlots` object by calling the `plot()` method on the `ALE` object which internally generates `ggplot` objects with the full flexibility of {ggplot2}:
 

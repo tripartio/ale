@@ -70,6 +70,13 @@ summary(gam_cars)
 
 Now we generate ALE data from the `gam_cars` GAM model and plot it.
 
+```{r parallel}
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+
+```
+
+
 ```{r ale_cars_1D, fig.width=7, fig.height=14}
 
 # For speed, these examples use retrieve_rds() to load pre-created objects 

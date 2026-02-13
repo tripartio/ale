@@ -10,14 +10,11 @@ ModelBoot(
   ...,
   model_call_string = NULL,
   model_call_string_vars = character(),
-  parallel = "all but one",
+  parallel = 0,
   model_packages = NULL,
   y_col = NULL,
   positive = TRUE,
-  pred_fun = function(object, newdata, type = pred_type) {
-     stats::predict(object =
-    object, newdata = newdata, type = type)
- },
+  pred_fun = NULL,
   pred_type = "response",
   boot_it = 100,
   boot_alpha = 0.05,

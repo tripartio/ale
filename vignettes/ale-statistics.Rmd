@@ -136,11 +136,18 @@ The implication of this for p-values is that the distribution of the data must b
 * This procedure is repeated 1,000 times or so to get 1,000 ALE statistic values from the 1,000 random  variables.
 * p-values are calculated based on the frequency of times that the random variables obtain specific statistic values.
 
-As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The `ale` package speeds of the process significantly through parallel processing (implemented by default), but it still involves the speed of retraining the model hundreds of times. 
+As you can imagine, this procedure is very slow: it involves retraining the entire model on the full dataset 1,000 times. The `ale` package can speed up the process significantly through parallel processing, but it still involves the speed of retraining the model hundreds of times. 
 
 To avoid having to repeat this procedure several times (as would be the case when you are doing exploratory analyses), we can create a `ALEpDist` object that can be run once for a given model-dataset pair. The `ALEpDist` object is used to generate p-values based on statistics for any variable from the same model-dataset pair. It generates these p-values when passed to the `ALE()` or `ModelBoot()` constructors. For very large datasets, the process of generating the `ALEpDist` object could be sped up by only using a subset of the data and by running fewer than 1,000 random iterations by setting the `rand_it` argument. However, the `ALEpDist()` constructor will not allow fewer than 100 iterations, otherwise the p-values thus generated would be meaningless.)
 
 We now demonstrate how to create the `ALEpDist` object for our case.
+
+```{r parallel}
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+
+```
+
 
 ```{r ALEpDist}
 
@@ -167,7 +174,7 @@ We can now proceed to bootstrap the model for ALE analysis.
 
 ### Bootstrap the model with p-values
 
-By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `ModelBoot()` constructor speeds up the process significantly through parallel processing (implemented by default), but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
+By default, a `ModelBoot` object runs 100 bootstrap iterations; this can be controlled with the `boot_it` argument. Bootstrapping is usually rather slow, even on small datasets, since the entire process is repeated that many times. The `ModelBoot()` constructor can speed up the process significantly through parallel processing, but it still involves retraining the entire model dozens of times. The default of 100 should be sufficiently stable for model building, when you would want to run the bootstrapped algorithm several times and you do not want it to be too slow each time. For definitive conclusions, you could run 1,000 bootstraps or more to confirm the results of 100 bootstraps.
 
 ```{r model bootstrap}
 mb_gam_math <- retrieve_rds(

@@ -130,7 +130,7 @@ For an explanation of these basic features, see the [introductory vignette](http
 
 ### Statistical inference with ALE
 
-The statistical functionality of the `{ale}` package is rather slow because it typically involves 100 bootstrap iterations and sometimes a 1,000 random simulations. Even though most functions in the package implement parallel processing by default, such procedures still take some time. So, this statistical demonstration gives you downloadable objects for a rapid demonstration.
+The statistical functionality of the `{ale}` package is rather slow because it typically involves 100 bootstrap iterations and sometimes 1,000 random simulations. Even though most functions in the package support parallel processing, such procedures still take some time. So, this statistical demonstration gives you downloadable objects for a rapid demonstration.
 
 First, we need to create a p-value distribution object so that the ALE statistics can be properly distinguished from random effects.
 

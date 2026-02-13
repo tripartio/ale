@@ -75,6 +75,13 @@ summary(lm_attitude)
 
 At the very least, the `{ale}` package is useful for visualizing the effects of model variables. Note that for now, we run `ALE()` with no bootstrapping (the default) because small samples require a special bootstrap approach, as explained below. For now, all we are doing is using ALE to accurately visualize what the model estimates.
 
+```{r parallel}
+# For faster processing, you can enable parallel processing: set the number of CPU cores available. See help(ALE) for details.
+options(ale.parallel = 2)
+
+```
+
+
 ```{r lm_simple, fig.width=7, fig.height=6}
 
 # For speed, these examples use retrieve_rds() to load pre-created objects 

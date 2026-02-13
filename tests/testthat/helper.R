@@ -10,7 +10,7 @@
 # options(testthat.parallel = FALSE)
 # Sys.setenv(TESTTHAT_PARALLEL = "false")
 
-# Disable parallelization by default
+# Ensure that parallelization is disabled by default
 options(ale.parallel = 0)
 
 # Disable progressr
