@@ -516,6 +516,8 @@ summary_ALE_stats <- function(
 #' @param object An object of class `ALE`.
 #' @param stats character. One or more values in c("aled", "aler_min", "aler_max", "naled", "naler_min", "naler_max"): statistics to report in detail (estimate, p-values, confidence intervals). For others not listed here, only the average (mean or median) estimates are reported. The statistics will be presented in the same order as specified.
 #' @param all_conf logical(1). By default (`FALSE`), only statistically significant confidence regions are reported. If `TRUE`, all regions are reported as well.
+#' @param round_digits integer(1). Numbers in tables will be rounded to `round_digits` decimal places.
+#' @param max_rows natural number. Maximum number of rows to print for any component.
 #' @param ... Additional arguments (currently not used).
 #'
 #' @return Invisibly returns `object`. The printout is a side effect.
@@ -532,8 +534,25 @@ method(summary, ALE) <- function(
     object,
     stats = c('aled', 'naled'),
     all_conf = FALSE,
+    round_digits = 4L,
+    max_rows = 100,
     ...
 ) {
+  # Validate inputs -------------
+
+  stats_names <- c('aled', 'aler_min', 'aler_max', 'naled', 'naler_min', 'naler_max')
+  validate(
+    is.character(stats) && all(stats %in% stats_names),
+    msg = 'Values in the {.arg stats} argument must be one or more of the following: {stats_names}.'
+  )
+
+  validate(is_bool(all_conf))
+  validate(rlang::is_scalar_integerish(round_digits))
+  validate(is_scalar_natural(max_rows))
+
+
+  # Print summary --------------
+
   if (!object@params$output_stats) {
     cli_inform('There are no ALE statistics to summarize.')
   } else {
@@ -544,7 +563,9 @@ method(summary, ALE) <- function(
       p_dist = object@params$p_values,
       stats = stats,
       all_conf = all_conf,
-      boot_centre = object@params$boot_centre
+      boot_centre = object@params$boot_centre,
+      round_digits = round_digits,
+      max_rows = max_rows
     )
   }
 

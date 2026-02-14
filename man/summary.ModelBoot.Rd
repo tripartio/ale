@@ -12,6 +12,8 @@
 
 \item{round_digits}{integer(1). Numbers in tables will be rounded to \code{round_digits} decimal places.}
 
+\item{max_rows}{natural number. Maximum number of rows to print for any component.}
+
 \item{...}{Additional arguments (currently not used).}
 }
 \value{
