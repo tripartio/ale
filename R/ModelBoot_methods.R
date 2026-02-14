@@ -208,19 +208,26 @@ method(summary, ModelBoot) <- function(
 ) {
   print(object, details = FALSE)
 
-  cat('\n')
-  cli_text('Overall model statistics (object@model_stats):')
   model_stats <- object@model_stats
-  model_stats |>
-    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
-    print(n = nrow(model_stats))
+  if (!is.null(model_stats)) {
+    cat('\n')
+    cli_text('Overall model statistics (object@model_stats):')
+    model_stats |>
+      mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
+      as_tibble() |>
+      print(n = min(nrow(model_stats), max_rows))
 
-  cat('\n')
-  cli_text('Summary model term estimates (object@model_coefs):')
+  }
+
+
   model_coefs <- object@model_coefs
-  model_coefs |>
-    mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
-    print(n = nrow(model_coefs))
+  if (!is.null(model_coefs)) {
+    cat('\n')
+    cli_text('Summary model term estimates (object@model_coefs):')
+    model_coefs |>
+      mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits))) |>
+      print(n = min(nrow(model_coefs), max_rows))
+  }
 
   if (!is.null(object@ale)) {
     if (!object@ale$single@params$output_stats) {
