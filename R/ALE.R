@@ -426,12 +426,9 @@ ALE <- new_class(
             pm <- params_model(model)
             validate(
               all.equal(pm$class, p_values@params$model$class) |> isTRUE(),
-              all.equal(pm$call, p_values@params$model$call) |> isTRUE(),
-              all.equal(pm$print, p_values@params$model$print) |> isTRUE(),
+              pm$hash == p_values@params$model$hash,
               msg = c(
                 x = 'It seems that {.arg p_values} was generated from a different model from the present one. An {.cls ALEpDist} object is only valid for one model trained on the same dataset:',
-                i = 'The {.arg p_values} object was generated on the following {.cls {p_values@params$model$class}} model: {p_values@params$model$print}.',
-                i = 'The current {.arg model} is the following {.cls {pm$class}} object: {pm$print}.',
                 i = 'If you are sure this is not a problem (e.g., with bootstrapping), set {.arg require_same_p} to {.val FALSE}.'
               )
             )
@@ -712,7 +709,7 @@ ALE <- new_class(
       seed = seed
     )
     params$model <- params_model(model)
-    params$pred_fun <- params_function(pred_fun)
+    params$pred_fun <- deparse(pred_fun)
 
 
 

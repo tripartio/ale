@@ -100,27 +100,11 @@ params_data <- function(
 
 # Reduce a model to text descriptions of its key elements
 params_model <- function(model) {
-  # Some calls to summary(model) crash, so wrap in tryCatch
-  model_summary <- tryCatch(
-    {
-      summary(model) |>
-        print() |>
-        utils::capture.output() |>
-        paste0(collapse = '\n')
-    },
-    error = \(e) {
-      e  # nocov
-    }
-  )
-
   list(
     class = class(model),
-    call = insight::model_name(model, include_call = TRUE) |>
-      paste0(collapse = '\n'),
-    print = print(model) |>
-      utils::capture.output() |>
-      paste0(collapse = '\n'),
-    summary = model_summary
+    hash = model |>
+      serialize(NULL) |>
+      tools::md5sum(bytes = _)
   )
 }
 
