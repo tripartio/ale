@@ -1229,7 +1229,7 @@ ModelBoot <- new_class(
       )
     }
     params$model <- params_model(model)
-    params$pred_fun <- params_function(pred_fun)
+    params$pred_fun <- deparse(pred_fun)
 
     # Create the single and bootstrapped ALE objects.
     # Supplement the single ALE object with some details obtained by bootstrapping because bootstrapping was disabled when creating the single ALE object.

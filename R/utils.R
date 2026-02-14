@@ -109,16 +109,6 @@ params_model <- function(model) {
 }
 
 
-# Reduce a function to text descriptions of its key elements
-params_function <- function(func) {
-  pf <- print(func) |>
-    utils::capture.output()
-  # Remove the last line with the environment (it is a random value and fails on snapshot testing)
-  pf[-length(pf)] |>
-    paste0(collapse = '\n')
-}
-
-
 
 # Miscellaneous ------------
 
