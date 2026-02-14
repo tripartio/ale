@@ -441,7 +441,8 @@ summary_ALE_stats <- function(
     stats,
     all_conf,
     boot_centre,
-    round_digits = 4
+    round_digits = 4,
+    max_rows = 100
 ) {
   cat('\n')
   cli_text('M{str_sub(boot_centre, 2)} ALE statistics [get(object, stats = "estimate")]:')
@@ -449,7 +450,10 @@ summary_ALE_stats <- function(
     get(stats = 'estimate') |>
     bind_rows() |>
     mutate(across(where(is.numeric), \(it.num) round(it.num, round_digits)))
-  print(ale_estimates, n = nrow(ale_estimates))
+  print(
+    ale_estimates,
+    n = min(nrow(ale_estimates), max_rows)
+  )
 
   cat('\n')
   cli_text(paste0(
@@ -471,14 +475,20 @@ summary_ALE_stats <- function(
     # convert statistic column to factor to respect user-supplied sort order
     mutate(statistic = factor(.data$statistic, levels = stats, ordered = TRUE)) |>
     arrange(.data$statistic)
-  print(ale_stats, n = nrow(ale_stats))
+  print(
+    ale_stats,
+    n = min(nrow(ale_stats), max_rows)
+  )
 
   cat('\n')
   cli_text('Statistically significant confidence regions [get(object, stats = "conf_sig")]:')
   conf_sig <- object |>
     get(stats = 'conf_sig') |>
     bind_rows()
-  print(conf_sig, n = nrow(conf_sig))
+  print(
+    conf_sig,
+    n = min(nrow(conf_sig), max_rows)
+  )
 
   if (all_conf) {
     cat('\n')
@@ -487,7 +497,10 @@ summary_ALE_stats <- function(
       get(stats = 'conf_regions') |>
       bind_rows() |>
       select(any_of(c('term', 'x', 'term1', 'x1', 'term2', 'x2')), everything())
-    print(conf_regions, n = nrow(conf_regions))
+    print(
+      conf_regions,
+      n = min(nrow(conf_regions), max_rows)
+    )
   }
 }
 
