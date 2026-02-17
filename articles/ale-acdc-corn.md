@@ -374,7 +374,7 @@ lm_corn <- lm(corn ~ ., data = corn_data)
 toc()  # 0.14 sec (with county 3539.29 sec elapsed (59 minutes = 1 hour))
 ```
 
-    0.559 sec elapsed
+    0.541 sec elapsed
 
 ``` r
 summary(lm_corn)
@@ -501,7 +501,7 @@ rf_corn <- ranger(
 toc()  # 7.92  sec elapsed
 ```
 
-    23.503 sec elapsed
+    22.916 sec elapsed
 
 ``` r
 # default 500 trees: 86.52 sec elapsed
