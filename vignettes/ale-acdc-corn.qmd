@@ -53,8 +53,6 @@ library(rsample)  # cross-validation
 # * readr: input CSV files
 # * tidyr: data manipulation
 # * cli: command line interface printing
-# * tuneRanger: tune ranger models
-# * mlr: general machine learning framework
 
 # Accumulated Local Effects: ale package
 # Install the development version of ale for this workshop, which is more recent than the current CRAN version.

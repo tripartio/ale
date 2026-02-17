@@ -13,6 +13,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests: 
     cluster,
+    kableExtra,
     knitr,
     mgcv,
     nnet,
@@ -20,7 +21,9 @@ Suggests:
     ranger,
     readr,
     rmarkdown,
+    rsample,
     testthat (>= 3.0.0),
+    tictoc,
     yaImpute
 VignetteBuilder: knitr
 Imports: 
