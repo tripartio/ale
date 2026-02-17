@@ -37,7 +37,7 @@ We’ll analyze the data with three model families:
 
 First, let's set up our R environment. We begin by loading the packages we’ll use. Two quick notes:
 
-- The dataset comes from the {agridat} package (it doesn’t have to be loaded, but it does have to be installed).
+- The dataset comes from the {agridat} package (it doesn't have to be loaded, but it does have to be installed).
 - The **{ale}** package is on CRAN, but for a few features used here we install the current development version from GitHub (the code shows how, via {pak}).
 
 ```{r load-packages}
@@ -68,7 +68,7 @@ library(ale)  # load the ale package only after installing the development versi
 ```
 
 ```{r serialized_objects_site}
-# For speed, these examples use retrieve_rds() to load pre-created objects 
+# For speed, these examples use retrieve_rds() to load precreated objects 
 # from an online repository.
 # To run the code yourself, execute the code blocks directly.  
 serialized_objects_site <- "https://github.com/tripartio/ale/raw/main/download/rice_objects"
@@ -248,7 +248,7 @@ However, statistical results (ALE or otherwise) are generally not reliable until
 
 That is not our situation. We have a small dataset and fast models. So we must retrain the entire model for each bootstrap iteration. By default, we use 100 bootstrap iterations. For publication, we could increase that number, but for analysis, 100 iterations are typically sufficient and lead to the same conclusions. ALE itself is relatively stable compared to some other interpretability methods.
 
-Before bootstrapping, let's first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions. Whenever procedures are slow in this demonstration, the code blocks are commented out and pre-saved objects are loaded instead, so the document runs quickly.
+Before bootstrapping, let's first generate an ALE p-value distribution. This is the slowest step in ALE analysis because it relies on simulation rather than parametric assumptions. Whenever procedures are slow in this demonstration, the code blocks are commented out and presaved objects are loaded instead, so the document runs quickly.
 
 We can then use the p-value distribution for the full-model bootstrapping procedure from the {ale} package, to create a `ModelBoot` object. We explicitly request ALE for season, nitrogen, and the season × nitrogen interaction. Only after this full bootstrap process do the ALE results become reliable
 
@@ -325,7 +325,7 @@ summary(mb_lm_rice)  # boot_valid SA 48.8%: MAE 0.918
 
 Bootstrapping gives us predictive metrics based on bootstrap validation on 100 hold-out samples. The OLS model has a predictive MAE of `r mb_lm_rice@model_stats$boot_valid[mb_lm_rice@model_stats$name == 'mae'] |> round(3)` t/ha and standardized accuracy of `r (mb_lm_rice@model_stats$boot_valid[mb_lm_rice@model_stats$name == 'sa_mae']*100) |> round(1)`%. Any staccuracy less than 50% counts as a "bad" model--it's worse than simply predicting the mean every time. So, our OLS model is pretty much useless. At least, we've learnt that we can't trust it.
 
-This is reinforced by the complete absence of statistically significan confidence regions--ALE-based inference is telling us that we can't trust anything this model says.
+This is reinforced by the complete absence of statistically significant confidence regions--ALE-based inference is telling us that we can't trust anything this model says.
 
 ```{r plot-mb_lm_rice-1D}
 mb_lm_rice |> 
@@ -403,7 +403,7 @@ ale_rf_rice |>
   subset(list(d2 = TRUE))
 ```
 
-In the random forest ALE plots, the season effect is very similar to that of ordinary least squares, but the nitrogen fertilizer effect is quite different. Here, nitrogen shows an inverted-U pattern (peaking around 60–90 kg/ha), and the interaction again suggests different nitrogen behavior across seasons. Still, we shouldn’t get too excited until we check predictive stability.
+In the random forest ALE plots, the season effect is very similar to that of ordinary least squares, but the nitrogen fertilizer effect is quite different. Here, nitrogen shows an inverted-U pattern (peaking around 60–90 kg/ha), and the interaction again suggests different nitrogen behaviour across seasons. Still, we shouldn’t get too excited until we check predictive stability.
 
 ```{r mb_rf_rice}
 #| eval: false
@@ -524,7 +524,7 @@ The adjusted R-squared is 0.745, but we don’t compare that number directly to 
 
 Using our preferred, comparable metrics, the GAM has a descriptive MAE of `r mae_gam_rice |> round(3)` t/ha and standardized accuracy of `r (sa_gam_rice*100) |> round(1)`%. So far, this is our best descriptive performance. We emphasize, though, that only prescriptive metrics are reliable.
 
-In the parametric part of the GAM summary, season shows a negative shift going from dry to wet (lower yield in wet), which is statistically significant. Nitrogen is included via its season-specific smooth interaction, so its effect isn’t summarized as a single tidy coefficient.
+In the parametric part of the GAM summary, season shows a negative shift going from dry to wet (lower yield in wet), which is statistically significant. Nitrogen is included via its season-specific smooth interaction, so its effect isn't summarized as a single tidy coefficient.
 
 There is no interpretable coefficient for the interaction between season and nitrogen. What we see instead is the estimated degrees of freedom (EDF), which tell us to what extent the interaction is nonlinear. The statistically significant EDFs confirm nonlinearity, but do not describe the direction or shape of the effect. GAM requires plots for that interpretive step.
 
@@ -685,7 +685,7 @@ One caution: ALE “main effects” include interaction contributions by design.
 
 Let's look first at the main-effect plots. As with every model, dry-season yield appears higher than wet-season yield. And as with the random forest model, we see the inverted U-shape for nitrogen. However, in both cases, the ALER band is very wide. That tells us uncertainty is high. The ALER band represents the range of variation that could plausibly be random. In both main effects, the bootstrap confidence regions do not clearly exceed that band. In other words, even though the curves look different, the differences are not beyond what random fluctuation could produce. With only 30 observations, this is not surprising. It is not necessarily that the relationships do not exist; it is more likely that they would be borne out if we had more replications of this experiment.
 
-Turning to the interaction plot, most of the surface overlaps the ALER band, which is why much of it appears gray. At the extremes, however, there are strong indications of structure. In the dry season, the highest nitrogen level (150 kg/ha) slightly exceeds the ALER band, suggesting stronger response at high nitrogen. In contrast, in the wet season, the lowest yields occur at the highest nitrogen levels, and the strongest yields occur at lower nitrogen--these boundaries exceed the ALER band of randomness.
+Turning to the interaction plot, most of the surface overlaps the ALER band, which is why much of it appears grey. At the extremes, however, there are strong indications of structure. In the dry season, the highest nitrogen level (150 kg/ha) slightly exceeds the ALER band, suggesting stronger response at high nitrogen. In contrast, in the wet season, the lowest yields occur at the highest nitrogen levels, and the strongest yields occur at lower nitrogen--these boundaries exceed the ALER band of randomness.
 
 The ALE statistics confirm that only the interaction effect meets the significance criterion under ALE-based inference, based on at least 10% of the surface falling outside the two-dimensional ALER band. The main effects remain within the band and therefore are not statistically significant.
 
@@ -695,7 +695,7 @@ The ALE statistics confirm that only the interaction effect meets the significan
 
 In Section 8.1.1, Gomez and Gomez (1984) analyze this dataset using a randomized complete block design and a combined ANOVA over seasons. They conclude that nitrogen significantly affects yield. The season × nitrogen interaction is highly significant. The overall nitrogen response is quadratic. And the seasonal difference lies mainly in the linear component of that quadratic curve. In practical terms, they conclude that yield increases more sharply with nitrogen in the dry season and compute separate yield-maximizing and profit-maximizing nitrogen rates for dry and wet seasons. They explicitly recommend different nitrogen applications by season.
 
-We should note that their modeling approach is not directly comparable to our initial OLS specification. They imposed a quadratic structure on nitrogen. That requires prior knowledge of the expected response shape. We avoided that assumption by using a GAM, which detects nonlinearities automatically and defaults to linear relationships when appropriate. The tradeoff is that flexibility reduces classical interpretability. GAM provides overall model reliability, but not direct parametric validation of each discovered curve. ALE fills that gap by providing confidence regions, p-values, and interpretable uncertainty bands.
+We should note that their modelling approach is not directly comparable to our initial OLS specification. They imposed a quadratic structure on nitrogen. That requires prior knowledge of the expected response shape. We avoided that assumption by using a GAM, which detects nonlinearities automatically and defaults to linear relationships when appropriate. The tradeoff is that flexibility reduces classical interpretability. GAM provides overall model reliability, but not direct parametric validation of each discovered curve. ALE fills that gap by providing confidence regions, p-values, and interpretable uncertainty bands.
 
 ### Explicit Points of Agreement
 
@@ -729,7 +729,7 @@ Classical ANOVA delivers decisive significance. ALE-based inference with bootstr
 Without contradicting their findings, our analysis adds two perspectives.
 
 1. **Predictive validation.**
-   Gomez and Gomez emphasize inferential ANOVA significance. We evaluate predictive performance using standardized accuracy and MAE. The GAM performs best under bootstrap validation, suggesting that flexible nonlinear modeling is well suited to this dataset.
+   Gomez and Gomez emphasize inferential ANOVA significance. We evaluate predictive performance using standardized accuracy and MAE. The GAM performs best under bootstrap validation, suggesting that flexible nonlinear modelling is well suited to this dataset.
 
 2. **Uncertainty visualization.**
    ALE and ALER bands explicitly show how much variation could plausibly be random. While Gomez and Gomez rely on high R² to judge quadratic fit, the bootstrap perspective highlights how uncertain those relationships may be in small samples.

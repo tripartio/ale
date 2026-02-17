@@ -20,6 +20,10 @@
 
 * Update parallelization settings to handle massive parallelization (#16) and refactor code (#17).
 
+## Documentation
+
+* Added two Quarto vignettes: "Analyzing a Large Corn Yield Dataset with ALE-Based Inference" and "Analyzing a Small Rice Yield Dataset with ALE-Based Inference". They are available from the vignettes link on the main CRAN page at <https://CRAN.R-project.org/package=ale>.
+
 
 # ale (0.5.3)
 
