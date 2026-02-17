@@ -20,7 +20,7 @@ execute:
   message: false
   
 vignette: >
-  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteIndexEntry{Analyzing a Large Corn Yield Dataset with ALE-Based Inference}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
