@@ -516,8 +516,10 @@ gam_rice <- gam(
   # REML is recommended for more accurate estimation, though slightly slower
   method = 'REML'  
 )
-sa_gam_rice  <- sa_wmae_mad(rice$yield, predict(gam_rice))  # 0.8015714
-mae_gam_rice <- mae(rice$yield, predict(gam_rice))  # 0.3898126
+# workaround a pgkdown bug (probably temporary)
+gam_preds <- predict(gam_rice) |> as.numeric() 
+sa_gam_rice  <- sa_wmae_mad(rice$yield, gam_preds)  # 0.8015714
+mae_gam_rice <- mae(rice$yield, gam_preds)  # 0.3898126
 summary(gam_rice)
 
 ```
