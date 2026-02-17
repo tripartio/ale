@@ -12,13 +12,17 @@ format:
     toc-title: "Outline"
     number-sections: true
     code-fold: false
-    theme: cosmo
     smooth-scroll: true
 
 execute:
   echo: true
   warning: false
   message: false
+  
+vignette: >
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Introduction
