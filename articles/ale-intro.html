@@ -371,7 +371,7 @@ simply refer to <code>get(diamonds_plots, 'carat')</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print a plot by entering its reference</span></span>
 <span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, <span class="st">'carat'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-carat-1.png" width="384"></p>
+<p><img src="ale-intro_files/figure-html/print-carat-1.png" class="r-plt" alt="" width="384"></p>
 <p>To display all the ALE plots in an <code>ALEPlots</code> object, we
 can simply call its <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> or <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods.
 Behind the scenes, they use the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package to
@@ -382,7 +382,7 @@ with the <code>ncol</code> argument:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print all plots</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">diamonds_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/print-ale_simple-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="bootstrapped-ale">Bootstrapped ALE<a class="anchor" aria-label="anchor" href="#bootstrapped-ale"></a>
@@ -428,7 +428,7 @@ beyond 100 iterations.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
 <span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/ale_boot-1.png" width="672"><img src="ale-intro_files/figure-html/ale_boot-2.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/ale_boot-1.png" class="r-plt" alt="" width="672"><img src="ale-intro_files/figure-html/ale_boot-2.png" class="r-plt" alt="" width="672"></p>
 <p>In this case, the bootstrapped results are mostly similar to single
 (non-bootstrapped) ALE results. In principle, we should always bootstrap
 the results and trust only in bootstrapped results. The most unusual
@@ -480,7 +480,7 @@ only the selected variables or interaction terms:</p>
 <span>  <span class="co"># Select all 2D interactions that involve 'carat'</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d2_all <span class="op">=</span> <span class="st">'carat'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" width="672"></p>
+<p><img src="ale-intro_files/figure-html/print-all-2D-1.png" class="r-plt" alt="" width="672"></p>
 <p>Because we are printing all plots together, some of them might appear
 vertically distorted because each plot is forced to be of the same
 height. For more fine-tuned presentation, we would need to refer to a
@@ -490,7 +490,7 @@ interaction plot between carat and depth by referring to it thus:
 <code>get(diamonds_2D_plots, ~ carat:clarity)</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">diamonds_2D_plots</span>, <span class="op">~</span> <span class="va">carat</span><span class="op">:</span><span class="va">clarity</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" width="480"></p>
+<p><img src="ale-intro_files/figure-html/print-specific-ixn-1.png" class="r-plt" alt="" width="480"></p>
 <p>This is not the best dataset to use to illustrate ALE interactions
 because there are none here. This is expressed in the graphs by the ALE
 y values all being grey, the middle range of data. In the plots, the
@@ -515,7 +515,7 @@ effect.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

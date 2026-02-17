@@ -529,7 +529,7 @@ plots for each variable.</p>
 <span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
 <span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/all-ALE-plots-1.png" width="672"></p>
+<p><img src="ale-statistics_files/figure-html/all-ALE-plots-1.png" class="r-plt" alt="" width="672"></p>
 <p>We can see that most variables seem to have some sort of mean effect
 across various values. However, for statistical inference, our focus
 must be on the bootstrap intervals. Crucial to our interpretation is the
@@ -625,7 +625,7 @@ first generating a <code>ALEpDist</code> object. Let us create another
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in annotate(geom = "label", x = y_summary["max"], y =</span></span>
 <span><span class="co">#&gt; which(estimates$aler_max == : Ignoring unknown parameters: `label.size`</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/model-bootstrap-without-p-1.png" width="672"></p>
+<p><img src="ale-statistics_files/figure-html/model-bootstrap-without-p-1.png" class="r-plt" alt="" width="672"></p>
 <p>In the absence of p-values, the <code>ale</code> packages uses
 simpler visualizations to offer meaningful results. There is no ALER
 band; there are simply reference lines that indicate the interquartile
@@ -654,7 +654,7 @@ This is generated with the <code><a href="../reference/get.html">get()</a></code
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, type <span class="op">=</span> <span class="st">'effect'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `height` was translated to `width`.</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-effects-plot-1.png" width="768"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-effects-plot-1.png" class="r-plt" alt="" width="768"></p>
 <p>This plot is unusual, so it requires some explanation:</p>
 <ul>
 <li>The y- (vertical) axis displays the <em>x</em> variables, rather
@@ -730,7 +730,7 @@ element.</p>
 <p>Let’s focus on <code>public</code>. Here is its ALE plot:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'public'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-1-1.png" width="700"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-1-1.png" class="r-plt" alt="" width="700"></p>
 <p>Here are the effect size measures for the categorical
 <code>public</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -760,7 +760,7 @@ maximum effects of any value of the <em>x</em> variable on the
 <code>academic_ratio</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'academic_ratio'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-plot-forl-academic_ratio-1-1.png" width="700"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-plot-forl-academic_ratio-1-1.png" class="r-plt" alt="" width="700"></p>
 <p>Here are its ALE effect size measures:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'academic_ratio'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
@@ -972,7 +972,7 @@ expressed in NALED of 10.2% of scores.</p>
 the random <code>rand_norm</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'rand_norm'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/math-rand_norm-ALE-plot-1.png" width="336"></p>
+<p><img src="ale-statistics_files/figure-html/math-rand_norm-ALE-plot-1.png" class="r-plt" alt="" width="336"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'rand_norm'</span>, stats <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
@@ -1186,7 +1186,7 @@ it be considered conceptually meaningful.</strong></p>
 <code>mean_ses</code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'mean_ses'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-plot-for-mean_ses-1.png" width="700"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-plot-for-mean_ses-1.png" class="r-plt" alt="" width="700"></p>
 <p>It might not always be easy to tell from a plot which regions are
 relevant, so the results of statistical significance are summarized with
 the <code>ale$conf_regions$by_term</code> element, which can be accessed
@@ -1269,7 +1269,7 @@ but also for categorical variables, as we see with <code>public</code>.
 Here is its ALE plot again:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'public'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-2-1.png" width="700"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-plot-for-public-2-1.png" class="r-plt" alt="" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'public'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span>
@@ -1293,7 +1293,7 @@ band.</p>
 interesting. Here is its ALE plot:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_plots</span>, <span class="st">'rand_norm'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ale-statistics_files/figure-html/ALE-plot-for-rand_norm-1.png" width="700"></p>
+<p><img src="ale-statistics_files/figure-html/ALE-plot-for-rand_norm-1.png" class="r-plt" alt="" width="700"></p>
 <p>And here is its confidence regions summary table:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get.html">get</a></span><span class="op">(</span><span class="va">mb_gam_math</span>, <span class="st">'rand_norm'</span>, stats <span class="op">=</span> <span class="st">'conf_regions'</span><span class="op">)</span></span>
@@ -1344,7 +1344,7 @@ can thus quickly isolate and focus on the most meaningful ones.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
