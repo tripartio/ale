@@ -245,7 +245,7 @@ ALEPlots <- new_class(
               it.x_col_ale_data <- it.all_cats_x_col_ale_data |>
                 map(\(it.cat_x_col_ale_data) {
                   it.sorted_ale_data <- it.cat_x_col_ale_data |>
-                    arrange(desc(abs(.y)))
+                    arrange(desc(abs(.data$.y)))
 
                   # Get ALE data of the top (consolid_cats-1) categories
                   it.top_cats <- c(
@@ -267,13 +267,13 @@ ALEPlots <- new_class(
                     .n = sum(it.bottom_ale_data$.n),
                     .y_lo = min(it.bottom_ale_data$.y_lo),
                     # Mean ALE y is the weighted sum of all the other rows
-                    .y_mean = sum(it.bottom_ale_data$.y * it.bottom_ale_data$.n) / .n,
+                    .y_mean = sum(it.bottom_ale_data$.y * it.bottom_ale_data$.n) / .data$.n,
                     # Median ALE y is the median of all the other rows
                     .y_median = it.bottom_ale_data$.y_median |>
                       rep(it.bottom_ale_data$.n) |>
                       median(),
                     .y_hi = max(it.bottom_ale_data$.y_hi),
-                    .y = if (obj@params$boot_centre == 'mean') .y_mean else .y_median,
+                    .y = if (obj@params$boot_centre == 'mean') .data$.y_mean else .data$.y_median,
                   )
 
                   if ('.cat' %in% names(it.cat_x_col_ale_data)) {

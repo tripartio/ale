@@ -81,7 +81,7 @@ validate_prediction <- function(
   pred_fun <- if (is.null(pred_fun)) {
     if (any(class(model) %in% 'ranger')) {
       function(object, newdata, type = pred_type) {
-        ranger:::predict.ranger(
+        stats::predict(
           object = object,
           data = newdata,
           type = type

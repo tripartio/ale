@@ -1251,7 +1251,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "dc94854dc391908c576686b596cde172"
+       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1405,7 +1405,7 @@
       [1] "gam" "glm" "lm" 
       
       attr(,"params")$model$hash
-      [1] "dc94854dc391908c576686b596cde172"
+      [1] "6cc8f48f47d9e482a122b14b023307f4"
       
       
       attr(,"params")$data
@@ -1576,7 +1576,7 @@
        @ params               :List of 12
        .. $ model                        :List of 2
        ..  ..$ class: chr [1:3] "gam" "glm" "lm"
-       ..  ..$ hash : chr "dc94854dc391908c576686b596cde172"
+       ..  ..$ hash : chr "6cc8f48f47d9e482a122b14b023307f4"
        .. $ y_col                        : chr "vs"
        .. $ rand_it                      : NULL
        .. $ parallel                     : num 0
@@ -1870,7 +1870,7 @@
       [1] "multinom" "nnet"    
       
       attr(,"params")$model$hash
-      [1] "4accd6ece9376aeeb1f770d413916cb7"
+      [1] "7107b1b82ecd641a060ff4188b00b939"
       
       
       attr(,"params")$data
