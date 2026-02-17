@@ -28,7 +28,7 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: "1.8.25"
+          version: "1.8.27"
           
       - name: Check Quarto is available
         run: |
